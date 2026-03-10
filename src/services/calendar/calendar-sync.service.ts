@@ -380,6 +380,57 @@ export class CalendarSyncService {
     }
   }
 
+  async updateFinanceEventOnPayment(params: {
+    tenantId: string;
+    entryId: string;
+    entryType: 'PAYABLE' | 'RECEIVABLE';
+    description: string;
+    status: string;
+  }): Promise<void> {
+    const { tenantId, entryId, entryType, description, status } = params;
+
+    try {
+      const existing = await this.calendarEventsRepository.findBySystemSource(
+        tenantId,
+        'FINANCE_ENTRY',
+        entryId,
+      );
+
+      if (!existing) return;
+
+      let prefix: string;
+      if (status === 'PAID' || status === 'RECEIVED') {
+        prefix = entryType === 'PAYABLE' ? '[Pago]' : '[Recebido]';
+      } else if (status === 'PARTIALLY_PAID') {
+        prefix = '[Parcial]';
+      } else {
+        return; // No update needed for other statuses
+      }
+
+      const baseDescription = description
+        .replace(/^\[Pago\]\s*/, '')
+        .replace(/^\[Recebido\]\s*/, '')
+        .replace(/^\[Parcial\]\s*/, '');
+
+      const baseTitle = entryType === 'PAYABLE'
+        ? `Vencimento: ${baseDescription}`
+        : `Recebimento: ${baseDescription}`;
+
+      const title = `${prefix} ${baseTitle}`;
+
+      await this.calendarEventsRepository.update({
+        id: existing.id.toString(),
+        tenantId,
+        title,
+      });
+    } catch (err) {
+      logger.warn(
+        { err, entryId },
+        'Failed to update finance event on payment',
+      );
+    }
+  }
+
   async removeSystemEvent(
     tenantId: string,
     sourceType: string,

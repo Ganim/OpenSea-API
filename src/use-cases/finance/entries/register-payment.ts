@@ -177,14 +177,20 @@ export class RegisterPaymentUseCase {
       });
     }
 
-    // Remove calendar event when fully paid (non-blocking)
-    if (isFullyPaid && this.calendarSyncService) {
+    // Update calendar event title to reflect payment status (non-blocking)
+    if (this.calendarSyncService) {
+      const newStatus = isFullyPaid
+        ? (entryForPayment.type === 'PAYABLE' ? 'PAID' : 'RECEIVED')
+        : 'PARTIALLY_PAID';
+
       try {
-        await this.calendarSyncService.removeSystemEvent(
+        await this.calendarSyncService.updateFinanceEventOnPayment({
           tenantId,
-          'FINANCE_ENTRY',
           entryId,
-        );
+          entryType: entryForPayment.type as 'PAYABLE' | 'RECEIVABLE',
+          description: entryForPayment.description,
+          status: newStatus,
+        });
       } catch {
         // Calendar sync failure should not block the operation
       }
