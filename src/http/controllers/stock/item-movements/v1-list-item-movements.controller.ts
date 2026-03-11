@@ -2,6 +2,7 @@ import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
+import { paginationSchema } from '@/http/schemas';
 import { itemMovementResponseSchema } from '@/http/schemas/stock.schema';
 import { prisma } from '@/lib/prisma';
 import { makeListItemMovementsUseCase } from '@/use-cases/stock/item-movements/factories/make-list-item-movements-use-case';
@@ -24,7 +25,7 @@ export async function listItemMovementsController(app: FastifyInstance) {
     schema: {
       tags: ['Stock - Item Movements'],
       summary: 'List item movements',
-      querystring: z.object({
+      querystring: paginationSchema.extend({
         itemId: z.uuid().optional(),
         userId: z.uuid().optional(),
         movementType: z.string().optional(),
@@ -35,6 +36,12 @@ export async function listItemMovementsController(app: FastifyInstance) {
       response: {
         200: z.object({
           movements: z.array(itemMovementResponseSchema),
+          meta: z.object({
+            total: z.number(),
+            page: z.number(),
+            limit: z.number(),
+            pages: z.number(),
+          }),
         }),
       },
       security: [{ bearerAuth: [] }],
@@ -42,11 +49,13 @@ export async function listItemMovementsController(app: FastifyInstance) {
 
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
-      const filters = request.query;
+      const { page, limit, ...filters } = request.query;
 
       const listItemMovementsUseCase = makeListItemMovementsUseCase();
-      const { movements } = await listItemMovementsUseCase.execute({
+      const { movements, meta } = await listItemMovementsUseCase.execute({
         tenantId,
+        page,
+        limit,
         ...filters,
       });
 
@@ -74,7 +83,9 @@ export async function listItemMovementsController(app: FastifyInstance) {
         };
       });
 
-      return reply.status(200).send({ movements: enrichedMovements });
+      return reply
+        .status(200)
+        .send({ movements: enrichedMovements, meta });
     },
   });
 }

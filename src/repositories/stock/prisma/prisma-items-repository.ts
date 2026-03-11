@@ -720,30 +720,21 @@ export class PrismaItemsRepository implements ItemsRepository {
     binIds: string[],
     tenantId: string,
   ): Promise<number> {
-    const items = await prisma.item.findMany({
-      where: {
-        binId: { in: binIds },
-        tenantId,
-        deletedAt: null,
-      },
-      include: { bin: { select: { address: true } } },
-    });
+    if (binIds.length === 0) return 0;
 
-    if (items.length === 0) return 0;
+    // Single UPDATE with JOIN to set lastKnownAddress from bin address and detach in one query
+    const result = await prisma.$executeRaw`
+      UPDATE items
+      SET last_known_address = COALESCE(bins.address, items.last_known_address),
+          bin_id = NULL,
+          updated_at = NOW()
+      FROM bins
+      WHERE items.bin_id = bins.id
+        AND items.bin_id = ANY(${binIds}::uuid[])
+        AND items.tenant_id = ${tenantId}
+        AND items.deleted_at IS NULL
+    `;
 
-    // Batch all updates into a single transaction (fixes N+1)
-    await prisma.$transaction(
-      items.map((item) =>
-        prisma.item.update({
-          where: { id: item.id },
-          data: {
-            lastKnownAddress: item.bin?.address ?? item.lastKnownAddress,
-            binId: null,
-          },
-        }),
-      ),
-    );
-
-    return items.length;
+    return result;
   }
 }

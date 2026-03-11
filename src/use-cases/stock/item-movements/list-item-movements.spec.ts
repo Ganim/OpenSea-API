@@ -56,6 +56,12 @@ describe('ListItemMovementsUseCase', () => {
     expect(result.movements).toHaveLength(2);
     expect(result.movements[0].itemId).toBe(itemId.toString());
     expect(result.movements[1].itemId).toBe(itemId.toString());
+    expect(result.meta).toEqual({
+      total: 2,
+      page: 1,
+      limit: 20,
+      pages: 1,
+    });
   });
 
   it('should list movements by user', async () => {
@@ -278,5 +284,11 @@ describe('ListItemMovementsUseCase', () => {
     const result = await listItemMovements.execute({ tenantId: 'tenant-1' });
 
     expect(result.movements).toHaveLength(2);
+    expect(result.meta).toEqual({
+      total: 2,
+      page: 1,
+      limit: 20,
+      pages: 1,
+    });
   });
 });

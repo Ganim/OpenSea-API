@@ -58,6 +58,12 @@ describe('ListItemsByVariantIdUseCase', () => {
     expect(result.items).toHaveLength(2);
     expect(result.items[0].uniqueCode).toBe('ITEM-001');
     expect(result.items[1].uniqueCode).toBe('ITEM-002');
+    expect(result.meta).toEqual({
+      total: 2,
+      page: 1,
+      limit: 20,
+      pages: 1,
+    });
   });
 
   it('should return empty array when variant has no items', async () => {
@@ -69,5 +75,6 @@ describe('ListItemsByVariantIdUseCase', () => {
     });
 
     expect(result.items).toHaveLength(0);
+    expect(result.meta.total).toBe(0);
   });
 });

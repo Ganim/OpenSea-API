@@ -56,5 +56,10 @@ describe('List Variants (E2E)', () => {
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty('variants');
     expect(Array.isArray(response.body.variants)).toBe(true);
+    expect(response.body).toHaveProperty('meta');
+    expect(response.body.meta).toHaveProperty('total');
+    expect(response.body.meta).toHaveProperty('page');
+    expect(response.body.meta).toHaveProperty('limit');
+    expect(response.body.meta).toHaveProperty('pages');
   });
 });

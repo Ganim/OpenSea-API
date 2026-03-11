@@ -124,9 +124,9 @@ Cargos e faixas salariais.
 
 ---
 
-### Company (entidade legada)
+### Company (migrada para Admin)
 
-Localizada em `src/entities/hr/company.ts`. Entidade dedicada para empresas empregadoras com campos específicos do contexto brasileiro. Coexiste com o modelo polimórfico (ver seção Organization abaixo).
+Localizada em `src/entities/core/company.ts` (migrada de `hr/`). Entidade dedicada para empresas empregadoras com campos específicos do contexto brasileiro. O CRUD completo agora pertence ao módulo **Admin** (`/v1/admin/companies`). O módulo HR mantém acesso **somente leitura** via `hr.companies.read`. Coexiste com o modelo polimórfico (ver seção Organization abaixo).
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|

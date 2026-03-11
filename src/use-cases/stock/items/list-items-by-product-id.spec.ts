@@ -21,5 +21,11 @@ describe('ListItemsByProductIdUseCase', () => {
     });
 
     expect(result.items).toHaveLength(0);
+    expect(result.meta).toEqual({
+      total: 0,
+      page: 1,
+      limit: 20,
+      pages: 0,
+    });
   });
 });

@@ -80,14 +80,21 @@ describe('ListVariantsUseCase', () => {
 
     const result = await listVariants.execute({ tenantId: 'tenant-1' });
 
-    expect(result).toHaveLength(2);
-    expect(result[0].name).toBe('Variant 1');
-    expect(result[1].name).toBe('Variant 2');
+    expect(result.variants).toHaveLength(2);
+    expect(result.variants[0].name).toBe('Variant 1');
+    expect(result.variants[1].name).toBe('Variant 2');
+    expect(result.meta).toEqual({
+      total: 2,
+      page: 1,
+      limit: 20,
+      pages: 1,
+    });
   });
 
   it('should return empty array when there are no variants', async () => {
     const result = await listVariants.execute({ tenantId: 'tenant-1' });
 
-    expect(result).toHaveLength(0);
+    expect(result.variants).toHaveLength(0);
+    expect(result.meta.total).toBe(0);
   });
 });

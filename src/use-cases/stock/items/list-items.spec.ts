@@ -58,6 +58,12 @@ describe('ListItemsUseCase', () => {
     expect(result.items).toHaveLength(2);
     expect(result.items[0].uniqueCode).toBe('ITEM-001');
     expect(result.items[1].uniqueCode).toBe('ITEM-002');
+    expect(result.meta).toEqual({
+      total: 2,
+      page: 1,
+      limit: 20,
+      pages: 1,
+    });
   });
 
   it('should be able to list items by bin', async () => {
@@ -104,6 +110,7 @@ describe('ListItemsUseCase', () => {
 
     expect(result.items).toHaveLength(1);
     expect(result.items[0].uniqueCode).toBe('ITEM-003');
+    expect(result.meta.total).toBe(1);
   });
 
   it('should return all items when no filters provided', async () => {
@@ -145,5 +152,57 @@ describe('ListItemsUseCase', () => {
     const result = await listItems.execute({ tenantId: 'tenant-1' });
 
     expect(result.items).toHaveLength(2);
+    expect(result.meta).toEqual({
+      total: 2,
+      page: 1,
+      limit: 20,
+      pages: 1,
+    });
+  });
+
+  it('should paginate items correctly', async () => {
+    const variantId = new UniqueEntityID();
+    const binId = new UniqueEntityID();
+
+    for (let i = 1; i <= 5; i++) {
+      await itemsRepository.create({
+        tenantId: 'tenant-1',
+        uniqueCode: `ITEM-PAG-${i}`,
+        slug: Slug.createFromText(`item-pag-${i}`),
+        fullCode: `001.001.0001.001-${String(i).padStart(5, '0')}`,
+        sequentialCode: i,
+        barcode: `BC-PAG-${i}`,
+        eanCode: `EAN-PAG-${i}`,
+        upcCode: `UPC-PAG-${i}`,
+        variantId,
+        binId,
+        initialQuantity: 10,
+        currentQuantity: 10,
+        status: ItemStatus.create('AVAILABLE'),
+      });
+    }
+
+    const page1 = await listItems.execute({
+      tenantId: 'tenant-1',
+      page: 1,
+      limit: 2,
+    });
+
+    expect(page1.items).toHaveLength(2);
+    expect(page1.meta).toEqual({
+      total: 5,
+      page: 1,
+      limit: 2,
+      pages: 3,
+    });
+
+    const page3 = await listItems.execute({
+      tenantId: 'tenant-1',
+      page: 3,
+      limit: 2,
+    });
+
+    expect(page3.items).toHaveLength(1);
+    expect(page3.meta.page).toBe(3);
   });
 });

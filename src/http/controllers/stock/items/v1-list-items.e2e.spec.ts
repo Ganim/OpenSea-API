@@ -97,5 +97,10 @@ describe('List Items (E2E)', () => {
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty('items');
     expect(Array.isArray(response.body.items)).toBe(true);
+    expect(response.body).toHaveProperty('meta');
+    expect(response.body.meta).toHaveProperty('total');
+    expect(response.body.meta).toHaveProperty('page');
+    expect(response.body.meta).toHaveProperty('limit');
+    expect(response.body.meta).toHaveProperty('pages');
   });
 });

@@ -63,11 +63,18 @@ describe('ListProductsUseCase', () => {
     expect(result.products).toHaveLength(2);
     expect(result.products[0].name).toBe('Laptop Dell');
     expect(result.products[1].name).toBe('Mouse Logitech');
+    expect(result.meta).toEqual({
+      total: 2,
+      page: 1,
+      limit: 20,
+      pages: 1,
+    });
   });
 
   it('should return empty array when no products exist', async () => {
     const result = await sut.execute({ tenantId: TENANT_ID });
 
     expect(result.products).toHaveLength(0);
+    expect(result.meta.total).toBe(0);
   });
 });

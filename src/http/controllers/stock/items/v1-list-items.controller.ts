@@ -2,6 +2,7 @@ import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
+import { paginationSchema } from '@/http/schemas';
 import { itemResponseSchema } from '@/http/schemas';
 import { makeListItemsUseCase } from '@/use-cases/stock/items/factories/make-list-items-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -23,7 +24,7 @@ export async function listItemsController(app: FastifyInstance) {
     schema: {
       tags: ['Stock - Items'],
       summary: 'List all items',
-      querystring: z.object({
+      querystring: paginationSchema.extend({
         variantId: z.uuid().optional(),
         binId: z.uuid().optional(),
         productId: z.uuid().optional(),
@@ -32,6 +33,12 @@ export async function listItemsController(app: FastifyInstance) {
       response: {
         200: z.object({
           items: z.array(itemResponseSchema),
+          meta: z.object({
+            total: z.number(),
+            page: z.number(),
+            limit: z.number(),
+            pages: z.number(),
+          }),
         }),
       },
       security: [{ bearerAuth: [] }],
@@ -39,18 +46,21 @@ export async function listItemsController(app: FastifyInstance) {
 
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
-      const { variantId, binId, productId, status } = request.query;
+      const { variantId, binId, productId, status, page, limit } =
+        request.query;
 
       const listItemsUseCase = makeListItemsUseCase();
-      const { items } = await listItemsUseCase.execute({
+      const result = await listItemsUseCase.execute({
         tenantId,
         variantId,
         binId,
         productId,
         status,
+        page,
+        limit,
       });
 
-      return reply.status(200).send({ items });
+      return reply.status(200).send(result);
     },
   });
 }
