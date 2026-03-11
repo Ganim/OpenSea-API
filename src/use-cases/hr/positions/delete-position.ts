@@ -1,3 +1,5 @@
+import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { PositionsRepository } from '@/repositories/hr/positions-repository';
 
@@ -24,14 +26,14 @@ export class DeletePositionUseCase {
       request.tenantId,
     );
     if (!position) {
-      throw new Error('Position not found');
+      throw new ResourceNotFoundError('Position not found');
     }
 
     // Check if position has employees
     const hasEmployees =
       await this.positionsRepository.hasEmployees(positionId);
     if (hasEmployees) {
-      throw new Error('Cannot delete position with employees');
+      throw new BadRequestError('Cannot delete position with employees');
     }
 
     await this.positionsRepository.delete(positionId);

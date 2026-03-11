@@ -1,3 +1,6 @@
+import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { ConflictError } from '@/@errors/use-cases/conflict-error';
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { Absence } from '@/entities/hr/absence';
 import { AbsencesRepository } from '@/repositories/hr/absences-repository';
@@ -46,17 +49,19 @@ export class RequestSickLeaveUseCase {
       tenantId,
     );
     if (!employee) {
-      throw new Error('Employee not found');
+      throw new ResourceNotFoundError('Employee not found');
     }
 
     // Verify employee is active
     if (!employee.status.isActive()) {
-      throw new Error('Funcionário não está ativo');
+      throw new BadRequestError('Funcionário não está ativo');
     }
 
     // Validate CID is required for sick leave
     if (!cid) {
-      throw new Error('Código CID é obrigatório para atestados médicos');
+      throw new BadRequestError(
+        'Código CID é obrigatório para atestados médicos',
+      );
     }
 
     // Calculate total days
@@ -64,7 +69,7 @@ export class RequestSickLeaveUseCase {
 
     // Validate that end date is after start date
     if (endDate < startDate) {
-      throw new Error('End date must be after start date');
+      throw new BadRequestError('End date must be after start date');
     }
 
     // Check for overlapping absences
@@ -76,7 +81,9 @@ export class RequestSickLeaveUseCase {
     );
 
     if (overlapping.length > 0) {
-      throw new Error('There is already an absence registered for this period');
+      throw new ConflictError(
+        'There is already an absence registered for this period',
+      );
     }
 
     // Determine if it's paid (first 15 days are paid by employer in Brazil)

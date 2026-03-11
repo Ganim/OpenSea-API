@@ -1,3 +1,4 @@
+import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { Deduction } from '@/entities/hr/deduction';
@@ -31,7 +32,9 @@ export class DeleteDeductionUseCase {
 
     // Check if deduction is already applied
     if (deduction.isApplied) {
-      throw new Error('Não é possível excluir uma dedução já aplicada');
+      throw new BadRequestError(
+        'Não é possível excluir uma dedução já aplicada',
+      );
     }
 
     await this.deductionsRepository.delete(new UniqueEntityID(deductionId));

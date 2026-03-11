@@ -1,3 +1,4 @@
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { EmployeesRepository } from '@/repositories/hr/employees-repository';
 import { TimeEntriesRepository } from '@/repositories/hr/time-entries-repository';
@@ -45,7 +46,7 @@ export class CalculateWorkedHoursUseCase {
       tenantId,
     );
     if (!employee) {
-      throw new Error('Employee not found');
+      throw new ResourceNotFoundError('Employee not found');
     }
 
     // Fetch all time entries for the period

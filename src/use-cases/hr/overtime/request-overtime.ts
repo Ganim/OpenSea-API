@@ -1,3 +1,5 @@
+import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Overtime } from '@/entities/hr/overtime';
 import { EmployeesRepository } from '@/repositories/hr/employees-repository';
@@ -32,26 +34,26 @@ export class RequestOvertimeUseCase {
       tenantId,
     );
     if (!employee) {
-      throw new Error('Employee not found');
+      throw new ResourceNotFoundError('Employee not found');
     }
 
     // Verify employee is active
     if (!employee.status.isActive()) {
-      throw new Error('Employee is not active');
+      throw new BadRequestError('Employee is not active');
     }
 
     // Validate hours
     if (hours <= 0) {
-      throw new Error('Hours must be greater than 0');
+      throw new BadRequestError('Hours must be greater than 0');
     }
 
     if (hours > 12) {
-      throw new Error('Hours cannot exceed 12 hours per request');
+      throw new BadRequestError('Hours cannot exceed 12 hours per request');
     }
 
     // Validate reason
     if (!reason || reason.trim().length < 10) {
-      throw new Error('Reason must be at least 10 characters');
+      throw new BadRequestError('Reason must be at least 10 characters');
     }
 
     // Create overtime request

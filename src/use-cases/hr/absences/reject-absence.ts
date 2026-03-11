@@ -1,3 +1,5 @@
+import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { Absence } from '@/entities/hr/absence';
 import { AbsencesRepository } from '@/repositories/hr/absences-repository';
@@ -21,7 +23,9 @@ export class RejectAbsenceUseCase {
 
     // Validate reason
     if (!reason || reason.trim().length < 10) {
-      throw new Error('Rejection reason must be at least 10 characters');
+      throw new BadRequestError(
+        'Rejection reason must be at least 10 characters',
+      );
     }
 
     // Find absence
@@ -30,12 +34,12 @@ export class RejectAbsenceUseCase {
       tenantId,
     );
     if (!absence) {
-      throw new Error('Absence not found');
+      throw new ResourceNotFoundError('Absence not found');
     }
 
     // Check if can be rejected
     if (!absence.isPending()) {
-      throw new Error('Only pending absences can be rejected');
+      throw new BadRequestError('Only pending absences can be rejected');
     }
 
     // Reject the absence

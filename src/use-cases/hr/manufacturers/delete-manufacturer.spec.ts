@@ -21,17 +21,18 @@ describe('DeleteManufacturerUseCase', () => {
 
     const result = await sut.execute({
       id: manufacturer.id.toString(),
+      tenantId: 'tenant-1',
     });
 
     expect(result.success).toBe(true);
 
     // Verify manufacturer is no longer found (soft delete)
-    const found = await manufacturersRepository.findById(manufacturer.id);
+    const found = await manufacturersRepository.findById(manufacturer.id, 'tenant-1');
     expect(found).toBeNull();
   });
 
   it('should throw ResourceNotFoundError when manufacturer not found', async () => {
-    await expect(sut.execute({ id: 'non-existent-id' })).rejects.toThrow(
+    await expect(sut.execute({ id: 'non-existent-id', tenantId: 'tenant-1' })).rejects.toThrow(
       ResourceNotFoundError,
     );
   });

@@ -1,3 +1,4 @@
+import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { Payroll } from '@/entities/hr/payroll';
@@ -33,7 +34,7 @@ export class CancelPayrollUseCase {
 
     // Check if payroll can be cancelled
     if (payroll.status.isPaid()) {
-      throw new Error('Folhas já pagas não podem ser canceladas');
+      throw new BadRequestError('Folhas já pagas não podem ser canceladas');
     }
 
     // Cancel the payroll

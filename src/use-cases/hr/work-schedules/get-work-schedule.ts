@@ -1,3 +1,4 @@
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { WorkSchedule } from '@/entities/hr/work-schedule';
 import { WorkSchedulesRepository } from '@/repositories/hr/work-schedules-repository';
@@ -25,7 +26,7 @@ export class GetWorkScheduleUseCase {
     );
 
     if (!workSchedule) {
-      throw new Error('Work schedule not found');
+      throw new ResourceNotFoundError('Work schedule not found');
     }
 
     return {

@@ -1,3 +1,4 @@
+import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { Bonus } from '@/entities/hr/bonus';
@@ -29,7 +30,7 @@ export class DeleteBonusUseCase {
 
     // Check if bonus is already paid
     if (bonus.isPaid) {
-      throw new Error('Não é possível excluir um bônus já pago');
+      throw new BadRequestError('Não é possível excluir um bônus já pago');
     }
 
     await this.bonusesRepository.delete(new UniqueEntityID(bonusId));

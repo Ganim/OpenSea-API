@@ -1,3 +1,4 @@
+import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { TimeEntry } from '@/entities/hr/time-entry';
 import { TimeEntryType } from '@/entities/hr/value-objects';
@@ -53,7 +54,7 @@ export class ListTimeEntriesUseCase {
       case 'OVERTIME_END':
         return TimeEntryType.OVERTIME_END();
       default:
-        throw new Error(`Invalid entry type: ${entryType}`);
+        throw new BadRequestError(`Invalid entry type: ${entryType}`);
     }
   }
 }

@@ -1,3 +1,6 @@
+import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { ConflictError } from '@/@errors/use-cases/conflict-error';
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Department } from '@/entities/hr/department';
 import { DepartmentsRepository } from '@/repositories/hr/departments-repository';
@@ -42,7 +45,7 @@ export class UpdateDepartmentUseCase {
       tenantId,
     );
     if (!existingDepartment) {
-      throw new Error('Department not found');
+      throw new ResourceNotFoundError('Department not found');
     }
 
     // Validate code uniqueness if changing (within the same company)
@@ -53,7 +56,7 @@ export class UpdateDepartmentUseCase {
         tenantId,
       );
       if (departmentWithCode) {
-        throw new Error('Department with this code already exists');
+        throw new ConflictError('Department with this code already exists');
       }
     }
 
@@ -63,7 +66,7 @@ export class UpdateDepartmentUseCase {
 
       // Check if trying to set itself as parent
       if (parentUniqueId.equals(departmentId)) {
-        throw new Error('Department cannot be its own parent');
+        throw new BadRequestError('Department cannot be its own parent');
       }
 
       const parentDepartment = await this.departmentsRepository.findById(
@@ -71,12 +74,14 @@ export class UpdateDepartmentUseCase {
         tenantId,
       );
       if (!parentDepartment) {
-        throw new Error('Parent department not found');
+        throw new ResourceNotFoundError('Parent department not found');
       }
 
       // Ensure parent belongs to the same company
       if (!parentDepartment.companyId.equals(existingDepartment.companyId)) {
-        throw new Error('Parent department must belong to the same company');
+        throw new BadRequestError(
+          'Parent department must belong to the same company',
+        );
       }
 
       // Check for circular reference (parent cannot be a child of this department)
@@ -86,7 +91,7 @@ export class UpdateDepartmentUseCase {
       );
       const isCircular = this.checkCircularReference(parentUniqueId, children);
       if (isCircular) {
-        throw new Error('Cannot set a child department as parent');
+        throw new BadRequestError('Cannot set a child department as parent');
       }
     }
 
@@ -112,7 +117,7 @@ export class UpdateDepartmentUseCase {
     });
 
     if (!department) {
-      throw new Error('Failed to update department');
+      throw new BadRequestError('Failed to update department');
     }
 
     return { department };

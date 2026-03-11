@@ -1,3 +1,4 @@
+import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Employee } from '@/entities/hr/employee';
@@ -47,7 +48,7 @@ export class TransferEmployeeUseCase {
 
     // Check if employee is terminated
     if (employee.status.value === 'TERMINATED') {
-      throw new Error('Cannot transfer a terminated employee');
+      throw new BadRequestError('Cannot transfer a terminated employee');
     }
 
     // Build transfer history entry
@@ -105,7 +106,7 @@ export class TransferEmployeeUseCase {
     const updatedEmployee = await this.employeesRepository.update(updateData);
 
     if (!updatedEmployee) {
-      throw new Error('Failed to transfer employee');
+      throw new BadRequestError('Failed to transfer employee');
     }
 
     return {

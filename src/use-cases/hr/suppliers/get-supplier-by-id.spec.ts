@@ -21,6 +21,7 @@ describe('Get Supplier By Id Use Case', () => {
 
     const result = await sut.execute({
       id: supplier.id.toString(),
+      tenantId: 'tenant-1',
     });
 
     expect(result.supplier).toBeDefined();
@@ -32,6 +33,7 @@ describe('Get Supplier By Id Use Case', () => {
     await expect(
       sut.execute({
         id: 'non-existent-id',
+        tenantId: 'tenant-1',
       }),
     ).rejects.toBeInstanceOf(ResourceNotFoundError);
   });

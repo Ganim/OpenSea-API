@@ -1,3 +1,4 @@
+import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Employee } from '@/entities/hr/employee';
@@ -34,7 +35,7 @@ export class TerminateEmployeeUseCase {
 
     // Check if employee is already terminated
     if (employee.status.value === 'TERMINATED') {
-      throw new Error('Employee is already terminated');
+      throw new BadRequestError('Employee is already terminated');
     }
 
     // Update employee status and termination date
@@ -50,7 +51,7 @@ export class TerminateEmployeeUseCase {
     });
 
     if (!updatedEmployee) {
-      throw new Error('Failed to terminate employee');
+      throw new BadRequestError('Failed to terminate employee');
     }
 
     return {

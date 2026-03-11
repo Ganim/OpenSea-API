@@ -1,3 +1,5 @@
+import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { TimeEntry } from '@/entities/hr/time-entry';
 import { TimeEntryType } from '@/entities/hr/value-objects';
@@ -41,12 +43,12 @@ export class ClockInUseCase {
       tenantId,
     );
     if (!employee) {
-      throw new Error('Employee not found');
+      throw new ResourceNotFoundError('Employee not found');
     }
 
     // Verify employee is active
     if (!employee.status.isActive()) {
-      throw new Error('Employee is not active');
+      throw new BadRequestError('Employee is not active');
     }
 
     // Check last entry to avoid duplicate clock in
@@ -56,7 +58,7 @@ export class ClockInUseCase {
     );
 
     if (lastEntry && lastEntry.entryType.isEntryType()) {
-      throw new Error(
+      throw new BadRequestError(
         'Employee has already clocked in. Please clock out first',
       );
     }

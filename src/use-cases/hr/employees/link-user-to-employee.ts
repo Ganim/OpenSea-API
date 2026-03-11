@@ -1,3 +1,5 @@
+import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { ConflictError } from '@/@errors/use-cases/conflict-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Employee } from '@/entities/hr/employee';
@@ -33,7 +35,7 @@ export class LinkUserToEmployeeUseCase {
 
     // Check if employee already has a user linked
     if (employee.userId) {
-      throw new Error('Employee already has a user linked');
+      throw new ConflictError('Employee already has a user linked');
     }
 
     // Check if user is already linked to another employee
@@ -44,7 +46,7 @@ export class LinkUserToEmployeeUseCase {
       );
 
     if (existingEmployeeWithUser) {
-      throw new Error('User is already linked to another employee');
+      throw new ConflictError('User is already linked to another employee');
     }
 
     // Update employee with user link
@@ -54,7 +56,7 @@ export class LinkUserToEmployeeUseCase {
     });
 
     if (!updatedEmployee) {
-      throw new Error('Failed to link user to employee');
+      throw new BadRequestError('Failed to link user to employee');
     }
 
     return {

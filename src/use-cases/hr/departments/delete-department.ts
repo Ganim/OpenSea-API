@@ -1,3 +1,5 @@
+import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { DepartmentsRepository } from '@/repositories/hr/departments-repository';
 
@@ -24,21 +26,23 @@ export class DeleteDepartmentUseCase {
       request.tenantId,
     );
     if (!department) {
-      throw new Error('Department not found');
+      throw new ResourceNotFoundError('Department not found');
     }
 
     // Check if department has children
     const hasChildren =
       await this.departmentsRepository.hasChildren(departmentId);
     if (hasChildren) {
-      throw new Error('Cannot delete department with child departments');
+      throw new BadRequestError(
+        'Cannot delete department with child departments',
+      );
     }
 
     // Check if department has employees
     const hasEmployees =
       await this.departmentsRepository.hasEmployees(departmentId);
     if (hasEmployees) {
-      throw new Error('Cannot delete department with employees');
+      throw new BadRequestError('Cannot delete department with employees');
     }
 
     await this.departmentsRepository.delete(departmentId);

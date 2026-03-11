@@ -1,3 +1,5 @@
+import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { ConflictError } from '@/@errors/use-cases/conflict-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Employee } from '@/entities/hr/employee';
@@ -108,7 +110,7 @@ export class UpdateEmployeeUseCase {
         tenantId,
       );
       if (employeeWithCpf && !employeeWithCpf.id.equals(existingEmployee.id)) {
-        throw new Error('Employee with this CPF already exists');
+        throw new ConflictError('Employee with this CPF already exists');
       }
     }
 
@@ -123,7 +125,7 @@ export class UpdateEmployeeUseCase {
         employeeWithRegistration &&
         !employeeWithRegistration.id.equals(existingEmployee.id)
       ) {
-        throw new Error(
+        throw new ConflictError(
           'Employee with this registration number already exists',
         );
       }
@@ -139,7 +141,7 @@ export class UpdateEmployeeUseCase {
         employeeWithUser &&
         !employeeWithUser.id.equals(existingEmployee.id)
       ) {
-        throw new Error('User is already linked to another employee');
+        throw new ConflictError('User is already linked to another employee');
       }
     }
 
@@ -151,7 +153,7 @@ export class UpdateEmployeeUseCase {
         tenantId,
       );
       if (employeeWithPis && !employeeWithPis.id.equals(existingEmployee.id)) {
-        throw new Error('Employee with this PIS already exists');
+        throw new ConflictError('Employee with this PIS already exists');
       }
     }
 
@@ -406,7 +408,7 @@ export class UpdateEmployeeUseCase {
     const updatedEmployee = await this.employeesRepository.update(updateSchema);
 
     if (!updatedEmployee) {
-      throw new Error('Failed to update employee');
+      throw new BadRequestError('Failed to update employee');
     }
 
     // Sync birthday to calendar if birthDate changed (non-blocking)
@@ -451,7 +453,7 @@ export class UpdateEmployeeUseCase {
       case 'APPRENTICE':
         return ContractType.APPRENTICE();
       default:
-        throw new Error(`Invalid contract type: ${contractType}`);
+        throw new BadRequestError(`Invalid contract type: ${contractType}`);
     }
   }
 
@@ -468,7 +470,7 @@ export class UpdateEmployeeUseCase {
       case 'FLEXIBLE':
         return WorkRegime.FLEXIBLE();
       default:
-        throw new Error(`Invalid work regime: ${workRegime}`);
+        throw new BadRequestError(`Invalid work regime: ${workRegime}`);
     }
   }
 

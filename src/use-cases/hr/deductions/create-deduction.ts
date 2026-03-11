@@ -1,3 +1,4 @@
+import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { Deduction } from '@/entities/hr/deduction';
@@ -41,22 +42,22 @@ export class CreateDeductionUseCase {
 
     // Validate amount
     if (amount <= 0) {
-      throw new Error('O valor da dedução deve ser maior que zero');
+      throw new BadRequestError('O valor da dedução deve ser maior que zero');
     }
 
     // Validate name
     if (!name || name.trim().length === 0) {
-      throw new Error('O nome da dedução é obrigatório');
+      throw new BadRequestError('O nome da dedução é obrigatório');
     }
 
     // Validate reason
     if (!reason || reason.trim().length === 0) {
-      throw new Error('O motivo da dedução é obrigatório');
+      throw new BadRequestError('O motivo da dedução é obrigatório');
     }
 
     // Validate installments
     if (installments && installments < 1) {
-      throw new Error('O número de parcelas deve ser pelo menos 1');
+      throw new BadRequestError('O número de parcelas deve ser pelo menos 1');
     }
 
     // Verify employee exists

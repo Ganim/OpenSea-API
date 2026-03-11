@@ -1,3 +1,4 @@
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { Company } from '@/entities/hr/company';
 import type { Department } from '@/entities/hr/department';
@@ -38,7 +39,7 @@ export class GetDepartmentByIdUseCase {
     );
 
     if (!department) {
-      throw new Error('Department not found');
+      throw new ResourceNotFoundError('Department not found');
     }
 
     // Get company

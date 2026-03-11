@@ -1,3 +1,5 @@
+import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { ConflictError } from '@/@errors/use-cases/conflict-error';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Employee } from '@/entities/hr/employee';
 import {
@@ -147,7 +149,7 @@ export class CreateEmployeeUseCase {
       tenantId,
     );
     if (existingEmployeeByCpf) {
-      throw new Error('Employee with this CPF already exists');
+      throw new ConflictError('Employee with this CPF already exists');
     }
 
     // Validate if registration number already exists
@@ -157,7 +159,9 @@ export class CreateEmployeeUseCase {
         tenantId,
       );
     if (existingEmployeeByRegistration) {
-      throw new Error('Employee with this registration number already exists');
+      throw new ConflictError(
+        'Employee with this registration number already exists',
+      );
     }
 
     // Validate if user is already linked to another employee
@@ -168,7 +172,7 @@ export class CreateEmployeeUseCase {
           tenantId,
         );
       if (existingEmployeeByUser) {
-        throw new Error('User is already linked to another employee');
+        throw new ConflictError('User is already linked to another employee');
       }
     }
 
@@ -179,7 +183,7 @@ export class CreateEmployeeUseCase {
         tenantId,
       );
       if (existingEmployeeByPis) {
-        throw new Error('Employee with this PIS already exists');
+        throw new ConflictError('Employee with this PIS already exists');
       }
     }
 
@@ -298,7 +302,7 @@ export class CreateEmployeeUseCase {
       case 'APPRENTICE':
         return ContractType.APPRENTICE();
       default:
-        throw new Error(`Invalid contract type: ${contractType}`);
+        throw new BadRequestError(`Invalid contract type: ${contractType}`);
     }
   }
 
@@ -315,7 +319,7 @@ export class CreateEmployeeUseCase {
       case 'FLEXIBLE':
         return WorkRegime.FLEXIBLE();
       default:
-        throw new Error(`Invalid work regime: ${workRegime}`);
+        throw new BadRequestError(`Invalid work regime: ${workRegime}`);
     }
   }
 

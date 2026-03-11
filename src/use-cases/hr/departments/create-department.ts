@@ -1,3 +1,6 @@
+import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { ConflictError } from '@/@errors/use-cases/conflict-error';
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Department } from '@/entities/hr/department';
 import { DepartmentsRepository } from '@/repositories/hr/departments-repository';
@@ -43,7 +46,7 @@ export class CreateDepartmentUseCase {
       tenantId,
     );
     if (existingDepartment) {
-      throw new Error('Department with this code already exists');
+      throw new ConflictError('Department with this code already exists');
     }
 
     // Validate parent department if provided
@@ -53,14 +56,18 @@ export class CreateDepartmentUseCase {
         tenantId,
       );
       if (!parentDepartment) {
-        throw new Error('Parent department not found');
+        throw new ResourceNotFoundError('Parent department not found');
       }
       if (!parentDepartment.isActive) {
-        throw new Error('Cannot create department under an inactive parent');
+        throw new BadRequestError(
+          'Cannot create department under an inactive parent',
+        );
       }
       // Ensure parent belongs to the same company
       if (!parentDepartment.companyId.equals(companyUniqueId)) {
-        throw new Error('Parent department must belong to the same company');
+        throw new BadRequestError(
+          'Parent department must belong to the same company',
+        );
       }
     }
 

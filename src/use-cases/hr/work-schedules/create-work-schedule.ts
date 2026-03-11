@@ -1,3 +1,5 @@
+import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { ConflictError } from '@/@errors/use-cases/conflict-error';
 import { WorkSchedule } from '@/entities/hr/work-schedule';
 import { WorkSchedulesRepository } from '@/repositories/hr/work-schedules-repository';
 
@@ -59,7 +61,7 @@ export class CreateWorkScheduleUseCase {
       tenantId,
     );
     if (existingSchedule) {
-      throw new Error('Work schedule with this name already exists');
+      throw new ConflictError('Work schedule with this name already exists');
     }
 
     // Validate time format (HH:MM)
@@ -82,13 +84,17 @@ export class CreateWorkScheduleUseCase {
 
     for (const time of timeFields) {
       if (time && !this.isValidTimeFormat(time)) {
-        throw new Error(`Invalid time format: ${time}. Expected HH:MM`);
+        throw new BadRequestError(
+          `Invalid time format: ${time}. Expected HH:MM`,
+        );
       }
     }
 
     // Validate break duration
     if (breakDuration < 0 || breakDuration > 480) {
-      throw new Error('Break duration must be between 0 and 480 minutes');
+      throw new BadRequestError(
+        'Break duration must be between 0 and 480 minutes',
+      );
     }
 
     // Create work schedule

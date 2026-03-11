@@ -1,3 +1,4 @@
+import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Company } from '@/entities/hr/company';
 import type { CompaniesRepository } from '@/repositories/hr/companies-repository';
@@ -37,7 +38,7 @@ export class UpdateCompanyUseCase {
       request.email &&
       !this.isValidEmail(request.email)
     ) {
-      throw new Error('Invalid email format');
+      throw new BadRequestError('Invalid email format');
     }
 
     // Validar telefone se fornecido
@@ -46,7 +47,7 @@ export class UpdateCompanyUseCase {
       request.phoneMain &&
       !this.isValidPhone(request.phoneMain)
     ) {
-      throw new Error('Invalid phone format');
+      throw new BadRequestError('Invalid phone format');
     }
 
     if (
@@ -54,12 +55,12 @@ export class UpdateCompanyUseCase {
       request.phoneAlt &&
       !this.isValidPhone(request.phoneAlt)
     ) {
-      throw new Error('Invalid phone format');
+      throw new BadRequestError('Invalid phone format');
     }
 
     // Validar data de início de atividade se fornecida
     if (request.activityStartDate && request.activityStartDate > new Date()) {
-      throw new Error('Activity start date cannot be in the future');
+      throw new BadRequestError('Activity start date cannot be in the future');
     }
 
     const company = await this.companiesRepository.update({

@@ -1,3 +1,6 @@
+import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { ConflictError } from '@/@errors/use-cases/conflict-error';
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { Absence } from '@/entities/hr/absence';
 import { AbsencesRepository } from '@/repositories/hr/absences-repository';
@@ -46,12 +49,12 @@ export class RequestVacationUseCase {
       tenantId,
     );
     if (!employee) {
-      throw new Error('Employee not found');
+      throw new ResourceNotFoundError('Employee not found');
     }
 
     // Verify employee is active
     if (!employee.status.isActive()) {
-      throw new Error('Funcionário não está ativo');
+      throw new BadRequestError('Funcionário não está ativo');
     }
 
     // Verify vacation period exists
@@ -60,7 +63,7 @@ export class RequestVacationUseCase {
       tenantId,
     );
     if (!vacationPeriod) {
-      throw new Error('VacationPeriod not found');
+      throw new ResourceNotFoundError('VacationPeriod not found');
     }
 
     // Calculate total days
@@ -68,17 +71,19 @@ export class RequestVacationUseCase {
 
     // Validate minimum vacation period (5 days according to Brazilian law)
     if (totalDays < 5) {
-      throw new Error('O período mínimo de férias é de 5 dias');
+      throw new BadRequestError('O período mínimo de férias é de 5 dias');
     }
 
     // Validate maximum vacation period (30 days)
     if (totalDays > 30) {
-      throw new Error('O período máximo de férias é de 30 dias');
+      throw new BadRequestError('O período máximo de férias é de 30 dias');
     }
 
     // Check for available days in the vacation period
     if (vacationPeriod.remainingDays < totalDays) {
-      throw new Error('Não há dias de férias suficientes disponíveis');
+      throw new BadRequestError(
+        'Não há dias de férias suficientes disponíveis',
+      );
     }
 
     // Check for overlapping absences
@@ -90,7 +95,9 @@ export class RequestVacationUseCase {
     );
 
     if (overlapping.length > 0) {
-      throw new Error('Já existe uma ausência registrada para este período');
+      throw new ConflictError(
+        'Já existe uma ausência registrada para este período',
+      );
     }
 
     // Validate start date is at least 30 days in advance (Brazilian law)
@@ -100,7 +107,7 @@ export class RequestVacationUseCase {
     minStartDate.setDate(minStartDate.getDate() + 30);
 
     if (startDate < minStartDate) {
-      throw new Error(
+      throw new BadRequestError(
         'As férias devem ser solicitadas com pelo menos 30 dias de antecedência',
       );
     }

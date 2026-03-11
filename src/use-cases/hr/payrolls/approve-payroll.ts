@@ -1,3 +1,4 @@
+import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { Payroll } from '@/entities/hr/payroll';
@@ -32,7 +33,7 @@ export class ApprovePayrollUseCase {
 
     // Check if payroll can be approved
     if (!payroll.status.isCalculated()) {
-      throw new Error('Apenas folhas calculadas podem ser aprovadas');
+      throw new BadRequestError('Apenas folhas calculadas podem ser aprovadas');
     }
 
     // Approve the payroll

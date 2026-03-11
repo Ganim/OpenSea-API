@@ -1,3 +1,4 @@
+import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { Payroll } from '@/entities/hr/payroll';
@@ -51,7 +52,9 @@ export class CalculatePayrollUseCase {
 
     // Check if payroll can be calculated
     if (!payroll.status.isDraft()) {
-      throw new Error('Apenas folhas em rascunho podem ser calculadas');
+      throw new BadRequestError(
+        'Apenas folhas em rascunho podem ser calculadas',
+      );
     }
 
     // Start processing

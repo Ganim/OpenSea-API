@@ -1,3 +1,4 @@
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { ConflictError } from '@/@errors/use-cases/conflict-error';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { TimeBank } from '@/entities/hr/time-bank';
@@ -40,7 +41,7 @@ export class AdjustTimeBankUseCase {
       tenantId,
     );
     if (!employee) {
-      throw new Error('Employee not found');
+      throw new ResourceNotFoundError('Employee not found');
     }
 
     for (let attempt = 0; attempt < MAX_OPTIMISTIC_LOCK_RETRIES; attempt++) {

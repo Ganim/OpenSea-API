@@ -22,6 +22,7 @@ describe('UpdateManufacturerUseCase', () => {
 
     const result = await sut.execute({
       id: manufacturer.id.toString(),
+      tenantId: 'tenant-1',
       legalName: 'Fabricante Atualizado',
       tradeName: 'Fab Atualizado',
       qualityRating: 4.2,
@@ -39,6 +40,7 @@ describe('UpdateManufacturerUseCase', () => {
     await expect(
       sut.execute({
         id: 'non-existent-id',
+        tenantId: 'tenant-1',
         legalName: 'Nome Atualizado',
       }),
     ).rejects.toThrow(ResourceNotFoundError);
@@ -54,6 +56,7 @@ describe('UpdateManufacturerUseCase', () => {
     await expect(
       sut.execute({
         id: manufacturer.id.toString(),
+        tenantId: 'tenant-1',
         qualityRating: 6,
       }),
     ).rejects.toThrow(BadRequestError);
@@ -69,6 +72,7 @@ describe('UpdateManufacturerUseCase', () => {
     await expect(
       sut.execute({
         id: manufacturer.id.toString(),
+        tenantId: 'tenant-1',
         defectRate: 101,
       }),
     ).rejects.toThrow(BadRequestError);

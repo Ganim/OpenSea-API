@@ -21,12 +21,11 @@ describe('Approve Payroll (E2E)', () => {
 
   it('should approve a calculated payroll with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
-    const timestamp = Date.now();
-    const month = (timestamp % 12) + 1;
-    const year = 2020 + (timestamp % 10);
+    const testMonth = 2;
+    const testYear = 2025;
     const payroll = await createCalculatedPayroll(tenantId, {
-      referenceMonth: month,
-      referenceYear: year,
+      referenceMonth: testMonth,
+      referenceYear: testYear,
     });
 
     const response = await request(app.server)

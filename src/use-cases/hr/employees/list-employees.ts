@@ -1,3 +1,4 @@
+import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { Employee } from '@/entities/hr/employee';
 import type { FindEmployeeFilters } from '@/repositories/hr/employees-repository';
@@ -92,7 +93,7 @@ export class ListEmployeesUseCase {
       'TERMINATED',
     ];
     if (!validStatuses.includes(status.toUpperCase())) {
-      throw new Error(`Invalid status: ${status}`);
+      throw new BadRequestError(`Invalid status: ${status}`);
     }
   }
 }

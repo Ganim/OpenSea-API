@@ -1,3 +1,4 @@
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { TimeBank } from '@/entities/hr/time-bank';
 import { EmployeesRepository } from '@/repositories/hr/employees-repository';
@@ -28,7 +29,7 @@ export class GetTimeBankUseCase {
       tenantId,
     );
     if (!employee) {
-      throw new Error('Employee not found');
+      throw new ResourceNotFoundError('Employee not found');
     }
 
     let timeBank = await this.timeBankRepository.findByEmployeeAndYear(

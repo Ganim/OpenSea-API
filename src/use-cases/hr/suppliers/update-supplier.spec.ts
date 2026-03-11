@@ -22,6 +22,7 @@ describe('Update Supplier Use Case', () => {
 
     const result = await sut.execute({
       id: supplier.id.toString(),
+      tenantId: 'tenant-1',
       legalName: 'Fornecedor ABC Atualizado LTDA',
       tradeName: 'ABC Atualizado',
     });
@@ -35,6 +36,7 @@ describe('Update Supplier Use Case', () => {
     await expect(
       sut.execute({
         id: 'non-existent-id',
+        tenantId: 'tenant-1',
         legalName: 'Nome Novo',
       }),
     ).rejects.toBeInstanceOf(ResourceNotFoundError);
@@ -50,6 +52,7 @@ describe('Update Supplier Use Case', () => {
     await expect(
       sut.execute({
         id: supplier.id.toString(),
+        tenantId: 'tenant-1',
         rating: 6,
       }),
     ).rejects.toBeInstanceOf(BadRequestError);
@@ -65,6 +68,7 @@ describe('Update Supplier Use Case', () => {
     await expect(
       sut.execute({
         id: supplier.id.toString(),
+        tenantId: 'tenant-1',
         rating: -1,
       }),
     ).rejects.toBeInstanceOf(BadRequestError);

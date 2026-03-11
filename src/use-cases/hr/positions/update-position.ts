@@ -1,3 +1,6 @@
+import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { ConflictError } from '@/@errors/use-cases/conflict-error';
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Position } from '@/entities/hr/position';
 import { DepartmentsRepository } from '@/repositories/hr/departments-repository';
@@ -49,7 +52,7 @@ export class UpdatePositionUseCase {
       request.tenantId,
     );
     if (!existingPosition) {
-      throw new Error('Position not found');
+      throw new ResourceNotFoundError('Position not found');
     }
 
     // Validate code uniqueness if changing
@@ -59,7 +62,7 @@ export class UpdatePositionUseCase {
         request.tenantId,
       );
       if (positionWithCode) {
-        throw new Error('Position with this code already exists');
+        throw new ConflictError('Position with this code already exists');
       }
     }
 
@@ -79,7 +82,9 @@ export class UpdatePositionUseCase {
 
     if (finalMinSalary !== undefined && finalMaxSalary !== undefined) {
       if (finalMinSalary > finalMaxSalary) {
-        throw new Error('Minimum salary cannot be greater than maximum salary');
+        throw new BadRequestError(
+          'Minimum salary cannot be greater than maximum salary',
+        );
       }
     }
 
@@ -91,14 +96,14 @@ export class UpdatePositionUseCase {
           request.tenantId,
         );
         if (!department) {
-          throw new Error('Department not found');
+          throw new ResourceNotFoundError('Department not found');
         }
       }
     }
 
     // Validate level
     if (level !== undefined && level < 1) {
-      throw new Error('Position level must be at least 1');
+      throw new BadRequestError('Position level must be at least 1');
     }
 
     // Update position
@@ -120,7 +125,7 @@ export class UpdatePositionUseCase {
     });
 
     if (!position) {
-      throw new Error('Failed to update position');
+      throw new BadRequestError('Failed to update position');
     }
 
     return { position };

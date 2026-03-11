@@ -1,3 +1,4 @@
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Overtime } from '@/entities/hr/overtime';
 import { OvertimeRepository } from '@/repositories/hr/overtime-repository';
@@ -23,7 +24,7 @@ export class GetOvertimeUseCase {
     );
 
     if (!overtime) {
-      throw new Error('Overtime request not found');
+      throw new ResourceNotFoundError('Overtime request not found');
     }
 
     return {

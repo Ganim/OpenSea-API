@@ -1,3 +1,5 @@
+import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { Absence } from '@/entities/hr/absence';
 import { AbsencesRepository } from '@/repositories/hr/absences-repository';
@@ -29,19 +31,23 @@ export class CancelAbsenceUseCase {
       tenantId,
     );
     if (!absence) {
-      throw new Error('Absence not found');
+      throw new ResourceNotFoundError('Absence not found');
     }
 
     // Check if can be cancelled
     if (!absence.status.canBeCancelled()) {
-      throw new Error('Absence cannot be cancelled in current status');
+      throw new BadRequestError(
+        'Absence cannot be cancelled in current status',
+      );
     }
 
     // Check if absence has already started
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     if (absence.startDate <= today && absence.isApproved()) {
-      throw new Error('Cannot cancel an absence that has already started');
+      throw new BadRequestError(
+        'Cannot cancel an absence that has already started',
+      );
     }
 
     // If it's a vacation and was approved, restore vacation days

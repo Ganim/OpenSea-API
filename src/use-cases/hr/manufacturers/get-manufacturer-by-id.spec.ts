@@ -21,6 +21,7 @@ describe('GetManufacturerByIdUseCase', () => {
 
     const result = await sut.execute({
       id: manufacturer.id.toString(),
+      tenantId: 'tenant-1',
     });
 
     expect(result.manufacturer).toBeDefined();
@@ -30,7 +31,7 @@ describe('GetManufacturerByIdUseCase', () => {
   });
 
   it('should throw ResourceNotFoundError when not found', async () => {
-    await expect(sut.execute({ id: 'non-existent-id' })).rejects.toThrow(
+    await expect(sut.execute({ id: 'non-existent-id', tenantId: 'tenant-1' })).rejects.toThrow(
       ResourceNotFoundError,
     );
   });

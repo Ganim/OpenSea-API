@@ -1,3 +1,6 @@
+import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { ConflictError } from '@/@errors/use-cases/conflict-error';
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Position } from '@/entities/hr/position';
 import { DepartmentsRepository } from '@/repositories/hr/departments-repository';
@@ -46,13 +49,15 @@ export class CreatePositionUseCase {
       tenantId,
     );
     if (existingPosition) {
-      throw new Error('Position with this code already exists');
+      throw new ConflictError('Position with this code already exists');
     }
 
     // Validate salary range
     if (minSalary !== undefined && maxSalary !== undefined) {
       if (minSalary > maxSalary) {
-        throw new Error('Minimum salary cannot be greater than maximum salary');
+        throw new BadRequestError(
+          'Minimum salary cannot be greater than maximum salary',
+        );
       }
     }
 
@@ -63,10 +68,12 @@ export class CreatePositionUseCase {
         tenantId,
       );
       if (!department) {
-        throw new Error('Department not found');
+        throw new ResourceNotFoundError('Department not found');
       }
       if (!department.isActive) {
-        throw new Error('Cannot create position in an inactive department');
+        throw new BadRequestError(
+          'Cannot create position in an inactive department',
+        );
       }
     }
 

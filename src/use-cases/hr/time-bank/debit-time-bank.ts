@@ -1,4 +1,6 @@
+import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ConflictError } from '@/@errors/use-cases/conflict-error';
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { TimeBank } from '@/entities/hr/time-bank';
 import { ErrorCodes } from '@/@errors/error-codes';
@@ -38,12 +40,12 @@ export class DebitTimeBankUseCase {
       tenantId,
     );
     if (!employee) {
-      throw new Error('Employee not found');
+      throw new ResourceNotFoundError('Employee not found');
     }
 
     // Validate hours
     if (hours <= 0) {
-      throw new Error('Hours must be greater than 0');
+      throw new BadRequestError('Hours must be greater than 0');
     }
 
     for (let attempt = 0; attempt < MAX_OPTIMISTIC_LOCK_RETRIES; attempt++) {
@@ -54,7 +56,9 @@ export class DebitTimeBankUseCase {
       );
 
       if (!timeBank) {
-        throw new Error('Time bank not found for this employee and year');
+        throw new ResourceNotFoundError(
+          'Time bank not found for this employee and year',
+        );
       }
 
       const expectedVersion = timeBank.version;

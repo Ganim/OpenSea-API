@@ -21,11 +21,12 @@ describe('Delete Supplier Use Case', () => {
 
     const result = await sut.execute({
       id: supplier.id.toString(),
+      tenantId: 'tenant-1',
     });
 
     expect(result.success).toBe(true);
 
-    const found = await suppliersRepository.findById(supplier.id);
+    const found = await suppliersRepository.findById(supplier.id, 'tenant-1');
     expect(found).toBeNull();
   });
 
@@ -33,6 +34,7 @@ describe('Delete Supplier Use Case', () => {
     await expect(
       sut.execute({
         id: 'non-existent-id',
+        tenantId: 'tenant-1',
       }),
     ).rejects.toBeInstanceOf(ResourceNotFoundError);
   });

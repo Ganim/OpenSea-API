@@ -1,3 +1,6 @@
+import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { ConflictError } from '@/@errors/use-cases/conflict-error';
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { WorkSchedule } from '@/entities/hr/work-schedule';
 import { WorkSchedulesRepository } from '@/repositories/hr/work-schedules-repository';
@@ -43,7 +46,7 @@ export class UpdateWorkScheduleUseCase {
       tenantId,
     );
     if (!existingSchedule) {
-      throw new Error('Work schedule not found');
+      throw new ResourceNotFoundError('Work schedule not found');
     }
 
     // Check if new name conflicts with another schedule
@@ -51,7 +54,7 @@ export class UpdateWorkScheduleUseCase {
       const scheduleWithSameName =
         await this.workSchedulesRepository.findByName(name, tenantId);
       if (scheduleWithSameName) {
-        throw new Error('Work schedule with this name already exists');
+        throw new ConflictError('Work schedule with this name already exists');
       }
     }
 
@@ -75,7 +78,9 @@ export class UpdateWorkScheduleUseCase {
 
     for (const time of timeFields) {
       if (time && !this.isValidTimeFormat(time)) {
-        throw new Error(`Invalid time format: ${time}. Expected HH:MM`);
+        throw new BadRequestError(
+          `Invalid time format: ${time}. Expected HH:MM`,
+        );
       }
     }
 
@@ -84,7 +89,9 @@ export class UpdateWorkScheduleUseCase {
       breakDuration !== undefined &&
       (breakDuration < 0 || breakDuration > 480)
     ) {
-      throw new Error('Break duration must be between 0 and 480 minutes');
+      throw new BadRequestError(
+        'Break duration must be between 0 and 480 minutes',
+      );
     }
 
     // Update work schedule
@@ -96,7 +103,7 @@ export class UpdateWorkScheduleUseCase {
     });
 
     if (!workSchedule) {
-      throw new Error('Failed to update work schedule');
+      throw new BadRequestError('Failed to update work schedule');
     }
 
     return {

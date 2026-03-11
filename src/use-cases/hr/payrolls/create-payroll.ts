@@ -1,3 +1,5 @@
+import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { ConflictError } from '@/@errors/use-cases/conflict-error';
 import type { Payroll } from '@/entities/hr/payroll';
 import { PayrollsRepository } from '@/repositories/hr/payrolls-repository';
 
@@ -19,13 +21,13 @@ export class CreatePayrollUseCase {
 
     // Validate month
     if (referenceMonth < 1 || referenceMonth > 12) {
-      throw new Error('Mês de referência inválido');
+      throw new BadRequestError('Mês de referência inválido');
     }
 
     // Validate year
     const currentYear = new Date().getFullYear();
     if (referenceYear < currentYear - 5 || referenceYear > currentYear + 1) {
-      throw new Error('Ano de referência inválido');
+      throw new BadRequestError('Ano de referência inválido');
     }
 
     // Check if payroll already exists for this period
@@ -36,7 +38,7 @@ export class CreatePayrollUseCase {
     );
 
     if (existingPayroll) {
-      throw new Error(
+      throw new ConflictError(
         `Já existe uma folha de pagamento para ${referenceMonth}/${referenceYear}`,
       );
     }
