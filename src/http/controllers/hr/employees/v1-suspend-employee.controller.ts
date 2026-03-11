@@ -15,7 +15,7 @@ import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
 
-export async function suspendEmployeeController(app: FastifyInstance) {
+export async function v1SuspendEmployeeController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'PATCH',
     url: '/v1/hr/employees/:employeeId/suspend',

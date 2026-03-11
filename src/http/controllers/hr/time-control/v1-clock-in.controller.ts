@@ -13,7 +13,7 @@ import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
 
-export async function clockInController(app: FastifyInstance) {
+export async function v1ClockInController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/hr/time-control/clock-in',
@@ -60,7 +60,7 @@ export async function clockInController(app: FastifyInstance) {
           entityId: timeEntry.id.toString(),
           placeholders: {
             employeeName: timeEntry.employeeId.toString(),
-            time: timeEntry.clockIn.toISOString(),
+            time: timeEntry.timestamp.toISOString(),
           },
         });
 

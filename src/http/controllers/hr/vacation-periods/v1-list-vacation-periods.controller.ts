@@ -12,7 +12,7 @@ import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
 
-export async function listVacationPeriodsController(app: FastifyInstance) {
+export async function v1ListVacationPeriodsController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/hr/vacation-periods',

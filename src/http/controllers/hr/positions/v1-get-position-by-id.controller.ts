@@ -1,6 +1,6 @@
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { positionWithDetailsResponseSchema } from '@/http/schemas/hr.schema';
+import { positionWithDetailsResponseSchema } from '@/http/schemas/hr';
 import { positionToDetailsDTO } from '@/mappers/hr/position';
 import { makeGetPositionByIdUseCase } from '@/use-cases/hr/positions/factories';
 import type { FastifyInstance } from 'fastify';
@@ -15,7 +15,7 @@ const querySchema = z.object({
   includeEmployees: z.coerce.boolean().optional().default(false),
 });
 
-export async function getPositionByIdController(app: FastifyInstance) {
+export async function v1GetPositionByIdController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/hr/positions/:id',

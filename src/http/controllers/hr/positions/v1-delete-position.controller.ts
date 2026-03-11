@@ -23,7 +23,7 @@ const responseSchema = z.object({
   message: z.string(),
 });
 
-export async function deletePositionController(app: FastifyInstance) {
+export async function v1DeletePositionController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'DELETE',
     url: '/v1/hr/positions/:id',
@@ -78,7 +78,9 @@ export async function deletePositionController(app: FastifyInstance) {
           oldData: { id: position.id, name: position.name },
         });
 
-        await getCacheService().delPattern(`${cacheKeys.hrPositions(tenantId)}:*`);
+        await getCacheService().delPattern(
+          `${cacheKeys.hrPositions(tenantId)}:*`,
+        );
 
         return reply.status(200).send({
           message: 'Position deleted successfully',

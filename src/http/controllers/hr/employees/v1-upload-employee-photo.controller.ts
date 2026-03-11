@@ -38,7 +38,7 @@ function buildPhotoFilename(employeeName: string): string {
   return `${sanitized}_photo_${Date.now()}.jpg`;
 }
 
-export async function uploadEmployeePhotoController(app: FastifyInstance) {
+export async function v1UploadEmployeePhotoController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/hr/employees/:id/photo',
@@ -193,9 +193,7 @@ export async function uploadEmployeePhotoController(app: FastifyInstance) {
         }
 
         // Upload to employee folder (or root as fallback)
-        const folderId = employeeFolder
-          ? employeeFolder.id.toString()
-          : null;
+        const folderId = employeeFolder ? employeeFolder.id.toString() : null;
 
         const filename = buildPhotoFilename(employee.fullName);
         const uploadFileUseCase = makeUploadFileUseCase();

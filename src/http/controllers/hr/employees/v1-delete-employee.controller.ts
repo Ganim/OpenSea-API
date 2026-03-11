@@ -12,7 +12,7 @@ import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
 
-export async function deleteEmployeeController(app: FastifyInstance) {
+export async function v1DeleteEmployeeController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'DELETE',
     url: '/v1/hr/employees/:id',

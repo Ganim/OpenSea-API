@@ -4,7 +4,7 @@ import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   listPositionsQuerySchema,
   positionResponseSchema,
-} from '@/http/schemas/hr.schema';
+} from '@/http/schemas/hr';
 import { prisma } from '@/lib/prisma';
 import { positionToDTO } from '@/mappers/hr/position';
 import { getCacheService } from '@/services/cache/cache-service';
@@ -23,7 +23,7 @@ const listResponseSchema = z.object({
   }),
 });
 
-export async function listPositionsController(app: FastifyInstance) {
+export async function v1ListPositionsController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/hr/positions',

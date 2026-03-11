@@ -10,7 +10,7 @@ import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   createPositionSchema,
   positionResponseSchema,
-} from '@/http/schemas/hr.schema';
+} from '@/http/schemas/hr';
 import { positionToDTO } from '@/mappers/hr/position';
 import { getCacheService } from '@/services/cache/cache-service';
 import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
@@ -19,7 +19,7 @@ import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
-export async function createPositionController(app: FastifyInstance) {
+export async function v1CreatePositionController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/hr/positions',
@@ -90,7 +90,9 @@ export async function createPositionController(app: FastifyInstance) {
           newData: { name, code, departmentId, level },
         });
 
-        await getCacheService().delPattern(`${cacheKeys.hrPositions(tenantId)}:*`);
+        await getCacheService().delPattern(
+          `${cacheKeys.hrPositions(tenantId)}:*`,
+        );
 
         return reply.status(201).send({ position: positionToDTO(position) });
       } catch (error) {

@@ -18,7 +18,12 @@ describe('Upload Employee Photo (E2E)', () => {
 
     // Create a minimal valid 100x100 JPEG for testing
     testImageBuffer = await sharp({
-      create: { width: 100, height: 100, channels: 3, background: { r: 255, g: 0, b: 0 } },
+      create: {
+        width: 100,
+        height: 100,
+        channels: 3,
+        background: { r: 255, g: 0, b: 0 },
+      },
     })
       .jpeg()
       .toBuffer();
@@ -35,7 +40,10 @@ describe('Upload Employee Photo (E2E)', () => {
     const response = await request(app.server)
       .post(`/v1/hr/employees/${employeeId}/photo`)
       .set('Authorization', `Bearer ${token}`)
-      .attach('file', testImageBuffer, { filename: 'photo.jpg', contentType: 'image/jpeg' })
+      .attach('file', testImageBuffer, {
+        filename: 'photo.jpg',
+        contentType: 'image/jpeg',
+      })
       .field('cropX', '0')
       .field('cropY', '0')
       .field('cropWidth', '100')
@@ -53,7 +61,10 @@ describe('Upload Employee Photo (E2E)', () => {
     const response = await request(app.server)
       .post(`/v1/hr/employees/${employeeId}/photo`)
       .set('Authorization', `Bearer ${token}`)
-      .attach('file', testImageBuffer, { filename: 'photo.jpg', contentType: 'image/jpeg' });
+      .attach('file', testImageBuffer, {
+        filename: 'photo.jpg',
+        contentType: 'image/jpeg',
+      });
 
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty('photoUrl');
@@ -78,7 +89,10 @@ describe('Upload Employee Photo (E2E)', () => {
     const response = await request(app.server)
       .post(`/v1/hr/employees/${fakeId}/photo`)
       .set('Authorization', `Bearer ${token}`)
-      .attach('file', testImageBuffer, { filename: 'photo.jpg', contentType: 'image/jpeg' });
+      .attach('file', testImageBuffer, {
+        filename: 'photo.jpg',
+        contentType: 'image/jpeg',
+      });
 
     expect(response.status).toBe(404);
   });
@@ -86,7 +100,10 @@ describe('Upload Employee Photo (E2E)', () => {
   it('should return 401 without auth', async () => {
     const response = await request(app.server)
       .post('/v1/hr/employees/00000000-0000-0000-0000-000000000000/photo')
-      .attach('file', testImageBuffer, { filename: 'photo.jpg', contentType: 'image/jpeg' });
+      .attach('file', testImageBuffer, {
+        filename: 'photo.jpg',
+        contentType: 'image/jpeg',
+      });
 
     expect(response.status).toBe(401);
   });
@@ -99,7 +116,10 @@ describe('Upload Employee Photo (E2E)', () => {
     const first = await request(app.server)
       .post(`/v1/hr/employees/${employeeId}/photo`)
       .set('Authorization', `Bearer ${token}`)
-      .attach('file', testImageBuffer, { filename: 'photo1.jpg', contentType: 'image/jpeg' });
+      .attach('file', testImageBuffer, {
+        filename: 'photo1.jpg',
+        contentType: 'image/jpeg',
+      });
 
     expect(first.status).toBe(200);
     const firstUrl = first.body.photoUrl;
@@ -108,7 +128,10 @@ describe('Upload Employee Photo (E2E)', () => {
     const second = await request(app.server)
       .post(`/v1/hr/employees/${employeeId}/photo`)
       .set('Authorization', `Bearer ${token}`)
-      .attach('file', testImageBuffer, { filename: 'photo2.jpg', contentType: 'image/jpeg' });
+      .attach('file', testImageBuffer, {
+        filename: 'photo2.jpg',
+        contentType: 'image/jpeg',
+      });
 
     expect(second.status).toBe(200);
     expect(second.body.photoUrl).not.toBe(firstUrl);

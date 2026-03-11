@@ -2,11 +2,11 @@ import type { FastifyInstance } from 'fastify';
 import { createModuleMiddleware } from '@/http/middlewares/tenant/verify-module';
 import { rateLimitConfig } from '@/config/rate-limits';
 import rateLimit from '@fastify/rate-limit';
-import { createWorkScheduleController } from './v1-create-work-schedule.controller';
-import { deleteWorkScheduleController } from './v1-delete-work-schedule.controller';
-import { getWorkScheduleController } from './v1-get-work-schedule.controller';
-import { listWorkSchedulesController } from './v1-list-work-schedules.controller';
-import { updateWorkScheduleController } from './v1-update-work-schedule.controller';
+import { v1CreateWorkScheduleController } from './v1-create-work-schedule.controller';
+import { v1DeleteWorkScheduleController } from './v1-delete-work-schedule.controller';
+import { v1GetWorkScheduleController } from './v1-get-work-schedule.controller';
+import { v1ListWorkSchedulesController } from './v1-list-work-schedules.controller';
+import { v1UpdateWorkScheduleController } from './v1-update-work-schedule.controller';
 
 export async function workSchedulesRoutes(app: FastifyInstance) {
   app.addHook('onRequest', createModuleMiddleware('HR'));
@@ -15,9 +15,9 @@ export async function workSchedulesRoutes(app: FastifyInstance) {
   app.register(
     async (managerApp) => {
       managerApp.register(rateLimit, rateLimitConfig.mutation);
-      managerApp.register(createWorkScheduleController);
-      managerApp.register(updateWorkScheduleController);
-      managerApp.register(deleteWorkScheduleController);
+      managerApp.register(v1CreateWorkScheduleController);
+      managerApp.register(v1UpdateWorkScheduleController);
+      managerApp.register(v1DeleteWorkScheduleController);
     },
     { prefix: '' },
   );
@@ -26,8 +26,8 @@ export async function workSchedulesRoutes(app: FastifyInstance) {
   app.register(
     async (queryApp) => {
       queryApp.register(rateLimit, rateLimitConfig.query);
-      queryApp.register(getWorkScheduleController);
-      queryApp.register(listWorkSchedulesController);
+      queryApp.register(v1GetWorkScheduleController);
+      queryApp.register(v1ListWorkSchedulesController);
     },
     { prefix: '' },
   );

@@ -18,7 +18,7 @@ import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
 
-export async function scheduleVacationController(app: FastifyInstance) {
+export async function v1ScheduleVacationController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'PATCH',
     url: '/v1/hr/vacation-periods/:vacationPeriodId/schedule',
@@ -73,8 +73,8 @@ export async function scheduleVacationController(app: FastifyInstance) {
           placeholders: {
             userName: request.user.sub,
             employeeName: vacationPeriod.employeeId.toString(),
-            startDate: startDate,
-            endDate: endDate,
+            startDate: startDate.toISOString(),
+            endDate: endDate.toISOString(),
           },
         });
 

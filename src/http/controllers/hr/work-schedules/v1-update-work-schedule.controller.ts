@@ -19,7 +19,7 @@ import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
 
-export async function updateWorkScheduleController(app: FastifyInstance) {
+export async function v1UpdateWorkScheduleController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'PUT',
     url: '/v1/hr/work-schedules/:workScheduleId',

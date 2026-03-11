@@ -12,7 +12,7 @@ import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
 
-export async function calculateWorkedHoursController(app: FastifyInstance) {
+export async function v1CalculateWorkedHoursController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/hr/time-control/calculate-hours',

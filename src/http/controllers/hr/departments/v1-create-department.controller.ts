@@ -18,7 +18,7 @@ import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
 
-export async function createDepartmentController(app: FastifyInstance) {
+export async function v1CreateDepartmentController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/hr/departments',
@@ -81,7 +81,9 @@ export async function createDepartmentController(app: FastifyInstance) {
           },
         });
 
-        await getCacheService().delPattern(`${cacheKeys.hrDepartments(tenantId)}:*`);
+        await getCacheService().delPattern(
+          `${cacheKeys.hrDepartments(tenantId)}:*`,
+        );
 
         return reply.status(201).send({
           department: departmentToDTO(department),

@@ -13,7 +13,7 @@ import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
 
-export async function cancelPayrollController(app: FastifyInstance) {
+export async function v1CancelPayrollController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/hr/payrolls/:payrollId/cancel',

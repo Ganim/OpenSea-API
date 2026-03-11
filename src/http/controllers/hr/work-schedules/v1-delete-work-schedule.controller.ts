@@ -13,7 +13,7 @@ import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
 
-export async function deleteWorkScheduleController(app: FastifyInstance) {
+export async function v1DeleteWorkScheduleController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'DELETE',
     url: '/v1/hr/work-schedules/:workScheduleId',

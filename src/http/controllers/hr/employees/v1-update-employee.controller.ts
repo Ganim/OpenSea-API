@@ -38,7 +38,7 @@ const checkEmployeeUpdateScope = createScopeMiddleware({
   },
 });
 
-export async function updateEmployeeController(app: FastifyInstance) {
+export async function v1UpdateEmployeeController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'PUT',
     url: '/v1/hr/employees/:employeeId',

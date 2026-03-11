@@ -8,7 +8,7 @@ import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   createEmployeeWithUserResponseSchema,
   createEmployeeWithUserSchema,
-} from '@/http/schemas/hr.schema';
+} from '@/http/schemas/hr';
 import { employeeToDTO } from '@/mappers/hr/employee/employee-to-dto';
 import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
 import { makeCreateEmployeeWithUserUseCase } from '@/use-cases/hr/employees/factories/make-create-employee-with-user-use-case';
@@ -17,7 +17,7 @@ import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
 
-export async function createEmployeeWithUserController(app: FastifyInstance) {
+export async function v1CreateEmployeeWithUserController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/hr/employees-with-user',

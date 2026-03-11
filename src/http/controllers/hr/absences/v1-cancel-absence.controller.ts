@@ -13,7 +13,7 @@ import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
 
-export async function cancelAbsenceController(app: FastifyInstance) {
+export async function v1CancelAbsenceController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'PATCH',
     url: '/v1/hr/absences/:absenceId/cancel',

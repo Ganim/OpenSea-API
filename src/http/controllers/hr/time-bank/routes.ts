@@ -2,11 +2,11 @@ import type { FastifyInstance } from 'fastify';
 import { createModuleMiddleware } from '@/http/middlewares/tenant/verify-module';
 import { rateLimitConfig } from '@/config/rate-limits';
 import rateLimit from '@fastify/rate-limit';
-import { adjustTimeBankController } from './v1-adjust-time-bank.controller';
-import { creditTimeBankController } from './v1-credit-time-bank.controller';
-import { debitTimeBankController } from './v1-debit-time-bank.controller';
-import { getTimeBankController } from './v1-get-time-bank.controller';
-import { listTimeBanksController } from './v1-list-time-banks.controller';
+import { v1AdjustTimeBankController } from './v1-adjust-time-bank.controller';
+import { v1CreditTimeBankController } from './v1-credit-time-bank.controller';
+import { v1DebitTimeBankController } from './v1-debit-time-bank.controller';
+import { v1GetTimeBankController } from './v1-get-time-bank.controller';
+import { v1ListTimeBanksController } from './v1-list-time-banks.controller';
 
 export async function timeBankRoutes(app: FastifyInstance) {
   app.addHook('onRequest', createModuleMiddleware('HR'));
@@ -15,9 +15,9 @@ export async function timeBankRoutes(app: FastifyInstance) {
   app.register(
     async (managerApp) => {
       managerApp.register(rateLimit, rateLimitConfig.mutation);
-      managerApp.register(creditTimeBankController);
-      managerApp.register(debitTimeBankController);
-      managerApp.register(adjustTimeBankController);
+      managerApp.register(v1CreditTimeBankController);
+      managerApp.register(v1DebitTimeBankController);
+      managerApp.register(v1AdjustTimeBankController);
     },
     { prefix: '' },
   );
@@ -26,8 +26,8 @@ export async function timeBankRoutes(app: FastifyInstance) {
   app.register(
     async (queryApp) => {
       queryApp.register(rateLimit, rateLimitConfig.query);
-      queryApp.register(getTimeBankController);
-      queryApp.register(listTimeBanksController);
+      queryApp.register(v1GetTimeBankController);
+      queryApp.register(v1ListTimeBanksController);
     },
     { prefix: '' },
   );

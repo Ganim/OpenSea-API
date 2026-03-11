@@ -46,7 +46,7 @@ const employeeLabelDataSchema = z.object({
   }),
 });
 
-export async function getEmployeesLabelDataController(app: FastifyInstance) {
+export async function v1GetEmployeesLabelDataController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/hr/employees/label-data',

@@ -16,7 +16,7 @@ import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
 
-export async function deleteDepartmentController(app: FastifyInstance) {
+export async function v1DeleteDepartmentController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'DELETE',
     url: '/v1/hr/departments/:id',
@@ -74,7 +74,9 @@ export async function deleteDepartmentController(app: FastifyInstance) {
           oldData: { id: department.id, name: department.name },
         });
 
-        await getCacheService().delPattern(`${cacheKeys.hrDepartments(tenantId)}:*`);
+        await getCacheService().delPattern(
+          `${cacheKeys.hrDepartments(tenantId)}:*`,
+        );
 
         return reply.status(204).send(null);
       } catch (error) {

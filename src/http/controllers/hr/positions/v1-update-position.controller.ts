@@ -8,7 +8,7 @@ import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   positionResponseSchema,
   updatePositionSchema,
-} from '@/http/schemas/hr.schema';
+} from '@/http/schemas/hr';
 import { positionToDTO } from '@/mappers/hr/position';
 import { getCacheService } from '@/services/cache/cache-service';
 import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
@@ -24,7 +24,7 @@ const paramsSchema = z.object({
   id: z.string().uuid('Invalid position ID format'),
 });
 
-export async function updatePositionController(app: FastifyInstance) {
+export async function v1UpdatePositionController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'PUT',
     url: '/v1/hr/positions/:id',
@@ -104,7 +104,9 @@ export async function updatePositionController(app: FastifyInstance) {
           newData: { name, code, departmentId, level },
         });
 
-        await getCacheService().delPattern(`${cacheKeys.hrPositions(tenantId)}:*`);
+        await getCacheService().delPattern(
+          `${cacheKeys.hrPositions(tenantId)}:*`,
+        );
 
         return reply.status(200).send({ position: positionToDTO(position) });
       } catch (error) {

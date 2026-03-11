@@ -2,15 +2,15 @@ import type { FastifyInstance } from 'fastify';
 import { createModuleMiddleware } from '@/http/middlewares/tenant/verify-module';
 import { rateLimitConfig } from '@/config/rate-limits';
 import rateLimit from '@fastify/rate-limit';
-import { cancelScheduledVacationController } from './v1-cancel-scheduled-vacation.controller';
-import { completeAcquisitionController } from './v1-complete-acquisition.controller';
-import { completeVacationController } from './v1-complete-vacation.controller';
-import { createVacationPeriodController } from './v1-create-vacation-period.controller';
-import { getVacationPeriodController } from './v1-get-vacation-period.controller';
-import { listVacationPeriodsController } from './v1-list-vacation-periods.controller';
-import { scheduleVacationController } from './v1-schedule-vacation.controller';
-import { sellVacationDaysController } from './v1-sell-vacation-days.controller';
-import { startVacationController } from './v1-start-vacation.controller';
+import { v1CancelScheduledVacationController } from './v1-cancel-scheduled-vacation.controller';
+import { v1CompleteAcquisitionController } from './v1-complete-acquisition.controller';
+import { v1CompleteVacationController } from './v1-complete-vacation.controller';
+import { v1CreateVacationPeriodController } from './v1-create-vacation-period.controller';
+import { v1GetVacationPeriodController } from './v1-get-vacation-period.controller';
+import { v1ListVacationPeriodsController } from './v1-list-vacation-periods.controller';
+import { v1ScheduleVacationController } from './v1-schedule-vacation.controller';
+import { v1SellVacationDaysController } from './v1-sell-vacation-days.controller';
+import { v1StartVacationController } from './v1-start-vacation.controller';
 
 export async function vacationPeriodsRoutes(app: FastifyInstance) {
   app.addHook('onRequest', createModuleMiddleware('HR'));
@@ -19,13 +19,13 @@ export async function vacationPeriodsRoutes(app: FastifyInstance) {
   app.register(
     async (mutationApp) => {
       mutationApp.register(rateLimit, rateLimitConfig.mutation);
-      mutationApp.register(createVacationPeriodController);
-      mutationApp.register(scheduleVacationController);
-      mutationApp.register(cancelScheduledVacationController);
-      mutationApp.register(startVacationController);
-      mutationApp.register(completeVacationController);
-      mutationApp.register(sellVacationDaysController);
-      mutationApp.register(completeAcquisitionController);
+      mutationApp.register(v1CreateVacationPeriodController);
+      mutationApp.register(v1ScheduleVacationController);
+      mutationApp.register(v1CancelScheduledVacationController);
+      mutationApp.register(v1StartVacationController);
+      mutationApp.register(v1CompleteVacationController);
+      mutationApp.register(v1SellVacationDaysController);
+      mutationApp.register(v1CompleteAcquisitionController);
     },
     { prefix: '' },
   );
@@ -34,8 +34,8 @@ export async function vacationPeriodsRoutes(app: FastifyInstance) {
   app.register(
     async (queryApp) => {
       queryApp.register(rateLimit, rateLimitConfig.query);
-      queryApp.register(getVacationPeriodController);
-      queryApp.register(listVacationPeriodsController);
+      queryApp.register(v1GetVacationPeriodController);
+      queryApp.register(v1ListVacationPeriodsController);
     },
     { prefix: '' },
   );

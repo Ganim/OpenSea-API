@@ -17,7 +17,12 @@ describe('Delete Employee Photo (E2E)', () => {
     tenantId = tenant.tenantId;
 
     testImageBuffer = await sharp({
-      create: { width: 100, height: 100, channels: 3, background: { r: 0, g: 255, b: 0 } },
+      create: {
+        width: 100,
+        height: 100,
+        channels: 3,
+        background: { r: 0, g: 255, b: 0 },
+      },
     })
       .jpeg()
       .toBuffer();
@@ -35,7 +40,10 @@ describe('Delete Employee Photo (E2E)', () => {
     const upload = await request(app.server)
       .post(`/v1/hr/employees/${employeeId}/photo`)
       .set('Authorization', `Bearer ${token}`)
-      .attach('file', testImageBuffer, { filename: 'photo.jpg', contentType: 'image/jpeg' });
+      .attach('file', testImageBuffer, {
+        filename: 'photo.jpg',
+        contentType: 'image/jpeg',
+      });
 
     expect(upload.status).toBe(200);
 
@@ -77,8 +85,9 @@ describe('Delete Employee Photo (E2E)', () => {
   });
 
   it('should return 401 without auth', async () => {
-    const response = await request(app.server)
-      .delete('/v1/hr/employees/00000000-0000-0000-0000-000000000000/photo');
+    const response = await request(app.server).delete(
+      '/v1/hr/employees/00000000-0000-0000-0000-000000000000/photo',
+    );
 
     expect(response.status).toBe(401);
   });

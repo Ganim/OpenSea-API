@@ -2,10 +2,10 @@ import type { FastifyInstance } from 'fastify';
 import { createModuleMiddleware } from '@/http/middlewares/tenant/verify-module';
 import { rateLimitConfig } from '@/config/rate-limits';
 import rateLimit from '@fastify/rate-limit';
-import { createBonusController } from './v1-create-bonus.controller';
-import { deleteBonusController } from './v1-delete-bonus.controller';
-import { getBonusController } from './v1-get-bonus.controller';
-import { listBonusesController } from './v1-list-bonuses.controller';
+import { v1CreateBonusController } from './v1-create-bonus.controller';
+import { v1DeleteBonusController } from './v1-delete-bonus.controller';
+import { v1GetBonusController } from './v1-get-bonus.controller';
+import { v1ListBonusesController } from './v1-list-bonuses.controller';
 
 export async function bonusesRoutes(app: FastifyInstance) {
   app.addHook('onRequest', createModuleMiddleware('HR'));
@@ -14,8 +14,8 @@ export async function bonusesRoutes(app: FastifyInstance) {
   app.register(
     async (mutationApp) => {
       mutationApp.register(rateLimit, rateLimitConfig.mutation);
-      mutationApp.register(createBonusController);
-      mutationApp.register(deleteBonusController);
+      mutationApp.register(v1CreateBonusController);
+      mutationApp.register(v1DeleteBonusController);
     },
     { prefix: '' },
   );
@@ -24,8 +24,8 @@ export async function bonusesRoutes(app: FastifyInstance) {
   app.register(
     async (queryApp) => {
       queryApp.register(rateLimit, rateLimitConfig.query);
-      queryApp.register(getBonusController);
-      queryApp.register(listBonusesController);
+      queryApp.register(v1GetBonusController);
+      queryApp.register(v1ListBonusesController);
     },
     { prefix: '' },
   );

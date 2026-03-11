@@ -35,7 +35,7 @@ const checkEmployeeReadScope = createScopeMiddleware({
   },
 });
 
-export async function getEmployeeByIdController(app: FastifyInstance) {
+export async function v1GetEmployeeByIdController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/hr/employees/:employeeId',

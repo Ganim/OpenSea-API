@@ -19,7 +19,7 @@ import z from 'zod';
 const checkEmployeesListScope =
   createScopeIdentifierMiddleware('hr.employees.list');
 
-export async function listEmployeesController(app: FastifyInstance) {
+export async function v1ListEmployeesController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/hr/employees',
