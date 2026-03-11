@@ -4,6 +4,7 @@ import { rateLimitConfig } from '@/config/rate-limits';
 import rateLimit from '@fastify/rate-limit';
 import { exportEmployeesReportController } from './v1-export-employees-report.controller';
 import { exportAbsencesReportController } from './v1-export-absences-report.controller';
+import { exportPayrollReportController } from './v1-export-payroll-report.controller';
 
 export async function hrReportsRoutes(app: FastifyInstance) {
   app.addHook('onRequest', createModuleMiddleware('HR'));
@@ -13,6 +14,7 @@ export async function hrReportsRoutes(app: FastifyInstance) {
       queryApp.register(rateLimit, rateLimitConfig.query);
       queryApp.register(exportEmployeesReportController);
       queryApp.register(exportAbsencesReportController);
+      queryApp.register(exportPayrollReportController);
     },
     { prefix: '' },
   );
