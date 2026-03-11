@@ -3,7 +3,7 @@ import type { Department } from '@/entities/hr/department';
 import {
   departmentToDTO,
   type DepartmentDTO,
-} from '../department/department-to-dto';
+} from '@/mappers/hr/department/department-to-dto';
 
 export interface CompanyDTO {
   id: string;

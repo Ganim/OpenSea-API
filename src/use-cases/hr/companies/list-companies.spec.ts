@@ -1,4 +1,4 @@
-import { InMemoryCompaniesRepository } from '@/repositories/hr/in-memory/in-memory-companies-repository';
+import { InMemoryCompaniesRepository } from '@/repositories/core/in-memory/in-memory-companies-repository';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { CreateCompanyUseCase } from './create-company';
 import { ListCompaniesUseCase } from './list-companies';

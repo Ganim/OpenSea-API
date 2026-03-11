@@ -1,4 +1,4 @@
-import { PrismaCompanyAddressesRepository } from '@/repositories/hr/prisma/prisma-company-addresses-repository';
+import { PrismaCompanyAddressesRepository } from '@/repositories/core/prisma/prisma-company-addresses-repository';
 import { CreateCompanyAddressUseCase } from '../create-company-address';
 import { DeleteCompanyAddressUseCase } from '../delete-company-address';
 import { GetCompanyAddressUseCase } from '../get-company-address';

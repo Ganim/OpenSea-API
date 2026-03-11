@@ -2,7 +2,7 @@ import type { CompanyFiscalSettings } from '@/entities/core/company-fiscal-setti
 import type {
   digitalCertificateTypeSchema,
   nfeEnvironmentSchema,
-} from '@/http/schemas/hr/companies/company-fiscal-settings.schema';
+} from '@/http/schemas/core/companies/company-fiscal-settings.schema';
 import type { z } from 'zod';
 
 export interface CompanyFiscalSettingsDTO {

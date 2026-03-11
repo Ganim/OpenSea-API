@@ -1,5 +1,5 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { InMemoryCompanyStakeholderRepository } from '@/repositories/hr/in-memory/in-memory-company-stakeholder-repository';
+import { InMemoryCompanyStakeholderRepository } from '@/repositories/core/in-memory/in-memory-company-stakeholder-repository';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { makeCompanyStakeholder } from './factories/make-company-stakeholder';
 import { GetCompanyStakeholderUseCase } from './get-company-stakeholder';

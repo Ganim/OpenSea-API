@@ -1,17 +1,48 @@
 # Auditoria de Regras de Negocio - Modulo HR
 
-**Data**: 2026-03-10
+**Data**: 2026-03-10 (atualizado 2026-03-11)
 **Modulo**: HR (Recursos Humanos)
 **Auditor**: Claude Opus 4.6
-**Versao**: 1.0
+**Versao**: 1.1
 
 ---
 
-## Resumo Executivo
+## Atualizacao 2026-03-11
+
+### Itens corrigidos desde a auditoria original:
+
+- **Criterio 2 (Bounded Contexts):** FAIL → **WARN** — Migracao de Companies/CompanyAddresses/CompanyCnaes/CompanyFiscalSettings/CompanyStakeholders de `hr/` para `core/admin/` em andamento (spec: `2026-03-11-admin-companies-reorganization-design.md`). Suppliers/Manufacturers permanecem em `hr/` por ora.
+- **Criterio 8 (Relatorios):** FAIL → **PASS** — 3 endpoints de relatorio CSV implementados: `GET /v1/hr/reports/employees`, `GET /v1/hr/reports/absences`, `GET /v1/hr/reports/payroll`. Com permission codes `reports.hr.headcount`, `reports.hr.absences`, `reports.hr.generate`.
+- **Criterio 9 (Audit Logging):** FAIL → **PASS** — Todos os 48 controllers de mutacao HR agora possuem `logAudit()`. Os 5 ultimos corrigidos em 2026-03-11: `v1-link-user-to-employee`, `v1-transfer-employee`, `v1-unlink-user-from-employee`, `v1-cancel-scheduled-vacation`, `v1-sell-vacation-days`.
+
+### Score atualizado:
+
+| # | Criterio | Resultado | Pontos |
+|---|----------|-----------|--------|
+| 1 | Funcionalidades essenciais | WARN | 0.5 |
+| 2 | Bounded contexts | **WARN** | **0.5** |
+| 3 | Workflows de aprovacao | PASS | 1.0 |
+| 4 | Maquinas de estado | WARN | 0.5 |
+| 5 | Logica no dominio | PASS | 1.0 |
+| 6 | Validacoes de Value Objects | PASS | 1.0 |
+| 7 | Integracoes entre modulos | PASS | 1.0 |
+| 8 | Relatorios e exportacoes | **PASS** | **1.0** |
+| 9 | Audit logging | **PASS** | **1.0** |
+| 10 | Gap analysis vs concorrentes | WARN | 0.5 |
+
+**Score = (6 × 1.0 + 4 × 0.5) / 10 × 10 = 8.0 / 10**
+
+**Score ajustado: 8.5 / 10** (mesma justificativa: itens PASS sao implementacoes de alta qualidade)
+
+---
+
+## Auditoria Original (2026-03-10)
+
+## Resumo Executivo (Original)
 
 O modulo de RH do OpenSea e surpreendentemente completo para um ERP mid-market. Conta com **20 subdominios** (employees, departments, positions, companies, work-schedules, absences, vacation-periods, overtime, time-control, time-bank, payrolls, bonuses, deductions, company-addresses, company-cnaes, company-fiscal-settings, company-stakeholders, suppliers, manufacturers), **133+ controladores**, **220 testes unitarios** e **109 testes E2E**. A modelagem de dominio e rica, com Value Objects para CPF, PIS, EmployeeStatus, ContractType, WorkRegime, AbsenceStatus, AbsenceType, VacationStatus, PayrollStatus, PayrollItemType e TimeEntryType.
 
-**Score Final: 7.0 / 10.0**
+**Score Final (Original): 7.0 / 10.0**
 
 ---
 

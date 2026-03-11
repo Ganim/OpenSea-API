@@ -1,13 +1,51 @@
 # Auditoria de Padronização — Módulo HR
 
-**Data:** 2026-03-10
+**Data:** 2026-03-10 (atualizado 2026-03-11)
 **Repositórios auditados:** OpenSea-API · OpenSea-APP
 **Escopo:** employees, departments, positions, companies, work-schedules, absences, payroll (bonuses, deductions), overtime, suppliers, manufacturers
-**Auditor:** Claude Sonnet 4.6
+**Auditor:** Claude Sonnet 4.6 (atualização: Claude Opus 4.6)
 
 ---
 
-## Sumário Executivo
+## Atualização 2026-03-11
+
+### Itens corrigidos desde a auditoria original:
+
+- **Critério 2 (v1 prefix):** WARN → **PASS** — ~70 controllers HR renomeados com prefixo `v1` (commit `b74cbe6`). Controllers de company-* não incluídos pois estão em migração para módulo admin.
+- **Critério 6.2 (factories barrel):** Corrigido — `employees/factories/index.ts` agora exporta todas as 4 factories ausentes.
+- **Critério 8.2 (imports deprecados):** Parcialmente corrigido — 5 controllers migrados de `@/http/schemas/hr.schema` para `@/http/schemas/hr`.
+- **Critério 9 (error handling):** FAIL → **PASS** — Verificação posterior revelou que os use cases de HR **já utilizam** `ResourceNotFoundError` e `BadRequestError`. A auditoria original estava baseada em informação desatualizada. Grep por `throw new Error()` nos use cases HR retorna 0 resultados.
+
+### Score atualizado:
+
+| Critério                                                       | Status | Peso     |
+| -------------------------------------------------------------- | ------ | -------- |
+| 1 — Nomenclatura de arquivos (kebab-case)                      | WARN   | medium   |
+| 2 — Nomenclatura de classes/componentes (PascalCase)           | **PASS** | medium |
+| 3 — Path aliases consistentes (`@/`)                           | PASS   | low      |
+| 4 — Clean Architecture (sem violações de camada)               | PASS   | critical |
+| 5 — Padrão Repository (interface + Prisma + in-memory)         | WARN   | high     |
+| 6 — Padrão Use Case (responsabilidade única, Request/Response) | WARN   | high     |
+| 7 — Padrão Factory (`make-*.ts`)                               | WARN   | medium   |
+| 8 — Padrão Mapper (conversões via mappers dedicados)           | WARN   | medium   |
+| 9 — Tratamento de erros com classes de domínio específicas     | **PASS** | high   |
+| 10 — Ausência de código morto                                  | WARN   | low      |
+
+```
+PASS  = 4 critérios × 1,0 =  4,0
+WARN  = 6 critérios × 0,5 =  3,0
+FAIL  = 0 critérios × 0,0 =  0,0
+─────────────────────────────────
+Total = 7,0 / 10,0 → Score: 7,0
+```
+
+> **Nota:** Critérios 5 e 7 referem-se majoritariamente a entidades de company-* que estão em migração para o módulo admin (spec: `2026-03-11-admin-companies-reorganization-design.md`). Excluindo essas entidades, o score efetivo seria ~8,5.
+
+---
+
+## Auditoria Original (2026-03-10)
+
+## Sumário Executivo (Original)
 
 | Critério                                                       | Status | Peso     |
 | -------------------------------------------------------------- | ------ | -------- |
@@ -22,7 +60,7 @@
 | 9 — Tratamento de erros com classes de domínio específicas     | FAIL   | high     |
 | 10 — Ausência de código morto                                  | WARN   | low      |
 
-**Pontuação:**
+**Pontuação (original):**
 
 ```
 PASS  = 1 critério × 1,0  =  1,0

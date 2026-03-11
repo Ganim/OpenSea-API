@@ -1,5 +1,5 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { InMemoryCompanyFiscalSettingsRepository } from '@/repositories/hr/in-memory/in-memory-company-fiscal-settings-repository';
+import { InMemoryCompanyFiscalSettingsRepository } from '@/repositories/core/in-memory/in-memory-company-fiscal-settings-repository';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { CreateCompanyFiscalSettingsUseCase } from './create-company-fiscal-settings';
 import { DeleteCompanyFiscalSettingsUseCase } from './delete-company-fiscal-settings';

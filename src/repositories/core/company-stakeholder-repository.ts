@@ -1,5 +1,5 @@
 import { UniqueEntityID } from '../../entities/domain/unique-entity-id';
-import { CompanyStakeholder } from '../../entities/hr';
+import { CompanyStakeholder } from '../../entities/core/company-stakeholder';
 
 export interface CreateCompanyStakeholderSchema {
   companyId: UniqueEntityID;

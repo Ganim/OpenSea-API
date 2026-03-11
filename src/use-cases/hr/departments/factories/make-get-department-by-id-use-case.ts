@@ -1,4 +1,4 @@
-import { PrismaCompaniesRepository } from '@/repositories/hr/prisma/prisma-companies-repository';
+import { PrismaCompaniesRepository } from '@/repositories/core/prisma/prisma-companies-repository';
 import { PrismaDepartmentsRepository } from '@/repositories/hr/prisma/prisma-departments-repository';
 import { PrismaPositionsRepository } from '@/repositories/hr/prisma/prisma-positions-repository';
 import { GetDepartmentByIdUseCase } from '../get-department-by-id';

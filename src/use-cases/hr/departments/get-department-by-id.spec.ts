@@ -1,5 +1,5 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import { InMemoryCompaniesRepository } from '@/repositories/hr/in-memory/in-memory-companies-repository';
+import { InMemoryCompaniesRepository } from '@/repositories/core/in-memory/in-memory-companies-repository';
 import { InMemoryDepartmentsRepository } from '@/repositories/hr/in-memory/in-memory-departments-repository';
 import { InMemoryPositionsRepository } from '@/repositories/hr/in-memory/in-memory-positions-repository';
 import { beforeEach, describe, expect, it } from 'vitest';

@@ -1,5 +1,5 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
-import { InMemoryCompanyFiscalSettingsRepository } from '@/repositories/hr/in-memory/in-memory-company-fiscal-settings-repository';
+import { InMemoryCompanyFiscalSettingsRepository } from '@/repositories/core/in-memory/in-memory-company-fiscal-settings-repository';
 import { describe, expect, it } from 'vitest';
 import { CreateCompanyFiscalSettingsUseCase } from './create-company-fiscal-settings';
 

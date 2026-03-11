@@ -1,4 +1,4 @@
-import { PrismaCompaniesRepository } from '@/repositories/hr/prisma/prisma-companies-repository';
+import { PrismaCompaniesRepository } from '@/repositories/core/prisma/prisma-companies-repository';
 import { PrismaDepartmentsRepository } from '@/repositories/hr/prisma/prisma-departments-repository';
 import { CreateCompanyUseCase } from '../create-company';
 import { DeleteCompanyUseCase } from '../delete-company';

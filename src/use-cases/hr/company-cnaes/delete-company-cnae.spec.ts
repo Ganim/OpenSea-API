@@ -1,6 +1,6 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import { InMemoryCompanyCnaesRepository } from '@/repositories/hr/in-memory/in-memory-company-cnaes-repository';
+import { InMemoryCompanyCnaesRepository } from '@/repositories/core/in-memory/in-memory-company-cnaes-repository';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { CreateCompanyCnaeUseCase } from './create-company-cnae';
 import { DeleteCompanyCnaeUseCase } from './delete-company-cnae';

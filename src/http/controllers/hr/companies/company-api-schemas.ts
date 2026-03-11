@@ -5,7 +5,7 @@ import {
   listCompaniesQuerySchema,
   companyResponseSchema as hrCompanyResponseSchema,
   companyWithDetailsResponseSchema as hrCompanyWithDetailsResponseSchema,
-} from '@/http/schemas/hr.schema';
+} from '@/http/schemas/core/companies/company.schema';
 import type { CompanyDTO } from '@/mappers/core/company/company-to-dto';
 import { z } from 'zod';
 

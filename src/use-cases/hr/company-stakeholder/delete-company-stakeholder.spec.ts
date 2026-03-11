@@ -1,6 +1,6 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { InMemoryCompanyStakeholderRepository } from '@/repositories/hr/in-memory/in-memory-company-stakeholder-repository';
+import { InMemoryCompanyStakeholderRepository } from '@/repositories/core/in-memory/in-memory-company-stakeholder-repository';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { DeleteCompanyStakeholderUseCase } from './delete-company-stakeholder';
 import { makeCompanyStakeholder } from './factories/make-company-stakeholder';

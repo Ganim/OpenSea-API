@@ -9,7 +9,7 @@ export { idSchema } from './common.schema';
 
 // Re-export everything from the new modular structure
 export * from './hr/employees';
-export * from './hr/companies';
+export * from './core/companies';
 export * from './hr/organization';
 export * from './hr/time-management';
 export * from './hr/leave';

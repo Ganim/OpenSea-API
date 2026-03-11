@@ -1,4 +1,4 @@
-import { InMemoryCompaniesRepository } from '@/repositories/hr/in-memory/in-memory-companies-repository';
+import { InMemoryCompaniesRepository } from '@/repositories/core/in-memory/in-memory-companies-repository';
 import { InMemoryDepartmentsRepository } from '@/repositories/hr/in-memory/in-memory-departments-repository';
 import { InMemoryEmployeesRepository } from '@/repositories/hr/in-memory/in-memory-employees-repository';
 import { InMemoryPositionsRepository } from '@/repositories/hr/in-memory/in-memory-positions-repository';

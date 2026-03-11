@@ -1,5 +1,5 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import { InMemoryCompanyStakeholderRepository } from '@/repositories/hr/in-memory/in-memory-company-stakeholder-repository';
+import { InMemoryCompanyStakeholderRepository } from '@/repositories/core/in-memory/in-memory-company-stakeholder-repository';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { makeCompanyStakeholder } from './factories/make-company-stakeholder';
 import { SyncCompanyStakeholdersFromCnpjApiUseCase } from './sync-company-stakeholders-from-cnpj-api';

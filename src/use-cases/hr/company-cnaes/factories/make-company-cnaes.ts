@@ -1,4 +1,4 @@
-import { PrismaCompanyCnaesRepository } from '@/repositories/hr/prisma/prisma-company-cnaes-repository';
+import { PrismaCompanyCnaesRepository } from '@/repositories/core/prisma/prisma-company-cnaes-repository';
 import { CreateCompanyCnaeUseCase } from '../create-company-cnae';
 import { DeleteCompanyCnaeUseCase } from '../delete-company-cnae';
 import { GetCompanyCnaeUseCase } from '../get-company-cnae';

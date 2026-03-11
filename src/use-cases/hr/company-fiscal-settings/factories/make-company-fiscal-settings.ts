@@ -1,4 +1,4 @@
-import { PrismaCompanyFiscalSettingsRepository } from '@/repositories/hr/prisma/prisma-company-fiscal-settings-repository';
+import { PrismaCompanyFiscalSettingsRepository } from '@/repositories/core/prisma/prisma-company-fiscal-settings-repository';
 import { CreateCompanyFiscalSettingsUseCase } from '../create-company-fiscal-settings';
 import { DeleteCompanyFiscalSettingsUseCase } from '../delete-company-fiscal-settings';
 import { GetCompanyFiscalSettingsUseCase } from '../get-company-fiscal-settings';

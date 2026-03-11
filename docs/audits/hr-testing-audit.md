@@ -1,17 +1,38 @@
 # Auditoria de Qualidade de Testes — Módulo HR
 
-**Data:** 2026-03-10
+**Data:** 2026-03-10 (atualizado 2026-03-11)
 **Módulo:** `hr` (employees, departments, positions, companies, work-schedules, absences, payroll, overtime, suppliers, manufacturers)
-**Auditor:** QA Senior — Claude Sonnet 4.6
+**Auditor:** QA Senior — Claude Sonnet 4.6 (atualização: Claude Opus 4.6)
 **Repositório:** `OpenSea-API`
 
 ---
 
-## Sumário Executivo
+## Atualização 2026-03-11
+
+### Itens corrigidos desde a auditoria original:
+
+- **Critério 10 (Multi-tenant isolation):** FAIL → **PASS** — Arquivo `src/http/controllers/hr/v1-hr-multi-tenant-isolation.e2e.spec.ts` existe com testes de isolamento para employees, departments e companies entre dois tenants distintos (Tenant A e Tenant B).
+
+### Score atualizado:
+
+```
+PASS:  6 critérios × 1.0 =  6.0
+WARN:  4 critérios × 0.5 =  2.0
+FAIL:  0 critérios × 0.0 =  0.0
+Total: 8.0 / 10
+```
+
+> **Nota:** Os 4 WARNs restantes são menores (3 testes unitários smoke, determinismo Date.now() em E2E, assertions genéricas em alguns E2E). Nenhum é FAIL.
+
+---
+
+## Auditoria Original (2026-03-10)
+
+## Sumário Executivo (Original)
 
 O módulo HR apresenta cobertura de testes **sólida e consistente**, com todos os 120+ casos de uso possuindo arquivos `.spec.ts` individuais e todos os 160+ controladores possuindo arquivos `.e2e.spec.ts` correspondentes. A infraestrutura de testes está bem organizada, com fábricas dedicadas e repositórios em memória fieis. As principais oportunidades de melhoria concentram-se em: (1) testes mínimos ("smoke tests") para casos de uso de baixa complexidade que merecem cobertura mais ampla de cenários de erro, (2) ausência total de testes de isolamento multi-tenant explícitos, e (3) uso recorrente de `Date.now()` em testes E2E sem semente determinística.
 
-**Pontuação Final: 7.0 / 10**
+**Pontuação Final (Original): 7.0 / 10**
 
 ```
 PASS:  5 critérios × 1.0 =  5.0

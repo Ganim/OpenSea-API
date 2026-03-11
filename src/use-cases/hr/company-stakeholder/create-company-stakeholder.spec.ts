@@ -1,5 +1,5 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
-import { InMemoryCompanyStakeholderRepository } from '@/repositories/hr/in-memory/in-memory-company-stakeholder-repository';
+import { InMemoryCompanyStakeholderRepository } from '@/repositories/core/in-memory/in-memory-company-stakeholder-repository';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { CreateCompanyStakeholderUseCase } from './create-company-stakeholder';
 

@@ -1,6 +1,6 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import { InMemoryCompanyAddressesRepository } from '@/repositories/hr/in-memory/in-memory-company-addresses-repository';
+import { InMemoryCompanyAddressesRepository } from '@/repositories/core/in-memory/in-memory-company-addresses-repository';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { CreateCompanyAddressUseCase } from './create-company-address';
 import { UpdateCompanyAddressUseCase } from './update-company-address';

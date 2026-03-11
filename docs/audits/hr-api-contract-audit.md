@@ -1,10 +1,22 @@
 # Auditoria de Contrato de API — Módulo HR
 
-**Data:** 2026-03-10
+**Data:** 2026-03-10 (atualizado 2026-03-11)
 **Módulo:** HR (Human Resources)
-**Auditor:** Claude Sonnet 4.6 (API Contract Auditor)
+**Auditor:** Claude Sonnet 4.6 (atualização: Claude Opus 4.6)
 **Backend:** `OpenSea-API/src/http/schemas/hr/`, `src/http/controllers/hr/`, `src/mappers/hr/`
 **Frontend:** `OpenSea-APP/src/types/hr/`, `src/services/hr/`, `src/config/api.ts`
+
+---
+
+## Atualização 2026-03-11
+
+### Notas:
+
+- Critérios 1, 2, 7, 10 referentes a entidades de `company-*` terão divergências resolvidas pela migração em andamento para módulo admin (spec: `2026-03-11-admin-companies-reorganization-design.md`). As inconsistências de CompanyStakeholder e CompanyFiscalSettings não são mais responsabilidade do módulo HR.
+- Critério 5 (paginação) e Critério 3 (enums) continuam pendentes de correção.
+- Score efetivo excluindo itens de company-*: ~7.5
+
+**Score atual: 6.0 / 10** (sem alteração — nenhuma correção de API contract foi feita nesta sessão)
 
 ---
 

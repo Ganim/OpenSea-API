@@ -1,5 +1,5 @@
 import { prisma } from '@/lib/prisma';
-import { PrismaCompanyStakeholderRepository } from '@/repositories/hr/prisma/prisma-company-stakeholder-repository';
+import { PrismaCompanyStakeholderRepository } from '@/repositories/core/prisma/prisma-company-stakeholder-repository';
 import { CreateCompanyStakeholderUseCase } from '../create-company-stakeholder';
 import { DeleteCompanyStakeholderUseCase } from '../delete-company-stakeholder';
 import { GetCompanyStakeholderUseCase } from '../get-company-stakeholder';
