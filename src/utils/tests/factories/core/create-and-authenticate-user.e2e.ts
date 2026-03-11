@@ -314,6 +314,7 @@ const ALL_PERMISSIONS = {
   },
   // FINANCE module
   finance: {
+    companies: ['read'],
     'cost-centers': ['create', 'read', 'update', 'delete', 'list', 'manage'],
     'bank-accounts': ['create', 'read', 'update', 'delete', 'list', 'manage'],
     categories: ['create', 'read', 'update', 'delete', 'list', 'manage'],
@@ -390,6 +391,28 @@ const ALL_PERMISSIONS = {
     ],
     participants: ['invite', 'respond', 'manage'],
     reminders: ['create', 'delete'],
+  },
+  // REPORTS module
+  reports: {
+    stock: [
+      'view',
+      'generate',
+      'inventory',
+      'movements',
+      'low-stock',
+      'valuation',
+    ],
+    sales: [
+      'view',
+      'generate',
+      'daily',
+      'monthly',
+      'by-customer',
+      'by-product',
+      'by-seller',
+      'commissions',
+    ],
+    hr: ['view', 'generate', 'headcount', 'turnover', 'absences'],
   },
   // TASKS module
   tasks: {

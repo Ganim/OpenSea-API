@@ -2,11 +2,11 @@ import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
 import { app } from '@/app';
+import { makeCreateCompanyUseCase } from '@/use-cases/admin/companies/factories/make-companies';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
 import { createAndSetupTenant } from '@/utils/tests/factories/core/create-and-setup-tenant.e2e';
-import { generateCompanyData } from '@/utils/tests/factories/hr/create-company.e2e';
 
-describe('Get Company By ID (E2E)', () => {
+describe('Get Company By ID - HR read-only (E2E)', () => {
   let tenantId: string;
 
   beforeAll(async () => {
@@ -21,14 +21,15 @@ describe('Get Company By ID (E2E)', () => {
 
   it('should get company by id with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
-    const companyData = generateCompanyData();
 
-    const createResponse = await request(app.server)
-      .post('/v1/hr/companies')
-      .set('Authorization', `Bearer ${token}`)
-      .send(companyData);
+    const createCompanyUseCase = makeCreateCompanyUseCase();
+    const { company } = await createCompanyUseCase.execute({
+      tenantId,
+      legalName: `Test Company ${Date.now()}`,
+      cnpj: `${Date.now()}`.slice(-14).padStart(14, '0'),
+    });
 
-    const companyId = createResponse.body.id;
+    const companyId = company.id.toString();
 
     const response = await request(app.server)
       .get(`/v1/hr/companies/${companyId}`)
@@ -37,5 +38,15 @@ describe('Get Company By ID (E2E)', () => {
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty('id');
     expect(response.body).toHaveProperty('legalName');
+  });
+
+  it('should return 404 for nonexistent company', async () => {
+    const { token } = await createAndAuthenticateUser(app, { tenantId });
+
+    const response = await request(app.server)
+      .get('/v1/hr/companies/00000000-0000-0000-0000-000000000000')
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(response.status).toBe(404);
   });
 });
