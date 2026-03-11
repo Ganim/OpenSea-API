@@ -2,7 +2,7 @@ import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
 import { app } from '@/app';
-import { makeCreateCompanyAddressUseCase } from '@/use-cases/hr/company-addresses/factories/make-company-addresses';
+import { makeCreateCompanyAddressUseCase } from '@/use-cases/admin/company-addresses/factories/make-company-addresses';
 import { makeCreateCompanyUseCase } from '@/use-cases/hr/companies/factories/make-companies';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
 import { createAndSetupTenant } from '@/utils/tests/factories/core/create-and-setup-tenant.e2e';

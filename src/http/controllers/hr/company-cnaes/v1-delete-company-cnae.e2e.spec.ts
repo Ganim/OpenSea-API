@@ -3,7 +3,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
 import { app } from '@/app';
 import { makeCreateCompanyUseCase } from '@/use-cases/hr/companies/factories/make-companies';
-import { makeCreateCompanyCnaeUseCase } from '@/use-cases/hr/company-cnaes/factories/make-company-cnaes';
+import { makeCreateCompanyCnaeUseCase } from '@/use-cases/admin/company-cnaes/factories/make-company-cnaes';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
 import { createAndSetupTenant } from '@/utils/tests/factories/core/create-and-setup-tenant.e2e';
 

@@ -9,7 +9,7 @@ import {
   idSchema,
 } from '@/http/schemas';
 import { companyAddressToDTO } from '@/mappers/core/company-address';
-import { makeCreateCompanyAddressUseCase } from '@/use-cases/hr/company-addresses/factories/make-company-addresses';
+import { makeCreateCompanyAddressUseCase } from '@/use-cases/admin/company-addresses/factories/make-company-addresses';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';

@@ -4,7 +4,7 @@ import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { idSchema } from '@/http/schemas/common.schema';
-import { makeDeleteCompanyStakeholderUseCase } from '@/use-cases/hr/company-stakeholder/factories';
+import { makeDeleteCompanyStakeholderUseCase } from '@/use-cases/admin/company-stakeholder/factories';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';

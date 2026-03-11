@@ -4,7 +4,7 @@ import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { companyCnaeResponseSchema, idSchema } from '@/http/schemas';
 import { companyCnaeToDTO } from '@/mappers/core/company-cnae';
-import { makeGetPrimaryCompanyCnaeUseCase } from '@/use-cases/hr/company-cnaes/factories/make-company-cnaes';
+import { makeGetPrimaryCompanyCnaeUseCase } from '@/use-cases/admin/company-cnaes/factories/make-company-cnaes';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';

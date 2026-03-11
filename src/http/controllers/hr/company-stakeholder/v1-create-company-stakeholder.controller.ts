@@ -8,7 +8,7 @@ import {
   createCompanyStakeholderSchema,
 } from '@/http/schemas/hr.schema';
 import { companyStakeholderToDTO } from '@/mappers/core/company-stakeholder';
-import { makeCreateCompanyStakeholderUseCase } from '@/use-cases/hr/company-stakeholder/factories';
+import { makeCreateCompanyStakeholderUseCase } from '@/use-cases/admin/company-stakeholder/factories';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';

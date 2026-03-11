@@ -7,7 +7,7 @@ import {
   paginationMetaSchema,
 } from '@/http/schemas';
 import { companyAddressToDTO } from '@/mappers/core/company-address';
-import { makeListCompanyAddressesUseCase } from '@/use-cases/hr/company-addresses/factories/make-company-addresses';
+import { makeListCompanyAddressesUseCase } from '@/use-cases/admin/company-addresses/factories/make-company-addresses';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';

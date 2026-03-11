@@ -3,7 +3,7 @@ import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { idSchema } from '@/http/schemas';
-import { makeDeleteCompanyAddressUseCase } from '@/use-cases/hr/company-addresses/factories/make-company-addresses';
+import { makeDeleteCompanyAddressUseCase } from '@/use-cases/admin/company-addresses/factories/make-company-addresses';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
