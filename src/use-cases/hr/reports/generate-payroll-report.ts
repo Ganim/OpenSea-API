@@ -1,4 +1,3 @@
-import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { EmployeesRepository } from '@/repositories/hr/employees-repository';
 import type { PayrollItemsRepository } from '@/repositories/hr/payroll-items-repository';
 import type { PayrollsRepository } from '@/repositories/hr/payrolls-repository';
@@ -102,14 +101,11 @@ export class GeneratePayrollReportUseCase {
       }
     }
 
-    // Resolve employee names
+    // Batch resolve employee names (1 query instead of N)
+    const employees = await this.employeesRepository.findManyActive(tenantId);
     const employeeNames = new Map<string, string>();
-    for (const empId of employeeItemsMap.keys()) {
-      const employee = await this.employeesRepository.findById(
-        new UniqueEntityID(empId),
-        tenantId,
-      );
-      employeeNames.set(empId, employee?.fullName ?? empId);
+    for (const emp of employees) {
+      employeeNames.set(emp.id.toString(), emp.fullName);
     }
 
     const headers = [

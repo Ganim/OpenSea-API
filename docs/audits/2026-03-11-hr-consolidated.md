@@ -8,7 +8,7 @@
 
 ---
 
-## Score Geral: 8.8 / 10 (atualizado apos correcoes de 2026-03-11 sessao 2)
+## Score Geral: 8.9 / 10 (atualizado apos correcoes de 2026-03-11 sessao 3)
 
 ---
 
@@ -16,16 +16,16 @@
 
 | Dimensao       | Score  | Delta vs sessao 1 | Status     | Peso (redistribuido)         |
 | -------------- | ------ | ----------------- | ---------- | ---------------------------- |
-| Security       | 8.0/10 | =                 | Bom        | 16.7%                        |
-| Data Integrity | 8.5/10 | +1.5              | Bom        | 16.7%                        |
-| Business Rules | 8.5/10 | +1.0              | Bom        | 13.1%                        |
+| Security       | 8.5/10 | +0.5              | Bom        | 16.7%                        |
+| Data Integrity | 9.0/10 | +2.0              | Otimo      | 16.7%                        |
+| Business Rules | 9.0/10 | +1.5              | Otimo      | 13.1%                        |
 | API Contract   | 9.0/10 | +1.5              | Otimo      | 11.9%                        |
 | Testing        | 9.5/10 | +1.5              | Excelente  | 11.9%                        |
 | Standards      | 9.0/10 | +1.5              | Otimo      | 10.7%                        |
-| Performance    | 7.5/10 | =                 | Bom        | 9.5%                         |
+| Performance    | 8.5/10 | +1.0              | Bom        | 9.5%                         |
 | Governance     | 9.0/10 | +1.5              | Otimo      | 9.5% (redistribuido de 3.6%) |
 
-**Formula com pesos redistribuidos:** `8.8 = (8.0*0.167 + 8.5*0.167 + 8.5*0.131 + 9.0*0.119 + 9.5*0.119 + 9.0*0.107 + 7.5*0.095 + 9.0*0.095)`
+**Formula com pesos redistribuidos:** `8.9 = (8.5*0.167 + 9.0*0.167 + 9.0*0.131 + 9.0*0.119 + 9.5*0.119 + 9.0*0.107 + 8.5*0.095 + 9.0*0.095) = 8.93`
 
 ---
 
@@ -41,7 +41,7 @@
 
 ### WARN
 
-- **Permission granularity em absences/overtime:** Controllers de request-vacation, request-sick-leave, request-overtime usam apenas `verifyJwt + verifyTenant` sem `createPermissionMiddleware`. Aceitavel para "self-service" requests, mas sem verificacao de permissao especifica (WARN, nao FAIL, porque o use case valida o employeeId do tenant)
+- ~~**Permission granularity em absences/overtime:** Controllers de request-vacation, request-sick-leave, request-overtime usam apenas `verifyJwt + verifyTenant` sem `createPermissionMiddleware`~~ -- **RESOLVIDO (sessao 3):** Adicionado `createPermissionMiddleware` com `PermissionCodes.SELF.ABSENCES.REQUEST` e `PermissionCodes.SELF.OVERTIME.REQUEST` nos 3 controllers
 - **Read controllers sem permissao:** 28 controllers de read/list usam apenas `verifyJwt + verifyTenant` sem permission check. Isso eh aceitavel no padrao do projeto (todos autenticados do tenant podem ler), mas difere do padrao mais restritivo de outros modulos
 
 ### FAIL
@@ -60,9 +60,9 @@
 
 ### WARN
 
-- **Payroll sem transacao completa:** `create-payroll` nao usa TransactionManager (cria payroll + items em operacoes separadas). Risco de payroll sem items em caso de falha parcial
-- **Time bank operations:** `credit-time-bank`, `debit-time-bank`, `adjust-time-bank` nao usam transacoes. Se o update do saldo falhar apos registrar o movimento, dados ficam inconsistentes
-- **Vacation-period state transitions:** `schedule-vacation`, `start-vacation`, `complete-vacation` nao usam TransactionManager. Transicoes de estado multi-step podem ficar em estado intermediario
+- ~~**Payroll sem transacao completa:** `create-payroll` nao usa TransactionManager~~ -- **REAVALIADO (sessao 3):** `create-payroll` so cria o header; items sao criados em `calculate-payroll` que JA usa TransactionManager. Fluxo by-design (create → calculate sao steps separados)
+- ~~**Time bank operations:** `credit-time-bank`, `debit-time-bank`, `adjust-time-bank` nao usam transacoes~~ -- **REAVALIADO (sessao 3):** Os 3 use cases ja usam optimistic locking (`optimisticSave` com `version` + retry loop 3x). Como cada operacao faz 1 unico write atomico (sem "registrar movimento + atualizar saldo" separados), transacao nao eh necessaria
+- ~~**Vacation-period state transitions:** `schedule-vacation`, `start-vacation`, `complete-vacation` nao usam TransactionManager~~ -- **REAVALIADO (sessao 3):** Cada transicao eh uma unica operacao atomica de `save()` (1 update por execucao). Nao ha multi-step para agrupar em transacao
 
 ### FAIL
 
@@ -86,8 +86,8 @@
 ### WARN
 
 - ~~**Vacation-period expire:** Use case sem controller~~ -- **RESOLVIDO (sessao 2):** Controller `v1-expire-vacation-periods` criado e registrado nas rotas
-- **Time-control sem validacao de jornada:** `clock-in`/`clock-out` nao validam se o funcionario esta dentro do `work-schedule` configurado. Permite registros de ponto fora do horario sem alerta
-- **Overtime sem limite:** Nao ha validacao de limite maximo de horas extras por periodo (CLT limita a 2h/dia exceto acordo coletivo)
+- **Time-control sem validacao de jornada:** `clock-in`/`clock-out` nao validam se o funcionario esta dentro do `work-schedule` configurado. Requer mudanca arquitetural (Employee → WorkSchedule relation). Futuro improvement
+- ~~**Overtime sem limite:** Nao ha validacao de limite maximo de horas extras por periodo (CLT limita a 2h/dia exceto acordo coletivo)~~ -- **RESOLVIDO (sessao 3):** Adicionado validacao CLT Art. 59 (max 2h/dia) em `request-overtime`. Verifica overtime existente no mesmo dia via `findManyByEmployeeAndDateRange`. 2 novos testes unitarios
 
 ### FAIL
 
@@ -178,9 +178,9 @@
 
 ### WARN
 
-- **N+1 potencial em list-employees:** Se o Prisma repository faz `include` de department/position/company em list queries, pode gerar N+1. Sem `select` otimizado visivel
-- **calculate-payroll:** Calculo de folha para multiplos funcionarios pode ser pesado sem batch processing ou paginacao
-- **Reports sem streaming:** Report controllers geram CSV -- se nao usam streaming para datasets grandes, podem causar memory pressure
+- **N+1 potencial em list-employees:** Prisma repository faz `include` de department/position/company em list queries. Sem `select` otimizado visivel -- mitigado por pagination no DB level
+- ~~**calculate-payroll:** Calculo de folha para multiplos funcionarios pode ser pesado sem batch processing ou paginacao~~ -- **RESOLVIDO (sessao 3):** Batch prefetch com `Promise.all` (4 queries paralelas) + groupBy em memoria. Reduzido de N*5 queries para 5 queries totais
+- ~~**Reports sem streaming:** Report controllers geram CSV -- se nao usam streaming para datasets grandes, podem causar memory pressure~~ -- **PARCIALMENTE RESOLVIDO (sessao 3):** Payroll report N+1 eliminado (`findById` em loop → `findManyActive` batch). Employee report mantém limite de 10k (aceitavel para CSV in-memory)
 
 ### FAIL
 
@@ -246,7 +246,8 @@
 | ---------- | ------- | --- | ---- | ------- | ---- | ------- | --- | -------- | ------- |
 | 2026-03-10 | ~6.3    | N/A | N/A  | 5.0     | N/A  | 7.0     | N/A | 6.0      | 7.0     |
 | 2026-03-11 | 7.6     | 8.0 | 7.5  | 7.5     | 7.0  | 8.0     | 7.5 | 7.5      | 7.5     |
-| 2026-03-11b| **8.8** | 8.0 | 7.5  | **9.0** | 8.5  | **9.5** | 9.0 | **9.0**  | **8.5** |
+| 2026-03-11b| 8.8     | 8.0 | 7.5  | **9.0** | 8.5  | **9.5** | 9.0 | **9.0**  | **8.5** |
+| 2026-03-11c| **8.9** | **8.5** | **8.5** | **9.0** | **9.0** | 9.5     | 9.0 | 9.0      | **9.0** |
 
 ---
 
@@ -283,3 +284,14 @@ As correcoes aplicadas trouxeram melhorias significativas:
 4. **Reports permissions:** Modulo `reports` adicionado a `ALL_PERMISSIONS` no test factory (reports.hr.headcount, reports.hr.absences, etc.)
 5. **PAYROLL/PAYROLLS:** Ja resolvido na sessao 1 (deprecado + aliased)
 6. **Barrel exports:** Ja completados na sessao 1 (employees/index.ts, vacation-periods/index.ts, reports/index.ts, reports/factories/index.ts)
+
+---
+
+## Correcoes Sessao 3 (2026-03-11) — Performance
+
+1. **calculate-payroll batch prefetch:** Refatorado de N*5 queries sequenciais para 5 queries paralelas com `Promise.all`. Overtime, absences, bonuses e deductions sao buscados em batch e agrupados por `employeeId` em memoria. Employee object passado diretamente (eliminando `findById` redundante)
+2. **payroll-report batch names:** Loop `findById` per-employee substituido por `findManyActive` batch (N queries → 1 query)
+3. **3 idSchema import fixes:** Corrigido import duplicado de `idSchema` (erro da sessao 2) em `v1-cancel-absence`, `v1-cancel-scheduled-vacation`, `v1-start-vacation`
+4. **3 self-service permission middlewares:** Adicionado `createPermissionMiddleware` com `SELF.ABSENCES.REQUEST` e `SELF.OVERTIME.REQUEST` em `v1-request-vacation`, `v1-request-sick-leave`, `v1-request-overtime`
+5. **Data Integrity reavaliacao:** `create-payroll` (fluxo by-design), time-bank (optimistic locking), vacation transitions (atomic single save) — 3 WARNs reclassificados como corretos
+6. **CLT overtime limit:** Adicionado validacao Art. 59 CLT (max 2h extras/dia) em `request-overtime` com 2 novos testes unitarios (359 total)

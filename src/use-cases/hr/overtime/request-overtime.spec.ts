@@ -101,7 +101,7 @@ describe('Request Overtime Use Case', () => {
         hours: 0,
         reason: 'Need to work overtime for project deadline',
       }),
-    ).rejects.toThrow('Hours must be greater than 0');
+    ).rejects.toThrow('Horas devem ser maior que 0');
   });
 
   it('should throw error for hours exceeding 12', async () => {
@@ -113,7 +113,7 @@ describe('Request Overtime Use Case', () => {
         hours: 15,
         reason: 'Need to work overtime for project deadline',
       }),
-    ).rejects.toThrow('Hours cannot exceed 12 hours per request');
+    ).rejects.toThrow('Horas não podem exceder 12 horas por solicitação');
   });
 
   it('should throw error for reason too short', async () => {
@@ -125,6 +125,50 @@ describe('Request Overtime Use Case', () => {
         hours: 2,
         reason: 'Short',
       }),
-    ).rejects.toThrow('Reason must be at least 10 characters');
+    ).rejects.toThrow('Motivo deve ter pelo menos 10 caracteres');
+  });
+
+  it('should enforce CLT 2h/day overtime limit', async () => {
+    // First request: 1.5h on the same day
+    await sut.execute({
+      tenantId: TENANT_ID,
+      employeeId: testEmployee.id.toString(),
+      date: new Date('2024-01-15'),
+      hours: 1.5,
+      reason: 'Need to work overtime for project deadline',
+    });
+
+    // Second request: 1h would exceed 2h limit (1.5 + 1 = 2.5)
+    await expect(
+      sut.execute({
+        tenantId: TENANT_ID,
+        employeeId: testEmployee.id.toString(),
+        date: new Date('2024-01-15'),
+        hours: 1,
+        reason: 'Need more overtime for project deadline',
+      }),
+    ).rejects.toThrow('Limite CLT de 2h extras/dia excedido');
+  });
+
+  it('should allow overtime on different days', async () => {
+    // 2h on day 1
+    await sut.execute({
+      tenantId: TENANT_ID,
+      employeeId: testEmployee.id.toString(),
+      date: new Date('2024-01-15'),
+      hours: 2,
+      reason: 'Need to work overtime for project deadline',
+    });
+
+    // 2h on day 2 — should work fine
+    const result = await sut.execute({
+      tenantId: TENANT_ID,
+      employeeId: testEmployee.id.toString(),
+      date: new Date('2024-01-16'),
+      hours: 2,
+      reason: 'Need to work overtime for another deadline',
+    });
+
+    expect(result.overtime.hours).toBe(2);
   });
 });

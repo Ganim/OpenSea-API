@@ -1,7 +1,9 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
+import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { absenceResponseSchema, requestVacationSchema } from '@/http/schemas';
@@ -16,7 +18,14 @@ export async function v1RequestVacationController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/hr/absences/vacation',
-    preHandler: [verifyJwt, verifyTenant],
+    preHandler: [
+      verifyJwt,
+      verifyTenant,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.SELF.ABSENCES.REQUEST,
+        resource: 'absences',
+      }),
+    ],
     schema: {
       tags: ['HR - Absences'],
       summary: 'Request vacation',

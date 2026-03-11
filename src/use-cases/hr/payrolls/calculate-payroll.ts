@@ -2,6 +2,11 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { getINSSTable, getIRRFTable } from '@/constants/hr/tax-tables';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import type { Absence } from '@/entities/hr/absence';
+import type { Bonus } from '@/entities/hr/bonus';
+import type { Deduction } from '@/entities/hr/deduction';
+import type { Employee } from '@/entities/hr/employee';
+import type { Overtime } from '@/entities/hr/overtime';
 import type { Payroll } from '@/entities/hr/payroll';
 import type { PayrollItem } from '@/entities/hr/payroll-item';
 import type { TransactionManager } from '@/lib/transaction-manager';
@@ -22,6 +27,22 @@ export interface CalculatePayrollRequest {
 export interface CalculatePayrollResponse {
   payroll: Payroll;
   items: PayrollItem[];
+}
+
+function groupByEmployeeId<T extends { employeeId: UniqueEntityID }>(
+  items: T[],
+): Map<string, T[]> {
+  const map = new Map<string, T[]>();
+  for (const item of items) {
+    const key = item.employeeId.toString();
+    const group = map.get(key);
+    if (group) {
+      group.push(item);
+    } else {
+      map.set(key, [item]);
+    }
+  }
+  return map;
 }
 
 export class CalculatePayrollUseCase {
@@ -65,14 +86,50 @@ export class CalculatePayrollUseCase {
       // Get all active employees
       const employees = await this.employeesRepository.findManyActive(tenantId);
 
+      // Batch prefetch: 4 queries instead of 4*N
+      const periodStart = new Date(
+        payroll.referenceYear,
+        payroll.referenceMonth - 1,
+        1,
+      );
+      const periodEnd = new Date(
+        payroll.referenceYear,
+        payroll.referenceMonth,
+        0,
+      );
+
+      const [allOvertime, allAbsences, allBonuses, allDeductions] =
+        await Promise.all([
+          this.overtimeRepository.findMany(tenantId, {
+            startDate: periodStart,
+            endDate: periodEnd,
+          }),
+          this.absencesRepository.findMany(tenantId, {
+            startDate: periodStart,
+            endDate: periodEnd,
+          }),
+          this.bonusesRepository.findManyPending(tenantId),
+          this.deductionsRepository.findManyPending(tenantId),
+        ]);
+
+      // Group by employeeId in memory
+      const overtimeByEmployee = groupByEmployeeId(allOvertime);
+      const absencesByEmployee = groupByEmployeeId(allAbsences);
+      const bonusesByEmployee = groupByEmployeeId(allBonuses);
+      const deductionsByEmployee = groupByEmployeeId(allDeductions);
+
       const createdItems: PayrollItem[] = [];
 
-      // Calculate for each employee
+      // Calculate for each employee using prefetched data
       for (const employee of employees) {
+        const empId = employee.id.toString();
         const employeeItems = await this.calculateEmployeePayroll(
           payroll,
-          employee.id,
-          tenantId,
+          employee,
+          overtimeByEmployee.get(empId) ?? [],
+          absencesByEmployee.get(empId) ?? [],
+          bonusesByEmployee.get(empId) ?? [],
+          deductionsByEmployee.get(empId) ?? [],
         );
         createdItems.push(...employeeItems);
       }
@@ -106,27 +163,16 @@ export class CalculatePayrollUseCase {
 
   private async calculateEmployeePayroll(
     payroll: Payroll,
-    employeeId: UniqueEntityID,
-    tenantId: string,
+    employee: Employee,
+    overtimes: Overtime[],
+    absences: Absence[],
+    bonuses: Bonus[],
+    deductions: Deduction[],
   ): Promise<PayrollItem[]> {
     const items: PayrollItem[] = [];
-    const periodStart = new Date(
-      payroll.referenceYear,
-      payroll.referenceMonth - 1,
-      1,
-    );
-    const periodEnd = new Date(
-      payroll.referenceYear,
-      payroll.referenceMonth,
-      0,
-    );
+    const employeeId = employee.id;
 
-    // 1. Get base salary from employee
-    const employee = await this.employeesRepository.findById(
-      employeeId,
-      tenantId,
-    );
-    if (!employee || !employee.status.isActive()) return items;
+    if (!employee.status.isActive()) return items;
 
     const baseSalary = employee.baseSalary;
 
@@ -141,15 +187,7 @@ export class CalculatePayrollUseCase {
     });
     items.push(baseSalaryItem);
 
-    // 2. Calculate overtime
-    const overtimes =
-      await this.overtimeRepository.findManyByEmployeeAndDateRange(
-        employeeId,
-        periodStart,
-        periodEnd,
-        tenantId,
-      );
-
+    // 2. Calculate overtime (from prefetched data)
     for (const overtime of overtimes) {
       if (overtime.isApproved()) {
         // Calculate overtime amount (1.5x hourly rate)
@@ -170,15 +208,7 @@ export class CalculatePayrollUseCase {
       }
     }
 
-    // 3. Calculate absences deductions
-    const absences =
-      await this.absencesRepository.findManyByEmployeeAndDateRange(
-        employeeId,
-        periodStart,
-        periodEnd,
-        tenantId,
-      );
-
+    // 3. Calculate absences deductions (from prefetched data)
     for (const absence of absences) {
       if (!absence.isPaid && absence.isApproved()) {
         // Calculate daily rate
@@ -199,12 +229,7 @@ export class CalculatePayrollUseCase {
       }
     }
 
-    // 4. Apply bonuses
-    const bonuses = await this.bonusesRepository.findManyPendingByEmployee(
-      employeeId,
-      tenantId,
-    );
-
+    // 4. Apply bonuses (from prefetched data)
     for (const bonus of bonuses) {
       if (!bonus.isPaid) {
         const bonusItem = await this.payrollItemsRepository.create({
@@ -221,13 +246,7 @@ export class CalculatePayrollUseCase {
       }
     }
 
-    // 5. Apply deductions
-    const deductions =
-      await this.deductionsRepository.findManyPendingByEmployee(
-        employeeId,
-        tenantId,
-      );
-
+    // 5. Apply deductions (from prefetched data)
     for (const deduction of deductions) {
       const deductionItem = await this.payrollItemsRepository.create({
         payrollId: payroll.id,

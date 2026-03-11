@@ -44,16 +44,44 @@ export class RequestOvertimeUseCase {
 
     // Validate hours
     if (hours <= 0) {
-      throw new BadRequestError('Hours must be greater than 0');
+      throw new BadRequestError('Horas devem ser maior que 0');
     }
 
     if (hours > 12) {
-      throw new BadRequestError('Hours cannot exceed 12 hours per request');
+      throw new BadRequestError('Horas não podem exceder 12 horas por solicitação');
+    }
+
+    // CLT Art. 59: max 2 hours of overtime per day (unless collective agreement)
+    const MAX_DAILY_OVERTIME_HOURS = 2;
+    const dayStart = new Date(date);
+    dayStart.setHours(0, 0, 0, 0);
+    const dayEnd = new Date(date);
+    dayEnd.setHours(23, 59, 59, 999);
+
+    const existingOvertime =
+      await this.overtimeRepository.findManyByEmployeeAndDateRange(
+        new UniqueEntityID(employeeId),
+        dayStart,
+        dayEnd,
+        tenantId,
+      );
+
+    const totalExistingHours = existingOvertime.reduce(
+      (sum, ot) => sum + ot.hours,
+      0,
+    );
+
+    if (totalExistingHours + hours > MAX_DAILY_OVERTIME_HOURS) {
+      const remaining = Math.max(0, MAX_DAILY_OVERTIME_HOURS - totalExistingHours);
+      throw new BadRequestError(
+        `Limite CLT de ${MAX_DAILY_OVERTIME_HOURS}h extras/dia excedido. ` +
+          `Já registrado: ${totalExistingHours}h. Disponível: ${remaining}h`,
+      );
     }
 
     // Validate reason
     if (!reason || reason.trim().length < 10) {
-      throw new BadRequestError('Reason must be at least 10 characters');
+      throw new BadRequestError('Motivo deve ter pelo menos 10 caracteres');
     }
 
     // Create overtime request
