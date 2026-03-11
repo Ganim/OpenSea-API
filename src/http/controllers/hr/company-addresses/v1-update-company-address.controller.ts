@@ -8,7 +8,7 @@ import {
   idSchema,
   updateCompanyAddressSchema,
 } from '@/http/schemas';
-import { companyAddressToDTO } from '@/mappers/hr/company-address';
+import { companyAddressToDTO } from '@/mappers/core/company-address';
 import { makeUpdateCompanyAddressUseCase } from '@/use-cases/hr/company-addresses/factories/make-company-addresses';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';

@@ -4,7 +4,7 @@ import { cacheConfig, cacheKeys } from '@/config/redis';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { prisma } from '@/lib/prisma';
-import { companyToDTO } from '@/mappers/hr/company/company-to-dto';
+import { companyToDTO } from '@/mappers/core/company/company-to-dto';
 import { getCacheService } from '@/services/cache/cache-service';
 import { makeListCompaniesUseCase } from '@/use-cases/hr/companies/factories/make-companies';
 import type { FastifyInstance, FastifyReply } from 'fastify';

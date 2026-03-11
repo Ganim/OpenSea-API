@@ -1,7 +1,7 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { CompanyAddress } from '@/entities/core/company-address';
 import { prisma } from '@/lib/prisma';
-import { mapCompanyAddressPrismaToDomain } from '@/mappers/hr/company-address';
+import { mapCompanyAddressPrismaToDomain } from '@/mappers/core/company-address';
 import type { Prisma } from '@prisma/generated/client.js';
 import type {
   CompanyAddressesRepository,

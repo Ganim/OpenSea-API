@@ -1,6 +1,8 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
@@ -70,6 +72,25 @@ export async function v1TransferEmployeeController(app: FastifyInstance) {
           newBaseSalary,
           effectiveDate,
           reason,
+        });
+
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.HR.EMPLOYEE_TRANSFER,
+          entityId: employeeId,
+          placeholders: {
+            userName: request.user.sub,
+            employeeName: employee.fullName,
+            oldDepartment: 'anterior',
+            newDepartment: newDepartmentId || 'mantido',
+          },
+          newData: {
+            newDepartmentId,
+            newPositionId,
+            newSupervisorId,
+            newBaseSalary,
+            effectiveDate,
+            reason,
+          },
         });
 
         return reply.status(200).send({ employee: employeeToDTO(employee) });

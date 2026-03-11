@@ -4,7 +4,7 @@ import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { companyCnaeResponseSchema, idSchema } from '@/http/schemas';
-import { companyCnaeToDTO } from '@/mappers/hr/company-cnae';
+import { companyCnaeToDTO } from '@/mappers/core/company-cnae';
 import { makeGetCompanyCnaeUseCase } from '@/use-cases/hr/company-cnaes/factories/make-company-cnaes';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';

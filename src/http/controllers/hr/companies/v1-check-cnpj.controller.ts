@@ -3,7 +3,7 @@ import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { companyToDTO } from '@/mappers/hr/company/company-to-dto';
+import { companyToDTO } from '@/mappers/core/company/company-to-dto';
 import { makeGetCompanyByCnpjUseCase } from '@/use-cases/hr/companies/factories/make-companies';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';

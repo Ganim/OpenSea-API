@@ -75,6 +75,15 @@ export const HR_AUDIT_MESSAGES = {
       '{{userName}} vinculou o usuário {{userName}} ao funcionário {{employeeName}}',
   } satisfies AuditMessage,
 
+  /** Usuário desvinculado do funcionário */
+  EMPLOYEE_UNLINK_USER: {
+    action: AuditAction.EMPLOYEE_UNLINK_USER,
+    entity: AuditEntity.EMPLOYEE,
+    module: AuditModule.HR,
+    description:
+      '{{userName}} desvinculou o usuário do funcionário {{employeeName}}',
+  } satisfies AuditMessage,
+
   /** Funcionário suspenso */
   EMPLOYEE_SUSPEND: {
     action: AuditAction.EMPLOYEE_SUSPEND,

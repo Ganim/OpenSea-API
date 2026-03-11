@@ -4,7 +4,7 @@ import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { idSchema } from '@/http/schemas/common.schema';
 import { prisma } from '@/lib/prisma';
-import { companyToDetailsDTO } from '@/mappers/hr/company/company-to-dto';
+import { companyToDetailsDTO } from '@/mappers/core/company/company-to-dto';
 import { departmentToDTO } from '@/mappers/hr/department/department-to-dto';
 import { makeGetCompanyByIdUseCase } from '@/use-cases/hr/companies/factories/make-companies';
 import type {

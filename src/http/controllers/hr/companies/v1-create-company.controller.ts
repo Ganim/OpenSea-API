@@ -6,7 +6,7 @@ import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { companyToDTO } from '@/mappers/hr/company/company-to-dto';
+import { companyToDTO } from '@/mappers/core/company/company-to-dto';
 import { getCacheService } from '@/services/cache/cache-service';
 import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
 import { makeCreateCompanyUseCase } from '@/use-cases/hr/companies/factories/make-companies';

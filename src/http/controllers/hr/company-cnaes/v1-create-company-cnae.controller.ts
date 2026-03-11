@@ -8,7 +8,7 @@ import {
   createCompanyCnaeSchema,
   idSchema,
 } from '@/http/schemas';
-import { companyCnaeToDTO } from '@/mappers/hr/company-cnae';
+import { companyCnaeToDTO } from '@/mappers/core/company-cnae';
 import { makeCreateCompanyCnaeUseCase } from '@/use-cases/hr/company-cnaes/factories/make-company-cnaes';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';

@@ -6,7 +6,7 @@ import {
 } from '@/entities/core/company';
 import { prisma } from '@/lib/prisma';
 import type { Prisma } from '@prisma/generated/client.js';
-import { mapCompanyPrismaToDomain } from '@/mappers/hr/company/company-prisma-to-domain';
+import { mapCompanyPrismaToDomain } from '@/mappers/core/company/company-prisma-to-domain';
 import { getFieldCipherService } from '@/services/security/field-cipher-service';
 import { ENCRYPTED_FIELD_CONFIG } from '@/services/security/encrypted-field-config';
 import type {

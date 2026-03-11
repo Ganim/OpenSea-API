@@ -2,7 +2,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { idSchema } from '@/http/schemas/common.schema';
 import { companyStakeholderResponseSchema } from '@/http/schemas/hr.schema';
-import { companyStakeholderToDTO } from '@/mappers/hr/company-stakeholder';
+import { companyStakeholderToDTO } from '@/mappers/core/company-stakeholder';
 import { makeGetCompanyStakeholderUseCase } from '@/use-cases/hr/company-stakeholder/factories';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';

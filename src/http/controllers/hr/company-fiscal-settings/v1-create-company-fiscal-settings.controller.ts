@@ -8,7 +8,7 @@ import {
   createCompanyFiscalSettingsSchema,
   idSchema,
 } from '@/http/schemas';
-import { companyFiscalSettingsToDTO } from '@/mappers/hr/company-fiscal-settings';
+import { companyFiscalSettingsToDTO } from '@/mappers/core/company-fiscal-settings';
 import { makeCreateCompanyFiscalSettingsUseCase } from '@/use-cases/hr/company-fiscal-settings/factories/make-company-fiscal-settings';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';

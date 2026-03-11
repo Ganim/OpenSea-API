@@ -1,5 +1,7 @@
-import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
@@ -63,6 +65,16 @@ export async function v1UnlinkUserFromEmployeeController(app: FastifyInstance) {
       if (!updated) {
         return reply.status(404).send({ message: 'Failed to update employee' });
       }
+
+      await logAudit(request, {
+        message: AUDIT_MESSAGES.HR.EMPLOYEE_UNLINK_USER,
+        entityId: employeeId,
+        placeholders: {
+          userName: request.user.sub,
+          employeeName: existing.fullName,
+        },
+        oldData: { userId: existing.userId?.toString() },
+      });
 
       return reply.status(200).send({ employee: employeeToDTO(updated) });
     },

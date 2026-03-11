@@ -6,7 +6,7 @@ import {
   companyResponseSchema as hrCompanyResponseSchema,
   companyWithDetailsResponseSchema as hrCompanyWithDetailsResponseSchema,
 } from '@/http/schemas/hr.schema';
-import type { CompanyDTO } from '@/mappers/hr/company/company-to-dto';
+import type { CompanyDTO } from '@/mappers/core/company/company-to-dto';
 import { z } from 'zod';
 
 // Re-export schemas from hr.schema (following project pattern with camelCase)

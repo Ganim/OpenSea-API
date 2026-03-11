@@ -5,7 +5,7 @@ import {
   type CompanyStakeholderStatus,
   type CompanyStakeholderSource,
 } from '@/entities/core/company-stakeholder';
-import { mapCompanyStakeholderPrismaToDomain } from '@/mappers/hr/company-stakeholder';
+import { mapCompanyStakeholderPrismaToDomain } from '@/mappers/core/company-stakeholder';
 import { PrismaClient, type Prisma } from '@prisma/generated/client.js';
 import {
   CompanyStakeholderRepository,
