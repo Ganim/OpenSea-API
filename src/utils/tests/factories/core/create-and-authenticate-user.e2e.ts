@@ -8,6 +8,22 @@ import request from 'supertest';
  * All permissions organized by module for E2E tests
  */
 const ALL_PERMISSIONS = {
+  // SELF module (own user permissions)
+  self: {
+    profile: ['read', 'update', 'update-email', 'update-password', 'update-username', 'delete'],
+    sessions: ['read', 'list', 'revoke'],
+    permissions: ['read', 'list'],
+    groups: ['read', 'list'],
+    audit: ['read', 'list'],
+    employee: ['read'],
+    'time-entries': ['read', 'list', 'create'],
+    schedule: ['read'],
+    'time-bank': ['read', 'list'],
+    vacations: ['read', 'list', 'request', 'cancel'],
+    absences: ['read', 'list', 'request', 'cancel'],
+    payslips: ['read', 'list', 'download'],
+    overtime: ['read', 'list', 'request'],
+  },
   // CORE module
   core: {
     users: ['create', 'read', 'update', 'delete', 'list', 'manage'],

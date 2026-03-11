@@ -130,16 +130,18 @@ export class PrismaTimeBankRepository implements TimeBankRepository {
     timeBank: TimeBank,
     expectedVersion: number,
   ): Promise<boolean> {
-    const rowsAffected = await prisma.$executeRaw`
-      UPDATE time_banks
-      SET balance = ${timeBank.balance}::decimal,
-          version = version + 1,
-          updated_at = NOW()
-      WHERE id = ${timeBank.id.toString()}
-        AND version = ${expectedVersion}
-    `;
+    const result = await prisma.timeBank.updateMany({
+      where: {
+        id: timeBank.id.toString(),
+        version: expectedVersion,
+      },
+      data: {
+        balance: timeBank.balance,
+        version: { increment: 1 },
+      },
+    });
 
-    return rowsAffected > 0;
+    return result.count > 0;
   }
 
   async delete(id: UniqueEntityID): Promise<void> {

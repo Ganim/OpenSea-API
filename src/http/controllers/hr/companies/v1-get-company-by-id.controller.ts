@@ -197,6 +197,12 @@ export async function v1GetCompanyByIdController(app: FastifyInstance) {
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });
         }
+        if (
+          error instanceof Error &&
+          error.message.toLowerCase().includes('not found')
+        ) {
+          return reply.status(404).send({ message: error.message });
+        }
         throw error;
       }
     },
