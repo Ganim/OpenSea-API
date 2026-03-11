@@ -4,11 +4,10 @@
 
 O módulo HR é responsável pela gestão completa do capital humano da organização. Abrange desde o cadastro de funcionários e estrutura organizacional (departamentos, cargos) até controles trabalhistas (ponto eletrônico, banco de horas, férias, ausências, horas extras) e folha de pagamento.
 
-O módulo também unifica o cadastro de organizações externas — empresas empregadoras, fornecedores e fabricantes — por meio de um **modelo polimórfico de Organization** que compartilha a mesma tabela Prisma com um discriminador `type`.
+O módulo também unifica o cadastro de empresas empregadoras por meio de um **modelo polimórfico de Organization** que compartilha a mesma tabela Prisma com um discriminador `type`. Fornecedores e fabricantes foram removidos do módulo HR: fabricantes pertencem ao módulo `stock/` e fornecedores pertencem ao módulo `finance/`.
 
 **Dependências com outros módulos:**
 - `core` — autenticação JWT, multi-tenant, usuários (vínculo `Employee.userId`)
-- `stock` — Supplier e Manufacturer gerados aqui são referenciados em produtos e ordens de compra
 - `finance` — integração com folha via `CalendarSyncService` e exportação de folha (Phase 9)
 - `calendar` — ao aprovar uma ausência, o hook cria um evento de calendário automaticamente
 - `rbac` — permissões com escopo `.all` (toda a empresa) vs `.team` (subordinados diretos)
@@ -356,13 +355,12 @@ CALCULATED → CANCELLED
 
 ## Organization Polymorphism
 
-O modelo polimórfico unifica **Company** (empregadora), **Supplier** (fornecedor) e **Manufacturer** (fabricante) em uma única tabela Prisma `organizations`, discriminada pelo campo `type`.
+O modelo polimórfico unifica entidades organizacionais em uma única tabela Prisma `organizations`, discriminada pelo campo `type`. No módulo HR, apenas os tipos `COMPANY` e `CUSTOMER` são suportados. Fabricantes foram movidos para `stock/` e fornecedores para `finance/`.
 
 ```
 Organization (abstract)
-  ├── Company      (type: 'COMPANY')
-  ├── Supplier     (type: 'SUPPLIER')
-  └── Manufacturer (type: 'MANUFACTURER')
+  ├── Company   (type: 'COMPANY')
+  └── Customer  (type: 'CUSTOMER')
 ```
 
 **Localização:** `src/entities/hr/organization/`
@@ -371,7 +369,7 @@ Organization (abstract)
 
 | Campo | Type | Descrição |
 |-------|------|-----------|
-| `type` | `OrganizationType` | Discriminador: `COMPANY`, `SUPPLIER`, `MANUFACTURER`, `CUSTOMER` |
+| `type` | `OrganizationType` | Discriminador: `COMPANY`, `CUSTOMER` |
 | `legalName` | `string` | Razão social |
 | `cnpj` | `string?` | CNPJ (obrigatório para Company) |
 | `cpf` | `string?` | CPF (alternativa ao CNPJ) |
@@ -392,38 +390,6 @@ Campos adicionais armazenados em JSON dentro de `typeSpecificData`:
 
 **Regra:** `CNPJ` é obrigatório para `Company.create()`.
 
-### Supplier-specific (`typeSpecificData`)
-
-| Campo | Descrição |
-|-------|-----------|
-| `paymentTerms` | Ex: `"30/60/90 dias"` |
-| `rating` | Avaliação 0–5 |
-| `isPreferredSupplier` | Fornecedor preferencial |
-| `contractNumber` / `contractStartDate` / `contractEndDate` | Contrato vigente |
-| `leadTime` | Prazo de entrega em dias |
-| `minimumOrderValue` | Valor mínimo de pedido |
-| `sequentialCode` | Código interno sequencial |
-| `externalId` | ID no sistema do fornecedor |
-
-**Método:** `hasActiveContract()` — verifica se hoje está dentro do período do contrato.
-**Validação:** `rating` deve estar entre 0 e 5.
-
-### Manufacturer-specific (`typeSpecificData`)
-
-| Campo | Descrição |
-|-------|-----------|
-| `productionCapacity` | Unidades/mês |
-| `leadTime` | Prazo de fabricação em dias |
-| `certifications` | Array de certificações (ISO, etc.) |
-| `qualityRating` | Avaliação de qualidade 0–5 |
-| `defectRate` | Taxa de defeitos (0–100%) |
-| `minimumOrderQuantity` | MOQ |
-| `countryOfOrigin` | País de origem |
-| `factoryLocation` | Localização da fábrica |
-| `sequentialCode` | Código interno sequencial |
-
-**Validações:** `qualityRating` 0–5; `defectRate` 0–100. Métodos `addCertification()` / `removeCertification()` garantem ausência de duplicatas.
-
 ---
 
 ## Endpoints
@@ -439,6 +405,9 @@ Campos adicionais armazenados em JSON dentro de `typeSpecificData`:
 | `PUT` | `/v1/hr/employees/:id` | `hr.employees.update.all` ou `hr.employees.update.team` | Atualiza dados |
 | `DELETE` | `/v1/hr/employees/:id` | `hr.employees.delete` | Soft delete |
 | `POST` | `/v1/hr/employees/:id/terminate` | `hr.employees.terminate` | Desliga funcionário |
+| `PATCH` | `/v1/hr/employees/:employeeId/suspend` | `hr.employees.manage` | Suspende funcionário (`ACTIVE` → `SUSPENDED`) |
+| `PATCH` | `/v1/hr/employees/:employeeId/reactivate` | `hr.employees.manage` | Reativa funcionário (`SUSPENDED`/`ON_LEAVE` → `ACTIVE`) |
+| `PATCH` | `/v1/hr/employees/:employeeId/on-leave` | `hr.employees.manage` | Coloca funcionário em afastamento (`ACTIVE` → `ON_LEAVE`) |
 | `POST` | `/v1/hr/employees/:id/transfer` | `hr.employees.manage` | Transfere de departamento/cargo |
 | `POST` | `/v1/hr/employees/:id/link-user` | `hr.employees.manage` | Vincula conta de usuário |
 | `GET` | `/v1/hr/employees/check-cpf` | `hr.employees.read` | Verifica duplicidade de CPF |
@@ -513,25 +482,21 @@ Campos adicionais armazenados em JSON dentro de `typeSpecificData`:
 | `PUT` | `/v1/hr/companies/:id/stakeholders/:stakeholderId` | `hr.stakeholders.update` | Atualiza |
 | `DELETE` | `/v1/hr/companies/:id/stakeholders/:stakeholderId` | `hr.stakeholders.delete` | Remove |
 
-### Suppliers (Organization)
+### Reports (Exportação CSV)
+
+Todos os endpoints de relatório retornam um arquivo CSV com BOM UTF-8, separador ponto e vírgula e cabeçalhos em português.
 
 | Method | Path | Permission | Description |
 |--------|------|------------|-------------|
-| `POST` | `/v1/hr/suppliers` | `hr.suppliers.create` | Cria fornecedor |
-| `GET` | `/v1/hr/suppliers` | `hr.suppliers.list` | Lista paginada |
-| `GET` | `/v1/hr/suppliers/:id` | `hr.suppliers.read` | Detalhe |
-| `PUT` | `/v1/hr/suppliers/:id` | `hr.suppliers.update` | Atualiza |
-| `DELETE` | `/v1/hr/suppliers/:id` | `hr.suppliers.delete` | Remove |
+| `GET` | `/v1/hr/reports/employees` | `reports.hr.headcount` | Exporta quadro de funcionários |
+| `GET` | `/v1/hr/reports/absences` | `reports.hr.absences` | Exporta relatório de ausências |
+| `GET` | `/v1/hr/reports/payroll` | `reports.hr.generate` | Exporta resumo de folha de pagamento |
 
-### Manufacturers (Organization)
+**Filtros disponíveis:**
 
-| Method | Path | Permission | Description |
-|--------|------|------------|-------------|
-| `POST` | `/v1/hr/manufacturers` | `hr.manufacturers.create` | Cria fabricante |
-| `GET` | `/v1/hr/manufacturers` | `hr.manufacturers.list` | Lista paginada |
-| `GET` | `/v1/hr/manufacturers/:id` | `hr.manufacturers.read` | Detalhe |
-| `PUT` | `/v1/hr/manufacturers/:id` | `hr.manufacturers.update` | Atualiza |
-| `DELETE` | `/v1/hr/manufacturers/:id` | `hr.manufacturers.delete` | Remove |
+- `GET /v1/hr/reports/employees` — `status`, `departmentId`, `positionId`, `companyId`
+- `GET /v1/hr/reports/absences` — `startDate`, `endDate`, `employeeId`, `type`, `status`
+- `GET /v1/hr/reports/payroll` — `referenceMonth`, `referenceYear`
 
 ### Work Schedules
 
@@ -577,6 +542,7 @@ Campos adicionais armazenados em JSON dentro de `typeSpecificData`:
 | `POST` | `/v1/hr/vacation-periods/:id/complete` | `hr.vacation-periods.update` | Conclui férias |
 | `POST` | `/v1/hr/vacation-periods/:id/cancel` | `hr.vacation-periods.update` | Cancela agendamento |
 | `POST` | `/v1/hr/vacation-periods/:id/sell-days` | `hr.vacation-periods.update` | Abono pecuniário (venda de dias) |
+| `PATCH` | `/v1/hr/vacation-periods/:id/complete-acquisition` | `hr.vacation-periods.manage` | Conclui período aquisitivo (`PENDING` → `AVAILABLE`) |
 
 ### Overtime (Horas Extras)
 
@@ -738,14 +704,40 @@ O método `calculatePendingIssues()` da entidade `Company` retorna códigos de s
 
 Campos que geram pendência: `tradeName`, `stateRegistration`, `municipalRegistration`, `legalNature`, `taxRegime`, `activityStartDate`, `email`, `phoneMain`, `phoneAlt`, `logoUrl`.
 
-### Regra 7: Validação de CNPJ vs CPF na Organization
+### Regra 7: Validação de CNPJ na Organization (Company)
 
 - `Company.create()` exige `cnpj` (lança erro se ausente)
-- `Supplier.create()` e `Manufacturer.create()` exigem `cnpj` **ou** `cpf` via `validateFiscalId()` (suporta MEI/pessoa física)
+- Outros subtipos (`CUSTOMER`) exigem `cnpj` **ou** `cpf` via `validateFiscalId()` (suporta MEI/pessoa física)
 
 ### Regra 8: Abono Pecuniário de Férias
 
 O endpoint `POST /v1/hr/vacation-periods/:id/sell-days` implementa a venda de 1/3 das férias (abono pecuniário), conforme art. 143 da CLT. A operação muda o período de férias e registra os dias vendidos para cômputo na folha.
+
+### Regra 9: Transições de Status do Funcionário
+
+Além do desligamento definitivo (`terminate`), três transições de status reversíveis são disponibilizadas:
+
+| Endpoint | Transição | Body |
+|----------|-----------|------|
+| `PATCH .../suspend` | `ACTIVE` → `SUSPENDED` | `{ reason: string }` |
+| `PATCH .../on-leave` | `ACTIVE` → `ON_LEAVE` | `{ reason: string }` |
+| `PATCH .../reactivate` | `SUSPENDED` ou `ON_LEAVE` → `ACTIVE` | — |
+
+Todas exigem a permissão `hr.employees.manage`. Tentar reativar um funcionário com status `TERMINATED` continua sendo proibido pela entidade.
+
+### Regra 10: Ciclo de Vida do Período Aquisitivo de Férias
+
+O endpoint `PATCH /v1/hr/vacation-periods/:id/complete-acquisition` (use case `CompleteAcquisitionUseCase`) efetua a transição `PENDING` → `AVAILABLE`, sinalizando que o funcionário completou os 12 meses aquisitivos e pode usufruir das férias.
+
+Um cron script autônomo (`scripts/expire-vacations-cron.ts`) é responsável por expirar em lote os períodos cujo `concessionEnd` seja anterior à data atual, executando o `ExpireVacationPeriodsUseCase`. O script deve ser agendado externamente (systemd timer, cron ou similar) e opera de forma idempotente.
+
+### Regra 11: Audit Logging em Operações HR
+
+Os controllers do módulo HR utilizam `queueAuditLog()` com mensagens centralizadas em `src/constants/audit-messages/hr.messages.ts` (`HR_AUDIT_MESSAGES`). As seguintes operações são auditadas: CRUD de funcionários, empresas, departamentos, cargos, ausências, horas extras, folha de pagamento, bônus, deduções, stakeholders, banco de horas, períodos de férias e jornadas de trabalho.
+
+### Regra 12: Tabelas Fiscais Versionadas (INSS/IRRF)
+
+As alíquotas de INSS e IRRF estão externalizadas em `src/constants/hr/tax-tables.ts` com estrutura versionada por ano (`INSS_TABLES: Record<number, INSSTable>` e `IRRF_TABLES: Record<number, IRRFTable>`). A função auxiliar `getTaxTable(year)` retorna a tabela do ano solicitado ou, na ausência de entrada para aquele ano, a tabela mais recente disponível. Para adicionar um novo ano fiscal, basta inserir uma nova chave no dicionário correspondente.
 
 ---
 
@@ -779,11 +771,15 @@ O endpoint `POST /v1/hr/vacation-periods/:id/sell-days` implementa a venda de 1/
 | `hr.payroll.create` / `hr.payroll.process` / `hr.payroll.approve` | Fluxo da folha |
 | `hr.payrolls.create` / `hr.payrolls.manage` | Gestão de folhas |
 | `hr.bonuses.create` / `hr.deductions.create` | Lançamentos avulsos |
-| `hr.suppliers.create` / `hr.manufacturers.create` | Gestão de organizações externas |
 | `hr.company-addresses.create` / `hr.company-cnaes.create` | Subrecursos de empresa |
 | `hr.fiscal-settings.create` / `hr.stakeholders.create` | Dados fiscais e societários |
 | `hr.employees.terminate` | Desligamento de funcionário |
+| `hr.employees.manage` | Suspensão, afastamento e reativação de funcionário |
+| `hr.vacation-periods.manage` | Conclusão de período aquisitivo |
 | `hr.time-bank.manage` | Ajustes manuais de banco de horas |
+| `reports.hr.headcount` | Exportar relatório de quadro de funcionários (CSV) |
+| `reports.hr.absences` | Exportar relatório de ausências (CSV) |
+| `reports.hr.generate` | Exportar relatório de folha de pagamento (CSV) |
 
 ---
 
@@ -828,7 +824,7 @@ model Employee {
 model Organization {
   id               String   @id @default(uuid())
   tenantId         String   @map("tenant_id")
-  type             String   // OrganizationType: COMPANY | SUPPLIER | MANUFACTURER | CUSTOMER
+  type             String   // OrganizationType: COMPANY | CUSTOMER
   legalName        String   @map("legal_name")
   cnpj             String?
   cpf              String?
@@ -881,7 +877,7 @@ model Payroll {
 
 | Subdomínio | Use Cases principais |
 |------------|---------------------|
-| `employees` | `CreateEmployee`, `GetEmployeeById`, `ListEmployees`, `UpdateEmployee`, `DeleteEmployee`, `TerminateEmployee`, `TransferEmployee`, `LinkUserToEmployee`, `CheckEmployeeCpf` |
+| `employees` | `CreateEmployee`, `GetEmployeeById`, `ListEmployees`, `UpdateEmployee`, `DeleteEmployee`, `TerminateEmployee`, `SuspendEmployee`, `ReactivateEmployee`, `SetEmployeeOnLeave`, `TransferEmployee`, `LinkUserToEmployee`, `CheckEmployeeCpf` |
 | `departments` | `CreateDepartment`, `GetDepartmentById`, `ListDepartments`, `UpdateDepartment`, `DeleteDepartment` |
 | `positions` | `CreatePosition`, `GetPositionById`, `ListPositions`, `UpdatePosition`, `DeletePosition` |
 | `companies` | CRUD completo + `CheckCnpj` |
@@ -889,12 +885,11 @@ model Payroll {
 | `company-cnaes` | `CreateCompanyCnae`, `GetCompanyCnae`, `GetPrimaryCompanyCnae`, `ListCompanyCnaes`, `UpdateCompanyCnae`, `DeleteCompanyCnae`, `ComputePendingIssues` |
 | `company-fiscal-settings` | CRUD completo (singleton por empresa) |
 | `company-stakeholder` | CRUD completo |
-| `suppliers` | CRUD completo (via Organization) |
-| `manufacturers` | CRUD completo (via Organization) |
+| `reports` | `ExportEmployeesReport`, `ExportAbsencesReport`, `ExportPayrollReport` |
 | `work-schedules` | CRUD completo |
 | `time-control` | `ClockIn`, `ClockOut`, `ListTimeEntries`, `CalculateWorkedHours` |
 | `absences` | `RequestVacation`, `RequestSickLeave`, `GetAbsence`, `ListAbsences`, `ApproveAbsence`, `RejectAbsence`, `CancelAbsence`, `CalculateVacationBalance` |
-| `vacation-periods` | `CreateVacationPeriod`, `GetVacationPeriod`, `ListVacationPeriods`, `ScheduleVacation`, `StartVacation`, `CompleteVacation`, `CancelScheduledVacation`, `SellVacationDays` |
+| `vacation-periods` | `CreateVacationPeriod`, `GetVacationPeriod`, `ListVacationPeriods`, `ScheduleVacation`, `StartVacation`, `CompleteVacation`, `CancelScheduledVacation`, `SellVacationDays`, `CompleteAcquisition`, `ExpireVacationPeriods` |
 | `overtime` | `RequestOvertime`, `GetOvertime`, `ListOvertime`, `ApproveOvertime` |
 | `time-bank` | `GetTimeBank`, `ListTimeBanks`, `CreditTimeBank`, `DebitTimeBank`, `AdjustTimeBank` |
 | `payrolls` | `CreatePayroll`, `GetPayroll`, `ListPayrolls`, `CalculatePayroll`, `ApprovePayroll`, `CancelPayroll`, `ProcessPayrollPayment` |
@@ -916,7 +911,7 @@ Todas as factories seguem o padrão `make-{use-case-name}-use-case.ts` dentro de
 
 | Subdomínio | Arquivos E2E |
 |------------|-------------|
-| employees | 8 (create, create-with-user, check-cpf, get, list, update, delete, terminate, transfer, link-user) |
+| employees | 11 (create, create-with-user, check-cpf, get, list, update, delete, terminate, transfer, link-user, suspend, reactivate, set-on-leave) |
 | departments | 5 (create, get, list, update, delete) |
 | positions | 5 (create, get, list, update, delete) |
 | companies | 6 (create, get, list, update, delete, check-cnpj) |
@@ -924,12 +919,11 @@ Todas as factories seguem o padrão `make-{use-case-name}-use-case.ts` dentro de
 | company-cnaes | 6 (create, get, get-primary, list, update, delete) |
 | company-fiscal-settings | 4 (create, get, update, delete) |
 | company-stakeholder | 4 (create, get, update, delete) |
-| suppliers | 5 (create, get, list, delete + manufacturer) |
-| manufacturers | 3 (create, get, list) |
+| reports | 3 (export-employees, export-absences, export-payroll) |
 | work-schedules | 5 (create, get, list, update, delete) |
 | time-control | 4 (clock-in, clock-out, list, calculate-worked-hours) |
 | absences | 8 (request-vacation, request-sick-leave, get, list, approve, reject, cancel, vacation-balance) |
-| vacation-periods | 8 (create, get, list, schedule, start, complete, cancel, sell-days) |
+| vacation-periods | 9 (create, get, list, schedule, start, complete, cancel, sell-days, complete-acquisition) |
 | overtime | 4 (request, get, list, approve) |
 | time-bank | 5 (get, list, credit, debit, adjust) |
 | payrolls | 7 (create, get, list, calculate, approve, pay, cancel) |
@@ -945,7 +939,33 @@ Todas as factories seguem o padrão `make-{use-case-name}-use-case.ts` dentro de
 - Desligamento de funcionário e bloqueio de reativação
 - Abono pecuniário de férias
 - Ajuste manual de banco de horas
-- Criação de Organization como Supplier e Manufacturer com validação de CNPJ/CPF
+- Suspensão, afastamento e reativação de funcionário
+- Conclusão de período aquisitivo de férias (`complete-acquisition`)
+- Exportação CSV de relatórios de funcionários, ausências e folha de pagamento
+- Criação de Organization como Company com validação de CNPJ obrigatório
+
+---
+
+## Cron Scripts
+
+| Script | Propósito | Use Case |
+|--------|-----------|----------|
+| `scripts/expire-vacations-cron.ts` | Expira em lote períodos de férias cujo `concessionEnd` é anterior a hoje | `ExpireVacationPeriodsUseCase` |
+
+O script deve ser executado diariamente por agendador externo. Opera de forma idempotente — pode ser executado múltiplas vezes sem efeitos colaterais.
+
+---
+
+## Tax Tables
+
+Localização: `src/constants/hr/tax-tables.ts`
+
+Exporta:
+- `INSS_TABLES: Record<number, INSSTable>` — tabela progressiva com `brackets[]` (limite + alíquota) e `maxContribution`
+- `IRRF_TABLES: Record<number, IRRFTable>` — tabela com `exemptLimit` e `brackets[]` (limite + alíquota + parcela a deduzir)
+- `getTaxTable(year)` — função auxiliar que retorna a tabela do ano ou, na ausência, a mais recente
+
+Para adicionar novas alíquotas de um ano fiscal, inserir nova chave nos objetos `INSS_TABLES` e `IRRF_TABLES`.
 
 ---
 
@@ -954,3 +974,4 @@ Todas as factories seguem o padrão `make-{use-case-name}-use-case.ts` dentro de
 | Data | Dimensão | Score | Relatório |
 |------|----------|-------|-----------|
 | 2026-03-10 | Documentação inicial | — | Gerado pelo doc-writer a partir do código-fonte |
+| 2026-03-11 | Atualização — remoção de Supplier/Manufacturer, novos endpoints de status, relatórios CSV, períodos aquisitivos, cron de expiração, audit logging, tabelas fiscais | — | Atualizado pelo doc-writer |
