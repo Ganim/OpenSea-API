@@ -25,8 +25,7 @@ const TENANT_ID = 'tenant-1';
 
 describe('CreateProductAttachmentUseCase', () => {
   beforeEach(() => {
-    productAttachmentsRepository =
-      new InMemoryProductAttachmentsRepository();
+    productAttachmentsRepository = new InMemoryProductAttachmentsRepository();
     productsRepository = new InMemoryProductsRepository();
     templatesRepository = new InMemoryTemplatesRepository();
     suppliersRepository = new InMemorySuppliersRepository();
@@ -75,7 +74,9 @@ describe('CreateProductAttachmentUseCase', () => {
     expect(result.productAttachment).toBeDefined();
     expect(result.productAttachment.id).toBeDefined();
     expect(result.productAttachment.productId).toBe(product.id.toString());
-    expect(result.productAttachment.fileUrl).toBe('https://storage.example.com/files/photo.jpg');
+    expect(result.productAttachment.fileUrl).toBe(
+      'https://storage.example.com/files/photo.jpg',
+    );
     expect(result.productAttachment.fileName).toBe('photo.jpg');
     expect(result.productAttachment.fileSize).toBe(102400);
     expect(result.productAttachment.mimeType).toBe('image/jpeg');

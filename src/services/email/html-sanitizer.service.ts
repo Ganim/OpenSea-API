@@ -112,7 +112,8 @@ export function sanitizeEmailHtml(html: string): string {
     transformTags: {
       img: (tagName: string, attribs: Record<string, string>) => {
         if (attribs.src && attribs.src.startsWith('data:')) {
-          const isSafeBitmap = /^data:image\/(png|jpe?g|gif|webp|bmp|x-icon);/i.test(attribs.src);
+          const isSafeBitmap =
+            /^data:image\/(png|jpe?g|gif|webp|bmp|x-icon);/i.test(attribs.src);
           if (!isSafeBitmap) {
             delete attribs.src;
           }
@@ -161,7 +162,9 @@ export function sanitizeEmailHtml(html: string): string {
         'white-space': [/.*/],
         'word-break': [/.*/],
         'overflow-wrap': [/.*/],
-        display: [/^(block|inline|inline-block|none|flex|table|table-row|table-cell)$/],
+        display: [
+          /^(block|inline|inline-block|none|flex|table|table-row|table-cell)$/,
+        ],
         'list-style-type': [/.*/],
         'text-transform': [/.*/],
         opacity: [/.*/],

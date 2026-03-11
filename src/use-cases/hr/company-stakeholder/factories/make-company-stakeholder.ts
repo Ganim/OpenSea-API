@@ -4,7 +4,7 @@ import {
   type CompanyStakeholderRole,
   type CompanyStakeholderSource,
   type CompanyStakeholderStatus,
-} from '@/entities/hr';
+} from '@/entities/core/company-stakeholder';
 import { randomUUID } from 'crypto';
 
 interface MakeCompanyStakeholderParams {

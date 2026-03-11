@@ -4,7 +4,7 @@ import {
   type CompanyStakeholderRole,
   type CompanyStakeholderStatus,
   type CompanyStakeholderSource,
-} from '@/entities/hr';
+} from '@/entities/core/company-stakeholder';
 import {
   CompanyStakeholderRepository,
   CreateCompanyStakeholderSchema,

@@ -69,9 +69,9 @@ describe('ExportAccountingDataUseCase', () => {
     expect(csv.charCodeAt(0)).toBe(0xfeff);
     // Semicolons as separator
     expect(csv).toContain(';');
-    // Headers in Portuguese
-    expect(csv).toContain('Código');
-    expect(csv).toContain('Descrição');
+    // Headers in Portuguese (non-accented for CSV compatibility)
+    expect(csv).toContain('Codigo');
+    expect(csv).toContain('Descricao');
     expect(csv).toContain('Centro de Custo');
     // Data rows
     expect(csv).toContain('PAG-001');
@@ -179,7 +179,7 @@ describe('ExportAccountingDataUseCase', () => {
     expect(csv).toContain('5000,00'); // revenue
     expect(csv).toContain('2000,00'); // expenses
     expect(csv).toContain('3000,00'); // result = 5000 - 2000
-    expect(csv).toContain('RESULTADO DO PERÍODO');
+    expect(csv).toContain('RESULTADO DO PERIODO');
   });
 
   it('should export BALANCE (balancete) by cost center', async () => {
@@ -233,8 +233,8 @@ describe('ExportAccountingDataUseCase', () => {
     expect(result.fileName).toContain('balancete_');
     const csv = result.data.toString('utf-8');
     expect(csv).toContain('Centro de Custo');
-    expect(csv).toContain('Débitos');
-    expect(csv).toContain('Créditos');
+    expect(csv).toContain('Debitos');
+    expect(csv).toContain('Creditos');
     expect(csv).toContain('Saldo');
     expect(csv).toContain('TOTAL');
   });
@@ -282,7 +282,7 @@ describe('ExportAccountingDataUseCase', () => {
     expect(csv).toContain('4000,00'); // inflows
     expect(csv).toContain('PAGAMENTOS OPERACIONAIS');
     expect(csv).toContain('1500,00'); // outflows
-    expect(csv).toContain('CAIXA LÍQUIDO OPERACIONAL');
+    expect(csv).toContain('CAIXA LIQUIDO OPERACIONAL');
     expect(csv).toContain('2500,00'); // net = 4000 - 1500
   });
 
@@ -299,6 +299,6 @@ describe('ExportAccountingDataUseCase', () => {
     const lines = csv.split('\r\n').filter((l) => l.trim() !== '');
     // Only header line (+ BOM)
     expect(lines).toHaveLength(1);
-    expect(csv).toContain('Código');
+    expect(csv).toContain('Codigo');
   });
 });

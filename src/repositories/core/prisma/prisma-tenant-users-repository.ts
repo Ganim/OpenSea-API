@@ -1,14 +1,19 @@
 import { TenantUser } from '@/entities/core/tenant-user';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { prisma } from '@/lib/prisma';
+import type { TransactionClient } from '@/lib/transaction-manager';
 import type {
   CreateTenantUserSchema,
   TenantUsersRepository,
 } from '../tenant-users-repository';
 
 export class PrismaTenantUsersRepository implements TenantUsersRepository {
-  async create(data: CreateTenantUserSchema): Promise<TenantUser> {
-    const tuDb = await prisma.tenantUser.create({
+  async create(
+    data: CreateTenantUserSchema,
+    tx?: TransactionClient,
+  ): Promise<TenantUser> {
+    const client = tx ?? prisma;
+    const tuDb = await client.tenantUser.create({
       data: {
         tenantId: data.tenantId.toString(),
         userId: data.userId.toString(),

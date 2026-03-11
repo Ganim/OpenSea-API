@@ -1,5 +1,3 @@
-import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
-import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
@@ -51,40 +49,30 @@ export async function createPurchaseOrderController(app: FastifyInstance) {
       const tenantId = request.user.tenantId!;
       const data = request.body;
 
-      try {
-        const getUserByIdUseCase = makeGetUserByIdUseCase();
-        const { user } = await getUserByIdUseCase.execute({ userId });
-        const userName = user.profile?.name
-          ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
-          : user.username || user.email;
+      const getUserByIdUseCase = makeGetUserByIdUseCase();
+      const { user } = await getUserByIdUseCase.execute({ userId });
+      const userName = user.profile?.name
+        ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
+        : user.username || user.email;
 
-        const createPurchaseOrderUseCase = makeCreatePurchaseOrderUseCase();
-        const { purchaseOrder } = await createPurchaseOrderUseCase.execute({
-          tenantId,
-          ...data,
-          createdBy: userId,
-        });
+      const createPurchaseOrderUseCase = makeCreatePurchaseOrderUseCase();
+      const { purchaseOrder } = await createPurchaseOrderUseCase.execute({
+        tenantId,
+        ...data,
+        createdBy: userId,
+      });
 
-        await logAudit(request, {
-          message: AUDIT_MESSAGES.STOCK.PURCHASE_ORDER_CREATE,
-          entityId: purchaseOrder.id,
-          placeholders: { userName, orderNumber: purchaseOrder.orderNumber },
-          newData: {
-            supplierId: data.supplierId,
-            itemsCount: data.items?.length || 0,
-          },
-        });
+      await logAudit(request, {
+        message: AUDIT_MESSAGES.STOCK.PURCHASE_ORDER_CREATE,
+        entityId: purchaseOrder.id,
+        placeholders: { userName, orderNumber: purchaseOrder.orderNumber },
+        newData: {
+          supplierId: data.supplierId,
+          itemsCount: data.items?.length || 0,
+        },
+      });
 
-        return reply.status(201).send({ purchaseOrder });
-      } catch (error) {
-        if (error instanceof BadRequestError) {
-          return reply.status(400).send({ message: error.message });
-        }
-        if (error instanceof ResourceNotFoundError) {
-          return reply.status(404).send({ message: error.message });
-        }
-        throw error;
-      }
+      return reply.status(201).send({ purchaseOrder });
     },
   });
 }

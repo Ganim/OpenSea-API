@@ -1,8 +1,13 @@
-import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { CannotDeletePaidEntryError } from '@/@errors/use-cases/cannot-delete-paid-entry-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { InMemoryFinanceEntriesRepository } from '@/repositories/finance/in-memory/in-memory-finance-entries-repository';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { DeleteFinanceEntryUseCase } from './delete-finance-entry';
+
+// Mock audit queue to avoid Redis connection in tests
+vi.mock('@/workers/queues/audit.queue', () => ({
+  queueAuditLog: vi.fn().mockResolvedValue(undefined),
+}));
 
 let entriesRepository: InMemoryFinanceEntriesRepository;
 let sut: DeleteFinanceEntryUseCase;
@@ -68,7 +73,7 @@ describe('DeleteFinanceEntryUseCase', () => {
         id: createdEntry.id.toString(),
         tenantId: 'tenant-1',
       }),
-    ).rejects.toThrow(BadRequestError);
+    ).rejects.toThrow(CannotDeletePaidEntryError);
   });
 
   it('should not delete if status is RECEIVED', async () => {
@@ -91,6 +96,29 @@ describe('DeleteFinanceEntryUseCase', () => {
         id: createdEntry.id.toString(),
         tenantId: 'tenant-1',
       }),
-    ).rejects.toThrow(BadRequestError);
+    ).rejects.toThrow(CannotDeletePaidEntryError);
+  });
+
+  it('should include status in error message for PAID entry', async () => {
+    const createdEntry = await entriesRepository.create({
+      tenantId: 'tenant-1',
+      type: 'PAYABLE',
+      code: 'PAG-002',
+      description: 'Conta paga',
+      categoryId: 'category-1',
+      costCenterId: 'cost-center-1',
+      expectedAmount: 3000,
+      issueDate: new Date('2026-02-01'),
+      dueDate: new Date('2026-02-28'),
+    });
+
+    entriesRepository.items[0].status = 'PAID';
+
+    await expect(
+      sut.execute({
+        id: createdEntry.id.toString(),
+        tenantId: 'tenant-1',
+      }),
+    ).rejects.toThrow('Cannot delete an entry with status PAID');
   });
 });

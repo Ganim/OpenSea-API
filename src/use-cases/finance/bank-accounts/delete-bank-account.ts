@@ -21,7 +21,10 @@ export class DeleteBankAccountUseCase {
     );
 
     if (!bankAccount) {
-      throw new ResourceNotFoundError('Bank account not found', ErrorCodes.FINANCE_BANK_ACCOUNT_NOT_FOUND);
+      throw new ResourceNotFoundError(
+        'Bank account not found',
+        ErrorCodes.FINANCE_BANK_ACCOUNT_NOT_FOUND,
+      );
     }
 
     await this.bankAccountsRepository.delete(new UniqueEntityID(id), tenantId);

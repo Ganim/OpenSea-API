@@ -3,7 +3,7 @@ import {
   CompanyFiscalSettings,
   type NfeEnvironment,
   type DigitalCertificateType,
-} from '@/entities/hr/company-fiscal-settings';
+} from '@/entities/core/company-fiscal-settings';
 import type {
   CompanyFiscalSettingsRepository,
   CreateCompanyFiscalSettingsSchema,

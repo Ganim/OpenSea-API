@@ -1,5 +1,3 @@
-import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
-import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
@@ -53,43 +51,33 @@ export async function updateTagController(app: FastifyInstance) {
       const { id } = request.params as { id: string };
       const userId = request.user.sub;
 
-      try {
-        const getUserByIdUseCase = makeGetUserByIdUseCase();
-        const getTagByIdUseCase = makeGetTagByIdUseCase();
+      const getUserByIdUseCase = makeGetUserByIdUseCase();
+      const getTagByIdUseCase = makeGetTagByIdUseCase();
 
-        const [{ user }, { tag: oldTag }] = await Promise.all([
-          getUserByIdUseCase.execute({ userId }),
-          getTagByIdUseCase.execute({ tenantId, id }),
-        ]);
-        const userName = user.profile?.name
-          ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
-          : user.username || user.email;
+      const [{ user }, { tag: oldTag }] = await Promise.all([
+        getUserByIdUseCase.execute({ userId }),
+        getTagByIdUseCase.execute({ tenantId, id }),
+      ]);
+      const userName = user.profile?.name
+        ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
+        : user.username || user.email;
 
-        const updateTag = makeUpdateTagUseCase();
-        const { tag } = await updateTag.execute({
-          tenantId,
-          id,
-          ...request.body,
-        });
+      const updateTag = makeUpdateTagUseCase();
+      const { tag } = await updateTag.execute({
+        tenantId,
+        id,
+        ...request.body,
+      });
 
-        await logAudit(request, {
-          message: AUDIT_MESSAGES.STOCK.TAG_UPDATE,
-          entityId: tag.id,
-          placeholders: { userName, tagName: tag.name },
-          oldData: { name: oldTag.name },
-          newData: request.body,
-        });
+      await logAudit(request, {
+        message: AUDIT_MESSAGES.STOCK.TAG_UPDATE,
+        entityId: tag.id,
+        placeholders: { userName, tagName: tag.name },
+        oldData: { name: oldTag.name },
+        newData: request.body,
+      });
 
-        return reply.status(200).send({ tag });
-      } catch (error) {
-        if (error instanceof BadRequestError) {
-          return reply.status(400).send({ message: error.message });
-        }
-        if (error instanceof ResourceNotFoundError) {
-          return reply.status(404).send({ message: error.message });
-        }
-        throw error;
-      }
+      return reply.status(200).send({ tag });
     },
   });
 }

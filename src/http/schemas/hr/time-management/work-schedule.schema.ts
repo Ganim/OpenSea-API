@@ -3,7 +3,7 @@
  */
 
 import { z } from 'zod';
-import { dateSchema, idSchema } from '../../common.schema';
+import { dateSchema, idSchema, queryBooleanSchema } from '../../common.schema';
 
 /**
  * Schema para formato de hora (HH:MM)
@@ -48,7 +48,7 @@ export const updateWorkScheduleSchema = createWorkScheduleSchema
  * Schema para filtros de listagem de escalas
  */
 export const listWorkSchedulesQuerySchema = z.object({
-  activeOnly: z.coerce.boolean().optional().default(false),
+  activeOnly: queryBooleanSchema.optional().default(false),
 });
 
 /**

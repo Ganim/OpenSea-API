@@ -2,10 +2,7 @@ import { PrismaVariantAttachmentsRepository } from '@/repositories/stock/prisma/
 import { DeleteVariantAttachmentUseCase } from '../delete-variant-attachment';
 
 export function makeDeleteVariantAttachmentUseCase() {
-  const variantAttachmentsRepository =
-    new PrismaVariantAttachmentsRepository();
+  const variantAttachmentsRepository = new PrismaVariantAttachmentsRepository();
 
-  return new DeleteVariantAttachmentUseCase(
-    variantAttachmentsRepository,
-  );
+  return new DeleteVariantAttachmentUseCase(variantAttachmentsRepository);
 }

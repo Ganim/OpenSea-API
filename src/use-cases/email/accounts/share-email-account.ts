@@ -75,7 +75,12 @@ export class ShareEmailAccountUseCase {
       entityId: access.id,
       module: 'EMAIL',
       description: `Shared email account ${account.address} with user ${request.targetUserId}`,
-      newData: { targetUserId: request.targetUserId, canRead, canSend, canManage },
+      newData: {
+        targetUserId: request.targetUserId,
+        canRead,
+        canSend,
+        canManage,
+      },
     }).catch(() => {});
 
     return { access };

@@ -138,7 +138,10 @@ export class BulkDeleteItemsUseCase {
         deletedFiles += filesDeleted;
 
         // Batch soft-delete all folders
-        await this.storageFoldersRepository.batchSoftDelete(allFolderIds, tenantId);
+        await this.storageFoldersRepository.batchSoftDelete(
+          allFolderIds,
+          tenantId,
+        );
         deletedFolders += allFolderIds.length;
       } catch (error) {
         errors.push(

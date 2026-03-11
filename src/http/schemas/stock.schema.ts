@@ -21,6 +21,7 @@ export * from './stock/warehouses';
 export * from './stock/zones';
 // Manufacturers and Suppliers are NOT exported to avoid conflicts with HR schemas
 // Import directly from './stock/manufacturers' or './stock/suppliers' if needed
+export * from './stock/attachments';
 export * from './stock/care';
 export * from './stock/purchase-orders';
 export * from './stock/tags';

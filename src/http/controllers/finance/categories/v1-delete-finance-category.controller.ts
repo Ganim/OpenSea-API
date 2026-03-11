@@ -29,13 +29,23 @@ export async function deleteFinanceCategoryController(app: FastifyInstance) {
       summary: 'Delete a finance category',
       security: [{ bearerAuth: [] }],
       params: z.object({ id: z.string().uuid() }),
-      body: z.object({
-        replacementCategoryId: z.string().uuid().optional(),
-      }).optional(),
+      body: z
+        .object({
+          replacementCategoryId: z.string().uuid().optional(),
+        })
+        .optional(),
       response: {
         204: z.null(),
-        400: z.object({ code: z.string(), message: z.string(), requestId: z.string().optional() }),
-        404: z.object({ code: z.string(), message: z.string(), requestId: z.string().optional() }),
+        400: z.object({
+          code: z.string(),
+          message: z.string(),
+          requestId: z.string().optional(),
+        }),
+        404: z.object({
+          code: z.string(),
+          message: z.string(),
+          requestId: z.string().optional(),
+        }),
       },
     },
     handler: async (request, reply) => {
@@ -49,7 +59,9 @@ export async function deleteFinanceCategoryController(app: FastifyInstance) {
           ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
           : user.username || user.email;
 
-        const body = request.body as { replacementCategoryId?: string } | undefined;
+        const body = request.body as
+          | { replacementCategoryId?: string }
+          | undefined;
         const useCase = makeDeleteFinanceCategoryUseCase();
         await useCase.execute({
           tenantId,
@@ -65,7 +77,10 @@ export async function deleteFinanceCategoryController(app: FastifyInstance) {
 
         return reply.status(204).send(null);
       } catch (error) {
-        if (error instanceof ResourceNotFoundError || error instanceof BadRequestError) {
+        if (
+          error instanceof ResourceNotFoundError ||
+          error instanceof BadRequestError
+        ) {
           // Let the global error handler handle it with proper codes
           throw error;
         }

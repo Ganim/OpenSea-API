@@ -2,6 +2,10 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Item } from '@/entities/stock/item';
 import { ItemStatus } from '@/entities/stock/value-objects/item-status';
 import type {
+  PaginatedResult,
+  PaginationParams,
+} from '../../pagination-params';
+import type {
   CreateItemSchema,
   ItemsRepository,
   ItemWithRelationsDTO,
@@ -63,7 +67,10 @@ export class InMemoryItemsRepository implements ItemsRepository {
     return item ?? null;
   }
 
-  async findManyByIds(ids: UniqueEntityID[], tenantId: string): Promise<Item[]> {
+  async findManyByIds(
+    ids: UniqueEntityID[],
+    tenantId: string,
+  ): Promise<Item[]> {
     const idSet = new Set(ids.map((id) => id.toString()));
     return this.items.filter(
       (item) =>
@@ -180,12 +187,20 @@ export class InMemoryItemsRepository implements ItemsRepository {
   }
 
   async findManyByProduct(
-    _productId: UniqueEntityID,
-    _tenantId: string,
+    productId: UniqueEntityID,
+    tenantId: string,
   ): Promise<Item[]> {
-    // In memory repository doesn't have product-variant relationship
-    // For testing purposes, we'll return empty array
-    return [];
+    // Find all variant IDs that belong to this product using relatedData
+    const variantIds = Array.from(this.relatedData.variants.entries())
+      .filter(([_, variant]) => variant.productId === productId.toString())
+      .map(([id]) => id);
+
+    return this.items.filter(
+      (item) =>
+        !item.deletedAt &&
+        variantIds.includes(item.variantId.toString()) &&
+        item.tenantId.toString() === tenantId,
+    );
   }
 
   async update(data: UpdateItemSchema): Promise<Item | null> {
@@ -266,6 +281,29 @@ export class InMemoryItemsRepository implements ItemsRepository {
     }));
   }
 
+  async findAllWithRelationsPaginated(
+    tenantId: string,
+    params: PaginationParams,
+  ): Promise<PaginatedResult<ItemWithRelationsDTO>> {
+    const allItems = this.items.filter(
+      (item) => !item.deletedAt && item.tenantId.toString() === tenantId,
+    );
+    const total = allItems.length;
+    const start = (params.page - 1) * params.limit;
+    const paged = allItems.slice(start, start + params.limit);
+
+    return {
+      data: paged.map((item) => ({
+        item,
+        relatedData: this.buildRelatedData(item),
+      })),
+      total,
+      page: params.page,
+      limit: params.limit,
+      totalPages: Math.ceil(total / params.limit),
+    };
+  }
+
   async findByIdWithRelations(
     id: UniqueEntityID,
     tenantId: string,
@@ -300,6 +338,33 @@ export class InMemoryItemsRepository implements ItemsRepository {
     }));
   }
 
+  async findManyByVariantWithRelationsPaginated(
+    variantId: UniqueEntityID,
+    tenantId: string,
+    params: PaginationParams,
+  ): Promise<PaginatedResult<ItemWithRelationsDTO>> {
+    const allItems = this.items.filter(
+      (item) =>
+        !item.deletedAt &&
+        item.variantId.equals(variantId) &&
+        item.tenantId.toString() === tenantId,
+    );
+    const total = allItems.length;
+    const start = (params.page - 1) * params.limit;
+    const paged = allItems.slice(start, start + params.limit);
+
+    return {
+      data: paged.map((item) => ({
+        item,
+        relatedData: this.buildRelatedData(item),
+      })),
+      total,
+      page: params.page,
+      limit: params.limit,
+      totalPages: Math.ceil(total / params.limit),
+    };
+  }
+
   async findManyByProductWithRelations(
     productId: UniqueEntityID,
     tenantId: string,
@@ -320,6 +385,37 @@ export class InMemoryItemsRepository implements ItemsRepository {
       item,
       relatedData: this.buildRelatedData(item),
     }));
+  }
+
+  async findManyByProductWithRelationsPaginated(
+    productId: UniqueEntityID,
+    tenantId: string,
+    params: PaginationParams,
+  ): Promise<PaginatedResult<ItemWithRelationsDTO>> {
+    const variantIds = Array.from(this.relatedData.variants.entries())
+      .filter(([_, variant]) => variant.productId === productId.toString())
+      .map(([id, _]) => id);
+
+    const allItems = this.items.filter(
+      (item) =>
+        !item.deletedAt &&
+        variantIds.includes(item.variantId.toString()) &&
+        item.tenantId.toString() === tenantId,
+    );
+    const total = allItems.length;
+    const start = (params.page - 1) * params.limit;
+    const paged = allItems.slice(start, start + params.limit);
+
+    return {
+      data: paged.map((item) => ({
+        item,
+        relatedData: this.buildRelatedData(item),
+      })),
+      total,
+      page: params.page,
+      limit: params.limit,
+      totalPages: Math.ceil(total / params.limit),
+    };
   }
 
   async findManyByBinWithRelations(

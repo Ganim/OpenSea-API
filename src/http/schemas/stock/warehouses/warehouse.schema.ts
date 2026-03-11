@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { queryBooleanSchema } from '../../common.schema';
 
 // Request schemas
 export const createWarehouseSchema = z.object({
@@ -18,7 +19,7 @@ export const updateWarehouseSchema = z.object({
 });
 
 export const listWarehousesQuerySchema = z.object({
-  activeOnly: z.coerce.boolean().optional(),
+  activeOnly: queryBooleanSchema.optional(),
 });
 
 // Response schemas

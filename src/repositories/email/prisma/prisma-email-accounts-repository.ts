@@ -44,7 +44,10 @@ export class PrismaEmailAccountsRepository implements EmailAccountsRepository {
     return accountDb ? emailAccountPrismaToDomain(accountDb) : null;
   }
 
-  async findManyByIds(ids: string[], tenantId: string): Promise<EmailAccount[]> {
+  async findManyByIds(
+    ids: string[],
+    tenantId: string,
+  ): Promise<EmailAccount[]> {
     if (ids.length === 0) return [];
 
     const accounts = await prisma.emailAccount.findMany({

@@ -1,6 +1,6 @@
 import { VolumeNotFoundError } from '@/@errors/volumes-errors';
-import type { VolumeDTO } from '@/mappers/stock/volume.mapper';
-import { VolumeMapper } from '@/mappers/stock/volume.mapper';
+import type { VolumeDTO } from '@/mappers/stock/volume/volume-to-dto';
+import { volumeToDTO } from '@/mappers/stock/volume/volume-to-dto';
 import type { VolumeRepository } from '@/repositories/stock/volumes-repository';
 
 export interface GetVolumeByIdUseCaseRequest {
@@ -30,7 +30,7 @@ export class GetVolumeByIdUseCase {
       request.volumeId,
     );
 
-    const volumeDTO = VolumeMapper.toDTO(volume);
+    const volumeDTO = volumeToDTO(volume);
 
     return {
       volume: {

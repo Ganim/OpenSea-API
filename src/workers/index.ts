@@ -1,6 +1,9 @@
 import { closeAllQueues } from '@/lib/queue';
 import { stopCalendarRemindersScheduler } from './calendar-reminders-scheduler';
-import { startEmailSyncScheduler, stopEmailSyncScheduler } from './email-sync-scheduler';
+import {
+  startEmailSyncScheduler,
+  stopEmailSyncScheduler,
+} from './email-sync-scheduler';
 import { stopNotificationsScheduler } from './notifications-scheduler';
 import { startAuditWorker } from './queues/audit.queue';
 import { startEmailSyncWorker } from './queues/email-sync.queue';
@@ -61,7 +64,9 @@ async function gracefulShutdown(signal: string) {
   console.log(`[Workers] ${signal} received, shutting down...`);
 
   const shutdownTimer = setTimeout(() => {
-    console.error(`[Workers] Shutdown timed out after ${SHUTDOWN_TIMEOUT_MS}ms, forcing exit`);
+    console.error(
+      `[Workers] Shutdown timed out after ${SHUTDOWN_TIMEOUT_MS}ms, forcing exit`,
+    );
     process.exit(1);
   }, SHUTDOWN_TIMEOUT_MS);
 

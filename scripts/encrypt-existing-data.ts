@@ -170,8 +170,7 @@ const MODELS_TO_MIGRATE: MigrationModelConfig[] = [
   {
     modelName: 'CompanyStakeholder',
     prismaModel: 'companyStakeholder',
-    encryptedFields:
-      ENCRYPTED_FIELD_CONFIG.CompanyStakeholder.encryptedFields,
+    encryptedFields: ENCRYPTED_FIELD_CONFIG.CompanyStakeholder.encryptedFields,
     hashFields: ENCRYPTED_FIELD_CONFIG.CompanyStakeholder.hashFields,
     idField: 'id',
     tenantScoped: false,
@@ -205,7 +204,9 @@ async function migrateModel(config: MigrationModelConfig): Promise<{
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const model = (prisma as any)[config.prismaModel];
   if (!model) {
-    console.error(`  ⚠️  Model ${config.prismaModel} not found on Prisma client`);
+    console.error(
+      `  ⚠️  Model ${config.prismaModel} not found on Prisma client`,
+    );
     return stats;
   }
 
@@ -231,7 +232,11 @@ async function migrateModel(config: MigrationModelConfig): Promise<{
         // Check if already encrypted (check first encrypted field)
         const firstField = config.encryptedFields[0];
         const firstValue = record[firstField];
-        if (firstValue && typeof firstValue === 'string' && cipher.isEncrypted(firstValue)) {
+        if (
+          firstValue &&
+          typeof firstValue === 'string' &&
+          cipher.isEncrypted(firstValue)
+        ) {
           stats.skipped++;
           continue;
         }
@@ -242,13 +247,19 @@ async function migrateModel(config: MigrationModelConfig): Promise<{
         // Encrypt fields
         for (const field of config.encryptedFields) {
           const value = record[field];
-          if (value !== null && value !== undefined && typeof value === 'string') {
+          if (
+            value !== null &&
+            value !== undefined &&
+            typeof value === 'string'
+          ) {
             updateData[field] = cipher.encrypt(value);
           }
         }
 
         // Generate hashes
-        for (const [sourceField, hashColumn] of Object.entries(config.hashFields)) {
+        for (const [sourceField, hashColumn] of Object.entries(
+          config.hashFields,
+        )) {
           const value = record[sourceField];
           if (value && typeof value === 'string') {
             updateData[hashColumn] = cipher.blindIndex(value);

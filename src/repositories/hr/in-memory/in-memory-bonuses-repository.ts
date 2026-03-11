@@ -24,7 +24,11 @@ export class InMemoryBonusesRepository implements BonusesRepository {
     return bonus;
   }
 
-  async findById(id: UniqueEntityID, tenantId: string): Promise<Bonus | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+    _tx?: unknown,
+  ): Promise<Bonus | null> {
     return (
       this.items.find(
         (item) => item.id.equals(id) && item.tenantId.toString() === tenantId,
@@ -150,7 +154,7 @@ export class InMemoryBonusesRepository implements BonusesRepository {
     return bonus;
   }
 
-  async save(bonus: Bonus): Promise<void> {
+  async save(bonus: Bonus, _tx?: unknown): Promise<void> {
     const index = this.items.findIndex((item) => item.id.equals(bonus.id));
     if (index >= 0) {
       this.items[index] = bonus;

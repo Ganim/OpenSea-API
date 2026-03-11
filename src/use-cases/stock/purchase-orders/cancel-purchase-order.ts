@@ -5,10 +5,12 @@ import type { PurchaseOrderDTO } from '@/mappers/stock/purchase-order/purchase-o
 import { purchaseOrderToDTO } from '@/mappers/stock/purchase-order/purchase-order-to-dto';
 import type { PurchaseOrdersRepository } from '@/repositories/stock/purchase-orders-repository';
 import type { CalendarSyncService } from '@/services/calendar/calendar-sync.service';
+import { queueAuditLog } from '@/workers/queues/audit.queue';
 
 interface CancelPurchaseOrderUseCaseRequest {
   tenantId: string;
   id: string;
+  userId?: string;
 }
 
 interface CancelPurchaseOrderUseCaseResponse {
@@ -24,7 +26,7 @@ export class CancelPurchaseOrderUseCase {
   async execute(
     request: CancelPurchaseOrderUseCaseRequest,
   ): Promise<CancelPurchaseOrderUseCaseResponse> {
-    const { tenantId, id } = request;
+    const { tenantId, id, userId } = request;
 
     const purchaseOrder = await this.purchaseOrdersRepository.findById(
       new UniqueEntityID(id),
@@ -58,6 +60,18 @@ export class CancelPurchaseOrderUseCase {
         // Calendar sync failure should not block the operation
       }
     }
+
+    // Audit log (fire-and-forget)
+    queueAuditLog({
+      userId,
+      action: 'STOCK_PO_CANCELLED',
+      entity: 'PURCHASE_ORDER',
+      entityId: id,
+      module: 'stock',
+      description: `Pedido de compra ${purchaseOrder.orderNumber} cancelado`,
+      oldData: { status: 'CONFIRMED' },
+      newData: { status: 'CANCELLED', orderId: id, tenantId },
+    });
 
     return { purchaseOrder: purchaseOrderToDTO(purchaseOrder) };
   }

@@ -54,7 +54,9 @@ describe('SeedFinanceCategoriesUseCase', () => {
     await sut.execute({ tenantId: 'tenant-1' });
 
     const categories = await repository.findMany('tenant-1');
-    const receita = categories.find((c) => c.name === 'Receita Operacional Bruta');
+    const receita = categories.find(
+      (c) => c.name === 'Receita Operacional Bruta',
+    );
     expect(receita).toBeDefined();
 
     const children = categories.filter(
@@ -98,7 +100,9 @@ describe('SeedFinanceCategoriesUseCase', () => {
     await sut.execute({ tenantId: 'tenant-1' });
 
     const categories = await repository.findMany('tenant-1');
-    const cmv = categories.find((c) => c.name === 'Custos dos Produtos e Servicos');
+    const cmv = categories.find(
+      (c) => c.name === 'Custos dos Produtos e Servicos',
+    );
 
     const children = categories.filter(
       (c) => c.parentId?.toString() === cmv!.id.toString(),
@@ -168,7 +172,9 @@ describe('SeedFinanceCategoriesUseCase', () => {
     // Roots should come first in DRE order
     const rootCategories = sorted.filter((c) => !c.parentId);
     expect(rootCategories[0].name).toBe('Receita Operacional Bruta');
-    expect(rootCategories[rootCategories.length - 1].name).toBe('Resultado Nao Operacional');
+    expect(rootCategories[rootCategories.length - 1].name).toBe(
+      'Resultado Nao Operacional',
+    );
 
     // Every category should have a non-zero display order
     categories.forEach((c) => {
@@ -182,7 +188,9 @@ describe('SeedFinanceCategoriesUseCase', () => {
     const categories = await repository.findMany('tenant-1');
 
     // Revenue root categories
-    const receitaBruta = categories.find((c) => c.name === 'Receita Operacional Bruta');
+    const receitaBruta = categories.find(
+      (c) => c.name === 'Receita Operacional Bruta',
+    );
     expect(receitaBruta!.type).toBe('REVENUE');
 
     // Expense root categories
@@ -190,7 +198,9 @@ describe('SeedFinanceCategoriesUseCase', () => {
     expect(despOp!.type).toBe('EXPENSE');
 
     // CMV is EXPENSE
-    const cmv = categories.find((c) => c.name === 'Custos dos Produtos e Servicos');
+    const cmv = categories.find(
+      (c) => c.name === 'Custos dos Produtos e Servicos',
+    );
     expect(cmv!.type).toBe('EXPENSE');
 
     // Receitas Financeiras is REVENUE (even though positioned in the DRE between expenses)
@@ -230,7 +240,9 @@ describe('SeedFinanceCategoriesUseCase', () => {
     const deducoes = categories.find((c) => c.name === 'Deducoes da Receita');
     expect(deducoes!.slug).toBe('deducoes-da-receita');
 
-    const receitaBruta = categories.find((c) => c.name === 'Receita Operacional Bruta');
+    const receitaBruta = categories.find(
+      (c) => c.name === 'Receita Operacional Bruta',
+    );
     expect(receitaBruta!.slug).toBe('receita-operacional-bruta');
   });
 

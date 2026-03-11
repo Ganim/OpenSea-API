@@ -58,6 +58,21 @@ export class ProductStatus {
     return this.status === 'ACTIVE' || this.status === 'OUT_OF_STOCK';
   }
 
+  private static readonly VALID_TRANSITIONS: Record<
+    ProductStatusValue,
+    ProductStatusValue[]
+  > = {
+    DRAFT: ['ACTIVE', 'DISCONTINUED'],
+    ACTIVE: ['INACTIVE', 'DISCONTINUED', 'OUT_OF_STOCK'],
+    INACTIVE: ['ACTIVE', 'DISCONTINUED'],
+    OUT_OF_STOCK: ['ACTIVE', 'INACTIVE', 'DISCONTINUED'],
+    DISCONTINUED: [], // terminal
+  };
+
+  canTransitionTo(newStatus: ProductStatusValue): boolean {
+    return ProductStatus.VALID_TRANSITIONS[this.status].includes(newStatus);
+  }
+
   equals(other: ProductStatus): boolean {
     return this.status === other.status;
   }

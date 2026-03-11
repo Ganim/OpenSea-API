@@ -3,16 +3,24 @@ import { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { makeGetPurchaseOrderByIdUseCase } from '@/use-cases/stock/purchase-orders/factories/make-get-purchase-order-by-id-use-case';
-
-import { verifyJwt } from '../../../middlewares/rbac/verify-jwt';
-import { verifyTenant } from '../../../middlewares/rbac/verify-tenant';
 
 export async function getPurchaseOrderByIdController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get(
     '/v1/purchase-orders/:orderId',
     {
-      onRequest: [verifyJwt, verifyTenant],
+      onRequest: [
+        verifyJwt,
+        verifyTenant,
+        createPermissionMiddleware({
+          permissionCode: PermissionCodes.STOCK.PURCHASE_ORDERS.READ,
+          resource: 'purchase-orders',
+        }),
+      ],
       schema: {
         summary: 'Get purchase order by ID',
         description: 'Returns a single purchase order by its ID',

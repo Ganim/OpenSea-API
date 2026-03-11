@@ -1,4 +1,3 @@
-import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
@@ -46,24 +45,17 @@ export async function createWarehouseController(app: FastifyInstance) {
       const tenantId = request.user.tenantId!;
       const { code, name, description, address, isActive } = request.body;
 
-      try {
-        const createWarehouseUseCase = makeCreateWarehouseUseCase();
-        const { warehouse } = await createWarehouseUseCase.execute({
-          tenantId,
-          code,
-          name,
-          description,
-          address,
-          isActive,
-        });
+      const createWarehouseUseCase = makeCreateWarehouseUseCase();
+      const { warehouse } = await createWarehouseUseCase.execute({
+        tenantId,
+        code,
+        name,
+        description,
+        address,
+        isActive,
+      });
 
-        return reply.status(201).send({ warehouse: warehouseToDTO(warehouse) });
-      } catch (error) {
-        if (error instanceof BadRequestError) {
-          return reply.status(400).send({ message: error.message });
-        }
-        throw error;
-      }
+      return reply.status(201).send({ warehouse: warehouseToDTO(warehouse) });
     },
   });
 }

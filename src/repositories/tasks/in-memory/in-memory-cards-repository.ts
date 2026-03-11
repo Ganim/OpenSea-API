@@ -193,7 +193,10 @@ export class InMemoryCardsRepository implements CardsRepository {
       }));
   }
 
-  async findCardsByDueDateRange(from: Date, to: Date): Promise<OverdueCardRecord[]> {
+  async findCardsByDueDateRange(
+    from: Date,
+    to: Date,
+  ): Promise<OverdueCardRecord[]> {
     return this.items
       .filter(
         (card) =>
@@ -282,12 +285,14 @@ export class InMemoryCardsRepository implements CardsRepository {
 
   async reindexColumnPositions(columnId: string): Promise<void> {
     const colCards = this.items
-      .filter(c => c.columnId.toString() === columnId && !c.isDeleted)
+      .filter((c) => c.columnId.toString() === columnId && !c.isDeleted)
       .sort((a, b) => {
         if (a.position !== b.position) return a.position - b.position;
         return (b.updatedAt?.getTime() ?? 0) - (a.updatedAt?.getTime() ?? 0);
       });
-    colCards.forEach((card, i) => { card.position = i; });
+    colCards.forEach((card, i) => {
+      card.position = i;
+    });
   }
 
   async softDelete(id: string, boardId: string): Promise<void> {

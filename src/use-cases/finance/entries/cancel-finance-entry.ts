@@ -6,10 +6,12 @@ import {
   financeEntryToDTO,
 } from '@/mappers/finance/finance-entry/finance-entry-to-dto';
 import type { FinanceEntriesRepository } from '@/repositories/finance/finance-entries-repository';
+import { queueAuditLog } from '@/workers/queues/audit.queue';
 
 interface CancelFinanceEntryUseCaseRequest {
   tenantId: string;
   id: string;
+  userId?: string;
 }
 
 interface CancelFinanceEntryUseCaseResponse {
@@ -22,6 +24,7 @@ export class CancelFinanceEntryUseCase {
   async execute({
     tenantId,
     id,
+    userId,
   }: CancelFinanceEntryUseCaseRequest): Promise<CancelFinanceEntryUseCaseResponse> {
     const entry = await this.financeEntriesRepository.findById(
       new UniqueEntityID(id),
@@ -47,6 +50,26 @@ export class CancelFinanceEntryUseCase {
     if (!cancelled) {
       throw new ResourceNotFoundError('Finance entry not found');
     }
+
+    queueAuditLog({
+      userId,
+      action: 'FINANCE_ENTRY_CANCEL',
+      entity: 'FINANCE_ENTRY',
+      entityId: id,
+      module: 'FINANCE',
+      description: `Cancelled finance entry ${entry.code} (${entry.description})`,
+      oldData: {
+        status: entry.status,
+      },
+      newData: {
+        status: 'CANCELLED',
+      },
+      metadata: {
+        code: entry.code,
+        type: entry.type,
+        expectedAmount: entry.expectedAmount,
+      },
+    }).catch(() => {});
 
     return { entry: financeEntryToDTO(cancelled) };
   }

@@ -44,6 +44,7 @@ export async function listAttachmentsController(app: FastifyInstance) {
           entryId,
         });
 
+        reply.header('Cache-Control', 'private, max-age=30');
         return reply.status(200).send(result);
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {

@@ -3,7 +3,7 @@ import {
   Company,
   type TaxRegime,
   type CompanyStatus,
-} from '@/entities/hr/company';
+} from '@/entities/core/company';
 import type {
   CreateCompanySchema,
   CompaniesRepository,

@@ -1,8 +1,5 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import {
-  Template,
-  TemplateAttributesMap,
-} from '@/entities/stock/template';
+import { Template, TemplateAttributesMap } from '@/entities/stock/template';
 import { UnitOfMeasure } from '@/entities/stock/value-objects/unit-of-measure';
 import type { UnitOfMeasureValue } from '@/entities/stock/value-objects/unit-of-measure';
 import type { Template as PrismaTemplate } from '@prisma/generated/client.js';
@@ -15,7 +12,9 @@ export function mapTemplatePrismaToDomain(templateDb: PrismaTemplate) {
     sequentialCode: templateDb.sequentialCode,
     name: templateDb.name,
     iconUrl: templateDb.iconUrl ?? undefined,
-    unitOfMeasure: UnitOfMeasure.create(templateDb.unitOfMeasure as UnitOfMeasureValue),
+    unitOfMeasure: UnitOfMeasure.create(
+      templateDb.unitOfMeasure as UnitOfMeasureValue,
+    ),
     productAttributes:
       templateDb.productAttributes as unknown as TemplateAttributesMap,
     variantAttributes:

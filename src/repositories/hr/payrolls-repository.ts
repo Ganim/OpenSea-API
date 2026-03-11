@@ -1,5 +1,6 @@
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { Payroll } from '@/entities/hr/payroll';
+import type { TransactionClient } from '@/lib/transaction-manager';
 
 export interface CreatePayrollSchema {
   tenantId: string;
@@ -40,6 +41,6 @@ export interface PayrollsRepository {
   findManyByYear(year: number, tenantId: string): Promise<Payroll[]>;
   findManyByStatus(status: string, tenantId: string): Promise<Payroll[]>;
   update(data: UpdatePayrollSchema): Promise<Payroll | null>;
-  save(payroll: Payroll): Promise<void>;
+  save(payroll: Payroll, tx?: TransactionClient): Promise<void>;
   delete(id: UniqueEntityID): Promise<void>;
 }

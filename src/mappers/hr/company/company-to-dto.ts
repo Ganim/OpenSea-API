@@ -1,4 +1,4 @@
-import type { Company, TaxRegime } from '@/entities/hr/company';
+import type { Company, TaxRegime } from '@/entities/core/company';
 import type { Department } from '@/entities/hr/department';
 import {
   departmentToDTO,

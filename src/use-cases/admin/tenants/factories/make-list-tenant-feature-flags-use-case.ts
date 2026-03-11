@@ -4,8 +4,7 @@ import { ListTenantFeatureFlagsUseCase } from '../list-tenant-feature-flags';
 
 export function makeListTenantFeatureFlagsUseCase() {
   const tenantsRepository = new PrismaTenantsRepository();
-  const tenantFeatureFlagsRepository =
-    new PrismaTenantFeatureFlagsRepository();
+  const tenantFeatureFlagsRepository = new PrismaTenantFeatureFlagsRepository();
   return new ListTenantFeatureFlagsUseCase(
     tenantsRepository,
     tenantFeatureFlagsRepository,

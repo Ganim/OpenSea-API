@@ -10,12 +10,9 @@ const PRODUCT_ID = 'product-1';
 
 describe('ListProductAttachmentsUseCase', () => {
   beforeEach(() => {
-    productAttachmentsRepository =
-      new InMemoryProductAttachmentsRepository();
+    productAttachmentsRepository = new InMemoryProductAttachmentsRepository();
 
-    sut = new ListProductAttachmentsUseCase(
-      productAttachmentsRepository,
-    );
+    sut = new ListProductAttachmentsUseCase(productAttachmentsRepository);
   });
 
   it('should return ordered list of attachments', async () => {
@@ -45,7 +42,8 @@ describe('ListProductAttachmentsUseCase', () => {
       fileUrl: 'https://storage.example.com/files/spec.xlsx',
       fileName: 'spec.xlsx',
       fileSize: 51200,
-      mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      mimeType:
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
       order: 3,
     });
 

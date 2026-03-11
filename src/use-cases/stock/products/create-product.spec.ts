@@ -37,7 +37,7 @@ describe('CreateProductUseCase', () => {
       templatesRepository,
       suppliersRepository,
       manufacturersRepository,
-      categoriesRepository,
+      categoriesRepository,
     );
 
     createTemplate = new CreateTemplateUseCase(templatesRepository);

@@ -41,7 +41,7 @@ describe('ListVariantsUseCase', () => {
       templatesRepository,
       suppliersRepository,
       manufacturersRepository,
-      categoriesRepository,
+      categoriesRepository,
     );
     createTemplate = new CreateTemplateUseCase(templatesRepository);
   });

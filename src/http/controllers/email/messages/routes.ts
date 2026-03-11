@@ -83,7 +83,8 @@ const messageDetailSchema = z.object({
 });
 
 /** Prevents CRLF header injection in email subject/fields */
-const noLineBreaks = (val: string) => !val.includes('\r') && !val.includes('\n');
+const noLineBreaks = (val: string) =>
+  !val.includes('\r') && !val.includes('\n');
 
 const _sendMessageBodySchema = z.object({
   accountId: z.string().uuid(),
@@ -210,7 +211,10 @@ export async function emailMessagesRoutes(app: FastifyInstance) {
       summary: 'List central inbox messages (aggregated across accounts)',
       security: [{ bearerAuth: [] }],
       querystring: z.object({
-        accountIds: z.string().transform((val) => val.split(',')).pipe(z.array(z.string().uuid()).min(1).max(20)),
+        accountIds: z
+          .string()
+          .transform((val) => val.split(','))
+          .pipe(z.array(z.string().uuid()).min(1).max(20)),
         page: z.coerce.number().int().positive().default(1),
         limit: z.coerce.number().int().positive().max(100).default(50),
         unread: z.coerce.boolean().optional(),
@@ -613,14 +617,22 @@ export async function emailMessagesRoutes(app: FastifyInstance) {
         });
 
         logger.info(
-          { messageId: result.messageId, to: getArrayField('to'), subject: getField('subject') },
+          {
+            messageId: result.messageId,
+            to: getArrayField('to'),
+            subject: getField('subject'),
+          },
           '[Email Send] Email sent successfully',
         );
 
         return reply.status(202).send(result);
       } catch (error) {
         logger.error(
-          { err: error, accountId: getField('accountId'), to: getArrayField('to') },
+          {
+            err: error,
+            accountId: getField('accountId'),
+            to: getArrayField('to'),
+          },
           '[Email Send] Failed to send email',
         );
         if (error instanceof BadRequestError) {

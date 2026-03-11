@@ -64,7 +64,9 @@ export class CredentialCipherService {
       }
     }
 
-    throw new Error('Failed to decrypt credential with current or previous key');
+    throw new Error(
+      'Failed to decrypt credential with current or previous key',
+    );
   }
 
   /**

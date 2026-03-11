@@ -1,23 +1,39 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import { ItemStatus } from '@/entities/stock/value-objects/item-status';
 import { MovementType } from '@/entities/stock/value-objects/movement-type';
+import type { TransactionManager } from '@/lib/transaction-manager';
 import type { ItemMovementDTO } from '@/mappers/stock/item-movement/item-movement-to-dto';
 import { itemMovementToDTO } from '@/mappers/stock/item-movement/item-movement-to-dto';
 import type { ItemDTO } from '@/mappers/stock/item/item-to-dto';
 import { itemToDTO } from '@/mappers/stock/item/item-to-dto';
 import { ItemMovementsRepository } from '@/repositories/stock/item-movements-repository';
 import { ItemsRepository } from '@/repositories/stock/items-repository';
+import { queueAuditLog } from '@/workers/queues/audit.queue';
+
+const APPROVAL_REQUIRED_TYPES: readonly string[] = [
+  'LOSS',
+  'INVENTORY_ADJUSTMENT',
+];
 
 interface RegisterItemExitUseCaseRequest {
   tenantId: string;
   itemId: string;
   quantity: number;
   userId: string;
-  movementType: 'SALE' | 'PRODUCTION' | 'SAMPLE' | 'LOSS' | 'SUPPLIER_RETURN';
+  movementType:
+    | 'SALE'
+    | 'PRODUCTION'
+    | 'SAMPLE'
+    | 'LOSS'
+    | 'SUPPLIER_RETURN'
+    | 'INVENTORY_ADJUSTMENT';
   reasonCode?: string;
   destinationRef?: string;
   notes?: string;
+  /** Required when movementType is LOSS or INVENTORY_ADJUSTMENT */
+  approvedBy?: string;
 }
 
 interface RegisterItemExitUseCaseResponse {
@@ -29,6 +45,7 @@ export class RegisterItemExitUseCase {
   constructor(
     private itemsRepository: ItemsRepository,
     private itemMovementsRepository: ItemMovementsRepository,
+    private transactionManager: TransactionManager,
   ) {}
 
   async execute(
@@ -56,6 +73,23 @@ export class RegisterItemExitUseCase {
       throw new BadRequestError('Notes cannot exceed 1000 characters.');
     }
 
+    // Validation: approval required for LOSS and INVENTORY_ADJUSTMENT
+    if (
+      APPROVAL_REQUIRED_TYPES.includes(input.movementType) &&
+      !input.approvedBy
+    ) {
+      throw new BadRequestError(
+        `Saídas do tipo ${input.movementType} exigem aprovação (approvedBy).`,
+      );
+    }
+
+    // Validation: approvedBy must differ from userId (self-approval not allowed)
+    if (input.approvedBy && input.approvedBy === input.userId) {
+      throw new BadRequestError(
+        'O aprovador não pode ser o mesmo usuário que registra a saída.',
+      );
+    }
+
     // Validation: item must exist
     const item = await this.itemsRepository.findById(
       new UniqueEntityID(input.itemId),
@@ -77,30 +111,52 @@ export class RegisterItemExitUseCase {
     const quantityAfter = quantityBefore - input.quantity;
     item.currentQuantity = quantityAfter;
 
-    // If quantity becomes zero, optionally update status (business logic decision)
-    // For now, we'll leave the status as-is - you can add logic here if needed
-    // if (quantityAfter === 0) {
-    //   item.status = ItemStatus.create('RESERVED'); // or another status
-    // }
+    // If quantity reaches zero, mark item as expired (depleted)
+    if (quantityAfter === 0) {
+      item.status = ItemStatus.create('EXPIRED');
+    }
 
-    await this.itemsRepository.save(item);
+    const { savedItem, movement } = await this.transactionManager.run(
+      async () => {
+        await this.itemsRepository.save(item);
 
-    // Create movement record
-    const movement = await this.itemMovementsRepository.create({
-      tenantId: input.tenantId,
-      itemId: item.id,
-      userId: new UniqueEntityID(input.userId),
-      quantity: input.quantity,
-      quantityBefore,
-      quantityAfter,
-      movementType: MovementType.create(input.movementType),
-      reasonCode: input.reasonCode,
-      destinationRef: input.destinationRef,
-      notes: input.notes,
+        // Create movement record
+        const mov = await this.itemMovementsRepository.create({
+          tenantId: input.tenantId,
+          itemId: item.id,
+          userId: new UniqueEntityID(input.userId),
+          quantity: input.quantity,
+          quantityBefore,
+          quantityAfter,
+          movementType: MovementType.create(input.movementType),
+          reasonCode: input.reasonCode,
+          destinationRef: input.destinationRef,
+          notes: input.notes,
+        });
+
+        return { savedItem: item, movement: mov };
+      },
+    );
+
+    // Audit log (fire-and-forget, outside transaction)
+    queueAuditLog({
+      userId: input.userId,
+      action: 'STOCK_ITEM_EXIT',
+      entity: 'ITEM',
+      entityId: input.itemId,
+      module: 'stock',
+      description: `Saída de item: quantidade ${input.quantity}, tipo ${input.movementType}`,
+      oldData: { quantity: quantityBefore },
+      newData: {
+        itemId: input.itemId,
+        quantity: input.quantity,
+        quantityAfter,
+        ...(input.approvedBy && { approvedBy: input.approvedBy }),
+      },
     });
 
     return {
-      item: itemToDTO(item),
+      item: itemToDTO(savedItem),
       movement: itemMovementToDTO(movement),
     };
   }

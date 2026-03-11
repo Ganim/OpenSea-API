@@ -46,9 +46,7 @@ export class ListCentralInboxUseCase {
       request.accountIds,
       tenantId,
     );
-    const accountsMap = new Map(
-      accounts.map((a) => [a.id.toString(), a]),
-    );
+    const accountsMap = new Map(accounts.map((a) => [a.id.toString(), a]));
 
     // Get non-owner account IDs to batch-check access
     const nonOwnerAccountIds = request.accountIds.filter((id) => {
@@ -56,15 +54,14 @@ export class ListCentralInboxUseCase {
       return account && account.ownerUserId.toString() !== userId;
     });
 
-    const accessList = nonOwnerAccountIds.length > 0
-      ? await this.emailAccountsRepository.findAccessByAccountIds(
-          nonOwnerAccountIds,
-          userId,
-        )
-      : [];
-    const accessMap = new Map(
-      accessList.map((a) => [a.accountId, a]),
-    );
+    const accessList =
+      nonOwnerAccountIds.length > 0
+        ? await this.emailAccountsRepository.findAccessByAccountIds(
+            nonOwnerAccountIds,
+            userId,
+          )
+        : [];
+    const accessMap = new Map(accessList.map((a) => [a.accountId, a]));
 
     // Filter to only accounts the user has access to
     const accessibleAccountIds: string[] = [];

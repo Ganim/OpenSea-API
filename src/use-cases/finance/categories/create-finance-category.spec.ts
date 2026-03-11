@@ -126,7 +126,9 @@ describe('CreateFinanceCategoryUseCase', () => {
       expect.unreachable('Should have thrown');
     } catch (error) {
       expect(error).toBeInstanceOf(BadRequestError);
-      expect((error as BadRequestError).code).toBe(ErrorCodes.FINANCE_CATEGORY_DUPLICATE_SLUG);
+      expect((error as BadRequestError).code).toBe(
+        ErrorCodes.FINANCE_CATEGORY_DUPLICATE_SLUG,
+      );
     }
   });
 
@@ -220,7 +222,9 @@ describe('CreateFinanceCategoryUseCase', () => {
       expect.unreachable('Should have thrown');
     } catch (error) {
       expect(error).toBeInstanceOf(BadRequestError);
-      expect((error as BadRequestError).code).toBe(ErrorCodes.FINANCE_CATEGORY_MAX_DEPTH);
+      expect((error as BadRequestError).code).toBe(
+        ErrorCodes.FINANCE_CATEGORY_MAX_DEPTH,
+      );
     }
   });
 

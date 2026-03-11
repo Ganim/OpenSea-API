@@ -1,19 +1,43 @@
 import { z } from 'zod';
 
 export const createConsortiumSchema = z.object({
-  name: z.string().min(1).max(128),
-  administrator: z.string().min(1).max(128),
-  bankAccountId: z.string().uuid(),
-  costCenterId: z.string().uuid(),
-  creditValue: z.number().positive(),
-  monthlyPayment: z.number().positive(),
-  totalInstallments: z.number().int().positive(),
-  startDate: z.coerce.date(),
-  paymentDay: z.number().int().min(1).max(31).optional(),
-  groupNumber: z.string().max(32).optional(),
-  quotaNumber: z.string().max(32).optional(),
-  contractNumber: z.string().max(64).optional(),
-  notes: z.string().optional(),
+  name: z.string().min(1).max(128).describe('Nome identificador do consórcio'),
+  administrator: z
+    .string()
+    .min(1)
+    .max(128)
+    .describe('Nome da administradora do consórcio'),
+  bankAccountId: z.string().uuid().describe('ID da conta bancária vinculada'),
+  costCenterId: z.string().uuid().describe('ID do centro de custo'),
+  creditValue: z
+    .number()
+    .positive()
+    .describe('Valor da carta de crédito em reais'),
+  monthlyPayment: z
+    .number()
+    .positive()
+    .describe('Valor da parcela mensal em reais'),
+  totalInstallments: z
+    .number()
+    .int()
+    .positive()
+    .describe('Número total de parcelas'),
+  startDate: z.coerce.date().describe('Data de início do consórcio (ISO 8601)'),
+  paymentDay: z
+    .number()
+    .int()
+    .min(1)
+    .max(31)
+    .optional()
+    .describe('Dia do mês para vencimento (1-31)'),
+  groupNumber: z
+    .string()
+    .max(32)
+    .optional()
+    .describe('Número do grupo do consórcio'),
+  quotaNumber: z.string().max(32).optional().describe('Número da cota'),
+  contractNumber: z.string().max(64).optional().describe('Número do contrato'),
+  notes: z.string().optional().describe('Observações adicionais'),
 });
 
 export const updateConsortiumSchema = z.object({

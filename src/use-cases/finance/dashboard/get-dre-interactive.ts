@@ -108,8 +108,7 @@ export class GetInteractiveDREUseCase {
     );
 
     const netResult = revenue.currentPeriod - expenses.currentPeriod;
-    const previousNetResult =
-      revenue.previousPeriod - expenses.previousPeriod;
+    const previousNetResult = revenue.previousPeriod - expenses.previousPeriod;
     const variationPercent = this.calcVariation(netResult, previousNetResult);
 
     return {
@@ -144,9 +143,7 @@ export class GetInteractiveDREUseCase {
     level: number,
   ): DRENode {
     // Find root categories (no parent or parent not in relevant set)
-    const rootCategories = relevantCategories.filter(
-      (c) => !c.parentId,
-    );
+    const rootCategories = relevantCategories.filter((c) => !c.parentId);
 
     const children = rootCategories.map((cat) =>
       this.buildCategoryNode(
@@ -158,10 +155,7 @@ export class GetInteractiveDREUseCase {
       ),
     );
 
-    const currentPeriod = children.reduce(
-      (sum, c) => sum + c.currentPeriod,
-      0,
-    );
+    const currentPeriod = children.reduce((sum, c) => sum + c.currentPeriod, 0);
     const previousPeriod = children.reduce(
       (sum, c) => sum + c.previousPeriod,
       0,
@@ -227,6 +221,8 @@ export class GetInteractiveDREUseCase {
     if (previous === 0) {
       return current === 0 ? 0 : 100;
     }
-    return Math.round(((current - previous) / Math.abs(previous)) * 10000) / 100;
+    return (
+      Math.round(((current - previous) / Math.abs(previous)) * 10000) / 100
+    );
   }
 }

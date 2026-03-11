@@ -6,7 +6,10 @@ import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { updateContractSchema, contractResponseSchema } from '@/http/schemas/finance';
+import {
+  updateContractSchema,
+  contractResponseSchema,
+} from '@/http/schemas/finance';
 import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
 import { makeUpdateContractUseCase } from '@/use-cases/finance/contracts/factories/make-update-contract-use-case';
 import type { FastifyInstance } from 'fastify';

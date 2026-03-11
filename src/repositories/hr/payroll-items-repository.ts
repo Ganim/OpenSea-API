@@ -1,5 +1,6 @@
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { PayrollItem } from '@/entities/hr/payroll-item';
+import type { TransactionClient } from '@/lib/transaction-manager';
 
 export interface CreatePayrollItemSchema {
   payrollId: UniqueEntityID;
@@ -26,11 +27,20 @@ export interface FindPayrollItemFilters {
 }
 
 export interface PayrollItemsRepository {
-  create(data: CreatePayrollItemSchema): Promise<PayrollItem>;
-  createMany(data: CreatePayrollItemSchema[]): Promise<PayrollItem[]>;
+  create(
+    data: CreatePayrollItemSchema,
+    tx?: TransactionClient,
+  ): Promise<PayrollItem>;
+  createMany(
+    data: CreatePayrollItemSchema[],
+    tx?: TransactionClient,
+  ): Promise<PayrollItem[]>;
   findById(id: UniqueEntityID): Promise<PayrollItem | null>;
   findMany(filters?: FindPayrollItemFilters): Promise<PayrollItem[]>;
-  findManyByPayroll(payrollId: UniqueEntityID): Promise<PayrollItem[]>;
+  findManyByPayroll(
+    payrollId: UniqueEntityID,
+    tx?: TransactionClient,
+  ): Promise<PayrollItem[]>;
   findManyByEmployee(employeeId: UniqueEntityID): Promise<PayrollItem[]>;
   findManyByPayrollAndEmployee(
     payrollId: UniqueEntityID,
@@ -38,6 +48,7 @@ export interface PayrollItemsRepository {
   ): Promise<PayrollItem[]>;
   sumByPayroll(
     payrollId: UniqueEntityID,
+    tx?: TransactionClient,
   ): Promise<{ totalGross: number; totalDeductions: number }>;
   sumByPayrollAndEmployee(
     payrollId: UniqueEntityID,

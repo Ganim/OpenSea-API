@@ -8,9 +8,7 @@ import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
 
-export async function listVariantAttachmentsController(
-  app: FastifyInstance,
-) {
+export async function listVariantAttachmentsController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/variants/:variantId/attachments',
@@ -30,9 +28,7 @@ export async function listVariantAttachmentsController(
       }),
       response: {
         200: z.object({
-          variantAttachments: z.array(
-            attachmentResponseSchema,
-          ),
+          variantAttachments: z.array(attachmentResponseSchema),
         }),
       },
       security: [{ bearerAuth: [] }],

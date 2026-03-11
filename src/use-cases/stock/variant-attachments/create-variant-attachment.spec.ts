@@ -29,8 +29,7 @@ const TENANT_ID = 'tenant-1';
 
 describe('CreateVariantAttachmentUseCase', () => {
   beforeEach(() => {
-    variantAttachmentsRepository =
-      new InMemoryVariantAttachmentsRepository();
+    variantAttachmentsRepository = new InMemoryVariantAttachmentsRepository();
     variantsRepository = new InMemoryVariantsRepository();
     productsRepository = new InMemoryProductsRepository();
     templatesRepository = new InMemoryTemplatesRepository();
@@ -91,7 +90,9 @@ describe('CreateVariantAttachmentUseCase', () => {
     expect(result.variantAttachment).toBeDefined();
     expect(result.variantAttachment.id).toBeDefined();
     expect(result.variantAttachment.variantId).toBe(variant.id.toString());
-    expect(result.variantAttachment.fileUrl).toBe('https://storage.example.com/files/photo.jpg');
+    expect(result.variantAttachment.fileUrl).toBe(
+      'https://storage.example.com/files/photo.jpg',
+    );
     expect(result.variantAttachment.fileName).toBe('photo.jpg');
     expect(result.variantAttachment.fileSize).toBe(102400);
     expect(result.variantAttachment.mimeType).toBe('image/jpeg');

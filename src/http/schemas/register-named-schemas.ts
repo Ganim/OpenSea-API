@@ -35,7 +35,10 @@ import {
   productResponseSchema,
   updateProductSchema,
 } from './stock/products/product.schema';
-import { createVariantSchema, variantResponseSchema } from './stock/variants/variant.schema';
+import {
+  createVariantSchema,
+  variantResponseSchema,
+} from './stock/variants/variant.schema';
 import { itemResponseSchema } from './stock/items/item.schema';
 
 z.globalRegistry.add(createProductSchema, { id: 'CreateProduct' });

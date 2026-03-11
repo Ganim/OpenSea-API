@@ -1,8 +1,13 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { InMemoryFinanceEntriesRepository } from '@/repositories/finance/in-memory/in-memory-finance-entries-repository';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { UpdateFinanceEntryUseCase } from './update-finance-entry';
+
+// Mock audit queue to avoid Redis connection in tests
+vi.mock('@/workers/queues/audit.queue', () => ({
+  queueAuditLog: vi.fn().mockResolvedValue(undefined),
+}));
 
 let entriesRepository: InMemoryFinanceEntriesRepository;
 let sut: UpdateFinanceEntryUseCase;

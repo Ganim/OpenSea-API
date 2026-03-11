@@ -11,9 +11,7 @@ export class DeleteVariantAttachmentUseCase {
     private variantAttachmentsRepository: VariantAttachmentsRepository,
   ) {}
 
-  async execute(
-    request: DeleteVariantAttachmentUseCaseRequest,
-  ): Promise<void> {
+  async execute(request: DeleteVariantAttachmentUseCaseRequest): Promise<void> {
     const { id, tenantId } = request;
 
     const record = await this.variantAttachmentsRepository.findById(id);

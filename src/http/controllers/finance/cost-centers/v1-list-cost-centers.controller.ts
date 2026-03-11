@@ -34,6 +34,7 @@ export async function listCostCentersController(app: FastifyInstance) {
       const useCase = makeListCostCentersUseCase();
       const result = await useCase.execute({ tenantId });
 
+      reply.header('Cache-Control', 'private, max-age=300');
       return reply.status(200).send(result);
     },
   });

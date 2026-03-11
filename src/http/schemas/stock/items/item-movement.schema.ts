@@ -3,6 +3,7 @@
  */
 
 import { z } from 'zod';
+import { queryBooleanSchema } from '../../common.schema';
 
 export const itemMovementResponseSchema = z.object({
   id: z.uuid(),
@@ -35,5 +36,5 @@ export const itemMovementQuerySchema = z.object({
   movementType: z.string().optional(),
   salesOrderId: z.uuid().optional(),
   batchNumber: z.string().optional(),
-  pendingApproval: z.coerce.boolean().optional(),
+  pendingApproval: queryBooleanSchema.optional(),
 });

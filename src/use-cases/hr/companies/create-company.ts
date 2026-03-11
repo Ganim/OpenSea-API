@@ -1,6 +1,6 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ConflictError } from '@/@errors/use-cases/conflict-error';
-import { Company } from '@/entities/hr/company';
+import { Company } from '@/entities/core/company';
 import type { CompaniesRepository } from '@/repositories/hr/companies-repository';
 
 export interface CreateCompanyRequest {

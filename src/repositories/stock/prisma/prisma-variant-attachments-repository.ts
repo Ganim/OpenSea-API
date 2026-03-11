@@ -39,9 +39,7 @@ export class PrismaVariantAttachmentsRepository
     };
   }
 
-  async findByVariantId(
-    variantId: string,
-  ): Promise<VariantAttachmentRecord[]> {
+  async findByVariantId(variantId: string): Promise<VariantAttachmentRecord[]> {
     const records = await prisma.variantAttachment.findMany({
       where: { variantId },
       orderBy: { order: 'asc' },

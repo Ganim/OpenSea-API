@@ -29,7 +29,10 @@ export class GetCostCenterByIdUseCase {
     );
 
     if (!costCenter) {
-      throw new ResourceNotFoundError('Cost center not found', ErrorCodes.FINANCE_COST_CENTER_NOT_FOUND);
+      throw new ResourceNotFoundError(
+        'Cost center not found',
+        ErrorCodes.FINANCE_COST_CENTER_NOT_FOUND,
+      );
     }
 
     return { costCenter: costCenterToDTO(costCenter) };

@@ -5,7 +5,10 @@ import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { createContractSchema, contractResponseSchema } from '@/http/schemas/finance';
+import {
+  createContractSchema,
+  contractResponseSchema,
+} from '@/http/schemas/finance';
 import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
 import { makeCreateContractUseCase } from '@/use-cases/finance/contracts/factories/make-create-contract-use-case';
 import type { FastifyInstance } from 'fastify';

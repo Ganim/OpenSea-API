@@ -1,5 +1,8 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
-import { type ContractDTO, contractToDTO } from '@/mappers/finance/contract/contract-to-dto';
+import {
+  type ContractDTO,
+  contractToDTO,
+} from '@/mappers/finance/contract/contract-to-dto';
 import type { ContractsRepository } from '@/repositories/finance/contracts-repository';
 import type { FinanceEntriesRepository } from '@/repositories/finance/finance-entries-repository';
 
@@ -34,9 +37,15 @@ export class GetSupplierHistoryUseCase {
     // Find contracts for this supplier
     let contracts;
     if (companyId) {
-      contracts = await this.contractsRepository.findByCompanyId(companyId, tenantId);
+      contracts = await this.contractsRepository.findByCompanyId(
+        companyId,
+        tenantId,
+      );
     } else {
-      contracts = await this.contractsRepository.findByCompanyName(companyName!, tenantId);
+      contracts = await this.contractsRepository.findByCompanyName(
+        companyName!,
+        tenantId,
+      );
     }
 
     // Aggregate payment info from finance entries for this supplier

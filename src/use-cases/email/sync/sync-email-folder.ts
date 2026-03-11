@@ -3,8 +3,8 @@ import type { EmailAccount } from '@/entities/email/email-account';
 import type { EmailFolder } from '@/entities/email/email-folder';
 import { logger } from '@/lib/logger';
 import type {
-    EmailFoldersRepository,
-    EmailMessagesRepository,
+  EmailFoldersRepository,
+  EmailMessagesRepository,
 } from '@/repositories/email';
 import type { CredentialCipherService } from '@/services/email/credential-cipher.service';
 import { getImapConnectionPool } from '@/services/email/imap-connection-pool';
@@ -45,9 +45,7 @@ function hasAttachmentFromStructure(structure: unknown): boolean {
   };
 
   const disposition =
-    typeof part.disposition === 'string'
-      ? part.disposition.toLowerCase()
-      : '';
+    typeof part.disposition === 'string' ? part.disposition.toLowerCase() : '';
 
   // Content-Disposition: attachment
   if (disposition === 'attachment') return true;
@@ -55,8 +53,7 @@ function hasAttachmentFromStructure(structure: unknown): boolean {
   // Content-Disposition: inline with filename → named inline = downloadable attachment
   if (disposition === 'inline') {
     const filename =
-      part.dispositionParameters?.filename ??
-      part.dispositionParameters?.name;
+      part.dispositionParameters?.filename ?? part.dispositionParameters?.name;
     if (filename) return true;
   }
 
@@ -141,16 +138,18 @@ async function processMessages(
         continue;
       }
 
-      const envelope = message.envelope as {
-        from?: Array<{ address?: string; name?: string }>;
-        to?: Array<{ address?: string }>;
-        cc?: Array<{ address?: string }>;
-        bcc?: Array<{ address?: string }>;
-        messageId?: string;
-        inReplyTo?: string;
-        subject?: string;
-        date?: Date;
-      } | undefined;
+      const envelope = message.envelope as
+        | {
+            from?: Array<{ address?: string; name?: string }>;
+            to?: Array<{ address?: string }>;
+            cc?: Array<{ address?: string }>;
+            bcc?: Array<{ address?: string }>;
+            messageId?: string;
+            inReplyTo?: string;
+            subject?: string;
+            date?: Date;
+          }
+        | undefined;
       const from = envelope?.from?.[0];
       const to = envelope?.to ?? [];
       const cc = envelope?.cc ?? [];
@@ -268,11 +267,15 @@ async function generateSnippets(
   // Batch fetch: single IMAP FETCH command for all UIDs at once
   // This replaces N individual fetchOne calls with 1 batch call
   try {
-    const messages = client.fetch(uidSet, {
-      uid: true,
-      bodyParts: ['1'],
-      source: { start: 0, maxLength: 4096 },
-    }, { uid: true });
+    const messages = client.fetch(
+      uidSet,
+      {
+        uid: true,
+        bodyParts: ['1'],
+        source: { start: 0, maxLength: 4096 },
+      },
+      { uid: true },
+    );
 
     for await (const rawMsg of messages) {
       const msg = rawMsg as {
@@ -306,11 +309,8 @@ async function generateSnippets(
               : String(msg.source);
 
           const bodyStart = raw.indexOf('\r\n\r\n');
-          const rawBody =
-            bodyStart !== -1 ? raw.substring(bodyStart + 4) : raw;
-          textContent = rawBody
-            .replace(/=\r?\n/g, '')
-            .replace(/<[^>]+>/g, ' ');
+          const rawBody = bodyStart !== -1 ? raw.substring(bodyStart + 4) : raw;
+          textContent = rawBody.replace(/=\r?\n/g, '').replace(/<[^>]+>/g, ' ');
         }
 
         if (textContent) {
@@ -378,7 +378,6 @@ export class SyncEmailFolderUseCase {
     const allCreatedMessages: CreatedMessageRef[] = [];
 
     try {
-
       const lock = await client.getMailboxLock(folder.remoteName);
       try {
         const status = await client.status(folder.remoteName, {
@@ -440,7 +439,11 @@ export class SyncEmailFolderUseCase {
             },
             'No new messages to sync (fromUid >= uidNext)',
           );
-          return { synced: 0, lastUid: folder.lastUid ?? null, createdMessages: [] };
+          return {
+            synced: 0,
+            lastUid: folder.lastUid ?? null,
+            createdMessages: [],
+          };
         }
 
         logger.info(

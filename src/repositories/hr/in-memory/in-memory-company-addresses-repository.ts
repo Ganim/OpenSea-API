@@ -2,7 +2,7 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import {
   CompanyAddress,
   type CompanyAddressType,
-} from '@/entities/hr/company-address';
+} from '@/entities/core/company-address';
 import type {
   CompanyAddressesRepository,
   CreateCompanyAddressSchema,

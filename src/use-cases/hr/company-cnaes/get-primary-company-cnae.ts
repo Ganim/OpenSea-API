@@ -1,5 +1,5 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import type { CompanyCnae } from '@/entities/hr/company-cnae';
+import type { CompanyCnae } from '@/entities/core/company-cnae';
 import type { CompanyAeRepository } from '@/repositories/hr/company-cnaes-repository';
 
 export interface GetPrimaryCompanyCnaeRequest {

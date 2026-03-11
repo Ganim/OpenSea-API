@@ -51,20 +51,15 @@ const emailAccountSchema = z.object({
   teamName: z.string().nullable(),
 });
 
-const emailHostSchema = z
-  .string()
-  .min(1)
-  .refine(isEmailHostObviouslySafe, {
-    message: 'Endereço de host inválido ou bloqueado (IPs internos não são permitidos)',
-  });
+const emailHostSchema = z.string().min(1).refine(isEmailHostObviouslySafe, {
+  message:
+    'Endereço de host inválido ou bloqueado (IPs internos não são permitidos)',
+});
 
-const emailPortSchema = z
-  .number()
-  .int()
-  .positive()
-  .refine(isEmailPortValid, {
-    message: 'Porta inválida. Portas permitidas: 25, 110, 143, 465, 587, 993, 995, 2525',
-  });
+const emailPortSchema = z.number().int().positive().refine(isEmailPortValid, {
+  message:
+    'Porta inválida. Portas permitidas: 25, 110, 143, 465, 587, 993, 995, 2525',
+});
 
 const createEmailAccountBodySchema = z.object({
   address: z.string().email(),
@@ -454,13 +449,12 @@ export async function emailAccountsRoutes(app: FastifyInstance) {
 
         // Try BullMQ first (async, returns 202 immediately)
         try {
-          const bucket = Math.floor(Date.now() / MANUAL_EMAIL_SYNC_DEDUP_WINDOW_MS);
+          const bucket = Math.floor(
+            Date.now() / MANUAL_EMAIL_SYNC_DEDUP_WINDOW_MS,
+          );
           const jobId = `manual-email-sync-${tenantId}-${accountId}-${bucket}`;
 
-          const job = await queueEmailSync(
-            { tenantId, accountId },
-            { jobId },
-          );
+          const job = await queueEmailSync({ tenantId, accountId }, { jobId });
           logger.info(
             { jobId: job.id, tenantId, accountId },
             'Manual email sync enqueued',

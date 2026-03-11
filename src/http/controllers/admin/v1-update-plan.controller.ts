@@ -91,7 +91,16 @@ export async function updatePlanAdminController(app: FastifyInstance) {
           message: AUDIT_MESSAGES.ADMIN.PLAN_UPDATE,
           entityId: id,
           placeholders: { adminName: request.user.sub, planName: plan.name },
-          newData: { name, tier, description, price, isActive, maxUsers, maxWarehouses, maxProducts },
+          newData: {
+            name,
+            tier,
+            description,
+            price,
+            isActive,
+            maxUsers,
+            maxWarehouses,
+            maxProducts,
+          },
         });
 
         return reply.status(200).send({ plan });

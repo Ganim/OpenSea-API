@@ -36,7 +36,12 @@ function isBlockedIp(ip: string): boolean {
   if (isPrivate172(ip)) return true;
 
   // Block IPv6 loopback and link-local
-  if (ip === '::1' || ip.startsWith('fe80:') || ip.startsWith('fc00:') || ip.startsWith('fd')) {
+  if (
+    ip === '::1' ||
+    ip.startsWith('fe80:') ||
+    ip.startsWith('fc00:') ||
+    ip.startsWith('fd')
+  ) {
     return true;
   }
 

@@ -1,6 +1,8 @@
+import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { Entity } from '../domain/entities';
 import { Optional } from '../domain/optional';
 import { UniqueEntityID } from '../domain/unique-entity-id';
+import type { ItemStatusValue } from './value-objects/item-status';
 import { ItemStatus } from './value-objects/item-status';
 import { Slug } from './value-objects/slug';
 
@@ -295,23 +297,36 @@ export class Item extends Entity<ItemProps> {
     this.currentQuantity -= amount;
   }
 
+  private guardTransition(newStatus: ItemStatusValue): void {
+    if (!this.status.canTransitionTo(newStatus)) {
+      throw new BadRequestError(
+        `Transição de status inválida: não é possível alterar de "${this.status.value}" para "${newStatus}".`,
+      );
+    }
+  }
+
   reserve(): void {
+    this.guardTransition('RESERVED');
     this.status = ItemStatus.create('RESERVED');
   }
 
   makeAvailable(): void {
+    this.guardTransition('AVAILABLE');
     this.status = ItemStatus.create('AVAILABLE');
   }
 
   markAsDamaged(): void {
+    this.guardTransition('DAMAGED');
     this.status = ItemStatus.create('DAMAGED');
   }
 
   markAsExpired(): void {
+    this.guardTransition('EXPIRED');
     this.status = ItemStatus.create('EXPIRED');
   }
 
   dispose(): void {
+    this.guardTransition('DISPOSED');
     this.status = ItemStatus.create('DISPOSED');
   }
 

@@ -31,9 +31,7 @@ export class InMemoryVariantAttachmentsRepository
     return record;
   }
 
-  async findByVariantId(
-    variantId: string,
-  ): Promise<VariantAttachmentRecord[]> {
+  async findByVariantId(variantId: string): Promise<VariantAttachmentRecord[]> {
     return this.items
       .filter((item) => item.variantId === variantId)
       .sort((a, b) => a.order - b.order);

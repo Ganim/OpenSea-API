@@ -3,8 +3,8 @@ import {
   VolumeNotFoundError,
 } from '@/@errors/volumes-errors';
 import { VolumeStatus } from '@/entities/stock/value-objects/volume-status';
-import type { VolumeDTO } from '@/mappers/stock/volume.mapper';
-import { VolumeMapper } from '@/mappers/stock/volume.mapper';
+import type { VolumeDTO } from '@/mappers/stock/volume/volume-to-dto';
+import { volumeToDTO } from '@/mappers/stock/volume/volume-to-dto';
 import type { VolumeRepository } from '@/repositories/stock/volumes-repository';
 
 export interface CloseVolumeUseCaseRequest {
@@ -44,7 +44,7 @@ export class CloseVolumeUseCase {
 
     await this.volumesRepository.update(volume);
 
-    const volumeDTO = VolumeMapper.toDTO(volume);
+    const volumeDTO = volumeToDTO(volume);
 
     return {
       volume: volumeDTO,

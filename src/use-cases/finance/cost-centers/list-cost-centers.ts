@@ -33,11 +33,12 @@ export class ListCostCentersUseCase {
     const safeLimit = Math.min(Math.max(limit, 1), 100);
     const safePage = Math.max(page, 1);
 
-    const { costCenters, total } = await this.costCentersRepository.findManyPaginated(
-      tenantId,
-      safePage,
-      safeLimit,
-    );
+    const { costCenters, total } =
+      await this.costCentersRepository.findManyPaginated(
+        tenantId,
+        safePage,
+        safeLimit,
+      );
 
     return {
       costCenters: costCenters.map(costCenterToDTO),

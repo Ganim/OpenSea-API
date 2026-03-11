@@ -1,5 +1,5 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import type { CompanyAddressProps } from '@/entities/hr/company-address';
+import type { CompanyAddressProps } from '@/entities/core/company-address';
 import type { CompanyAddress as PrismaCompanyAddress } from '@prisma/generated/client.js';
 
 export function mapCompanyAddressPrismaToDomain(

@@ -25,9 +25,7 @@ export async function listTenantsAdminController(app: FastifyInstance) {
           .default(20)
           .optional(),
         search: z.string().optional(),
-        status: z
-          .enum(['ACTIVE', 'INACTIVE', 'SUSPENDED'])
-          .optional(),
+        status: z.enum(['ACTIVE', 'INACTIVE', 'SUSPENDED']).optional(),
       }),
       response: {
         200: z.object({

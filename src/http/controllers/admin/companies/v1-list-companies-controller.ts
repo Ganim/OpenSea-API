@@ -38,9 +38,8 @@ export async function v1ListCompaniesAdminController(app: FastifyInstance) {
 
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
-      const { page, perPage, search, includeDeleted } = request.query as z.infer<
-        typeof listCompaniesQuerySchema
-      >;
+      const { page, perPage, search, includeDeleted } =
+        request.query as z.infer<typeof listCompaniesQuerySchema>;
 
       try {
         const listUseCase = makeListCompaniesUseCase();

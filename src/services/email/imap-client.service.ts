@@ -43,9 +43,9 @@ export function createImapClient(config: {
       rejectUnauthorized: config.rejectUnauthorized ?? false,
     },
     // Prevent zombie connections on unreliable mail servers
-    connectionTimeout: 30_000,  // 30s to establish TCP connection
-    greetingTimeout: 30_000,    // 30s for server greeting
-    socketTimeout: 120_000,     // 2min inactivity before closing
+    connectionTimeout: 30_000, // 30s to establish TCP connection
+    greetingTimeout: 30_000, // 30s for server greeting
+    socketTimeout: 120_000, // 2min inactivity before closing
   });
 
   // Absorve erros assíncronos do socket (drop de conexão, timeout do servidor, etc.)

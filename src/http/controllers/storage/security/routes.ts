@@ -25,9 +25,7 @@ export async function storageSecurityRoutes(app: FastifyInstance) {
         ...rateLimitConfig.protectionVerify,
         keyGenerator: (req: FastifyRequest) => {
           const body = req.body as { itemId?: string } | undefined;
-          return body?.itemId
-            ? `protection:${body.itemId}:${req.ip}`
-            : req.ip;
+          return body?.itemId ? `protection:${body.itemId}:${req.ip}` : req.ip;
         },
       });
       verifyApp.register(verifyProtectionController);

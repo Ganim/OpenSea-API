@@ -59,7 +59,10 @@ export async function deleteCalendarEventController(app: FastifyInstance) {
 
         let hasManagePermission = false;
         try {
-          await checkInlinePermission(request, PermissionCodes.CALENDAR.EVENTS.MANAGE);
+          await checkInlinePermission(
+            request,
+            PermissionCodes.CALENDAR.EVENTS.MANAGE,
+          );
           hasManagePermission = true;
         } catch {
           // User doesn't have manage permission — will fall back to creator-only check

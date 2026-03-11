@@ -1,6 +1,10 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Variant } from '@/entities/stock/variant';
 import type {
+  PaginatedResult,
+  PaginationParams,
+} from '../../pagination-params';
+import type {
   CreateVariantSchema,
   UpdateVariantSchema,
   VariantsRepository,
@@ -111,6 +115,24 @@ export class InMemoryVariantsRepository implements VariantsRepository {
     return this.items.filter(
       (item) => !item.deletedAt && item.tenantId.toString() === tenantId,
     );
+  }
+
+  async findManyPaginated(
+    tenantId: string,
+    params: PaginationParams,
+  ): Promise<PaginatedResult<Variant>> {
+    const all = this.items.filter(
+      (item) => !item.deletedAt && item.tenantId.toString() === tenantId,
+    );
+    const total = all.length;
+    const start = (params.page - 1) * params.limit;
+    return {
+      data: all.slice(start, start + params.limit),
+      total,
+      page: params.page,
+      limit: params.limit,
+      totalPages: Math.ceil(total / params.limit),
+    };
   }
 
   async findManyByProduct(

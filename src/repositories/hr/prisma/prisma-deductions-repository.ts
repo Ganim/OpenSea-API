@@ -1,6 +1,7 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Deduction } from '@/entities/hr/deduction';
 import { prisma } from '@/lib/prisma';
+import type { TransactionClient } from '@/lib/transaction-manager';
 import { mapDeductionPrismaToDomain } from '@/mappers/hr/deduction';
 import type {
   CreateDeductionSchema,
@@ -35,8 +36,10 @@ export class PrismaDeductionsRepository implements DeductionsRepository {
   async findById(
     id: UniqueEntityID,
     tenantId: string,
+    tx?: TransactionClient,
   ): Promise<Deduction | null> {
-    const deductionData = await prisma.deduction.findFirst({
+    const client = tx ?? prisma;
+    const deductionData = await client.deduction.findFirst({
       where: { id: id.toString(), tenantId },
     });
 
@@ -251,8 +254,9 @@ export class PrismaDeductionsRepository implements DeductionsRepository {
     });
   }
 
-  async save(deduction: Deduction): Promise<void> {
-    await prisma.deduction.update({
+  async save(deduction: Deduction, tx?: TransactionClient): Promise<void> {
+    const client = tx ?? prisma;
+    await client.deduction.update({
       where: { id: deduction.id.toString() },
       data: {
         name: deduction.name,

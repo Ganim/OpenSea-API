@@ -117,6 +117,15 @@ export const dateSchema = z.coerce.date();
 export const booleanSchema = z.coerce.boolean();
 
 /**
+ * Schema para boolean vindo de query strings.
+ * z.coerce.boolean() usa Boolean() internamente, e Boolean("false") === true.
+ * Este schema trata corretamente strings "true"/"false"/"1"/"0" de query params.
+ */
+export const queryBooleanSchema = z
+  .union([z.string(), z.boolean()])
+  .transform((val) => val === true || val === 'true' || val === '1');
+
+/**
  * Schema para número positivo
  */
 export const positiveNumberSchema = z.coerce.number().positive();

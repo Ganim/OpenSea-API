@@ -1,3 +1,4 @@
+import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { Entity } from '../domain/entities';
 import { Optional } from '../domain/optional';
 import { UniqueEntityID } from '../domain/unique-entity-id';
@@ -276,19 +277,33 @@ export class Product extends Entity<ProductProps> {
   }
 
   // Business Methods
+  private guardTransition(
+    newStatus: 'ACTIVE' | 'INACTIVE' | 'OUT_OF_STOCK' | 'DISCONTINUED',
+  ): void {
+    if (!this.status.canTransitionTo(newStatus)) {
+      throw new BadRequestError(
+        `Transição de status inválida: não é possível alterar de "${this.status.value}" para "${newStatus}".`,
+      );
+    }
+  }
+
   activate(): void {
+    this.guardTransition('ACTIVE');
     this.status = ProductStatus.create('ACTIVE');
   }
 
   deactivate(): void {
+    this.guardTransition('INACTIVE');
     this.status = ProductStatus.create('INACTIVE');
   }
 
   markAsOutOfStock(): void {
+    this.guardTransition('OUT_OF_STOCK');
     this.status = ProductStatus.create('OUT_OF_STOCK');
   }
 
   discontinue(): void {
+    this.guardTransition('DISCONTINUED');
     this.status = ProductStatus.create('DISCONTINUED');
   }
 

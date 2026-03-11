@@ -1,4 +1,4 @@
-import type { CompanyAddress } from '@/entities/hr/company-address';
+import type { CompanyAddress } from '@/entities/core/company-address';
 
 export interface CompanyAddressDTO {
   id: string;

@@ -1,6 +1,7 @@
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Variant } from '@/entities/stock/variant';
 import type { Slug } from '@/entities/stock/value-objects/slug';
+import type { PaginatedResult, PaginationParams } from '../pagination-params';
 
 export interface CreateVariantSchema {
   tenantId: string;
@@ -68,6 +69,10 @@ export interface VariantsRepository {
   findByEANCode(eanCode: string, tenantId: string): Promise<Variant | null>;
   findByUPCCode(upcCode: string, tenantId: string): Promise<Variant | null>;
   findMany(tenantId: string): Promise<Variant[]>;
+  findManyPaginated(
+    tenantId: string,
+    params: PaginationParams,
+  ): Promise<PaginatedResult<Variant>>;
   findManyByProduct(
     productId: UniqueEntityID,
     tenantId: string,

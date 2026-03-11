@@ -3,7 +3,7 @@
  */
 
 import { z } from 'zod';
-import { dateSchema, idSchema } from '../../common.schema';
+import { dateSchema, idSchema, queryBooleanSchema } from '../../common.schema';
 
 export const companyStakeholderRoleSchema = z.enum([
   'SOCIO',
@@ -46,9 +46,9 @@ export const listCompanyStakeholdersQuerySchema = z.object({
   page: z.coerce.number().int().positive().optional().default(1),
   perPage: z.coerce.number().int().positive().max(100).optional().default(20),
   status: companyStakeholderStatusSchema.optional(),
-  isLegalRepresentative: z.coerce.boolean().optional(),
+  isLegalRepresentative: queryBooleanSchema.optional(),
   role: companyStakeholderRoleSchema.optional(),
-  includeDeleted: z.coerce.boolean().optional().default(false),
+  includeDeleted: queryBooleanSchema.optional().default(false),
 });
 
 export const companyStakeholderResponseSchema = z.object({

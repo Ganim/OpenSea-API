@@ -51,7 +51,10 @@ const activeRequests = new Counter({
  */
 function normalizeRoute(url: string): string {
   return url
-    .replace(/\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/gi, '/:id')
+    .replace(
+      /\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/gi,
+      '/:id',
+    )
     .replace(/\/\d+/g, '/:id')
     .split('?')[0];
 }
@@ -67,7 +70,8 @@ export async function prometheusPlugin(app: FastifyInstance) {
   app.addHook(
     'onRequest',
     async (request: FastifyRequest, _reply: FastifyReply) => {
-      (request as unknown as Record<string, unknown>).__metricsStart = process.hrtime.bigint();
+      (request as unknown as Record<string, unknown>).__metricsStart =
+        process.hrtime.bigint();
       activeRequests.inc({ method: request.method });
     },
   );
@@ -75,9 +79,8 @@ export async function prometheusPlugin(app: FastifyInstance) {
   app.addHook(
     'onResponse',
     async (request: FastifyRequest, reply: FastifyReply) => {
-      const start = (request as unknown as Record<string, unknown>).__metricsStart as
-        | bigint
-        | undefined;
+      const start = (request as unknown as Record<string, unknown>)
+        .__metricsStart as bigint | undefined;
       if (!start) return;
 
       const durationNs = Number(process.hrtime.bigint() - start);

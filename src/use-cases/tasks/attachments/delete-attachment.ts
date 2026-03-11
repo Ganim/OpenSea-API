@@ -31,7 +31,8 @@ export class DeleteAttachmentUseCase {
   async execute(
     request: DeleteAttachmentRequest,
   ): Promise<DeleteAttachmentResponse> {
-    const { tenantId, boardId, cardId, attachmentId, userId, userName } = request;
+    const { tenantId, boardId, cardId, attachmentId, userId, userName } =
+      request;
 
     const board = await this.boardsRepository.findById(boardId, tenantId);
 

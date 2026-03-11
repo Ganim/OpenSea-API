@@ -44,8 +44,9 @@ describe('Delete Board (E2E)', () => {
   });
 
   it('should return 401 without authentication', async () => {
-    const response = await request(app.server)
-      .delete('/v1/tasks/boards/00000000-0000-0000-0000-000000000000');
+    const response = await request(app.server).delete(
+      '/v1/tasks/boards/00000000-0000-0000-0000-000000000000',
+    );
 
     expect(response.status).toBe(401);
   });

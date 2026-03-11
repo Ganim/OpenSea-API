@@ -1,4 +1,5 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import type { FinanceEntryType } from '@/entities/finance/finance-entry-types';
 import { InMemoryFinanceCategoriesRepository } from '@/repositories/finance/in-memory/in-memory-finance-categories-repository';
 import { InMemoryFinanceEntriesRepository } from '@/repositories/finance/in-memory/in-memory-finance-entries-repository';
 import { InMemoryCostCentersRepository } from '@/repositories/finance/in-memory/in-memory-cost-centers-repository';
@@ -22,7 +23,8 @@ describe('CreateFinanceEntryUseCase', () => {
     entriesRepository = new InMemoryFinanceEntriesRepository();
     categoriesRepository = new InMemoryFinanceCategoriesRepository();
     costCentersRepository = new InMemoryCostCentersRepository();
-    costCenterAllocationsRepository = new InMemoryFinanceEntryCostCentersRepository();
+    costCenterAllocationsRepository =
+      new InMemoryFinanceEntryCostCentersRepository();
     sut = new CreateFinanceEntryUseCase(
       entriesRepository,
       categoriesRepository,
@@ -149,7 +151,7 @@ describe('CreateFinanceEntryUseCase', () => {
     await expect(
       sut.execute({
         tenantId: 'tenant-1',
-        type: 'INVALID',
+        type: 'INVALID' as FinanceEntryType,
         description: 'Teste invalido',
         categoryId: seededCategoryId,
         costCenterId: seededCostCenterId,
@@ -368,7 +370,9 @@ describe('CreateFinanceEntryUseCase', () => {
     expect(result.entry.costCenterId).toBeUndefined();
 
     // Junction records should be created
-    const allocations = await costCenterAllocationsRepository.findByEntryId(result.entry.id);
+    const allocations = await costCenterAllocationsRepository.findByEntryId(
+      result.entry.id,
+    );
     expect(allocations).toHaveLength(3);
 
     // Verify amounts
@@ -397,7 +401,9 @@ describe('CreateFinanceEntryUseCase', () => {
     expect(result.entry.costCenterId).toBe(seededCostCenterId);
 
     // No junction records should be created
-    const allocations = await costCenterAllocationsRepository.findByEntryId(result.entry.id);
+    const allocations = await costCenterAllocationsRepository.findByEntryId(
+      result.entry.id,
+    );
     expect(allocations).toHaveLength(0);
   });
 
@@ -475,7 +481,8 @@ describe('CreateFinanceEntryUseCase', () => {
     expect(result.entry.costCenterId).toBeUndefined();
 
     // Master entry allocations
-    const masterAllocations = await costCenterAllocationsRepository.findByEntryId(result.entry.id);
+    const masterAllocations =
+      await costCenterAllocationsRepository.findByEntryId(result.entry.id);
     expect(masterAllocations).toHaveLength(2);
     expect(masterAllocations[0].amount).toBe(3000);
     expect(masterAllocations[1].amount).toBe(3000);
@@ -484,7 +491,8 @@ describe('CreateFinanceEntryUseCase', () => {
     expect(result.installments).toHaveLength(3);
     for (const installment of result.installments!) {
       expect(installment.costCenterId).toBeUndefined();
-      const installmentAllocations = await costCenterAllocationsRepository.findByEntryId(installment.id);
+      const installmentAllocations =
+        await costCenterAllocationsRepository.findByEntryId(installment.id);
       expect(installmentAllocations).toHaveLength(2);
       // Each installment is 2000, so 50% each = 1000
       expect(installmentAllocations[0].amount).toBe(1000);

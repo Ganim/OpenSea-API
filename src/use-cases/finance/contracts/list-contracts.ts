@@ -1,4 +1,7 @@
-import { type ContractDTO, contractToDTO } from '@/mappers/finance/contract/contract-to-dto';
+import {
+  type ContractDTO,
+  contractToDTO,
+} from '@/mappers/finance/contract/contract-to-dto';
 import type { ContractsRepository } from '@/repositories/finance/contracts-repository';
 
 interface ListContractsUseCaseRequest {

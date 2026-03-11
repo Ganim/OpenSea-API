@@ -3,15 +3,15 @@ import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { logger } from '@/lib/logger';
 import type {
-    EmailAccountsRepository,
-    EmailFoldersRepository,
-    EmailMessagesRepository,
+  EmailAccountsRepository,
+  EmailFoldersRepository,
+  EmailMessagesRepository,
 } from '@/repositories/email';
 import type { CredentialCipherService } from '@/services/email/credential-cipher.service';
 import { getImapConnectionPool } from '@/services/email/imap-connection-pool';
 import type {
-    SmtpAttachmentInput,
-    SmtpClientService,
+  SmtpAttachmentInput,
+  SmtpClientService,
 } from '@/services/email/smtp-client.service';
 import { queueAuditLog } from '@/workers/queues/audit.queue';
 import MailComposer from 'nodemailer/lib/mail-composer/index.js';
@@ -140,7 +140,11 @@ export class SendEmailMessageUseCase {
         request.inReplyTo,
       ).catch((err) => {
         logger.warn(
-          { err, accountId: account.id.toString(), inReplyTo: request.inReplyTo },
+          {
+            err,
+            accountId: account.id.toString(),
+            inReplyTo: request.inReplyTo,
+          },
           '[SendEmail] Failed to mark original as answered (non-critical)',
         );
       });

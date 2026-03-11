@@ -67,6 +67,7 @@ describe('LinkPaymentsToEntriesUseCase', () => {
     const category = await categoriesRepository.create({
       tenantId: 'tenant-1',
       name: 'Consórcios',
+      slug: 'consorcios',
       type: 'EXPENSE',
     });
     seededCategoryId = category.id.toString();

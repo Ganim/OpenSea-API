@@ -82,9 +82,7 @@ function extractVencimento(text: string): string | undefined {
 }
 
 function extractBeneficiario(text: string): string | undefined {
-  const patterns = [
-    /(?:benefici[aá]rio|cedente)\s*:\s*(.+)/i,
-  ];
+  const patterns = [/(?:benefici[aá]rio|cedente)\s*:\s*(.+)/i];
 
   for (const pattern of patterns) {
     const match = text.match(pattern);
@@ -92,7 +90,12 @@ function extractBeneficiario(text: string): string | undefined {
       // Clean: remove CNPJ, trailing spaces, and limit to reasonable length
       let name = match[1].trim();
       // Remove CNPJ/CPF patterns that may follow
-      name = name.replace(/\s*[-–]\s*\d{2,3}\.?\d{3}\.?\d{3}[\/.]?\d{4}[-.]?\d{2}.*$/, '').trim();
+      name = name
+        .replace(
+          /\s*[-–]\s*\d{2,3}\.?\d{3}\.?\d{3}[\/.]?\d{4}[-.]?\d{2}.*$/,
+          '',
+        )
+        .trim();
       // Remove trailing whitespace and line break content
       name = name.split('\n')[0].trim();
       if (name.length > 0 && name.length <= 256) {
@@ -109,7 +112,7 @@ function extractLinhaDigitavel(text: string): string | undefined {
   const cleaned = text.replace(/[^\d\s.]/g, ' ');
   // Find sequences of digits that total 47 when dots/spaces removed
   const match = cleaned.match(
-    /(\d{5}[.\s]?\d{5}[.\s]?\d{5}[.\s]?\d{6}[.\s]?\d{5}[.\s]?\d{6}[.\s]?\d{1}[.\s]?\d{14})/
+    /(\d{5}[.\s]?\d{5}[.\s]?\d{5}[.\s]?\d{6}[.\s]?\d{5}[.\s]?\d{6}[.\s]?\d{1}[.\s]?\d{14})/,
   );
 
   if (match) {
@@ -213,7 +216,7 @@ export class OcrExtractDataUseCase {
 
   private async handlePdf(buffer: Buffer): Promise<OcrExtractResult> {
     // eslint-disable-next-line @typescript-eslint/no-require-imports
-    const pdfParse = (await import('pdf-parse')).default;
+    const pdfParse = require('pdf-parse') as (buf: Buffer) => Promise<{ text: string }>;
 
     const pdfData = await pdfParse(buffer);
     const text = pdfData.text;

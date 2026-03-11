@@ -136,6 +136,7 @@ export const ModelName = {
   BankAccount: 'BankAccount',
   FinanceCategory: 'FinanceCategory',
   FinanceEntry: 'FinanceEntry',
+  FinanceCodeSequence: 'FinanceCodeSequence',
   FinanceEntryPayment: 'FinanceEntryPayment',
   FinanceEntryCostCenter: 'FinanceEntryCostCenter',
   RecurringConfig: 'RecurringConfig',
@@ -1913,6 +1914,16 @@ export const FinanceEntryScalarFieldEnum = {
 } as const
 
 export type FinanceEntryScalarFieldEnum = (typeof FinanceEntryScalarFieldEnum)[keyof typeof FinanceEntryScalarFieldEnum]
+
+
+export const FinanceCodeSequenceScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  prefix: 'prefix',
+  lastValue: 'lastValue'
+} as const
+
+export type FinanceCodeSequenceScalarFieldEnum = (typeof FinanceCodeSequenceScalarFieldEnum)[keyof typeof FinanceCodeSequenceScalarFieldEnum]
 
 
 export const FinanceEntryPaymentScalarFieldEnum = {

@@ -68,7 +68,10 @@ export async function updateTenantAdminController(app: FastifyInstance) {
         logAudit(request, {
           message: AUDIT_MESSAGES.ADMIN.TENANT_UPDATE,
           entityId: id,
-          placeholders: { adminName: request.user.sub, tenantName: tenant.name },
+          placeholders: {
+            adminName: request.user.sub,
+            tenantName: tenant.name,
+          },
           newData: { name, slug, logoUrl, settings },
         });
 

@@ -33,6 +33,7 @@ export async function getFinanceDashboardController(app: FastifyInstance) {
       const useCase = makeGetFinanceDashboardUseCase();
       const result = await useCase.execute({ tenantId });
 
+      reply.header('Cache-Control', 'private, max-age=60');
       return reply.status(200).send(result);
     },
   });

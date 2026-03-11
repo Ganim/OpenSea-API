@@ -28,9 +28,7 @@ async function main() {
     select: { id: true, name: true },
   });
 
-  console.log(
-    `[archive-expired-files] Found ${tenants.length} active tenants`,
-  );
+  console.log(`[archive-expired-files] Found ${tenants.length} active tenants`);
 
   let totalArchived = 0;
   let totalErrors = 0;
@@ -62,9 +60,7 @@ async function main() {
   console.log(`[archive-expired-files] Summary:`);
   console.log(`  Archived files: ${totalArchived}`);
   console.log(`  Errors: ${totalErrors}`);
-  console.log(
-    `[archive-expired-files] Done at ${new Date().toISOString()}`,
-  );
+  console.log(`[archive-expired-files] Done at ${new Date().toISOString()}`);
 
   await prisma.$disconnect();
 }

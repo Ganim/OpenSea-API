@@ -1,8 +1,13 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { InMemoryCategoriesRepository } from '@/repositories/stock/in-memory/in-memory-categories-repository';
+import type { TransactionManager } from '@/lib/transaction-manager';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { CreateCategoryUseCase } from './create-category';
 import { ReorderCategoriesUseCase } from './reorder-categories';
+
+const fakeTransactionManager: TransactionManager = {
+  run: (fn) => fn(null as never),
+};
 
 let categoriesRepository: InMemoryCategoriesRepository;
 let createCategoryUseCase: CreateCategoryUseCase;
@@ -12,7 +17,10 @@ describe('Reorder Categories Use Case', () => {
   beforeEach(() => {
     categoriesRepository = new InMemoryCategoriesRepository();
     createCategoryUseCase = new CreateCategoryUseCase(categoriesRepository);
-    sut = new ReorderCategoriesUseCase(categoriesRepository);
+    sut = new ReorderCategoriesUseCase(
+      categoriesRepository,
+      fakeTransactionManager,
+    );
   });
 
   it('should reorder categories', async () => {

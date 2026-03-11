@@ -34,7 +34,8 @@ export const SYSTEM_FEATURE_FLAGS: SystemFeatureFlag[] = [
   {
     flag: 'BARCODE_SCANNING',
     label: 'Leitura de Código de Barras',
-    description: 'Habilita escaneamento via câmera e leitor de código de barras',
+    description:
+      'Habilita escaneamento via câmera e leitor de código de barras',
     category: 'stock',
   },
   {
@@ -96,7 +97,10 @@ export const SYSTEM_FEATURE_FLAGS: SystemFeatureFlag[] = [
 /**
  * Retorna as flags de sistema por categoria.
  */
-export function getSystemFlagsByCategory(): Record<string, SystemFeatureFlag[]> {
+export function getSystemFlagsByCategory(): Record<
+  string,
+  SystemFeatureFlag[]
+> {
   const grouped: Record<string, SystemFeatureFlag[]> = {};
   for (const flag of SYSTEM_FEATURE_FLAGS) {
     if (!grouped[flag.category]) {

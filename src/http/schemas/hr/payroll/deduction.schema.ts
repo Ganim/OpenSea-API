@@ -3,7 +3,7 @@
  */
 
 import { z } from 'zod';
-import { dateSchema, idSchema } from '../../common.schema';
+import { dateSchema, idSchema, queryBooleanSchema } from '../../common.schema';
 
 /**
  * Schema para criação de dedução
@@ -23,8 +23,8 @@ export const createDeductionSchema = z.object({
  */
 export const listDeductionsQuerySchema = z.object({
   employeeId: idSchema.optional(),
-  isApplied: z.coerce.boolean().optional(),
-  isRecurring: z.coerce.boolean().optional(),
+  isApplied: queryBooleanSchema.optional(),
+  isRecurring: queryBooleanSchema.optional(),
   startDate: z.coerce.date().optional(),
   endDate: z.coerce.date().optional(),
   page: z.coerce.number().int().positive().optional().default(1),

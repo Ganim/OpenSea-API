@@ -2,7 +2,10 @@ import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { listContractsQuerySchema, contractResponseSchema } from '@/http/schemas/finance';
+import {
+  listContractsQuerySchema,
+  contractResponseSchema,
+} from '@/http/schemas/finance';
 import { makeListContractsUseCase } from '@/use-cases/finance/contracts/factories/make-list-contracts-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -57,6 +60,7 @@ export async function listContractsController(app: FastifyInstance) {
 
       const pages = Math.ceil(result.total / (query.limit ?? 20));
 
+      reply.header('Cache-Control', 'private, max-age=60');
       return reply.status(200).send({
         contracts: result.contracts,
         meta: {

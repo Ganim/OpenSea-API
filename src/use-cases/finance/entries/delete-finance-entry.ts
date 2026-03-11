@@ -1,11 +1,13 @@
-import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { CannotDeletePaidEntryError } from '@/@errors/use-cases/cannot-delete-paid-entry-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { FinanceEntriesRepository } from '@/repositories/finance/finance-entries-repository';
+import { queueAuditLog } from '@/workers/queues/audit.queue';
 
 interface DeleteFinanceEntryUseCaseRequest {
   tenantId: string;
   id: string;
+  userId?: string;
 }
 
 export class DeleteFinanceEntryUseCase {
@@ -14,6 +16,7 @@ export class DeleteFinanceEntryUseCase {
   async execute({
     tenantId,
     id,
+    userId,
   }: DeleteFinanceEntryUseCaseRequest): Promise<void> {
     const entry = await this.financeEntriesRepository.findById(
       new UniqueEntityID(id),
@@ -26,14 +29,28 @@ export class DeleteFinanceEntryUseCase {
 
     const undeletableStatuses = ['PAID', 'RECEIVED'];
     if (undeletableStatuses.includes(entry.status)) {
-      throw new BadRequestError(
-        'Cannot delete an entry with status ' + entry.status,
-      );
+      throw new CannotDeletePaidEntryError(entry.status);
     }
 
     await this.financeEntriesRepository.delete(
       new UniqueEntityID(id),
       tenantId,
     );
+
+    queueAuditLog({
+      userId,
+      action: 'FINANCE_ENTRY_DELETE',
+      entity: 'FINANCE_ENTRY',
+      entityId: id,
+      module: 'FINANCE',
+      description: `Deleted finance entry ${entry.code} (${entry.description})`,
+      oldData: {
+        code: entry.code,
+        type: entry.type,
+        status: entry.status,
+        expectedAmount: entry.expectedAmount,
+        description: entry.description,
+      },
+    }).catch(() => {});
   }
 }

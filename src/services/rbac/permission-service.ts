@@ -6,7 +6,11 @@ import type { PermissionsRepository } from '@/repositories/rbac/permissions-repo
 import type { UserPermissionGroupsRepository } from '@/repositories/rbac/user-permission-groups-repository';
 
 // Lazy imports to avoid @env initialization in unit tests
-type RedisLike = { get: (key: string) => Promise<string | null>; setex: (key: string, ttl: number, value: string) => Promise<string>; del: (...keys: string[]) => Promise<number> };
+type RedisLike = {
+  get: (key: string) => Promise<string | null>;
+  setex: (key: string, ttl: number, value: string) => Promise<string>;
+  del: (...keys: string[]) => Promise<number>;
+};
 let _redis: RedisLike | null | undefined; // undefined = not attempted yet
 let _cacheConfig: { permissions: number } | null = null;
 let _cacheKeys: { permissions: (userId: string) => string } | null = null;
@@ -28,7 +32,9 @@ function getRedis(): RedisLike | null {
 }
 
 function getRedisCacheKey(userId: string): string {
-  return _cacheKeys ? _cacheKeys.permissions(userId) : `permissions:user:${userId}`;
+  return _cacheKeys
+    ? _cacheKeys.permissions(userId)
+    : `permissions:user:${userId}`;
 }
 
 function getRedisTtl(): number {
@@ -441,11 +447,18 @@ export class PermissionService {
   }
 
   private serializePermissions(
-    permissions: Map<string, { effect: 'allow' | 'deny'; groupId: UniqueEntityID }[]>,
+    permissions: Map<
+      string,
+      { effect: 'allow' | 'deny'; groupId: UniqueEntityID }[]
+    >,
   ): string {
-    const obj: Record<string, { effect: 'allow' | 'deny'; groupId: string }[]> = {};
+    const obj: Record<string, { effect: 'allow' | 'deny'; groupId: string }[]> =
+      {};
     for (const [code, entries] of permissions.entries()) {
-      obj[code] = entries.map((e) => ({ effect: e.effect, groupId: e.groupId.toString() }));
+      obj[code] = entries.map((e) => ({
+        effect: e.effect,
+        groupId: e.groupId.toString(),
+      }));
     }
     return JSON.stringify(obj);
   }
@@ -453,10 +466,22 @@ export class PermissionService {
   private deserializePermissions(
     data: string,
   ): Map<string, { effect: 'allow' | 'deny'; groupId: UniqueEntityID }[]> {
-    const obj = JSON.parse(data) as Record<string, { effect: 'allow' | 'deny'; groupId: string }[]>;
-    const map = new Map<string, { effect: 'allow' | 'deny'; groupId: UniqueEntityID }[]>();
+    const obj = JSON.parse(data) as Record<
+      string,
+      { effect: 'allow' | 'deny'; groupId: string }[]
+    >;
+    const map = new Map<
+      string,
+      { effect: 'allow' | 'deny'; groupId: UniqueEntityID }[]
+    >();
     for (const [code, entries] of Object.entries(obj)) {
-      map.set(code, entries.map((e) => ({ effect: e.effect, groupId: new UniqueEntityID(e.groupId) })));
+      map.set(
+        code,
+        entries.map((e) => ({
+          effect: e.effect,
+          groupId: new UniqueEntityID(e.groupId),
+        })),
+      );
     }
     return map;
   }

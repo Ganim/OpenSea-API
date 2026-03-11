@@ -1,4 +1,3 @@
-import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
@@ -42,21 +41,14 @@ export async function getBinOccupancyMapController(app: FastifyInstance) {
       const tenantId = request.user.tenantId!;
       const { zoneId } = request.query;
 
-      try {
-        const getBinOccupancyMapUseCase = makeGetBinOccupancyMapUseCase();
-        const { occupancyData, stats } =
-          await getBinOccupancyMapUseCase.execute({
-            tenantId,
-            zoneId,
-          });
+      const getBinOccupancyMapUseCase = makeGetBinOccupancyMapUseCase();
+      const { occupancyData, stats } =
+        await getBinOccupancyMapUseCase.execute({
+          tenantId,
+          zoneId,
+        });
 
-        return reply.status(200).send({ occupancyData, stats });
-      } catch (error) {
-        if (error instanceof ResourceNotFoundError) {
-          return reply.status(404).send({ message: error.message });
-        }
-        throw error;
-      }
+      return reply.status(200).send({ occupancyData, stats });
     },
   });
 }

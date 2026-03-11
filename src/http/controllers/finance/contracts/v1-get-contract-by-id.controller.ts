@@ -46,6 +46,7 @@ export async function getContractByIdController(app: FastifyInstance) {
           contractId: id,
         });
 
+        reply.header('Cache-Control', 'private, max-age=60');
         return reply.status(200).send(result);
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {

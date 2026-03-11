@@ -44,6 +44,7 @@ export async function getLoanByIdController(app: FastifyInstance) {
       try {
         const useCase = makeGetLoanByIdUseCase();
         const result = await useCase.execute({ tenantId, id });
+        reply.header('Cache-Control', 'private, max-age=30');
         return reply.status(200).send(result);
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {

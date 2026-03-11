@@ -47,9 +47,7 @@ export class ListThreadMessagesUseCase {
     }
 
     // Ensure the target message is included (it might be in a different folder)
-    const hasTarget = threadMessages.some(
-      (m) => m.id.toString() === messageId,
-    );
+    const hasTarget = threadMessages.some((m) => m.id.toString() === messageId);
     if (!hasTarget) {
       threadMessages.push(message);
       threadMessages.sort(

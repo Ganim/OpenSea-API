@@ -3,7 +3,7 @@
  */
 
 import { z } from 'zod';
-import { idSchema } from '../../common.schema';
+import { idSchema, queryBooleanSchema } from '../../common.schema';
 import { companyAddressResponseSchema } from './company-address.schema';
 import { companyCnaeResponseSchema } from './company-cnae.schema';
 import { companyFiscalSettingsResponseSchema } from './company-fiscal-settings.schema';
@@ -66,7 +66,7 @@ export const listCompaniesQuerySchema = z.object({
   perPage: z.coerce.number().int().positive().max(100).optional().default(20),
   search: z.string().optional(),
   status: companyStatusSchema.optional(),
-  includeDeleted: z.coerce.boolean().optional().default(false),
+  includeDeleted: queryBooleanSchema.optional().default(false),
 });
 
 /**

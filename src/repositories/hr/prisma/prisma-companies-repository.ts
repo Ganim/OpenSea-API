@@ -3,7 +3,7 @@ import {
   Company,
   type TaxRegime,
   type CompanyStatus,
-} from '@/entities/hr/company';
+} from '@/entities/core/company';
 import { prisma } from '@/lib/prisma';
 import type { Prisma } from '@prisma/generated/client.js';
 import { mapCompanyPrismaToDomain } from '@/mappers/hr/company/company-prisma-to-domain';

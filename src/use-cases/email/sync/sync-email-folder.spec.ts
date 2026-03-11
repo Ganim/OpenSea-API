@@ -88,8 +88,7 @@ function makeImapMessage(overrides: {
       cc: overrides.cc ?? [],
       bcc: overrides.bcc ?? [],
       subject: overrides.subject ?? `Test Email ${overrides.uid}`,
-      messageId:
-        overrides.messageId ?? `<msg-${overrides.uid}@example.com>`,
+      messageId: overrides.messageId ?? `<msg-${overrides.uid}@example.com>`,
       date: new Date('2026-01-15'),
       inReplyTo: overrides.inReplyTo ?? null,
     },
@@ -567,10 +566,7 @@ describe('SyncEmailFolderUseCase', () => {
     const msg = messagesRepository.items[0];
     expect(msg.fromAddress).toBe('boss@company.com');
     expect(msg.fromName).toBe('The Boss');
-    expect(msg.toAddresses).toEqual([
-      'alice@company.com',
-      'bob@company.com',
-    ]);
+    expect(msg.toAddresses).toEqual(['alice@company.com', 'bob@company.com']);
     expect(msg.ccAddresses).toEqual(['charlie@company.com']);
     expect(msg.bccAddresses).toEqual(['secret@company.com']);
   });
@@ -591,9 +587,7 @@ describe('SyncEmailFolderUseCase', () => {
     const client = makeFakeClient({
       uidValidity: 100,
       uidNext: 10,
-      fetchMessages: [
-        makeImapMessage({ uid: 1, envelope: {} }),
-      ],
+      fetchMessages: [makeImapMessage({ uid: 1, envelope: {} })],
     });
 
     const result = await sut.execute({ account, folder, client });

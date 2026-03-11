@@ -2,10 +2,7 @@ import { PrismaVariantAttachmentsRepository } from '@/repositories/stock/prisma/
 import { ListVariantAttachmentsUseCase } from '../list-variant-attachments';
 
 export function makeListVariantAttachmentsUseCase() {
-  const variantAttachmentsRepository =
-    new PrismaVariantAttachmentsRepository();
+  const variantAttachmentsRepository = new PrismaVariantAttachmentsRepository();
 
-  return new ListVariantAttachmentsUseCase(
-    variantAttachmentsRepository,
-  );
+  return new ListVariantAttachmentsUseCase(variantAttachmentsRepository);
 }

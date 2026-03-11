@@ -4,6 +4,7 @@ import type { Token } from '@/entities/core/value-objects/token';
 import { Username } from '@/entities/core/value-objects/username';
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { prisma } from '@/lib/prisma';
+import type { TransactionClient } from '@/lib/transaction-manager';
 import { mapUserPrismaToDomain } from '@/mappers/core/user/user-prisma-to-domain';
 import type {
   CreateUserSchema,
@@ -15,8 +16,10 @@ export class PrismaUsersRepository implements UsersRepository {
   // CREATE
   // -create(data: CreateUserSchema): Promise<User>;
 
-  async create(data: CreateUserSchema): Promise<User> {
-    const newUserData = await prisma.user.create({
+  async create(data: CreateUserSchema, tx?: TransactionClient): Promise<User> {
+    const client = tx ?? prisma;
+
+    const newUserData = await client.user.create({
       data: {
         username: data.username.toString(),
         email: data.email.toString(),
@@ -42,12 +45,12 @@ export class PrismaUsersRepository implements UsersRepository {
 
     // Atribuir automaticamente o grupo "user" ao novo usuário
     // Este é o comportamento padrão para todos os novos cadastros
-    const userGroup = await prisma.permissionGroup.findFirst({
+    const userGroup = await client.permissionGroup.findFirst({
       where: { slug: 'user', deletedAt: null },
     });
 
     if (userGroup) {
-      await prisma.userPermissionGroup.create({
+      await client.userPermissionGroup.create({
         data: {
           userId: newUserData.id,
           groupId: userGroup.id,
@@ -316,9 +319,11 @@ export class PrismaUsersRepository implements UsersRepository {
     id: UniqueEntityID,
     requestedBy: UniqueEntityID | null,
     reason?: string,
+    tx?: TransactionClient,
   ): Promise<User | null> {
     try {
-      const newUserData = await prisma.user.update({
+      const client = tx ?? prisma;
+      const newUserData = await client.user.update({
         where: { id: id.toString() },
         data: {
           forcePasswordReset: true,

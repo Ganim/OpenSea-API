@@ -1,4 +1,4 @@
-import type { Company } from '@/entities/hr/company';
+import type { Company } from '@/entities/core/company';
 import type { CompaniesRepository } from '@/repositories/hr/companies-repository';
 
 export interface GetCompanyByCnpjRequest {

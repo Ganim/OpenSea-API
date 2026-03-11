@@ -4,8 +4,13 @@ import { InMemoryManufacturersRepository } from '@/repositories/stock/in-memory/
 import { InMemoryProductsRepository } from '@/repositories/stock/in-memory/in-memory-products-repository';
 import { InMemorySuppliersRepository } from '@/repositories/stock/in-memory/in-memory-suppliers-repository';
 import { InMemoryTemplatesRepository } from '@/repositories/stock/in-memory/in-memory-templates-repository';
+import { InMemoryVariantsRepository } from '@/repositories/stock/in-memory/in-memory-variants-repository';
 import { templateAttr } from '@/utils/tests/factories/stock/make-template';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
+vi.mock('@/workers/queues/audit.queue', () => ({
+  queueAuditLog: vi.fn().mockResolvedValue(undefined),
+}));
 import { CreateTemplateUseCase } from '../templates/create-template';
 import { CreateProductUseCase } from './create-product';
 import { DeleteProductUseCase } from './delete-product';
@@ -16,6 +21,7 @@ let templatesRepository: InMemoryTemplatesRepository;
 let suppliersRepository: InMemorySuppliersRepository;
 let manufacturersRepository: InMemoryManufacturersRepository;
 let categoriesRepository: InMemoryCategoriesRepository;
+let variantsRepository: InMemoryVariantsRepository;
 let sut: DeleteProductUseCase;
 let createProduct: CreateProductUseCase;
 let getProduct: GetProductByIdUseCase;
@@ -30,14 +36,15 @@ describe('DeleteProductUseCase', () => {
     suppliersRepository = new InMemorySuppliersRepository();
     manufacturersRepository = new InMemoryManufacturersRepository();
     categoriesRepository = new InMemoryCategoriesRepository();
+    variantsRepository = new InMemoryVariantsRepository();
 
-    sut = new DeleteProductUseCase(productsRepository);
+    sut = new DeleteProductUseCase(productsRepository, variantsRepository);
     createProduct = new CreateProductUseCase(
       productsRepository,
       templatesRepository,
       suppliersRepository,
       manufacturersRepository,
-      categoriesRepository,
+      categoriesRepository,
     );
     getProduct = new GetProductByIdUseCase(productsRepository);
     createTemplate = new CreateTemplateUseCase(templatesRepository);

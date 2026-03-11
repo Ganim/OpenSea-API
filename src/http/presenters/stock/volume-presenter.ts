@@ -2,7 +2,10 @@ import {
   getVolumeStatusLabel,
   type VolumeStatus,
 } from '@/entities/stock/value-objects/volume-status';
-import type { VolumeDTO, VolumeItemDTO } from '@/mappers/stock/volume.mapper';
+import type {
+  VolumeDTO,
+  VolumeItemDTO,
+} from '@/mappers/stock/volume/volume-to-dto';
 
 export interface VolumePresenter {
   id: string;

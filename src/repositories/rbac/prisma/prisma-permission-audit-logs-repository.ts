@@ -8,7 +8,10 @@ import type {
   PermissionAuditLogsRepository,
 } from '../permission-audit-logs-repository';
 
-function truncate(value: string | undefined | null, maxLength: number): string | undefined | null {
+function truncate(
+  value: string | undefined | null,
+  maxLength: number,
+): string | undefined | null {
   if (!value) return value;
   return value.length > maxLength ? value.slice(0, maxLength) : value;
 }

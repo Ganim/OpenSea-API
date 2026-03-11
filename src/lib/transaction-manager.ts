@@ -24,9 +24,8 @@ export interface TransactionManager {
  */
 export class PrismaTransactionManager implements TransactionManager {
   async run<T>(fn: (tx: TransactionClient) => Promise<T>): Promise<T> {
-    return prisma.$transaction(
-      (tx) => fn(tx as unknown as TransactionClient),
-      { timeout: 30_000 },
-    );
+    return prisma.$transaction((tx) => fn(tx as unknown as TransactionClient), {
+      timeout: 30_000,
+    });
   }
 }

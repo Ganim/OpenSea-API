@@ -90,8 +90,8 @@ describe('CreateEmailAccountUseCase', () => {
   // --- SSRF tests (mock returns false to simulate blocked hosts) ---
 
   it('should reject IMAP host localhost (SSRF)', async () => {
-    mockedIsEmailHostSafe.mockImplementation(async (host) =>
-      host !== 'localhost',
+    mockedIsEmailHostSafe.mockImplementation(
+      async (host) => host !== 'localhost',
     );
 
     await expect(
@@ -100,8 +100,8 @@ describe('CreateEmailAccountUseCase', () => {
   });
 
   it('should reject SMTP host localhost (SSRF)', async () => {
-    mockedIsEmailHostSafe.mockImplementation(async (host) =>
-      host !== 'localhost',
+    mockedIsEmailHostSafe.mockImplementation(
+      async (host) => host !== 'localhost',
     );
 
     await expect(
@@ -110,8 +110,8 @@ describe('CreateEmailAccountUseCase', () => {
   });
 
   it("should reject IMAP host '127.0.0.1' (SSRF loopback)", async () => {
-    mockedIsEmailHostSafe.mockImplementation(async (host) =>
-      host !== '127.0.0.1',
+    mockedIsEmailHostSafe.mockImplementation(
+      async (host) => host !== '127.0.0.1',
     );
 
     await expect(
@@ -120,8 +120,8 @@ describe('CreateEmailAccountUseCase', () => {
   });
 
   it("should reject IMAP host '10.0.0.1' (SSRF private class A)", async () => {
-    mockedIsEmailHostSafe.mockImplementation(async (host) =>
-      host !== '10.0.0.1',
+    mockedIsEmailHostSafe.mockImplementation(
+      async (host) => host !== '10.0.0.1',
     );
 
     await expect(
@@ -130,8 +130,8 @@ describe('CreateEmailAccountUseCase', () => {
   });
 
   it("should reject IMAP host '192.168.1.1' (SSRF private class C)", async () => {
-    mockedIsEmailHostSafe.mockImplementation(async (host) =>
-      host !== '192.168.1.1',
+    mockedIsEmailHostSafe.mockImplementation(
+      async (host) => host !== '192.168.1.1',
     );
 
     await expect(
@@ -140,8 +140,8 @@ describe('CreateEmailAccountUseCase', () => {
   });
 
   it("should reject IMAP host '172.16.0.1' (SSRF private 172.16/12)", async () => {
-    mockedIsEmailHostSafe.mockImplementation(async (host) =>
-      host !== '172.16.0.1',
+    mockedIsEmailHostSafe.mockImplementation(
+      async (host) => host !== '172.16.0.1',
     );
 
     await expect(
@@ -150,8 +150,8 @@ describe('CreateEmailAccountUseCase', () => {
   });
 
   it("should reject IMAP host '169.254.169.254' (SSRF link-local/cloud metadata)", async () => {
-    mockedIsEmailHostSafe.mockImplementation(async (host) =>
-      host !== '169.254.169.254',
+    mockedIsEmailHostSafe.mockImplementation(
+      async (host) => host !== '169.254.169.254',
     );
 
     await expect(
@@ -160,8 +160,8 @@ describe('CreateEmailAccountUseCase', () => {
   });
 
   it('should reject unresolvable hostname (DNS fail → blocked)', async () => {
-    mockedIsEmailHostSafe.mockImplementation(async (host) =>
-      host !== 'nonexistent.invalid.host.xyz',
+    mockedIsEmailHostSafe.mockImplementation(
+      async (host) => host !== 'nonexistent.invalid.host.xyz',
     );
 
     await expect(
@@ -182,9 +182,7 @@ describe('CreateEmailAccountUseCase', () => {
   });
 
   it('should reject when SMTP connection test fails', async () => {
-    smtpService.testConnection.mockRejectedValueOnce(
-      new Error('EHLO timeout'),
-    );
+    smtpService.testConnection.mockRejectedValueOnce(new Error('EHLO timeout'));
 
     await expect(sut.execute(makeRequest())).rejects.toThrow(
       'Falha ao conectar ao servidor SMTP',
@@ -236,9 +234,7 @@ describe('CreateEmailAccountUseCase', () => {
   it('should allow same email address in different tenants', async () => {
     await sut.execute(makeRequest({ tenantId: 'tenant-1' }));
 
-    const result = await sut.execute(
-      makeRequest({ tenantId: 'tenant-2' }),
-    );
+    const result = await sut.execute(makeRequest({ tenantId: 'tenant-2' }));
 
     expect(result.account.address).toBe('user@example.com');
     expect(repository.items).toHaveLength(2);
@@ -304,9 +300,9 @@ describe('isEmailHostSafe (real SSRF validation)', () => {
   });
 
   it('should block unresolvable hostname (fail-closed)', async () => {
-    expect(
-      await realIsEmailHostSafe('nonexistent.invalid.host.xyz'),
-    ).toBe(false);
+    expect(await realIsEmailHostSafe('nonexistent.invalid.host.xyz')).toBe(
+      false,
+    );
   });
 
   it('should allow a valid public domain (e.g. imap.gmail.com)', async () => {

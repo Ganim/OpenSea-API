@@ -35,7 +35,7 @@ describe('GetProductByIdUseCase', () => {
       templatesRepository,
       suppliersRepository,
       manufacturersRepository,
-      categoriesRepository,
+      categoriesRepository,
     );
     createTemplate = new CreateTemplateUseCase(templatesRepository);
   });

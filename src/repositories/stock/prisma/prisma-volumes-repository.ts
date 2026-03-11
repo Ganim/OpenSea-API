@@ -1,7 +1,12 @@
 import { Volume } from '@/entities/stock/volume';
 import { VolumeItem } from '@/entities/stock/volume-item';
 import { prisma } from '@/lib/prisma';
-import { VolumeItemMapper, VolumeMapper } from '@/mappers/stock/volume.mapper';
+import {
+  volumeItemPrismaToDomain,
+  volumeItemToPersistence,
+  volumePrismaToDomain,
+  volumeToPersistence,
+} from '@/mappers/stock/volume/volume-prisma-to-domain';
 import type { PaginationParams } from '@/repositories/pagination-params';
 import type {
   Volume as PrismaVolume,
@@ -11,7 +16,7 @@ import type { VolumeRepository } from '../volumes-repository';
 
 export class PrismaVolumesRepository implements VolumeRepository {
   async create(volume: Volume): Promise<void> {
-    const data = VolumeMapper.toPersistence(volume);
+    const data = volumeToPersistence(volume);
     await prisma.volume.create({ data });
   }
 
@@ -28,7 +33,7 @@ export class PrismaVolumesRepository implements VolumeRepository {
       return null;
     }
 
-    return VolumeMapper.toDomain(volume);
+    return volumePrismaToDomain(volume);
   }
 
   async findByCode(code: string, tenantId: string): Promise<Volume | null> {
@@ -44,11 +49,11 @@ export class PrismaVolumesRepository implements VolumeRepository {
       return null;
     }
 
-    return VolumeMapper.toDomain(volume);
+    return volumePrismaToDomain(volume);
   }
 
   async update(volume: Volume): Promise<void> {
-    const data = VolumeMapper.toPersistence(volume);
+    const data = volumeToPersistence(volume);
     await prisma.volume.update({
       where: {
         id: volume.id.toString(),
@@ -94,14 +99,14 @@ export class PrismaVolumesRepository implements VolumeRepository {
 
     return {
       volumes: volumes.map((volume: PrismaVolume) =>
-        VolumeMapper.toDomain(volume),
+        volumePrismaToDomain(volume),
       ),
       total,
     };
   }
 
   async addItem(volumeItem: VolumeItem): Promise<void> {
-    const data = VolumeItemMapper.toPersistence(volumeItem);
+    const data = volumeItemToPersistence(volumeItem);
     await prisma.volumeItem.create({ data });
   }
 
@@ -122,7 +127,7 @@ export class PrismaVolumesRepository implements VolumeRepository {
     });
 
     return items.map((item: PrismaVolumeItem) =>
-      VolumeItemMapper.toDomain(item),
+      volumeItemPrismaToDomain(item),
     );
   }
 

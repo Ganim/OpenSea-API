@@ -6,12 +6,67 @@ import { prisma } from '@/lib/prisma';
 import { Prisma } from '@prisma/generated/client.js';
 import type { MovementType as PrismaMovementType } from '@prisma/generated/client.js';
 import type {
+  PaginatedResult,
+  PaginationParams,
+} from '../../pagination-params';
+import type {
   CreateItemMovementSchema,
   ItemMovementsRepository,
   UpdateItemMovementSchema,
 } from '../item-movements-repository';
 
 export class PrismaItemMovementsRepository implements ItemMovementsRepository {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private mapToDomain(movementData: any): ItemMovement {
+    return ItemMovement.create(
+      {
+        tenantId: new EntityID(movementData.tenantId),
+        itemId: new EntityID(movementData.itemId),
+        userId: new EntityID(movementData.userId),
+        quantity: movementData.quantity.toNumber(),
+        quantityBefore: movementData.quantityBefore?.toNumber(),
+        quantityAfter: movementData.quantityAfter?.toNumber(),
+        movementType: MovementType.create(movementData.movementType),
+        reasonCode: movementData.reasonCode ?? undefined,
+        originRef: movementData.originRef ?? undefined,
+        destinationRef: movementData.destinationRef ?? undefined,
+        batchNumber: movementData.batchNumber ?? undefined,
+        notes: movementData.notes ?? undefined,
+        approvedBy: movementData.approvedBy
+          ? new EntityID(movementData.approvedBy)
+          : undefined,
+        salesOrderId: movementData.salesOrderId
+          ? new EntityID(movementData.salesOrderId)
+          : undefined,
+        createdAt: movementData.createdAt,
+      },
+      new EntityID(movementData.id),
+    );
+  }
+
+  private async findManyPaginatedWithWhere(
+    where: Record<string, unknown>,
+    params: PaginationParams,
+  ): Promise<PaginatedResult<ItemMovement>> {
+    const [movements, total] = await Promise.all([
+      prisma.itemMovement.findMany({
+        where,
+        orderBy: { createdAt: 'desc' },
+        skip: (params.page - 1) * params.limit,
+        take: params.limit,
+      }),
+      prisma.itemMovement.count({ where }),
+    ]);
+
+    return {
+      data: movements.map((m) => this.mapToDomain(m)),
+      total,
+      page: params.page,
+      limit: params.limit,
+      totalPages: Math.ceil(total / params.limit),
+    };
+  }
+
   async create(data: CreateItemMovementSchema): Promise<ItemMovement> {
     const movementData = await prisma.itemMovement.create({
       data: {
@@ -98,40 +153,18 @@ export class PrismaItemMovementsRepository implements ItemMovementsRepository {
 
   async findAll(tenantId: string): Promise<ItemMovement[]> {
     const movements = await prisma.itemMovement.findMany({
-      where: {
-        tenantId,
-      },
-      orderBy: {
-        createdAt: 'desc',
-      },
+      where: { tenantId },
+      orderBy: { createdAt: 'desc' },
     });
 
-    return movements.map((movementData) =>
-      ItemMovement.create(
-        {
-          tenantId: new EntityID(movementData.tenantId),
-          itemId: new EntityID(movementData.itemId),
-          userId: new EntityID(movementData.userId),
-          quantity: movementData.quantity.toNumber(),
-          quantityBefore: movementData.quantityBefore?.toNumber(),
-          quantityAfter: movementData.quantityAfter?.toNumber(),
-          movementType: MovementType.create(movementData.movementType),
-          reasonCode: movementData.reasonCode ?? undefined,
-          originRef: movementData.originRef ?? undefined,
-          destinationRef: movementData.destinationRef ?? undefined,
-          batchNumber: movementData.batchNumber ?? undefined,
-          notes: movementData.notes ?? undefined,
-          approvedBy: movementData.approvedBy
-            ? new EntityID(movementData.approvedBy)
-            : undefined,
-          salesOrderId: movementData.salesOrderId
-            ? new EntityID(movementData.salesOrderId)
-            : undefined,
-          createdAt: movementData.createdAt,
-        },
-        new EntityID(movementData.id),
-      ),
-    );
+    return movements.map((m) => this.mapToDomain(m));
+  }
+
+  async findAllPaginated(
+    tenantId: string,
+    params: PaginationParams,
+  ): Promise<PaginatedResult<ItemMovement>> {
+    return this.findManyPaginatedWithWhere({ tenantId }, params);
   }
 
   async findManyByItem(
@@ -139,40 +172,21 @@ export class PrismaItemMovementsRepository implements ItemMovementsRepository {
     tenantId: string,
   ): Promise<ItemMovement[]> {
     const movements = await prisma.itemMovement.findMany({
-      where: {
-        itemId: itemId.toString(),
-        tenantId,
-      },
-      orderBy: {
-        createdAt: 'desc',
-      },
+      where: { itemId: itemId.toString(), tenantId },
+      orderBy: { createdAt: 'desc' },
     });
 
-    return movements.map((movementData) =>
-      ItemMovement.create(
-        {
-          tenantId: new EntityID(movementData.tenantId),
-          itemId: new EntityID(movementData.itemId),
-          userId: new EntityID(movementData.userId),
-          quantity: movementData.quantity.toNumber(),
-          quantityBefore: movementData.quantityBefore?.toNumber(),
-          quantityAfter: movementData.quantityAfter?.toNumber(),
-          movementType: MovementType.create(movementData.movementType),
-          reasonCode: movementData.reasonCode ?? undefined,
-          originRef: movementData.originRef ?? undefined,
-          destinationRef: movementData.destinationRef ?? undefined,
-          batchNumber: movementData.batchNumber ?? undefined,
-          notes: movementData.notes ?? undefined,
-          approvedBy: movementData.approvedBy
-            ? new EntityID(movementData.approvedBy)
-            : undefined,
-          salesOrderId: movementData.salesOrderId
-            ? new EntityID(movementData.salesOrderId)
-            : undefined,
-          createdAt: movementData.createdAt,
-        },
-        new EntityID(movementData.id),
-      ),
+    return movements.map((m) => this.mapToDomain(m));
+  }
+
+  async findManyByItemPaginated(
+    itemId: UniqueEntityID,
+    tenantId: string,
+    params: PaginationParams,
+  ): Promise<PaginatedResult<ItemMovement>> {
+    return this.findManyPaginatedWithWhere(
+      { itemId: itemId.toString(), tenantId },
+      params,
     );
   }
 
@@ -181,40 +195,21 @@ export class PrismaItemMovementsRepository implements ItemMovementsRepository {
     tenantId: string,
   ): Promise<ItemMovement[]> {
     const movements = await prisma.itemMovement.findMany({
-      where: {
-        userId: userId.toString(),
-        tenantId,
-      },
-      orderBy: {
-        createdAt: 'desc',
-      },
+      where: { userId: userId.toString(), tenantId },
+      orderBy: { createdAt: 'desc' },
     });
 
-    return movements.map((movementData) =>
-      ItemMovement.create(
-        {
-          tenantId: new EntityID(movementData.tenantId),
-          itemId: new EntityID(movementData.itemId),
-          userId: new EntityID(movementData.userId),
-          quantity: movementData.quantity.toNumber(),
-          quantityBefore: movementData.quantityBefore?.toNumber(),
-          quantityAfter: movementData.quantityAfter?.toNumber(),
-          movementType: MovementType.create(movementData.movementType),
-          reasonCode: movementData.reasonCode ?? undefined,
-          originRef: movementData.originRef ?? undefined,
-          destinationRef: movementData.destinationRef ?? undefined,
-          batchNumber: movementData.batchNumber ?? undefined,
-          notes: movementData.notes ?? undefined,
-          approvedBy: movementData.approvedBy
-            ? new EntityID(movementData.approvedBy)
-            : undefined,
-          salesOrderId: movementData.salesOrderId
-            ? new EntityID(movementData.salesOrderId)
-            : undefined,
-          createdAt: movementData.createdAt,
-        },
-        new EntityID(movementData.id),
-      ),
+    return movements.map((m) => this.mapToDomain(m));
+  }
+
+  async findManyByUserPaginated(
+    userId: UniqueEntityID,
+    tenantId: string,
+    params: PaginationParams,
+  ): Promise<PaginatedResult<ItemMovement>> {
+    return this.findManyPaginatedWithWhere(
+      { userId: userId.toString(), tenantId },
+      params,
     );
   }
 
@@ -227,36 +222,20 @@ export class PrismaItemMovementsRepository implements ItemMovementsRepository {
         movementType: movementType.value as PrismaMovementType,
         tenantId,
       },
-      orderBy: {
-        createdAt: 'desc',
-      },
+      orderBy: { createdAt: 'desc' },
     });
 
-    return movements.map((movementData) =>
-      ItemMovement.create(
-        {
-          tenantId: new EntityID(movementData.tenantId),
-          itemId: new EntityID(movementData.itemId),
-          userId: new EntityID(movementData.userId),
-          quantity: movementData.quantity.toNumber(),
-          quantityBefore: movementData.quantityBefore?.toNumber(),
-          quantityAfter: movementData.quantityAfter?.toNumber(),
-          movementType: MovementType.create(movementData.movementType),
-          reasonCode: movementData.reasonCode ?? undefined,
-          originRef: movementData.originRef ?? undefined,
-          destinationRef: movementData.destinationRef ?? undefined,
-          batchNumber: movementData.batchNumber ?? undefined,
-          notes: movementData.notes ?? undefined,
-          approvedBy: movementData.approvedBy
-            ? new EntityID(movementData.approvedBy)
-            : undefined,
-          salesOrderId: movementData.salesOrderId
-            ? new EntityID(movementData.salesOrderId)
-            : undefined,
-          createdAt: movementData.createdAt,
-        },
-        new EntityID(movementData.id),
-      ),
+    return movements.map((m) => this.mapToDomain(m));
+  }
+
+  async findManyByTypePaginated(
+    movementType: MovementType,
+    tenantId: string,
+    params: PaginationParams,
+  ): Promise<PaginatedResult<ItemMovement>> {
+    return this.findManyPaginatedWithWhere(
+      { movementType: movementType.value as PrismaMovementType, tenantId },
+      params,
     );
   }
 
@@ -265,41 +244,19 @@ export class PrismaItemMovementsRepository implements ItemMovementsRepository {
     tenantId: string,
   ): Promise<ItemMovement[]> {
     const movements = await prisma.itemMovement.findMany({
-      where: {
-        batchNumber,
-        tenantId,
-      },
-      orderBy: {
-        createdAt: 'desc',
-      },
+      where: { batchNumber, tenantId },
+      orderBy: { createdAt: 'desc' },
     });
 
-    return movements.map((movementData) =>
-      ItemMovement.create(
-        {
-          tenantId: new EntityID(movementData.tenantId),
-          itemId: new EntityID(movementData.itemId),
-          userId: new EntityID(movementData.userId),
-          quantity: movementData.quantity.toNumber(),
-          quantityBefore: movementData.quantityBefore?.toNumber(),
-          quantityAfter: movementData.quantityAfter?.toNumber(),
-          movementType: MovementType.create(movementData.movementType),
-          reasonCode: movementData.reasonCode ?? undefined,
-          originRef: movementData.originRef ?? undefined,
-          destinationRef: movementData.destinationRef ?? undefined,
-          batchNumber: movementData.batchNumber ?? undefined,
-          notes: movementData.notes ?? undefined,
-          approvedBy: movementData.approvedBy
-            ? new EntityID(movementData.approvedBy)
-            : undefined,
-          salesOrderId: movementData.salesOrderId
-            ? new EntityID(movementData.salesOrderId)
-            : undefined,
-          createdAt: movementData.createdAt,
-        },
-        new EntityID(movementData.id),
-      ),
-    );
+    return movements.map((m) => this.mapToDomain(m));
+  }
+
+  async findManyByBatchPaginated(
+    batchNumber: string,
+    tenantId: string,
+    params: PaginationParams,
+  ): Promise<PaginatedResult<ItemMovement>> {
+    return this.findManyPaginatedWithWhere({ batchNumber, tenantId }, params);
   }
 
   async findManyBySalesOrder(
@@ -307,87 +264,36 @@ export class PrismaItemMovementsRepository implements ItemMovementsRepository {
     tenantId: string,
   ): Promise<ItemMovement[]> {
     const movements = await prisma.itemMovement.findMany({
-      where: {
-        salesOrderId: salesOrderId.toString(),
-        tenantId,
-      },
-      orderBy: {
-        createdAt: 'desc',
-      },
+      where: { salesOrderId: salesOrderId.toString(), tenantId },
+      orderBy: { createdAt: 'desc' },
     });
 
-    return movements.map((movementData) =>
-      ItemMovement.create(
-        {
-          tenantId: new EntityID(movementData.tenantId),
-          itemId: new EntityID(movementData.itemId),
-          userId: new EntityID(movementData.userId),
-          quantity: movementData.quantity.toNumber(),
-          quantityBefore: movementData.quantityBefore?.toNumber(),
-          quantityAfter: movementData.quantityAfter?.toNumber(),
-          movementType: MovementType.create(movementData.movementType),
-          reasonCode: movementData.reasonCode ?? undefined,
-          originRef: movementData.originRef ?? undefined,
-          destinationRef: movementData.destinationRef ?? undefined,
-          batchNumber: movementData.batchNumber ?? undefined,
-          notes: movementData.notes ?? undefined,
-          approvedBy: movementData.approvedBy
-            ? new EntityID(movementData.approvedBy)
-            : undefined,
-          salesOrderId: movementData.salesOrderId
-            ? new EntityID(movementData.salesOrderId)
-            : undefined,
-          createdAt: movementData.createdAt,
-        },
-        new EntityID(movementData.id),
-      ),
+    return movements.map((m) => this.mapToDomain(m));
+  }
+
+  async findManyBySalesOrderPaginated(
+    salesOrderId: UniqueEntityID,
+    tenantId: string,
+    params: PaginationParams,
+  ): Promise<PaginatedResult<ItemMovement>> {
+    return this.findManyPaginatedWithWhere(
+      { salesOrderId: salesOrderId.toString(), tenantId },
+      params,
     );
   }
 
   async findManyPendingApproval(tenantId: string): Promise<ItemMovement[]> {
     const movements = await prisma.itemMovement.findMany({
-      where: {
-        approvedBy: null,
-        tenantId,
-      },
-      orderBy: {
-        createdAt: 'desc',
-      },
+      where: { approvedBy: null, tenantId },
+      orderBy: { createdAt: 'desc' },
     });
 
-    return movements.map((movementData) =>
-      ItemMovement.create(
-        {
-          tenantId: new EntityID(movementData.tenantId),
-          itemId: new EntityID(movementData.itemId),
-          userId: new EntityID(movementData.userId),
-          quantity: movementData.quantity.toNumber(),
-          quantityBefore: movementData.quantityBefore?.toNumber(),
-          quantityAfter: movementData.quantityAfter?.toNumber(),
-          movementType: MovementType.create(movementData.movementType),
-          reasonCode: movementData.reasonCode ?? undefined,
-          originRef: movementData.originRef ?? undefined,
-          destinationRef: movementData.destinationRef ?? undefined,
-          batchNumber: movementData.batchNumber ?? undefined,
-          notes: movementData.notes ?? undefined,
-          approvedBy: movementData.approvedBy
-            ? new EntityID(movementData.approvedBy)
-            : undefined,
-          salesOrderId: movementData.salesOrderId
-            ? new EntityID(movementData.salesOrderId)
-            : undefined,
-          createdAt: movementData.createdAt,
-        },
-        new EntityID(movementData.id),
-      ),
-    );
+    return movements.map((m) => this.mapToDomain(m));
   }
 
   async update(data: UpdateItemMovementSchema): Promise<ItemMovement | null> {
     const movementData = await prisma.itemMovement.update({
-      where: {
-        id: data.id.toString(),
-      },
+      where: { id: data.id.toString() },
       data: {
         reasonCode: data.reasonCode,
         destinationRef: data.destinationRef,
@@ -396,30 +302,7 @@ export class PrismaItemMovementsRepository implements ItemMovementsRepository {
       },
     });
 
-    return ItemMovement.create(
-      {
-        tenantId: new EntityID(movementData.tenantId),
-        itemId: new EntityID(movementData.itemId),
-        userId: new EntityID(movementData.userId),
-        quantity: movementData.quantity.toNumber(),
-        quantityBefore: movementData.quantityBefore?.toNumber(),
-        quantityAfter: movementData.quantityAfter?.toNumber(),
-        movementType: MovementType.create(movementData.movementType),
-        reasonCode: movementData.reasonCode ?? undefined,
-        originRef: movementData.originRef ?? undefined,
-        destinationRef: movementData.destinationRef ?? undefined,
-        batchNumber: movementData.batchNumber ?? undefined,
-        notes: movementData.notes ?? undefined,
-        approvedBy: movementData.approvedBy
-          ? new EntityID(movementData.approvedBy)
-          : undefined,
-        salesOrderId: movementData.salesOrderId
-          ? new EntityID(movementData.salesOrderId)
-          : undefined,
-        createdAt: movementData.createdAt,
-      },
-      new EntityID(movementData.id),
-    );
+    return this.mapToDomain(movementData);
   }
 
   async save(movement: ItemMovement): Promise<void> {

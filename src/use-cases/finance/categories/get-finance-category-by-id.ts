@@ -29,7 +29,10 @@ export class GetFinanceCategoryByIdUseCase {
     );
 
     if (!category) {
-      throw new ResourceNotFoundError('Finance category not found', ErrorCodes.FINANCE_CATEGORY_NOT_FOUND);
+      throw new ResourceNotFoundError(
+        'Finance category not found',
+        ErrorCodes.FINANCE_CATEGORY_NOT_FOUND,
+      );
     }
 
     return { category: financeCategoryToDTO(category) };

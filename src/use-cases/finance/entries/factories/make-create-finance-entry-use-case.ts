@@ -12,7 +12,8 @@ export function makeCreateFinanceEntryUseCase() {
   const costCentersRepository = new PrismaCostCentersRepository();
   const calendarSyncService = makeCalendarSyncService();
   const transactionManager = new PrismaTransactionManager();
-  const costCenterAllocationsRepository = new PrismaFinanceEntryCostCentersRepository();
+  const costCenterAllocationsRepository =
+    new PrismaFinanceEntryCostCentersRepository();
 
   return new CreateFinanceEntryUseCase(
     entriesRepository,

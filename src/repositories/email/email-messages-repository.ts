@@ -90,7 +90,9 @@ export interface EmailMessagesRepository {
     remoteUids: number[],
   ): Promise<Set<number>>;
   list(params: EmailMessagesListParams): Promise<EmailMessagesListResult>;
-  listCentralInbox(params: CentralInboxListParams): Promise<EmailMessagesListResult>;
+  listCentralInbox(
+    params: CentralInboxListParams,
+  ): Promise<EmailMessagesListResult>;
   update(data: UpdateEmailMessageSchema): Promise<EmailMessage | null>;
   updateBody(
     id: string,

@@ -1,5 +1,3 @@
-import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
-import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
@@ -53,25 +51,15 @@ export async function createProductCareInstructionController(
       const { productId } = request.params;
       const { careInstructionId, order } = request.body;
 
-      try {
-        const useCase = makeCreateProductCareInstructionUseCase();
-        const { productCareInstruction } = await useCase.execute({
-          productId,
-          tenantId,
-          careInstructionId,
-          order,
-        });
+      const useCase = makeCreateProductCareInstructionUseCase();
+      const { productCareInstruction } = await useCase.execute({
+        productId,
+        tenantId,
+        careInstructionId,
+        order,
+      });
 
-        return reply.status(201).send({ productCareInstruction });
-      } catch (error) {
-        if (error instanceof ResourceNotFoundError) {
-          return reply.status(404).send({ message: error.message });
-        }
-        if (error instanceof BadRequestError) {
-          return reply.status(400).send({ message: error.message });
-        }
-        throw error;
-      }
+      return reply.status(201).send({ productCareInstruction });
     },
   });
 }

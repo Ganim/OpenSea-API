@@ -31,7 +31,10 @@ export class CreateCostCenterUseCase {
     const { tenantId, code, name } = request;
 
     if (!name || name.trim().length === 0) {
-      throw new BadRequestError('Cost center name is required', ErrorCodes.BAD_REQUEST);
+      throw new BadRequestError(
+        'Cost center name is required',
+        ErrorCodes.BAD_REQUEST,
+      );
     }
 
     if (name.length > 128) {
@@ -42,7 +45,10 @@ export class CreateCostCenterUseCase {
     }
 
     if (!code || code.trim().length === 0) {
-      throw new BadRequestError('Cost center code is required', ErrorCodes.BAD_REQUEST);
+      throw new BadRequestError(
+        'Cost center code is required',
+        ErrorCodes.BAD_REQUEST,
+      );
     }
 
     if (code.length > 32) {
@@ -57,7 +63,10 @@ export class CreateCostCenterUseCase {
       tenantId,
     );
     if (existingCode) {
-      throw new BadRequestError('A cost center with this code already exists', ErrorCodes.CONFLICT);
+      throw new BadRequestError(
+        'A cost center with this code already exists',
+        ErrorCodes.CONFLICT,
+      );
     }
 
     const costCenter = await this.costCentersRepository.create({

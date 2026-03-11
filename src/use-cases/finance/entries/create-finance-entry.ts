@@ -2,7 +2,15 @@ import { ErrorCodes } from '@/@errors/error-codes';
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { FinanceEntry } from '@/entities/finance/finance-entry';
-import type { TransactionClient, TransactionManager } from '@/lib/transaction-manager';
+import type {
+  FinanceEntryType,
+  RecurrenceType,
+  RecurrenceUnit,
+} from '@/entities/finance/finance-entry-types';
+import type {
+  TransactionClient,
+  TransactionManager,
+} from '@/lib/transaction-manager';
 import {
   type FinanceEntryDTO,
   financeEntryToDTO,
@@ -12,6 +20,7 @@ import type { FinanceCategoriesRepository } from '@/repositories/finance/finance
 import type { FinanceEntriesRepository } from '@/repositories/finance/finance-entries-repository';
 import type { FinanceEntryCostCentersRepository } from '@/repositories/finance/finance-entry-cost-centers-repository';
 import type { CalendarSyncService } from '@/services/calendar/calendar-sync.service';
+import { calculateNextDate } from '@/utils/finance/calculate-next-date';
 
 interface CostCenterAllocation {
   costCenterId: string;
@@ -20,7 +29,7 @@ interface CostCenterAllocation {
 
 interface CreateFinanceEntryUseCaseRequest {
   tenantId: string;
-  type: string; // 'PAYABLE' | 'RECEIVABLE'
+  type: FinanceEntryType;
   description: string;
   notes?: string;
   categoryId: string;
@@ -39,9 +48,9 @@ interface CreateFinanceEntryUseCaseRequest {
   issueDate: Date;
   dueDate: Date;
   competenceDate?: Date;
-  recurrenceType?: string;
+  recurrenceType?: RecurrenceType;
   recurrenceInterval?: number;
-  recurrenceUnit?: string;
+  recurrenceUnit?: RecurrenceUnit;
   totalInstallments?: number;
   currentInstallment?: number;
   boletoBarcode?: string;
@@ -100,14 +109,21 @@ export class CreateFinanceEntryUseCase {
     }
 
     // Validate cost center assignment: must have costCenterId XOR costCenterAllocations
-    if (costCenterId && costCenterAllocations && costCenterAllocations.length > 0) {
+    if (
+      costCenterId &&
+      costCenterAllocations &&
+      costCenterAllocations.length > 0
+    ) {
       throw new BadRequestError(
         'Cannot provide both costCenterId and costCenterAllocations',
         ErrorCodes.FINANCE_RATEIO_CONFLICT,
       );
     }
 
-    if (!costCenterId && (!costCenterAllocations || costCenterAllocations.length === 0)) {
+    if (
+      !costCenterId &&
+      (!costCenterAllocations || costCenterAllocations.length === 0)
+    ) {
       throw new BadRequestError(
         'Must provide either costCenterId or costCenterAllocations',
         ErrorCodes.FINANCE_RATEIO_CONFLICT,
@@ -127,7 +143,10 @@ export class CreateFinanceEntryUseCase {
 
     // Validate rateio allocations
     if (costCenterAllocations && costCenterAllocations.length > 0) {
-      const sum = costCenterAllocations.reduce((acc, a) => acc + a.percentage, 0);
+      const sum = costCenterAllocations.reduce(
+        (acc, a) => acc + a.percentage,
+        0,
+      );
       if (Math.abs(sum - 100) >= 0.01) {
         throw new BadRequestError(
           'Cost center allocation percentages must sum to 100',
@@ -167,6 +186,16 @@ export class CreateFinanceEntryUseCase {
           'Recurrence interval and unit are required for recurring entries',
         );
       }
+    }
+
+    // Default competenceDate to issueDate if not provided
+    if (!request.competenceDate) {
+      request.competenceDate = request.issueDate;
+    }
+
+    // Normalize tags
+    if (request.tags) {
+      request.tags = request.tags.map((t) => t.trim().toLowerCase());
     }
 
     // Use transaction when we have rateio or installments/recurring
@@ -259,7 +288,7 @@ export class CreateFinanceEntryUseCase {
       this.syncToCalendar(
         tenantId,
         entry.id.toString(),
-        type as 'PAYABLE' | 'RECEIVABLE',
+        type,
         description.trim(),
         request.dueDate,
         request.createdBy ?? entry.id.toString(),
@@ -296,8 +325,18 @@ export class CreateFinanceEntryUseCase {
     allocations: CostCenterAllocation[],
     totalAmount: number,
     entryId: string,
-  ): { entryId: string; costCenterId: string; percentage: number; amount: number }[] {
-    const result: { entryId: string; costCenterId: string; percentage: number; amount: number }[] = [];
+  ): {
+    entryId: string;
+    costCenterId: string;
+    percentage: number;
+    amount: number;
+  }[] {
+    const result: {
+      entryId: string;
+      costCenterId: string;
+      percentage: number;
+      amount: number;
+    }[] = [];
     let allocatedSum = 0;
 
     for (let i = 0; i < allocations.length; i++) {
@@ -338,7 +377,7 @@ export class CreateFinanceEntryUseCase {
       : request.costCenterId;
 
     for (let i = 1; i <= request.totalInstallments!; i++) {
-      const installmentDueDate = this.calculateNextDate(
+      const installmentDueDate = calculateNextDate(
         request.dueDate,
         request.recurrenceInterval!,
         request.recurrenceUnit!,
@@ -395,7 +434,10 @@ export class CreateFinanceEntryUseCase {
           installmentAmount,
           installmentEntry.id.toString(),
         );
-        await this.costCenterAllocationsRepository.createMany(childAllocations, tx);
+        await this.costCenterAllocationsRepository.createMany(
+          childAllocations,
+          tx,
+        );
       }
 
       // Calendar sync is fire-and-forget, outside transaction
@@ -403,7 +445,7 @@ export class CreateFinanceEntryUseCase {
         this.syncToCalendar(
           request.tenantId,
           installmentEntry.id.toString(),
-          request.type as 'PAYABLE' | 'RECEIVABLE',
+          request.type,
           `${request.description.trim()} (${i}/${request.totalInstallments})`,
           installmentDueDate,
           request.createdBy ?? installmentEntry.id.toString(),
@@ -421,12 +463,11 @@ export class CreateFinanceEntryUseCase {
     parentEntryId: string,
     tx?: TransactionClient,
   ): Promise<FinanceEntryDTO> {
-    const occurrenceCode =
-      await this.financeEntriesRepository.generateNextCode(
-        request.tenantId,
-        request.type,
-        tx,
-      );
+    const occurrenceCode = await this.financeEntriesRepository.generateNextCode(
+      request.tenantId,
+      request.type,
+      tx,
+    );
 
     const occurrence = await this.financeEntriesRepository.create(
       {
@@ -465,7 +506,7 @@ export class CreateFinanceEntryUseCase {
       this.syncToCalendar(
         request.tenantId,
         occurrence.id.toString(),
-        request.type as 'PAYABLE' | 'RECEIVABLE',
+        request.type,
         `${request.description.trim()} (1)`,
         request.dueDate,
         request.createdBy ?? occurrence.id.toString(),
@@ -478,50 +519,21 @@ export class CreateFinanceEntryUseCase {
   private syncToCalendar(
     tenantId: string,
     entryId: string,
-    entryType: 'PAYABLE' | 'RECEIVABLE',
+    entryType: FinanceEntryType,
     description: string,
     dueDate: Date,
     userId: string,
   ): void {
     // Fire-and-forget — calendar sync must never block or rollback finance operations
     this.calendarSyncService
-      ?.syncFinanceEntry({ tenantId, entryId, entryType, description, dueDate, userId })
+      ?.syncFinanceEntry({
+        tenantId,
+        entryId,
+        entryType,
+        description,
+        dueDate,
+        userId,
+      })
       .catch(() => {});
-  }
-
-  private calculateNextDate(
-    baseDate: Date,
-    interval: number,
-    unit: string,
-    multiplier: number,
-  ): Date {
-    const date = new Date(baseDate);
-    const totalInterval = interval * multiplier;
-
-    switch (unit) {
-      case 'DAILY':
-        date.setUTCDate(date.getUTCDate() + totalInterval);
-        break;
-      case 'WEEKLY':
-        date.setUTCDate(date.getUTCDate() + totalInterval * 7);
-        break;
-      case 'BIWEEKLY':
-        date.setUTCDate(date.getUTCDate() + totalInterval * 14);
-        break;
-      case 'MONTHLY':
-        date.setUTCMonth(date.getUTCMonth() + totalInterval);
-        break;
-      case 'QUARTERLY':
-        date.setUTCMonth(date.getUTCMonth() + totalInterval * 3);
-        break;
-      case 'SEMIANNUAL':
-        date.setUTCMonth(date.getUTCMonth() + totalInterval * 6);
-        break;
-      case 'ANNUAL':
-        date.setUTCFullYear(date.getUTCFullYear() + totalInterval);
-        break;
-    }
-
-    return date;
   }
 }

@@ -12,7 +12,10 @@ describe('CreateContractUseCase', () => {
   beforeEach(() => {
     contractsRepository = new InMemoryContractsRepository();
     financeEntriesRepository = new InMemoryFinanceEntriesRepository();
-    sut = new CreateContractUseCase(contractsRepository, financeEntriesRepository);
+    sut = new CreateContractUseCase(
+      contractsRepository,
+      financeEntriesRepository,
+    );
   });
 
   it('should create a contract with ACTIVE status', async () => {
@@ -60,7 +63,9 @@ describe('CreateContractUseCase', () => {
     expect(result.entriesGenerated).toBe(11);
     expect(financeEntriesRepository.items).toHaveLength(11);
     expect(financeEntriesRepository.items[0].type).toBe('PAYABLE');
-    expect(financeEntriesRepository.items[0].contractId).toBe(result.contract.id);
+    expect(financeEntriesRepository.items[0].contractId).toBe(
+      result.contract.id,
+    );
   });
 
   it('should not generate entries when categoryId is not provided', async () => {

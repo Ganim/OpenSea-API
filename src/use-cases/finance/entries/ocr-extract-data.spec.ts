@@ -46,7 +46,9 @@ describe('OcrExtractDataUseCase', () => {
       });
 
       expect(result.extractedData.linhaDigitavel).toBeDefined();
-      expect(result.extractedData.linhaDigitavel!.replace(/\D/g, '')).toHaveLength(47);
+      expect(
+        result.extractedData.linhaDigitavel!.replace(/\D/g, ''),
+      ).toHaveLength(47);
     });
 
     it('should extract beneficiario from "Beneficiario:" label', async () => {
@@ -55,7 +57,9 @@ describe('OcrExtractDataUseCase', () => {
         tenantId: 'tenant-1',
       });
 
-      expect(result.extractedData.beneficiario).toBe('Comercial Silva e Filhos');
+      expect(result.extractedData.beneficiario).toBe(
+        'Comercial Silva e Filhos',
+      );
     });
 
     it('should extract beneficiario from "Cedente:" label', async () => {
@@ -64,7 +68,9 @@ describe('OcrExtractDataUseCase', () => {
         tenantId: 'tenant-1',
       });
 
-      expect(result.extractedData.beneficiario).toBe('Distribuidora Norte Ltda');
+      expect(result.extractedData.beneficiario).toBe(
+        'Distribuidora Norte Ltda',
+      );
     });
 
     it('should return empty data for unrecognizable text', async () => {

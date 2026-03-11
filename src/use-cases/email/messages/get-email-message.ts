@@ -5,9 +5,9 @@ import type { EmailMessage } from '@/entities/email/email-message';
 import { logger } from '@/lib/logger';
 import { emailMessageToDTO, type EmailMessageDTO } from '@/mappers/email';
 import type {
-    EmailAccountsRepository,
-    EmailFoldersRepository,
-    EmailMessagesRepository,
+  EmailAccountsRepository,
+  EmailFoldersRepository,
+  EmailMessagesRepository,
 } from '@/repositories/email';
 import type { CredentialCipherService } from '@/services/email/credential-cipher.service';
 import { sanitizeEmailHtml } from '@/services/email/html-sanitizer.service';

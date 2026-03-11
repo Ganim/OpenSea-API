@@ -15,7 +15,12 @@ export default defineConfig({
       provider: 'v8',
       reporter: ['text', 'json', 'html', 'lcov'],
       include: ['src/use-cases/**', 'src/entities/**', 'src/services/**'],
-      exclude: ['**/node_modules/**', '**/*.spec.ts', '**/*.e2e.spec.ts', '**/factories/**'],
+      exclude: [
+        '**/node_modules/**',
+        '**/*.spec.ts',
+        '**/*.e2e.spec.ts',
+        '**/factories/**',
+      ],
       thresholds: {
         lines: 70,
         functions: 65,

@@ -5,5 +5,8 @@ import { ListCardActivityUseCase } from '../list-card-activity';
 export function makeListCardActivityUseCase() {
   const boardsRepository = new PrismaBoardsRepository();
   const cardActivitiesRepository = new PrismaCardActivitiesRepository();
-  return new ListCardActivityUseCase(boardsRepository, cardActivitiesRepository);
+  return new ListCardActivityUseCase(
+    boardsRepository,
+    cardActivitiesRepository,
+  );
 }

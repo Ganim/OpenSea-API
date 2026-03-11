@@ -67,7 +67,9 @@ async function main() {
   console.log(`[encrypt-existing] Found ${totalFiles} unencrypted files`);
 
   if (totalFiles === 0) {
-    console.log('[encrypt-existing] Nothing to do. All files already encrypted.');
+    console.log(
+      '[encrypt-existing] Nothing to do. All files already encrypted.',
+    );
     process.exit(0);
   }
 

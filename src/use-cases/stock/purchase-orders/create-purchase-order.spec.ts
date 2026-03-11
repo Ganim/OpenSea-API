@@ -45,7 +45,7 @@ describe('CreatePurchaseOrderUseCase', () => {
       templatesRepository,
       suppliersRepository,
       manufacturersRepository,
-      categoriesRepository,
+      categoriesRepository,
     );
     createVariant = new CreateVariantUseCase(
       variantsRepository,

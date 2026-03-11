@@ -36,7 +36,10 @@ export class CreateBankAccountUseCase {
     const { name, bankCode, agency, accountNumber } = request;
 
     if (!name || name.trim().length === 0) {
-      throw new BadRequestError('Bank account name is required', ErrorCodes.BAD_REQUEST);
+      throw new BadRequestError(
+        'Bank account name is required',
+        ErrorCodes.BAD_REQUEST,
+      );
     }
 
     if (name.length > 128) {
@@ -47,7 +50,10 @@ export class CreateBankAccountUseCase {
     }
 
     if (!bankCode || bankCode.trim().length === 0) {
-      throw new BadRequestError('Bank code is required', ErrorCodes.BAD_REQUEST);
+      throw new BadRequestError(
+        'Bank code is required',
+        ErrorCodes.BAD_REQUEST,
+      );
     }
 
     if (!agency || agency.trim().length === 0) {
@@ -55,7 +61,10 @@ export class CreateBankAccountUseCase {
     }
 
     if (!accountNumber || accountNumber.trim().length === 0) {
-      throw new BadRequestError('Account number is required', ErrorCodes.BAD_REQUEST);
+      throw new BadRequestError(
+        'Account number is required',
+        ErrorCodes.BAD_REQUEST,
+      );
     }
 
     const bankAccount = await this.bankAccountsRepository.create({

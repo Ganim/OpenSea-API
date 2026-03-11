@@ -95,7 +95,9 @@ describe('RefreshSessionUseCase', () => {
         ip: '10.10.10.10',
         reply,
       }),
-    ).rejects.toThrow('Refresh token reuse detected. Session revoked for security.');
+    ).rejects.toThrow(
+      'Refresh token reuse detected. Session revoked for security.',
+    );
 
     // Verify the session itself was revoked
     const revokedSession = await sessionsRepository.findById(sessionId);
@@ -132,7 +134,9 @@ describe('RefreshSessionUseCase', () => {
         ip: '99.99.99.99',
         reply,
       }),
-    ).rejects.toThrow('Refresh token reuse detected. Session revoked for security.');
+    ).rejects.toThrow(
+      'Refresh token reuse detected. Session revoked for security.',
+    );
 
     // All tokens for this session should be revoked (including the legitimate new one)
     const allTokens = await refreshTokensRepository.listBySession(
@@ -150,7 +154,9 @@ describe('RefreshSessionUseCase', () => {
         ip: '10.10.10.10',
         reply,
       }),
-    ).rejects.toThrow('Refresh token reuse detected. Session revoked for security.');
+    ).rejects.toThrow(
+      'Refresh token reuse detected. Session revoked for security.',
+    );
   });
 
   // REJECTS

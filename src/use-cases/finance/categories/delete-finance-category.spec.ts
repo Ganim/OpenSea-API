@@ -46,7 +46,9 @@ describe('DeleteFinanceCategoryUseCase', () => {
       expect.unreachable('Should have thrown');
     } catch (error) {
       expect(error).toBeInstanceOf(ResourceNotFoundError);
-      expect((error as ResourceNotFoundError).code).toBe(ErrorCodes.FINANCE_CATEGORY_NOT_FOUND);
+      expect((error as ResourceNotFoundError).code).toBe(
+        ErrorCodes.FINANCE_CATEGORY_NOT_FOUND,
+      );
     }
   });
 
@@ -67,7 +69,9 @@ describe('DeleteFinanceCategoryUseCase', () => {
       expect.unreachable('Should have thrown');
     } catch (error) {
       expect(error).toBeInstanceOf(BadRequestError);
-      expect((error as BadRequestError).code).toBe(ErrorCodes.FINANCE_CATEGORY_IS_SYSTEM);
+      expect((error as BadRequestError).code).toBe(
+        ErrorCodes.FINANCE_CATEGORY_IS_SYSTEM,
+      );
     }
   });
 
@@ -95,7 +99,9 @@ describe('DeleteFinanceCategoryUseCase', () => {
       expect.unreachable('Should have thrown');
     } catch (error) {
       expect(error).toBeInstanceOf(BadRequestError);
-      expect((error as BadRequestError).code).toBe(ErrorCodes.FINANCE_CATEGORY_HAS_CHILDREN);
+      expect((error as BadRequestError).code).toBe(
+        ErrorCodes.FINANCE_CATEGORY_HAS_CHILDREN,
+      );
     }
   });
 
@@ -118,7 +124,9 @@ describe('DeleteFinanceCategoryUseCase', () => {
       expect.unreachable('Should have thrown');
     } catch (error) {
       expect(error).toBeInstanceOf(BadRequestError);
-      expect((error as BadRequestError).code).toBe(ErrorCodes.FINANCE_CATEGORY_REPLACEMENT_REQUIRED);
+      expect((error as BadRequestError).code).toBe(
+        ErrorCodes.FINANCE_CATEGORY_REPLACEMENT_REQUIRED,
+      );
     }
   });
 
@@ -141,7 +149,9 @@ describe('DeleteFinanceCategoryUseCase', () => {
       expect.unreachable('Should have thrown');
     } catch (error) {
       expect(error).toBeInstanceOf(BadRequestError);
-      expect((error as BadRequestError).code).toBe(ErrorCodes.FINANCE_CATEGORY_SELF_REPLACEMENT);
+      expect((error as BadRequestError).code).toBe(
+        ErrorCodes.FINANCE_CATEGORY_SELF_REPLACEMENT,
+      );
     }
   });
 
@@ -164,7 +174,9 @@ describe('DeleteFinanceCategoryUseCase', () => {
       expect.unreachable('Should have thrown');
     } catch (error) {
       expect(error).toBeInstanceOf(ResourceNotFoundError);
-      expect((error as ResourceNotFoundError).code).toBe(ErrorCodes.FINANCE_CATEGORY_REPLACEMENT_NOT_FOUND);
+      expect((error as ResourceNotFoundError).code).toBe(
+        ErrorCodes.FINANCE_CATEGORY_REPLACEMENT_NOT_FOUND,
+      );
     }
   });
 

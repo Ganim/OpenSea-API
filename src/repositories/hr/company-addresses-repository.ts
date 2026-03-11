@@ -2,7 +2,7 @@ import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type {
   CompanyAddress,
   CompanyAddressType,
-} from '@/entities/hr/company-address';
+} from '@/entities/core/company-address';
 
 export interface CreateCompanyAddressSchema {
   companyId: UniqueEntityID;

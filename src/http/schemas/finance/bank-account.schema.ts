@@ -26,7 +26,7 @@ export const createBankAccountSchema = z.object({
 
 export const bankAccountResponseSchema = z.object({
   id: z.string().uuid(),
-  companyId: z.string().uuid(),
+  companyId: z.string().uuid().optional(),
   name: z.string(),
   bankCode: z.string(),
   bankName: z.string().optional().nullable(),

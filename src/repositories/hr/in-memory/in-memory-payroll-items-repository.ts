@@ -11,7 +11,10 @@ import type {
 export class InMemoryPayrollItemsRepository implements PayrollItemsRepository {
   public items: PayrollItem[] = [];
 
-  async create(data: CreatePayrollItemSchema): Promise<PayrollItem> {
+  async create(
+    data: CreatePayrollItemSchema,
+    _tx?: unknown,
+  ): Promise<PayrollItem> {
     const payrollItem = PayrollItem.create({
       payrollId: data.payrollId,
       employeeId: data.employeeId,
@@ -27,7 +30,10 @@ export class InMemoryPayrollItemsRepository implements PayrollItemsRepository {
     return payrollItem;
   }
 
-  async createMany(data: CreatePayrollItemSchema[]): Promise<PayrollItem[]> {
+  async createMany(
+    data: CreatePayrollItemSchema[],
+    _tx?: unknown,
+  ): Promise<PayrollItem[]> {
     const createdItems: PayrollItem[] = [];
 
     for (const item of data) {
@@ -69,7 +75,10 @@ export class InMemoryPayrollItemsRepository implements PayrollItemsRepository {
     );
   }
 
-  async findManyByPayroll(payrollId: UniqueEntityID): Promise<PayrollItem[]> {
+  async findManyByPayroll(
+    payrollId: UniqueEntityID,
+    _tx?: unknown,
+  ): Promise<PayrollItem[]> {
     return this.items
       .filter((item) => item.payrollId.equals(payrollId))
       .sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime());
@@ -96,6 +105,7 @@ export class InMemoryPayrollItemsRepository implements PayrollItemsRepository {
 
   async sumByPayroll(
     payrollId: UniqueEntityID,
+    _tx?: unknown,
   ): Promise<{ totalGross: number; totalDeductions: number }> {
     const payrollItems = this.items.filter((item) =>
       item.payrollId.equals(payrollId),

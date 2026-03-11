@@ -48,6 +48,7 @@ export async function getForecastController(app: FastifyInstance) {
         ...query,
       });
 
+      reply.header('Cache-Control', 'private, max-age=60');
       return reply.status(200).send(result);
     },
   });

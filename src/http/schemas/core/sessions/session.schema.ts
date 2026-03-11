@@ -4,6 +4,7 @@
  */
 
 import z from 'zod';
+import { queryBooleanSchema } from '../../common.schema';
 
 // ============= DEVICE INFO SCHEMA =============
 
@@ -98,10 +99,10 @@ export const sessionQuerySchema = z.object({
   page: z.coerce.number().int().positive().optional().default(1),
   limit: z.coerce.number().int().positive().max(100).optional().default(20),
   userId: z.uuid().optional(),
-  isActive: z.coerce.boolean().optional(),
+  isActive: queryBooleanSchema.optional(),
   deviceType: deviceTypeSchema.optional(),
   country: z.string().optional(),
-  isTrusted: z.coerce.boolean().optional(),
+  isTrusted: queryBooleanSchema.optional(),
   startDate: z.coerce.date().optional(),
   endDate: z.coerce.date().optional(),
   sortBy: z.string().optional(),

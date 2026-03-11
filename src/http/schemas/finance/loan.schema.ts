@@ -1,26 +1,56 @@
 import { z } from 'zod';
 
 export const createLoanSchema = z.object({
-  name: z.string().min(1).max(128),
-  type: z.enum([
-    'PERSONAL',
-    'BUSINESS',
-    'WORKING_CAPITAL',
-    'EQUIPMENT',
-    'REAL_ESTATE',
-    'CREDIT_LINE',
-    'OTHER',
-  ]),
-  bankAccountId: z.string().uuid(),
-  costCenterId: z.string().uuid(),
-  principalAmount: z.number().positive(),
-  interestRate: z.number().min(0),
-  interestType: z.string().max(16).optional(),
-  startDate: z.coerce.date(),
-  totalInstallments: z.number().int().positive(),
-  installmentDay: z.number().int().min(1).max(31).optional(),
-  contractNumber: z.string().max(64).optional(),
-  notes: z.string().optional(),
+  name: z.string().min(1).max(128).describe('Nome identificador do empréstimo'),
+  type: z
+    .enum([
+      'PERSONAL',
+      'BUSINESS',
+      'WORKING_CAPITAL',
+      'EQUIPMENT',
+      'REAL_ESTATE',
+      'CREDIT_LINE',
+      'OTHER',
+    ])
+    .describe('Tipo do empréstimo'),
+  bankAccountId: z.string().uuid().describe('ID da conta bancária vinculada'),
+  costCenterId: z.string().uuid().describe('ID do centro de custo'),
+  principalAmount: z
+    .number()
+    .positive()
+    .describe('Valor principal do empréstimo em reais'),
+  interestRate: z
+    .number()
+    .min(0)
+    .describe(
+      'Taxa de juros (percentual mensal ou anual conforme interestType)',
+    ),
+  interestType: z
+    .string()
+    .max(16)
+    .optional()
+    .describe('Tipo de juros: MONTHLY, ANNUAL, etc.'),
+  startDate: z.coerce
+    .date()
+    .describe('Data de início do empréstimo (ISO 8601)'),
+  totalInstallments: z
+    .number()
+    .int()
+    .positive()
+    .describe('Número total de parcelas'),
+  installmentDay: z
+    .number()
+    .int()
+    .min(1)
+    .max(31)
+    .optional()
+    .describe('Dia do mês para vencimento das parcelas (1-31)'),
+  contractNumber: z
+    .string()
+    .max(64)
+    .optional()
+    .describe('Número do contrato bancário'),
+  notes: z.string().optional().describe('Observações adicionais'),
 });
 
 export const updateLoanSchema = z.object({

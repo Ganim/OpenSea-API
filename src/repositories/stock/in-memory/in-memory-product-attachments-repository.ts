@@ -31,9 +31,7 @@ export class InMemoryProductAttachmentsRepository
     return record;
   }
 
-  async findByProductId(
-    productId: string,
-  ): Promise<ProductAttachmentRecord[]> {
+  async findByProductId(productId: string): Promise<ProductAttachmentRecord[]> {
     return this.items
       .filter((item) => item.productId === productId)
       .sort((a, b) => a.order - b.order);

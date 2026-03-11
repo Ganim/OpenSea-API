@@ -1,4 +1,3 @@
-import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
@@ -45,30 +44,23 @@ export async function createSupplierController(app: FastifyInstance) {
       const userId = request.user.sub;
       const tenantId = request.user.tenantId!;
 
-      try {
-        const getUserByIdUseCase = makeGetUserByIdUseCase();
-        const { user } = await getUserByIdUseCase.execute({ userId });
-        const userName = user.profile?.name
-          ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
-          : user.username || user.email;
+      const getUserByIdUseCase = makeGetUserByIdUseCase();
+      const { user } = await getUserByIdUseCase.execute({ userId });
+      const userName = user.profile?.name
+        ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
+        : user.username || user.email;
 
-        const useCase = makeCreateSupplierUseCase();
-        const result = await useCase.execute({ tenantId, ...request.body });
+      const useCase = makeCreateSupplierUseCase();
+      const result = await useCase.execute({ tenantId, ...request.body });
 
-        await logAudit(request, {
-          message: AUDIT_MESSAGES.STOCK.SUPPLIER_CREATE,
-          entityId: result.supplier.id,
-          placeholders: { userName, supplierName: result.supplier.name },
-          newData: request.body,
-        });
+      await logAudit(request, {
+        message: AUDIT_MESSAGES.STOCK.SUPPLIER_CREATE,
+        entityId: result.supplier.id,
+        placeholders: { userName, supplierName: result.supplier.name },
+        newData: request.body,
+      });
 
-        return reply.status(201).send(result);
-      } catch (error) {
-        if (error instanceof BadRequestError) {
-          return reply.status(400).send({ message: error.message });
-        }
-        throw error;
-      }
+      return reply.status(201).send(result);
     },
   });
 }

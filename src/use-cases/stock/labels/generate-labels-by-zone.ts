@@ -56,7 +56,7 @@ export class GenerateLabelsByZoneUseCase {
     );
 
     if (!zone) {
-      throw new ResourceNotFoundError('Zona não encontrada');
+      throw new ResourceNotFoundError('Zone not found');
     }
 
     // Fetch the warehouse
@@ -66,7 +66,7 @@ export class GenerateLabelsByZoneUseCase {
     );
 
     if (!warehouse) {
-      throw new ResourceNotFoundError('Armazém não encontrado');
+      throw new ResourceNotFoundError('Warehouse not found');
     }
 
     // Fetch all bins for the zone

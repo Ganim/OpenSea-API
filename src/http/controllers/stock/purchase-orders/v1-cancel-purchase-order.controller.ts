@@ -2,8 +2,6 @@ import { FastifyInstance } from 'fastify';
 import { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
-import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
-import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
@@ -12,8 +10,8 @@ import { makeGetPurchaseOrderByIdUseCase } from '@/use-cases/stock/purchase-orde
 
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
-import { verifyJwt } from '../../../middlewares/rbac/verify-jwt';
-import { verifyTenant } from '../../../middlewares/rbac/verify-tenant';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 
 export async function cancelPurchaseOrderController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(
@@ -79,47 +77,35 @@ export async function cancelPurchaseOrderController(app: FastifyInstance) {
       const userId = request.user.sub;
       const tenantId = request.user.tenantId!;
 
-      try {
-        const getUserByIdUseCase = makeGetUserByIdUseCase();
-        const getPurchaseOrderByIdUseCase = makeGetPurchaseOrderByIdUseCase();
+      const getUserByIdUseCase = makeGetUserByIdUseCase();
+      const getPurchaseOrderByIdUseCase = makeGetPurchaseOrderByIdUseCase();
 
-        const [{ user }, { purchaseOrder: oldOrder }] = await Promise.all([
-          getUserByIdUseCase.execute({ userId }),
-          getPurchaseOrderByIdUseCase.execute({ tenantId, id: orderId }),
-        ]);
-        const userName = user.profile?.name
-          ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
-          : user.username || user.email;
+      const [{ user }, { purchaseOrder: oldOrder }] = await Promise.all([
+        getUserByIdUseCase.execute({ userId }),
+        getPurchaseOrderByIdUseCase.execute({ tenantId, id: orderId }),
+      ]);
+      const userName = user.profile?.name
+        ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
+        : user.username || user.email;
 
-        const cancelPurchaseOrderUseCase = makeCancelPurchaseOrderUseCase();
+      const cancelPurchaseOrderUseCase = makeCancelPurchaseOrderUseCase();
 
-        const { purchaseOrder } = await cancelPurchaseOrderUseCase.execute({
-          tenantId,
-          id: orderId,
-        });
+      const { purchaseOrder } = await cancelPurchaseOrderUseCase.execute({
+        tenantId,
+        id: orderId,
+      });
 
-        await logAudit(request, {
-          message: AUDIT_MESSAGES.STOCK.PURCHASE_ORDER_CANCEL,
-          entityId: orderId,
-          placeholders: { userName, orderNumber: oldOrder.orderNumber },
-          oldData: { status: oldOrder.status },
-          newData: { status: purchaseOrder.status },
-        });
+      await logAudit(request, {
+        message: AUDIT_MESSAGES.STOCK.PURCHASE_ORDER_CANCEL,
+        entityId: orderId,
+        placeholders: { userName, orderNumber: oldOrder.orderNumber },
+        oldData: { status: oldOrder.status },
+        newData: { status: purchaseOrder.status },
+      });
 
-        return reply.status(200).send({
-          purchaseOrder,
-        });
-      } catch (error) {
-        if (error instanceof ResourceNotFoundError) {
-          return reply.status(404).send({ message: error.message });
-        }
-
-        if (error instanceof BadRequestError) {
-          return reply.status(400).send({ message: error.message });
-        }
-
-        throw error;
-      }
+      return reply.status(200).send({
+        purchaseOrder,
+      });
     },
   );
 }

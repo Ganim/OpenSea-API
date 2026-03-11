@@ -1,6 +1,7 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Bonus } from '@/entities/hr/bonus';
 import { prisma } from '@/lib/prisma';
+import type { TransactionClient } from '@/lib/transaction-manager';
 import { mapBonusPrismaToDomain } from '@/mappers/hr/bonus';
 import type {
   BonusesRepository,
@@ -29,8 +30,13 @@ export class PrismaBonusesRepository implements BonusesRepository {
     );
   }
 
-  async findById(id: UniqueEntityID, tenantId: string): Promise<Bonus | null> {
-    const bonusData = await prisma.bonus.findFirst({
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+    tx?: TransactionClient,
+  ): Promise<Bonus | null> {
+    const client = tx ?? prisma;
+    const bonusData = await client.bonus.findFirst({
       where: { id: id.toString(), tenantId },
     });
 
@@ -187,8 +193,9 @@ export class PrismaBonusesRepository implements BonusesRepository {
     });
   }
 
-  async save(bonus: Bonus): Promise<void> {
-    await prisma.bonus.update({
+  async save(bonus: Bonus, tx?: TransactionClient): Promise<void> {
+    const client = tx ?? prisma;
+    await client.bonus.update({
       where: { id: bonus.id.toString() },
       data: {
         name: bonus.name,

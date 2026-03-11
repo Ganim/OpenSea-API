@@ -1,3 +1,4 @@
+import { PrismaTransactionManager } from '@/lib/transaction-manager';
 import { PrismaConsortiaRepository } from '@/repositories/finance/prisma/prisma-consortia-repository';
 import { PrismaConsortiumPaymentsRepository } from '@/repositories/finance/prisma/prisma-consortium-payments-repository';
 import { PrismaBankAccountsRepository } from '@/repositories/finance/prisma/prisma-bank-accounts-repository';
@@ -9,11 +10,13 @@ export function makeCreateConsortiumUseCase() {
   const paymentsRepository = new PrismaConsortiumPaymentsRepository();
   const bankAccountsRepository = new PrismaBankAccountsRepository();
   const costCentersRepository = new PrismaCostCentersRepository();
+  const transactionManager = new PrismaTransactionManager();
 
   return new CreateConsortiumUseCase(
     consortiaRepository,
     paymentsRepository,
     bankAccountsRepository,
     costCentersRepository,
+    transactionManager,
   );
 }

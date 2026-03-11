@@ -1,4 +1,3 @@
-import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
@@ -43,17 +42,10 @@ export async function getVariantByIdController(app: FastifyInstance) {
       const tenantId = request.user.tenantId!;
       const { id } = request.params;
 
-      try {
-        const getVariantByIdUseCase = makeGetVariantByIdUseCase();
-        const variant = await getVariantByIdUseCase.execute({ tenantId, id });
+      const getVariantByIdUseCase = makeGetVariantByIdUseCase();
+      const variant = await getVariantByIdUseCase.execute({ tenantId, id });
 
-        return reply.status(200).send({ variant: variantToDTO(variant) });
-      } catch (error) {
-        if (error instanceof ResourceNotFoundError) {
-          return reply.status(404).send({ message: error.message });
-        }
-        throw error;
-      }
+      return reply.status(200).send({ variant: variantToDTO(variant) });
     },
   });
 }

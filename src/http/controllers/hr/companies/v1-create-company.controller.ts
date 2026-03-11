@@ -78,7 +78,9 @@ export async function v1CreateCompanyController(app: FastifyInstance) {
           },
         });
 
-        await getCacheService().delPattern(`${cacheKeys.hrCompanies(tenantId)}:*`);
+        await getCacheService().delPattern(
+          `${cacheKeys.hrCompanies(tenantId)}:*`,
+        );
 
         return reply
           .status(201)

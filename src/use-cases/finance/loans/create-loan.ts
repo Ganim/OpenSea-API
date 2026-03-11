@@ -123,8 +123,10 @@ export class CreateLoanUseCase {
           loanId: loan.id.toString(),
         }));
 
-        const installments =
-          await this.loanInstallmentsRepository.createMany(schemasWithLoanId, tx);
+        const installments = await this.loanInstallmentsRepository.createMany(
+          schemasWithLoanId,
+          tx,
+        );
 
         return {
           loan: loanToDTO(loan),

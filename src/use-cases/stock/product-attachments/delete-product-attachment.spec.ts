@@ -11,12 +11,9 @@ const PRODUCT_ID = 'product-1';
 
 describe('DeleteProductAttachmentUseCase', () => {
   beforeEach(() => {
-    productAttachmentsRepository =
-      new InMemoryProductAttachmentsRepository();
+    productAttachmentsRepository = new InMemoryProductAttachmentsRepository();
 
-    sut = new DeleteProductAttachmentUseCase(
-      productAttachmentsRepository,
-    );
+    sut = new DeleteProductAttachmentUseCase(productAttachmentsRepository);
   });
 
   it('should delete a product attachment', async () => {

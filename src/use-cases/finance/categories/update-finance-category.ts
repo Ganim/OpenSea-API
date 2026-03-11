@@ -41,12 +41,18 @@ export class UpdateFinanceCategoryUseCase {
       tenantId,
     );
     if (!category) {
-      throw new ResourceNotFoundError('Finance category not found', ErrorCodes.FINANCE_CATEGORY_NOT_FOUND);
+      throw new ResourceNotFoundError(
+        'Finance category not found',
+        ErrorCodes.FINANCE_CATEGORY_NOT_FOUND,
+      );
     }
 
     if (name !== undefined) {
       if (name.trim().length === 0) {
-        throw new BadRequestError('Category name cannot be empty', ErrorCodes.BAD_REQUEST);
+        throw new BadRequestError(
+          'Category name cannot be empty',
+          ErrorCodes.BAD_REQUEST,
+        );
       }
       if (name.length > 128) {
         throw new BadRequestError(
@@ -72,7 +78,10 @@ export class UpdateFinanceCategoryUseCase {
         tenantId,
       );
       if (existingSlug && !existingSlug.id.equals(category.id)) {
-        throw new BadRequestError('A category with this slug already exists', ErrorCodes.FINANCE_CATEGORY_DUPLICATE_SLUG);
+        throw new BadRequestError(
+          'A category with this slug already exists',
+          ErrorCodes.FINANCE_CATEGORY_DUPLICATE_SLUG,
+        );
       }
     }
 
@@ -92,7 +101,10 @@ export class UpdateFinanceCategoryUseCase {
     });
 
     if (!updated) {
-      throw new ResourceNotFoundError('Finance category not found', ErrorCodes.FINANCE_CATEGORY_NOT_FOUND);
+      throw new ResourceNotFoundError(
+        'Finance category not found',
+        ErrorCodes.FINANCE_CATEGORY_NOT_FOUND,
+      );
     }
 
     return { category: financeCategoryToDTO(updated) };

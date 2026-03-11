@@ -28,7 +28,16 @@ export class CreateVariantAttachmentUseCase {
   async execute(
     request: CreateVariantAttachmentUseCaseRequest,
   ): Promise<CreateVariantAttachmentUseCaseResponse> {
-    const { variantId, tenantId, fileUrl, fileName, fileSize, mimeType, label, order } = request;
+    const {
+      variantId,
+      tenantId,
+      fileUrl,
+      fileName,
+      fileSize,
+      mimeType,
+      label,
+      order,
+    } = request;
 
     // Validate variant exists and belongs to tenant
     const variant = await this.variantsRepository.findById(
@@ -41,17 +50,16 @@ export class CreateVariantAttachmentUseCase {
     }
 
     // Create the record
-    const variantAttachment =
-      await this.variantAttachmentsRepository.create({
-        variantId,
-        tenantId,
-        fileUrl,
-        fileName,
-        fileSize,
-        mimeType,
-        label,
-        order,
-      });
+    const variantAttachment = await this.variantAttachmentsRepository.create({
+      variantId,
+      tenantId,
+      fileUrl,
+      fileName,
+      fileSize,
+      mimeType,
+      label,
+      order,
+    });
 
     return { variantAttachment };
   }

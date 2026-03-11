@@ -84,7 +84,11 @@ export class DeleteFinanceCategoryUseCase {
       }
 
       // Migrate entries then soft-delete
-      await this.categoriesRepository.migrateEntries(id, replacementCategoryId, tenantId);
+      await this.categoriesRepository.migrateEntries(
+        id,
+        replacementCategoryId,
+        tenantId,
+      );
     }
 
     await this.categoriesRepository.delete(new UniqueEntityID(id));

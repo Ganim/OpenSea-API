@@ -51,7 +51,10 @@ export async function deleteTenantAdminController(app: FastifyInstance) {
         logAudit(request, {
           message: AUDIT_MESSAGES.ADMIN.TENANT_DELETE,
           entityId: id,
-          placeholders: { adminName: request.user.sub, tenantName: tenant.name },
+          placeholders: {
+            adminName: request.user.sub,
+            tenantName: tenant.name,
+          },
           oldData: { name: tenant.name, status: tenant.status },
         });
 

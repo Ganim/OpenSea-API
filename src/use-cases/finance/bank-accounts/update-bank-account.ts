@@ -42,12 +42,18 @@ export class UpdateBankAccountUseCase {
       tenantId,
     );
     if (!bankAccount) {
-      throw new ResourceNotFoundError('Bank account not found', ErrorCodes.FINANCE_BANK_ACCOUNT_NOT_FOUND);
+      throw new ResourceNotFoundError(
+        'Bank account not found',
+        ErrorCodes.FINANCE_BANK_ACCOUNT_NOT_FOUND,
+      );
     }
 
     if (name !== undefined) {
       if (name.trim().length === 0) {
-        throw new BadRequestError('Bank account name cannot be empty', ErrorCodes.BAD_REQUEST);
+        throw new BadRequestError(
+          'Bank account name cannot be empty',
+          ErrorCodes.BAD_REQUEST,
+        );
       }
       if (name.length > 128) {
         throw new BadRequestError(
@@ -75,7 +81,10 @@ export class UpdateBankAccountUseCase {
     });
 
     if (!updated) {
-      throw new ResourceNotFoundError('Bank account not found', ErrorCodes.FINANCE_BANK_ACCOUNT_NOT_FOUND);
+      throw new ResourceNotFoundError(
+        'Bank account not found',
+        ErrorCodes.FINANCE_BANK_ACCOUNT_NOT_FOUND,
+      );
     }
 
     return { bankAccount: bankAccountToDTO(updated) };

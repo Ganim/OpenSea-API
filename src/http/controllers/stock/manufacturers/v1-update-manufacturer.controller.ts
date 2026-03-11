@@ -1,5 +1,3 @@
-import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
-import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
@@ -59,52 +57,38 @@ export async function updateManufacturerController(app: FastifyInstance) {
       const userId = request.user.sub;
       const tenantId = request.user.tenantId!;
 
-      try {
-        const getUserByIdUseCase = makeGetUserByIdUseCase();
-        const getManufacturerByIdUseCase = makeGetManufacturerByIdUseCase();
+      const getUserByIdUseCase = makeGetUserByIdUseCase();
+      const getManufacturerByIdUseCase = makeGetManufacturerByIdUseCase();
 
-        const [{ user }, { manufacturer: oldManufacturer }] = await Promise.all(
-          [
-            getUserByIdUseCase.execute({ userId }),
-            getManufacturerByIdUseCase.execute({ tenantId, id }),
-          ],
-        );
-        const userName = user.profile?.name
-          ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
-          : user.username || user.email;
+      const [{ user }, { manufacturer: oldManufacturer }] = await Promise.all([
+        getUserByIdUseCase.execute({ userId }),
+        getManufacturerByIdUseCase.execute({ tenantId, id }),
+      ]);
+      const userName = user.profile?.name
+        ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
+        : user.username || user.email;
 
-        const useCase = makeUpdateManufacturerUseCase();
-        const result = await useCase.execute({
-          tenantId,
-          id,
-          ...body,
-        });
+      const useCase = makeUpdateManufacturerUseCase();
+      const result = await useCase.execute({
+        tenantId,
+        id,
+        ...body,
+      });
 
-        await logAudit(request, {
-          message: AUDIT_MESSAGES.STOCK.MANUFACTURER_UPDATE,
-          entityId: result.manufacturer.id.toString(),
-          placeholders: {
-            userName,
-            manufacturerName: result.manufacturer.name,
-          },
-          oldData: { name: oldManufacturer.name },
-          newData: body,
-        });
+      await logAudit(request, {
+        message: AUDIT_MESSAGES.STOCK.MANUFACTURER_UPDATE,
+        entityId: result.manufacturer.id.toString(),
+        placeholders: {
+          userName,
+          manufacturerName: result.manufacturer.name,
+        },
+        oldData: { name: oldManufacturer.name },
+        newData: body,
+      });
 
-        return reply.send({
-          manufacturer: manufacturerToDTO(result.manufacturer),
-        });
-      } catch (error) {
-        if (error instanceof ResourceNotFoundError) {
-          return reply.status(404).send({ message: error.message });
-        }
-
-        if (error instanceof BadRequestError) {
-          return reply.status(400).send({ message: error.message });
-        }
-
-        throw error;
-      }
+      return reply.send({
+        manufacturer: manufacturerToDTO(result.manufacturer),
+      });
     },
   });
 }

@@ -119,7 +119,7 @@ export class InMemoryPayrollsRepository implements PayrollsRepository {
     return payroll;
   }
 
-  async save(payroll: Payroll): Promise<void> {
+  async save(payroll: Payroll, _tx?: unknown): Promise<void> {
     const index = this.items.findIndex((item) => item.id.equals(payroll.id));
     if (index >= 0) {
       this.items[index] = payroll;

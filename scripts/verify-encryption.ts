@@ -23,7 +23,9 @@ const hmacKey = process.env.FIELD_HMAC_KEY;
 const databaseUrl = process.env.DATABASE_URL;
 
 if (!encKey || !hmacKey || !databaseUrl) {
-  console.error('❌ FIELD_ENCRYPTION_KEY, FIELD_HMAC_KEY, and DATABASE_URL required');
+  console.error(
+    '❌ FIELD_ENCRYPTION_KEY, FIELD_HMAC_KEY, and DATABASE_URL required',
+  );
   process.exit(1);
 }
 

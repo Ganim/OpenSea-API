@@ -28,7 +28,16 @@ export class CreateProductAttachmentUseCase {
   async execute(
     request: CreateProductAttachmentUseCaseRequest,
   ): Promise<CreateProductAttachmentUseCaseResponse> {
-    const { productId, tenantId, fileUrl, fileName, fileSize, mimeType, label, order } = request;
+    const {
+      productId,
+      tenantId,
+      fileUrl,
+      fileName,
+      fileSize,
+      mimeType,
+      label,
+      order,
+    } = request;
 
     // Validate product exists and belongs to tenant
     const product = await this.productsRepository.findById(
@@ -41,17 +50,16 @@ export class CreateProductAttachmentUseCase {
     }
 
     // Create the record
-    const productAttachment =
-      await this.productAttachmentsRepository.create({
-        productId,
-        tenantId,
-        fileUrl,
-        fileName,
-        fileSize,
-        mimeType,
-        label,
-        order,
-      });
+    const productAttachment = await this.productAttachmentsRepository.create({
+      productId,
+      tenantId,
+      fileUrl,
+      fileName,
+      fileSize,
+      mimeType,
+      label,
+      order,
+    });
 
     return { productAttachment };
   }

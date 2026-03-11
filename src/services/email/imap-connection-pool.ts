@@ -28,7 +28,7 @@ interface WaitingRequest {
 }
 
 const DEFAULT_IDLE_TTL_MS = 60_000; // 60s idle before closing
-const ACQUIRE_TIMEOUT_MS = 30_000;  // 30s max wait for a busy connection
+const ACQUIRE_TIMEOUT_MS = 30_000; // 30s max wait for a busy connection
 
 /**
  * IMAP Connection Pool — reuses connections per accountId.
@@ -43,7 +43,10 @@ export class ImapConnectionPool {
   private pool = new Map<string, PoolEntry>();
   private waitQueues = new Map<string, WaitingRequest[]>();
   private idleTtlMs: number;
-  private connectBreakers = new Map<string, CircuitBreaker<[string, ImapPoolConfig], ImapFlow>>();
+  private connectBreakers = new Map<
+    string,
+    CircuitBreaker<[string, ImapPoolConfig], ImapFlow>
+  >();
 
   constructor(idleTtlMs = DEFAULT_IDLE_TTL_MS) {
     this.idleTtlMs = idleTtlMs;
@@ -69,7 +72,10 @@ export class ImapConnectionPool {
       }
 
       // Connection is dead — remove and create new
-      logger.debug({ accountId }, 'IMAP pool: idle connection dead, creating new');
+      logger.debug(
+        { accountId },
+        'IMAP pool: idle connection dead, creating new',
+      );
       this.destroyEntry(existing);
     }
 
@@ -151,7 +157,8 @@ export class ImapConnectionPool {
 
     if (!breaker) {
       breaker = createCircuitBreaker(
-        (_acctId: string, cfg: ImapPoolConfig) => this.doCreateAndStore(_acctId, cfg),
+        (_acctId: string, cfg: ImapPoolConfig) =>
+          this.doCreateAndStore(_acctId, cfg),
         { name: breakerKey, type: 'external' },
       );
       this.connectBreakers.set(breakerKey, breaker);
@@ -195,7 +202,10 @@ export class ImapConnectionPool {
 
     try {
       await client.connect();
-      logger.debug({ accountId, host: config.host }, 'IMAP pool: new connection created');
+      logger.debug(
+        { accountId, host: config.host },
+        'IMAP pool: new connection created',
+      );
       return client;
     } catch (err) {
       this.pool.delete(accountId);
@@ -216,7 +226,9 @@ export class ImapConnectionPool {
           if (idx >= 0) queue.splice(idx, 1);
           if (queue.length === 0) this.waitQueues.delete(accountId);
         }
-        reject(new Error(`IMAP pool: acquire timeout for account ${accountId}`));
+        reject(
+          new Error(`IMAP pool: acquire timeout for account ${accountId}`),
+        );
       }, ACQUIRE_TIMEOUT_MS);
 
       const resolveWrapper = (entry: PoolEntry) => {

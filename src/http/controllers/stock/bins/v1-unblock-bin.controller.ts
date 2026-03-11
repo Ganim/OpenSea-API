@@ -1,5 +1,3 @@
-import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
-import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
@@ -49,20 +47,10 @@ export async function unblockBinController(app: FastifyInstance) {
       const tenantId = request.user.tenantId!;
       const { id } = request.params;
 
-      try {
-        const unblockBinUseCase = makeUnblockBinUseCase();
-        const { bin } = await unblockBinUseCase.execute({ tenantId, id });
+      const unblockBinUseCase = makeUnblockBinUseCase();
+      const { bin } = await unblockBinUseCase.execute({ tenantId, id });
 
-        return reply.status(200).send({ bin: binToDTO(bin) });
-      } catch (error) {
-        if (error instanceof BadRequestError) {
-          return reply.status(400).send({ message: error.message });
-        }
-        if (error instanceof ResourceNotFoundError) {
-          return reply.status(404).send({ message: error.message });
-        }
-        throw error;
-      }
+      return reply.status(200).send({ bin: binToDTO(bin) });
     },
   });
 }

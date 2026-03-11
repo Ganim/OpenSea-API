@@ -1,35 +1,35 @@
 export class VolumeAlreadyExistsError extends Error {
   constructor(code: string) {
-    super(`Volume com código "${code}" já existe`);
+    super(`Volume with code "${code}" already exists`);
   }
 }
 
 export class VolumeNotFoundError extends Error {
   constructor(id: string) {
-    super(`Volume com ID "${id}" não encontrado`);
+    super(`Volume with ID "${id}" not found`);
   }
 }
 
 export class VolumeCannotBeClosed extends Error {
   constructor() {
-    super('O volume não pode ser fechado em seu status atual');
+    super('Volume cannot be closed in its current status');
   }
 }
 
 export class VolumeItemAlreadyExistsError extends Error {
   constructor(volumeId: string, itemId: string) {
-    super(`O item "${itemId}" já existe no volume "${volumeId}"`);
+    super(`Item "${itemId}" already exists in volume "${volumeId}"`);
   }
 }
 
 export class VolumeItemNotFoundError extends Error {
   constructor(volumeId: string, itemId: string) {
-    super(`O item "${itemId}" não foi encontrado no volume "${volumeId}"`);
+    super(`Item "${itemId}" not found in volume "${volumeId}"`);
   }
 }
 
 export class InvalidVolumeStatusError extends Error {
   constructor(status: string) {
-    super(`Status de volume inválido: "${status}"`);
+    super(`Invalid volume status: "${status}"`);
   }
 }

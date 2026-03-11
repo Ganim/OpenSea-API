@@ -5,5 +5,8 @@ import { ListAttachmentsUseCase } from '../list-attachments';
 export function makeListAttachmentsUseCase() {
   const boardsRepository = new PrismaBoardsRepository();
   const cardAttachmentsRepository = new PrismaCardAttachmentsRepository();
-  return new ListAttachmentsUseCase(boardsRepository, cardAttachmentsRepository);
+  return new ListAttachmentsUseCase(
+    boardsRepository,
+    cardAttachmentsRepository,
+  );
 }

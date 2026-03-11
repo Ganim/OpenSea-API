@@ -1,4 +1,3 @@
-import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
@@ -44,30 +43,23 @@ export async function createTagController(app: FastifyInstance) {
       const tenantId = request.user.tenantId!;
       const userId = request.user.sub;
 
-      try {
-        const getUserByIdUseCase = makeGetUserByIdUseCase();
-        const { user } = await getUserByIdUseCase.execute({ userId });
-        const userName = user.profile?.name
-          ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
-          : user.username || user.email;
+      const getUserByIdUseCase = makeGetUserByIdUseCase();
+      const { user } = await getUserByIdUseCase.execute({ userId });
+      const userName = user.profile?.name
+        ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
+        : user.username || user.email;
 
-        const createTag = makeCreateTagUseCase();
-        const { tag } = await createTag.execute({ tenantId, ...request.body });
+      const createTag = makeCreateTagUseCase();
+      const { tag } = await createTag.execute({ tenantId, ...request.body });
 
-        await logAudit(request, {
-          message: AUDIT_MESSAGES.STOCK.TAG_CREATE,
-          entityId: tag.id,
-          placeholders: { userName, tagName: tag.name },
-          newData: request.body,
-        });
+      await logAudit(request, {
+        message: AUDIT_MESSAGES.STOCK.TAG_CREATE,
+        entityId: tag.id,
+        placeholders: { userName, tagName: tag.name },
+        newData: request.body,
+      });
 
-        return reply.status(201).send({ tag });
-      } catch (error) {
-        if (error instanceof BadRequestError) {
-          return reply.status(400).send({ message: error.message });
-        }
-        throw error;
-      }
+      return reply.status(201).send({ tag });
     },
   });
 }

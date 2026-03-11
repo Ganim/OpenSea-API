@@ -1,6 +1,6 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import { CompanyStakeholder } from '@/entities/hr';
+import { CompanyStakeholder } from '@/entities/core/company-stakeholder';
 import { CompanyStakeholderRepository } from '@/repositories/hr/company-stakeholder-repository';
 
 interface CreateCompanyStakeholderUseCaseRequest {

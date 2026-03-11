@@ -7,6 +7,7 @@ import type { Token } from '@/entities/core/value-objects/token';
 import type { Url } from '@/entities/core/value-objects/url';
 import type { Username } from '@/entities/core/value-objects/username';
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import type { TransactionClient } from '@/lib/transaction-manager';
 
 export interface CreateUserSchema {
   username: Username;
@@ -47,7 +48,7 @@ export interface UpdateUserSchema {
 
 export interface UsersRepository {
   // CREATE
-  create(data: CreateUserSchema): Promise<User>;
+  create(data: CreateUserSchema, tx?: TransactionClient): Promise<User>;
 
   // UPDATE / PATCH
   update(data: UpdateUserSchema): Promise<User | null>;
@@ -77,6 +78,7 @@ export interface UsersRepository {
     id: UniqueEntityID,
     requestedBy: UniqueEntityID | null,
     reason?: string,
+    tx?: TransactionClient,
   ): Promise<User | null>;
   clearForcePasswordReset(id: UniqueEntityID): Promise<User | null>;
 

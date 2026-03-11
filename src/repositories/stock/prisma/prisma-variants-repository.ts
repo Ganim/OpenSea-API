@@ -3,7 +3,15 @@ import { UniqueEntityID as EntityID } from '@/entities/domain/unique-entity-id';
 import { Variant } from '@/entities/stock/variant';
 import { Slug } from '@/entities/stock/value-objects/slug';
 import { prisma } from '@/lib/prisma';
-import type { Prisma, Pattern as PrismaPattern, Variant as PrismaVariant } from '@prisma/generated/client.js';
+import type {
+  Prisma,
+  Pattern as PrismaPattern,
+  Variant as PrismaVariant,
+} from '@prisma/generated/client.js';
+import type {
+  PaginatedResult,
+  PaginationParams,
+} from '../../pagination-params';
 import type {
   CreateVariantSchema,
   UpdateVariantSchema,
@@ -247,6 +255,30 @@ export class PrismaVariantsRepository implements VariantsRepository {
     });
 
     return variants.map((v) => this.mapVariantToDomain(v));
+  }
+
+  async findManyPaginated(
+    tenantId: string,
+    params: PaginationParams,
+  ): Promise<PaginatedResult<Variant>> {
+    const where = { tenantId, deletedAt: null };
+    const [variants, total] = await Promise.all([
+      prisma.variant.findMany({
+        where,
+        orderBy: { createdAt: 'desc' },
+        skip: (params.page - 1) * params.limit,
+        take: params.limit,
+      }),
+      prisma.variant.count({ where }),
+    ]);
+
+    return {
+      data: variants.map((v) => this.mapVariantToDomain(v)),
+      total,
+      page: params.page,
+      limit: params.limit,
+      totalPages: Math.ceil(total / params.limit),
+    };
   }
 
   async findManyByProduct(

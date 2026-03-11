@@ -3,7 +3,7 @@
  */
 
 import { z } from 'zod';
-import { dateSchema, idSchema } from '../../common.schema';
+import { dateSchema, idSchema, queryBooleanSchema } from '../../common.schema';
 
 /**
  * Schema para criação de bônus
@@ -21,7 +21,7 @@ export const createBonusSchema = z.object({
  */
 export const listBonusesQuerySchema = z.object({
   employeeId: idSchema.optional(),
-  isPaid: z.coerce.boolean().optional(),
+  isPaid: queryBooleanSchema.optional(),
   startDate: z.coerce.date().optional(),
   endDate: z.coerce.date().optional(),
   page: z.coerce.number().int().positive().optional().default(1),

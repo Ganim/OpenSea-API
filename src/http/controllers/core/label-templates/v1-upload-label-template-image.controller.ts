@@ -24,9 +24,7 @@ const ALLOWED_MIME_TYPES = [
 ];
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 
-export async function uploadLabelTemplateImageController(
-  app: FastifyInstance,
-) {
+export async function uploadLabelTemplateImageController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/label-templates/:id/upload-image',

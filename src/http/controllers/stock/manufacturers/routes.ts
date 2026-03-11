@@ -1,4 +1,6 @@
 import type { FastifyInstance } from 'fastify';
+import rateLimit from '@fastify/rate-limit';
+import { rateLimitConfig } from '@/config/rate-limits';
 import { createModuleMiddleware } from '@/http/middlewares/tenant/verify-module';
 import { createManufacturerController } from './v1-create-manufacturer.controller';
 import { deleteManufacturerController } from './v1-delete-manufacturer.controller';
@@ -9,12 +11,32 @@ import { updateManufacturerController } from './v1-update-manufacturer.controlle
 export async function manufacturersRoutes(app: FastifyInstance) {
   app.addHook('onRequest', createModuleMiddleware('STOCK'));
 
-  // Manager routes
-  app.register(createManufacturerController);
-  app.register(updateManufacturerController);
-  app.register(deleteManufacturerController);
+  // Admin routes com rate limit elevado
+  app.register(
+    async (adminApp) => {
+      adminApp.register(rateLimit, rateLimitConfig.admin);
+      adminApp.register(deleteManufacturerController);
+    },
+    { prefix: '' },
+  );
 
-  // Authenticated routes
-  app.register(getManufacturerByIdController);
-  app.register(listManufacturersController);
+  // Manager routes com rate limit de mutação
+  app.register(
+    async (managerApp) => {
+      managerApp.register(rateLimit, rateLimitConfig.mutation);
+      managerApp.register(createManufacturerController);
+      managerApp.register(updateManufacturerController);
+    },
+    { prefix: '' },
+  );
+
+  // Authenticated routes com rate limit de consulta
+  app.register(
+    async (queryApp) => {
+      queryApp.register(rateLimit, rateLimitConfig.query);
+      queryApp.register(getManufacturerByIdController);
+      queryApp.register(listManufacturersController);
+    },
+    { prefix: '' },
+  );
 }

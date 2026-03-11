@@ -1,5 +1,5 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import type { Company } from '@/entities/hr/company';
+import type { Company } from '@/entities/core/company';
 import type { Department } from '@/entities/hr/department';
 import type { CompaniesRepository } from '@/repositories/hr/companies-repository';
 import type { DepartmentsRepository } from '@/repositories/hr/departments-repository';

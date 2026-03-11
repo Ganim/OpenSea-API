@@ -2,8 +2,8 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import type {
-    EmailAccountsRepository,
-    EmailFoldersRepository,
+  EmailAccountsRepository,
+  EmailFoldersRepository,
 } from '@/repositories/email';
 import type { CredentialCipherService } from '@/services/email/credential-cipher.service';
 import { getImapConnectionPool } from '@/services/email/imap-connection-pool';

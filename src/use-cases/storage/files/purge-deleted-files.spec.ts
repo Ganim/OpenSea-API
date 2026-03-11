@@ -18,9 +18,11 @@ describe('PurgeDeletedFilesUseCase', () => {
     storageFileVersionsRepository = new InMemoryStorageFileVersionsRepository();
     fileUploadService = new FakeFileUploadService();
     deletedKeys = [];
-    vi.spyOn(fileUploadService, 'delete').mockImplementation(async (key: string) => {
-      deletedKeys.push(key);
-    });
+    vi.spyOn(fileUploadService, 'delete').mockImplementation(
+      async (key: string) => {
+        deletedKeys.push(key);
+      },
+    );
     sut = new PurgeDeletedFilesUseCase(
       storageFilesRepository,
       storageFileVersionsRepository,
@@ -69,9 +71,7 @@ describe('PurgeDeletedFilesUseCase', () => {
     expect(storageFileVersionsRepository.items).toHaveLength(0);
 
     // Physical file should be deleted
-    expect(deletedKeys).toContain(
-      'storage/tenant-1/folder-1/old-doc.pdf',
-    );
+    expect(deletedKeys).toContain('storage/tenant-1/folder-1/old-doc.pdf');
   });
 
   it('should NOT purge files within retention period', async () => {

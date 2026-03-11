@@ -38,12 +38,18 @@ export class UpdateCostCenterUseCase {
       tenantId,
     );
     if (!costCenter) {
-      throw new ResourceNotFoundError('Cost center not found', ErrorCodes.FINANCE_COST_CENTER_NOT_FOUND);
+      throw new ResourceNotFoundError(
+        'Cost center not found',
+        ErrorCodes.FINANCE_COST_CENTER_NOT_FOUND,
+      );
     }
 
     if (name !== undefined) {
       if (name.trim().length === 0) {
-        throw new BadRequestError('Cost center name cannot be empty', ErrorCodes.BAD_REQUEST);
+        throw new BadRequestError(
+          'Cost center name cannot be empty',
+          ErrorCodes.BAD_REQUEST,
+        );
       }
       if (name.length > 128) {
         throw new BadRequestError(
@@ -55,7 +61,10 @@ export class UpdateCostCenterUseCase {
 
     if (code !== undefined) {
       if (code.trim().length === 0) {
-        throw new BadRequestError('Cost center code cannot be empty', ErrorCodes.BAD_REQUEST);
+        throw new BadRequestError(
+          'Cost center code cannot be empty',
+          ErrorCodes.BAD_REQUEST,
+        );
       }
       const existingCode = await this.costCentersRepository.findByCode(
         code,
@@ -82,7 +91,10 @@ export class UpdateCostCenterUseCase {
     });
 
     if (!updated) {
-      throw new ResourceNotFoundError('Cost center not found', ErrorCodes.FINANCE_COST_CENTER_NOT_FOUND);
+      throw new ResourceNotFoundError(
+        'Cost center not found',
+        ErrorCodes.FINANCE_COST_CENTER_NOT_FOUND,
+      );
     }
 
     return { costCenter: costCenterToDTO(updated) };

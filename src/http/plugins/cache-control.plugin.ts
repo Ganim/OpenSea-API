@@ -34,7 +34,7 @@ const cacheControlPlugin: FastifyPluginAsync = async (app) => {
 
     // Determinar se é endpoint público
     const isPublic = PUBLIC_PATTERNS.some((pattern) =>
-      pattern.test(request.url)
+      pattern.test(request.url),
     );
     const maxAge = isPublic ? 300 : 60;
     const scope = isPublic ? 'public' : 'private';

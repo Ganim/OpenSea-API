@@ -1,4 +1,4 @@
-import type { CompanyFiscalSettings } from '@/entities/hr/company-fiscal-settings';
+import type { CompanyFiscalSettings } from '@/entities/core/company-fiscal-settings';
 import type {
   digitalCertificateTypeSchema,
   nfeEnvironmentSchema,

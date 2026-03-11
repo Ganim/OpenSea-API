@@ -2,10 +2,7 @@ import { PrismaProductAttachmentsRepository } from '@/repositories/stock/prisma/
 import { DeleteProductAttachmentUseCase } from '../delete-product-attachment';
 
 export function makeDeleteProductAttachmentUseCase() {
-  const productAttachmentsRepository =
-    new PrismaProductAttachmentsRepository();
+  const productAttachmentsRepository = new PrismaProductAttachmentsRepository();
 
-  return new DeleteProductAttachmentUseCase(
-    productAttachmentsRepository,
-  );
+  return new DeleteProductAttachmentUseCase(productAttachmentsRepository);
 }

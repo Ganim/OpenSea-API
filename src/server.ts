@@ -4,7 +4,10 @@ import { app } from './app';
 import { prisma } from './lib/prisma';
 import { httpLogger } from './lib/logger';
 import { startEmailSyncWorker } from './workers/queues/email-sync.queue';
-import { startEmailSyncScheduler, stopEmailSyncScheduler } from './workers/email-sync-scheduler';
+import {
+  startEmailSyncScheduler,
+  stopEmailSyncScheduler,
+} from './workers/email-sync-scheduler';
 import { startAuditWorker } from './workers/queues/audit.queue';
 import { startNotificationWorker } from './workers/queues/notification.queue';
 import { registerDomainEventSubscribers } from './lib/domain-event-subscribers';
@@ -21,7 +24,8 @@ const SHUTDOWN_TIMEOUT_MS = 15_000;
 process.on('unhandledRejection', (reason) => {
   const mem = process.memoryUsage();
   console.error('[ERROR] Unhandled promise rejection:', reason);
-  console.error('[ERROR] Memory at rejection: heap=%dMB rss=%dMB',
+  console.error(
+    '[ERROR] Memory at rejection: heap=%dMB rss=%dMB',
     Math.round(mem.heapUsed / 1024 / 1024),
     Math.round(mem.rss / 1024 / 1024),
   );
@@ -31,7 +35,8 @@ process.on('unhandledRejection', (reason) => {
 process.on('uncaughtException', (error) => {
   const mem = process.memoryUsage();
   console.error('[FATAL] Uncaught exception:', error);
-  console.error('[FATAL] Memory at crash: heap=%dMB rss=%dMB',
+  console.error(
+    '[FATAL] Memory at crash: heap=%dMB rss=%dMB',
     Math.round(mem.heapUsed / 1024 / 1024),
     Math.round(mem.rss / 1024 / 1024),
   );
@@ -47,7 +52,10 @@ let lastHeapWarning = 0;
 const heapCheckInterval = setInterval(() => {
   const mem = process.memoryUsage();
   const heapRatio = mem.heapUsed / mem.heapTotal;
-  if (heapRatio > HEAP_WARNING_THRESHOLD && Date.now() - lastHeapWarning > 60_000) {
+  if (
+    heapRatio > HEAP_WARNING_THRESHOLD &&
+    Date.now() - lastHeapWarning > 60_000
+  ) {
     lastHeapWarning = Date.now();
     const heapUsedMB = Math.round(mem.heapUsed / 1024 / 1024);
     const heapTotalMB = Math.round(mem.heapTotal / 1024 / 1024);
@@ -65,7 +73,10 @@ async function checkDatabaseConnection(): Promise<boolean> {
     await Promise.race([
       prisma.$queryRaw`SELECT 1`,
       new Promise((_, reject) => {
-        const timer = setTimeout(() => reject(new Error('Database connection timeout (5s)')), 5000);
+        const timer = setTimeout(
+          () => reject(new Error('Database connection timeout (5s)')),
+          5000,
+        );
         timer.unref();
       }),
     ]);
@@ -85,7 +96,9 @@ async function gracefulShutdown(signal: string) {
   httpLogger.info(`Graceful shutdown initiated by ${signal}`);
 
   const shutdownTimer = setTimeout(() => {
-    console.error(`[shutdown] Timed out after ${SHUTDOWN_TIMEOUT_MS}ms, forcing exit`);
+    console.error(
+      `[shutdown] Timed out after ${SHUTDOWN_TIMEOUT_MS}ms, forcing exit`,
+    );
     process.exit(1);
   }, SHUTDOWN_TIMEOUT_MS);
   shutdownTimer.unref();
@@ -99,7 +112,9 @@ async function gracefulShutdown(signal: string) {
     console.log('[shutdown] HTTP server closed');
 
     // Close IMAP connection pool
-    await getImapConnectionPool().destroyAll().catch(() => undefined);
+    await getImapConnectionPool()
+      .destroyAll()
+      .catch(() => undefined);
     console.log('[shutdown] IMAP connections closed');
 
     // Close BullMQ queues and workers
@@ -175,17 +190,24 @@ async function start() {
     // Set DISABLE_INLINE_WORKERS=true in .env to skip workers in dev
     // (useful when Redis is unavailable or to reduce memory pressure).
     if (env.DISABLE_INLINE_WORKERS) {
-      console.log('[startup] Inline workers disabled (DISABLE_INLINE_WORKERS=true)');
+      console.log(
+        '[startup] Inline workers disabled (DISABLE_INLINE_WORKERS=true)',
+      );
     } else {
       try {
         startEmailSyncWorker();
         startNotificationWorker();
         startAuditWorker();
         await startEmailSyncScheduler();
-        console.log('[startup] Inline BullMQ workers + email sync scheduler started');
+        console.log(
+          '[startup] Inline BullMQ workers + email sync scheduler started',
+        );
       } catch (workerErr) {
         // Non-fatal: Redis may not be available, workers simply won't run
-        console.warn('[startup] Could not start inline workers (Redis unavailable?):', workerErr);
+        console.warn(
+          '[startup] Could not start inline workers (Redis unavailable?):',
+          workerErr,
+        );
       }
     }
   } catch (err) {

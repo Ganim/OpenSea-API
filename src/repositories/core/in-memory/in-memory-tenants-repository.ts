@@ -67,7 +67,10 @@ export class InMemoryTenantsRepository implements TenantsRepository {
     return tenant ?? null;
   }
 
-  private applyFilters(items: Tenant[], filters?: TenantsListFilters): Tenant[] {
+  private applyFilters(
+    items: Tenant[],
+    filters?: TenantsListFilters,
+  ): Tenant[] {
     let result = items.filter((item) => item.deletedAt === null);
 
     if (filters?.search) {

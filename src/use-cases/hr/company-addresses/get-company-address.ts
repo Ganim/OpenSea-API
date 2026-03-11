@@ -1,5 +1,5 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import type { CompanyAddress } from '@/entities/hr/company-address';
+import type { CompanyAddress } from '@/entities/core/company-address';
 import type { CompanyAddressesRepository } from '@/repositories/hr/company-addresses-repository';
 
 export interface GetCompanyAddressRequest {

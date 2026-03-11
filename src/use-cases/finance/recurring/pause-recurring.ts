@@ -16,19 +16,14 @@ interface PauseRecurringUseCaseResponse {
 }
 
 export class PauseRecurringUseCase {
-  constructor(
-    private recurringConfigsRepository: RecurringConfigsRepository,
-  ) {}
+  constructor(private recurringConfigsRepository: RecurringConfigsRepository) {}
 
   async execute(
     request: PauseRecurringUseCaseRequest,
   ): Promise<PauseRecurringUseCaseResponse> {
     const { id, tenantId } = request;
 
-    const config = await this.recurringConfigsRepository.findById(
-      id,
-      tenantId,
-    );
+    const config = await this.recurringConfigsRepository.findById(id, tenantId);
 
     if (!config) {
       throw new ResourceNotFoundError('Recurring config not found');

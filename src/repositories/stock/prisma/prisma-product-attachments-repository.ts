@@ -39,9 +39,7 @@ export class PrismaProductAttachmentsRepository
     };
   }
 
-  async findByProductId(
-    productId: string,
-  ): Promise<ProductAttachmentRecord[]> {
+  async findByProductId(productId: string): Promise<ProductAttachmentRecord[]> {
     const records = await prisma.productAttachment.findMany({
       where: { productId },
       orderBy: { order: 'asc' },

@@ -1,5 +1,5 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import { Company } from '@/entities/hr/company';
+import { Company } from '@/entities/core/company';
 import type { CompaniesRepository } from '@/repositories/hr/companies-repository';
 
 export interface UpdateCompanyRequest {

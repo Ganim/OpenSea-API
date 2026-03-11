@@ -13,7 +13,10 @@ describe('ListAttachmentsUseCase', () => {
   beforeEach(async () => {
     boardsRepository = new InMemoryBoardsRepository();
     cardAttachmentsRepository = new InMemoryCardAttachmentsRepository();
-    sut = new ListAttachmentsUseCase(boardsRepository, cardAttachmentsRepository);
+    sut = new ListAttachmentsUseCase(
+      boardsRepository,
+      cardAttachmentsRepository,
+    );
 
     const board = await boardsRepository.create({
       tenantId: 'tenant-1',

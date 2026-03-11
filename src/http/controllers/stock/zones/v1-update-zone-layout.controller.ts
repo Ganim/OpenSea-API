@@ -1,4 +1,3 @@
-import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
@@ -50,21 +49,14 @@ export async function updateZoneLayoutController(app: FastifyInstance) {
       const { id } = request.params;
       const { layout } = request.body;
 
-      try {
-        const updateZoneLayoutUseCase = makeUpdateZoneLayoutUseCase();
-        const { zone } = await updateZoneLayoutUseCase.execute({
-          tenantId,
-          zoneId: id,
-          layout,
-        });
+      const updateZoneLayoutUseCase = makeUpdateZoneLayoutUseCase();
+      const { zone } = await updateZoneLayoutUseCase.execute({
+        tenantId,
+        zoneId: id,
+        layout,
+      });
 
-        return reply.status(200).send({ zone: zoneToDTO(zone) });
-      } catch (error) {
-        if (error instanceof ResourceNotFoundError) {
-          return reply.status(404).send({ message: error.message });
-        }
-        throw error;
-      }
+      return reply.status(200).send({ zone: zoneToDTO(zone) });
     },
   });
 }

@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { queryBooleanSchema } from '../../common.schema';
 
 // Code pattern schema
 export const codePatternSchema = z.object({
@@ -117,7 +118,7 @@ export const updateZoneLayoutSchema = z.object({
 
 export const listZonesQuerySchema = z.object({
   warehouseId: z.string().uuid().optional(),
-  activeOnly: z.coerce.boolean().optional(),
+  activeOnly: queryBooleanSchema.optional(),
 });
 
 // Response schemas

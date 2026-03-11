@@ -2,8 +2,8 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { VolumeStatus } from '@/entities/stock/value-objects/volume-status';
 import { Volume } from '@/entities/stock/volume';
-import type { VolumeDTO } from '@/mappers/stock/volume.mapper';
-import { VolumeMapper } from '@/mappers/stock/volume.mapper';
+import type { VolumeDTO } from '@/mappers/stock/volume/volume-to-dto';
+import { volumeToDTO } from '@/mappers/stock/volume/volume-to-dto';
 import type { VolumeRepository } from '@/repositories/stock/volumes-repository';
 
 export interface CreateVolumeUseCaseRequest {
@@ -57,14 +57,14 @@ export class CreateVolumeUseCase {
 
     if (existingVolume) {
       throw new BadRequestError(
-        'Não foi possível gerar um código único para o volume',
+        'Unable to generate a unique code for the volume',
       );
     }
 
     // Validar status se fornecido
     const status = request.status ?? VolumeStatus.OPEN;
     if (!Object.values(VolumeStatus).includes(status)) {
-      throw new BadRequestError(`Status inválido: ${status}`);
+      throw new BadRequestError(`Invalid status: ${status}`);
     }
 
     // Criar novo volume
@@ -84,7 +84,7 @@ export class CreateVolumeUseCase {
 
     await this.volumesRepository.create(volume);
 
-    const volumeDTO = VolumeMapper.toDTO(volume);
+    const volumeDTO = volumeToDTO(volume);
 
     return {
       volume: volumeDTO,

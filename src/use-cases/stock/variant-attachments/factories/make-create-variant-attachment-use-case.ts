@@ -3,8 +3,7 @@ import { PrismaVariantsRepository } from '@/repositories/stock/prisma/prisma-var
 import { CreateVariantAttachmentUseCase } from '../create-variant-attachment';
 
 export function makeCreateVariantAttachmentUseCase() {
-  const variantAttachmentsRepository =
-    new PrismaVariantAttachmentsRepository();
+  const variantAttachmentsRepository = new PrismaVariantAttachmentsRepository();
   const variantsRepository = new PrismaVariantsRepository();
 
   return new CreateVariantAttachmentUseCase(

@@ -1,5 +1,8 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
-import { type ContractDTO, contractToDTO } from '@/mappers/finance/contract/contract-to-dto';
+import {
+  type ContractDTO,
+  contractToDTO,
+} from '@/mappers/finance/contract/contract-to-dto';
 import type { ContractsRepository } from '@/repositories/finance/contracts-repository';
 import type { FinanceEntriesRepository } from '@/repositories/finance/finance-entries-repository';
 import { GenerateContractEntriesUseCase } from './generate-contract-entries';
@@ -41,7 +44,8 @@ export class CreateContractUseCase {
   async execute(
     request: CreateContractUseCaseRequest,
   ): Promise<CreateContractUseCaseResponse> {
-    const { tenantId, title, startDate, endDate, totalValue, paymentAmount } = request;
+    const { tenantId, title, startDate, endDate, totalValue, paymentAmount } =
+      request;
 
     if (!title || title.trim().length === 0) {
       throw new BadRequestError('Contract title is required');

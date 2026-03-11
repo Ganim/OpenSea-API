@@ -11,9 +11,7 @@ export class DeleteProductAttachmentUseCase {
     private productAttachmentsRepository: ProductAttachmentsRepository,
   ) {}
 
-  async execute(
-    request: DeleteProductAttachmentUseCaseRequest,
-  ): Promise<void> {
+  async execute(request: DeleteProductAttachmentUseCaseRequest): Promise<void> {
     const { id, tenantId } = request;
 
     const record = await this.productAttachmentsRepository.findById(id);

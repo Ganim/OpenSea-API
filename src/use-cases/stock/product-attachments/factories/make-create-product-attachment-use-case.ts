@@ -3,8 +3,7 @@ import { PrismaProductsRepository } from '@/repositories/stock/prisma/prisma-pro
 import { CreateProductAttachmentUseCase } from '../create-product-attachment';
 
 export function makeCreateProductAttachmentUseCase() {
-  const productAttachmentsRepository =
-    new PrismaProductAttachmentsRepository();
+  const productAttachmentsRepository = new PrismaProductAttachmentsRepository();
   const productsRepository = new PrismaProductsRepository();
 
   return new CreateProductAttachmentUseCase(

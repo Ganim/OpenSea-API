@@ -2,6 +2,7 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { MovementType } from '@/entities/stock/value-objects/movement-type';
+import type { TransactionManager } from '@/lib/transaction-manager';
 import type { ItemMovementDTO } from '@/mappers/stock/item-movement/item-movement-to-dto';
 import { itemMovementToDTO } from '@/mappers/stock/item-movement/item-movement-to-dto';
 import type { ItemDTO } from '@/mappers/stock/item/item-to-dto';
@@ -9,6 +10,7 @@ import { itemToDTO } from '@/mappers/stock/item/item-to-dto';
 import { BinsRepository } from '@/repositories/stock/bins-repository';
 import { ItemMovementsRepository } from '@/repositories/stock/item-movements-repository';
 import { ItemsRepository } from '@/repositories/stock/items-repository';
+import { queueAuditLog } from '@/workers/queues/audit.queue';
 
 interface TransferItemUseCaseRequest {
   tenantId: string;
@@ -29,6 +31,7 @@ export class TransferItemUseCase {
     private itemsRepository: ItemsRepository,
     private binsRepository: BinsRepository,
     private itemMovementsRepository: ItemMovementsRepository,
+    private transactionManager: TransactionManager,
   ) {}
 
   async execute(
@@ -71,6 +74,7 @@ export class TransferItemUseCase {
 
     // Capture origin bin address before updating
     let originAddress: string | undefined;
+    const fromBinId = item.binId?.toString();
     if (item.binId) {
       const originBin = await this.binsRepository.findById(
         item.binId,
@@ -82,25 +86,47 @@ export class TransferItemUseCase {
     // Update item bin and last known address
     item.binId = destinationBin.binId;
     item.lastKnownAddress = destinationBin.address;
-    await this.itemsRepository.save(item);
 
-    // Create transfer movement record
-    const movement = await this.itemMovementsRepository.create({
-      tenantId: input.tenantId,
-      itemId: item.id,
-      userId: new UniqueEntityID(input.userId),
-      quantity: item.currentQuantity, // Transfer quantity is current quantity
-      quantityBefore: item.currentQuantity,
-      quantityAfter: item.currentQuantity, // Quantity doesn't change in transfer
-      movementType: MovementType.create('TRANSFER'),
-      reasonCode: input.reasonCode,
-      originRef: originAddress ? `Bin: ${originAddress}` : undefined,
-      destinationRef: `Bin: ${destinationBin.address}`,
-      notes: input.notes,
+    const { savedItem, movement } = await this.transactionManager.run(
+      async () => {
+        await this.itemsRepository.save(item);
+
+        // Create transfer movement record
+        const mov = await this.itemMovementsRepository.create({
+          tenantId: input.tenantId,
+          itemId: item.id,
+          userId: new UniqueEntityID(input.userId),
+          quantity: item.currentQuantity,
+          quantityBefore: item.currentQuantity,
+          quantityAfter: item.currentQuantity,
+          movementType: MovementType.create('TRANSFER'),
+          reasonCode: input.reasonCode,
+          originRef: originAddress ? `Bin: ${originAddress}` : undefined,
+          destinationRef: `Bin: ${destinationBin.address}`,
+          notes: input.notes,
+        });
+
+        return { savedItem: item, movement: mov };
+      },
+    );
+
+    // Audit log (fire-and-forget, outside transaction)
+    queueAuditLog({
+      userId: input.userId,
+      action: 'STOCK_ITEM_TRANSFER',
+      entity: 'ITEM',
+      entityId: input.itemId,
+      module: 'stock',
+      description: `Item transfer from ${originAddress || 'no location'} to ${destinationBin.address}`,
+      newData: {
+        itemId: input.itemId,
+        fromBinId,
+        toBinId: input.destinationBinId,
+      },
     });
 
     return {
-      item: itemToDTO(item),
+      item: itemToDTO(savedItem),
       movement: itemMovementToDTO(movement),
     };
   }

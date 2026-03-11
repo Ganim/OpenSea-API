@@ -175,7 +175,10 @@ export class PrismaCardsRepository implements CardsRepository {
     }));
   }
 
-  async findCardsByDueDateRange(from: Date, to: Date): Promise<OverdueCardRecord[]> {
+  async findCardsByDueDateRange(
+    from: Date,
+    to: Date,
+  ): Promise<OverdueCardRecord[]> {
     const rows = await prisma.card.findMany({
       where: {
         dueDate: { gte: from, lte: to },
@@ -309,13 +312,9 @@ export class PrismaCardsRepository implements CardsRepository {
   async reindexColumnPositions(columnId: string): Promise<void> {
     const cards = await prisma.card.findMany({
       where: { columnId, deletedAt: null },
-      orderBy: [
-        { position: 'asc' },
-        { updatedAt: 'desc' },
-      ],
+      orderBy: [{ position: 'asc' }, { updatedAt: 'desc' }],
       select: { id: true },
     });
-
 
     if (cards.length === 0) return;
 

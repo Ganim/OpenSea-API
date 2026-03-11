@@ -1,5 +1,5 @@
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import type { CompanyFiscalSettings } from '@/entities/hr/company-fiscal-settings';
+import type { CompanyFiscalSettings } from '@/entities/core/company-fiscal-settings';
 
 export interface CreateCompanyFiscalSettingsSchema {
   companyId: UniqueEntityID;

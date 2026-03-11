@@ -27,7 +27,8 @@ export async function getDREInteractiveController(app: FastifyInstance) {
     ],
     schema: {
       tags: ['Finance - Dashboard'],
-      summary: 'Get interactive DRE with hierarchical categories and period comparison',
+      summary:
+        'Get interactive DRE with hierarchical categories and period comparison',
       security: [{ bearerAuth: [] }],
       querystring: dreQuerySchema,
     },

@@ -103,7 +103,9 @@ export class SyncEmailAccountUseCase {
 
     // If decrypted with previous key, re-encrypt with current key
     if (decryptResult.needsReEncrypt) {
-      const newEncrypted = this.credentialCipherService.encrypt(decryptResult.plainText);
+      const newEncrypted = this.credentialCipherService.encrypt(
+        decryptResult.plainText,
+      );
       await this.emailAccountsRepository.update({
         id: account.id.toString(),
         tenantId: account.tenantId.toString(),
@@ -130,7 +132,6 @@ export class SyncEmailAccountUseCase {
     const allCreatedMessages: CreatedMessageRef[] = [];
 
     try {
-
       const mailboxes = (await client.list()) as ImapMailbox[];
 
       for (const mailbox of mailboxes) {
@@ -145,7 +146,12 @@ export class SyncEmailAccountUseCase {
             if (attempt > 0) {
               const delay = BASE_BACKOFF_MS * Math.pow(2, attempt - 1);
               logger.debug(
-                { accountId: account.id.toString(), remoteName, attempt, delay },
+                {
+                  accountId: account.id.toString(),
+                  remoteName,
+                  attempt,
+                  delay,
+                },
                 'Retrying folder sync after backoff',
               );
               await sleep(delay);

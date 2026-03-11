@@ -264,7 +264,9 @@ describe('Email Multi-Tenant Isolation (E2E)', () => {
       .set('Authorization', `Bearer ${tokenA}`)
       .expect(200);
 
-    expect(accountsRes.body.data.some((a: { id: string }) => a.id === accountAId)).toBe(true);
+    expect(
+      accountsRes.body.data.some((a: { id: string }) => a.id === accountAId),
+    ).toBe(true);
 
     // List messages
     const msgsRes = await request(app.server)
@@ -273,7 +275,9 @@ describe('Email Multi-Tenant Isolation (E2E)', () => {
       .set('Authorization', `Bearer ${tokenA}`)
       .expect(200);
 
-    expect(msgsRes.body.data.some((m: { id: string }) => m.id === messageAId)).toBe(true);
+    expect(
+      msgsRes.body.data.some((m: { id: string }) => m.id === messageAId),
+    ).toBe(true);
 
     // Get specific message
     const msgRes = await request(app.server)

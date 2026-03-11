@@ -33,13 +33,7 @@ export class ShareEventWithTeamUseCase {
   async execute(
     request: ShareEventWithTeamRequest,
   ): Promise<ShareEventWithTeamResponse> {
-    const {
-      eventId,
-      tenantId,
-      userId,
-      teamRole,
-      teamId,
-    } = request;
+    const { eventId, tenantId, userId, teamRole, teamId } = request;
 
     const event = await this.calendarEventsRepository.findById(
       eventId,
@@ -80,10 +74,11 @@ export class ShareEventWithTeamUseCase {
 
           // Auto-resolve team role if not provided
           if (!resolvedTeamRole && this.teamMembersRepository) {
-            const membership = await this.teamMembersRepository.findByTeamAndUser(
-              new UniqueEntityID(calendar.ownerId),
-              new UniqueEntityID(userId),
-            );
+            const membership =
+              await this.teamMembersRepository.findByTeamAndUser(
+                new UniqueEntityID(calendar.ownerId),
+                new UniqueEntityID(userId),
+              );
             resolvedTeamRole = membership?.role ?? null;
           }
         }

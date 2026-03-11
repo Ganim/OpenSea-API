@@ -1,5 +1,5 @@
 import { VolumeNotFoundError } from '@/@errors/volumes-errors';
-import type { VolumeItemDTO } from '@/mappers/stock/volume.mapper';
+import type { VolumeItemDTO } from '@/mappers/stock/volume/volume-to-dto';
 import type { VolumeRepository } from '@/repositories/stock/volumes-repository';
 
 export interface GetRomaneioUseCaseRequest {

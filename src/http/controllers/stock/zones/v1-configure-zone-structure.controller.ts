@@ -1,5 +1,3 @@
-import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
-import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
@@ -54,37 +52,26 @@ export async function configureZoneStructureController(app: FastifyInstance) {
       const { structure, regenerateBins, forceRemoveOccupiedBins } =
         request.body;
 
-      try {
-        const configureZoneStructureUseCase =
-          makeConfigureZoneStructureUseCase();
-        const result = await configureZoneStructureUseCase.execute({
-          tenantId,
-          zoneId: id,
-          userId,
-          structure,
-          regenerateBins,
-          forceRemoveOccupiedBins,
-        });
+      const configureZoneStructureUseCase = makeConfigureZoneStructureUseCase();
+      const result = await configureZoneStructureUseCase.execute({
+        tenantId,
+        zoneId: id,
+        userId,
+        structure,
+        regenerateBins,
+        forceRemoveOccupiedBins,
+      });
 
-        return reply.status(200).send({
-          zone: zoneToDTO(result.zone),
-          binsCreated: result.binsCreated,
-          binsPreserved: result.binsPreserved,
-          binsUpdated: result.binsUpdated,
-          binsDeleted: result.binsDeleted,
-          binsBlocked: result.binsBlocked,
-          itemsDetached: result.itemsDetached,
-          blockedBins: result.blockedBins,
-        });
-      } catch (error) {
-        if (error instanceof BadRequestError) {
-          return reply.status(400).send({ message: error.message });
-        }
-        if (error instanceof ResourceNotFoundError) {
-          return reply.status(404).send({ message: error.message });
-        }
-        throw error;
-      }
+      return reply.status(200).send({
+        zone: zoneToDTO(result.zone),
+        binsCreated: result.binsCreated,
+        binsPreserved: result.binsPreserved,
+        binsUpdated: result.binsUpdated,
+        binsDeleted: result.binsDeleted,
+        binsBlocked: result.binsBlocked,
+        itemsDetached: result.itemsDetached,
+        blockedBins: result.blockedBins,
+      });
     },
   });
 }

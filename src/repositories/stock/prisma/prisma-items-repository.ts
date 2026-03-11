@@ -10,6 +10,10 @@ import {
 } from '@prisma/generated/client.js';
 
 import type {
+  PaginatedResult,
+  PaginationParams,
+} from '../../pagination-params';
+import type {
   CreateItemSchema,
   ItemsRepository,
   ItemWithRelationsDTO,
@@ -165,6 +169,21 @@ export class PrismaItemsRepository implements ItemsRepository {
     );
   }
 
+  private readonly itemRelationsInclude = {
+    variant: {
+      include: {
+        product: {
+          include: { template: true, manufacturer: true },
+        },
+      },
+    },
+    bin: {
+      include: {
+        zone: true,
+      },
+    },
+  } as const;
+
   async findAllWithRelations(
     tenantId: string,
   ): Promise<ItemWithRelationsDTO[]> {
@@ -173,26 +192,41 @@ export class PrismaItemsRepository implements ItemsRepository {
         tenantId,
         deletedAt: null,
       },
-      include: {
-        variant: {
-          include: {
-            product: {
-              include: { template: true, manufacturer: true },
-            },
-          },
-        },
-        bin: {
-          include: {
-            zone: true,
-          },
-        },
-      },
+      include: this.itemRelationsInclude,
     });
 
     return items.map((itemData) => ({
       item: this.createItemEntity(itemData as ItemWithRelations),
       relatedData: this.extractRelatedData(itemData as ItemWithRelations),
     }));
+  }
+
+  async findAllWithRelationsPaginated(
+    tenantId: string,
+    params: PaginationParams,
+  ): Promise<PaginatedResult<ItemWithRelationsDTO>> {
+    const where = { tenantId, deletedAt: null };
+    const [items, total] = await Promise.all([
+      prisma.item.findMany({
+        where,
+        include: this.itemRelationsInclude,
+        orderBy: { createdAt: 'desc' },
+        skip: (params.page - 1) * params.limit,
+        take: params.limit,
+      }),
+      prisma.item.count({ where }),
+    ]);
+
+    return {
+      data: items.map((itemData) => ({
+        item: this.createItemEntity(itemData as ItemWithRelations),
+        relatedData: this.extractRelatedData(itemData as ItemWithRelations),
+      })),
+      total,
+      page: params.page,
+      limit: params.limit,
+      totalPages: Math.ceil(total / params.limit),
+    };
   }
 
   async findManyByVariantWithRelations(
@@ -205,20 +239,7 @@ export class PrismaItemsRepository implements ItemsRepository {
         tenantId,
         deletedAt: null,
       },
-      include: {
-        variant: {
-          include: {
-            product: {
-              include: { template: true, manufacturer: true },
-            },
-          },
-        },
-        bin: {
-          include: {
-            zone: true,
-          },
-        },
-      },
+      include: this.itemRelationsInclude,
     });
 
     return items.map((itemData) => ({
@@ -227,38 +248,89 @@ export class PrismaItemsRepository implements ItemsRepository {
     }));
   }
 
+  async findManyByVariantWithRelationsPaginated(
+    variantId: UniqueEntityID,
+    tenantId: string,
+    params: PaginationParams,
+  ): Promise<PaginatedResult<ItemWithRelationsDTO>> {
+    const where = {
+      variantId: variantId.toString(),
+      tenantId,
+      deletedAt: null,
+    };
+    const [items, total] = await Promise.all([
+      prisma.item.findMany({
+        where,
+        include: this.itemRelationsInclude,
+        orderBy: { createdAt: 'desc' },
+        skip: (params.page - 1) * params.limit,
+        take: params.limit,
+      }),
+      prisma.item.count({ where }),
+    ]);
+
+    return {
+      data: items.map((itemData) => ({
+        item: this.createItemEntity(itemData as ItemWithRelations),
+        relatedData: this.extractRelatedData(itemData as ItemWithRelations),
+      })),
+      total,
+      page: params.page,
+      limit: params.limit,
+      totalPages: Math.ceil(total / params.limit),
+    };
+  }
+
   async findManyByProductWithRelations(
     productId: UniqueEntityID,
     tenantId: string,
   ): Promise<ItemWithRelationsDTO[]> {
     const items = await prisma.item.findMany({
       where: {
-        variant: {
-          productId: productId.toString(),
-        },
+        variant: { productId: productId.toString() },
         tenantId,
         deletedAt: null,
       },
-      include: {
-        variant: {
-          include: {
-            product: {
-              include: { template: true, manufacturer: true },
-            },
-          },
-        },
-        bin: {
-          include: {
-            zone: true,
-          },
-        },
-      },
+      include: this.itemRelationsInclude,
     });
 
     return items.map((itemData) => ({
       item: this.createItemEntity(itemData as ItemWithRelations),
       relatedData: this.extractRelatedData(itemData as ItemWithRelations),
     }));
+  }
+
+  async findManyByProductWithRelationsPaginated(
+    productId: UniqueEntityID,
+    tenantId: string,
+    params: PaginationParams,
+  ): Promise<PaginatedResult<ItemWithRelationsDTO>> {
+    const where = {
+      variant: { productId: productId.toString() },
+      tenantId,
+      deletedAt: null,
+    };
+    const [items, total] = await Promise.all([
+      prisma.item.findMany({
+        where,
+        include: this.itemRelationsInclude,
+        orderBy: { createdAt: 'desc' },
+        skip: (params.page - 1) * params.limit,
+        take: params.limit,
+      }),
+      prisma.item.count({ where }),
+    ]);
+
+    return {
+      data: items.map((itemData) => ({
+        item: this.createItemEntity(itemData as ItemWithRelations),
+        relatedData: this.extractRelatedData(itemData as ItemWithRelations),
+      })),
+      total,
+      page: params.page,
+      limit: params.limit,
+      totalPages: Math.ceil(total / params.limit),
+    };
   }
 
   async findManyByBinWithRelations(
@@ -271,20 +343,7 @@ export class PrismaItemsRepository implements ItemsRepository {
         tenantId,
         deletedAt: null,
       },
-      include: {
-        variant: {
-          include: {
-            product: {
-              include: { template: true, manufacturer: true },
-            },
-          },
-        },
-        bin: {
-          include: {
-            zone: true,
-          },
-        },
-      },
+      include: this.itemRelationsInclude,
     });
 
     return items.map((itemData) => ({
@@ -335,7 +394,10 @@ export class PrismaItemsRepository implements ItemsRepository {
     return this.toDomainItem(itemData);
   }
 
-  async findManyByIds(ids: UniqueEntityID[], tenantId: string): Promise<Item[]> {
+  async findManyByIds(
+    ids: UniqueEntityID[],
+    tenantId: string,
+  ): Promise<Item[]> {
     if (ids.length === 0) return [];
 
     const items = await prisma.item.findMany({
@@ -669,15 +731,18 @@ export class PrismaItemsRepository implements ItemsRepository {
 
     if (items.length === 0) return 0;
 
-    for (const item of items) {
-      await prisma.item.update({
-        where: { id: item.id },
-        data: {
-          lastKnownAddress: item.bin?.address ?? item.lastKnownAddress,
-          binId: null,
-        },
-      });
-    }
+    // Batch all updates into a single transaction (fixes N+1)
+    await prisma.$transaction(
+      items.map((item) =>
+        prisma.item.update({
+          where: { id: item.id },
+          data: {
+            lastKnownAddress: item.bin?.address ?? item.lastKnownAddress,
+            binId: null,
+          },
+        }),
+      ),
+    );
 
     return items.length;
   }

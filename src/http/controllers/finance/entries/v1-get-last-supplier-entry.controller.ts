@@ -25,7 +25,8 @@ export async function getLastSupplierEntryController(app: FastifyInstance) {
     ],
     schema: {
       tags: ['Finance - Entries'],
-      summary: 'Get last entry data for a supplier (category, cost center suggestion)',
+      summary:
+        'Get last entry data for a supplier (category, cost center suggestion)',
       security: [{ bearerAuth: [] }],
       querystring: lastSupplierEntryQuerySchema,
       response: {

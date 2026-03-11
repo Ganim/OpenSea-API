@@ -1,5 +1,9 @@
 import { z } from 'zod';
-import { idSchema, paginationSchema } from '../common.schema';
+import {
+  idSchema,
+  paginationSchema,
+  queryBooleanSchema,
+} from '../common.schema';
 
 export const notificationTypeSchema = z.enum([
   'INFO',
@@ -39,7 +43,7 @@ export const createNotificationSchema = z.object({
 });
 
 export const listNotificationsQuerySchema = paginationSchema.extend({
-  isRead: z.coerce.boolean().optional(),
+  isRead: queryBooleanSchema.optional(),
   type: notificationTypeSchema.optional(),
   channel: notificationChannelSchema.optional(),
   priority: notificationPrioritySchema.optional(),

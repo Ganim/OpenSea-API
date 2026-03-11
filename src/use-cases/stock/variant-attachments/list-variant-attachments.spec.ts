@@ -10,12 +10,9 @@ const VARIANT_ID = 'variant-1';
 
 describe('ListVariantAttachmentsUseCase', () => {
   beforeEach(() => {
-    variantAttachmentsRepository =
-      new InMemoryVariantAttachmentsRepository();
+    variantAttachmentsRepository = new InMemoryVariantAttachmentsRepository();
 
-    sut = new ListVariantAttachmentsUseCase(
-      variantAttachmentsRepository,
-    );
+    sut = new ListVariantAttachmentsUseCase(variantAttachmentsRepository);
   });
 
   it('should return ordered list of attachments', async () => {
@@ -45,7 +42,8 @@ describe('ListVariantAttachmentsUseCase', () => {
       fileUrl: 'https://storage.example.com/files/spec.xlsx',
       fileName: 'spec.xlsx',
       fileSize: 51200,
-      mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      mimeType:
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
       order: 3,
     });
 

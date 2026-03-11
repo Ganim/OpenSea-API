@@ -1,5 +1,10 @@
+import type {
+  FinanceEntryType,
+  RecurrenceUnit,
+} from '@/entities/finance/finance-entry-types';
 import type { FinanceEntriesRepository } from '@/repositories/finance/finance-entries-repository';
 import type { RecurringConfigsRepository } from '@/repositories/finance/recurring-configs-repository';
+import { calculateNextDate } from '@/utils/finance/calculate-next-date';
 
 interface GenerateRecurringBatchUseCaseRequest {
   tenantId: string;
@@ -40,8 +45,7 @@ export class GenerateRecurringBatchUseCase {
         // Respect totalOccurrences limit
         if (
           config.totalOccurrences &&
-          config.generatedCount + generatedForConfig >=
-            config.totalOccurrences
+          config.generatedCount + generatedForConfig >= config.totalOccurrences
         ) {
           break;
         }
@@ -61,7 +65,7 @@ export class GenerateRecurringBatchUseCase {
 
         await this.financeEntriesRepository.create({
           tenantId,
-          type: config.type,
+          type: config.type as FinanceEntryType,
           code,
           description: `${config.description} (${installmentNumber})`,
           categoryId: config.categoryId.toString(),
@@ -76,13 +80,13 @@ export class GenerateRecurringBatchUseCase {
           dueDate: new Date(currentDueDate),
           recurrenceType: 'RECURRING',
           recurrenceInterval: config.frequencyInterval,
-          recurrenceUnit: config.frequencyUnit,
+          recurrenceUnit: config.frequencyUnit as RecurrenceUnit,
           currentInstallment: installmentNumber,
           createdBy: config.createdBy,
         });
 
         generatedForConfig++;
-        currentDueDate = this.calculateNextDate(
+        currentDueDate = calculateNextDate(
           currentDueDate,
           config.frequencyInterval,
           config.frequencyUnit,
@@ -106,39 +110,5 @@ export class GenerateRecurringBatchUseCase {
       generatedCount: totalGenerated,
       configsProcessed: activeConfigs.length,
     };
-  }
-
-  private calculateNextDate(
-    baseDate: Date,
-    interval: number,
-    unit: string,
-  ): Date {
-    const date = new Date(baseDate);
-
-    switch (unit) {
-      case 'DAILY':
-        date.setUTCDate(date.getUTCDate() + interval);
-        break;
-      case 'WEEKLY':
-        date.setUTCDate(date.getUTCDate() + interval * 7);
-        break;
-      case 'BIWEEKLY':
-        date.setUTCDate(date.getUTCDate() + interval * 14);
-        break;
-      case 'MONTHLY':
-        date.setUTCMonth(date.getUTCMonth() + interval);
-        break;
-      case 'QUARTERLY':
-        date.setUTCMonth(date.getUTCMonth() + interval * 3);
-        break;
-      case 'SEMIANNUAL':
-        date.setUTCMonth(date.getUTCMonth() + interval * 6);
-        break;
-      case 'ANNUAL':
-        date.setUTCFullYear(date.getUTCFullYear() + interval);
-        break;
-    }
-
-    return date;
   }
 }

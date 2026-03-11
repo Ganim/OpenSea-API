@@ -211,7 +211,9 @@ export class Card extends Entity<CardProps> {
 
   get isOverdue(): boolean {
     return (
-      !!this.props.dueDate && !this.isCompleted && this.props.dueDate < new Date()
+      !!this.props.dueDate &&
+      !this.isCompleted &&
+      this.props.dueDate < new Date()
     );
   }
 

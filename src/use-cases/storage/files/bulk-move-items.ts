@@ -65,7 +65,9 @@ export class BulkMoveItemsUseCase {
     tenantId: string,
     fileIds: string[],
     folderIds: string[],
-    targetFolder: import('@/entities/storage/storage-folder').StorageFolder | null,
+    targetFolder:
+      | import('@/entities/storage/storage-folder').StorageFolder
+      | null,
   ): Promise<BulkMoveItemsUseCaseResponse> {
     const targetFolderId = targetFolder?.id.toString() ?? null;
     let movedFiles = 0;

@@ -1,6 +1,7 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Payroll } from '@/entities/hr/payroll';
 import { prisma } from '@/lib/prisma';
+import type { TransactionClient } from '@/lib/transaction-manager';
 import { mapPayrollPrismaToDomain } from '@/mappers/hr/payroll';
 import type { PayrollStatus } from '@prisma/generated/client.js';
 import type {
@@ -175,8 +176,9 @@ export class PrismaPayrollsRepository implements PayrollsRepository {
     );
   }
 
-  async save(payroll: Payroll): Promise<void> {
-    await prisma.payroll.update({
+  async save(payroll: Payroll, tx?: TransactionClient): Promise<void> {
+    const client = tx ?? prisma;
+    await client.payroll.update({
       where: { id: payroll.id.toString() },
       data: {
         status: payroll.status.value as PayrollStatus,

@@ -2,23 +2,26 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { EmailAttachment } from '@/entities/email/email-attachment';
 import { EmailMessage } from '@/entities/email/email-message';
 import type {
-    CentralInboxListParams,
-    CreateEmailAttachmentSchema,
-    CreateEmailMessageSchema,
-    EmailMessagesListParams,
-    EmailMessagesListResult,
-    EmailMessagesRepository,
-    UpdateEmailMessageSchema,
+  CentralInboxListParams,
+  CreateEmailAttachmentSchema,
+  CreateEmailMessageSchema,
+  EmailMessagesListParams,
+  EmailMessagesListResult,
+  EmailMessagesRepository,
+  UpdateEmailMessageSchema,
 } from '../email-messages-repository';
 
 function encodeCursor(receivedAt: Date, id: string): string {
-  return Buffer.from(JSON.stringify({ r: receivedAt.toISOString(), i: id })).toString('base64');
+  return Buffer.from(
+    JSON.stringify({ r: receivedAt.toISOString(), i: id }),
+  ).toString('base64');
 }
 
 function decodeCursor(cursor: string): { receivedAt: Date; id: string } | null {
   try {
     const parsed = JSON.parse(Buffer.from(cursor, 'base64').toString('utf-8'));
-    if (typeof parsed.r !== 'string' || typeof parsed.i !== 'string') return null;
+    if (typeof parsed.r !== 'string' || typeof parsed.i !== 'string')
+      return null;
     const date = new Date(parsed.r);
     if (isNaN(date.getTime())) return null;
     return { receivedAt: date, id: parsed.i };
@@ -200,9 +203,12 @@ export class InMemoryEmailMessagesRepository
       : filtered.slice(start, start + limit);
 
     const nextCursor = useCursor
-      ? (messages.length === limit
-        ? encodeCursor(messages[messages.length - 1].receivedAt, messages[messages.length - 1].id.toString())
-        : null)
+      ? messages.length === limit
+        ? encodeCursor(
+            messages[messages.length - 1].receivedAt,
+            messages[messages.length - 1].id.toString(),
+          )
+        : null
       : undefined;
 
     return { messages, total, nextCursor };
@@ -320,9 +326,12 @@ export class InMemoryEmailMessagesRepository
       : filtered.slice(skip, skip + limit);
 
     const nextCursor = useCursor
-      ? (messages.length === limit
-        ? encodeCursor(messages[messages.length - 1].receivedAt, messages[messages.length - 1].id.toString())
-        : null)
+      ? messages.length === limit
+        ? encodeCursor(
+            messages[messages.length - 1].receivedAt,
+            messages[messages.length - 1].id.toString(),
+          )
+        : null
       : undefined;
 
     return {
@@ -338,7 +347,10 @@ export class InMemoryEmailMessagesRepository
     limit: number,
   ): Promise<Array<{ email: string; name: string | null; frequency: number }>> {
     const lowerQuery = query.toLowerCase();
-    const frequencyMap = new Map<string, { name: string | null; frequency: number }>();
+    const frequencyMap = new Map<
+      string,
+      { name: string | null; frequency: number }
+    >();
 
     const relevantMessages = this.items.filter(
       (m) => accountIds.includes(m.accountId.toString()) && !m.deletedAt,
@@ -458,7 +470,10 @@ export class InMemoryEmailMessagesRepository
       .sort((a, b) => a.receivedAt.getTime() - b.receivedAt.getTime());
   }
 
-  async softDeleteByFolder(folderId: string, tenantId: string): Promise<number> {
+  async softDeleteByFolder(
+    folderId: string,
+    tenantId: string,
+  ): Promise<number> {
     let count = 0;
     const now = new Date();
     for (const msg of this.items) {

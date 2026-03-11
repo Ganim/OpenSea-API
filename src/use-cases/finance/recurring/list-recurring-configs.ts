@@ -19,9 +19,7 @@ interface ListRecurringConfigsUseCaseResponse {
 }
 
 export class ListRecurringConfigsUseCase {
-  constructor(
-    private recurringConfigsRepository: RecurringConfigsRepository,
-  ) {}
+  constructor(private recurringConfigsRepository: RecurringConfigsRepository) {}
 
   async execute(
     request: ListRecurringConfigsUseCaseRequest,

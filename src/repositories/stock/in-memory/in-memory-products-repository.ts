@@ -2,6 +2,10 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Product } from '@/entities/stock/product';
 import { ProductStatus } from '@/entities/stock/value-objects/product-status';
 import type {
+  PaginatedResult,
+  PaginationParams,
+} from '../../pagination-params';
+import type {
   CreateProductSchema,
   ProductsRepository,
   UpdateProductSchema,
@@ -10,6 +14,21 @@ import type {
 export class InMemoryProductsRepository implements ProductsRepository {
   public items: Product[] = [];
   private sequentialCounter = 0;
+
+  private paginate(
+    items: Product[],
+    params: PaginationParams,
+  ): PaginatedResult<Product> {
+    const total = items.length;
+    const start = (params.page - 1) * params.limit;
+    return {
+      data: items.slice(start, start + params.limit),
+      total,
+      page: params.page,
+      limit: params.limit,
+      totalPages: Math.ceil(total / params.limit),
+    };
+  }
 
   async create(data: CreateProductSchema): Promise<Product> {
     const product = Product.create({
@@ -62,6 +81,14 @@ export class InMemoryProductsRepository implements ProductsRepository {
     );
   }
 
+  async findManyPaginated(
+    tenantId: string,
+    params: PaginationParams,
+  ): Promise<PaginatedResult<Product>> {
+    const all = await this.findMany(tenantId);
+    return this.paginate(all, params);
+  }
+
   async findManyByStatus(
     status: ProductStatus,
     tenantId: string,
@@ -72,6 +99,15 @@ export class InMemoryProductsRepository implements ProductsRepository {
         item.status.value === status.value &&
         item.tenantId.toString() === tenantId,
     );
+  }
+
+  async findManyByStatusPaginated(
+    status: ProductStatus,
+    tenantId: string,
+    params: PaginationParams,
+  ): Promise<PaginatedResult<Product>> {
+    const all = await this.findManyByStatus(status, tenantId);
+    return this.paginate(all, params);
   }
 
   async findManyByTemplate(
@@ -86,6 +122,15 @@ export class InMemoryProductsRepository implements ProductsRepository {
     );
   }
 
+  async findManyByTemplatePaginated(
+    templateId: UniqueEntityID,
+    tenantId: string,
+    params: PaginationParams,
+  ): Promise<PaginatedResult<Product>> {
+    const all = await this.findManyByTemplate(templateId, tenantId);
+    return this.paginate(all, params);
+  }
+
   async findManyByManufacturer(
     manufacturerId: UniqueEntityID,
     tenantId: string,
@@ -98,6 +143,15 @@ export class InMemoryProductsRepository implements ProductsRepository {
     );
   }
 
+  async findManyByManufacturerPaginated(
+    manufacturerId: UniqueEntityID,
+    tenantId: string,
+    params: PaginationParams,
+  ): Promise<PaginatedResult<Product>> {
+    const all = await this.findManyByManufacturer(manufacturerId, tenantId);
+    return this.paginate(all, params);
+  }
+
   async findManyByCategory(
     categoryId: UniqueEntityID,
     tenantId: string,
@@ -106,6 +160,15 @@ export class InMemoryProductsRepository implements ProductsRepository {
     return this.items.filter(
       (item) => !item.deletedAt && item.tenantId.toString() === tenantId,
     );
+  }
+
+  async findManyByCategoryPaginated(
+    categoryId: UniqueEntityID,
+    tenantId: string,
+    params: PaginationParams,
+  ): Promise<PaginatedResult<Product>> {
+    const all = await this.findManyByCategory(categoryId, tenantId);
+    return this.paginate(all, params);
   }
 
   async update(data: UpdateProductSchema): Promise<Product | null> {

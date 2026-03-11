@@ -34,7 +34,9 @@ async function authenticate(): Promise<AuthResult> {
   });
 
   if (!loginRes.ok) {
-    throw new Error(`Login falhou: ${loginRes.status} ${await loginRes.text()}`);
+    throw new Error(
+      `Login falhou: ${loginRes.status} ${await loginRes.text()}`,
+    );
   }
 
   const loginData = await loginRes.json();
@@ -81,7 +83,9 @@ async function authenticate(): Promise<AuthResult> {
   return { token, tenantId };
 }
 
-async function listAccounts(token: string): Promise<Array<{ id: string; address: string; displayName: string | null }>> {
+async function listAccounts(
+  token: string,
+): Promise<Array<{ id: string; address: string; displayName: string | null }>> {
   const res = await fetch(`${API_URL}/v1/email/accounts`, {
     headers: { Authorization: `Bearer ${token}` },
   });
@@ -99,7 +103,12 @@ async function sendTestEmail(
   accountId: string,
   to: string,
   label: string,
-): Promise<{ success: boolean; messageId?: string; error?: string; status: number }> {
+): Promise<{
+  success: boolean;
+  messageId?: string;
+  error?: string;
+  status: number;
+}> {
   const timestamp = new Date().toISOString();
   const subject = `[SMTP Diagnostic] ${label} - ${timestamp}`;
   const bodyHtml = `
@@ -130,7 +139,11 @@ async function sendTestEmail(
 
     const body = await res.text();
     let data: Record<string, unknown> = {};
-    try { data = JSON.parse(body); } catch { /* not JSON */ }
+    try {
+      data = JSON.parse(body);
+    } catch {
+      /* not JSON */
+    }
 
     if (res.ok) {
       return {
@@ -181,34 +194,61 @@ async function main() {
   const sameDomain = account.address.split('@')[1];
   const internalTo = account.address; // Send to self
   console.log(`3. Teste 1: Envio interno (${internalTo})...`);
-  const result1 = await sendTestEmail(token, account.id, internalTo, 'Envio Interno');
+  const result1 = await sendTestEmail(
+    token,
+    account.id,
+    internalTo,
+    'Envio Interno',
+  );
 
   if (result1.success) {
-    console.log(`   OK - Status: ${result1.status}, MessageId: ${result1.messageId}`);
+    console.log(
+      `   OK - Status: ${result1.status}, MessageId: ${result1.messageId}`,
+    );
   } else {
-    console.log(`   FALHOU - Status: ${result1.status}, Erro: ${result1.error}`);
+    console.log(
+      `   FALHOU - Status: ${result1.status}, Erro: ${result1.error}`,
+    );
   }
 
   // Test 2: Send to external (Gmail)
   const externalTo = 'guilhermeganim@gmail.com';
   console.log(`\n4. Teste 2: Envio externo Gmail (${externalTo})...`);
-  const result2 = await sendTestEmail(token, account.id, externalTo, 'Envio Externo Gmail');
+  const result2 = await sendTestEmail(
+    token,
+    account.id,
+    externalTo,
+    'Envio Externo Gmail',
+  );
 
   if (result2.success) {
-    console.log(`   OK - Status: ${result2.status}, MessageId: ${result2.messageId}`);
+    console.log(
+      `   OK - Status: ${result2.status}, MessageId: ${result2.messageId}`,
+    );
   } else {
-    console.log(`   FALHOU - Status: ${result2.status}, Erro: ${result2.error}`);
+    console.log(
+      `   FALHOU - Status: ${result2.status}, Erro: ${result2.error}`,
+    );
   }
 
   // Test 3: Send to external (Hotmail)
   const hotmailTo = 'guilhermeganim@hotmail.com';
   console.log(`\n5. Teste 3: Envio externo Hotmail (${hotmailTo})...`);
-  const result3 = await sendTestEmail(token, account.id, hotmailTo, 'Envio Externo Hotmail');
+  const result3 = await sendTestEmail(
+    token,
+    account.id,
+    hotmailTo,
+    'Envio Externo Hotmail',
+  );
 
   if (result3.success) {
-    console.log(`   OK - Status: ${result3.status}, MessageId: ${result3.messageId}`);
+    console.log(
+      `   OK - Status: ${result3.status}, MessageId: ${result3.messageId}`,
+    );
   } else {
-    console.log(`   FALHOU - Status: ${result3.status}, Erro: ${result3.error}`);
+    console.log(
+      `   FALHOU - Status: ${result3.status}, Erro: ${result3.error}`,
+    );
   }
 
   // Summary
@@ -219,10 +259,16 @@ async function main() {
 
   if (result2.success && result3.success) {
     console.log('\nTodos os envios retornaram 202 (aceito pelo SMTP).');
-    console.log('Verifique a caixa de entrada (e spam) dos destinos em alguns minutos.');
-    console.log('\nPara ver a conversa SMTP completa, rode o servidor com SMTP_DEBUG=true');
+    console.log(
+      'Verifique a caixa de entrada (e spam) dos destinos em alguns minutos.',
+    );
+    console.log(
+      '\nPara ver a conversa SMTP completa, rode o servidor com SMTP_DEBUG=true',
+    );
   } else {
-    console.log('\nAlguns envios falharam. Verifique os logs do servidor para mais detalhes.');
+    console.log(
+      '\nAlguns envios falharam. Verifique os logs do servidor para mais detalhes.',
+    );
   }
 
   console.log('\n=== Fim ===');

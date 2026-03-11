@@ -85,9 +85,9 @@ describe('GetSupplierHistoryUseCase', () => {
   });
 
   it('should throw if neither companyId nor companyName provided', async () => {
-    await expect(
-      sut.execute({ tenantId: 'tenant-1' }),
-    ).rejects.toBeInstanceOf(BadRequestError);
+    await expect(sut.execute({ tenantId: 'tenant-1' })).rejects.toBeInstanceOf(
+      BadRequestError,
+    );
   });
 
   it('should return empty when no contracts found', async () => {

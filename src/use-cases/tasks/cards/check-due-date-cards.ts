@@ -3,7 +3,10 @@ import type {
   NotificationTypeValue,
   NotificationPriorityValue,
 } from '@/entities/notifications/notification';
-import type { CardsRepository, OverdueCardRecord } from '@/repositories/tasks/cards-repository';
+import type {
+  CardsRepository,
+  OverdueCardRecord,
+} from '@/repositories/tasks/cards-repository';
 import type { NotificationsRepository } from '@/repositories/notifications/notifications-repository';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
@@ -50,7 +53,9 @@ export class CheckDueDateCardsUseCase {
     }
 
     // 3. Cards due within 24 hours (now + 1h < dueDate <= now + 24h)
-    const twentyFourHoursFromNow = new Date(now.getTime() + 24 * 60 * 60 * 1000);
+    const twentyFourHoursFromNow = new Date(
+      now.getTime() + 24 * 60 * 60 * 1000,
+    );
     const dueSoon24h = await this.cardsRepository.findCardsByDueDateRange(
       new Date(oneHourFromNow.getTime() + 1), // exclude 1h window
       twentyFourHoursFromNow,
@@ -94,7 +99,10 @@ export class CheckDueDateCardsUseCase {
         continue;
       }
 
-      const { title, message, type, priority } = this.buildNotification(card, level);
+      const { title, message, type, priority } = this.buildNotification(
+        card,
+        level,
+      );
 
       await this.notificationsRepository.create({
         userId: new UniqueEntityID(userId),
@@ -118,7 +126,12 @@ export class CheckDueDateCardsUseCase {
   private buildNotification(
     card: OverdueCardRecord,
     level: NotificationLevel,
-  ): { title: string; message: string; type: NotificationTypeValue; priority: NotificationPriorityValue } {
+  ): {
+    title: string;
+    message: string;
+    type: NotificationTypeValue;
+    priority: NotificationPriorityValue;
+  } {
     switch (level) {
       case 'DUE_24H':
         return {

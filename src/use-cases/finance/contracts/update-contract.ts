@@ -1,7 +1,10 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import { type ContractDTO, contractToDTO } from '@/mappers/finance/contract/contract-to-dto';
+import {
+  type ContractDTO,
+  contractToDTO,
+} from '@/mappers/finance/contract/contract-to-dto';
 import type { ContractsRepository } from '@/repositories/finance/contracts-repository';
 
 interface UpdateContractUseCaseRequest {

@@ -12,7 +12,10 @@ import type {
 } from '../payroll-items-repository';
 
 export class PrismaPayrollItemsRepository implements PayrollItemsRepository {
-  async create(data: CreatePayrollItemSchema, tx?: TransactionClient): Promise<PayrollItem> {
+  async create(
+    data: CreatePayrollItemSchema,
+    tx?: TransactionClient,
+  ): Promise<PayrollItem> {
     const client = tx ?? prisma;
     const itemData = await client.payrollItem.create({
       data: {
@@ -33,7 +36,10 @@ export class PrismaPayrollItemsRepository implements PayrollItemsRepository {
     );
   }
 
-  async createMany(data: CreatePayrollItemSchema[], tx?: TransactionClient): Promise<PayrollItem[]> {
+  async createMany(
+    data: CreatePayrollItemSchema[],
+    tx?: TransactionClient,
+  ): Promise<PayrollItem[]> {
     if (data.length === 0) return [];
 
     const client = tx ?? prisma;
@@ -99,7 +105,10 @@ export class PrismaPayrollItemsRepository implements PayrollItemsRepository {
     );
   }
 
-  async findManyByPayroll(payrollId: UniqueEntityID, tx?: TransactionClient): Promise<PayrollItem[]> {
+  async findManyByPayroll(
+    payrollId: UniqueEntityID,
+    tx?: TransactionClient,
+  ): Promise<PayrollItem[]> {
     const client = tx ?? prisma;
     const items = await client.payrollItem.findMany({
       where: {

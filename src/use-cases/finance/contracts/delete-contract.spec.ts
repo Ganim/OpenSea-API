@@ -12,7 +12,10 @@ describe('DeleteContractUseCase', () => {
   beforeEach(() => {
     contractsRepository = new InMemoryContractsRepository();
     financeEntriesRepository = new InMemoryFinanceEntriesRepository();
-    sut = new DeleteContractUseCase(contractsRepository, financeEntriesRepository);
+    sut = new DeleteContractUseCase(
+      contractsRepository,
+      financeEntriesRepository,
+    );
   });
 
   it('should soft delete a contract', async () => {

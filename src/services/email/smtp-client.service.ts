@@ -54,7 +54,13 @@ export class SmtpClientService {
     }
 
     logger.info(
-      { host: config.host, port: config.port, secure: config.secure, to: payload.to, subject: payload.subject },
+      {
+        host: config.host,
+        port: config.port,
+        secure: config.secure,
+        to: payload.to,
+        subject: payload.subject,
+      },
       '[SMTP] Sending email',
     );
 
@@ -103,7 +109,12 @@ export class SmtpClientService {
 
       if (rejected.length > 0) {
         logger.warn(
-          { rejected, accepted, messageId: result.messageId, response: result.response },
+          {
+            rejected,
+            accepted,
+            messageId: result.messageId,
+            response: result.response,
+          },
           '[SMTP] Some recipients were REJECTED by server',
         );
       }
@@ -134,7 +145,9 @@ export class SmtpClientService {
     const smtpDebug = process.env.SMTP_DEBUG === 'true';
 
     if (smtpDebug) {
-      logger.warn('[SMTP] SMTP_DEBUG is enabled — SMTP conversation will be logged. Do NOT use in production (may expose credentials).');
+      logger.warn(
+        '[SMTP] SMTP_DEBUG is enabled — SMTP conversation will be logged. Do NOT use in production (may expose credentials).',
+      );
     }
 
     const opts: SMTPTransport.Options = {
@@ -158,12 +171,14 @@ export class SmtpClientService {
       debug: smtpDebug,
       logger: smtpDebug as boolean | undefined,
       // Prevent zombie connections on unreliable mail servers
-      connectionTimeout: 30_000,  // 30s to establish TCP connection
-      greetingTimeout: 30_000,    // 30s for server greeting
-      socketTimeout: 120_000,     // 2min inactivity before closing
+      connectionTimeout: 30_000, // 30s to establish TCP connection
+      greetingTimeout: 30_000, // 30s for server greeting
+      socketTimeout: 120_000, // 2min inactivity before closing
     };
 
-    return nodemailer.createTransport(opts) as Transporter<SMTPTransport.SentMessageInfo>;
+    return nodemailer.createTransport(
+      opts,
+    ) as Transporter<SMTPTransport.SentMessageInfo>;
   }
 
   private htmlToPlainText(html: string): string {

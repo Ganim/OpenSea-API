@@ -1,4 +1,3 @@
-import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
@@ -12,9 +11,7 @@ import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
 
-export async function createProductAttachmentController(
-  app: FastifyInstance,
-) {
+export async function createProductAttachmentController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/products/:productId/attachments',
@@ -47,28 +44,22 @@ export async function createProductAttachmentController(
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
       const { productId } = request.params;
-      const { fileUrl, fileName, fileSize, mimeType, label, order } = request.body;
+      const { fileUrl, fileName, fileSize, mimeType, label, order } =
+        request.body;
 
-      try {
-        const useCase = makeCreateProductAttachmentUseCase();
-        const { productAttachment } = await useCase.execute({
-          productId,
-          tenantId,
-          fileUrl,
-          fileName,
-          fileSize,
-          mimeType,
-          label,
-          order,
-        });
+      const useCase = makeCreateProductAttachmentUseCase();
+      const { productAttachment } = await useCase.execute({
+        productId,
+        tenantId,
+        fileUrl,
+        fileName,
+        fileSize,
+        mimeType,
+        label,
+        order,
+      });
 
-        return reply.status(201).send({ productAttachment });
-      } catch (error) {
-        if (error instanceof ResourceNotFoundError) {
-          return reply.status(404).send({ message: error.message });
-        }
-        throw error;
-      }
+      return reply.status(201).send({ productAttachment });
     },
   });
 }

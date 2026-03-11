@@ -127,7 +127,9 @@ export class PrismaTenantsRepository implements TenantsRepository {
     );
   }
 
-  private buildWhereClause(filters?: TenantsListFilters): Prisma.TenantWhereInput {
+  private buildWhereClause(
+    filters?: TenantsListFilters,
+  ): Prisma.TenantWhereInput {
     const where: Prisma.TenantWhereInput = { deletedAt: null };
 
     if (filters?.search) {
@@ -223,9 +225,7 @@ export class PrismaTenantsRepository implements TenantsRepository {
   }
 
   async countTenantsByPlanTier(): Promise<Record<string, number>> {
-    const rows = await prisma.$queryRaw<
-      Array<{ tier: string; count: bigint }>
-    >`
+    const rows = await prisma.$queryRaw<Array<{ tier: string; count: bigint }>>`
       SELECT p.tier, COUNT(DISTINCT tp.tenant_id)::bigint AS count
       FROM tenant_plans tp
       INNER JOIN plans p ON p.id = tp.plan_id

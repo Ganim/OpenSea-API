@@ -109,7 +109,8 @@ export const rateLimitConfig = {
   emailSend: {
     max: 30, // 30 emails por minuto
     timeWindow: '1 minute',
-    message: 'Limite de envio de emails atingido. Aguarde antes de enviar mais.',
+    message:
+      'Limite de envio de emails atingido. Aguarde antes de enviar mais.',
   },
 
   /**
@@ -119,7 +120,8 @@ export const rateLimitConfig = {
   emailTest: {
     max: 10, // 10 tentativas por minuto
     timeWindow: '1 minute',
-    message: 'Muitas tentativas de teste de conexão. Aguarde antes de testar novamente.',
+    message:
+      'Muitas tentativas de teste de conexão. Aguarde antes de testar novamente.',
   },
 
   /**
@@ -129,7 +131,8 @@ export const rateLimitConfig = {
   protectionVerify: {
     max: 5, // 5 tentativas por minuto por item
     timeWindow: '1 minute',
-    message: 'Muitas tentativas de verificação de senha. Aguarde antes de tentar novamente.',
+    message:
+      'Muitas tentativas de verificação de senha. Aguarde antes de tentar novamente.',
   },
 } as const;
 

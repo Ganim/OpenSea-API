@@ -131,11 +131,32 @@ export class ExportAccountingDataUseCase {
         [headers.join(';'), ...rows.map((r) => r.join(';'))].join('\r\n');
       data = Buffer.from(csv, 'utf-8');
     } else if (format === 'PDF') {
-      data = await exportToPDF({ reportType, startDate, endDate, headers, rows, title });
+      data = await exportToPDF({
+        reportType,
+        startDate,
+        endDate,
+        headers,
+        rows,
+        title,
+      });
     } else if (format === 'XLSX') {
-      data = await exportToXLSX({ reportType, startDate, endDate, headers, rows, title });
+      data = await exportToXLSX({
+        reportType,
+        startDate,
+        endDate,
+        headers,
+        rows,
+        title,
+      });
     } else if (format === 'DOCX') {
-      data = await exportToDOCX({ reportType, startDate, endDate, headers, rows, title });
+      data = await exportToDOCX({
+        reportType,
+        startDate,
+        endDate,
+        headers,
+        rows,
+        title,
+      });
     } else {
       throw new Error(`Formato de exportacao invalido: ${format}`);
     }
@@ -158,7 +179,14 @@ export class ExportAccountingDataUseCase {
   ): Promise<{ headers: string[]; rows: string[][] }> {
     switch (reportType) {
       case 'ENTRIES':
-        return this.extractEntries(tenantId, startDate, endDate, type, costCenterId, categoryId);
+        return this.extractEntries(
+          tenantId,
+          startDate,
+          endDate,
+          type,
+          costCenterId,
+          categoryId,
+        );
       case 'DRE':
         return this.extractDRE(tenantId, startDate, endDate);
       case 'BALANCE':

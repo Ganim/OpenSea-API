@@ -1,4 +1,4 @@
-import type { Company } from '@/entities/hr/company';
+import type { Company } from '@/entities/core/company';
 import type { Department } from '@/entities/hr/department';
 import type { Employee } from '@/entities/hr/employee';
 import type { Position } from '@/entities/hr/position';

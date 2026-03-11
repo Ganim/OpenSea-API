@@ -17,7 +17,12 @@ describe('Upload My Avatar (E2E)', () => {
     tenantId = tenant.tenantId;
 
     testImageBuffer = await sharp({
-      create: { width: 100, height: 100, channels: 3, background: { r: 0, g: 0, b: 255 } },
+      create: {
+        width: 100,
+        height: 100,
+        channels: 3,
+        background: { r: 0, g: 0, b: 255 },
+      },
     })
       .jpeg()
       .toBuffer();
@@ -33,7 +38,10 @@ describe('Upload My Avatar (E2E)', () => {
     const response = await request(app.server)
       .post('/v1/me/avatar')
       .set('Authorization', `Bearer ${token}`)
-      .attach('file', testImageBuffer, { filename: 'avatar.jpg', contentType: 'image/jpeg' })
+      .attach('file', testImageBuffer, {
+        filename: 'avatar.jpg',
+        contentType: 'image/jpeg',
+      })
       .field('cropX', '0')
       .field('cropY', '0')
       .field('cropWidth', '100')
@@ -57,7 +65,10 @@ describe('Upload My Avatar (E2E)', () => {
     const response = await request(app.server)
       .post('/v1/me/avatar')
       .set('Authorization', `Bearer ${token}`)
-      .attach('file', testImageBuffer, { filename: 'avatar.jpg', contentType: 'image/jpeg' });
+      .attach('file', testImageBuffer, {
+        filename: 'avatar.jpg',
+        contentType: 'image/jpeg',
+      });
 
     expect(response.status).toBe(403);
     expect(response.body.message).toContain('RH');
@@ -77,7 +88,10 @@ describe('Upload My Avatar (E2E)', () => {
   it('should return 401 without auth', async () => {
     const response = await request(app.server)
       .post('/v1/me/avatar')
-      .attach('file', testImageBuffer, { filename: 'avatar.jpg', contentType: 'image/jpeg' });
+      .attach('file', testImageBuffer, {
+        filename: 'avatar.jpg',
+        contentType: 'image/jpeg',
+      });
 
     expect(response.status).toBe(401);
   });
@@ -89,7 +103,10 @@ describe('Upload My Avatar (E2E)', () => {
     const first = await request(app.server)
       .post('/v1/me/avatar')
       .set('Authorization', `Bearer ${token}`)
-      .attach('file', testImageBuffer, { filename: 'avatar1.jpg', contentType: 'image/jpeg' });
+      .attach('file', testImageBuffer, {
+        filename: 'avatar1.jpg',
+        contentType: 'image/jpeg',
+      });
 
     expect(first.status).toBe(200);
     const firstUrl = first.body.avatarUrl;
@@ -98,7 +115,10 @@ describe('Upload My Avatar (E2E)', () => {
     const second = await request(app.server)
       .post('/v1/me/avatar')
       .set('Authorization', `Bearer ${token}`)
-      .attach('file', testImageBuffer, { filename: 'avatar2.jpg', contentType: 'image/jpeg' });
+      .attach('file', testImageBuffer, {
+        filename: 'avatar2.jpg',
+        contentType: 'image/jpeg',
+      });
 
     expect(second.status).toBe(200);
     expect(second.body.avatarUrl).not.toBe(firstUrl);

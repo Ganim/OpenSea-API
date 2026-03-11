@@ -1,6 +1,9 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import { type ContractDTO, contractToDTO } from '@/mappers/finance/contract/contract-to-dto';
+import {
+  type ContractDTO,
+  contractToDTO,
+} from '@/mappers/finance/contract/contract-to-dto';
 import type { ContractsRepository } from '@/repositories/finance/contracts-repository';
 import type { FinanceEntriesRepository } from '@/repositories/finance/finance-entries-repository';
 
@@ -45,10 +48,13 @@ export class GetContractByIdUseCase {
     // Find the next pending payment
     const now = new Date();
     const pendingEntries = linkedEntries.entries
-      .filter((e) => ['PENDING', 'SCHEDULED'].includes(e.status) && e.dueDate >= now)
+      .filter(
+        (e) => ['PENDING', 'SCHEDULED'].includes(e.status) && e.dueDate >= now,
+      )
       .sort((a, b) => a.dueDate.getTime() - b.dueDate.getTime());
 
-    const nextPaymentDate = pendingEntries.length > 0 ? pendingEntries[0].dueDate : undefined;
+    const nextPaymentDate =
+      pendingEntries.length > 0 ? pendingEntries[0].dueDate : undefined;
 
     return {
       contract: contractToDTO(contract),

@@ -2,6 +2,10 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { ItemMovement } from '@/entities/stock/item-movement';
 import { MovementType } from '@/entities/stock/value-objects/movement-type';
 import type {
+  PaginatedResult,
+  PaginationParams,
+} from '../../pagination-params';
+import type {
   CreateItemMovementSchema,
   ItemMovementsRepository,
   UpdateItemMovementSchema,
@@ -11,6 +15,21 @@ export class InMemoryItemMovementsRepository
   implements ItemMovementsRepository
 {
   public items: ItemMovement[] = [];
+
+  private paginate(
+    items: ItemMovement[],
+    params: PaginationParams,
+  ): PaginatedResult<ItemMovement> {
+    const total = items.length;
+    const start = (params.page - 1) * params.limit;
+    return {
+      data: items.slice(start, start + params.limit),
+      total,
+      page: params.page,
+      limit: params.limit,
+      totalPages: Math.ceil(total / params.limit),
+    };
+  }
 
   async create(data: CreateItemMovementSchema): Promise<ItemMovement> {
     const movement = ItemMovement.create({
@@ -109,6 +128,59 @@ export class InMemoryItemMovementsRepository
     return this.items.filter(
       (movement) => movement.tenantId.toString() === tenantId,
     );
+  }
+
+  async findAllPaginated(
+    tenantId: string,
+    params: PaginationParams,
+  ): Promise<PaginatedResult<ItemMovement>> {
+    const all = await this.findAll(tenantId);
+    return this.paginate(all, params);
+  }
+
+  async findManyByItemPaginated(
+    itemId: UniqueEntityID,
+    tenantId: string,
+    params: PaginationParams,
+  ): Promise<PaginatedResult<ItemMovement>> {
+    const all = await this.findManyByItem(itemId, tenantId);
+    return this.paginate(all, params);
+  }
+
+  async findManyByUserPaginated(
+    userId: UniqueEntityID,
+    tenantId: string,
+    params: PaginationParams,
+  ): Promise<PaginatedResult<ItemMovement>> {
+    const all = await this.findManyByUser(userId, tenantId);
+    return this.paginate(all, params);
+  }
+
+  async findManyByTypePaginated(
+    movementType: MovementType,
+    tenantId: string,
+    params: PaginationParams,
+  ): Promise<PaginatedResult<ItemMovement>> {
+    const all = await this.findManyByType(movementType, tenantId);
+    return this.paginate(all, params);
+  }
+
+  async findManyByBatchPaginated(
+    batchNumber: string,
+    tenantId: string,
+    params: PaginationParams,
+  ): Promise<PaginatedResult<ItemMovement>> {
+    const all = await this.findManyByBatch(batchNumber, tenantId);
+    return this.paginate(all, params);
+  }
+
+  async findManyBySalesOrderPaginated(
+    salesOrderId: UniqueEntityID,
+    tenantId: string,
+    params: PaginationParams,
+  ): Promise<PaginatedResult<ItemMovement>> {
+    const all = await this.findManyBySalesOrder(salesOrderId, tenantId);
+    return this.paginate(all, params);
   }
 
   async update(data: UpdateItemMovementSchema): Promise<ItemMovement | null> {

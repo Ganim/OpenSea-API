@@ -1,5 +1,3 @@
-import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
-import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
@@ -54,27 +52,17 @@ export async function updateZoneController(app: FastifyInstance) {
       const { id } = request.params;
       const { code, name, description, isActive } = request.body;
 
-      try {
-        const updateZoneUseCase = makeUpdateZoneUseCase();
-        const { zone } = await updateZoneUseCase.execute({
-          tenantId,
-          id,
-          code,
-          name,
-          description,
-          isActive,
-        });
+      const updateZoneUseCase = makeUpdateZoneUseCase();
+      const { zone } = await updateZoneUseCase.execute({
+        tenantId,
+        id,
+        code,
+        name,
+        description,
+        isActive,
+      });
 
-        return reply.status(200).send({ zone: zoneToDTO(zone) });
-      } catch (error) {
-        if (error instanceof BadRequestError) {
-          return reply.status(400).send({ message: error.message });
-        }
-        if (error instanceof ResourceNotFoundError) {
-          return reply.status(404).send({ message: error.message });
-        }
-        throw error;
-      }
+      return reply.status(200).send({ zone: zoneToDTO(zone) });
     },
   });
 }

@@ -115,8 +115,9 @@ describe('List Card Watchers (E2E)', () => {
     const { board, columns } = await createTaskBoard(tenantId, userId);
     const card = await createTaskCard(board.id, columns[0].id, userId);
 
-    const response = await request(app.server)
-      .get(`/v1/tasks/boards/${board.id}/cards/${card.id}/watchers`);
+    const response = await request(app.server).get(
+      `/v1/tasks/boards/${board.id}/cards/${card.id}/watchers`,
+    );
 
     expect(response.status).toBe(401);
   });

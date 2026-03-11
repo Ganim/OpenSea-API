@@ -9,6 +9,10 @@ import type {
   ProductStatus as PrismaProductStatus,
 } from '@prisma/generated/client';
 import type {
+  PaginatedResult,
+  PaginationParams,
+} from '../../pagination-params';
+import type {
   CreateProductSchema,
   ProductsRepository,
   UpdateProductSchema,
@@ -175,25 +179,35 @@ export class PrismaProductsRepository implements ProductsRepository {
         tenantId,
         deletedAt: null,
       },
-      include: {
-        template: true,
-        supplier: true,
-        manufacturer: true,
-        variants: {
-          where: { deletedAt: null },
-        },
-        productCategories: {
-          include: { category: true },
-          where: { category: { deletedAt: null } },
-        },
-        productTags: {
-          include: { tag: true },
-          where: { tag: { deletedAt: null } },
-        },
-      },
+      include: productInclude,
     });
 
     return products.map(productPrismaToDomain);
+  }
+
+  async findManyPaginated(
+    tenantId: string,
+    params: PaginationParams,
+  ): Promise<PaginatedResult<Product>> {
+    const where = { tenantId, deletedAt: null };
+    const [products, total] = await Promise.all([
+      prisma.product.findMany({
+        where,
+        include: productInclude,
+        orderBy: { createdAt: 'desc' },
+        skip: (params.page - 1) * params.limit,
+        take: params.limit,
+      }),
+      prisma.product.count({ where }),
+    ]);
+
+    return {
+      data: products.map(productPrismaToDomain),
+      total,
+      page: params.page,
+      limit: params.limit,
+      totalPages: Math.ceil(total / params.limit),
+    };
   }
 
   async findManyByStatus(
@@ -212,6 +226,36 @@ export class PrismaProductsRepository implements ProductsRepository {
     return products.map(productPrismaToDomain);
   }
 
+  async findManyByStatusPaginated(
+    status: ProductStatus,
+    tenantId: string,
+    params: PaginationParams,
+  ): Promise<PaginatedResult<Product>> {
+    const where = {
+      status: status.value as PrismaProductStatus,
+      tenantId,
+      deletedAt: null,
+    };
+    const [products, total] = await Promise.all([
+      prisma.product.findMany({
+        where,
+        include: productInclude,
+        orderBy: { createdAt: 'desc' },
+        skip: (params.page - 1) * params.limit,
+        take: params.limit,
+      }),
+      prisma.product.count({ where }),
+    ]);
+
+    return {
+      data: products.map(productPrismaToDomain),
+      total,
+      page: params.page,
+      limit: params.limit,
+      totalPages: Math.ceil(total / params.limit),
+    };
+  }
+
   async findManyByTemplate(
     templateId: UniqueEntityID,
     tenantId: string,
@@ -226,6 +270,36 @@ export class PrismaProductsRepository implements ProductsRepository {
     });
 
     return products.map(productPrismaToDomain);
+  }
+
+  async findManyByTemplatePaginated(
+    templateId: UniqueEntityID,
+    tenantId: string,
+    params: PaginationParams,
+  ): Promise<PaginatedResult<Product>> {
+    const where = {
+      templateId: templateId.toString(),
+      tenantId,
+      deletedAt: null,
+    };
+    const [products, total] = await Promise.all([
+      prisma.product.findMany({
+        where,
+        include: productInclude,
+        orderBy: { createdAt: 'desc' },
+        skip: (params.page - 1) * params.limit,
+        take: params.limit,
+      }),
+      prisma.product.count({ where }),
+    ]);
+
+    return {
+      data: products.map(productPrismaToDomain),
+      total,
+      page: params.page,
+      limit: params.limit,
+      totalPages: Math.ceil(total / params.limit),
+    };
   }
 
   async findManyByManufacturer(
@@ -244,6 +318,36 @@ export class PrismaProductsRepository implements ProductsRepository {
     return products.map(productPrismaToDomain);
   }
 
+  async findManyByManufacturerPaginated(
+    manufacturerId: UniqueEntityID,
+    tenantId: string,
+    params: PaginationParams,
+  ): Promise<PaginatedResult<Product>> {
+    const where = {
+      manufacturerId: manufacturerId.toString(),
+      tenantId,
+      deletedAt: null,
+    };
+    const [products, total] = await Promise.all([
+      prisma.product.findMany({
+        where,
+        include: productInclude,
+        orderBy: { createdAt: 'desc' },
+        skip: (params.page - 1) * params.limit,
+        take: params.limit,
+      }),
+      prisma.product.count({ where }),
+    ]);
+
+    return {
+      data: products.map(productPrismaToDomain),
+      total,
+      page: params.page,
+      limit: params.limit,
+      totalPages: Math.ceil(total / params.limit),
+    };
+  }
+
   async findManyByCategory(
     categoryId: UniqueEntityID,
     tenantId: string,
@@ -251,9 +355,7 @@ export class PrismaProductsRepository implements ProductsRepository {
     const products = await prisma.product.findMany({
       where: {
         productCategories: {
-          some: {
-            categoryId: categoryId.toString(),
-          },
+          some: { categoryId: categoryId.toString() },
         },
         tenantId,
         deletedAt: null,
@@ -262,6 +364,38 @@ export class PrismaProductsRepository implements ProductsRepository {
     });
 
     return products.map(productPrismaToDomain);
+  }
+
+  async findManyByCategoryPaginated(
+    categoryId: UniqueEntityID,
+    tenantId: string,
+    params: PaginationParams,
+  ): Promise<PaginatedResult<Product>> {
+    const where = {
+      productCategories: {
+        some: { categoryId: categoryId.toString() },
+      },
+      tenantId,
+      deletedAt: null,
+    };
+    const [products, total] = await Promise.all([
+      prisma.product.findMany({
+        where,
+        include: productInclude,
+        orderBy: { createdAt: 'desc' },
+        skip: (params.page - 1) * params.limit,
+        take: params.limit,
+      }),
+      prisma.product.count({ where }),
+    ]);
+
+    return {
+      data: products.map(productPrismaToDomain),
+      total,
+      page: params.page,
+      limit: params.limit,
+      totalPages: Math.ceil(total / params.limit),
+    };
   }
 
   async update(data: UpdateProductSchema): Promise<Product | null> {

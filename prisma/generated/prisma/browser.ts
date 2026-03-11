@@ -443,6 +443,11 @@ export type FinanceCategory = Prisma.FinanceCategoryModel
  */
 export type FinanceEntry = Prisma.FinanceEntryModel
 /**
+ * Model FinanceCodeSequence
+ * 
+ */
+export type FinanceCodeSequence = Prisma.FinanceCodeSequenceModel
+/**
  * Model FinanceEntryPayment
  * 
  */

@@ -6,5 +6,8 @@ export function makeCreateContractUseCase() {
   const contractsRepository = new PrismaContractsRepository();
   const financeEntriesRepository = new PrismaFinanceEntriesRepository();
 
-  return new CreateContractUseCase(contractsRepository, financeEntriesRepository);
+  return new CreateContractUseCase(
+    contractsRepository,
+    financeEntriesRepository,
+  );
 }

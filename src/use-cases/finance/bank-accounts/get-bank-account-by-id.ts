@@ -29,7 +29,10 @@ export class GetBankAccountByIdUseCase {
     );
 
     if (!bankAccount) {
-      throw new ResourceNotFoundError('Bank account not found', ErrorCodes.FINANCE_BANK_ACCOUNT_NOT_FOUND);
+      throw new ResourceNotFoundError(
+        'Bank account not found',
+        ErrorCodes.FINANCE_BANK_ACCOUNT_NOT_FOUND,
+      );
     }
 
     return { bankAccount: bankAccountToDTO(bankAccount) };

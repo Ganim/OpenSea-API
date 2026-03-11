@@ -11,6 +11,7 @@ import type { ItemMovementsRepository } from '@/repositories/stock/item-movement
 import type { ItemsRepository } from '@/repositories/stock/items-repository';
 import type { WarehousesRepository } from '@/repositories/stock/warehouses-repository';
 import type { ZonesRepository } from '@/repositories/stock/zones-repository';
+import type { TransactionManager } from '@/lib/transaction-manager';
 import {
   computeZoneDiff,
   type ZoneDiffResult,
@@ -50,6 +51,7 @@ export class ConfigureZoneStructureUseCase {
     private warehousesRepository: WarehousesRepository,
     private itemsRepository: ItemsRepository,
     private itemMovementsRepository: ItemMovementsRepository,
+    private transactionManager: TransactionManager,
   ) {}
 
   async execute({
@@ -91,175 +93,181 @@ export class ConfigureZoneStructureUseCase {
       );
     }
 
-    let binsCreated = 0;
-    let binsPreserved = 0;
-    let binsUpdated = 0;
-    let binsDeleted = 0;
-    let binsBlocked = 0;
-    let itemsDetached = 0;
-    let blockedBins: BlockedBinInfo[] = [];
+    return this.transactionManager.run(async () => {
+      let binsCreated = 0;
+      let binsPreserved = 0;
+      let binsUpdated = 0;
+      let binsDeleted = 0;
+      let binsBlocked = 0;
+      let itemsDetached = 0;
+      let blockedBins: BlockedBinInfo[] = [];
 
-    if (regenerateBins) {
-      const existingBins = await this.binsRepository.findManyByZone(
-        zoneEntityId,
-        tenantId,
-      );
-
-      const newBinData = zoneStructure.generateBinData(
-        warehouse.code,
-        zone.code,
-      );
-
-      if (existingBins.length === 0) {
-        // First configuration: create all bins directly
-        binsCreated = await this.binsRepository.createMany({
-          tenantId,
-          zoneId: zoneEntityId,
-          bins: newBinData,
-        });
-      } else {
-        // Reconfiguration: compute diff
-        const binItemCounts = await this.binsRepository.countItemsPerBin(
+      if (regenerateBins) {
+        const existingBins = await this.binsRepository.findManyByZone(
           zoneEntityId,
           tenantId,
         );
 
-        const diff: ZoneDiffResult = computeZoneDiff(
-          existingBins,
-          newBinData,
-          binItemCounts,
+        const newBinData = zoneStructure.generateBinData(
+          warehouse.code,
+          zone.code,
         );
 
-        // Block if occupied bins being removed and not forced
-        if (diff.toBlock.length > 0 && !forceRemoveOccupiedBins) {
-          const totalAffectedItems = diff.toBlock.reduce(
-            (sum, b) => sum + b.itemCount,
-            0,
-          );
-          throw new BadRequestError(
-            `Reconfiguration would affect ${diff.toBlock.length} bin(s) containing ` +
-              `${totalAffectedItems} item(s). These bins will be blocked for relocation. ` +
-              `Use forceRemoveOccupiedBins=true to proceed.`,
-          );
-        }
-
-        // 1. Update addresses of preserved bins if codePattern changed
-        const addressUpdates = diff.toPreserve
-          .filter((p) => p.addressChanged)
-          .map((p) => ({
-            id: p.existingBin.binId.toString(),
-            address: p.newAddress,
-          }));
-
-        if (addressUpdates.length > 0) {
-          binsUpdated =
-            await this.binsRepository.updateAddressMany(addressUpdates);
-        }
-
-        // 2. Create new bins
-        if (diff.toCreate.length > 0) {
+        if (existingBins.length === 0) {
+          // First configuration: create all bins directly
           binsCreated = await this.binsRepository.createMany({
             tenantId,
             zoneId: zoneEntityId,
-            bins: diff.toCreate,
+            bins: newBinData,
           });
-        }
+        } else {
+          // Reconfiguration: compute diff
+          const binItemCounts = await this.binsRepository.countItemsPerBin(
+            zoneEntityId,
+            tenantId,
+          );
 
-        // 3. Soft-delete empty removed bins
-        if (diff.toDelete.length > 0) {
-          const deleteIds = diff.toDelete.map((b) => b.binId.toString());
-          binsDeleted = await this.binsRepository.softDeleteMany(deleteIds);
-        }
+          const diff: ZoneDiffResult = computeZoneDiff(
+            existingBins,
+            newBinData,
+            binItemCounts,
+          );
 
-        // 4. Handle occupied removed bins
-        if (diff.toBlock.length > 0) {
-          if (forceRemoveOccupiedBins) {
-            const blockBinIds = diff.toBlock.map((b) => b.bin.binId.toString());
+          // Block if occupied bins being removed and not forced
+          if (diff.toBlock.length > 0 && !forceRemoveOccupiedBins) {
+            const totalAffectedItems = diff.toBlock.reduce(
+              (sum, b) => sum + b.itemCount,
+              0,
+            );
+            throw new BadRequestError(
+              `Reconfiguration would affect ${diff.toBlock.length} bin(s) containing ` +
+                `${totalAffectedItems} item(s). These bins will be blocked for relocation. ` +
+                `Use forceRemoveOccupiedBins=true to proceed.`,
+            );
+          }
 
-            // Build items data for movement records
-            const itemsForMovements: Array<{
-              itemId: string;
-              binAddress: string;
-              currentQuantity: number;
-            }> = [];
+          // 1. Update addresses of preserved bins if codePattern changed
+          const addressUpdates = diff.toPreserve
+            .filter((p) => p.addressChanged)
+            .map((p) => ({
+              id: p.existingBin.binId.toString(),
+              address: p.newAddress,
+            }));
 
-            for (const { bin } of diff.toBlock) {
-              const binItems = await this.itemsRepository.findManyByBin(
-                bin.binId,
+          if (addressUpdates.length > 0) {
+            binsUpdated =
+              await this.binsRepository.updateAddressMany(addressUpdates);
+          }
+
+          // 2. Create new bins
+          if (diff.toCreate.length > 0) {
+            binsCreated = await this.binsRepository.createMany({
+              tenantId,
+              zoneId: zoneEntityId,
+              bins: diff.toCreate,
+            });
+          }
+
+          // 3. Soft-delete empty removed bins
+          if (diff.toDelete.length > 0) {
+            const deleteIds = diff.toDelete.map((b) => b.binId.toString());
+            binsDeleted = await this.binsRepository.softDeleteMany(deleteIds);
+          }
+
+          // 4. Handle occupied removed bins
+          if (diff.toBlock.length > 0) {
+            if (forceRemoveOccupiedBins) {
+              const blockBinIds = diff.toBlock.map((b) =>
+                b.bin.binId.toString(),
+              );
+
+              // Build items data for movement records
+              const itemsForMovements: Array<{
+                itemId: string;
+                binAddress: string;
+                currentQuantity: number;
+              }> = [];
+
+              for (const { bin } of diff.toBlock) {
+                const binItems = await this.itemsRepository.findManyByBin(
+                  bin.binId,
+                  tenantId,
+                );
+                for (const item of binItems) {
+                  itemsForMovements.push({
+                    itemId: item.id.toString(),
+                    binAddress: bin.address,
+                    currentQuantity: item.currentQuantity,
+                  });
+                }
+              }
+
+              // Detach items (sets lastKnownAddress, clears binId)
+              itemsDetached = await this.itemsRepository.detachItemsFromBins(
+                blockBinIds,
                 tenantId,
               );
-              for (const item of binItems) {
-                itemsForMovements.push({
-                  itemId: item.id.toString(),
-                  binAddress: bin.address,
-                  currentQuantity: item.currentQuantity,
+
+              // Create ZONE_RECONFIGURE movements
+              if (itemsForMovements.length > 0) {
+                await this.itemMovementsRepository.createBatchForZoneReconfigure(
+                  {
+                    tenantId,
+                    items: itemsForMovements,
+                    userId,
+                    notes: `Zone ${zone.code} reconfigured. Bins removed from structure.`,
+                  },
+                );
+              }
+
+              // Soft-delete the bins
+              binsDeleted +=
+                await this.binsRepository.softDeleteMany(blockBinIds);
+            } else {
+              // Block bins (mark as blocked, don't delete)
+              for (const { bin } of diff.toBlock) {
+                await this.binsRepository.update({
+                  id: bin.binId,
+                  isBlocked: true,
+                  blockReason:
+                    'Removed from zone structure. Contains items pending relocation.',
                 });
               }
+              binsBlocked = diff.toBlock.length;
             }
-
-            // Detach items (sets lastKnownAddress, clears binId)
-            itemsDetached = await this.itemsRepository.detachItemsFromBins(
-              blockBinIds,
-              tenantId,
-            );
-
-            // Create ZONE_RECONFIGURE movements
-            if (itemsForMovements.length > 0) {
-              await this.itemMovementsRepository.createBatchForZoneReconfigure({
-                tenantId,
-                items: itemsForMovements,
-                userId,
-                notes: `Zone ${zone.code} reconfigured. Bins removed from structure.`,
-              });
-            }
-
-            // Soft-delete the bins
-            binsDeleted +=
-              await this.binsRepository.softDeleteMany(blockBinIds);
-          } else {
-            // Block bins (mark as blocked, don't delete)
-            for (const { bin } of diff.toBlock) {
-              await this.binsRepository.update({
-                id: bin.binId,
-                isBlocked: true,
-                blockReason:
-                  'Removed from zone structure. Contains items pending relocation.',
-              });
-            }
-            binsBlocked = diff.toBlock.length;
           }
+
+          binsPreserved = diff.toPreserve.length;
+          blockedBins = diff.toBlock
+            .filter(() => !forceRemoveOccupiedBins)
+            .map((b) => ({
+              binId: b.bin.binId.toString(),
+              address: b.bin.address,
+              itemCount: b.itemCount,
+            }));
         }
-
-        binsPreserved = diff.toPreserve.length;
-        blockedBins = diff.toBlock
-          .filter(() => !forceRemoveOccupiedBins)
-          .map((b) => ({
-            binId: b.bin.binId.toString(),
-            address: b.bin.address,
-            itemCount: b.itemCount,
-          }));
       }
-    }
 
-    // Update zone structure
-    const updatedZone = await this.zonesRepository.updateStructure({
-      id: zoneEntityId,
-      structure: zoneStructure.toJSON(),
+      // Update zone structure
+      const updatedZone = await this.zonesRepository.updateStructure({
+        id: zoneEntityId,
+        structure: zoneStructure.toJSON(),
+      });
+
+      if (!updatedZone) {
+        throw new ResourceNotFoundError('Zone');
+      }
+
+      return {
+        zone: updatedZone,
+        binsCreated,
+        binsPreserved,
+        binsUpdated,
+        binsDeleted,
+        binsBlocked,
+        itemsDetached,
+        blockedBins,
+      };
     });
-
-    if (!updatedZone) {
-      throw new ResourceNotFoundError('Zone');
-    }
-
-    return {
-      zone: updatedZone,
-      binsCreated,
-      binsPreserved,
-      binsUpdated,
-      binsDeleted,
-      binsBlocked,
-      itemsDetached,
-      blockedBins,
-    };
   }
 }

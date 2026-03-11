@@ -17,9 +17,7 @@ function formatDateBR(date: Date): string {
   return `${day}/${month}/${year}`;
 }
 
-export async function exportToPDF(
-  request: ExportPDFRequest,
-): Promise<Buffer> {
+export async function exportToPDF(request: ExportPDFRequest): Promise<Buffer> {
   const { title, startDate, endDate, headers, rows } = request;
 
   return new Promise<Buffer>((resolve, reject) => {
@@ -40,14 +38,14 @@ export async function exportToPDF(
     doc
       .fontSize(10)
       .font('Helvetica')
-      .text(
-        `Periodo: ${formatDateBR(startDate)} a ${formatDateBR(endDate)}`,
-        { align: 'center' },
-      );
+      .text(`Periodo: ${formatDateBR(startDate)} a ${formatDateBR(endDate)}`, {
+        align: 'center',
+      });
     doc.moveDown(1);
 
     // Table
-    const pageWidth = doc.page.width - doc.page.margins.left - doc.page.margins.right;
+    const pageWidth =
+      doc.page.width - doc.page.margins.left - doc.page.margins.right;
     const colCount = headers.length;
     const colWidth = pageWidth / colCount;
     const rowHeight = 20;
@@ -63,7 +61,10 @@ export async function exportToPDF(
       });
     }
     y += rowHeight;
-    doc.moveTo(startX, y - 4).lineTo(startX + pageWidth, y - 4).stroke();
+    doc
+      .moveTo(startX, y - 4)
+      .lineTo(startX + pageWidth, y - 4)
+      .stroke();
 
     // Draw data rows
     doc.font('Helvetica').fontSize(7);

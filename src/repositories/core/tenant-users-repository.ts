@@ -1,5 +1,6 @@
 import type { TenantUser } from '@/entities/core/tenant-user';
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import type { TransactionClient } from '@/lib/transaction-manager';
 
 export interface CreateTenantUserSchema {
   tenantId: UniqueEntityID;
@@ -8,7 +9,10 @@ export interface CreateTenantUserSchema {
 }
 
 export interface TenantUsersRepository {
-  create(data: CreateTenantUserSchema): Promise<TenantUser>;
+  create(
+    data: CreateTenantUserSchema,
+    tx?: TransactionClient,
+  ): Promise<TenantUser>;
   delete(tenantId: UniqueEntityID, userId: UniqueEntityID): Promise<void>;
   findByTenantAndUser(
     tenantId: UniqueEntityID,

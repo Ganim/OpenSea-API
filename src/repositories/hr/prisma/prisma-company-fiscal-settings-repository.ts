@@ -3,7 +3,7 @@ import {
   CompanyFiscalSettings,
   type NfeEnvironment,
   type DigitalCertificateType,
-} from '@/entities/hr/company-fiscal-settings';
+} from '@/entities/core/company-fiscal-settings';
 import { prisma } from '@/lib/prisma';
 import { mapCompanyFiscalSettingsPrismaToDomain } from '@/mappers/hr/company-fiscal-settings';
 import type { Prisma } from '@prisma/generated/client.js';

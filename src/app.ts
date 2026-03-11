@@ -8,10 +8,10 @@ import swagger from '@fastify/swagger';
 import swaggerUI from '@fastify/swagger-ui';
 import fastify from 'fastify';
 import {
-    jsonSchemaTransform,
-    jsonSchemaTransformObject,
-    serializerCompiler,
-    validatorCompiler,
+  jsonSchemaTransform,
+  jsonSchemaTransformObject,
+  serializerCompiler,
+  validatorCompiler,
 } from 'fastify-type-provider-zod';
 import { SwaggerTheme, SwaggerThemeNameEnum } from 'swagger-themes';
 import { env } from './@env';
@@ -127,7 +127,12 @@ app.register(cors, {
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
-  exposedHeaders: ['Content-Length', 'Content-Disposition', 'X-Request-Id', 'ETag'],
+  exposedHeaders: [
+    'Content-Length',
+    'Content-Disposition',
+    'X-Request-Id',
+    'ETag',
+  ],
 });
 
 // Rate limiting global (disabled in tests to avoid flakiness)
@@ -210,10 +215,10 @@ app.register(fastifyCookie);
 app.register(multipart, {
   limits: {
     fileSize: 25 * 1024 * 1024, // 25MB per file (email standard)
-    files: 10,                   // max 10 files per request
-    fields: 20,                  // max 20 text fields per request
-    fieldSize: 5_000_000,        // max 5MB per text field (large HTML bodies)
-    headerPairs: 2000,           // max header pairs
+    files: 10, // max 10 files per request
+    fields: 20, // max 20 text fields per request
+    fieldSize: 5_000_000, // max 5MB per text field (large HTML bodies)
+    headerPairs: 2000, // max header pairs
   },
 });
 

@@ -1,13 +1,18 @@
+import type {
+  FinanceEntryType,
+  RecurrenceUnit,
+} from '@/entities/finance/finance-entry-types';
 import type { FinanceEntriesRepository } from '@/repositories/finance/finance-entries-repository';
 import {
   type FinanceEntryDTO,
   financeEntryToDTO,
 } from '@/mappers/finance/finance-entry/finance-entry-to-dto';
+import { calculateNextDate } from '@/utils/finance/calculate-next-date';
 
 interface GenerateRecurringEntriesUseCaseRequest {
   tenantId: string;
   parentEntryId: string;
-  type: string;
+  type: FinanceEntryType;
   description: string;
   notes?: string;
   categoryId: string;
@@ -23,7 +28,7 @@ interface GenerateRecurringEntriesUseCaseRequest {
   dueDate: Date;
   competenceDate?: Date;
   recurrenceInterval: number;
-  recurrenceUnit: string;
+  recurrenceUnit: RecurrenceUnit;
   totalInstallments: number;
   boletoBarcode?: string;
   boletoDigitLine?: string;
@@ -44,7 +49,7 @@ export class GenerateRecurringEntriesUseCase {
     const entries: FinanceEntryDTO[] = [];
 
     for (let i = 1; i <= request.totalInstallments; i++) {
-      const installmentDueDate = this.calculateNextDate(
+      const installmentDueDate = calculateNextDate(
         request.dueDate,
         request.recurrenceInterval,
         request.recurrenceUnit,
@@ -90,41 +95,5 @@ export class GenerateRecurringEntriesUseCase {
     }
 
     return { entries };
-  }
-
-  private calculateNextDate(
-    baseDate: Date,
-    interval: number,
-    unit: string,
-    multiplier: number,
-  ): Date {
-    const date = new Date(baseDate);
-    const totalInterval = interval * multiplier;
-
-    switch (unit) {
-      case 'DAILY':
-        date.setUTCDate(date.getUTCDate() + totalInterval);
-        break;
-      case 'WEEKLY':
-        date.setUTCDate(date.getUTCDate() + totalInterval * 7);
-        break;
-      case 'BIWEEKLY':
-        date.setUTCDate(date.getUTCDate() + totalInterval * 14);
-        break;
-      case 'MONTHLY':
-        date.setUTCMonth(date.getUTCMonth() + totalInterval);
-        break;
-      case 'QUARTERLY':
-        date.setUTCMonth(date.getUTCMonth() + totalInterval * 3);
-        break;
-      case 'SEMIANNUAL':
-        date.setUTCMonth(date.getUTCMonth() + totalInterval * 6);
-        break;
-      case 'ANNUAL':
-        date.setUTCFullYear(date.getUTCFullYear() + totalInterval);
-        break;
-    }
-
-    return date;
   }
 }

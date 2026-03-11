@@ -1,4 +1,3 @@
-import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
@@ -53,16 +52,29 @@ export async function createCategoryController(app: FastifyInstance) {
       } = request.body;
       const userId = request.user.sub;
 
-      try {
-        const getUserByIdUseCase = makeGetUserByIdUseCase();
-        const { user } = await getUserByIdUseCase.execute({ userId });
-        const userName = user.profile?.name
-          ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
-          : user.username || user.email;
+      const getUserByIdUseCase = makeGetUserByIdUseCase();
+      const { user } = await getUserByIdUseCase.execute({ userId });
+      const userName = user.profile?.name
+        ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
+        : user.username || user.email;
 
-        const createCategoryUseCase = makeCreateCategoryUseCase();
-        const { category } = await createCategoryUseCase.execute({
-          tenantId,
+      const createCategoryUseCase = makeCreateCategoryUseCase();
+      const { category } = await createCategoryUseCase.execute({
+        tenantId,
+        name,
+        slug,
+        description,
+        iconUrl,
+        parentId,
+        displayOrder,
+        isActive,
+      });
+
+      await logAudit(request, {
+        message: AUDIT_MESSAGES.STOCK.CATEGORY_CREATE,
+        entityId: category.id.toString(),
+        placeholders: { userName, categoryName: category.name },
+        newData: {
           name,
           slug,
           description,
@@ -70,30 +82,10 @@ export async function createCategoryController(app: FastifyInstance) {
           parentId,
           displayOrder,
           isActive,
-        });
+        },
+      });
 
-        await logAudit(request, {
-          message: AUDIT_MESSAGES.STOCK.CATEGORY_CREATE,
-          entityId: category.id.toString(),
-          placeholders: { userName, categoryName: category.name },
-          newData: {
-            name,
-            slug,
-            description,
-            iconUrl,
-            parentId,
-            displayOrder,
-            isActive,
-          },
-        });
-
-        return reply.status(201).send({ category: categoryToDTO(category) });
-      } catch (error) {
-        if (error instanceof BadRequestError) {
-          return reply.status(400).send({ message: error.message });
-        }
-        throw error;
-      }
+      return reply.status(201).send({ category: categoryToDTO(category) });
     },
   });
 }

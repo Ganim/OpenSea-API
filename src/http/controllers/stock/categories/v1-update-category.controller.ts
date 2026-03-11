@@ -1,5 +1,3 @@
-import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
-import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
@@ -62,22 +60,36 @@ export async function updateCategoryController(app: FastifyInstance) {
       } = request.body;
       const userId = request.user.sub;
 
-      try {
-        const getUserByIdUseCase = makeGetUserByIdUseCase();
-        const getCategoryByIdUseCase = makeGetCategoryByIdUseCase();
+      const getUserByIdUseCase = makeGetUserByIdUseCase();
+      const getCategoryByIdUseCase = makeGetCategoryByIdUseCase();
 
-        const [{ user }, { category: oldCategory }] = await Promise.all([
-          getUserByIdUseCase.execute({ userId }),
-          getCategoryByIdUseCase.execute({ tenantId, id }),
-        ]);
-        const userName = user.profile?.name
-          ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
-          : user.username || user.email;
+      const [{ user }, { category: oldCategory }] = await Promise.all([
+        getUserByIdUseCase.execute({ userId }),
+        getCategoryByIdUseCase.execute({ tenantId, id }),
+      ]);
+      const userName = user.profile?.name
+        ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
+        : user.username || user.email;
 
-        const updateCategoryUseCase = makeUpdateCategoryUseCase();
-        const { category } = await updateCategoryUseCase.execute({
-          tenantId,
-          id,
+      const updateCategoryUseCase = makeUpdateCategoryUseCase();
+      const { category } = await updateCategoryUseCase.execute({
+        tenantId,
+        id,
+        name,
+        slug,
+        description,
+        iconUrl,
+        parentId,
+        displayOrder,
+        isActive,
+      });
+
+      await logAudit(request, {
+        message: AUDIT_MESSAGES.STOCK.CATEGORY_UPDATE,
+        entityId: category.id.toString(),
+        placeholders: { userName, categoryName: category.name },
+        oldData: { name: oldCategory.name, slug: oldCategory.slug },
+        newData: {
           name,
           slug,
           description,
@@ -85,34 +97,10 @@ export async function updateCategoryController(app: FastifyInstance) {
           parentId,
           displayOrder,
           isActive,
-        });
+        },
+      });
 
-        await logAudit(request, {
-          message: AUDIT_MESSAGES.STOCK.CATEGORY_UPDATE,
-          entityId: category.id.toString(),
-          placeholders: { userName, categoryName: category.name },
-          oldData: { name: oldCategory.name, slug: oldCategory.slug },
-          newData: {
-            name,
-            slug,
-            description,
-            iconUrl,
-            parentId,
-            displayOrder,
-            isActive,
-          },
-        });
-
-        return reply.status(200).send({ category: categoryToDTO(category) });
-      } catch (error) {
-        if (error instanceof BadRequestError) {
-          return reply.status(400).send({ message: error.message });
-        }
-        if (error instanceof ResourceNotFoundError) {
-          return reply.status(404).send({ message: error.message });
-        }
-        throw error;
-      }
+      return reply.status(200).send({ category: categoryToDTO(category) });
     },
   });
 }

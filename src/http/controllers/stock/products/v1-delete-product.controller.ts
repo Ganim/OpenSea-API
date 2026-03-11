@@ -1,4 +1,3 @@
-import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
@@ -44,39 +43,32 @@ export async function deleteProductController(app: FastifyInstance) {
       const { productId } = request.params;
       const userId = request.user.sub;
 
-      try {
-        const getUserByIdUseCase = makeGetUserByIdUseCase();
-        const getProductByIdUseCase = makeGetProductByIdUseCase();
+      const getUserByIdUseCase = makeGetUserByIdUseCase();
+      const getProductByIdUseCase = makeGetProductByIdUseCase();
 
-        const [{ user }, { product }] = await Promise.all([
-          getUserByIdUseCase.execute({ userId }),
-          getProductByIdUseCase.execute({ tenantId, id: productId }),
-        ]);
-        const userName = user.profile?.name
-          ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
-          : user.username || user.email;
+      const [{ user }, { product }] = await Promise.all([
+        getUserByIdUseCase.execute({ userId }),
+        getProductByIdUseCase.execute({ tenantId, id: productId }),
+      ]);
+      const userName = user.profile?.name
+        ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
+        : user.username || user.email;
 
-        const deleteProductUseCase = makeDeleteProductUseCase();
-        await deleteProductUseCase.execute({ tenantId, id: productId });
+      const deleteProductUseCase = makeDeleteProductUseCase();
+      await deleteProductUseCase.execute({ tenantId, id: productId });
 
-        await logAudit(request, {
-          message: AUDIT_MESSAGES.STOCK.PRODUCT_DELETE,
-          entityId: productId,
-          placeholders: { userName, productName: product.name },
-          oldData: {
-            id: product.id.toString(),
-            name: product.name,
-            fullCode: product.fullCode,
-          },
-        });
+      await logAudit(request, {
+        message: AUDIT_MESSAGES.STOCK.PRODUCT_DELETE,
+        entityId: productId,
+        placeholders: { userName, productName: product.name },
+        oldData: {
+          id: product.id.toString(),
+          name: product.name,
+          fullCode: product.fullCode,
+        },
+      });
 
-        return reply.status(204).send(null);
-      } catch (error) {
-        if (error instanceof ResourceNotFoundError) {
-          return reply.status(404).send({ message: error.message });
-        }
-        throw error;
-      }
+      return reply.status(204).send(null);
     },
   });
 }

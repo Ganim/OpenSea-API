@@ -2,6 +2,7 @@ import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Item } from '@/entities/stock/item';
 import { ItemStatus } from '@/entities/stock/value-objects/item-status';
 import type { Slug } from '@/entities/stock/value-objects/slug';
+import type { PaginatedResult, PaginationParams } from '../pagination-params';
 
 export interface ItemRelatedData {
   productCode: string | null;
@@ -94,6 +95,10 @@ export interface ItemsRepository {
 
   // Methods with relations (for list/get with related data)
   findAllWithRelations(tenantId: string): Promise<ItemWithRelationsDTO[]>;
+  findAllWithRelationsPaginated(
+    tenantId: string,
+    params: PaginationParams,
+  ): Promise<PaginatedResult<ItemWithRelationsDTO>>;
   findByIdWithRelations(
     id: UniqueEntityID,
     tenantId: string,
@@ -102,10 +107,20 @@ export interface ItemsRepository {
     variantId: UniqueEntityID,
     tenantId: string,
   ): Promise<ItemWithRelationsDTO[]>;
+  findManyByVariantWithRelationsPaginated(
+    variantId: UniqueEntityID,
+    tenantId: string,
+    params: PaginationParams,
+  ): Promise<PaginatedResult<ItemWithRelationsDTO>>;
   findManyByProductWithRelations(
     productId: UniqueEntityID,
     tenantId: string,
   ): Promise<ItemWithRelationsDTO[]>;
+  findManyByProductWithRelationsPaginated(
+    productId: UniqueEntityID,
+    tenantId: string,
+    params: PaginationParams,
+  ): Promise<PaginatedResult<ItemWithRelationsDTO>>;
   findManyByBinWithRelations(
     binId: UniqueEntityID,
     tenantId: string,

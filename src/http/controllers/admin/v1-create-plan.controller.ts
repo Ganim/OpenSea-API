@@ -82,7 +82,16 @@ export async function createPlanAdminController(app: FastifyInstance) {
           message: AUDIT_MESSAGES.ADMIN.PLAN_CREATE,
           entityId: plan.id,
           placeholders: { adminName: request.user.sub, planName: name },
-          newData: { name, tier, description, price, isActive, maxUsers, maxWarehouses, maxProducts },
+          newData: {
+            name,
+            tier,
+            description,
+            price,
+            isActive,
+            maxUsers,
+            maxWarehouses,
+            maxProducts,
+          },
         });
 
         return reply.status(201).send({ plan });

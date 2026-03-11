@@ -3,8 +3,8 @@ import {
   VolumeNotFoundError,
 } from '@/@errors/volumes-errors';
 import { VolumeItem } from '@/entities/stock/volume-item';
-import type { VolumeItemDTO } from '@/mappers/stock/volume.mapper';
-import { VolumeItemMapper } from '@/mappers/stock/volume.mapper';
+import type { VolumeItemDTO } from '@/mappers/stock/volume/volume-to-dto';
+import { volumeItemToDTO } from '@/mappers/stock/volume/volume-to-dto';
 import type { VolumeRepository } from '@/repositories/stock/volumes-repository';
 
 export interface AddItemToVolumeUseCaseRequest {
@@ -53,7 +53,7 @@ export class AddItemToVolumeUseCase {
 
     await this.volumesRepository.addItem(volumeItem);
 
-    const volumeItemDTO = VolumeItemMapper.toDTO(volumeItem);
+    const volumeItemDTO = volumeItemToDTO(volumeItem);
 
     return {
       volumeItem: volumeItemDTO,

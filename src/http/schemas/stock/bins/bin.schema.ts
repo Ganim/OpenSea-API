@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { queryBooleanSchema } from '../../common.schema';
 
 // Request schemas
 export const updateBinSchema = z.object({
@@ -19,10 +20,10 @@ export const listBinsQuerySchema = z.object({
   zoneId: z.string().uuid().optional(),
   aisle: z.coerce.number().int().positive().optional(),
   shelf: z.coerce.number().int().positive().optional(),
-  isActive: z.coerce.boolean().optional(),
-  isBlocked: z.coerce.boolean().optional(),
-  isEmpty: z.coerce.boolean().optional(),
-  isFull: z.coerce.boolean().optional(),
+  isActive: queryBooleanSchema.optional(),
+  isBlocked: queryBooleanSchema.optional(),
+  isEmpty: queryBooleanSchema.optional(),
+  isFull: queryBooleanSchema.optional(),
   addressPattern: z.string().optional(),
 });
 

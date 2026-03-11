@@ -90,7 +90,7 @@ export async function authenticateWithPasswordController(app: FastifyInstance) {
           role: string;
           joinedAt: Date;
         }> = [];
-        let autoSelectedTenant: typeof tenants[0] | null = null;
+        let autoSelectedTenant: (typeof tenants)[0] | null = null;
         let finalToken = token;
 
         try {
@@ -116,8 +116,14 @@ export async function authenticateWithPasswordController(app: FastifyInstance) {
 
             // Ensure calendars exist (fire-and-forget)
             Promise.all([
-              makeCreatePersonalCalendarUseCase().execute({ tenantId, userId: user.id }),
-              makeEnsureSystemCalendarsUseCase().execute({ tenantId, userId: user.id }),
+              makeCreatePersonalCalendarUseCase().execute({
+                tenantId,
+                userId: user.id,
+              }),
+              makeEnsureSystemCalendarsUseCase().execute({
+                tenantId,
+                userId: user.id,
+              }),
             ]).catch((err) => {
               logger.warn(
                 { err, tenantId, userId: user.id },
@@ -127,14 +133,20 @@ export async function authenticateWithPasswordController(app: FastifyInstance) {
           }
         } catch (err) {
           // Se falhar a listagem/seleção de tenants, login continua normalmente
-          logger.warn({ err, userId: user.id }, 'Failed to auto-select tenant on login');
+          logger.warn(
+            { err, userId: user.id },
+            'Failed to auto-select tenant on login',
+          );
         }
 
         return reply
           .setCookie('refreshToken', refreshToken, {
             path: '/',
             secure: env.NODE_ENV !== 'dev' && env.NODE_ENV !== 'test',
-            sameSite: env.NODE_ENV !== 'dev' && env.NODE_ENV !== 'test' ? 'strict' : 'lax',
+            sameSite:
+              env.NODE_ENV !== 'dev' && env.NODE_ENV !== 'test'
+                ? 'strict'
+                : 'lax',
             httpOnly: true,
             maxAge: 7 * 24 * 60 * 60, // 7 dias em segundos (igual ao JWT refresh token)
           })

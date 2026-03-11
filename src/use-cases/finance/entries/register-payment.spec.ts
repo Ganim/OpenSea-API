@@ -2,8 +2,13 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { InMemoryFinanceCategoriesRepository } from '@/repositories/finance/in-memory/in-memory-finance-categories-repository';
 import { InMemoryFinanceEntriesRepository } from '@/repositories/finance/in-memory/in-memory-finance-entries-repository';
 import { InMemoryFinanceEntryPaymentsRepository } from '@/repositories/finance/in-memory/in-memory-finance-entry-payments-repository';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { RegisterPaymentUseCase } from './register-payment';
+
+// Mock audit queue to avoid Redis connection in tests
+vi.mock('@/workers/queues/audit.queue', () => ({
+  queueAuditLog: vi.fn().mockResolvedValue(undefined),
+}));
 
 let entriesRepository: InMemoryFinanceEntriesRepository;
 let paymentsRepository: InMemoryFinanceEntryPaymentsRepository;

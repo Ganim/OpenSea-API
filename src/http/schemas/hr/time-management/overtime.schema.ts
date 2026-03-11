@@ -3,7 +3,7 @@
  */
 
 import { z } from 'zod';
-import { dateSchema, idSchema } from '../../common.schema';
+import { dateSchema, idSchema, queryBooleanSchema } from '../../common.schema';
 
 /**
  * Schema para solicitação de hora extra
@@ -29,7 +29,7 @@ export const listOvertimeQuerySchema = z.object({
   employeeId: idSchema.optional(),
   startDate: z.coerce.date().optional(),
   endDate: z.coerce.date().optional(),
-  approved: z.coerce.boolean().optional(),
+  approved: queryBooleanSchema.optional(),
   page: z.coerce.number().int().positive().optional().default(1),
   perPage: z.coerce.number().int().positive().max(100).optional().default(20),
 });

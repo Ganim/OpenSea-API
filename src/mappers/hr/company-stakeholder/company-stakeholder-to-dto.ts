@@ -1,4 +1,4 @@
-import { CompanyStakeholder } from '@/entities/hr';
+import { CompanyStakeholder } from '@/entities/core/company-stakeholder';
 
 export interface CompanyStakeholderDTO {
   id: string;

@@ -35,11 +35,15 @@ export class GenerateContractEntriesUseCase {
     }
 
     if (contract.isCancelled) {
-      throw new BadRequestError('Cannot generate entries for cancelled contract');
+      throw new BadRequestError(
+        'Cannot generate entries for cancelled contract',
+      );
     }
 
     if (!contract.categoryId) {
-      throw new BadRequestError('Contract must have a category to generate entries');
+      throw new BadRequestError(
+        'Contract must have a category to generate entries',
+      );
     }
 
     // Calculate payment dates from startDate to endDate

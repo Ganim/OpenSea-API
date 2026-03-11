@@ -2,6 +2,7 @@ import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Product } from '@/entities/stock/product';
 import { ProductStatus } from '@/entities/stock/value-objects/product-status';
 import { Slug } from '@/entities/stock/value-objects/slug';
+import type { PaginatedResult, PaginationParams } from '../pagination-params';
 
 export interface CreateProductSchema {
   tenantId: string;
@@ -40,19 +41,43 @@ export interface ProductsRepository {
   findById(id: UniqueEntityID, tenantId: string): Promise<Product | null>;
   findByName(name: string, tenantId: string): Promise<Product | null>;
   findMany(tenantId: string): Promise<Product[]>;
+  findManyPaginated(
+    tenantId: string,
+    params: PaginationParams,
+  ): Promise<PaginatedResult<Product>>;
   findManyByStatus(status: ProductStatus, tenantId: string): Promise<Product[]>;
+  findManyByStatusPaginated(
+    status: ProductStatus,
+    tenantId: string,
+    params: PaginationParams,
+  ): Promise<PaginatedResult<Product>>;
   findManyByTemplate(
     templateId: UniqueEntityID,
     tenantId: string,
   ): Promise<Product[]>;
+  findManyByTemplatePaginated(
+    templateId: UniqueEntityID,
+    tenantId: string,
+    params: PaginationParams,
+  ): Promise<PaginatedResult<Product>>;
   findManyByManufacturer(
     manufacturerId: UniqueEntityID,
     tenantId: string,
   ): Promise<Product[]>;
+  findManyByManufacturerPaginated(
+    manufacturerId: UniqueEntityID,
+    tenantId: string,
+    params: PaginationParams,
+  ): Promise<PaginatedResult<Product>>;
   findManyByCategory(
     categoryId: UniqueEntityID,
     tenantId: string,
   ): Promise<Product[]>;
+  findManyByCategoryPaginated(
+    categoryId: UniqueEntityID,
+    tenantId: string,
+    params: PaginationParams,
+  ): Promise<PaginatedResult<Product>>;
   update(data: UpdateProductSchema): Promise<Product | null>;
   save(product: Product): Promise<void>;
   delete(id: UniqueEntityID): Promise<void>;

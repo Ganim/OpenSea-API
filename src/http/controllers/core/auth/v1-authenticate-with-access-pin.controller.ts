@@ -6,11 +6,16 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UserBlockedError } from '@/@errors/use-cases/user-blocked-error';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { logAudit } from '@/http/helpers/audit.helper';
+import { logger } from '@/lib/logger';
 import {
   authResponseSchema,
   authenticateWithPinBodySchema,
 } from '@/http/schemas';
 import { makeAuthenticateWithAccessPinUseCase } from '@/use-cases/core/auth/factories/make-authenticate-with-access-pin-use-case';
+import { makeListUserTenantsUseCase } from '@/use-cases/core/tenants/factories/make-list-user-tenants-use-case';
+import { makeSelectTenantUseCase } from '@/use-cases/core/tenants/factories/make-select-tenant-use-case';
+import { makeCreatePersonalCalendarUseCase } from '@/use-cases/calendar/calendars/factories/make-create-personal-calendar-use-case';
+import { makeEnsureSystemCalendarsUseCase } from '@/use-cases/calendar/calendars/factories/make-ensure-system-calendars-use-case';
 
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -78,16 +83,84 @@ export async function authenticateWithAccessPinController(
           newData: { email: user.email, sessionId, method: 'access_pin' },
         });
 
+        // Busca tenants do usuário para auto-seleção
+        let tenants: Array<{
+          id: string;
+          name: string;
+          slug: string;
+          logoUrl: string | null;
+          status: string;
+          role: string;
+          joinedAt: Date;
+        }> = [];
+        let autoSelectedTenant: (typeof tenants)[0] | null = null;
+        let finalToken = token;
+
+        try {
+          const listTenantsUseCase = makeListUserTenantsUseCase();
+          const { tenants: userTenants } = await listTenantsUseCase.execute({
+            userId: user.id,
+          });
+          tenants = userTenants;
+
+          // Auto-selecionar se exatamente 1 tenant (e não é super admin)
+          if (userTenants.length === 1 && !user.isSuperAdmin) {
+            const tenantId = userTenants[0].id;
+            const selectTenantUseCase = makeSelectTenantUseCase();
+            const selectResult = await selectTenantUseCase.execute({
+              userId: user.id,
+              tenantId,
+              sessionId,
+              isSuperAdmin: user.isSuperAdmin ?? false,
+              reply,
+            });
+            finalToken = selectResult.token;
+            autoSelectedTenant = userTenants[0];
+
+            // Ensure calendars exist (fire-and-forget)
+            Promise.all([
+              makeCreatePersonalCalendarUseCase().execute({
+                tenantId,
+                userId: user.id,
+              }),
+              makeEnsureSystemCalendarsUseCase().execute({
+                tenantId,
+                userId: user.id,
+              }),
+            ]).catch((err) => {
+              logger.warn(
+                { err, tenantId, userId: user.id },
+                'Failed to ensure calendars on auto-select tenant (pin login)',
+              );
+            });
+          }
+        } catch (err) {
+          logger.warn(
+            { err, userId: user.id },
+            'Failed to auto-select tenant on pin login',
+          );
+        }
+
         return reply
           .setCookie('refreshToken', refreshToken, {
             path: '/',
             secure: env.NODE_ENV !== 'dev' && env.NODE_ENV !== 'test',
-            sameSite: env.NODE_ENV !== 'dev' && env.NODE_ENV !== 'test' ? 'strict' : 'lax',
+            sameSite:
+              env.NODE_ENV !== 'dev' && env.NODE_ENV !== 'test'
+                ? 'strict'
+                : 'lax',
             httpOnly: true,
             maxAge: 7 * 24 * 60 * 60,
           })
           .status(200)
-          .send({ user, sessionId, token, refreshToken });
+          .send({
+            user,
+            sessionId,
+            token: finalToken,
+            refreshToken,
+            tenant: autoSelectedTenant,
+            tenants,
+          });
       } catch (error) {
         if (error instanceof BadRequestError) {
           return reply.status(400).send({ message: error.message });

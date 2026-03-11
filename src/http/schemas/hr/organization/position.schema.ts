@@ -3,7 +3,7 @@
  */
 
 import { z } from 'zod';
-import { dateSchema, idSchema } from '../../common.schema';
+import { dateSchema, idSchema, queryBooleanSchema } from '../../common.schema';
 
 /**
  * Schema para criação de cargo
@@ -32,7 +32,7 @@ export const listPositionsQuerySchema = z.object({
   page: z.coerce.number().int().positive().optional().default(1),
   perPage: z.coerce.number().int().positive().max(100).optional().default(20),
   search: z.string().optional(),
-  isActive: z.coerce.boolean().optional(),
+  isActive: queryBooleanSchema.optional(),
   departmentId: idSchema.optional(),
   companyId: idSchema.optional(),
   level: z.coerce.number().int().positive().optional(),

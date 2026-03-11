@@ -120,7 +120,7 @@ describe('ParseAddressUseCase', () => {
 
     expect(result.valid).toBe(false);
     expect(result.components).toBeNull();
-    expect(result.error).toContain('nenhum separador encontrado');
+    expect(result.error).toContain('no separator found');
   });
 
   it('should fail when address has wrong number of parts', async () => {
@@ -129,7 +129,7 @@ describe('ParseAddressUseCase', () => {
     });
 
     expect(result.valid).toBe(false);
-    expect(result.error).toContain('esperado 4 partes');
+    expect(result.error).toContain('expected 4 parts');
   });
 
   it('should fail when address has too many parts', async () => {
@@ -138,7 +138,7 @@ describe('ParseAddressUseCase', () => {
     });
 
     expect(result.valid).toBe(false);
-    expect(result.error).toContain('esperado 4 partes');
+    expect(result.error).toContain('expected 4 parts');
   });
 
   it('should fail when warehouse code is too short', async () => {
@@ -147,7 +147,7 @@ describe('ParseAddressUseCase', () => {
     });
 
     expect(result.valid).toBe(false);
-    expect(result.error).toContain('Código do armazém inválido');
+    expect(result.error).toContain('Invalid warehouse code');
   });
 
   it('should fail when warehouse code is too long', async () => {
@@ -156,7 +156,7 @@ describe('ParseAddressUseCase', () => {
     });
 
     expect(result.valid).toBe(false);
-    expect(result.error).toContain('Código do armazém inválido');
+    expect(result.error).toContain('Invalid warehouse code');
   });
 
   it('should fail when zone code is too short', async () => {
@@ -165,7 +165,7 @@ describe('ParseAddressUseCase', () => {
     });
 
     expect(result.valid).toBe(false);
-    expect(result.error).toContain('Código da zona inválido');
+    expect(result.error).toContain('Invalid zone code');
   });
 
   it('should fail when zone code is too long', async () => {
@@ -174,7 +174,7 @@ describe('ParseAddressUseCase', () => {
     });
 
     expect(result.valid).toBe(false);
-    expect(result.error).toContain('Código da zona inválido');
+    expect(result.error).toContain('Invalid zone code');
   });
 
   it('should fail when position contains non-numeric characters', async () => {
@@ -183,7 +183,7 @@ describe('ParseAddressUseCase', () => {
     });
 
     expect(result.valid).toBe(false);
-    expect(result.error).toContain('Posição inválida');
+    expect(result.error).toContain('Invalid position');
   });
 
   it('should fail when bin code is too long', async () => {
@@ -192,7 +192,7 @@ describe('ParseAddressUseCase', () => {
     });
 
     expect(result.valid).toBe(false);
-    expect(result.error).toContain('Código do nicho inválido');
+    expect(result.error).toContain('Invalid bin code');
   });
 
   it('should preserve original address in response', async () => {

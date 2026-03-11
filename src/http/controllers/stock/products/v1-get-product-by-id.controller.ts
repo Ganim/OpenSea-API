@@ -1,4 +1,3 @@
-import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
@@ -43,20 +42,13 @@ export async function getProductByIdController(app: FastifyInstance) {
       const tenantId = request.user.tenantId!;
       const { productId } = request.params;
 
-      try {
-        const getProductByIdUseCase = makeGetProductByIdUseCase();
-        const { product } = await getProductByIdUseCase.execute({
-          tenantId,
-          id: productId,
-        });
+      const getProductByIdUseCase = makeGetProductByIdUseCase();
+      const { product } = await getProductByIdUseCase.execute({
+        tenantId,
+        id: productId,
+      });
 
-        return reply.status(200).send({ product: productToDTO(product) });
-      } catch (error) {
-        if (error instanceof ResourceNotFoundError) {
-          return reply.status(404).send({ message: error.message });
-        }
-        throw error;
-      }
+      return reply.status(200).send({ product: productToDTO(product) });
     },
   });
 }

@@ -1,5 +1,5 @@
 import type { CompaniesRepository } from '@/repositories/hr/companies-repository';
-import { Company } from '@/entities/hr/company';
+import { Company } from '@/entities/core/company';
 
 export interface ListCompaniesRequest {
   tenantId: string;

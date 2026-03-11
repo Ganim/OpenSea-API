@@ -1,4 +1,3 @@
-import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
@@ -42,35 +41,28 @@ export async function deleteTemplateController(app: FastifyInstance) {
       const { id } = request.params as { id: string };
       const userId = request.user.sub;
 
-      try {
-        const getUserByIdUseCase = makeGetUserByIdUseCase();
-        const getTemplateByIdUseCase = makeGetTemplateByIdUseCase();
+      const getUserByIdUseCase = makeGetUserByIdUseCase();
+      const getTemplateByIdUseCase = makeGetTemplateByIdUseCase();
 
-        const [{ user }, { template }] = await Promise.all([
-          getUserByIdUseCase.execute({ userId }),
-          getTemplateByIdUseCase.execute({ tenantId, id }),
-        ]);
-        const userName = user.profile?.name
-          ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
-          : user.username || user.email;
+      const [{ user }, { template }] = await Promise.all([
+        getUserByIdUseCase.execute({ userId }),
+        getTemplateByIdUseCase.execute({ tenantId, id }),
+      ]);
+      const userName = user.profile?.name
+        ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
+        : user.username || user.email;
 
-        const deleteTemplate = makeDeleteTemplateUseCase();
-        await deleteTemplate.execute({ tenantId, id });
+      const deleteTemplate = makeDeleteTemplateUseCase();
+      await deleteTemplate.execute({ tenantId, id });
 
-        await logAudit(request, {
-          message: AUDIT_MESSAGES.STOCK.TEMPLATE_DELETE,
-          entityId: id,
-          placeholders: { userName, templateName: template.name },
-          oldData: { id: template.id, name: template.name },
-        });
+      await logAudit(request, {
+        message: AUDIT_MESSAGES.STOCK.TEMPLATE_DELETE,
+        entityId: id,
+        placeholders: { userName, templateName: template.name },
+        oldData: { id: template.id, name: template.name },
+      });
 
-        return reply.status(204).send(null);
-      } catch (error) {
-        if (error instanceof ResourceNotFoundError) {
-          return reply.status(404).send({ message: error.message });
-        }
-        throw error;
-      }
+      return reply.status(204).send(null);
     },
   });
 }

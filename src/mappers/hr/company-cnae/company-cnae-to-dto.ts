@@ -1,7 +1,7 @@
 import type {
   CompanyCnae,
   CompanyCnaeStatus,
-} from '@/entities/hr/company-cnae';
+} from '@/entities/core/company-cnae';
 
 export interface CompanyCnaeDTO {
   id: string;

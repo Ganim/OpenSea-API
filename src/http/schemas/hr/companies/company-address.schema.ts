@@ -3,7 +3,7 @@
  */
 
 import { z } from 'zod';
-import { dateSchema, idSchema } from '../../common.schema';
+import { dateSchema, idSchema, queryBooleanSchema } from '../../common.schema';
 
 export const companyAddressTypeSchema = z.enum([
   'FISCAL',
@@ -32,8 +32,8 @@ export const listCompanyAddressesQuerySchema = z.object({
   page: z.coerce.number().int().positive().optional().default(1),
   perPage: z.coerce.number().int().positive().max(100).optional().default(20),
   type: companyAddressTypeSchema.optional(),
-  isPrimary: z.coerce.boolean().optional(),
-  includeDeleted: z.coerce.boolean().optional().default(false),
+  isPrimary: queryBooleanSchema.optional(),
+  includeDeleted: queryBooleanSchema.optional().default(false),
 });
 
 export const companyAddressResponseSchema = z.object({

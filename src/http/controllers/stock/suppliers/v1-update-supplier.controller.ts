@@ -1,5 +1,3 @@
-import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
-import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
@@ -54,47 +52,37 @@ export async function updateSupplierController(app: FastifyInstance) {
       const userId = request.user.sub;
       const tenantId = request.user.tenantId!;
 
-      try {
-        const getUserByIdUseCase = makeGetUserByIdUseCase();
-        const getSupplierByIdUseCase = makeGetSupplierByIdUseCase();
+      const getUserByIdUseCase = makeGetUserByIdUseCase();
+      const getSupplierByIdUseCase = makeGetSupplierByIdUseCase();
 
-        const [{ user }, { supplier: oldSupplier }] = await Promise.all([
-          getUserByIdUseCase.execute({ userId }),
-          getSupplierByIdUseCase.execute({ tenantId, id }),
-        ]);
-        const userName = user.profile?.name
-          ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
-          : user.username || user.email;
+      const [{ user }, { supplier: oldSupplier }] = await Promise.all([
+        getUserByIdUseCase.execute({ userId }),
+        getSupplierByIdUseCase.execute({ tenantId, id }),
+      ]);
+      const userName = user.profile?.name
+        ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
+        : user.username || user.email;
 
-        const useCase = makeUpdateSupplierUseCase();
-        const result = await useCase.execute({
-          tenantId,
-          id,
-          ...request.body,
-        });
+      const useCase = makeUpdateSupplierUseCase();
+      const result = await useCase.execute({
+        tenantId,
+        id,
+        ...request.body,
+      });
 
-        await logAudit(request, {
-          message: AUDIT_MESSAGES.STOCK.SUPPLIER_UPDATE,
-          entityId: id,
-          placeholders: { userName, supplierName: result.supplier.name },
-          oldData: {
-            name: oldSupplier.name,
-            email: oldSupplier.email,
-            phone: oldSupplier.phone,
-          },
-          newData: request.body,
-        });
+      await logAudit(request, {
+        message: AUDIT_MESSAGES.STOCK.SUPPLIER_UPDATE,
+        entityId: id,
+        placeholders: { userName, supplierName: result.supplier.name },
+        oldData: {
+          name: oldSupplier.name,
+          email: oldSupplier.email,
+          phone: oldSupplier.phone,
+        },
+        newData: request.body,
+      });
 
-        return reply.status(200).send(result);
-      } catch (error) {
-        if (error instanceof BadRequestError) {
-          return reply.status(400).send({ message: error.message });
-        }
-        if (error instanceof ResourceNotFoundError) {
-          return reply.status(404).send({ message: error.message });
-        }
-        throw error;
-      }
+      return reply.status(200).send(result);
     },
   });
 }

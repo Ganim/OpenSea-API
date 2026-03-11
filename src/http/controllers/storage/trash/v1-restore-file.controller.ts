@@ -46,7 +46,10 @@ export async function restoreFileController(app: FastifyInstance) {
 
       try {
         const useCase = makeRestoreFileUseCase();
-        const { file, relocatedToRoot } = await useCase.execute({ tenantId, fileId });
+        const { file, relocatedToRoot } = await useCase.execute({
+          tenantId,
+          fileId,
+        });
 
         await logAudit(request, {
           message: AUDIT_MESSAGES.STORAGE.FILE_RESTORE,
@@ -57,7 +60,9 @@ export async function restoreFileController(app: FastifyInstance) {
           },
         });
 
-        return reply.status(200).send({ file: storageFileToDTO(file), relocatedToRoot });
+        return reply
+          .status(200)
+          .send({ file: storageFileToDTO(file), relocatedToRoot });
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });

@@ -33,7 +33,7 @@ export class MoveCardUseCase {
   async execute(request: MoveCardRequest): Promise<MoveCardResponse> {
     const { tenantId, userId, userName, boardId, cardId, columnId } = request;
 
-const board = await this.boardsRepository.findById(boardId, tenantId);
+    const board = await this.boardsRepository.findById(boardId, tenantId);
 
     if (!board) {
       throw new ResourceNotFoundError('Board not found');
@@ -85,7 +85,6 @@ const board = await this.boardsRepository.findById(boardId, tenantId);
       completedAt = null;
     }
 
-
     const updatedCard = await this.cardsRepository.update({
       id: cardId,
       boardId,
@@ -126,7 +125,6 @@ const board = await this.boardsRepository.findById(boardId, tenantId);
         );
       }
     }
-
 
     return { card: cardToDTO(updatedCard) };
   }

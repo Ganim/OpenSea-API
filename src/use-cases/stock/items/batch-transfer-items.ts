@@ -27,7 +27,7 @@ export class BatchTransferItemsUseCase {
     private itemsRepository: ItemsRepository,
     private binsRepository: BinsRepository,
     private itemMovementsRepository: ItemMovementsRepository,
-    private transactionManager?: TransactionManager,
+    private transactionManager: TransactionManager,
   ) {}
 
   async execute(
@@ -59,19 +59,18 @@ export class BatchTransferItemsUseCase {
     }
 
     // Wrap all mutations in a transaction to prevent partial transfers
-    const doTransfer = async () => {
-      return this.performTransfer(input, destinationBin);
-    };
-
-    if (this.transactionManager) {
-      return this.transactionManager.run(() => doTransfer());
-    }
-    return doTransfer();
+    return this.transactionManager.run(() =>
+      this.performTransfer(input, destinationBin),
+    );
   }
 
   private async performTransfer(
     input: BatchTransferItemsUseCaseRequest,
-    destinationBin: { binId: UniqueEntityID; address: string; isBlocked: boolean },
+    destinationBin: {
+      binId: UniqueEntityID;
+      address: string;
+      isBlocked: boolean;
+    },
   ): Promise<BatchTransferItemsUseCaseResponse> {
     // Batch-load all items upfront (N+1 → 1 query)
     const items = await this.itemsRepository.findManyByIds(
@@ -97,12 +96,13 @@ export class BatchTransferItemsUseCase {
     }
 
     // Batch-load all origin bins (N+1 → 1 query)
-    const originBins = originBinIdSet.size > 0
-      ? await this.binsRepository.findManyByIds(
-          [...originBinIdSet].map((id) => new UniqueEntityID(id)),
-          input.tenantId,
-        )
-      : [];
+    const originBins =
+      originBinIdSet.size > 0
+        ? await this.binsRepository.findManyByIds(
+            [...originBinIdSet].map((id) => new UniqueEntityID(id)),
+            input.tenantId,
+          )
+        : [];
     const originBinsMap = new Map(
       originBins.map((bin) => [bin.binId.toString(), bin]),
     );

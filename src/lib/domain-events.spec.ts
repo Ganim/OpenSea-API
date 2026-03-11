@@ -57,7 +57,9 @@ describe('DomainEventBus', () => {
   });
 
   it('should not throw when a handler fails', async () => {
-    const failingHandler = vi.fn().mockRejectedValue(new Error('handler failed'));
+    const failingHandler = vi
+      .fn()
+      .mockRejectedValue(new Error('handler failed'));
     const successHandler = vi.fn();
 
     domainEventBus.on('test.event', failingHandler);

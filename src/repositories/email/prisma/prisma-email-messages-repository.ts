@@ -2,27 +2,30 @@ import type { EmailAttachment } from '@/entities/email/email-attachment';
 import type { EmailMessage } from '@/entities/email/email-message';
 import { prisma } from '@/lib/prisma';
 import {
-    emailAttachmentPrismaToDomain,
-    emailMessagePrismaToDomain,
+  emailAttachmentPrismaToDomain,
+  emailMessagePrismaToDomain,
 } from '@/mappers/email';
 import type {
-    CentralInboxListParams,
-    CreateEmailAttachmentSchema,
-    CreateEmailMessageSchema,
-    EmailMessagesListParams,
-    EmailMessagesListResult,
-    EmailMessagesRepository,
-    UpdateEmailMessageSchema,
+  CentralInboxListParams,
+  CreateEmailAttachmentSchema,
+  CreateEmailMessageSchema,
+  EmailMessagesListParams,
+  EmailMessagesListResult,
+  EmailMessagesRepository,
+  UpdateEmailMessageSchema,
 } from '../email-messages-repository';
 
 function encodeCursor(receivedAt: Date, id: string): string {
-  return Buffer.from(JSON.stringify({ r: receivedAt.toISOString(), i: id })).toString('base64');
+  return Buffer.from(
+    JSON.stringify({ r: receivedAt.toISOString(), i: id }),
+  ).toString('base64');
 }
 
 function decodeCursor(cursor: string): { receivedAt: Date; id: string } | null {
   try {
     const parsed = JSON.parse(Buffer.from(cursor, 'base64').toString('utf-8'));
-    if (typeof parsed.r !== 'string' || typeof parsed.i !== 'string') return null;
+    if (typeof parsed.r !== 'string' || typeof parsed.i !== 'string')
+      return null;
     const date = new Date(parsed.r);
     if (isNaN(date.getTime())) return null;
     return { receivedAt: date, id: parsed.i };
@@ -135,7 +138,10 @@ export class PrismaEmailMessagesRepository implements EmailMessagesRepository {
             ...baseWhere,
             OR: [
               { receivedAt: { lt: cursorData!.receivedAt } },
-              { receivedAt: cursorData!.receivedAt, id: { lt: cursorData!.id } },
+              {
+                receivedAt: cursorData!.receivedAt,
+                id: { lt: cursorData!.id },
+              },
             ],
           }
         : baseWhere;
@@ -152,9 +158,12 @@ export class PrismaEmailMessagesRepository implements EmailMessagesRepository {
 
       const domainMessages = messages.map(emailMessagePrismaToDomain);
       const nextCursor = useCursor
-        ? (messages.length === limit
-          ? encodeCursor(messages[messages.length - 1].receivedAt, messages[messages.length - 1].id)
-          : null)
+        ? messages.length === limit
+          ? encodeCursor(
+              messages[messages.length - 1].receivedAt,
+              messages[messages.length - 1].id,
+            )
+          : null
         : undefined;
 
       return {
@@ -220,7 +229,10 @@ export class PrismaEmailMessagesRepository implements EmailMessagesRepository {
 
     const [countResult, rows] = await Promise.all([
       prisma.$queryRawUnsafe<{ count: number }[]>(countQuery, ...countParams),
-      prisma.$queryRawUnsafe<{ id: string; received_at: Date }[]>(listQuery, ...listParams),
+      prisma.$queryRawUnsafe<{ id: string; received_at: Date }[]>(
+        listQuery,
+        ...listParams,
+      ),
     ]);
 
     const total = Number(countResult?.[0]?.count ?? 0);
@@ -238,9 +250,9 @@ export class PrismaEmailMessagesRepository implements EmailMessagesRepository {
     const domainMessages = messages.map(emailMessagePrismaToDomain);
     const lastRow = rows[rows.length - 1];
     const nextCursor = useCursor
-      ? (rows.length === limit
+      ? rows.length === limit
         ? encodeCursor(lastRow.received_at, lastRow.id)
-        : null)
+        : null
       : undefined;
 
     return {
@@ -340,7 +352,7 @@ export class PrismaEmailMessagesRepository implements EmailMessagesRepository {
       select: { id: true },
     });
 
-    const inboxFolderIds = inboxFolders.map(f => f.id);
+    const inboxFolderIds = inboxFolders.map((f) => f.id);
 
     if (inboxFolderIds.length === 0) {
       return { messages: [], total: 0 };
@@ -355,9 +367,24 @@ export class PrismaEmailMessagesRepository implements EmailMessagesRepository {
       ...(params.search
         ? {
             OR: [
-              { subject: { contains: params.search, mode: 'insensitive' as const } },
-              { fromAddress: { contains: params.search, mode: 'insensitive' as const } },
-              { fromName: { contains: params.search, mode: 'insensitive' as const } },
+              {
+                subject: {
+                  contains: params.search,
+                  mode: 'insensitive' as const,
+                },
+              },
+              {
+                fromAddress: {
+                  contains: params.search,
+                  mode: 'insensitive' as const,
+                },
+              },
+              {
+                fromName: {
+                  contains: params.search,
+                  mode: 'insensitive' as const,
+                },
+              },
             ],
           }
         : {}),
@@ -385,9 +412,12 @@ export class PrismaEmailMessagesRepository implements EmailMessagesRepository {
 
     const domainMessages = messages.map(emailMessagePrismaToDomain);
     const nextCursor = useCursor
-      ? (messages.length === limit
-        ? encodeCursor(messages[messages.length - 1].receivedAt, messages[messages.length - 1].id)
-        : null)
+      ? messages.length === limit
+        ? encodeCursor(
+            messages[messages.length - 1].receivedAt,
+            messages[messages.length - 1].id,
+          )
+        : null
       : undefined;
 
     return {
@@ -570,7 +600,10 @@ export class PrismaEmailMessagesRepository implements EmailMessagesRepository {
     });
   }
 
-  async softDeleteByFolder(folderId: string, tenantId: string): Promise<number> {
+  async softDeleteByFolder(
+    folderId: string,
+    tenantId: string,
+  ): Promise<number> {
     const result = await prisma.emailMessage.updateMany({
       where: {
         folderId,

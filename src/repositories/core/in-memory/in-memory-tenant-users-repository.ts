@@ -8,7 +8,10 @@ import type {
 export class InMemoryTenantUsersRepository implements TenantUsersRepository {
   public items: TenantUser[] = [];
 
-  async create(data: CreateTenantUserSchema): Promise<TenantUser> {
+  async create(
+    data: CreateTenantUserSchema,
+    _tx?: unknown,
+  ): Promise<TenantUser> {
     const tenantUser = TenantUser.create({
       tenantId: data.tenantId,
       userId: data.userId,

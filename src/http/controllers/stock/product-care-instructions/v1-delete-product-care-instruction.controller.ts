@@ -1,4 +1,3 @@
-import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
@@ -42,17 +41,10 @@ export async function deleteProductCareInstructionController(
       const tenantId = request.user.tenantId!;
       const { id } = request.params;
 
-      try {
-        const useCase = makeDeleteProductCareInstructionUseCase();
-        await useCase.execute({ id, tenantId });
+      const useCase = makeDeleteProductCareInstructionUseCase();
+      await useCase.execute({ id, tenantId });
 
-        return reply.status(204).send(null);
-      } catch (error) {
-        if (error instanceof ResourceNotFoundError) {
-          return reply.status(404).send({ message: error.message });
-        }
-        throw error;
-      }
+      return reply.status(204).send(null);
     },
   });
 }

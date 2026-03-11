@@ -489,7 +489,9 @@ describe('Email Messages Controller (E2E)', () => {
         .set('Authorization', `Bearer ${token}`)
         .query({ accountId, folderId: sentFolderId });
       expect(listRes.status).toBe(200);
-      const flaggedMsg = listRes.body.data.find((m: { id: string }) => m.id === sentMessageId);
+      const flaggedMsg = listRes.body.data.find(
+        (m: { id: string }) => m.id === sentMessageId,
+      );
       expect(flaggedMsg).toBeDefined();
       expect(flaggedMsg.isFlagged).toBe(true);
     });
@@ -510,7 +512,9 @@ describe('Email Messages Controller (E2E)', () => {
         .set('Authorization', `Bearer ${token}`)
         .query({ accountId, folderId: sentFolderId });
       expect(listRes.status).toBe(200);
-      const unflaggedMsg = listRes.body.data.find((m: { id: string }) => m.id === sentMessageId);
+      const unflaggedMsg = listRes.body.data.find(
+        (m: { id: string }) => m.id === sentMessageId,
+      );
       expect(unflaggedMsg).toBeDefined();
       expect(unflaggedMsg.isFlagged).toBe(false);
     });

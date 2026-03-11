@@ -3,7 +3,7 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type {
   CompanyAddress,
   CompanyAddressType,
-} from '@/entities/hr/company-address';
+} from '@/entities/core/company-address';
 import type { CompanyAddressesRepository } from '@/repositories/hr/company-addresses-repository';
 
 export interface CreateCompanyAddressRequest {

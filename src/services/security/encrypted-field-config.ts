@@ -119,8 +119,9 @@ export const ENCRYPTED_FIELD_CONFIG: Record<string, EncryptedModelConfig> = {
     encryptedFields: [
       'boletoBarcode',
       'boletoDigitLine',
-      'supplierName',
-      'customerName',
+      // supplierName and customerName REMOVED — business names, not PII.
+      // Other modules (Supplier, Customer) store names in plaintext.
+      // Encrypting them broke search (contains) and aggregation (GROUP BY) queries.
     ],
     hashFields: {},
   },

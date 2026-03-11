@@ -2,6 +2,10 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { FinanceEntry } from '@/entities/finance/finance-entry';
+import type {
+  TransactionClient,
+  TransactionManager,
+} from '@/lib/transaction-manager';
 import {
   type FinanceEntryDTO,
   financeEntryToDTO,
@@ -14,6 +18,8 @@ import type { FinanceCategoriesRepository } from '@/repositories/finance/finance
 import type { FinanceEntriesRepository } from '@/repositories/finance/finance-entries-repository';
 import type { FinanceEntryPaymentsRepository } from '@/repositories/finance/finance-entry-payments-repository';
 import type { CalendarSyncService } from '@/services/calendar/calendar-sync.service';
+import { calculateNextDate } from '@/utils/finance/calculate-next-date';
+import { queueAuditLog } from '@/workers/queues/audit.queue';
 
 interface RegisterPaymentUseCaseRequest {
   entryId: string;
@@ -43,6 +49,7 @@ export class RegisterPaymentUseCase {
     private financeEntryPaymentsRepository: FinanceEntryPaymentsRepository,
     private calendarSyncService?: CalendarSyncService,
     private categoriesRepository?: FinanceCategoriesRepository,
+    private transactionManager?: TransactionManager,
   ) {}
 
   async execute(
@@ -50,6 +57,7 @@ export class RegisterPaymentUseCase {
   ): Promise<RegisterPaymentUseCaseResponse> {
     const { entryId, tenantId, amount, paidAt } = request;
 
+    // Validation outside transaction
     const entry = await this.financeEntriesRepository.findById(
       new UniqueEntityID(entryId),
       tenantId,
@@ -91,7 +99,12 @@ export class RegisterPaymentUseCase {
 
         if (category.interestRate && overdueDays > 0) {
           calculatedInterest =
-            Math.round(entry.expectedAmount * (category.interestRate / 30) * overdueDays * 100) / 100;
+            Math.round(
+              entry.expectedAmount *
+                (category.interestRate / 30) *
+                overdueDays *
+                100,
+            ) / 100;
         }
 
         if (category.penaltyRate) {
@@ -105,90 +118,158 @@ export class RegisterPaymentUseCase {
     const finalInterest = request.interest ?? calculatedInterest;
     const finalPenalty = request.penalty ?? calculatedPenalty;
 
-    // Update entry's interest and penalty if auto-calculated or overridden
-    if (finalInterest !== undefined && finalInterest !== entry.interest) {
-      await this.financeEntriesRepository.update({
-        id: new UniqueEntityID(entryId),
-        tenantId,
-        interest: finalInterest,
-      });
-    }
-
-    if (finalPenalty !== undefined && finalPenalty !== entry.penalty) {
-      await this.financeEntriesRepository.update({
-        id: new UniqueEntityID(entryId),
-        tenantId,
-        penalty: finalPenalty,
-      });
-    }
-
-    // Re-fetch entry after interest/penalty updates to get correct totalDue
-    const refreshedEntry =
-      finalInterest !== undefined || finalPenalty !== undefined
-        ? await this.financeEntriesRepository.findById(
-            new UniqueEntityID(entryId),
+    // All DB writes inside transaction
+    const executePayment = async (tx?: TransactionClient) => {
+      // Update entry's interest and penalty if auto-calculated or overridden
+      if (finalInterest !== undefined && finalInterest !== entry.interest) {
+        await this.financeEntriesRepository.update(
+          {
+            id: new UniqueEntityID(entryId),
             tenantId,
-          )
-        : entry;
+            interest: finalInterest,
+          },
+          tx,
+        );
+      }
 
-    const entryForPayment = refreshedEntry ?? entry;
+      if (finalPenalty !== undefined && finalPenalty !== entry.penalty) {
+        await this.financeEntriesRepository.update(
+          {
+            id: new UniqueEntityID(entryId),
+            tenantId,
+            penalty: finalPenalty,
+          },
+          tx,
+        );
+      }
 
-    const existingPaymentsSum =
-      await this.financeEntryPaymentsRepository.sumByEntryId(
-        new UniqueEntityID(entryId),
+      // Re-fetch entry after interest/penalty updates to get correct totalDue
+      const refreshedEntry =
+        finalInterest !== undefined || finalPenalty !== undefined
+          ? await this.financeEntriesRepository.findById(
+              new UniqueEntityID(entryId),
+              tenantId,
+              tx,
+            )
+          : entry;
+
+      const entryForPayment = refreshedEntry ?? entry;
+
+      const existingPaymentsSum =
+        await this.financeEntryPaymentsRepository.sumByEntryId(
+          new UniqueEntityID(entryId),
+          tx,
+        );
+
+      const newTotal = existingPaymentsSum + amount;
+
+      if (newTotal > entryForPayment.totalDue) {
+        throw new BadRequestError('Payment amount exceeds remaining balance');
+      }
+
+      const payment = await this.financeEntryPaymentsRepository.create(
+        {
+          entryId,
+          amount,
+          paidAt,
+          bankAccountId: request.bankAccountId,
+          method: request.method,
+          reference: request.reference,
+          notes: request.notes,
+          createdBy: request.createdBy,
+        },
+        tx,
       );
 
-    const newTotal = existingPaymentsSum + amount;
+      const isFullyPaid = newTotal === entryForPayment.totalDue;
 
-    if (newTotal > entryForPayment.totalDue) {
-      throw new BadRequestError('Payment amount exceeds remaining balance');
-    }
+      if (isFullyPaid) {
+        // Fully paid
+        const fullyPaidStatus =
+          entryForPayment.type === 'PAYABLE' ? 'PAID' : 'RECEIVED';
+        await this.financeEntriesRepository.update(
+          {
+            id: new UniqueEntityID(entryId),
+            tenantId,
+            status: fullyPaidStatus,
+            actualAmount: newTotal,
+            paymentDate: paidAt,
+          },
+          tx,
+        );
+      } else {
+        // Partially paid
+        await this.financeEntriesRepository.update(
+          {
+            id: new UniqueEntityID(entryId),
+            tenantId,
+            status: 'PARTIALLY_PAID',
+            actualAmount: newTotal,
+          },
+          tx,
+        );
+      }
 
-    const payment = await this.financeEntryPaymentsRepository.create({
-      entryId,
-      amount,
-      paidAt,
-      bankAccountId: request.bankAccountId,
-      method: request.method,
-      reference: request.reference,
-      notes: request.notes,
-      createdBy: request.createdBy,
-    });
-
-    const isFullyPaid = newTotal === entryForPayment.totalDue;
-
-    if (isFullyPaid) {
-      // Fully paid
-      const fullyPaidStatus = entryForPayment.type === 'PAYABLE' ? 'PAID' : 'RECEIVED';
-      await this.financeEntriesRepository.update({
-        id: new UniqueEntityID(entryId),
+      // Re-fetch updated entry
+      const updatedEntry = await this.financeEntriesRepository.findById(
+        new UniqueEntityID(entryId),
         tenantId,
-        status: fullyPaidStatus,
-        actualAmount: newTotal,
-        paymentDate: paidAt,
-      });
-    } else {
-      // Partially paid
-      await this.financeEntriesRepository.update({
-        id: new UniqueEntityID(entryId),
-        tenantId,
-        status: 'PARTIALLY_PAID',
-        actualAmount: newTotal,
-      });
-    }
+        tx,
+      );
 
-    // Update calendar event title to reflect payment status (non-blocking)
+      let nextOccurrence: FinanceEntryDTO | undefined;
+
+      // RECURRING: auto-generate next occurrence when fully paid
+      if (
+        isFullyPaid &&
+        entryForPayment.recurrenceType === 'RECURRING' &&
+        entryForPayment.parentEntryId
+      ) {
+        nextOccurrence = await this.generateNextRecurringOccurrence(
+          entryForPayment,
+          tenantId,
+          paidAt,
+          tx,
+        );
+      }
+
+      // INSTALLMENT: check if all siblings are paid, then mark master as PAID
+      if (
+        isFullyPaid &&
+        entryForPayment.recurrenceType === 'INSTALLMENT' &&
+        entryForPayment.parentEntryId
+      ) {
+        await this.checkAndMarkMasterAsPaid(entryForPayment, tenantId, tx);
+      }
+
+      return {
+        updatedEntry: updatedEntry!,
+        payment,
+        nextOccurrence,
+        isFullyPaid,
+        entryForPayment,
+        newTotal,
+      };
+    };
+
+    const result = this.transactionManager
+      ? await this.transactionManager.run((tx) => executePayment(tx))
+      : await executePayment();
+
+    // Calendar sync outside transaction (non-blocking)
     if (this.calendarSyncService) {
-      const newStatus = isFullyPaid
-        ? (entryForPayment.type === 'PAYABLE' ? 'PAID' : 'RECEIVED')
+      const newStatus = result.isFullyPaid
+        ? result.entryForPayment.type === 'PAYABLE'
+          ? 'PAID'
+          : 'RECEIVED'
         : 'PARTIALLY_PAID';
 
       try {
         await this.calendarSyncService.updateFinanceEventOnPayment({
           tenantId,
           entryId,
-          entryType: entryForPayment.type as 'PAYABLE' | 'RECEIVABLE',
-          description: entryForPayment.description,
+          entryType: result.entryForPayment.type,
+          description: result.entryForPayment.description,
           status: newStatus,
         });
       } catch {
@@ -196,40 +277,37 @@ export class RegisterPaymentUseCase {
       }
     }
 
-    // Re-fetch updated entry
-    const updatedEntry = await this.financeEntriesRepository.findById(
-      new UniqueEntityID(entryId),
-      tenantId,
-    );
-
-    let nextOccurrence: FinanceEntryDTO | undefined;
-
-    // RECURRING: auto-generate next occurrence when fully paid
-    if (
-      isFullyPaid &&
-      entryForPayment.recurrenceType === 'RECURRING' &&
-      entryForPayment.parentEntryId
-    ) {
-      nextOccurrence = await this.generateNextRecurringOccurrence(
-        entryForPayment,
-        tenantId,
-        paidAt,
-      );
-    }
-
-    // INSTALLMENT: check if all siblings are paid, then mark master as PAID
-    if (
-      isFullyPaid &&
-      entryForPayment.recurrenceType === 'INSTALLMENT' &&
-      entryForPayment.parentEntryId
-    ) {
-      await this.checkAndMarkMasterAsPaid(entryForPayment, tenantId);
-    }
+    // Audit log outside transaction (non-blocking, fire-and-forget)
+    queueAuditLog({
+      userId: request.createdBy,
+      action: 'FINANCE_PAYMENT_REGISTER',
+      entity: 'FINANCE_ENTRY',
+      entityId: entryId,
+      module: 'FINANCE',
+      description: `Registered payment of ${amount} for entry ${entry.code}`,
+      oldData: {
+        status: entry.status,
+        actualAmount: entry.actualAmount,
+      },
+      newData: {
+        status: result.updatedEntry.status,
+        actualAmount: result.newTotal,
+        paymentId: result.payment.id.toString(),
+      },
+      metadata: {
+        code: entry.code,
+        type: entry.type,
+        paymentAmount: amount,
+        paidAt: paidAt.toISOString(),
+        method: request.method,
+        isFullyPaid: result.isFullyPaid,
+      },
+    }).catch(() => {});
 
     return {
-      entry: financeEntryToDTO(updatedEntry!),
-      payment: financeEntryPaymentToDTO(payment),
-      nextOccurrence,
+      entry: financeEntryToDTO(result.updatedEntry),
+      payment: financeEntryPaymentToDTO(result.payment),
+      nextOccurrence: result.nextOccurrence,
       calculatedInterest: finalInterest,
       calculatedPenalty: finalPenalty,
     };
@@ -239,10 +317,11 @@ export class RegisterPaymentUseCase {
     entry: FinanceEntry,
     tenantId: string,
     lastPaidAt: Date,
+    tx?: TransactionClient,
   ): Promise<FinanceEntryDTO> {
     const nextInstallment = (entry.currentInstallment ?? 1) + 1;
 
-    const nextDueDate = this.calculateNextDate(
+    const nextDueDate = calculateNextDate(
       entry.dueDate,
       entry.recurrenceInterval ?? 1,
       entry.recurrenceUnit ?? 'MONTHLY',
@@ -252,34 +331,38 @@ export class RegisterPaymentUseCase {
     const nextCode = await this.financeEntriesRepository.generateNextCode(
       tenantId,
       entry.type,
+      tx,
     );
 
-    const nextEntry = await this.financeEntriesRepository.create({
-      tenantId,
-      type: entry.type,
-      code: nextCode,
-      description: `${entry.description.replace(/\s*\(\d+\)$/, '')} (${nextInstallment})`,
-      notes: entry.notes,
-      categoryId: entry.categoryId.toString(),
-      costCenterId: entry.costCenterId?.toString(),
-      bankAccountId: entry.bankAccountId?.toString(),
-      supplierName: entry.supplierName,
-      customerName: entry.customerName,
-      supplierId: entry.supplierId,
-      customerId: entry.customerId,
-      salesOrderId: entry.salesOrderId,
-      expectedAmount: entry.expectedAmount,
-      issueDate: lastPaidAt,
-      dueDate: nextDueDate,
-      competenceDate: entry.competenceDate,
-      recurrenceType: 'RECURRING',
-      recurrenceInterval: entry.recurrenceInterval,
-      recurrenceUnit: entry.recurrenceUnit,
-      currentInstallment: nextInstallment,
-      parentEntryId: entry.parentEntryId!.toString(),
-      tags: [...entry.tags],
-      createdBy: entry.createdBy,
-    });
+    const nextEntry = await this.financeEntriesRepository.create(
+      {
+        tenantId,
+        type: entry.type,
+        code: nextCode,
+        description: `${entry.description.replace(/\s*\(\d+\)$/, '')} (${nextInstallment})`,
+        notes: entry.notes,
+        categoryId: entry.categoryId.toString(),
+        costCenterId: entry.costCenterId?.toString(),
+        bankAccountId: entry.bankAccountId?.toString(),
+        supplierName: entry.supplierName,
+        customerName: entry.customerName,
+        supplierId: entry.supplierId,
+        customerId: entry.customerId,
+        salesOrderId: entry.salesOrderId,
+        expectedAmount: entry.expectedAmount,
+        issueDate: lastPaidAt,
+        dueDate: nextDueDate,
+        competenceDate: entry.competenceDate,
+        recurrenceType: 'RECURRING',
+        recurrenceInterval: entry.recurrenceInterval,
+        recurrenceUnit: entry.recurrenceUnit,
+        currentInstallment: nextInstallment,
+        parentEntryId: entry.parentEntryId!.toString(),
+        tags: [...entry.tags],
+        createdBy: entry.createdBy,
+      },
+      tx,
+    );
 
     return financeEntryToDTO(nextEntry);
   }
@@ -287,14 +370,18 @@ export class RegisterPaymentUseCase {
   private async checkAndMarkMasterAsPaid(
     entry: FinanceEntry,
     tenantId: string,
+    tx?: TransactionClient,
   ): Promise<void> {
     const parentId = entry.parentEntryId!.toString();
 
-    const { entries: siblings } = await this.financeEntriesRepository.findMany({
-      tenantId,
-      parentEntryId: parentId,
-      limit: 1000,
-    });
+    const { entries: siblings } = await this.financeEntriesRepository.findMany(
+      {
+        tenantId,
+        parentEntryId: parentId,
+        limit: 1000,
+      },
+      tx,
+    );
 
     const allPaid = siblings.every(
       (s) => s.status === 'PAID' || s.status === 'RECEIVED',
@@ -302,41 +389,14 @@ export class RegisterPaymentUseCase {
 
     if (allPaid) {
       const masterStatus = entry.type === 'PAYABLE' ? 'PAID' : 'RECEIVED';
-      await this.financeEntriesRepository.update({
-        id: new UniqueEntityID(parentId),
-        tenantId,
-        status: masterStatus,
-      });
+      await this.financeEntriesRepository.update(
+        {
+          id: new UniqueEntityID(parentId),
+          tenantId,
+          status: masterStatus,
+        },
+        tx,
+      );
     }
-  }
-
-  private calculateNextDate(
-    baseDate: Date,
-    interval: number,
-    unit: string,
-    multiplier: number,
-  ): Date {
-    const date = new Date(baseDate);
-    const totalInterval = interval * multiplier;
-
-    switch (unit) {
-      case 'DAILY':
-        date.setUTCDate(date.getUTCDate() + totalInterval);
-        break;
-      case 'WEEKLY':
-        date.setUTCDate(date.getUTCDate() + totalInterval * 7);
-        break;
-      case 'MONTHLY':
-        date.setUTCMonth(date.getUTCMonth() + totalInterval);
-        break;
-      case 'QUARTERLY':
-        date.setUTCMonth(date.getUTCMonth() + totalInterval * 3);
-        break;
-      case 'ANNUAL':
-        date.setUTCFullYear(date.getUTCFullYear() + totalInterval);
-        break;
-    }
-
-    return date;
   }
 }

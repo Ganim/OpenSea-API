@@ -3,7 +3,7 @@
  */
 
 import { z } from 'zod';
-import { dateSchema, idSchema } from '../../common.schema';
+import { dateSchema, idSchema, queryBooleanSchema } from '../../common.schema';
 
 export const companyCnaeStatusSchema = z.enum(['ACTIVE', 'INACTIVE']);
 
@@ -21,9 +21,9 @@ export const listCompanyCnaesQuerySchema = z.object({
   page: z.coerce.number().int().positive().optional().default(1),
   perPage: z.coerce.number().int().positive().max(100).optional().default(20),
   code: z.string().optional(),
-  isPrimary: z.coerce.boolean().optional(),
+  isPrimary: queryBooleanSchema.optional(),
   status: companyCnaeStatusSchema.optional(),
-  includeDeleted: z.coerce.boolean().optional().default(false),
+  includeDeleted: queryBooleanSchema.optional().default(false),
 });
 
 export const companyCnaeResponseSchema = z.object({

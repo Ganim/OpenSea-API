@@ -24,8 +24,7 @@ describe('ServeFileUseCase', () => {
   beforeEach(() => {
     storageFilesRepository = new InMemoryStorageFilesRepository();
     storageFoldersRepository = new InMemoryStorageFoldersRepository();
-    storageFileVersionsRepository =
-      new InMemoryStorageFileVersionsRepository();
+    storageFileVersionsRepository = new InMemoryStorageFileVersionsRepository();
     fileUploadService = new FakeFileUploadService();
 
     fileUploadService.getObject = async () => FILE_CONTENT;

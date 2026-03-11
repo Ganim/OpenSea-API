@@ -1,6 +1,7 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import type { TransactionManager } from '@/lib/transaction-manager';
 import { type LoanDTO, loanToDTO } from '@/mappers/finance/loan/loan-to-dto';
 import {
   type LoanInstallmentDTO,
@@ -27,6 +28,7 @@ export class RegisterLoanPaymentUseCase {
   constructor(
     private loansRepository: LoansRepository,
     private loanInstallmentsRepository: LoanInstallmentsRepository,
+    private transactionManager?: TransactionManager,
   ) {}
 
   async execute(
@@ -68,7 +70,44 @@ export class RegisterLoanPaymentUseCase {
       throw new BadRequestError('Payment amount must be positive');
     }
 
-    // Update installment
+    // Pre-compute update values
+    const newOutstandingBalance = Math.max(0, loan.outstandingBalance - amount);
+    const newPaidInstallments = loan.paidInstallments + 1;
+    const isFullyPaid = newPaidInstallments >= loan.totalInstallments;
+
+    // Wrap installment update + loan update in a transaction
+    if (this.transactionManager) {
+      return this.transactionManager.run(async (tx) => {
+        const updatedInstallment = await this.loanInstallmentsRepository.update(
+          {
+            id: new UniqueEntityID(installmentId),
+            paidAmount: amount,
+            paidAt,
+            status: 'PAID',
+            bankAccountId: bankAccountId ?? null,
+          },
+          tx,
+        );
+
+        const updatedLoan = await this.loansRepository.update(
+          {
+            id: new UniqueEntityID(loanId),
+            tenantId,
+            outstandingBalance: newOutstandingBalance,
+            paidInstallments: newPaidInstallments,
+            ...(isFullyPaid && { status: 'PAID_OFF' }),
+          },
+          tx,
+        );
+
+        return {
+          loan: loanToDTO(updatedLoan!),
+          installment: loanInstallmentToDTO(updatedInstallment!),
+        };
+      });
+    }
+
+    // Fallback without transaction (in-memory tests)
     const updatedInstallment = await this.loanInstallmentsRepository.update({
       id: new UniqueEntityID(installmentId),
       paidAmount: amount,
@@ -76,11 +115,6 @@ export class RegisterLoanPaymentUseCase {
       status: 'PAID',
       bankAccountId: bankAccountId ?? null,
     });
-
-    // Update loan outstanding balance and paid installments
-    const newOutstandingBalance = Math.max(0, loan.outstandingBalance - amount);
-    const newPaidInstallments = loan.paidInstallments + 1;
-    const isFullyPaid = newPaidInstallments >= loan.totalInstallments;
 
     const updatedLoan = await this.loansRepository.update({
       id: new UniqueEntityID(loanId),

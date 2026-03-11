@@ -97,7 +97,10 @@ export function createWorker<T = unknown>(
     console.error(`[Queue:${name}] Job ${job?.id} failed:`, err.message);
 
     // Dead Letter Queue: if all retries exhausted, forward to DLQ
-    if (job && job.attemptsMade >= (job.opts?.attempts ?? defaultJobOptions.attempts)) {
+    if (
+      job &&
+      job.attemptsMade >= (job.opts?.attempts ?? defaultJobOptions.attempts)
+    ) {
       try {
         const dlq = createQueue(QUEUE_NAMES.DEAD_LETTER);
         await dlq.add('dead-letter', {

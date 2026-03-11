@@ -4,7 +4,7 @@
  */
 
 import { z } from 'zod';
-import { dateSchema, idSchema } from './common.schema';
+import { dateSchema, idSchema, queryBooleanSchema } from './common.schema';
 
 /**
  * Permission Code Format (1-4 parts):
@@ -73,7 +73,7 @@ export const listPermissionsQuerySchema = z.object({
   module: z.string().optional(),
   resource: z.string().optional(),
   action: z.string().optional(),
-  isSystem: z.coerce.boolean().optional(),
+  isSystem: queryBooleanSchema.optional(),
   page: z.coerce.number().int().positive().default(1),
   limit: z.coerce.number().int().positive().max(100).default(20),
 });
@@ -185,9 +185,9 @@ export const updatePermissionGroupSchema = z.object({
  * List Permission Groups Query Schema
  */
 export const listPermissionGroupsQuerySchema = z.object({
-  isActive: z.coerce.boolean().optional(),
-  isSystem: z.coerce.boolean().optional(),
-  includeDeleted: z.coerce.boolean().default(false),
+  isActive: queryBooleanSchema.optional(),
+  isSystem: queryBooleanSchema.optional(),
+  includeDeleted: queryBooleanSchema.default(false),
   page: z.coerce.number().int().positive().default(1),
   limit: z.coerce.number().int().positive().max(100).default(20),
 });
@@ -231,22 +231,22 @@ export const assignGroupToUserSchema = z.object({
  * List User Groups Query Schema
  */
 export const listUserGroupsQuerySchema = z.object({
-  includeExpired: z.coerce.boolean().default(false),
-  includeInactive: z.coerce.boolean().default(false),
+  includeExpired: queryBooleanSchema.default(false),
+  includeInactive: queryBooleanSchema.default(false),
 });
 
 /**
  * List Users by Group Query Schema
  */
 export const listUsersByGroupQuerySchema = z.object({
-  includeExpired: z.coerce.boolean().default(false),
+  includeExpired: queryBooleanSchema.default(false),
 });
 
 /**
  * Delete Permission Group Query Schema
  */
 export const deletePermissionGroupQuerySchema = z.object({
-  force: z.coerce.boolean().default(false),
+  force: queryBooleanSchema.default(false),
 });
 
 /**
@@ -292,7 +292,7 @@ export const updateDirectPermissionSchema = z.object({
  * List User Direct Permissions Query Schema
  */
 export const listUserDirectPermissionsQuerySchema = z.object({
-  includeExpired: z.coerce.boolean().default(false),
+  includeExpired: queryBooleanSchema.default(false),
   effect: permissionEffectSchema.optional(),
 });
 

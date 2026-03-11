@@ -218,106 +218,111 @@ export class CreateEmployeeWithUserUseCase {
     const workRegimeVO = this.mapWorkRegime(workRegime);
     const pisVO = pis ? PIS.create(pis) : undefined;
 
-    const createAllSteps = async (): Promise<CreateEmployeeWithUserResponse> => {
-      // Step 1: Create user account
-      const { user } = await this.createUserUseCase.execute({
-        email: userEmail,
-        password: userPassword,
-        username: username,
-        profile: {
-          name: fullName.split(' ')[0], // First name
-          surname: fullName.split(' ').slice(1).join(' '), // Last name(s)
-          avatarUrl: photoUrl,
-          birthday: birthDate,
-        },
-      });
-
-      // Step 2: Set forced password reset for new user
-      await this.usersRepository.setForcePasswordReset(
-        new UniqueEntityID(user.id),
-        null, // System request (no admin user)
-        'Conta criada - defina sua senha',
-      );
-
-      // Step 3: Associate user with tenant
-      await this.tenantUsersRepository.create({
-        tenantId: new UniqueEntityID(tenantId),
-        userId: new UniqueEntityID(user.id),
-        role: 'member',
-      });
-
-      // Step 4: Create employee linked to user
-      const employee = await this.employeesRepository.create({
-        tenantId,
-        registrationNumber,
-        userId: new UniqueEntityID(user.id),
-        fullName,
-        socialName,
-        birthDate,
-        gender,
-        pcd,
-        maritalStatus,
-        nationality,
-        birthPlace,
-        emergencyContactInfo,
-        healthConditions,
-        cpf: cpfVO,
-        rg,
-        rgIssuer,
-        rgIssueDate,
-        pis: pisVO,
-        ctpsNumber,
-        ctpsSeries,
-        ctpsState,
-        voterTitle,
-        militaryDoc,
-        email,
-        personalEmail,
-        phone,
-        mobilePhone,
-        emergencyContact,
-        emergencyPhone,
-        address,
-        addressNumber,
-        complement,
-        neighborhood,
-        city,
-        state,
-        zipCode,
-        country,
-        bankCode,
-        bankName,
-        bankAgency,
-        bankAccount,
-        bankAccountType,
-        pixKey,
-        departmentId: departmentId ? new UniqueEntityID(departmentId) : undefined,
-        positionId: positionId ? new UniqueEntityID(positionId) : undefined,
-        supervisorId: supervisorId ? new UniqueEntityID(supervisorId) : undefined,
-        companyId: companyId ? new UniqueEntityID(companyId) : undefined,
-        hireDate,
-        status: statusVO,
-        baseSalary,
-        contractType: contractTypeVO,
-        workRegime: workRegimeVO,
-        weeklyHours,
-        photoUrl,
-        metadata,
-        pendingIssues,
-      });
-
-      // Step 5: Assign permission group to user (if provided)
-      if (permissionGroupId) {
-        await this.assignGroupToUserUseCase.execute({
-          userId: user.id,
-          groupId: permissionGroupId,
-          expiresAt: null,
-          grantedBy: null,
+    const createAllSteps =
+      async (): Promise<CreateEmployeeWithUserResponse> => {
+        // Step 1: Create user account
+        const { user } = await this.createUserUseCase.execute({
+          email: userEmail,
+          password: userPassword,
+          username: username,
+          profile: {
+            name: fullName.split(' ')[0], // First name
+            surname: fullName.split(' ').slice(1).join(' '), // Last name(s)
+            avatarUrl: photoUrl,
+            birthday: birthDate,
+          },
         });
-      }
 
-      return { employee, user };
-    };
+        // Step 2: Set forced password reset for new user
+        await this.usersRepository.setForcePasswordReset(
+          new UniqueEntityID(user.id),
+          null, // System request (no admin user)
+          'Conta criada - defina sua senha',
+        );
+
+        // Step 3: Associate user with tenant
+        await this.tenantUsersRepository.create({
+          tenantId: new UniqueEntityID(tenantId),
+          userId: new UniqueEntityID(user.id),
+          role: 'member',
+        });
+
+        // Step 4: Create employee linked to user
+        const employee = await this.employeesRepository.create({
+          tenantId,
+          registrationNumber,
+          userId: new UniqueEntityID(user.id),
+          fullName,
+          socialName,
+          birthDate,
+          gender,
+          pcd,
+          maritalStatus,
+          nationality,
+          birthPlace,
+          emergencyContactInfo,
+          healthConditions,
+          cpf: cpfVO,
+          rg,
+          rgIssuer,
+          rgIssueDate,
+          pis: pisVO,
+          ctpsNumber,
+          ctpsSeries,
+          ctpsState,
+          voterTitle,
+          militaryDoc,
+          email,
+          personalEmail,
+          phone,
+          mobilePhone,
+          emergencyContact,
+          emergencyPhone,
+          address,
+          addressNumber,
+          complement,
+          neighborhood,
+          city,
+          state,
+          zipCode,
+          country,
+          bankCode,
+          bankName,
+          bankAgency,
+          bankAccount,
+          bankAccountType,
+          pixKey,
+          departmentId: departmentId
+            ? new UniqueEntityID(departmentId)
+            : undefined,
+          positionId: positionId ? new UniqueEntityID(positionId) : undefined,
+          supervisorId: supervisorId
+            ? new UniqueEntityID(supervisorId)
+            : undefined,
+          companyId: companyId ? new UniqueEntityID(companyId) : undefined,
+          hireDate,
+          status: statusVO,
+          baseSalary,
+          contractType: contractTypeVO,
+          workRegime: workRegimeVO,
+          weeklyHours,
+          photoUrl,
+          metadata,
+          pendingIssues,
+        });
+
+        // Step 5: Assign permission group to user (if provided)
+        if (permissionGroupId) {
+          await this.assignGroupToUserUseCase.execute({
+            userId: user.id,
+            groupId: permissionGroupId,
+            expiresAt: null,
+            grantedBy: null,
+          });
+        }
+
+        return { employee, user };
+      };
 
     // Wrap all mutation steps in a transaction when available
     if (this.transactionManager) {

@@ -29,6 +29,7 @@ export class InMemoryDeductionsRepository implements DeductionsRepository {
   async findById(
     id: UniqueEntityID,
     tenantId: string,
+    _tx?: unknown,
   ): Promise<Deduction | null> {
     return (
       this.items.find(
@@ -184,7 +185,7 @@ export class InMemoryDeductionsRepository implements DeductionsRepository {
     return deduction;
   }
 
-  async save(deduction: Deduction): Promise<void> {
+  async save(deduction: Deduction, _tx?: unknown): Promise<void> {
     const index = this.items.findIndex((item) => item.id.equals(deduction.id));
     if (index >= 0) {
       this.items[index] = deduction;

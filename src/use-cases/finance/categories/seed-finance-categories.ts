@@ -1,12 +1,30 @@
 import type { FinanceCategoriesRepository } from '@/repositories/finance/finance-categories-repository';
 
 const PT_BR_TRANSLITERATION: Record<string, string> = {
-  'á': 'a', 'à': 'a', 'â': 'a', 'ã': 'a', 'ä': 'a',
-  'é': 'e', 'è': 'e', 'ê': 'e', 'ë': 'e',
-  'í': 'i', 'ì': 'i', 'î': 'i', 'ï': 'i',
-  'ó': 'o', 'ò': 'o', 'ô': 'o', 'õ': 'o', 'ö': 'o',
-  'ú': 'u', 'ù': 'u', 'û': 'u', 'ü': 'u',
-  'ç': 'c', 'ñ': 'n',
+  á: 'a',
+  à: 'a',
+  â: 'a',
+  ã: 'a',
+  ä: 'a',
+  é: 'e',
+  è: 'e',
+  ê: 'e',
+  ë: 'e',
+  í: 'i',
+  ì: 'i',
+  î: 'i',
+  ï: 'i',
+  ó: 'o',
+  ò: 'o',
+  ô: 'o',
+  õ: 'o',
+  ö: 'o',
+  ú: 'u',
+  ù: 'u',
+  û: 'u',
+  ü: 'u',
+  ç: 'c',
+  ñ: 'n',
 };
 
 function slugify(text: string): string {
@@ -61,8 +79,16 @@ const DRE_STRUCTURE: SeedCategory[] = [
     type: 'EXPENSE',
     displayOrder: 300,
     children: [
-      { name: 'Custo de Mercadorias Vendidas', type: 'EXPENSE', displayOrder: 310 },
-      { name: 'Custo de Servicos Prestados', type: 'EXPENSE', displayOrder: 320 },
+      {
+        name: 'Custo de Mercadorias Vendidas',
+        type: 'EXPENSE',
+        displayOrder: 310,
+      },
+      {
+        name: 'Custo de Servicos Prestados',
+        type: 'EXPENSE',
+        displayOrder: 320,
+      },
     ],
   },
   {

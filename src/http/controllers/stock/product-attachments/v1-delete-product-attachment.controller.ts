@@ -1,4 +1,3 @@
-import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
@@ -8,9 +7,7 @@ import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
 
-export async function deleteProductAttachmentController(
-  app: FastifyInstance,
-) {
+export async function deleteProductAttachmentController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'DELETE',
     url: '/v1/products/:productId/attachments/:id',
@@ -42,17 +39,10 @@ export async function deleteProductAttachmentController(
       const tenantId = request.user.tenantId!;
       const { id } = request.params;
 
-      try {
-        const useCase = makeDeleteProductAttachmentUseCase();
-        await useCase.execute({ id, tenantId });
+      const useCase = makeDeleteProductAttachmentUseCase();
+      await useCase.execute({ id, tenantId });
 
-        return reply.status(204).send(null);
-      } catch (error) {
-        if (error instanceof ResourceNotFoundError) {
-          return reply.status(404).send({ message: error.message });
-        }
-        throw error;
-      }
+      return reply.status(204).send(null);
     },
   });
 }

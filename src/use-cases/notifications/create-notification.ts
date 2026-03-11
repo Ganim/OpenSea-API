@@ -34,12 +34,11 @@ export class CreateNotificationUseCase {
   ): Promise<CreateNotificationUseCaseResponse> {
     // Dedup: skip if an active notification already exists for this user + entity
     if (params.entityType && params.entityId) {
-      const existing =
-        await this.notificationsRepository.findByUserAndEntity(
-          params.userId,
-          params.entityType,
-          params.entityId,
-        );
+      const existing = await this.notificationsRepository.findByUserAndEntity(
+        params.userId,
+        params.entityType,
+        params.entityId,
+      );
       if (existing) {
         return { notification: existing };
       }

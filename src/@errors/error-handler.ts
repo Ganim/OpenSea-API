@@ -1,4 +1,5 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { CannotDeletePaidEntryError } from '@/@errors/use-cases/cannot-delete-paid-entry-error';
 import { ConflictError } from '@/@errors/use-cases/conflict-error';
 import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
 import { PasswordResetRequiredError } from '@/@errors/use-cases/password-reset-required-error';
@@ -47,6 +48,14 @@ export const errorHandler = (
       message: 'Validation error',
       requestId,
       details: z.treeifyError(error),
+    });
+  }
+
+  if (error instanceof CannotDeletePaidEntryError) {
+    return reply.status(400).send({
+      code: error.code ?? ErrorCodes.FINANCE_CANNOT_DELETE_PAID_ENTRY,
+      message: error.message,
+      requestId,
     });
   }
 

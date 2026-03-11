@@ -2,7 +2,12 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { InMemoryPurchaseOrdersRepository } from '@/repositories/stock/in-memory/in-memory-purchase-orders-repository';
 import { makePurchaseOrder } from '@/utils/tests/factories/make-purchase-order';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
+vi.mock('@/workers/queues/audit.queue', () => ({
+  queueAuditLog: vi.fn().mockResolvedValue(undefined),
+}));
+
 import { CancelPurchaseOrderUseCase } from './cancel-purchase-order';
 
 let purchaseOrdersRepository: InMemoryPurchaseOrdersRepository;

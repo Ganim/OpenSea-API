@@ -1,5 +1,5 @@
-import type { VolumeDTO } from '@/mappers/stock/volume.mapper';
-import { VolumeMapper } from '@/mappers/stock/volume.mapper';
+import type { VolumeDTO } from '@/mappers/stock/volume/volume-to-dto';
+import { volumeToDTO } from '@/mappers/stock/volume/volume-to-dto';
 import type { VolumeRepository } from '@/repositories/stock/volumes-repository';
 
 export interface ListVolumesUseCaseRequest {
@@ -41,7 +41,7 @@ export class ListVolumesUseCase {
     }
 
     return {
-      volumes: filteredVolumes.map((vol) => VolumeMapper.toDTO(vol)),
+      volumes: filteredVolumes.map((vol) => volumeToDTO(vol)),
       total,
       page,
       limit,

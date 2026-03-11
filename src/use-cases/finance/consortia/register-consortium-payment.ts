@@ -1,6 +1,7 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import type { TransactionManager } from '@/lib/transaction-manager';
 import {
   type ConsortiumDTO,
   consortiumToDTO,
@@ -30,6 +31,7 @@ export class RegisterConsortiumPaymentUseCase {
   constructor(
     private consortiaRepository: ConsortiaRepository,
     private consortiumPaymentsRepository: ConsortiumPaymentsRepository,
+    private transactionManager?: TransactionManager,
   ) {}
 
   async execute(
@@ -74,7 +76,42 @@ export class RegisterConsortiumPaymentUseCase {
       throw new BadRequestError('Payment amount must be positive');
     }
 
-    // Update payment
+    // Pre-compute update values
+    const newPaidInstallments = consortium.paidInstallments + 1;
+    const isFullyPaid = newPaidInstallments >= consortium.totalInstallments;
+
+    // Wrap payment update + consortium update in a transaction
+    if (this.transactionManager) {
+      return this.transactionManager.run(async (tx) => {
+        const updatedPayment = await this.consortiumPaymentsRepository.update(
+          {
+            id: new UniqueEntityID(paymentId),
+            paidAmount: amount,
+            paidAt,
+            status: 'PAID',
+            bankAccountId: bankAccountId ?? null,
+          },
+          tx,
+        );
+
+        const updatedConsortium = await this.consortiaRepository.update(
+          {
+            id: new UniqueEntityID(consortiumId),
+            tenantId,
+            paidInstallments: newPaidInstallments,
+            ...(isFullyPaid && { status: 'COMPLETED' }),
+          },
+          tx,
+        );
+
+        return {
+          consortium: consortiumToDTO(updatedConsortium!),
+          payment: consortiumPaymentToDTO(updatedPayment!),
+        };
+      });
+    }
+
+    // Fallback without transaction (in-memory tests)
     const updatedPayment = await this.consortiumPaymentsRepository.update({
       id: new UniqueEntityID(paymentId),
       paidAmount: amount,
@@ -82,10 +119,6 @@ export class RegisterConsortiumPaymentUseCase {
       status: 'PAID',
       bankAccountId: bankAccountId ?? null,
     });
-
-    // Update consortium paid installments
-    const newPaidInstallments = consortium.paidInstallments + 1;
-    const isFullyPaid = newPaidInstallments >= consortium.totalInstallments;
 
     const updatedConsortium = await this.consortiaRepository.update({
       id: new UniqueEntityID(consortiumId),

@@ -12,7 +12,10 @@ describe('GetContractByIdUseCase', () => {
   beforeEach(() => {
     contractsRepository = new InMemoryContractsRepository();
     financeEntriesRepository = new InMemoryFinanceEntriesRepository();
-    sut = new GetContractByIdUseCase(contractsRepository, financeEntriesRepository);
+    sut = new GetContractByIdUseCase(
+      contractsRepository,
+      financeEntriesRepository,
+    );
   });
 
   it('should return a contract with generated entries count', async () => {

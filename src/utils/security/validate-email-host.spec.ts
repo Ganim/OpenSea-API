@@ -1,5 +1,8 @@
 import { describe, expect, it } from 'vitest';
-import { isEmailHostObviouslySafe, isEmailPortValid } from './validate-email-host';
+import {
+  isEmailHostObviouslySafe,
+  isEmailPortValid,
+} from './validate-email-host';
 
 describe('isEmailHostObviouslySafe', () => {
   it('should block localhost', () => {
@@ -63,23 +66,23 @@ describe('isEmailHostObviouslySafe', () => {
 
 describe('isEmailPortValid', () => {
   it('should allow standard email ports', () => {
-    expect(isEmailPortValid(25)).toBe(true);   // SMTP
-    expect(isEmailPortValid(110)).toBe(true);  // POP3
-    expect(isEmailPortValid(143)).toBe(true);  // IMAP
-    expect(isEmailPortValid(465)).toBe(true);  // SMTPS
-    expect(isEmailPortValid(587)).toBe(true);  // Submission
-    expect(isEmailPortValid(993)).toBe(true);  // IMAPS
-    expect(isEmailPortValid(995)).toBe(true);  // POP3S
+    expect(isEmailPortValid(25)).toBe(true); // SMTP
+    expect(isEmailPortValid(110)).toBe(true); // POP3
+    expect(isEmailPortValid(143)).toBe(true); // IMAP
+    expect(isEmailPortValid(465)).toBe(true); // SMTPS
+    expect(isEmailPortValid(587)).toBe(true); // Submission
+    expect(isEmailPortValid(993)).toBe(true); // IMAPS
+    expect(isEmailPortValid(995)).toBe(true); // POP3S
     expect(isEmailPortValid(2525)).toBe(true); // Alt SMTP
   });
 
   it('should reject non-email ports', () => {
-    expect(isEmailPortValid(22)).toBe(false);    // SSH
-    expect(isEmailPortValid(80)).toBe(false);    // HTTP
-    expect(isEmailPortValid(443)).toBe(false);   // HTTPS
-    expect(isEmailPortValid(3306)).toBe(false);  // MySQL
-    expect(isEmailPortValid(5432)).toBe(false);  // PostgreSQL
-    expect(isEmailPortValid(6379)).toBe(false);  // Redis
+    expect(isEmailPortValid(22)).toBe(false); // SSH
+    expect(isEmailPortValid(80)).toBe(false); // HTTP
+    expect(isEmailPortValid(443)).toBe(false); // HTTPS
+    expect(isEmailPortValid(3306)).toBe(false); // MySQL
+    expect(isEmailPortValid(5432)).toBe(false); // PostgreSQL
+    expect(isEmailPortValid(6379)).toBe(false); // Redis
     expect(isEmailPortValid(27017)).toBe(false); // MongoDB
   });
 });

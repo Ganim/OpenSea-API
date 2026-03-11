@@ -152,9 +152,7 @@ function printStats() {
     console.log(`  P90:             ${percentile(stats.responseTimes, 90)}ms`);
     console.log(`  P95:             ${percentile(stats.responseTimes, 95)}ms`);
     console.log(`  P99:             ${percentile(stats.responseTimes, 99)}ms`);
-    console.log(
-      `  Max:             ${Math.max(...stats.responseTimes)}ms`,
-    );
+    console.log(`  Max:             ${Math.max(...stats.responseTimes)}ms`);
   }
 
   if (stats.statusCodes.size > 0) {

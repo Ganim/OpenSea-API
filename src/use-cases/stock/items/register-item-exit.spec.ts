@@ -12,8 +12,17 @@ import { InMemoryTemplatesRepository } from '@/repositories/stock/in-memory/in-m
 import { InMemoryVariantsRepository } from '@/repositories/stock/in-memory/in-memory-variants-repository';
 import { InMemoryWarehousesRepository } from '@/repositories/stock/in-memory/in-memory-warehouses-repository';
 import { InMemoryZonesRepository } from '@/repositories/stock/in-memory/in-memory-zones-repository';
+import type { TransactionManager } from '@/lib/transaction-manager';
 import { templateAttr } from '@/utils/tests/factories/stock/make-template';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
+vi.mock('@/workers/queues/audit.queue', () => ({
+  queueAuditLog: vi.fn().mockResolvedValue(undefined),
+}));
+
+const fakeTransactionManager: TransactionManager = {
+  run: (fn) => fn(null as never),
+};
 import { CreateProductUseCase } from '../products/create-product';
 import { CreateTemplateUseCase } from '../templates/create-template';
 import { CreateVariantUseCase } from '../variants/create-variant';
@@ -96,11 +105,13 @@ describe('RegisterItemExitUseCase', () => {
       itemMovementsRepository,
       productsRepository,
       templatesRepository,
+      fakeTransactionManager,
     );
 
     registerItemExit = new RegisterItemExitUseCase(
       itemsRepository,
       itemMovementsRepository,
+      fakeTransactionManager,
     );
 
     createVariant = new CreateVariantUseCase(
@@ -114,7 +125,7 @@ describe('RegisterItemExitUseCase', () => {
       templatesRepository,
       suppliersRepository,
       manufacturersRepository,
-      categoriesRepository,
+      categoriesRepository,
     );
 
     createTemplate = new CreateTemplateUseCase(templatesRepository);
@@ -226,6 +237,8 @@ describe('RegisterItemExitUseCase', () => {
       userId,
     });
 
+    const approverId = new UniqueEntityID().toString();
+
     const result = await registerItemExit.execute({
       tenantId: 'tenant-1',
       itemId: entryItem.id,
@@ -233,6 +246,7 @@ describe('RegisterItemExitUseCase', () => {
       userId,
       movementType: 'LOSS',
       reasonCode: 'Damaged during inspection',
+      approvedBy: approverId,
     });
 
     expect(result.item.currentQuantity).toBe(45);
@@ -547,12 +561,15 @@ describe('RegisterItemExitUseCase', () => {
       movementType: 'SALE',
     });
 
+    const approverId = new UniqueEntityID().toString();
+
     const result = await registerItemExit.execute({
       tenantId: 'tenant-1',
       itemId: entryItem.id,
       quantity: 10,
       userId,
       movementType: 'LOSS',
+      approvedBy: approverId,
     });
 
     expect(result.item.currentQuantity).toBe(55);

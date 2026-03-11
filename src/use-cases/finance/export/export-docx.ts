@@ -53,7 +53,9 @@ export async function exportToDOCX(
           width: { size: colWidth, type: WidthType.DXA },
           children: [
             new Paragraph({
-              children: [new TextRun({ text: h, bold: true, size: 18, font: 'Arial' })],
+              children: [
+                new TextRun({ text: h, bold: true, size: 18, font: 'Arial' }),
+              ],
               alignment: AlignmentType.CENTER,
             }),
           ],

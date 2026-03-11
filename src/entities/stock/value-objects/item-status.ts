@@ -59,6 +59,22 @@ export class ItemStatus {
     return this.status === 'DAMAGED' || this.status === 'EXPIRED';
   }
 
+  private static readonly VALID_TRANSITIONS: Record<
+    ItemStatusValue,
+    ItemStatusValue[]
+  > = {
+    AVAILABLE: ['RESERVED', 'IN_TRANSIT', 'DAMAGED', 'EXPIRED'],
+    RESERVED: ['AVAILABLE', 'IN_TRANSIT'],
+    IN_TRANSIT: ['AVAILABLE', 'DAMAGED'],
+    DAMAGED: ['AVAILABLE', 'DISPOSED'],
+    EXPIRED: ['DISPOSED'],
+    DISPOSED: [], // terminal
+  };
+
+  canTransitionTo(newStatus: ItemStatusValue): boolean {
+    return ItemStatus.VALID_TRANSITIONS[this.status].includes(newStatus);
+  }
+
   equals(other: ItemStatus): boolean {
     return this.status === other.status;
   }

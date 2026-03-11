@@ -1,5 +1,6 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import type { TransactionManager } from '@/lib/transaction-manager';
 import {
   type ConsortiumDTO,
   consortiumToDTO,
@@ -41,6 +42,7 @@ export class CreateConsortiumUseCase {
     private consortiumPaymentsRepository: ConsortiumPaymentsRepository,
     private bankAccountsRepository: BankAccountsRepository,
     private costCentersRepository: CostCentersRepository,
+    private transactionManager?: TransactionManager,
   ) {}
 
   async execute(
@@ -95,6 +97,70 @@ export class CreateConsortiumUseCase {
       throw new BadRequestError('Cost center not found');
     }
 
+    // Pre-compute payment schemas (pure computation, no DB)
+    const paymentSchemas: Array<{
+      consortiumId: string;
+      installmentNumber: number;
+      dueDate: Date;
+      expectedAmount: number;
+    }> = [];
+    for (let i = 1; i <= totalInstallments; i++) {
+      const dueDate = new Date(request.startDate);
+      dueDate.setUTCMonth(dueDate.getUTCMonth() + i);
+      if (request.paymentDay) {
+        dueDate.setUTCDate(request.paymentDay);
+      }
+
+      paymentSchemas.push({
+        consortiumId: '', // placeholder — will be set after consortium creation
+        installmentNumber: i,
+        dueDate,
+        expectedAmount: monthlyPayment,
+      });
+    }
+
+    // Wrap consortium + payments creation in a transaction
+    if (this.transactionManager) {
+      return this.transactionManager.run(async (tx) => {
+        const consortium = await this.consortiaRepository.create(
+          {
+            tenantId,
+            bankAccountId,
+            costCenterId,
+            name: name.trim(),
+            administrator: administrator.trim(),
+            groupNumber: request.groupNumber,
+            quotaNumber: request.quotaNumber,
+            contractNumber: request.contractNumber,
+            creditValue,
+            monthlyPayment,
+            totalInstallments,
+            startDate: request.startDate,
+            paymentDay: request.paymentDay,
+            notes: request.notes,
+          },
+          tx,
+        );
+
+        // Set consortiumId on all payment schemas
+        const schemasWithId = paymentSchemas.map((s) => ({
+          ...s,
+          consortiumId: consortium.id.toString(),
+        }));
+
+        const payments = await this.consortiumPaymentsRepository.createMany(
+          schemasWithId,
+          tx,
+        );
+
+        return {
+          consortium: consortiumToDTO(consortium),
+          payments: payments.map(consortiumPaymentToDTO),
+        };
+      });
+    }
+
+    // Fallback without transaction (in-memory tests)
     const consortium = await this.consortiaRepository.create({
       tenantId,
       bankAccountId,
@@ -112,25 +178,13 @@ export class CreateConsortiumUseCase {
       notes: request.notes,
     });
 
-    // Generate monthly payments
-    const paymentSchemas = [];
-    for (let i = 1; i <= totalInstallments; i++) {
-      const dueDate = new Date(request.startDate);
-      dueDate.setUTCMonth(dueDate.getUTCMonth() + i);
-      if (request.paymentDay) {
-        dueDate.setUTCDate(request.paymentDay);
-      }
-
-      paymentSchemas.push({
-        consortiumId: consortium.id.toString(),
-        installmentNumber: i,
-        dueDate,
-        expectedAmount: monthlyPayment,
-      });
-    }
+    const schemasWithId = paymentSchemas.map((s) => ({
+      ...s,
+      consortiumId: consortium.id.toString(),
+    }));
 
     const payments =
-      await this.consortiumPaymentsRepository.createMany(paymentSchemas);
+      await this.consortiumPaymentsRepository.createMany(schemasWithId);
 
     return {
       consortium: consortiumToDTO(consortium),

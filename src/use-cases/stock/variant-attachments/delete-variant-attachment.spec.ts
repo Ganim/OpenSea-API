@@ -11,12 +11,9 @@ const VARIANT_ID = 'variant-1';
 
 describe('DeleteVariantAttachmentUseCase', () => {
   beforeEach(() => {
-    variantAttachmentsRepository =
-      new InMemoryVariantAttachmentsRepository();
+    variantAttachmentsRepository = new InMemoryVariantAttachmentsRepository();
 
-    sut = new DeleteVariantAttachmentUseCase(
-      variantAttachmentsRepository,
-    );
+    sut = new DeleteVariantAttachmentUseCase(variantAttachmentsRepository);
   });
 
   it('should delete a variant attachment', async () => {

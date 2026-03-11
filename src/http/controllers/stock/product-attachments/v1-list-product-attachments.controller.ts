@@ -8,9 +8,7 @@ import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
 
-export async function listProductAttachmentsController(
-  app: FastifyInstance,
-) {
+export async function listProductAttachmentsController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/products/:productId/attachments',
@@ -30,9 +28,7 @@ export async function listProductAttachmentsController(
       }),
       response: {
         200: z.object({
-          productAttachments: z.array(
-            attachmentResponseSchema,
-          ),
+          productAttachments: z.array(attachmentResponseSchema),
         }),
       },
       security: [{ bearerAuth: [] }],

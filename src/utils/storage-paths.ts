@@ -2,7 +2,7 @@ export function productStoragePath(
   tenantId: string,
   productSlug: string,
 ): string {
-  return `/tenants/${tenantId}/products/${productSlug}`
+  return `/tenants/${tenantId}/products/${productSlug}`;
 }
 
 export function variantImagesPath(
@@ -10,14 +10,14 @@ export function variantImagesPath(
   productSlug: string,
   variantSlug: string,
 ): string {
-  return `/tenants/${tenantId}/products/${productSlug}/variants/${variantSlug}/images`
+  return `/tenants/${tenantId}/products/${productSlug}/variants/${variantSlug}/images`;
 }
 
 export function productAttachmentsPath(
   tenantId: string,
   productSlug: string,
 ): string {
-  return `/tenants/${tenantId}/products/${productSlug}/attachments`
+  return `/tenants/${tenantId}/products/${productSlug}/attachments`;
 }
 
 export function variantAttachmentsPath(
@@ -25,5 +25,5 @@ export function variantAttachmentsPath(
   productSlug: string,
   variantSlug: string,
 ): string {
-  return `/tenants/${tenantId}/products/${productSlug}/variants/${variantSlug}/attachments`
+  return `/tenants/${tenantId}/products/${productSlug}/variants/${variantSlug}/attachments`;
 }

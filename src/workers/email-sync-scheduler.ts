@@ -1,7 +1,10 @@
 import { logger } from '@/lib/logger';
 import { prisma } from '@/lib/prisma';
 import { PrismaEmailAccountsRepository } from '@/repositories/email/prisma/prisma-email-accounts-repository';
-import { queueEmailSync, getEmailSyncQueueInstance } from './queues/email-sync.queue';
+import {
+  queueEmailSync,
+  getEmailSyncQueueInstance,
+} from './queues/email-sync.queue';
 
 const INTERVAL_MS = 5 * 60 * 1000;
 
@@ -42,7 +45,10 @@ async function scheduleSyncJobs() {
         }
         // Remove completed/failed jobs so the new job can be added
         await existing.remove().catch((err) => {
-          logger.warn({ err, jobId }, 'Failed to remove existing sync job before re-queue');
+          logger.warn(
+            { err, jobId },
+            'Failed to remove existing sync job before re-queue',
+          );
         });
       }
 

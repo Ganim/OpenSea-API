@@ -1,4 +1,6 @@
 import type { FastifyInstance } from 'fastify';
+import rateLimit from '@fastify/rate-limit';
+import { rateLimitConfig } from '@/config/rate-limits';
 import { createModuleMiddleware } from '@/http/middlewares/tenant/verify-module';
 import { getBinByIdController } from './v1-get-bin-by-id.controller';
 import { getBinByAddressController } from './v1-get-bin-by-address.controller';
@@ -14,14 +16,29 @@ import { unblockBinController } from './v1-unblock-bin.controller';
 export async function binsRoutes(app: FastifyInstance) {
   app.addHook('onRequest', createModuleMiddleware('STOCK'));
 
-  await getBinDetailController(app);
-  await getBinByIdController(app);
-  await getBinByAddressController(app);
-  await listBinsController(app);
-  await searchBinsController(app);
-  await listAvailableBinsController(app);
-  await getBinOccupancyMapController(app);
-  await updateBinController(app);
-  await blockBinController(app);
-  await unblockBinController(app);
+  // Manager routes com rate limit de mutação
+  app.register(
+    async (managerApp) => {
+      managerApp.register(rateLimit, rateLimitConfig.mutation);
+      await updateBinController(managerApp);
+      await blockBinController(managerApp);
+      await unblockBinController(managerApp);
+    },
+    { prefix: '' },
+  );
+
+  // Authenticated routes com rate limit de consulta
+  app.register(
+    async (queryApp) => {
+      queryApp.register(rateLimit, rateLimitConfig.query);
+      await getBinDetailController(queryApp);
+      await getBinByIdController(queryApp);
+      await getBinByAddressController(queryApp);
+      await listBinsController(queryApp);
+      await searchBinsController(queryApp);
+      await listAvailableBinsController(queryApp);
+      await getBinOccupancyMapController(queryApp);
+    },
+    { prefix: '' },
+  );
 }

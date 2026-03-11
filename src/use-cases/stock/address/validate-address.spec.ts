@@ -107,7 +107,7 @@ describe('ValidateAddressUseCase', () => {
 
     expect(result.valid).toBe(false);
     expect(result.exists).toBe(false);
-    expect(result.error).toContain('esperado 4 partes');
+    expect(result.error).toContain('expected 4 parts');
   });
 
   it('should return invalid for address with invalid warehouse code', async () => {
@@ -119,7 +119,7 @@ describe('ValidateAddressUseCase', () => {
     });
 
     expect(result.valid).toBe(false);
-    expect(result.error).toContain('Código do armazém inválido');
+    expect(result.error).toContain('Invalid warehouse code');
   });
 
   it('should trim whitespace from address', async () => {

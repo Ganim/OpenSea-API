@@ -1,4 +1,3 @@
-import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
@@ -57,52 +56,45 @@ export async function createProductController(app: FastifyInstance) {
       } = request.body;
       const userId = request.user.sub;
 
-      try {
-        const getUserByIdUseCase = makeGetUserByIdUseCase();
-        const { user } = await getUserByIdUseCase.execute({ userId });
-        const userName = user.profile?.name
-          ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
-          : user.username || user.email;
+      const getUserByIdUseCase = makeGetUserByIdUseCase();
+      const { user } = await getUserByIdUseCase.execute({ userId });
+      const userName = user.profile?.name
+        ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
+        : user.username || user.email;
 
-        const createProductUseCase = makeCreateProductUseCase();
-        const { product } = await createProductUseCase.execute({
-          tenantId,
+      const createProductUseCase = makeCreateProductUseCase();
+      const { product } = await createProductUseCase.execute({
+        tenantId,
+        name,
+        description,
+        status,
+        outOfLine,
+        attributes,
+        templateId,
+        supplierId,
+        manufacturerId,
+        categoryIds,
+      });
+
+      await logAudit(request, {
+        message: AUDIT_MESSAGES.STOCK.PRODUCT_CREATE,
+        entityId: product.id.toString(),
+        placeholders: {
+          userName,
+          productName: product.name,
+          sku: product.fullCode || 'N/A',
+        },
+        newData: {
           name,
           description,
           status,
-          outOfLine,
-          attributes,
           templateId,
           supplierId,
           manufacturerId,
-          categoryIds,
-        });
+        },
+      });
 
-        await logAudit(request, {
-          message: AUDIT_MESSAGES.STOCK.PRODUCT_CREATE,
-          entityId: product.id.toString(),
-          placeholders: {
-            userName,
-            productName: product.name,
-            sku: product.fullCode || 'N/A',
-          },
-          newData: {
-            name,
-            description,
-            status,
-            templateId,
-            supplierId,
-            manufacturerId,
-          },
-        });
-
-        return reply.status(201).send({ product: productToDTO(product) });
-      } catch (error) {
-        if (error instanceof BadRequestError) {
-          return reply.status(400).send({ message: error.message });
-        }
-        throw error;
-      }
+      return reply.status(201).send({ product: productToDTO(product) });
     },
   });
 }

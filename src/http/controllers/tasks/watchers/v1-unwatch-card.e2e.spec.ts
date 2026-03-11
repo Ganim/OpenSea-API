@@ -77,8 +77,9 @@ describe('Unwatch Card (E2E)', () => {
     const { board, columns } = await createTaskBoard(tenantId, userId);
     const card = await createTaskCard(board.id, columns[0].id, userId);
 
-    const response = await request(app.server)
-      .delete(`/v1/tasks/boards/${board.id}/cards/${card.id}/watch`);
+    const response = await request(app.server).delete(
+      `/v1/tasks/boards/${board.id}/cards/${card.id}/watch`,
+    );
 
     expect(response.status).toBe(401);
   });

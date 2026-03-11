@@ -6,8 +6,13 @@ import { InMemoryItemMovementsRepository } from '@/repositories/stock/in-memory/
 import { InMemoryItemsRepository } from '@/repositories/stock/in-memory/in-memory-items-repository';
 import { InMemoryWarehousesRepository } from '@/repositories/stock/in-memory/in-memory-warehouses-repository';
 import { InMemoryZonesRepository } from '@/repositories/stock/in-memory/in-memory-zones-repository';
+import type { TransactionManager } from '@/lib/transaction-manager';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { DeleteZoneUseCase } from './delete-zone';
+
+const fakeTransactionManager: TransactionManager = {
+  run: (fn) => fn(null as never),
+};
 
 let zonesRepository: InMemoryZonesRepository;
 let binsRepository: InMemoryBinsRepository;
@@ -28,6 +33,7 @@ describe('DeleteZoneUseCase', () => {
       binsRepository,
       itemsRepository,
       itemMovementsRepository,
+      fakeTransactionManager,
     );
   });
 

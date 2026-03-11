@@ -412,9 +412,10 @@ export class CalendarSyncService {
         .replace(/^\[Recebido\]\s*/, '')
         .replace(/^\[Parcial\]\s*/, '');
 
-      const baseTitle = entryType === 'PAYABLE'
-        ? `Vencimento: ${baseDescription}`
-        : `Recebimento: ${baseDescription}`;
+      const baseTitle =
+        entryType === 'PAYABLE'
+          ? `Vencimento: ${baseDescription}`
+          : `Recebimento: ${baseDescription}`;
 
       const title = `${prefix} ${baseTitle}`;
 

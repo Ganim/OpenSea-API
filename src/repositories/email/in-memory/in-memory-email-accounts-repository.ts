@@ -48,12 +48,14 @@ export class InMemoryEmailAccountsRepository
     );
   }
 
-  async findManyByIds(ids: string[], tenantId: string): Promise<EmailAccount[]> {
+  async findManyByIds(
+    ids: string[],
+    tenantId: string,
+  ): Promise<EmailAccount[]> {
     const idSet = new Set(ids);
     return this.items.filter(
       (item) =>
-        idSet.has(item.id.toString()) &&
-        item.tenantId.toString() === tenantId,
+        idSet.has(item.id.toString()) && item.tenantId.toString() === tenantId,
     );
   }
 

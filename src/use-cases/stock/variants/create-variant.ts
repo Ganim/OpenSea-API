@@ -13,6 +13,7 @@ import {
   generateUPC,
 } from '@/utils/barcode-generator';
 import { assertValidAttributes } from '@/utils/validate-template-attributes';
+import { Prisma } from '@prisma/generated/client.js';
 
 /**
  * Gera código hierárquico com padding
@@ -178,59 +179,79 @@ export class CreateVariantUseCase {
       );
     }
 
-    // Get next sequential code LOCAL to this product
-    const lastVariant = await this.variantsRepository.findLastByProductId(
-      productId,
-      input.tenantId,
+    // Retry loop to handle concurrent fullCode generation (unique constraint P2002)
+    const MAX_RETRIES = 3;
+    for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
+      try {
+        // Get next sequential code LOCAL to this product
+        const lastVariant = await this.variantsRepository.findLastByProductId(
+          productId,
+          input.tenantId,
+        );
+        const nextSeq = (lastVariant?.sequentialCode ?? 0) + 1;
+
+        // Generate fullCode: PRODUCT_FULLCODE.VARIANT_SEQ (ex: 001.001.0001.001)
+        const fullCode = `${product.fullCode}.${padCode(nextSeq, 3)}`;
+
+        // Generate slug from name (with nextSeq as suffix to ensure uniqueness)
+        const slug = Slug.createUniqueFromText(
+          input.name,
+          `${product.fullCode}-${nextSeq}`,
+        );
+
+        // Generate barcode codes from fullCode (IMUTÁVEIS)
+        const barcode = generateBarcode(fullCode);
+        const eanCode = generateEAN13(fullCode);
+        const upcCode = generateUPC(fullCode);
+
+        // Create variant
+        const variant = await this.variantsRepository.create({
+          tenantId: input.tenantId,
+          productId,
+          slug,
+          fullCode,
+          sequentialCode: nextSeq,
+          barcode,
+          eanCode,
+          upcCode,
+          sku,
+          name: input.name,
+          price,
+          attributes: input.attributes ?? {},
+          costPrice: input.costPrice,
+          profitMargin: input.profitMargin,
+          qrCode: input.qrCode,
+          colorHex: input.colorHex,
+          colorPantone: input.colorPantone,
+          secondaryColorHex: input.secondaryColorHex,
+          secondaryColorPantone: input.secondaryColorPantone,
+          pattern: input.pattern,
+          minStock: input.minStock,
+          maxStock: input.maxStock,
+          reorderPoint: input.reorderPoint,
+          reorderQuantity: input.reorderQuantity,
+          reference: input.reference,
+          similars: input.similars,
+          outOfLine: input.outOfLine,
+          isActive: input.isActive,
+        });
+
+        return variant;
+      } catch (error) {
+        if (
+          error instanceof Prisma.PrismaClientKnownRequestError &&
+          error.code === 'P2002' &&
+          attempt < MAX_RETRIES - 1
+        ) {
+          continue;
+        }
+        throw error;
+      }
+    }
+
+    // This should never be reached due to the throw in the catch block
+    throw new BadRequestError(
+      'Failed to create variant after maximum retries due to unique constraint conflicts',
     );
-    const nextSeq = (lastVariant?.sequentialCode ?? 0) + 1;
-
-    // Generate fullCode: PRODUCT_FULLCODE.VARIANT_SEQ (ex: 001.001.0001.001)
-    const fullCode = `${product.fullCode}.${padCode(nextSeq, 3)}`;
-
-    // Generate slug from name (with nextSeq as suffix to ensure uniqueness)
-    const slug = Slug.createUniqueFromText(
-      input.name,
-      `${product.fullCode}-${nextSeq}`,
-    );
-
-    // Generate barcode codes from fullCode (IMUTÁVEIS)
-    const barcode = generateBarcode(fullCode);
-    const eanCode = generateEAN13(fullCode);
-    const upcCode = generateUPC(fullCode);
-
-    // Create variant
-    const variant = await this.variantsRepository.create({
-      tenantId: input.tenantId,
-      productId,
-      slug,
-      fullCode,
-      sequentialCode: nextSeq,
-      barcode,
-      eanCode,
-      upcCode,
-      sku,
-      name: input.name,
-      price,
-      attributes: input.attributes ?? {},
-      costPrice: input.costPrice,
-      profitMargin: input.profitMargin,
-      qrCode: input.qrCode,
-      colorHex: input.colorHex,
-      colorPantone: input.colorPantone,
-      secondaryColorHex: input.secondaryColorHex,
-      secondaryColorPantone: input.secondaryColorPantone,
-      pattern: input.pattern,
-      minStock: input.minStock,
-      maxStock: input.maxStock,
-      reorderPoint: input.reorderPoint,
-      reorderQuantity: input.reorderQuantity,
-      reference: input.reference,
-      similars: input.similars,
-      outOfLine: input.outOfLine,
-      isActive: input.isActive,
-    });
-
-    return variant;
   }
 }

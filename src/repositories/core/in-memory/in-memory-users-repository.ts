@@ -18,7 +18,7 @@ export class InMemoryUsersRepository implements UsersRepository {
   // CREATE
   // - create(data: CreateUserSchema): Promise<User>;
 
-  async create(data: CreateUserSchema): Promise<User> {
+  async create(data: CreateUserSchema, _tx?: unknown): Promise<User> {
     const id = new UniqueEntityID();
     const user = User.create({
       id,
@@ -205,6 +205,7 @@ export class InMemoryUsersRepository implements UsersRepository {
     id: UniqueEntityID,
     requestedBy: UniqueEntityID | null,
     reason?: string,
+    _tx?: unknown,
   ): Promise<User | null> {
     const user = await this.findById(id);
 

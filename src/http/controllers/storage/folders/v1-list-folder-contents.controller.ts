@@ -55,7 +55,8 @@ export async function listFolderContentsController(app: FastifyInstance) {
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
       const { id } = request.params;
-      const { page, limit, search, sort, sortOrder, viewAll, showHidden } = request.query;
+      const { page, limit, search, sort, sortOrder, viewAll, showHidden } =
+        request.query;
 
       const folderId = id === 'root' ? undefined : id;
 

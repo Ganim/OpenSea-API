@@ -4,6 +4,7 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { ItemStatus } from '@/entities/stock/value-objects/item-status';
 import { MovementType } from '@/entities/stock/value-objects/movement-type';
 import { Slug } from '@/entities/stock/value-objects/slug';
+import type { TransactionManager } from '@/lib/transaction-manager';
 import type { ItemMovementDTO } from '@/mappers/stock/item-movement/item-movement-to-dto';
 import { itemMovementToDTO } from '@/mappers/stock/item-movement/item-movement-to-dto';
 import type { ItemDTO } from '@/mappers/stock/item/item-to-dto';
@@ -20,6 +21,15 @@ import {
   generateUPC,
 } from '@/utils/barcode-generator';
 import { assertValidAttributes } from '@/utils/validate-template-attributes';
+import { queueAuditLog } from '@/workers/queues/audit.queue';
+
+function isUniqueConstraintError(error: unknown): boolean {
+  return (
+    error instanceof Error &&
+    'code' in error &&
+    (error as Record<string, unknown>).code === 'P2002'
+  );
+}
 
 /**
  * Gera código hierárquico com padding
@@ -58,6 +68,7 @@ export class RegisterItemEntryUseCase {
     private itemMovementsRepository: ItemMovementsRepository,
     private productsRepository: ProductsRepository,
     private templatesRepository: TemplatesRepository,
+    private transactionManager: TransactionManager,
   ) {}
 
   async execute(
@@ -151,71 +162,106 @@ export class RegisterItemEntryUseCase {
       }
     }
 
-    // Get next sequential code LOCAL to this variant
-    const lastItem = await this.itemsRepository.findLastByVariantId(
-      variantId,
-      input.tenantId,
+    // Retry loop for sequential code race conditions
+    const MAX_RETRIES = 3;
+    for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
+      try {
+        const result = await this.transactionManager.run(async () => {
+          // Get next sequential code LOCAL to this variant
+          const lastItem = await this.itemsRepository.findLastByVariantId(
+            variantId,
+            input.tenantId,
+          );
+          const nextSeq = (lastItem?.sequentialCode ?? 0) + 1;
+
+          // Generate fullCode: VARIANT_FULLCODE-ITEM_SEQ (ex: 001.001.0001.001-00001)
+          const fullCode = `${variant.fullCode}-${padCode(nextSeq, 5)}`;
+
+          // Generate slug from variant name + sequential (to ensure uniqueness)
+          const slug = Slug.createUniqueFromText(
+            variant.name,
+            `${variant.fullCode}-${nextSeq}`,
+          );
+
+          // Generate barcode codes from fullCode (IMUTÁVEIS)
+          const barcode = generateBarcode(fullCode);
+          const eanCode = generateEAN13(fullCode);
+          const upcCode = generateUPC(fullCode);
+
+          // Create item
+          const item = await this.itemsRepository.create({
+            tenantId: input.tenantId,
+            uniqueCode,
+            slug,
+            fullCode,
+            sequentialCode: nextSeq,
+            barcode,
+            eanCode,
+            upcCode,
+            variantId,
+            binId,
+            lastKnownAddress: binAddress,
+            initialQuantity: input.quantity,
+            currentQuantity: input.quantity,
+            unitCost: input.unitCost,
+            status: ItemStatus.create('AVAILABLE'),
+            entryDate: new Date(),
+            attributes: input.attributes ?? {},
+            batchNumber: input.batchNumber,
+            manufacturingDate: input.manufacturingDate,
+            expiryDate: input.expiryDate,
+          });
+
+          const entryType = input.movementType || 'PURCHASE';
+
+          const movement = await this.itemMovementsRepository.create({
+            tenantId: input.tenantId,
+            itemId: item.id,
+            userId: new UniqueEntityID(input.userId),
+            quantity: input.quantity,
+            quantityBefore: 0,
+            quantityAfter: input.quantity,
+            movementType: MovementType.create(entryType),
+            reasonCode: 'ENTRY',
+            destinationRef: binAddress ? `Bin: ${binAddress}` : undefined,
+            notes: input.notes,
+            batchNumber: input.batchNumber,
+          });
+
+          return { item, movement };
+        });
+
+        // Audit log (fire-and-forget, outside transaction)
+        queueAuditLog({
+          userId: input.userId,
+          action: 'STOCK_ITEM_ENTRY',
+          entity: 'ITEM',
+          entityId: result.item.id.toString(),
+          module: 'stock',
+          description: `Item entry: quantity ${input.quantity}`,
+          newData: {
+            itemId: result.item.id.toString(),
+            variantId: input.variantId,
+            quantity: input.quantity,
+            movementType: input.movementType || 'PURCHASE',
+          },
+        });
+
+        return {
+          item: itemToDTO(result.item),
+          movement: itemMovementToDTO(result.movement),
+        };
+      } catch (error) {
+        if (attempt === MAX_RETRIES - 1 || !isUniqueConstraintError(error)) {
+          throw error;
+        }
+        // Retry on unique constraint violation (sequential code race condition)
+      }
+    }
+
+    // TypeScript requires this - unreachable due to throw in loop
+    throw new BadRequestError(
+      'Failed to generate sequential code after multiple attempts.',
     );
-    const nextSeq = (lastItem?.sequentialCode ?? 0) + 1;
-
-    // Generate fullCode: VARIANT_FULLCODE-ITEM_SEQ (ex: 001.001.0001.001-00001)
-    // Note: Uses DASH (-) to differentiate item level from variant level
-    const fullCode = `${variant.fullCode}-${padCode(nextSeq, 5)}`;
-
-    // Generate slug from variant name + sequential (to ensure uniqueness)
-    const slug = Slug.createUniqueFromText(
-      variant.name,
-      `${variant.fullCode}-${nextSeq}`,
-    );
-
-    // Generate barcode codes from fullCode (IMUTÁVEIS)
-    const barcode = generateBarcode(fullCode);
-    const eanCode = generateEAN13(fullCode);
-    const upcCode = generateUPC(fullCode);
-
-    // Create item
-    const item = await this.itemsRepository.create({
-      tenantId: input.tenantId,
-      uniqueCode,
-      slug,
-      fullCode,
-      sequentialCode: nextSeq,
-      barcode,
-      eanCode,
-      upcCode,
-      variantId,
-      binId,
-      lastKnownAddress: binAddress,
-      initialQuantity: input.quantity,
-      currentQuantity: input.quantity,
-      unitCost: input.unitCost,
-      status: ItemStatus.create('AVAILABLE'),
-      entryDate: new Date(),
-      attributes: input.attributes ?? {},
-      batchNumber: input.batchNumber,
-      manufacturingDate: input.manufacturingDate,
-      expiryDate: input.expiryDate,
-    });
-
-    const entryType = input.movementType || 'PURCHASE';
-
-    const movement = await this.itemMovementsRepository.create({
-      tenantId: input.tenantId,
-      itemId: item.id,
-      userId: new UniqueEntityID(input.userId),
-      quantity: input.quantity,
-      quantityBefore: 0,
-      quantityAfter: input.quantity,
-      movementType: MovementType.create(entryType),
-      reasonCode: 'ENTRY',
-      destinationRef: binAddress ? `Bin: ${binAddress}` : undefined,
-      notes: input.notes,
-      batchNumber: input.batchNumber,
-    });
-
-    return {
-      item: itemToDTO(item),
-      movement: itemMovementToDTO(movement),
-    };
   }
 }

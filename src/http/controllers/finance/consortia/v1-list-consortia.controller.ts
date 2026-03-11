@@ -46,6 +46,7 @@ export async function listConsortiaController(app: FastifyInstance) {
       const useCase = makeListConsortiaUseCase();
       const result = await useCase.execute({ tenantId, ...request.query });
 
+      reply.header('Cache-Control', 'private, max-age=30');
       return reply.status(200).send(result);
     },
   });

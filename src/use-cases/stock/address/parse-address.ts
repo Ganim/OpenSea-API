@@ -46,8 +46,7 @@ export class ParseAddressUseCase {
         components: null,
         originalAddress: address,
         normalizedAddress: null,
-        error:
-          'Endereço inválido: nenhum separador encontrado (esperado: -, . ou _)',
+        error: 'Invalid address: no separator found (expected: -, . or _)',
       };
     }
 
@@ -59,7 +58,7 @@ export class ParseAddressUseCase {
         components: null,
         originalAddress: address,
         normalizedAddress: null,
-        error: `Endereço inválido: esperado 4 partes, encontrado ${parts.length}`,
+        error: `Invalid address: expected 4 parts, found ${parts.length}`,
       };
     }
 
@@ -72,8 +71,7 @@ export class ParseAddressUseCase {
         components: null,
         originalAddress: address,
         normalizedAddress: null,
-        error:
-          'Código do armazém inválido: deve ter 2-5 caracteres alfanuméricos',
+        error: 'Invalid warehouse code: must be 2-5 alphanumeric characters',
       };
     }
 
@@ -84,7 +82,7 @@ export class ParseAddressUseCase {
         components: null,
         originalAddress: address,
         normalizedAddress: null,
-        error: 'Código da zona inválido: deve ter 2-5 caracteres alfanuméricos',
+        error: 'Invalid zone code: must be 2-5 alphanumeric characters',
       };
     }
 
@@ -96,7 +94,7 @@ export class ParseAddressUseCase {
         components: null,
         originalAddress: address,
         normalizedAddress: null,
-        error: 'Posição inválida: deve conter apenas números',
+        error: 'Invalid position: must contain only numbers',
       };
     }
 
@@ -132,8 +130,7 @@ export class ParseAddressUseCase {
         components: null,
         originalAddress: address,
         normalizedAddress: null,
-        error:
-          'Código do nicho inválido: deve ter 1-2 caracteres alfanuméricos',
+        error: 'Invalid bin code: must be 1-2 alphanumeric characters',
       };
     }
 

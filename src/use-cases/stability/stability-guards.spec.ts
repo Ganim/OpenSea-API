@@ -273,10 +273,7 @@ describe('PermissionGroups — findAncestors circular guard', () => {
     // -> finds parent root (pushed) -> root has no parent -> stops.
     // Note: the algorithm pushes the PARENT of each node, skipping alternating levels.
     expect(ancestors).toHaveLength(2);
-    expect(ancestors.map((a) => a.name)).toEqual([
-      'Child 2',
-      'Root',
-    ]);
+    expect(ancestors.map((a) => a.name)).toEqual(['Child 2', 'Root']);
   });
 });
 
@@ -374,9 +371,8 @@ describe('SKU — generateFromName max attempts guard', () => {
 
   it('should throw BadRequestError after 1000 attempts', async () => {
     // Make findBySKU always return a non-null value (simulating all SKUs taken)
-    const originalFindBySKU = variantsRepository.findBySKU.bind(
-      variantsRepository,
-    );
+    const originalFindBySKU =
+      variantsRepository.findBySKU.bind(variantsRepository);
     let callCount = 0;
     variantsRepository.findBySKU = async (sku: string, tenantId: string) => {
       callCount++;

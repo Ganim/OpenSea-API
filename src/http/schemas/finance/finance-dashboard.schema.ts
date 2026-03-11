@@ -73,6 +73,30 @@ export const dashboardResponseSchema = z.object({
   ),
 });
 
+// Overview
+const entryTypeCountsSchema = z.object({
+  total: z.number(),
+  pending: z.number(),
+  overdue: z.number(),
+});
+
+const entityCountsSchema = z.object({
+  total: z.number(),
+  active: z.number(),
+});
+
+export const overviewResponseSchema = z.object({
+  payable: entryTypeCountsSchema,
+  receivable: entryTypeCountsSchema,
+  loans: entityCountsSchema,
+  consortia: entityCountsSchema,
+  contracts: entityCountsSchema,
+  recurring: entityCountsSchema,
+  bankAccounts: z.number(),
+  categories: z.number(),
+  costCenters: z.number(),
+});
+
 // Cashflow
 export const cashflowQuerySchema = z.object({
   startDate: z.coerce.date(),

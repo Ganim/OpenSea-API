@@ -2,16 +2,24 @@ import { FastifyInstance } from 'fastify';
 import { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { makeListPurchaseOrdersUseCase } from '@/use-cases/stock/purchase-orders/factories/make-list-purchase-orders-use-case';
-
-import { verifyJwt } from '../../../middlewares/rbac/verify-jwt';
-import { verifyTenant } from '../../../middlewares/rbac/verify-tenant';
 
 export async function listPurchaseOrdersController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get(
     '/v1/purchase-orders',
     {
-      onRequest: [verifyJwt, verifyTenant],
+      onRequest: [
+        verifyJwt,
+        verifyTenant,
+        createPermissionMiddleware({
+          permissionCode: PermissionCodes.STOCK.PURCHASE_ORDERS.LIST,
+          resource: 'purchase-orders',
+        }),
+      ],
       schema: {
         summary: 'List purchase orders',
         description: 'Returns a list of purchase orders with optional filters',

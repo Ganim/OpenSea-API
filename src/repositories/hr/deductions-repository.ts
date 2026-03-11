@@ -1,5 +1,6 @@
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { Deduction } from '@/entities/hr/deduction';
+import type { TransactionClient } from '@/lib/transaction-manager';
 
 export interface CreateDeductionSchema {
   tenantId: string;
@@ -36,7 +37,11 @@ export interface FindDeductionFilters {
 
 export interface DeductionsRepository {
   create(data: CreateDeductionSchema): Promise<Deduction>;
-  findById(id: UniqueEntityID, tenantId: string): Promise<Deduction | null>;
+  findById(
+    id: UniqueEntityID,
+    tenantId: string,
+    tx?: TransactionClient,
+  ): Promise<Deduction | null>;
   findMany(
     tenantId: string,
     filters?: FindDeductionFilters,
@@ -69,6 +74,6 @@ export interface DeductionsRepository {
     tenantId: string,
   ): Promise<number>;
   update(data: UpdateDeductionSchema): Promise<Deduction | null>;
-  save(deduction: Deduction): Promise<void>;
+  save(deduction: Deduction, tx?: TransactionClient): Promise<void>;
   delete(id: UniqueEntityID): Promise<void>;
 }

@@ -230,7 +230,9 @@ describe('ListEmailMessagesUseCase', () => {
 
     // Create messages with distinct receivedAt timestamps
     messagesRepository.items.length = 0; // clear
-    const folders = await foldersRepository.listByAccount(account!.id.toString());
+    const folders = await foldersRepository.listByAccount(
+      account!.id.toString(),
+    );
     const folderId = folders[0].id.toString();
 
     for (let i = 0; i < 5; i++) {
@@ -252,7 +254,10 @@ describe('ListEmailMessagesUseCase', () => {
     );
     const secondMsg = sorted[1];
     const cursor = Buffer.from(
-      JSON.stringify({ r: secondMsg.receivedAt.toISOString(), i: secondMsg.id.toString() }),
+      JSON.stringify({
+        r: secondMsg.receivedAt.toISOString(),
+        i: secondMsg.id.toString(),
+      }),
     ).toString('base64');
 
     const result = await sut.execute({
@@ -276,7 +281,9 @@ describe('ListEmailMessagesUseCase', () => {
     );
 
     messagesRepository.items.length = 0;
-    const folders = await foldersRepository.listByAccount(account!.id.toString());
+    const folders = await foldersRepository.listByAccount(
+      account!.id.toString(),
+    );
     const folderId = folders[0].id.toString();
 
     for (let i = 0; i < 3; i++) {
@@ -297,7 +304,10 @@ describe('ListEmailMessagesUseCase', () => {
     );
     // Cursor at 1st item, so next page starts from 2nd
     const cursor = Buffer.from(
-      JSON.stringify({ r: sorted[0].receivedAt.toISOString(), i: sorted[0].id.toString() }),
+      JSON.stringify({
+        r: sorted[0].receivedAt.toISOString(),
+        i: sorted[0].id.toString(),
+      }),
     ).toString('base64');
 
     const result = await sut.execute({

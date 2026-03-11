@@ -49,14 +49,14 @@ export class GetLabelPreviewUseCase {
     );
 
     if (!bin) {
-      throw new ResourceNotFoundError('Bin não encontrado');
+      throw new ResourceNotFoundError('Bin not found');
     }
 
     // Fetch the zone
     const zone = await this.zonesRepository.findById(bin.zoneId, tenantId);
 
     if (!zone) {
-      throw new ResourceNotFoundError('Zona não encontrada');
+      throw new ResourceNotFoundError('Zone not found');
     }
 
     // Fetch the warehouse
@@ -66,7 +66,7 @@ export class GetLabelPreviewUseCase {
     );
 
     if (!warehouse) {
-      throw new ResourceNotFoundError('Armazém não encontrado');
+      throw new ResourceNotFoundError('Warehouse not found');
     }
 
     return {

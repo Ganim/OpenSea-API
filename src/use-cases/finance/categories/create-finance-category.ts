@@ -10,12 +10,30 @@ import type { FinanceCategoriesRepository } from '@/repositories/finance/finance
 const MAX_CATEGORY_DEPTH = 3;
 
 const PT_BR_TRANSLITERATION: Record<string, string> = {
-  'á': 'a', 'à': 'a', 'â': 'a', 'ã': 'a', 'ä': 'a',
-  'é': 'e', 'è': 'e', 'ê': 'e', 'ë': 'e',
-  'í': 'i', 'ì': 'i', 'î': 'i', 'ï': 'i',
-  'ó': 'o', 'ò': 'o', 'ô': 'o', 'õ': 'o', 'ö': 'o',
-  'ú': 'u', 'ù': 'u', 'û': 'u', 'ü': 'u',
-  'ç': 'c', 'ñ': 'n',
+  á: 'a',
+  à: 'a',
+  â: 'a',
+  ã: 'a',
+  ä: 'a',
+  é: 'e',
+  è: 'e',
+  ê: 'e',
+  ë: 'e',
+  í: 'i',
+  ì: 'i',
+  î: 'i',
+  ï: 'i',
+  ó: 'o',
+  ò: 'o',
+  ô: 'o',
+  õ: 'o',
+  ö: 'o',
+  ú: 'u',
+  ù: 'u',
+  û: 'u',
+  ü: 'u',
+  ç: 'c',
+  ñ: 'n',
 };
 
 function slugify(text: string): string {
@@ -57,11 +75,17 @@ export class CreateFinanceCategoryUseCase {
     const { tenantId, name, type } = request;
 
     if (!name || name.trim().length === 0) {
-      throw new BadRequestError('Category name is required', ErrorCodes.BAD_REQUEST);
+      throw new BadRequestError(
+        'Category name is required',
+        ErrorCodes.BAD_REQUEST,
+      );
     }
 
     if (name.length > 128) {
-      throw new BadRequestError('Category name must be at most 128 characters', ErrorCodes.BAD_REQUEST);
+      throw new BadRequestError(
+        'Category name must be at most 128 characters',
+        ErrorCodes.BAD_REQUEST,
+      );
     }
 
     const validTypes = ['EXPENSE', 'REVENUE', 'BOTH'];

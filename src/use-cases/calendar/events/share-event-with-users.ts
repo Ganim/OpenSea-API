@@ -62,10 +62,11 @@ export class ShareEventWithUsersUseCase {
 
           // Auto-resolve team role if not provided and repository is available
           if (!resolvedTeamRole && this.teamMembersRepository) {
-            const membership = await this.teamMembersRepository.findByTeamAndUser(
-              new UniqueEntityID(calendar.ownerId),
-              new UniqueEntityID(userId),
-            );
+            const membership =
+              await this.teamMembersRepository.findByTeamAndUser(
+                new UniqueEntityID(calendar.ownerId),
+                new UniqueEntityID(userId),
+              );
             resolvedTeamRole = membership?.role ?? null;
           }
         }

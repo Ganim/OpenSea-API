@@ -1,3 +1,4 @@
+import { PrismaTransactionManager } from '@/lib/transaction-manager';
 import { PrismaBinsRepository } from '@/repositories/stock/prisma/prisma-bins-repository';
 import { PrismaItemMovementsRepository } from '@/repositories/stock/prisma/prisma-item-movements-repository';
 import { PrismaItemsRepository } from '@/repositories/stock/prisma/prisma-items-repository';
@@ -13,6 +14,7 @@ export function makeRegisterItemEntryUseCase() {
   const itemMovementsRepository = new PrismaItemMovementsRepository();
   const productsRepository = new PrismaProductsRepository();
   const templatesRepository = new PrismaTemplatesRepository();
+  const transactionManager = new PrismaTransactionManager();
 
   return new RegisterItemEntryUseCase(
     itemsRepository,
@@ -21,5 +23,6 @@ export function makeRegisterItemEntryUseCase() {
     itemMovementsRepository,
     productsRepository,
     templatesRepository,
+    transactionManager,
   );
 }

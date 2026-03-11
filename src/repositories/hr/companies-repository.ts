@@ -1,5 +1,5 @@
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import { Company } from '@/entities/hr/company';
+import { Company } from '@/entities/core/company';
 
 export interface CreateCompanySchema {
   tenantId: string;

@@ -6,8 +6,13 @@ import { Slug } from '@/entities/stock/value-objects/slug';
 import { InMemoryBinsRepository } from '@/repositories/stock/in-memory/in-memory-bins-repository';
 import { InMemoryItemMovementsRepository } from '@/repositories/stock/in-memory/in-memory-item-movements-repository';
 import { InMemoryItemsRepository } from '@/repositories/stock/in-memory/in-memory-items-repository';
+import type { TransactionManager } from '@/lib/transaction-manager';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { BatchTransferItemsUseCase } from './batch-transfer-items';
+
+const fakeTransactionManager: TransactionManager = {
+  run: (fn) => fn(null as never),
+};
 
 let itemsRepository: InMemoryItemsRepository;
 let binsRepository: InMemoryBinsRepository;
@@ -23,6 +28,7 @@ describe('BatchTransferItemsUseCase', () => {
       itemsRepository,
       binsRepository,
       itemMovementsRepository,
+      fakeTransactionManager,
     );
   });
 

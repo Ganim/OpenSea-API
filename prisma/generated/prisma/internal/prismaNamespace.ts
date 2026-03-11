@@ -469,6 +469,7 @@ export const ModelName = {
   BankAccount: 'BankAccount',
   FinanceCategory: 'FinanceCategory',
   FinanceEntry: 'FinanceEntry',
+  FinanceCodeSequence: 'FinanceCodeSequence',
   FinanceEntryPayment: 'FinanceEntryPayment',
   FinanceEntryCostCenter: 'FinanceEntryCostCenter',
   RecurringConfig: 'RecurringConfig',
@@ -527,7 +528,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "userProfile" | "session" | "refreshToken" | "permission" | "permissionGroup" | "permissionGroupPermission" | "userPermissionGroup" | "userDirectPermission" | "permissionAuditLog" | "organization" | "organizationAddress" | "organizationCnae" | "organizationFiscalSettings" | "organizationStakeholder" | "supplier" | "manufacturer" | "category" | "warehouse" | "zone" | "bin" | "volume" | "volumeItem" | "template" | "product" | "variant" | "item" | "itemMovement" | "productCategory" | "variantPriceHistory" | "auditLog" | "tag" | "productTag" | "variantImage" | "productCareInstruction" | "productAttachment" | "variantAttachment" | "alert" | "purchaseOrder" | "purchaseOrderItem" | "unitConversion" | "stockSnapshot" | "customer" | "salesOrder" | "salesOrderItem" | "itemReservation" | "variantSupplierCode" | "variantPromotion" | "comment" | "notificationPreference" | "notificationTemplate" | "notification" | "request" | "requestAttachment" | "requestComment" | "requestHistory" | "employee" | "department" | "position" | "timeEntry" | "workSchedule" | "overtime" | "timeBank" | "absence" | "vacationPeriod" | "payroll" | "payrollItem" | "bonus" | "deduction" | "company" | "companyAddress" | "companyCnae" | "companyFiscalSettings" | "companyStakeholder" | "labelTemplate" | "tenant" | "plan" | "planModule" | "tenantPlan" | "tenantUser" | "tenantFeatureFlag" | "costCenter" | "bankAccount" | "financeCategory" | "financeEntry" | "financeEntryPayment" | "financeEntryCostCenter" | "recurringConfig" | "financeAttachment" | "loan" | "loanInstallment" | "consortium" | "consortiumPayment" | "contract" | "storageFolder" | "storageFile" | "storageFileVersion" | "folderAccessRule" | "storageShareLink" | "calendar" | "teamCalendarConfig" | "calendarEvent" | "eventParticipant" | "eventReminder" | "emailAccount" | "emailAccountAccess" | "emailFolder" | "emailMessage" | "emailAttachment" | "team" | "teamMember" | "teamEmailAccount" | "board" | "boardColumn" | "card" | "boardLabel" | "cardLabel" | "boardMember" | "boardCustomField" | "cardCustomFieldValue" | "cardComment" | "commentReaction" | "cardAttachment" | "cardChecklist" | "checklistItem" | "cardActivity" | "boardAutomation" | "cardWatcher"
+    modelProps: "user" | "userProfile" | "session" | "refreshToken" | "permission" | "permissionGroup" | "permissionGroupPermission" | "userPermissionGroup" | "userDirectPermission" | "permissionAuditLog" | "organization" | "organizationAddress" | "organizationCnae" | "organizationFiscalSettings" | "organizationStakeholder" | "supplier" | "manufacturer" | "category" | "warehouse" | "zone" | "bin" | "volume" | "volumeItem" | "template" | "product" | "variant" | "item" | "itemMovement" | "productCategory" | "variantPriceHistory" | "auditLog" | "tag" | "productTag" | "variantImage" | "productCareInstruction" | "productAttachment" | "variantAttachment" | "alert" | "purchaseOrder" | "purchaseOrderItem" | "unitConversion" | "stockSnapshot" | "customer" | "salesOrder" | "salesOrderItem" | "itemReservation" | "variantSupplierCode" | "variantPromotion" | "comment" | "notificationPreference" | "notificationTemplate" | "notification" | "request" | "requestAttachment" | "requestComment" | "requestHistory" | "employee" | "department" | "position" | "timeEntry" | "workSchedule" | "overtime" | "timeBank" | "absence" | "vacationPeriod" | "payroll" | "payrollItem" | "bonus" | "deduction" | "company" | "companyAddress" | "companyCnae" | "companyFiscalSettings" | "companyStakeholder" | "labelTemplate" | "tenant" | "plan" | "planModule" | "tenantPlan" | "tenantUser" | "tenantFeatureFlag" | "costCenter" | "bankAccount" | "financeCategory" | "financeEntry" | "financeCodeSequence" | "financeEntryPayment" | "financeEntryCostCenter" | "recurringConfig" | "financeAttachment" | "loan" | "loanInstallment" | "consortium" | "consortiumPayment" | "contract" | "storageFolder" | "storageFile" | "storageFileVersion" | "folderAccessRule" | "storageShareLink" | "calendar" | "teamCalendarConfig" | "calendarEvent" | "eventParticipant" | "eventReminder" | "emailAccount" | "emailAccountAccess" | "emailFolder" | "emailMessage" | "emailAttachment" | "team" | "teamMember" | "teamEmailAccount" | "board" | "boardColumn" | "card" | "boardLabel" | "cardLabel" | "boardMember" | "boardCustomField" | "cardCustomFieldValue" | "cardComment" | "commentReaction" | "cardAttachment" | "cardChecklist" | "checklistItem" | "cardActivity" | "boardAutomation" | "cardWatcher"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -6821,6 +6822,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    FinanceCodeSequence: {
+      payload: Prisma.$FinanceCodeSequencePayload<ExtArgs>
+      fields: Prisma.FinanceCodeSequenceFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.FinanceCodeSequenceFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceCodeSequencePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.FinanceCodeSequenceFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceCodeSequencePayload>
+        }
+        findFirst: {
+          args: Prisma.FinanceCodeSequenceFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceCodeSequencePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.FinanceCodeSequenceFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceCodeSequencePayload>
+        }
+        findMany: {
+          args: Prisma.FinanceCodeSequenceFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceCodeSequencePayload>[]
+        }
+        create: {
+          args: Prisma.FinanceCodeSequenceCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceCodeSequencePayload>
+        }
+        createMany: {
+          args: Prisma.FinanceCodeSequenceCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.FinanceCodeSequenceCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceCodeSequencePayload>[]
+        }
+        delete: {
+          args: Prisma.FinanceCodeSequenceDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceCodeSequencePayload>
+        }
+        update: {
+          args: Prisma.FinanceCodeSequenceUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceCodeSequencePayload>
+        }
+        deleteMany: {
+          args: Prisma.FinanceCodeSequenceDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.FinanceCodeSequenceUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.FinanceCodeSequenceUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceCodeSequencePayload>[]
+        }
+        upsert: {
+          args: Prisma.FinanceCodeSequenceUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceCodeSequencePayload>
+        }
+        aggregate: {
+          args: Prisma.FinanceCodeSequenceAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateFinanceCodeSequence>
+        }
+        groupBy: {
+          args: Prisma.FinanceCodeSequenceGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FinanceCodeSequenceGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.FinanceCodeSequenceCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FinanceCodeSequenceCountAggregateOutputType> | number
+        }
+      }
+    }
     FinanceEntryPayment: {
       payload: Prisma.$FinanceEntryPaymentPayload<ExtArgs>
       fields: Prisma.FinanceEntryPaymentFieldRefs
@@ -11760,6 +11835,16 @@ export const FinanceEntryScalarFieldEnum = {
 export type FinanceEntryScalarFieldEnum = (typeof FinanceEntryScalarFieldEnum)[keyof typeof FinanceEntryScalarFieldEnum]
 
 
+export const FinanceCodeSequenceScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  prefix: 'prefix',
+  lastValue: 'lastValue'
+} as const
+
+export type FinanceCodeSequenceScalarFieldEnum = (typeof FinanceCodeSequenceScalarFieldEnum)[keyof typeof FinanceCodeSequenceScalarFieldEnum]
+
+
 export const FinanceEntryPaymentScalarFieldEnum = {
   id: 'id',
   entryId: 'entryId',
@@ -13963,6 +14048,7 @@ export type GlobalOmitConfig = {
   bankAccount?: Prisma.BankAccountOmit
   financeCategory?: Prisma.FinanceCategoryOmit
   financeEntry?: Prisma.FinanceEntryOmit
+  financeCodeSequence?: Prisma.FinanceCodeSequenceOmit
   financeEntryPayment?: Prisma.FinanceEntryPaymentOmit
   financeEntryCostCenter?: Prisma.FinanceEntryCostCenterOmit
   recurringConfig?: Prisma.RecurringConfigOmit

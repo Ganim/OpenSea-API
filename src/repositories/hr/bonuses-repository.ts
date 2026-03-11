@@ -1,5 +1,6 @@
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { Bonus } from '@/entities/hr/bonus';
+import type { TransactionClient } from '@/lib/transaction-manager';
 
 export interface CreateBonusSchema {
   tenantId: string;
@@ -30,7 +31,11 @@ export interface FindBonusFilters {
 
 export interface BonusesRepository {
   create(data: CreateBonusSchema): Promise<Bonus>;
-  findById(id: UniqueEntityID, tenantId: string): Promise<Bonus | null>;
+  findById(
+    id: UniqueEntityID,
+    tenantId: string,
+    tx?: TransactionClient,
+  ): Promise<Bonus | null>;
   findMany(tenantId: string, filters?: FindBonusFilters): Promise<Bonus[]>;
   findManyByEmployee(
     employeeId: UniqueEntityID,
@@ -55,6 +60,6 @@ export interface BonusesRepository {
     tenantId: string,
   ): Promise<number>;
   update(data: UpdateBonusSchema): Promise<Bonus | null>;
-  save(bonus: Bonus): Promise<void>;
+  save(bonus: Bonus, tx?: TransactionClient): Promise<void>;
   delete(id: UniqueEntityID): Promise<void>;
 }

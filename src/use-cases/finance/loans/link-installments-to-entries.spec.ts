@@ -67,6 +67,7 @@ describe('LinkInstallmentsToEntriesUseCase', () => {
     const category = await categoriesRepository.create({
       tenantId: 'tenant-1',
       name: 'Empréstimos',
+      slug: 'emprestimos',
       type: 'EXPENSE',
     });
     seededCategoryId = category.id.toString();
