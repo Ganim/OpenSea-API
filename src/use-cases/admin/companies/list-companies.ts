@@ -1,4 +1,4 @@
-import type { CompaniesRepository } from '@/repositories/hr/companies-repository';
+import type { CompaniesRepository } from '@/repositories/core/companies-repository';
 import { Company } from '@/entities/core/company';
 
 export interface ListCompaniesRequest {

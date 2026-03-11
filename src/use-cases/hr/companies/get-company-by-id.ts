@@ -2,7 +2,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { Company } from '@/entities/core/company';
 import type { Department } from '@/entities/hr/department';
-import type { CompaniesRepository } from '@/repositories/hr/companies-repository';
+import type { CompaniesRepository } from '@/repositories/core/companies-repository';
 import type { DepartmentsRepository } from '@/repositories/hr/departments-repository';
 
 export interface GetCompanyByIdRequest {

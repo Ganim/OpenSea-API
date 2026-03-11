@@ -1,6 +1,8 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
@@ -59,6 +61,15 @@ export async function v1CancelScheduledVacationController(app: FastifyInstance) 
             vacationPeriodId,
           },
         );
+
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.HR.VACATION_CANCEL,
+          entityId: vacationPeriodId,
+          placeholders: {
+            userName: request.user.sub,
+            employeeName: vacationPeriod.employeeId?.toString() || '',
+          },
+        });
 
         return reply
           .status(200)

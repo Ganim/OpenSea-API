@@ -1,6 +1,6 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { CompanyStakeholder } from '@/entities/core/company-stakeholder';
-import { CompanyStakeholderRepository } from '@/repositories/hr/company-stakeholder-repository';
+import { CompanyStakeholderRepository } from '@/repositories/core/company-stakeholder-repository';
 
 interface CnpjApiStakeholder {
   name: string;

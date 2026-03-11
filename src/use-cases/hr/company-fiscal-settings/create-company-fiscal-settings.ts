@@ -1,7 +1,7 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { CompanyFiscalSettings } from '@/entities/core/company-fiscal-settings';
-import type { CompanyFiscalSettingsRepository } from '@/repositories/hr/company-fiscal-settings-repository';
+import type { CompanyFiscalSettingsRepository } from '@/repositories/core/company-fiscal-settings-repository';
 
 export interface CreateCompanyFiscalSettingsRequest {
   companyId: string;

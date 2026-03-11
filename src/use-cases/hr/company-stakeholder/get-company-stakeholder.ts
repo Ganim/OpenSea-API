@@ -1,7 +1,7 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { CompanyStakeholder } from '@/entities/core/company-stakeholder';
-import { CompanyStakeholderRepository } from '@/repositories/hr/company-stakeholder-repository';
+import { CompanyStakeholderRepository } from '@/repositories/core/company-stakeholder-repository';
 
 interface GetCompanyStakeholderUseCaseRequest {
   companyId: string;

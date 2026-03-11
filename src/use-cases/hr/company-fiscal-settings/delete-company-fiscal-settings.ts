@@ -1,6 +1,6 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import type { CompanyFiscalSettingsRepository } from '@/repositories/hr/company-fiscal-settings-repository';
+import type { CompanyFiscalSettingsRepository } from '@/repositories/core/company-fiscal-settings-repository';
 
 export interface DeleteCompanyFiscalSettingsRequest {
   companyId: string;

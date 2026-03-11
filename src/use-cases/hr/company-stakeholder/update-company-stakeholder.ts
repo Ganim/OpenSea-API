@@ -6,7 +6,7 @@ import {
   type CompanyStakeholderRole,
   type CompanyStakeholderStatus,
 } from '@/entities/core/company-stakeholder';
-import { CompanyStakeholderRepository } from '@/repositories/hr/company-stakeholder-repository';
+import { CompanyStakeholderRepository } from '@/repositories/core/company-stakeholder-repository';
 
 interface UpdateCompanyStakeholderUseCaseRequest {
   id: string;

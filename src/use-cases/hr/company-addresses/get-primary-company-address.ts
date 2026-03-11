@@ -3,7 +3,7 @@ import type {
   CompanyAddress,
   CompanyAddressType,
 } from '@/entities/core/company-address';
-import type { CompanyAddressesRepository } from '@/repositories/hr/company-addresses-repository';
+import type { CompanyAddressesRepository } from '@/repositories/core/company-addresses-repository';
 
 export interface GetPrimaryCompanyAddressRequest {
   companyId: string;

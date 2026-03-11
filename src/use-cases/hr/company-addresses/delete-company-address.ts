@@ -1,5 +1,5 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import type { CompanyAddressesRepository } from '@/repositories/hr/company-addresses-repository';
+import type { CompanyAddressesRepository } from '@/repositories/core/company-addresses-repository';
 
 export interface DeleteCompanyAddressRequest {
   companyId: string;

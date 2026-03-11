@@ -1,5 +1,5 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import type { CompaniesRepository } from '@/repositories/hr/companies-repository';
+import type { CompaniesRepository } from '@/repositories/core/companies-repository';
 
 export interface RestoreCompanyRequest {
   tenantId: string;

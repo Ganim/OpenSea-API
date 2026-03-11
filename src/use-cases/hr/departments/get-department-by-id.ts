@@ -3,7 +3,7 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { Company } from '@/entities/core/company';
 import type { Department } from '@/entities/hr/department';
 import type { Position } from '@/entities/hr/position';
-import type { CompaniesRepository } from '@/repositories/hr/companies-repository';
+import type { CompaniesRepository } from '@/repositories/core/companies-repository';
 import type { DepartmentsRepository } from '@/repositories/hr/departments-repository';
 import type { PositionsRepository } from '@/repositories/hr/positions-repository';
 

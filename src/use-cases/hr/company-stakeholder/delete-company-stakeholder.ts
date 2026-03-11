@@ -1,7 +1,7 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import { CompanyStakeholderRepository } from '@/repositories/hr/company-stakeholder-repository';
+import { CompanyStakeholderRepository } from '@/repositories/core/company-stakeholder-repository';
 
 interface DeleteCompanyStakeholderUseCaseRequest {
   id: string;

@@ -6,7 +6,7 @@ import {
   type DigitalCertificateType,
   type NfeEnvironment,
 } from '@/entities/core/company-fiscal-settings';
-import type { CompanyFiscalSettingsRepository } from '@/repositories/hr/company-fiscal-settings-repository';
+import type { CompanyFiscalSettingsRepository } from '@/repositories/core/company-fiscal-settings-repository';
 
 export interface UpdateCompanyFiscalSettingsRequest {
   companyId: string;
