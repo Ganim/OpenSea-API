@@ -6,7 +6,7 @@ import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { prisma } from '@/lib/prisma';
 import { companyToDTO } from '@/mappers/core/company/company-to-dto';
 import { getCacheService } from '@/services/cache/cache-service';
-import { makeListCompaniesUseCase } from '@/use-cases/hr/companies/factories/make-companies';
+import { makeListCompaniesUseCase } from '@/use-cases/admin/companies/factories/make-companies';
 import type { FastifyInstance, FastifyReply } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
