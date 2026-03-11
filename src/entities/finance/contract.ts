@@ -1,6 +1,7 @@
 import { Entity } from '../domain/entities';
 import { Optional } from '../domain/optional';
 import { UniqueEntityID } from '../domain/unique-entity-id';
+import { ContractStatus, RecurrenceUnit } from './finance-entry-types';
 
 export interface ContractProps {
   id: UniqueEntityID;
@@ -8,13 +9,13 @@ export interface ContractProps {
   code: string;
   title: string;
   description?: string;
-  status: string; // DRAFT | ACTIVE | EXPIRED | RENEWED | CANCELLED
+  status: ContractStatus;
   companyId?: string;
   companyName: string;
   contactName?: string;
   contactEmail?: string;
   totalValue: number;
-  paymentFrequency: string; // RecurrenceUnit
+  paymentFrequency: RecurrenceUnit;
   paymentAmount: number;
   categoryId?: string;
   costCenterId?: string;
@@ -61,10 +62,10 @@ export class Contract extends Entity<ContractProps> {
     this.touch();
   }
 
-  get status(): string {
+  get status(): ContractStatus {
     return this.props.status;
   }
-  set status(value: string) {
+  set status(value: ContractStatus) {
     this.props.status = value;
     this.touch();
   }
@@ -109,10 +110,10 @@ export class Contract extends Entity<ContractProps> {
     this.touch();
   }
 
-  get paymentFrequency(): string {
+  get paymentFrequency(): RecurrenceUnit {
     return this.props.paymentFrequency;
   }
-  set paymentFrequency(value: string) {
+  set paymentFrequency(value: RecurrenceUnit) {
     this.props.paymentFrequency = value;
     this.touch();
   }

@@ -12,7 +12,9 @@ export class InMemoryBankAccountsRepository implements BankAccountsRepository {
   async create(data: CreateBankAccountSchema): Promise<BankAccount> {
     const bankAccount = BankAccount.create({
       tenantId: new UniqueEntityID(data.tenantId),
-      companyId: data.companyId ? new UniqueEntityID(data.companyId) : undefined,
+      companyId: data.companyId
+        ? new UniqueEntityID(data.companyId)
+        : undefined,
       name: data.name,
       bankCode: data.bankCode,
       bankName: data.bankName,

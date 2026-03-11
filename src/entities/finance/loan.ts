@@ -1,6 +1,7 @@
 import { Entity } from '../domain/entities';
 import { Optional } from '../domain/optional';
 import { UniqueEntityID } from '../domain/unique-entity-id';
+import { LoanStatus, LoanType } from './finance-entry-types';
 
 export interface LoanProps {
   id: UniqueEntityID;
@@ -8,9 +9,9 @@ export interface LoanProps {
   bankAccountId: UniqueEntityID;
   costCenterId: UniqueEntityID;
   name: string;
-  type: string; // PERSONAL | BUSINESS | WORKING_CAPITAL | EQUIPMENT | REAL_ESTATE | CREDIT_LINE | OTHER
+  type: LoanType;
   contractNumber?: string;
-  status: string; // ACTIVE | PAID_OFF | DEFAULTED | RENEGOTIATED | CANCELLED
+  status: LoanStatus;
   principalAmount: number;
   outstandingBalance: number;
   interestRate: number;
@@ -59,7 +60,7 @@ export class Loan extends Entity<LoanProps> {
     this.touch();
   }
 
-  get type(): string {
+  get type(): LoanType {
     return this.props.type;
   }
 
@@ -71,10 +72,10 @@ export class Loan extends Entity<LoanProps> {
     this.touch();
   }
 
-  get status(): string {
+  get status(): LoanStatus {
     return this.props.status;
   }
-  set status(value: string) {
+  set status(value: LoanStatus) {
     this.props.status = value;
     this.touch();
   }

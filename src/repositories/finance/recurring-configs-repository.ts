@@ -61,8 +61,13 @@ export interface FindManyRecurringConfigsResult {
 export interface RecurringConfigsRepository {
   create(data: CreateRecurringConfigSchema): Promise<RecurringConfig>;
   findById(id: string, tenantId: string): Promise<RecurringConfig | null>;
-  findMany(options: FindManyRecurringConfigsOptions): Promise<FindManyRecurringConfigsResult>;
-  findActiveForGeneration(endDate: Date, tenantId: string): Promise<RecurringConfig[]>;
+  findMany(
+    options: FindManyRecurringConfigsOptions,
+  ): Promise<FindManyRecurringConfigsResult>;
+  findActiveForGeneration(
+    endDate: Date,
+    tenantId: string,
+  ): Promise<RecurringConfig[]>;
   update(data: UpdateRecurringConfigSchema): Promise<RecurringConfig | null>;
   delete(id: string, tenantId: string): Promise<void>;
 }

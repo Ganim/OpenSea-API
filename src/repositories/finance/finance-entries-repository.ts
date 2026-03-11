@@ -1,10 +1,16 @@
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { FinanceEntry } from '@/entities/finance/finance-entry';
+import type {
+  FinanceEntryStatus,
+  FinanceEntryType,
+  RecurrenceType,
+  RecurrenceUnit,
+} from '@/entities/finance/finance-entry-types';
 import type { TransactionClient } from '@/lib/transaction-manager';
 
 export interface CreateFinanceEntrySchema {
   tenantId: string;
-  type: string;
+  type: FinanceEntryType;
   code: string;
   description: string;
   notes?: string;
@@ -25,10 +31,10 @@ export interface CreateFinanceEntrySchema {
   dueDate: Date;
   competenceDate?: Date;
   paymentDate?: Date;
-  status?: string;
-  recurrenceType?: string;
+  status?: FinanceEntryStatus;
+  recurrenceType?: RecurrenceType;
   recurrenceInterval?: number;
-  recurrenceUnit?: string;
+  recurrenceUnit?: RecurrenceUnit;
   totalInstallments?: number;
   currentInstallment?: number;
   parentEntryId?: string;
@@ -56,7 +62,7 @@ export interface UpdateFinanceEntrySchema {
   penalty?: number;
   dueDate?: Date;
   competenceDate?: Date | null;
-  status?: string;
+  status?: FinanceEntryStatus;
   actualAmount?: number;
   paymentDate?: Date;
   boletoBarcode?: string | null;
@@ -120,13 +126,30 @@ export interface OverdueByParty {
 }
 
 export interface FinanceEntriesRepository {
-  create(data: CreateFinanceEntrySchema, tx?: TransactionClient): Promise<FinanceEntry>;
-  findById(id: UniqueEntityID, tenantId: string): Promise<FinanceEntry | null>;
+  create(
+    data: CreateFinanceEntrySchema,
+    tx?: TransactionClient,
+  ): Promise<FinanceEntry>;
+  findById(
+    id: UniqueEntityID,
+    tenantId: string,
+    tx?: TransactionClient,
+  ): Promise<FinanceEntry | null>;
   findByCode(code: string, tenantId: string): Promise<FinanceEntry | null>;
-  findMany(options: FindManyFinanceEntriesOptions): Promise<FindManyResult>;
-  update(data: UpdateFinanceEntrySchema): Promise<FinanceEntry | null>;
+  findMany(
+    options: FindManyFinanceEntriesOptions,
+    tx?: TransactionClient,
+  ): Promise<FindManyResult>;
+  update(
+    data: UpdateFinanceEntrySchema,
+    tx?: TransactionClient,
+  ): Promise<FinanceEntry | null>;
   delete(id: UniqueEntityID, tenantId?: string): Promise<void>;
-  generateNextCode(tenantId: string, type: string, tx?: TransactionClient): Promise<string>;
+  generateNextCode(
+    tenantId: string,
+    type: string,
+    tx?: TransactionClient,
+  ): Promise<string>;
 
   // Aggregation queries
   sumByDateRange(

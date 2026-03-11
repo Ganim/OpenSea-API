@@ -1,11 +1,25 @@
 import { Entity } from '../domain/entities';
 import { Optional } from '../domain/optional';
 import { UniqueEntityID } from '../domain/unique-entity-id';
+import type {
+  FinanceEntryStatus,
+  FinanceEntryType,
+  RecurrenceType,
+  RecurrenceUnit,
+} from './finance-entry-types';
+
+export type {
+  FinanceEntryType,
+  FinanceEntryStatus,
+  RecurrenceType,
+  RecurrenceUnit,
+  PaymentMethod,
+} from './finance-entry-types';
 
 export interface FinanceEntryProps {
   id: UniqueEntityID;
   tenantId: UniqueEntityID;
-  type: string; // PAYABLE | RECEIVABLE
+  type: FinanceEntryType;
   code: string;
   description: string;
   notes?: string;
@@ -26,10 +40,10 @@ export interface FinanceEntryProps {
   dueDate: Date;
   competenceDate?: Date;
   paymentDate?: Date;
-  status: string; // PENDING | OVERDUE | PAID | RECEIVED | PARTIALLY_PAID | CANCELLED | SCHEDULED
-  recurrenceType: string; // SINGLE | RECURRING | INSTALLMENT
+  status: FinanceEntryStatus;
+  recurrenceType: RecurrenceType;
   recurrenceInterval?: number;
-  recurrenceUnit?: string; // DAILY | WEEKLY | BIWEEKLY | MONTHLY | QUARTERLY | SEMIANNUAL | ANNUAL
+  recurrenceUnit?: RecurrenceUnit;
   totalInstallments?: number;
   currentInstallment?: number;
   parentEntryId?: UniqueEntityID;
@@ -52,7 +66,7 @@ export class FinanceEntry extends Entity<FinanceEntryProps> {
     return this.props.tenantId;
   }
 
-  get type(): string {
+  get type(): FinanceEntryType {
     return this.props.type;
   }
 
@@ -216,21 +230,21 @@ export class FinanceEntry extends Entity<FinanceEntryProps> {
     this.touch();
   }
 
-  get status(): string {
+  get status(): FinanceEntryStatus {
     return this.props.status;
   }
-  set status(value: string) {
+  set status(value: FinanceEntryStatus) {
     this.props.status = value;
     this.touch();
   }
 
-  get recurrenceType(): string {
+  get recurrenceType(): RecurrenceType {
     return this.props.recurrenceType;
   }
   get recurrenceInterval(): number | undefined {
     return this.props.recurrenceInterval;
   }
-  get recurrenceUnit(): string | undefined {
+  get recurrenceUnit(): RecurrenceUnit | undefined {
     return this.props.recurrenceUnit;
   }
   get totalInstallments(): number | undefined {

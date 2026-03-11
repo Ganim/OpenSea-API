@@ -54,6 +54,6 @@ export interface LoansRepository {
   create(data: CreateLoanSchema, tx?: TransactionClient): Promise<Loan>;
   findById(id: UniqueEntityID, tenantId: string): Promise<Loan | null>;
   findMany(options: FindManyLoansOptions): Promise<FindManyLoansResult>;
-  update(data: UpdateLoanSchema): Promise<Loan | null>;
+  update(data: UpdateLoanSchema, tx?: TransactionClient): Promise<Loan | null>;
   delete(id: UniqueEntityID, tenantId?: string): Promise<void>;
 }

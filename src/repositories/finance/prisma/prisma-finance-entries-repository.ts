@@ -38,26 +38,25 @@ function tryGetCipher() {
 export class PrismaFinanceEntriesRepository
   implements FinanceEntriesRepository
 {
-  async create(data: CreateFinanceEntrySchema, tx?: TransactionClient): Promise<FinanceEntry> {
+  async create(
+    data: CreateFinanceEntrySchema,
+    tx?: TransactionClient,
+  ): Promise<FinanceEntry> {
     const client = tx ?? prisma;
     const cipher = tryGetCipher();
 
-    // Encrypt sensitive fields
+    // Encrypt sensitive fields (boleto only — names are plaintext)
     const encryptedData = cipher
       ? cipher.encryptFields(
           {
             boletoBarcode: data.boletoBarcode,
             boletoDigitLine: data.boletoDigitLine,
-            supplierName: data.supplierName,
-            customerName: data.customerName,
           },
           encryptedFields,
         )
       : {
           boletoBarcode: data.boletoBarcode,
           boletoDigitLine: data.boletoDigitLine,
-          supplierName: data.supplierName,
-          customerName: data.customerName,
         };
 
     const entry = await client.financeEntry.create({
@@ -70,8 +69,8 @@ export class PrismaFinanceEntriesRepository
         categoryId: data.categoryId,
         costCenterId: data.costCenterId,
         bankAccountId: data.bankAccountId,
-        supplierName: encryptedData.supplierName,
-        customerName: encryptedData.customerName,
+        supplierName: data.supplierName,
+        customerName: data.customerName,
         supplierId: data.supplierId,
         customerId: data.customerId,
         salesOrderId: data.salesOrderId,
@@ -114,8 +113,10 @@ export class PrismaFinanceEntriesRepository
   async findById(
     id: UniqueEntityID,
     tenantId: string,
+    tx?: TransactionClient,
   ): Promise<FinanceEntry | null> {
-    const entry = await prisma.financeEntry.findFirst({
+    const client = tx ?? prisma;
+    const entry = await client.financeEntry.findFirst({
       where: {
         id: id.toString(),
         tenantId,
@@ -157,6 +158,7 @@ export class PrismaFinanceEntriesRepository
 
   async findMany(
     options: FindManyFinanceEntriesOptions,
+    tx?: TransactionClient,
   ): Promise<FindManyResult> {
     const page = options.page ?? 1;
     const limit = options.limit ?? 20;
@@ -265,14 +267,15 @@ export class PrismaFinanceEntriesRepository
       ];
     }
 
+    const client = tx ?? prisma;
     const [entries, total] = await Promise.all([
-      prisma.financeEntry.findMany({
+      client.financeEntry.findMany({
         where,
         orderBy: { dueDate: 'asc' },
         skip: (page - 1) * limit,
         take: limit,
       }),
-      prisma.financeEntry.count({ where }),
+      client.financeEntry.count({ where }),
     ]);
 
     const cipher = tryGetCipher();
@@ -288,7 +291,10 @@ export class PrismaFinanceEntriesRepository
     };
   }
 
-  async update(data: UpdateFinanceEntrySchema): Promise<FinanceEntry | null> {
+  async update(
+    data: UpdateFinanceEntrySchema,
+    tx?: TransactionClient,
+  ): Promise<FinanceEntry | null> {
     const cipher = tryGetCipher();
 
     // Build update data object with original values first
@@ -356,7 +362,8 @@ export class PrismaFinanceEntriesRepository
       whereClause.tenantId = data.tenantId;
     }
 
-    const entry = await prisma.financeEntry.update({
+    const client = tx ?? prisma;
+    const entry = await client.financeEntry.update({
       where: whereClause,
       data: encryptedUpdateData,
     });
@@ -383,18 +390,25 @@ export class PrismaFinanceEntriesRepository
     });
   }
 
-  async generateNextCode(tenantId: string, type: string, tx?: TransactionClient): Promise<string> {
+  async generateNextCode(
+    tenantId: string,
+    type: string,
+    tx?: TransactionClient,
+  ): Promise<string> {
     const client = tx ?? prisma;
-    const count = await client.financeEntry.count({
-      where: {
-        tenantId,
-        type: type as FinanceEntryType,
-      },
-    });
-
     const prefix = type === 'PAYABLE' ? 'PAG' : 'REC';
-    const nextNumber = (count + 1).toString().padStart(3, '0');
 
+    // Atomic upsert + increment using INSERT ... ON CONFLICT DO UPDATE
+    // This avoids race conditions where two concurrent requests get the same code
+    const result = await client.$queryRaw<[{ last_value: number }]>`
+      INSERT INTO finance_code_sequences (id, tenant_id, prefix, last_value)
+      VALUES (gen_random_uuid(), ${tenantId}, ${prefix}, 1)
+      ON CONFLICT (tenant_id, prefix)
+      DO UPDATE SET last_value = finance_code_sequences.last_value + 1
+      RETURNING last_value
+    `;
+
+    const nextNumber = result[0].last_value.toString().padStart(3, '0');
     return `${prefix}-${nextNumber}`;
   }
 

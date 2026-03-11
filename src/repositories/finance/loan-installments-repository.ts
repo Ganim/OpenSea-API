@@ -22,9 +22,15 @@ export interface UpdateLoanInstallmentSchema {
 
 export interface LoanInstallmentsRepository {
   create(data: CreateLoanInstallmentSchema): Promise<LoanInstallment>;
-  createMany(data: CreateLoanInstallmentSchema[], tx?: TransactionClient): Promise<LoanInstallment[]>;
+  createMany(
+    data: CreateLoanInstallmentSchema[],
+    tx?: TransactionClient,
+  ): Promise<LoanInstallment[]>;
   findById(id: UniqueEntityID): Promise<LoanInstallment | null>;
   findByLoanId(loanId: UniqueEntityID): Promise<LoanInstallment[]>;
-  update(data: UpdateLoanInstallmentSchema): Promise<LoanInstallment | null>;
+  update(
+    data: UpdateLoanInstallmentSchema,
+    tx?: TransactionClient,
+  ): Promise<LoanInstallment | null>;
   deleteByLoanId(loanId: UniqueEntityID): Promise<void>;
 }

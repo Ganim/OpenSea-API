@@ -69,14 +69,7 @@ export class PrismaRecurringConfigsRepository
   async findMany(
     options: FindManyRecurringConfigsOptions,
   ): Promise<FindManyRecurringConfigsResult> {
-    const {
-      tenantId,
-      page = 1,
-      limit = 20,
-      type,
-      status,
-      search,
-    } = options;
+    const { tenantId, page = 1, limit = 20, type, status, search } = options;
 
     const where = {
       tenantId,
@@ -129,20 +122,31 @@ export class PrismaRecurringConfigsRepository
   ): Promise<RecurringConfig | null> {
     const updateData: Record<string, unknown> = {};
 
-    if (data.description !== undefined) updateData.description = data.description;
-    if (data.expectedAmount !== undefined) updateData.expectedAmount = data.expectedAmount;
-    if (data.frequencyUnit !== undefined) updateData.frequencyUnit = data.frequencyUnit;
-    if (data.frequencyInterval !== undefined) updateData.frequencyInterval = data.frequencyInterval;
+    if (data.description !== undefined)
+      updateData.description = data.description;
+    if (data.expectedAmount !== undefined)
+      updateData.expectedAmount = data.expectedAmount;
+    if (data.frequencyUnit !== undefined)
+      updateData.frequencyUnit = data.frequencyUnit;
+    if (data.frequencyInterval !== undefined)
+      updateData.frequencyInterval = data.frequencyInterval;
     if (data.endDate !== undefined) updateData.endDate = data.endDate;
-    if (data.interestRate !== undefined) updateData.interestRate = data.interestRate;
-    if (data.penaltyRate !== undefined) updateData.penaltyRate = data.penaltyRate;
+    if (data.interestRate !== undefined)
+      updateData.interestRate = data.interestRate;
+    if (data.penaltyRate !== undefined)
+      updateData.penaltyRate = data.penaltyRate;
     if (data.notes !== undefined) updateData.notes = data.notes;
     if (data.status !== undefined) updateData.status = data.status;
-    if (data.generatedCount !== undefined) updateData.generatedCount = data.generatedCount;
-    if (data.lastGeneratedDate !== undefined) updateData.lastGeneratedDate = data.lastGeneratedDate;
-    if (data.nextDueDate !== undefined) updateData.nextDueDate = data.nextDueDate;
-    if (data.bankAccountId !== undefined) updateData.bankAccountId = data.bankAccountId;
-    if (data.costCenterId !== undefined) updateData.costCenterId = data.costCenterId;
+    if (data.generatedCount !== undefined)
+      updateData.generatedCount = data.generatedCount;
+    if (data.lastGeneratedDate !== undefined)
+      updateData.lastGeneratedDate = data.lastGeneratedDate;
+    if (data.nextDueDate !== undefined)
+      updateData.nextDueDate = data.nextDueDate;
+    if (data.bankAccountId !== undefined)
+      updateData.bankAccountId = data.bankAccountId;
+    if (data.costCenterId !== undefined)
+      updateData.costCenterId = data.costCenterId;
 
     const raw = await prisma.recurringConfig.update({
       where: { id: data.id },

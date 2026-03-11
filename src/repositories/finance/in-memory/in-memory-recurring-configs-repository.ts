@@ -1,5 +1,6 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { RecurringConfig } from '@/entities/finance/recurring-config';
+import type { FinanceEntryType, RecurrenceUnit, RecurringConfigStatus } from '@/entities/finance/finance-entry-types';
 import type {
   CreateRecurringConfigSchema,
   FindManyRecurringConfigsOptions,
@@ -16,7 +17,7 @@ export class InMemoryRecurringConfigsRepository
   async create(data: CreateRecurringConfigSchema): Promise<RecurringConfig> {
     const config = RecurringConfig.create({
       tenantId: new UniqueEntityID(data.tenantId),
-      type: data.type,
+      type: data.type as FinanceEntryType,
       description: data.description,
       categoryId: new UniqueEntityID(data.categoryId),
       costCenterId: data.costCenterId
@@ -31,7 +32,7 @@ export class InMemoryRecurringConfigsRepository
       customerId: data.customerId,
       expectedAmount: data.expectedAmount,
       isVariable: data.isVariable ?? false,
-      frequencyUnit: data.frequencyUnit,
+      frequencyUnit: data.frequencyUnit as RecurrenceUnit,
       frequencyInterval: data.frequencyInterval ?? 1,
       startDate: data.startDate,
       endDate: data.endDate,
@@ -119,17 +120,25 @@ export class InMemoryRecurringConfigsRepository
     const config = this.items[index];
 
     if (data.description !== undefined) config.description = data.description;
-    if (data.expectedAmount !== undefined) config.expectedAmount = data.expectedAmount;
-    if (data.frequencyUnit !== undefined) config.frequencyUnit = data.frequencyUnit;
-    if (data.frequencyInterval !== undefined) config.frequencyInterval = data.frequencyInterval;
+    if (data.expectedAmount !== undefined)
+      config.expectedAmount = data.expectedAmount;
+    if (data.frequencyUnit !== undefined)
+      config.frequencyUnit = data.frequencyUnit as RecurrenceUnit;
+    if (data.frequencyInterval !== undefined)
+      config.frequencyInterval = data.frequencyInterval;
     if (data.endDate !== undefined) config.endDate = data.endDate ?? undefined;
-    if (data.interestRate !== undefined) config.interestRate = data.interestRate ?? undefined;
-    if (data.penaltyRate !== undefined) config.penaltyRate = data.penaltyRate ?? undefined;
+    if (data.interestRate !== undefined)
+      config.interestRate = data.interestRate ?? undefined;
+    if (data.penaltyRate !== undefined)
+      config.penaltyRate = data.penaltyRate ?? undefined;
     if (data.notes !== undefined) config.notes = data.notes ?? undefined;
-    if (data.status !== undefined) config.status = data.status;
-    if (data.generatedCount !== undefined) config.generatedCount = data.generatedCount;
-    if (data.lastGeneratedDate !== undefined) config.lastGeneratedDate = data.lastGeneratedDate;
-    if (data.nextDueDate !== undefined) config.nextDueDate = data.nextDueDate ?? undefined;
+    if (data.status !== undefined) config.status = data.status as RecurringConfigStatus;
+    if (data.generatedCount !== undefined)
+      config.generatedCount = data.generatedCount;
+    if (data.lastGeneratedDate !== undefined)
+      config.lastGeneratedDate = data.lastGeneratedDate;
+    if (data.nextDueDate !== undefined)
+      config.nextDueDate = data.nextDueDate ?? undefined;
     if (data.bankAccountId !== undefined)
       config.bankAccountId = data.bankAccountId
         ? new UniqueEntityID(data.bankAccountId)

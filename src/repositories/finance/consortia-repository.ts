@@ -1,5 +1,6 @@
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { Consortium } from '@/entities/finance/consortium';
+import type { TransactionClient } from '@/lib/transaction-manager';
 
 export interface CreateConsortiumSchema {
   tenantId: string;
@@ -54,9 +55,15 @@ export interface FindManyConsortiaResult {
 }
 
 export interface ConsortiaRepository {
-  create(data: CreateConsortiumSchema): Promise<Consortium>;
+  create(
+    data: CreateConsortiumSchema,
+    tx?: TransactionClient,
+  ): Promise<Consortium>;
   findById(id: UniqueEntityID, tenantId: string): Promise<Consortium | null>;
   findMany(options: FindManyConsortiaOptions): Promise<FindManyConsortiaResult>;
-  update(data: UpdateConsortiumSchema): Promise<Consortium | null>;
+  update(
+    data: UpdateConsortiumSchema,
+    tx?: TransactionClient,
+  ): Promise<Consortium | null>;
   delete(id: UniqueEntityID, tenantId?: string): Promise<void>;
 }

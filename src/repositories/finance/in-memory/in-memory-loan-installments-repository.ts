@@ -1,5 +1,6 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { LoanInstallment } from '@/entities/finance/loan-installment';
+import type { InstallmentStatus } from '@/entities/finance/finance-entry-types';
 import type {
   LoanInstallmentsRepository,
   CreateLoanInstallmentSchema,
@@ -11,7 +12,10 @@ export class InMemoryLoanInstallmentsRepository
 {
   public items: LoanInstallment[] = [];
 
-  async create(data: CreateLoanInstallmentSchema, _tx?: unknown): Promise<LoanInstallment> {
+  async create(
+    data: CreateLoanInstallmentSchema,
+    _tx?: unknown,
+  ): Promise<LoanInstallment> {
     const installment = LoanInstallment.create({
       loanId: new UniqueEntityID(data.loanId),
       bankAccountId: data.bankAccountId
@@ -53,13 +57,14 @@ export class InMemoryLoanInstallmentsRepository
 
   async update(
     data: UpdateLoanInstallmentSchema,
+    _tx?: unknown,
   ): Promise<LoanInstallment | null> {
     const item = this.items.find((i) => i.id.equals(data.id));
     if (!item) return null;
 
     if (data.paidAmount !== undefined) item.paidAmount = data.paidAmount;
     if (data.paidAt !== undefined) item.paidAt = data.paidAt;
-    if (data.status !== undefined) item.status = data.status;
+    if (data.status !== undefined) item.status = data.status as InstallmentStatus;
     if (data.bankAccountId !== undefined) {
       item.bankAccountId = data.bankAccountId
         ? new UniqueEntityID(data.bankAccountId)

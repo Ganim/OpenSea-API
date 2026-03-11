@@ -1,5 +1,6 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { ConsortiumPayment } from '@/entities/finance/consortium-payment';
+import type { InstallmentStatus } from '@/entities/finance/finance-entry-types';
 import type {
   ConsortiumPaymentsRepository,
   CreateConsortiumPaymentSchema,
@@ -30,6 +31,7 @@ export class InMemoryConsortiumPaymentsRepository
 
   async createMany(
     data: CreateConsortiumPaymentSchema[],
+    _tx?: unknown,
   ): Promise<ConsortiumPayment[]> {
     const payments: ConsortiumPayment[] = [];
     for (const item of data) {
@@ -54,13 +56,14 @@ export class InMemoryConsortiumPaymentsRepository
 
   async update(
     data: UpdateConsortiumPaymentSchema,
+    _tx?: unknown,
   ): Promise<ConsortiumPayment | null> {
     const item = this.items.find((i) => i.id.equals(data.id));
     if (!item) return null;
 
     if (data.paidAmount !== undefined) item.paidAmount = data.paidAmount;
     if (data.paidAt !== undefined) item.paidAt = data.paidAt;
-    if (data.status !== undefined) item.status = data.status;
+    if (data.status !== undefined) item.status = data.status as InstallmentStatus;
     if (data.bankAccountId !== undefined) {
       item.bankAccountId = data.bankAccountId
         ? new UniqueEntityID(data.bankAccountId)

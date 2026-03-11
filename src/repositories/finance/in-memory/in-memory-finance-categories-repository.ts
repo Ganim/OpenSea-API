@@ -74,7 +74,11 @@ export class InMemoryFinanceCategoriesRepository
 
   // Track entries for testing entry migration
   public entryCounts: Map<string, number> = new Map();
-  public entryMigrations: Array<{ from: string; to: string; tenantId: string }> = [];
+  public entryMigrations: Array<{
+    from: string;
+    to: string;
+    tenantId: string;
+  }> = [];
 
   async countEntriesByCategoryId(
     categoryId: string,
@@ -88,7 +92,11 @@ export class InMemoryFinanceCategoriesRepository
     toCategoryId: string,
     tenantId: string,
   ): Promise<void> {
-    this.entryMigrations.push({ from: fromCategoryId, to: toCategoryId, tenantId });
+    this.entryMigrations.push({
+      from: fromCategoryId,
+      to: toCategoryId,
+      tenantId,
+    });
     const count = this.entryCounts.get(fromCategoryId) ?? 0;
     if (count > 0) {
       const existing = this.entryCounts.get(toCategoryId) ?? 0;

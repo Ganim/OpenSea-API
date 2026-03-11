@@ -45,7 +45,10 @@ export async function updateRecurringConfigController(app: FastifyInstance) {
       await logAudit(request, {
         message: AUDIT_MESSAGES.FINANCE.RECURRING_UPDATE,
         entityId: id,
-        placeholders: { userName: request.user.name ?? '', configName: result.config.description ?? id },
+        placeholders: {
+          userName: request.user.sub,
+          configName: result.config.description ?? id,
+        },
         newData: request.body,
       });
 

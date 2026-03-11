@@ -37,7 +37,10 @@ export async function resumeRecurringController(app: FastifyInstance) {
       await logAudit(request, {
         message: AUDIT_MESSAGES.FINANCE.RECURRING_RESUME,
         entityId: id,
-        placeholders: { userName: request.user.name ?? '', configName: result.config.description ?? id },
+        placeholders: {
+          userName: request.user.sub,
+          configName: result.config.description ?? id,
+        },
       });
 
       return reply.status(200).send(result.config);

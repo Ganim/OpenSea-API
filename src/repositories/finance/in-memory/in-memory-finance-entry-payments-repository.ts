@@ -1,5 +1,6 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { FinanceEntryPayment } from '@/entities/finance/finance-entry-payment';
+import type { PaymentMethod } from '@/entities/finance/finance-entry-types';
 import type {
   FinanceEntryPaymentsRepository,
   CreateFinanceEntryPaymentSchema,
@@ -12,6 +13,7 @@ export class InMemoryFinanceEntryPaymentsRepository
 
   async create(
     data: CreateFinanceEntryPaymentSchema,
+    _tx?: unknown,
   ): Promise<FinanceEntryPayment> {
     const payment = FinanceEntryPayment.create({
       entryId: new UniqueEntityID(data.entryId),
@@ -20,7 +22,7 @@ export class InMemoryFinanceEntryPaymentsRepository
         : undefined,
       amount: data.amount,
       paidAt: data.paidAt,
-      method: data.method,
+      method: data.method as PaymentMethod | undefined,
       reference: data.reference,
       notes: data.notes,
       createdBy: data.createdBy,
@@ -41,7 +43,7 @@ export class InMemoryFinanceEntryPaymentsRepository
     return item ?? null;
   }
 
-  async sumByEntryId(entryId: UniqueEntityID): Promise<number> {
+  async sumByEntryId(entryId: UniqueEntityID, _tx?: unknown): Promise<number> {
     return this.items
       .filter((i) => i.entryId.toString() === entryId.toString())
       .reduce((sum, i) => sum + i.amount, 0);

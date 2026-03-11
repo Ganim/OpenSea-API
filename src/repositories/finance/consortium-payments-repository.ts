@@ -1,5 +1,6 @@
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { ConsortiumPayment } from '@/entities/finance/consortium-payment';
+import type { TransactionClient } from '@/lib/transaction-manager';
 
 export interface CreateConsortiumPaymentSchema {
   consortiumId: string;
@@ -21,6 +22,7 @@ export interface ConsortiumPaymentsRepository {
   create(data: CreateConsortiumPaymentSchema): Promise<ConsortiumPayment>;
   createMany(
     data: CreateConsortiumPaymentSchema[],
+    tx?: TransactionClient,
   ): Promise<ConsortiumPayment[]>;
   findById(id: UniqueEntityID): Promise<ConsortiumPayment | null>;
   findByConsortiumId(
@@ -28,6 +30,7 @@ export interface ConsortiumPaymentsRepository {
   ): Promise<ConsortiumPayment[]>;
   update(
     data: UpdateConsortiumPaymentSchema,
+    tx?: TransactionClient,
   ): Promise<ConsortiumPayment | null>;
   deleteByConsortiumId(consortiumId: UniqueEntityID): Promise<void>;
 }

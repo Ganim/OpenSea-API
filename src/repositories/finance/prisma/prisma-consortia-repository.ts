@@ -1,9 +1,11 @@
 import { prisma } from '@/lib/prisma';
+import type { TransactionClient } from '@/lib/transaction-manager';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Consortium } from '@/entities/finance/consortium';
 import { getFieldCipherService } from '@/services/security/field-cipher-service';
 import { ENCRYPTED_FIELD_CONFIG } from '@/services/security/encrypted-field-config';
-import { Prisma, type ConsortiumStatus } from '@prisma/generated/client.js';
+import { Prisma } from '@prisma/generated/client.js';
+import type { ConsortiumStatus, ContemplationType } from '@/entities/finance/finance-entry-types';
 import type {
   ConsortiaRepository,
   CreateConsortiumSchema,
@@ -60,14 +62,14 @@ function consortiumPrismaToDomain(raw: {
       groupNumber: raw.groupNumber ?? undefined,
       quotaNumber: raw.quotaNumber ?? undefined,
       contractNumber: raw.contractNumber ?? undefined,
-      status: raw.status,
+      status: raw.status as ConsortiumStatus,
       creditValue: Number(raw.creditValue),
       monthlyPayment: Number(raw.monthlyPayment),
       totalInstallments: raw.totalInstallments,
       paidInstallments: raw.paidInstallments,
       isContemplated: raw.isContemplated,
       contemplatedAt: raw.contemplatedAt ?? undefined,
-      contemplationType: raw.contemplationType ?? undefined,
+      contemplationType: (raw.contemplationType as ContemplationType) ?? undefined,
       startDate: raw.startDate,
       endDate: raw.endDate ?? undefined,
       paymentDay: raw.paymentDay ?? undefined,
@@ -82,7 +84,11 @@ function consortiumPrismaToDomain(raw: {
 }
 
 export class PrismaConsortiaRepository implements ConsortiaRepository {
-  async create(data: CreateConsortiumSchema): Promise<Consortium> {
+  async create(
+    data: CreateConsortiumSchema,
+    tx?: TransactionClient,
+  ): Promise<Consortium> {
+    const client = tx ?? prisma;
     const cipher = tryGetCipher();
 
     const encryptedContractNumber =
@@ -90,7 +96,7 @@ export class PrismaConsortiaRepository implements ConsortiaRepository {
         ? cipher.encrypt(data.contractNumber)
         : data.contractNumber;
 
-    const consortium = await prisma.consortium.create({
+    const consortium = await client.consortium.create({
       data: {
         tenantId: data.tenantId,
         bankAccountId: data.bankAccountId,
@@ -194,7 +200,11 @@ export class PrismaConsortiaRepository implements ConsortiaRepository {
     };
   }
 
-  async update(data: UpdateConsortiumSchema): Promise<Consortium | null> {
+  async update(
+    data: UpdateConsortiumSchema,
+    tx?: TransactionClient,
+  ): Promise<Consortium | null> {
+    const client = tx ?? prisma;
     const cipher = tryGetCipher();
 
     // Build update data
@@ -237,7 +247,7 @@ export class PrismaConsortiaRepository implements ConsortiaRepository {
       whereClause.tenantId = data.tenantId;
     }
 
-    const consortium = await prisma.consortium.update({
+    const consortium = await client.consortium.update({
       where: whereClause,
       data: encryptedUpdateData,
     });

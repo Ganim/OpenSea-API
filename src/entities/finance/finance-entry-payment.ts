@@ -1,6 +1,7 @@
 import { Entity } from '../domain/entities';
 import { Optional } from '../domain/optional';
 import { UniqueEntityID } from '../domain/unique-entity-id';
+import { PaymentMethod } from './finance-entry-types';
 
 export interface FinanceEntryPaymentProps {
   id: UniqueEntityID;
@@ -8,7 +9,7 @@ export interface FinanceEntryPaymentProps {
   bankAccountId?: UniqueEntityID;
   amount: number;
   paidAt: Date;
-  method?: string;
+  method?: PaymentMethod;
   reference?: string;
   notes?: string;
   createdBy?: string;
@@ -31,7 +32,7 @@ export class FinanceEntryPayment extends Entity<FinanceEntryPaymentProps> {
   get paidAt(): Date {
     return this.props.paidAt;
   }
-  get method(): string | undefined {
+  get method(): PaymentMethod | undefined {
     return this.props.method;
   }
   get reference(): string | undefined {

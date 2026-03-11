@@ -35,7 +35,11 @@ export interface CostCentersRepository {
   findById(id: UniqueEntityID, tenantId: string): Promise<CostCenter | null>;
   findByCode(code: string, tenantId: string): Promise<CostCenter | null>;
   findMany(tenantId: string): Promise<CostCenter[]>;
-  findManyPaginated(tenantId: string, page: number, limit: number): Promise<FindManyPaginatedResult>;
+  findManyPaginated(
+    tenantId: string,
+    page: number,
+    limit: number,
+  ): Promise<FindManyPaginatedResult>;
   update(data: UpdateCostCenterSchema): Promise<CostCenter | null>;
   delete(id: UniqueEntityID): Promise<void>;
 }

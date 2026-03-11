@@ -17,8 +17,12 @@ export class InMemoryFinanceEntriesRepository
   implements FinanceEntriesRepository
 {
   public items: FinanceEntry[] = [];
+  private codeSequences: Map<string, number> = new Map();
 
-  async create(data: CreateFinanceEntrySchema, _tx?: unknown): Promise<FinanceEntry> {
+  async create(
+    data: CreateFinanceEntrySchema,
+    _tx?: unknown,
+  ): Promise<FinanceEntry> {
     const entry = FinanceEntry.create({
       tenantId: new UniqueEntityID(data.tenantId),
       type: data.type,
@@ -70,6 +74,7 @@ export class InMemoryFinanceEntriesRepository
   async findById(
     id: UniqueEntityID,
     tenantId: string,
+    _tx?: unknown,
   ): Promise<FinanceEntry | null> {
     const item = this.items.find(
       (i) =>
@@ -91,6 +96,7 @@ export class InMemoryFinanceEntriesRepository
 
   async findMany(
     options: FindManyFinanceEntriesOptions,
+    _tx?: unknown,
   ): Promise<FindManyResult> {
     const page = options.page ?? 1;
     const limit = options.limit ?? 20;
@@ -162,7 +168,8 @@ export class InMemoryFinanceEntriesRepository
       )
         return false;
 
-      if (options.contractId && i.contractId !== options.contractId) return false;
+      if (options.contractId && i.contractId !== options.contractId)
+        return false;
 
       if (options.search) {
         const term = options.search.toLowerCase();
@@ -191,7 +198,10 @@ export class InMemoryFinanceEntriesRepository
     return { entries, total };
   }
 
-  async update(data: UpdateFinanceEntrySchema): Promise<FinanceEntry | null> {
+  async update(
+    data: UpdateFinanceEntrySchema,
+    _tx?: unknown,
+  ): Promise<FinanceEntry | null> {
     const item = this.items.find((i) => !i.deletedAt && i.id.equals(data.id));
     if (!item) return null;
 
@@ -241,15 +251,17 @@ export class InMemoryFinanceEntriesRepository
     if (item) item.delete();
   }
 
-  async generateNextCode(tenantId: string, type: string, _tx?: unknown): Promise<string> {
-    const count = this.items.filter(
-      (i) => i.tenantId.toString() === tenantId && i.type === type,
-    ).length;
-
+  async generateNextCode(
+    tenantId: string,
+    type: string,
+    _tx?: unknown,
+  ): Promise<string> {
     const prefix = type === 'PAYABLE' ? 'PAG' : 'REC';
-    const nextNumber = (count + 1).toString().padStart(3, '0');
-
-    return `${prefix}-${nextNumber}`;
+    const key = `${tenantId}:${prefix}`;
+    const current = this.codeSequences.get(key) ?? 0;
+    const next = current + 1;
+    this.codeSequences.set(key, next);
+    return `${prefix}-${next.toString().padStart(3, '0')}`;
   }
 
   // Aggregation methods

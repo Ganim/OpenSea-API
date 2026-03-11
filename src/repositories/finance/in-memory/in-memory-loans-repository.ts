@@ -1,5 +1,6 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Loan } from '@/entities/finance/loan';
+import type { LoanType, LoanStatus } from '@/entities/finance/finance-entry-types';
 import type {
   LoansRepository,
   CreateLoanSchema,
@@ -17,7 +18,7 @@ export class InMemoryLoansRepository implements LoansRepository {
       bankAccountId: new UniqueEntityID(data.bankAccountId),
       costCenterId: new UniqueEntityID(data.costCenterId),
       name: data.name,
-      type: data.type,
+      type: data.type as LoanType,
       contractNumber: data.contractNumber,
       principalAmount: data.principalAmount,
       outstandingBalance: data.outstandingBalance,
@@ -83,14 +84,14 @@ export class InMemoryLoansRepository implements LoansRepository {
     return { loans, total };
   }
 
-  async update(data: UpdateLoanSchema): Promise<Loan | null> {
+  async update(data: UpdateLoanSchema, _tx?: unknown): Promise<Loan | null> {
     const item = this.items.find((i) => !i.deletedAt && i.id.equals(data.id));
     if (!item) return null;
 
     if (data.name !== undefined) item.name = data.name;
     if (data.contractNumber !== undefined)
       item.contractNumber = data.contractNumber ?? undefined;
-    if (data.status !== undefined) item.status = data.status;
+    if (data.status !== undefined) item.status = data.status as LoanStatus;
     if (data.outstandingBalance !== undefined)
       item.outstandingBalance = data.outstandingBalance;
     if (data.paidInstallments !== undefined)

@@ -1,4 +1,5 @@
 import { prisma } from '@/lib/prisma';
+import type { TransactionClient } from '@/lib/transaction-manager';
 import { financeEntryPaymentPrismaToDomain } from '@/mappers/finance/finance-entry-payment/finance-entry-payment-prisma-to-domain';
 import { Prisma } from '@prisma/generated/client.js';
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
@@ -13,8 +14,10 @@ export class PrismaFinanceEntryPaymentsRepository
 {
   async create(
     data: CreateFinanceEntryPaymentSchema,
+    tx?: TransactionClient,
   ): Promise<FinanceEntryPayment> {
-    const payment = await prisma.financeEntryPayment.create({
+    const client = tx ?? prisma;
+    const payment = await client.financeEntryPayment.create({
       data: {
         entryId: data.entryId,
         bankAccountId: data.bankAccountId,
@@ -52,8 +55,12 @@ export class PrismaFinanceEntryPaymentsRepository
     return financeEntryPaymentPrismaToDomain(payment);
   }
 
-  async sumByEntryId(entryId: UniqueEntityID): Promise<number> {
-    const result = await prisma.financeEntryPayment.aggregate({
+  async sumByEntryId(
+    entryId: UniqueEntityID,
+    tx?: TransactionClient,
+  ): Promise<number> {
+    const client = tx ?? prisma;
+    const result = await client.financeEntryPayment.aggregate({
       _sum: { amount: true },
       where: {
         entryId: entryId.toString(),

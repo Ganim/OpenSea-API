@@ -4,11 +4,8 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Loan } from '@/entities/finance/loan';
 import { getFieldCipherService } from '@/services/security/field-cipher-service';
 import { ENCRYPTED_FIELD_CONFIG } from '@/services/security/encrypted-field-config';
-import {
-  Prisma,
-  type LoanType,
-  type LoanStatus,
-} from '@prisma/generated/client.js';
+import { Prisma } from '@prisma/generated/client.js';
+import type { LoanType, LoanStatus } from '@/entities/finance/finance-entry-types';
 import type {
   LoansRepository,
   CreateLoanSchema,
@@ -58,9 +55,9 @@ function loanPrismaToDomain(raw: {
       bankAccountId: new UniqueEntityID(raw.bankAccountId),
       costCenterId: new UniqueEntityID(raw.costCenterId),
       name: raw.name,
-      type: raw.type,
+      type: raw.type as LoanType,
       contractNumber: raw.contractNumber ?? undefined,
-      status: raw.status,
+      status: raw.status as LoanStatus,
       principalAmount: Number(raw.principalAmount),
       outstandingBalance: Number(raw.outstandingBalance),
       interestRate: Number(raw.interestRate),
@@ -184,7 +181,11 @@ export class PrismaLoansRepository implements LoansRepository {
     };
   }
 
-  async update(data: UpdateLoanSchema): Promise<Loan | null> {
+  async update(
+    data: UpdateLoanSchema,
+    tx?: TransactionClient,
+  ): Promise<Loan | null> {
+    const client = tx ?? prisma;
     const cipher = tryGetCipher();
 
     // Build update data
@@ -216,7 +217,7 @@ export class PrismaLoansRepository implements LoansRepository {
       whereClause.tenantId = data.tenantId;
     }
 
-    const loan = await prisma.loan.update({
+    const loan = await client.loan.update({
       where: whereClause,
       data: encryptedUpdateData,
     });

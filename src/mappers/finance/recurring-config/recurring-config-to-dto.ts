@@ -32,7 +32,9 @@ export interface RecurringConfigDTO {
   deletedAt?: Date;
 }
 
-export function recurringConfigToDTO(config: RecurringConfig): RecurringConfigDTO {
+export function recurringConfigToDTO(
+  config: RecurringConfig,
+): RecurringConfigDTO {
   return {
     id: config.id.toString(),
     tenantId: config.tenantId.toString(),

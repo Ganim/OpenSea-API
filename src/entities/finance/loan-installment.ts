@@ -1,6 +1,7 @@
 import { Entity } from '../domain/entities';
 import { Optional } from '../domain/optional';
 import { UniqueEntityID } from '../domain/unique-entity-id';
+import { InstallmentStatus } from './finance-entry-types';
 
 export interface LoanInstallmentProps {
   id: UniqueEntityID;
@@ -13,7 +14,7 @@ export interface LoanInstallmentProps {
   totalAmount: number;
   paidAmount?: number;
   paidAt?: Date;
-  status: string; // PENDING | PAID | OVERDUE | CANCELLED
+  status: InstallmentStatus;
   createdAt: Date;
   updatedAt?: Date;
 }
@@ -68,10 +69,10 @@ export class LoanInstallment extends Entity<LoanInstallmentProps> {
     this.touch();
   }
 
-  get status(): string {
+  get status(): InstallmentStatus {
     return this.props.status;
   }
-  set status(value: string) {
+  set status(value: InstallmentStatus) {
     this.props.status = value;
     this.touch();
   }

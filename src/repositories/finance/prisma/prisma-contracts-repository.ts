@@ -2,11 +2,8 @@ import { prisma } from '@/lib/prisma';
 import type { TransactionClient } from '@/lib/transaction-manager';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Contract } from '@/entities/finance/contract';
-import {
-  Prisma,
-  type ContractStatus,
-  type RecurrenceUnit,
-} from '@prisma/generated/client.js';
+import { Prisma } from '@prisma/generated/client.js';
+import type { ContractStatus, RecurrenceUnit } from '@/entities/finance/finance-entry-types';
 import type {
   ContractsRepository,
   CreateContractSchema,
@@ -52,13 +49,13 @@ function contractPrismaToDomain(raw: {
       code: raw.code,
       title: raw.title,
       description: raw.description ?? undefined,
-      status: raw.status,
+      status: raw.status as ContractStatus,
       companyId: raw.companyId ?? undefined,
       companyName: raw.companyName,
       contactName: raw.contactName ?? undefined,
       contactEmail: raw.contactEmail ?? undefined,
       totalValue: Number(raw.totalValue),
-      paymentFrequency: raw.paymentFrequency,
+      paymentFrequency: raw.paymentFrequency as RecurrenceUnit,
       paymentAmount: Number(raw.paymentAmount),
       categoryId: raw.categoryId ?? undefined,
       costCenterId: raw.costCenterId ?? undefined,
@@ -81,7 +78,10 @@ function contractPrismaToDomain(raw: {
 }
 
 export class PrismaContractsRepository implements ContractsRepository {
-  async create(data: CreateContractSchema, tx?: TransactionClient): Promise<Contract> {
+  async create(
+    data: CreateContractSchema,
+    tx?: TransactionClient,
+  ): Promise<Contract> {
     const client = tx ?? prisma;
 
     const contract = await client.contract.create({
@@ -116,7 +116,10 @@ export class PrismaContractsRepository implements ContractsRepository {
     return contractPrismaToDomain(contract);
   }
 
-  async findById(id: UniqueEntityID, tenantId: string): Promise<Contract | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Contract | null> {
     const contract = await prisma.contract.findFirst({
       where: {
         id: id.toString(),
@@ -129,7 +132,9 @@ export class PrismaContractsRepository implements ContractsRepository {
     return contractPrismaToDomain(contract);
   }
 
-  async findMany(options: FindManyContractsOptions): Promise<FindManyContractsResult> {
+  async findMany(
+    options: FindManyContractsOptions,
+  ): Promise<FindManyContractsResult> {
     const page = options.page ?? 1;
     const limit = options.limit ?? 20;
 
@@ -142,7 +147,10 @@ export class PrismaContractsRepository implements ContractsRepository {
     if (options.companyId) where.companyId = options.companyId;
 
     if (options.companyName) {
-      where.companyName = { contains: options.companyName, mode: 'insensitive' };
+      where.companyName = {
+        contains: options.companyName,
+        mode: 'insensitive',
+      };
     }
 
     if (options.search) {
@@ -181,7 +189,10 @@ export class PrismaContractsRepository implements ContractsRepository {
     };
   }
 
-  async findByCompanyId(companyId: string, tenantId: string): Promise<Contract[]> {
+  async findByCompanyId(
+    companyId: string,
+    tenantId: string,
+  ): Promise<Contract[]> {
     const contracts = await prisma.contract.findMany({
       where: { companyId, tenantId, deletedAt: null },
       orderBy: { createdAt: 'desc' },
@@ -190,7 +201,10 @@ export class PrismaContractsRepository implements ContractsRepository {
     return contracts.map(contractPrismaToDomain);
   }
 
-  async findByCompanyName(companyName: string, tenantId: string): Promise<Contract[]> {
+  async findByCompanyName(
+    companyName: string,
+    tenantId: string,
+  ): Promise<Contract[]> {
     const contracts = await prisma.contract.findMany({
       where: {
         companyName: { contains: companyName, mode: 'insensitive' },
@@ -207,22 +221,34 @@ export class PrismaContractsRepository implements ContractsRepository {
     const updateData: Record<string, unknown> = {};
 
     if (data.title !== undefined) updateData.title = data.title;
-    if (data.description !== undefined) updateData.description = data.description;
-    if (data.status !== undefined) updateData.status = data.status as ContractStatus;
+    if (data.description !== undefined)
+      updateData.description = data.description;
+    if (data.status !== undefined)
+      updateData.status = data.status as ContractStatus;
     if (data.companyId !== undefined) updateData.companyId = data.companyId;
-    if (data.companyName !== undefined) updateData.companyName = data.companyName;
-    if (data.contactName !== undefined) updateData.contactName = data.contactName;
-    if (data.contactEmail !== undefined) updateData.contactEmail = data.contactEmail;
-    if (data.totalValue !== undefined) updateData.totalValue = new Prisma.Decimal(data.totalValue);
-    if (data.paymentFrequency !== undefined) updateData.paymentFrequency = data.paymentFrequency as RecurrenceUnit;
-    if (data.paymentAmount !== undefined) updateData.paymentAmount = new Prisma.Decimal(data.paymentAmount);
+    if (data.companyName !== undefined)
+      updateData.companyName = data.companyName;
+    if (data.contactName !== undefined)
+      updateData.contactName = data.contactName;
+    if (data.contactEmail !== undefined)
+      updateData.contactEmail = data.contactEmail;
+    if (data.totalValue !== undefined)
+      updateData.totalValue = new Prisma.Decimal(data.totalValue);
+    if (data.paymentFrequency !== undefined)
+      updateData.paymentFrequency = data.paymentFrequency as RecurrenceUnit;
+    if (data.paymentAmount !== undefined)
+      updateData.paymentAmount = new Prisma.Decimal(data.paymentAmount);
     if (data.categoryId !== undefined) updateData.categoryId = data.categoryId;
-    if (data.costCenterId !== undefined) updateData.costCenterId = data.costCenterId;
-    if (data.bankAccountId !== undefined) updateData.bankAccountId = data.bankAccountId;
+    if (data.costCenterId !== undefined)
+      updateData.costCenterId = data.costCenterId;
+    if (data.bankAccountId !== undefined)
+      updateData.bankAccountId = data.bankAccountId;
     if (data.endDate !== undefined) updateData.endDate = data.endDate;
     if (data.autoRenew !== undefined) updateData.autoRenew = data.autoRenew;
-    if (data.renewalPeriodMonths !== undefined) updateData.renewalPeriodMonths = data.renewalPeriodMonths;
-    if (data.alertDaysBefore !== undefined) updateData.alertDaysBefore = data.alertDaysBefore;
+    if (data.renewalPeriodMonths !== undefined)
+      updateData.renewalPeriodMonths = data.renewalPeriodMonths;
+    if (data.alertDaysBefore !== undefined)
+      updateData.alertDaysBefore = data.alertDaysBefore;
     if (data.folderPath !== undefined) updateData.folderPath = data.folderPath;
     if (data.notes !== undefined) updateData.notes = data.notes;
 

@@ -1,7 +1,9 @@
 import { prisma } from '@/lib/prisma';
+import type { TransactionClient } from '@/lib/transaction-manager';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { ConsortiumPayment } from '@/entities/finance/consortium-payment';
 import { Prisma } from '@prisma/generated/client.js';
+import type { InstallmentStatus } from '@/entities/finance/finance-entry-types';
 import type {
   ConsortiumPaymentsRepository,
   CreateConsortiumPaymentSchema,
@@ -33,7 +35,7 @@ function paymentPrismaToDomain(raw: {
       expectedAmount: Number(raw.expectedAmount),
       paidAmount: raw.paidAmount ? Number(raw.paidAmount) : undefined,
       paidAt: raw.paidAt ?? undefined,
-      status: raw.status,
+      status: raw.status as InstallmentStatus,
       createdAt: raw.createdAt,
       updatedAt: raw.updatedAt,
     },
@@ -46,8 +48,10 @@ export class PrismaConsortiumPaymentsRepository
 {
   async create(
     data: CreateConsortiumPaymentSchema,
+    tx?: TransactionClient,
   ): Promise<ConsortiumPayment> {
-    const payment = await prisma.consortiumPayment.create({
+    const client = tx ?? prisma;
+    const payment = await client.consortiumPayment.create({
       data: {
         consortiumId: data.consortiumId,
         bankAccountId: data.bankAccountId,
@@ -62,10 +66,11 @@ export class PrismaConsortiumPaymentsRepository
 
   async createMany(
     data: CreateConsortiumPaymentSchema[],
+    tx?: TransactionClient,
   ): Promise<ConsortiumPayment[]> {
     const payments: ConsortiumPayment[] = [];
     for (const item of data) {
-      const payment = await this.create(item);
+      const payment = await this.create(item, tx);
       payments.push(payment);
     }
     return payments;
@@ -93,8 +98,10 @@ export class PrismaConsortiumPaymentsRepository
 
   async update(
     data: UpdateConsortiumPaymentSchema,
+    tx?: TransactionClient,
   ): Promise<ConsortiumPayment | null> {
-    const payment = await prisma.consortiumPayment.update({
+    const client = tx ?? prisma;
+    const payment = await client.consortiumPayment.update({
       where: { id: data.id.toString() },
       data: {
         ...(data.paidAmount !== undefined && {

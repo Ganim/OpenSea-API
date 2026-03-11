@@ -6,6 +6,13 @@ export { FinanceCategory } from './finance-category';
 export type { FinanceCategoryProps } from './finance-category';
 export { FinanceEntry } from './finance-entry';
 export type { FinanceEntryProps } from './finance-entry';
+export type {
+  FinanceEntryType,
+  FinanceEntryStatus,
+  RecurrenceType,
+  RecurrenceUnit,
+  PaymentMethod,
+} from './finance-entry-types';
 export { FinanceEntryPayment } from './finance-entry-payment';
 export type { FinanceEntryPaymentProps } from './finance-entry-payment';
 export { FinanceAttachment } from './finance-attachment';

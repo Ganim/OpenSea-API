@@ -3,6 +3,7 @@ import type { TransactionClient } from '@/lib/transaction-manager';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { LoanInstallment } from '@/entities/finance/loan-installment';
 import { Prisma } from '@prisma/generated/client.js';
+import type { InstallmentStatus } from '@/entities/finance/finance-entry-types';
 import type {
   LoanInstallmentsRepository,
   CreateLoanInstallmentSchema,
@@ -38,7 +39,7 @@ function installmentPrismaToDomain(raw: {
       totalAmount: Number(raw.totalAmount),
       paidAmount: raw.paidAmount ? Number(raw.paidAmount) : undefined,
       paidAt: raw.paidAt ?? undefined,
-      status: raw.status,
+      status: raw.status as InstallmentStatus,
       createdAt: raw.createdAt,
       updatedAt: raw.updatedAt,
     },
@@ -49,7 +50,10 @@ function installmentPrismaToDomain(raw: {
 export class PrismaLoanInstallmentsRepository
   implements LoanInstallmentsRepository
 {
-  async create(data: CreateLoanInstallmentSchema, tx?: TransactionClient): Promise<LoanInstallment> {
+  async create(
+    data: CreateLoanInstallmentSchema,
+    tx?: TransactionClient,
+  ): Promise<LoanInstallment> {
     const client = tx ?? prisma;
     const installment = await client.loanInstallment.create({
       data: {
@@ -98,8 +102,10 @@ export class PrismaLoanInstallmentsRepository
 
   async update(
     data: UpdateLoanInstallmentSchema,
+    tx?: TransactionClient,
   ): Promise<LoanInstallment | null> {
-    const installment = await prisma.loanInstallment.update({
+    const client = tx ?? prisma;
+    const installment = await client.loanInstallment.update({
       where: { id: data.id.toString() },
       data: {
         ...(data.paidAmount !== undefined && {

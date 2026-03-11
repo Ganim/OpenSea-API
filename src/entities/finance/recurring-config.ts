@@ -1,12 +1,17 @@
 import { Entity } from '../domain/entities';
 import { Optional } from '../domain/optional';
 import { UniqueEntityID } from '../domain/unique-entity-id';
+import type {
+  FinanceEntryType,
+  RecurringConfigStatus,
+  RecurrenceUnit,
+} from './finance-entry-types';
 
 export interface RecurringConfigProps {
   id: UniqueEntityID;
   tenantId: UniqueEntityID;
-  type: string; // PAYABLE | RECEIVABLE
-  status: string; // ACTIVE | PAUSED | CANCELLED
+  type: FinanceEntryType;
+  status: RecurringConfigStatus;
   description: string;
   categoryId: UniqueEntityID;
   costCenterId?: UniqueEntityID;
@@ -17,7 +22,7 @@ export interface RecurringConfigProps {
   customerId?: string;
   expectedAmount: number;
   isVariable: boolean;
-  frequencyUnit: string; // WEEKLY | BIWEEKLY | MONTHLY | QUARTERLY | SEMIANNUAL | ANNUAL
+  frequencyUnit: RecurrenceUnit;
   frequencyInterval: number;
   startDate: Date;
   endDate?: Date;
@@ -42,14 +47,14 @@ export class RecurringConfig extends Entity<RecurringConfigProps> {
     return this.props.tenantId;
   }
 
-  get type(): string {
+  get type(): FinanceEntryType {
     return this.props.type;
   }
 
-  get status(): string {
+  get status(): RecurringConfigStatus {
     return this.props.status;
   }
-  set status(value: string) {
+  set status(value: RecurringConfigStatus) {
     this.props.status = value;
     this.touch();
   }
@@ -130,10 +135,10 @@ export class RecurringConfig extends Entity<RecurringConfigProps> {
     return this.props.isVariable;
   }
 
-  get frequencyUnit(): string {
+  get frequencyUnit(): RecurrenceUnit {
     return this.props.frequencyUnit;
   }
-  set frequencyUnit(value: string) {
+  set frequencyUnit(value: RecurrenceUnit) {
     this.props.frequencyUnit = value;
     this.touch();
   }

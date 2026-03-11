@@ -1,5 +1,6 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Contract } from '@/entities/finance/contract';
+import type { ContractStatus, RecurrenceUnit } from '@/entities/finance/finance-entry-types';
 import type {
   ContractsRepository,
   CreateContractSchema,
@@ -17,13 +18,13 @@ export class InMemoryContractsRepository implements ContractsRepository {
       code: data.code,
       title: data.title,
       description: data.description,
-      status: data.status,
+      status: data.status as ContractStatus | undefined,
       companyId: data.companyId,
       companyName: data.companyName,
       contactName: data.contactName,
       contactEmail: data.contactEmail,
       totalValue: data.totalValue,
-      paymentFrequency: data.paymentFrequency,
+      paymentFrequency: data.paymentFrequency as RecurrenceUnit,
       paymentAmount: data.paymentAmount,
       categoryId: data.categoryId,
       costCenterId: data.costCenterId,
@@ -43,7 +44,10 @@ export class InMemoryContractsRepository implements ContractsRepository {
     return contract;
   }
 
-  async findById(id: UniqueEntityID, tenantId: string): Promise<Contract | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Contract | null> {
     const item = this.items.find(
       (i) =>
         !i.deletedAt && i.id.equals(id) && i.tenantId.toString() === tenantId,
@@ -51,7 +55,9 @@ export class InMemoryContractsRepository implements ContractsRepository {
     return item ?? null;
   }
 
-  async findMany(options: FindManyContractsOptions): Promise<FindManyContractsResult> {
+  async findMany(
+    options: FindManyContractsOptions,
+  ): Promise<FindManyContractsResult> {
     const page = options.page ?? 1;
     const limit = options.limit ?? 20;
 
@@ -75,8 +81,10 @@ export class InMemoryContractsRepository implements ContractsRepository {
         if (!matchesTitle && !matchesCompany && !matchesCode) return false;
       }
 
-      if (options.startDateFrom && i.startDate < options.startDateFrom) return false;
-      if (options.startDateTo && i.startDate > options.startDateTo) return false;
+      if (options.startDateFrom && i.startDate < options.startDateFrom)
+        return false;
+      if (options.startDateTo && i.startDate > options.startDateTo)
+        return false;
       if (options.endDateFrom && i.endDate < options.endDateFrom) return false;
       if (options.endDateTo && i.endDate > options.endDateTo) return false;
 
@@ -90,7 +98,10 @@ export class InMemoryContractsRepository implements ContractsRepository {
     return { contracts, total };
   }
 
-  async findByCompanyId(companyId: string, tenantId: string): Promise<Contract[]> {
+  async findByCompanyId(
+    companyId: string,
+    tenantId: string,
+  ): Promise<Contract[]> {
     return this.items.filter(
       (i) =>
         !i.deletedAt &&
@@ -99,7 +110,10 @@ export class InMemoryContractsRepository implements ContractsRepository {
     );
   }
 
-  async findByCompanyName(companyName: string, tenantId: string): Promise<Contract[]> {
+  async findByCompanyName(
+    companyName: string,
+    tenantId: string,
+  ): Promise<Contract[]> {
     const term = companyName.toLowerCase();
     return this.items.filter(
       (i) =>
@@ -114,23 +128,35 @@ export class InMemoryContractsRepository implements ContractsRepository {
     if (!item) return null;
 
     if (data.title !== undefined) item.title = data.title;
-    if (data.description !== undefined) item.description = data.description ?? undefined;
-    if (data.status !== undefined) item.status = data.status;
-    if (data.companyId !== undefined) item.companyId = data.companyId ?? undefined;
+    if (data.description !== undefined)
+      item.description = data.description ?? undefined;
+    if (data.status !== undefined) item.status = data.status as ContractStatus;
+    if (data.companyId !== undefined)
+      item.companyId = data.companyId ?? undefined;
     if (data.companyName !== undefined) item.companyName = data.companyName;
-    if (data.contactName !== undefined) item.contactName = data.contactName ?? undefined;
-    if (data.contactEmail !== undefined) item.contactEmail = data.contactEmail ?? undefined;
+    if (data.contactName !== undefined)
+      item.contactName = data.contactName ?? undefined;
+    if (data.contactEmail !== undefined)
+      item.contactEmail = data.contactEmail ?? undefined;
     if (data.totalValue !== undefined) item.totalValue = data.totalValue;
-    if (data.paymentFrequency !== undefined) item.paymentFrequency = data.paymentFrequency;
-    if (data.paymentAmount !== undefined) item.paymentAmount = data.paymentAmount;
-    if (data.categoryId !== undefined) item.categoryId = data.categoryId ?? undefined;
-    if (data.costCenterId !== undefined) item.costCenterId = data.costCenterId ?? undefined;
-    if (data.bankAccountId !== undefined) item.bankAccountId = data.bankAccountId ?? undefined;
+    if (data.paymentFrequency !== undefined)
+      item.paymentFrequency = data.paymentFrequency as RecurrenceUnit;
+    if (data.paymentAmount !== undefined)
+      item.paymentAmount = data.paymentAmount;
+    if (data.categoryId !== undefined)
+      item.categoryId = data.categoryId ?? undefined;
+    if (data.costCenterId !== undefined)
+      item.costCenterId = data.costCenterId ?? undefined;
+    if (data.bankAccountId !== undefined)
+      item.bankAccountId = data.bankAccountId ?? undefined;
     if (data.endDate !== undefined) item.endDate = data.endDate;
     if (data.autoRenew !== undefined) item.autoRenew = data.autoRenew;
-    if (data.renewalPeriodMonths !== undefined) item.renewalPeriodMonths = data.renewalPeriodMonths ?? undefined;
-    if (data.alertDaysBefore !== undefined) item.alertDaysBefore = data.alertDaysBefore;
-    if (data.folderPath !== undefined) item.folderPath = data.folderPath ?? undefined;
+    if (data.renewalPeriodMonths !== undefined)
+      item.renewalPeriodMonths = data.renewalPeriodMonths ?? undefined;
+    if (data.alertDaysBefore !== undefined)
+      item.alertDaysBefore = data.alertDaysBefore;
+    if (data.folderPath !== undefined)
+      item.folderPath = data.folderPath ?? undefined;
     if (data.notes !== undefined) item.notes = data.notes ?? undefined;
 
     return item;

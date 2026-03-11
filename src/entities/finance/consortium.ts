@@ -1,6 +1,7 @@
 import { Entity } from '../domain/entities';
 import { Optional } from '../domain/optional';
 import { UniqueEntityID } from '../domain/unique-entity-id';
+import { ConsortiumStatus, ContemplationType } from './finance-entry-types';
 
 export interface ConsortiumProps {
   id: UniqueEntityID;
@@ -12,14 +13,14 @@ export interface ConsortiumProps {
   groupNumber?: string;
   quotaNumber?: string;
   contractNumber?: string;
-  status: string; // ACTIVE | CONTEMPLATED | WITHDRAWN | COMPLETED | CANCELLED
+  status: ConsortiumStatus;
   creditValue: number;
   monthlyPayment: number;
   totalInstallments: number;
   paidInstallments: number;
   isContemplated: boolean;
   contemplatedAt?: Date;
-  contemplationType?: string; // BID | DRAW
+  contemplationType?: ContemplationType;
   startDate: Date;
   endDate?: Date;
   paymentDay?: number;
@@ -94,10 +95,10 @@ export class Consortium extends Entity<ConsortiumProps> {
     this.touch();
   }
 
-  get status(): string {
+  get status(): ConsortiumStatus {
     return this.props.status;
   }
-  set status(value: string) {
+  set status(value: ConsortiumStatus) {
     this.props.status = value;
     this.touch();
   }
@@ -136,10 +137,10 @@ export class Consortium extends Entity<ConsortiumProps> {
     this.touch();
   }
 
-  get contemplationType(): string | undefined {
+  get contemplationType(): ContemplationType | undefined {
     return this.props.contemplationType;
   }
-  set contemplationType(value: string | undefined) {
+  set contemplationType(value: ContemplationType | undefined) {
     this.props.contemplationType = value;
     this.touch();
   }
