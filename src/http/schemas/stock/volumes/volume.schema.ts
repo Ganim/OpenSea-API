@@ -8,7 +8,7 @@ export const volumeStatusSchema = z.enum([
 ]);
 
 export const createVolumeSchema = z.object({
-  code: z.string().min(1, 'Codigo do volume e obrigatorio').max(256),
+  code: z.string().min(1, 'Volume code is required').max(256),
   name: z.string().max(256).optional(),
   notes: z.string().optional(),
   destinationRef: z.string().max(256).optional(),
@@ -47,7 +47,7 @@ export const listVolumesQuerySchema = z.object({
 });
 
 export const addItemToVolumeSchema = z.object({
-  itemId: z.string().uuid('ID do item deve ser um UUID valido'),
+  itemId: z.string().uuid('Item ID must be a valid UUID'),
 });
 
 export const volumeResponseSchema = z.object({

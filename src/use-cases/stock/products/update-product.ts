@@ -7,10 +7,12 @@ import { ManufacturersRepository } from '@/repositories/stock/manufacturers-repo
 import { ProductsRepository } from '@/repositories/stock/products-repository';
 import { SuppliersRepository } from '@/repositories/stock/suppliers-repository';
 import { TemplatesRepository } from '@/repositories/stock/templates-repository';
+import { queueAuditLog } from '@/workers/queues/audit.queue';
 
 interface UpdateProductUseCaseRequest {
   tenantId: string;
   id: string;
+  userId?: string;
   name?: string;
   // code e fullCode são imutáveis após criação
   description?: string;
@@ -51,6 +53,7 @@ export class UpdateProductUseCase {
       attributes,
       categoryIds,
     } = request;
+    // userId extracted from request for audit logging
 
     // Validate ID
     const product = await this.productsRepository.findById(
@@ -86,8 +89,9 @@ export class UpdateProductUseCase {
 
     // code e fullCode são imutáveis após criação
 
-    // Validate status if provided
+    // Validate status transition if provided
     let productStatus: ProductStatus | undefined;
+    const oldStatus = product.status.value;
     if (status !== undefined) {
       const validStatuses = [
         'DRAFT',
@@ -101,14 +105,22 @@ export class UpdateProductUseCase {
           'Invalid status. Must be one of: DRAFT, ACTIVE, INACTIVE, DISCONTINUED, OUT_OF_STOCK',
         );
       }
-      productStatus = ProductStatus.create(
-        status as
-          | 'DRAFT'
-          | 'ACTIVE'
-          | 'INACTIVE'
-          | 'DISCONTINUED'
-          | 'OUT_OF_STOCK',
-      );
+
+      const newStatusValue = status as
+        | 'DRAFT'
+        | 'ACTIVE'
+        | 'INACTIVE'
+        | 'DISCONTINUED'
+        | 'OUT_OF_STOCK';
+
+      // Validate state transition
+      if (newStatusValue !== oldStatus && !product.status.canTransitionTo(newStatusValue)) {
+        throw new BadRequestError(
+          `Invalid status transition from ${oldStatus} to ${newStatusValue}`,
+        );
+      }
+
+      productStatus = ProductStatus.create(newStatusValue);
     }
 
     // Validate supplier exists if provided
@@ -190,6 +202,26 @@ export class UpdateProductUseCase {
     if (!updatedProduct) {
       throw new ResourceNotFoundError('Product not found');
     }
+
+    // Audit log for product updates
+    queueAuditLog({
+      userId: request.userId,
+      action: 'STOCK_PRODUCT_UPDATED',
+      entity: 'PRODUCT',
+      entityId: id,
+      module: 'stock',
+      description: `Product "${updatedProduct.name}" updated`,
+      oldData: {
+        name: product.name,
+        status: oldStatus,
+        description: product.description,
+      },
+      newData: {
+        ...(name !== undefined && { name }),
+        ...(status !== undefined && { status }),
+        ...(description !== undefined && { description }),
+      },
+    }).catch(() => {});
 
     return {
       product: updatedProduct,

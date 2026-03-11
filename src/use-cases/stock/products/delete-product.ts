@@ -1,5 +1,6 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import type { TransactionManager } from '@/lib/transaction-manager';
 import { ProductsRepository } from '@/repositories/stock/products-repository';
 import { VariantsRepository } from '@/repositories/stock/variants-repository';
 import { queueAuditLog } from '@/workers/queues/audit.queue';
@@ -14,6 +15,7 @@ export class DeleteProductUseCase {
   constructor(
     private productsRepository: ProductsRepository,
     private variantsRepository: VariantsRepository,
+    private transactionManager: TransactionManager,
   ) {}
 
   async execute(request: DeleteProductUseCaseRequest): Promise<void> {
@@ -27,17 +29,19 @@ export class DeleteProductUseCase {
       throw new ResourceNotFoundError('Product not found');
     }
 
-    // Soft-delete all variants before soft-deleting the product
-    const variants = await this.variantsRepository.findManyByProduct(
-      productId,
-      tenantId,
-    );
+    // Soft-delete variants + product atomically
+    await this.transactionManager.run(async () => {
+      const variants = await this.variantsRepository.findManyByProduct(
+        productId,
+        tenantId,
+      );
 
-    for (const variant of variants) {
-      await this.variantsRepository.delete(variant.id);
-    }
+      for (const variant of variants) {
+        await this.variantsRepository.delete(variant.id);
+      }
 
-    await this.productsRepository.delete(productId);
+      await this.productsRepository.delete(productId);
+    });
 
     // Audit log (fire-and-forget)
     queueAuditLog({
@@ -46,12 +50,12 @@ export class DeleteProductUseCase {
       entity: 'PRODUCT',
       entityId: id,
       module: 'stock',
-      description: `Produto "${product.name}" excluído`,
+      description: `Product "${product.name}" deleted`,
       oldData: {
         productId: id,
         name: product.name,
         tenantId,
       },
-    });
+    }).catch(() => {});
   }
 }

@@ -6,7 +6,11 @@ import { InMemoryProductsRepository } from '@/repositories/stock/in-memory/in-me
 import { InMemorySuppliersRepository } from '@/repositories/stock/in-memory/in-memory-suppliers-repository';
 import { InMemoryTemplatesRepository } from '@/repositories/stock/in-memory/in-memory-templates-repository';
 import { templateAttr } from '@/utils/tests/factories/stock/make-template';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
+vi.mock('@/workers/queues/audit.queue', () => ({
+  queueAuditLog: vi.fn().mockResolvedValue(undefined),
+}));
 import { CreateManufacturerUseCase } from '../manufacturers/create-manufacturer';
 import { CreateSupplierUseCase } from '../suppliers/create-supplier';
 import { CreateTemplateUseCase } from '../templates/create-template';
@@ -300,6 +304,89 @@ describe('UpdateProductUseCase', () => {
         manufacturerId: 'non-existent-manufacturer-id',
       }),
     ).rejects.toThrow(ResourceNotFoundError);
+  });
+
+  it('should reject invalid status transition (DISCONTINUED is terminal)', async () => {
+    const template = await createTemplate.execute({
+      tenantId: TENANT_ID,
+      name: 'Electronics Template',
+      productAttributes: { brand: templateAttr.string() },
+    });
+
+    const created = await createProduct.execute({
+      tenantId: TENANT_ID,
+      name: 'Laptop Dell',
+      templateId: template.template.id.toString(),
+    });
+
+    // DRAFT → ACTIVE (valid)
+    await sut.execute({
+      tenantId: TENANT_ID,
+      id: created.product.id.toString(),
+      status: 'ACTIVE',
+    });
+
+    // ACTIVE → DISCONTINUED (valid)
+    await sut.execute({
+      tenantId: TENANT_ID,
+      id: created.product.id.toString(),
+      status: 'DISCONTINUED',
+    });
+
+    // DISCONTINUED → ACTIVE (invalid - terminal state)
+    await expect(
+      sut.execute({
+        tenantId: TENANT_ID,
+        id: created.product.id.toString(),
+        status: 'ACTIVE',
+      }),
+    ).rejects.toThrow(BadRequestError);
+  });
+
+  it('should reject invalid status transition (ACTIVE cannot go to DRAFT)', async () => {
+    const template = await createTemplate.execute({
+      tenantId: TENANT_ID,
+      name: 'Electronics Template',
+      productAttributes: { brand: templateAttr.string() },
+    });
+
+    const created = await createProduct.execute({
+      tenantId: TENANT_ID,
+      name: 'Laptop Dell',
+      templateId: template.template.id.toString(),
+    });
+
+    // Default status is ACTIVE. ACTIVE → DRAFT is not valid.
+    await expect(
+      sut.execute({
+        tenantId: TENANT_ID,
+        id: created.product.id.toString(),
+        status: 'DRAFT',
+      }),
+    ).rejects.toThrow(BadRequestError);
+  });
+
+  it('should allow setting same status without error', async () => {
+    const template = await createTemplate.execute({
+      tenantId: TENANT_ID,
+      name: 'Electronics Template',
+      productAttributes: { brand: templateAttr.string() },
+    });
+
+    const created = await createProduct.execute({
+      tenantId: TENANT_ID,
+      name: 'Laptop Dell',
+      templateId: template.template.id.toString(),
+    });
+
+    // Default status is ACTIVE. ACTIVE → ACTIVE (no-op, should not throw)
+    const result = await sut.execute({
+      tenantId: TENANT_ID,
+      id: created.product.id.toString(),
+      status: 'ACTIVE',
+    });
+
+    expect(result.product.status.value).toBe('ACTIVE');
   });
 
   it('should not update with invalid attributes', async () => {

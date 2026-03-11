@@ -38,7 +38,12 @@ describe('DeleteProductUseCase', () => {
     categoriesRepository = new InMemoryCategoriesRepository();
     variantsRepository = new InMemoryVariantsRepository();
 
-    sut = new DeleteProductUseCase(productsRepository, variantsRepository);
+    const fakeTransactionManager = { run: (fn: () => Promise<void>) => fn() };
+    sut = new DeleteProductUseCase(
+      productsRepository,
+      variantsRepository,
+      fakeTransactionManager as never,
+    );
     createProduct = new CreateProductUseCase(
       productsRepository,
       templatesRepository,

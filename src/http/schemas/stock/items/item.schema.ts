@@ -13,14 +13,14 @@ import { itemMovementResponseSchema } from './item-movement.schema';
  */
 const quantitySchema = z
   .number()
-  .positive('Quantidade deve ser positiva')
+  .positive('Quantity must be positive')
   .refine(
     (val) => {
       // Check if has at most 3 decimal places
       const decimalPart = val.toString().split('.')[1];
       return !decimalPart || decimalPart.length <= 3;
     },
-    { message: 'Quantidade deve ter no máximo 3 casas decimais' },
+    { message: 'Quantity must have at most 3 decimal places' },
   );
 
 export const createItemSchema = z.object({
