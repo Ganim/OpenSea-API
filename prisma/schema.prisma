@@ -1316,6 +1316,7 @@ model Supplier {
   @@index([isActive])
   @@index([rating])
   @@index([tenantId])
+  @@index([tenantId, deletedAt])
   @@map("suppliers")
 }
 
@@ -1361,6 +1362,7 @@ model Manufacturer {
   @@index([rating])
   @@index([sequentialCode])
   @@index([tenantId])
+  @@index([tenantId, deletedAt])
   @@map("manufacturers")
 }
 
@@ -1387,6 +1389,7 @@ model Category {
   @@unique([slug, tenantId, deletedAt], name: "categories_slug_unique_active")
   @@index([parentId, deletedAt])
   @@index([tenantId])
+  @@index([tenantId, deletedAt])
   @@map("categories")
 }
 
@@ -1544,6 +1547,7 @@ model Volume {
   @@index([closedAt])
   @@index([deletedAt])
   @@index([tenantId])
+  @@index([tenantId, status])
   @@map("volumes")
 }
 
@@ -1647,6 +1651,7 @@ model Product {
   @@index([slug, deletedAt])
   @@index([name, deletedAt])
   @@index([tenantId])
+  @@index([tenantId, status])
   @@map("products")
 }
 
@@ -1780,6 +1785,7 @@ model Item {
   @@index([expiryDate, deletedAt])
   @@index([batchNumber, variantId])
   @@index([tenantId])
+  @@index([tenantId, status])
   @@map("items")
 }
 
