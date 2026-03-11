@@ -1,3 +1,4 @@
+import { idSchema } from '@/http/schemas';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { cacheKeys } from '@/config/redis';
@@ -6,7 +7,6 @@ import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { idSchema } from '@/http/schemas/common.schema';
 import { getCacheService } from '@/services/cache/cache-service';
 import { makeDeleteWorkScheduleUseCase } from '@/use-cases/hr/work-schedules/factories/make-delete-work-schedule-use-case';
 import type { FastifyInstance } from 'fastify';

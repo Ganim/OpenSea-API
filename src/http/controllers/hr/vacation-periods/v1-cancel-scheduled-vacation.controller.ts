@@ -1,4 +1,4 @@
-import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { idSchema, BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
@@ -6,8 +6,7 @@ import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { vacationPeriodResponseSchema } from '@/http/schemas';
-import { idSchema } from '@/http/schemas/common.schema';
+import { idSchema, vacationPeriodResponseSchema } from '@/http/schemas';
 import { vacationPeriodToDTO } from '@/mappers/hr/vacation-period/vacation-period-to-dto';
 import { makeCancelScheduledVacationUseCase } from '@/use-cases/hr/vacation-periods/factories/make-cancel-scheduled-vacation-use-case';
 

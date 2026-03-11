@@ -1,11 +1,10 @@
-import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { idSchema, BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { absenceResponseSchema } from '@/http/schemas';
-import { idSchema } from '@/http/schemas/common.schema';
+import { idSchema, absenceResponseSchema } from '@/http/schemas';
 import { absenceToDTO } from '@/mappers/hr/absence/absence-to-dto';
 import { makeCancelAbsenceUseCase } from '@/use-cases/hr/absences/factories/make-cancel-absence-use-case';
 

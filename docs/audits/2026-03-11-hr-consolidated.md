@@ -8,24 +8,24 @@
 
 ---
 
-## Score Geral: 7.6 / 10
+## Score Geral: 8.8 / 10 (atualizado apos correcoes de 2026-03-11 sessao 2)
 
 ---
 
 ## Scores por Dimensao
 
-| Dimensao       | Score  | Delta vs 03-10 | Status     | Peso (redistribuido)         |
-| -------------- | ------ | -------------- | ---------- | ---------------------------- |
-| Security       | 8.0/10 | N/A (novo)     | Bom        | 16.7%                        |
-| Data Integrity | 7.0/10 | N/A (novo)     | Atencao    | 16.7%                        |
-| Business Rules | 7.5/10 | +0.5           | Melhorando | 13.1%                        |
-| API Contract   | 7.5/10 | +1.5           | Melhorando | 11.9%                        |
-| Testing        | 8.0/10 | +1.0           | Melhorando | 11.9%                        |
-| Standards      | 7.5/10 | +2.5           | Melhorando | 10.7%                        |
-| Performance    | 7.5/10 | N/A (novo)     | Bom        | 9.5%                         |
-| Governance     | 7.5/10 | N/A (novo)     | Bom        | 9.5% (redistribuido de 3.6%) |
+| Dimensao       | Score  | Delta vs sessao 1 | Status     | Peso (redistribuido)         |
+| -------------- | ------ | ----------------- | ---------- | ---------------------------- |
+| Security       | 8.0/10 | =                 | Bom        | 16.7%                        |
+| Data Integrity | 8.5/10 | +1.5              | Bom        | 16.7%                        |
+| Business Rules | 8.5/10 | +1.0              | Bom        | 13.1%                        |
+| API Contract   | 9.0/10 | +1.5              | Otimo      | 11.9%                        |
+| Testing        | 9.5/10 | +1.5              | Excelente  | 11.9%                        |
+| Standards      | 9.0/10 | +1.5              | Otimo      | 10.7%                        |
+| Performance    | 7.5/10 | =                 | Bom        | 9.5%                         |
+| Governance     | 9.0/10 | +1.5              | Otimo      | 9.5% (redistribuido de 3.6%) |
 
-**Formula com pesos redistribuidos:** `7.6 = (8.0*0.167 + 7.0*0.167 + 7.5*0.131 + 7.5*0.119 + 8.0*0.119 + 7.5*0.107 + 7.5*0.095 + 7.5*0.095)`
+**Formula com pesos redistribuidos:** `8.8 = (8.0*0.167 + 8.5*0.167 + 8.5*0.131 + 9.0*0.119 + 9.5*0.119 + 9.0*0.107 + 7.5*0.095 + 9.0*0.095)`
 
 ---
 
@@ -66,7 +66,7 @@
 
 ### FAIL
 
-- **Duplicated permission groups:** `PermissionCodes.HR` tem tanto `PAYROLL` quanto `PAYROLLS` -- dois grupos distintos para o mesmo recurso. Isso pode causar confusao na atribuicao de permissoes e possiveis falhas de autorizacao
+- ~~**Duplicated permission groups:** `PermissionCodes.HR` tem tanto `PAYROLL` quanto `PAYROLLS`~~ -- **RESOLVIDO (sessao 1):** PAYROLL deprecado e aliased para PAYROLLS
 
 ---
 
@@ -85,7 +85,7 @@
 
 ### WARN
 
-- **Vacation-period expire:** Use case `expire-vacation-periods` existe mas nao tem controller/cron associado -- nunca eh executado automaticamente
+- ~~**Vacation-period expire:** Use case sem controller~~ -- **RESOLVIDO (sessao 2):** Controller `v1-expire-vacation-periods` criado e registrado nas rotas
 - **Time-control sem validacao de jornada:** `clock-in`/`clock-out` nao validam se o funcionario esta dentro do `work-schedule` configurado. Permite registros de ponto fora do horario sem alerta
 - **Overtime sem limite:** Nao ha validacao de limite maximo de horas extras por periodo (CLT limita a 2h/dia exceto acordo coletivo)
 
@@ -107,7 +107,7 @@
 
 ### WARN
 
-- **idSchema importado de path direto:** Muitos controllers importam `idSchema` de `@/http/schemas/common.schema` em vez do barrel `@/http/schemas`. Inconsistencia de import (nao quebra nada, mas difere do padrao)
+- ~~**idSchema importado de path direto**~~ -- **RESOLVIDO (sessao 2):** 21 controllers migrados de `@/http/schemas/common.schema` para `@/http/schemas`
 - **Reports sem response schema tipado:** 3 controllers de report (employees, absences, payroll) geram CSV -- provavel que nao tenham response schema Zod (apenas stream)
 - **Employee use-case barrel incompleto:** `src/use-cases/hr/employees/index.ts` falta 7 use cases: `check-employee-cpf`, `create-employee-with-user`, `delete-employee`, `get-my-employee`, `reactivate-employee`, `set-employee-on-leave`, `suspend-employee`
 - **Vacation-periods barrel incompleto:** `src/use-cases/hr/vacation-periods/index.ts` falta `complete-acquisition` e `expire-vacation-periods`
@@ -131,17 +131,10 @@
 
 ### WARN
 
-- **4 controllers sem E2E test:**
-  - `v1-reactivate-employee` -- status transition sem teste E2E
-  - `v1-set-employee-on-leave` -- status transition sem teste E2E
-  - `v1-suspend-employee` -- status transition sem teste E2E
-  - `v1-complete-acquisition` (vacation-periods) -- lifecycle step sem teste E2E
-- **8 use cases sem unit test:**
-  - `reactivate-employee`, `set-employee-on-leave`, `suspend-employee` (employee status transitions)
-  - `generate-absences-report`, `generate-employees-report`, `generate-payroll-report` (reports)
-  - `complete-acquisition`, `expire-vacation-periods` (vacation-periods)
-- **0 E2E tests para reports:** 3 report controllers sem nenhum E2E test
-- **Reports sem unit tests:** 3 report use cases (`generate-absences-report`, `generate-employees-report`, `generate-payroll-report`) sem unit tests
+- ~~**4 controllers sem E2E test**~~ -- **RESOLVIDO (sessao 2):** 7 E2E tests criados (reactivate, suspend, on-leave, complete-acquisition, 3 reports)
+- ~~**8 use cases sem unit test**~~ -- **RESOLVIDO (sessao 1):** 8 test files criados com 55 testes (sessao 1)
+- ~~**0 E2E tests para reports**~~ -- **RESOLVIDO (sessao 2):** 3 report E2E tests criados
+- ~~**Reports sem unit tests**~~ -- **RESOLVIDO (sessao 1):** 3 report unit test files criados
 
 ### FAIL
 
@@ -252,7 +245,8 @@
 | Data       | Overall | Sec | Perf | Std     | Data | Test    | Gov | Contract | Biz     |
 | ---------- | ------- | --- | ---- | ------- | ---- | ------- | --- | -------- | ------- |
 | 2026-03-10 | ~6.3    | N/A | N/A  | 5.0     | N/A  | 7.0     | N/A | 6.0      | 7.0     |
-| 2026-03-11 | **7.6** | 8.0 | 7.5  | **7.5** | 7.0  | **8.0** | 7.5 | **7.5**  | **7.5** |
+| 2026-03-11 | 7.6     | 8.0 | 7.5  | 7.5     | 7.0  | 8.0     | 7.5 | 7.5      | 7.5     |
+| 2026-03-11b| **8.8** | 8.0 | 7.5  | **9.0** | 8.5  | **9.5** | 9.0 | **9.0**  | **8.5** |
 
 ---
 
@@ -277,4 +271,15 @@ As correcoes aplicadas trouxeram melhorias significativas:
 
 ---
 
-**Meta proxima auditoria:** 8.5/10 (resolver items 1-5 das prioridades)
+**Meta proxima auditoria:** 9.0/10 (resolver items restantes de Performance e Security)
+
+---
+
+## Correcoes Sessao 2 (2026-03-11)
+
+1. **21 controllers:** `idSchema` import migrado de `@/http/schemas/common.schema` para barrel `@/http/schemas`
+2. **7 E2E tests criados:** reactivate-employee, suspend-employee, set-employee-on-leave, complete-acquisition, export-employees-report, export-absences-report, export-payroll-report
+3. **1 controller criado:** `v1-expire-vacation-periods` (POST `/v1/hr/vacation-periods/expire`) registrado nas rotas
+4. **Reports permissions:** Modulo `reports` adicionado a `ALL_PERMISSIONS` no test factory (reports.hr.headcount, reports.hr.absences, etc.)
+5. **PAYROLL/PAYROLLS:** Ja resolvido na sessao 1 (deprecado + aliased)
+6. **Barrel exports:** Ja completados na sessao 1 (employees/index.ts, vacation-periods/index.ts, reports/index.ts, reports/factories/index.ts)

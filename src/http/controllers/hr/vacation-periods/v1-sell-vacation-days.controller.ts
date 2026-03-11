@@ -9,8 +9,8 @@ import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   sellVacationDaysSchema,
   vacationPeriodResponseSchema,
+  idSchema,
 } from '@/http/schemas';
-import { idSchema } from '@/http/schemas/common.schema';
 import { vacationPeriodToDTO } from '@/mappers/hr/vacation-period/vacation-period-to-dto';
 import { makeSellVacationDaysUseCase } from '@/use-cases/hr/vacation-periods/factories/make-sell-vacation-days-use-case';
 

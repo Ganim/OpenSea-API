@@ -6,6 +6,7 @@ import { v1CancelScheduledVacationController } from './v1-cancel-scheduled-vacat
 import { v1CompleteAcquisitionController } from './v1-complete-acquisition.controller';
 import { v1CompleteVacationController } from './v1-complete-vacation.controller';
 import { v1CreateVacationPeriodController } from './v1-create-vacation-period.controller';
+import { v1ExpireVacationPeriodsController } from './v1-expire-vacation-periods.controller';
 import { v1GetVacationPeriodController } from './v1-get-vacation-period.controller';
 import { v1ListVacationPeriodsController } from './v1-list-vacation-periods.controller';
 import { v1ScheduleVacationController } from './v1-schedule-vacation.controller';
@@ -26,6 +27,7 @@ export async function vacationPeriodsRoutes(app: FastifyInstance) {
       mutationApp.register(v1CompleteVacationController);
       mutationApp.register(v1SellVacationDaysController);
       mutationApp.register(v1CompleteAcquisitionController);
+      mutationApp.register(v1ExpireVacationPeriodsController);
     },
     { prefix: '' },
   );

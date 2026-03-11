@@ -1,8 +1,7 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { vacationPeriodResponseSchema } from '@/http/schemas';
-import { idSchema } from '@/http/schemas/common.schema';
+import { idSchema, vacationPeriodResponseSchema } from '@/http/schemas';
 import { vacationPeriodToDTO } from '@/mappers/hr/vacation-period/vacation-period-to-dto';
 import { makeGetVacationPeriodUseCase } from '@/use-cases/hr/vacation-periods/factories/make-get-vacation-period-use-case';
 

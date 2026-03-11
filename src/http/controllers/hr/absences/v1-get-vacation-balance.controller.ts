@@ -1,8 +1,7 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { vacationBalanceResponseSchema } from '@/http/schemas';
-import { idSchema } from '@/http/schemas/common.schema';
+import { idSchema, vacationBalanceResponseSchema } from '@/http/schemas';
 import { makeCalculateVacationBalanceUseCase } from '@/use-cases/hr/absences/factories/make-calculate-vacation-balance-use-case';
 
 import type { FastifyInstance } from 'fastify';

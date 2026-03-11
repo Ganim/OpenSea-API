@@ -1,8 +1,7 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { departmentWithDetailsResponseSchema } from '@/http/schemas';
-import { idSchema } from '@/http/schemas/common.schema';
+import { idSchema, departmentWithDetailsResponseSchema } from '@/http/schemas';
 import { departmentToDetailsDTO } from '@/mappers/hr/department/department-to-dto';
 import { makeGetDepartmentByIdUseCase } from '@/use-cases/hr/departments/factories/make-get-department-by-id-use-case';
 import type { FastifyInstance } from 'fastify';

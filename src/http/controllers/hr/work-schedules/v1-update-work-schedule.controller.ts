@@ -10,8 +10,8 @@ import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   updateWorkScheduleSchema,
   workScheduleResponseSchema,
+idSchema,
 } from '@/http/schemas';
-import { idSchema } from '@/http/schemas/common.schema';
 import { workScheduleToDTO } from '@/mappers/hr/work-schedule/work-schedule-to-dto';
 import { getCacheService } from '@/services/cache/cache-service';
 import { makeUpdateWorkScheduleUseCase } from '@/use-cases/hr/work-schedules/factories/make-update-work-schedule-use-case';

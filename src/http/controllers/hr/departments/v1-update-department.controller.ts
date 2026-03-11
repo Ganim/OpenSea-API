@@ -10,8 +10,8 @@ import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   departmentResponseSchema,
   updateDepartmentSchema,
+idSchema,
 } from '@/http/schemas';
-import { idSchema } from '@/http/schemas/common.schema';
 import { departmentToDTO } from '@/mappers/hr/department/department-to-dto';
 import { getCacheService } from '@/services/cache/cache-service';
 import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';

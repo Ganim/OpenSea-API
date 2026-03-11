@@ -331,6 +331,8 @@ const ALL_PERMISSIONS = {
     attachments: ['create', 'read', 'delete', 'list'],
     loans: ['create', 'read', 'update', 'delete', 'list', 'pay', 'manage'],
     consortia: ['create', 'read', 'update', 'delete', 'list', 'pay', 'manage'],
+    recurring: ['create', 'read', 'update', 'delete', 'list', 'manage'],
+    contracts: ['create', 'read', 'update', 'delete', 'list', 'manage'],
     dashboard: ['view'],
     export: ['generate'],
   },

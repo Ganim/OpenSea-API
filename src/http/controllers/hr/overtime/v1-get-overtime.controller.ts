@@ -1,8 +1,7 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { overtimeResponseSchema } from '@/http/schemas';
-import { idSchema } from '@/http/schemas/common.schema';
+import { idSchema, overtimeResponseSchema } from '@/http/schemas';
 import { overtimeToDTO } from '@/mappers/hr/overtime/overtime-to-dto';
 import { makeGetOvertimeUseCase } from '@/use-cases/hr/overtime/factories/make-get-overtime-use-case';
 

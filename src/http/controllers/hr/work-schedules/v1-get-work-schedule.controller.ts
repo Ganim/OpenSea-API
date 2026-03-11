@@ -1,8 +1,7 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { workScheduleResponseSchema } from '@/http/schemas';
-import { idSchema } from '@/http/schemas/common.schema';
+import { idSchema, workScheduleResponseSchema } from '@/http/schemas';
 import { workScheduleToDTO } from '@/mappers/hr/work-schedule/work-schedule-to-dto';
 import { makeGetWorkScheduleUseCase } from '@/use-cases/hr/work-schedules/factories/make-get-work-schedule-use-case';
 import type { FastifyInstance } from 'fastify';
