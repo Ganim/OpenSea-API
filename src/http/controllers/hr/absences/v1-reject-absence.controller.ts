@@ -1,6 +1,8 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
@@ -60,6 +62,16 @@ export async function rejectAbsenceController(app: FastifyInstance) {
           absenceId,
           rejectedBy: userId,
           reason,
+        });
+
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.HR.ABSENCE_REJECT,
+          entityId: absenceId,
+          placeholders: {
+            userName: userId,
+            employeeName: absence.employeeId.toString(),
+            reason,
+          },
         });
 
         return reply.status(200).send({ absence: absenceToDTO(absence) });

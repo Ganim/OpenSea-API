@@ -1,6 +1,8 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { cacheKeys } from '@/config/redis';
 import { PermissionCodes } from '@/constants/rbac';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
@@ -50,7 +52,18 @@ export async function deleteWorkScheduleController(app: FastifyInstance) {
           id: workScheduleId,
         });
 
-        await getCacheService().delPattern(`${cacheKeys.hrWorkSchedules(tenantId)}:*`);
+        await getCacheService().delPattern(
+          `${cacheKeys.hrWorkSchedules(tenantId)}:*`,
+        );
+
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.HR.WORK_SCHEDULE_DELETE,
+          entityId: workScheduleId,
+          placeholders: {
+            userName: request.user.sub,
+            scheduleName: workScheduleId,
+          },
+        });
 
         return reply.status(204).send(null);
       } catch (error) {

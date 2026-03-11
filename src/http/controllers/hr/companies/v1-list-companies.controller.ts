@@ -1,3 +1,5 @@
+import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { cacheConfig, cacheKeys } from '@/config/redis';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
@@ -98,10 +100,10 @@ export async function v1ListCompaniesController(app: FastifyInstance) {
       try {
         return await handleList(request, reply, false);
       } catch (error) {
-        if (error instanceof Error && error.message.includes('not found')) {
+        if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });
         }
-        if (error instanceof Error) {
+        if (error instanceof BadRequestError) {
           return reply.status(400).send({ message: error.message });
         }
         throw error;
@@ -135,10 +137,10 @@ export async function v1ListCompaniesController(app: FastifyInstance) {
       try {
         return await handleList(request, reply, true);
       } catch (error) {
-        if (error instanceof Error && error.message.includes('not found')) {
+        if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });
         }
-        if (error instanceof Error) {
+        if (error instanceof BadRequestError) {
           return reply.status(400).send({ message: error.message });
         }
         throw error;

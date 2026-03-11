@@ -1,4 +1,5 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
@@ -59,11 +60,8 @@ export async function v1UpdateCompanyStakeholder(app: FastifyInstance) {
         if (error instanceof BadRequestError) {
           return reply.status(400).send({ message: error.message });
         }
-        if (error instanceof Error && error.message.includes('not found')) {
+        if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });
-        }
-        if (error instanceof Error) {
-          return reply.status(400).send({ message: error.message });
         }
         throw error;
       }

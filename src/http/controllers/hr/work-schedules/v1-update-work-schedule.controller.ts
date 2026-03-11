@@ -1,7 +1,9 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { cacheKeys } from '@/config/redis';
 import { PermissionCodes } from '@/constants/rbac';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
@@ -64,7 +66,19 @@ export async function updateWorkScheduleController(app: FastifyInstance) {
           ...data,
         });
 
-        await getCacheService().delPattern(`${cacheKeys.hrWorkSchedules(tenantId)}:*`);
+        await getCacheService().delPattern(
+          `${cacheKeys.hrWorkSchedules(tenantId)}:*`,
+        );
+
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.HR.WORK_SCHEDULE_UPDATE,
+          entityId: workScheduleId,
+          placeholders: {
+            userName: request.user.sub,
+            scheduleName: workSchedule.name,
+          },
+          newData: data as Record<string, unknown>,
+        });
 
         return reply
           .status(200)

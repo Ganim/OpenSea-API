@@ -75,7 +75,7 @@ export class EmployeeStatus extends ValueObject<EmployeeStatusEnum> {
   }
 
   canWork(): boolean {
-    return this.isActive() || this.isOnLeave();
+    return this.isActive();
   }
 
   equals(other: ValueObject<EmployeeStatusEnum>): boolean {

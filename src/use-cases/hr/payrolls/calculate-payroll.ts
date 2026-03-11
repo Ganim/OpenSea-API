@@ -1,5 +1,6 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { getINSSTable, getIRRFTable } from '@/constants/hr/tax-tables';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { Payroll } from '@/entities/hr/payroll';
 import type { PayrollItem } from '@/entities/hr/payroll-item';
@@ -246,8 +247,8 @@ export class CalculatePayrollUseCase {
       .filter((item) => !item.isDeduction)
       .reduce((sum, item) => sum + item.amount, 0);
 
-    // INSS calculation (simplified progressive rates)
-    const inssAmount = this.calculateINSS(totalEarnings);
+    // INSS calculation (progressive rates from tax table)
+    const inssAmount = this.calculateINSS(totalEarnings, payroll.referenceYear);
     if (inssAmount > 0) {
       const inssItem = await this.payrollItemsRepository.create({
         payrollId: payroll.id,
@@ -260,9 +261,9 @@ export class CalculatePayrollUseCase {
       items.push(inssItem);
     }
 
-    // IRRF calculation (simplified)
+    // IRRF calculation
     const taxableBase = totalEarnings - inssAmount;
-    const irrfAmount = this.calculateIRRF(taxableBase);
+    const irrfAmount = this.calculateIRRF(taxableBase, payroll.referenceYear);
     if (irrfAmount > 0) {
       const irrfItem = await this.payrollItemsRepository.create({
         payrollId: payroll.id,
@@ -278,20 +279,14 @@ export class CalculatePayrollUseCase {
     return items;
   }
 
-  private calculateINSS(grossSalary: number): number {
-    // Tabela INSS 2024 (simplificada)
-    const brackets = [
-      { limit: 1412.0, rate: 0.075 },
-      { limit: 2666.68, rate: 0.09 },
-      { limit: 4000.03, rate: 0.12 },
-      { limit: 7786.02, rate: 0.14 },
-    ];
+  private calculateINSS(grossSalary: number, year: number): number {
+    const table = getINSSTable(year);
 
     let inss = 0;
     let remainingSalary = grossSalary;
     let previousLimit = 0;
 
-    for (const bracket of brackets) {
+    for (const bracket of table.brackets) {
       if (remainingSalary <= 0) break;
 
       const bracketRange = bracket.limit - previousLimit;
@@ -302,23 +297,15 @@ export class CalculatePayrollUseCase {
       previousLimit = bracket.limit;
     }
 
-    // Cap at maximum contribution
-    const maxContribution = 908.86; // Teto INSS 2024
-    return Math.min(inss, maxContribution);
+    return Math.min(inss, table.maxContribution);
   }
 
-  private calculateIRRF(taxableBase: number): number {
-    // Tabela IRRF 2024 (simplificada)
-    if (taxableBase <= 2259.2) return 0;
+  private calculateIRRF(taxableBase: number, year: number): number {
+    const table = getIRRFTable(year);
 
-    const brackets = [
-      { limit: 2826.65, rate: 0.075, deduction: 169.44 },
-      { limit: 3751.05, rate: 0.15, deduction: 381.44 },
-      { limit: 4664.68, rate: 0.225, deduction: 662.77 },
-      { limit: Infinity, rate: 0.275, deduction: 896.0 },
-    ];
+    if (taxableBase <= table.exemptLimit) return 0;
 
-    for (const bracket of brackets) {
+    for (const bracket of table.brackets) {
       if (taxableBase <= bracket.limit) {
         const irrf = taxableBase * bracket.rate - bracket.deduction;
         return Math.max(0, irrf);

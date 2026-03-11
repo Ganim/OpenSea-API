@@ -10,6 +10,9 @@ export interface OvertimeProps {
   approved: boolean;
   approvedBy?: UniqueEntityID;
   approvedAt?: Date;
+  rejected: boolean;
+  rejectedBy?: UniqueEntityID;
+  rejectedAt?: Date;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -47,6 +50,18 @@ export class Overtime extends Entity<OvertimeProps> {
     return this.props.approvedAt;
   }
 
+  get rejected(): boolean {
+    return this.props.rejected;
+  }
+
+  get rejectedBy(): UniqueEntityID | undefined {
+    return this.props.rejectedBy;
+  }
+
+  get rejectedAt(): Date | undefined {
+    return this.props.rejectedAt;
+  }
+
   get createdAt(): Date {
     return this.props.createdAt;
   }
@@ -57,11 +72,15 @@ export class Overtime extends Entity<OvertimeProps> {
 
   // Business methods
   isPending(): boolean {
-    return !this.approved;
+    return !this.approved && !this.rejected;
   }
 
   isApproved(): boolean {
     return this.approved;
+  }
+
+  isRejected(): boolean {
+    return this.rejected;
   }
 
   approve(approvedBy: UniqueEntityID): void {
@@ -75,10 +94,16 @@ export class Overtime extends Entity<OvertimeProps> {
     this.props.updatedAt = new Date();
   }
 
-  reject(): void {
+  reject(rejectedBy: UniqueEntityID): void {
     if (this.approved) {
       throw new Error('Cannot reject already approved overtime');
     }
+    if (this.rejected) {
+      throw new Error('Overtime is already rejected');
+    }
+    this.props.rejected = true;
+    this.props.rejectedBy = rejectedBy;
+    this.props.rejectedAt = new Date();
     this.props.updatedAt = new Date();
   }
 
@@ -87,13 +112,16 @@ export class Overtime extends Entity<OvertimeProps> {
   }
 
   static create(
-    props: Omit<OvertimeProps, 'createdAt' | 'updatedAt'>,
+    props: Omit<OvertimeProps, 'createdAt' | 'updatedAt' | 'rejected'> & {
+      rejected?: boolean;
+    },
     id?: UniqueEntityID,
   ): Overtime {
     const now = new Date();
     return new Overtime(
       {
         ...props,
+        rejected: props.rejected ?? false,
         createdAt: now,
         updatedAt: now,
       },

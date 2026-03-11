@@ -1,5 +1,7 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { absenceResponseSchema } from '@/http/schemas';
@@ -46,6 +48,15 @@ export async function cancelAbsenceController(app: FastifyInstance) {
         const { absence } = await cancelAbsenceUseCase.execute({
           tenantId,
           absenceId,
+        });
+
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.HR.ABSENCE_CANCEL,
+          entityId: absenceId,
+          placeholders: {
+            userName: request.user.sub,
+            employeeName: absence.employeeId.toString(),
+          },
         });
 
         return reply.status(200).send({ absence: absenceToDTO(absence) });

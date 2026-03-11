@@ -1,5 +1,7 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { absenceResponseSchema, requestVacationSchema } from '@/http/schemas';
@@ -43,6 +45,17 @@ export async function requestVacationController(app: FastifyInstance) {
         const { absence } = await requestVacationUseCase.execute({
           ...data,
           tenantId,
+        });
+
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.HR.VACATION_REQUEST,
+          entityId: absence.id.toString(),
+          placeholders: {
+            employeeName: absence.employeeId.toString(),
+            startDate: String(absence.startDate),
+            endDate: String(absence.endDate),
+          },
+          newData: data as Record<string, unknown>,
         });
 
         return reply.status(201).send({ absence: absenceToDTO(absence) });

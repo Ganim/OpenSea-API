@@ -1,4 +1,5 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { cacheKeys } from '@/config/redis';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
@@ -98,7 +99,9 @@ export async function v1UpdateCompanyController(app: FastifyInstance) {
           newData: data,
         });
 
-        await getCacheService().delPattern(`${cacheKeys.hrCompanies(tenantId)}:*`);
+        await getCacheService().delPattern(
+          `${cacheKeys.hrCompanies(tenantId)}:*`,
+        );
 
         return reply
           .status(200)
@@ -107,11 +110,8 @@ export async function v1UpdateCompanyController(app: FastifyInstance) {
         if (error instanceof BadRequestError) {
           return reply.status(400).send({ message: error.message });
         }
-        if (error instanceof Error && error.message.includes('not found')) {
+        if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });
-        }
-        if (error instanceof Error) {
-          return reply.status(400).send({ message: error.message });
         }
         throw error;
       }

@@ -1,5 +1,7 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
@@ -61,6 +63,16 @@ export async function calculatePayrollController(app: FastifyInstance) {
           tenantId,
           payrollId,
           processedBy: userId,
+        });
+
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.HR.PAYROLL_CALCULATE,
+          entityId: payrollId,
+          placeholders: {
+            userName: userId,
+            month: String(payroll.referenceMonth),
+            year: String(payroll.referenceYear),
+          },
         });
 
         return reply.status(200).send({

@@ -1,3 +1,5 @@
+import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
@@ -46,10 +48,10 @@ export async function v1ListSuppliersController(app: FastifyInstance) {
 
         return reply.status(200).send(suppliers.map(supplierToDTO));
       } catch (error) {
-        if (error instanceof Error && error.message.includes('not found')) {
+        if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });
         }
-        if (error instanceof Error) {
+        if (error instanceof BadRequestError) {
           return reply.status(400).send({ message: error.message });
         }
         throw error;

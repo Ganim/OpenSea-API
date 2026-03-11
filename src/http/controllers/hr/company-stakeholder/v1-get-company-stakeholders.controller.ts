@@ -1,3 +1,4 @@
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { idSchema } from '@/http/schemas/common.schema';
 import { companyStakeholderResponseSchema } from '@/http/schemas/hr.schema';
@@ -35,7 +36,7 @@ export async function v1GetCompanyStakeholders(app: FastifyInstance) {
 
         return reply.status(200).send(dtos);
       } catch (error) {
-        if (error instanceof Error && error.message.includes('not found')) {
+        if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });
         }
         throw error;

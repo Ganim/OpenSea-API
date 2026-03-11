@@ -1,6 +1,8 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
@@ -51,6 +53,15 @@ export async function clockInController(app: FastifyInstance) {
         const { timeEntry } = await clockInUseCase.execute({
           tenantId,
           ...data,
+        });
+
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.HR.TIME_CLOCK_IN,
+          entityId: timeEntry.id.toString(),
+          placeholders: {
+            employeeName: timeEntry.employeeId.toString(),
+            time: timeEntry.clockIn.toISOString(),
+          },
         });
 
         return reply.status(201).send({ timeEntry: timeEntryToDTO(timeEntry) });

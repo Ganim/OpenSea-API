@@ -1,5 +1,7 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
@@ -48,6 +50,15 @@ export async function clockOutController(app: FastifyInstance) {
         const { timeEntry } = await clockOutUseCase.execute({
           tenantId,
           ...data,
+        });
+
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.HR.TIME_CLOCK_OUT,
+          entityId: timeEntry.id.toString(),
+          placeholders: {
+            employeeName: timeEntry.employeeId.toString(),
+            time: timeEntry.clockOut?.toISOString() ?? new Date().toISOString(),
+          },
         });
 
         return reply.status(201).send({ timeEntry: timeEntryToDTO(timeEntry) });

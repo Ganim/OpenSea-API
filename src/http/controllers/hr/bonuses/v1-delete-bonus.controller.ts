@@ -1,5 +1,7 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
@@ -45,6 +47,15 @@ export async function deleteBonusController(app: FastifyInstance) {
       try {
         const deleteBonusUseCase = makeDeleteBonusUseCase();
         await deleteBonusUseCase.execute({ tenantId, bonusId });
+
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.HR.BONUS_DELETE,
+          entityId: bonusId,
+          placeholders: {
+            userName: request.user.sub,
+            employeeName: bonusId,
+          },
+        });
 
         return reply.status(204).send(null);
       } catch (error) {

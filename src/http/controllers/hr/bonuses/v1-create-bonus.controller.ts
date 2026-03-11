@@ -1,5 +1,7 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
@@ -51,6 +53,18 @@ export async function createBonusController(app: FastifyInstance) {
         const { bonus } = await createBonusUseCase.execute({
           tenantId,
           ...data,
+        });
+
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.HR.BONUS_CREATE,
+          entityId: bonus.id.toString(),
+          placeholders: {
+            userName: request.user.sub,
+            amount: String(bonus.amount),
+            employeeName: bonus.employeeId.toString(),
+            description: bonus.name,
+          },
+          newData: data as Record<string, unknown>,
         });
 
         return reply.status(201).send({ bonus: bonusToDTO(bonus) });
