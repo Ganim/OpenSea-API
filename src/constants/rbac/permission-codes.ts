@@ -686,12 +686,7 @@ export const PermissionCodes = {
   // ============================================================================
   HR: {
     COMPANIES: {
-      CREATE: 'hr.companies.create' as const,
       READ: 'hr.companies.read' as const,
-      UPDATE: 'hr.companies.update' as const,
-      DELETE: 'hr.companies.delete' as const,
-      LIST: 'hr.companies.list' as const,
-      MANAGE: 'hr.companies.manage' as const,
     },
     EMPLOYEES: {
       CREATE: 'hr.employees.create' as const,
@@ -847,38 +842,6 @@ export const PermissionCodes = {
       LIST: 'hr.stakeholders.list' as const,
       MANAGE: 'hr.stakeholders.manage' as const,
     },
-    COMPANY_ADDRESSES: {
-      CREATE: 'hr.company-addresses.create' as const,
-      READ: 'hr.company-addresses.read' as const,
-      UPDATE: 'hr.company-addresses.update' as const,
-      DELETE: 'hr.company-addresses.delete' as const,
-      LIST: 'hr.company-addresses.list' as const,
-      MANAGE: 'hr.company-addresses.manage' as const,
-    },
-    COMPANY_CNAES: {
-      CREATE: 'hr.company-cnaes.create' as const,
-      READ: 'hr.company-cnaes.read' as const,
-      UPDATE: 'hr.company-cnaes.update' as const,
-      DELETE: 'hr.company-cnaes.delete' as const,
-      LIST: 'hr.company-cnaes.list' as const,
-      MANAGE: 'hr.company-cnaes.manage' as const,
-    },
-    COMPANY_FISCAL_SETTINGS: {
-      CREATE: 'hr.company-fiscal-settings.create' as const,
-      READ: 'hr.company-fiscal-settings.read' as const,
-      UPDATE: 'hr.company-fiscal-settings.update' as const,
-      DELETE: 'hr.company-fiscal-settings.delete' as const,
-      LIST: 'hr.company-fiscal-settings.list' as const,
-      MANAGE: 'hr.company-fiscal-settings.manage' as const,
-    },
-    COMPANY_STAKEHOLDER: {
-      CREATE: 'hr.company-stakeholder.create' as const,
-      READ: 'hr.company-stakeholder.read' as const,
-      UPDATE: 'hr.company-stakeholder.update' as const,
-      DELETE: 'hr.company-stakeholder.delete' as const,
-      LIST: 'hr.company-stakeholder.list' as const,
-      MANAGE: 'hr.company-stakeholder.manage' as const,
-    },
     PAYROLLS: {
       CREATE: 'hr.payrolls.create' as const,
       READ: 'hr.payrolls.read' as const,
@@ -910,12 +873,7 @@ export const PermissionCodes = {
   // ============================================================================
   FINANCE: {
     COMPANIES: {
-      CREATE: 'finance.companies.create' as const,
       READ: 'finance.companies.read' as const,
-      UPDATE: 'finance.companies.update' as const,
-      DELETE: 'finance.companies.delete' as const,
-      LIST: 'finance.companies.list' as const,
-      MANAGE: 'finance.companies.manage' as const,
     },
     COST_CENTERS: {
       CREATE: 'finance.cost-centers.create' as const,
@@ -1169,6 +1127,30 @@ export const PermissionCodes = {
       UPDATE: 'admin.companies.update' as const,
       DELETE: 'admin.companies.delete' as const,
       RESTORE: 'admin.companies.restore' as const,
+    },
+    COMPANY_ADDRESSES: {
+      CREATE: 'admin.company-addresses.create' as const,
+      READ: 'admin.company-addresses.read' as const,
+      UPDATE: 'admin.company-addresses.update' as const,
+      DELETE: 'admin.company-addresses.delete' as const,
+    },
+    COMPANY_CNAES: {
+      CREATE: 'admin.company-cnaes.create' as const,
+      READ: 'admin.company-cnaes.read' as const,
+      UPDATE: 'admin.company-cnaes.update' as const,
+      DELETE: 'admin.company-cnaes.delete' as const,
+    },
+    COMPANY_FISCAL_SETTINGS: {
+      CREATE: 'admin.company-fiscal-settings.create' as const,
+      READ: 'admin.company-fiscal-settings.read' as const,
+      UPDATE: 'admin.company-fiscal-settings.update' as const,
+      DELETE: 'admin.company-fiscal-settings.delete' as const,
+    },
+    COMPANY_STAKEHOLDER: {
+      CREATE: 'admin.company-stakeholder.create' as const,
+      READ: 'admin.company-stakeholder.read' as const,
+      UPDATE: 'admin.company-stakeholder.update' as const,
+      DELETE: 'admin.company-stakeholder.delete' as const,
     },
   },
 } as const;
