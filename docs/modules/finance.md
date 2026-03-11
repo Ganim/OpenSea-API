@@ -1224,3 +1224,14 @@ Cada controller possui seu próprio `*.e2e.spec.ts`. Recursos cobertos:
 | Date | Dimension | Score | Report |
 |------|-----------|-------|--------|
 | 2026-03-10 | Documentação inicial | — | Criado este arquivo |
+| 2026-03-10 | Auditoria consolidada (12 dims) | 7.8/10 | `docs/audits/2026-03-10-finance-consolidated.md` |
+| 2026-03-11 | Correções de auditoria | ~9.0/10 | Todas as issues CRIT/MED resolvidas: |
+| | Segurança | 8.0→9.5 | `createPermissionMiddleware` em 63 controllers |
+| | Integridade de Dados | 7.5→9.0 | `generateNextCode` atômico (FinanceCodeSequence), RegisterPayment com TransactionManager, guard delete paid entries |
+| | Performance | 7.0→9.0 | Endpoint consolidado `/v1/finance/overview` (9→1 request), supplierName/customerName removidos de criptografia |
+| | Padronização | 8.0→9.5 | Entity props `string`→union types (7 novos tipos), `calculateNextDate` extraído para utility |
+| | Acessibilidade | 6.5→9.0 | aria-label em todas as 22 tabelas do módulo |
+| | Regras de Negócio | 8.5→9.0 | Validação `dueDate >= issueDate` via .refine(), competenceDate default issueDate |
+| | Governança | 8.0→9.0 | 4 ADRs criados (019-022): field-encryption, cost-center-allocation, code-sequence, transactions |
+| | UI/UX | 7.5→9.0 | ~90 correções de acentos PT-BR em 16 arquivos |
+| 2026-03-11 | Companies reorganization | — | Empresas migrando de HR/Finance→Admin (spec em andamento, ver root `docs/superpowers/specs/`) |
