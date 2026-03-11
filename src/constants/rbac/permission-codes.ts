@@ -879,14 +879,6 @@ export const PermissionCodes = {
       LIST: 'hr.company-stakeholder.list' as const,
       MANAGE: 'hr.company-stakeholder.manage' as const,
     },
-    MANUFACTURERS: {
-      CREATE: 'hr.manufacturers.create' as const,
-      READ: 'hr.manufacturers.read' as const,
-      UPDATE: 'hr.manufacturers.update' as const,
-      DELETE: 'hr.manufacturers.delete' as const,
-      LIST: 'hr.manufacturers.list' as const,
-      MANAGE: 'hr.manufacturers.manage' as const,
-    },
     PAYROLLS: {
       CREATE: 'hr.payrolls.create' as const,
       READ: 'hr.payrolls.read' as const,
@@ -894,14 +886,6 @@ export const PermissionCodes = {
       DELETE: 'hr.payrolls.delete' as const,
       LIST: 'hr.payrolls.list' as const,
       MANAGE: 'hr.payrolls.manage' as const,
-    },
-    SUPPLIERS: {
-      CREATE: 'hr.suppliers.create' as const,
-      READ: 'hr.suppliers.read' as const,
-      UPDATE: 'hr.suppliers.update' as const,
-      DELETE: 'hr.suppliers.delete' as const,
-      LIST: 'hr.suppliers.list' as const,
-      MANAGE: 'hr.suppliers.manage' as const,
     },
     TIME_CONTROL: {
       CREATE: 'hr.time-control.create' as const,

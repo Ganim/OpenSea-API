@@ -619,61 +619,6 @@ export const HR_AUDIT_MESSAGES = {
     description: '{{userName}} removeu {{stakeholderName}} de {{companyName}}',
   } satisfies AuditMessage,
 
-  // ============================================================================
-  // HR MANUFACTURERS - Fabricantes (no contexto HR)
-  // ============================================================================
-
-  /** Fabricante criado (HR) */
-  HR_MANUFACTURER_CREATE: {
-    action: AuditAction.CREATE,
-    entity: AuditEntity.MANUFACTURER,
-    module: AuditModule.HR,
-    description: '{{userName}} cadastrou o fabricante {{manufacturerName}}',
-  } satisfies AuditMessage,
-
-  /** Fabricante atualizado (HR) */
-  HR_MANUFACTURER_UPDATE: {
-    action: AuditAction.UPDATE,
-    entity: AuditEntity.MANUFACTURER,
-    module: AuditModule.HR,
-    description: '{{userName}} atualizou o fabricante {{manufacturerName}}',
-  } satisfies AuditMessage,
-
-  /** Fabricante excluído (HR) */
-  HR_MANUFACTURER_DELETE: {
-    action: AuditAction.DELETE,
-    entity: AuditEntity.MANUFACTURER,
-    module: AuditModule.HR,
-    description: '{{userName}} excluiu o fabricante {{manufacturerName}}',
-  } satisfies AuditMessage,
-
-  // ============================================================================
-  // HR SUPPLIERS - Fornecedores (no contexto HR)
-  // ============================================================================
-
-  /** Fornecedor criado (HR) */
-  HR_SUPPLIER_CREATE: {
-    action: AuditAction.CREATE,
-    entity: AuditEntity.SUPPLIER,
-    module: AuditModule.HR,
-    description: '{{userName}} cadastrou o fornecedor {{supplierName}}',
-  } satisfies AuditMessage,
-
-  /** Fornecedor atualizado (HR) */
-  HR_SUPPLIER_UPDATE: {
-    action: AuditAction.UPDATE,
-    entity: AuditEntity.SUPPLIER,
-    module: AuditModule.HR,
-    description: '{{userName}} atualizou o fornecedor {{supplierName}}',
-  } satisfies AuditMessage,
-
-  /** Fornecedor excluído (HR) */
-  HR_SUPPLIER_DELETE: {
-    action: AuditAction.DELETE,
-    entity: AuditEntity.SUPPLIER,
-    module: AuditModule.HR,
-    description: '{{userName}} excluiu o fornecedor {{supplierName}}',
-  } satisfies AuditMessage,
 } as const;
 
 export type HrAuditMessageKey = keyof typeof HR_AUDIT_MESSAGES;

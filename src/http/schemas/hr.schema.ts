@@ -14,4 +14,3 @@ export * from './hr/organization';
 export * from './hr/time-management';
 export * from './hr/leave';
 export * from './hr/payroll';
-export * from './hr/suppliers';

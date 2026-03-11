@@ -6,7 +6,7 @@ interface OrganizationData {
   legalName?: string;
   cnpj?: string;
   tradeName?: string;
-  type?: 'COMPANY' | 'SUPPLIER' | 'MANUFACTURER' | 'CUSTOMER';
+  type?: 'COMPANY' | 'CUSTOMER';
   status?: 'ACTIVE' | 'INACTIVE' | 'SUSPENDED' | 'BLOCKED';
   email?: string;
   phoneMain?: string;

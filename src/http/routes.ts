@@ -116,11 +116,9 @@ import { companyStakeholderRoutes } from './controllers/hr/company-stakeholder/r
 import { deductionsRoutes } from './controllers/hr/deductions/routes';
 import { departmentsRoutes } from './controllers/hr/departments/routes';
 import { employeesRoutes } from './controllers/hr/employees/routes';
-import { manufacturersRoutes as hrManufacturersRoutes } from './controllers/hr/manufacturers/routes';
 import { overtimeRoutes } from './controllers/hr/overtime/routes';
 import { payrollsRoutes } from './controllers/hr/payrolls/routes';
 import { positionsRoutes } from './controllers/hr/positions/routes';
-import { suppliersRoutes as hrSuppliersRoutes } from './controllers/hr/suppliers/routes';
 import { timeBankRoutes } from './controllers/hr/time-bank/routes';
 import { timeControlRoutes } from './controllers/hr/time-control/routes';
 import { hrReportsRoutes } from './controllers/hr/reports/routes';
@@ -219,8 +217,6 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(employeesRoutes);
   await app.register(departmentsRoutes);
   await app.register(companiesRoutes);
-  await app.register(hrSuppliersRoutes);
-  await app.register(hrManufacturersRoutes);
   await app.register(positionsRoutes);
   await app.register(timeControlRoutes);
   await app.register(workSchedulesRoutes);

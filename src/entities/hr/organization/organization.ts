@@ -1,11 +1,7 @@
 import { Entity } from '../../domain/entities';
 import { UniqueEntityID } from '../../domain/unique-entity-id';
 
-export type OrganizationType =
-  | 'COMPANY'
-  | 'SUPPLIER'
-  | 'MANUFACTURER'
-  | 'CUSTOMER';
+export type OrganizationType = 'COMPANY' | 'CUSTOMER';
 export type OrganizationStatus =
   | 'ACTIVE'
   | 'INACTIVE'
@@ -148,13 +144,6 @@ export abstract class Organization extends Entity<OrganizationProps> {
     return this.type === 'COMPANY';
   }
 
-  isSupplier(): boolean {
-    return this.type === 'SUPPLIER';
-  }
-
-  isManufacturer(): boolean {
-    return this.type === 'MANUFACTURER';
-  }
 
   isCustomer(): boolean {
     return this.type === 'CUSTOMER';

@@ -35,8 +35,6 @@ enum TaxRegimeEnum {
 
 enum OrganizationType {
   COMPANY // Empresa própria
-  SUPPLIER // Fornecedor
-  MANUFACTURER // Fabricante
   CUSTOMER // Cliente (futuro)
 }
 
@@ -1725,6 +1723,8 @@ model Variant {
   @@index([upcCode])
   @@index([slug, deletedAt])
   @@index([tenantId])
+  @@index([tenantId, deletedAt])
+  @@index([tenantId, productId, deletedAt])
   @@map("variants")
 }
 
@@ -4095,6 +4095,16 @@ model FinanceEntry {
   @@index([tenantId, type, status])
   @@index([tenantId, dueDate, status])
   @@map("finance_entries")
+}
+
+model FinanceCodeSequence {
+  id        String @id @default(uuid())
+  tenantId  String @map("tenant_id")
+  prefix    String // 'PAG' or 'REC'
+  lastValue Int    @default(0) @map("last_value")
+
+  @@unique([tenantId, prefix])
+  @@map("finance_code_sequences")
 }
 
 model FinanceEntryPayment {
