@@ -173,6 +173,20 @@ export class InMemoryVacationPeriodsRepository
       .sort((a, b) => a.concessionEnd.getTime() - b.concessionEnd.getTime());
   }
 
+  async findExpiredPeriods(tenantId: string): Promise<VacationPeriod[]> {
+    const now = new Date();
+    return this.items
+      .filter(
+        (item) =>
+          item.tenantId.toString() === tenantId &&
+          item.concessionEnd < now &&
+          !item.isCompleted() &&
+          !item.isExpired() &&
+          !item.isSold(),
+      )
+      .sort((a, b) => a.concessionEnd.getTime() - b.concessionEnd.getTime());
+  }
+
   async update(
     data: UpdateVacationPeriodSchema,
   ): Promise<VacationPeriod | null> {

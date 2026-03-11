@@ -62,6 +62,7 @@ export interface VacationPeriodsRepository {
     tenantId: string,
   ): Promise<VacationPeriod | null>;
   findExpiring(beforeDate: Date, tenantId: string): Promise<VacationPeriod[]>;
+  findExpiredPeriods(tenantId: string): Promise<VacationPeriod[]>;
   update(data: UpdateVacationPeriodSchema): Promise<VacationPeriod | null>;
   save(vacationPeriod: VacationPeriod): Promise<void>;
   delete(id: UniqueEntityID): Promise<void>;

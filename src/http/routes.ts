@@ -123,6 +123,7 @@ import { positionsRoutes } from './controllers/hr/positions/routes';
 import { suppliersRoutes as hrSuppliersRoutes } from './controllers/hr/suppliers/routes';
 import { timeBankRoutes } from './controllers/hr/time-bank/routes';
 import { timeControlRoutes } from './controllers/hr/time-control/routes';
+import { hrReportsRoutes } from './controllers/hr/reports/routes';
 import { vacationPeriodsRoutes } from './controllers/hr/vacation-periods/routes';
 import { workSchedulesRoutes } from './controllers/hr/work-schedules/routes';
 
@@ -227,6 +228,7 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(timeBankRoutes);
   await app.register(absencesRoutes);
   await app.register(vacationPeriodsRoutes);
+  await app.register(hrReportsRoutes);
   await app.register(payrollsRoutes);
   await app.register(bonusesRoutes);
   await app.register(deductionsRoutes);

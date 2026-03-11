@@ -4,7 +4,7 @@
  */
 
 import { z } from 'zod';
-import { dateSchema, idSchema } from '../../common.schema';
+import { dateSchema, idSchema, queryBooleanSchema } from '../../common.schema';
 import {
   hrCpfSchema,
   hrPhoneSchema,
@@ -193,6 +193,23 @@ export const transferEmployeeSchema = z.object({
 });
 
 /**
+ * Schema para suspensão de funcionário
+ */
+export const suspendEmployeeSchema = z.object({
+  reason: z.string().min(1).max(500),
+});
+
+/**
+ * Schema para registro de licença
+ */
+export const setEmployeeOnLeaveSchema = z.object({
+  reason: z.string().min(1).max(500),
+});
+
+export type SuspendEmployeeInput = z.infer<typeof suspendEmployeeSchema>;
+export type SetEmployeeOnLeaveInput = z.infer<typeof setEmployeeOnLeaveSchema>;
+
+/**
  * Schema para filtros de listagem de funcionários
  */
 export const listEmployeesQuerySchema = z.object({
@@ -204,8 +221,8 @@ export const listEmployeesQuerySchema = z.object({
   supervisorId: idSchema.optional(),
   companyId: idSchema.optional(),
   search: z.string().optional(),
-  unlinked: z.coerce.boolean().optional().default(false),
-  includeDeleted: z.coerce.boolean().optional().default(false),
+  unlinked: queryBooleanSchema.optional().default(false),
+  includeDeleted: queryBooleanSchema.optional().default(false),
 });
 
 /**

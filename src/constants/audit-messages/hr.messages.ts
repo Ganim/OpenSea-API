@@ -75,6 +75,31 @@ export const HR_AUDIT_MESSAGES = {
       '{{userName}} vinculou o usuário {{userName}} ao funcionário {{employeeName}}',
   } satisfies AuditMessage,
 
+  /** Funcionário suspenso */
+  EMPLOYEE_SUSPEND: {
+    action: AuditAction.EMPLOYEE_SUSPEND,
+    entity: AuditEntity.EMPLOYEE,
+    module: AuditModule.HR,
+    description: '{{adminName}} suspendeu o funcionário {{employeeName}}',
+  } satisfies AuditMessage,
+
+  /** Funcionário reativado */
+  EMPLOYEE_REACTIVATE: {
+    action: AuditAction.EMPLOYEE_REACTIVATE,
+    entity: AuditEntity.EMPLOYEE,
+    module: AuditModule.HR,
+    description: '{{adminName}} reativou o funcionário {{employeeName}}',
+  } satisfies AuditMessage,
+
+  /** Funcionário colocado em licença */
+  EMPLOYEE_ON_LEAVE: {
+    action: AuditAction.EMPLOYEE_ON_LEAVE,
+    entity: AuditEntity.EMPLOYEE,
+    module: AuditModule.HR,
+    description:
+      '{{adminName}} registrou licença para o funcionário {{employeeName}}',
+  } satisfies AuditMessage,
+
   /** Verificação de CPF */
   EMPLOYEE_CHECK_CPF: {
     action: AuditAction.CHECK_CPF,

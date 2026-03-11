@@ -3,6 +3,7 @@ import { createModuleMiddleware } from '@/http/middlewares/tenant/verify-module'
 import { rateLimitConfig } from '@/config/rate-limits';
 import rateLimit from '@fastify/rate-limit';
 import { cancelScheduledVacationController } from './v1-cancel-scheduled-vacation.controller';
+import { completeAcquisitionController } from './v1-complete-acquisition.controller';
 import { completeVacationController } from './v1-complete-vacation.controller';
 import { createVacationPeriodController } from './v1-create-vacation-period.controller';
 import { getVacationPeriodController } from './v1-get-vacation-period.controller';
@@ -24,6 +25,7 @@ export async function vacationPeriodsRoutes(app: FastifyInstance) {
       mutationApp.register(startVacationController);
       mutationApp.register(completeVacationController);
       mutationApp.register(sellVacationDaysController);
+      mutationApp.register(completeAcquisitionController);
     },
     { prefix: '' },
   );

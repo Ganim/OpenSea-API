@@ -11,6 +11,9 @@ import { linkUserToEmployeeController } from './v1-link-user-to-employee.control
 import { unlinkUserFromEmployeeController } from './v1-unlink-user-from-employee.controller';
 import { listEmployeesController } from './v1-list-employees.controller';
 import { deleteEmployeeController } from './v1-delete-employee.controller';
+import { reactivateEmployeeController } from './v1-reactivate-employee.controller';
+import { setEmployeeOnLeaveController } from './v1-set-employee-on-leave.controller';
+import { suspendEmployeeController } from './v1-suspend-employee.controller';
 import { terminateEmployeeController } from './v1-terminate-employee.controller';
 import { transferEmployeeController } from './v1-transfer-employee.controller';
 import { updateEmployeeController } from './v1-update-employee.controller';
@@ -29,6 +32,9 @@ export async function employeesRoutes(app: FastifyInstance) {
       managerApp.register(createEmployeeWithUserController);
       managerApp.register(updateEmployeeController);
       managerApp.register(terminateEmployeeController);
+      managerApp.register(suspendEmployeeController);
+      managerApp.register(reactivateEmployeeController);
+      managerApp.register(setEmployeeOnLeaveController);
       managerApp.register(linkUserToEmployeeController);
       managerApp.register(unlinkUserFromEmployeeController);
       managerApp.register(transferEmployeeController);

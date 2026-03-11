@@ -223,6 +223,25 @@ export class PrismaVacationPeriodsRepository
     );
   }
 
+  async findExpiredPeriods(tenantId: string): Promise<VacationPeriod[]> {
+    const vacationPeriods = await prisma.vacationPeriod.findMany({
+      where: {
+        tenantId,
+        concessionEnd: { lt: new Date() },
+        status: { notIn: ['COMPLETED', 'EXPIRED', 'SOLD'] },
+        deletedAt: null,
+      },
+      orderBy: { concessionEnd: 'asc' },
+    });
+
+    return vacationPeriods.map((item) =>
+      VacationPeriod.create(
+        mapVacationPeriodPrismaToDomain(item),
+        new UniqueEntityID(item.id),
+      ),
+    );
+  }
+
   async update(
     data: UpdateVacationPeriodSchema,
   ): Promise<VacationPeriod | null> {
