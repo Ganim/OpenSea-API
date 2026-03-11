@@ -37,4 +37,14 @@ describe('Get Manufacturer By ID (E2E)', () => {
     expect(response.body.manufacturer).toHaveProperty('id', manufacturer.id);
     expect(response.body.manufacturer).toHaveProperty('name');
   });
+
+  it('should return 404 for non-existent manufacturer', async () => {
+    const { token } = await createAndAuthenticateUser(app, { tenantId });
+
+    const response = await request(app.server)
+      .get('/v1/manufacturers/00000000-0000-0000-0000-000000000000')
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(response.status).toBe(404);
+  });
 });

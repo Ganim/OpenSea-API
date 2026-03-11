@@ -65,4 +65,15 @@ describe('Update Product (E2E)', () => {
       `Updated Product Name ${timestamp}`,
     );
   });
+
+  it('should return 404 when updating non-existent product', async () => {
+    const { token } = await createAndAuthenticateUser(app, { tenantId });
+
+    const response = await request(app.server)
+      .put('/v1/products/00000000-0000-0000-0000-000000000000')
+      .set('Authorization', `Bearer ${token}`)
+      .send({ name: 'Test' });
+
+    expect(response.status).toBe(404);
+  });
 });

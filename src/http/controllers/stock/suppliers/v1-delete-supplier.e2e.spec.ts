@@ -39,4 +39,14 @@ describe('Delete Supplier (E2E)', () => {
 
     expect(response.status).toBe(204);
   });
+
+  it('should return 404 when deleting non-existent supplier', async () => {
+    const { token } = await createAndAuthenticateUser(app, { tenantId });
+
+    const response = await request(app.server)
+      .delete('/v1/suppliers/00000000-0000-0000-0000-000000000000')
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(response.status).toBe(404);
+  });
 });

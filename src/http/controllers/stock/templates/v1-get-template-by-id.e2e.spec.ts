@@ -43,4 +43,14 @@ describe('Get Template By ID (E2E)', () => {
     expect(response.body.template).toHaveProperty('id', templateId);
     expect(response.body.template).toHaveProperty('name');
   });
+
+  it('should return 404 for non-existent template', async () => {
+    const { token } = await createAndAuthenticateUser(app, { tenantId });
+
+    const response = await request(app.server)
+      .get('/v1/templates/00000000-0000-0000-0000-000000000000')
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(response.status).toBe(404);
+  });
 });

@@ -42,4 +42,14 @@ describe('Get Supplier By ID (E2E)', () => {
     expect(response.body.supplier).toHaveProperty('id', supplier.id);
     expect(response.body.supplier).toHaveProperty('name');
   });
+
+  it('should return 404 for non-existent supplier', async () => {
+    const { token } = await createAndAuthenticateUser(app, { tenantId });
+
+    const response = await request(app.server)
+      .get('/v1/suppliers/00000000-0000-0000-0000-000000000000')
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(response.status).toBe(404);
+  });
 });

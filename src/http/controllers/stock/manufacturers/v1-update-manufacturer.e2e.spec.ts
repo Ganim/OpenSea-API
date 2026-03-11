@@ -44,4 +44,15 @@ describe('Update Manufacturer (E2E)', () => {
       `Updated Manufacturer ${timestamp}`,
     );
   });
+
+  it('should return 404 when updating non-existent manufacturer', async () => {
+    const { token } = await createAndAuthenticateUser(app, { tenantId });
+
+    const response = await request(app.server)
+      .put('/v1/manufacturers/00000000-0000-0000-0000-000000000000')
+      .set('Authorization', `Bearer ${token}`)
+      .send({ name: 'Test' });
+
+    expect(response.status).toBe(404);
+  });
 });

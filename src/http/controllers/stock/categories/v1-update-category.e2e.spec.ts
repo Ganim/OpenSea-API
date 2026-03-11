@@ -54,4 +54,15 @@ describe('Update Category (E2E)', () => {
       'https://example.com/icons/updated.svg',
     );
   });
+
+  it('should return 404 when updating non-existent category', async () => {
+    const { token } = await createAndAuthenticateUser(app, { tenantId });
+
+    const response = await request(app.server)
+      .put('/v1/categories/00000000-0000-0000-0000-000000000000')
+      .set('Authorization', `Bearer ${token}`)
+      .send({ name: 'Test' });
+
+    expect(response.status).toBe(404);
+  });
 });

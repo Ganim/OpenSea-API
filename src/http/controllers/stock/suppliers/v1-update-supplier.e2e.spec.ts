@@ -50,4 +50,15 @@ describe('Update Supplier (E2E)', () => {
       `Updated Supplier ${timestamp}`,
     );
   });
+
+  it('should return 404 when updating non-existent supplier', async () => {
+    const { token } = await createAndAuthenticateUser(app, { tenantId });
+
+    const response = await request(app.server)
+      .put('/v1/suppliers/00000000-0000-0000-0000-000000000000')
+      .set('Authorization', `Bearer ${token}`)
+      .send({ name: 'Test' });
+
+    expect(response.status).toBe(404);
+  });
 });

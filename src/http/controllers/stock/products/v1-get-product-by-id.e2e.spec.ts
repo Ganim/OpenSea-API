@@ -115,4 +115,14 @@ describe('Get Product By ID (E2E)', () => {
       variant.id,
     );
   });
+
+  it('should return 404 for non-existent product', async () => {
+    const { token } = await createAndAuthenticateUser(app, { tenantId });
+
+    const response = await request(app.server)
+      .get('/v1/products/00000000-0000-0000-0000-000000000000')
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(response.status).toBe(404);
+  });
 });
