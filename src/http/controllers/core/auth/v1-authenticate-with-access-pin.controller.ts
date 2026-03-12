@@ -1,4 +1,3 @@
-import { env } from '@/@env';
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { PasswordResetRequiredError } from '@/@errors/use-cases/password-reset-required-error';
 import { PinSetupRequiredError } from '@/@errors/use-cases/pin-setup-required-error';
@@ -141,26 +140,14 @@ export async function authenticateWithAccessPinController(
           );
         }
 
-        return reply
-          .setCookie('refreshToken', refreshToken, {
-            path: '/',
-            secure: env.NODE_ENV !== 'dev' && env.NODE_ENV !== 'test',
-            sameSite:
-              env.NODE_ENV !== 'dev' && env.NODE_ENV !== 'test'
-                ? 'strict'
-                : 'lax',
-            httpOnly: true,
-            maxAge: 7 * 24 * 60 * 60,
-          })
-          .status(200)
-          .send({
-            user,
-            sessionId,
-            token: finalToken,
-            refreshToken,
-            tenant: autoSelectedTenant,
-            tenants,
-          });
+        return reply.status(200).send({
+          user,
+          sessionId,
+          token: finalToken,
+          refreshToken,
+          tenant: autoSelectedTenant,
+          tenants,
+        });
       } catch (error) {
         if (error instanceof BadRequestError) {
           return reply.status(400).send({ message: error.message });

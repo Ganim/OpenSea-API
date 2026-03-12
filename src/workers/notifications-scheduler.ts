@@ -1,8 +1,7 @@
-import { env } from '@/@env';
 import { logger } from '@/lib/logger';
 import { makeProcessScheduledNotificationsUseCase } from '@/use-cases/notifications/factories/make-process-scheduled-notifications-use-case';
 
-const interval = env.NOTIFICATIONS_CRON_INTERVAL_MS;
+const interval = 60_000; // 1 minute
 
 let intervalId: ReturnType<typeof setInterval> | null = null;
 let consecutiveErrors = 0;

@@ -3,17 +3,6 @@ import { env } from './@env';
 import { app } from './app';
 import { prisma } from './lib/prisma';
 import { httpLogger } from './lib/logger';
-import { startEmailSyncWorker } from './workers/queues/email-sync.queue';
-import {
-  startEmailSyncScheduler,
-  stopEmailSyncScheduler,
-} from './workers/email-sync-scheduler';
-import { startAuditWorker } from './workers/queues/audit.queue';
-import { startNotificationWorker } from './workers/queues/notification.queue';
-import { registerDomainEventSubscribers } from './lib/domain-event-subscribers';
-import { closeAllQueues } from './lib/queue';
-import { closeRedisConnection } from './lib/redis';
-import { getImapConnectionPool } from './services/email/imap-connection-pool';
 
 let isShuttingDown = false;
 const SHUTDOWN_TIMEOUT_MS = 15_000;
@@ -107,26 +96,9 @@ async function gracefulShutdown(signal: string) {
   shutdownTimer.unref();
 
   try {
-    // Stop schedulers first (prevent new jobs from being enqueued)
-    stopEmailSyncScheduler();
-
     // Close HTTP server (stop accepting new connections)
     await app.close();
     console.log('[shutdown] HTTP server closed');
-
-    // Close IMAP connection pool
-    await getImapConnectionPool()
-      .destroyAll()
-      .catch(() => undefined);
-    console.log('[shutdown] IMAP connections closed');
-
-    // Close BullMQ queues and workers
-    await closeAllQueues().catch(() => undefined);
-    console.log('[shutdown] BullMQ queues closed');
-
-    // Close Redis connection (lib/redis.ts singleton)
-    await closeRedisConnection().catch(() => undefined);
-    console.log('[shutdown] Redis disconnected');
 
     // Disconnect Prisma (release DB connections)
     await prisma.$disconnect();
@@ -184,35 +156,6 @@ async function start() {
       env.PORT,
     );
 
-    // Register domain event subscribers (cross-module side-effects)
-    registerDomainEventSubscribers();
-
-    // Start BullMQ workers inline (same process) so email sync, audit, and
-    // notification queues are always consumed — even in development where
-    // Dockerfile.worker doesn't run.
-    // Set DISABLE_INLINE_WORKERS=true in .env to skip workers in dev
-    // (useful when Redis is unavailable or to reduce memory pressure).
-    if (env.DISABLE_INLINE_WORKERS) {
-      console.log(
-        '[startup] Inline workers disabled (DISABLE_INLINE_WORKERS=true)',
-      );
-    } else {
-      try {
-        startEmailSyncWorker();
-        startNotificationWorker();
-        startAuditWorker();
-        await startEmailSyncScheduler();
-        console.log(
-          '[startup] Inline BullMQ workers + email sync scheduler started',
-        );
-      } catch (workerErr) {
-        // Non-fatal: Redis may not be available, workers simply won't run
-        console.warn(
-          '[startup] Could not start inline workers (Redis unavailable?):',
-          workerErr,
-        );
-      }
-    }
   } catch (err) {
     const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
     console.error(`[startup] Failed after ${elapsed}s:`, err);

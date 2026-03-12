@@ -8,6 +8,7 @@ import { listUserTenantsController } from './v1-list-user-tenants.controller';
 import { registerNewUserController } from './v1-register-new-user.controller';
 import { resetPasswordByTokenController } from './v1-reset-password-by-token.controller';
 import { selectTenantController } from './v1-select-tenant.controller';
+import { routineCheckController } from './v1-routine-check.controller';
 import { sendPasswordResetTokenController } from './v1-send-password-reset-token.controller';
 
 export async function authRoutes(app: FastifyInstance) {
@@ -31,6 +32,7 @@ export async function authRoutes(app: FastifyInstance) {
       tenantApp.register(rateLimit, rateLimitConfig.query);
       tenantApp.register(listUserTenantsController);
       tenantApp.register(selectTenantController);
+      tenantApp.register(routineCheckController);
     },
     { prefix: '' },
   );

@@ -1,4 +1,3 @@
-import { env } from '@/@env';
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { PasswordResetRequiredError } from '@/@errors/use-cases/password-reset-required-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
@@ -139,26 +138,14 @@ export async function authenticateWithPasswordController(app: FastifyInstance) {
           );
         }
 
-        return reply
-          .setCookie('refreshToken', refreshToken, {
-            path: '/',
-            secure: env.NODE_ENV !== 'dev' && env.NODE_ENV !== 'test',
-            sameSite:
-              env.NODE_ENV !== 'dev' && env.NODE_ENV !== 'test'
-                ? 'strict'
-                : 'lax',
-            httpOnly: true,
-            maxAge: 7 * 24 * 60 * 60, // 7 dias em segundos (igual ao JWT refresh token)
-          })
-          .status(200)
-          .send({
-            user,
-            sessionId,
-            token: finalToken,
-            refreshToken,
-            tenant: autoSelectedTenant,
-            tenants,
-          });
+        return reply.status(200).send({
+          user,
+          sessionId,
+          token: finalToken,
+          refreshToken,
+          tenant: autoSelectedTenant,
+          tenants,
+        });
       } catch (error) {
         // Record failed attempt for brute-force protection
         if (

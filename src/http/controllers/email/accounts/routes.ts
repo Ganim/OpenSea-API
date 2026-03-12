@@ -6,7 +6,6 @@ import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { env } from '@/@env';
 import { logger } from '@/lib/logger';
 import { makeCreateEmailAccountUseCase } from '@/use-cases/email/accounts/factories/make-create-email-account-use-case';
 import { makeDeleteEmailAccountUseCase } from '@/use-cases/email/accounts/factories/make-delete-email-account-use-case';
@@ -106,8 +105,6 @@ const emailAccountAccessSchema = z.object({
 const MANUAL_EMAIL_SYNC_DEDUP_WINDOW_MS = 30_000;
 
 // In-memory throttle for inline sync when BullMQ is disabled
-const lastInlineSyncMap = new Map<string, number>();
-const INLINE_SYNC_COOLDOWN_MS = 30_000; // 30 seconds
 
 export async function emailAccountsRoutes(app: FastifyInstance) {
   app.addHook('onRequest', createModuleMiddleware('EMAIL'));
@@ -417,35 +414,6 @@ export async function emailAccountsRoutes(app: FastifyInstance) {
       try {
         const getAccount = makeGetEmailAccountUseCase();
         await getAccount.execute({ tenantId, userId, accountId });
-
-        // When inline workers are disabled, always do inline sync
-        // (BullMQ queue would accept the job but no worker would process it)
-        if (env.DISABLE_INLINE_WORKERS) {
-          // Throttle: prevent rapid duplicate syncs for the same account
-          const dedupKey = `${tenantId}-${accountId}`;
-          const lastSync = lastInlineSyncMap.get(dedupKey) ?? 0;
-          const now = Date.now();
-
-          if (now - lastSync < INLINE_SYNC_COOLDOWN_MS) {
-            return reply.status(200).send({
-              message: 'Sincronização já executada recentemente.',
-            });
-          }
-
-          lastInlineSyncMap.set(dedupKey, now);
-
-          const syncUseCase = makeSyncEmailAccountUseCase();
-          const result = await syncUseCase.execute({ tenantId, accountId });
-
-          logger.info(
-            { tenantId, accountId, ...result },
-            'Inline email sync completed (workers disabled)',
-          );
-
-          return reply.status(200).send({
-            message: `Sincronização concluída: ${result.syncedMessages} mensagens sincronizadas.`,
-          });
-        }
 
         // Try BullMQ first (async, returns 202 immediately)
         try {

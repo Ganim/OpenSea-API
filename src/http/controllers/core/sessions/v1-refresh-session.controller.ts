@@ -1,4 +1,3 @@
-import { env } from '@/@env';
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UnauthorizedError } from '@/@errors/use-cases/unauthorized-error';
@@ -88,23 +87,11 @@ export async function refreshSessionController(app: FastifyInstance) {
           },
         );
 
-        return reply
-          .setCookie('refreshToken', refreshToken.token, {
-            path: '/',
-            secure: env.NODE_ENV !== 'dev' && env.NODE_ENV !== 'test',
-            sameSite:
-              env.NODE_ENV !== 'dev' && env.NODE_ENV !== 'test'
-                ? 'strict'
-                : 'lax',
-            httpOnly: true,
-            maxAge: 7 * 24 * 60 * 60, // 7 dias em segundos (igual ao JWT refresh token)
-          })
-          .status(200)
-          .send({
-            token: newAccessToken,
-            refreshToken: refreshToken.token,
-            ...(tenant ? { tenant } : {}),
-          });
+        return reply.status(200).send({
+          token: newAccessToken,
+          refreshToken: refreshToken.token,
+          ...(tenant ? { tenant } : {}),
+        });
       } catch (error) {
         if (error instanceof UnauthorizedError) {
           return reply.status(401).send({ message: error.message });

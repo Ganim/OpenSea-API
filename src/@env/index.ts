@@ -25,12 +25,6 @@ const envSchema = z.object({
   // Frontend
   FRONTEND_URL: z.url().default('http://localhost:3000'),
 
-  // Workers
-  NOTIFICATIONS_CRON_INTERVAL_MS: z.coerce.number().default(60000),
-  DISABLE_INLINE_WORKERS: z
-    .string()
-    .default('false')
-    .transform((v) => v === 'true' || v === '1'),
 
   // JWT RS256 (opcional - se não definido, usa HS256)
   JWT_PRIVATE_KEY: z.string().optional(),
