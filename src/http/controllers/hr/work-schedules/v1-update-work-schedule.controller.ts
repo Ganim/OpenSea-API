@@ -10,7 +10,7 @@ import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   updateWorkScheduleSchema,
   workScheduleResponseSchema,
-idSchema,
+  idSchema,
 } from '@/http/schemas';
 import { workScheduleToDTO } from '@/mappers/hr/work-schedule/work-schedule-to-dto';
 import { getCacheService } from '@/services/cache/cache-service';

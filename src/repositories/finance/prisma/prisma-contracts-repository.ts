@@ -3,7 +3,10 @@ import type { TransactionClient } from '@/lib/transaction-manager';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Contract } from '@/entities/finance/contract';
 import { Prisma } from '@prisma/generated/client.js';
-import type { ContractStatus, RecurrenceUnit } from '@/entities/finance/finance-entry-types';
+import type {
+  ContractStatus,
+  RecurrenceUnit,
+} from '@/entities/finance/finance-entry-types';
 import type {
   ContractsRepository,
   CreateContractSchema,

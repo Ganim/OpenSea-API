@@ -60,7 +60,9 @@ describe('Stock Multi-Tenant Isolation (E2E)', () => {
     supplierAId = supplierId;
 
     // Create manufacturer for Tenant A
-    const { manufacturerId } = await createManufacturer({ tenantId: tenantAId });
+    const { manufacturerId } = await createManufacturer({
+      tenantId: tenantAId,
+    });
     manufacturerAId = manufacturerId;
 
     // ── Tenant B setup ──────────────────────────────────────────────────

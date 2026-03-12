@@ -1,7 +1,11 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { idSchema, getTimeBankQuerySchema, timeBankResponseSchema } from '@/http/schemas';
+import {
+  idSchema,
+  getTimeBankQuerySchema,
+  timeBankResponseSchema,
+} from '@/http/schemas';
 import { timeBankToDTO } from '@/mappers/hr/time-bank/time-bank-to-dto';
 import { makeGetTimeBankUseCase } from '@/use-cases/hr/time-bank/factories/make-get-time-bank-use-case';
 

@@ -83,9 +83,7 @@ export async function listItemMovementsController(app: FastifyInstance) {
         };
       });
 
-      return reply
-        .status(200)
-        .send({ movements: enrichedMovements, meta });
+      return reply.status(200).send({ movements: enrichedMovements, meta });
     },
   });
 }

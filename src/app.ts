@@ -153,6 +153,7 @@ const shouldEnableSwagger =
 
 if (shouldEnableSwagger) {
   // Register named schemas for OpenAPI $ref support (must be before swagger registration)
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   require('./http/schemas/register-named-schemas');
 
   console.log('[startup] Registering Swagger (this may take a few minutes)...');

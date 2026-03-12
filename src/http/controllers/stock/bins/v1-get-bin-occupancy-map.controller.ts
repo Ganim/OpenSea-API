@@ -42,11 +42,10 @@ export async function getBinOccupancyMapController(app: FastifyInstance) {
       const { zoneId } = request.query;
 
       const getBinOccupancyMapUseCase = makeGetBinOccupancyMapUseCase();
-      const { occupancyData, stats } =
-        await getBinOccupancyMapUseCase.execute({
-          tenantId,
-          zoneId,
-        });
+      const { occupancyData, stats } = await getBinOccupancyMapUseCase.execute({
+        tenantId,
+        zoneId,
+      });
 
       return reply.status(200).send({ occupancyData, stats });
     },

@@ -114,7 +114,10 @@ export class UpdateProductUseCase {
         | 'OUT_OF_STOCK';
 
       // Validate state transition
-      if (newStatusValue !== oldStatus && !product.status.canTransitionTo(newStatusValue)) {
+      if (
+        newStatusValue !== oldStatus &&
+        !product.status.canTransitionTo(newStatusValue)
+      ) {
         throw new BadRequestError(
           `Invalid status transition from ${oldStatus} to ${newStatusValue}`,
         );

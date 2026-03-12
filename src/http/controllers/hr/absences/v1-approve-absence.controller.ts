@@ -6,7 +6,11 @@ import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { idSchema, absenceResponseSchema, approveAbsenceSchema } from '@/http/schemas';
+import {
+  idSchema,
+  absenceResponseSchema,
+  approveAbsenceSchema,
+} from '@/http/schemas';
 import { absenceToDTO } from '@/mappers/hr/absence/absence-to-dto';
 import { makeApproveAbsenceUseCase } from '@/use-cases/hr/absences/factories/make-approve-absence-use-case';
 

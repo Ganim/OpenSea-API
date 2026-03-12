@@ -1,12 +1,7 @@
 import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
 import { UnauthorizedError } from '@/@errors/use-cases/unauthorized-error';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import { PrismaPermissionAuditLogsRepository } from '@/repositories/rbac/prisma/prisma-permission-audit-logs-repository';
-import { PrismaPermissionGroupPermissionsRepository } from '@/repositories/rbac/prisma/prisma-permission-group-permissions-repository';
-import { PrismaPermissionGroupsRepository } from '@/repositories/rbac/prisma/prisma-permission-groups-repository';
-import { PrismaPermissionsRepository } from '@/repositories/rbac/prisma/prisma-permissions-repository';
-import { PrismaUserPermissionGroupsRepository } from '@/repositories/rbac/prisma/prisma-user-permission-groups-repository';
-import { PermissionService } from '@/services/rbac/permission-service';
+import { getPermissionService } from '@/services/rbac/get-permission-service';
 import type { FastifyRequest } from 'fastify';
 
 /**
@@ -194,22 +189,6 @@ export function createAllPermissionsMiddleware(permissionCodes: string[]) {
   };
 }
 
-/**
- * Singleton PermissionService instance.
- * Shared across requests so the in-memory L1 cache is effective.
- * Redis L2 cache provides cross-process/restart persistence.
- */
-let _permissionService: PermissionService | null = null;
-
-function createPermissionServiceInstance(): PermissionService {
-  if (!_permissionService) {
-    _permissionService = new PermissionService(
-      new PrismaPermissionsRepository(),
-      new PrismaPermissionGroupsRepository(),
-      new PrismaPermissionGroupPermissionsRepository(),
-      new PrismaUserPermissionGroupsRepository(),
-      new PrismaPermissionAuditLogsRepository(),
-    );
-  }
-  return _permissionService;
+function createPermissionServiceInstance() {
+  return getPermissionService();
 }

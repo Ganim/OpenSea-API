@@ -10,7 +10,14 @@ import request from 'supertest';
 const ALL_PERMISSIONS = {
   // SELF module (own user permissions)
   self: {
-    profile: ['read', 'update', 'update-email', 'update-password', 'update-username', 'delete'],
+    profile: [
+      'read',
+      'update',
+      'update-email',
+      'update-password',
+      'update-username',
+      'delete',
+    ],
     sessions: ['read', 'list', 'revoke'],
     permissions: ['read', 'list'],
     groups: ['read', 'list'],

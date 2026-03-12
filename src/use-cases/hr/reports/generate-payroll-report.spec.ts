@@ -315,7 +315,9 @@ describe('Generate Payroll Report Use Case', () => {
     });
 
     const lines = result.csv.replace('\uFEFF', '').split('\r\n');
-    const dataCells = lines[1].split(';').map((c: string) => c.replace(/"/g, ''));
+    const dataCells = lines[1]
+      .split(';')
+      .map((c: string) => c.replace(/"/g, ''));
 
     // Index 0: name, 1: base salary, 2: overtime, 3: other earnings,
     // 4: total gross, 5: INSS, 6: IRRF, 7: FGTS, 8: other deductions,

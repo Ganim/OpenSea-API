@@ -48,7 +48,9 @@ export class RequestOvertimeUseCase {
     }
 
     if (hours > 12) {
-      throw new BadRequestError('Horas não podem exceder 12 horas por solicitação');
+      throw new BadRequestError(
+        'Horas não podem exceder 12 horas por solicitação',
+      );
     }
 
     // CLT Art. 59: max 2 hours of overtime per day (unless collective agreement)
@@ -72,7 +74,10 @@ export class RequestOvertimeUseCase {
     );
 
     if (totalExistingHours + hours > MAX_DAILY_OVERTIME_HOURS) {
-      const remaining = Math.max(0, MAX_DAILY_OVERTIME_HOURS - totalExistingHours);
+      const remaining = Math.max(
+        0,
+        MAX_DAILY_OVERTIME_HOURS - totalExistingHours,
+      );
       throw new BadRequestError(
         `Limite CLT de ${MAX_DAILY_OVERTIME_HOURS}h extras/dia excedido. ` +
           `Já registrado: ${totalExistingHours}h. Disponível: ${remaining}h`,

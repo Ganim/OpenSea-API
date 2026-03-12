@@ -1,32 +1,8 @@
 import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
 import { UnauthorizedError } from '@/@errors/use-cases/unauthorized-error';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import { PrismaPermissionAuditLogsRepository } from '@/repositories/rbac/prisma/prisma-permission-audit-logs-repository';
-import { PrismaPermissionGroupPermissionsRepository } from '@/repositories/rbac/prisma/prisma-permission-group-permissions-repository';
-import { PrismaPermissionGroupsRepository } from '@/repositories/rbac/prisma/prisma-permission-groups-repository';
-import { PrismaPermissionsRepository } from '@/repositories/rbac/prisma/prisma-permissions-repository';
-import { PrismaUserPermissionGroupsRepository } from '@/repositories/rbac/prisma/prisma-user-permission-groups-repository';
-import { PermissionService } from '@/services/rbac/permission-service';
+import { getPermissionService } from '@/services/rbac/get-permission-service';
 import type { FastifyRequest } from 'fastify';
-
-/**
- * Singleton PermissionService for inline checks.
- * Shared across requests so the in-memory + Redis cache is effective.
- */
-let _permissionService: PermissionService | null = null;
-
-function getPermissionService(): PermissionService {
-  if (!_permissionService) {
-    _permissionService = new PermissionService(
-      new PrismaPermissionsRepository(),
-      new PrismaPermissionGroupsRepository(),
-      new PrismaPermissionGroupPermissionsRepository(),
-      new PrismaUserPermissionGroupsRepository(),
-      new PrismaPermissionAuditLogsRepository(),
-    );
-  }
-  return _permissionService;
-}
 
 /**
  * Checks a permission inline within a handler (not as middleware).

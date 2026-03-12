@@ -2,12 +2,7 @@ import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
 import { UnauthorizedError } from '@/@errors/use-cases/unauthorized-error';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { PrismaEmployeesRepository } from '@/repositories/hr/prisma/prisma-employees-repository';
-import { PrismaPermissionAuditLogsRepository } from '@/repositories/rbac/prisma/prisma-permission-audit-logs-repository';
-import { PrismaPermissionGroupPermissionsRepository } from '@/repositories/rbac/prisma/prisma-permission-group-permissions-repository';
-import { PrismaPermissionGroupsRepository } from '@/repositories/rbac/prisma/prisma-permission-groups-repository';
-import { PrismaPermissionsRepository } from '@/repositories/rbac/prisma/prisma-permissions-repository';
-import { PrismaUserPermissionGroupsRepository } from '@/repositories/rbac/prisma/prisma-user-permission-groups-repository';
-import { PermissionService } from '@/services/rbac/permission-service';
+import { getPermissionService } from '@/services/rbac/get-permission-service';
 import type { FastifyRequest } from 'fastify';
 
 /**
@@ -280,23 +275,8 @@ export function createScopeIdentifierMiddleware(basePermissionCode: string) {
  * Helper para criar instância do PermissionService
  * @private
  */
-function createPermissionServiceInstance(): PermissionService {
-  const permissionsRepository = new PrismaPermissionsRepository();
-  const permissionGroupsRepository = new PrismaPermissionGroupsRepository();
-  const permissionGroupPermissionsRepository =
-    new PrismaPermissionGroupPermissionsRepository();
-  const userPermissionGroupsRepository =
-    new PrismaUserPermissionGroupsRepository();
-  const permissionAuditLogsRepository =
-    new PrismaPermissionAuditLogsRepository();
-
-  return new PermissionService(
-    permissionsRepository,
-    permissionGroupsRepository,
-    permissionGroupPermissionsRepository,
-    userPermissionGroupsRepository,
-    permissionAuditLogsRepository,
-  );
+function createPermissionServiceInstance() {
+  return getPermissionService();
 }
 
 // Extende a interface FastifyRequest para incluir scopeCheck

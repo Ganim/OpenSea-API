@@ -403,7 +403,7 @@ describe('Scheduler resilience patterns', () => {
     // We test the concept, since the actual schedulers import use-case factories.
 
     let errorCount = 0;
-    let executionCount = 0;
+    let _executionCount = 0;
     const MAX_CONSECUTIVE_ERRORS = 3;
 
     // Simulated processBatch pattern (same as our scheduler fix)
@@ -417,7 +417,7 @@ describe('Scheduler resilience patterns', () => {
           return 'stopped';
         }
       }
-      executionCount++;
+      _executionCount++;
     }
 
     // Run it multiple times — should never throw

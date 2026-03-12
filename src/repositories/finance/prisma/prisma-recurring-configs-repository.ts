@@ -156,7 +156,7 @@ export class PrismaRecurringConfigsRepository
     return recurringConfigPrismaToDomain(raw);
   }
 
-  async delete(id: string, tenantId: string): Promise<void> {
+  async delete(id: string, _tenantId: string): Promise<void> {
     await prisma.recurringConfig.update({
       where: { id },
       data: { deletedAt: new Date() },

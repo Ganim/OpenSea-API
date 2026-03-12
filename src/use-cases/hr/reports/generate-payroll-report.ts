@@ -13,29 +13,6 @@ export interface GeneratePayrollReportResponse {
   fileName: string;
 }
 
-const ITEM_TYPE_LABELS: Record<string, string> = {
-  BASE_SALARY: 'Salário Base',
-  OVERTIME: 'Horas Extras',
-  NIGHT_SHIFT: 'Adicional Noturno',
-  HAZARD_PAY: 'Insalubridade',
-  DANGER_PAY: 'Periculosidade',
-  BONUS: 'Bônus',
-  COMMISSION: 'Comissão',
-  VACATION_PAY: 'Férias',
-  THIRTEENTH_SALARY: '13º Salário',
-  OTHER_BENEFIT: 'Outros Benefícios',
-  INSS: 'INSS',
-  IRRF: 'IRRF',
-  FGTS: 'FGTS',
-  HEALTH_PLAN: 'Plano de Saúde',
-  DENTAL_PLAN: 'Plano Odontológico',
-  TRANSPORT_VOUCHER: 'Vale Transporte',
-  MEAL_VOUCHER: 'Vale Refeição',
-  ADVANCE: 'Adiantamento',
-  LOAN: 'Empréstimo',
-  OTHER_DEDUCTION: 'Outras Deduções',
-};
-
 function formatCurrency(value: number): string {
   return value.toLocaleString('pt-BR', {
     minimumFractionDigits: 2,

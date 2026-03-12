@@ -1,6 +1,9 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Loan } from '@/entities/finance/loan';
-import type { LoanType, LoanStatus } from '@/entities/finance/finance-entry-types';
+import type {
+  LoanType,
+  LoanStatus,
+} from '@/entities/finance/finance-entry-types';
 import type {
   LoansRepository,
   CreateLoanSchema,

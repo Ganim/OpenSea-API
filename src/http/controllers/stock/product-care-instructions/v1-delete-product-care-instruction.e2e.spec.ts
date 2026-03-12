@@ -51,8 +51,7 @@ describe('Delete Product Care Instruction (E2E)', () => {
       });
 
     expect(createResponse.status).toBe(201);
-    const careInstructionDbId =
-      createResponse.body.productCareInstruction.id;
+    const careInstructionDbId = createResponse.body.productCareInstruction.id;
 
     // Delete it
     const deleteResponse = await request(app.server)

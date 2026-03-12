@@ -1,10 +1,13 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { idSchema } from '@/http/schemas/common.schema';
+import { PrismaUserPermissionGroupsRepository } from '@/repositories/rbac/prisma/prisma-user-permission-groups-repository';
+import { getPermissionService } from '@/services/rbac/get-permission-service';
 import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
 import {
   makeGetPermissionGroupByIdUseCase,
@@ -81,6 +84,16 @@ export async function removePermissionFromGroupController(
           },
           oldData: { groupId, groupName: group.name, permissionId },
         });
+
+        // Invalidate permission cache for all users in this group
+        const userGroupsRepo = new PrismaUserPermissionGroupsRepository();
+        const userIds = await userGroupsRepo.listUsersByGroupId(
+          new UniqueEntityID(groupId),
+        );
+        const permissionService = getPermissionService();
+        for (const userId of userIds) {
+          permissionService.invalidateUserCache(userId);
+        }
 
         return reply.status(204).send(null);
       } catch (error) {

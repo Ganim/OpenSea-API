@@ -1,6 +1,10 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { RecurringConfig } from '@/entities/finance/recurring-config';
-import type { FinanceEntryType, RecurrenceUnit, RecurringConfigStatus } from '@/entities/finance/finance-entry-types';
+import type {
+  FinanceEntryType,
+  RecurrenceUnit,
+  RecurringConfigStatus,
+} from '@/entities/finance/finance-entry-types';
 import type {
   CreateRecurringConfigSchema,
   FindManyRecurringConfigsOptions,
@@ -132,7 +136,8 @@ export class InMemoryRecurringConfigsRepository
     if (data.penaltyRate !== undefined)
       config.penaltyRate = data.penaltyRate ?? undefined;
     if (data.notes !== undefined) config.notes = data.notes ?? undefined;
-    if (data.status !== undefined) config.status = data.status as RecurringConfigStatus;
+    if (data.status !== undefined)
+      config.status = data.status as RecurringConfigStatus;
     if (data.generatedCount !== undefined)
       config.generatedCount = data.generatedCount;
     if (data.lastGeneratedDate !== undefined)

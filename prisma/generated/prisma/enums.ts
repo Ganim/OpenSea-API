@@ -31,8 +31,6 @@ export type TaxRegimeEnum = (typeof TaxRegimeEnum)[keyof typeof TaxRegimeEnum]
 
 export const OrganizationType = {
   COMPANY: 'COMPANY',
-  SUPPLIER: 'SUPPLIER',
-  MANUFACTURER: 'MANUFACTURER',
   CUSTOMER: 'CUSTOMER'
 } as const
 

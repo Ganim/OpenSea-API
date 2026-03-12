@@ -11,17 +11,19 @@ let employeesRepository: InMemoryEmployeesRepository;
 let sut: GenerateEmployeesReportUseCase;
 const tenantId = new UniqueEntityID().toString();
 
-function makeEmployee(overrides: Partial<{
-  tenantId: string;
-  registrationNumber: string;
-  fullName: string;
-  cpf: string;
-  departmentId: UniqueEntityID;
-  positionId: UniqueEntityID;
-  companyId: UniqueEntityID;
-  contractType: string;
-  workRegime: string;
-}> = {}) {
+function makeEmployee(
+  overrides: Partial<{
+    tenantId: string;
+    registrationNumber: string;
+    fullName: string;
+    cpf: string;
+    departmentId: UniqueEntityID;
+    positionId: UniqueEntityID;
+    companyId: UniqueEntityID;
+    contractType: string;
+    workRegime: string;
+  }> = {},
+) {
   return {
     tenantId: overrides.tenantId ?? tenantId,
     registrationNumber: overrides.registrationNumber ?? 'EMP001',
@@ -50,21 +52,25 @@ describe('Generate Employees Report Use Case', () => {
   });
 
   it('should generate CSV with correct headers and employee data', async () => {
-    await employeesRepository.create(makeEmployee({
-      registrationNumber: 'EMP001',
-      fullName: 'João Silva',
-      cpf: '529.982.247-25',
-      contractType: 'CLT',
-      workRegime: 'FULL_TIME',
-    }));
+    await employeesRepository.create(
+      makeEmployee({
+        registrationNumber: 'EMP001',
+        fullName: 'João Silva',
+        cpf: '529.982.247-25',
+        contractType: 'CLT',
+        workRegime: 'FULL_TIME',
+      }),
+    );
 
-    await employeesRepository.create(makeEmployee({
-      registrationNumber: 'EMP002',
-      fullName: 'Maria Souza',
-      cpf: '123.456.789-09',
-      contractType: 'PJ',
-      workRegime: 'PART_TIME',
-    }));
+    await employeesRepository.create(
+      makeEmployee({
+        registrationNumber: 'EMP002',
+        fullName: 'Maria Souza',
+        cpf: '123.456.789-09',
+        contractType: 'PJ',
+        workRegime: 'PART_TIME',
+      }),
+    );
 
     const result = await sut.execute({ tenantId });
 
@@ -124,17 +130,21 @@ describe('Generate Employees Report Use Case', () => {
   it('should filter employees by departmentId', async () => {
     const departmentId = new UniqueEntityID();
 
-    await employeesRepository.create(makeEmployee({
-      registrationNumber: 'EMP001',
-      fullName: 'João Silva',
-      departmentId,
-    }));
+    await employeesRepository.create(
+      makeEmployee({
+        registrationNumber: 'EMP001',
+        fullName: 'João Silva',
+        departmentId,
+      }),
+    );
 
-    await employeesRepository.create(makeEmployee({
-      registrationNumber: 'EMP002',
-      fullName: 'Maria Souza',
-      cpf: '123.456.789-09',
-    }));
+    await employeesRepository.create(
+      makeEmployee({
+        registrationNumber: 'EMP002',
+        fullName: 'Maria Souza',
+        cpf: '123.456.789-09',
+      }),
+    );
 
     const result = await sut.execute({
       tenantId,
@@ -149,9 +159,11 @@ describe('Generate Employees Report Use Case', () => {
   it('should not include employees from another tenant', async () => {
     const otherTenantId = new UniqueEntityID().toString();
 
-    await employeesRepository.create(makeEmployee({
-      tenantId: otherTenantId,
-    }));
+    await employeesRepository.create(
+      makeEmployee({
+        tenantId: otherTenantId,
+      }),
+    );
 
     const result = await sut.execute({ tenantId });
 

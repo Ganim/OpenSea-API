@@ -22,7 +22,7 @@
 
 import { PrismaClient } from '@prisma/generated/client.js';
 import { PrismaPg } from '@prisma/adapter-pg';
-import { getFieldCipherService } from '../../../src/services/security/field-cipher-service';
+import { getFieldCipherService } from '../../src/services/security/field-cipher-service';
 
 const BATCH_SIZE = 500;
 const DRY_RUN = process.env.DRY_RUN !== 'false';
@@ -32,7 +32,9 @@ async function main() {
   const prisma = new PrismaClient({ adapter });
   const cipher = getFieldCipherService();
 
-  console.log(`Mode: ${DRY_RUN ? 'DRY RUN (set DRY_RUN=false to apply)' : 'LIVE — changes will be written'}`);
+  console.log(
+    `Mode: ${DRY_RUN ? 'DRY RUN (set DRY_RUN=false to apply)' : 'LIVE — changes will be written'}`,
+  );
   console.log('Starting decryption of supplierName and customerName...\n');
 
   let processed = 0;
@@ -41,14 +43,10 @@ async function main() {
   let skippedNull = 0;
   let cursor: string | undefined;
 
-  // eslint-disable-next-line no-constant-condition
   while (true) {
     const entries = await prisma.financeEntry.findMany({
       where: {
-        OR: [
-          { supplierName: { not: null } },
-          { customerName: { not: null } },
-        ],
+        OR: [{ supplierName: { not: null } }, { customerName: { not: null } }],
       },
       select: {
         id: true,
@@ -56,9 +54,7 @@ async function main() {
         customerName: true,
       },
       take: BATCH_SIZE,
-      ...(cursor
-        ? { skip: 1, cursor: { id: cursor } }
-        : {}),
+      ...(cursor ? { skip: 1, cursor: { id: cursor } } : {}),
       orderBy: { id: 'asc' },
     });
 
@@ -103,7 +99,9 @@ async function main() {
 
     cursor = entries[entries.length - 1].id;
 
-    console.log(`  Processed ${processed} entries so far (${decrypted} decrypted, ${alreadyPlaintext} already plaintext, ${skippedNull} null fields)...`);
+    console.log(
+      `  Processed ${processed} entries so far (${decrypted} decrypted, ${alreadyPlaintext} already plaintext, ${skippedNull} null fields)...`,
+    );
   }
 
   console.log('\n--- Summary ---');
@@ -113,9 +111,13 @@ async function main() {
   console.log(`Null fields skipped: ${skippedNull}`);
 
   if (DRY_RUN) {
-    console.log('\nDRY RUN complete. No changes written. Set DRY_RUN=false to apply.');
+    console.log(
+      '\nDRY RUN complete. No changes written. Set DRY_RUN=false to apply.',
+    );
   } else {
-    console.log('\nMigration complete. All values are now stored as plaintext.');
+    console.log(
+      '\nMigration complete. All values are now stored as plaintext.',
+    );
   }
 
   await prisma.$disconnect();

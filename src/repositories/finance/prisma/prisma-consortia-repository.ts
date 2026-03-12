@@ -5,7 +5,10 @@ import { Consortium } from '@/entities/finance/consortium';
 import { getFieldCipherService } from '@/services/security/field-cipher-service';
 import { ENCRYPTED_FIELD_CONFIG } from '@/services/security/encrypted-field-config';
 import { Prisma } from '@prisma/generated/client.js';
-import type { ConsortiumStatus, ContemplationType } from '@/entities/finance/finance-entry-types';
+import type {
+  ConsortiumStatus,
+  ContemplationType,
+} from '@/entities/finance/finance-entry-types';
 import type {
   ConsortiaRepository,
   CreateConsortiumSchema,
@@ -69,7 +72,8 @@ function consortiumPrismaToDomain(raw: {
       paidInstallments: raw.paidInstallments,
       isContemplated: raw.isContemplated,
       contemplatedAt: raw.contemplatedAt ?? undefined,
-      contemplationType: (raw.contemplationType as ContemplationType) ?? undefined,
+      contemplationType:
+        (raw.contemplationType as ContemplationType) ?? undefined,
       startDate: raw.startDate,
       endDate: raw.endDate ?? undefined,
       paymentDay: raw.paymentDay ?? undefined,

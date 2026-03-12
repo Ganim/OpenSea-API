@@ -40,7 +40,7 @@ describe('GenerateRecurringBatchUseCase', () => {
   });
 
   it('should not generate for paused configs', async () => {
-    const config = await recurringConfigsRepository.create({
+    const _config = await recurringConfigsRepository.create({
       tenantId: 'tenant-1',
       type: 'PAYABLE',
       description: 'Pausado',

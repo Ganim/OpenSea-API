@@ -9,6 +9,7 @@ import { v1CheckCnpjController } from './v1-check-cnpj.controller';
 import { adminCompanyAddressesRoutes } from './addresses/routes';
 import { adminCompanyCnaesRoutes } from './cnaes/routes';
 import { adminCompanyFiscalSettingsRoutes } from './fiscal-settings/routes';
+import { adminCompanyDocumentsRoutes } from './documents/routes';
 import { adminCompanyStakeholderRoutes } from './stakeholders/routes';
 
 export async function adminCompaniesRoutes(app: FastifyInstance) {
@@ -24,5 +25,6 @@ export async function adminCompaniesRoutes(app: FastifyInstance) {
   await app.register(adminCompanyAddressesRoutes);
   await app.register(adminCompanyCnaesRoutes);
   await app.register(adminCompanyFiscalSettingsRoutes);
+  await app.register(adminCompanyDocumentsRoutes);
   await app.register(adminCompanyStakeholderRoutes);
 }

@@ -1,5 +1,4 @@
 import { hash } from 'bcryptjs';
-import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { EncryptionService } from '@/services/storage/encryption-service';
 import { InMemoryStorageFilesRepository } from '@/repositories/storage/in-memory/in-memory-storage-files-repository';

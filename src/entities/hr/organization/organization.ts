@@ -144,7 +144,6 @@ export abstract class Organization extends Entity<OrganizationProps> {
     return this.type === 'COMPANY';
   }
 
-
   isCustomer(): boolean {
     return this.type === 'CUSTOMER';
   }

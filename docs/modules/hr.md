@@ -433,54 +433,16 @@ Campos adicionais armazenados em JSON dentro de `typeSpecificData`:
 | `PUT` | `/v1/hr/positions/:id` | `hr.positions.update` | Atualiza |
 | `DELETE` | `/v1/hr/positions/:id` | `hr.positions.delete` | Soft delete |
 
-### Companies
+### Companies (somente leitura — CRUD migrado para Admin)
+
+> **Nota:** O CRUD completo de empresas e todos os subrecursos (endereços, CNAEs, configurações fiscais, stakeholders) foi migrado para o módulo Admin em `/v1/admin/companies`. O módulo HR mantém apenas acesso de leitura.
 
 | Method | Path | Permission | Description |
 |--------|------|------------|-------------|
-| `POST` | `/v1/hr/companies` | `hr.companies.create` | Cria empresa empregadora |
-| `GET` | `/v1/hr/companies` | `hr.companies.list` | Lista paginada |
-| `GET` | `/v1/hr/companies/:id` | `hr.companies.read` | Detalhe (com subrecursos) |
-| `PUT` | `/v1/hr/companies/:id` | `hr.companies.update` | Atualiza dados principais |
-| `DELETE` | `/v1/hr/companies/:id` | `hr.companies.delete` | Soft delete |
-| `GET` | `/v1/hr/companies/check-cnpj` | `hr.companies.read` | Verifica duplicidade de CNPJ |
+| `GET` | `/v1/hr/companies` | `hr.companies.read` | Lista paginada (somente leitura) |
+| `GET` | `/v1/hr/companies/:id` | `hr.companies.read` | Detalhe (somente leitura) |
 
-### Company Addresses
-
-| Method | Path | Permission | Description |
-|--------|------|------------|-------------|
-| `POST` | `/v1/hr/companies/:id/addresses` | `hr.company-addresses.create` | Adiciona endereço |
-| `GET` | `/v1/hr/companies/:id/addresses` | `hr.company-addresses.list` | Lista endereços |
-| `PUT` | `/v1/hr/companies/:id/addresses/:addressId` | `hr.company-addresses.update` | Atualiza endereço |
-| `DELETE` | `/v1/hr/companies/:id/addresses/:addressId` | `hr.company-addresses.delete` | Remove endereço |
-
-### Company CNAEs
-
-| Method | Path | Permission | Description |
-|--------|------|------------|-------------|
-| `POST` | `/v1/hr/companies/:id/cnaes` | `hr.company-cnaes.create` | Adiciona CNAE |
-| `GET` | `/v1/hr/companies/:id/cnaes` | `hr.company-cnaes.list` | Lista CNAEs |
-| `GET` | `/v1/hr/companies/:id/cnaes/primary` | `hr.company-cnaes.read` | CNAE principal |
-| `GET` | `/v1/hr/companies/:id/cnaes/:cnaeId` | `hr.company-cnaes.read` | Detalhe de um CNAE |
-| `PUT` | `/v1/hr/companies/:id/cnaes/:cnaeId` | `hr.company-cnaes.update` | Atualiza CNAE |
-| `DELETE` | `/v1/hr/companies/:id/cnaes/:cnaeId` | `hr.company-cnaes.delete` | Remove CNAE |
-
-### Company Fiscal Settings
-
-| Method | Path | Permission | Description |
-|--------|------|------------|-------------|
-| `POST` | `/v1/hr/companies/:id/fiscal-settings` | `hr.company-fiscal-settings.create` | Cria configurações fiscais |
-| `GET` | `/v1/hr/companies/:id/fiscal-settings` | `hr.company-fiscal-settings.read` | Retorna configurações |
-| `PUT` | `/v1/hr/companies/:id/fiscal-settings` | `hr.company-fiscal-settings.update` | Atualiza configurações |
-| `DELETE` | `/v1/hr/companies/:id/fiscal-settings` | `hr.company-fiscal-settings.delete` | Remove configurações |
-
-### Company Stakeholders
-
-| Method | Path | Permission | Description |
-|--------|------|------------|-------------|
-| `POST` | `/v1/hr/companies/:id/stakeholders` | `hr.stakeholders.create` | Adiciona sócio/representante |
-| `GET` | `/v1/hr/companies/:id/stakeholders` | `hr.stakeholders.list` | Lista stakeholders |
-| `PUT` | `/v1/hr/companies/:id/stakeholders/:stakeholderId` | `hr.stakeholders.update` | Atualiza |
-| `DELETE` | `/v1/hr/companies/:id/stakeholders/:stakeholderId` | `hr.stakeholders.delete` | Remove |
+Para CRUD completo (criar, editar, excluir) e subrecursos (endereços, CNAEs, configurações fiscais, stakeholders), consultar a documentação do módulo Admin.
 
 ### Reports (Exportação CSV)
 
@@ -764,15 +726,15 @@ As alíquotas de INSS e IRRF estão externalizadas em `src/constants/hr/tax-tabl
 
 | Código | Descrição |
 |--------|-----------|
-| `hr.companies.create` / `hr.companies.manage` | Gestão de empresas |
+| `hr.companies.read` | Leitura de empresas (CRUD migrado para `admin.companies.*`) |
 | `hr.departments.create` / `hr.departments.manage` | Gestão de departamentos |
 | `hr.positions.create` / `hr.positions.manage` | Gestão de cargos |
 | `hr.work-schedules.create` / `hr.work-schedules.manage` | Gestão de jornadas |
 | `hr.payroll.create` / `hr.payroll.process` / `hr.payroll.approve` | Fluxo da folha |
 | `hr.payrolls.create` / `hr.payrolls.manage` | Gestão de folhas |
 | `hr.bonuses.create` / `hr.deductions.create` | Lançamentos avulsos |
-| `hr.company-addresses.create` / `hr.company-cnaes.create` | Subrecursos de empresa |
-| `hr.fiscal-settings.create` / `hr.stakeholders.create` | Dados fiscais e societários |
+| `admin.company-addresses.*` / `admin.company-cnaes.*` | Subrecursos de empresa (migrados para Admin) |
+| `admin.company-fiscal-settings.*` / `admin.stakeholders.*` | Dados fiscais e societários (migrados para Admin) |
 | `hr.employees.terminate` | Desligamento de funcionário |
 | `hr.employees.manage` | Suspensão, afastamento e reativação de funcionário |
 | `hr.vacation-periods.manage` | Conclusão de período aquisitivo |
@@ -880,11 +842,7 @@ model Payroll {
 | `employees` | `CreateEmployee`, `GetEmployeeById`, `ListEmployees`, `UpdateEmployee`, `DeleteEmployee`, `TerminateEmployee`, `SuspendEmployee`, `ReactivateEmployee`, `SetEmployeeOnLeave`, `TransferEmployee`, `LinkUserToEmployee`, `CheckEmployeeCpf` |
 | `departments` | `CreateDepartment`, `GetDepartmentById`, `ListDepartments`, `UpdateDepartment`, `DeleteDepartment` |
 | `positions` | `CreatePosition`, `GetPositionById`, `ListPositions`, `UpdatePosition`, `DeletePosition` |
-| `companies` | CRUD completo + `CheckCnpj` |
-| `company-addresses` | `CreateCompanyAddress`, `ListCompanyAddresses`, `UpdateCompanyAddress`, `DeleteCompanyAddress` |
-| `company-cnaes` | `CreateCompanyCnae`, `GetCompanyCnae`, `GetPrimaryCompanyCnae`, `ListCompanyCnaes`, `UpdateCompanyCnae`, `DeleteCompanyCnae`, `ComputePendingIssues` |
-| `company-fiscal-settings` | CRUD completo (singleton por empresa) |
-| `company-stakeholder` | CRUD completo |
+| `companies` | Somente leitura (`ListCompanies`, `GetCompanyById`) — CRUD completo migrado para módulo Admin |
 | `reports` | `ExportEmployeesReport`, `ExportAbsencesReport`, `ExportPayrollReport` |
 | `work-schedules` | CRUD completo |
 | `time-control` | `ClockIn`, `ClockOut`, `ListTimeEntries`, `CalculateWorkedHours` |
@@ -914,11 +872,7 @@ Todas as factories seguem o padrão `make-{use-case-name}-use-case.ts` dentro de
 | employees | 11 (create, create-with-user, check-cpf, get, list, update, delete, terminate, transfer, link-user, suspend, reactivate, set-on-leave) |
 | departments | 5 (create, get, list, update, delete) |
 | positions | 5 (create, get, list, update, delete) |
-| companies | 6 (create, get, list, update, delete, check-cnpj) |
-| company-addresses | 4 (create, list, update, delete) |
-| company-cnaes | 6 (create, get, get-primary, list, update, delete) |
-| company-fiscal-settings | 4 (create, get, update, delete) |
-| company-stakeholder | 4 (create, get, update, delete) |
+| companies | 2 (list, get) — somente leitura; CRUD E2E tests migrados para Admin |
 | reports | 3 (export-employees, export-absences, export-payroll) |
 | work-schedules | 5 (create, get, list, update, delete) |
 | time-control | 4 (clock-in, clock-out, list, calculate-worked-hours) |

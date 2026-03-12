@@ -1,7 +1,6 @@
 import { ErrorCodes } from '@/@errors/error-codes';
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import type { FinanceEntry } from '@/entities/finance/finance-entry';
 import type {
   FinanceEntryType,
   RecurrenceType,

@@ -10,7 +10,7 @@ import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   departmentResponseSchema,
   updateDepartmentSchema,
-idSchema,
+  idSchema,
 } from '@/http/schemas';
 import { departmentToDTO } from '@/mappers/hr/department/department-to-dto';
 import { getCacheService } from '@/services/cache/cache-service';

@@ -6,7 +6,11 @@ import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { idSchema, approveOvertimeSchema, overtimeResponseSchema } from '@/http/schemas';
+import {
+  idSchema,
+  approveOvertimeSchema,
+  overtimeResponseSchema,
+} from '@/http/schemas';
 import { overtimeToDTO } from '@/mappers/hr/overtime/overtime-to-dto';
 import { makeApproveOvertimeUseCase } from '@/use-cases/hr/overtime/factories/make-approve-overtime-use-case';
 

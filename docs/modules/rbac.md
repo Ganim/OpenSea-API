@@ -128,7 +128,7 @@ Grupos adicionais (ex: `gerente-estoque`, `vendedor`) são criados pelo administ
 
 ## PermissionService
 
-O `PermissionService` é o núcleo do RBAC. É instanciado como **singleton** no processo para que o cache L1 seja efetivo entre requisições.
+O `PermissionService` é o núcleo do RBAC. É instanciado como **singleton centralizado** via `src/services/rbac/get-permission-service.ts`, garantindo que todos os pontos de verificação (middleware `verifyPermission`, `verifyScope`, `checkInlinePermission`) compartilhem a mesma instância e o mesmo cache L1.
 
 ### Arquitetura de Cache (L1 → L2 → L3)
 
@@ -139,6 +139,15 @@ L3: PostgreSQL                                     → fonte da verdade
 ```
 
 A leitura percorre L1 → L2 → L3. A escrita popula L1 e L2 de forma assíncrona (write-back). A invalidação remove L1 imediatamente e envia `DEL` ao Redis de forma não-bloqueante.
+
+### Invalidação Automática de Cache
+
+Quando permissões de um grupo são adicionadas (`bulk-add`) ou removidas (`remove-permission-from-group`), o sistema automaticamente:
+1. Lista todos os usuários pertencentes ao grupo afetado via `listUsersByGroupId`
+2. Invalida o cache L1 (in-memory) e L2 (Redis) de cada usuário afetado
+3. A próxima verificação de permissão buscará os dados atualizados do banco (L3)
+
+Isso garante que alterações de permissões tenham efeito imediato, sem necessidade de re-login ou espera pelo TTL do cache.
 
 ### Algoritmo de Verificação
 
@@ -470,7 +479,7 @@ model UserDirectPermission {
 | Use Case | Descrição |
 |----------|-----------|
 | `AddPermissionToGroupUseCase` | Associa permissão a grupo com efeito |
-| `BulkAddPermissionsToGroupUseCase` | Associação em lote |
+| `BulkAddPermissionsToGroupUseCase` | Associação em lote — usa `findManyByCodes` para buscar todas as permissões em uma única query |
 | `RemovePermissionFromGroupUseCase` | Remove associação permissão-grupo |
 | `AssignGroupToUserUseCase` | Atribui grupo a usuário (com expiração opcional) |
 | `RemoveGroupFromUserUseCase` | Remove grupo de usuário |
@@ -517,3 +526,4 @@ Factories de teste:
 | Date | Dimension | Score | Report |
 |------|-----------|-------|--------|
 | 2026-03-10 | Documentação inicial | — | Este arquivo |
+| 2026-03-11 | Performance + Cache | — | Fix N+1 no `BulkAddPermissionsToGroupUseCase` (721 queries → 3); singleton centralizado do `PermissionService` via `get-permission-service.ts`; invalidação automática de cache L1+L2 ao alterar permissões de grupo |

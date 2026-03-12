@@ -77,16 +77,29 @@ export class ListProductsUseCase {
         tenantId,
         { page, limit },
       );
-      return this.buildResponse(result.data, result.total, result.page, result.limit, result.totalPages);
+      return this.buildResponse(
+        result.data,
+        result.total,
+        result.page,
+        result.limit,
+        result.totalPages,
+      );
     }
 
     if (manufacturerId) {
-      const result = await this.productsRepository.findManyByManufacturerPaginated(
-        new UniqueEntityID(manufacturerId),
-        tenantId,
-        { page, limit },
+      const result =
+        await this.productsRepository.findManyByManufacturerPaginated(
+          new UniqueEntityID(manufacturerId),
+          tenantId,
+          { page, limit },
+        );
+      return this.buildResponse(
+        result.data,
+        result.total,
+        result.page,
+        result.limit,
+        result.totalPages,
       );
-      return this.buildResponse(result.data, result.total, result.page, result.limit, result.totalPages);
     }
 
     if (categoryId) {
@@ -95,15 +108,27 @@ export class ListProductsUseCase {
         tenantId,
         { page, limit },
       );
-      return this.buildResponse(result.data, result.total, result.page, result.limit, result.totalPages);
+      return this.buildResponse(
+        result.data,
+        result.total,
+        result.page,
+        result.limit,
+        result.totalPages,
+      );
     }
 
     // No filters
-    const result = await this.productsRepository.findManyPaginated(
-      tenantId,
-      { page, limit },
+    const result = await this.productsRepository.findManyPaginated(tenantId, {
+      page,
+      limit,
+    });
+    return this.buildResponse(
+      result.data,
+      result.total,
+      result.page,
+      result.limit,
+      result.totalPages,
     );
-    return this.buildResponse(result.data, result.total, result.page, result.limit, result.totalPages);
   }
 
   private buildResponse(
@@ -128,6 +153,12 @@ export class ListProductsUseCase {
     const start = (page - 1) * limit;
     const paginated = products.slice(start, start + limit);
 
-    return this.buildResponse(paginated, total, page, limit, Math.ceil(total / limit));
+    return this.buildResponse(
+      paginated,
+      total,
+      page,
+      limit,
+      Math.ceil(total / limit),
+    );
   }
 }

@@ -5,7 +5,10 @@ import { Loan } from '@/entities/finance/loan';
 import { getFieldCipherService } from '@/services/security/field-cipher-service';
 import { ENCRYPTED_FIELD_CONFIG } from '@/services/security/encrypted-field-config';
 import { Prisma } from '@prisma/generated/client.js';
-import type { LoanType, LoanStatus } from '@/entities/finance/finance-entry-types';
+import type {
+  LoanType,
+  LoanStatus,
+} from '@/entities/finance/finance-entry-types';
 import type {
   LoansRepository,
   CreateLoanSchema,

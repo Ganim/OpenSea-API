@@ -90,6 +90,31 @@ describe('MoveCardUseCase', () => {
     const boardId = boardsRepository.items[0].id.toString();
     const targetColumnId = boardColumnsRepository.items[1].id;
 
+    // Create 3 cards already in target column
+    await cardsRepository.create({
+      boardId,
+      columnId: targetColumnId,
+      title: 'Existing card 1',
+      reporterId: 'user-1',
+      position: 0,
+    });
+
+    await cardsRepository.create({
+      boardId,
+      columnId: targetColumnId,
+      title: 'Existing card 2',
+      reporterId: 'user-1',
+      position: 1,
+    });
+
+    await cardsRepository.create({
+      boardId,
+      columnId: targetColumnId,
+      title: 'Existing card 3',
+      reporterId: 'user-1',
+      position: 2,
+    });
+
     const createdCard = await cardsRepository.create({
       boardId,
       columnId: boardColumnsRepository.items[0].id,
@@ -105,10 +130,11 @@ describe('MoveCardUseCase', () => {
       boardId,
       cardId: createdCard.id.toString(),
       columnId: targetColumnId,
-      position: 5,
+      position: 1,
     });
 
-    expect(card.position).toBe(5);
+    // After reindex, card should be at position 1 (inserted between existing cards)
+    expect(card.position).toBe(1);
   });
 
   it('should record activity with column names', async () => {

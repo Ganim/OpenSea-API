@@ -71,57 +71,65 @@ export class BulkAddPermissionsToGroupUseCase {
       conditions: Record<string, unknown> | null;
     }[] = [];
 
-    // Buscar todas as permissões existentes no grupo para evitar duplicatas
-    const existingAssignments =
-      await this.permissionGroupPermissionsRepository.listByGroupId(
-        groupIdEntity,
-      );
-    const existingPermissionIds = new Set(
-      existingAssignments.map((a) => a.permissionId.toString()),
-    );
+    // Validar todos os códigos de permissão e criar Map input -> PermissionCode
+    const validInputs: {
+      input: PermissionInput;
+      code: PermissionCode;
+    }[] = [];
 
-    // Processar cada permissão
     for (const input of permissions) {
       try {
-        // Validar código da permissão
-        const permissionCodeEntity = PermissionCode.create(
-          input.permissionCode,
-        );
-
-        // Buscar permissão no banco
-        const permission =
-          await this.permissionsRepository.findByCode(permissionCodeEntity);
-
-        if (!permission) {
-          errors.push({
-            code: input.permissionCode,
-            reason: 'Permission not found',
-          });
-          continue;
-        }
-
-        // Verificar se já existe no grupo
-        if (existingPermissionIds.has(permission.id.toString())) {
-          // Não é erro, apenas skip
-          continue;
-        }
-
-        // Adicionar à lista de válidos
-        validPermissions.push({
-          groupId: groupIdEntity,
-          permissionId: permission.id,
-          effect: PermissionEffect.create(input.effect),
-          conditions: input.conditions ?? null,
-        });
-
-        // Marcar como adicionado para evitar duplicatas na mesma requisição
-        existingPermissionIds.add(permission.id.toString());
+        const code = PermissionCode.create(input.permissionCode);
+        validInputs.push({ input, code });
       } catch (error) {
         errors.push({
           code: input.permissionCode,
           reason: error instanceof Error ? error.message : 'Unknown error',
         });
       }
+    }
+
+    // Batch: buscar todas as permissões e assignments existentes em paralelo
+    const [foundPermissions, existingAssignments] = await Promise.all([
+      this.permissionsRepository.findManyByCodes(
+        validInputs.map((v) => v.code),
+      ),
+      this.permissionGroupPermissionsRepository.listByGroupId(groupIdEntity),
+    ]);
+
+    // Indexar permissões encontradas por código
+    const permissionByCode = new Map(
+      foundPermissions.map((p) => [p.code.value, p]),
+    );
+    const existingPermissionIds = new Set(
+      existingAssignments.map((a) => a.permissionId.toString()),
+    );
+
+    // Processar cada permissão validada
+    for (const { input, code } of validInputs) {
+      const permission = permissionByCode.get(code.value);
+
+      if (!permission) {
+        errors.push({
+          code: input.permissionCode,
+          reason: 'Permission not found',
+        });
+        continue;
+      }
+
+      // Verificar se já existe no grupo
+      if (existingPermissionIds.has(permission.id.toString())) {
+        continue;
+      }
+
+      validPermissions.push({
+        groupId: groupIdEntity,
+        permissionId: permission.id,
+        effect: PermissionEffect.create(input.effect),
+        conditions: input.conditions ?? null,
+      });
+
+      existingPermissionIds.add(permission.id.toString());
     }
 
     // Adicionar todas as permissões válidas de uma vez

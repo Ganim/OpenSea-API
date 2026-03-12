@@ -35,9 +35,7 @@ async function main() {
     select: { id: true, name: true },
   });
 
-  console.log(
-    `[check-stock-alerts] Found ${tenants.length} active tenants`,
-  );
+  console.log(`[check-stock-alerts] Found ${tenants.length} active tenants`);
 
   let totalAlerts = 0;
   let totalNotifications = 0;
@@ -80,9 +78,7 @@ async function main() {
   console.log(`[check-stock-alerts] Summary:`);
   console.log(`  Total alerts: ${totalAlerts}`);
   console.log(`  Notifications created: ${totalNotifications}`);
-  console.log(
-    `[check-stock-alerts] Done at ${new Date().toISOString()}`,
-  );
+  console.log(`[check-stock-alerts] Done at ${new Date().toISOString()}`);
 
   await prisma.$disconnect();
 }

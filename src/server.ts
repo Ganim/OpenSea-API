@@ -46,22 +46,25 @@ process.on('uncaughtException', (error) => {
   setTimeout(() => process.exit(1), 3000);
 });
 
-// Memory pressure warning — log when heap exceeds threshold
-const HEAP_WARNING_THRESHOLD = 0.85;
+// Memory pressure warning — log when heap exceeds threshold of max-old-space-size
+// Using v8.getHeapStatistics().heap_size_limit as the real ceiling instead of
+// heapTotal (which the GC shrinks dynamically, causing false 95%+ warnings).
+const HEAP_WARNING_THRESHOLD = 0.8;
 let lastHeapWarning = 0;
-const heapCheckInterval = setInterval(() => {
+const heapCheckInterval = setInterval(async () => {
   const mem = process.memoryUsage();
-  const heapRatio = mem.heapUsed / mem.heapTotal;
+  const { heap_size_limit } = (await import('node:v8')).getHeapStatistics();
+  const heapRatio = mem.heapUsed / heap_size_limit;
   if (
     heapRatio > HEAP_WARNING_THRESHOLD &&
     Date.now() - lastHeapWarning > 60_000
   ) {
     lastHeapWarning = Date.now();
     const heapUsedMB = Math.round(mem.heapUsed / 1024 / 1024);
-    const heapTotalMB = Math.round(mem.heapTotal / 1024 / 1024);
+    const heapLimitMB = Math.round(heap_size_limit / 1024 / 1024);
     const rssMB = Math.round(mem.rss / 1024 / 1024);
     console.warn(
-      `[MEMORY] High heap usage: ${heapUsedMB}MB / ${heapTotalMB}MB (${(heapRatio * 100).toFixed(1)}%) — rss=${rssMB}MB`,
+      `[MEMORY] High heap usage: ${heapUsedMB}MB / ${heapLimitMB}MB (${(heapRatio * 100).toFixed(1)}%) — rss=${rssMB}MB`,
     );
   }
 }, 30_000);

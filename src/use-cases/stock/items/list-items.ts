@@ -47,7 +47,13 @@ export class ListItemsUseCase {
           { page, limit },
         );
 
-      return this.buildResponse(result.data, result.total, result.page, result.limit, result.totalPages);
+      return this.buildResponse(
+        result.data,
+        result.total,
+        result.page,
+        result.limit,
+        result.totalPages,
+      );
     }
 
     if (input.variantId) {
@@ -58,15 +64,20 @@ export class ListItemsUseCase {
           { page, limit },
         );
 
-      return this.buildResponse(result.data, result.total, result.page, result.limit, result.totalPages);
+      return this.buildResponse(
+        result.data,
+        result.total,
+        result.page,
+        result.limit,
+        result.totalPages,
+      );
     }
 
     if (input.binId) {
-      const allItems =
-        await this.itemsRepository.findManyByBinWithRelations(
-          new UniqueEntityID(input.binId),
-          tenantId,
-        );
+      const allItems = await this.itemsRepository.findManyByBinWithRelations(
+        new UniqueEntityID(input.binId),
+        tenantId,
+      );
 
       return this.paginateInMemory(allItems, page, limit);
     }
@@ -116,13 +127,18 @@ export class ListItemsUseCase {
     }
 
     // No filters — use paginated repository method
-    const result =
-      await this.itemsRepository.findAllWithRelationsPaginated(
-        tenantId,
-        { page, limit },
-      );
+    const result = await this.itemsRepository.findAllWithRelationsPaginated(
+      tenantId,
+      { page, limit },
+    );
 
-    return this.buildResponse(result.data, result.total, result.page, result.limit, result.totalPages);
+    return this.buildResponse(
+      result.data,
+      result.total,
+      result.page,
+      result.limit,
+      result.totalPages,
+    );
   }
 
   private buildResponse(
@@ -133,9 +149,7 @@ export class ListItemsUseCase {
     pages: number,
   ): ListItemsUseCaseResponse {
     return {
-      items: items.map(({ item, relatedData }) =>
-        itemToDTO(item, relatedData),
-      ),
+      items: items.map(({ item, relatedData }) => itemToDTO(item, relatedData)),
       meta: { total, page, limit, pages },
     };
   }
@@ -149,6 +163,12 @@ export class ListItemsUseCase {
     const start = (page - 1) * limit;
     const paginated = items.slice(start, start + limit);
 
-    return this.buildResponse(paginated, total, page, limit, Math.ceil(total / limit));
+    return this.buildResponse(
+      paginated,
+      total,
+      page,
+      limit,
+      Math.ceil(total / limit),
+    );
   }
 }

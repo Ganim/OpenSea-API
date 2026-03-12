@@ -21,11 +21,7 @@ import { EncryptionService } from '../src/services/storage/encryption-service';
 import { S3FileUploadService } from '../src/services/storage/s3-file-upload-service';
 import { LocalFileUploadService } from '../src/services/storage/local-file-upload-service';
 import type { FileUploadService } from '../src/services/storage/file-upload-service';
-import {
-  S3Client,
-  PutObjectCommand,
-  GetObjectCommand,
-} from '@aws-sdk/client-s3';
+import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 
 const BATCH_SIZE = 10;
 

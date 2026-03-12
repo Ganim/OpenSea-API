@@ -211,7 +211,7 @@ describe('GetFinanceOverviewUseCase', () => {
       endDate: new Date('2027-01-01'),
     });
 
-    const expiredContract = await contractsRepository.create({
+    const _expiredContract = await contractsRepository.create({
       tenantId: 'tenant-1',
       code: 'CT-002',
       title: 'Expired contract',

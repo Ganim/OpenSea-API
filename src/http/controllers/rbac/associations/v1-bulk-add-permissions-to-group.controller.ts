@@ -7,6 +7,9 @@ import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { idSchema } from '@/http/schemas/common.schema';
 import { bulkAddPermissionsToGroupSchema } from '@/http/schemas/rbac.schema';
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import { PrismaUserPermissionGroupsRepository } from '@/repositories/rbac/prisma/prisma-user-permission-groups-repository';
+import { getPermissionService } from '@/services/rbac/get-permission-service';
 import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
 import {
   makeBulkAddPermissionsToGroupUseCase,
@@ -109,6 +112,18 @@ export async function bulkAddPermissionsToGroupController(
             errorsCount: result.errors.length,
           },
         });
+
+        // Invalidate permission cache for all users in this group
+        if (result.added > 0) {
+          const userGroupsRepo = new PrismaUserPermissionGroupsRepository();
+          const userIds = await userGroupsRepo.listUsersByGroupId(
+            new UniqueEntityID(groupId),
+          );
+          const permissionService = getPermissionService();
+          for (const userId of userIds) {
+            permissionService.invalidateUserCache(userId);
+          }
+        }
 
         return reply.status(201).send({
           success: true,

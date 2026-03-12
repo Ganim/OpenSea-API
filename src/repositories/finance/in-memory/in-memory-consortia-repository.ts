@@ -1,6 +1,9 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Consortium } from '@/entities/finance/consortium';
-import type { ConsortiumStatus, ContemplationType } from '@/entities/finance/finance-entry-types';
+import type {
+  ConsortiumStatus,
+  ContemplationType,
+} from '@/entities/finance/finance-entry-types';
 import type {
   ConsortiaRepository,
   CreateConsortiumSchema,
@@ -110,7 +113,8 @@ export class InMemoryConsortiaRepository implements ConsortiaRepository {
       item.administrator = data.administrator;
     if (data.contractNumber !== undefined)
       item.contractNumber = data.contractNumber ?? undefined;
-    if (data.status !== undefined) item.status = data.status as ConsortiumStatus;
+    if (data.status !== undefined)
+      item.status = data.status as ConsortiumStatus;
     if (data.paidInstallments !== undefined)
       item.paidInstallments = data.paidInstallments;
     if (data.isContemplated !== undefined)
@@ -118,7 +122,8 @@ export class InMemoryConsortiaRepository implements ConsortiaRepository {
     if (data.contemplatedAt !== undefined)
       item.contemplatedAt = data.contemplatedAt ?? undefined;
     if (data.contemplationType !== undefined)
-      item.contemplationType = (data.contemplationType as ContemplationType) ?? undefined;
+      item.contemplationType =
+        (data.contemplationType as ContemplationType) ?? undefined;
     if (data.notes !== undefined) item.notes = data.notes ?? undefined;
     if (data.endDate !== undefined) item.endDate = data.endDate ?? undefined;
 

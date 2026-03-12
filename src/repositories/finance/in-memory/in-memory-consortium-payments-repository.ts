@@ -63,7 +63,8 @@ export class InMemoryConsortiumPaymentsRepository
 
     if (data.paidAmount !== undefined) item.paidAmount = data.paidAmount;
     if (data.paidAt !== undefined) item.paidAt = data.paidAt;
-    if (data.status !== undefined) item.status = data.status as InstallmentStatus;
+    if (data.status !== undefined)
+      item.status = data.status as InstallmentStatus;
     if (data.bankAccountId !== undefined) {
       item.bankAccountId = data.bankAccountId
         ? new UniqueEntityID(data.bankAccountId)

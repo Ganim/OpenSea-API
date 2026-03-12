@@ -91,10 +91,7 @@ function extractBeneficiario(text: string): string | undefined {
       let name = match[1].trim();
       // Remove CNPJ/CPF patterns that may follow
       name = name
-        .replace(
-          /\s*[-–]\s*\d{2,3}\.?\d{3}\.?\d{3}[\/.]?\d{4}[-.]?\d{2}.*$/,
-          '',
-        )
+        .replace(/\s*[-–]\s*\d{2,3}\.?\d{3}\.?\d{3}[/.]?\d{4}[-.]?\d{2}.*$/, '')
         .trim();
       // Remove trailing whitespace and line break content
       name = name.split('\n')[0].trim();
@@ -123,7 +120,7 @@ function extractLinhaDigitavel(text: string): string | undefined {
   }
 
   // Fallback: look for any 47 consecutive digits
-  const fallbackMatch = text.replace(/\D/g, ' ').split(/\s+/).join('');
+  const _fallbackMatch = text.replace(/\D/g, ' ').split(/\s+/).join('');
   // Search for 47-digit sequences in the cleaned numeric text
   const numericBlocks = text.match(/[\d.\s-]{40,70}/g);
   if (numericBlocks) {
@@ -216,7 +213,9 @@ export class OcrExtractDataUseCase {
 
   private async handlePdf(buffer: Buffer): Promise<OcrExtractResult> {
     // eslint-disable-next-line @typescript-eslint/no-require-imports
-    const pdfParse = require('pdf-parse') as (buf: Buffer) => Promise<{ text: string }>;
+    const pdfParse = require('pdf-parse') as (
+      buf: Buffer,
+    ) => Promise<{ text: string }>;
 
     const pdfData = await pdfParse(buffer);
     const text = pdfData.text;

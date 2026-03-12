@@ -627,7 +627,6 @@ export const HR_AUDIT_MESSAGES = {
     module: AuditModule.HR,
     description: '{{userName}} removeu {{stakeholderName}} de {{companyName}}',
   } satisfies AuditMessage,
-
 } as const;
 
 export type HrAuditMessageKey = keyof typeof HR_AUDIT_MESSAGES;

@@ -918,12 +918,12 @@ O `PayrollToFinanceUseCase` converte uma folha de pagamento aprovada em lançame
 
 | Code | Descrição | Recurso |
 |------|-----------|---------|
-| `finance.companies.create` | Criar empresas financeiras | Companies |
-| `finance.companies.read` | Visualizar empresa | Companies |
-| `finance.companies.update` | Atualizar empresa | Companies |
-| `finance.companies.delete` | Remover empresa | Companies |
-| `finance.companies.list` | Listar empresas | Companies |
-| `finance.companies.manage` | Gestão total de empresas | Companies |
+| `admin.companies.create` | Criar empresas | Companies (migrado para Admin) |
+| `admin.companies.read` | Visualizar empresa | Companies (migrado para Admin) |
+| `admin.companies.update` | Atualizar empresa | Companies (migrado para Admin) |
+| `admin.companies.delete` | Remover empresa | Companies (migrado para Admin) |
+| `admin.companies.list` | Listar empresas | Companies (migrado para Admin) |
+| `admin.companies.manage` | Gestão total de empresas | Companies (migrado para Admin) |
 | `finance.cost-centers.create` | Criar centros de custo | Cost Centers |
 | `finance.cost-centers.read` | Visualizar centro de custo | Cost Centers |
 | `finance.cost-centers.update` | Atualizar centro de custo | Cost Centers |
@@ -1234,4 +1234,4 @@ Cada controller possui seu próprio `*.e2e.spec.ts`. Recursos cobertos:
 | | Regras de Negócio | 8.5→9.0 | Validação `dueDate >= issueDate` via .refine(), competenceDate default issueDate |
 | | Governança | 8.0→9.0 | 4 ADRs criados (019-022): field-encryption, cost-center-allocation, code-sequence, transactions |
 | | UI/UX | 7.5→9.0 | ~90 correções de acentos PT-BR em 16 arquivos |
-| 2026-03-11 | Companies reorganization | — | Empresas migrando de HR/Finance→Admin (spec em andamento, ver root `docs/superpowers/specs/`) |
+| 2026-03-11 | Companies reorganization | — | Empresas migradas de HR/Finance para Admin (`/v1/admin/companies`). Finance consome via `admin.companies.*` permissions. Frontend usa `services/admin/companies.service.ts` |

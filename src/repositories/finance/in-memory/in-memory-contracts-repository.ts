@@ -1,6 +1,9 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Contract } from '@/entities/finance/contract';
-import type { ContractStatus, RecurrenceUnit } from '@/entities/finance/finance-entry-types';
+import type {
+  ContractStatus,
+  RecurrenceUnit,
+} from '@/entities/finance/finance-entry-types';
 import type {
   ContractsRepository,
   CreateContractSchema,

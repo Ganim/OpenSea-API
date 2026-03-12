@@ -535,7 +535,7 @@ export class SyncEmailFolderUseCase {
             );
 
             let pageStart = 1;
-            const upperBound = retryUidNext ?? pageStart + RETRY_PAGE_SIZE;
+            const _upperBound = retryUidNext ?? pageStart + RETRY_PAGE_SIZE;
 
             while (pageStart < (retryUidNext ?? Infinity)) {
               const pageEnd = retryUidNext

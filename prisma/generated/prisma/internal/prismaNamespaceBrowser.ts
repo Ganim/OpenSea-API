@@ -121,6 +121,7 @@ export const ModelName = {
   Bonus: 'Bonus',
   Deduction: 'Deduction',
   Company: 'Company',
+  CompanyDocument: 'CompanyDocument',
   CompanyAddress: 'CompanyAddress',
   CompanyCnae: 'CompanyCnae',
   CompanyFiscalSettings: 'CompanyFiscalSettings',
@@ -1603,6 +1604,25 @@ export const CompanyScalarFieldEnum = {
 } as const
 
 export type CompanyScalarFieldEnum = (typeof CompanyScalarFieldEnum)[keyof typeof CompanyScalarFieldEnum]
+
+
+export const CompanyDocumentScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  companyId: 'companyId',
+  documentType: 'documentType',
+  fileName: 'fileName',
+  fileKey: 'fileKey',
+  fileSize: 'fileSize',
+  mimeType: 'mimeType',
+  expiresAt: 'expiresAt',
+  notes: 'notes',
+  uploadedBy: 'uploadedBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CompanyDocumentScalarFieldEnum = (typeof CompanyDocumentScalarFieldEnum)[keyof typeof CompanyDocumentScalarFieldEnum]
 
 
 export const CompanyAddressScalarFieldEnum = {

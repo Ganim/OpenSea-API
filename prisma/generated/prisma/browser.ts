@@ -368,6 +368,11 @@ export type Deduction = Prisma.DeductionModel
  */
 export type Company = Prisma.CompanyModel
 /**
+ * Model CompanyDocument
+ * 
+ */
+export type CompanyDocument = Prisma.CompanyDocumentModel
+/**
  * Model CompanyAddress
  * 
  */

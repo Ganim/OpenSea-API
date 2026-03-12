@@ -3352,6 +3352,7 @@ model Company {
   // Finance domain
   costCenters    CostCenter[]
   bankAccounts   BankAccount[]
+  documents      CompanyDocument[]
 
   @@unique([cnpjHash, tenantId, deletedAt], name: "companies_cnpj_tenant_unique_active")
   @@index([tenantId])
@@ -3361,6 +3362,40 @@ model Company {
   @@index([deletedAt])
   @@index([createdAt])
   @@map("companies")
+}
+
+model CompanyDocument {
+  id        String @id @default(uuid())
+  tenantId  String @map("tenant_id")
+  companyId String @map("company_id")
+
+  // Tipo do documento (genérico: "Cartão CNPJ", "Contrato Social", etc.)
+  documentType String @map("document_type") @db.VarChar(128)
+
+  // Informações do arquivo (preenchidas após upload)
+  fileName String? @map("file_name") @db.VarChar(256)
+  fileKey  String? @map("file_key") @db.VarChar(512)
+  fileSize Int?    @map("file_size")
+  mimeType String? @map("mime_type") @db.VarChar(128)
+
+  // Validade do documento
+  expiresAt DateTime? @map("expires_at")
+
+  // Observações (opcional)
+  notes String? @db.VarChar(512)
+
+  // Audit
+  uploadedBy String?  @map("uploaded_by")
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  tenant  Tenant  @relation(fields: [tenantId], references: [id])
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@index([companyId])
+  @@map("company_documents")
 }
 
 model CompanyAddress {
@@ -3711,6 +3746,7 @@ model Tenant {
   salesOrders         SalesOrder[]
   // HR domain
   companies           Company[]
+  companyDocuments    CompanyDocument[]
   departments         Department[]
   positions           Position[]
   employees           Employee[]
