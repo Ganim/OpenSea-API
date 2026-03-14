@@ -80,6 +80,10 @@ export class PrismaPayrollsRepository implements PayrollsRepository {
     tenantId: string,
     filters?: FindPayrollFilters,
   ): Promise<Payroll[]> {
+    const page = filters?.page ?? 1;
+    const perPage = Math.min(filters?.perPage ?? 50, 100);
+    const skip = (page - 1) * perPage;
+
     const payrolls = await prisma.payroll.findMany({
       where: {
         tenantId,
@@ -91,6 +95,8 @@ export class PrismaPayrollsRepository implements PayrollsRepository {
         items: true,
       },
       orderBy: [{ referenceYear: 'desc' }, { referenceMonth: 'desc' }],
+      skip,
+      take: perPage,
     });
 
     return payrolls.map((item) =>

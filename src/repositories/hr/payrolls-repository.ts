@@ -27,6 +27,8 @@ export interface FindPayrollFilters {
   referenceMonth?: number;
   referenceYear?: number;
   status?: string;
+  page?: number;
+  perPage?: number;
 }
 
 export interface PayrollsRepository {

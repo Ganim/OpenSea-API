@@ -19,12 +19,19 @@ export interface FindTimeEntriesFilters {
   startDate?: Date;
   endDate?: Date;
   entryType?: TimeEntryType;
+  page?: number;
+  perPage?: number;
+}
+
+export interface FindManyTimeEntriesResult {
+  timeEntries: TimeEntry[];
+  total: number;
 }
 
 export interface TimeEntriesRepository {
   create(data: CreateTimeEntrySchema): Promise<TimeEntry>;
   findById(id: UniqueEntityID, tenantId: string): Promise<TimeEntry | null>;
-  findMany(filters: FindTimeEntriesFilters): Promise<TimeEntry[]>;
+  findMany(filters: FindTimeEntriesFilters): Promise<FindManyTimeEntriesResult>;
   findManyByEmployee(
     employeeId: UniqueEntityID,
     tenantId: string,

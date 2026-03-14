@@ -27,6 +27,8 @@ export interface FindBonusFilters {
   isPaid?: boolean;
   startDate?: Date;
   endDate?: Date;
+  page?: number;
+  perPage?: number;
 }
 
 export interface BonusesRepository {

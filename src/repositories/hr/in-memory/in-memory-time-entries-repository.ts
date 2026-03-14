@@ -2,6 +2,7 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { TimeEntry } from '@/entities/hr/time-entry';
 import type {
   CreateTimeEntrySchema,
+  FindManyTimeEntriesResult,
   FindTimeEntriesFilters,
   TimeEntriesRepository,
 } from '../time-entries-repository';
@@ -39,7 +40,7 @@ export class InMemoryTimeEntriesRepository implements TimeEntriesRepository {
     return timeEntry || null;
   }
 
-  async findMany(filters: FindTimeEntriesFilters): Promise<TimeEntry[]> {
+  async findMany(filters: FindTimeEntriesFilters): Promise<FindManyTimeEntriesResult> {
     let result = this.items.filter(
       (item) => item.tenantId.toString() === filters.tenantId,
     );
@@ -64,7 +65,15 @@ export class InMemoryTimeEntriesRepository implements TimeEntriesRepository {
       );
     }
 
-    return result.sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime());
+    result.sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime());
+
+    const total = result.length;
+    const page = filters.page ?? 1;
+    const perPage = filters.perPage ?? 50;
+    const skip = (page - 1) * perPage;
+    const timeEntries = result.slice(skip, skip + perPage);
+
+    return { timeEntries, total };
   }
 
   async findManyByEmployee(

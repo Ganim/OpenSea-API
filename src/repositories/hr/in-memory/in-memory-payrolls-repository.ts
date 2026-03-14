@@ -75,13 +75,15 @@ export class InMemoryPayrollsRepository implements PayrollsRepository {
       );
     }
 
-    return filtered.sort((a, b) => {
-      // Sort by year descending, then by month descending
+    const sorted = filtered.sort((a, b) => {
       if (a.referenceYear !== b.referenceYear) {
         return b.referenceYear - a.referenceYear;
       }
       return b.referenceMonth - a.referenceMonth;
     });
+    const page = filters?.page ?? 1;
+    const perPage = Math.min(filters?.perPage ?? 50, 100);
+    return sorted.slice((page - 1) * perPage, page * perPage);
   }
 
   async findManyByYear(year: number, tenantId: string): Promise<Payroll[]> {

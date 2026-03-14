@@ -9,6 +9,8 @@ export interface ListDeductionsRequest {
   isRecurring?: boolean;
   startDate?: Date;
   endDate?: Date;
+  page?: number;
+  perPage?: number;
 }
 
 export interface ListDeductionsResponse {
@@ -21,7 +23,7 @@ export class ListDeductionsUseCase {
   async execute(
     request: ListDeductionsRequest,
   ): Promise<ListDeductionsResponse> {
-    const { tenantId, employeeId, isApplied, isRecurring, startDate, endDate } =
+    const { tenantId, employeeId, isApplied, isRecurring, startDate, endDate, page, perPage } =
       request;
 
     const deductions = await this.deductionsRepository.findMany(tenantId, {
@@ -30,6 +32,8 @@ export class ListDeductionsUseCase {
       isRecurring,
       startDate,
       endDate,
+      page,
+      perPage,
     });
 
     return {

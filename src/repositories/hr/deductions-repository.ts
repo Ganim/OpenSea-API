@@ -33,6 +33,8 @@ export interface FindDeductionFilters {
   isRecurring?: boolean;
   startDate?: Date;
   endDate?: Date;
+  page?: number;
+  perPage?: number;
 }
 
 export interface DeductionsRepository {

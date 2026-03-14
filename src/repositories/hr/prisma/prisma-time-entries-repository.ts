@@ -5,6 +5,7 @@ import { mapTimeEntryPrismaToDomain } from '@/mappers/hr/time-entry';
 import type { TimeEntryType as PrismaTimeEntryType } from '@prisma/generated/client.js';
 import type {
   CreateTimeEntrySchema,
+  FindManyTimeEntriesResult,
   FindTimeEntriesFilters,
   TimeEntriesRepository,
 } from '../time-entries-repository';
@@ -48,26 +49,39 @@ export class PrismaTimeEntriesRepository implements TimeEntriesRepository {
     return timeEntry;
   }
 
-  async findMany(filters: FindTimeEntriesFilters): Promise<TimeEntry[]> {
-    const timeEntries = await prisma.timeEntry.findMany({
-      where: {
-        tenantId: filters.tenantId,
-        employeeId: filters?.employeeId?.toString(),
-        timestamp: {
-          gte: filters?.startDate,
-          lte: filters?.endDate,
-        },
-        entryType: filters?.entryType?.value as PrismaTimeEntryType | undefined,
-      },
-      orderBy: { timestamp: 'desc' },
-    });
+  async findMany(filters: FindTimeEntriesFilters): Promise<FindManyTimeEntriesResult> {
+    const page = filters.page ?? 1;
+    const perPage = filters.perPage ?? 50;
+    const skip = (page - 1) * perPage;
 
-    return timeEntries.map((entry) =>
+    const where = {
+      tenantId: filters.tenantId,
+      employeeId: filters?.employeeId?.toString(),
+      timestamp: {
+        gte: filters?.startDate,
+        lte: filters?.endDate,
+      },
+      entryType: filters?.entryType?.value as PrismaTimeEntryType | undefined,
+    };
+
+    const [timeEntriesData, total] = await Promise.all([
+      prisma.timeEntry.findMany({
+        where,
+        orderBy: { timestamp: 'desc' },
+        skip,
+        take: perPage,
+      }),
+      prisma.timeEntry.count({ where }),
+    ]);
+
+    const timeEntries = timeEntriesData.map((entry) =>
       TimeEntry.create(
         mapTimeEntryPrismaToDomain(entry),
         new UniqueEntityID(entry.id),
       ),
     );
+
+    return { timeEntries, total };
   }
 
   async findManyByEmployee(

@@ -52,6 +52,10 @@ export class PrismaBonusesRepository implements BonusesRepository {
     tenantId: string,
     filters?: FindBonusFilters,
   ): Promise<Bonus[]> {
+    const page = filters?.page ?? 1;
+    const perPage = Math.min(filters?.perPage ?? 50, 100);
+    const skip = (page - 1) * perPage;
+
     const bonuses = await prisma.bonus.findMany({
       where: {
         tenantId,
@@ -63,6 +67,8 @@ export class PrismaBonusesRepository implements BonusesRepository {
         },
       },
       orderBy: { date: 'desc' },
+      skip,
+      take: perPage,
     });
 
     return bonuses.map((item) =>

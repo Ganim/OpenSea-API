@@ -10,6 +10,8 @@ export interface ListTimeEntriesRequest {
   startDate?: Date;
   endDate?: Date;
   entryType?: string;
+  page?: number;
+  perPage?: number;
 }
 
 export interface ListTimeEntriesResponse {
@@ -23,20 +25,23 @@ export class ListTimeEntriesUseCase {
   async execute(
     request: ListTimeEntriesRequest,
   ): Promise<ListTimeEntriesResponse> {
-    const { tenantId, employeeId, startDate, endDate, entryType } = request;
+    const { tenantId, employeeId, startDate, endDate, entryType, page, perPage } = request;
 
-    const timeEntries = await this.timeEntriesRepository.findMany({
+    // Aplicar default de 30 dias para evitar carregar histórico completo sem filtro
+    const effectiveEndDate = endDate ?? new Date();
+    const effectiveStartDate = startDate ?? new Date(effectiveEndDate.getTime() - 30 * 24 * 60 * 60 * 1000);
+
+    const result = await this.timeEntriesRepository.findMany({
       tenantId,
       employeeId: employeeId ? new UniqueEntityID(employeeId) : undefined,
-      startDate,
-      endDate,
+      startDate: effectiveStartDate,
+      endDate: effectiveEndDate,
       entryType: entryType ? this.mapEntryType(entryType) : undefined,
+      page: page ?? 1,
+      perPage: perPage ?? 50,
     });
 
-    return {
-      timeEntries,
-      total: timeEntries.length,
-    };
+    return result;
   }
 
   private mapEntryType(entryType: string): TimeEntryType {

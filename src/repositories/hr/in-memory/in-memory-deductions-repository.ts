@@ -68,7 +68,10 @@ export class InMemoryDeductionsRepository implements DeductionsRepository {
       filtered = filtered.filter((item) => item.date <= filters.endDate!);
     }
 
-    return filtered.sort((a, b) => b.date.getTime() - a.date.getTime());
+    const sorted = filtered.sort((a, b) => b.date.getTime() - a.date.getTime());
+    const page = filters?.page ?? 1;
+    const perPage = Math.min(filters?.perPage ?? 50, 100);
+    return sorted.slice((page - 1) * perPage, page * perPage);
   }
 
   async findManyByEmployee(
