@@ -55,6 +55,7 @@ export class CreateCompanyUseCase {
     const existingCompany = await this.companiesRepository.findByCnpj(
       cnpj,
       tenantId,
+      true, // includeDeleted — impede recriação com CNPJ de empresa excluída
     );
     if (existingCompany) {
       throw new Error('Company with this CNPJ already exists');

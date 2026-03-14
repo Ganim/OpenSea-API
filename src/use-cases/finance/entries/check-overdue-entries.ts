@@ -1,4 +1,5 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import { logger } from '@/lib/logger';
 import type { FinanceEntriesRepository } from '@/repositories/finance/finance-entries-repository';
 import type { NotificationsRepository } from '@/repositories/notifications/notifications-repository';
 
@@ -32,6 +33,12 @@ export class CheckOverdueEntriesUseCase {
     let receivableOverdue = 0;
     let dueSoonAlerts = 0;
 
+    const t0 = Date.now();
+    logger.info(
+      { tenantId, createdBy },
+      '[check-overdue] starting',
+    );
+
     // Step 1: Find PENDING entries with dueDate < today and mark as OVERDUE
     const { entries: overdueEntries } =
       await this.financeEntriesRepository.findMany({
@@ -44,6 +51,11 @@ export class CheckOverdueEntriesUseCase {
     // Filter only actually overdue (dueDate strictly before today)
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     const actuallyOverdue = overdueEntries.filter((e) => e.dueDate < today);
+
+    logger.info(
+      { tenantId, overdueCount: actuallyOverdue.length, fetchedCount: overdueEntries.length },
+      '[check-overdue] entries to process',
+    );
 
     for (const entry of actuallyOverdue) {
       await this.financeEntriesRepository.update({
@@ -140,6 +152,18 @@ export class CheckOverdueEntriesUseCase {
         }
       }
     }
+
+    logger.info(
+      {
+        tenantId,
+        markedOverdue,
+        payableOverdue,
+        receivableOverdue,
+        dueSoonAlerts,
+        elapsedMs: Date.now() - t0,
+      },
+      '[check-overdue] completed',
+    );
 
     return {
       markedOverdue,

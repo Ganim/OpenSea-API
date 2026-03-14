@@ -5,7 +5,6 @@ import {
   stopEmailSyncScheduler,
 } from './email-sync-scheduler';
 import { stopNotificationsScheduler } from './notifications-scheduler';
-import { startAuditWorker } from './queues/audit.queue';
 import { startEmailSyncWorker } from './queues/email-sync.queue';
 import { startNotificationWorker } from './queues/notification.queue';
 
@@ -25,7 +24,6 @@ export async function startAllWorkers(): Promise<void> {
 
   startEmailSyncWorker();
   startNotificationWorker();
-  startAuditWorker();
 
   // Start the email sync scheduler (enqueues periodic sync jobs)
   try {

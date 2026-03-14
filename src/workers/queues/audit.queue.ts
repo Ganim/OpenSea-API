@@ -1,6 +1,6 @@
-import type { Queue } from 'bullmq';
-import { Job } from 'bullmq';
-import { createQueue, createWorker, QUEUE_NAMES } from '@/lib/queue';
+import { createLogger } from '@/lib/logger';
+
+const auditLogger = createLogger('AUDIT');
 
 export interface AuditLogJobData {
   userId?: string;
@@ -17,77 +17,30 @@ export interface AuditLogJobData {
   requestId?: string;
 }
 
-// Lazy — fila só é criada na primeira chamada, evitando conexão Redis no boot
-let _auditQueue: Queue<AuditLogJobData> | null = null;
-
-function getAuditQueue(): Queue<AuditLogJobData> {
-  if (!_auditQueue) {
-    _auditQueue = createQueue<AuditLogJobData>(QUEUE_NAMES.AUDIT_LOGS);
-  }
-  return _auditQueue;
-}
-
 /**
- * Adiciona um audit log à fila
- * Usar para operações de alto volume onde não é crítico ter sincronia
+ * Registra um audit log via logger (fire-and-forget).
+ * Os controllers já gravam auditorias no banco via logAudit().
+ * Esta função serve como registro estruturado adicional para use cases
+ * que não têm acesso ao request object.
  */
-export async function queueAuditLog(data: AuditLogJobData) {
-  return getAuditQueue().add(QUEUE_NAMES.AUDIT_LOGS, data, {
-    priority: 1,
-  });
-}
-
-/**
- * Adiciona múltiplos audit logs à fila de uma vez
- */
-export async function queueBulkAuditLogs(logs: AuditLogJobData[]) {
-  const jobs = logs.map((data) => ({
-    name: QUEUE_NAMES.AUDIT_LOGS,
-    data,
-    opts: { priority: 1 },
-  }));
-
-  return getAuditQueue().addBulk(jobs);
-}
-
-/**
- * Inicia o worker de processamento de audit logs
- */
-export function startAuditWorker() {
-  return createWorker<AuditLogJobData>(
-    QUEUE_NAMES.AUDIT_LOGS,
-    async (job: Job<AuditLogJobData>) => {
-      const { action, entity, entityId, module } = job.data;
-
-      console.log(
-        `[AuditWorker] Processing audit log: ${action} on ${entity}:${entityId} in ${module}`,
-      );
-
-      // TODO: Implementar criação real do audit log no banco
-      // await prisma.auditLog.create({
-      //   data: {
-      //     userId: job.data.userId,
-      //     action,
-      //     entity,
-      //     entityId,
-      //     module,
-      //     description: job.data.description,
-      //     oldData: job.data.oldData,
-      //     newData: job.data.newData,
-      //     metadata: job.data.metadata,
-      //     ip: job.data.ip,
-      //     userAgent: job.data.userAgent,
-      //   },
-      // });
-
-      console.log(`[AuditWorker] Audit log created for ${entity}:${entityId}`);
-    },
+export async function queueAuditLog(data: AuditLogJobData): Promise<void> {
+  auditLogger.info(
     {
-      concurrency: 20, // Alta concorrência para audit logs
-      limiter: {
-        max: 100,
-        duration: 1000, // 100 logs por segundo
-      },
+      userId: data.userId,
+      action: data.action,
+      entity: data.entity,
+      entityId: data.entityId,
+      module: data.module,
     },
+    `Audit: ${data.action} on ${data.entity}:${data.entityId}`,
   );
+}
+
+/**
+ * Registra múltiplos audit logs de uma vez
+ */
+export async function queueBulkAuditLogs(logs: AuditLogJobData[]): Promise<void> {
+  for (const data of logs) {
+    await queueAuditLog(data);
+  }
 }
