@@ -62,9 +62,64 @@ export class RefreshSessionUseCase {
       throw new UnauthorizedError('Invalid refresh token.');
     }
 
-    // Reuse detection: if the token was already revoked, someone is replaying
-    // a stolen token. Revoke the entire session + all its tokens as a security measure.
+    // Reuse detection: if the token was already revoked, check if it was
+    // recently revoked (within 30 seconds). If so, this is likely a legitimate
+    // concurrent request, not a replay attack. Return the current valid token.
     if (storedRefreshToken.revokedAt) {
+      const timeSinceRevoked = Date.now() - storedRefreshToken.revokedAt.getTime();
+      const GRACE_PERIOD_MS = 30_000; // 30 seconds
+
+      if (timeSinceRevoked < GRACE_PERIOD_MS) {
+        // Find the latest active (non-revoked) refresh token for this session
+        const latestToken = await this.refreshTokensRepository.findLatestBySessionId(
+          storedRefreshToken.sessionId,
+        );
+
+        if (latestToken && !latestToken.revokedAt && latestToken.expiresAt.getTime() > Date.now()) {
+          // Return the current valid session — this is a concurrent request
+          const storedSession = await this.sessionsRepository.findById(
+            storedRefreshToken.sessionId,
+          );
+          if (!storedSession || storedSession.expiredAt || storedSession.revokedAt) {
+            throw new UnauthorizedError('Session is no longer valid.');
+          }
+
+          // Re-sign a new access token for the concurrent request
+          const storedUser = await this.usersRepository.findById(storedRefreshToken.userId);
+          if (!storedUser || storedUser.deletedAt) {
+            throw new ResourceNotFoundError('User not found.');
+          }
+
+          const permissionCodes = await this.permissionService.getUserPermissionCodes(
+            storedRefreshToken.userId,
+          );
+
+          let tenant: { id: string; name: string; slug: string } | undefined;
+          if (storedSession.tenantId) {
+            const foundTenant = await this.tenantsRepository.findById(storedSession.tenantId);
+            if (foundTenant && foundTenant.isActive) {
+              tenant = {
+                id: foundTenant.tenantId.toString(),
+                name: foundTenant.name,
+                slug: foundTenant.slug,
+              };
+            }
+          }
+
+          const session = sessionToDTO(storedSession);
+          const refreshToken = refreshTokenToDTO(latestToken);
+
+          return {
+            session,
+            refreshToken,
+            permissions: permissionCodes,
+            tenant,
+            isSuperAdmin: storedUser.isSuperAdmin ?? false,
+          };
+        }
+      }
+
+      // Token revoked outside grace period — genuine reuse attack
       await this.refreshTokensRepository.revokeBySessionId(
         storedRefreshToken.sessionId,
       );

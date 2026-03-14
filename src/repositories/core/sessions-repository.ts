@@ -53,6 +53,7 @@ export interface SessionsRepository {
   findById(sessionId: UniqueEntityID): Promise<Session | null>;
 
   // LIST
+  findActiveByUserId(userId: UniqueEntityID): Promise<Session[]>;
   listAllActive(): Promise<Session[] | null>;
   listByUser(userId: UniqueEntityID): Promise<Session[] | null>;
   listByUserAndDate(

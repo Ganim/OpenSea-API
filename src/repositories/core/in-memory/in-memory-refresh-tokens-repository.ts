@@ -77,6 +77,14 @@ export class InMemoryRefreshTokensRepository
     return refreshToken;
   }
 
+  // RETRIEVE (latest)
+  async findLatestBySessionId(sessionId: UniqueEntityID): Promise<RefreshToken | null> {
+    const tokens = this.items
+      .filter(t => t.sessionId.equals(sessionId) && !t.revokedAt)
+      .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+    return tokens[0] ?? null;
+  }
+
   // LIST
   // - listBySession(sessionId: UniqueEntityID): Promise<RefreshToken[] | null>;
   async listBySession(

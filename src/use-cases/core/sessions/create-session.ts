@@ -58,6 +58,23 @@ export class CreateSessionUseCase {
         ip,
       });
 
+    // Revoke old active sessions from the same device to prevent accumulation
+    if (deviceInfo) {
+      const existingSessions = await this.sessionsRepository.findActiveByUserId(validId);
+      for (const existing of existingSessions) {
+        if (
+          existing.deviceInfo?.browserName === deviceInfo.browserName &&
+          existing.deviceInfo?.osName === deviceInfo.osName &&
+          !existing.expiredAt &&
+          !existing.revokedAt
+        ) {
+          await this.sessionsRepository.revoke(existing.id);
+          // Also revoke all refresh tokens for that session
+          await this.refreshTokensRepository.revokeBySessionId(existing.id);
+        }
+      }
+    }
+
     const newSession = await this.sessionsRepository.create({
       userId: validId,
       ip: validIp,
@@ -77,7 +94,7 @@ export class CreateSessionUseCase {
         sessionId: newSession.id.toString(),
         isSuperAdmin: user.isSuperAdmin ?? false,
       },
-      { sign: { sub: user.id.toString() } },
+      { sign: { sub: user.id.toString(), expiresIn: '30m' } },
     );
 
     const refreshToken = await reply.jwtSign(

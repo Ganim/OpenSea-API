@@ -80,6 +80,20 @@ export class PrismaRefreshTokensRepository implements RefreshTokensRepository {
     return mapRefreshTokenPrismaToDomain(refreshTokenDb);
   }
 
+  // RETRIEVE (latest)
+  async findLatestBySessionId(sessionId: UniqueEntityID): Promise<RefreshToken | null> {
+    const data = await prisma.refreshToken.findFirst({
+      where: {
+        sessionId: sessionId.toString(),
+        revokedAt: null,
+      },
+      orderBy: { createdAt: 'desc' },
+    });
+
+    if (!data) return null;
+    return mapRefreshTokenPrismaToDomain(data);
+  }
+
   // LIST
   // - listBySession(sessionId: UniqueEntityID): Promise<RefreshToken[] | null>;
 

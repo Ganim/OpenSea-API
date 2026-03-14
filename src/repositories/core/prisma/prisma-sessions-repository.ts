@@ -177,6 +177,17 @@ export class PrismaSessionsRepository implements SessionsRepository {
   // - listByUser(userId: UniqueEntityID): Promise<Session[] | null>;
   // - listByUserAndDate(userId: UniqueEntityID, from: Date, to: Date): Promise<Session[] | null>;
 
+  async findActiveByUserId(userId: UniqueEntityID): Promise<Session[]> {
+    const sessions = await prisma.session.findMany({
+      where: {
+        userId: userId.toString(),
+        expiredAt: null,
+        revokedAt: null,
+      },
+    });
+    return sessions.map(mapSessionPrismaToDomain);
+  }
+
   async listAllActive(): Promise<Session[] | null> {
     const sessionsDb = await prisma.session.findMany({
       where: {
