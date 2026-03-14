@@ -18,7 +18,6 @@ import { makeSaveEmailDraftUseCase } from '@/use-cases/email/messages/factories/
 import { makeSendEmailMessageUseCase } from '@/use-cases/email/messages/factories/make-send-email-message-use-case';
 import { makeSuggestEmailContactsUseCase } from '@/use-cases/email/messages/factories/make-suggest-email-contacts-use-case';
 import { makeToggleEmailMessageFlagUseCase } from '@/use-cases/email/messages/factories/make-toggle-email-message-flag-use-case';
-import { queueEmailSync } from '@/workers/queues/email-sync.queue';
 import rateLimit from '@fastify/rate-limit';
 import '@fastify/multipart';
 import type { FastifyInstance } from 'fastify';
@@ -462,17 +461,11 @@ export async function emailMessagesRoutes(app: FastifyInstance) {
           bodyHtml: request.body.bodyHtml,
         });
 
-        // Fire-and-forget: queue an email sync so the draft appears
-        // in the local database (the use case only appends to IMAP).
-        queueEmailSync({
-          tenantId,
-          accountId: request.body.accountId,
-        }).catch((err) => {
-          logger.warn(
-            { err, accountId: request.body.accountId },
-            '[SaveDraft] Failed to queue post-draft sync (non-critical)',
-          );
-        });
+        // Draft saved to IMAP — sync will pick up changes on next periodic cycle
+        logger.info(
+          { tenantId, accountId: request.body.accountId },
+          'Draft saved — sync will pick up changes on next periodic cycle',
+        );
 
         return reply.status(201).send(result);
       } catch (error) {

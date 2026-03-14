@@ -64,7 +64,9 @@ export async function authenticateWithPasswordController(app: FastifyInstance) {
           });
 
         // Clear brute-force counter on successful login
-        clearLoginFailures(ip).catch(() => {});
+        clearLoginFailures(ip).catch((err) => {
+          logger.error({ err, ip }, 'Failed to clear login failure counter');
+        });
 
         // Auditoria de login bem-sucedido
         await logAudit(request, {
@@ -152,7 +154,9 @@ export async function authenticateWithPasswordController(app: FastifyInstance) {
           error instanceof BadRequestError ||
           error instanceof ResourceNotFoundError
         ) {
-          recordLoginFailure(ip).catch(() => {});
+          recordLoginFailure(ip).catch((err) => {
+            logger.error({ err, ip }, 'Failed to record login failure');
+          });
         }
 
         if (error instanceof BadRequestError) {

@@ -6,6 +6,7 @@ import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
+import { createModuleMiddleware } from '@/http/middlewares/tenant/verify-module';
 import { logger } from '@/lib/logger';
 import { makeCreateEmailAccountUseCase } from '@/use-cases/email/accounts/factories/make-create-email-account-use-case';
 import { makeDeleteEmailAccountUseCase } from '@/use-cases/email/accounts/factories/make-delete-email-account-use-case';
@@ -15,15 +16,13 @@ import { makeShareEmailAccountUseCase } from '@/use-cases/email/accounts/factori
 import { makeTestEmailConnectionUseCase } from '@/use-cases/email/accounts/factories/make-test-email-connection-use-case';
 import { makeUnshareEmailAccountUseCase } from '@/use-cases/email/accounts/factories/make-unshare-email-account-use-case';
 import { makeUpdateEmailAccountUseCase } from '@/use-cases/email/accounts/factories/make-update-email-account-use-case';
-import { makeSyncEmailAccountUseCase } from '@/use-cases/email/sync/factories/make-sync-email-account-use-case';
 import {
-  isEmailHostObviouslySafe,
-  isEmailPortValid,
+    isEmailHostObviouslySafe,
+    isEmailPortValid,
 } from '@/utils/security/validate-email-host';
-import { queueEmailSync } from '@/workers/queues/email-sync.queue';
+import { makeSyncEmailAccountUseCase } from '@/use-cases/email/sync/factories/make-sync-email-account-use-case';
 import rateLimit from '@fastify/rate-limit';
 import type { FastifyInstance } from 'fastify';
-import { createModuleMiddleware } from '@/http/middlewares/tenant/verify-module';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
@@ -104,7 +103,8 @@ const emailAccountAccessSchema = z.object({
 
 const MANUAL_EMAIL_SYNC_DEDUP_WINDOW_MS = 30_000;
 
-// In-memory throttle for inline sync when BullMQ is disabled
+// In-memory dedup set for inline sync (replaces BullMQ job dedup)
+const recentSyncs = new Set<string>();
 
 export async function emailAccountsRoutes(app: FastifyInstance) {
   app.addHook('onRequest', createModuleMiddleware('EMAIL'));
@@ -400,10 +400,10 @@ export async function emailAccountsRoutes(app: FastifyInstance) {
       security: [{ bearerAuth: [] }],
       params: z.object({ id: z.string().uuid() }),
       response: {
-        200: z.object({ message: z.string() }),
         202: z.object({ message: z.string() }),
         403: z.object({ message: z.string() }),
         404: z.object({ message: z.string() }),
+        503: z.object({ message: z.string() }),
       },
     },
     handler: async (request, reply) => {
@@ -415,41 +415,31 @@ export async function emailAccountsRoutes(app: FastifyInstance) {
         const getAccount = makeGetEmailAccountUseCase();
         await getAccount.execute({ tenantId, userId, accountId });
 
-        // Try BullMQ first (async, returns 202 immediately)
-        try {
-          const bucket = Math.floor(
-            Date.now() / MANUAL_EMAIL_SYNC_DEDUP_WINDOW_MS,
-          );
-          const jobId = `manual-email-sync-${tenantId}-${accountId}-${bucket}`;
+        // Dedup: skip if another sync was triggered within the window
+        const bucket = Math.floor(
+          Date.now() / MANUAL_EMAIL_SYNC_DEDUP_WINDOW_MS,
+        );
+        const dedupKey = `manual-email-sync-${tenantId}-${accountId}-${bucket}`;
+        if (recentSyncs.has(dedupKey)) {
+          logger.info({ tenantId, accountId }, 'Manual sync deduplicated — already triggered recently');
+        } else {
+          recentSyncs.add(dedupKey);
+          // Auto-cleanup after the dedup window
+          setTimeout(() => recentSyncs.delete(dedupKey), MANUAL_EMAIL_SYNC_DEDUP_WINDOW_MS).unref();
 
-          const job = await queueEmailSync({ tenantId, accountId }, { jobId });
-          logger.info(
-            { jobId: job.id, tenantId, accountId },
-            'Manual email sync enqueued',
-          );
-
-          return reply.status(202).send({
-            message: 'Sincronização manual agendada.',
-          });
-        } catch (queueError) {
-          // BullMQ/Redis unavailable — fall back to inline sync
-          logger.warn(
-            { err: queueError, tenantId, accountId },
-            'BullMQ unavailable, falling back to inline sync',
-          );
-
+          // Fire-and-forget inline sync (no Redis/BullMQ dependency)
           const syncUseCase = makeSyncEmailAccountUseCase();
-          const result = await syncUseCase.execute({ tenantId, accountId });
-
-          logger.info(
-            { tenantId, accountId, ...result },
-            'Inline email sync completed',
-          );
-
-          return reply.status(200).send({
-            message: `Sincronização concluída: ${result.syncedMessages} mensagens sincronizadas.`,
+          syncUseCase.execute({ tenantId, accountId }).catch((err) => {
+            logger.error(
+              { err, tenantId, accountId },
+              'Inline manual email sync failed',
+            );
           });
         }
+
+        return reply.status(202).send({
+          message: 'Sincronização manual agendada.',
+        });
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });

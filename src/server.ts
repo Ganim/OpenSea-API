@@ -1,11 +1,35 @@
-import { moduleLoadStart } from './startup-banner';
+import { appendFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { env } from './@env';
 import { app } from './app';
-import { prisma } from './lib/prisma';
 import { httpLogger } from './lib/logger';
+import { prisma } from './lib/prisma';
+import { moduleLoadStart } from './startup-banner';
 
 let isShuttingDown = false;
 const SHUTDOWN_TIMEOUT_MS = 15_000;
+
+// Crash log file — written synchronously so it survives process.exit()
+const CRASH_LOG_PATH = join(process.cwd(), 'crash.log');
+
+function writeCrashLog(label: string, reason: unknown): void {
+  try {
+    const mem = process.memoryUsage();
+    const lines = [
+      `\n========================================`,
+      `[${new Date().toISOString()}] ${label}`,
+      `Uptime: ${Math.round(process.uptime())}s`,
+      `Heap: ${Math.round(mem.heapUsed / 1024 / 1024)}MB / ${Math.round(mem.heapTotal / 1024 / 1024)}MB  RSS: ${Math.round(mem.rss / 1024 / 1024)}MB`,
+      reason instanceof Error
+        ? `Error: ${reason.message}\nStack:\n${reason.stack}`
+        : `Reason: ${String(reason)}`,
+      `========================================`,
+    ].join('\n');
+    appendFileSync(CRASH_LOG_PATH, lines + '\n');
+  } catch {
+    // If writing to the crash log fails, there's nothing we can do
+  }
+}
 
 // Global error handlers
 // NÃO usar process.exit(1) em unhandledRejection — erros temporários de Redis/IMAP
@@ -18,6 +42,7 @@ process.on('unhandledRejection', (reason) => {
     Math.round(mem.heapUsed / 1024 / 1024),
     Math.round(mem.rss / 1024 / 1024),
   );
+  writeCrashLog('UNHANDLED REJECTION', reason);
   // Log mas não mata o processo — permite reconexão automática de Redis/BullMQ
 });
 
@@ -30,6 +55,7 @@ process.on('uncaughtException', (error) => {
     Math.round(mem.rss / 1024 / 1024),
   );
   console.error('[FATAL] Uptime: %ds', Math.round(process.uptime()));
+  writeCrashLog('UNCAUGHT EXCEPTION', error);
   // uncaughtException é mais grave — o estado do processo pode estar corrompido
   // Dá 3s para flush de logs antes de sair
   setTimeout(() => process.exit(1), 3000);
@@ -99,6 +125,15 @@ async function gracefulShutdown(signal: string) {
     // Close HTTP server (stop accepting new connections)
     await app.close();
     console.log('[shutdown] HTTP server closed');
+
+    // Close any BullMQ queues that may have been lazily created
+    try {
+      const { closeAllQueues } = await import('@/lib/queue');
+      await closeAllQueues();
+      console.log('[shutdown] Queue connections closed');
+    } catch {
+      // Queue module may not have been loaded
+    }
 
     // Disconnect Prisma (release DB connections)
     await prisma.$disconnect();
