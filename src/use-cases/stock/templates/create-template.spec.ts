@@ -80,20 +80,20 @@ describe('CreateTemplateUseCase', () => {
     ).rejects.toThrow(BadRequestError);
   });
 
-  it('should not create a template with duplicate name', async () => {
+  it('should auto-suffix duplicate name with (2)', async () => {
     await sut.execute({
       tenantId: 'tenant-1',
       name: 'Electronics Template',
       productAttributes: { brand: templateAttr.string() },
     });
 
-    await expect(
-      sut.execute({
-        tenantId: 'tenant-1',
-        name: 'Electronics Template',
-        productAttributes: { model: templateAttr.string() },
-      }),
-    ).rejects.toThrow(BadRequestError);
+    const result = await sut.execute({
+      tenantId: 'tenant-1',
+      name: 'Electronics Template',
+      productAttributes: { model: templateAttr.string() },
+    });
+
+    expect(result.template.name).toBe('Electronics Template (2)');
   });
 
   it('should create a template without any attributes', async () => {

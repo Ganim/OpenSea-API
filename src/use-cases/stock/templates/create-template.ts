@@ -69,13 +69,23 @@ export class CreateTemplateUseCase {
       (unitOfMeasure as 'METERS' | 'KILOGRAMS' | 'UNITS') ?? 'UNITS',
     );
 
-    // Check if template with same name already exists
+    // If a template with the same name exists, append (2), (3), etc.
+    let finalName = name;
     const existingTemplate = await this.templatesRepository.findByName(
       name,
       tenantId,
     );
     if (existingTemplate) {
-      throw new BadRequestError('Template with this name already exists');
+      let suffix = 2;
+      while (
+        await this.templatesRepository.findByName(
+          `${name} (${suffix})`,
+          tenantId,
+        )
+      ) {
+        suffix++;
+      }
+      finalName = `${name} (${suffix})`;
     }
 
     // Save to repository - code will be auto-generated from sequentialCode if not provided
@@ -83,7 +93,7 @@ export class CreateTemplateUseCase {
     const createdTemplate = await this.templatesRepository.create({
       tenantId,
       code, // Will be set in repository or left undefined for auto-generation
-      name,
+      name: finalName,
       iconUrl,
       unitOfMeasure: templateUnitOfMeasure,
       productAttributes: productAttributes ?? {},
