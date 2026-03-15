@@ -39,7 +39,15 @@ const cacheControlPlugin: FastifyPluginAsync = async (app) => {
     const maxAge = isPublic ? 300 : 60;
     const scope = isPublic ? 'public' : 'private';
 
-    reply.header('Cache-Control', `${scope}, max-age=${maxAge}`);
+    // Use no-cache + ETag for authenticated endpoints so the browser always
+    // revalidates with If-None-Match. This ensures React Query invalidation
+    // fetches fresh data while still benefiting from 304 when data hasn't changed.
+    // Public endpoints keep max-age for full caching.
+    if (isPublic) {
+      reply.header('Cache-Control', `public, max-age=${maxAge}`);
+    } else {
+      reply.header('Cache-Control', 'private, no-cache');
+    }
 
     // ETag apenas para payloads string (JSON responses)
     if (typeof payload === 'string' && payload.length > 0) {
