@@ -74,6 +74,18 @@ export class CreateCategoryUseCase {
       }
     }
 
+    // Auto-calculate displayOrder if not provided
+    let finalDisplayOrder = displayOrder;
+    if (finalDisplayOrder === undefined) {
+      const siblings = parentId
+        ? await this.categoriesRepository.findManyByParent(
+            new UniqueEntityID(parentId),
+            tenantId,
+          )
+        : await this.categoriesRepository.findManyRootCategories(tenantId);
+      finalDisplayOrder = siblings.length;
+    }
+
     const newCategory = await this.categoriesRepository.create({
       tenantId,
       name,
@@ -81,7 +93,7 @@ export class CreateCategoryUseCase {
       description,
       iconUrl,
       parentId: parentId ? new UniqueEntityID(parentId) : undefined,
-      displayOrder,
+      displayOrder: finalDisplayOrder,
       isActive,
     });
 

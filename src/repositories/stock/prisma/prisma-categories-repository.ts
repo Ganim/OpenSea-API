@@ -162,6 +162,7 @@ export class PrismaCategoriesRepository implements CategoriesRepository {
         tenantId,
         deletedAt: null,
       },
+      orderBy: { displayOrder: 'asc' },
       include: CATEGORY_COUNT_INCLUDE,
     });
 
@@ -198,6 +199,7 @@ export class PrismaCategoriesRepository implements CategoriesRepository {
         tenantId,
         deletedAt: null,
       },
+      orderBy: { displayOrder: 'asc' },
       include: CATEGORY_COUNT_INCLUDE,
     });
 
@@ -231,6 +233,7 @@ export class PrismaCategoriesRepository implements CategoriesRepository {
         tenantId,
         deletedAt: null,
       },
+      orderBy: { displayOrder: 'asc' },
       include: CATEGORY_COUNT_INCLUDE,
     });
 
@@ -262,6 +265,7 @@ export class PrismaCategoriesRepository implements CategoriesRepository {
         isActive: true,
         deletedAt: null,
       },
+      orderBy: { displayOrder: 'asc' },
       include: CATEGORY_COUNT_INCLUDE,
     });
 
