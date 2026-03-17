@@ -112,6 +112,7 @@ const workerHealthSchema = z.object({
   status: z.enum(['active', 'stale', 'error']),
   lastSyncAt: z.string().nullable(),
   lastJobState: z.string().nullable(),
+  idleStatus: z.enum(['idle', 'syncing', 'degraded', 'disconnected']),
   error: z.string().nullable(),
 });
 

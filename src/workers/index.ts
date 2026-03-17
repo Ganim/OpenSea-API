@@ -1,4 +1,8 @@
 import { closeAllQueues } from '@/lib/queue';
+import { prisma } from '@/lib/prisma';
+import { PrismaEmailAccountsRepository } from '@/repositories/email/prisma/prisma-email-accounts-repository';
+import { CredentialCipherService } from '@/services/email/credential-cipher.service';
+import { getImapIdleManager } from '@/services/email/imap-idle-manager';
 import { stopCalendarRemindersScheduler } from './calendar-reminders-scheduler';
 import {
   startEmailSyncScheduler,
@@ -10,6 +14,59 @@ import { startNotificationWorker } from './queues/notification.queue';
 
 let workersStarted = false;
 let isShuttingDown = false;
+
+/**
+ * Start IMAP IDLE monitoring for all active email accounts.
+ * Non-critical — failures are logged but don't prevent worker startup.
+ */
+async function startIdleMonitoring(): Promise<void> {
+  const idleManager = getImapIdleManager();
+  const cipher = new CredentialCipherService();
+
+  // Get all active accounts across all tenants (same pattern as scheduler)
+  const tenantIds = await prisma.emailAccount.findMany({
+    where: { isActive: true },
+    select: { tenantId: true },
+    distinct: ['tenantId'],
+  });
+
+  const repo = new PrismaEmailAccountsRepository();
+  const accounts = [];
+  for (const { tenantId } of tenantIds) {
+    const tenantAccounts = await repo.listActive(tenantId);
+    accounts.push(...tenantAccounts);
+  }
+
+  let started = 0;
+  for (const account of accounts) {
+    try {
+      const secret = cipher.decrypt(account.encryptedSecret);
+
+      await idleManager.startMonitoring({
+        id: account.id.toString(),
+        tenantId: account.tenantId.toString(),
+        imapConfig: {
+          host: account.imapHost,
+          port: account.imapPort,
+          secure: account.imapSecure,
+          username: account.username,
+          secret,
+          rejectUnauthorized: account.tlsVerify,
+        },
+      });
+      started++;
+    } catch (err) {
+      console.error(
+        `[Workers] Failed to start IDLE for account ${account.id.toString()}:`,
+        err,
+      );
+    }
+  }
+
+  if (started > 0) {
+    console.log(`[Workers] IDLE monitoring started for ${started} account(s)`);
+  }
+}
 
 /**
  * Inicia todos os workers de fila
@@ -32,6 +89,13 @@ export async function startAllWorkers(): Promise<void> {
     console.error('[Workers] Failed to start email sync scheduler:', err);
   }
 
+  // Start IMAP IDLE real-time monitoring (non-critical)
+  try {
+    await startIdleMonitoring();
+  } catch (err) {
+    console.error('[Workers] Failed to start IDLE monitoring:', err);
+  }
+
   workersStarted = true;
   console.log('[Workers] All workers started successfully');
 }
@@ -42,7 +106,10 @@ export async function startAllWorkers(): Promise<void> {
 export async function stopAllWorkers(): Promise<void> {
   console.log('[Workers] Stopping all queue workers...');
 
-  // Stop all schedulers first (prevent new jobs from being enqueued)
+  // Stop IDLE monitoring first (closes persistent IMAP connections)
+  await getImapIdleManager().stopAll();
+
+  // Stop all schedulers (prevent new jobs from being enqueued)
   stopCalendarRemindersScheduler();
   stopEmailSyncScheduler();
   stopNotificationsScheduler();

@@ -3,6 +3,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import type { EmailAccountsRepository } from '@/repositories/email';
 import type { CredentialCipherService } from '@/services/email/credential-cipher.service';
 import { createImapClient } from '@/services/email/imap-client.service';
+import { getImapIdleManager } from '@/services/email/imap-idle-manager';
 import type { SmtpClientService } from '@/services/email/smtp-client.service';
 import { getEmailSyncQueueInstance } from '@/workers/queues/email-sync.queue';
 import { logger } from '@/lib/logger';
@@ -33,6 +34,7 @@ interface WorkerHealth extends ServiceHealth {
   status: 'active' | 'stale' | 'error';
   lastSyncAt: string | null;
   lastJobState: string | null;
+  idleStatus: 'idle' | 'syncing' | 'degraded' | 'disconnected';
 }
 
 export interface EmailAccountHealthResult {
@@ -100,7 +102,7 @@ export class CheckEmailAccountHealthUseCase {
     const worker: WorkerHealth =
       workerResult.status === 'fulfilled'
         ? workerResult.value
-        : { status: 'error', lastSyncAt: null, lastJobState: null, error: workerResult.reason?.message ?? 'Unknown error' };
+        : { status: 'error', lastSyncAt: null, lastJobState: null, idleStatus: 'disconnected', error: workerResult.reason?.message ?? 'Unknown error' };
 
     return { imap, smtp, worker };
   }
@@ -180,6 +182,8 @@ export class CheckEmailAccountHealthUseCase {
     accountId: string,
     lastSyncAt: Date | null,
   ): Promise<WorkerHealth> {
+    const idleStatus = getImapIdleManager().getStatus(accountId);
+
     try {
       const queue = getEmailSyncQueueInstance();
       const jobs = await queue.getJobs(
@@ -209,6 +213,7 @@ export class CheckEmailAccountHealthUseCase {
           status: 'error',
           lastSyncAt: lastSyncIso,
           lastJobState,
+          idleStatus,
           error: 'Último job de sincronização falhou',
         };
       }
@@ -219,6 +224,7 @@ export class CheckEmailAccountHealthUseCase {
           status: accountJobs.length === 0 ? 'error' : 'active',
           lastSyncAt: null,
           lastJobState,
+          idleStatus,
           error: accountJobs.length === 0 ? 'Nenhum job de sincronização encontrado' : null,
         };
       }
@@ -230,6 +236,7 @@ export class CheckEmailAccountHealthUseCase {
           status: 'stale',
           lastSyncAt: lastSyncIso,
           lastJobState,
+          idleStatus,
           error: null,
         };
       }
@@ -238,6 +245,7 @@ export class CheckEmailAccountHealthUseCase {
         status: 'active',
         lastSyncAt: lastSyncIso,
         lastJobState,
+        idleStatus,
         error: null,
       };
     } catch (err) {
@@ -247,6 +255,7 @@ export class CheckEmailAccountHealthUseCase {
         status: 'error',
         lastSyncAt: lastSyncAt ? lastSyncAt.toISOString() : null,
         lastJobState: null,
+        idleStatus,
         error: detail,
       };
     }

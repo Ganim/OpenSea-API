@@ -6,7 +6,8 @@ import {
   getEmailSyncQueueInstance,
 } from './queues/email-sync.queue';
 
-const INTERVAL_MS = 5 * 60 * 1000;
+// 15 min — IMAP IDLE handles real-time INBOX notifications; this is a safety-net
+const INTERVAL_MS = 15 * 60 * 1000;
 
 let intervalId: ReturnType<typeof setInterval> | null = null;
 let consecutiveErrors = 0;
