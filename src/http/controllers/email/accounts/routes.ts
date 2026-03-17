@@ -13,6 +13,7 @@ import { makeDeleteEmailAccountUseCase } from '@/use-cases/email/accounts/factor
 import { makeGetEmailAccountUseCase } from '@/use-cases/email/accounts/factories/make-get-email-account-use-case';
 import { makeListEmailAccountsUseCase } from '@/use-cases/email/accounts/factories/make-list-email-accounts-use-case';
 import { makeShareEmailAccountUseCase } from '@/use-cases/email/accounts/factories/make-share-email-account-use-case';
+import { makeCheckEmailAccountHealthUseCase } from '@/use-cases/email/accounts/factories/make-check-email-account-health';
 import { makeTestEmailConnectionUseCase } from '@/use-cases/email/accounts/factories/make-test-email-connection-use-case';
 import { makeUnshareEmailAccountUseCase } from '@/use-cases/email/accounts/factories/make-unshare-email-account-use-case';
 import { makeUpdateEmailAccountUseCase } from '@/use-cases/email/accounts/factories/make-update-email-account-use-case';
@@ -99,6 +100,25 @@ const emailAccountAccessSchema = z.object({
   canSend: z.boolean(),
   canManage: z.boolean(),
   createdAt: z.coerce.date(),
+});
+
+const serviceHealthSchema = z.object({
+  status: z.string(),
+  latencyMs: z.number(),
+  error: z.string().nullable(),
+});
+
+const workerHealthSchema = z.object({
+  status: z.enum(['active', 'stale', 'error']),
+  lastSyncAt: z.string().nullable(),
+  lastJobState: z.string().nullable(),
+  error: z.string().nullable(),
+});
+
+const checkEmailAccountHealthResponseSchema = z.object({
+  imap: serviceHealthSchema.extend({ status: z.enum(['connected', 'error']) }),
+  smtp: serviceHealthSchema.extend({ status: z.enum(['connected', 'error']) }),
+  worker: workerHealthSchema,
 });
 
 const MANUAL_EMAIL_SYNC_DEDUP_WINDOW_MS = 30_000;
@@ -372,6 +392,53 @@ export async function emailAccountsRoutes(app: FastifyInstance) {
         if (error instanceof BadRequestError) {
           return reply.status(400).send({ message: error.message });
         }
+        if (error instanceof ResourceNotFoundError) {
+          return reply.status(404).send({ message: error.message });
+        }
+        if (error instanceof ForbiddenError) {
+          return reply.status(403).send({ message: error.message });
+        }
+        throw error;
+      }
+    },
+  });
+
+  app.withTypeProvider<ZodTypeProvider>().route({
+    method: 'GET',
+    url: '/v1/email/accounts/:id/health',
+    onRequest: [
+      verifyJwt,
+      verifyTenant,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.EMAIL.ACCOUNTS.READ,
+        resource: 'email-accounts',
+      }),
+    ],
+    schema: {
+      tags: ['Email - Accounts'],
+      summary: 'Check email account health (IMAP, SMTP, Worker)',
+      security: [{ bearerAuth: [] }],
+      params: z.object({ id: z.string().uuid() }),
+      response: {
+        200: checkEmailAccountHealthResponseSchema,
+        403: z.object({ message: z.string() }),
+        404: z.object({ message: z.string() }),
+      },
+    },
+    handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
+      const userId = request.user.sub;
+
+      try {
+        const useCase = makeCheckEmailAccountHealthUseCase();
+        const result = await useCase.execute({
+          tenantId,
+          userId,
+          accountId: request.params.id,
+        });
+
+        return reply.status(200).send(result);
+      } catch (error) {
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });
         }
