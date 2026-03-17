@@ -13,6 +13,7 @@ import type {
   SmtpAttachmentInput,
   SmtpClientService,
 } from '@/services/email/smtp-client.service';
+import { getNotificationSuppressor } from '@/services/email/notification-suppressor.service';
 import { queueAuditLog } from '@/workers/queues/audit.queue';
 import MailComposer from 'nodemailer/lib/mail-composer/index.js';
 
@@ -105,6 +106,11 @@ export class SendEmailMessageUseCase {
         references: request.references,
       },
     );
+
+    // Suppress notification for the sent message appearing in Sent folder during next sync
+    getNotificationSuppressor()
+      .suppress(account.id.toString(), 'SENT', messageId)
+      .catch(() => {});
 
     // Fire-and-forget: append to IMAP Sent folder and mark original as answered.
     // These are non-critical and should NOT block the HTTP response — SMTP

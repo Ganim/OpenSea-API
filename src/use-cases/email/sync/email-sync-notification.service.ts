@@ -1,5 +1,6 @@
 import { logger } from '@/lib/logger';
 import type { EmailAccountsRepository } from '@/repositories/email';
+import { getNotificationSuppressor } from '@/services/email/notification-suppressor.service';
 import { makeCreateFromTemplateUseCase } from '@/use-cases/notifications/factories/make-create-from-template-use-case';
 import type { CreatedMessageRef } from './sync-email-folder';
 import type { EmailSyncNotificationService } from './sync-email-account';
@@ -24,6 +25,27 @@ export class EmailSyncNotificationServiceImpl
     syncedMessages: number;
     messages?: CreatedMessageRef[];
   }): Promise<void> {
+    // ── Filter out suppressed messages (user-initiated actions) ─────
+    const suppressor = getNotificationSuppressor();
+    const rawMessages = params.messages ?? [];
+    const genuineMessages: CreatedMessageRef[] = [];
+
+    for (const msg of rawMessages) {
+      const suppressed = await suppressor
+        .isSuppressed(
+          params.accountId,
+          'INBOX',
+          msg.remoteUid?.toString() ?? msg.id,
+        )
+        .catch(() => false);
+
+      if (!suppressed) {
+        genuineMessages.push(msg);
+      }
+    }
+
+    if (genuineMessages.length === 0) return; // All suppressed, nothing to notify
+
     // ── Resolve all users who should receive notifications ──────────
     const accessList = await this.emailAccountsRepository.listAccess(
       params.accountId,
@@ -38,9 +60,9 @@ export class EmailSyncNotificationServiceImpl
     const recipients = [...recipientIds];
     const createFromTemplate = makeCreateFromTemplateUseCase();
 
-    const messages = params.messages ?? [];
     const useBatch =
-      messages.length === 0 || messages.length > PER_EMAIL_THRESHOLD;
+      genuineMessages.length === 0 ||
+      genuineMessages.length > PER_EMAIL_THRESHOLD;
 
     try {
       if (useBatch) {
@@ -53,7 +75,7 @@ export class EmailSyncNotificationServiceImpl
                 userId,
                 variables: {
                   accountAddress: params.accountAddress,
-                  count: params.syncedMessages,
+                  count: genuineMessages.length,
                 },
                 channel: 'IN_APP',
                 actionUrl: '/email?aid=central',
@@ -62,7 +84,7 @@ export class EmailSyncNotificationServiceImpl
                 entityId: params.accountId,
                 metadata: {
                   accountAddress: params.accountAddress,
-                  count: params.syncedMessages,
+                  count: genuineMessages.length,
                 },
               })
               .catch((err) => {
@@ -77,7 +99,7 @@ export class EmailSyncNotificationServiceImpl
         // ── Per-email notifications ────────────────────────────────
         await Promise.all(
           recipients.flatMap((userId) =>
-            messages.map((msg) =>
+            genuineMessages.map((msg) =>
               createFromTemplate
                 .execute({
                   templateCode: 'email.new_message',

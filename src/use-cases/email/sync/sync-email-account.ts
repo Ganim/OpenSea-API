@@ -130,6 +130,7 @@ export class SyncEmailAccountUseCase {
     let syncedFolders = 0;
     let syncedMessages = 0;
     const allCreatedMessages: CreatedMessageRef[] = [];
+    const inboxCreatedMessages: CreatedMessageRef[] = [];
 
     try {
       const mailboxes = (await client.list()) as ImapMailbox[];
@@ -189,6 +190,9 @@ export class SyncEmailAccountUseCase {
             syncedFolders += 1;
             syncedMessages += syncResult.synced;
             allCreatedMessages.push(...syncResult.createdMessages);
+            if (type === 'INBOX') {
+              inboxCreatedMessages.push(...syncResult.createdMessages);
+            }
             lastError = null;
             break; // Success — move to next folder
           } catch (folderError) {
@@ -216,15 +220,15 @@ export class SyncEmailAccountUseCase {
         lastSyncAt: new Date(),
       });
 
-      if (syncedMessages > 0 && this.emailSyncNotificationService) {
+      if (inboxCreatedMessages.length > 0 && this.emailSyncNotificationService) {
         await this.emailSyncNotificationService
           .notifyNewMessages({
             tenantId,
             accountId: account.id.toString(),
             accountAddress: account.address,
             ownerUserId: account.ownerUserId.toString(),
-            syncedMessages,
-            messages: allCreatedMessages,
+            syncedMessages: inboxCreatedMessages.length,
+            messages: inboxCreatedMessages,
           })
           .catch(() => undefined);
       }

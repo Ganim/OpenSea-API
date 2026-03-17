@@ -8,6 +8,7 @@ import type {
 } from '@/repositories/email';
 import type { CredentialCipherService } from '@/services/email/credential-cipher.service';
 import { getImapConnectionPool } from '@/services/email/imap-connection-pool';
+import { getNotificationSuppressor } from '@/services/email/notification-suppressor.service';
 
 interface DeleteEmailMessageRequest {
   tenantId: string;
@@ -135,6 +136,15 @@ export class DeleteEmailMessageUseCase {
           tenantId,
           folderId: trashFolder.id.toString(),
         });
+
+        // Suppress notification for the message appearing in Trash during next sync
+        getNotificationSuppressor()
+          .suppress(
+            account.id.toString(),
+            trashFolder.id.toString(),
+            message.remoteUid.toString(),
+          )
+          .catch(() => {});
       } finally {
         lock.release();
       }

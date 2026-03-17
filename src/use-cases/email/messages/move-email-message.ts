@@ -8,6 +8,7 @@ import type {
 } from '@/repositories/email';
 import type { CredentialCipherService } from '@/services/email/credential-cipher.service';
 import { getImapConnectionPool } from '@/services/email/imap-connection-pool';
+import { getNotificationSuppressor } from '@/services/email/notification-suppressor.service';
 
 interface MoveEmailMessageRequest {
   tenantId: string;
@@ -104,6 +105,15 @@ export class MoveEmailMessageUseCase {
         tenantId: request.tenantId,
         folderId: targetFolder.id.toString(),
       });
+
+      // Suppress notification for the message appearing in target folder during next sync
+      getNotificationSuppressor()
+        .suppress(
+          account.id.toString(),
+          targetFolder.id.toString(),
+          message.remoteUid.toString(),
+        )
+        .catch(() => {});
     } catch (_error) {
       pool.destroy(accountIdStr);
       throw new BadRequestError('Failed to move email message');
