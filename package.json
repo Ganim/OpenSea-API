@@ -4,7 +4,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "node --stack-size=16384 --max-old-space-size=512 --import tsx/esm --env-file=.env --watch-path=src src/server.ts",
+    "dev": "tsx watch --env-file=.env --clear-screen=false src/server.ts",
     "build": "tsup",
     "start": "node --stack-size=16384 --env-file=.env build/server.js",
     "notifications:worker": "tsx --env-file=.env src/workers/notifications-scheduler.ts",

@@ -4,7 +4,7 @@
 
 ```bash
 # Development
-npm run dev                    # Start dev server (http://localhost:3333)
+npm run dev                    # Start dev server with tsx watch (http://localhost:3333)
 
 # Testing
 npm run test                   # Run unit tests
