@@ -18,5 +18,6 @@ export * from './purchase-orders';
 export * from './care';
 export * from './labels';
 export * from './address';
+export * from './locations';
 export * from './product-care-instructions';
 export * from './attachments';

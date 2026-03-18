@@ -56,6 +56,7 @@ import { tagsRoutes } from './controllers/stock/tags/routes';
 import { templatesRoutes } from './controllers/stock/templates/routes';
 import { variantsRoutes } from './controllers/stock/variants/routes';
 import { volumesRoutes } from './controllers/stock/volumes/routes';
+import { locationsRoutes } from './controllers/stock/locations/routes';
 import { warehousesRoutes } from './controllers/stock/warehouses/routes';
 import { zonesRoutes } from './controllers/stock/zones/routes';
 
@@ -150,6 +151,7 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(categoriesRoutes);
   await app.register(manufacturersRoutes);
   await app.register(suppliersRoutes);
+  await app.register(locationsRoutes);
   await app.register(warehousesRoutes);
   await app.register(zonesRoutes);
   await app.register(binsRoutes);
