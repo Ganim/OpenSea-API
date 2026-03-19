@@ -2,6 +2,7 @@ import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
+import { paginationSchema } from '@/http/schemas';
 import { manufacturerResponseSchema } from '@/http/schemas/stock/manufacturers';
 import { manufacturerToDTO } from '@/mappers/stock/manufacturer/manufacturer-to-dto';
 import { makeListManufacturersUseCase } from '@/use-cases/stock/manufacturers/factories/make-list-manufacturers-use-case';
@@ -24,9 +25,23 @@ export async function listManufacturersController(app: FastifyInstance) {
     schema: {
       tags: ['Stock - Manufacturers'],
       summary: 'List all manufacturers',
+      querystring: paginationSchema.extend({
+        search: z.string().max(200).optional(),
+        sortBy: z
+          .enum(['name', 'createdAt', 'updatedAt'])
+          .optional()
+          .default('name'),
+        sortOrder: z.enum(['asc', 'desc']).optional().default('asc'),
+      }),
       response: {
         200: z.object({
           manufacturers: z.array(manufacturerResponseSchema),
+          meta: z.object({
+            total: z.number(),
+            page: z.number(),
+            limit: z.number(),
+            pages: z.number(),
+          }),
         }),
       },
       security: [{ bearerAuth: [] }],
@@ -34,14 +49,21 @@ export async function listManufacturersController(app: FastifyInstance) {
 
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
+      const { search, sortBy, sortOrder, page, limit } = request.query;
 
-      const useCase = makeListManufacturersUseCase();
-
-      const result = await useCase.execute({ tenantId });
-
-      return reply.send({
-        manufacturers: result.manufacturers.map(manufacturerToDTO),
+      const listManufacturersUseCase = makeListManufacturersUseCase();
+      const { manufacturers, meta } = await listManufacturersUseCase.execute({
+        tenantId,
+        search,
+        sortBy,
+        sortOrder,
+        page,
+        limit,
       });
+
+      return reply
+        .status(200)
+        .send({ manufacturers: manufacturers.map(manufacturerToDTO), meta });
     },
   });
 }

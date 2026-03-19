@@ -2,8 +2,13 @@ import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { UniqueEntityID as EntityID } from '@/entities/domain/unique-entity-id';
 import { Manufacturer } from '@/entities/stock/manufacturer';
 import { prisma } from '@/lib/prisma';
+import type {
+  PaginatedResult,
+  PaginationParams,
+} from '@/repositories/pagination-params';
 import { ENCRYPTED_FIELD_CONFIG } from '@/services/security/encrypted-field-config';
 import { getFieldCipherService } from '@/services/security/field-cipher-service';
+import type { Prisma } from '@prisma/generated/client';
 import type {
   CreateManufacturerSchema,
   ManufacturersRepository,
@@ -159,6 +164,45 @@ export class PrismaManufacturersRepository implements ManufacturersRepository {
     return manufacturers.map((m) =>
       mapToDomain(m as unknown as Record<string, unknown>),
     );
+  }
+
+  async findManyPaginated(
+    tenantId: string,
+    params: PaginationParams & {
+      search?: string;
+      sortBy?: 'name' | 'createdAt' | 'updatedAt';
+      sortOrder?: 'asc' | 'desc';
+    },
+  ): Promise<PaginatedResult<Manufacturer>> {
+    const where: Prisma.ManufacturerWhereInput = {
+      tenantId,
+      deletedAt: null,
+      ...(params.search && {
+        name: { contains: params.search, mode: 'insensitive' as const },
+      }),
+    };
+
+    const [manufacturers, total] = await Promise.all([
+      prisma.manufacturer.findMany({
+        where,
+        orderBy: {
+          [params.sortBy ?? 'name']: params.sortOrder ?? 'asc',
+        },
+        skip: (params.page - 1) * params.limit,
+        take: params.limit,
+      }),
+      prisma.manufacturer.count({ where }),
+    ]);
+
+    return {
+      data: manufacturers.map((m) =>
+        mapToDomain(m as unknown as Record<string, unknown>),
+      ),
+      total,
+      page: params.page,
+      limit: params.limit,
+      totalPages: Math.ceil(total / params.limit),
+    };
   }
 
   async findManyByCountry(

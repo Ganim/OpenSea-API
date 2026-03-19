@@ -2,6 +2,10 @@ import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { UniqueEntityID as EntityID } from '@/entities/domain/unique-entity-id';
 import { Tag } from '@/entities/stock/tag';
 import type {
+  PaginatedResult,
+  PaginationParams,
+} from '@/repositories/pagination-params';
+import type {
   CreateTagSchema,
   TagsRepository,
   UpdateTagSchema,
@@ -57,6 +61,60 @@ export class InMemoryTagsRepository implements TagsRepository {
     return this.items.filter(
       (item) => !item.deletedAt && item.tenantId.toString() === tenantId,
     );
+  }
+
+  async findManyPaginated(
+    tenantId: string,
+    params: PaginationParams & {
+      search?: string;
+      sortBy?: 'name' | 'createdAt' | 'updatedAt';
+      sortOrder?: 'asc' | 'desc';
+    },
+  ): Promise<PaginatedResult<Tag>> {
+    const sortBy = params.sortBy ?? 'name';
+    const sortOrder = params.sortOrder ?? 'asc';
+
+    let filteredTags = this.items.filter(
+      (tag) => !tag.deletedAt && tag.tenantId.toString() === tenantId,
+    );
+
+    if (params.search) {
+      const searchLower = params.search.toLowerCase();
+      filteredTags = filteredTags.filter((tag) =>
+        tag.name.toLowerCase().includes(searchLower),
+      );
+    }
+
+    filteredTags.sort((a, b) => {
+      const aValue = a[sortBy];
+      const bValue = b[sortBy];
+
+      if (aValue instanceof Date && bValue instanceof Date) {
+        return sortOrder === 'asc'
+          ? aValue.getTime() - bValue.getTime()
+          : bValue.getTime() - aValue.getTime();
+      }
+
+      const aStr = String(aValue).toLowerCase();
+      const bStr = String(bValue).toLowerCase();
+      return sortOrder === 'asc'
+        ? aStr.localeCompare(bStr)
+        : bStr.localeCompare(aStr);
+    });
+
+    const total = filteredTags.length;
+    const paginatedTags = filteredTags.slice(
+      (params.page - 1) * params.limit,
+      params.page * params.limit,
+    );
+
+    return {
+      data: paginatedTags,
+      total,
+      page: params.page,
+      limit: params.limit,
+      totalPages: Math.ceil(total / params.limit),
+    };
   }
 
   async findManyByNames(names: string[], tenantId: string): Promise<Tag[]> {

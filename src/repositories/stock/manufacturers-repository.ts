@@ -1,5 +1,6 @@
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Manufacturer } from '@/entities/stock/manufacturer';
+import type { PaginatedResult, PaginationParams } from '../pagination-params';
 
 export interface CreateManufacturerSchema {
   tenantId: string;
@@ -46,6 +47,14 @@ export interface ManufacturersRepository {
   findById(id: UniqueEntityID, tenantId: string): Promise<Manufacturer | null>;
   findByName(name: string, tenantId: string): Promise<Manufacturer | null>;
   findMany(tenantId: string): Promise<Manufacturer[]>;
+  findManyPaginated(
+    tenantId: string,
+    params: PaginationParams & {
+      search?: string;
+      sortBy?: 'name' | 'createdAt' | 'updatedAt';
+      sortOrder?: 'asc' | 'desc';
+    },
+  ): Promise<PaginatedResult<Manufacturer>>;
   findManyByCountry(country: string, tenantId: string): Promise<Manufacturer[]>;
   findManyByRating(
     minRating: number,

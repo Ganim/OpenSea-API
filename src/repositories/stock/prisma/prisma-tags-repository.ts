@@ -3,6 +3,11 @@ import { UniqueEntityID as EntityID } from '@/entities/domain/unique-entity-id';
 import { Tag } from '@/entities/stock/tag';
 import { prisma } from '@/lib/prisma';
 import type {
+  PaginatedResult,
+  PaginationParams,
+} from '@/repositories/pagination-params';
+import type { Prisma } from '@prisma/generated/client';
+import type {
   CreateTagSchema,
   TagsRepository,
   UpdateTagSchema,
@@ -137,6 +142,56 @@ export class PrismaTagsRepository implements TagsRepository {
         new EntityID(tagData.id),
       ),
     );
+  }
+
+  async findManyPaginated(
+    tenantId: string,
+    params: PaginationParams & {
+      search?: string;
+      sortBy?: 'name' | 'createdAt' | 'updatedAt';
+      sortOrder?: 'asc' | 'desc';
+    },
+  ): Promise<PaginatedResult<Tag>> {
+    const where: Prisma.TagWhereInput = {
+      tenantId,
+      deletedAt: null,
+      ...(params.search && {
+        name: { contains: params.search, mode: 'insensitive' as const },
+      }),
+    };
+
+    const [tags, total] = await Promise.all([
+      prisma.tag.findMany({
+        where,
+        orderBy: {
+          [params.sortBy ?? 'name']: params.sortOrder ?? 'asc',
+        },
+        skip: (params.page - 1) * params.limit,
+        take: params.limit,
+      }),
+      prisma.tag.count({ where }),
+    ]);
+
+    return {
+      data: tags.map((tagData) =>
+        Tag.create(
+          {
+            tenantId: new EntityID(tagData.tenantId),
+            name: tagData.name,
+            slug: tagData.slug,
+            color: tagData.color,
+            description: tagData.description,
+            createdAt: tagData.createdAt,
+            updatedAt: tagData.updatedAt,
+          },
+          new EntityID(tagData.id),
+        ),
+      ),
+      total,
+      page: params.page,
+      limit: params.limit,
+      totalPages: Math.ceil(total / params.limit),
+    };
   }
 
   async findManyByNames(names: string[], tenantId: string): Promise<Tag[]> {

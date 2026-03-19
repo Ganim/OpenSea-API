@@ -1,6 +1,7 @@
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { UniqueEntityID as EntityID } from '@/entities/domain/unique-entity-id';
 import { Template } from '@/entities/stock/template';
+import type { PaginatedResult, PaginationParams } from '../../pagination-params';
 import type {
   CreateTemplateSchema,
   TemplatesRepository,
@@ -61,6 +62,50 @@ export class InMemoryTemplatesRepository implements TemplatesRepository {
     return this.items.filter(
       (item) => !item.deletedAt && item.tenantId.toString() === tenantId,
     );
+  }
+
+  async findManyPaginated(
+    tenantId: string,
+    params: PaginationParams & {
+      search?: string;
+      sortBy?: 'name' | 'createdAt' | 'updatedAt';
+      sortOrder?: 'asc' | 'desc';
+    },
+  ): Promise<PaginatedResult<Template>> {
+    let filtered = this.items.filter(
+      (item) => !item.deletedAt && item.tenantId.toString() === tenantId,
+    );
+
+    if (params.search) {
+      const searchLower = params.search.toLowerCase();
+      filtered = filtered.filter((item) =>
+        item.name.toLowerCase().includes(searchLower),
+      );
+    }
+
+    const sortBy = params.sortBy ?? 'name';
+    const sortOrder = params.sortOrder ?? 'asc';
+    filtered.sort((a, b) => {
+      const aVal = a[sortBy];
+      const bVal = b[sortBy];
+      if (aVal == null && bVal == null) return 0;
+      if (aVal == null) return 1;
+      if (bVal == null) return -1;
+      const comparison = aVal < bVal ? -1 : aVal > bVal ? 1 : 0;
+      return sortOrder === 'asc' ? comparison : -comparison;
+    });
+
+    const total = filtered.length;
+    const start = (params.page - 1) * params.limit;
+    const paginated = filtered.slice(start, start + params.limit);
+
+    return {
+      data: paginated,
+      total,
+      page: params.page,
+      limit: params.limit,
+      totalPages: Math.ceil(total / params.limit),
+    };
   }
 
   async update(data: UpdateTemplateSchema): Promise<Template | null> {

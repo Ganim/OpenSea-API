@@ -2,6 +2,7 @@ import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { TemplateAttributesMap } from '@/entities/stock/template';
 import { Template } from '@/entities/stock/template';
 import type { UnitOfMeasure } from '@/entities/stock/value-objects/unit-of-measure';
+import type { PaginatedResult, PaginationParams } from '../pagination-params';
 
 export interface CreateTemplateSchema {
   tenantId: string;
@@ -32,6 +33,14 @@ export interface TemplatesRepository {
   findById(id: UniqueEntityID, tenantId: string): Promise<Template | null>;
   findByName(name: string, tenantId: string): Promise<Template | null>;
   findMany(tenantId: string): Promise<Template[]>;
+  findManyPaginated(
+    tenantId: string,
+    params: PaginationParams & {
+      search?: string;
+      sortBy?: 'name' | 'createdAt' | 'updatedAt';
+      sortOrder?: 'asc' | 'desc';
+    },
+  ): Promise<PaginatedResult<Template>>;
   update(data: UpdateTemplateSchema): Promise<Template | null>;
   save(template: Template): Promise<void>;
   delete(id: UniqueEntityID): Promise<void>;

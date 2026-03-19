@@ -1,6 +1,10 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Manufacturer } from '@/entities/stock/manufacturer';
 import type {
+  PaginatedResult,
+  PaginationParams,
+} from '@/repositories/pagination-params';
+import type {
   CreateManufacturerSchema,
   ManufacturersRepository,
   UpdateManufacturerSchema,
@@ -68,6 +72,61 @@ export class InMemoryManufacturersRepository
     return this.items.filter(
       (item) => !item.deletedAt && item.tenantId.toString() === tenantId,
     );
+  }
+
+  async findManyPaginated(
+    tenantId: string,
+    params: PaginationParams & {
+      search?: string;
+      sortBy?: 'name' | 'createdAt' | 'updatedAt';
+      sortOrder?: 'asc' | 'desc';
+    },
+  ): Promise<PaginatedResult<Manufacturer>> {
+    let filtered = this.items.filter(
+      (item) => !item.deletedAt && item.tenantId.toString() === tenantId,
+    );
+
+    if (params.search) {
+      const searchLower = params.search.toLowerCase();
+      filtered = filtered.filter((item) =>
+        item.name.toLowerCase().includes(searchLower),
+      );
+    }
+
+    const sortBy = params.sortBy ?? 'name';
+    const sortOrder = params.sortOrder ?? 'asc';
+
+    filtered.sort((a, b) => {
+      let valueA: string | Date;
+      let valueB: string | Date;
+
+      if (sortBy === 'name') {
+        valueA = a.name.toLowerCase();
+        valueB = b.name.toLowerCase();
+      } else if (sortBy === 'createdAt') {
+        valueA = a.createdAt ?? new Date(0);
+        valueB = b.createdAt ?? new Date(0);
+      } else {
+        valueA = a.updatedAt ?? new Date(0);
+        valueB = b.updatedAt ?? new Date(0);
+      }
+
+      if (valueA < valueB) return sortOrder === 'asc' ? -1 : 1;
+      if (valueA > valueB) return sortOrder === 'asc' ? 1 : -1;
+      return 0;
+    });
+
+    const total = filtered.length;
+    const start = (params.page - 1) * params.limit;
+    const paginated = filtered.slice(start, start + params.limit);
+
+    return {
+      data: paginated,
+      total,
+      page: params.page,
+      limit: params.limit,
+      totalPages: Math.ceil(total / params.limit),
+    };
   }
 
   async findManyByCountry(

@@ -2,6 +2,8 @@ import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Template } from '@/entities/stock/template';
 import { prisma } from '@/lib/prisma';
 import { templatePrismaToDomain } from '@/mappers/stock/template/template-prisma-to-domain';
+import type { PaginatedResult, PaginationParams } from '../../pagination-params';
+import type { Prisma } from '@prisma/generated/client';
 import type {
   CreateTemplateSchema,
   TemplatesRepository,
@@ -71,6 +73,43 @@ export class PrismaTemplatesRepository implements TemplatesRepository {
     });
 
     return templates.map(templatePrismaToDomain);
+  }
+
+  async findManyPaginated(
+    tenantId: string,
+    params: PaginationParams & {
+      search?: string;
+      sortBy?: 'name' | 'createdAt' | 'updatedAt';
+      sortOrder?: 'asc' | 'desc';
+    },
+  ): Promise<PaginatedResult<Template>> {
+    const where: Prisma.TemplateWhereInput = {
+      tenantId,
+      deletedAt: null,
+      ...(params.search && {
+        name: { contains: params.search, mode: 'insensitive' as const },
+      }),
+    };
+
+    const [templates, total] = await Promise.all([
+      prisma.template.findMany({
+        where,
+        orderBy: {
+          [params.sortBy ?? 'name']: params.sortOrder ?? 'asc',
+        },
+        skip: (params.page - 1) * params.limit,
+        take: params.limit,
+      }),
+      prisma.template.count({ where }),
+    ]);
+
+    return {
+      data: templates.map(templatePrismaToDomain),
+      total,
+      page: params.page,
+      limit: params.limit,
+      totalPages: Math.ceil(total / params.limit),
+    };
   }
 
   async update(data: UpdateTemplateSchema): Promise<Template | null> {
