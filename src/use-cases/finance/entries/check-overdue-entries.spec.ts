@@ -1,7 +1,12 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { InMemoryFinanceEntriesRepository } from '@/repositories/finance/in-memory/in-memory-finance-entries-repository';
 import { InMemoryNotificationsRepository } from '@/repositories/notifications/in-memory/in-memory-notifications-repository';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterAll, beforeEach, describe, expect, it, vi } from 'vitest';
+
+vi.mock('@/lib/logger', () => ({
+  logger: { info: vi.fn(), debug: vi.fn(), warn: vi.fn(), error: vi.fn() },
+}));
+
 import { CheckOverdueEntriesUseCase } from './check-overdue-entries';
 
 let entriesRepository: InMemoryFinanceEntriesRepository;

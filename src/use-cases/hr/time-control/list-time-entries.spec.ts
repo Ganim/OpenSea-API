@@ -32,7 +32,11 @@ describe('List Time Entries Use Case', () => {
       timestamp: new Date('2024-01-15T17:00:00Z'),
     });
 
-    const result = await sut.execute({ tenantId });
+    const result = await sut.execute({
+      tenantId,
+      startDate: new Date('2024-01-01'),
+      endDate: new Date('2024-02-01'),
+    });
 
     expect(result.timeEntries).toHaveLength(2);
     expect(result.total).toBe(2);
@@ -61,6 +65,8 @@ describe('List Time Entries Use Case', () => {
     const result = await sut.execute({
       tenantId,
       employeeId: employeeId1.toString(),
+      startDate: new Date('2024-01-01'),
+      endDate: new Date('2024-02-01'),
     });
 
     expect(result.timeEntries).toHaveLength(1);
@@ -115,6 +121,8 @@ describe('List Time Entries Use Case', () => {
     const result = await sut.execute({
       tenantId,
       entryType: 'CLOCK_IN',
+      startDate: new Date('2024-01-01'),
+      endDate: new Date('2024-02-01'),
     });
 
     expect(result.timeEntries).toHaveLength(1);

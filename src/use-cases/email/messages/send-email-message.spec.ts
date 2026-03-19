@@ -6,6 +6,13 @@ vi.mock('@/lib/logger', () => ({
   logger: { info: vi.fn(), debug: vi.fn(), warn: vi.fn(), error: vi.fn() },
 }));
 
+vi.mock('@/services/email/notification-suppressor.service', () => ({
+  getNotificationSuppressor: () => ({
+    suppress: vi.fn().mockResolvedValue(undefined),
+    isActive: vi.fn().mockResolvedValue(false),
+  }),
+}));
+
 vi.mock('@/workers/queues/audit.queue', () => ({
   queueAuditLog: vi.fn().mockResolvedValue(undefined),
 }));
