@@ -28,6 +28,7 @@ export interface CategoriesRepository {
   findById(id: UniqueEntityID, tenantId: string): Promise<Category | null>;
   findBySlug(slug: string, tenantId: string): Promise<Category | null>;
   findByName(name: string, tenantId: string): Promise<Category | null>;
+  findManyByNames(names: string[], tenantId: string): Promise<Category[]>;
   findMany(tenantId: string): Promise<Category[]>;
   findManyByParent(
     parentId: UniqueEntityID,

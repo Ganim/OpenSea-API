@@ -153,6 +153,27 @@ export class PrismaManufacturersRepository implements ManufacturersRepository {
     return mapToDomain(manufacturerData as unknown as Record<string, unknown>);
   }
 
+  async findManyByNames(
+    names: string[],
+    tenantId: string,
+  ): Promise<Manufacturer[]> {
+    if (names.length === 0) return [];
+
+    const manufacturers = await prisma.manufacturer.findMany({
+      where: {
+        tenantId,
+        deletedAt: null,
+        OR: names.map((name) => ({
+          name: { equals: name, mode: 'insensitive' as const },
+        })),
+      },
+    });
+
+    return manufacturers.map((m) =>
+      mapToDomain(m as unknown as Record<string, unknown>),
+    );
+  }
+
   async findMany(tenantId: string): Promise<Manufacturer[]> {
     const manufacturers = await prisma.manufacturer.findMany({
       where: {

@@ -59,6 +59,19 @@ export class InMemoryCategoriesRepository implements CategoriesRepository {
     return category ?? null;
   }
 
+  async findManyByNames(
+    names: string[],
+    tenantId: string,
+  ): Promise<Category[]> {
+    const lowerNames = names.map((n) => n.toLowerCase());
+    return this.items.filter(
+      (item) =>
+        !item.deletedAt &&
+        item.tenantId.toString() === tenantId &&
+        lowerNames.includes(item.name.toLowerCase()),
+    );
+  }
+
   async findMany(tenantId: string): Promise<Category[]> {
     return this.items.filter(
       (item) => !item.deletedAt && item.tenantId.toString() === tenantId,

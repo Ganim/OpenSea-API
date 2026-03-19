@@ -46,6 +46,7 @@ export interface ManufacturersRepository {
   create(data: CreateManufacturerSchema): Promise<Manufacturer>;
   findById(id: UniqueEntityID, tenantId: string): Promise<Manufacturer | null>;
   findByName(name: string, tenantId: string): Promise<Manufacturer | null>;
+  findManyByNames(names: string[], tenantId: string): Promise<Manufacturer[]>;
   findMany(tenantId: string): Promise<Manufacturer[]>;
   findManyPaginated(
     tenantId: string,

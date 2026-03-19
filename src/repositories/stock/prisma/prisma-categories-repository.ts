@@ -156,6 +156,43 @@ export class PrismaCategoriesRepository implements CategoriesRepository {
     );
   }
 
+  async findManyByNames(
+    names: string[],
+    tenantId: string,
+  ): Promise<Category[]> {
+    if (names.length === 0) return [];
+
+    const categories = await prisma.category.findMany({
+      where: {
+        tenantId,
+        deletedAt: null,
+        OR: names.map((name) => ({
+          name: { equals: name, mode: 'insensitive' as const },
+        })),
+      },
+    });
+
+    return categories.map((categoryData) =>
+      Category.create(
+        {
+          tenantId: new EntityID(categoryData.tenantId),
+          name: categoryData.name,
+          slug: categoryData.slug,
+          description: categoryData.description ?? null,
+          iconUrl: categoryData.iconUrl ?? null,
+          parentId: categoryData.parentId
+            ? new EntityID(categoryData.parentId)
+            : null,
+          displayOrder: categoryData.displayOrder,
+          isActive: categoryData.isActive,
+          createdAt: categoryData.createdAt,
+          updatedAt: categoryData.updatedAt,
+        },
+        new EntityID(categoryData.id),
+      ),
+    );
+  }
+
   async findMany(tenantId: string): Promise<Category[]> {
     const categories = await prisma.category.findMany({
       where: {

@@ -173,6 +173,26 @@ export class PrismaProductsRepository implements ProductsRepository {
     return productPrismaToDomain(productData);
   }
 
+  async findManyByNames(
+    names: string[],
+    tenantId: string,
+  ): Promise<Product[]> {
+    if (names.length === 0) return [];
+
+    const products = await prisma.product.findMany({
+      where: {
+        tenantId,
+        deletedAt: null,
+        OR: names.map((name) => ({
+          name: { equals: name, mode: 'insensitive' as const },
+        })),
+      },
+      include: productInclude,
+    });
+
+    return products.map(productPrismaToDomain);
+  }
+
   async findMany(tenantId: string): Promise<Product[]> {
     const products = await prisma.product.findMany({
       where: {
