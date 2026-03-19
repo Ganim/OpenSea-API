@@ -17,13 +17,18 @@ export class RedisCacheService implements CacheService {
   }
 
   async get<T>(key: string): Promise<T | null> {
-    const data = await this.redis.get(key);
-    if (!data) return null;
-
     try {
-      return JSON.parse(data) as T;
+      const data = await this.redis.get(key);
+      if (!data) return null;
+
+      try {
+        return JSON.parse(data) as T;
+      } catch {
+        return data as unknown as T;
+      }
     } catch {
-      return data as unknown as T;
+      // Redis indisponível — continua sem cache
+      return null;
     }
   }
 
@@ -32,29 +37,50 @@ export class RedisCacheService implements CacheService {
     value: T,
     ttlSeconds: number = cacheConfig.default,
   ): Promise<void> {
-    const serialized =
-      typeof value === 'string' ? value : JSON.stringify(value);
-    await this.redis.setex(key, ttlSeconds, serialized);
+    try {
+      const serialized =
+        typeof value === 'string' ? value : JSON.stringify(value);
+      await this.redis.setex(key, ttlSeconds, serialized);
+    } catch {
+      // Redis indisponível — ignora escrita no cache
+    }
   }
 
   async del(key: string): Promise<void> {
-    await this.redis.del(key);
+    try {
+      await this.redis.del(key);
+    } catch {
+      // Redis indisponível — ignora
+    }
   }
 
   async delPattern(pattern: string): Promise<number> {
-    const keys = await this.redis.keys(pattern);
-    if (keys.length === 0) return 0;
+    try {
+      const keys = await this.redis.keys(pattern);
+      if (keys.length === 0) return 0;
 
-    return await this.redis.del(...keys);
+      return await this.redis.del(...keys);
+    } catch {
+      // Redis indisponível — ignora
+      return 0;
+    }
   }
 
   async exists(key: string): Promise<boolean> {
-    const result = await this.redis.exists(key);
-    return result === 1;
+    try {
+      const result = await this.redis.exists(key);
+      return result === 1;
+    } catch {
+      return false;
+    }
   }
 
   async ttl(key: string): Promise<number> {
-    return await this.redis.ttl(key);
+    try {
+      return await this.redis.ttl(key);
+    } catch {
+      return -2;
+    }
   }
 
   async invalidateUserCache(userId: string): Promise<void> {
