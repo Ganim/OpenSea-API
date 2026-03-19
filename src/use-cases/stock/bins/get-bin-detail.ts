@@ -10,9 +10,13 @@ interface BinItemDTO {
   id: string;
   itemCode: string;
   sku: string;
+  templateName: string | null;
   productName: string;
+  manufacturerName: string | null;
   variantName: string | null;
+  variantReference: string | null;
   quantity: number;
+  unitLabel: string | null;
   addedAt: Date;
 }
 
@@ -93,9 +97,13 @@ export class GetBinDetailUseCase {
           itemDTO.relatedData.variantSku ||
           itemDTO.item.uniqueCode ||
           itemDTO.item.id.toString().slice(0, 8),
+        templateName: itemDTO.relatedData.templateName ?? null,
         productName: itemDTO.relatedData.productName,
+        manufacturerName: itemDTO.relatedData.manufacturerName ?? null,
         variantName: itemDTO.relatedData.variantName || null,
+        variantReference: itemDTO.relatedData.variantReference ?? null,
         quantity: itemDTO.item.currentQuantity,
+        unitLabel: itemDTO.relatedData.templateUnitOfMeasure ?? null,
         addedAt: itemDTO.item.entryDate,
       }));
 

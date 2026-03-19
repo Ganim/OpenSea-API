@@ -88,6 +88,7 @@ export interface BinsRepository {
   updateAddressMany(
     updates: Array<{ id: string; address: string }>,
   ): Promise<number>;
+  updateCapacityMany(binIds: string[], capacity: number): Promise<number>;
   countItemsPerBin(
     zoneId: UniqueEntityID,
     tenantId: string,

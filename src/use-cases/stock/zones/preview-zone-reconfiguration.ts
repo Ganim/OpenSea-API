@@ -21,6 +21,7 @@ export interface ReconfigurationPreviewResult {
   binsToPreserve: number;
   binsToCreate: number;
   binsToDeleteEmpty: number;
+  binsToDeleteEmptyIds: string[];
   binsWithItems: Array<{
     binId: string;
     address: string;
@@ -87,6 +88,7 @@ export class PreviewZoneReconfigurationUseCase {
         binsToPreserve: 0,
         binsToCreate: newBinData.length,
         binsToDeleteEmpty: 0,
+        binsToDeleteEmptyIds: [],
         binsWithItems: [],
         totalAffectedItems: 0,
         addressUpdates: 0,
@@ -121,6 +123,7 @@ export class PreviewZoneReconfigurationUseCase {
       binsToPreserve: diff.toPreserve.length,
       binsToCreate: diff.toCreate.length,
       binsToDeleteEmpty: diff.toDelete.length,
+      binsToDeleteEmptyIds: diff.toDelete.map((b) => b.binId.toString()),
       binsWithItems,
       totalAffectedItems,
       addressUpdates,

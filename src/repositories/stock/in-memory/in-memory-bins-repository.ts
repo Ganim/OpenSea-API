@@ -265,6 +265,23 @@ export class InMemoryBinsRepository implements BinsRepository {
     return count;
   }
 
+  async updateCapacityMany(
+    binIds: string[],
+    capacity: number,
+  ): Promise<number> {
+    let count = 0;
+    for (const binId of binIds) {
+      const bin = this.bins.find(
+        (b) => !b.deletedAt && b.binId.toString() === binId,
+      );
+      if (bin) {
+        bin.setCapacity(capacity);
+        count++;
+      }
+    }
+    return count;
+  }
+
   async updateAddressMany(
     updates: Array<{ id: string; address: string }>,
   ): Promise<number> {

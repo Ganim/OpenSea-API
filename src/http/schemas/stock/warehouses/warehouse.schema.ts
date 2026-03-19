@@ -23,6 +23,14 @@ export const listWarehousesQuerySchema = z.object({
 });
 
 // Response schemas
+export const warehouseStatsSchema = z.object({
+  totalZones: z.number(),
+  totalBins: z.number(),
+  occupiedBins: z.number(),
+  totalCapacity: z.number(),
+  occupancyPercentage: z.number(),
+});
+
 export const warehouseResponseSchema = z.object({
   id: z.string().uuid(),
   code: z.string(),
@@ -33,6 +41,7 @@ export const warehouseResponseSchema = z.object({
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date(),
   zoneCount: z.number().optional(),
+  stats: warehouseStatsSchema.optional(),
 });
 
 export const warehouseListResponseSchema = z.object({

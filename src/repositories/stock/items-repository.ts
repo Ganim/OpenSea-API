@@ -9,6 +9,7 @@ export interface ItemRelatedData {
   productName: string;
   variantSku: string;
   variantName: string;
+  variantReference?: string | null;
   binId?: string;
   binAddress?: string;
   zoneId?: string;

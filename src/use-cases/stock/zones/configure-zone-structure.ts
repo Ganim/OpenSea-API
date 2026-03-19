@@ -23,6 +23,7 @@ interface ConfigureZoneStructureUseCaseRequest {
   zoneId: string;
   userId: string;
   structure: ZoneStructureProps;
+  defaultCapacity?: number;
   regenerateBins?: boolean;
   forceRemoveOccupiedBins?: boolean;
 }
@@ -59,6 +60,7 @@ export class ConfigureZoneStructureUseCase {
     zoneId,
     userId,
     structure,
+    defaultCapacity,
     regenerateBins = true,
     forceRemoveOccupiedBins = false,
   }: ConfigureZoneStructureUseCaseRequest): Promise<ConfigureZoneStructureUseCaseResponse> {
@@ -108,10 +110,14 @@ export class ConfigureZoneStructureUseCase {
           tenantId,
         );
 
-        const newBinData = zoneStructure.generateBinData(
+        const rawBinData = zoneStructure.generateBinData(
           warehouse.code,
           zone.code,
         );
+
+        const newBinData = defaultCapacity
+          ? rawBinData.map((bin) => ({ ...bin, capacity: defaultCapacity }))
+          : rawBinData;
 
         if (existingBins.length === 0) {
           // First configuration: create all bins directly
@@ -238,6 +244,18 @@ export class ConfigureZoneStructureUseCase {
           }
 
           binsPreserved = diff.toPreserve.length;
+
+          // Update capacity on all preserved bins if defaultCapacity is set
+          if (defaultCapacity && diff.toPreserve.length > 0) {
+            const preservedIds = diff.toPreserve.map((p) =>
+              p.existingBin.binId.toString(),
+            );
+            await this.binsRepository.updateCapacityMany(
+              preservedIds,
+              defaultCapacity,
+            );
+          }
+
           blockedBins = diff.toBlock
             .filter(() => !forceRemoveOccupiedBins)
             .map((b) => ({

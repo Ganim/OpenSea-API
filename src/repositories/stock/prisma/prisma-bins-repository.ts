@@ -415,6 +415,17 @@ export class PrismaBinsRepository implements BinsRepository {
     return result.count;
   }
 
+  async updateCapacityMany(
+    binIds: string[],
+    capacity: number,
+  ): Promise<number> {
+    const result = await prisma.bin.updateMany({
+      where: { id: { in: binIds }, deletedAt: null },
+      data: { capacity },
+    });
+    return result.count;
+  }
+
   async updateAddressMany(
     updates: Array<{ id: string; address: string }>,
   ): Promise<number> {

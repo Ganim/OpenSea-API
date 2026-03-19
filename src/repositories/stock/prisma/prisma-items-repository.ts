@@ -49,6 +49,7 @@ export interface ItemWithRelations {
   variant: {
     sku: string;
     name: string;
+    reference: string | null;
     colorHex: string | null;
     attributes: object;
     product: {
@@ -87,6 +88,7 @@ export class PrismaItemsRepository implements ItemsRepository {
       productName: itemData.variant.product.name,
       variantSku: itemData.variant.sku,
       variantName: itemData.variant.name,
+      variantReference: itemData.variant.reference ?? null,
       binId: itemData.bin?.id,
       binAddress: itemData.bin?.address,
       zoneId: itemData.bin?.zone.id,
@@ -730,7 +732,7 @@ export class PrismaItemsRepository implements ItemsRepository {
           updated_at = NOW()
       FROM bins
       WHERE items.bin_id = bins.id
-        AND items.bin_id = ANY(${binIds}::uuid[])
+        AND items.bin_id::text = ANY(${binIds})
         AND items.tenant_id = ${tenantId}
         AND items.deleted_at IS NULL
     `;

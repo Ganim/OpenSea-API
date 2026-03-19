@@ -1,5 +1,13 @@
 import type { Warehouse } from '@/entities/stock/warehouse';
 
+export interface WarehouseStatsDTO {
+  totalZones: number;
+  totalBins: number;
+  occupiedBins: number;
+  totalCapacity: number;
+  occupancyPercentage: number;
+}
+
 export interface WarehouseDTO {
   id: string;
   code: string;
@@ -10,11 +18,12 @@ export interface WarehouseDTO {
   createdAt: Date;
   updatedAt: Date;
   zoneCount?: number;
+  stats?: WarehouseStatsDTO;
 }
 
 export function warehouseToDTO(
   warehouse: Warehouse,
-  options?: { zoneCount?: number },
+  options?: { zoneCount?: number; stats?: WarehouseStatsDTO },
 ): WarehouseDTO {
   return {
     id: warehouse.warehouseId.toString(),
@@ -26,5 +35,6 @@ export function warehouseToDTO(
     createdAt: warehouse.createdAt,
     updatedAt: warehouse.updatedAt,
     zoneCount: options?.zoneCount,
+    stats: options?.stats,
   };
 }

@@ -104,6 +104,7 @@ export const updateZoneSchema = z.object({
 
 export const configureZoneStructureSchema = z.object({
   structure: zoneStructureSchema.required(),
+  defaultCapacity: z.number().int().min(1).max(99999).optional(),
   regenerateBins: z.boolean().optional().default(true),
   forceRemoveOccupiedBins: z.boolean().optional().default(false),
 });
@@ -122,6 +123,15 @@ export const listZonesQuerySchema = z.object({
 });
 
 // Response schemas
+export const zoneStatsSchema = z.object({
+  totalBins: z.number(),
+  occupiedBins: z.number(),
+  emptyBins: z.number(),
+  blockedBins: z.number(),
+  totalCapacity: z.number(),
+  occupancyPercentage: z.number(),
+});
+
 export const zoneResponseSchema = z.object({
   id: z.string().uuid(),
   warehouseId: z.string().uuid(),
@@ -135,6 +145,7 @@ export const zoneResponseSchema = z.object({
   updatedAt: z.coerce.date(),
   binCount: z.number().optional(),
   totalBins: z.number().optional(),
+  stats: zoneStatsSchema.optional(),
 });
 
 export const zoneListResponseSchema = z.object({
@@ -176,6 +187,7 @@ export const reconfigurationPreviewResponseSchema = z.object({
   binsToPreserve: z.number(),
   binsToCreate: z.number(),
   binsToDeleteEmpty: z.number(),
+  binsToDeleteEmptyIds: z.array(z.string()),
   binsWithItems: z.array(
     z.object({
       binId: z.string().uuid(),
