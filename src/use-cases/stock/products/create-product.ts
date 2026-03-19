@@ -13,7 +13,10 @@ import {
   generateEAN13,
   generateUPC,
 } from '@/utils/barcode-generator';
-import { assertValidAttributes } from '@/utils/validate-template-attributes';
+import {
+  assertValidAttributes,
+  normalizeSelectAttributes,
+} from '@/utils/validate-template-attributes';
 
 /**
  * Gera código hierárquico com padding
@@ -150,8 +153,12 @@ export class CreateProductUseCase {
       }
     }
 
-    // Validate attributes against template
+    // Validate and normalize attributes against template
     assertValidAttributes(attributes, template.productAttributes, 'product');
+    const normalizedAttributes = normalizeSelectAttributes(
+      attributes,
+      template.productAttributes,
+    );
 
     // Get template code (manual or auto-generated from sequentialCode)
     const templateCode =
@@ -200,7 +207,7 @@ export class CreateProductUseCase {
       manufacturerId: manufacturerId
         ? new UniqueEntityID(manufacturerId)
         : undefined,
-      attributes: attributes ?? {},
+      attributes: normalizedAttributes ?? {},
       categoryIds,
     });
 

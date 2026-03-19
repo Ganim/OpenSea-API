@@ -157,7 +157,7 @@ export class PrismaProductsRepository implements ProductsRepository {
     const productData = await prisma.product.findFirst({
       where: {
         name: {
-          contains: name,
+          equals: name,
           mode: 'insensitive',
         },
         tenantId,

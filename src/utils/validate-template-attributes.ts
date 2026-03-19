@@ -102,8 +102,28 @@ function validateAttributeType(
       break;
 
     case 'boolean':
-      if (typeof value !== 'boolean') {
+      if (typeof value !== 'boolean' && typeof value !== 'string') {
         return `Attribute "${key}" must be a boolean`;
+      }
+      if (typeof value === 'string') {
+        const lower = value
+          .toLowerCase()
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '');
+        const validBooleans = [
+          'true',
+          'false',
+          'sim',
+          'nao',
+          'não',
+          'yes',
+          'no',
+          '1',
+          '0',
+        ];
+        if (!validBooleans.includes(lower)) {
+          return `Attribute "${key}" must be a boolean (sim/não, true/false)`;
+        }
       }
       break;
 
@@ -124,13 +144,61 @@ function validateAttributeType(
       if (typeof value !== 'string') {
         return `Attribute "${key}" must be a string (select)`;
       }
-      if (definition.options && !definition.options.includes(value)) {
-        return `Attribute "${key}" must be one of: ${definition.options.join(', ')}`;
+      if (definition.options) {
+        // Case-insensitive match para suportar importações com casing diferente
+        const match = definition.options.find(
+          (opt) => opt.toLowerCase().trim() === value.toLowerCase().trim(),
+        );
+        if (!match) {
+          return `Attribute "${key}" must be one of: ${definition.options.join(', ')}`;
+        }
       }
       break;
   }
 
   return null;
+}
+
+/**
+ * Normaliza valores de atributos para o formato correto antes de salvar.
+ * - Select: normaliza casing para corresponder às opções do template
+ * - Boolean: converte strings ("sim"/"não") para boolean real
+ * Deve ser chamado ANTES de salvar no banco, APÓS validação.
+ */
+export function normalizeSelectAttributes(
+  attributes: Record<string, unknown> | undefined,
+  templateAttributes: TemplateAttributesMap,
+): Record<string, unknown> | undefined {
+  if (!attributes) return attributes;
+
+  const normalized = { ...attributes };
+
+  for (const [key, value] of Object.entries(normalized)) {
+    const definition = templateAttributes[key];
+    if (!definition) continue;
+
+    // Normaliza select: usa o casing correto do template
+    if (definition.type === 'select' && definition.options && typeof value === 'string') {
+      const match = definition.options.find(
+        (opt) => opt.toLowerCase().trim() === value.toLowerCase().trim(),
+      );
+      if (match) {
+        normalized[key] = match;
+      }
+    }
+
+    // Normaliza boolean: converte string para boolean real
+    if (definition.type === 'boolean' && typeof value === 'string') {
+      const lower = value
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '');
+      const truthy = ['true', 'sim', 'yes', '1'];
+      normalized[key] = truthy.includes(lower);
+    }
+  }
+
+  return normalized;
 }
 
 /**
