@@ -8,7 +8,7 @@ import type { UsersRepository } from '@/repositories/core/users-repository';
 
 interface SetActionPinUseCaseRequest {
   userId: string;
-  currentPassword: string;
+  currentPassword?: string;
   newActionPin: string;
 }
 
@@ -31,13 +31,23 @@ export class SetActionPinUseCase {
       throw new ResourceNotFoundError('User not found');
     }
 
-    const doesPasswordMatch = await Password.compare(
-      currentPassword,
-      existingUser.password.toString(),
-    );
+    // Skip password verification during forced first-time setup
+    // (user already authenticated via login to reach this point)
+    const isFirstTimeSetup = existingUser.forceActionPinSetup;
 
-    if (!doesPasswordMatch) {
-      throw new BadRequestError('Invalid password');
+    if (!isFirstTimeSetup) {
+      if (!currentPassword) {
+        throw new BadRequestError('Password is required');
+      }
+
+      const doesPasswordMatch = await Password.compare(
+        currentPassword,
+        existingUser.password.toString(),
+      );
+
+      if (!doesPasswordMatch) {
+        throw new BadRequestError('Invalid password');
+      }
     }
 
     const pin = await Pin.create(newActionPin, 'action');

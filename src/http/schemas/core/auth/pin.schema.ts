@@ -11,12 +11,12 @@ export const actionPinSchema = z
   .regex(/^\d+$/, 'O PIN deve conter apenas n\u00fameros');
 
 export const setAccessPinBodySchema = z.object({
-  currentPassword: z.string().min(1, 'Password is required'),
+  currentPassword: z.string().min(1, 'Password is required').optional(),
   newAccessPin: accessPinSchema,
 });
 
 export const setActionPinBodySchema = z.object({
-  currentPassword: z.string().min(1, 'Password is required'),
+  currentPassword: z.string().min(1, 'Password is required').optional(),
   newActionPin: actionPinSchema,
 });
 

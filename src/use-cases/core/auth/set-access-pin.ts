@@ -8,7 +8,7 @@ import type { UsersRepository } from '@/repositories/core/users-repository';
 
 interface SetAccessPinUseCaseRequest {
   userId: string;
-  currentPassword: string;
+  currentPassword?: string;
   newAccessPin: string;
 }
 
@@ -31,13 +31,23 @@ export class SetAccessPinUseCase {
       throw new ResourceNotFoundError('User not found');
     }
 
-    const doesPasswordMatch = await Password.compare(
-      currentPassword,
-      existingUser.password.toString(),
-    );
+    // Skip password verification during forced first-time setup
+    // (user already authenticated via login to reach this point)
+    const isFirstTimeSetup = existingUser.forceAccessPinSetup;
 
-    if (!doesPasswordMatch) {
-      throw new BadRequestError('Invalid password');
+    if (!isFirstTimeSetup) {
+      if (!currentPassword) {
+        throw new BadRequestError('Password is required');
+      }
+
+      const doesPasswordMatch = await Password.compare(
+        currentPassword,
+        existingUser.password.toString(),
+      );
+
+      if (!doesPasswordMatch) {
+        throw new BadRequestError('Invalid password');
+      }
     }
 
     const pin = await Pin.create(newAccessPin, 'access');
