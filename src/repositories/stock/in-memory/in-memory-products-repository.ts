@@ -83,9 +83,15 @@ export class InMemoryProductsRepository implements ProductsRepository {
 
   async findManyPaginated(
     tenantId: string,
-    params: PaginationParams,
+    params: PaginationParams & { search?: string },
   ): Promise<PaginatedResult<Product>> {
-    const all = await this.findMany(tenantId);
+    let all = await this.findMany(tenantId);
+
+    if (params.search) {
+      const searchLower = params.search.toLowerCase();
+      all = all.filter((p) => p.name.toLowerCase().includes(searchLower));
+    }
+
     return this.paginate(all, params);
   }
 

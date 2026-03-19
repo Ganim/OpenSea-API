@@ -187,9 +187,15 @@ export class PrismaProductsRepository implements ProductsRepository {
 
   async findManyPaginated(
     tenantId: string,
-    params: PaginationParams,
+    params: PaginationParams & { search?: string },
   ): Promise<PaginatedResult<Product>> {
-    const where = { tenantId, deletedAt: null };
+    const where = {
+      tenantId,
+      deletedAt: null,
+      ...(params.search && {
+        name: { contains: params.search, mode: 'insensitive' as const },
+      }),
+    };
     const [products, total] = await Promise.all([
       prisma.product.findMany({
         where,

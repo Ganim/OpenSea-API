@@ -4,6 +4,7 @@ import { ProductsRepository } from '@/repositories/stock/products-repository';
 
 interface ListProductsUseCaseRequest {
   tenantId: string;
+  search?: string;
   templateId?: string;
   manufacturerId?: string;
   categoryId?: string;
@@ -27,7 +28,8 @@ export class ListProductsUseCase {
   async execute(
     request: ListProductsUseCaseRequest,
   ): Promise<ListProductsUseCaseResponse> {
-    const { tenantId, templateId, manufacturerId, categoryId } = request;
+    const { tenantId, search, templateId, manufacturerId, categoryId } =
+      request;
     const page = request.page ?? 1;
     const limit = request.limit ?? 20;
 
@@ -65,6 +67,13 @@ export class ListProductsUseCase {
             p.categories?.some((c) => c.id.toString() === categoryId),
           );
         }
+      }
+
+      if (search) {
+        const searchLower = search.toLowerCase();
+        products = products.filter((p) =>
+          p.name.toLowerCase().includes(searchLower),
+        );
       }
 
       return this.paginateInMemory(products, page, limit);
@@ -117,10 +126,11 @@ export class ListProductsUseCase {
       );
     }
 
-    // No filters
+    // No filters (search may still apply)
     const result = await this.productsRepository.findManyPaginated(tenantId, {
       page,
       limit,
+      search,
     });
     return this.buildResponse(
       result.data,

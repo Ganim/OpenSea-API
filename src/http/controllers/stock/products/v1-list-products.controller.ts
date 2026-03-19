@@ -25,6 +25,7 @@ export async function listProductsController(app: FastifyInstance) {
       tags: ['Stock - Products'],
       summary: 'List all products',
       querystring: paginationSchema.extend({
+        search: z.string().max(200).optional(),
         templateId: z.string().uuid().optional(),
         manufacturerId: z.string().uuid().optional(),
         categoryId: z.string().uuid().optional(),
@@ -45,12 +46,13 @@ export async function listProductsController(app: FastifyInstance) {
 
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
-      const { templateId, manufacturerId, categoryId, page, limit } =
+      const { search, templateId, manufacturerId, categoryId, page, limit } =
         request.query;
 
       const listProductsUseCase = makeListProductsUseCase();
       const { products, meta } = await listProductsUseCase.execute({
         tenantId,
+        search,
         templateId,
         manufacturerId,
         categoryId,

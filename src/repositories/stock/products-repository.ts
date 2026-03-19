@@ -43,7 +43,7 @@ export interface ProductsRepository {
   findMany(tenantId: string): Promise<Product[]>;
   findManyPaginated(
     tenantId: string,
-    params: PaginationParams,
+    params: PaginationParams & { search?: string },
   ): Promise<PaginatedResult<Product>>;
   findManyByStatus(status: ProductStatus, tenantId: string): Promise<Product[]>;
   findManyByStatusPaginated(
