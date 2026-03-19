@@ -12,7 +12,10 @@ import {
   generateEAN13,
   generateUPC,
 } from '@/utils/barcode-generator';
-import { assertValidAttributes } from '@/utils/validate-template-attributes';
+import {
+  assertValidAttributes,
+  normalizeSelectAttributes,
+} from '@/utils/validate-template-attributes';
 import { Prisma } from '@prisma/generated/client.js';
 
 /**
@@ -171,11 +174,16 @@ export class CreateVariantUseCase {
       product.templateId,
       input.tenantId,
     );
+    let normalizedAttributes = input.attributes;
     if (template) {
       assertValidAttributes(
         input.attributes,
         template.variantAttributes,
         'variant',
+      );
+      normalizedAttributes = normalizeSelectAttributes(
+        input.attributes,
+        template.variantAttributes,
       );
     }
 
@@ -217,7 +225,7 @@ export class CreateVariantUseCase {
           sku,
           name: input.name,
           price,
-          attributes: input.attributes ?? {},
+          attributes: normalizedAttributes ?? {},
           costPrice: input.costPrice,
           profitMargin: input.profitMargin,
           qrCode: input.qrCode,
