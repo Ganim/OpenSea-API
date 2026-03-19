@@ -83,16 +83,59 @@ export class InMemoryProductsRepository implements ProductsRepository {
 
   async findManyPaginated(
     tenantId: string,
-    params: PaginationParams & { search?: string },
+    params: PaginationParams & {
+      search?: string;
+      sortBy?: 'name' | 'createdAt' | 'updatedAt';
+      sortOrder?: 'asc' | 'desc';
+      templateIds?: string[];
+      manufacturerIds?: string[];
+      categoryIds?: string[];
+    },
   ): Promise<PaginatedResult<Product>> {
-    let all = await this.findMany(tenantId);
+    let filtered = await this.findMany(tenantId);
 
     if (params.search) {
       const searchLower = params.search.toLowerCase();
-      all = all.filter((p) => p.name.toLowerCase().includes(searchLower));
+      filtered = filtered.filter((p) =>
+        p.name.toLowerCase().includes(searchLower),
+      );
     }
 
-    return this.paginate(all, params);
+    if (params.templateIds && params.templateIds.length > 0) {
+      filtered = filtered.filter((p) =>
+        params.templateIds!.includes(p.templateId.toString()),
+      );
+    }
+
+    if (params.manufacturerIds && params.manufacturerIds.length > 0) {
+      filtered = filtered.filter(
+        (p) =>
+          p.manufacturerId &&
+          params.manufacturerIds!.includes(p.manufacturerId.toString()),
+      );
+    }
+
+    if (params.categoryIds && params.categoryIds.length > 0) {
+      filtered = filtered.filter((p) =>
+        p.categories?.some((c) =>
+          params.categoryIds!.includes(c.id.toString()),
+        ),
+      );
+    }
+
+    if (params.sortBy) {
+      const multiplier = params.sortOrder === 'asc' ? 1 : -1;
+      filtered.sort((a, b) => {
+        if (params.sortBy === 'name') {
+          return multiplier * a.name.localeCompare(b.name);
+        }
+        const dateA = a[params.sortBy!]?.getTime() ?? 0;
+        const dateB = b[params.sortBy!]?.getTime() ?? 0;
+        return multiplier * (dateA - dateB);
+      });
+    }
+
+    return this.paginate(filtered, params);
   }
 
   async findManyByStatus(

@@ -26,9 +26,14 @@ export async function listProductsController(app: FastifyInstance) {
       summary: 'List all products',
       querystring: paginationSchema.extend({
         search: z.string().max(200).optional(),
-        templateId: z.string().uuid().optional(),
-        manufacturerId: z.string().uuid().optional(),
-        categoryId: z.string().uuid().optional(),
+        templateId: z.string().optional(),
+        manufacturerId: z.string().optional(),
+        categoryId: z.string().optional(),
+        sortBy: z
+          .enum(['name', 'createdAt', 'updatedAt'])
+          .optional()
+          .default('createdAt'),
+        sortOrder: z.enum(['asc', 'desc']).optional().default('desc'),
       }),
       response: {
         200: z.object({
@@ -46,16 +51,30 @@ export async function listProductsController(app: FastifyInstance) {
 
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
-      const { search, templateId, manufacturerId, categoryId, page, limit } =
-        request.query;
+      const {
+        search,
+        templateId,
+        manufacturerId,
+        categoryId,
+        sortBy,
+        sortOrder,
+        page,
+        limit,
+      } = request.query;
+
+      const templateIds = templateId?.split(',').filter(Boolean);
+      const manufacturerIds = manufacturerId?.split(',').filter(Boolean);
+      const categoryIds = categoryId?.split(',').filter(Boolean);
 
       const listProductsUseCase = makeListProductsUseCase();
       const { products, meta } = await listProductsUseCase.execute({
         tenantId,
         search,
-        templateId,
-        manufacturerId,
-        categoryId,
+        templateIds,
+        manufacturerIds,
+        categoryIds,
+        sortBy,
+        sortOrder,
         page,
         limit,
       });
