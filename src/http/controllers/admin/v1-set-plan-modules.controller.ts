@@ -1,10 +1,10 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
-
 import { logAudit } from '@/http/helpers/audit.helper';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifySuperAdmin } from '@/http/middlewares/rbac/verify-super-admin';
+import { prisma } from '@/lib/prisma';
 import { makeSetPlanModulesUseCase } from '@/use-cases/admin/plans/factories/make-set-plan-modules-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -78,12 +78,17 @@ export async function setPlanModulesAdminController(app: FastifyInstance) {
           },
         );
 
+        const plan = await prisma.plan.findUnique({
+          where: { id },
+          select: { name: true },
+        });
+
         logAudit(request, {
           message: AUDIT_MESSAGES.ADMIN.PLAN_SET_MODULES,
           entityId: id,
           placeholders: {
             adminName: request.user.sub,
-            planName: id,
+            planName: plan?.name || id,
             moduleCount: modules.length,
           },
           newData: { modules },

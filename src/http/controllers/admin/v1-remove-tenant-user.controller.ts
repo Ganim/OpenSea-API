@@ -4,6 +4,7 @@ import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifySuperAdmin } from '@/http/middlewares/rbac/verify-super-admin';
+import { prisma } from '@/lib/prisma';
 import { makeRemoveUserFromTenantUseCase } from '@/use-cases/core/tenants/factories/make-remove-user-from-tenant-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -39,6 +40,23 @@ export async function removeTenantUserAdminController(app: FastifyInstance) {
       const { id, userId } = request.params;
 
       try {
+        // Resolve nomes para auditoria antes de remover
+        const [tenant, affectedUser] = await Promise.all([
+          prisma.tenant.findUnique({ where: { id }, select: { name: true } }),
+          prisma.user.findUnique({
+            where: { id: userId },
+            select: {
+              email: true,
+              username: true,
+              profile: { select: { name: true, surname: true } },
+            },
+          }),
+        ]);
+
+        const affectedUserName = affectedUser?.profile
+          ? `${affectedUser.profile.name} ${affectedUser.profile.surname || ''}`.trim()
+          : affectedUser?.username || affectedUser?.email || userId;
+
         const useCase = makeRemoveUserFromTenantUseCase();
         await useCase.execute({
           tenantId: id,
@@ -50,8 +68,8 @@ export async function removeTenantUserAdminController(app: FastifyInstance) {
           entityId: userId,
           placeholders: {
             adminName: request.user.sub,
-            userId,
-            tenantName: id,
+            userName: affectedUserName,
+            tenantName: tenant?.name || id,
           },
           affectedUserId: userId,
         });

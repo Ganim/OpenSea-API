@@ -3,6 +3,7 @@ import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifySuperAdmin } from '@/http/middlewares/rbac/verify-super-admin';
+import { prisma } from '@/lib/prisma';
 import { makeChangeTenantPlanUseCase } from '@/use-cases/admin/tenants/factories/make-change-tenant-plan-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -54,13 +55,22 @@ export async function changeTenantPlanAdminController(app: FastifyInstance) {
           planId,
         });
 
+        // Resolve nomes para auditoria
+        const [tenant, plan] = await Promise.all([
+          prisma.tenant.findUnique({ where: { id }, select: { name: true } }),
+          prisma.plan.findUnique({
+            where: { id: planId },
+            select: { name: true },
+          }),
+        ]);
+
         logAudit(request, {
           message: AUDIT_MESSAGES.ADMIN.TENANT_PLAN_CHANGE,
           entityId: id,
           placeholders: {
             adminName: request.user.sub,
-            tenantName: id,
-            planName: planId,
+            tenantName: tenant?.name || id,
+            planName: plan?.name || planId,
           },
           newData: { planId, tenantPlanId: tenantPlan.id },
         });

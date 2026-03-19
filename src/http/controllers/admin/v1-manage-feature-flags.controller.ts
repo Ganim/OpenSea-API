@@ -4,6 +4,7 @@ import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifySuperAdmin } from '@/http/middlewares/rbac/verify-super-admin';
+import { prisma } from '@/lib/prisma';
 import { makeManageTenantFeatureFlagsUseCase } from '@/use-cases/admin/tenants/factories/make-manage-tenant-feature-flags-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -62,6 +63,11 @@ export async function manageFeatureFlagsAdminController(app: FastifyInstance) {
           metadata,
         });
 
+        const tenant = await prisma.tenant.findUnique({
+          where: { id },
+          select: { name: true },
+        });
+
         logAudit(request, {
           message: AUDIT_MESSAGES.ADMIN.TENANT_FLAG_CHANGE,
           entityId: featureFlag.id,
@@ -69,7 +75,7 @@ export async function manageFeatureFlagsAdminController(app: FastifyInstance) {
             adminName: request.user.sub,
             action: enabled ? 'ativou' : 'desativou',
             flagName: flag,
-            tenantName: id,
+            tenantName: tenant?.name || id,
           },
           newData: { flag, enabled, metadata },
         });

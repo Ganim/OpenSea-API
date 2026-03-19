@@ -65,6 +65,7 @@ export async function listMyAuditLogsController(app: FastifyInstance) {
         userAgent: log.userAgent,
         endpoint: log.endpoint,
         method: log.method,
+        userName: log.userName,
         description: log.description,
         createdAt: log.createdAt,
       }));

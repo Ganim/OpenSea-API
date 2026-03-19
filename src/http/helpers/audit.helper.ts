@@ -1,4 +1,5 @@
 import type { AuditMessage } from '@/constants/audit-messages/types';
+import { prisma } from '@/lib/prisma';
 import { makeLogAuditUseCase } from '@/use-cases/audit/factories/make-log-audit-use-case';
 import type { FastifyRequest } from 'fastify';
 
@@ -131,6 +132,78 @@ function sanitizeData(
 }
 
 /**
+ * Cache em memória para nomes de usuários (evita queries repetidas na mesma request)
+ */
+const userNameCache = new Map<string, string>();
+const CACHE_TTL = 60_000; // 1 minuto
+let lastCacheClear = Date.now();
+
+/**
+ * Resolve o nome de exibição de um usuário a partir do ID
+ * Usa cache em memória para evitar queries repetidas
+ */
+async function resolveUserDisplayName(
+  userId: string,
+): Promise<string | null> {
+  // Limpa cache periodicamente
+  if (Date.now() - lastCacheClear > CACHE_TTL) {
+    userNameCache.clear();
+    lastCacheClear = Date.now();
+  }
+
+  if (userNameCache.has(userId)) {
+    return userNameCache.get(userId)!;
+  }
+
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      select: {
+        email: true,
+        username: true,
+        profile: { select: { name: true, surname: true } },
+      },
+    });
+
+    if (!user) return null;
+
+    const profileName = user.profile
+      ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
+      : '';
+
+    const displayName = profileName || user.username || user.email;
+    userNameCache.set(userId, displayName);
+    return displayName;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Substitui valores de placeholders que são UUIDs do usuário atual
+ * pelo nome de exibição resolvido do banco
+ */
+async function resolveUserPlaceholders(
+  placeholders: Record<string, string | number | null | undefined>,
+  currentUserId: string | undefined,
+): Promise<Record<string, string | number | null | undefined>> {
+  if (!currentUserId) return placeholders;
+
+  const resolved = { ...placeholders };
+  const displayName = await resolveUserDisplayName(currentUserId);
+
+  if (!displayName) return placeholders;
+
+  for (const [key, value] of Object.entries(resolved)) {
+    if (typeof value === 'string' && value === currentUserId) {
+      resolved[key] = displayName;
+    }
+  }
+
+  return resolved;
+}
+
+/**
  * Registra um log de auditoria com contexto semântico
  *
  * @example
@@ -154,9 +227,14 @@ export async function logAudit(
     const context = getAuditContextFromRequest(request);
     const logAuditUseCase = makeLogAuditUseCase();
 
+    // Auto-resolve nomes de usuários que foram passados como UUIDs
+    const resolvedPlaceholders = params.placeholders
+      ? await resolveUserPlaceholders(params.placeholders, context.userId)
+      : undefined;
+
     // Substitui placeholders na descrição
-    const description = params.placeholders
-      ? replacePlaceholders(params.message.description, params.placeholders)
+    const description = resolvedPlaceholders
+      ? replacePlaceholders(params.message.description, resolvedPlaceholders)
       : params.message.description;
 
     // Sanitiza dados sensíveis
@@ -164,8 +242,8 @@ export async function logAudit(
     const sanitizedNewData = sanitizeData(params.newData);
 
     // Inclui placeholders resolvidos em newData para o frontend poder estilizar
-    const newDataWithPlaceholders = params.placeholders
-      ? { ...sanitizedNewData, _placeholders: params.placeholders }
+    const newDataWithPlaceholders = resolvedPlaceholders
+      ? { ...sanitizedNewData, _placeholders: resolvedPlaceholders }
       : sanitizedNewData;
 
     await logAuditUseCase.execute({

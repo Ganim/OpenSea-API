@@ -92,13 +92,18 @@ export async function createTenantUserAdminController(app: FastifyInstance) {
           role,
         });
 
+        const tenant = await prisma.tenant.findUnique({
+          where: { id },
+          select: { name: true },
+        });
+
         logAudit(request, {
           message: AUDIT_MESSAGES.ADMIN.TENANT_USER_CREATE,
           entityId: user.id.toString(),
           placeholders: {
             adminName: request.user.sub,
             userName: email,
-            tenantName: id,
+            tenantName: tenant?.name || id,
           },
           newData: { email, username, role },
           affectedUserId: user.id.toString(),

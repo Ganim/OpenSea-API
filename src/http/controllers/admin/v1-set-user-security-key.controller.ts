@@ -3,6 +3,7 @@ import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifySuperAdmin } from '@/http/middlewares/rbac/verify-super-admin';
+import { prisma } from '@/lib/prisma';
 import { SetUserSecurityKeyUseCase } from '@/use-cases/core/tenants/set-user-security-key';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -39,6 +40,26 @@ export async function setUserSecurityKeyAdminController(app: FastifyInstance) {
       const { securityKey } = request.body;
 
       try {
+        // Resolve nomes para auditoria
+        const [tenant, affectedUser] = await Promise.all([
+          prisma.tenant.findUnique({
+            where: { id: tenantId },
+            select: { name: true },
+          }),
+          prisma.user.findUnique({
+            where: { id: userId },
+            select: {
+              email: true,
+              username: true,
+              profile: { select: { name: true, surname: true } },
+            },
+          }),
+        ]);
+
+        const affectedUserName = affectedUser?.profile
+          ? `${affectedUser.profile.name} ${affectedUser.profile.surname || ''}`.trim()
+          : affectedUser?.username || affectedUser?.email || userId;
+
         const useCase = new SetUserSecurityKeyUseCase();
         await useCase.execute({ tenantId, userId, securityKey });
 
@@ -50,8 +71,8 @@ export async function setUserSecurityKeyAdminController(app: FastifyInstance) {
           placeholders: {
             adminName: request.user.sub,
             action,
-            userId,
-            tenantName: tenantId,
+            userName: affectedUserName,
+            tenantName: tenant?.name || tenantId,
           },
           affectedUserId: userId,
         });

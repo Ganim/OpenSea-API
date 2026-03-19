@@ -83,7 +83,7 @@ export const ADMIN_AUDIT_MESSAGES = {
     entity: AuditEntity.TENANT_USER,
     module: AuditModule.ADMIN,
     description:
-      '{{adminName}} removeu o usuário {{userId}} da empresa {{tenantName}}',
+      '{{adminName}} removeu o usuário {{userName}} da empresa {{tenantName}}',
   } satisfies AuditMessage,
 
   /** Super admin alterou chave de segurança de um usuário */
@@ -92,7 +92,7 @@ export const ADMIN_AUDIT_MESSAGES = {
     entity: AuditEntity.TENANT_USER,
     module: AuditModule.ADMIN,
     description:
-      '{{adminName}} {{action}} a chave de segurança do usuário {{userId}} na empresa {{tenantName}}',
+      '{{adminName}} {{action}} a chave de segurança do usuário {{userName}} na empresa {{tenantName}}',
   } satisfies AuditMessage,
 
   // ============================================================================
