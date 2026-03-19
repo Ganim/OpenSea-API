@@ -2,12 +2,14 @@ import type { FastifyInstance } from 'fastify';
 import { createModuleMiddleware } from '@/http/middlewares/tenant/verify-module';
 import { rateLimitConfig } from '@/config/rate-limits';
 import rateLimit from '@fastify/rate-limit';
+import { bulkCreateVariantsController } from './v1-bulk-create-variants.controller';
 import { createVariantController } from './v1-create-variant.controller';
 import { deleteVariantController } from './v1-delete-variant.controller';
 import { getVariantByIdController } from './v1-get-variant-by-id.controller';
 import { listVariantsByProductIdController } from './v1-list-variants-by-product-id.controller';
 import { listVariantsController } from './v1-list-variants.controller';
 import { updateVariantController } from './v1-update-variant.controller';
+import { validateBulkVariantsController } from './v1-validate-bulk-variants.controller';
 
 export async function variantsRoutes(app: FastifyInstance) {
   app.addHook('onRequest', createModuleMiddleware('STOCK'));
@@ -17,6 +19,8 @@ export async function variantsRoutes(app: FastifyInstance) {
     async (managerApp) => {
       managerApp.register(rateLimit, rateLimitConfig.mutation);
       managerApp.register(createVariantController);
+      managerApp.register(bulkCreateVariantsController);
+      managerApp.register(validateBulkVariantsController);
       managerApp.register(updateVariantController);
       managerApp.register(deleteVariantController);
     },
