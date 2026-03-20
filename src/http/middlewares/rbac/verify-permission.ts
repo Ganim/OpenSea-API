@@ -10,7 +10,7 @@ import type { FastifyRequest } from 'fastify';
 export interface PermissionCheckOptions {
   /**
    * Código da permissão necessária
-   * Exemplo: 'stock.products.create', 'core.users.manage'
+   * Exemplo: 'stock.products.create', 'admin.users.admin'
    */
   permissionCode: string;
 

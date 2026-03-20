@@ -51,6 +51,8 @@ export interface ScopeCheckResult {
 }
 
 /**
+ * @deprecated This middleware is unused — no controller imports it. Will be removed in a future cleanup.
+ *
  * Factory para criar middleware de verificação de permissão com escopo
  *
  * Este middleware verifica se o usuário tem permissão .all ou .team para um recurso.
@@ -173,6 +175,8 @@ export function createScopeMiddleware(options: ScopePermissionCheckOptions) {
 }
 
 /**
+ * @deprecated This middleware is unused — no controller imports it. Will be removed in a future cleanup.
+ *
  * Factory para criar middleware que apenas identifica o escopo do usuário
  * sem verificar um recurso específico.
  *

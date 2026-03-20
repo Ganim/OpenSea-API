@@ -36,7 +36,7 @@ function getUserTier(request: FastifyRequest): keyof UserRateLimitConfig {
   // Usuários com permissões administrativas são premium
   const permissions = user.permissions || [];
   const isAdmin = permissions.some(
-    (p) => p.startsWith('rbac.') || p === 'admin.*',
+    (p) => p.startsWith('admin.') || p === 'admin.*',
   );
 
   if (isAdmin) {

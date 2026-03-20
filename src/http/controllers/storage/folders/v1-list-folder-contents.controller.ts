@@ -74,10 +74,10 @@ export async function listFolderContentsController(app: FastifyInstance) {
             .map((p) => p.permission.code.toString()),
         );
         const canViewSystemFolders = permCodes.has(
-          'storage.system-folders.list',
+          PermissionCodes.TOOLS.STORAGE_FOLDERS.ACCESS,
         );
         const canViewFilterFolders = permCodes.has(
-          'storage.filter-folders.list',
+          PermissionCodes.TOOLS.STORAGE_FOLDERS.ACCESS,
         );
 
         // Fetch user's team IDs for visibility filtering
