@@ -53,8 +53,12 @@ export class RoutineCheckUseCase {
       {
         tenantId,
         elapsedMs: elapsed,
-        finance: financeResult.status === 'fulfilled' ? financeResult.value : 'error',
-        reminders: remindersResult.status === 'fulfilled' ? remindersResult.value : 'error',
+        finance:
+          financeResult.status === 'fulfilled' ? financeResult.value : 'error',
+        reminders:
+          remindersResult.status === 'fulfilled'
+            ? remindersResult.value
+            : 'error',
         heapBefore: Math.round(mem0.heapUsed / 1024 / 1024),
         heapAfter: Math.round(mem1.heapUsed / 1024 / 1024),
       },

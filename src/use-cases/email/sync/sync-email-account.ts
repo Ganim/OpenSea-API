@@ -220,7 +220,10 @@ export class SyncEmailAccountUseCase {
         lastSyncAt: new Date(),
       });
 
-      if (inboxCreatedMessages.length > 0 && this.emailSyncNotificationService) {
+      if (
+        inboxCreatedMessages.length > 0 &&
+        this.emailSyncNotificationService
+      ) {
         await this.emailSyncNotificationService
           .notifyNewMessages({
             tenantId,

@@ -79,7 +79,10 @@ export class SaveEmailDraftUseCase {
       tenantId: request.tenantId,
       accountId: account.id.toString(),
       folderId: draftsFolder.id.toString(),
-      remoteUid: -(Date.now() % 2_000_000_000 + Math.floor(Math.random() * 1000)),
+      remoteUid: -(
+        (Date.now() % 2_000_000_000) +
+        Math.floor(Math.random() * 1000)
+      ),
       messageId: draftId,
       fromAddress: account.address,
       fromName: account.displayName ?? null,

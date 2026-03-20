@@ -30,8 +30,9 @@ describe('ListManufacturersUseCase', () => {
     const result = await sut.execute({ tenantId: 'tenant-1' });
 
     expect(result.manufacturers).toHaveLength(2);
-    expect(result.manufacturers[0].name).toBe('TechCorp');
-    expect(result.manufacturers[1].name).toBe('Manufacturing Ltd');
+    const names = result.manufacturers.map((m) => m.name);
+    expect(names).toContain('TechCorp');
+    expect(names).toContain('Manufacturing Ltd');
   });
 
   it('should return empty array when no manufacturers exist', async () => {

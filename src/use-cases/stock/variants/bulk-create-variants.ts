@@ -1,5 +1,3 @@
-import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
-import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Product } from '@/entities/stock/product';
 import { Template } from '@/entities/stock/template';
@@ -82,9 +80,7 @@ export class BulkCreateVariantsUseCase {
     }
 
     // Pre-fetch all unique products by productId
-    const uniqueProductIds = [
-      ...new Set(variants.map((v) => v.productId)),
-    ];
+    const uniqueProductIds = [...new Set(variants.map((v) => v.productId))];
     const productMap = new Map<string, Product>();
     for (const productId of uniqueProductIds) {
       const product = await this.productsRepository.findById(
@@ -99,8 +95,9 @@ export class BulkCreateVariantsUseCase {
     // Pre-fetch templates for each product (variants inherit template from their product)
     const uniqueTemplateIds = [
       ...new Set(
-        [...productMap.values()]
-          .map((product) => product.templateId.toString()),
+        [...productMap.values()].map((product) =>
+          product.templateId.toString(),
+        ),
       ),
     ];
     const templateMap = new Map<string, Template>();
@@ -134,11 +131,10 @@ export class BulkCreateVariantsUseCase {
     const nextSeqByProductId = new Map<string, number>();
     for (const productId of uniqueProductIds) {
       if (productMap.has(productId)) {
-        const lastVariant =
-          await this.variantsRepository.findLastByProductId(
-            new UniqueEntityID(productId),
-            tenantId,
-          );
+        const lastVariant = await this.variantsRepository.findLastByProductId(
+          new UniqueEntityID(productId),
+          tenantId,
+        );
         nextSeqByProductId.set(
           productId,
           (lastVariant?.sequentialCode ?? 0) + 1,
@@ -194,8 +190,7 @@ export class BulkCreateVariantsUseCase {
           errors.push({
             index,
             name: variantName,
-            message:
-              'Variant with this name already exists for the product',
+            message: 'Variant with this name already exists for the product',
           });
         }
         continue;
@@ -240,10 +235,7 @@ export class BulkCreateVariantsUseCase {
       }
 
       // f. Validate costPrice
-      if (
-        variantInput.costPrice !== undefined &&
-        variantInput.costPrice < 0
-      ) {
+      if (variantInput.costPrice !== undefined && variantInput.costPrice < 0) {
         errors.push({
           index,
           name: variantName,

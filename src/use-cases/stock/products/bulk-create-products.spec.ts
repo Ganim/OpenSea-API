@@ -8,7 +8,7 @@ import { templateAttr } from '@/utils/tests/factories/stock/make-template';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { CreateCategoryUseCase } from '../categories/create-category';
 import { CreateManufacturerUseCase } from '../manufacturers/create-manufacturer';
-import { CreateSupplierUseCase } from '../suppliers/create-supplier';
+
 import { CreateTemplateUseCase } from '../templates/create-template';
 import { CreateProductUseCase } from './create-product';
 import { BulkCreateProductsUseCase } from './bulk-create-products';
@@ -20,7 +20,7 @@ let manufacturersRepository: InMemoryManufacturersRepository;
 let categoriesRepository: InMemoryCategoriesRepository;
 let sut: BulkCreateProductsUseCase;
 let createTemplate: CreateTemplateUseCase;
-let createSupplier: CreateSupplierUseCase;
+
 let createManufacturer: CreateManufacturerUseCase;
 let createCategory: CreateCategoryUseCase;
 let createProduct: CreateProductUseCase;
@@ -46,7 +46,6 @@ describe('BulkCreateProductsUseCase', () => {
     );
 
     createTemplate = new CreateTemplateUseCase(templatesRepository);
-    createSupplier = new CreateSupplierUseCase(suppliersRepository);
     createManufacturer = new CreateManufacturerUseCase(manufacturersRepository);
     createCategory = new CreateCategoryUseCase(categoriesRepository);
     createProduct = new CreateProductUseCase(
@@ -180,7 +179,10 @@ describe('BulkCreateProductsUseCase', () => {
       sut.execute({
         tenantId: TENANT_ID,
         products: [
-          { name: 'Product Without Template', templateId: 'non-existent-template-id' },
+          {
+            name: 'Product Without Template',
+            templateId: 'non-existent-template-id',
+          },
         ],
         options: { skipDuplicates: false },
       }),
@@ -315,7 +317,11 @@ describe('BulkCreateProductsUseCase', () => {
     const result = await sut.execute({
       tenantId: TENANT_ID,
       products: [
-        { name: 'Valid Product One', templateId, manufacturerId: validManufacturerId },
+        {
+          name: 'Valid Product One',
+          templateId,
+          manufacturerId: validManufacturerId,
+        },
         {
           name: 'Invalid Product',
           templateId,

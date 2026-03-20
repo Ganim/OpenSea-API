@@ -39,7 +39,9 @@ export async function queueAuditLog(data: AuditLogJobData): Promise<void> {
 /**
  * Registra múltiplos audit logs de uma vez
  */
-export async function queueBulkAuditLogs(logs: AuditLogJobData[]): Promise<void> {
+export async function queueBulkAuditLogs(
+  logs: AuditLogJobData[],
+): Promise<void> {
   for (const data of logs) {
     await queueAuditLog(data);
   }

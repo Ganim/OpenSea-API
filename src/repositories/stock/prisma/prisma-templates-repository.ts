@@ -2,7 +2,10 @@ import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Template } from '@/entities/stock/template';
 import { prisma } from '@/lib/prisma';
 import { templatePrismaToDomain } from '@/mappers/stock/template/template-prisma-to-domain';
-import type { PaginatedResult, PaginationParams } from '../../pagination-params';
+import type {
+  PaginatedResult,
+  PaginationParams,
+} from '../../pagination-params';
 import type { Prisma } from '@prisma/generated/client';
 import type {
   CreateTemplateSchema,

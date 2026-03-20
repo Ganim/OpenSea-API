@@ -37,7 +37,6 @@ const cacheControlPlugin: FastifyPluginAsync = async (app) => {
       pattern.test(request.url),
     );
     const maxAge = isPublic ? 300 : 60;
-    const scope = isPublic ? 'public' : 'private';
 
     // Use no-cache + ETag for authenticated endpoints so the browser always
     // revalidates with If-None-Match. This ensures React Query invalidation

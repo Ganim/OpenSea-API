@@ -8,7 +8,7 @@ import {
 } from '@/http/schemas/stock/zones/zone.schema';
 import { zoneToDTO, type ZoneStatsDTO } from '@/mappers/stock/zone/zone-to-dto';
 import { makeListZonesUseCase } from '@/use-cases/stock/zones/factories/make-list-zones-use-case';
-import { prisma, Prisma } from '@/lib/prisma';
+import { prisma } from '@/lib/prisma';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 

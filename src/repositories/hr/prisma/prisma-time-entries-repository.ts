@@ -49,7 +49,9 @@ export class PrismaTimeEntriesRepository implements TimeEntriesRepository {
     return timeEntry;
   }
 
-  async findMany(filters: FindTimeEntriesFilters): Promise<FindManyTimeEntriesResult> {
+  async findMany(
+    filters: FindTimeEntriesFilters,
+  ): Promise<FindManyTimeEntriesResult> {
     const page = filters.page ?? 1;
     const perPage = filters.perPage ?? 50;
     const skip = (page - 1) * perPage;

@@ -25,11 +25,21 @@ export class ListTimeEntriesUseCase {
   async execute(
     request: ListTimeEntriesRequest,
   ): Promise<ListTimeEntriesResponse> {
-    const { tenantId, employeeId, startDate, endDate, entryType, page, perPage } = request;
+    const {
+      tenantId,
+      employeeId,
+      startDate,
+      endDate,
+      entryType,
+      page,
+      perPage,
+    } = request;
 
     // Aplicar default de 30 dias para evitar carregar histórico completo sem filtro
     const effectiveEndDate = endDate ?? new Date();
-    const effectiveStartDate = startDate ?? new Date(effectiveEndDate.getTime() - 30 * 24 * 60 * 60 * 1000);
+    const effectiveStartDate =
+      startDate ??
+      new Date(effectiveEndDate.getTime() - 30 * 24 * 60 * 60 * 1000);
 
     const result = await this.timeEntriesRepository.findMany({
       tenantId,

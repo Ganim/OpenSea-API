@@ -1,4 +1,3 @@
-import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Product } from '@/entities/stock/product';
@@ -166,7 +165,11 @@ export class BulkCreateProductsUseCase {
 
       // a. Validate name
       if (!productName || productName.trim().length === 0) {
-        errors.push({ index, name: productName ?? '', message: 'Name is required' });
+        errors.push({
+          index,
+          name: productName ?? '',
+          message: 'Name is required',
+        });
         continue;
       }
 

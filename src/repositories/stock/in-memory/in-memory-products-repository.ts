@@ -75,10 +75,7 @@ export class InMemoryProductsRepository implements ProductsRepository {
     return product ?? null;
   }
 
-  async findManyByNames(
-    names: string[],
-    tenantId: string,
-  ): Promise<Product[]> {
+  async findManyByNames(names: string[], tenantId: string): Promise<Product[]> {
     const lowerNames = names.map((n) => n.toLowerCase());
     return this.items.filter(
       (item) =>

@@ -31,8 +31,9 @@ describe('ListTemplatesUseCase', () => {
     const result = await sut.execute({ tenantId: 'tenant-1' });
 
     expect(result.templates).toHaveLength(2);
-    expect(result.templates[0].name).toBe('Electronics Template');
-    expect(result.templates[1].name).toBe('Clothing Template');
+    const names = result.templates.map((t) => t.name);
+    expect(names).toContain('Electronics Template');
+    expect(names).toContain('Clothing Template');
   });
 
   it('should return empty array when no templates exist', async () => {

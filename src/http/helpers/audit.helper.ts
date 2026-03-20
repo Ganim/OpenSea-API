@@ -142,9 +142,7 @@ let lastCacheClear = Date.now();
  * Resolve o nome de exibição de um usuário a partir do ID
  * Usa cache em memória para evitar queries repetidas
  */
-async function resolveUserDisplayName(
-  userId: string,
-): Promise<string | null> {
+async function resolveUserDisplayName(userId: string): Promise<string | null> {
   // Limpa cache periodicamente
   if (Date.now() - lastCacheClear > CACHE_TTL) {
     userNameCache.clear();

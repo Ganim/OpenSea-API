@@ -26,5 +26,7 @@ export interface RefreshTokensRepository {
   listBySession(sessionId: UniqueEntityID): Promise<RefreshToken[] | null>;
 
   // RETRIEVE (latest)
-  findLatestBySessionId(sessionId: UniqueEntityID): Promise<RefreshToken | null>;
+  findLatestBySessionId(
+    sessionId: UniqueEntityID,
+  ): Promise<RefreshToken | null>;
 }

@@ -20,7 +20,8 @@ export class ListBonusesUseCase {
   constructor(private bonusesRepository: BonusesRepository) {}
 
   async execute(request: ListBonusesRequest): Promise<ListBonusesResponse> {
-    const { tenantId, employeeId, isPaid, startDate, endDate, page, perPage } = request;
+    const { tenantId, employeeId, isPaid, startDate, endDate, page, perPage } =
+      request;
 
     const bonuses = await this.bonusesRepository.findMany(tenantId, {
       employeeId: employeeId ? new UniqueEntityID(employeeId) : undefined,

@@ -18,7 +18,8 @@ export class ListPayrollsUseCase {
   constructor(private payrollsRepository: PayrollsRepository) {}
 
   async execute(request: ListPayrollsRequest): Promise<ListPayrollsResponse> {
-    const { tenantId, referenceMonth, referenceYear, status, page, perPage } = request;
+    const { tenantId, referenceMonth, referenceYear, status, page, perPage } =
+      request;
 
     const payrolls = await this.payrollsRepository.findMany(tenantId, {
       referenceMonth,

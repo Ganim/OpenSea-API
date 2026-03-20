@@ -34,10 +34,7 @@ export class CheckOverdueEntriesUseCase {
     let dueSoonAlerts = 0;
 
     const t0 = Date.now();
-    logger.info(
-      { tenantId, createdBy },
-      '[check-overdue] starting',
-    );
+    logger.info({ tenantId, createdBy }, '[check-overdue] starting');
 
     // Step 1: Find PENDING entries with dueDate < today and mark as OVERDUE
     const { entries: overdueEntries } =
@@ -53,7 +50,11 @@ export class CheckOverdueEntriesUseCase {
     const actuallyOverdue = overdueEntries.filter((e) => e.dueDate < today);
 
     logger.info(
-      { tenantId, overdueCount: actuallyOverdue.length, fetchedCount: overdueEntries.length },
+      {
+        tenantId,
+        overdueCount: actuallyOverdue.length,
+        fetchedCount: overdueEntries.length,
+      },
       '[check-overdue] entries to process',
     );
 

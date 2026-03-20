@@ -1,7 +1,10 @@
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { UniqueEntityID as EntityID } from '@/entities/domain/unique-entity-id';
 import { Template } from '@/entities/stock/template';
-import type { PaginatedResult, PaginationParams } from '../../pagination-params';
+import type {
+  PaginatedResult,
+  PaginationParams,
+} from '../../pagination-params';
 import type {
   CreateTemplateSchema,
   TemplatesRepository,

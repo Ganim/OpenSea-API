@@ -45,7 +45,10 @@ describe('Validate Bulk Variants (E2E)', () => {
       .post('/v1/variants/bulk/validate')
       .set('Authorization', `Bearer ${token}`)
       .send({
-        productNames: [existingProduct.name, `NonExistent Product ${timestamp}`],
+        productNames: [
+          existingProduct.name,
+          `NonExistent Product ${timestamp}`,
+        ],
         templateId: template.id,
       });
 
@@ -54,8 +57,13 @@ describe('Validate Bulk Variants (E2E)', () => {
     expect(response.body).toHaveProperty('missingProducts');
     expect(response.body).toHaveProperty('templateValid', true);
     expect(response.body.existingProducts).toHaveLength(1);
-    expect(response.body.existingProducts[0]).toHaveProperty('name', existingProduct.name);
+    expect(response.body.existingProducts[0]).toHaveProperty(
+      'name',
+      existingProduct.name,
+    );
     expect(response.body.existingProducts[0]).toHaveProperty('id');
-    expect(response.body.missingProducts).toContain(`NonExistent Product ${timestamp}`);
+    expect(response.body.missingProducts).toContain(
+      `NonExistent Product ${timestamp}`,
+    );
   });
 });

@@ -49,8 +49,12 @@ export async function configureZoneStructureController(app: FastifyInstance) {
       const tenantId = request.user.tenantId!;
       const userId = request.user.sub;
       const { id } = request.params;
-      const { structure, defaultCapacity, regenerateBins, forceRemoveOccupiedBins } =
-        request.body;
+      const {
+        structure,
+        defaultCapacity,
+        regenerateBins,
+        forceRemoveOccupiedBins,
+      } = request.body;
 
       const configureZoneStructureUseCase = makeConfigureZoneStructureUseCase();
       const result = await configureZoneStructureUseCase.execute({

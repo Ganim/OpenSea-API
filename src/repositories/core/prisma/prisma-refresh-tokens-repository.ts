@@ -81,7 +81,9 @@ export class PrismaRefreshTokensRepository implements RefreshTokensRepository {
   }
 
   // RETRIEVE (latest)
-  async findLatestBySessionId(sessionId: UniqueEntityID): Promise<RefreshToken | null> {
+  async findLatestBySessionId(
+    sessionId: UniqueEntityID,
+  ): Promise<RefreshToken | null> {
     const data = await prisma.refreshToken.findFirst({
       where: {
         sessionId: sessionId.toString(),

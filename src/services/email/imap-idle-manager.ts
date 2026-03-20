@@ -71,39 +71,58 @@ export class ImapIdleManager {
       entry.retries = 0;
 
       // Listen for new messages (ImapFlow emits 'exists' when IDLE detects changes)
-      client.on('exists', async (data: { path: string; count: number; prevCount: number }) => {
-        if (entry.state === 'syncing' || this.stopped) return;
+      client.on(
+        'exists',
+        async (data: { path: string; count: number; prevCount: number }) => {
+          if (entry.state === 'syncing' || this.stopped) return;
 
-        entry.state = 'syncing';
-        logger.info(
-          { accountId: entry.accountId, newCount: data.count, prevCount: data.prevCount },
-          'IDLE: New messages detected, triggering sync',
-        );
+          entry.state = 'syncing';
+          logger.info(
+            {
+              accountId: entry.accountId,
+              newCount: data.count,
+              prevCount: data.prevCount,
+            },
+            'IDLE: New messages detected, triggering sync',
+          );
 
-        // Queue an incremental sync via BullMQ
-        await queueEmailSync({
-          tenantId: entry.tenantId,
-          accountId: entry.accountId,
-        }).catch((err) => {
-          logger.warn({ err, accountId: entry.accountId }, 'IDLE: Failed to queue sync');
-        });
+          // Queue an incremental sync via BullMQ
+          await queueEmailSync({
+            tenantId: entry.tenantId,
+            accountId: entry.accountId,
+          }).catch((err) => {
+            logger.warn(
+              { err, accountId: entry.accountId },
+              'IDLE: Failed to queue sync',
+            );
+          });
 
-        entry.state = 'idle';
-      });
+          entry.state = 'idle';
+        },
+      );
 
       // Handle unexpected close
       client.on('close', () => {
         if (this.stopped) return;
-        logger.warn({ accountId: entry.accountId }, 'IDLE: Connection closed unexpectedly');
+        logger.warn(
+          { accountId: entry.accountId },
+          'IDLE: Connection closed unexpectedly',
+        );
         this.scheduleReconnect(entry);
       });
 
       // Heartbeat: refresh IDLE before 30-min server timeout (RFC 2177)
       this.startHeartbeat(entry);
 
-      logger.info({ accountId: entry.accountId }, 'IDLE: Monitoring started for INBOX');
+      logger.info(
+        { accountId: entry.accountId },
+        'IDLE: Monitoring started for INBOX',
+      );
     } catch (err) {
-      logger.warn({ err, accountId: entry.accountId }, 'IDLE: Failed to connect');
+      logger.warn(
+        { err, accountId: entry.accountId },
+        'IDLE: Failed to connect',
+      );
       this.scheduleReconnect(entry);
     }
   }
@@ -120,7 +139,10 @@ export class ImapIdleManager {
           await entry.client.noop();
         }
       } catch (err) {
-        logger.warn({ err, accountId: entry.accountId }, 'IDLE: Heartbeat failed');
+        logger.warn(
+          { err, accountId: entry.accountId },
+          'IDLE: Heartbeat failed',
+        );
       }
     }, HEARTBEAT_INTERVAL_MS);
   }
@@ -139,7 +161,10 @@ export class ImapIdleManager {
       return;
     }
 
-    const delay = BACKOFF_SCHEDULE[Math.min(entry.retries - 1, BACKOFF_SCHEDULE.length - 1)];
+    const delay =
+      BACKOFF_SCHEDULE[
+        Math.min(entry.retries - 1, BACKOFF_SCHEDULE.length - 1)
+      ];
     logger.info(
       { accountId: entry.accountId, retries: entry.retries, delay },
       'IDLE: Scheduling reconnect',
@@ -148,7 +173,10 @@ export class ImapIdleManager {
     setTimeout(() => {
       if (!this.stopped && this.entries.has(entry.accountId)) {
         this.connect(entry).catch((err) => {
-          logger.error({ err, accountId: entry.accountId }, 'IDLE: Reconnect failed');
+          logger.error(
+            { err, accountId: entry.accountId },
+            'IDLE: Reconnect failed',
+          );
         });
       }
     }, delay);
@@ -177,12 +205,16 @@ export class ImapIdleManager {
 
   async stopAll(): Promise<void> {
     this.stopped = true;
-    const promises = [...this.entries.keys()].map((id) => this.stopMonitoring(id));
+    const promises = [...this.entries.keys()].map((id) =>
+      this.stopMonitoring(id),
+    );
     await Promise.allSettled(promises);
     logger.info('IDLE: All monitoring stopped');
   }
 
-  getStatus(accountId: string): 'idle' | 'syncing' | 'degraded' | 'disconnected' {
+  getStatus(
+    accountId: string,
+  ): 'idle' | 'syncing' | 'degraded' | 'disconnected' {
     const entry = this.entries.get(accountId);
     if (!entry) return 'disconnected';
     return entry.state === 'connecting' ? 'idle' : entry.state;

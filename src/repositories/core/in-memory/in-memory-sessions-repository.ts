@@ -106,7 +106,7 @@ export class InMemorySessionsRepository implements SessionsRepository {
 
   async findActiveByUserId(userId: UniqueEntityID): Promise<Session[]> {
     return this.items.filter(
-      s => s.userId.equals(userId) && !s.expiredAt && !s.revokedAt
+      (s) => s.userId.equals(userId) && !s.expiredAt && !s.revokedAt,
     );
   }
 

@@ -178,7 +178,11 @@ export function normalizeSelectAttributes(
     if (!definition) continue;
 
     // Normaliza select: usa o casing correto do template
-    if (definition.type === 'select' && definition.options && typeof value === 'string') {
+    if (
+      definition.type === 'select' &&
+      definition.options &&
+      typeof value === 'string'
+    ) {
       const match = definition.options.find(
         (opt) => opt.toLowerCase().trim() === value.toLowerCase().trim(),
       );

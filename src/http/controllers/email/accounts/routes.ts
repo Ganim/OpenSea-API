@@ -18,8 +18,8 @@ import { makeTestEmailConnectionUseCase } from '@/use-cases/email/accounts/facto
 import { makeUnshareEmailAccountUseCase } from '@/use-cases/email/accounts/factories/make-unshare-email-account-use-case';
 import { makeUpdateEmailAccountUseCase } from '@/use-cases/email/accounts/factories/make-update-email-account-use-case';
 import {
-    isEmailHostObviouslySafe,
-    isEmailPortValid,
+  isEmailHostObviouslySafe,
+  isEmailPortValid,
 } from '@/utils/security/validate-email-host';
 import { makeSyncEmailAccountUseCase } from '@/use-cases/email/sync/factories/make-sync-email-account-use-case';
 import rateLimit from '@fastify/rate-limit';
@@ -489,11 +489,17 @@ export async function emailAccountsRoutes(app: FastifyInstance) {
         );
         const dedupKey = `manual-email-sync-${tenantId}-${accountId}-${bucket}`;
         if (recentSyncs.has(dedupKey)) {
-          logger.info({ tenantId, accountId }, 'Manual sync deduplicated — already triggered recently');
+          logger.info(
+            { tenantId, accountId },
+            'Manual sync deduplicated — already triggered recently',
+          );
         } else {
           recentSyncs.add(dedupKey);
           // Auto-cleanup after the dedup window
-          setTimeout(() => recentSyncs.delete(dedupKey), MANUAL_EMAIL_SYNC_DEDUP_WINDOW_MS).unref();
+          setTimeout(
+            () => recentSyncs.delete(dedupKey),
+            MANUAL_EMAIL_SYNC_DEDUP_WINDOW_MS,
+          ).unref();
 
           // Fire-and-forget inline sync (no Redis/BullMQ dependency)
           const syncUseCase = makeSyncEmailAccountUseCase();

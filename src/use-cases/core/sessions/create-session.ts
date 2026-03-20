@@ -61,7 +61,8 @@ export class CreateSessionUseCase {
     // Revoke old active sessions from the same device to prevent accumulation
     // Only run dedup when we have meaningful device info (userAgent was provided)
     if (userAgent && deviceInfo && deviceInfo.browserName) {
-      const existingSessions = await this.sessionsRepository.findActiveByUserId(validId);
+      const existingSessions =
+        await this.sessionsRepository.findActiveByUserId(validId);
       for (const existing of existingSessions) {
         if (
           existing.deviceInfo?.browserName === deviceInfo.browserName &&

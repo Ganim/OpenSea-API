@@ -25,7 +25,6 @@ const envSchema = z.object({
   // Frontend
   FRONTEND_URL: z.url().default('http://localhost:3000'),
 
-
   // JWT RS256 (opcional - se não definido, usa HS256)
   JWT_PRIVATE_KEY: z.string().optional(),
   JWT_PUBLIC_KEY: z.string().optional(),

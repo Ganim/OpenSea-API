@@ -23,8 +23,16 @@ export class ListDeductionsUseCase {
   async execute(
     request: ListDeductionsRequest,
   ): Promise<ListDeductionsResponse> {
-    const { tenantId, employeeId, isApplied, isRecurring, startDate, endDate, page, perPage } =
-      request;
+    const {
+      tenantId,
+      employeeId,
+      isApplied,
+      isRecurring,
+      startDate,
+      endDate,
+      page,
+      perPage,
+    } = request;
 
     const deductions = await this.deductionsRepository.findMany(tenantId, {
       employeeId: employeeId ? new UniqueEntityID(employeeId) : undefined,

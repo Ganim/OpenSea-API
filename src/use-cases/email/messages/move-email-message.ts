@@ -92,22 +92,19 @@ export class MoveEmailMessageUseCase {
       .catch(() => {});
 
     // Sync move to IMAP (fire-and-forget — DB is already updated)
-    this.syncMoveToImap(
-      account,
-      sourceFolder,
-      targetFolder,
-      message,
-    ).catch((error) => {
-      const reason = error instanceof Error ? error.message : String(error);
-      logger.warn(
-        {
-          err: error,
-          messageId: message.id.toString(),
-          accountId: account.id.toString(),
-        },
-        `Failed to sync move to IMAP (DB updated): ${reason}`,
-      );
-    });
+    this.syncMoveToImap(account, sourceFolder, targetFolder, message).catch(
+      (error) => {
+        const reason = error instanceof Error ? error.message : String(error);
+        logger.warn(
+          {
+            err: error,
+            messageId: message.id.toString(),
+            accountId: account.id.toString(),
+          },
+          `Failed to sync move to IMAP (DB updated): ${reason}`,
+        );
+      },
+    );
   }
 
   private async syncMoveToImap(

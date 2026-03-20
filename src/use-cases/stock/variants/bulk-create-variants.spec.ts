@@ -88,9 +88,24 @@ describe('BulkCreateVariantsUseCase', () => {
     const result = await sut.execute({
       tenantId: TENANT_ID,
       variants: [
-        { name: 'Black 64GB', productId, price: 799.99, attributes: { color: 'Black', storage: '64GB' } },
-        { name: 'White 128GB', productId, price: 899.99, attributes: { color: 'White', storage: '128GB' } },
-        { name: 'Blue 256GB', productId, price: 999.99, attributes: { color: 'Blue', storage: '256GB' } },
+        {
+          name: 'Black 64GB',
+          productId,
+          price: 799.99,
+          attributes: { color: 'Black', storage: '64GB' },
+        },
+        {
+          name: 'White 128GB',
+          productId,
+          price: 899.99,
+          attributes: { color: 'White', storage: '128GB' },
+        },
+        {
+          name: 'Blue 256GB',
+          productId,
+          price: 999.99,
+          attributes: { color: 'Blue', storage: '256GB' },
+        },
       ],
       options: { skipDuplicates: false },
     });
@@ -242,7 +257,12 @@ describe('BulkCreateVariantsUseCase', () => {
     const result = await sut.execute({
       tenantId: TENANT_ID,
       variants: [
-        { name: 'Negative Cost Variant', productId, price: 100, costPrice: -50 },
+        {
+          name: 'Negative Cost Variant',
+          productId,
+          price: 100,
+          costPrice: -50,
+        },
       ],
       options: { skipDuplicates: false },
     });
@@ -257,7 +277,12 @@ describe('BulkCreateVariantsUseCase', () => {
     const result = await sut.execute({
       tenantId: TENANT_ID,
       variants: [
-        { name: 'High Margin Variant', productId, price: 100, profitMargin: 150 },
+        {
+          name: 'High Margin Variant',
+          productId,
+          price: 100,
+          profitMargin: 150,
+        },
       ],
       options: { skipDuplicates: false },
     });
@@ -347,8 +372,12 @@ describe('BulkCreateVariantsUseCase', () => {
       (v) => v.productId.toString() === secondProductId,
     );
     expect(secondProductVariants).toHaveLength(2);
-    expect(secondProductVariants[0].fullCode).toBe(`${secondProductFullCode}.001`);
-    expect(secondProductVariants[1].fullCode).toBe(`${secondProductFullCode}.002`);
+    expect(secondProductVariants[0].fullCode).toBe(
+      `${secondProductFullCode}.001`,
+    );
+    expect(secondProductVariants[1].fullCode).toBe(
+      `${secondProductFullCode}.002`,
+    );
   });
 
   it('should handle partial failure', async () => {

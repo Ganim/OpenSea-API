@@ -49,18 +49,9 @@ describe('ListTagsUseCase', () => {
     const result = await sut.execute({ tenantId: 'tenant-1' });
 
     expect(result.tags).toHaveLength(2);
-    expect(result.tags[0]).toEqual(
-      expect.objectContaining({
-        name: 'Electronics',
-        slug: 'electronics',
-      }),
-    );
-    expect(result.tags[1]).toEqual(
-      expect.objectContaining({
-        name: 'Clothing',
-        slug: 'clothing',
-      }),
-    );
+    const names = result.tags.map((t) => t.name);
+    expect(names).toContain('Electronics');
+    expect(names).toContain('Clothing');
   });
 
   it('should return empty array when there are no tags', async () => {

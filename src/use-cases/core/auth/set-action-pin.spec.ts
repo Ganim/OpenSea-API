@@ -40,11 +40,19 @@ describe('Set Action PIN Use Case', () => {
       usersRepository,
     });
 
+    // First set the PIN (first-time setup skips password check)
+    await setActionPinUseCase.execute({
+      userId: user.id,
+      currentPassword: 'Pass@123',
+      newActionPin: '1234',
+    });
+
+    // Now changing the PIN requires correct password
     await expect(
       setActionPinUseCase.execute({
         userId: user.id,
         currentPassword: 'WrongPass',
-        newActionPin: '1234',
+        newActionPin: '5678',
       }),
     ).rejects.toBeInstanceOf(BadRequestError);
   });

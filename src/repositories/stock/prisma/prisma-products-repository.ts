@@ -173,10 +173,7 @@ export class PrismaProductsRepository implements ProductsRepository {
     return productPrismaToDomain(productData);
   }
 
-  async findManyByNames(
-    names: string[],
-    tenantId: string,
-  ): Promise<Product[]> {
+  async findManyByNames(names: string[], tenantId: string): Promise<Product[]> {
     if (names.length === 0) return [];
 
     const products = await prisma.product.findMany({

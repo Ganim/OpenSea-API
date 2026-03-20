@@ -92,23 +92,43 @@ export class CheckEmailAccountHealthUseCase {
     const imap: ImapHealth =
       imapResult.status === 'fulfilled'
         ? imapResult.value
-        : { status: 'error', latencyMs: 0, error: imapResult.reason?.message ?? 'Unknown error' };
+        : {
+            status: 'error',
+            latencyMs: 0,
+            error: imapResult.reason?.message ?? 'Unknown error',
+          };
 
     const smtp: SmtpHealth =
       smtpResult.status === 'fulfilled'
         ? smtpResult.value
-        : { status: 'error', latencyMs: 0, error: smtpResult.reason?.message ?? 'Unknown error' };
+        : {
+            status: 'error',
+            latencyMs: 0,
+            error: smtpResult.reason?.message ?? 'Unknown error',
+          };
 
     const worker: WorkerHealth =
       workerResult.status === 'fulfilled'
         ? workerResult.value
-        : { status: 'error', lastSyncAt: null, lastJobState: null, idleStatus: 'disconnected', error: workerResult.reason?.message ?? 'Unknown error' };
+        : {
+            status: 'error',
+            lastSyncAt: null,
+            lastJobState: null,
+            idleStatus: 'disconnected',
+            error: workerResult.reason?.message ?? 'Unknown error',
+          };
 
     return { imap, smtp, worker };
   }
 
   private async checkImap(
-    account: { imapHost: string; imapPort: number; imapSecure: boolean; username: string; tlsVerify: boolean },
+    account: {
+      imapHost: string;
+      imapPort: number;
+      imapSecure: boolean;
+      username: string;
+      tlsVerify: boolean;
+    },
     secret: string,
   ): Promise<ImapHealth> {
     const start = Date.now();
@@ -147,7 +167,13 @@ export class CheckEmailAccountHealthUseCase {
   }
 
   private async checkSmtp(
-    account: { smtpHost: string; smtpPort: number; smtpSecure: boolean; username: string; tlsVerify: boolean },
+    account: {
+      smtpHost: string;
+      smtpPort: number;
+      smtpSecure: boolean;
+      username: string;
+      tlsVerify: boolean;
+    },
     secret: string,
   ): Promise<SmtpHealth> {
     const start = Date.now();
@@ -225,7 +251,10 @@ export class CheckEmailAccountHealthUseCase {
           lastSyncAt: null,
           lastJobState,
           idleStatus,
-          error: accountJobs.length === 0 ? 'Nenhum job de sincronização encontrado' : null,
+          error:
+            accountJobs.length === 0
+              ? 'Nenhum job de sincronização encontrado'
+              : null,
         };
       }
 

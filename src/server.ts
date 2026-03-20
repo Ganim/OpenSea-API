@@ -190,7 +190,6 @@ async function start() {
       'HTTP server is running on port %d',
       env.PORT,
     );
-
   } catch (err) {
     const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
     console.error(`[startup] Failed after ${elapsed}s:`, err);

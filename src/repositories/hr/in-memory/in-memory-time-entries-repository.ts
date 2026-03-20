@@ -40,7 +40,9 @@ export class InMemoryTimeEntriesRepository implements TimeEntriesRepository {
     return timeEntry || null;
   }
 
-  async findMany(filters: FindTimeEntriesFilters): Promise<FindManyTimeEntriesResult> {
+  async findMany(
+    filters: FindTimeEntriesFilters,
+  ): Promise<FindManyTimeEntriesResult> {
     let result = this.items.filter(
       (item) => item.tenantId.toString() === filters.tenantId,
     );
