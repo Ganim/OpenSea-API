@@ -70,7 +70,7 @@ export interface EmployeeProps {
   hireDate: Date;
   terminationDate?: Date;
   status: EmployeeStatus;
-  baseSalary: number;
+  baseSalary?: number;
   contractType: ContractType;
   workRegime: WorkRegime;
   weeklyHours: number;
@@ -283,7 +283,7 @@ export class Employee extends Entity<EmployeeProps> {
     return this.props.status;
   }
 
-  get baseSalary(): number {
+  get baseSalary(): number | undefined {
     return this.props.baseSalary;
   }
 

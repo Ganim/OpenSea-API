@@ -65,7 +65,7 @@ export interface CreateEmployeeRequest {
   supervisorId?: string;
   companyId?: string;
   hireDate: Date;
-  baseSalary: number;
+  baseSalary?: number;
   contractType: string;
   workRegime: string;
   weeklyHours: number;

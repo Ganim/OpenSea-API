@@ -87,7 +87,7 @@ export function mapEmployeePrismaToDomain(
     hireDate: employeeDb.hireDate,
     terminationDate: employeeDb.terminationDate ?? undefined,
     status: EmployeeStatus.create(employeeDb.status),
-    baseSalary: Number(employeeDb.baseSalary),
+    baseSalary: employeeDb.baseSalary != null ? Number(employeeDb.baseSalary) : undefined,
     contractType: ContractType.create(employeeDb.contractType),
     workRegime: WorkRegime.create(employeeDb.workRegime),
     weeklyHours: Number(employeeDb.weeklyHours),

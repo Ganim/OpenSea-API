@@ -174,7 +174,7 @@ export class CalculatePayrollUseCase {
 
     if (!employee.status.isActive()) return items;
 
-    const baseSalary = employee.baseSalary;
+    const baseSalary = employee.baseSalary ?? 0;
 
     // Base salary item
     const baseSalaryItem = await this.payrollItemsRepository.create({

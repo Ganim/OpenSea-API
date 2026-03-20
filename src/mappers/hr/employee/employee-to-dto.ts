@@ -63,7 +63,7 @@ export interface EmployeeDTO {
   hireDate: Date;
   terminationDate?: Date | null;
   status: string;
-  baseSalary: number;
+  baseSalary?: number | null;
   contractType: string;
   workRegime: string;
   weeklyHours: number;
@@ -127,7 +127,7 @@ export function employeeToDTO(employee: Employee): EmployeeDTO {
     hireDate: employee.hireDate,
     terminationDate: employee.terminationDate ?? null,
     status: employee.status.value,
-    baseSalary: employee.baseSalary,
+    baseSalary: employee.baseSalary ?? null,
     contractType: employee.contractType.value,
     workRegime: employee.workRegime.value,
     weeklyHours: employee.weeklyHours,

@@ -64,7 +64,7 @@ export interface CreateEmployeeSchema {
   hireDate: Date;
   terminationDate?: Date;
   status: EmployeeStatus;
-  baseSalary: number;
+  baseSalary?: number;
   contractType: ContractType;
   workRegime: WorkRegime;
   weeklyHours: number;

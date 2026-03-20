@@ -2671,7 +2671,7 @@ model Employee {
   hireDate        DateTime       @map("hire_date")
   terminationDate DateTime?      @map("termination_date")
   status          EmployeeStatus @default(ACTIVE)
-  baseSalary      Decimal        @map("base_salary") @db.Decimal(10, 2)
+  baseSalary      Decimal?       @map("base_salary") @db.Decimal(10, 2)
   contractType    ContractType   @map("contract_type")
   workRegime      WorkRegime     @map("work_regime")
   weeklyHours     Decimal        @map("weekly_hours") @db.Decimal(5, 2) // Horas semanais
