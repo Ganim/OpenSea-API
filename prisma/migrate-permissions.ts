@@ -187,15 +187,28 @@ async function main() {
   });
   const permissionMap = new Map(allPermissions.map(p => [p.code, p.id]));
 
-  // Find all tenant-scoped admin/user groups
+  // Find all admin/user groups across all tenants
+  // Slugs may be 'admin', 'admin-{tenantId}', 'user', 'user-{tenantId}'
   const adminGroups = await prisma.permissionGroup.findMany({
-    where: { slug: PermissionGroupSlugs.ADMIN, deletedAt: null },
-    select: { id: true, tenantId: true },
+    where: {
+      OR: [
+        { slug: PermissionGroupSlugs.ADMIN },
+        { slug: { startsWith: `${PermissionGroupSlugs.ADMIN}-` } },
+      ],
+      deletedAt: null,
+    },
+    select: { id: true, slug: true, tenantId: true },
   });
 
   const userGroups = await prisma.permissionGroup.findMany({
-    where: { slug: PermissionGroupSlugs.USER, deletedAt: null },
-    select: { id: true, tenantId: true },
+    where: {
+      OR: [
+        { slug: PermissionGroupSlugs.USER },
+        { slug: { startsWith: `${PermissionGroupSlugs.USER}-` } },
+      ],
+      deletedAt: null,
+    },
+    select: { id: true, slug: true, tenantId: true },
   });
 
   // Reassign admin groups
