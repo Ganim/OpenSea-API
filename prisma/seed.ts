@@ -57,6 +57,9 @@ const MODULE_LABELS: Record<string, string> = {
   storage: 'Arquivos',
   finance: 'Financeiro',
   tasks: 'Tarefas',
+  admin: 'Administração',
+  tools: 'Ferramentas',
+  system: 'Sistema',
 };
 
 const ACTION_LABELS: Record<string, string> = {
@@ -106,6 +109,15 @@ const ACTION_LABELS: Record<string, string> = {
   respond: 'Responder',
   share: 'Compartilhar',
   execute: 'Executar',
+  access: 'Acessar',
+  register: 'Cadastrar',
+  modify: 'Modificar',
+  remove: 'Remover',
+  import: 'Importar',
+  export: 'Exportar',
+  print: 'Imprimir',
+  admin: 'Administrar',
+  onlyself: 'Apenas Próprio',
 };
 
 const SCOPE_LABELS: Record<string, string> = {
