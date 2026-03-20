@@ -3,7 +3,8 @@ import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { logAudit } from '@/http/helpers/audit.helper';
-import { createScopeMiddleware } from '@/http/middlewares/rbac/verify-scope';
+import { PermissionCodes } from '@/constants/rbac/permission-codes';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac/verify-permission';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { employeeResponseSchema, updateEmployeeSchema } from '@/http/schemas';
@@ -15,34 +16,15 @@ import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
 
-/**
- * Middleware para verificar permissão de atualização de funcionário
- * Com .all pode atualizar qualquer funcionário, com .team apenas do seu departamento
- */
-const checkEmployeeUpdateScope = createScopeMiddleware({
-  basePermissionCode: 'hr.employees.update',
-  resource: 'employees',
-  getResourceDepartmentId: async (request) => {
-    const params = request.params as { employeeId: string };
-    const tenantId = request.user.tenantId!;
-    const getEmployeeByIdUseCase = makeGetEmployeeByIdUseCase();
-    try {
-      const { employee } = await getEmployeeByIdUseCase.execute({
-        tenantId,
-        employeeId: params.employeeId,
-      });
-      return employee.departmentId?.toString() ?? null;
-    } catch {
-      return null;
-    }
-  },
+const checkEmployeeModify = createPermissionMiddleware({
+  permissionCode: PermissionCodes.HR.EMPLOYEES.MODIFY,
 });
 
 export async function v1UpdateEmployeeController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'PUT',
     url: '/v1/hr/employees/:employeeId',
-    preHandler: [verifyJwt, verifyTenant, checkEmployeeUpdateScope],
+    preHandler: [verifyJwt, verifyTenant, checkEmployeeModify],
     schema: {
       tags: ['HR - Employees'],
       summary: 'Update an employee (scope-based)',

@@ -1,4 +1,5 @@
-import { createScopeIdentifierMiddleware } from '@/http/middlewares/rbac/verify-scope';
+import { PermissionCodes } from '@/constants/rbac/permission-codes';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac/verify-permission';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
@@ -12,18 +13,15 @@ import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
 
-/**
- * Middleware para verificar permissão de listagem de funcionários
- * Aceita hr.employees.list.all ou hr.employees.list.team
- */
-const checkEmployeesListScope =
-  createScopeIdentifierMiddleware('hr.employees.list');
+const checkEmployeesAccess = createPermissionMiddleware({
+  permissionCode: PermissionCodes.HR.EMPLOYEES.ACCESS,
+});
 
 export async function v1ListEmployeesController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/hr/employees',
-    preHandler: [verifyJwt, verifyTenant, checkEmployeesListScope],
+    preHandler: [verifyJwt, verifyTenant, checkEmployeesAccess],
     schema: {
       tags: ['HR - Employees'],
       summary: 'List employees (scope-based)',
@@ -53,12 +51,8 @@ export async function v1ListEmployeesController(app: FastifyInstance) {
         includeDeleted,
       } = request.query;
 
-      // Se o usuário tem apenas escopo .team, força o filtro por departamento
-      const scopeCheck = request.scopeCheck;
-      const effectiveDepartmentId =
-        scopeCheck?.scope === 'team' && scopeCheck.userDepartmentId
-          ? scopeCheck.userDepartmentId
-          : departmentId;
+      // TODO: When onlyself is implemented, filter by user's department here
+      const effectiveDepartmentId = departmentId;
 
       const tenantId = request.user.tenantId!;
       const listEmployeesUseCase = makeListEmployeesUseCase();

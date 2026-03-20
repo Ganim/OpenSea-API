@@ -1,7 +1,8 @@
 import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import { createScopeMiddleware } from '@/http/middlewares/rbac/verify-scope';
+import { PermissionCodes } from '@/constants/rbac/permission-codes';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac/verify-permission';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { employeeResponseSchema } from '@/http/schemas';
@@ -12,34 +13,15 @@ import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
 
-/**
- * Middleware para verificar permissão de leitura de funcionário
- * Com .all pode ver qualquer funcionário, com .team apenas do seu departamento
- */
-const checkEmployeeReadScope = createScopeMiddleware({
-  basePermissionCode: 'hr.employees.read',
-  resource: 'employees',
-  getResourceDepartmentId: async (request) => {
-    const params = request.params as { employeeId: string };
-    const tenantId = request.user.tenantId!;
-    const getEmployeeByIdUseCase = makeGetEmployeeByIdUseCase();
-    try {
-      const { employee } = await getEmployeeByIdUseCase.execute({
-        tenantId,
-        employeeId: params.employeeId,
-      });
-      return employee.departmentId?.toString() ?? null;
-    } catch {
-      return null;
-    }
-  },
+const checkEmployeeAccess = createPermissionMiddleware({
+  permissionCode: PermissionCodes.HR.EMPLOYEES.ACCESS,
 });
 
 export async function v1GetEmployeeByIdController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/hr/employees/:employeeId',
-    preHandler: [verifyJwt, verifyTenant, checkEmployeeReadScope],
+    preHandler: [verifyJwt, verifyTenant, checkEmployeeAccess],
     schema: {
       tags: ['HR - Employees'],
       summary: 'Get an employee by ID (scope-based)',
