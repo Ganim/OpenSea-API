@@ -65,7 +65,7 @@ export async function listFolderContentsController(app: FastifyInstance) {
         const listPermissions = makeListUserPermissionsUseCase();
         const { permissions: userPerms } = await listPermissions.execute({
           userId: request.user.sub,
-          module: 'storage',
+          module: 'tools',
         });
 
         const permCodes = new Set(
