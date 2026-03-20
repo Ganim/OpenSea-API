@@ -1,6 +1,6 @@
-import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { logger } from '@/lib/logger';
 import type {
   EmailAccountsRepository,
   EmailFoldersRepository,
@@ -109,6 +109,87 @@ export class DeleteEmailMessageUseCase {
     trashFolder: { id: { toString(): string }; remoteName: string },
     tenantId: string,
   ): Promise<void> {
+    // Update DB first (source of truth)
+    await this.emailMessagesRepository.update({
+      id: message.id.toString(),
+      tenantId,
+      folderId: trashFolder.id.toString(),
+    });
+
+    // Suppress notification for the message appearing in Trash during next sync
+    getNotificationSuppressor()
+      .suppress(
+        account.id.toString(),
+        trashFolder.id.toString(),
+        message.remoteUid.toString(),
+      )
+      .catch(() => {});
+
+    // Sync move to IMAP (fire-and-forget — DB is already updated)
+    this.syncTrashMoveToImap(account, sourceFolder, trashFolder, message).catch(
+      (error) => {
+        const reason = error instanceof Error ? error.message : String(error);
+        logger.warn(
+          {
+            err: error,
+            messageId: message.id.toString(),
+            accountId: account.id.toString(),
+          },
+          `Failed to sync trash move to IMAP (DB updated): ${reason}`,
+        );
+      },
+    );
+  }
+
+  private async permanentlyDeleteMessage(
+    message: { id: { toString(): string }; remoteUid: number },
+    account: {
+      id: { toString(): string };
+      imapHost: string;
+      imapPort: number;
+      imapSecure: boolean;
+      tlsVerify: boolean;
+      username: string;
+      encryptedSecret: string;
+    },
+    folder: { remoteName: string },
+    tenantId: string,
+  ): Promise<void> {
+    // Soft-delete in DB first (source of truth)
+    await this.emailMessagesRepository.update({
+      id: message.id.toString(),
+      tenantId,
+      deletedAt: new Date(),
+    });
+
+    // Sync deletion to IMAP (fire-and-forget — DB is already updated)
+    this.syncDeleteToImap(account, folder, message).catch((error) => {
+      const reason = error instanceof Error ? error.message : String(error);
+      logger.warn(
+        {
+          err: error,
+          messageId: message.id.toString(),
+          accountId: account.id.toString(),
+        },
+        `Failed to sync deletion to IMAP (DB updated): ${reason}`,
+      );
+    });
+  }
+
+  private async syncTrashMoveToImap(
+    account: {
+      id: { toString(): string };
+      imapHost: string;
+      imapPort: number;
+      imapSecure: boolean;
+      tlsVerify: boolean;
+      username: string;
+      encryptedSecret: string;
+    },
+    sourceFolder: { remoteName: string },
+    trashFolder: { remoteName: string },
+    message: { remoteUid: number },
+  ): Promise<void> {
     const secret = this.credentialCipherService.decrypt(
       account.encryptedSecret,
     );
@@ -130,34 +211,18 @@ export class DeleteEmailMessageUseCase {
         await client.messageMove(message.remoteUid, trashFolder.remoteName, {
           uid: true,
         });
-
-        await this.emailMessagesRepository.update({
-          id: message.id.toString(),
-          tenantId,
-          folderId: trashFolder.id.toString(),
-        });
-
-        // Suppress notification for the message appearing in Trash during next sync
-        getNotificationSuppressor()
-          .suppress(
-            account.id.toString(),
-            trashFolder.id.toString(),
-            message.remoteUid.toString(),
-          )
-          .catch(() => {});
       } finally {
         lock.release();
       }
-    } catch (_error) {
+    } catch (err) {
       pool.destroy(accountId);
-      throw new BadRequestError('Failed to move email message to trash');
+      throw err;
     } finally {
       pool.release(accountId);
     }
   }
 
-  private async permanentlyDeleteMessage(
-    message: { id: { toString(): string }; remoteUid: number },
+  private async syncDeleteToImap(
     account: {
       id: { toString(): string };
       imapHost: string;
@@ -168,7 +233,7 @@ export class DeleteEmailMessageUseCase {
       encryptedSecret: string;
     },
     folder: { remoteName: string },
-    tenantId: string,
+    message: { remoteUid: number },
   ): Promise<void> {
     const secret = this.credentialCipherService.decrypt(
       account.encryptedSecret,
@@ -192,18 +257,12 @@ export class DeleteEmailMessageUseCase {
           uid: true,
         });
         await client.mailboxClose();
-
-        await this.emailMessagesRepository.update({
-          id: message.id.toString(),
-          tenantId,
-          deletedAt: new Date(),
-        });
       } finally {
         lock.release();
       }
-    } catch (_error) {
+    } catch (err) {
       pool.destroy(accountId);
-      throw new BadRequestError('Failed to delete email message');
+      throw err;
     } finally {
       pool.release(accountId);
     }

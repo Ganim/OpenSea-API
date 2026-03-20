@@ -30,20 +30,56 @@ function generateDatabaseUrl(schemaName: string) {
 const testDatabaseUrl = generateDatabaseUrl(schema);
 process.env.DATABASE_URL = testDatabaseUrl;
 
+// Clean up stale test schemas from previous interrupted runs.
+// When tests are killed (Ctrl+C, timeout), afterAll never runs and schemas leak.
+// This prevents accumulation that degrades PostgreSQL performance.
+{
+  const { PrismaClient } = await import('./generated/prisma/client.js');
+  const { PrismaPg } = await import('@prisma/adapter-pg');
+
+  const cleanupAdapter = new PrismaPg({
+    connectionString: originalDatabaseUrl,
+  });
+  const cleanupClient = new PrismaClient({ adapter: cleanupAdapter });
+
+  try {
+    const staleSchemas: Array<{ nspname: string }> =
+      await cleanupClient.$queryRaw`
+        SELECT nspname FROM pg_namespace
+        WHERE nspname LIKE 'test_%'
+        AND nspname != ${schema}
+        ORDER BY nspname
+      `;
+
+    if (staleSchemas.length > 0) {
+      console.log(
+        `🧹 Cleaning up ${staleSchemas.length} stale test schema(s)...`,
+      );
+      for (const { nspname } of staleSchemas) {
+        await cleanupClient.$executeRawUnsafe(
+          `DROP SCHEMA IF EXISTS "${nspname}" CASCADE`,
+        );
+      }
+      console.log(`🧹 Stale schemas removed.`);
+    }
+  } catch (error) {
+    // Non-fatal: if cleanup fails, continue with the test run
+    console.warn('⚠️ Failed to clean stale test schemas:', error);
+  } finally {
+    await cleanupClient.$disconnect();
+  }
+}
+
 // Aplica o schema no banco de testes usando `migrate deploy`.
 // Com fileParallelism: false os specs rodam sequencialmente, então
 // não há contenção do advisory lock do PostgreSQL.
-await execFileAsync(
-  'npx',
-  ['prisma', 'migrate', 'deploy'],
-  {
-    env: {
-      ...process.env,
-      DATABASE_URL: testDatabaseUrl,
-    },
-    shell: true,
+await execFileAsync('npx', ['prisma', 'migrate', 'deploy'], {
+  env: {
+    ...process.env,
+    DATABASE_URL: testDatabaseUrl,
   },
-);
+  shell: true,
+});
 
 // Create system user required by EnsureSystemCalendarsUseCase (SYSTEM_USER_ID)
 {

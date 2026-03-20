@@ -72,9 +72,16 @@ describe('Delete Calendar Event (E2E)', () => {
     expect(createResponse.status).toBe(201);
     const eventId = createResponse.body.event.id;
 
-    // User 2 tries to delete
+    // User 2 tries to delete (has delete permission but NOT manage permission)
     const { token: token2 } = await createAndAuthenticateUser(app, {
       tenantId,
+      permissions: [
+        'calendar.events.create',
+        'calendar.events.read',
+        'calendar.events.update',
+        'calendar.events.delete',
+        'calendar.events.list',
+      ],
     });
 
     const response = await request(app.server)

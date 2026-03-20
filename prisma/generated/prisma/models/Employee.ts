@@ -596,7 +596,7 @@ export type EmployeeGroupByOutputType = {
   hireDate: Date
   terminationDate: Date | null
   status: $Enums.EmployeeStatus
-  baseSalary: runtime.Decimal
+  baseSalary: runtime.Decimal | null
   contractType: $Enums.ContractType
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal
@@ -689,7 +689,7 @@ export type EmployeeWhereInput = {
   hireDate?: Prisma.DateTimeFilter<"Employee"> | Date | string
   terminationDate?: Prisma.DateTimeNullableFilter<"Employee"> | Date | string | null
   status?: Prisma.EnumEmployeeStatusFilter<"Employee"> | $Enums.EmployeeStatus
-  baseSalary?: Prisma.DecimalFilter<"Employee"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: Prisma.DecimalNullableFilter<"Employee"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType?: Prisma.EnumContractTypeFilter<"Employee"> | $Enums.ContractType
   workRegime?: Prisma.EnumWorkRegimeFilter<"Employee"> | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFilter<"Employee"> | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -776,7 +776,7 @@ export type EmployeeOrderByWithRelationInput = {
   hireDate?: Prisma.SortOrder
   terminationDate?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
-  baseSalary?: Prisma.SortOrder
+  baseSalary?: Prisma.SortOrderInput | Prisma.SortOrder
   contractType?: Prisma.SortOrder
   workRegime?: Prisma.SortOrder
   weeklyHours?: Prisma.SortOrder
@@ -869,7 +869,7 @@ export type EmployeeWhereUniqueInput = Prisma.AtLeast<{
   hireDate?: Prisma.DateTimeFilter<"Employee"> | Date | string
   terminationDate?: Prisma.DateTimeNullableFilter<"Employee"> | Date | string | null
   status?: Prisma.EnumEmployeeStatusFilter<"Employee"> | $Enums.EmployeeStatus
-  baseSalary?: Prisma.DecimalFilter<"Employee"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: Prisma.DecimalNullableFilter<"Employee"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType?: Prisma.EnumContractTypeFilter<"Employee"> | $Enums.ContractType
   workRegime?: Prisma.EnumWorkRegimeFilter<"Employee"> | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFilter<"Employee"> | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -956,7 +956,7 @@ export type EmployeeOrderByWithAggregationInput = {
   hireDate?: Prisma.SortOrder
   terminationDate?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
-  baseSalary?: Prisma.SortOrder
+  baseSalary?: Prisma.SortOrderInput | Prisma.SortOrder
   contractType?: Prisma.SortOrder
   workRegime?: Prisma.SortOrder
   weeklyHours?: Prisma.SortOrder
@@ -1034,7 +1034,7 @@ export type EmployeeScalarWhereWithAggregatesInput = {
   hireDate?: Prisma.DateTimeWithAggregatesFilter<"Employee"> | Date | string
   terminationDate?: Prisma.DateTimeNullableWithAggregatesFilter<"Employee"> | Date | string | null
   status?: Prisma.EnumEmployeeStatusWithAggregatesFilter<"Employee"> | $Enums.EmployeeStatus
-  baseSalary?: Prisma.DecimalWithAggregatesFilter<"Employee"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: Prisma.DecimalNullableWithAggregatesFilter<"Employee"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType?: Prisma.EnumContractTypeWithAggregatesFilter<"Employee"> | $Enums.ContractType
   workRegime?: Prisma.EnumWorkRegimeWithAggregatesFilter<"Employee"> | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalWithAggregatesFilter<"Employee"> | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1098,7 +1098,7 @@ export type EmployeeCreateInput = {
   hireDate: Date | string
   terminationDate?: Date | string | null
   status?: $Enums.EmployeeStatus
-  baseSalary: runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType: $Enums.ContractType
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1184,7 +1184,7 @@ export type EmployeeUncheckedCreateInput = {
   hireDate: Date | string
   terminationDate?: Date | string | null
   status?: $Enums.EmployeeStatus
-  baseSalary: runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType: $Enums.ContractType
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1258,7 +1258,7 @@ export type EmployeeUpdateInput = {
   hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
-  baseSalary?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1344,7 +1344,7 @@ export type EmployeeUncheckedUpdateInput = {
   hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
-  baseSalary?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1424,7 +1424,7 @@ export type EmployeeCreateManyInput = {
   hireDate: Date | string
   terminationDate?: Date | string | null
   status?: $Enums.EmployeeStatus
-  baseSalary: runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType: $Enums.ContractType
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1488,7 +1488,7 @@ export type EmployeeUpdateManyMutationInput = {
   hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
-  baseSalary?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1557,7 +1557,7 @@ export type EmployeeUncheckedUpdateManyInput = {
   hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
-  baseSalary?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -2311,7 +2311,7 @@ export type EmployeeCreateWithoutUserInput = {
   hireDate: Date | string
   terminationDate?: Date | string | null
   status?: $Enums.EmployeeStatus
-  baseSalary: runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType: $Enums.ContractType
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -2395,7 +2395,7 @@ export type EmployeeUncheckedCreateWithoutUserInput = {
   hireDate: Date | string
   terminationDate?: Date | string | null
   status?: $Enums.EmployeeStatus
-  baseSalary: runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType: $Enums.ContractType
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -2485,7 +2485,7 @@ export type EmployeeUpdateWithoutUserInput = {
   hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
-  baseSalary?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -2569,7 +2569,7 @@ export type EmployeeUncheckedUpdateWithoutUserInput = {
   hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
-  baseSalary?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -2643,7 +2643,7 @@ export type EmployeeCreateWithoutOrganizationInput = {
   hireDate: Date | string
   terminationDate?: Date | string | null
   status?: $Enums.EmployeeStatus
-  baseSalary: runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType: $Enums.ContractType
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -2727,7 +2727,7 @@ export type EmployeeUncheckedCreateWithoutOrganizationInput = {
   hireDate: Date | string
   terminationDate?: Date | string | null
   status?: $Enums.EmployeeStatus
-  baseSalary: runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType: $Enums.ContractType
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -2836,7 +2836,7 @@ export type EmployeeScalarWhereInput = {
   hireDate?: Prisma.DateTimeFilter<"Employee"> | Date | string
   terminationDate?: Prisma.DateTimeNullableFilter<"Employee"> | Date | string | null
   status?: Prisma.EnumEmployeeStatusFilter<"Employee"> | $Enums.EmployeeStatus
-  baseSalary?: Prisma.DecimalFilter<"Employee"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: Prisma.DecimalNullableFilter<"Employee"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType?: Prisma.EnumContractTypeFilter<"Employee"> | $Enums.ContractType
   workRegime?: Prisma.EnumWorkRegimeFilter<"Employee"> | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFilter<"Employee"> | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -2900,7 +2900,7 @@ export type EmployeeCreateWithoutSubordinatesInput = {
   hireDate: Date | string
   terminationDate?: Date | string | null
   status?: $Enums.EmployeeStatus
-  baseSalary: runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType: $Enums.ContractType
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -2985,7 +2985,7 @@ export type EmployeeUncheckedCreateWithoutSubordinatesInput = {
   hireDate: Date | string
   terminationDate?: Date | string | null
   status?: $Enums.EmployeeStatus
-  baseSalary: runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType: $Enums.ContractType
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -3063,7 +3063,7 @@ export type EmployeeCreateWithoutSupervisorInput = {
   hireDate: Date | string
   terminationDate?: Date | string | null
   status?: $Enums.EmployeeStatus
-  baseSalary: runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType: $Enums.ContractType
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -3147,7 +3147,7 @@ export type EmployeeUncheckedCreateWithoutSupervisorInput = {
   hireDate: Date | string
   terminationDate?: Date | string | null
   status?: $Enums.EmployeeStatus
-  baseSalary: runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType: $Enums.ContractType
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -3242,7 +3242,7 @@ export type EmployeeUpdateWithoutSubordinatesInput = {
   hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
-  baseSalary?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -3327,7 +3327,7 @@ export type EmployeeUncheckedUpdateWithoutSubordinatesInput = {
   hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
-  baseSalary?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -3416,7 +3416,7 @@ export type EmployeeCreateWithoutManagedDepartmentsInput = {
   hireDate: Date | string
   terminationDate?: Date | string | null
   status?: $Enums.EmployeeStatus
-  baseSalary: runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType: $Enums.ContractType
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -3501,7 +3501,7 @@ export type EmployeeUncheckedCreateWithoutManagedDepartmentsInput = {
   hireDate: Date | string
   terminationDate?: Date | string | null
   status?: $Enums.EmployeeStatus
-  baseSalary: runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType: $Enums.ContractType
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -3579,7 +3579,7 @@ export type EmployeeCreateWithoutDepartmentInput = {
   hireDate: Date | string
   terminationDate?: Date | string | null
   status?: $Enums.EmployeeStatus
-  baseSalary: runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType: $Enums.ContractType
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -3663,7 +3663,7 @@ export type EmployeeUncheckedCreateWithoutDepartmentInput = {
   hireDate: Date | string
   terminationDate?: Date | string | null
   status?: $Enums.EmployeeStatus
-  baseSalary: runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType: $Enums.ContractType
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -3758,7 +3758,7 @@ export type EmployeeUpdateWithoutManagedDepartmentsInput = {
   hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
-  baseSalary?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -3843,7 +3843,7 @@ export type EmployeeUncheckedUpdateWithoutManagedDepartmentsInput = {
   hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
-  baseSalary?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -3932,7 +3932,7 @@ export type EmployeeCreateWithoutPositionInput = {
   hireDate: Date | string
   terminationDate?: Date | string | null
   status?: $Enums.EmployeeStatus
-  baseSalary: runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType: $Enums.ContractType
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -4016,7 +4016,7 @@ export type EmployeeUncheckedCreateWithoutPositionInput = {
   hireDate: Date | string
   terminationDate?: Date | string | null
   status?: $Enums.EmployeeStatus
-  baseSalary: runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType: $Enums.ContractType
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -4116,7 +4116,7 @@ export type EmployeeCreateWithoutTimeEntriesInput = {
   hireDate: Date | string
   terminationDate?: Date | string | null
   status?: $Enums.EmployeeStatus
-  baseSalary: runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType: $Enums.ContractType
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -4201,7 +4201,7 @@ export type EmployeeUncheckedCreateWithoutTimeEntriesInput = {
   hireDate: Date | string
   terminationDate?: Date | string | null
   status?: $Enums.EmployeeStatus
-  baseSalary: runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType: $Enums.ContractType
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -4290,7 +4290,7 @@ export type EmployeeUpdateWithoutTimeEntriesInput = {
   hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
-  baseSalary?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -4375,7 +4375,7 @@ export type EmployeeUncheckedUpdateWithoutTimeEntriesInput = {
   hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
-  baseSalary?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -4448,7 +4448,7 @@ export type EmployeeCreateWithoutOvertimeInput = {
   hireDate: Date | string
   terminationDate?: Date | string | null
   status?: $Enums.EmployeeStatus
-  baseSalary: runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType: $Enums.ContractType
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -4533,7 +4533,7 @@ export type EmployeeUncheckedCreateWithoutOvertimeInput = {
   hireDate: Date | string
   terminationDate?: Date | string | null
   status?: $Enums.EmployeeStatus
-  baseSalary: runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType: $Enums.ContractType
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -4622,7 +4622,7 @@ export type EmployeeUpdateWithoutOvertimeInput = {
   hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
-  baseSalary?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -4707,7 +4707,7 @@ export type EmployeeUncheckedUpdateWithoutOvertimeInput = {
   hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
-  baseSalary?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -4780,7 +4780,7 @@ export type EmployeeCreateWithoutTimeBanksInput = {
   hireDate: Date | string
   terminationDate?: Date | string | null
   status?: $Enums.EmployeeStatus
-  baseSalary: runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType: $Enums.ContractType
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -4865,7 +4865,7 @@ export type EmployeeUncheckedCreateWithoutTimeBanksInput = {
   hireDate: Date | string
   terminationDate?: Date | string | null
   status?: $Enums.EmployeeStatus
-  baseSalary: runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType: $Enums.ContractType
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -4954,7 +4954,7 @@ export type EmployeeUpdateWithoutTimeBanksInput = {
   hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
-  baseSalary?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -5039,7 +5039,7 @@ export type EmployeeUncheckedUpdateWithoutTimeBanksInput = {
   hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
-  baseSalary?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -5112,7 +5112,7 @@ export type EmployeeCreateWithoutAbsencesInput = {
   hireDate: Date | string
   terminationDate?: Date | string | null
   status?: $Enums.EmployeeStatus
-  baseSalary: runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType: $Enums.ContractType
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -5197,7 +5197,7 @@ export type EmployeeUncheckedCreateWithoutAbsencesInput = {
   hireDate: Date | string
   terminationDate?: Date | string | null
   status?: $Enums.EmployeeStatus
-  baseSalary: runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType: $Enums.ContractType
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -5286,7 +5286,7 @@ export type EmployeeUpdateWithoutAbsencesInput = {
   hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
-  baseSalary?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -5371,7 +5371,7 @@ export type EmployeeUncheckedUpdateWithoutAbsencesInput = {
   hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
-  baseSalary?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -5444,7 +5444,7 @@ export type EmployeeCreateWithoutVacationPeriodsInput = {
   hireDate: Date | string
   terminationDate?: Date | string | null
   status?: $Enums.EmployeeStatus
-  baseSalary: runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType: $Enums.ContractType
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -5529,7 +5529,7 @@ export type EmployeeUncheckedCreateWithoutVacationPeriodsInput = {
   hireDate: Date | string
   terminationDate?: Date | string | null
   status?: $Enums.EmployeeStatus
-  baseSalary: runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType: $Enums.ContractType
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -5618,7 +5618,7 @@ export type EmployeeUpdateWithoutVacationPeriodsInput = {
   hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
-  baseSalary?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -5703,7 +5703,7 @@ export type EmployeeUncheckedUpdateWithoutVacationPeriodsInput = {
   hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
-  baseSalary?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -5776,7 +5776,7 @@ export type EmployeeCreateWithoutPayrollItemsInput = {
   hireDate: Date | string
   terminationDate?: Date | string | null
   status?: $Enums.EmployeeStatus
-  baseSalary: runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType: $Enums.ContractType
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -5861,7 +5861,7 @@ export type EmployeeUncheckedCreateWithoutPayrollItemsInput = {
   hireDate: Date | string
   terminationDate?: Date | string | null
   status?: $Enums.EmployeeStatus
-  baseSalary: runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType: $Enums.ContractType
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -5950,7 +5950,7 @@ export type EmployeeUpdateWithoutPayrollItemsInput = {
   hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
-  baseSalary?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -6035,7 +6035,7 @@ export type EmployeeUncheckedUpdateWithoutPayrollItemsInput = {
   hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
-  baseSalary?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -6108,7 +6108,7 @@ export type EmployeeCreateWithoutBonusesInput = {
   hireDate: Date | string
   terminationDate?: Date | string | null
   status?: $Enums.EmployeeStatus
-  baseSalary: runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType: $Enums.ContractType
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -6193,7 +6193,7 @@ export type EmployeeUncheckedCreateWithoutBonusesInput = {
   hireDate: Date | string
   terminationDate?: Date | string | null
   status?: $Enums.EmployeeStatus
-  baseSalary: runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType: $Enums.ContractType
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -6282,7 +6282,7 @@ export type EmployeeUpdateWithoutBonusesInput = {
   hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
-  baseSalary?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -6367,7 +6367,7 @@ export type EmployeeUncheckedUpdateWithoutBonusesInput = {
   hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
-  baseSalary?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -6440,7 +6440,7 @@ export type EmployeeCreateWithoutDeductionsInput = {
   hireDate: Date | string
   terminationDate?: Date | string | null
   status?: $Enums.EmployeeStatus
-  baseSalary: runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType: $Enums.ContractType
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -6525,7 +6525,7 @@ export type EmployeeUncheckedCreateWithoutDeductionsInput = {
   hireDate: Date | string
   terminationDate?: Date | string | null
   status?: $Enums.EmployeeStatus
-  baseSalary: runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType: $Enums.ContractType
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -6614,7 +6614,7 @@ export type EmployeeUpdateWithoutDeductionsInput = {
   hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
-  baseSalary?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -6699,7 +6699,7 @@ export type EmployeeUncheckedUpdateWithoutDeductionsInput = {
   hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
-  baseSalary?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -6772,7 +6772,7 @@ export type EmployeeCreateWithoutCompanyInput = {
   hireDate: Date | string
   terminationDate?: Date | string | null
   status?: $Enums.EmployeeStatus
-  baseSalary: runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType: $Enums.ContractType
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -6857,7 +6857,7 @@ export type EmployeeUncheckedCreateWithoutCompanyInput = {
   hireDate: Date | string
   terminationDate?: Date | string | null
   status?: $Enums.EmployeeStatus
-  baseSalary: runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType: $Enums.ContractType
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -6956,7 +6956,7 @@ export type EmployeeCreateWithoutTenantInput = {
   hireDate: Date | string
   terminationDate?: Date | string | null
   status?: $Enums.EmployeeStatus
-  baseSalary: runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType: $Enums.ContractType
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -7040,7 +7040,7 @@ export type EmployeeUncheckedCreateWithoutTenantInput = {
   hireDate: Date | string
   terminationDate?: Date | string | null
   status?: $Enums.EmployeeStatus
-  baseSalary: runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType: $Enums.ContractType
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -7145,7 +7145,7 @@ export type EmployeeCreateManyOrganizationInput = {
   hireDate: Date | string
   terminationDate?: Date | string | null
   status?: $Enums.EmployeeStatus
-  baseSalary: runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType: $Enums.ContractType
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -7209,7 +7209,7 @@ export type EmployeeUpdateWithoutOrganizationInput = {
   hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
-  baseSalary?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -7293,7 +7293,7 @@ export type EmployeeUncheckedUpdateWithoutOrganizationInput = {
   hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
-  baseSalary?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -7372,7 +7372,7 @@ export type EmployeeUncheckedUpdateManyWithoutOrganizationInput = {
   hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
-  baseSalary?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -7441,7 +7441,7 @@ export type EmployeeCreateManySupervisorInput = {
   hireDate: Date | string
   terminationDate?: Date | string | null
   status?: $Enums.EmployeeStatus
-  baseSalary: runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType: $Enums.ContractType
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -7505,7 +7505,7 @@ export type EmployeeUpdateWithoutSupervisorInput = {
   hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
-  baseSalary?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -7589,7 +7589,7 @@ export type EmployeeUncheckedUpdateWithoutSupervisorInput = {
   hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
-  baseSalary?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -7668,7 +7668,7 @@ export type EmployeeUncheckedUpdateManyWithoutSupervisorInput = {
   hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
-  baseSalary?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -7737,7 +7737,7 @@ export type EmployeeCreateManyDepartmentInput = {
   hireDate: Date | string
   terminationDate?: Date | string | null
   status?: $Enums.EmployeeStatus
-  baseSalary: runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType: $Enums.ContractType
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -7801,7 +7801,7 @@ export type EmployeeUpdateWithoutDepartmentInput = {
   hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
-  baseSalary?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -7885,7 +7885,7 @@ export type EmployeeUncheckedUpdateWithoutDepartmentInput = {
   hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
-  baseSalary?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -7964,7 +7964,7 @@ export type EmployeeUncheckedUpdateManyWithoutDepartmentInput = {
   hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
-  baseSalary?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -8033,7 +8033,7 @@ export type EmployeeCreateManyPositionInput = {
   hireDate: Date | string
   terminationDate?: Date | string | null
   status?: $Enums.EmployeeStatus
-  baseSalary: runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType: $Enums.ContractType
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -8097,7 +8097,7 @@ export type EmployeeUpdateWithoutPositionInput = {
   hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
-  baseSalary?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -8181,7 +8181,7 @@ export type EmployeeUncheckedUpdateWithoutPositionInput = {
   hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
-  baseSalary?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -8260,7 +8260,7 @@ export type EmployeeUncheckedUpdateManyWithoutPositionInput = {
   hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
-  baseSalary?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -8330,7 +8330,7 @@ export type EmployeeCreateManyCompanyInput = {
   hireDate: Date | string
   terminationDate?: Date | string | null
   status?: $Enums.EmployeeStatus
-  baseSalary: runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType: $Enums.ContractType
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -8393,7 +8393,7 @@ export type EmployeeUpdateWithoutCompanyInput = {
   hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
-  baseSalary?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -8478,7 +8478,7 @@ export type EmployeeUncheckedUpdateWithoutCompanyInput = {
   hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
-  baseSalary?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -8557,7 +8557,7 @@ export type EmployeeUncheckedUpdateManyWithoutCompanyInput = {
   hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
-  baseSalary?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -8625,7 +8625,7 @@ export type EmployeeCreateManyTenantInput = {
   hireDate: Date | string
   terminationDate?: Date | string | null
   status?: $Enums.EmployeeStatus
-  baseSalary: runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType: $Enums.ContractType
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -8689,7 +8689,7 @@ export type EmployeeUpdateWithoutTenantInput = {
   hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
-  baseSalary?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -8773,7 +8773,7 @@ export type EmployeeUncheckedUpdateWithoutTenantInput = {
   hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
-  baseSalary?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -8852,7 +8852,7 @@ export type EmployeeUncheckedUpdateManyWithoutTenantInput = {
   hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
-  baseSalary?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -9407,7 +9407,7 @@ export type $EmployeePayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     hireDate: Date
     terminationDate: Date | null
     status: $Enums.EmployeeStatus
-    baseSalary: runtime.Decimal
+    baseSalary: runtime.Decimal | null
     contractType: $Enums.ContractType
     workRegime: $Enums.WorkRegime
     weeklyHours: runtime.Decimal

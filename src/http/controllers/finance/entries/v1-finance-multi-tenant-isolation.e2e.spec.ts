@@ -76,7 +76,7 @@ describe('Finance Multi-Tenant Isolation (E2E)', () => {
 
     expect(response.status).toBe(200);
 
-    const entryIds = response.body.data.map((e: { id: string }) => e.id);
+    const entryIds = response.body.entries.map((e: { id: string }) => e.id);
     expect(entryIds).not.toContain(entryAId);
   });
 

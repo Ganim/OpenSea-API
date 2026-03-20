@@ -335,6 +335,14 @@ const ALL_PERMISSIONS = {
     ],
     'time-control': ['create', 'read', 'update', 'delete', 'list', 'manage'],
   },
+  // ADMIN module (tenant-scoped admin operations)
+  admin: {
+    companies: ['create', 'read', 'update', 'delete', 'restore'],
+    'company-addresses': ['create', 'read', 'update', 'delete', 'manage'],
+    'company-cnaes': ['create', 'read', 'update', 'delete', 'manage'],
+    'company-fiscal-settings': ['create', 'read', 'update', 'delete', 'manage'],
+    'company-stakeholder': ['create', 'read', 'update', 'delete', 'manage'],
+  },
   // FINANCE module
   finance: {
     companies: ['read'],

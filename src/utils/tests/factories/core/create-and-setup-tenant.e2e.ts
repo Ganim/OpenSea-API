@@ -47,6 +47,32 @@ export async function createAndSetupTenant(
     },
   });
 
+  // Create a default plan and associate it with the tenant
+  // so that plan-limits middleware doesn't block requests
+  const planId = randomUUID();
+  const planName = `Test Plan ${timestamp}-${Math.random().toString(36).substring(2, 6)}`;
+
+  await prisma.plan.create({
+    data: {
+      id: planId,
+      name: planName,
+      tier: 'ENTERPRISE',
+      price: 0,
+      isActive: true,
+      maxUsers: 1000,
+      maxWarehouses: 1000,
+      maxProducts: 100000,
+      maxStorageMb: 0,
+    },
+  });
+
+  await prisma.tenantPlan.create({
+    data: {
+      tenantId: tenant.id,
+      planId,
+    },
+  });
+
   return {
     tenant,
     tenantId: tenant.id,

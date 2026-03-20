@@ -1,6 +1,6 @@
-import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { logger } from '@/lib/logger';
 import type {
   EmailAccountsRepository,
   EmailFoldersRepository,
@@ -65,6 +65,43 @@ export class ToggleEmailMessageFlagUseCase {
       throw new ResourceNotFoundError('Email folder not found');
     }
 
+    // Update DB first (source of truth)
+    await this.emailMessagesRepository.update({
+      id: message.id.toString(),
+      tenantId: request.tenantId,
+      isFlagged: request.isFlagged,
+    });
+
+    // Sync flag to IMAP (fire-and-forget — DB is already updated)
+    this.syncFlagToImap(account, folder, message, request.isFlagged).catch(
+      (error) => {
+        const reason = error instanceof Error ? error.message : String(error);
+        logger.warn(
+          {
+            err: error,
+            messageId: message.id.toString(),
+            accountId: account.id.toString(),
+          },
+          `Failed to sync flag to IMAP (DB updated): ${reason}`,
+        );
+      },
+    );
+  }
+
+  private async syncFlagToImap(
+    account: {
+      imapHost: string;
+      imapPort: number;
+      imapSecure: boolean;
+      tlsVerify: boolean;
+      username: string;
+      encryptedSecret: string;
+      id: { toString(): string };
+    },
+    folder: { remoteName: string },
+    message: { remoteUid: number },
+    isFlagged: boolean,
+  ): Promise<void> {
     const secret = this.credentialCipherService.decrypt(
       account.encryptedSecret,
     );
@@ -83,7 +120,7 @@ export class ToggleEmailMessageFlagUseCase {
     try {
       const lock = await client.getMailboxLock(folder.remoteName);
       try {
-        if (request.isFlagged) {
+        if (isFlagged) {
           await client.messageFlagsAdd(message.remoteUid, ['\\Flagged'], {
             uid: true,
           });
@@ -95,15 +132,9 @@ export class ToggleEmailMessageFlagUseCase {
       } finally {
         lock.release();
       }
-
-      await this.emailMessagesRepository.update({
-        id: message.id.toString(),
-        tenantId: request.tenantId,
-        isFlagged: request.isFlagged,
-      });
-    } catch (_error) {
+    } catch (err) {
       pool.destroy(accountId);
-      throw new BadRequestError('Failed to update email message flag');
+      throw err;
     } finally {
       pool.release(accountId);
     }

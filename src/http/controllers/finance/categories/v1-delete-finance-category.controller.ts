@@ -33,6 +33,7 @@ export async function deleteFinanceCategoryController(app: FastifyInstance) {
         .object({
           replacementCategoryId: z.string().uuid().optional(),
         })
+        .nullable()
         .optional(),
       response: {
         204: z.null(),

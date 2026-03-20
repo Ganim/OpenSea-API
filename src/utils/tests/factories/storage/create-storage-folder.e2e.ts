@@ -5,6 +5,7 @@ export async function createStorageFolderE2E(options: {
   tenantId: string;
   name?: string;
   parentId?: string;
+  createdBy?: string;
   isSystem?: boolean;
   isFilter?: boolean;
   filterFileType?: string;
@@ -48,6 +49,7 @@ export async function createStorageFolderE2E(options: {
       module: options.module ?? null,
       entityType: options.entityType ?? null,
       entityId: options.entityId ?? null,
+      createdBy: options.createdBy ?? null,
     },
   });
 

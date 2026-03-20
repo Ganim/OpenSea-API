@@ -1,9 +1,11 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { logger } from '@/lib/logger';
 import type {
   EmailAccountsRepository,
   EmailFoldersRepository,
+  EmailMessagesRepository,
 } from '@/repositories/email';
 import type { CredentialCipherService } from '@/services/email/credential-cipher.service';
 import { getImapConnectionPool } from '@/services/email/imap-connection-pool';
@@ -28,6 +30,7 @@ export class SaveEmailDraftUseCase {
   constructor(
     private emailAccountsRepository: EmailAccountsRepository,
     private emailFoldersRepository: EmailFoldersRepository,
+    private emailMessagesRepository: EmailMessagesRepository,
     private credentialCipherService: CredentialCipherService,
   ) {}
 
@@ -69,10 +72,62 @@ export class SaveEmailDraftUseCase {
       throw new BadRequestError('Drafts folder not found for this account');
     }
 
+    const draftId = `<${randomUUID()}@opensea.local>`;
+
+    // Save draft to DB first (source of truth)
+    await this.emailMessagesRepository.create({
+      tenantId: request.tenantId,
+      accountId: account.id.toString(),
+      folderId: draftsFolder.id.toString(),
+      remoteUid: -(Date.now() % 2_000_000_000 + Math.floor(Math.random() * 1000)),
+      messageId: draftId,
+      fromAddress: account.address,
+      fromName: account.displayName ?? null,
+      toAddresses: request.to ?? [],
+      ccAddresses: request.cc ?? [],
+      bccAddresses: request.bcc ?? [],
+      subject: request.subject ?? '',
+      bodyHtmlSanitized: request.bodyHtml ?? null,
+      receivedAt: new Date(),
+    });
+
+    // Sync draft to IMAP (fire-and-forget — DB is already saved)
+    this.syncDraftToImap(account, draftsFolder, request, draftId).catch(
+      (error) => {
+        const reason = error instanceof Error ? error.message : String(error);
+        logger.warn(
+          {
+            err: error,
+            draftId,
+            accountId: account.id.toString(),
+          },
+          `Failed to sync draft to IMAP (DB saved): ${reason}`,
+        );
+      },
+    );
+
+    return { draftId };
+  }
+
+  private async syncDraftToImap(
+    account: {
+      imapHost: string;
+      imapPort: number;
+      imapSecure: boolean;
+      tlsVerify: boolean;
+      username: string;
+      encryptedSecret: string;
+      address: string;
+      displayName: string | null;
+      id: { toString(): string };
+    },
+    draftsFolder: { remoteName: string },
+    request: SaveEmailDraftRequest,
+    draftId: string,
+  ): Promise<void> {
     const secret = this.credentialCipherService.decrypt(
       account.encryptedSecret,
     );
-    const draftId = `<${randomUUID()}@opensea.local>`;
 
     const from = account.displayName
       ? `${account.displayName} <${account.address}>`
@@ -106,11 +161,9 @@ export class SaveEmailDraftUseCase {
         ['\\Draft'],
         new Date(),
       );
-
-      return { draftId };
-    } catch {
+    } catch (err) {
       pool.destroy(accountId);
-      throw new BadRequestError('Failed to save draft on provider');
+      throw err;
     } finally {
       pool.release(accountId);
     }

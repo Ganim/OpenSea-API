@@ -43,7 +43,7 @@ describe('Force Action PIN Reset (E2E)', () => {
 
     const response = await request(app.server)
       .post(
-        '/v1/users/00000000-0000-0000-0000-000000000000/force-action-pin-reset',
+        '/v1/users/f47ac10b-58cc-4372-a567-0e02b2c3d479/force-action-pin-reset',
       )
       .set('Authorization', `Bearer ${adminToken}`);
 
@@ -53,7 +53,7 @@ describe('Force Action PIN Reset (E2E)', () => {
 
   it('should return 401 without auth token', async () => {
     const response = await request(app.server).post(
-      '/v1/users/00000000-0000-0000-0000-000000000000/force-action-pin-reset',
+      '/v1/users/f47ac10b-58cc-4372-a567-0e02b2c3d479/force-action-pin-reset',
     );
 
     expect(response.status).toBe(401);

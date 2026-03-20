@@ -38,18 +38,27 @@ class FakeEmailFoldersRepository {
   ]);
 }
 
+class FakeEmailMessagesRepository {
+  create = vi.fn().mockResolvedValue({
+    id: { toString: () => 'msg-1' },
+  });
+}
+
 describe('SaveEmailDraftUseCase', () => {
   let accountsRepository: InMemoryEmailAccountsRepository;
   let foldersRepository: FakeEmailFoldersRepository;
+  let messagesRepository: FakeEmailMessagesRepository;
   let sut: SaveEmailDraftUseCase;
 
   beforeEach(async () => {
     accountsRepository = new InMemoryEmailAccountsRepository();
     foldersRepository = new FakeEmailFoldersRepository();
+    messagesRepository = new FakeEmailMessagesRepository();
 
     sut = new SaveEmailDraftUseCase(
       accountsRepository,
       foldersRepository as never,
+      messagesRepository as never,
       new FakeCipherService() as never,
     );
 

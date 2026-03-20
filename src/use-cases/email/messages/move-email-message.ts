@@ -1,6 +1,6 @@
-import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { logger } from '@/lib/logger';
 import type {
   EmailAccountsRepository,
   EmailFoldersRepository,
@@ -75,6 +75,55 @@ export class MoveEmailMessageUseCase {
       throw new ResourceNotFoundError('Target email folder not found');
     }
 
+    // Update DB first (source of truth)
+    await this.emailMessagesRepository.update({
+      id: message.id.toString(),
+      tenantId: request.tenantId,
+      folderId: targetFolder.id.toString(),
+    });
+
+    // Suppress notification for the message appearing in target folder during next sync
+    getNotificationSuppressor()
+      .suppress(
+        account.id.toString(),
+        targetFolder.id.toString(),
+        message.remoteUid.toString(),
+      )
+      .catch(() => {});
+
+    // Sync move to IMAP (fire-and-forget — DB is already updated)
+    this.syncMoveToImap(
+      account,
+      sourceFolder,
+      targetFolder,
+      message,
+    ).catch((error) => {
+      const reason = error instanceof Error ? error.message : String(error);
+      logger.warn(
+        {
+          err: error,
+          messageId: message.id.toString(),
+          accountId: account.id.toString(),
+        },
+        `Failed to sync move to IMAP (DB updated): ${reason}`,
+      );
+    });
+  }
+
+  private async syncMoveToImap(
+    account: {
+      imapHost: string;
+      imapPort: number;
+      imapSecure: boolean;
+      tlsVerify: boolean;
+      username: string;
+      encryptedSecret: string;
+      id: { toString(): string };
+    },
+    sourceFolder: { remoteName: string },
+    targetFolder: { remoteName: string },
+    message: { remoteUid: number },
+  ): Promise<void> {
     const secret = this.credentialCipherService.decrypt(
       account.encryptedSecret,
     );
@@ -99,24 +148,9 @@ export class MoveEmailMessageUseCase {
       } finally {
         lock.release();
       }
-
-      await this.emailMessagesRepository.update({
-        id: message.id.toString(),
-        tenantId: request.tenantId,
-        folderId: targetFolder.id.toString(),
-      });
-
-      // Suppress notification for the message appearing in target folder during next sync
-      getNotificationSuppressor()
-        .suppress(
-          account.id.toString(),
-          targetFolder.id.toString(),
-          message.remoteUid.toString(),
-        )
-        .catch(() => {});
-    } catch (_error) {
+    } catch (err) {
       pool.destroy(accountIdStr);
-      throw new BadRequestError('Failed to move email message');
+      throw err;
     } finally {
       pool.release(accountIdStr);
     }

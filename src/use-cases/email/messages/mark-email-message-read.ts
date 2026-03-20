@@ -1,6 +1,6 @@
-import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { logger } from '@/lib/logger';
 import type {
   EmailAccountsRepository,
   EmailFoldersRepository,
@@ -65,6 +65,43 @@ export class MarkEmailMessageReadUseCase {
       throw new ResourceNotFoundError('Email folder not found');
     }
 
+    // Update DB first (source of truth)
+    await this.emailMessagesRepository.update({
+      id: message.id.toString(),
+      tenantId: request.tenantId,
+      isRead: request.isRead,
+    });
+
+    // Sync flag to IMAP (fire-and-forget — DB is already updated)
+    this.syncReadFlagToImap(account, folder, message, request.isRead).catch(
+      (error) => {
+        const reason = error instanceof Error ? error.message : String(error);
+        logger.warn(
+          {
+            err: error,
+            messageId: message.id.toString(),
+            accountId: account.id.toString(),
+          },
+          `Failed to sync read flag to IMAP (DB updated): ${reason}`,
+        );
+      },
+    );
+  }
+
+  private async syncReadFlagToImap(
+    account: {
+      imapHost: string;
+      imapPort: number;
+      imapSecure: boolean;
+      tlsVerify: boolean;
+      username: string;
+      encryptedSecret: string;
+      id: { toString(): string };
+    },
+    folder: { remoteName: string },
+    message: { remoteUid: number },
+    isRead: boolean,
+  ): Promise<void> {
     const secret = this.credentialCipherService.decrypt(
       account.encryptedSecret,
     );
@@ -83,7 +120,7 @@ export class MarkEmailMessageReadUseCase {
     try {
       const lock = await client.getMailboxLock(folder.remoteName);
       try {
-        if (request.isRead) {
+        if (isRead) {
           await client.messageFlagsAdd(message.remoteUid, ['\\Seen'], {
             uid: true,
           });
@@ -95,15 +132,9 @@ export class MarkEmailMessageReadUseCase {
       } finally {
         lock.release();
       }
-
-      await this.emailMessagesRepository.update({
-        id: message.id.toString(),
-        tenantId: request.tenantId,
-        isRead: request.isRead,
-      });
-    } catch (_error) {
+    } catch (err) {
       pool.destroy(accountId);
-      throw new BadRequestError('Failed to update email message');
+      throw err;
     } finally {
       pool.release(accountId);
     }

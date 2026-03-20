@@ -51,7 +51,8 @@ describe('DownloadSharedFileUseCase', () => {
 
     const result = await sut.execute({ token: 'download-token' });
 
-    expect(result.buffer).toBeInstanceOf(Buffer);
+    expect(typeof result.url).toBe('string');
+    expect(result.url).toContain('signed');
     expect(result.fileName).toBe('document.pdf');
     expect(result.mimeType).toBe('application/pdf');
 
@@ -89,7 +90,7 @@ describe('DownloadSharedFileUseCase', () => {
       password: 'download-pass',
     });
 
-    expect(result.buffer).toBeInstanceOf(Buffer);
+    expect(typeof result.url).toBe('string');
     expect(result.fileName).toBe('secret.pdf');
   });
 

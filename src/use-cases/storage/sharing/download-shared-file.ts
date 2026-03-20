@@ -12,7 +12,7 @@ interface DownloadSharedFileUseCaseRequest {
 }
 
 interface DownloadSharedFileUseCaseResponse {
-  buffer: Buffer;
+  url: string;
   fileName: string;
   mimeType: string;
   size: number;
@@ -76,13 +76,13 @@ export class DownloadSharedFileUseCase {
     shareLink.incrementDownloads();
     await this.storageShareLinksRepository.save(shareLink);
 
-    const buffer = await this.fileUploadService.getObject(file.fileKey);
+    const url = await this.fileUploadService.getPresignedUrl(file.fileKey);
 
     return {
-      buffer,
+      url,
       fileName: file.name,
       mimeType: file.mimeType,
-      size: buffer.length,
+      size: file.size,
     };
   }
 }

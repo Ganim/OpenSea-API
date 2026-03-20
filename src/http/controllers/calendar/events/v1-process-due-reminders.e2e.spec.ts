@@ -3,6 +3,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
 import { app } from '@/app';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
+import { createAndAuthenticateSuperAdmin } from '@/utils/tests/factories/core/create-and-authenticate-super-admin.e2e';
 import { createAndSetupTenant } from '@/utils/tests/factories/core/create-and-setup-tenant.e2e';
 
 describe('Process Due Reminders (E2E)', () => {
@@ -19,7 +20,7 @@ describe('Process Due Reminders (E2E)', () => {
   });
 
   it('should process due reminders', async () => {
-    const { token } = await createAndAuthenticateUser(app, { tenantId });
+    const { token } = await createAndAuthenticateSuperAdmin(app);
 
     const response = await request(app.server)
       .post('/v1/calendar/reminders/process')
@@ -40,10 +41,9 @@ describe('Process Due Reminders (E2E)', () => {
     expect(response.status).toBe(401);
   });
 
-  it('should return 403 without permission', async () => {
+  it('should return 403 without super admin', async () => {
     const { token } = await createAndAuthenticateUser(app, {
       tenantId,
-      permissions: [],
     });
 
     const response = await request(app.server)

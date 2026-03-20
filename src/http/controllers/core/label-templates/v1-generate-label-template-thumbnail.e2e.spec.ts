@@ -34,9 +34,19 @@ describe('Generate Label Template Thumbnail (E2E)', () => {
 
     const templateId = createResponse.body.template.id;
 
+    // Create a minimal 1x1 PNG file buffer
+    const pngBuffer = Buffer.from(
+      'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==',
+      'base64',
+    );
+
     const response = await request(app.server)
       .post(`/v1/label-templates/${templateId}/generate-thumbnail`)
-      .set('Authorization', `Bearer ${token}`);
+      .set('Authorization', `Bearer ${token}`)
+      .attach('file', pngBuffer, {
+        filename: 'thumbnail.png',
+        contentType: 'image/png',
+      });
 
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty('thumbnailUrl');

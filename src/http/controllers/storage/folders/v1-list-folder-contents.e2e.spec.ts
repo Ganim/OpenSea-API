@@ -35,9 +35,13 @@ describe('List Folder Contents (E2E)', () => {
   });
 
   it('should list subfolder contents', async () => {
-    const { token } = await createAndAuthenticateUser(app, { tenantId });
-    const { folderId: parentId } = await createStorageFolderE2E({ tenantId });
-    await createStorageFolderE2E({ tenantId, parentId });
+    const { token, user } = await createAndAuthenticateUser(app, { tenantId });
+    const userId = user.user.id;
+    const { folderId: parentId } = await createStorageFolderE2E({
+      tenantId,
+      createdBy: userId,
+    });
+    await createStorageFolderE2E({ tenantId, parentId, createdBy: userId });
 
     const response = await request(app.server)
       .get(`/v1/storage/folders/${parentId}/contents`)

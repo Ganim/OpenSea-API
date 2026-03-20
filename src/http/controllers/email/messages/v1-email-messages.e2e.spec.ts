@@ -93,6 +93,7 @@ describe('Email Messages Controller (E2E)', () => {
     trashFolderId = trashFolder.id;
 
     // Criar uma mensagem diretamente no DB para usar nos testes de GET/PATCH/etc.
+    // bodyText and bodyHtmlSanitized must be set to avoid lazy IMAP fetch in GET /:id
     const testMsg = await prisma.emailMessage.create({
       data: {
         tenantId,
@@ -103,6 +104,9 @@ describe('Email Messages Controller (E2E)', () => {
         fromName: 'Sender Test',
         toAddresses: ['recipient@example.com'],
         subject: 'Mensagem de Teste Setup',
+        bodyText: 'Corpo de teste',
+        bodyHtmlSanitized: '<p>Corpo de teste</p>',
+        snippet: 'Corpo de teste',
         receivedAt: new Date(),
       },
     });
@@ -566,6 +570,7 @@ describe('Email Messages Controller (E2E)', () => {
   describe('Mover mensagem (PATCH /v1/email/messages/:id/move)', () => {
     it('[SUCESSO] deve mover mensagem para a lixeira', async () => {
       // Criar mensagem diretamente no DB para mover
+      // bodyText must be set to avoid lazy IMAP fetch timeout in GET /:id
       const msgToMove = await prisma.emailMessage.create({
         data: {
           tenantId,
@@ -575,6 +580,8 @@ describe('Email Messages Controller (E2E)', () => {
           fromAddress: 'sender@example.com',
           toAddresses: ['recipient@example.com'],
           subject: 'Para Mover',
+          bodyText: 'Corpo para mover',
+          bodyHtmlSanitized: '<p>Corpo para mover</p>',
           receivedAt: new Date(),
         },
       });
