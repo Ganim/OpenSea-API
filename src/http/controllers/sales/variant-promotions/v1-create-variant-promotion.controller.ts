@@ -21,7 +21,7 @@ export async function createVariantPromotionController(app: FastifyInstance) {
     preHandler: [
       verifyJwt,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.SALES.PROMOTIONS.CREATE,
+        permissionCode: PermissionCodes.SALES.PROMOTIONS.REGISTER,
         resource: 'variant-promotions',
       }),
     ],

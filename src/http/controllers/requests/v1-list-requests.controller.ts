@@ -1,4 +1,5 @@
 import type { RequestStatus } from '@/entities/requests/value-objects/request-status';
+import { PermissionCodes } from '@/constants/rbac/permission-codes';
 import type { RequestType } from '@/entities/requests/value-objects/request-type';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
@@ -68,7 +69,7 @@ export async function listRequestsController(app: FastifyInstance) {
 
       const hasViewAllPermission = await permissionService.checkPermission({
         userId: new UniqueEntityID(request.user.sub),
-        permissionCode: 'REQUESTS:VIEW_ALL',
+        permissionCode: PermissionCodes.ADMIN.USERS.ADMIN,
       });
 
       const { requests, total, page, limit } = await useCase.execute({

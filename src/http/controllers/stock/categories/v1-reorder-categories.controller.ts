@@ -15,7 +15,7 @@ export async function reorderCategoriesController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STOCK.CATEGORIES.UPDATE,
+        permissionCode: PermissionCodes.STOCK.CATEGORIES.MODIFY,
         resource: 'categories',
       }),
     ],

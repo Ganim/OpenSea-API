@@ -26,7 +26,7 @@ export async function v1ApproveAbsenceController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.HR.ABSENCES.MANAGE,
+        permissionCode: PermissionCodes.HR.ABSENCES.ADMIN,
         resource: 'absences',
       }),
     ],

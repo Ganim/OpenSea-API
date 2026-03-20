@@ -15,7 +15,7 @@ export async function verifySecurityKeyController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STORAGE.FILES.READ,
+        permissionCode: PermissionCodes.TOOLS.STORAGE_FILES.ACCESS,
         resource: 'storage-files',
       }),
     ],

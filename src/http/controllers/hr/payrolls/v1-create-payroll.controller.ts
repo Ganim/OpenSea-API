@@ -21,7 +21,7 @@ export async function v1CreatePayrollController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.HR.PAYROLLS.CREATE,
+        permissionCode: PermissionCodes.HR.PAYROLL.REGISTER,
         resource: 'payrolls',
       }),
     ],

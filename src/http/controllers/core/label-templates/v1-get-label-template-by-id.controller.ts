@@ -17,7 +17,7 @@ export async function getLabelTemplateByIdController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.CORE.LABEL_TEMPLATES.READ,
+        permissionCode: PermissionCodes.SYSTEM.LABEL_TEMPLATES.ACCESS,
         resource: 'label-templates',
       }),
     ],

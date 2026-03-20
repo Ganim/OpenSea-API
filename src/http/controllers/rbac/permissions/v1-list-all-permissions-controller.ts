@@ -13,7 +13,7 @@ export async function listAllPermissionsController(app: FastifyInstance) {
     onRequest: [
       verifyJwt,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.RBAC.PERMISSIONS.READ,
+        permissionCode: PermissionCodes.ADMIN.PERMISSION_GROUPS.ACCESS,
         resource: 'permissions',
       }),
     ],

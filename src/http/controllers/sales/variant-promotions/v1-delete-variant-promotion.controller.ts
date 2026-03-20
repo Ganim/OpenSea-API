@@ -20,7 +20,7 @@ export async function deleteVariantPromotionController(app: FastifyInstance) {
     preHandler: [
       verifyJwt,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.SALES.PROMOTIONS.DELETE,
+        permissionCode: PermissionCodes.SALES.PROMOTIONS.REMOVE,
         resource: 'variant-promotions',
       }),
     ],

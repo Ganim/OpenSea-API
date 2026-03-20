@@ -21,7 +21,7 @@ export async function v1ClockOutController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.HR.TIME_CONTROL.CREATE,
+        permissionCode: PermissionCodes.HR.TIME_CONTROL.REGISTER,
         resource: 'time-control',
       }),
     ],

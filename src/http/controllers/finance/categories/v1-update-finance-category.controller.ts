@@ -24,7 +24,7 @@ export async function updateFinanceCategoryController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.FINANCE.CATEGORIES.UPDATE,
+        permissionCode: PermissionCodes.FINANCE.CATEGORIES.MODIFY,
         resource: 'finance-categories',
       }),
     ],

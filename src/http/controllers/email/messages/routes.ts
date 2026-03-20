@@ -120,7 +120,7 @@ export async function emailMessagesRoutes(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.EMAIL.MESSAGES.LIST,
+        permissionCode: PermissionCodes.TOOLS.EMAIL_MESSAGES.ACCESS,
         resource: 'email-messages',
       }),
     ],
@@ -201,7 +201,7 @@ export async function emailMessagesRoutes(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.EMAIL.MESSAGES.LIST,
+        permissionCode: PermissionCodes.TOOLS.EMAIL_MESSAGES.ACCESS,
         resource: 'email-messages',
       }),
     ],
@@ -277,7 +277,7 @@ export async function emailMessagesRoutes(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.EMAIL.MESSAGES.READ,
+        permissionCode: PermissionCodes.TOOLS.EMAIL_MESSAGES.ACCESS,
         resource: 'email-messages',
       }),
     ],
@@ -326,7 +326,7 @@ export async function emailMessagesRoutes(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.EMAIL.MESSAGES.READ,
+        permissionCode: PermissionCodes.TOOLS.EMAIL_MESSAGES.ACCESS,
         resource: 'email-messages',
       }),
     ],
@@ -381,7 +381,7 @@ export async function emailMessagesRoutes(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.EMAIL.MESSAGES.READ,
+        permissionCode: PermissionCodes.TOOLS.EMAIL_MESSAGES.ACCESS,
         resource: 'email-messages',
       }),
     ],
@@ -428,7 +428,7 @@ export async function emailMessagesRoutes(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.EMAIL.MESSAGES.SEND,
+        permissionCode: PermissionCodes.TOOLS.EMAIL_MESSAGES.REGISTER,
         resource: 'email-messages',
       }),
     ],
@@ -490,7 +490,7 @@ export async function emailMessagesRoutes(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.EMAIL.MESSAGES.SEND,
+        permissionCode: PermissionCodes.TOOLS.EMAIL_MESSAGES.REGISTER,
         resource: 'email-messages',
       }),
     ],
@@ -649,7 +649,7 @@ export async function emailMessagesRoutes(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.EMAIL.MESSAGES.UPDATE,
+        permissionCode: PermissionCodes.TOOLS.EMAIL_MESSAGES.MODIFY,
         resource: 'email-messages',
       }),
     ],
@@ -703,7 +703,7 @@ export async function emailMessagesRoutes(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.EMAIL.MESSAGES.UPDATE,
+        permissionCode: PermissionCodes.TOOLS.EMAIL_MESSAGES.MODIFY,
         resource: 'email-messages',
       }),
     ],
@@ -756,7 +756,7 @@ export async function emailMessagesRoutes(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.EMAIL.MESSAGES.UPDATE,
+        permissionCode: PermissionCodes.TOOLS.EMAIL_MESSAGES.MODIFY,
         resource: 'email-messages',
       }),
     ],
@@ -809,7 +809,7 @@ export async function emailMessagesRoutes(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.EMAIL.MESSAGES.DELETE,
+        permissionCode: PermissionCodes.TOOLS.EMAIL_MESSAGES.REMOVE,
         resource: 'email-messages',
       }),
     ],
@@ -860,7 +860,7 @@ export async function emailMessagesRoutes(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.EMAIL.MESSAGES.READ,
+        permissionCode: PermissionCodes.TOOLS.EMAIL_MESSAGES.ACCESS,
         resource: 'email-messages',
       }),
     ],

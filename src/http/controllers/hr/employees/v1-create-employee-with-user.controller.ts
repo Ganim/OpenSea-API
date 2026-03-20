@@ -25,7 +25,7 @@ export async function v1CreateEmployeeWithUserController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.HR.EMPLOYEES.CREATE,
+        permissionCode: PermissionCodes.HR.EMPLOYEES.REGISTER,
         resource: 'employees',
       }),
     ],

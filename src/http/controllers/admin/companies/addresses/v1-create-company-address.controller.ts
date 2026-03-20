@@ -22,7 +22,7 @@ export async function createCompanyAddressController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.ADMIN.COMPANY_ADDRESSES.CREATE,
+        permissionCode: PermissionCodes.ADMIN.COMPANIES.MODIFY,
         resource: 'company-addresses',
       }),
     ],

@@ -16,7 +16,7 @@ export async function v1DeleteCompanyStakeholder(app: FastifyInstance) {
     preHandler: [
       verifyJwt,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.ADMIN.COMPANY_STAKEHOLDER.DELETE,
+        permissionCode: PermissionCodes.ADMIN.COMPANIES.MODIFY,
         resource: 'company-stakeholder',
       }),
     ],

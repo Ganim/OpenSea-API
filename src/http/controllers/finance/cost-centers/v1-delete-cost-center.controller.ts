@@ -20,7 +20,7 @@ export async function deleteCostCenterController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.FINANCE.COST_CENTERS.DELETE,
+        permissionCode: PermissionCodes.FINANCE.COST_CENTERS.REMOVE,
         resource: 'cost-centers',
       }),
     ],

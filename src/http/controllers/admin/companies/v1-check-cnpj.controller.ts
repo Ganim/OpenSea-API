@@ -21,7 +21,7 @@ export async function v1CheckCnpjController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.ADMIN.COMPANIES.READ,
+        permissionCode: PermissionCodes.ADMIN.COMPANIES.ACCESS,
         resource: 'companies',
       }),
     ],

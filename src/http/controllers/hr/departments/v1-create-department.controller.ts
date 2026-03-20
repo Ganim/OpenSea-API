@@ -26,7 +26,7 @@ export async function v1CreateDepartmentController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.HR.DEPARTMENTS.CREATE,
+        permissionCode: PermissionCodes.HR.DEPARTMENTS.REGISTER,
         resource: 'departments',
       }),
     ],

@@ -21,7 +21,7 @@ export async function shareEventWithUsersController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.CALENDAR.EVENTS.SHARE_USERS,
+        permissionCode: PermissionCodes.TOOLS.CALENDAR.SHARE,
         resource: 'calendar-events',
       }),
     ],

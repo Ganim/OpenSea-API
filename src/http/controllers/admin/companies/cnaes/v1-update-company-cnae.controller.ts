@@ -23,7 +23,7 @@ export async function updateCompanyCnaeController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.ADMIN.COMPANY_CNAES.UPDATE,
+        permissionCode: PermissionCodes.ADMIN.COMPANIES.MODIFY,
         resource: 'company-cnaes',
       }),
     ],

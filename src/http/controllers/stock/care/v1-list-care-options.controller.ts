@@ -16,7 +16,7 @@ export async function listCareOptionsController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STOCK.CARE.READ,
+        permissionCode: PermissionCodes.STOCK.PRODUCTS.ACCESS,
         resource: 'care',
       }),
     ],

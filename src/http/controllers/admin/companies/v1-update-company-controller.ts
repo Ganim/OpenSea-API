@@ -29,7 +29,7 @@ export async function v1UpdateCompanyAdminController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.ADMIN.COMPANIES.UPDATE,
+        permissionCode: PermissionCodes.ADMIN.COMPANIES.MODIFY,
         resource: 'companies',
       }),
     ],

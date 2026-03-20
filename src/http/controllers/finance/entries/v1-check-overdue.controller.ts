@@ -15,7 +15,7 @@ export async function checkOverdueController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.FINANCE.ENTRIES.MANAGE,
+        permissionCode: PermissionCodes.FINANCE.ENTRIES.ADMIN,
         resource: 'entries',
       }),
     ],

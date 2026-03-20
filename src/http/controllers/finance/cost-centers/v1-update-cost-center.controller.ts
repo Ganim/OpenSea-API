@@ -25,7 +25,7 @@ export async function updateCostCenterController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.FINANCE.COST_CENTERS.UPDATE,
+        permissionCode: PermissionCodes.FINANCE.COST_CENTERS.MODIFY,
         resource: 'cost-centers',
       }),
     ],

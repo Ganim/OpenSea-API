@@ -29,7 +29,7 @@ export async function v1UpdateDepartmentController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.HR.DEPARTMENTS.UPDATE,
+        permissionCode: PermissionCodes.HR.DEPARTMENTS.MODIFY,
         resource: 'departments',
       }),
     ],

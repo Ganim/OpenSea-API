@@ -24,7 +24,7 @@ export async function updateContractController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.FINANCE.CONTRACTS.UPDATE,
+        permissionCode: PermissionCodes.FINANCE.CONTRACTS.MODIFY,
         resource: 'contracts',
       }),
     ],

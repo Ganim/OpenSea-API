@@ -14,7 +14,7 @@ export async function getEntityHistoryController(app: FastifyInstance) {
     preHandler: [
       verifyJwt,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.AUDIT.HISTORY.VIEW,
+        permissionCode: PermissionCodes.ADMIN.AUDIT.ACCESS,
         resource: 'audit-logs',
       }),
     ],

@@ -21,7 +21,7 @@ export async function deleteCalendarController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.CALENDAR.EVENTS.DELETE,
+        permissionCode: PermissionCodes.TOOLS.CALENDAR.REMOVE,
         resource: 'calendars',
       }),
     ],

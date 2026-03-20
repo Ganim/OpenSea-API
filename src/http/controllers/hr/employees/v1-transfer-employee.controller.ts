@@ -21,7 +21,7 @@ export async function v1TransferEmployeeController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.HR.EMPLOYEES.MANAGE,
+        permissionCode: PermissionCodes.HR.EMPLOYEES.ADMIN,
         resource: 'employees',
       }),
     ],

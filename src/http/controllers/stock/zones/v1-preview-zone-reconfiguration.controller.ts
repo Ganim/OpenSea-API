@@ -21,7 +21,7 @@ export async function previewZoneReconfigurationController(
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STOCK.ZONES.READ,
+        permissionCode: PermissionCodes.STOCK.WAREHOUSES.ACCESS,
         resource: 'zones',
       }),
     ],

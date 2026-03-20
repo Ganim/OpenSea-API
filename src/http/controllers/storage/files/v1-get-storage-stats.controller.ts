@@ -16,7 +16,7 @@ export async function getStorageStatsController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STORAGE.STATS.VIEW,
+        permissionCode: PermissionCodes.TOOLS.STORAGE_FILES.ACCESS,
         resource: 'storage-stats',
       }),
     ],

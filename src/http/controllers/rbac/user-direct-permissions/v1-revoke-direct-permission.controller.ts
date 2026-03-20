@@ -18,7 +18,7 @@ export async function revokeDirectPermissionController(app: FastifyInstance) {
     preHandler: [
       verifyJwt,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.RBAC.USER_PERMISSIONS.MANAGE,
+        permissionCode: PermissionCodes.ADMIN.PERMISSION_GROUPS.ADMIN,
         resource: 'user-permissions',
       }),
     ],

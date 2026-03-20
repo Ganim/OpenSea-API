@@ -16,7 +16,7 @@ export async function listAutomationsController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.TASKS.BOARDS.READ,
+        permissionCode: PermissionCodes.TOOLS.TASK_BOARDS.ACCESS,
         resource: 'task-boards',
       }),
     ],

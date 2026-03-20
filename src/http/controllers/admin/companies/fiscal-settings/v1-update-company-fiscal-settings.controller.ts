@@ -25,7 +25,7 @@ export async function updateCompanyFiscalSettingsController(
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.ADMIN.COMPANY_FISCAL_SETTINGS.UPDATE,
+        permissionCode: PermissionCodes.ADMIN.COMPANIES.MODIFY,
         resource: 'company-fiscal-settings',
       }),
     ],

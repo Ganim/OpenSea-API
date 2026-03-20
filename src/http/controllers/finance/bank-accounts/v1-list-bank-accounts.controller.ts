@@ -16,7 +16,7 @@ export async function listBankAccountsController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.FINANCE.BANK_ACCOUNTS.LIST,
+        permissionCode: PermissionCodes.FINANCE.BANK_ACCOUNTS.ACCESS,
         resource: 'bank-accounts',
       }),
     ],

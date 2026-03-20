@@ -23,7 +23,7 @@ export async function createCostCenterController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.FINANCE.COST_CENTERS.CREATE,
+        permissionCode: PermissionCodes.FINANCE.COST_CENTERS.REGISTER,
         resource: 'cost-centers',
       }),
     ],

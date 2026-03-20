@@ -20,7 +20,7 @@ export async function createSubtaskController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.TASKS.CARDS.CREATE,
+        permissionCode: PermissionCodes.TOOLS.TASK_CARDS.REGISTER,
         resource: 'task-cards',
       }),
     ],

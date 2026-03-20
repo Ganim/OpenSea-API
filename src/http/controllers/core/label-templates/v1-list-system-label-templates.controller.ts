@@ -13,7 +13,7 @@ export async function listSystemLabelTemplatesController(app: FastifyInstance) {
     preHandler: [
       verifyJwt,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.CORE.LABEL_TEMPLATES.READ,
+        permissionCode: PermissionCodes.SYSTEM.LABEL_TEMPLATES.ACCESS,
         resource: 'label-templates',
       }),
     ],

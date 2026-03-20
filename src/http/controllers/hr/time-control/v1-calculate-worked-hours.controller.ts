@@ -20,7 +20,7 @@ export async function v1CalculateWorkedHoursController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.HR.TIME_CONTROL.READ,
+        permissionCode: PermissionCodes.HR.TIME_CONTROL.ACCESS,
         resource: 'time-control',
       }),
     ],

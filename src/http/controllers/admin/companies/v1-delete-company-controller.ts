@@ -23,7 +23,7 @@ export async function v1DeleteCompanyAdminController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.ADMIN.COMPANIES.DELETE,
+        permissionCode: PermissionCodes.ADMIN.COMPANIES.REMOVE,
         resource: 'companies',
       }),
     ],

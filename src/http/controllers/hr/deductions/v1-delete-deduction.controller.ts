@@ -20,7 +20,7 @@ export async function v1DeleteDeductionController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.HR.DEDUCTIONS.DELETE,
+        permissionCode: PermissionCodes.HR.PAYROLL.ADMIN,
         resource: 'deductions',
       }),
     ],

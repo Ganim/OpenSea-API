@@ -23,7 +23,7 @@ export async function createLabelTemplateController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.CORE.LABEL_TEMPLATES.CREATE,
+        permissionCode: PermissionCodes.SYSTEM.LABEL_TEMPLATES.REGISTER,
         resource: 'label-templates',
       }),
     ],

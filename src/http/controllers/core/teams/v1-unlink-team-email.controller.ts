@@ -17,7 +17,7 @@ export async function unlinkTeamEmailController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.CORE.TEAMS.EMAILS.UNLINK,
+        permissionCode: PermissionCodes.ADMIN.USERS.ADMIN,
         resource: 'teams',
       }),
     ],

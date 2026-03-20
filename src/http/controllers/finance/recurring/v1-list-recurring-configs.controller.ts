@@ -15,7 +15,7 @@ export async function listRecurringConfigsController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.FINANCE.RECURRING.LIST,
+        permissionCode: PermissionCodes.FINANCE.RECURRING.ACCESS,
         resource: 'recurring',
       }),
     ],

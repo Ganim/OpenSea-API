@@ -17,7 +17,7 @@ export async function listCategoriesController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STOCK.CATEGORIES.LIST,
+        permissionCode: PermissionCodes.STOCK.CATEGORIES.ACCESS,
         resource: 'categories',
       }),
     ],

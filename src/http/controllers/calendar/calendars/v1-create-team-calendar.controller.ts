@@ -24,7 +24,7 @@ export async function createTeamCalendarController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.CALENDAR.EVENTS.MANAGE,
+        permissionCode: PermissionCodes.TOOLS.CALENDAR.ADMIN,
         resource: 'calendars',
       }),
     ],

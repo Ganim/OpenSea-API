@@ -21,7 +21,7 @@ export async function removeGroupFromUserController(app: FastifyInstance) {
     preHandler: [
       verifyJwt,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.RBAC.USER_GROUPS.MANAGE,
+        permissionCode: PermissionCodes.ADMIN.PERMISSION_GROUPS.ADMIN,
         resource: 'user-groups',
       }),
     ],

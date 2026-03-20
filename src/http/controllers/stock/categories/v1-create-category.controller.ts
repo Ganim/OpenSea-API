@@ -20,7 +20,7 @@ export async function createCategoryController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STOCK.CATEGORIES.CREATE,
+        permissionCode: PermissionCodes.STOCK.CATEGORIES.REGISTER,
         resource: 'categories',
       }),
     ],

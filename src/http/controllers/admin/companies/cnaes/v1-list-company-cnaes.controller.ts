@@ -21,7 +21,7 @@ export async function listCompanyCnaesController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.ADMIN.COMPANY_CNAES.READ,
+        permissionCode: PermissionCodes.ADMIN.COMPANIES.ACCESS,
         resource: 'company-cnaes',
       }),
     ],

@@ -20,7 +20,7 @@ export async function shareEventWithTeamController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.CALENDAR.EVENTS.SHARE_TEAMS,
+        permissionCode: PermissionCodes.TOOLS.CALENDAR.SHARE,
         resource: 'calendar-events',
       }),
     ],

@@ -21,7 +21,7 @@ export async function moveCardController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.TASKS.CARDS.MOVE,
+        permissionCode: PermissionCodes.TOOLS.TASK_CARDS.MODIFY,
         resource: 'task-cards',
       }),
     ],

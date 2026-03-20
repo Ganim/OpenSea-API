@@ -17,7 +17,7 @@ export async function processScheduledNotificationsController(
     preHandler: [
       verifyJwt,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.NOTIFICATIONS.MANAGE,
+        permissionCode: PermissionCodes.SYSTEM.NOTIFICATIONS.ADMIN,
         resource: 'notifications',
       }),
     ],

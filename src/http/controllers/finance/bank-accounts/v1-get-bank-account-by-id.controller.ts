@@ -17,7 +17,7 @@ export async function getBankAccountByIdController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.FINANCE.BANK_ACCOUNTS.READ,
+        permissionCode: PermissionCodes.FINANCE.BANK_ACCOUNTS.ACCESS,
         resource: 'bank-accounts',
       }),
     ],

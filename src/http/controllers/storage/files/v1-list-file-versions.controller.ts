@@ -18,7 +18,7 @@ export async function listFileVersionsController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STORAGE.VERSIONS.READ,
+        permissionCode: PermissionCodes.TOOLS.STORAGE_FILES.ACCESS,
         resource: 'storage-file-versions',
       }),
     ],

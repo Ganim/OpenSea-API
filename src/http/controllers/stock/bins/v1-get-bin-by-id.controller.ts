@@ -17,7 +17,7 @@ export async function getBinByIdController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STOCK.BINS.READ,
+        permissionCode: PermissionCodes.STOCK.WAREHOUSES.ACCESS,
         resource: 'bins',
       }),
     ],

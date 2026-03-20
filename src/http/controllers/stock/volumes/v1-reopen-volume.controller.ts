@@ -17,7 +17,7 @@ export async function reopenVolumeController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STOCK.VOLUMES.REOPEN,
+        permissionCode: PermissionCodes.STOCK.VOLUMES.ADMIN,
         resource: 'volumes',
       }),
     ],

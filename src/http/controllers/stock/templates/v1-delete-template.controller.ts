@@ -19,7 +19,7 @@ export async function deleteTemplateController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STOCK.TEMPLATES.DELETE,
+        permissionCode: PermissionCodes.STOCK.TEMPLATES.REMOVE,
         resource: 'templates',
       }),
     ],

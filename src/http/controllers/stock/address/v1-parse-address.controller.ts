@@ -14,7 +14,7 @@ export async function parseAddressController(app: FastifyInstance) {
     preHandler: [
       verifyJwt,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STOCK.BINS.READ,
+        permissionCode: PermissionCodes.STOCK.WAREHOUSES.ACCESS,
         resource: 'address',
       }),
     ],

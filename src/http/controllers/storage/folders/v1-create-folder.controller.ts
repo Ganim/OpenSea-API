@@ -23,7 +23,7 @@ export async function createFolderController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STORAGE.USER_FOLDERS.CREATE,
+        permissionCode: PermissionCodes.TOOLS.STORAGE_FOLDERS.REGISTER,
         resource: 'storage-folders',
       }),
     ],

@@ -23,7 +23,7 @@ export async function addTeamMembersController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.CORE.TEAMS.MEMBERS.ADD,
+        permissionCode: PermissionCodes.ADMIN.USERS.ADMIN,
         resource: 'teams',
       }),
     ],

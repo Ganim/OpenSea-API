@@ -16,7 +16,7 @@ export async function v1CheckCpfController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.HR.EMPLOYEES.READ,
+        permissionCode: PermissionCodes.HR.EMPLOYEES.ACCESS,
         resource: 'employees',
       }),
     ],

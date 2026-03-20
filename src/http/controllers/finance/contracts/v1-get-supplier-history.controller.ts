@@ -20,7 +20,7 @@ export async function getSupplierHistoryController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.FINANCE.CONTRACTS.READ,
+        permissionCode: PermissionCodes.FINANCE.CONTRACTS.ACCESS,
         resource: 'contracts',
       }),
     ],

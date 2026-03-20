@@ -20,7 +20,7 @@ export async function uploadAttachmentController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.FINANCE.ATTACHMENTS.CREATE,
+        permissionCode: PermissionCodes.FINANCE.ENTRIES.MODIFY,
         resource: 'attachments',
       }),
     ],

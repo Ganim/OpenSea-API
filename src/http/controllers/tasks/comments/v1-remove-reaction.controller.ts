@@ -18,7 +18,7 @@ export async function removeReactionController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.TASKS.COMMENTS.DELETE,
+        permissionCode: PermissionCodes.TOOLS.TASK_CARDS.MODIFY,
         resource: 'task-comments',
       }),
     ],

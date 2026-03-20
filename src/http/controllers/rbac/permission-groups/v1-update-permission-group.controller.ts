@@ -30,7 +30,7 @@ export async function updatePermissionGroupController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.RBAC.GROUPS.UPDATE,
+        permissionCode: PermissionCodes.ADMIN.PERMISSION_GROUPS.MODIFY,
         resource: 'permission-groups',
       }),
     ],

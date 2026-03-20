@@ -21,7 +21,7 @@ export async function deleteLabelTemplateController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.CORE.LABEL_TEMPLATES.DELETE,
+        permissionCode: PermissionCodes.SYSTEM.LABEL_TEMPLATES.REMOVE,
         resource: 'label-templates',
       }),
     ],

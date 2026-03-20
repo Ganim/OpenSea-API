@@ -20,7 +20,7 @@ export async function deleteFolderController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STORAGE.USER_FOLDERS.DELETE,
+        permissionCode: PermissionCodes.TOOLS.STORAGE_FOLDERS.REMOVE,
         resource: 'storage-folders',
       }),
     ],

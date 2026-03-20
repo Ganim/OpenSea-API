@@ -20,7 +20,7 @@ export async function deleteFinanceCategoryController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.FINANCE.CATEGORIES.DELETE,
+        permissionCode: PermissionCodes.FINANCE.CATEGORIES.REMOVE,
         resource: 'finance-categories',
       }),
     ],

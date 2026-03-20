@@ -24,7 +24,7 @@ export async function createPermissionGroupController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.RBAC.GROUPS.CREATE,
+        permissionCode: PermissionCodes.ADMIN.PERMISSION_GROUPS.REGISTER,
         resource: 'permission-groups',
       }),
     ],

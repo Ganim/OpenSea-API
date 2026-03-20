@@ -19,7 +19,7 @@ export async function deleteTagController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STOCK.TAGS.DELETE,
+        permissionCode: PermissionCodes.STOCK.PRODUCTS.ADMIN,
         resource: 'tags',
       }),
     ],

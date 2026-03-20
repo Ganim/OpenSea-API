@@ -20,7 +20,7 @@ export async function removeBoardMemberController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.TASKS.BOARDS.MANAGE,
+        permissionCode: PermissionCodes.TOOLS.TASK_BOARDS.MODIFY,
         resource: 'task-boards',
       }),
     ],

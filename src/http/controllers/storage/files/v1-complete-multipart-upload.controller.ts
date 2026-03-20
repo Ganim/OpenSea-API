@@ -31,7 +31,7 @@ export async function completeMultipartUploadController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STORAGE.FILES.CREATE,
+        permissionCode: PermissionCodes.TOOLS.STORAGE_FILES.REGISTER,
         resource: 'storage-files',
       }),
     ],
@@ -216,7 +216,7 @@ export async function abortMultipartUploadController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STORAGE.FILES.CREATE,
+        permissionCode: PermissionCodes.TOOLS.STORAGE_FILES.REGISTER,
         resource: 'storage-files',
       }),
     ],

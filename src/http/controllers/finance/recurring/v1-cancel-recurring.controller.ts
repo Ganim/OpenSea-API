@@ -17,7 +17,7 @@ export async function cancelRecurringController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.FINANCE.RECURRING.MANAGE,
+        permissionCode: PermissionCodes.FINANCE.RECURRING.ADMIN,
         resource: 'recurring',
       }),
     ],

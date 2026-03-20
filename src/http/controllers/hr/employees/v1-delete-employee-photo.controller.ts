@@ -19,7 +19,7 @@ export async function v1DeleteEmployeePhotoController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.HR.EMPLOYEES.UPDATE,
+        permissionCode: PermissionCodes.HR.EMPLOYEES.MODIFY,
         resource: 'employees',
       }),
     ],

@@ -16,7 +16,7 @@ export async function unwatchCardController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.TASKS.WATCHERS.DELETE,
+        permissionCode: PermissionCodes.TOOLS.TASK_CARDS.MODIFY,
         resource: 'task-watchers',
       }),
     ],

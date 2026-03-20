@@ -22,7 +22,7 @@ export async function deleteCalendarEventController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.CALENDAR.EVENTS.DELETE,
+        permissionCode: PermissionCodes.TOOLS.CALENDAR.REMOVE,
         resource: 'calendar-events',
       }),
     ],
@@ -61,7 +61,7 @@ export async function deleteCalendarEventController(app: FastifyInstance) {
         try {
           await checkInlinePermission(
             request,
-            PermissionCodes.CALENDAR.EVENTS.MANAGE,
+            PermissionCodes.TOOLS.CALENDAR.ADMIN,
           );
           hasManagePermission = true;
         } catch {

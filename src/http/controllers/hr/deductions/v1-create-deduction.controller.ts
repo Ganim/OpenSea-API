@@ -21,7 +21,7 @@ export async function v1CreateDeductionController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.HR.DEDUCTIONS.CREATE,
+        permissionCode: PermissionCodes.HR.PAYROLL.REGISTER,
         resource: 'deductions',
       }),
     ],

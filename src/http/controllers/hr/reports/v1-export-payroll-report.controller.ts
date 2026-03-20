@@ -15,7 +15,7 @@ export async function v1ExportPayrollReportController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.REPORTS.HR.GENERATE,
+        permissionCode: PermissionCodes.HR.EMPLOYEES.ACCESS,
         resource: 'reports',
       }),
     ],

@@ -22,7 +22,7 @@ export async function manageRemindersController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.CALENDAR.REMINDERS.CREATE,
+        permissionCode: PermissionCodes.TOOLS.CALENDAR.MODIFY,
         resource: 'calendar-events',
       }),
     ],

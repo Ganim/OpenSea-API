@@ -20,7 +20,7 @@ export async function v1GetFinanceCompanyByIdController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.FINANCE.COMPANIES.READ,
+        permissionCode: PermissionCodes.FINANCE.ENTRIES.ACCESS,
         resource: 'companies',
       }),
     ],

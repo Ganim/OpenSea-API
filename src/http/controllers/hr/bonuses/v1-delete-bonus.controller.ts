@@ -20,7 +20,7 @@ export async function v1DeleteBonusController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.HR.BONUSES.DELETE,
+        permissionCode: PermissionCodes.HR.PAYROLL.ADMIN,
         resource: 'bonuses',
       }),
     ],

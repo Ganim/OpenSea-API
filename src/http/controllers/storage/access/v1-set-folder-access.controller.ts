@@ -28,7 +28,7 @@ export async function setFolderAccessController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STORAGE.INTERFACE.VIEW,
+        permissionCode: PermissionCodes.TOOLS.STORAGE_FILES.ACCESS,
         resource: 'storage-access',
       }),
     ],
@@ -154,15 +154,15 @@ function resolveSharePermission(
 ): string {
   if (isSystem) {
     return isGroup
-      ? PermissionCodes.STORAGE.SYSTEM_FOLDERS.SHARE_GROUP
-      : PermissionCodes.STORAGE.SYSTEM_FOLDERS.SHARE_USER;
+      ? PermissionCodes.TOOLS.STORAGE_FOLDERS.SHARE
+      : PermissionCodes.TOOLS.STORAGE_FOLDERS.SHARE;
   }
   if (isFilter) {
     return isGroup
-      ? PermissionCodes.STORAGE.FILTER_FOLDERS.SHARE_GROUP
-      : PermissionCodes.STORAGE.FILTER_FOLDERS.SHARE_USER;
+      ? PermissionCodes.TOOLS.STORAGE_FOLDERS.SHARE
+      : PermissionCodes.TOOLS.STORAGE_FOLDERS.SHARE;
   }
   return isGroup
-    ? PermissionCodes.STORAGE.USER_FOLDERS.SHARE_GROUP
-    : PermissionCodes.STORAGE.USER_FOLDERS.SHARE_USER;
+    ? PermissionCodes.TOOLS.STORAGE_FOLDERS.SHARE
+    : PermissionCodes.TOOLS.STORAGE_FOLDERS.SHARE;
 }

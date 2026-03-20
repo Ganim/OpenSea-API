@@ -18,7 +18,7 @@ export async function listTeamMembersController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.CORE.TEAMS.READ,
+        permissionCode: PermissionCodes.ADMIN.USERS.ADMIN,
         resource: 'teams',
       }),
     ],

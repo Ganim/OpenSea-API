@@ -15,7 +15,7 @@ export async function deleteWarehouseController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STOCK.WAREHOUSES.DELETE,
+        permissionCode: PermissionCodes.STOCK.WAREHOUSES.REMOVE,
         resource: 'warehouses',
       }),
     ],

@@ -21,7 +21,7 @@ export async function v1DeleteWorkScheduleController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.HR.WORK_SCHEDULES.DELETE,
+        permissionCode: PermissionCodes.HR.WORK_SCHEDULES.REMOVE,
         resource: 'work-schedules',
       }),
     ],

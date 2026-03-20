@@ -20,7 +20,7 @@ export async function addItemToVolumeController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STOCK.VOLUMES.ADD_ITEM,
+        permissionCode: PermissionCodes.STOCK.VOLUMES.ADMIN,
         resource: 'volumes',
       }),
     ],

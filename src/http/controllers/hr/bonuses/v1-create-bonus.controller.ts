@@ -21,7 +21,7 @@ export async function v1CreateBonusController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.HR.BONUSES.CREATE,
+        permissionCode: PermissionCodes.HR.PAYROLL.REGISTER,
         resource: 'bonuses',
       }),
     ],

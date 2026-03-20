@@ -22,7 +22,7 @@ export async function registerItemEntryController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STOCK.ITEMS.ENTRY,
+        permissionCode: PermissionCodes.STOCK.ITEMS.ADMIN,
         resource: 'items',
       }),
     ],

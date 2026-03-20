@@ -15,7 +15,7 @@ export async function sendNotificationEmailController(app: FastifyInstance) {
     preHandler: [
       verifyJwt,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.NOTIFICATIONS.SEND,
+        permissionCode: PermissionCodes.SYSTEM.NOTIFICATIONS.ADMIN,
         resource: 'notifications',
       }),
     ],

@@ -15,7 +15,7 @@ export async function v1ExportAbsencesReportController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.REPORTS.HR.ABSENCES,
+        permissionCode: PermissionCodes.HR.ABSENCES.ACCESS,
         resource: 'reports',
       }),
     ],

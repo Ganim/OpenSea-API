@@ -20,7 +20,7 @@ export async function updateZoneLayoutController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STOCK.ZONES.UPDATE,
+        permissionCode: PermissionCodes.STOCK.WAREHOUSES.MODIFY,
         resource: 'zones',
       }),
     ],

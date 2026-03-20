@@ -21,7 +21,7 @@ export async function getDREInteractiveController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.FINANCE.ENTRIES.READ,
+        permissionCode: PermissionCodes.FINANCE.ENTRIES.ACCESS,
         resource: 'entries',
       }),
     ],

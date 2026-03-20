@@ -20,7 +20,7 @@ export async function deleteConsortiumController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.FINANCE.CONSORTIA.DELETE,
+        permissionCode: PermissionCodes.FINANCE.CONSORTIA.REMOVE,
         resource: 'consortia',
       }),
     ],

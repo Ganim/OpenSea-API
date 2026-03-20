@@ -23,7 +23,7 @@ export async function createCustomerController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.SALES.CUSTOMERS.CREATE,
+        permissionCode: PermissionCodes.SALES.CUSTOMERS.REGISTER,
         resource: 'customers',
       }),
     ],

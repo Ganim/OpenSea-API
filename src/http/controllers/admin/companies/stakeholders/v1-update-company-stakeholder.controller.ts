@@ -21,7 +21,7 @@ export async function v1UpdateCompanyStakeholder(app: FastifyInstance) {
     preHandler: [
       verifyJwt,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.ADMIN.COMPANY_STAKEHOLDER.UPDATE,
+        permissionCode: PermissionCodes.ADMIN.COMPANIES.MODIFY,
         resource: 'company-stakeholder',
       }),
     ],

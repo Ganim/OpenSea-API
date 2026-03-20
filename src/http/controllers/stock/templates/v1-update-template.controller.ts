@@ -25,7 +25,7 @@ export async function updateTemplateController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STOCK.TEMPLATES.UPDATE,
+        permissionCode: PermissionCodes.STOCK.TEMPLATES.MODIFY,
         resource: 'templates',
       }),
     ],

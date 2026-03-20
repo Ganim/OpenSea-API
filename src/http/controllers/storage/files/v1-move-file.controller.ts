@@ -24,7 +24,7 @@ export async function moveFileController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STORAGE.FILES.UPDATE,
+        permissionCode: PermissionCodes.TOOLS.STORAGE_FILES.MODIFY,
         resource: 'storage-files',
       }),
     ],

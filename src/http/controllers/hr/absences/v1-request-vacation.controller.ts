@@ -22,7 +22,7 @@ export async function v1RequestVacationController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.SELF.ABSENCES.REQUEST,
+        permissionCode: PermissionCodes.SYSTEM.SELF.MODIFY,
         resource: 'absences',
       }),
     ],

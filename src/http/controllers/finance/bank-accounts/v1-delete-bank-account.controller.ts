@@ -20,7 +20,7 @@ export async function deleteBankAccountController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.FINANCE.BANK_ACCOUNTS.DELETE,
+        permissionCode: PermissionCodes.FINANCE.BANK_ACCOUNTS.REMOVE,
         resource: 'bank-accounts',
       }),
     ],

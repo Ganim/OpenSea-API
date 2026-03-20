@@ -15,7 +15,7 @@ export async function getLocationHealthSummaryController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STOCK.BINS.READ,
+        permissionCode: PermissionCodes.STOCK.WAREHOUSES.ACCESS,
         resource: 'bins',
       }),
     ],

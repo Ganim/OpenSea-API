@@ -18,7 +18,7 @@ export async function listManufacturersController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STOCK.MANUFACTURERS.LIST,
+        permissionCode: PermissionCodes.STOCK.MANUFACTURERS.ACCESS,
         resource: 'manufacturers',
       }),
     ],

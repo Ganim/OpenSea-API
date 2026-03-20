@@ -21,7 +21,7 @@ export async function removeParticipantController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.CALENDAR.PARTICIPANTS.MANAGE,
+        permissionCode: PermissionCodes.TOOLS.CALENDAR.ADMIN,
         resource: 'calendar-events',
       }),
     ],

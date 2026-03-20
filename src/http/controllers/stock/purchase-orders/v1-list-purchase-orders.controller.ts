@@ -16,7 +16,7 @@ export async function listPurchaseOrdersController(app: FastifyInstance) {
         verifyJwt,
         verifyTenant,
         createPermissionMiddleware({
-          permissionCode: PermissionCodes.STOCK.PURCHASE_ORDERS.LIST,
+          permissionCode: PermissionCodes.STOCK.PURCHASE_ORDERS.ACCESS,
           resource: 'purchase-orders',
         }),
       ],

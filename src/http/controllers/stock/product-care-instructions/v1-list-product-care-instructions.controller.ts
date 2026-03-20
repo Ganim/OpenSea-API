@@ -18,7 +18,7 @@ export async function listProductCareInstructionsController(
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STOCK.PRODUCT_CARE_INSTRUCTIONS.READ,
+        permissionCode: PermissionCodes.STOCK.PRODUCTS.ACCESS,
         resource: 'product-care-instructions',
       }),
     ],

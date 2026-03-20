@@ -20,7 +20,7 @@ export async function updateVolumeController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STOCK.VOLUMES.UPDATE,
+        permissionCode: PermissionCodes.STOCK.VOLUMES.MODIFY,
         resource: 'volumes',
       }),
     ],

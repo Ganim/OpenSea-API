@@ -23,7 +23,7 @@ export async function listWarehousesController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STOCK.WAREHOUSES.LIST,
+        permissionCode: PermissionCodes.STOCK.WAREHOUSES.ACCESS,
         resource: 'warehouses',
       }),
     ],

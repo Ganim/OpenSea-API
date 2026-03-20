@@ -15,7 +15,7 @@ export async function removeItemFromVolumeController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STOCK.VOLUMES.REMOVE_ITEM,
+        permissionCode: PermissionCodes.STOCK.VOLUMES.ADMIN,
         resource: 'volumes',
       }),
     ],

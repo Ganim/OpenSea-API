@@ -23,7 +23,7 @@ export async function createTemplateController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STOCK.TEMPLATES.CREATE,
+        permissionCode: PermissionCodes.STOCK.TEMPLATES.REGISTER,
         resource: 'templates',
       }),
     ],

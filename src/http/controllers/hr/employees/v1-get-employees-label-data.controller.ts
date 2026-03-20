@@ -54,7 +54,7 @@ export async function v1GetEmployeesLabelDataController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.HR.EMPLOYEES.LIST,
+        permissionCode: PermissionCodes.HR.EMPLOYEES.ACCESS,
         resource: 'employees',
       }),
     ],

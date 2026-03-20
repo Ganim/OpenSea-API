@@ -1,4 +1,5 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import { PermissionCodes } from '@/constants/rbac/permission-codes';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { PrismaPermissionAuditLogsRepository } from '@/repositories/rbac/prisma/prisma-permission-audit-logs-repository';
 import { PrismaPermissionGroupPermissionsRepository } from '@/repositories/rbac/prisma/prisma-permission-group-permissions-repository';
@@ -62,7 +63,7 @@ export async function getRequestByIdController(app: FastifyInstance) {
 
       const hasViewAllPermission = await permissionService.checkPermission({
         userId: new UniqueEntityID(request.user.sub),
-        permissionCode: 'REQUESTS:VIEW_ALL',
+        permissionCode: PermissionCodes.ADMIN.USERS.ADMIN,
       });
 
       const { request: requestData } = await useCase.execute({

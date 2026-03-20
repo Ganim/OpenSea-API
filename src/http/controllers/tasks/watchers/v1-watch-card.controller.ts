@@ -25,7 +25,7 @@ export async function watchCardController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.TASKS.WATCHERS.CREATE,
+        permissionCode: PermissionCodes.TOOLS.TASK_CARDS.MODIFY,
         resource: 'task-watchers',
       }),
     ],

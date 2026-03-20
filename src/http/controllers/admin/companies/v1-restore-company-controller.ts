@@ -20,7 +20,7 @@ export async function v1RestoreCompanyAdminController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.ADMIN.COMPANIES.RESTORE,
+        permissionCode: PermissionCodes.ADMIN.COMPANIES.ADMIN,
         resource: 'companies',
       }),
     ],

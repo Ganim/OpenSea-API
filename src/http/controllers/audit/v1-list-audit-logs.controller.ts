@@ -13,7 +13,7 @@ export async function listAuditLogsController(app: FastifyInstance) {
     preHandler: [
       verifyJwt,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.AUDIT.LOGS.VIEW,
+        permissionCode: PermissionCodes.ADMIN.AUDIT.ACCESS,
         resource: 'audit-logs',
       }),
     ],

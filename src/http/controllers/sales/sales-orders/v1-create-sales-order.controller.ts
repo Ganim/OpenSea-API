@@ -23,7 +23,7 @@ export async function v1CreateSalesOrderController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.SALES.ORDERS.CREATE,
+        permissionCode: PermissionCodes.SALES.ORDERS.REGISTER,
         resource: 'sales-orders',
       }),
     ],

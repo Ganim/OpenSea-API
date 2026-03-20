@@ -15,7 +15,7 @@ export async function listUsersByPermissionController(app: FastifyInstance) {
     preHandler: [
       verifyJwt,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.RBAC.USER_PERMISSIONS.READ,
+        permissionCode: PermissionCodes.ADMIN.PERMISSION_GROUPS.ACCESS,
         resource: 'user-permissions',
       }),
     ],

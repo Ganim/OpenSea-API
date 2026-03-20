@@ -16,7 +16,7 @@ export async function compareVersionsController(app: FastifyInstance) {
     preHandler: [
       verifyJwt,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.AUDIT.COMPARE.VIEW,
+        permissionCode: PermissionCodes.ADMIN.AUDIT.ACCESS,
         resource: 'audit-logs',
       }),
     ],

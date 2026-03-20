@@ -24,7 +24,7 @@ export async function markContemplatedController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.FINANCE.CONSORTIA.MANAGE,
+        permissionCode: PermissionCodes.FINANCE.CONSORTIA.ADMIN,
         resource: 'consortia',
       }),
     ],

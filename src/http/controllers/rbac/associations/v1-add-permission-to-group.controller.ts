@@ -23,7 +23,7 @@ export async function addPermissionToGroupController(app: FastifyInstance) {
     preHandler: [
       verifyJwt,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.RBAC.ASSOCIATIONS.MANAGE,
+        permissionCode: PermissionCodes.ADMIN.PERMISSION_GROUPS.ADMIN,
         resource: 'associations',
       }),
     ],

@@ -21,7 +21,7 @@ export async function updateVariantController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STOCK.VARIANTS.UPDATE,
+        permissionCode: PermissionCodes.STOCK.VARIANTS.MODIFY,
         resource: 'variants',
       }),
     ],

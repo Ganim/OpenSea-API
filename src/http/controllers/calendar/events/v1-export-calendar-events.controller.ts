@@ -28,7 +28,7 @@ export async function exportCalendarEventsController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.CALENDAR.EVENTS.EXPORT,
+        permissionCode: PermissionCodes.TOOLS.CALENDAR.EXPORT,
         resource: 'calendar-events',
       }),
     ],

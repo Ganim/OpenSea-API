@@ -19,7 +19,7 @@ export async function getFilterFolderContentsController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STORAGE.FILTER_FOLDERS.LIST,
+        permissionCode: PermissionCodes.TOOLS.STORAGE_FOLDERS.ACCESS,
         resource: 'storage-files',
       }),
     ],

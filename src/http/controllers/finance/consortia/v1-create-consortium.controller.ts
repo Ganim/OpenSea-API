@@ -24,7 +24,7 @@ export async function createConsortiumController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.FINANCE.CONSORTIA.CREATE,
+        permissionCode: PermissionCodes.FINANCE.CONSORTIA.REGISTER,
         resource: 'consortia',
       }),
     ],

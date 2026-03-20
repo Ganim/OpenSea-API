@@ -25,7 +25,7 @@ export async function updateBankAccountController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.FINANCE.BANK_ACCOUNTS.UPDATE,
+        permissionCode: PermissionCodes.FINANCE.BANK_ACCOUNTS.MODIFY,
         resource: 'bank-accounts',
       }),
     ],

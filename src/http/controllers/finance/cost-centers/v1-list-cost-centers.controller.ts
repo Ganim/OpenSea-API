@@ -16,7 +16,7 @@ export async function listCostCentersController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.FINANCE.COST_CENTERS.LIST,
+        permissionCode: PermissionCodes.FINANCE.COST_CENTERS.ACCESS,
         resource: 'cost-centers',
       }),
     ],

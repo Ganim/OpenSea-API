@@ -25,7 +25,7 @@ export async function registerPaymentController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.FINANCE.ENTRIES.PAY,
+        permissionCode: PermissionCodes.FINANCE.ENTRIES.ADMIN,
         resource: 'entries',
       }),
     ],

@@ -22,7 +22,7 @@ export async function updateBoardController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.TASKS.BOARDS.UPDATE,
+        permissionCode: PermissionCodes.TOOLS.TASK_BOARDS.MODIFY,
         resource: 'task-boards',
       }),
     ],

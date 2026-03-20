@@ -27,7 +27,7 @@ export async function v1UpdateWorkScheduleController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.HR.WORK_SCHEDULES.UPDATE,
+        permissionCode: PermissionCodes.HR.WORK_SCHEDULES.MODIFY,
         resource: 'work-schedules',
       }),
     ],

@@ -21,7 +21,7 @@ export async function assignCardController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.TASKS.CARDS.ASSIGN,
+        permissionCode: PermissionCodes.TOOLS.TASK_CARDS.ADMIN,
         resource: 'task-cards',
       }),
     ],

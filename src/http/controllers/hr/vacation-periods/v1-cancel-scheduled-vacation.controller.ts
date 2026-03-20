@@ -24,7 +24,7 @@ export async function v1CancelScheduledVacationController(
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.HR.VACATION_PERIODS.UPDATE,
+        permissionCode: PermissionCodes.HR.VACATIONS.MODIFY,
         resource: 'vacation-periods',
       }),
     ],

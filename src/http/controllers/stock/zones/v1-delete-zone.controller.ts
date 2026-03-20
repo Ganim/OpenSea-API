@@ -15,7 +15,7 @@ export async function deleteZoneController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STOCK.ZONES.DELETE,
+        permissionCode: PermissionCodes.STOCK.WAREHOUSES.REMOVE,
         resource: 'zones',
       }),
     ],

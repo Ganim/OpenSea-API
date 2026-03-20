@@ -21,7 +21,7 @@ export async function cancelFinanceEntryController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.FINANCE.ENTRIES.CANCEL,
+        permissionCode: PermissionCodes.FINANCE.ENTRIES.ADMIN,
         resource: 'entries',
       }),
     ],

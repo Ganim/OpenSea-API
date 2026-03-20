@@ -19,7 +19,7 @@ export async function deleteCompanyFiscalSettingsController(
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.ADMIN.COMPANY_FISCAL_SETTINGS.DELETE,
+        permissionCode: PermissionCodes.ADMIN.COMPANIES.MODIFY,
         resource: 'company-fiscal-settings',
       }),
     ],

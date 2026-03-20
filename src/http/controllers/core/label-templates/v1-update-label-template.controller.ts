@@ -24,7 +24,7 @@ export async function updateLabelTemplateController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.CORE.LABEL_TEMPLATES.UPDATE,
+        permissionCode: PermissionCodes.SYSTEM.LABEL_TEMPLATES.MODIFY,
         resource: 'label-templates',
       }),
     ],

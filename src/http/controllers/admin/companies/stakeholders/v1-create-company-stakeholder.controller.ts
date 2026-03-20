@@ -20,7 +20,7 @@ export async function v1CreateCompanyStakeholder(app: FastifyInstance) {
     preHandler: [
       verifyJwt,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.ADMIN.COMPANY_STAKEHOLDER.CREATE,
+        permissionCode: PermissionCodes.ADMIN.COMPANIES.MODIFY,
         resource: 'company-stakeholder',
       }),
     ],

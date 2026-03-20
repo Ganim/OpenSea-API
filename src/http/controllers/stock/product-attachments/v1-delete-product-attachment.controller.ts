@@ -15,7 +15,7 @@ export async function deleteProductAttachmentController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STOCK.PRODUCT_ATTACHMENTS.DELETE,
+        permissionCode: PermissionCodes.STOCK.PRODUCTS.MODIFY,
         resource: 'product-attachments',
       }),
     ],

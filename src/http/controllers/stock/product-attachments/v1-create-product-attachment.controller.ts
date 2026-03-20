@@ -19,7 +19,7 @@ export async function createProductAttachmentController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STOCK.PRODUCT_ATTACHMENTS.CREATE,
+        permissionCode: PermissionCodes.STOCK.PRODUCTS.MODIFY,
         resource: 'product-attachments',
       }),
     ],

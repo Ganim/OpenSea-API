@@ -20,7 +20,7 @@ export async function blockBinController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STOCK.BINS.UPDATE,
+        permissionCode: PermissionCodes.STOCK.WAREHOUSES.MODIFY,
         resource: 'bins',
       }),
     ],

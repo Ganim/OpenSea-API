@@ -21,7 +21,7 @@ export async function createVolumeController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STOCK.VOLUMES.CREATE,
+        permissionCode: PermissionCodes.STOCK.VOLUMES.REGISTER,
         resource: 'volumes',
       }),
     ],

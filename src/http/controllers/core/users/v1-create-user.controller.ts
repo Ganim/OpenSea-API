@@ -33,7 +33,7 @@ export async function createUserController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.CORE.USERS.CREATE,
+        permissionCode: PermissionCodes.ADMIN.USERS.REGISTER,
         resource: 'users',
       }),
     ],

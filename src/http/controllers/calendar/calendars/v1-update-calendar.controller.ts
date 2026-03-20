@@ -25,7 +25,7 @@ export async function updateCalendarController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.CALENDAR.EVENTS.UPDATE,
+        permissionCode: PermissionCodes.TOOLS.CALENDAR.MODIFY,
         resource: 'calendars',
       }),
     ],

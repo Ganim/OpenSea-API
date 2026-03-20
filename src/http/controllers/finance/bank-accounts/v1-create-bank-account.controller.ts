@@ -23,7 +23,7 @@ export async function createBankAccountController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.FINANCE.BANK_ACCOUNTS.CREATE,
+        permissionCode: PermissionCodes.FINANCE.BANK_ACCOUNTS.REGISTER,
         resource: 'bank-accounts',
       }),
     ],

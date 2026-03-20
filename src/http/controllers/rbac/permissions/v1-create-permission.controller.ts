@@ -19,7 +19,7 @@ export async function createPermissionController(app: FastifyInstance) {
     preHandler: [
       verifyJwt,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.RBAC.PERMISSIONS.CREATE,
+        permissionCode: PermissionCodes.ADMIN.PERMISSION_GROUPS.REGISTER,
         resource: 'permissions',
       }),
     ],

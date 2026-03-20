@@ -16,7 +16,7 @@ export async function downloadFolderController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STORAGE.USER_FOLDERS.DOWNLOAD,
+        permissionCode: PermissionCodes.TOOLS.STORAGE_FOLDERS.ACCESS,
         resource: 'storage-folders',
       }),
     ],

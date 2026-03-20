@@ -18,7 +18,7 @@ export async function v1GetEmployeeByUserIdController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.HR.EMPLOYEES.READ_ALL,
+        permissionCode: PermissionCodes.HR.EMPLOYEES.ACCESS,
         resource: 'employees',
       }),
     ],

@@ -16,7 +16,7 @@ export async function deleteCompanyAddressController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.ADMIN.COMPANY_ADDRESSES.DELETE,
+        permissionCode: PermissionCodes.ADMIN.COMPANIES.MODIFY,
         resource: 'company-addresses',
       }),
     ],

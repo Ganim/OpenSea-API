@@ -20,7 +20,7 @@ export async function updateRecurringConfigController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.FINANCE.RECURRING.UPDATE,
+        permissionCode: PermissionCodes.FINANCE.RECURRING.MODIFY,
         resource: 'recurring',
       }),
     ],

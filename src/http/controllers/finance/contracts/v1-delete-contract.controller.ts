@@ -19,7 +19,7 @@ export async function deleteContractController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.FINANCE.CONTRACTS.DELETE,
+        permissionCode: PermissionCodes.FINANCE.CONTRACTS.REMOVE,
         resource: 'contracts',
       }),
     ],

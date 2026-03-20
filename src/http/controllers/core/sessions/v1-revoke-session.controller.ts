@@ -17,7 +17,7 @@ export async function revokeSessionController(app: FastifyInstance) {
     preHandler: [
       verifyJwt,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.CORE.SESSIONS.REVOKE,
+        permissionCode: PermissionCodes.ADMIN.SESSIONS.ADMIN,
         resource: 'sessions',
       }),
     ],

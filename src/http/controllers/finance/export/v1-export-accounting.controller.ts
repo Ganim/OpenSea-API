@@ -16,7 +16,7 @@ export async function exportAccountingController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.FINANCE.EXPORT.GENERATE,
+        permissionCode: PermissionCodes.FINANCE.ENTRIES.EXPORT,
         resource: 'export',
       }),
     ],

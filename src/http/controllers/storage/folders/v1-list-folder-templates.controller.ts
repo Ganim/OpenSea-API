@@ -15,7 +15,7 @@ export async function listFolderTemplatesController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STORAGE.USER_FOLDERS.READ,
+        permissionCode: PermissionCodes.TOOLS.STORAGE_FOLDERS.ACCESS,
         resource: 'storage-folders',
       }),
     ],

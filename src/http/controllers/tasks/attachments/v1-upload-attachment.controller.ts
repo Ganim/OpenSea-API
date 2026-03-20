@@ -17,7 +17,7 @@ export async function uploadAttachmentController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.TASKS.ATTACHMENTS.UPLOAD,
+        permissionCode: PermissionCodes.TOOLS.TASK_CARDS.MODIFY,
         resource: 'task-attachments',
       }),
     ],

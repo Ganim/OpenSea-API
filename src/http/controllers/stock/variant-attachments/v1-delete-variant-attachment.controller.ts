@@ -15,7 +15,7 @@ export async function deleteVariantAttachmentController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STOCK.VARIANT_ATTACHMENTS.DELETE,
+        permissionCode: PermissionCodes.STOCK.VARIANTS.MODIFY,
         resource: 'variant-attachments',
       }),
     ],

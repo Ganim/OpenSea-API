@@ -22,7 +22,7 @@ export async function v1RequestOvertimeController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.SELF.OVERTIME.REQUEST,
+        permissionCode: PermissionCodes.SYSTEM.SELF.MODIFY,
         resource: 'overtime',
       }),
     ],

@@ -32,7 +32,7 @@ export async function v1UpdatePositionController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.HR.POSITIONS.UPDATE,
+        permissionCode: PermissionCodes.HR.POSITIONS.MODIFY,
         resource: 'positions',
       }),
     ],

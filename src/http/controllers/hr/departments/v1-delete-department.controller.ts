@@ -24,7 +24,7 @@ export async function v1DeleteDepartmentController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.HR.DEPARTMENTS.DELETE,
+        permissionCode: PermissionCodes.HR.DEPARTMENTS.REMOVE,
         resource: 'departments',
       }),
     ],

@@ -15,7 +15,7 @@ export async function getFinanceDashboardController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.FINANCE.DASHBOARD.VIEW,
+        permissionCode: PermissionCodes.FINANCE.ENTRIES.ACCESS,
         resource: 'dashboard',
       }),
     ],

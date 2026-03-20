@@ -22,7 +22,7 @@ export async function createPurchaseOrderController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STOCK.PURCHASE_ORDERS.CREATE,
+        permissionCode: PermissionCodes.STOCK.PURCHASE_ORDERS.REGISTER,
         resource: 'purchase-orders',
       }),
     ],

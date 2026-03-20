@@ -19,7 +19,7 @@ export async function listContractsController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.FINANCE.CONTRACTS.LIST,
+        permissionCode: PermissionCodes.FINANCE.CONTRACTS.ACCESS,
         resource: 'contracts',
       }),
     ],

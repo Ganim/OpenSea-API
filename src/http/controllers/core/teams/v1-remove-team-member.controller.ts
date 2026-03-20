@@ -23,7 +23,7 @@ export async function removeTeamMemberController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.CORE.TEAMS.MEMBERS.REMOVE,
+        permissionCode: PermissionCodes.ADMIN.USERS.ADMIN,
         resource: 'teams',
       }),
     ],

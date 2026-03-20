@@ -16,7 +16,7 @@ export async function deletePermissionController(app: FastifyInstance) {
     preHandler: [
       verifyJwt,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.RBAC.PERMISSIONS.DELETE,
+        permissionCode: PermissionCodes.ADMIN.PERMISSION_GROUPS.REMOVE,
         resource: 'permissions',
       }),
     ],

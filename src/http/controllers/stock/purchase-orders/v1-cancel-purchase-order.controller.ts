@@ -21,7 +21,7 @@ export async function cancelPurchaseOrderController(app: FastifyInstance) {
         verifyJwt,
         verifyTenant,
         createPermissionMiddleware({
-          permissionCode: PermissionCodes.STOCK.PURCHASE_ORDERS.MANAGE,
+          permissionCode: PermissionCodes.STOCK.PURCHASE_ORDERS.ADMIN,
           resource: 'purchase-orders',
         }),
       ],

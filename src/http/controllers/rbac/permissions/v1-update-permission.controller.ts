@@ -21,7 +21,7 @@ export async function updatePermissionController(app: FastifyInstance) {
     preHandler: [
       verifyJwt,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.RBAC.PERMISSIONS.UPDATE,
+        permissionCode: PermissionCodes.ADMIN.PERMISSION_GROUPS.MODIFY,
         resource: 'permissions',
       }),
     ],

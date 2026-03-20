@@ -26,7 +26,7 @@ export async function deletePermissionGroupController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.RBAC.GROUPS.DELETE,
+        permissionCode: PermissionCodes.ADMIN.PERMISSION_GROUPS.REMOVE,
         resource: 'permission-groups',
       }),
     ],

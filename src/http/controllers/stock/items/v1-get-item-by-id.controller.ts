@@ -16,7 +16,7 @@ export async function getItemByIdController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STOCK.ITEMS.READ,
+        permissionCode: PermissionCodes.STOCK.ITEMS.ACCESS,
         resource: 'items',
       }),
     ],

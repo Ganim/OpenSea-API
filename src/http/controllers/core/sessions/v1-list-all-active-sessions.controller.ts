@@ -15,7 +15,7 @@ export async function listAllActiveSessionsController(app: FastifyInstance) {
     preHandler: [
       verifyJwt,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.CORE.SESSIONS.LIST,
+        permissionCode: PermissionCodes.ADMIN.SESSIONS.ACCESS,
         resource: 'sessions',
       }),
     ],

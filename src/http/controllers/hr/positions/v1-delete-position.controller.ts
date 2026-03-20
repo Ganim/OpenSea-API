@@ -31,7 +31,7 @@ export async function v1DeletePositionController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.HR.POSITIONS.DELETE,
+        permissionCode: PermissionCodes.HR.POSITIONS.REMOVE,
         resource: 'positions',
       }),
     ],

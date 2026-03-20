@@ -26,7 +26,7 @@ export async function v1ScheduleVacationController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.HR.VACATION_PERIODS.UPDATE,
+        permissionCode: PermissionCodes.HR.VACATIONS.MODIFY,
         resource: 'vacation-periods',
       }),
     ],

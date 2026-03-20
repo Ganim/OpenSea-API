@@ -22,7 +22,7 @@ export async function respondToEventController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.CALENDAR.PARTICIPANTS.RESPOND,
+        permissionCode: PermissionCodes.TOOLS.CALENDAR.MODIFY,
         resource: 'calendar-events',
       }),
     ],

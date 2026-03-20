@@ -14,7 +14,7 @@ export async function previewRollbackController(app: FastifyInstance) {
     preHandler: [
       verifyJwt,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.AUDIT.ROLLBACK.PREVIEW,
+        permissionCode: PermissionCodes.ADMIN.AUDIT.ADMIN,
         resource: 'audit-logs',
       }),
     ],

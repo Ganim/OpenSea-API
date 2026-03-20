@@ -33,7 +33,7 @@ export async function emailFoldersRoutes(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.EMAIL.MESSAGES.READ,
+        permissionCode: PermissionCodes.TOOLS.EMAIL_MESSAGES.ACCESS,
         resource: 'email-folders',
       }),
     ],

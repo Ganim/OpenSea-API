@@ -16,7 +16,7 @@ export async function listVariantAttachmentsController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STOCK.VARIANT_ATTACHMENTS.READ,
+        permissionCode: PermissionCodes.STOCK.VARIANTS.ACCESS,
         resource: 'variant-attachments',
       }),
     ],

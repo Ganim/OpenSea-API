@@ -25,7 +25,7 @@ export async function v1CreateCompanyAdminController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.ADMIN.COMPANIES.CREATE,
+        permissionCode: PermissionCodes.ADMIN.COMPANIES.REGISTER,
         resource: 'companies',
       }),
     ],

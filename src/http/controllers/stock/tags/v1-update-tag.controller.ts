@@ -23,7 +23,7 @@ export async function updateTagController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STOCK.TAGS.UPDATE,
+        permissionCode: PermissionCodes.STOCK.PRODUCTS.ADMIN,
         resource: 'tags',
       }),
     ],

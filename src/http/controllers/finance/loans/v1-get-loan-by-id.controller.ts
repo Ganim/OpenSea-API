@@ -20,7 +20,7 @@ export async function getLoanByIdController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.FINANCE.LOANS.READ,
+        permissionCode: PermissionCodes.FINANCE.LOANS.ACCESS,
         resource: 'loans',
       }),
     ],

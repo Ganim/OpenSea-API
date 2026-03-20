@@ -19,7 +19,7 @@ export async function deleteVariantController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STOCK.VARIANTS.DELETE,
+        permissionCode: PermissionCodes.STOCK.VARIANTS.REMOVE,
         resource: 'variants',
       }),
     ],

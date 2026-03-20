@@ -19,7 +19,7 @@ export async function listConsortiaController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.FINANCE.CONSORTIA.LIST,
+        permissionCode: PermissionCodes.FINANCE.CONSORTIA.ACCESS,
         resource: 'consortia',
       }),
     ],

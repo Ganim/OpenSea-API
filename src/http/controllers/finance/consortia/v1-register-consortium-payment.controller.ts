@@ -27,7 +27,7 @@ export async function registerConsortiumPaymentController(
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.FINANCE.CONSORTIA.PAY,
+        permissionCode: PermissionCodes.FINANCE.CONSORTIA.ADMIN,
         resource: 'consortia',
       }),
     ],

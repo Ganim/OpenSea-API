@@ -17,7 +17,7 @@ export async function getRomaneioController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STOCK.VOLUMES.ROMANEIO,
+        permissionCode: PermissionCodes.STOCK.VOLUMES.PRINT,
         resource: 'volumes',
       }),
     ],

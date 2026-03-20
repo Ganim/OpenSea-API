@@ -18,7 +18,7 @@ export async function changeUserEmailController(app: FastifyInstance) {
     preHandler: [
       verifyJwt,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.CORE.USERS.MANAGE,
+        permissionCode: PermissionCodes.ADMIN.USERS.ADMIN,
         resource: 'users',
       }),
     ],

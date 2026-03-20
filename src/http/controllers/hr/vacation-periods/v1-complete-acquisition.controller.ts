@@ -19,7 +19,7 @@ export async function v1CompleteAcquisitionController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.HR.VACATION_PERIODS.MANAGE,
+        permissionCode: PermissionCodes.HR.VACATIONS.ADMIN,
         resource: 'vacation-periods',
       }),
     ],

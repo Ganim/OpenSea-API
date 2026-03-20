@@ -19,7 +19,7 @@ export async function setupLocationController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STOCK.WAREHOUSES.CREATE,
+        permissionCode: PermissionCodes.STOCK.WAREHOUSES.REGISTER,
         resource: 'warehouses',
       }),
     ],

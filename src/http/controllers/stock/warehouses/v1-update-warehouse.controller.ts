@@ -20,7 +20,7 @@ export async function updateWarehouseController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STOCK.WAREHOUSES.UPDATE,
+        permissionCode: PermissionCodes.STOCK.WAREHOUSES.MODIFY,
         resource: 'warehouses',
       }),
     ],

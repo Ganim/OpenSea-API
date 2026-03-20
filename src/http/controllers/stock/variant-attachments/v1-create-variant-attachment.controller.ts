@@ -19,7 +19,7 @@ export async function createVariantAttachmentController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STOCK.VARIANT_ATTACHMENTS.CREATE,
+        permissionCode: PermissionCodes.STOCK.VARIANTS.MODIFY,
         resource: 'variant-attachments',
       }),
     ],

@@ -17,7 +17,7 @@ export async function deleteCompanyCnaeController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.ADMIN.COMPANY_CNAES.DELETE,
+        permissionCode: PermissionCodes.ADMIN.COMPANIES.MODIFY,
         resource: 'company-cnaes',
       }),
     ],

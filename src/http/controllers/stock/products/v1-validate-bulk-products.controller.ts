@@ -27,7 +27,7 @@ export async function validateBulkProductsController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STOCK.PRODUCTS.CREATE,
+        permissionCode: PermissionCodes.STOCK.PRODUCTS.REGISTER,
         resource: 'products',
       }),
     ],

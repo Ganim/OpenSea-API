@@ -20,7 +20,7 @@ export async function deleteCardController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.TASKS.CARDS.DELETE,
+        permissionCode: PermissionCodes.TOOLS.TASK_CARDS.REMOVE,
         resource: 'task-cards',
       }),
     ],

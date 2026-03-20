@@ -16,7 +16,7 @@ export async function listFinanceCategoriesController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.FINANCE.CATEGORIES.LIST,
+        permissionCode: PermissionCodes.FINANCE.CATEGORIES.ACCESS,
         resource: 'finance-categories',
       }),
     ],

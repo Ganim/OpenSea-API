@@ -23,7 +23,7 @@ export async function updateSupplierController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STOCK.SUPPLIERS.UPDATE,
+        permissionCode: PermissionCodes.FINANCE.SUPPLIERS.MODIFY,
         resource: 'suppliers',
       }),
     ],

@@ -22,7 +22,7 @@ export async function createWarehouseController(app: FastifyInstance) {
       verifyTenant,
       createPlanLimitsMiddleware('warehouses'),
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STOCK.WAREHOUSES.CREATE,
+        permissionCode: PermissionCodes.STOCK.WAREHOUSES.REGISTER,
         resource: 'warehouses',
       }),
     ],

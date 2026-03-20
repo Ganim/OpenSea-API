@@ -27,7 +27,7 @@ export async function v1CreatePositionController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.HR.POSITIONS.CREATE,
+        permissionCode: PermissionCodes.HR.POSITIONS.REGISTER,
         resource: 'positions',
       }),
     ],

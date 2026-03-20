@@ -21,7 +21,7 @@ export async function v1CancelSalesOrderController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.SALES.ORDERS.MANAGE,
+        permissionCode: PermissionCodes.SALES.ORDERS.ADMIN,
         resource: 'sales-orders',
       }),
     ],

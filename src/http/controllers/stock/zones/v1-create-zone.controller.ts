@@ -20,7 +20,7 @@ export async function createZoneController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STOCK.ZONES.CREATE,
+        permissionCode: PermissionCodes.STOCK.WAREHOUSES.REGISTER,
         resource: 'zones',
       }),
     ],

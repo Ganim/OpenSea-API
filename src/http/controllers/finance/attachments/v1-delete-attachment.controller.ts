@@ -18,7 +18,7 @@ export async function deleteAttachmentController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.FINANCE.ATTACHMENTS.DELETE,
+        permissionCode: PermissionCodes.FINANCE.ENTRIES.MODIFY,
         resource: 'attachments',
       }),
     ],

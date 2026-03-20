@@ -16,7 +16,7 @@ export async function assignRequestController(app: FastifyInstance) {
     preHandler: [
       verifyJwt,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.REQUESTS.REQUESTS.ASSIGN,
+        permissionCode: PermissionCodes.ADMIN.USERS.ADMIN,
         resource: 'requests',
       }),
     ],

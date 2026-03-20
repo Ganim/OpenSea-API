@@ -17,7 +17,7 @@ export async function DeleteUserByIdController(app: FastifyInstance) {
     preHandler: [
       verifyJwt,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.CORE.USERS.DELETE,
+        permissionCode: PermissionCodes.ADMIN.USERS.REMOVE,
         resource: 'users',
       }),
     ],

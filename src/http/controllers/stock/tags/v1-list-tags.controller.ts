@@ -17,7 +17,7 @@ export async function listTagsController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STOCK.TAGS.LIST,
+        permissionCode: PermissionCodes.STOCK.PRODUCTS.ADMIN,
         resource: 'tags',
       }),
     ],

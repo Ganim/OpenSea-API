@@ -21,7 +21,7 @@ export async function deleteBoardController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.TASKS.BOARDS.DELETE,
+        permissionCode: PermissionCodes.TOOLS.TASK_BOARDS.REMOVE,
         resource: 'task-boards',
       }),
     ],

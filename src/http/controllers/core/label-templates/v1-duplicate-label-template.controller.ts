@@ -25,7 +25,7 @@ export async function duplicateLabelTemplateController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.CORE.LABEL_TEMPLATES.DUPLICATE,
+        permissionCode: PermissionCodes.SYSTEM.LABEL_TEMPLATES.REGISTER,
         resource: 'label-templates',
       }),
     ],

@@ -26,7 +26,7 @@ export async function removePermissionFromGroupController(
     preHandler: [
       verifyJwt,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.RBAC.ASSOCIATIONS.MANAGE,
+        permissionCode: PermissionCodes.ADMIN.PERMISSION_GROUPS.ADMIN,
         resource: 'associations',
       }),
     ],

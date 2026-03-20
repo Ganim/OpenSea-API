@@ -21,7 +21,7 @@ export async function updateProductController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STOCK.PRODUCTS.UPDATE,
+        permissionCode: PermissionCodes.STOCK.PRODUCTS.MODIFY,
         resource: 'products',
       }),
     ],

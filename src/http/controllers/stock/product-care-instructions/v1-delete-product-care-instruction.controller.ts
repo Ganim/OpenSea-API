@@ -17,7 +17,7 @@ export async function deleteProductCareInstructionController(
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STOCK.PRODUCT_CARE_INSTRUCTIONS.DELETE,
+        permissionCode: PermissionCodes.STOCK.PRODUCTS.MODIFY,
         resource: 'product-care-instructions',
       }),
     ],

@@ -21,7 +21,7 @@ export async function deleteFinanceEntryController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.FINANCE.ENTRIES.DELETE,
+        permissionCode: PermissionCodes.FINANCE.ENTRIES.REMOVE,
         resource: 'entries',
       }),
     ],

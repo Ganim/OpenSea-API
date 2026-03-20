@@ -16,7 +16,7 @@ export async function suggestAddressController(app: FastifyInstance) {
     preHandler: [
       verifyJwt,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STOCK.BINS.SEARCH,
+        permissionCode: PermissionCodes.STOCK.WAREHOUSES.ACCESS,
         resource: 'address',
       }),
     ],

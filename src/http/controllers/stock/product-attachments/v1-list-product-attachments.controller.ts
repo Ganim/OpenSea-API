@@ -16,7 +16,7 @@ export async function listProductAttachmentsController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STOCK.PRODUCT_ATTACHMENTS.READ,
+        permissionCode: PermissionCodes.STOCK.PRODUCTS.ACCESS,
         resource: 'product-attachments',
       }),
     ],

@@ -25,7 +25,7 @@ export async function v1CreditTimeBankController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.HR.TIME_BANK.MANAGE,
+        permissionCode: PermissionCodes.HR.TIME_CONTROL.ACCESS,
         resource: 'time-bank',
       }),
     ],

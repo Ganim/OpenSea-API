@@ -18,7 +18,7 @@ export async function revokeShareLinkController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STORAGE.FILES.UPDATE,
+        permissionCode: PermissionCodes.TOOLS.STORAGE_FILES.MODIFY,
         resource: 'storage-files',
       }),
     ],

@@ -21,7 +21,7 @@ export async function decompressFileController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STORAGE.FILES.CREATE,
+        permissionCode: PermissionCodes.TOOLS.STORAGE_FILES.REGISTER,
         resource: 'storage-files',
       }),
     ],

@@ -19,7 +19,7 @@ export async function getLastSupplierEntryController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.FINANCE.ENTRIES.CREATE,
+        permissionCode: PermissionCodes.FINANCE.ENTRIES.REGISTER,
         resource: 'entries',
       }),
     ],

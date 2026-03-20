@@ -20,7 +20,7 @@ export async function ocrExtractDataController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.FINANCE.ENTRIES.CREATE,
+        permissionCode: PermissionCodes.FINANCE.ENTRIES.REGISTER,
         resource: 'entries',
       }),
     ],
@@ -53,7 +53,7 @@ export async function ocrExtractDataController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.FINANCE.ENTRIES.CREATE,
+        permissionCode: PermissionCodes.FINANCE.ENTRIES.REGISTER,
         resource: 'entries',
       }),
     ],
