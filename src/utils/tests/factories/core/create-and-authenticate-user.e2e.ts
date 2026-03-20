@@ -60,6 +60,8 @@ const ALL_PERMISSIONS = {
       'request',
       'approve',
       'manage',
+      'access',
+      'modify',
     ],
     variants: [
       'create',
@@ -106,7 +108,7 @@ const ALL_PERMISSIONS = {
     'product-care-instructions': ['create', 'read', 'delete'],
     'variant-attachments': ['create', 'read', 'delete'],
     bins: ['list', 'read', 'update', 'manage', 'search'],
-    warehouses: ['create', 'read', 'update', 'delete', 'list', 'manage'],
+    warehouses: ['create', 'read', 'update', 'delete', 'list', 'manage', 'access', 'modify'],
     zones: [
       'create',
       'read',

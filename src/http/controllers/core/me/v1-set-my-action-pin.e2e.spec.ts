@@ -36,12 +36,22 @@ describe('Set My Action PIN (E2E)', () => {
   it('should return 400 with wrong password', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
+    // First set the PIN (first-time setup skips password check)
+    await request(app.server)
+      .patch('/v1/me/action-pin')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        currentPassword: 'Pass@123',
+        newActionPin: '1234',
+      });
+
+    // Now changing the PIN requires correct password
     const response = await request(app.server)
       .patch('/v1/me/action-pin')
       .set('Authorization', `Bearer ${token}`)
       .send({
         currentPassword: 'WrongPass@999',
-        newActionPin: '1234',
+        newActionPin: '5678',
       });
 
     expect(response.status).toBe(400);
