@@ -21,11 +21,14 @@ import { permissionsRoutes } from './controllers/rbac/permissions/routes';
 import { userDirectPermissionsRoutes } from './controllers/rbac/user-direct-permissions/routes';
 
 // Sales routes
+import { activitiesRoutes } from './controllers/sales/activities/routes';
 import { commentsRoutes } from './controllers/sales/comments/routes';
 import { customersRoutes } from './controllers/sales/customers/routes';
+import { dealsRoutes } from './controllers/sales/deals/routes';
 import { itemReservationsRoutes } from './controllers/sales/item-reservations/routes';
 import { notificationPreferencesRoutes } from './controllers/sales/notification-preferences/routes';
 import { salesOrdersRoutes } from './controllers/sales/sales-orders/routes';
+import { timelineRoutes } from './controllers/sales/timeline/routes';
 import { variantPromotionsRoutes } from './controllers/sales/variant-promotions/routes';
 // Notifications (Workflow)
 import { notificationsRoutes } from './controllers/notifications/routes';
@@ -172,6 +175,9 @@ export async function registerRoutes(app: FastifyInstance) {
 
   // Sales routes
   await app.register(customersRoutes);
+  await app.register(dealsRoutes);
+  await app.register(activitiesRoutes);
+  await app.register(timelineRoutes);
   await app.register(salesOrdersRoutes);
   await app.register(commentsRoutes);
   await app.register(variantPromotionsRoutes);

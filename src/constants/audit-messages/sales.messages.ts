@@ -69,6 +69,73 @@ export const SALES_AUDIT_MESSAGES = {
   } satisfies AuditMessage,
 
   // ============================================================================
+  // DEALS - Negócios (CRM)
+  // ============================================================================
+
+  /** Deal criado */
+  DEAL_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.DEAL,
+    module: AuditModule.SALES,
+    description:
+      "Deal '{{dealTitle}}' criado por {{userName}} no pipeline '{{pipelineName}}'",
+  } satisfies AuditMessage,
+
+  /** Deal atualizado */
+  DEAL_UPDATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.DEAL,
+    module: AuditModule.SALES,
+    description: "Deal '{{dealTitle}}' atualizado por {{userName}}",
+  } satisfies AuditMessage,
+
+  /** Deal excluído */
+  DEAL_DELETE: {
+    action: AuditAction.DELETE,
+    entity: AuditEntity.DEAL,
+    module: AuditModule.SALES,
+    description: "Deal '{{dealTitle}}' excluído por {{userName}}",
+  } satisfies AuditMessage,
+
+  /** Deal mudou de estágio */
+  DEAL_STAGE_CHANGE: {
+    action: AuditAction.STAGE_CHANGE_DEAL,
+    entity: AuditEntity.DEAL,
+    module: AuditModule.SALES,
+    description:
+      "Deal '{{dealTitle}}' movido de '{{fromStage}}' para '{{toStage}}' por {{userName}}",
+  } satisfies AuditMessage,
+
+  // ============================================================================
+  // ACTIVITIES - Atividades (CRM)
+  // ============================================================================
+
+  /** Atividade criada */
+  ACTIVITY_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.ACTIVITY,
+    module: AuditModule.SALES,
+    description:
+      "Atividade '{{activityTitle}}' ({{activityType}}) criada por {{userName}}",
+  } satisfies AuditMessage,
+
+  /** Atividade atualizada */
+  ACTIVITY_UPDATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.ACTIVITY,
+    module: AuditModule.SALES,
+    description: "Atividade '{{activityTitle}}' atualizada por {{userName}}",
+  } satisfies AuditMessage,
+
+  /** Atividade excluída */
+  ACTIVITY_DELETE: {
+    action: AuditAction.DELETE,
+    entity: AuditEntity.ACTIVITY,
+    module: AuditModule.SALES,
+    description: "Atividade '{{activityTitle}}' excluída por {{userName}}",
+  } satisfies AuditMessage,
+
+  // ============================================================================
   // COMMENTS - Comentários em pedidos
   // ============================================================================
 
