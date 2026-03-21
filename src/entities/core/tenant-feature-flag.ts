@@ -8,6 +8,10 @@ export interface TenantFeatureFlagProps {
   flag: string;
   enabled: boolean;
   metadata: Record<string, unknown>;
+  category: string;
+  expiresAt: Date | null;
+  enabledByUserId: string | null;
+  notes: string | null;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -31,6 +35,18 @@ export class TenantFeatureFlag extends Entity<TenantFeatureFlagProps> {
   get createdAt(): Date {
     return this.props.createdAt;
   }
+  get category(): string {
+    return this.props.category;
+  }
+  get expiresAt(): Date | null {
+    return this.props.expiresAt;
+  }
+  get enabledByUserId(): string | null {
+    return this.props.enabledByUserId;
+  }
+  get notes(): string | null {
+    return this.props.notes;
+  }
   get updatedAt(): Date {
     return this.props.updatedAt;
   }
@@ -41,6 +57,22 @@ export class TenantFeatureFlag extends Entity<TenantFeatureFlagProps> {
   }
   set metadata(metadata: Record<string, unknown>) {
     this.props.metadata = metadata;
+    this.touch();
+  }
+  set category(category: string) {
+    this.props.category = category;
+    this.touch();
+  }
+  set expiresAt(expiresAt: Date | null) {
+    this.props.expiresAt = expiresAt;
+    this.touch();
+  }
+  set enabledByUserId(enabledByUserId: string | null) {
+    this.props.enabledByUserId = enabledByUserId;
+    this.touch();
+  }
+  set notes(notes: string | null) {
+    this.props.notes = notes;
     this.touch();
   }
 
@@ -61,7 +93,15 @@ export class TenantFeatureFlag extends Entity<TenantFeatureFlagProps> {
   static create(
     props: Optional<
       TenantFeatureFlagProps,
-      'id' | 'createdAt' | 'updatedAt' | 'enabled' | 'metadata'
+      | 'id'
+      | 'createdAt'
+      | 'updatedAt'
+      | 'enabled'
+      | 'metadata'
+      | 'category'
+      | 'expiresAt'
+      | 'enabledByUserId'
+      | 'notes'
     >,
     id?: UniqueEntityID,
   ): TenantFeatureFlag {
@@ -72,6 +112,10 @@ export class TenantFeatureFlag extends Entity<TenantFeatureFlagProps> {
         id: ffId,
         enabled: props.enabled ?? false,
         metadata: props.metadata ?? {},
+        category: props.category ?? 'BETA',
+        expiresAt: props.expiresAt ?? null,
+        enabledByUserId: props.enabledByUserId ?? null,
+        notes: props.notes ?? null,
         createdAt: props.createdAt ?? new Date(),
         updatedAt: props.updatedAt ?? new Date(),
       },
