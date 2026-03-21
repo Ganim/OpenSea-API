@@ -1,5 +1,5 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
-import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found-error';
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import type { CustomerPortalAccessDTO } from '@/mappers/sales/analytics/portal-access-to-dto';
 import { portalAccessToDTO } from '@/mappers/sales/analytics/portal-access-to-dto';
 import { CustomerPortalAccessesRepository } from '@/repositories/sales/customer-portal-accesses-repository';

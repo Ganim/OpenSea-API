@@ -15,3 +15,6 @@ export * from './sales/contacts';
 export * from './sales/pipelines';
 export * from './sales/pipeline-stages';
 export * from './sales/pricing';
+export * from './sales/brand/brand.schema';
+export * from './sales/catalogs/catalog.schema';
+export * from './sales/content/content.schema';

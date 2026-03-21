@@ -1,5 +1,5 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
-import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found-error';
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { AnalyticsGoalDTO } from '@/mappers/sales/analytics/goal-to-dto';
 import { goalToDTO } from '@/mappers/sales/analytics/goal-to-dto';
