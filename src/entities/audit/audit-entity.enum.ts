@@ -52,6 +52,11 @@ export enum AuditEntity {
   SALES_ORDER = 'SALES_ORDER',
   SALES_ORDER_ITEM = 'SALES_ORDER_ITEM',
   ITEM_RESERVATION = 'ITEM_RESERVATION',
+  CONTACT = 'CONTACT',
+  PIPELINE = 'PIPELINE',
+  PIPELINE_STAGE = 'PIPELINE_STAGE',
+  DEAL = 'DEAL',
+  ACTIVITY = 'ACTIVITY',
 
   // ==========================================
   // Alerts & Notifications

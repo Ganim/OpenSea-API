@@ -9,3 +9,6 @@ export * from './comments';
 export * from './promotions';
 export * from './reservations';
 export * from './notifications';
+export * from './contacts';
+export * from './pipelines';
+export * from './pipeline-stages';

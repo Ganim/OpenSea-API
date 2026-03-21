@@ -264,6 +264,18 @@ export const PermissionCodes = {
       ADMIN: 'sales.orders.admin' as const,
       ONLYSELF: 'sales.orders.onlyself' as const,
     },
+    CONTACTS: {
+      ACCESS: 'sales.contacts.access' as const,
+      REGISTER: 'sales.contacts.register' as const,
+      MODIFY: 'sales.contacts.modify' as const,
+      REMOVE: 'sales.contacts.remove' as const,
+      ADMIN: 'sales.contacts.admin' as const,
+      ONLYSELF: 'sales.contacts.onlyself' as const,
+    },
+    PIPELINES: {
+      ACCESS: 'sales.pipelines.access' as const,
+      ADMIN: 'sales.pipelines.admin' as const,
+    },
   },
 
   // ============================================================================

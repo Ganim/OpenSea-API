@@ -174,6 +174,88 @@ export const SALES_AUDIT_MESSAGES = {
     module: AuditModule.SALES,
     description: '{{userName}} removeu preferências de notificação',
   } satisfies AuditMessage,
+
+  // ============================================================================
+  // CONTACTS - Contatos CRM
+  // ============================================================================
+
+  CONTACT_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.CONTACT,
+    module: AuditModule.SALES,
+    description: "Contato '{{contactName}}' criado por {{userName}}",
+  } satisfies AuditMessage,
+
+  CONTACT_UPDATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.CONTACT,
+    module: AuditModule.SALES,
+    description: "Contato '{{contactName}}' atualizado por {{userName}}",
+  } satisfies AuditMessage,
+
+  CONTACT_DELETE: {
+    action: AuditAction.DELETE,
+    entity: AuditEntity.CONTACT,
+    module: AuditModule.SALES,
+    description: "Contato '{{contactName}}' excluído por {{userName}}",
+  } satisfies AuditMessage,
+
+  // ============================================================================
+  // PIPELINES - Pipelines CRM
+  // ============================================================================
+
+  PIPELINE_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.PIPELINE,
+    module: AuditModule.SALES,
+    description: "Pipeline '{{pipelineName}}' criado por {{userName}}",
+  } satisfies AuditMessage,
+
+  PIPELINE_UPDATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.PIPELINE,
+    module: AuditModule.SALES,
+    description: "Pipeline '{{pipelineName}}' atualizado por {{userName}}",
+  } satisfies AuditMessage,
+
+  PIPELINE_DELETE: {
+    action: AuditAction.DELETE,
+    entity: AuditEntity.PIPELINE,
+    module: AuditModule.SALES,
+    description: "Pipeline '{{pipelineName}}' excluído por {{userName}}",
+  } satisfies AuditMessage,
+
+  // ============================================================================
+  // PIPELINE STAGES - Etapas do Pipeline
+  // ============================================================================
+
+  PIPELINE_STAGE_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.PIPELINE_STAGE,
+    module: AuditModule.SALES,
+    description: "Etapa '{{stageName}}' criada por {{userName}}",
+  } satisfies AuditMessage,
+
+  PIPELINE_STAGE_UPDATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.PIPELINE_STAGE,
+    module: AuditModule.SALES,
+    description: "Etapa '{{stageName}}' atualizada por {{userName}}",
+  } satisfies AuditMessage,
+
+  PIPELINE_STAGE_DELETE: {
+    action: AuditAction.DELETE,
+    entity: AuditEntity.PIPELINE_STAGE,
+    module: AuditModule.SALES,
+    description: "Etapa '{{stageName}}' excluída por {{userName}}",
+  } satisfies AuditMessage,
+
+  PIPELINE_STAGE_REORDER: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.PIPELINE_STAGE,
+    module: AuditModule.SALES,
+    description: '{{userName}} reordenou as etapas do pipeline',
+  } satisfies AuditMessage,
 } as const;
 
 export type SalesAuditMessageKey = keyof typeof SALES_AUDIT_MESSAGES;

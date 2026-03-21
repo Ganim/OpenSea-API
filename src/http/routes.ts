@@ -22,9 +22,12 @@ import { userDirectPermissionsRoutes } from './controllers/rbac/user-direct-perm
 
 // Sales routes
 import { commentsRoutes } from './controllers/sales/comments/routes';
+import { contactsRoutes } from './controllers/sales/contacts/routes';
 import { customersRoutes } from './controllers/sales/customers/routes';
 import { itemReservationsRoutes } from './controllers/sales/item-reservations/routes';
 import { notificationPreferencesRoutes } from './controllers/sales/notification-preferences/routes';
+import { pipelineStagesRoutes } from './controllers/sales/pipeline-stages/routes';
+import { pipelinesRoutes } from './controllers/sales/pipelines/routes';
 import { salesOrdersRoutes } from './controllers/sales/sales-orders/routes';
 import { variantPromotionsRoutes } from './controllers/sales/variant-promotions/routes';
 // Notifications (Workflow)
@@ -170,6 +173,9 @@ export async function registerRoutes(app: FastifyInstance) {
 
   // Sales routes
   await app.register(customersRoutes);
+  await app.register(contactsRoutes);
+  await app.register(pipelinesRoutes);
+  await app.register(pipelineStagesRoutes);
   await app.register(salesOrdersRoutes);
   await app.register(commentsRoutes);
   await app.register(variantPromotionsRoutes);

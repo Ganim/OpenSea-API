@@ -11,3 +11,6 @@ export * from './sales/comments';
 export * from './sales/promotions';
 export * from './sales/reservations';
 export * from './sales/notifications';
+export * from './sales/contacts';
+export * from './sales/pipelines';
+export * from './sales/pipeline-stages';
