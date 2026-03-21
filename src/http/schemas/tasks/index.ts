@@ -7,3 +7,5 @@ export * from './comment.schema';
 export * from './checklist.schema';
 export * from './automation.schema';
 export * from './activity.schema';
+export * from './card-member.schema';
+export * from './integration.schema';
