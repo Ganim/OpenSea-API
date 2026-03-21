@@ -265,6 +265,9 @@ model User {
   cardWatchers       CardWatcher[]
   checklistAssignees ChecklistItem[]   @relation("ChecklistItemAssignee")
 
+  // CRM Relations
+  assignedContacts CrmContact[] @relation("AssignedContacts")
+
   // Central Redesign Relations
   centralUser            CentralUser?
   createdSupportTickets  SupportTicket[]        @relation("TicketCreator")
@@ -2298,33 +2301,33 @@ model SalesOrderItem {
 // --- CRM: Contacts, Pipelines, Stages ---
 
 model CrmContact {
-  id         String                @id @default(uuid())
-  tenantId   String                @map("tenant_id")
-  customerId String                @map("customer_id")
-  firstName  String                @map("first_name") @db.VarChar(100)
-  lastName   String?               @map("last_name") @db.VarChar(100)
-  fullName   String                @map("full_name") @db.VarChar(201)
-  email      String?               @db.VarChar(254)
-  phone      String?               @db.VarChar(30)
-  whatsapp   String?               @db.VarChar(30)
-  role       ContactRole           @default(OTHER)
-  jobTitle   String?               @map("job_title") @db.VarChar(150)
-  department String?               @db.VarChar(150)
-  lifecycleStage ContactLifecycleStage @default(LEAD) @map("lifecycle_stage")
-  leadScore      Int                   @default(0) @map("lead_score")
-  leadTemperature String?             @map("lead_temperature") @db.VarChar(50)
-  source         String              @default("MANUAL") @db.VarChar(100)
-  lastInteractionAt DateTime?        @map("last_interaction_at")
-  lastChannelUsed   String?          @map("last_channel_used") @db.VarChar(50)
-  socialProfiles    Json?            @map("social_profiles")
-  tags              Json             @default("[]")
-  customFields      Json?            @map("custom_fields")
-  avatarUrl         String?          @map("avatar_url") @db.VarChar(500)
-  assignedToUserId  String?          @map("assigned_to_user_id")
-  isMainContact     Boolean          @default(false) @map("is_main_contact")
-  createdAt         DateTime         @default(now()) @map("created_at")
-  updatedAt         DateTime         @updatedAt @map("updated_at")
-  deletedAt         DateTime?        @map("deleted_at")
+  id                String                @id @default(uuid())
+  tenantId          String                @map("tenant_id")
+  customerId        String                @map("customer_id")
+  firstName         String                @map("first_name") @db.VarChar(100)
+  lastName          String?               @map("last_name") @db.VarChar(100)
+  fullName          String                @map("full_name") @db.VarChar(201)
+  email             String?               @db.VarChar(254)
+  phone             String?               @db.VarChar(30)
+  whatsapp          String?               @db.VarChar(30)
+  role              ContactRole           @default(OTHER)
+  jobTitle          String?               @map("job_title") @db.VarChar(150)
+  department        String?               @db.VarChar(150)
+  lifecycleStage    ContactLifecycleStage @default(LEAD) @map("lifecycle_stage")
+  leadScore         Int                   @default(0) @map("lead_score")
+  leadTemperature   String?               @map("lead_temperature") @db.VarChar(50)
+  source            String                @default("MANUAL") @db.VarChar(100)
+  lastInteractionAt DateTime?             @map("last_interaction_at")
+  lastChannelUsed   String?               @map("last_channel_used") @db.VarChar(50)
+  socialProfiles    Json?                 @map("social_profiles")
+  tags              Json                  @default("[]")
+  customFields      Json?                 @map("custom_fields")
+  avatarUrl         String?               @map("avatar_url") @db.VarChar(500)
+  assignedToUserId  String?               @map("assigned_to_user_id")
+  isMainContact     Boolean               @default(false) @map("is_main_contact")
+  createdAt         DateTime              @default(now()) @map("created_at")
+  updatedAt         DateTime              @updatedAt @map("updated_at")
+  deletedAt         DateTime?             @map("deleted_at")
 
   tenant     Tenant   @relation(fields: [tenantId], references: [id])
   customer   Customer @relation(fields: [customerId], references: [id])
@@ -2339,23 +2342,23 @@ model CrmContact {
 }
 
 model CrmPipeline {
-  id            String       @id @default(uuid())
-  tenantId      String       @map("tenant_id")
-  name          String       @db.VarChar(150)
-  description   String?      @db.VarChar(500)
-  icon          String?      @db.VarChar(50)
-  color         String?      @db.VarChar(30)
-  type          PipelineType @default(SALES)
-  isDefault     Boolean      @default(false) @map("is_default")
-  position      Int          @default(0)
-  nextPipelineId String?     @map("next_pipeline_id")
-  isActive      Boolean      @default(true) @map("is_active")
-  createdAt     DateTime     @default(now()) @map("created_at")
-  updatedAt     DateTime     @updatedAt @map("updated_at")
-  deletedAt     DateTime?    @map("deleted_at")
+  id             String       @id @default(uuid())
+  tenantId       String       @map("tenant_id")
+  name           String       @db.VarChar(150)
+  description    String?      @db.VarChar(500)
+  icon           String?      @db.VarChar(50)
+  color          String?      @db.VarChar(30)
+  type           PipelineType @default(SALES)
+  isDefault      Boolean      @default(false) @map("is_default")
+  position       Int          @default(0)
+  nextPipelineId String?      @map("next_pipeline_id")
+  isActive       Boolean      @default(true) @map("is_active")
+  createdAt      DateTime     @default(now()) @map("created_at")
+  updatedAt      DateTime     @updatedAt @map("updated_at")
+  deletedAt      DateTime?    @map("deleted_at")
 
-  tenant     Tenant        @relation(fields: [tenantId], references: [id])
-  stages     CrmPipelineStage[]
+  tenant Tenant             @relation(fields: [tenantId], references: [id])
+  stages CrmPipelineStage[]
 
   @@index([tenantId])
   @@index([tenantId, deletedAt])
@@ -5801,6 +5804,9 @@ model SystemSkillDefinition {
   isCore          Boolean           @default(false) @map("is_core")
   isVisible       Boolean           @default(true) @map("is_visible")
   iconUrl         String?           @map("icon_url") @db.VarChar(500)
+  requiresSetup   Boolean           @default(false) @map("requires_setup")
+  setupUrl        String?           @map("setup_url") @db.VarChar(500)
+  sortOrder       Int               @default(0) @map("sort_order")
 
   // JSON fields
   metadata Json @default("{}")
@@ -5827,12 +5833,19 @@ model SystemSkillDefinition {
 model SkillPricing {
   id String @id @default(uuid())
 
-  skillCode   String      @unique @map("skill_code") @db.VarChar(64)
-  pricingType PricingType
-  flatPrice   Decimal?    @map("flat_price") @db.Decimal(15, 2)
-  unitPrice   Decimal?    @map("unit_price") @db.Decimal(15, 2)
-  freeQuota   Int?        @map("free_quota")
-  usageMetric String?     @map("usage_metric") @db.VarChar(64)
+  skillCode        String      @unique @map("skill_code") @db.VarChar(64)
+  pricingType      PricingType
+  flatPrice        Decimal?    @map("flat_price") @db.Decimal(15, 2)
+  unitPrice        Decimal?    @map("unit_price") @db.Decimal(15, 2)
+  freeQuota        Int?        @map("free_quota")
+  usageMetric      String?     @map("usage_metric") @db.VarChar(64)
+  unitMetric       String?     @map("unit_metric") @db.VarChar(64)
+  unitMetricLabel  String?     @map("unit_metric_label") @db.VarChar(64)
+  usageIncluded    Int?        @map("usage_included")
+  usagePrice       Decimal?    @map("usage_price") @db.Decimal(15, 2)
+  usageMetricLabel String?     @map("usage_metric_label") @db.VarChar(64)
+  annualDiscount   Decimal?    @default(0) @map("annual_discount") @db.Decimal(5, 2)
+  isActive         Boolean     @default(true) @map("is_active")
 
   // JSON fields
   tiers Json @default("[]")
@@ -5851,13 +5864,17 @@ model SkillPricing {
 model TenantSubscription {
   id String @id @default(uuid())
 
-  tenantId    String             @map("tenant_id")
-  skillCode   String             @map("skill_code") @db.VarChar(64)
-  status      SubscriptionStatus @default(ACTIVE)
-  quantity    Int                @default(1)
-  startsAt    DateTime           @default(now()) @map("starts_at")
-  expiresAt   DateTime?          @map("expires_at")
-  cancelledAt DateTime?          @map("cancelled_at")
+  tenantId        String             @map("tenant_id")
+  skillCode       String             @map("skill_code") @db.VarChar(64)
+  status          SubscriptionStatus @default(ACTIVE)
+  quantity        Int                @default(1)
+  startsAt        DateTime           @default(now()) @map("starts_at")
+  expiresAt       DateTime?          @map("expires_at")
+  cancelledAt     DateTime?          @map("cancelled_at")
+  customPrice     Decimal?           @map("custom_price") @db.Decimal(15, 2)
+  discountPercent Decimal?           @map("discount_percent") @db.Decimal(5, 2)
+  notes           String?            @db.VarChar(500)
+  grantedBy       String?            @map("granted_by")
 
   // JSON fields
   metadata Json @default("{}")
@@ -5880,11 +5897,15 @@ model TenantSubscription {
 model TenantConsumption {
   id String @id @default(uuid())
 
-  tenantId String @map("tenant_id")
-  period   String @db.VarChar(7) // YYYY-MM format
-  metric   String @db.VarChar(64)
-  quantity Int    @default(0)
-  limit    Int?
+  tenantId    String  @map("tenant_id")
+  period      String  @db.VarChar(7) // YYYY-MM format
+  metric      String  @db.VarChar(64)
+  quantity    Int     @default(0)
+  limit       Int?
+  used        Int     @default(0)
+  included    Int     @default(0)
+  overage     Int     @default(0)
+  overageCost Decimal @default(0) @map("overage_cost") @db.Decimal(15, 2)
 
   // Audit
   createdAt DateTime @default(now()) @map("created_at")
@@ -6011,6 +6032,7 @@ model SupportTicketMessage {
   authorId   String?          @map("author_id")
   authorType TicketAuthorType @map("author_type")
   body       String           @db.Text
+  isInternal Boolean          @default(false) @map("is_internal")
 
   // Audit
   createdAt DateTime @default(now()) @map("created_at")
