@@ -308,6 +308,30 @@ export const PermissionCodes = {
       REGISTER: 'sales.bid-empenhos.register' as const,
       MODIFY: 'sales.bid-empenhos.modify' as const,
     },
+    POS: {
+      TERMINALS: {
+        ACCESS: 'sales.pos.terminals.access' as const,
+        REGISTER: 'sales.pos.terminals.register' as const,
+        MODIFY: 'sales.pos.terminals.modify' as const,
+        REMOVE: 'sales.pos.terminals.remove' as const,
+      },
+      SESSIONS: {
+        ACCESS: 'sales.pos.sessions.access' as const,
+        OPEN: 'sales.pos.sessions.open' as const,
+        CLOSE: 'sales.pos.sessions.close' as const,
+      },
+      TRANSACTIONS: {
+        ACCESS: 'sales.pos.transactions.access' as const,
+        REGISTER: 'sales.pos.transactions.register' as const,
+        CANCEL: 'sales.pos.transactions.cancel' as const,
+      },
+      CASH: {
+        ACCESS: 'sales.pos.cash.access' as const,
+        WITHDRAWAL: 'sales.pos.cash.withdrawal' as const,
+        SUPPLY: 'sales.pos.cash.supply' as const,
+      },
+      RECEIVE: 'sales.pos.receive' as const,
+    },
   },
 
   // ============================================================================

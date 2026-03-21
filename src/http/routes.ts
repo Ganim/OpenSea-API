@@ -32,6 +32,7 @@ import { salesOrdersRoutes } from './controllers/sales/sales-orders/routes';
 import { variantPromotionsRoutes } from './controllers/sales/variant-promotions/routes';
 import { marketplacesRoutes } from './controllers/sales/marketplaces/routes';
 import { bidsRoutes } from './controllers/sales/bids/routes';
+import { posRoutes } from './controllers/sales/pos/routes';
 // Notifications (Workflow)
 import { notificationsRoutes } from './controllers/notifications/routes';
 
@@ -189,6 +190,7 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(notificationPreferencesRoutes);
   await app.register(marketplacesRoutes);
   await app.register(bidsRoutes);
+  await app.register(posRoutes);
   await app.register(notificationsRoutes);
 
   // Requests routes (Workflow)
