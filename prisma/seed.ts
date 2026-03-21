@@ -1133,6 +1133,21 @@ async function main() {
   await assignOrphanUsers(userGroupId);
   await seedNotificationTemplates();
 
+  // Sales pipelines for demo tenant
+  if (demoTenant) {
+    try {
+      const { seedSalesPipelines } = await import(
+        './seeds/sales-pipelines.js'
+      );
+      await seedSalesPipelines(prisma, demoTenant.id);
+    } catch (pipelineError) {
+      console.log(
+        '   ⚠️ Erro ao criar pipelines de vendas (não crítico):',
+        pipelineError,
+      );
+    }
+  }
+
   // Central Redesign seeds
   const { seedSkillDefinitions } = await import('./seeds/skill-definitions.js');
   const { seedSkillPricing } = await import('./seeds/skill-pricing.js');

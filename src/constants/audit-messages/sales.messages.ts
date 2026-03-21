@@ -236,6 +236,7 @@ export const SALES_AUDIT_MESSAGES = {
   // CONTACTS - Contatos CRM
   // ============================================================================
 
+  /** Contato criado */
   CONTACT_CREATE: {
     action: AuditAction.CREATE,
     entity: AuditEntity.CONTACT,
@@ -243,6 +244,7 @@ export const SALES_AUDIT_MESSAGES = {
     description: "Contato '{{contactName}}' criado por {{userName}}",
   } satisfies AuditMessage,
 
+  /** Contato atualizado */
   CONTACT_UPDATE: {
     action: AuditAction.UPDATE,
     entity: AuditEntity.CONTACT,
@@ -250,6 +252,7 @@ export const SALES_AUDIT_MESSAGES = {
     description: "Contato '{{contactName}}' atualizado por {{userName}}",
   } satisfies AuditMessage,
 
+  /** Contato excluído */
   CONTACT_DELETE: {
     action: AuditAction.DELETE,
     entity: AuditEntity.CONTACT,
@@ -261,6 +264,7 @@ export const SALES_AUDIT_MESSAGES = {
   // PIPELINES - Pipelines CRM
   // ============================================================================
 
+  /** Pipeline criado */
   PIPELINE_CREATE: {
     action: AuditAction.CREATE,
     entity: AuditEntity.PIPELINE,
@@ -268,6 +272,7 @@ export const SALES_AUDIT_MESSAGES = {
     description: "Pipeline '{{pipelineName}}' criado por {{userName}}",
   } satisfies AuditMessage,
 
+  /** Pipeline atualizado */
   PIPELINE_UPDATE: {
     action: AuditAction.UPDATE,
     entity: AuditEntity.PIPELINE,
@@ -275,6 +280,7 @@ export const SALES_AUDIT_MESSAGES = {
     description: "Pipeline '{{pipelineName}}' atualizado por {{userName}}",
   } satisfies AuditMessage,
 
+  /** Pipeline excluído */
   PIPELINE_DELETE: {
     action: AuditAction.DELETE,
     entity: AuditEntity.PIPELINE,
@@ -286,6 +292,7 @@ export const SALES_AUDIT_MESSAGES = {
   // PIPELINE STAGES - Etapas do Pipeline
   // ============================================================================
 
+  /** Etapa do pipeline criada */
   PIPELINE_STAGE_CREATE: {
     action: AuditAction.CREATE,
     entity: AuditEntity.PIPELINE_STAGE,
@@ -293,6 +300,7 @@ export const SALES_AUDIT_MESSAGES = {
     description: "Etapa '{{stageName}}' criada por {{userName}}",
   } satisfies AuditMessage,
 
+  /** Etapa do pipeline atualizada */
   PIPELINE_STAGE_UPDATE: {
     action: AuditAction.UPDATE,
     entity: AuditEntity.PIPELINE_STAGE,
@@ -300,6 +308,7 @@ export const SALES_AUDIT_MESSAGES = {
     description: "Etapa '{{stageName}}' atualizada por {{userName}}",
   } satisfies AuditMessage,
 
+  /** Etapa do pipeline excluída */
   PIPELINE_STAGE_DELETE: {
     action: AuditAction.DELETE,
     entity: AuditEntity.PIPELINE_STAGE,
@@ -307,6 +316,7 @@ export const SALES_AUDIT_MESSAGES = {
     description: "Etapa '{{stageName}}' excluída por {{userName}}",
   } satisfies AuditMessage,
 
+  /** Etapas do pipeline reordenadas */
   PIPELINE_STAGE_REORDER: {
     action: AuditAction.UPDATE,
     entity: AuditEntity.PIPELINE_STAGE,
