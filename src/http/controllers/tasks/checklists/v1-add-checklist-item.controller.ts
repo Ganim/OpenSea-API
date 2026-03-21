@@ -1,6 +1,7 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
+import { resolveUserName } from '@/http/helpers/resolve-user-name';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
@@ -45,12 +46,14 @@ export async function addChecklistItemController(app: FastifyInstance) {
       const tenantId = request.user.tenantId!;
       const userId = request.user.sub;
       const { boardId, cardId, checklistId } = request.params;
+      const userName = await resolveUserName(userId);
 
       try {
         const useCase = makeAddChecklistItemUseCase();
         const result = await useCase.execute({
           tenantId,
           userId,
+          userName,
           boardId,
           cardId,
           checklistId,

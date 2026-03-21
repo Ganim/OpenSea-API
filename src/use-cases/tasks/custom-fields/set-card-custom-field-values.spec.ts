@@ -3,10 +3,12 @@ import { SetCardCustomFieldValuesUseCase } from './set-card-custom-field-values'
 import { InMemoryCardsRepository } from '@/repositories/tasks/in-memory/in-memory-cards-repository';
 import { InMemoryBoardCustomFieldsRepository } from '@/repositories/tasks/in-memory/in-memory-board-custom-fields-repository';
 import { InMemoryCardCustomFieldValuesRepository } from '@/repositories/tasks/in-memory/in-memory-card-custom-field-values-repository';
+import { InMemoryCardActivitiesRepository } from '@/repositories/tasks/in-memory/in-memory-card-activities-repository';
 
 let cardsRepository: InMemoryCardsRepository;
 let boardCustomFieldsRepository: InMemoryBoardCustomFieldsRepository;
 let cardCustomFieldValuesRepository: InMemoryCardCustomFieldValuesRepository;
+let cardActivitiesRepository: InMemoryCardActivitiesRepository;
 let sut: SetCardCustomFieldValuesUseCase;
 
 describe('SetCardCustomFieldValuesUseCase', () => {
@@ -21,10 +23,12 @@ describe('SetCardCustomFieldValuesUseCase', () => {
     boardCustomFieldsRepository = new InMemoryBoardCustomFieldsRepository();
     cardCustomFieldValuesRepository =
       new InMemoryCardCustomFieldValuesRepository();
+    cardActivitiesRepository = new InMemoryCardActivitiesRepository();
     sut = new SetCardCustomFieldValuesUseCase(
       cardsRepository,
       boardCustomFieldsRepository,
       cardCustomFieldValuesRepository,
+      cardActivitiesRepository,
     );
 
     boardId = 'board-1';
@@ -73,6 +77,8 @@ describe('SetCardCustomFieldValuesUseCase', () => {
     const { fieldValues } = await sut.execute({
       boardId,
       cardId,
+      userId: 'user-1',
+      userName: 'User 1',
       values: [
         { fieldId: textFieldId, value: 'Some notes' },
         { fieldId: requiredFieldId, value: 'Required value' },
@@ -89,6 +95,8 @@ describe('SetCardCustomFieldValuesUseCase', () => {
     const { fieldValues } = await sut.execute({
       boardId,
       cardId,
+      userId: 'user-1',
+      userName: 'User 1',
       values: [
         { fieldId: selectFieldId, value: 'Bug' },
         { fieldId: requiredFieldId, value: 'Required value' },
@@ -104,13 +112,15 @@ describe('SetCardCustomFieldValuesUseCase', () => {
       sut.execute({
         boardId,
         cardId,
+        userId: 'user-1',
+        userName: 'User 1',
         values: [
           { fieldId: selectFieldId, value: 'InvalidOption' },
           { fieldId: requiredFieldId, value: 'Required value' },
         ],
       }),
     ).rejects.toThrow(
-      'Value "InvalidOption" is not a valid option for field "Category"',
+      'O valor "InvalidOption" não é uma opção válida para o campo "Category"',
     );
   });
 
@@ -119,9 +129,11 @@ describe('SetCardCustomFieldValuesUseCase', () => {
       sut.execute({
         boardId,
         cardId,
+        userId: 'user-1',
+        userName: 'User 1',
         values: [{ fieldId: textFieldId, value: 'Only text' }],
       }),
-    ).rejects.toThrow('Field "Required Notes" is required');
+    ).rejects.toThrow('O campo "Required Notes" é obrigatório');
   });
 
   it('should reject when required field value is null', async () => {
@@ -129,12 +141,14 @@ describe('SetCardCustomFieldValuesUseCase', () => {
       sut.execute({
         boardId,
         cardId,
+        userId: 'user-1',
+        userName: 'User 1',
         values: [
           { fieldId: textFieldId, value: 'Some text' },
           { fieldId: requiredFieldId, value: null },
         ],
       }),
-    ).rejects.toThrow('Field "Required Notes" is required and cannot be empty');
+    ).rejects.toThrow('O campo "Required Notes" é obrigatório e não pode estar vazio');
   });
 
   it('should reject if field does not exist', async () => {
@@ -142,6 +156,8 @@ describe('SetCardCustomFieldValuesUseCase', () => {
       sut.execute({
         boardId,
         cardId,
+        userId: 'user-1',
+        userName: 'User 1',
         values: [
           { fieldId: 'nonexistent-field', value: 'test' },
           { fieldId: requiredFieldId, value: 'Required value' },
@@ -155,6 +171,8 @@ describe('SetCardCustomFieldValuesUseCase', () => {
       sut.execute({
         boardId,
         cardId: 'nonexistent-card',
+        userId: 'user-1',
+        userName: 'User 1',
         values: [{ fieldId: textFieldId, value: 'test' }],
       }),
     ).rejects.toThrow('Card not found');
@@ -172,12 +190,14 @@ describe('SetCardCustomFieldValuesUseCase', () => {
       sut.execute({
         boardId,
         cardId,
+        userId: 'user-1',
+        userName: 'User 1',
         values: [
           { fieldId: numberField.id, value: 'not a number' },
           { fieldId: requiredFieldId, value: 'Required value' },
         ],
       }),
-    ).rejects.toThrow('Field "Estimate" expects a numeric value');
+    ).rejects.toThrow('O campo "Estimate" espera um valor numérico');
   });
 
   it('should reject wrong type for checkbox field', async () => {
@@ -192,12 +212,14 @@ describe('SetCardCustomFieldValuesUseCase', () => {
       sut.execute({
         boardId,
         cardId,
+        userId: 'user-1',
+        userName: 'User 1',
         values: [
           { fieldId: checkboxField.id, value: 'yes' },
           { fieldId: requiredFieldId, value: 'Required value' },
         ],
       }),
-    ).rejects.toThrow('Field "Done" expects a boolean value');
+    ).rejects.toThrow('O campo "Done" espera um valor booleano (verdadeiro ou falso)');
   });
 
   it('should validate multi-select values against options', async () => {
@@ -213,12 +235,14 @@ describe('SetCardCustomFieldValuesUseCase', () => {
       sut.execute({
         boardId,
         cardId,
+        userId: 'user-1',
+        userName: 'User 1',
         values: [
           { fieldId: multiSelectField.id, value: ['Frontend', 'Unknown'] },
           { fieldId: requiredFieldId, value: 'Required value' },
         ],
       }),
-    ).rejects.toThrow('Value "Unknown" is not a valid option for field "Tags"');
+    ).rejects.toThrow('O valor "Unknown" não é uma opção válida para o campo "Tags"');
   });
 
   it('should accept valid multi-select values', async () => {
@@ -233,6 +257,8 @@ describe('SetCardCustomFieldValuesUseCase', () => {
     const { fieldValues } = await sut.execute({
       boardId,
       cardId,
+      userId: 'user-1',
+      userName: 'User 1',
       values: [
         { fieldId: multiSelectField.id, value: ['Frontend', 'Backend'] },
         { fieldId: requiredFieldId, value: 'Required value' },

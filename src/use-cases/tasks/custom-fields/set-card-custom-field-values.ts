@@ -4,6 +4,7 @@ import type {
   BoardCustomFieldsRepository,
   BoardCustomFieldRecord,
 } from '@/repositories/tasks/board-custom-fields-repository';
+import type { CardActivitiesRepository } from '@/repositories/tasks/card-activities-repository';
 import type {
   CardCustomFieldValuesRepository,
   CardCustomFieldValueRecord,
@@ -18,6 +19,8 @@ interface FieldValueInput {
 interface SetCardCustomFieldValuesRequest {
   boardId: string;
   cardId: string;
+  userId: string;
+  userName: string;
   values: FieldValueInput[];
 }
 
@@ -30,12 +33,13 @@ export class SetCardCustomFieldValuesUseCase {
     private cardsRepository: CardsRepository,
     private boardCustomFieldsRepository: BoardCustomFieldsRepository,
     private cardCustomFieldValuesRepository: CardCustomFieldValuesRepository,
+    private cardActivitiesRepository: CardActivitiesRepository,
   ) {}
 
   async execute(
     request: SetCardCustomFieldValuesRequest,
   ): Promise<SetCardCustomFieldValuesResponse> {
-    const { boardId, cardId, values } = request;
+    const { boardId, cardId, userId, userName, values } = request;
 
     const card = await this.cardsRepository.findById(cardId, boardId);
 
@@ -81,6 +85,21 @@ export class SetCardCustomFieldValuesUseCase {
       cardId,
       valuesToSet,
     );
+
+    for (const fv of values) {
+      const field = fieldMap.get(fv.fieldId);
+      if (field) {
+        await this.cardActivitiesRepository.create({
+          cardId,
+          boardId,
+          userId,
+          type: 'FIELD_CHANGED',
+          description: `${userName} alterou o campo personalizado "${field.name}" no cartão ${card.title}`,
+          field: `customField:${field.name}`,
+          newValue: fv.value as string,
+        });
+      }
+    }
 
     return { fieldValues };
   }

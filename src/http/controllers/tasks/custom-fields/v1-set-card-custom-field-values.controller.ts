@@ -1,6 +1,7 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
+import { resolveUserName } from '@/http/helpers/resolve-user-name';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
@@ -43,13 +44,17 @@ export async function setCardCustomFieldValuesController(app: FastifyInstance) {
       },
     },
     handler: async (request, reply) => {
+      const userId = request.user.sub;
       const { boardId, cardId } = request.params;
+      const userName = await resolveUserName(userId);
 
       try {
         const useCase = makeSetCardCustomFieldValuesUseCase();
         const result = await useCase.execute({
           boardId,
           cardId,
+          userId,
+          userName,
           values: request.body.values,
         });
 
