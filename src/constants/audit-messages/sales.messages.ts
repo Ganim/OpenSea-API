@@ -41,6 +41,63 @@ export const SALES_AUDIT_MESSAGES = {
   } satisfies AuditMessage,
 
   // ============================================================================
+  // ORDERS (New Pipeline-based) - Pedidos
+  // ============================================================================
+
+  ORDER_NEW_CREATE: {
+    action: AuditAction.ORDER_CREATE,
+    entity: AuditEntity.ORDER,
+    module: AuditModule.SALES,
+    description:
+      '{{userName}} criou o pedido #{{orderNumber}} para {{customerName}}',
+  } satisfies AuditMessage,
+
+  ORDER_NEW_CONFIRM: {
+    action: AuditAction.ORDER_CONFIRM,
+    entity: AuditEntity.ORDER,
+    module: AuditModule.SALES,
+    description: '{{userName}} confirmou o pedido #{{orderNumber}}',
+  } satisfies AuditMessage,
+
+  ORDER_NEW_CANCEL: {
+    action: AuditAction.ORDER_CANCEL,
+    entity: AuditEntity.ORDER,
+    module: AuditModule.SALES,
+    description: '{{userName}} cancelou o pedido #{{orderNumber}}',
+  } satisfies AuditMessage,
+
+  ORDER_STAGE_CHANGE: {
+    action: AuditAction.ORDER_STAGE_CHANGE,
+    entity: AuditEntity.ORDER,
+    module: AuditModule.SALES,
+    description:
+      '{{userName}} moveu o pedido #{{orderNumber}} para etapa {{stageName}}',
+  } satisfies AuditMessage,
+
+  ORDER_CONVERT_QUOTE: {
+    action: AuditAction.ORDER_CONVERT_QUOTE,
+    entity: AuditEntity.ORDER,
+    module: AuditModule.SALES,
+    description:
+      '{{userName}} converteu orçamento #{{orderNumber}} em pedido',
+  } satisfies AuditMessage,
+
+  RETURN_CREATE: {
+    action: AuditAction.RETURN_CREATE,
+    entity: AuditEntity.ORDER_RETURN,
+    module: AuditModule.SALES,
+    description:
+      '{{userName}} criou devolução #{{returnNumber}} para pedido #{{orderNumber}}',
+  } satisfies AuditMessage,
+
+  RETURN_APPROVE: {
+    action: AuditAction.RETURN_APPROVE,
+    entity: AuditEntity.ORDER_RETURN,
+    module: AuditModule.SALES,
+    description: '{{userName}} aprovou devolução #{{returnNumber}}',
+  } satisfies AuditMessage,
+
+  // ============================================================================
   // CUSTOMERS - Clientes
   // ============================================================================
 
