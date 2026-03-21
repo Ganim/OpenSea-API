@@ -57,6 +57,11 @@ export enum AuditEntity {
   PIPELINE_STAGE = 'PIPELINE_STAGE',
   DEAL = 'DEAL',
   ACTIVITY = 'ACTIVITY',
+  PRICE_TABLE = 'PRICE_TABLE',
+  CUSTOMER_PRICE = 'CUSTOMER_PRICE',
+  CAMPAIGN = 'CAMPAIGN',
+  COUPON = 'COUPON',
+  COMBO = 'COMBO',
 
   // ==========================================
   // Alerts & Notifications

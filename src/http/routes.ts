@@ -33,6 +33,11 @@ import { pipelineStagesRoutes } from './controllers/sales/pipeline-stages/routes
 import { pipelinesRoutes } from './controllers/sales/pipelines/routes';
 import { salesOrdersRoutes } from './controllers/sales/sales-orders/routes';
 import { variantPromotionsRoutes } from './controllers/sales/variant-promotions/routes';
+import { priceTablesRoutes } from './controllers/sales/price-tables/routes';
+import { customerPricesRoutes } from './controllers/sales/customer-prices/routes';
+import { campaignsRoutes } from './controllers/sales/campaigns/routes';
+import { couponsRoutes } from './controllers/sales/coupons/routes';
+import { combosRoutes } from './controllers/sales/combos/routes';
 // Notifications (Workflow)
 import { notificationsRoutes } from './controllers/notifications/routes';
 
@@ -191,6 +196,11 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(variantPromotionsRoutes);
   await app.register(itemReservationsRoutes);
   await app.register(notificationPreferencesRoutes);
+  await app.register(priceTablesRoutes);
+  await app.register(customerPricesRoutes);
+  await app.register(campaignsRoutes);
+  await app.register(couponsRoutes);
+  await app.register(combosRoutes);
   await app.register(notificationsRoutes);
 
   // Requests routes (Workflow)

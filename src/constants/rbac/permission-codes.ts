@@ -283,6 +283,34 @@ export const PermissionCodes = {
       ACCESS: 'sales.pipelines.access' as const,
       ADMIN: 'sales.pipelines.admin' as const,
     },
+    PRICE_TABLES: {
+      ACCESS: 'sales.price-tables.access' as const,
+      REGISTER: 'sales.price-tables.register' as const,
+      MODIFY: 'sales.price-tables.modify' as const,
+      REMOVE: 'sales.price-tables.remove' as const,
+    },
+    CUSTOMER_PRICES: {
+      ACCESS: 'sales.customer-prices.access' as const,
+      REGISTER: 'sales.customer-prices.register' as const,
+      MODIFY: 'sales.customer-prices.modify' as const,
+      REMOVE: 'sales.customer-prices.remove' as const,
+    },
+    CAMPAIGNS: {
+      ACCESS: 'sales.campaigns.access' as const,
+      REGISTER: 'sales.campaigns.register' as const,
+      MODIFY: 'sales.campaigns.modify' as const,
+      REMOVE: 'sales.campaigns.remove' as const,
+    },
+    COUPONS: {
+      ACCESS: 'sales.coupons.access' as const,
+      REGISTER: 'sales.coupons.register' as const,
+      REMOVE: 'sales.coupons.remove' as const,
+    },
+    COMBOS: {
+      ACCESS: 'sales.combos.access' as const,
+      REGISTER: 'sales.combos.register' as const,
+      REMOVE: 'sales.combos.remove' as const,
+    },
   },
 
   // ============================================================================

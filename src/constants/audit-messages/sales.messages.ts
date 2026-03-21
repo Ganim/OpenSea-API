@@ -256,6 +256,124 @@ export const SALES_AUDIT_MESSAGES = {
     module: AuditModule.SALES,
     description: '{{userName}} reordenou as etapas do pipeline',
   } satisfies AuditMessage,
+
+  // ============================================================================
+  // PRICE TABLES - Tabelas de preço
+  // ============================================================================
+
+  PRICE_TABLE_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.PRICE_TABLE,
+    module: AuditModule.SALES,
+    description: "Tabela de preço '{{tableName}}' criada por {{userName}}",
+  } satisfies AuditMessage,
+
+  PRICE_TABLE_UPDATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.PRICE_TABLE,
+    module: AuditModule.SALES,
+    description: "Tabela de preço '{{tableName}}' atualizada por {{userName}}",
+  } satisfies AuditMessage,
+
+  PRICE_TABLE_DELETE: {
+    action: AuditAction.DELETE,
+    entity: AuditEntity.PRICE_TABLE,
+    module: AuditModule.SALES,
+    description: "Tabela de preço '{{tableName}}' excluída por {{userName}}",
+  } satisfies AuditMessage,
+
+  // ============================================================================
+  // CUSTOMER PRICES - Preços por cliente
+  // ============================================================================
+
+  CUSTOMER_PRICE_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.CUSTOMER_PRICE,
+    module: AuditModule.SALES,
+    description: 'Preço especial criado por {{userName}} para cliente {{customerId}}',
+  } satisfies AuditMessage,
+
+  CUSTOMER_PRICE_UPDATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.CUSTOMER_PRICE,
+    module: AuditModule.SALES,
+    description: 'Preço especial atualizado por {{userName}} para cliente {{customerId}}',
+  } satisfies AuditMessage,
+
+  CUSTOMER_PRICE_DELETE: {
+    action: AuditAction.DELETE,
+    entity: AuditEntity.CUSTOMER_PRICE,
+    module: AuditModule.SALES,
+    description: 'Preço especial excluído por {{userName}} para cliente {{customerId}}',
+  } satisfies AuditMessage,
+
+  // ============================================================================
+  // CAMPAIGNS - Campanhas promocionais
+  // ============================================================================
+
+  CAMPAIGN_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.CAMPAIGN,
+    module: AuditModule.SALES,
+    description: "Campanha '{{campaignName}}' criada por {{userName}}",
+  } satisfies AuditMessage,
+
+  CAMPAIGN_UPDATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.CAMPAIGN,
+    module: AuditModule.SALES,
+    description: "Campanha '{{campaignName}}' atualizada por {{userName}}",
+  } satisfies AuditMessage,
+
+  CAMPAIGN_DELETE: {
+    action: AuditAction.DELETE,
+    entity: AuditEntity.CAMPAIGN,
+    module: AuditModule.SALES,
+    description: "Campanha '{{campaignName}}' excluída por {{userName}}",
+  } satisfies AuditMessage,
+
+  CAMPAIGN_ACTIVATE: {
+    action: AuditAction.STATUS_CHANGE,
+    entity: AuditEntity.CAMPAIGN,
+    module: AuditModule.SALES,
+    description: "Campanha '{{campaignName}}' ativada por {{userName}}",
+  } satisfies AuditMessage,
+
+  // ============================================================================
+  // COUPONS - Cupons de desconto
+  // ============================================================================
+
+  COUPON_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.COUPON,
+    module: AuditModule.SALES,
+    description: "Cupom '{{couponCode}}' criado por {{userName}}",
+  } satisfies AuditMessage,
+
+  COUPON_DELETE: {
+    action: AuditAction.DELETE,
+    entity: AuditEntity.COUPON,
+    module: AuditModule.SALES,
+    description: "Cupom '{{couponCode}}' excluído por {{userName}}",
+  } satisfies AuditMessage,
+
+  // ============================================================================
+  // COMBOS - Combos de produtos
+  // ============================================================================
+
+  COMBO_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.COMBO,
+    module: AuditModule.SALES,
+    description: "Combo '{{comboName}}' criado por {{userName}}",
+  } satisfies AuditMessage,
+
+  COMBO_DELETE: {
+    action: AuditAction.DELETE,
+    entity: AuditEntity.COMBO,
+    module: AuditModule.SALES,
+    description: "Combo '{{comboName}}' excluído por {{userName}}",
+  } satisfies AuditMessage,
 } as const;
 
 export type SalesAuditMessageKey = keyof typeof SALES_AUDIT_MESSAGES;

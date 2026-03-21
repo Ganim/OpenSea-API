@@ -14,3 +14,4 @@ export * from './sales/notifications';
 export * from './sales/contacts';
 export * from './sales/pipelines';
 export * from './sales/pipeline-stages';
+export * from './sales/pricing';

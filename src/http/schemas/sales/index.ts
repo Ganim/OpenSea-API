@@ -12,3 +12,4 @@ export * from './notifications';
 export * from './contacts';
 export * from './pipelines';
 export * from './pipeline-stages';
+export * from './pricing';
