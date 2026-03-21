@@ -267,6 +267,9 @@ model User {
 
   // CRM Relations
   assignedContacts CrmContact[] @relation("AssignedContacts")
+  assignedDeals    CrmDeal[]    @relation("AssignedDeals")
+  crmActivities    CrmActivity[] @relation("CrmActivityUser")
+  crmTimeline      CrmTimelineEvent[] @relation("CrmTimelineUser")
 
   // Pricing Relations
   createdCustomerPrices CustomerPrice[] @relation("CustomerPriceCreator")
@@ -1086,6 +1089,55 @@ enum PipelineStageType {
   DELIVERED
   COMPLETED
   CANCELLED
+}
+
+enum DealStatus {
+  OPEN
+  WON
+  LOST
+  ABANDONED
+}
+
+enum DealPriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+enum CrmActivityType {
+  CALL
+  EMAIL
+  MEETING
+  TASK
+  NOTE
+  WHATSAPP
+  VISIT
+  PROPOSAL
+  FOLLOW_UP
+}
+
+enum CrmActivityStatus {
+  PLANNED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+  OVERDUE
+}
+
+enum TimelineEventType {
+  DEAL_CREATED
+  DEAL_UPDATED
+  DEAL_WON
+  DEAL_LOST
+  STAGE_CHANGED
+  ACTIVITY_CREATED
+  ACTIVITY_COMPLETED
+  NOTE_ADDED
+  EMAIL_SENT
+  CONTACT_ADDED
+  VALUE_CHANGED
+  OWNER_CHANGED
 }
 
 // --- Location System v2 Enums ---
@@ -2631,6 +2683,7 @@ model Customer {
 
   salesOrders SalesOrder[]
   crmContacts CrmContact[]
+  crmDeals    CrmDeal[]
 
   // Pricing Relations
   customerPrices CustomerPrice[]
@@ -2747,6 +2800,8 @@ model CrmContact {
   tenant     Tenant   @relation(fields: [tenantId], references: [id])
   customer   Customer @relation(fields: [customerId], references: [id])
   assignedTo User?    @relation("AssignedContacts", fields: [assignedToUserId], references: [id])
+  crmDeals      CrmDeal[]
+  crmActivities CrmActivity[]
 
   // Orders Relations
   orders Order[]
@@ -2783,6 +2838,7 @@ model CrmPipeline {
 
   tenant Tenant             @relation(fields: [tenantId], references: [id])
   stages CrmPipelineStage[]
+  deals  CrmDeal[]
 
   // Orders Relations
   orders Order[]
@@ -2808,6 +2864,7 @@ model CrmPipelineStage {
   updatedAt       DateTime          @updatedAt @map("updated_at")
 
   pipeline CrmPipeline @relation(fields: [pipelineId], references: [id], onDelete: Cascade)
+  deals    CrmDeal[]
 
   // Orders Relations
   orders Order[]
