@@ -2,6 +2,7 @@ import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
+import { envelopeDetailResponseSchema } from '@/http/schemas/signature/signature.schema';
 import { signatureEnvelopeToDTO } from '@/mappers/signature';
 import { makeGetEnvelopeByIdUseCase } from '@/use-cases/signature/envelopes/factories/make-get-envelope-by-id-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -21,21 +22,33 @@ export async function getEnvelopeByIdController(app: FastifyInstance) {
       }),
     ],
     schema: {
-      tags: ['Signature - Envelopes'],
-      summary: 'Get envelope details with signers and audit trail',
-      params: z.object({ id: z.string().uuid() }),
+      tags: ['Tools - Digital Signature'],
+      summary: 'Get envelope details by ID',
+      params: z.object({
+        id: z.string().uuid().describe('Envelope UUID'),
+      }),
+      response: {
+        200: z.object({
+          envelope: envelopeDetailResponseSchema,
+        }),
+        404: z.object({ message: z.string() }),
+      },
       security: [{ bearerAuth: [] }],
     },
+
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
       const { id } = request.params;
 
       const useCase = makeGetEnvelopeByIdUseCase();
-      const { envelope } = await useCase.execute({ tenantId, envelopeId: id });
-
-      return reply.status(200).send({
-        envelope: signatureEnvelopeToDTO(envelope),
+      const { envelope } = await useCase.execute({
+        tenantId,
+        envelopeId: id,
       });
+
+      return reply
+        .status(200)
+        .send({ envelope: signatureEnvelopeToDTO(envelope) });
     },
   });
 }

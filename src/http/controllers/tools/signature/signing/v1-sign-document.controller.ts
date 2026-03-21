@@ -1,3 +1,4 @@
+import { signDocumentSchema } from '@/http/schemas/signature/signature.schema';
 import { makeSignDocumentUseCase } from '@/use-cases/signature/signing/factories/make-sign-document-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -8,32 +9,33 @@ export async function signDocumentController(app: FastifyInstance) {
     method: 'POST',
     url: '/v1/signature/sign/:token',
     schema: {
-      tags: ['Signature - Signing (Public)'],
-      summary: 'Sign a document (public - token-based)',
-      params: z.object({ token: z.string() }),
-      body: z.object({
-        signatureData: z.record(z.string(), z.unknown()).optional(),
-        signatureImageFileId: z.string().uuid().optional(),
-        geoLatitude: z.number().optional(),
-        geoLongitude: z.number().optional(),
-      }).optional(),
+      tags: ['Tools - Digital Signature (Public)'],
+      summary: 'Sign a document (public)',
+      params: z.object({
+        token: z.string().min(1).describe('Signer access token'),
+      }),
+      body: signDocumentSchema,
+      response: {
+        204: z.null(),
+        400: z.object({ message: z.string() }),
+        404: z.object({ message: z.string() }),
+      },
     },
+
     handler: async (request, reply) => {
       const { token } = request.params;
-      const body = request.body ?? {};
+      const body = request.body;
 
       const useCase = makeSignDocumentUseCase();
       await useCase.execute({
         accessToken: token,
-        signatureData: body.signatureData as Record<string, unknown> | undefined,
+        signatureData: body.signatureData,
         signatureImageFileId: body.signatureImageFileId,
         ipAddress: request.ip,
         userAgent: request.headers['user-agent'],
-        geoLatitude: body.geoLatitude,
-        geoLongitude: body.geoLongitude,
       });
 
-      return reply.status(200).send({ message: 'Document signed successfully' });
+      return reply.status(204).send(null);
     },
   });
 }

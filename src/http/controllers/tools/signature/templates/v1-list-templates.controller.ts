@@ -2,13 +2,17 @@ import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
+import {
+  listTemplatesQuerySchema,
+  templateResponseSchema,
+} from '@/http/schemas/signature/signature.schema';
 import { signatureTemplateToDTO } from '@/mappers/signature';
 import { makeListSignatureTemplatesUseCase } from '@/use-cases/signature/templates/factories/make-list-templates-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
 
-export async function listSignatureTemplatesController(app: FastifyInstance) {
+export async function listTemplatesController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/signature/templates',
@@ -21,16 +25,23 @@ export async function listSignatureTemplatesController(app: FastifyInstance) {
       }),
     ],
     schema: {
-      tags: ['Signature - Templates'],
+      tags: ['Tools - Digital Signature'],
       summary: 'List signature templates',
-      querystring: z.object({
-        page: z.coerce.number().int().min(1).default(1),
-        limit: z.coerce.number().int().min(1).max(100).default(20),
-        isActive: z.coerce.boolean().optional(),
-        search: z.string().optional(),
-      }),
+      querystring: listTemplatesQuerySchema,
+      response: {
+        200: z.object({
+          templates: z.array(templateResponseSchema),
+          meta: z.object({
+            total: z.number(),
+            page: z.number(),
+            limit: z.number(),
+            pages: z.number(),
+          }),
+        }),
+      },
       security: [{ bearerAuth: [] }],
     },
+
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
       const { page, limit, isActive, search } = request.query;
@@ -38,10 +49,10 @@ export async function listSignatureTemplatesController(app: FastifyInstance) {
       const useCase = makeListSignatureTemplatesUseCase();
       const result = await useCase.execute({
         tenantId,
-        isActive,
-        search,
         page,
         limit,
+        isActive,
+        search,
       });
 
       return reply.status(200).send({

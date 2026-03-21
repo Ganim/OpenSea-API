@@ -2,6 +2,10 @@ import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
+import {
+  certificateResponseSchema,
+  listCertificatesQuerySchema,
+} from '@/http/schemas/signature/signature.schema';
 import { digitalCertificateToDTO } from '@/mappers/signature';
 import { makeListCertificatesUseCase } from '@/use-cases/signature/certificates/factories/make-list-certificates-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -21,17 +25,23 @@ export async function listCertificatesController(app: FastifyInstance) {
       }),
     ],
     schema: {
-      tags: ['Signature - Certificates'],
+      tags: ['Tools - Digital Signature'],
       summary: 'List digital certificates',
-      querystring: z.object({
-        page: z.coerce.number().int().min(1).default(1),
-        limit: z.coerce.number().int().min(1).max(100).default(20),
-        status: z.string().optional(),
-        type: z.string().optional(),
-        search: z.string().optional(),
-      }),
+      querystring: listCertificatesQuerySchema,
+      response: {
+        200: z.object({
+          certificates: z.array(certificateResponseSchema),
+          meta: z.object({
+            total: z.number(),
+            page: z.number(),
+            limit: z.number(),
+            pages: z.number(),
+          }),
+        }),
+      },
       security: [{ bearerAuth: [] }],
     },
+
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
       const { page, limit, status, type, search } = request.query;
@@ -39,11 +49,11 @@ export async function listCertificatesController(app: FastifyInstance) {
       const useCase = makeListCertificatesUseCase();
       const result = await useCase.execute({
         tenantId,
+        page,
+        limit,
         status,
         type,
         search,
-        page,
-        limit,
       });
 
       return reply.status(200).send({

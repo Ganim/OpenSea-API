@@ -1,7 +1,6 @@
-import { signatureEnvelopeSignerToDTO } from '@/mappers/signature';
+import { signingPageResponseSchema } from '@/http/schemas/signature/signature.schema';
 import { PrismaSignatureEnvelopeSignersRepository } from '@/repositories/signature/prisma/prisma-signature-envelope-signers-repository';
 import { PrismaSignatureEnvelopesRepository } from '@/repositories/signature/prisma/prisma-signature-envelopes-repository';
-import { signatureEnvelopeToDTO } from '@/mappers/signature';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -12,47 +11,57 @@ export async function getSigningPageController(app: FastifyInstance) {
     method: 'GET',
     url: '/v1/signature/sign/:token',
     schema: {
-      tags: ['Signature - Signing (Public)'],
-      summary: 'Get signing page data (public - no auth)',
-      params: z.object({ token: z.string() }),
+      tags: ['Tools - Digital Signature (Public)'],
+      summary: 'Get signing page data (public)',
+      params: z.object({
+        token: z.string().min(1).describe('Signer access token'),
+      }),
+      response: {
+        200: z.object({
+          signing: signingPageResponseSchema,
+        }),
+        404: z.object({ message: z.string() }),
+        410: z.object({ message: z.string() }),
+      },
     },
+
     handler: async (request, reply) => {
       const { token } = request.params;
 
-      const signersRepo = new PrismaSignatureEnvelopeSignersRepository();
-      const signer = await signersRepo.findByAccessToken(token);
+      const signersRepository = new PrismaSignatureEnvelopeSignersRepository();
+      const signer = await signersRepository.findByAccessToken(token);
 
       if (!signer) {
-        return reply.status(404).send({ error: 'Invalid signing link' });
+        return reply.status(404).send({ message: 'Invalid signing link' });
       }
 
       if (
         signer.accessTokenExpiresAt &&
         signer.accessTokenExpiresAt < new Date()
       ) {
-        return reply.status(410).send({ error: 'Signing link has expired' });
+        return reply.status(410).send({ message: 'Signing link has expired' });
       }
 
-      const envelopesRepo = new PrismaSignatureEnvelopesRepository();
-      const envelope = await envelopesRepo.findById(
+      const envelopesRepository = new PrismaSignatureEnvelopesRepository();
+      const envelope = await envelopesRepository.findById(
         new UniqueEntityID(signer.envelopeId),
         signer.tenantId.toString(),
       );
 
       if (!envelope) {
-        return reply.status(404).send({ error: 'Envelope not found' });
+        return reply.status(404).send({ message: 'Envelope not found' });
       }
 
       return reply.status(200).send({
-        signer: signatureEnvelopeSignerToDTO(signer),
-        envelope: {
-          id: envelope.envelopeId.toString(),
-          title: envelope.title,
-          description: envelope.description,
-          status: envelope.status,
-          signatureLevel: envelope.signatureLevel,
+        signing: {
+          envelopeTitle: envelope.title,
+          envelopeDescription: envelope.description ?? null,
           documentFileId: envelope.documentFileId,
-          documentType: envelope.documentType,
+          signerName: signer.externalName ?? null,
+          signerEmail: signer.externalEmail ?? null,
+          signerRole: signer.role,
+          signerStatus: signer.status,
+          signatureLevel: signer.signatureLevel,
         },
       });
     },

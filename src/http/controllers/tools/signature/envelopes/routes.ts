@@ -1,4 +1,6 @@
 import type { FastifyInstance } from 'fastify';
+import { rateLimitConfig } from '@/config/rate-limits';
+import rateLimit from '@fastify/rate-limit';
 import { createEnvelopeController } from './v1-create-envelope.controller';
 import { listEnvelopesController } from './v1-list-envelopes.controller';
 import { getEnvelopeByIdController } from './v1-get-envelope-by-id.controller';
@@ -6,9 +8,32 @@ import { cancelEnvelopeController } from './v1-cancel-envelope.controller';
 import { resendNotificationsController } from './v1-resend-notifications.controller';
 
 export async function signatureEnvelopesRoutes(app: FastifyInstance) {
-  await app.register(createEnvelopeController);
-  await app.register(listEnvelopesController);
-  await app.register(getEnvelopeByIdController);
-  await app.register(cancelEnvelopeController);
-  await app.register(resendNotificationsController);
+  // Admin routes with elevated rate limit
+  app.register(
+    async (adminApp) => {
+      adminApp.register(rateLimit, rateLimitConfig.admin);
+      adminApp.register(cancelEnvelopeController);
+    },
+    { prefix: '' },
+  );
+
+  // Mutation routes
+  app.register(
+    async (mutationApp) => {
+      mutationApp.register(rateLimit, rateLimitConfig.mutation);
+      mutationApp.register(createEnvelopeController);
+      mutationApp.register(resendNotificationsController);
+    },
+    { prefix: '' },
+  );
+
+  // Query routes
+  app.register(
+    async (queryApp) => {
+      queryApp.register(rateLimit, rateLimitConfig.query);
+      queryApp.register(listEnvelopesController);
+      queryApp.register(getEnvelopeByIdController);
+    },
+    { prefix: '' },
+  );
 }

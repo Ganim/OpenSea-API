@@ -10,7 +10,7 @@ import z from 'zod';
 export async function resendNotificationsController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
-    url: '/v1/signature/envelopes/:id/resend-notifications',
+    url: '/v1/signature/envelopes/:id/resend',
     preHandler: [
       verifyJwt,
       verifyTenant,
@@ -20,11 +20,20 @@ export async function resendNotificationsController(app: FastifyInstance) {
       }),
     ],
     schema: {
-      tags: ['Signature - Envelopes'],
+      tags: ['Tools - Digital Signature'],
       summary: 'Resend notifications to pending signers',
-      params: z.object({ id: z.string().uuid() }),
+      params: z.object({
+        id: z.string().uuid().describe('Envelope UUID'),
+      }),
+      response: {
+        200: z.object({
+          notifiedCount: z.number(),
+        }),
+        404: z.object({ message: z.string() }),
+      },
       security: [{ bearerAuth: [] }],
     },
+
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
       const { id } = request.params;

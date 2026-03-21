@@ -2,13 +2,17 @@ import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
+import {
+  createTemplateSchema,
+  templateResponseSchema,
+} from '@/http/schemas/signature/signature.schema';
 import { signatureTemplateToDTO } from '@/mappers/signature';
 import { makeCreateSignatureTemplateUseCase } from '@/use-cases/signature/templates/factories/make-create-template-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
 
-export async function createSignatureTemplateController(app: FastifyInstance) {
+export async function createTemplateController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/signature/templates',
@@ -21,25 +25,18 @@ export async function createSignatureTemplateController(app: FastifyInstance) {
       }),
     ],
     schema: {
-      tags: ['Signature - Templates'],
-      summary: 'Create a new signature template',
-      body: z.object({
-        name: z.string().min(1).max(128),
-        description: z.string().optional(),
-        signatureLevel: z.enum(['SIMPLE', 'ADVANCED', 'QUALIFIED']),
-        routingType: z.enum(['SEQUENTIAL', 'PARALLEL', 'HYBRID']),
-        signerSlots: z.array(z.object({
-          order: z.number().int(),
-          group: z.number().int(),
-          role: z.string(),
-          label: z.string(),
-          signatureLevel: z.string().optional(),
-        })),
-        expirationDays: z.number().int().min(1).optional(),
-        reminderDays: z.number().int().min(1).optional(),
-      }),
+      tags: ['Tools - Digital Signature'],
+      summary: 'Create a signature template',
+      body: createTemplateSchema,
+      response: {
+        201: z.object({
+          template: templateResponseSchema,
+        }),
+        400: z.object({ message: z.string() }),
+      },
       security: [{ bearerAuth: [] }],
     },
+
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
       const body = request.body;
@@ -47,18 +44,12 @@ export async function createSignatureTemplateController(app: FastifyInstance) {
       const useCase = makeCreateSignatureTemplateUseCase();
       const { template } = await useCase.execute({
         tenantId,
-        name: body.name,
-        description: body.description,
-        signatureLevel: body.signatureLevel,
-        routingType: body.routingType,
-        signerSlots: body.signerSlots,
-        expirationDays: body.expirationDays,
-        reminderDays: body.reminderDays,
+        ...body,
       });
 
-      return reply.status(201).send({
-        template: signatureTemplateToDTO(template),
-      });
+      return reply
+        .status(201)
+        .send({ template: signatureTemplateToDTO(template) });
     },
   });
 }

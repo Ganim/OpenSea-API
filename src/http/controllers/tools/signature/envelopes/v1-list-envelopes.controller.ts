@@ -2,6 +2,10 @@ import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
+import {
+  envelopeResponseSchema,
+  listEnvelopesQuerySchema,
+} from '@/http/schemas/signature/signature.schema';
 import { signatureEnvelopeToDTO } from '@/mappers/signature';
 import { makeListEnvelopesUseCase } from '@/use-cases/signature/envelopes/factories/make-list-envelopes-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -21,29 +25,37 @@ export async function listEnvelopesController(app: FastifyInstance) {
       }),
     ],
     schema: {
-      tags: ['Signature - Envelopes'],
+      tags: ['Tools - Digital Signature'],
       summary: 'List signature envelopes',
-      querystring: z.object({
-        page: z.coerce.number().int().min(1).default(1),
-        limit: z.coerce.number().int().min(1).max(100).default(20),
-        status: z.string().optional(),
-        sourceModule: z.string().optional(),
-        search: z.string().optional(),
-      }),
+      querystring: listEnvelopesQuerySchema,
+      response: {
+        200: z.object({
+          envelopes: z.array(envelopeResponseSchema),
+          meta: z.object({
+            total: z.number(),
+            page: z.number(),
+            limit: z.number(),
+            pages: z.number(),
+          }),
+        }),
+      },
       security: [{ bearerAuth: [] }],
     },
+
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
-      const { page, limit, status, sourceModule, search } = request.query;
+      const { page, limit, status, sourceModule, createdByUserId, search } =
+        request.query;
 
       const useCase = makeListEnvelopesUseCase();
       const result = await useCase.execute({
         tenantId,
-        status,
-        sourceModule,
-        search,
         page,
         limit,
+        status,
+        sourceModule,
+        createdByUserId,
+        search,
       });
 
       return reply.status(200).send({

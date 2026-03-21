@@ -15,19 +15,29 @@ export async function cancelEnvelopeController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.TOOLS.SIGNATURE.ENVELOPES.MODIFY,
+        permissionCode: PermissionCodes.TOOLS.SIGNATURE.ENVELOPES.REMOVE,
         resource: 'signature-envelopes',
       }),
     ],
     schema: {
-      tags: ['Signature - Envelopes'],
+      tags: ['Tools - Digital Signature'],
       summary: 'Cancel a signature envelope',
-      params: z.object({ id: z.string().uuid() }),
-      body: z.object({
-        reason: z.string().optional(),
-      }).optional(),
+      params: z.object({
+        id: z.string().uuid().describe('Envelope UUID'),
+      }),
+      body: z
+        .object({
+          reason: z.string().max(2000).optional(),
+        })
+        .optional(),
+      response: {
+        204: z.null(),
+        400: z.object({ message: z.string() }),
+        404: z.object({ message: z.string() }),
+      },
       security: [{ bearerAuth: [] }],
     },
+
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
       const { id } = request.params;
@@ -36,7 +46,7 @@ export async function cancelEnvelopeController(app: FastifyInstance) {
       const useCase = makeCancelEnvelopeUseCase();
       await useCase.execute({ tenantId, envelopeId: id, reason });
 
-      return reply.status(204).send();
+      return reply.status(204).send(null);
     },
   });
 }
