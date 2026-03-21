@@ -16,17 +16,21 @@ O módulo é transversal ao sistema: todos os outros módulos o consultam via mi
 
 ### Permission
 
-Representa uma permissão específica do sistema. Cada permissão é identificada por um código único no formato `module.resource.action[.scope]`.
+Representa uma permissão específica do sistema. Cada permissão é identificada por um código único em um de dois formatos:
+- **3 níveis:** `{module}.{resource}.{action}` — usado pela maioria dos módulos
+- **4 níveis:** `{module}.{group}.{resource}.{action}` — usado apenas pelo módulo `tools`
+
+O sistema possui **243 códigos de permissão** distribuídos em **7 módulos alinhados com a UI**.
 
 | Field | Type | Required | Validation | Description |
 |-------|------|----------|------------|-------------|
 | `id` | `UniqueEntityID` | Sim | UUID | Identificador único |
-| `code` | `PermissionCode` | Sim | Value Object — 1 a 4 partes separadas por ponto | Código único da permissão |
+| `code` | `PermissionCode` | Sim | Value Object — 3 ou 4 partes separadas por ponto | Código único da permissão |
 | `name` | `string` | Sim | — | Nome legível |
 | `description` | `string \| null` | Não | — | Descrição opcional |
 | `module` | `string` | Sim | — | Módulo ao qual pertence (ex: `stock`) |
 | `resource` | `string` | Sim | — | Recurso alvo (ex: `products`) |
-| `action` | `string` | Sim | — | Ação permitida (ex: `create`) |
+| `action` | `string` | Sim | — | Ação permitida (ex: `register`) |
 | `isSystem` | `boolean` | Não | Default `false` | Permissões de sistema não podem ser excluídas |
 | `metadata` | `Record<string, unknown>` | Não | Default `{}` | Metadados livres |
 | `createdAt` | `Date` | Não | Default `new Date()` | Data de criação |
@@ -91,17 +95,18 @@ Representa uma permissão atribuída diretamente a um usuário, sem passar por g
 
 Valida e estrutura o código de permissão.
 
-- **Formatos aceitos:** `module` (1 parte), `module.resource` (2 partes), `module.resource.action` (3 partes), `module.resource.action.scope` (4 partes)
-- **Wildcards:** o caractere `*` pode substituir qualquer segmento — ex: `stock.*.read`, `*.products.*`
+- **Formatos aceitos:** `module.resource.action` (3 partes) ou `module.group.resource.action` (4 partes, apenas `tools`)
+- **Wildcards:** o caractere `*` pode substituir qualquer segmento — ex: `stock.*.register`, `tools.email.*.*`
 - **Padrão válido:** `[a-z0-9*_-]+` por segmento (case-insensitive)
 - **Método `matches(other)`:** compara dois códigos com suporte a wildcards
 
 ```typescript
 // Exemplos de uso
-PermissionCode.create('stock.products.create')  // válido
-PermissionCode.create('stock.*.read')            // wildcard válido
-PermissionCode.create('hr.employees.read.all')   // com escopo
-PermissionCode.create('')                        // lança BadRequestError
+PermissionCode.create('stock.products.register')        // 3 níveis, válido
+PermissionCode.create('tools.email.accounts.access')    // 4 níveis (tools), válido
+PermissionCode.create('stock.*.register')               // wildcard válido
+PermissionCode.create('*.*.*')                          // super admin wildcard
+PermissionCode.create('')                               // lança BadRequestError
 ```
 
 #### PermissionEffect
@@ -117,10 +122,10 @@ Value Object que encapsula o efeito `allow` ou `deny`.
 
 O seed cria dois grupos de sistema (`isSystem: true`) que não podem ser excluídos:
 
-| Slug | Prioridade | Cor | Descrição |
-|------|-----------|-----|-----------|
-| `admin` | 100 | `#DC2626` (vermelho) | Acesso total — todas as permissões |
-| `user` | 10 | `#2563EB` (azul) | Acesso básico — apenas permissões `self.*` |
+| Slug | Prioridade | Cor | Permissões | Descrição |
+|------|-----------|-----|------------|-----------|
+| `admin` | 100 | `#DC2626` (vermelho) | Todas as 243 | Acesso total — todas as permissões |
+| `user` | 10 | `#2563EB` (azul) | 27 | Acesso básico — tools (produtividade) + system.self |
 
 Grupos adicionais (ex: `gerente-estoque`, `vendedor`) são criados pelo administrador do tenant conforme a estrutura organizacional da empresa.
 
@@ -173,11 +178,12 @@ Ao buscar permissões no banco (L3), o serviço:
 O matching é feito segmento a segmento (split por `.`). Os dois lados devem ter o mesmo número de segmentos para fazer match:
 
 ```
-"stock.products.create" matches "stock.*.create"    ✓
-"stock.products.create" matches "*.products.*"      ✓
-"stock.products.create" matches "*.*.*"             ✓
-"stock.products.create" matches "stock.products.*"  ✓
-"stock.products.create" matches "sales.*.create"    ✗
+"stock.products.register" matches "stock.*.register"       ✓
+"stock.products.register" matches "*.products.*"           ✓
+"stock.products.register" matches "*.*.*"                  ✓
+"tools.email.accounts.access" matches "tools.email.*.*"    ✓
+"tools.email.accounts.access" matches "tools.*.*.*"        ✓
+"stock.products.register" matches "sales.*.register"       ✗
 ```
 
 ---
@@ -198,12 +204,12 @@ Localização: `src/http/middlewares/rbac/`
 Exemplo de uso em um controller:
 
 ```typescript
-app.post('/v1/rbac/permissions', {
+app.post('/v1/products', {
   preHandler: [
     verifyJwt,
     createPermissionMiddleware({
-      permissionCode: PermissionCodes.RBAC.PERMISSIONS.CREATE,
-      resource: 'permissions',
+      permissionCode: 'stock.products.register',
+      resource: 'products',
     }),
   ],
   handler: async (request, reply) => { ... },
@@ -218,48 +224,48 @@ app.post('/v1/rbac/permissions', {
 
 | Method | Path | Permission | Description |
 |--------|------|------------|-------------|
-| `POST` | `/v1/rbac/permissions` | `rbac.permissions.create` | Cria uma nova permissão |
-| `GET` | `/v1/rbac/permissions` | `rbac.permissions.list` | Lista permissões com paginação |
-| `GET` | `/v1/rbac/permissions/all` | `rbac.permissions.list` | Lista todas as permissões sem paginação |
-| `GET` | `/v1/rbac/permissions/modules` | `rbac.permissions.list` | Lista permissões agrupadas por módulo |
-| `GET` | `/v1/rbac/permissions/:id` | `rbac.permissions.read` | Busca permissão por ID |
-| `GET` | `/v1/rbac/permissions/code/:code` | `rbac.permissions.read` | Busca permissão por código |
-| `PUT` | `/v1/rbac/permissions/:id` | `rbac.permissions.update` | Atualiza permissão |
-| `DELETE` | `/v1/rbac/permissions/:id` | `rbac.permissions.delete` | Exclui permissão |
+| `POST` | `/v1/rbac/permissions` | `admin.permission-groups.admin` | Cria uma nova permissão |
+| `GET` | `/v1/rbac/permissions` | `admin.permission-groups.access` | Lista permissões com paginação |
+| `GET` | `/v1/rbac/permissions/all` | `admin.permission-groups.access` | Lista todas as permissões sem paginação |
+| `GET` | `/v1/rbac/permissions/modules` | `admin.permission-groups.access` | Lista permissões agrupadas por módulo |
+| `GET` | `/v1/rbac/permissions/:id` | `admin.permission-groups.access` | Busca permissão por ID |
+| `GET` | `/v1/rbac/permissions/code/:code` | `admin.permission-groups.access` | Busca permissão por código |
+| `PUT` | `/v1/rbac/permissions/:id` | `admin.permission-groups.admin` | Atualiza permissão |
+| `DELETE` | `/v1/rbac/permissions/:id` | `admin.permission-groups.admin` | Exclui permissão |
 
 ### Permission Groups (`/v1/rbac/permission-groups`)
 
 | Method | Path | Permission | Description |
 |--------|------|------------|-------------|
-| `POST` | `/v1/rbac/permission-groups` | `rbac.groups.create` | Cria um grupo de permissões |
-| `GET` | `/v1/rbac/permission-groups` | `rbac.groups.list` | Lista grupos com paginação |
-| `GET` | `/v1/rbac/permission-groups/:id` | `rbac.groups.read` | Busca grupo por ID |
-| `PUT` | `/v1/rbac/permission-groups/:id` | `rbac.groups.update` | Atualiza grupo |
-| `DELETE` | `/v1/rbac/permission-groups/:id` | `rbac.groups.delete` | Exclui grupo (soft delete) |
+| `POST` | `/v1/rbac/permission-groups` | `admin.permission-groups.register` | Cria um grupo de permissões |
+| `GET` | `/v1/rbac/permission-groups` | `admin.permission-groups.access` | Lista grupos com paginação |
+| `GET` | `/v1/rbac/permission-groups/:id` | `admin.permission-groups.access` | Busca grupo por ID |
+| `PUT` | `/v1/rbac/permission-groups/:id` | `admin.permission-groups.modify` | Atualiza grupo |
+| `DELETE` | `/v1/rbac/permission-groups/:id` | `admin.permission-groups.remove` | Exclui grupo (soft delete) |
 
 ### Associations (`/v1/rbac/associations`)
 
 | Method | Path | Permission | Description |
 |--------|------|------------|-------------|
-| `POST` | `/v1/rbac/associations/groups/:groupId/permissions` | `rbac.groups.manage` | Adiciona permissão a um grupo |
-| `POST` | `/v1/rbac/associations/groups/:groupId/permissions/bulk` | `rbac.groups.manage` | Adiciona múltiplas permissões a um grupo |
-| `DELETE` | `/v1/rbac/associations/groups/:groupId/permissions/:permissionId` | `rbac.groups.manage` | Remove permissão de um grupo |
-| `POST` | `/v1/rbac/associations/users/:userId/groups` | `rbac.users.assign-group` | Atribui grupo a um usuário |
-| `DELETE` | `/v1/rbac/associations/users/:userId/groups/:groupId` | `rbac.users.assign-group` | Remove grupo de um usuário |
-| `GET` | `/v1/rbac/associations/groups/:groupId/permissions` | `rbac.groups.read` | Lista permissões de um grupo |
-| `GET` | `/v1/rbac/associations/groups/:groupId/users` | `rbac.groups.read` | Lista usuários de um grupo |
-| `GET` | `/v1/rbac/associations/users/:userId/groups` | `rbac.users.read` | Lista grupos de um usuário |
-| `GET` | `/v1/rbac/associations/users/:userId/permissions` | `rbac.users.read` | Lista permissões efetivas de um usuário |
+| `POST` | `/v1/rbac/associations/groups/:groupId/permissions` | `admin.permission-groups.admin` | Adiciona permissão a um grupo |
+| `POST` | `/v1/rbac/associations/groups/:groupId/permissions/bulk` | `admin.permission-groups.admin` | Adiciona múltiplas permissões a um grupo |
+| `DELETE` | `/v1/rbac/associations/groups/:groupId/permissions/:permissionId` | `admin.permission-groups.admin` | Remove permissão de um grupo |
+| `POST` | `/v1/rbac/associations/users/:userId/groups` | `admin.users.admin` | Atribui grupo a um usuário |
+| `DELETE` | `/v1/rbac/associations/users/:userId/groups/:groupId` | `admin.users.admin` | Remove grupo de um usuário |
+| `GET` | `/v1/rbac/associations/groups/:groupId/permissions` | `admin.permission-groups.access` | Lista permissões de um grupo |
+| `GET` | `/v1/rbac/associations/groups/:groupId/users` | `admin.permission-groups.access` | Lista usuários de um grupo |
+| `GET` | `/v1/rbac/associations/users/:userId/groups` | `admin.users.access` | Lista grupos de um usuário |
+| `GET` | `/v1/rbac/associations/users/:userId/permissions` | `admin.users.access` | Lista permissões efetivas de um usuário |
 
 ### User Direct Permissions (`/v1/rbac/users`)
 
 | Method | Path | Permission | Description |
 |--------|------|------------|-------------|
-| `POST` | `/v1/rbac/users/:userId/permissions` | `rbac.users.grant-permission` | Concede permissão direta |
-| `DELETE` | `/v1/rbac/users/:userId/permissions/:permissionId` | `rbac.users.grant-permission` | Revoga permissão direta |
-| `PUT` | `/v1/rbac/users/:userId/permissions/:permissionId` | `rbac.users.grant-permission` | Atualiza permissão direta (efeito/expiração) |
-| `GET` | `/v1/rbac/users/:userId/permissions/direct` | `rbac.users.read` | Lista permissões diretas de um usuário |
-| `GET` | `/v1/rbac/users/by-permission/:permissionCode` | `rbac.permissions.read` | Lista usuários com uma permissão específica |
+| `POST` | `/v1/rbac/users/:userId/permissions` | `admin.users.admin` | Concede permissão direta |
+| `DELETE` | `/v1/rbac/users/:userId/permissions/:permissionId` | `admin.users.admin` | Revoga permissão direta |
+| `PUT` | `/v1/rbac/users/:userId/permissions/:permissionId` | `admin.users.admin` | Atualiza permissão direta (efeito/expiração) |
+| `GET` | `/v1/rbac/users/:userId/permissions/direct` | `admin.users.access` | Lista permissões diretas de um usuário |
+| `GET` | `/v1/rbac/users/by-permission/:permissionCode` | `admin.permission-groups.access` | Lista usuários com uma permissão específica |
 
 ### Request/Response Examples
 
@@ -271,11 +277,11 @@ Authorization: Bearer {token}
 Content-Type: application/json
 
 {
-  "code": "finance.reports.export",
-  "name": "Exportar Relatórios Financeiros",
-  "description": "Permite exportar relatórios do módulo financeiro",
+  "code": "finance.entries.export",
+  "name": "Exportar Lançamentos Financeiros",
+  "description": "Permite exportar lançamentos do módulo financeiro",
   "module": "finance",
-  "resource": "reports",
+  "resource": "entries",
   "action": "export"
 }
 ```
@@ -343,28 +349,53 @@ Permissões com wildcard no código (ex: `stock.*.*`) cobrem todas as permissõe
 
 ## Permissions
 
-As permissões do próprio módulo RBAC (para gerenciar o RBAC) são:
+As permissões para gerenciar o RBAC pertencem ao módulo `admin`:
 
 | Code | Description |
 |------|-------------|
-| `rbac.permissions.create` | Criar permissões |
-| `rbac.permissions.read` | Visualizar permissão individual |
-| `rbac.permissions.list` | Listar permissões |
-| `rbac.permissions.update` | Atualizar permissões |
-| `rbac.permissions.delete` | Excluir permissões |
-| `rbac.groups.create` | Criar grupos de permissão |
-| `rbac.groups.read` | Visualizar grupo |
-| `rbac.groups.list` | Listar grupos |
-| `rbac.groups.update` | Atualizar grupos |
-| `rbac.groups.delete` | Excluir grupos |
-| `rbac.groups.manage` | Gerenciar permissões dentro de grupos |
-| `rbac.users.read` | Visualizar permissões/grupos de um usuário |
-| `rbac.users.assign-group` | Atribuir/remover grupos de usuários |
-| `rbac.users.grant-permission` | Conceder/revogar permissões diretas |
-| `self.permissions.read` | Ver própria permissão |
-| `self.permissions.list` | Listar próprias permissões |
-| `self.groups.read` | Ver próprio grupo |
-| `self.groups.list` | Listar próprios grupos |
+| `admin.permission-groups.access` | Acessar (listar/visualizar) grupos de permissão |
+| `admin.permission-groups.register` | Cadastrar grupos de permissão |
+| `admin.permission-groups.modify` | Alterar grupos de permissão |
+| `admin.permission-groups.remove` | Remover grupos de permissão |
+| `admin.permission-groups.admin` | Administrar permissões dentro de grupos |
+| `admin.users.access` | Acessar (listar/visualizar) usuários e suas permissões |
+| `admin.users.register` | Cadastrar usuários |
+| `admin.users.modify` | Alterar usuários |
+| `admin.users.remove` | Remover usuários |
+| `admin.users.admin` | Administrar permissões/grupos de usuários |
+| `system.self.access` | Ver próprio perfil e permissões |
+| `system.self.modify` | Alterar próprio perfil |
+
+### Módulos e Recursos (243 códigos)
+
+| Módulo | Recursos |
+|--------|----------|
+| `stock` | products, variants, templates, categories, manufacturers, items, purchase-orders, volumes, warehouses |
+| `finance` | categories, cost-centers, bank-accounts, suppliers, contracts, entries, consortia, loans, recurring |
+| `hr` | positions, departments, work-schedules, employees, vacations, absences, payroll, time-control |
+| `sales` | customers, promotions, orders |
+| `admin` | users, permission-groups, companies, sessions, audit |
+| `tools` | email.accounts, email.messages, tasks.boards, tasks.cards, calendar, storage.folders, storage.files |
+| `system` | label-templates, notifications, self |
+
+### Ações Humanizadas
+
+| Ação | Label (PT-BR) | Descrição |
+|------|--------------|-----------|
+| `access` | Acessar | Listar e visualizar |
+| `register` | Cadastrar | Criar novos registros |
+| `modify` | Alterar | Atualizar registros |
+| `remove` | Remover | Excluir registros |
+| `import` | Importar | Importar dados |
+| `export` | Exportar | Exportar dados |
+| `print` | Imprimir | Imprimir dados |
+| `admin` | Administrar | Acesso administrativo total |
+| `share` | Compartilhar | Compartilhar recursos |
+| `onlyself` | Próprio | Restringir a registros próprios |
+
+### Migração
+
+A migração do sistema antigo (721 códigos) para o novo (243 códigos) é feita via script standalone: `prisma/migrate-permissions.ts`. O script é idempotente e reatribui os grupos Admin/User em todos os tenants.
 
 ---
 
@@ -527,3 +558,4 @@ Factories de teste:
 |------|-----------|-------|--------|
 | 2026-03-10 | Documentação inicial | — | Este arquivo |
 | 2026-03-11 | Performance + Cache | — | Fix N+1 no `BulkAddPermissionsToGroupUseCase` (721 queries → 3); singleton centralizado do `PermissionService` via `get-permission-service.ts`; invalidação automática de cache L1+L2 ao alterar permissões de grupo |
+| 2026-03-21 | Redesign Completo | — | Redução de 721 para 243 códigos; 7 módulos alinhados com a UI; 10 ações humanizadas; formato 3/4 níveis; ver ADR-023 |
