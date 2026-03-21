@@ -21,8 +21,8 @@ export async function updateCustomFieldController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.TOOLS.TASKS.BOARDS.MODIFY,
-        resource: 'task-boards',
+        permissionCode: PermissionCodes.TOOLS.TASKS.CUSTOM_FIELDS.MODIFY,
+        resource: 'task-custom-fields',
       }),
     ],
     schema: {

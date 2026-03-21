@@ -21,8 +21,8 @@ export async function createChecklistController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.TOOLS.TASKS.CARDS.MODIFY,
-        resource: 'task-cards',
+        permissionCode: PermissionCodes.TOOLS.TASKS.CHECKLISTS.REGISTER,
+        resource: 'task-checklists',
       }),
     ],
     schema: {

@@ -16,8 +16,8 @@ export async function listCustomFieldsController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.TOOLS.TASKS.BOARDS.ACCESS,
-        resource: 'task-boards',
+        permissionCode: PermissionCodes.TOOLS.TASKS.CUSTOM_FIELDS.ACCESS,
+        resource: 'task-custom-fields',
       }),
     ],
     schema: {

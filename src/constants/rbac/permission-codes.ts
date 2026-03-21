@@ -1,7 +1,7 @@
 /**
  * Permission Codes Constants
  *
- * 238 códigos de permissão organizados por módulo → recurso → ação
+ * 257 códigos de permissão organizados por módulo → recurso → ação
  * Fornece autocomplete e type-safety ao trabalhar com permissões
  *
  * Formato: module.resource-kebab.action

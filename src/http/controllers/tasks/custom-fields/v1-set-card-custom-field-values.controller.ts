@@ -22,8 +22,8 @@ export async function setCardCustomFieldValuesController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.TOOLS.TASKS.CARDS.MODIFY,
-        resource: 'task-cards',
+        permissionCode: PermissionCodes.TOOLS.TASKS.CUSTOM_FIELDS.MODIFY,
+        resource: 'task-custom-fields',
       }),
     ],
     schema: {
