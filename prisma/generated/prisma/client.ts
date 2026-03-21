@@ -250,6 +250,16 @@ export type UnitConversion = Prisma.UnitConversionModel
  */
 export type StockSnapshot = Prisma.StockSnapshotModel
 /**
+ * Model InventorySession
+ * 
+ */
+export type InventorySession = Prisma.InventorySessionModel
+/**
+ * Model InventorySessionItem
+ * 
+ */
+export type InventorySessionItem = Prisma.InventorySessionItemModel
+/**
  * Model Customer
  * 
  */
@@ -824,3 +834,43 @@ export type Combo = Prisma.ComboModel
  * 
  */
 export type ComboItem = Prisma.ComboItemModel
+/**
+ * Model Catalog
+ * 
+ */
+export type Catalog = Prisma.CatalogModel
+/**
+ * Model CatalogItem
+ * 
+ */
+export type CatalogItem = Prisma.CatalogItemModel
+/**
+ * Model CatalogExport
+ * 
+ */
+export type CatalogExport = Prisma.CatalogExportModel
+/**
+ * Model TenantBrand
+ * 
+ */
+export type TenantBrand = Prisma.TenantBrandModel
+/**
+ * Model ContentTemplate
+ * 
+ */
+export type ContentTemplate = Prisma.ContentTemplateModel
+/**
+ * Model GeneratedContent
+ * 
+ */
+export type GeneratedContent = Prisma.GeneratedContentModel
+/**
+ * Model ProductMockup
+ * 
+ */
+export type ProductMockup = Prisma.ProductMockupModel
+/**
+ * Model EmailCampaign
+ * 
+ */
+export type EmailCampaign = Prisma.EmailCampaignModel

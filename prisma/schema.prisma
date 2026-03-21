@@ -272,6 +272,10 @@ model User {
   createdCustomerPrices CustomerPrice[] @relation("CustomerPriceCreator")
   createdCampaigns      Campaign[]      @relation("CampaignCreator")
 
+  // Catalogs & Content AI Relations
+  assignedCatalogs Catalog[]          @relation("CatalogAssignedTo")
+  approvedContents GeneratedContent[] @relation("ContentApprover")
+
   // Central Redesign Relations
   centralUser            CentralUser?
   createdSupportTickets  SupportTicket[]        @relation("TicketCreator")
@@ -279,8 +283,8 @@ model User {
   supportTicketMessages  SupportTicketMessage[]
 
   // Inventory Session Relations
-  inventorySessions         InventorySession[]     @relation("InventorySessionUser")
-  resolvedInventoryItems    InventorySessionItem[] @relation("InventoryItemResolver")
+  inventorySessions      InventorySession[]     @relation("InventorySessionUser")
+  resolvedInventoryItems InventorySessionItem[] @relation("InventoryItemResolver")
 
   @@unique([email, deletedAt], name: "users_email_unique_active")
   @@unique([username, deletedAt], name: "users_username_unique_active")
@@ -1226,6 +1230,117 @@ enum ComboDiscountType {
   FIXED_VALUE
 }
 
+// --- Catalogs & Content AI Enums ---
+
+enum CatalogType {
+  GENERAL
+  SELLER
+  CAMPAIGN
+  CUSTOMER
+  AI_GENERATED
+}
+
+enum CatalogStatus {
+  DRAFT
+  ACTIVE
+  ARCHIVED
+}
+
+enum CatalogLayout {
+  GRID
+  LIST
+  MAGAZINE
+}
+
+enum CatalogExportType {
+  PDF_FOLDER
+  PDF_PRICE_LIST
+  IMAGE_GRID
+  SHAREABLE_LINK
+}
+
+enum CatalogExportStatus {
+  PENDING
+  GENERATING
+  READY
+  FAILED
+  EXPIRED
+}
+
+enum ContentTemplateType {
+  FOLDER_PAGE
+  SOCIAL_POST
+  SOCIAL_STORY
+  SOCIAL_REEL
+  EMAIL_CAMPAIGN
+  EMAIL_NEWSLETTER
+  BANNER
+  PRICE_LIST
+  PRODUCT_CARD
+  MOCKUP
+}
+
+enum ContentChannel {
+  INSTAGRAM
+  FACEBOOK
+  TIKTOK
+  WHATSAPP
+  EMAIL
+  PRINT
+  WEB
+}
+
+enum GeneratedContentType {
+  SOCIAL_POST
+  SOCIAL_STORY
+  SOCIAL_REEL
+  FOLDER_PAGE
+  EMAIL_CAMPAIGN
+  BANNER
+  PRODUCT_CARD
+  VIDEO
+  MOCKUP
+}
+
+enum ContentStatus {
+  DRAFT
+  READY
+  APPROVED
+  PUBLISHED
+  ARCHIVED
+}
+
+enum MockupResultStatus {
+  PENDING
+  GENERATING
+  READY
+  FAILED
+}
+
+enum EmailCampaignType {
+  NEWSLETTER
+  PROMOTION
+  PRODUCT_LAUNCH
+  FOLLOW_UP
+  CUSTOM
+}
+
+enum EmailCampaignStatus {
+  DRAFT
+  SCHEDULED
+  SENDING
+  SENT
+  CANCELLED
+}
+
+enum EmailRecipientType {
+  ALL_CONTACTS
+  CUSTOMER_TAG
+  LIFECYCLE_STAGE
+  SPECIFIC_CONTACTS
+  SEGMENT
+}
+
 // --- Entidades ---
 
 // Organization - Base unificada para Company, Supplier, Manufacturer
@@ -1653,9 +1768,9 @@ model Bin {
   stockSnapshots StockSnapshot[]
 
   // Inventory Session Relations
-  inventorySessions              InventorySession[]
-  inventorySessionItemsExpected  InventorySessionItem[] @relation("ExpectedBin")
-  inventorySessionItemsActual    InventorySessionItem[] @relation("ActualBin")
+  inventorySessions             InventorySession[]
+  inventorySessionItemsExpected InventorySessionItem[] @relation("ExpectedBin")
+  inventorySessionItemsActual   InventorySessionItem[] @relation("ActualBin")
 
   @@unique([address, tenantId, deletedAt], name: "bins_address_unique_active")
   @@unique([zoneId, aisle, shelf, position, deletedAt], name: "bins_position_unique_active")
@@ -1899,6 +2014,10 @@ model Variant {
 
   // Inventory Session Relations
   inventorySessions InventorySession[]
+
+  // Catalogs & Content AI Relations
+  catalogItems   CatalogItem[]
+  productMockups ProductMockup[]
 
   @@unique([sku, tenantId, deletedAt], name: "variants_sku_unique_active")
   @@unique([slug, tenantId, deletedAt], name: "variants_slug_unique_active")
@@ -2475,6 +2594,9 @@ model Customer {
   customerPrices CustomerPrice[]
   coupons        Coupon[]
   couponUsages   CouponUsage[]
+
+  // Catalogs & Content AI Relations
+  catalogs Catalog[]
 
   @@unique([documentHash, tenantId, deletedAt], name: "customers_document_unique_active")
   @@index([documentHash])
@@ -4302,6 +4424,14 @@ model Tenant {
   // Inventory Session Relations
   inventorySessions InventorySession[]
 
+  // Catalogs & Content AI domain
+  catalogs          Catalog[]
+  tenantBrands      TenantBrand[]
+  contentTemplates  ContentTemplate[]
+  generatedContents GeneratedContent[]
+  productMockups    ProductMockup[]
+  emailCampaigns    EmailCampaign[]
+
   @@index([status])
   @@index([deletedAt])
   @@index([createdAt])
@@ -5083,6 +5213,17 @@ model StorageFile {
   versions        StorageFileVersion[]
   shareLinks      StorageShareLink[]
   cardAttachments CardAttachment[]
+
+  // Catalogs & Content AI Relations
+  catalogCoverImages      Catalog[]          @relation("CatalogCoverImage")
+  catalogExportFiles      CatalogExport[]    @relation("CatalogExportFile")
+  tenantBrandLogos        TenantBrand[]      @relation("TenantBrandLogo")
+  tenantBrandLogoIcons    TenantBrand[]      @relation("TenantBrandLogoIcon")
+  contentTemplatePreviews ContentTemplate[]  @relation("ContentTemplatePreview")
+  generatedContentFiles   GeneratedContent[] @relation("GeneratedContentFile")
+  generatedContentThumbs  GeneratedContent[] @relation("GeneratedContentThumbnail")
+  mockupClientLogos       ProductMockup[]    @relation("MockupClientLogo")
+  mockupResultFiles       ProductMockup[]    @relation("MockupResultFile")
 
   @@unique([tenantId, path, deletedAt], name: "storage_files_path_tenant_unique")
   @@index([tenantId])
@@ -6362,6 +6503,9 @@ model PriceTable {
   prices PriceTableItem[]
   rules  PriceTableRule[]
 
+  // Catalogs & Content AI Relations
+  catalogs Catalog[]
+
   @@index([tenantId])
   @@index([tenantId, type])
   @@index([tenantId, isActive])
@@ -6531,6 +6675,11 @@ model Campaign {
   products  CampaignProduct[]
   coupons   Coupon[]
 
+  // Catalogs & Content AI Relations
+  catalogs          Catalog[]
+  generatedContents GeneratedContent[]
+  emailCampaigns    EmailCampaign[]
+
   @@index([tenantId])
   @@index([tenantId, status])
   @@index([tenantId, startDate, endDate])
@@ -6697,4 +6846,355 @@ model ComboItem {
   @@index([comboId])
   @@index([tenantId])
   @@map("combo_items")
+}
+
+// ===============================================
+// CATALOGS & CONTENT AI MODULE
+// ===============================================
+
+model Catalog {
+  id       String @id @default(uuid())
+  tenantId String @map("tenant_id")
+
+  name        String        @db.VarChar(128)
+  description String?       @db.Text
+  type        CatalogType
+  status      CatalogStatus @default(DRAFT)
+
+  // Cover Image
+  coverImageFileId String? @map("cover_image_file_id")
+
+  // Ownership
+  assignedToUserId String? @map("assigned_to_user_id")
+  customerId       String? @map("customer_id")
+  campaignId       String? @map("campaign_id")
+
+  // Rules (for auto-population)
+  rules            Json? // { categories: [], tags: [], brands: [], minPrice, maxPrice, inStock: true }
+  aiCurated        Boolean @default(false) @map("ai_curated")
+  aiCurationConfig Json?   @map("ai_curation_config") // { strategy: "top_sellers" | "regional" | "customer_fit", params: {} }
+
+  // Display
+  layout       CatalogLayout @default(GRID)
+  showPrices   Boolean       @default(true) @map("show_prices")
+  showStock    Boolean       @default(false) @map("show_stock")
+  priceTableId String?       @map("price_table_id")
+
+  // Sharing
+  isPublic  Boolean @default(false) @map("is_public")
+  slug      String? @db.VarChar(128)
+  publicUrl String? @map("public_url") @db.VarChar(500)
+  qrCodeUrl String? @map("qr_code_url") @db.VarChar(500)
+
+  // Soft Delete
+  deletedAt DateTime? @map("deleted_at")
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  tenant     Tenant       @relation(fields: [tenantId], references: [id])
+  assignedTo User?        @relation("CatalogAssignedTo", fields: [assignedToUserId], references: [id])
+  customer   Customer?    @relation(fields: [customerId], references: [id])
+  campaign   Campaign?    @relation(fields: [campaignId], references: [id])
+  coverImage StorageFile? @relation("CatalogCoverImage", fields: [coverImageFileId], references: [id])
+  priceTable PriceTable?  @relation(fields: [priceTableId], references: [id])
+
+  items             CatalogItem[]
+  exports           CatalogExport[]
+  generatedContents GeneratedContent[]
+  emailCampaigns    EmailCampaign[]
+
+  @@unique([tenantId, slug])
+  @@index([tenantId])
+  @@index([tenantId, type])
+  @@index([tenantId, assignedToUserId])
+  @@map("catalogs")
+}
+
+model CatalogItem {
+  id       String @id @default(uuid())
+  tenantId String @map("tenant_id")
+
+  catalogId  String  @map("catalog_id")
+  variantId  String  @map("variant_id")
+  position   Int     @default(0)
+  featured   Boolean @default(false)
+  customNote String? @map("custom_note") @db.Text
+  addedByAi  Boolean @default(false) @map("added_by_ai")
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+
+  // Relations
+  catalog Catalog @relation(fields: [catalogId], references: [id], onDelete: Cascade)
+  variant Variant @relation(fields: [variantId], references: [id])
+
+  @@unique([catalogId, variantId])
+  @@index([catalogId])
+  @@index([tenantId])
+  @@map("catalog_items")
+}
+
+model CatalogExport {
+  id       String @id @default(uuid())
+  tenantId String @map("tenant_id")
+
+  catalogId   String              @map("catalog_id")
+  type        CatalogExportType
+  status      CatalogExportStatus @default(PENDING)
+  fileId      String?             @map("file_id")
+  templateId  String?             @map("template_id")
+  generatedAt DateTime?           @map("generated_at")
+  expiresAt   DateTime?           @map("expires_at")
+  pageCount   Int?                @map("page_count")
+  metadata    Json?
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+
+  // Relations
+  catalog  Catalog          @relation(fields: [catalogId], references: [id], onDelete: Cascade)
+  file     StorageFile?     @relation("CatalogExportFile", fields: [fileId], references: [id])
+  template ContentTemplate? @relation(fields: [templateId], references: [id])
+
+  @@index([catalogId])
+  @@index([tenantId])
+  @@map("catalog_exports")
+}
+
+model TenantBrand {
+  id       String @id @default(uuid())
+  tenantId String @map("tenant_id")
+
+  name            String  @default("default") @db.VarChar(64)
+  logoFileId      String? @map("logo_file_id")
+  logoIconFileId  String? @map("logo_icon_file_id")
+  primaryColor    String  @default("#4F46E5") @map("primary_color") @db.VarChar(16)
+  secondaryColor  String  @default("#0F172A") @map("secondary_color") @db.VarChar(16)
+  accentColor     String  @default("#F59E0B") @map("accent_color") @db.VarChar(16)
+  backgroundColor String  @default("#FFFFFF") @map("background_color") @db.VarChar(16)
+  textColor       String  @default("#1E293B") @map("text_color") @db.VarChar(16)
+  fontFamily      String  @default("Inter") @map("font_family") @db.VarChar(64)
+  fontHeading     String? @map("font_heading") @db.VarChar(64)
+  tagline         String? @db.VarChar(256)
+  socialLinks     Json?   @map("social_links")
+  contactInfo     Json?   @map("contact_info")
+  isDefault       Boolean @default(true) @map("is_default")
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  tenant   Tenant       @relation(fields: [tenantId], references: [id])
+  logo     StorageFile? @relation("TenantBrandLogo", fields: [logoFileId], references: [id])
+  logoIcon StorageFile? @relation("TenantBrandLogoIcon", fields: [logoIconFileId], references: [id])
+
+  generatedContents GeneratedContent[]
+  emailCampaigns    EmailCampaign[]
+
+  @@unique([tenantId, name])
+  @@index([tenantId])
+  @@map("tenant_brands")
+}
+
+model ContentTemplate {
+  id       String  @id @default(uuid())
+  tenantId String? @map("tenant_id")
+
+  name          String              @db.VarChar(128)
+  description   String?             @db.Text
+  type          ContentTemplateType
+  channel       ContentChannel?
+  dimensions    Json
+  layout        Json
+  previewFileId String?             @map("preview_file_id")
+  isSystem      Boolean             @default(false) @map("is_system")
+  isActive      Boolean             @default(true) @map("is_active")
+  tags          String[]            @default([])
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  tenant      Tenant?      @relation(fields: [tenantId], references: [id])
+  previewFile StorageFile? @relation("ContentTemplatePreview", fields: [previewFileId], references: [id])
+
+  catalogExports    CatalogExport[]
+  generatedContents GeneratedContent[]
+  productMockups    ProductMockup[]
+  emailCampaigns    EmailCampaign[]
+
+  @@index([tenantId])
+  @@index([type])
+  @@index([type, channel])
+  @@map("content_templates")
+}
+
+model GeneratedContent {
+  id       String @id @default(uuid())
+  tenantId String @map("tenant_id")
+
+  type    GeneratedContentType
+  channel ContentChannel?
+  status  ContentStatus        @default(DRAFT)
+
+  title    String?  @db.VarChar(256)
+  caption  String?  @db.Text
+  hashtags String[] @default([])
+
+  templateId      String? @map("template_id")
+  brandId         String? @map("brand_id")
+  fileId          String? @map("file_id")
+  thumbnailFileId String? @map("thumbnail_file_id")
+
+  // Source data
+  variantIds String[] @default([]) @map("variant_ids")
+  campaignId String?  @map("campaign_id")
+  catalogId  String?  @map("catalog_id")
+
+  // AI
+  aiGenerated Boolean @default(false) @map("ai_generated")
+  aiPrompt    String? @map("ai_prompt") @db.Text
+  aiModel     String? @map("ai_model") @db.VarChar(64)
+
+  // Publishing
+  publishedAt DateTime? @map("published_at")
+  publishedTo String?   @map("published_to") @db.VarChar(256)
+  scheduledAt DateTime? @map("scheduled_at")
+
+  // Approval
+  approvedByUserId String?   @map("approved_by_user_id")
+  approvedAt       DateTime? @map("approved_at")
+
+  // Metrics
+  views      Int      @default(0)
+  clicks     Int      @default(0)
+  shares     Int      @default(0)
+  engagement Decimal? @db.Decimal(5, 2)
+
+  // Soft Delete
+  deletedAt DateTime? @map("deleted_at")
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  tenant     Tenant           @relation(fields: [tenantId], references: [id])
+  template   ContentTemplate? @relation(fields: [templateId], references: [id])
+  brand      TenantBrand?     @relation(fields: [brandId], references: [id])
+  file       StorageFile?     @relation("GeneratedContentFile", fields: [fileId], references: [id])
+  thumbnail  StorageFile?     @relation("GeneratedContentThumbnail", fields: [thumbnailFileId], references: [id])
+  campaign   Campaign?        @relation(fields: [campaignId], references: [id])
+  catalog    Catalog?         @relation(fields: [catalogId], references: [id])
+  approvedBy User?            @relation("ContentApprover", fields: [approvedByUserId], references: [id])
+
+  @@index([tenantId])
+  @@index([tenantId, type])
+  @@index([tenantId, status])
+  @@index([tenantId, channel])
+  @@map("generated_contents")
+}
+
+model ProductMockup {
+  id       String @id @default(uuid())
+  tenantId String @map("tenant_id")
+
+  variantId        String  @map("variant_id")
+  name             String  @db.VarChar(128)
+  clientLogoFileId String? @map("client_logo_file_id")
+  clientBrandName  String? @map("client_brand_name") @db.VarChar(128)
+  customization    Json
+  mockupTemplateId String? @map("mockup_template_id")
+
+  // Generated
+  resultFileId String?            @map("result_file_id")
+  resultStatus MockupResultStatus @default(PENDING) @map("result_status")
+  generatedAt  DateTime?          @map("generated_at")
+
+  // Usage
+  bidId      String? @map("bid_id")
+  orderId    String? @map("order_id")
+  proposalId String? @map("proposal_id")
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  tenant         Tenant           @relation(fields: [tenantId], references: [id])
+  variant        Variant          @relation(fields: [variantId], references: [id])
+  clientLogo     StorageFile?     @relation("MockupClientLogo", fields: [clientLogoFileId], references: [id])
+  resultFile     StorageFile?     @relation("MockupResultFile", fields: [resultFileId], references: [id])
+  mockupTemplate ContentTemplate? @relation(fields: [mockupTemplateId], references: [id])
+
+  @@index([tenantId])
+  @@index([tenantId, variantId])
+  @@index([bidId])
+  @@index([orderId])
+  @@map("product_mockups")
+}
+
+model EmailCampaign {
+  id       String @id @default(uuid())
+  tenantId String @map("tenant_id")
+
+  name        String              @db.VarChar(128)
+  type        EmailCampaignType
+  status      EmailCampaignStatus @default(DRAFT)
+  subject     String              @db.VarChar(256)
+  previewText String?             @map("preview_text") @db.VarChar(256)
+  content     String              @db.Text
+
+  templateId String? @map("template_id")
+  brandId    String? @map("brand_id")
+
+  // Recipients
+  recipientType   EmailRecipientType @map("recipient_type")
+  recipientFilter Json?              @map("recipient_filter")
+  recipientCount  Int                @default(0) @map("recipient_count")
+
+  // Schedule
+  scheduledAt DateTime? @map("scheduled_at")
+  sentAt      DateTime? @map("sent_at")
+
+  // Products featured
+  variantIds String[] @default([]) @map("variant_ids")
+  campaignId String?  @map("campaign_id")
+  catalogId  String?  @map("catalog_id")
+
+  // AI
+  aiGenerated Boolean @default(false) @map("ai_generated")
+  aiPrompt    String? @map("ai_prompt") @db.Text
+
+  // Metrics
+  totalSent         Int      @default(0) @map("total_sent")
+  totalOpened       Int      @default(0) @map("total_opened")
+  totalClicked      Int      @default(0) @map("total_clicked")
+  totalBounced      Int      @default(0) @map("total_bounced")
+  totalUnsubscribed Int      @default(0) @map("total_unsubscribed")
+  openRate          Decimal? @map("open_rate") @db.Decimal(5, 2)
+  clickRate         Decimal? @map("click_rate") @db.Decimal(5, 2)
+
+  // Soft Delete
+  deletedAt DateTime? @map("deleted_at")
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  tenant   Tenant           @relation(fields: [tenantId], references: [id])
+  template ContentTemplate? @relation(fields: [templateId], references: [id])
+  brand    TenantBrand?     @relation(fields: [brandId], references: [id])
+  campaign Campaign?        @relation(fields: [campaignId], references: [id])
+  catalog  Catalog?         @relation(fields: [catalogId], references: [id])
+
+  @@index([tenantId])
+  @@index([tenantId, status])
+  @@map("email_campaigns")
 }

@@ -294,6 +294,13 @@ export type TenantWhereInput = {
   campaigns?: Prisma.CampaignListRelationFilter
   coupons?: Prisma.CouponListRelationFilter
   combos?: Prisma.ComboListRelationFilter
+  inventorySessions?: Prisma.InventorySessionListRelationFilter
+  catalogs?: Prisma.CatalogListRelationFilter
+  tenantBrands?: Prisma.TenantBrandListRelationFilter
+  contentTemplates?: Prisma.ContentTemplateListRelationFilter
+  generatedContents?: Prisma.GeneratedContentListRelationFilter
+  productMockups?: Prisma.ProductMockupListRelationFilter
+  emailCampaigns?: Prisma.EmailCampaignListRelationFilter
 }
 
 export type TenantOrderByWithRelationInput = {
@@ -387,6 +394,13 @@ export type TenantOrderByWithRelationInput = {
   campaigns?: Prisma.CampaignOrderByRelationAggregateInput
   coupons?: Prisma.CouponOrderByRelationAggregateInput
   combos?: Prisma.ComboOrderByRelationAggregateInput
+  inventorySessions?: Prisma.InventorySessionOrderByRelationAggregateInput
+  catalogs?: Prisma.CatalogOrderByRelationAggregateInput
+  tenantBrands?: Prisma.TenantBrandOrderByRelationAggregateInput
+  contentTemplates?: Prisma.ContentTemplateOrderByRelationAggregateInput
+  generatedContents?: Prisma.GeneratedContentOrderByRelationAggregateInput
+  productMockups?: Prisma.ProductMockupOrderByRelationAggregateInput
+  emailCampaigns?: Prisma.EmailCampaignOrderByRelationAggregateInput
 }
 
 export type TenantWhereUniqueInput = Prisma.AtLeast<{
@@ -483,6 +497,13 @@ export type TenantWhereUniqueInput = Prisma.AtLeast<{
   campaigns?: Prisma.CampaignListRelationFilter
   coupons?: Prisma.CouponListRelationFilter
   combos?: Prisma.ComboListRelationFilter
+  inventorySessions?: Prisma.InventorySessionListRelationFilter
+  catalogs?: Prisma.CatalogListRelationFilter
+  tenantBrands?: Prisma.TenantBrandListRelationFilter
+  contentTemplates?: Prisma.ContentTemplateListRelationFilter
+  generatedContents?: Prisma.GeneratedContentListRelationFilter
+  productMockups?: Prisma.ProductMockupListRelationFilter
+  emailCampaigns?: Prisma.EmailCampaignListRelationFilter
 }, "id" | "slug">
 
 export type TenantOrderByWithAggregationInput = {
@@ -608,6 +629,13 @@ export type TenantCreateInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateInput = {
@@ -701,6 +729,13 @@ export type TenantUncheckedCreateInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUpdateInput = {
@@ -794,6 +829,13 @@ export type TenantUpdateInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateInput = {
@@ -887,6 +929,13 @@ export type TenantUncheckedUpdateInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateManyInput = {
@@ -1287,6 +1336,20 @@ export type TenantUpdateOneRequiredWithoutPurchaseOrdersNestedInput = {
   upsert?: Prisma.TenantUpsertWithoutPurchaseOrdersInput
   connect?: Prisma.TenantWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutPurchaseOrdersInput, Prisma.TenantUpdateWithoutPurchaseOrdersInput>, Prisma.TenantUncheckedUpdateWithoutPurchaseOrdersInput>
+}
+
+export type TenantCreateNestedOneWithoutInventorySessionsInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutInventorySessionsInput, Prisma.TenantUncheckedCreateWithoutInventorySessionsInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutInventorySessionsInput
+  connect?: Prisma.TenantWhereUniqueInput
+}
+
+export type TenantUpdateOneRequiredWithoutInventorySessionsNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutInventorySessionsInput, Prisma.TenantUncheckedCreateWithoutInventorySessionsInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutInventorySessionsInput
+  upsert?: Prisma.TenantUpsertWithoutInventorySessionsInput
+  connect?: Prisma.TenantWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutInventorySessionsInput, Prisma.TenantUpdateWithoutInventorySessionsInput>, Prisma.TenantUncheckedUpdateWithoutInventorySessionsInput>
 }
 
 export type TenantCreateNestedOneWithoutCustomersInput = {
@@ -2105,6 +2168,92 @@ export type TenantUpdateOneRequiredWithoutCombosNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutCombosInput, Prisma.TenantUpdateWithoutCombosInput>, Prisma.TenantUncheckedUpdateWithoutCombosInput>
 }
 
+export type TenantCreateNestedOneWithoutCatalogsInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutCatalogsInput, Prisma.TenantUncheckedCreateWithoutCatalogsInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutCatalogsInput
+  connect?: Prisma.TenantWhereUniqueInput
+}
+
+export type TenantUpdateOneRequiredWithoutCatalogsNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutCatalogsInput, Prisma.TenantUncheckedCreateWithoutCatalogsInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutCatalogsInput
+  upsert?: Prisma.TenantUpsertWithoutCatalogsInput
+  connect?: Prisma.TenantWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutCatalogsInput, Prisma.TenantUpdateWithoutCatalogsInput>, Prisma.TenantUncheckedUpdateWithoutCatalogsInput>
+}
+
+export type TenantCreateNestedOneWithoutTenantBrandsInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutTenantBrandsInput, Prisma.TenantUncheckedCreateWithoutTenantBrandsInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutTenantBrandsInput
+  connect?: Prisma.TenantWhereUniqueInput
+}
+
+export type TenantUpdateOneRequiredWithoutTenantBrandsNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutTenantBrandsInput, Prisma.TenantUncheckedCreateWithoutTenantBrandsInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutTenantBrandsInput
+  upsert?: Prisma.TenantUpsertWithoutTenantBrandsInput
+  connect?: Prisma.TenantWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutTenantBrandsInput, Prisma.TenantUpdateWithoutTenantBrandsInput>, Prisma.TenantUncheckedUpdateWithoutTenantBrandsInput>
+}
+
+export type TenantCreateNestedOneWithoutContentTemplatesInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutContentTemplatesInput, Prisma.TenantUncheckedCreateWithoutContentTemplatesInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutContentTemplatesInput
+  connect?: Prisma.TenantWhereUniqueInput
+}
+
+export type TenantUpdateOneWithoutContentTemplatesNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutContentTemplatesInput, Prisma.TenantUncheckedCreateWithoutContentTemplatesInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutContentTemplatesInput
+  upsert?: Prisma.TenantUpsertWithoutContentTemplatesInput
+  disconnect?: Prisma.TenantWhereInput | boolean
+  delete?: Prisma.TenantWhereInput | boolean
+  connect?: Prisma.TenantWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutContentTemplatesInput, Prisma.TenantUpdateWithoutContentTemplatesInput>, Prisma.TenantUncheckedUpdateWithoutContentTemplatesInput>
+}
+
+export type TenantCreateNestedOneWithoutGeneratedContentsInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutGeneratedContentsInput, Prisma.TenantUncheckedCreateWithoutGeneratedContentsInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutGeneratedContentsInput
+  connect?: Prisma.TenantWhereUniqueInput
+}
+
+export type TenantUpdateOneRequiredWithoutGeneratedContentsNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutGeneratedContentsInput, Prisma.TenantUncheckedCreateWithoutGeneratedContentsInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutGeneratedContentsInput
+  upsert?: Prisma.TenantUpsertWithoutGeneratedContentsInput
+  connect?: Prisma.TenantWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutGeneratedContentsInput, Prisma.TenantUpdateWithoutGeneratedContentsInput>, Prisma.TenantUncheckedUpdateWithoutGeneratedContentsInput>
+}
+
+export type TenantCreateNestedOneWithoutProductMockupsInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutProductMockupsInput, Prisma.TenantUncheckedCreateWithoutProductMockupsInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutProductMockupsInput
+  connect?: Prisma.TenantWhereUniqueInput
+}
+
+export type TenantUpdateOneRequiredWithoutProductMockupsNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutProductMockupsInput, Prisma.TenantUncheckedCreateWithoutProductMockupsInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutProductMockupsInput
+  upsert?: Prisma.TenantUpsertWithoutProductMockupsInput
+  connect?: Prisma.TenantWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutProductMockupsInput, Prisma.TenantUpdateWithoutProductMockupsInput>, Prisma.TenantUncheckedUpdateWithoutProductMockupsInput>
+}
+
+export type TenantCreateNestedOneWithoutEmailCampaignsInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutEmailCampaignsInput, Prisma.TenantUncheckedCreateWithoutEmailCampaignsInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutEmailCampaignsInput
+  connect?: Prisma.TenantWhereUniqueInput
+}
+
+export type TenantUpdateOneRequiredWithoutEmailCampaignsNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutEmailCampaignsInput, Prisma.TenantUncheckedCreateWithoutEmailCampaignsInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutEmailCampaignsInput
+  upsert?: Prisma.TenantUpsertWithoutEmailCampaignsInput
+  connect?: Prisma.TenantWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutEmailCampaignsInput, Prisma.TenantUpdateWithoutEmailCampaignsInput>, Prisma.TenantUncheckedUpdateWithoutEmailCampaignsInput>
+}
+
 export type TenantCreateWithoutSessionsInput = {
   id?: string
   name: string
@@ -2195,6 +2344,13 @@ export type TenantCreateWithoutSessionsInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutSessionsInput = {
@@ -2287,6 +2443,13 @@ export type TenantUncheckedCreateWithoutSessionsInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutSessionsInput = {
@@ -2395,6 +2558,13 @@ export type TenantUpdateWithoutSessionsInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutSessionsInput = {
@@ -2487,6 +2657,13 @@ export type TenantUncheckedUpdateWithoutSessionsInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutRefreshTokensInput = {
@@ -2579,6 +2756,13 @@ export type TenantCreateWithoutRefreshTokensInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutRefreshTokensInput = {
@@ -2671,6 +2855,13 @@ export type TenantUncheckedCreateWithoutRefreshTokensInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutRefreshTokensInput = {
@@ -2779,6 +2970,13 @@ export type TenantUpdateWithoutRefreshTokensInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutRefreshTokensInput = {
@@ -2871,6 +3069,13 @@ export type TenantUncheckedUpdateWithoutRefreshTokensInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutPermissionGroupsInput = {
@@ -2963,6 +3168,13 @@ export type TenantCreateWithoutPermissionGroupsInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutPermissionGroupsInput = {
@@ -3055,6 +3267,13 @@ export type TenantUncheckedCreateWithoutPermissionGroupsInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutPermissionGroupsInput = {
@@ -3163,6 +3382,13 @@ export type TenantUpdateWithoutPermissionGroupsInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutPermissionGroupsInput = {
@@ -3255,6 +3481,13 @@ export type TenantUncheckedUpdateWithoutPermissionGroupsInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutOrganizationsInput = {
@@ -3347,6 +3580,13 @@ export type TenantCreateWithoutOrganizationsInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutOrganizationsInput = {
@@ -3439,6 +3679,13 @@ export type TenantUncheckedCreateWithoutOrganizationsInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutOrganizationsInput = {
@@ -3547,6 +3794,13 @@ export type TenantUpdateWithoutOrganizationsInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutOrganizationsInput = {
@@ -3639,6 +3893,13 @@ export type TenantUncheckedUpdateWithoutOrganizationsInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutSuppliersInput = {
@@ -3731,6 +3992,13 @@ export type TenantCreateWithoutSuppliersInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutSuppliersInput = {
@@ -3823,6 +4091,13 @@ export type TenantUncheckedCreateWithoutSuppliersInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutSuppliersInput = {
@@ -3931,6 +4206,13 @@ export type TenantUpdateWithoutSuppliersInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutSuppliersInput = {
@@ -4023,6 +4305,13 @@ export type TenantUncheckedUpdateWithoutSuppliersInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutManufacturersInput = {
@@ -4115,6 +4404,13 @@ export type TenantCreateWithoutManufacturersInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutManufacturersInput = {
@@ -4207,6 +4503,13 @@ export type TenantUncheckedCreateWithoutManufacturersInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutManufacturersInput = {
@@ -4315,6 +4618,13 @@ export type TenantUpdateWithoutManufacturersInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutManufacturersInput = {
@@ -4407,6 +4717,13 @@ export type TenantUncheckedUpdateWithoutManufacturersInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutCategoriesInput = {
@@ -4499,6 +4816,13 @@ export type TenantCreateWithoutCategoriesInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutCategoriesInput = {
@@ -4591,6 +4915,13 @@ export type TenantUncheckedCreateWithoutCategoriesInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutCategoriesInput = {
@@ -4699,6 +5030,13 @@ export type TenantUpdateWithoutCategoriesInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutCategoriesInput = {
@@ -4791,6 +5129,13 @@ export type TenantUncheckedUpdateWithoutCategoriesInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutWarehousesInput = {
@@ -4883,6 +5228,13 @@ export type TenantCreateWithoutWarehousesInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutWarehousesInput = {
@@ -4975,6 +5327,13 @@ export type TenantUncheckedCreateWithoutWarehousesInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutWarehousesInput = {
@@ -5083,6 +5442,13 @@ export type TenantUpdateWithoutWarehousesInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutWarehousesInput = {
@@ -5175,6 +5541,13 @@ export type TenantUncheckedUpdateWithoutWarehousesInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutZonesInput = {
@@ -5267,6 +5640,13 @@ export type TenantCreateWithoutZonesInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutZonesInput = {
@@ -5359,6 +5739,13 @@ export type TenantUncheckedCreateWithoutZonesInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutZonesInput = {
@@ -5467,6 +5854,13 @@ export type TenantUpdateWithoutZonesInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutZonesInput = {
@@ -5559,6 +5953,13 @@ export type TenantUncheckedUpdateWithoutZonesInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutBinsInput = {
@@ -5651,6 +6052,13 @@ export type TenantCreateWithoutBinsInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutBinsInput = {
@@ -5743,6 +6151,13 @@ export type TenantUncheckedCreateWithoutBinsInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutBinsInput = {
@@ -5851,6 +6266,13 @@ export type TenantUpdateWithoutBinsInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutBinsInput = {
@@ -5943,6 +6365,13 @@ export type TenantUncheckedUpdateWithoutBinsInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutVolumesInput = {
@@ -6035,6 +6464,13 @@ export type TenantCreateWithoutVolumesInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutVolumesInput = {
@@ -6127,6 +6563,13 @@ export type TenantUncheckedCreateWithoutVolumesInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutVolumesInput = {
@@ -6235,6 +6678,13 @@ export type TenantUpdateWithoutVolumesInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutVolumesInput = {
@@ -6327,6 +6777,13 @@ export type TenantUncheckedUpdateWithoutVolumesInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutTemplatesInput = {
@@ -6419,6 +6876,13 @@ export type TenantCreateWithoutTemplatesInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutTemplatesInput = {
@@ -6511,6 +6975,13 @@ export type TenantUncheckedCreateWithoutTemplatesInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutTemplatesInput = {
@@ -6619,6 +7090,13 @@ export type TenantUpdateWithoutTemplatesInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutTemplatesInput = {
@@ -6711,6 +7189,13 @@ export type TenantUncheckedUpdateWithoutTemplatesInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutProductsInput = {
@@ -6803,6 +7288,13 @@ export type TenantCreateWithoutProductsInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutProductsInput = {
@@ -6895,6 +7387,13 @@ export type TenantUncheckedCreateWithoutProductsInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutProductsInput = {
@@ -7003,6 +7502,13 @@ export type TenantUpdateWithoutProductsInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutProductsInput = {
@@ -7095,6 +7601,13 @@ export type TenantUncheckedUpdateWithoutProductsInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutVariantsInput = {
@@ -7187,6 +7700,13 @@ export type TenantCreateWithoutVariantsInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutVariantsInput = {
@@ -7279,6 +7799,13 @@ export type TenantUncheckedCreateWithoutVariantsInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutVariantsInput = {
@@ -7387,6 +7914,13 @@ export type TenantUpdateWithoutVariantsInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutVariantsInput = {
@@ -7479,6 +8013,13 @@ export type TenantUncheckedUpdateWithoutVariantsInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutItemsInput = {
@@ -7571,6 +8112,13 @@ export type TenantCreateWithoutItemsInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutItemsInput = {
@@ -7663,6 +8211,13 @@ export type TenantUncheckedCreateWithoutItemsInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutItemsInput = {
@@ -7771,6 +8326,13 @@ export type TenantUpdateWithoutItemsInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutItemsInput = {
@@ -7863,6 +8425,13 @@ export type TenantUncheckedUpdateWithoutItemsInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutItemMovementsInput = {
@@ -7955,6 +8524,13 @@ export type TenantCreateWithoutItemMovementsInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutItemMovementsInput = {
@@ -8047,6 +8623,13 @@ export type TenantUncheckedCreateWithoutItemMovementsInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutItemMovementsInput = {
@@ -8155,6 +8738,13 @@ export type TenantUpdateWithoutItemMovementsInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutItemMovementsInput = {
@@ -8247,6 +8837,13 @@ export type TenantUncheckedUpdateWithoutItemMovementsInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutAuditLogsInput = {
@@ -8339,6 +8936,13 @@ export type TenantCreateWithoutAuditLogsInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutAuditLogsInput = {
@@ -8431,6 +9035,13 @@ export type TenantUncheckedCreateWithoutAuditLogsInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutAuditLogsInput = {
@@ -8539,6 +9150,13 @@ export type TenantUpdateWithoutAuditLogsInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutAuditLogsInput = {
@@ -8631,6 +9249,13 @@ export type TenantUncheckedUpdateWithoutAuditLogsInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutTagsInput = {
@@ -8723,6 +9348,13 @@ export type TenantCreateWithoutTagsInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutTagsInput = {
@@ -8815,6 +9447,13 @@ export type TenantUncheckedCreateWithoutTagsInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutTagsInput = {
@@ -8923,6 +9562,13 @@ export type TenantUpdateWithoutTagsInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutTagsInput = {
@@ -9015,6 +9661,13 @@ export type TenantUncheckedUpdateWithoutTagsInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutProductCareInstructionsInput = {
@@ -9107,6 +9760,13 @@ export type TenantCreateWithoutProductCareInstructionsInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutProductCareInstructionsInput = {
@@ -9199,6 +9859,13 @@ export type TenantUncheckedCreateWithoutProductCareInstructionsInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutProductCareInstructionsInput = {
@@ -9307,6 +9974,13 @@ export type TenantUpdateWithoutProductCareInstructionsInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutProductCareInstructionsInput = {
@@ -9399,6 +10073,13 @@ export type TenantUncheckedUpdateWithoutProductCareInstructionsInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutProductAttachmentsInput = {
@@ -9491,6 +10172,13 @@ export type TenantCreateWithoutProductAttachmentsInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutProductAttachmentsInput = {
@@ -9583,6 +10271,13 @@ export type TenantUncheckedCreateWithoutProductAttachmentsInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutProductAttachmentsInput = {
@@ -9691,6 +10386,13 @@ export type TenantUpdateWithoutProductAttachmentsInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutProductAttachmentsInput = {
@@ -9783,6 +10485,13 @@ export type TenantUncheckedUpdateWithoutProductAttachmentsInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutVariantAttachmentsInput = {
@@ -9875,6 +10584,13 @@ export type TenantCreateWithoutVariantAttachmentsInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutVariantAttachmentsInput = {
@@ -9967,6 +10683,13 @@ export type TenantUncheckedCreateWithoutVariantAttachmentsInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutVariantAttachmentsInput = {
@@ -10075,6 +10798,13 @@ export type TenantUpdateWithoutVariantAttachmentsInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutVariantAttachmentsInput = {
@@ -10167,6 +10897,13 @@ export type TenantUncheckedUpdateWithoutVariantAttachmentsInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutPurchaseOrdersInput = {
@@ -10259,6 +10996,13 @@ export type TenantCreateWithoutPurchaseOrdersInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutPurchaseOrdersInput = {
@@ -10351,6 +11095,13 @@ export type TenantUncheckedCreateWithoutPurchaseOrdersInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutPurchaseOrdersInput = {
@@ -10459,6 +11210,13 @@ export type TenantUpdateWithoutPurchaseOrdersInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutPurchaseOrdersInput = {
@@ -10551,6 +11309,425 @@ export type TenantUncheckedUpdateWithoutPurchaseOrdersInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantCreateWithoutInventorySessionsInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutTenantInput
+  tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
+  permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
+  warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
+  zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
+  bins?: Prisma.BinCreateNestedManyWithoutTenantInput
+  templates?: Prisma.TemplateCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductCreateNestedManyWithoutTenantInput
+  variants?: Prisma.VariantCreateNestedManyWithoutTenantInput
+  items?: Prisma.ItemCreateNestedManyWithoutTenantInput
+  itemMovements?: Prisma.ItemMovementCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierCreateNestedManyWithoutTenantInput
+  manufacturers?: Prisma.ManufacturerCreateNestedManyWithoutTenantInput
+  volumes?: Prisma.VolumeCreateNestedManyWithoutTenantInput
+  purchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutTenantInput
+  productCareInstructions?: Prisma.ProductCareInstructionCreateNestedManyWithoutTenantInput
+  productAttachments?: Prisma.ProductAttachmentCreateNestedManyWithoutTenantInput
+  variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
+  salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
+  companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
+  departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
+  positions?: Prisma.PositionCreateNestedManyWithoutTenantInput
+  employees?: Prisma.EmployeeCreateNestedManyWithoutTenantInput
+  timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutTenantInput
+  workSchedules?: Prisma.WorkScheduleCreateNestedManyWithoutTenantInput
+  overtime?: Prisma.OvertimeCreateNestedManyWithoutTenantInput
+  timeBanks?: Prisma.TimeBankCreateNestedManyWithoutTenantInput
+  absences?: Prisma.AbsenceCreateNestedManyWithoutTenantInput
+  vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutTenantInput
+  payrolls?: Prisma.PayrollCreateNestedManyWithoutTenantInput
+  bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
+  deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
+  organizations?: Prisma.OrganizationCreateNestedManyWithoutTenantInput
+  costCenters?: Prisma.CostCenterCreateNestedManyWithoutTenantInput
+  bankAccounts?: Prisma.BankAccountCreateNestedManyWithoutTenantInput
+  financeCategories?: Prisma.FinanceCategoryCreateNestedManyWithoutTenantInput
+  financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutTenantInput
+  financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
+  loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
+  consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
+  storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
+  storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
+  folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
+  calendars?: Prisma.CalendarCreateNestedManyWithoutTenantInput
+  calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
+  eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
+  eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigCreateNestedManyWithoutTenantInput
+  emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutTenantInput
+  emailMessages?: Prisma.EmailMessageCreateNestedManyWithoutTenantInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessCreateNestedManyWithoutTenantInput
+  teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionCreateNestedManyWithoutTenantInput
+  tenantConsumptions?: Prisma.TenantConsumptionCreateNestedManyWithoutTenantInput
+  tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  priceTables?: Prisma.PriceTableCreateNestedManyWithoutTenantInput
+  customerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutTenantInput
+  taxProfiles?: Prisma.TaxProfileCreateNestedManyWithoutTenantInput
+  campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
+  coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
+  combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
+}
+
+export type TenantUncheckedCreateWithoutInventorySessionsInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutTenantInput
+  tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
+  permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
+  warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
+  zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
+  bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
+  templates?: Prisma.TemplateUncheckedCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutTenantInput
+  variants?: Prisma.VariantUncheckedCreateNestedManyWithoutTenantInput
+  items?: Prisma.ItemUncheckedCreateNestedManyWithoutTenantInput
+  itemMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagUncheckedCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutTenantInput
+  manufacturers?: Prisma.ManufacturerUncheckedCreateNestedManyWithoutTenantInput
+  volumes?: Prisma.VolumeUncheckedCreateNestedManyWithoutTenantInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+  productCareInstructions?: Prisma.ProductCareInstructionUncheckedCreateNestedManyWithoutTenantInput
+  productAttachments?: Prisma.ProductAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
+  salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
+  companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
+  departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
+  positions?: Prisma.PositionUncheckedCreateNestedManyWithoutTenantInput
+  employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutTenantInput
+  timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutTenantInput
+  workSchedules?: Prisma.WorkScheduleUncheckedCreateNestedManyWithoutTenantInput
+  overtime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutTenantInput
+  timeBanks?: Prisma.TimeBankUncheckedCreateNestedManyWithoutTenantInput
+  absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutTenantInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutTenantInput
+  payrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutTenantInput
+  bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
+  deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
+  organizations?: Prisma.OrganizationUncheckedCreateNestedManyWithoutTenantInput
+  costCenters?: Prisma.CostCenterUncheckedCreateNestedManyWithoutTenantInput
+  bankAccounts?: Prisma.BankAccountUncheckedCreateNestedManyWithoutTenantInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedCreateNestedManyWithoutTenantInput
+  financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutTenantInput
+  financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
+  consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
+  storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
+  storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
+  calendars?: Prisma.CalendarUncheckedCreateNestedManyWithoutTenantInput
+  calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
+  eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
+  eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedCreateNestedManyWithoutTenantInput
+  emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  emailMessages?: Prisma.EmailMessageUncheckedCreateNestedManyWithoutTenantInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutTenantInput
+  teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUncheckedCreateNestedManyWithoutTenantInput
+  tenantConsumptions?: Prisma.TenantConsumptionUncheckedCreateNestedManyWithoutTenantInput
+  tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  priceTables?: Prisma.PriceTableUncheckedCreateNestedManyWithoutTenantInput
+  customerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutTenantInput
+  taxProfiles?: Prisma.TaxProfileUncheckedCreateNestedManyWithoutTenantInput
+  campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
+  coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
+  combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
+}
+
+export type TenantCreateOrConnectWithoutInventorySessionsInput = {
+  where: Prisma.TenantWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenantCreateWithoutInventorySessionsInput, Prisma.TenantUncheckedCreateWithoutInventorySessionsInput>
+}
+
+export type TenantUpsertWithoutInventorySessionsInput = {
+  update: Prisma.XOR<Prisma.TenantUpdateWithoutInventorySessionsInput, Prisma.TenantUncheckedUpdateWithoutInventorySessionsInput>
+  create: Prisma.XOR<Prisma.TenantCreateWithoutInventorySessionsInput, Prisma.TenantUncheckedCreateWithoutInventorySessionsInput>
+  where?: Prisma.TenantWhereInput
+}
+
+export type TenantUpdateToOneWithWhereWithoutInventorySessionsInput = {
+  where?: Prisma.TenantWhereInput
+  data: Prisma.XOR<Prisma.TenantUpdateWithoutInventorySessionsInput, Prisma.TenantUncheckedUpdateWithoutInventorySessionsInput>
+}
+
+export type TenantUpdateWithoutInventorySessionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantStatusEnumFieldUpdateOperationsInput | $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutTenantNestedInput
+  tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
+  permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
+  warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
+  zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
+  bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
+  templates?: Prisma.TemplateUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUpdateManyWithoutTenantNestedInput
+  variants?: Prisma.VariantUpdateManyWithoutTenantNestedInput
+  items?: Prisma.ItemUpdateManyWithoutTenantNestedInput
+  itemMovements?: Prisma.ItemMovementUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUpdateManyWithoutTenantNestedInput
+  manufacturers?: Prisma.ManufacturerUpdateManyWithoutTenantNestedInput
+  volumes?: Prisma.VolumeUpdateManyWithoutTenantNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutTenantNestedInput
+  productCareInstructions?: Prisma.ProductCareInstructionUpdateManyWithoutTenantNestedInput
+  productAttachments?: Prisma.ProductAttachmentUpdateManyWithoutTenantNestedInput
+  variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
+  salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
+  companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
+  departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
+  positions?: Prisma.PositionUpdateManyWithoutTenantNestedInput
+  employees?: Prisma.EmployeeUpdateManyWithoutTenantNestedInput
+  timeEntries?: Prisma.TimeEntryUpdateManyWithoutTenantNestedInput
+  workSchedules?: Prisma.WorkScheduleUpdateManyWithoutTenantNestedInput
+  overtime?: Prisma.OvertimeUpdateManyWithoutTenantNestedInput
+  timeBanks?: Prisma.TimeBankUpdateManyWithoutTenantNestedInput
+  absences?: Prisma.AbsenceUpdateManyWithoutTenantNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutTenantNestedInput
+  payrolls?: Prisma.PayrollUpdateManyWithoutTenantNestedInput
+  bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
+  deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
+  organizations?: Prisma.OrganizationUpdateManyWithoutTenantNestedInput
+  costCenters?: Prisma.CostCenterUpdateManyWithoutTenantNestedInput
+  bankAccounts?: Prisma.BankAccountUpdateManyWithoutTenantNestedInput
+  financeCategories?: Prisma.FinanceCategoryUpdateManyWithoutTenantNestedInput
+  financeEntries?: Prisma.FinanceEntryUpdateManyWithoutTenantNestedInput
+  financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
+  loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
+  consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
+  storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
+  storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
+  calendars?: Prisma.CalendarUpdateManyWithoutTenantNestedInput
+  calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
+  eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
+  eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUpdateManyWithoutTenantNestedInput
+  emailAccounts?: Prisma.EmailAccountUpdateManyWithoutTenantNestedInput
+  emailMessages?: Prisma.EmailMessageUpdateManyWithoutTenantNestedInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUpdateManyWithoutTenantNestedInput
+  teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUpdateManyWithoutTenantNestedInput
+  tenantConsumptions?: Prisma.TenantConsumptionUpdateManyWithoutTenantNestedInput
+  tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  priceTables?: Prisma.PriceTableUpdateManyWithoutTenantNestedInput
+  customerPrices?: Prisma.CustomerPriceUpdateManyWithoutTenantNestedInput
+  taxProfiles?: Prisma.TaxProfileUpdateManyWithoutTenantNestedInput
+  campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
+  coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
+  combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantUncheckedUpdateWithoutInventorySessionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantStatusEnumFieldUpdateOperationsInput | $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutTenantNestedInput
+  tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
+  permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
+  warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
+  zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
+  bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
+  templates?: Prisma.TemplateUncheckedUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutTenantNestedInput
+  variants?: Prisma.VariantUncheckedUpdateManyWithoutTenantNestedInput
+  items?: Prisma.ItemUncheckedUpdateManyWithoutTenantNestedInput
+  itemMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUncheckedUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutTenantNestedInput
+  manufacturers?: Prisma.ManufacturerUncheckedUpdateManyWithoutTenantNestedInput
+  volumes?: Prisma.VolumeUncheckedUpdateManyWithoutTenantNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+  productCareInstructions?: Prisma.ProductCareInstructionUncheckedUpdateManyWithoutTenantNestedInput
+  productAttachments?: Prisma.ProductAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
+  salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
+  companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
+  positions?: Prisma.PositionUncheckedUpdateManyWithoutTenantNestedInput
+  employees?: Prisma.EmployeeUncheckedUpdateManyWithoutTenantNestedInput
+  timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutTenantNestedInput
+  workSchedules?: Prisma.WorkScheduleUncheckedUpdateManyWithoutTenantNestedInput
+  overtime?: Prisma.OvertimeUncheckedUpdateManyWithoutTenantNestedInput
+  timeBanks?: Prisma.TimeBankUncheckedUpdateManyWithoutTenantNestedInput
+  absences?: Prisma.AbsenceUncheckedUpdateManyWithoutTenantNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutTenantNestedInput
+  payrolls?: Prisma.PayrollUncheckedUpdateManyWithoutTenantNestedInput
+  bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
+  deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  organizations?: Prisma.OrganizationUncheckedUpdateManyWithoutTenantNestedInput
+  costCenters?: Prisma.CostCenterUncheckedUpdateManyWithoutTenantNestedInput
+  bankAccounts?: Prisma.BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedUpdateManyWithoutTenantNestedInput
+  financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutTenantNestedInput
+  financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
+  consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
+  storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
+  storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
+  calendars?: Prisma.CalendarUncheckedUpdateManyWithoutTenantNestedInput
+  calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
+  eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
+  eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedUpdateManyWithoutTenantNestedInput
+  emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  emailMessages?: Prisma.EmailMessageUncheckedUpdateManyWithoutTenantNestedInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutTenantNestedInput
+  teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUncheckedUpdateManyWithoutTenantNestedInput
+  tenantConsumptions?: Prisma.TenantConsumptionUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  priceTables?: Prisma.PriceTableUncheckedUpdateManyWithoutTenantNestedInput
+  customerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutTenantNestedInput
+  taxProfiles?: Prisma.TaxProfileUncheckedUpdateManyWithoutTenantNestedInput
+  campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
+  coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
+  combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutCustomersInput = {
@@ -10643,6 +11820,13 @@ export type TenantCreateWithoutCustomersInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutCustomersInput = {
@@ -10735,6 +11919,13 @@ export type TenantUncheckedCreateWithoutCustomersInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutCustomersInput = {
@@ -10843,6 +12034,13 @@ export type TenantUpdateWithoutCustomersInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutCustomersInput = {
@@ -10935,6 +12133,13 @@ export type TenantUncheckedUpdateWithoutCustomersInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutSalesOrdersInput = {
@@ -11027,6 +12232,13 @@ export type TenantCreateWithoutSalesOrdersInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutSalesOrdersInput = {
@@ -11119,6 +12331,13 @@ export type TenantUncheckedCreateWithoutSalesOrdersInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutSalesOrdersInput = {
@@ -11227,6 +12446,13 @@ export type TenantUpdateWithoutSalesOrdersInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutSalesOrdersInput = {
@@ -11319,6 +12545,13 @@ export type TenantUncheckedUpdateWithoutSalesOrdersInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutCrmContactsInput = {
@@ -11411,6 +12644,13 @@ export type TenantCreateWithoutCrmContactsInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutCrmContactsInput = {
@@ -11503,6 +12743,13 @@ export type TenantUncheckedCreateWithoutCrmContactsInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutCrmContactsInput = {
@@ -11611,6 +12858,13 @@ export type TenantUpdateWithoutCrmContactsInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutCrmContactsInput = {
@@ -11703,6 +12957,13 @@ export type TenantUncheckedUpdateWithoutCrmContactsInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutCrmPipelinesInput = {
@@ -11795,6 +13056,13 @@ export type TenantCreateWithoutCrmPipelinesInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutCrmPipelinesInput = {
@@ -11887,6 +13155,13 @@ export type TenantUncheckedCreateWithoutCrmPipelinesInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutCrmPipelinesInput = {
@@ -11995,6 +13270,13 @@ export type TenantUpdateWithoutCrmPipelinesInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutCrmPipelinesInput = {
@@ -12087,6 +13369,13 @@ export type TenantUncheckedUpdateWithoutCrmPipelinesInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutEmployeesInput = {
@@ -12179,6 +13468,13 @@ export type TenantCreateWithoutEmployeesInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutEmployeesInput = {
@@ -12271,6 +13567,13 @@ export type TenantUncheckedCreateWithoutEmployeesInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutEmployeesInput = {
@@ -12379,6 +13682,13 @@ export type TenantUpdateWithoutEmployeesInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutEmployeesInput = {
@@ -12471,6 +13781,13 @@ export type TenantUncheckedUpdateWithoutEmployeesInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutDepartmentsInput = {
@@ -12563,6 +13880,13 @@ export type TenantCreateWithoutDepartmentsInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutDepartmentsInput = {
@@ -12655,6 +13979,13 @@ export type TenantUncheckedCreateWithoutDepartmentsInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutDepartmentsInput = {
@@ -12763,6 +14094,13 @@ export type TenantUpdateWithoutDepartmentsInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutDepartmentsInput = {
@@ -12855,6 +14193,13 @@ export type TenantUncheckedUpdateWithoutDepartmentsInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutPositionsInput = {
@@ -12947,6 +14292,13 @@ export type TenantCreateWithoutPositionsInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutPositionsInput = {
@@ -13039,6 +14391,13 @@ export type TenantUncheckedCreateWithoutPositionsInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutPositionsInput = {
@@ -13147,6 +14506,13 @@ export type TenantUpdateWithoutPositionsInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutPositionsInput = {
@@ -13239,6 +14605,13 @@ export type TenantUncheckedUpdateWithoutPositionsInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutTimeEntriesInput = {
@@ -13331,6 +14704,13 @@ export type TenantCreateWithoutTimeEntriesInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutTimeEntriesInput = {
@@ -13423,6 +14803,13 @@ export type TenantUncheckedCreateWithoutTimeEntriesInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutTimeEntriesInput = {
@@ -13531,6 +14918,13 @@ export type TenantUpdateWithoutTimeEntriesInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutTimeEntriesInput = {
@@ -13623,6 +15017,13 @@ export type TenantUncheckedUpdateWithoutTimeEntriesInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutWorkSchedulesInput = {
@@ -13715,6 +15116,13 @@ export type TenantCreateWithoutWorkSchedulesInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutWorkSchedulesInput = {
@@ -13807,6 +15215,13 @@ export type TenantUncheckedCreateWithoutWorkSchedulesInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutWorkSchedulesInput = {
@@ -13915,6 +15330,13 @@ export type TenantUpdateWithoutWorkSchedulesInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutWorkSchedulesInput = {
@@ -14007,6 +15429,13 @@ export type TenantUncheckedUpdateWithoutWorkSchedulesInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutOvertimeInput = {
@@ -14099,6 +15528,13 @@ export type TenantCreateWithoutOvertimeInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutOvertimeInput = {
@@ -14191,6 +15627,13 @@ export type TenantUncheckedCreateWithoutOvertimeInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutOvertimeInput = {
@@ -14299,6 +15742,13 @@ export type TenantUpdateWithoutOvertimeInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutOvertimeInput = {
@@ -14391,6 +15841,13 @@ export type TenantUncheckedUpdateWithoutOvertimeInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutTimeBanksInput = {
@@ -14483,6 +15940,13 @@ export type TenantCreateWithoutTimeBanksInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutTimeBanksInput = {
@@ -14575,6 +16039,13 @@ export type TenantUncheckedCreateWithoutTimeBanksInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutTimeBanksInput = {
@@ -14683,6 +16154,13 @@ export type TenantUpdateWithoutTimeBanksInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutTimeBanksInput = {
@@ -14775,6 +16253,13 @@ export type TenantUncheckedUpdateWithoutTimeBanksInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutAbsencesInput = {
@@ -14867,6 +16352,13 @@ export type TenantCreateWithoutAbsencesInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutAbsencesInput = {
@@ -14959,6 +16451,13 @@ export type TenantUncheckedCreateWithoutAbsencesInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutAbsencesInput = {
@@ -15067,6 +16566,13 @@ export type TenantUpdateWithoutAbsencesInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutAbsencesInput = {
@@ -15159,6 +16665,13 @@ export type TenantUncheckedUpdateWithoutAbsencesInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutVacationPeriodsInput = {
@@ -15251,6 +16764,13 @@ export type TenantCreateWithoutVacationPeriodsInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutVacationPeriodsInput = {
@@ -15343,6 +16863,13 @@ export type TenantUncheckedCreateWithoutVacationPeriodsInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutVacationPeriodsInput = {
@@ -15451,6 +16978,13 @@ export type TenantUpdateWithoutVacationPeriodsInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutVacationPeriodsInput = {
@@ -15543,6 +17077,13 @@ export type TenantUncheckedUpdateWithoutVacationPeriodsInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutPayrollsInput = {
@@ -15635,6 +17176,13 @@ export type TenantCreateWithoutPayrollsInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutPayrollsInput = {
@@ -15727,6 +17275,13 @@ export type TenantUncheckedCreateWithoutPayrollsInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutPayrollsInput = {
@@ -15835,6 +17390,13 @@ export type TenantUpdateWithoutPayrollsInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutPayrollsInput = {
@@ -15927,6 +17489,13 @@ export type TenantUncheckedUpdateWithoutPayrollsInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutBonusesInput = {
@@ -16019,6 +17588,13 @@ export type TenantCreateWithoutBonusesInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutBonusesInput = {
@@ -16111,6 +17687,13 @@ export type TenantUncheckedCreateWithoutBonusesInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutBonusesInput = {
@@ -16219,6 +17802,13 @@ export type TenantUpdateWithoutBonusesInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutBonusesInput = {
@@ -16311,6 +17901,13 @@ export type TenantUncheckedUpdateWithoutBonusesInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutDeductionsInput = {
@@ -16403,6 +18000,13 @@ export type TenantCreateWithoutDeductionsInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutDeductionsInput = {
@@ -16495,6 +18099,13 @@ export type TenantUncheckedCreateWithoutDeductionsInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutDeductionsInput = {
@@ -16603,6 +18214,13 @@ export type TenantUpdateWithoutDeductionsInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutDeductionsInput = {
@@ -16695,6 +18313,13 @@ export type TenantUncheckedUpdateWithoutDeductionsInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutCompaniesInput = {
@@ -16787,6 +18412,13 @@ export type TenantCreateWithoutCompaniesInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutCompaniesInput = {
@@ -16879,6 +18511,13 @@ export type TenantUncheckedCreateWithoutCompaniesInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutCompaniesInput = {
@@ -16987,6 +18626,13 @@ export type TenantUpdateWithoutCompaniesInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutCompaniesInput = {
@@ -17079,6 +18725,13 @@ export type TenantUncheckedUpdateWithoutCompaniesInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutCompanyDocumentsInput = {
@@ -17171,6 +18824,13 @@ export type TenantCreateWithoutCompanyDocumentsInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutCompanyDocumentsInput = {
@@ -17263,6 +18923,13 @@ export type TenantUncheckedCreateWithoutCompanyDocumentsInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutCompanyDocumentsInput = {
@@ -17371,6 +19038,13 @@ export type TenantUpdateWithoutCompanyDocumentsInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutCompanyDocumentsInput = {
@@ -17463,6 +19137,13 @@ export type TenantUncheckedUpdateWithoutCompanyDocumentsInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutLabelTemplatesInput = {
@@ -17555,6 +19236,13 @@ export type TenantCreateWithoutLabelTemplatesInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutLabelTemplatesInput = {
@@ -17647,6 +19335,13 @@ export type TenantUncheckedCreateWithoutLabelTemplatesInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutLabelTemplatesInput = {
@@ -17755,6 +19450,13 @@ export type TenantUpdateWithoutLabelTemplatesInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutLabelTemplatesInput = {
@@ -17847,6 +19549,13 @@ export type TenantUncheckedUpdateWithoutLabelTemplatesInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutTenantPlansInput = {
@@ -17939,6 +19648,13 @@ export type TenantCreateWithoutTenantPlansInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutTenantPlansInput = {
@@ -18031,6 +19747,13 @@ export type TenantUncheckedCreateWithoutTenantPlansInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutTenantPlansInput = {
@@ -18139,6 +19862,13 @@ export type TenantUpdateWithoutTenantPlansInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutTenantPlansInput = {
@@ -18231,6 +19961,13 @@ export type TenantUncheckedUpdateWithoutTenantPlansInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutTenantUsersInput = {
@@ -18323,6 +20060,13 @@ export type TenantCreateWithoutTenantUsersInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutTenantUsersInput = {
@@ -18415,6 +20159,13 @@ export type TenantUncheckedCreateWithoutTenantUsersInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutTenantUsersInput = {
@@ -18523,6 +20274,13 @@ export type TenantUpdateWithoutTenantUsersInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutTenantUsersInput = {
@@ -18615,6 +20373,13 @@ export type TenantUncheckedUpdateWithoutTenantUsersInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutTenantFeatureFlagsInput = {
@@ -18707,6 +20472,13 @@ export type TenantCreateWithoutTenantFeatureFlagsInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutTenantFeatureFlagsInput = {
@@ -18799,6 +20571,13 @@ export type TenantUncheckedCreateWithoutTenantFeatureFlagsInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutTenantFeatureFlagsInput = {
@@ -18907,6 +20686,13 @@ export type TenantUpdateWithoutTenantFeatureFlagsInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutTenantFeatureFlagsInput = {
@@ -18999,6 +20785,13 @@ export type TenantUncheckedUpdateWithoutTenantFeatureFlagsInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutCostCentersInput = {
@@ -19091,6 +20884,13 @@ export type TenantCreateWithoutCostCentersInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutCostCentersInput = {
@@ -19183,6 +20983,13 @@ export type TenantUncheckedCreateWithoutCostCentersInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutCostCentersInput = {
@@ -19291,6 +21098,13 @@ export type TenantUpdateWithoutCostCentersInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutCostCentersInput = {
@@ -19383,6 +21197,13 @@ export type TenantUncheckedUpdateWithoutCostCentersInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutBankAccountsInput = {
@@ -19475,6 +21296,13 @@ export type TenantCreateWithoutBankAccountsInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutBankAccountsInput = {
@@ -19567,6 +21395,13 @@ export type TenantUncheckedCreateWithoutBankAccountsInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutBankAccountsInput = {
@@ -19675,6 +21510,13 @@ export type TenantUpdateWithoutBankAccountsInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutBankAccountsInput = {
@@ -19767,6 +21609,13 @@ export type TenantUncheckedUpdateWithoutBankAccountsInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutFinanceCategoriesInput = {
@@ -19859,6 +21708,13 @@ export type TenantCreateWithoutFinanceCategoriesInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutFinanceCategoriesInput = {
@@ -19951,6 +21807,13 @@ export type TenantUncheckedCreateWithoutFinanceCategoriesInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutFinanceCategoriesInput = {
@@ -20059,6 +21922,13 @@ export type TenantUpdateWithoutFinanceCategoriesInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutFinanceCategoriesInput = {
@@ -20151,6 +22021,13 @@ export type TenantUncheckedUpdateWithoutFinanceCategoriesInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutFinanceEntriesInput = {
@@ -20243,6 +22120,13 @@ export type TenantCreateWithoutFinanceEntriesInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutFinanceEntriesInput = {
@@ -20335,6 +22219,13 @@ export type TenantUncheckedCreateWithoutFinanceEntriesInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutFinanceEntriesInput = {
@@ -20443,6 +22334,13 @@ export type TenantUpdateWithoutFinanceEntriesInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutFinanceEntriesInput = {
@@ -20535,6 +22433,13 @@ export type TenantUncheckedUpdateWithoutFinanceEntriesInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutRecurringConfigsInput = {
@@ -20627,6 +22532,13 @@ export type TenantCreateWithoutRecurringConfigsInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutRecurringConfigsInput = {
@@ -20719,6 +22631,13 @@ export type TenantUncheckedCreateWithoutRecurringConfigsInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutRecurringConfigsInput = {
@@ -20827,6 +22746,13 @@ export type TenantUpdateWithoutRecurringConfigsInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutRecurringConfigsInput = {
@@ -20919,6 +22845,13 @@ export type TenantUncheckedUpdateWithoutRecurringConfigsInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutFinanceAttachmentsInput = {
@@ -21011,6 +22944,13 @@ export type TenantCreateWithoutFinanceAttachmentsInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutFinanceAttachmentsInput = {
@@ -21103,6 +23043,13 @@ export type TenantUncheckedCreateWithoutFinanceAttachmentsInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutFinanceAttachmentsInput = {
@@ -21211,6 +23158,13 @@ export type TenantUpdateWithoutFinanceAttachmentsInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutFinanceAttachmentsInput = {
@@ -21303,6 +23257,13 @@ export type TenantUncheckedUpdateWithoutFinanceAttachmentsInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutLoansInput = {
@@ -21395,6 +23356,13 @@ export type TenantCreateWithoutLoansInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutLoansInput = {
@@ -21487,6 +23455,13 @@ export type TenantUncheckedCreateWithoutLoansInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutLoansInput = {
@@ -21595,6 +23570,13 @@ export type TenantUpdateWithoutLoansInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutLoansInput = {
@@ -21687,6 +23669,13 @@ export type TenantUncheckedUpdateWithoutLoansInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutConsortiaInput = {
@@ -21779,6 +23768,13 @@ export type TenantCreateWithoutConsortiaInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutConsortiaInput = {
@@ -21871,6 +23867,13 @@ export type TenantUncheckedCreateWithoutConsortiaInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutConsortiaInput = {
@@ -21979,6 +23982,13 @@ export type TenantUpdateWithoutConsortiaInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutConsortiaInput = {
@@ -22071,6 +24081,13 @@ export type TenantUncheckedUpdateWithoutConsortiaInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutContractsInput = {
@@ -22163,6 +24180,13 @@ export type TenantCreateWithoutContractsInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutContractsInput = {
@@ -22255,6 +24279,13 @@ export type TenantUncheckedCreateWithoutContractsInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutContractsInput = {
@@ -22363,6 +24394,13 @@ export type TenantUpdateWithoutContractsInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutContractsInput = {
@@ -22455,6 +24493,13 @@ export type TenantUncheckedUpdateWithoutContractsInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutStorageFoldersInput = {
@@ -22547,6 +24592,13 @@ export type TenantCreateWithoutStorageFoldersInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutStorageFoldersInput = {
@@ -22639,6 +24691,13 @@ export type TenantUncheckedCreateWithoutStorageFoldersInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutStorageFoldersInput = {
@@ -22747,6 +24806,13 @@ export type TenantUpdateWithoutStorageFoldersInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutStorageFoldersInput = {
@@ -22839,6 +24905,13 @@ export type TenantUncheckedUpdateWithoutStorageFoldersInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutStorageFilesInput = {
@@ -22931,6 +25004,13 @@ export type TenantCreateWithoutStorageFilesInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutStorageFilesInput = {
@@ -23023,6 +25103,13 @@ export type TenantUncheckedCreateWithoutStorageFilesInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutStorageFilesInput = {
@@ -23131,6 +25218,13 @@ export type TenantUpdateWithoutStorageFilesInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutStorageFilesInput = {
@@ -23223,6 +25317,13 @@ export type TenantUncheckedUpdateWithoutStorageFilesInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutFolderAccessRulesInput = {
@@ -23315,6 +25416,13 @@ export type TenantCreateWithoutFolderAccessRulesInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutFolderAccessRulesInput = {
@@ -23407,6 +25515,13 @@ export type TenantUncheckedCreateWithoutFolderAccessRulesInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutFolderAccessRulesInput = {
@@ -23515,6 +25630,13 @@ export type TenantUpdateWithoutFolderAccessRulesInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutFolderAccessRulesInput = {
@@ -23607,6 +25729,13 @@ export type TenantUncheckedUpdateWithoutFolderAccessRulesInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutStorageShareLinksInput = {
@@ -23699,6 +25828,13 @@ export type TenantCreateWithoutStorageShareLinksInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutStorageShareLinksInput = {
@@ -23791,6 +25927,13 @@ export type TenantUncheckedCreateWithoutStorageShareLinksInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutStorageShareLinksInput = {
@@ -23899,6 +26042,13 @@ export type TenantUpdateWithoutStorageShareLinksInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutStorageShareLinksInput = {
@@ -23991,6 +26141,13 @@ export type TenantUncheckedUpdateWithoutStorageShareLinksInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutCalendarsInput = {
@@ -24083,6 +26240,13 @@ export type TenantCreateWithoutCalendarsInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutCalendarsInput = {
@@ -24175,6 +26339,13 @@ export type TenantUncheckedCreateWithoutCalendarsInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutCalendarsInput = {
@@ -24283,6 +26454,13 @@ export type TenantUpdateWithoutCalendarsInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutCalendarsInput = {
@@ -24375,6 +26553,13 @@ export type TenantUncheckedUpdateWithoutCalendarsInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutTeamCalendarConfigsInput = {
@@ -24467,6 +26652,13 @@ export type TenantCreateWithoutTeamCalendarConfigsInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutTeamCalendarConfigsInput = {
@@ -24559,6 +26751,13 @@ export type TenantUncheckedCreateWithoutTeamCalendarConfigsInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutTeamCalendarConfigsInput = {
@@ -24667,6 +26866,13 @@ export type TenantUpdateWithoutTeamCalendarConfigsInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutTeamCalendarConfigsInput = {
@@ -24759,6 +26965,13 @@ export type TenantUncheckedUpdateWithoutTeamCalendarConfigsInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutCalendarEventsInput = {
@@ -24851,6 +27064,13 @@ export type TenantCreateWithoutCalendarEventsInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutCalendarEventsInput = {
@@ -24943,6 +27163,13 @@ export type TenantUncheckedCreateWithoutCalendarEventsInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutCalendarEventsInput = {
@@ -25051,6 +27278,13 @@ export type TenantUpdateWithoutCalendarEventsInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutCalendarEventsInput = {
@@ -25143,6 +27377,13 @@ export type TenantUncheckedUpdateWithoutCalendarEventsInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutEventParticipantsInput = {
@@ -25235,6 +27476,13 @@ export type TenantCreateWithoutEventParticipantsInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutEventParticipantsInput = {
@@ -25327,6 +27575,13 @@ export type TenantUncheckedCreateWithoutEventParticipantsInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutEventParticipantsInput = {
@@ -25435,6 +27690,13 @@ export type TenantUpdateWithoutEventParticipantsInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutEventParticipantsInput = {
@@ -25527,6 +27789,13 @@ export type TenantUncheckedUpdateWithoutEventParticipantsInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutEventRemindersInput = {
@@ -25619,6 +27888,13 @@ export type TenantCreateWithoutEventRemindersInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutEventRemindersInput = {
@@ -25711,6 +27987,13 @@ export type TenantUncheckedCreateWithoutEventRemindersInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutEventRemindersInput = {
@@ -25819,6 +28102,13 @@ export type TenantUpdateWithoutEventRemindersInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutEventRemindersInput = {
@@ -25911,6 +28201,13 @@ export type TenantUncheckedUpdateWithoutEventRemindersInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutEmailAccountsInput = {
@@ -26003,6 +28300,13 @@ export type TenantCreateWithoutEmailAccountsInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutEmailAccountsInput = {
@@ -26095,6 +28399,13 @@ export type TenantUncheckedCreateWithoutEmailAccountsInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutEmailAccountsInput = {
@@ -26203,6 +28514,13 @@ export type TenantUpdateWithoutEmailAccountsInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutEmailAccountsInput = {
@@ -26295,6 +28613,13 @@ export type TenantUncheckedUpdateWithoutEmailAccountsInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutEmailAccountAccessesInput = {
@@ -26387,6 +28712,13 @@ export type TenantCreateWithoutEmailAccountAccessesInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutEmailAccountAccessesInput = {
@@ -26479,6 +28811,13 @@ export type TenantUncheckedCreateWithoutEmailAccountAccessesInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutEmailAccountAccessesInput = {
@@ -26587,6 +28926,13 @@ export type TenantUpdateWithoutEmailAccountAccessesInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutEmailAccountAccessesInput = {
@@ -26679,6 +29025,13 @@ export type TenantUncheckedUpdateWithoutEmailAccountAccessesInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutEmailMessagesInput = {
@@ -26771,6 +29124,13 @@ export type TenantCreateWithoutEmailMessagesInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutEmailMessagesInput = {
@@ -26863,6 +29223,13 @@ export type TenantUncheckedCreateWithoutEmailMessagesInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutEmailMessagesInput = {
@@ -26971,6 +29338,13 @@ export type TenantUpdateWithoutEmailMessagesInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutEmailMessagesInput = {
@@ -27063,6 +29437,13 @@ export type TenantUncheckedUpdateWithoutEmailMessagesInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutTeamsInput = {
@@ -27155,6 +29536,13 @@ export type TenantCreateWithoutTeamsInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutTeamsInput = {
@@ -27247,6 +29635,13 @@ export type TenantUncheckedCreateWithoutTeamsInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutTeamsInput = {
@@ -27355,6 +29750,13 @@ export type TenantUpdateWithoutTeamsInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutTeamsInput = {
@@ -27447,6 +29849,13 @@ export type TenantUncheckedUpdateWithoutTeamsInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutTeamMembersInput = {
@@ -27539,6 +29948,13 @@ export type TenantCreateWithoutTeamMembersInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutTeamMembersInput = {
@@ -27631,6 +30047,13 @@ export type TenantUncheckedCreateWithoutTeamMembersInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutTeamMembersInput = {
@@ -27739,6 +30162,13 @@ export type TenantUpdateWithoutTeamMembersInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutTeamMembersInput = {
@@ -27831,6 +30261,13 @@ export type TenantUncheckedUpdateWithoutTeamMembersInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutTeamEmailAccountsInput = {
@@ -27923,6 +30360,13 @@ export type TenantCreateWithoutTeamEmailAccountsInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutTeamEmailAccountsInput = {
@@ -28015,6 +30459,13 @@ export type TenantUncheckedCreateWithoutTeamEmailAccountsInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutTeamEmailAccountsInput = {
@@ -28123,6 +30574,13 @@ export type TenantUpdateWithoutTeamEmailAccountsInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutTeamEmailAccountsInput = {
@@ -28215,6 +30673,13 @@ export type TenantUncheckedUpdateWithoutTeamEmailAccountsInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutBoardsInput = {
@@ -28307,6 +30772,13 @@ export type TenantCreateWithoutBoardsInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutBoardsInput = {
@@ -28399,6 +30871,13 @@ export type TenantUncheckedCreateWithoutBoardsInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutBoardsInput = {
@@ -28507,6 +30986,13 @@ export type TenantUpdateWithoutBoardsInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutBoardsInput = {
@@ -28599,6 +31085,13 @@ export type TenantUncheckedUpdateWithoutBoardsInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutTenantSubscriptionsInput = {
@@ -28691,6 +31184,13 @@ export type TenantCreateWithoutTenantSubscriptionsInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutTenantSubscriptionsInput = {
@@ -28783,6 +31283,13 @@ export type TenantUncheckedCreateWithoutTenantSubscriptionsInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutTenantSubscriptionsInput = {
@@ -28891,6 +31398,13 @@ export type TenantUpdateWithoutTenantSubscriptionsInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutTenantSubscriptionsInput = {
@@ -28983,6 +31497,13 @@ export type TenantUncheckedUpdateWithoutTenantSubscriptionsInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutTenantConsumptionsInput = {
@@ -29075,6 +31596,13 @@ export type TenantCreateWithoutTenantConsumptionsInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutTenantConsumptionsInput = {
@@ -29167,6 +31695,13 @@ export type TenantUncheckedCreateWithoutTenantConsumptionsInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutTenantConsumptionsInput = {
@@ -29275,6 +31810,13 @@ export type TenantUpdateWithoutTenantConsumptionsInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutTenantConsumptionsInput = {
@@ -29367,6 +31909,13 @@ export type TenantUncheckedUpdateWithoutTenantConsumptionsInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutTenantBillingsInput = {
@@ -29459,6 +32008,13 @@ export type TenantCreateWithoutTenantBillingsInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutTenantBillingsInput = {
@@ -29551,6 +32107,13 @@ export type TenantUncheckedCreateWithoutTenantBillingsInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutTenantBillingsInput = {
@@ -29659,6 +32222,13 @@ export type TenantUpdateWithoutTenantBillingsInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutTenantBillingsInput = {
@@ -29751,6 +32321,13 @@ export type TenantUncheckedUpdateWithoutTenantBillingsInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutTenantIntegrationStatusesInput = {
@@ -29843,6 +32420,13 @@ export type TenantCreateWithoutTenantIntegrationStatusesInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutTenantIntegrationStatusesInput = {
@@ -29935,6 +32519,13 @@ export type TenantUncheckedCreateWithoutTenantIntegrationStatusesInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutTenantIntegrationStatusesInput = {
@@ -30043,6 +32634,13 @@ export type TenantUpdateWithoutTenantIntegrationStatusesInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutTenantIntegrationStatusesInput = {
@@ -30135,6 +32733,13 @@ export type TenantUncheckedUpdateWithoutTenantIntegrationStatusesInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutSupportTicketsInput = {
@@ -30227,6 +32832,13 @@ export type TenantCreateWithoutSupportTicketsInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutSupportTicketsInput = {
@@ -30319,6 +32931,13 @@ export type TenantUncheckedCreateWithoutSupportTicketsInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutSupportTicketsInput = {
@@ -30427,6 +33046,13 @@ export type TenantUpdateWithoutSupportTicketsInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutSupportTicketsInput = {
@@ -30519,6 +33145,13 @@ export type TenantUncheckedUpdateWithoutSupportTicketsInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutPriceTablesInput = {
@@ -30611,6 +33244,13 @@ export type TenantCreateWithoutPriceTablesInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutPriceTablesInput = {
@@ -30703,6 +33343,13 @@ export type TenantUncheckedCreateWithoutPriceTablesInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutPriceTablesInput = {
@@ -30811,6 +33458,13 @@ export type TenantUpdateWithoutPriceTablesInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutPriceTablesInput = {
@@ -30903,6 +33557,13 @@ export type TenantUncheckedUpdateWithoutPriceTablesInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutCustomerPricesInput = {
@@ -30995,6 +33656,13 @@ export type TenantCreateWithoutCustomerPricesInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutCustomerPricesInput = {
@@ -31087,6 +33755,13 @@ export type TenantUncheckedCreateWithoutCustomerPricesInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutCustomerPricesInput = {
@@ -31195,6 +33870,13 @@ export type TenantUpdateWithoutCustomerPricesInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutCustomerPricesInput = {
@@ -31287,6 +33969,13 @@ export type TenantUncheckedUpdateWithoutCustomerPricesInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutTaxProfilesInput = {
@@ -31379,6 +34068,13 @@ export type TenantCreateWithoutTaxProfilesInput = {
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutTaxProfilesInput = {
@@ -31471,6 +34167,13 @@ export type TenantUncheckedCreateWithoutTaxProfilesInput = {
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutTaxProfilesInput = {
@@ -31579,6 +34282,13 @@ export type TenantUpdateWithoutTaxProfilesInput = {
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutTaxProfilesInput = {
@@ -31671,6 +34381,13 @@ export type TenantUncheckedUpdateWithoutTaxProfilesInput = {
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutCampaignsInput = {
@@ -31763,6 +34480,13 @@ export type TenantCreateWithoutCampaignsInput = {
   taxProfiles?: Prisma.TaxProfileCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutCampaignsInput = {
@@ -31855,6 +34579,13 @@ export type TenantUncheckedCreateWithoutCampaignsInput = {
   taxProfiles?: Prisma.TaxProfileUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutCampaignsInput = {
@@ -31963,6 +34694,13 @@ export type TenantUpdateWithoutCampaignsInput = {
   taxProfiles?: Prisma.TaxProfileUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutCampaignsInput = {
@@ -32055,6 +34793,13 @@ export type TenantUncheckedUpdateWithoutCampaignsInput = {
   taxProfiles?: Prisma.TaxProfileUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutCouponsInput = {
@@ -32147,6 +34892,13 @@ export type TenantCreateWithoutCouponsInput = {
   taxProfiles?: Prisma.TaxProfileCreateNestedManyWithoutTenantInput
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutCouponsInput = {
@@ -32239,6 +34991,13 @@ export type TenantUncheckedCreateWithoutCouponsInput = {
   taxProfiles?: Prisma.TaxProfileUncheckedCreateNestedManyWithoutTenantInput
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutCouponsInput = {
@@ -32347,6 +35106,13 @@ export type TenantUpdateWithoutCouponsInput = {
   taxProfiles?: Prisma.TaxProfileUpdateManyWithoutTenantNestedInput
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutCouponsInput = {
@@ -32439,6 +35205,13 @@ export type TenantUncheckedUpdateWithoutCouponsInput = {
   taxProfiles?: Prisma.TaxProfileUncheckedUpdateManyWithoutTenantNestedInput
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutCombosInput = {
@@ -32531,6 +35304,13 @@ export type TenantCreateWithoutCombosInput = {
   taxProfiles?: Prisma.TaxProfileCreateNestedManyWithoutTenantInput
   campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutCombosInput = {
@@ -32623,6 +35403,13 @@ export type TenantUncheckedCreateWithoutCombosInput = {
   taxProfiles?: Prisma.TaxProfileUncheckedCreateNestedManyWithoutTenantInput
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutCombosInput = {
@@ -32731,6 +35518,13 @@ export type TenantUpdateWithoutCombosInput = {
   taxProfiles?: Prisma.TaxProfileUpdateManyWithoutTenantNestedInput
   campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutCombosInput = {
@@ -32823,6 +35617,2485 @@ export type TenantUncheckedUpdateWithoutCombosInput = {
   taxProfiles?: Prisma.TaxProfileUncheckedUpdateManyWithoutTenantNestedInput
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantCreateWithoutCatalogsInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutTenantInput
+  tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
+  permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
+  warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
+  zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
+  bins?: Prisma.BinCreateNestedManyWithoutTenantInput
+  templates?: Prisma.TemplateCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductCreateNestedManyWithoutTenantInput
+  variants?: Prisma.VariantCreateNestedManyWithoutTenantInput
+  items?: Prisma.ItemCreateNestedManyWithoutTenantInput
+  itemMovements?: Prisma.ItemMovementCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierCreateNestedManyWithoutTenantInput
+  manufacturers?: Prisma.ManufacturerCreateNestedManyWithoutTenantInput
+  volumes?: Prisma.VolumeCreateNestedManyWithoutTenantInput
+  purchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutTenantInput
+  productCareInstructions?: Prisma.ProductCareInstructionCreateNestedManyWithoutTenantInput
+  productAttachments?: Prisma.ProductAttachmentCreateNestedManyWithoutTenantInput
+  variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
+  salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
+  companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
+  departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
+  positions?: Prisma.PositionCreateNestedManyWithoutTenantInput
+  employees?: Prisma.EmployeeCreateNestedManyWithoutTenantInput
+  timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutTenantInput
+  workSchedules?: Prisma.WorkScheduleCreateNestedManyWithoutTenantInput
+  overtime?: Prisma.OvertimeCreateNestedManyWithoutTenantInput
+  timeBanks?: Prisma.TimeBankCreateNestedManyWithoutTenantInput
+  absences?: Prisma.AbsenceCreateNestedManyWithoutTenantInput
+  vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutTenantInput
+  payrolls?: Prisma.PayrollCreateNestedManyWithoutTenantInput
+  bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
+  deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
+  organizations?: Prisma.OrganizationCreateNestedManyWithoutTenantInput
+  costCenters?: Prisma.CostCenterCreateNestedManyWithoutTenantInput
+  bankAccounts?: Prisma.BankAccountCreateNestedManyWithoutTenantInput
+  financeCategories?: Prisma.FinanceCategoryCreateNestedManyWithoutTenantInput
+  financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutTenantInput
+  financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
+  loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
+  consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
+  storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
+  storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
+  folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
+  calendars?: Prisma.CalendarCreateNestedManyWithoutTenantInput
+  calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
+  eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
+  eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigCreateNestedManyWithoutTenantInput
+  emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutTenantInput
+  emailMessages?: Prisma.EmailMessageCreateNestedManyWithoutTenantInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessCreateNestedManyWithoutTenantInput
+  teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionCreateNestedManyWithoutTenantInput
+  tenantConsumptions?: Prisma.TenantConsumptionCreateNestedManyWithoutTenantInput
+  tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  priceTables?: Prisma.PriceTableCreateNestedManyWithoutTenantInput
+  customerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutTenantInput
+  taxProfiles?: Prisma.TaxProfileCreateNestedManyWithoutTenantInput
+  campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
+  coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
+  combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
+}
+
+export type TenantUncheckedCreateWithoutCatalogsInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutTenantInput
+  tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
+  permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
+  warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
+  zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
+  bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
+  templates?: Prisma.TemplateUncheckedCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutTenantInput
+  variants?: Prisma.VariantUncheckedCreateNestedManyWithoutTenantInput
+  items?: Prisma.ItemUncheckedCreateNestedManyWithoutTenantInput
+  itemMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagUncheckedCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutTenantInput
+  manufacturers?: Prisma.ManufacturerUncheckedCreateNestedManyWithoutTenantInput
+  volumes?: Prisma.VolumeUncheckedCreateNestedManyWithoutTenantInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+  productCareInstructions?: Prisma.ProductCareInstructionUncheckedCreateNestedManyWithoutTenantInput
+  productAttachments?: Prisma.ProductAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
+  salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
+  companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
+  departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
+  positions?: Prisma.PositionUncheckedCreateNestedManyWithoutTenantInput
+  employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutTenantInput
+  timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutTenantInput
+  workSchedules?: Prisma.WorkScheduleUncheckedCreateNestedManyWithoutTenantInput
+  overtime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutTenantInput
+  timeBanks?: Prisma.TimeBankUncheckedCreateNestedManyWithoutTenantInput
+  absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutTenantInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutTenantInput
+  payrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutTenantInput
+  bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
+  deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
+  organizations?: Prisma.OrganizationUncheckedCreateNestedManyWithoutTenantInput
+  costCenters?: Prisma.CostCenterUncheckedCreateNestedManyWithoutTenantInput
+  bankAccounts?: Prisma.BankAccountUncheckedCreateNestedManyWithoutTenantInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedCreateNestedManyWithoutTenantInput
+  financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutTenantInput
+  financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
+  consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
+  storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
+  storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
+  calendars?: Prisma.CalendarUncheckedCreateNestedManyWithoutTenantInput
+  calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
+  eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
+  eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedCreateNestedManyWithoutTenantInput
+  emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  emailMessages?: Prisma.EmailMessageUncheckedCreateNestedManyWithoutTenantInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutTenantInput
+  teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUncheckedCreateNestedManyWithoutTenantInput
+  tenantConsumptions?: Prisma.TenantConsumptionUncheckedCreateNestedManyWithoutTenantInput
+  tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  priceTables?: Prisma.PriceTableUncheckedCreateNestedManyWithoutTenantInput
+  customerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutTenantInput
+  taxProfiles?: Prisma.TaxProfileUncheckedCreateNestedManyWithoutTenantInput
+  campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
+  coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
+  combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
+}
+
+export type TenantCreateOrConnectWithoutCatalogsInput = {
+  where: Prisma.TenantWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenantCreateWithoutCatalogsInput, Prisma.TenantUncheckedCreateWithoutCatalogsInput>
+}
+
+export type TenantUpsertWithoutCatalogsInput = {
+  update: Prisma.XOR<Prisma.TenantUpdateWithoutCatalogsInput, Prisma.TenantUncheckedUpdateWithoutCatalogsInput>
+  create: Prisma.XOR<Prisma.TenantCreateWithoutCatalogsInput, Prisma.TenantUncheckedCreateWithoutCatalogsInput>
+  where?: Prisma.TenantWhereInput
+}
+
+export type TenantUpdateToOneWithWhereWithoutCatalogsInput = {
+  where?: Prisma.TenantWhereInput
+  data: Prisma.XOR<Prisma.TenantUpdateWithoutCatalogsInput, Prisma.TenantUncheckedUpdateWithoutCatalogsInput>
+}
+
+export type TenantUpdateWithoutCatalogsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantStatusEnumFieldUpdateOperationsInput | $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutTenantNestedInput
+  tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
+  permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
+  warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
+  zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
+  bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
+  templates?: Prisma.TemplateUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUpdateManyWithoutTenantNestedInput
+  variants?: Prisma.VariantUpdateManyWithoutTenantNestedInput
+  items?: Prisma.ItemUpdateManyWithoutTenantNestedInput
+  itemMovements?: Prisma.ItemMovementUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUpdateManyWithoutTenantNestedInput
+  manufacturers?: Prisma.ManufacturerUpdateManyWithoutTenantNestedInput
+  volumes?: Prisma.VolumeUpdateManyWithoutTenantNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutTenantNestedInput
+  productCareInstructions?: Prisma.ProductCareInstructionUpdateManyWithoutTenantNestedInput
+  productAttachments?: Prisma.ProductAttachmentUpdateManyWithoutTenantNestedInput
+  variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
+  salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
+  companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
+  departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
+  positions?: Prisma.PositionUpdateManyWithoutTenantNestedInput
+  employees?: Prisma.EmployeeUpdateManyWithoutTenantNestedInput
+  timeEntries?: Prisma.TimeEntryUpdateManyWithoutTenantNestedInput
+  workSchedules?: Prisma.WorkScheduleUpdateManyWithoutTenantNestedInput
+  overtime?: Prisma.OvertimeUpdateManyWithoutTenantNestedInput
+  timeBanks?: Prisma.TimeBankUpdateManyWithoutTenantNestedInput
+  absences?: Prisma.AbsenceUpdateManyWithoutTenantNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutTenantNestedInput
+  payrolls?: Prisma.PayrollUpdateManyWithoutTenantNestedInput
+  bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
+  deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
+  organizations?: Prisma.OrganizationUpdateManyWithoutTenantNestedInput
+  costCenters?: Prisma.CostCenterUpdateManyWithoutTenantNestedInput
+  bankAccounts?: Prisma.BankAccountUpdateManyWithoutTenantNestedInput
+  financeCategories?: Prisma.FinanceCategoryUpdateManyWithoutTenantNestedInput
+  financeEntries?: Prisma.FinanceEntryUpdateManyWithoutTenantNestedInput
+  financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
+  loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
+  consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
+  storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
+  storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
+  calendars?: Prisma.CalendarUpdateManyWithoutTenantNestedInput
+  calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
+  eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
+  eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUpdateManyWithoutTenantNestedInput
+  emailAccounts?: Prisma.EmailAccountUpdateManyWithoutTenantNestedInput
+  emailMessages?: Prisma.EmailMessageUpdateManyWithoutTenantNestedInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUpdateManyWithoutTenantNestedInput
+  teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUpdateManyWithoutTenantNestedInput
+  tenantConsumptions?: Prisma.TenantConsumptionUpdateManyWithoutTenantNestedInput
+  tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  priceTables?: Prisma.PriceTableUpdateManyWithoutTenantNestedInput
+  customerPrices?: Prisma.CustomerPriceUpdateManyWithoutTenantNestedInput
+  taxProfiles?: Prisma.TaxProfileUpdateManyWithoutTenantNestedInput
+  campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
+  coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
+  combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantUncheckedUpdateWithoutCatalogsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantStatusEnumFieldUpdateOperationsInput | $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutTenantNestedInput
+  tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
+  permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
+  warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
+  zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
+  bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
+  templates?: Prisma.TemplateUncheckedUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutTenantNestedInput
+  variants?: Prisma.VariantUncheckedUpdateManyWithoutTenantNestedInput
+  items?: Prisma.ItemUncheckedUpdateManyWithoutTenantNestedInput
+  itemMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUncheckedUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutTenantNestedInput
+  manufacturers?: Prisma.ManufacturerUncheckedUpdateManyWithoutTenantNestedInput
+  volumes?: Prisma.VolumeUncheckedUpdateManyWithoutTenantNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+  productCareInstructions?: Prisma.ProductCareInstructionUncheckedUpdateManyWithoutTenantNestedInput
+  productAttachments?: Prisma.ProductAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
+  salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
+  companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
+  positions?: Prisma.PositionUncheckedUpdateManyWithoutTenantNestedInput
+  employees?: Prisma.EmployeeUncheckedUpdateManyWithoutTenantNestedInput
+  timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutTenantNestedInput
+  workSchedules?: Prisma.WorkScheduleUncheckedUpdateManyWithoutTenantNestedInput
+  overtime?: Prisma.OvertimeUncheckedUpdateManyWithoutTenantNestedInput
+  timeBanks?: Prisma.TimeBankUncheckedUpdateManyWithoutTenantNestedInput
+  absences?: Prisma.AbsenceUncheckedUpdateManyWithoutTenantNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutTenantNestedInput
+  payrolls?: Prisma.PayrollUncheckedUpdateManyWithoutTenantNestedInput
+  bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
+  deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  organizations?: Prisma.OrganizationUncheckedUpdateManyWithoutTenantNestedInput
+  costCenters?: Prisma.CostCenterUncheckedUpdateManyWithoutTenantNestedInput
+  bankAccounts?: Prisma.BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedUpdateManyWithoutTenantNestedInput
+  financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutTenantNestedInput
+  financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
+  consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
+  storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
+  storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
+  calendars?: Prisma.CalendarUncheckedUpdateManyWithoutTenantNestedInput
+  calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
+  eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
+  eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedUpdateManyWithoutTenantNestedInput
+  emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  emailMessages?: Prisma.EmailMessageUncheckedUpdateManyWithoutTenantNestedInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutTenantNestedInput
+  teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUncheckedUpdateManyWithoutTenantNestedInput
+  tenantConsumptions?: Prisma.TenantConsumptionUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  priceTables?: Prisma.PriceTableUncheckedUpdateManyWithoutTenantNestedInput
+  customerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutTenantNestedInput
+  taxProfiles?: Prisma.TaxProfileUncheckedUpdateManyWithoutTenantNestedInput
+  campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
+  coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
+  combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantCreateWithoutTenantBrandsInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutTenantInput
+  tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
+  permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
+  warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
+  zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
+  bins?: Prisma.BinCreateNestedManyWithoutTenantInput
+  templates?: Prisma.TemplateCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductCreateNestedManyWithoutTenantInput
+  variants?: Prisma.VariantCreateNestedManyWithoutTenantInput
+  items?: Prisma.ItemCreateNestedManyWithoutTenantInput
+  itemMovements?: Prisma.ItemMovementCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierCreateNestedManyWithoutTenantInput
+  manufacturers?: Prisma.ManufacturerCreateNestedManyWithoutTenantInput
+  volumes?: Prisma.VolumeCreateNestedManyWithoutTenantInput
+  purchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutTenantInput
+  productCareInstructions?: Prisma.ProductCareInstructionCreateNestedManyWithoutTenantInput
+  productAttachments?: Prisma.ProductAttachmentCreateNestedManyWithoutTenantInput
+  variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
+  salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
+  companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
+  departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
+  positions?: Prisma.PositionCreateNestedManyWithoutTenantInput
+  employees?: Prisma.EmployeeCreateNestedManyWithoutTenantInput
+  timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutTenantInput
+  workSchedules?: Prisma.WorkScheduleCreateNestedManyWithoutTenantInput
+  overtime?: Prisma.OvertimeCreateNestedManyWithoutTenantInput
+  timeBanks?: Prisma.TimeBankCreateNestedManyWithoutTenantInput
+  absences?: Prisma.AbsenceCreateNestedManyWithoutTenantInput
+  vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutTenantInput
+  payrolls?: Prisma.PayrollCreateNestedManyWithoutTenantInput
+  bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
+  deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
+  organizations?: Prisma.OrganizationCreateNestedManyWithoutTenantInput
+  costCenters?: Prisma.CostCenterCreateNestedManyWithoutTenantInput
+  bankAccounts?: Prisma.BankAccountCreateNestedManyWithoutTenantInput
+  financeCategories?: Prisma.FinanceCategoryCreateNestedManyWithoutTenantInput
+  financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutTenantInput
+  financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
+  loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
+  consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
+  storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
+  storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
+  folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
+  calendars?: Prisma.CalendarCreateNestedManyWithoutTenantInput
+  calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
+  eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
+  eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigCreateNestedManyWithoutTenantInput
+  emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutTenantInput
+  emailMessages?: Prisma.EmailMessageCreateNestedManyWithoutTenantInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessCreateNestedManyWithoutTenantInput
+  teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionCreateNestedManyWithoutTenantInput
+  tenantConsumptions?: Prisma.TenantConsumptionCreateNestedManyWithoutTenantInput
+  tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  priceTables?: Prisma.PriceTableCreateNestedManyWithoutTenantInput
+  customerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutTenantInput
+  taxProfiles?: Prisma.TaxProfileCreateNestedManyWithoutTenantInput
+  campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
+  coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
+  combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
+}
+
+export type TenantUncheckedCreateWithoutTenantBrandsInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutTenantInput
+  tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
+  permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
+  warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
+  zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
+  bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
+  templates?: Prisma.TemplateUncheckedCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutTenantInput
+  variants?: Prisma.VariantUncheckedCreateNestedManyWithoutTenantInput
+  items?: Prisma.ItemUncheckedCreateNestedManyWithoutTenantInput
+  itemMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagUncheckedCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutTenantInput
+  manufacturers?: Prisma.ManufacturerUncheckedCreateNestedManyWithoutTenantInput
+  volumes?: Prisma.VolumeUncheckedCreateNestedManyWithoutTenantInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+  productCareInstructions?: Prisma.ProductCareInstructionUncheckedCreateNestedManyWithoutTenantInput
+  productAttachments?: Prisma.ProductAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
+  salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
+  companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
+  departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
+  positions?: Prisma.PositionUncheckedCreateNestedManyWithoutTenantInput
+  employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutTenantInput
+  timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutTenantInput
+  workSchedules?: Prisma.WorkScheduleUncheckedCreateNestedManyWithoutTenantInput
+  overtime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutTenantInput
+  timeBanks?: Prisma.TimeBankUncheckedCreateNestedManyWithoutTenantInput
+  absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutTenantInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutTenantInput
+  payrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutTenantInput
+  bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
+  deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
+  organizations?: Prisma.OrganizationUncheckedCreateNestedManyWithoutTenantInput
+  costCenters?: Prisma.CostCenterUncheckedCreateNestedManyWithoutTenantInput
+  bankAccounts?: Prisma.BankAccountUncheckedCreateNestedManyWithoutTenantInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedCreateNestedManyWithoutTenantInput
+  financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutTenantInput
+  financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
+  consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
+  storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
+  storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
+  calendars?: Prisma.CalendarUncheckedCreateNestedManyWithoutTenantInput
+  calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
+  eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
+  eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedCreateNestedManyWithoutTenantInput
+  emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  emailMessages?: Prisma.EmailMessageUncheckedCreateNestedManyWithoutTenantInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutTenantInput
+  teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUncheckedCreateNestedManyWithoutTenantInput
+  tenantConsumptions?: Prisma.TenantConsumptionUncheckedCreateNestedManyWithoutTenantInput
+  tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  priceTables?: Prisma.PriceTableUncheckedCreateNestedManyWithoutTenantInput
+  customerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutTenantInput
+  taxProfiles?: Prisma.TaxProfileUncheckedCreateNestedManyWithoutTenantInput
+  campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
+  coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
+  combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
+}
+
+export type TenantCreateOrConnectWithoutTenantBrandsInput = {
+  where: Prisma.TenantWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenantCreateWithoutTenantBrandsInput, Prisma.TenantUncheckedCreateWithoutTenantBrandsInput>
+}
+
+export type TenantUpsertWithoutTenantBrandsInput = {
+  update: Prisma.XOR<Prisma.TenantUpdateWithoutTenantBrandsInput, Prisma.TenantUncheckedUpdateWithoutTenantBrandsInput>
+  create: Prisma.XOR<Prisma.TenantCreateWithoutTenantBrandsInput, Prisma.TenantUncheckedCreateWithoutTenantBrandsInput>
+  where?: Prisma.TenantWhereInput
+}
+
+export type TenantUpdateToOneWithWhereWithoutTenantBrandsInput = {
+  where?: Prisma.TenantWhereInput
+  data: Prisma.XOR<Prisma.TenantUpdateWithoutTenantBrandsInput, Prisma.TenantUncheckedUpdateWithoutTenantBrandsInput>
+}
+
+export type TenantUpdateWithoutTenantBrandsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantStatusEnumFieldUpdateOperationsInput | $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutTenantNestedInput
+  tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
+  permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
+  warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
+  zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
+  bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
+  templates?: Prisma.TemplateUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUpdateManyWithoutTenantNestedInput
+  variants?: Prisma.VariantUpdateManyWithoutTenantNestedInput
+  items?: Prisma.ItemUpdateManyWithoutTenantNestedInput
+  itemMovements?: Prisma.ItemMovementUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUpdateManyWithoutTenantNestedInput
+  manufacturers?: Prisma.ManufacturerUpdateManyWithoutTenantNestedInput
+  volumes?: Prisma.VolumeUpdateManyWithoutTenantNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutTenantNestedInput
+  productCareInstructions?: Prisma.ProductCareInstructionUpdateManyWithoutTenantNestedInput
+  productAttachments?: Prisma.ProductAttachmentUpdateManyWithoutTenantNestedInput
+  variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
+  salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
+  companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
+  departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
+  positions?: Prisma.PositionUpdateManyWithoutTenantNestedInput
+  employees?: Prisma.EmployeeUpdateManyWithoutTenantNestedInput
+  timeEntries?: Prisma.TimeEntryUpdateManyWithoutTenantNestedInput
+  workSchedules?: Prisma.WorkScheduleUpdateManyWithoutTenantNestedInput
+  overtime?: Prisma.OvertimeUpdateManyWithoutTenantNestedInput
+  timeBanks?: Prisma.TimeBankUpdateManyWithoutTenantNestedInput
+  absences?: Prisma.AbsenceUpdateManyWithoutTenantNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutTenantNestedInput
+  payrolls?: Prisma.PayrollUpdateManyWithoutTenantNestedInput
+  bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
+  deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
+  organizations?: Prisma.OrganizationUpdateManyWithoutTenantNestedInput
+  costCenters?: Prisma.CostCenterUpdateManyWithoutTenantNestedInput
+  bankAccounts?: Prisma.BankAccountUpdateManyWithoutTenantNestedInput
+  financeCategories?: Prisma.FinanceCategoryUpdateManyWithoutTenantNestedInput
+  financeEntries?: Prisma.FinanceEntryUpdateManyWithoutTenantNestedInput
+  financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
+  loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
+  consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
+  storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
+  storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
+  calendars?: Prisma.CalendarUpdateManyWithoutTenantNestedInput
+  calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
+  eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
+  eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUpdateManyWithoutTenantNestedInput
+  emailAccounts?: Prisma.EmailAccountUpdateManyWithoutTenantNestedInput
+  emailMessages?: Prisma.EmailMessageUpdateManyWithoutTenantNestedInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUpdateManyWithoutTenantNestedInput
+  teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUpdateManyWithoutTenantNestedInput
+  tenantConsumptions?: Prisma.TenantConsumptionUpdateManyWithoutTenantNestedInput
+  tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  priceTables?: Prisma.PriceTableUpdateManyWithoutTenantNestedInput
+  customerPrices?: Prisma.CustomerPriceUpdateManyWithoutTenantNestedInput
+  taxProfiles?: Prisma.TaxProfileUpdateManyWithoutTenantNestedInput
+  campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
+  coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
+  combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantUncheckedUpdateWithoutTenantBrandsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantStatusEnumFieldUpdateOperationsInput | $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutTenantNestedInput
+  tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
+  permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
+  warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
+  zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
+  bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
+  templates?: Prisma.TemplateUncheckedUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutTenantNestedInput
+  variants?: Prisma.VariantUncheckedUpdateManyWithoutTenantNestedInput
+  items?: Prisma.ItemUncheckedUpdateManyWithoutTenantNestedInput
+  itemMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUncheckedUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutTenantNestedInput
+  manufacturers?: Prisma.ManufacturerUncheckedUpdateManyWithoutTenantNestedInput
+  volumes?: Prisma.VolumeUncheckedUpdateManyWithoutTenantNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+  productCareInstructions?: Prisma.ProductCareInstructionUncheckedUpdateManyWithoutTenantNestedInput
+  productAttachments?: Prisma.ProductAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
+  salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
+  companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
+  positions?: Prisma.PositionUncheckedUpdateManyWithoutTenantNestedInput
+  employees?: Prisma.EmployeeUncheckedUpdateManyWithoutTenantNestedInput
+  timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutTenantNestedInput
+  workSchedules?: Prisma.WorkScheduleUncheckedUpdateManyWithoutTenantNestedInput
+  overtime?: Prisma.OvertimeUncheckedUpdateManyWithoutTenantNestedInput
+  timeBanks?: Prisma.TimeBankUncheckedUpdateManyWithoutTenantNestedInput
+  absences?: Prisma.AbsenceUncheckedUpdateManyWithoutTenantNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutTenantNestedInput
+  payrolls?: Prisma.PayrollUncheckedUpdateManyWithoutTenantNestedInput
+  bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
+  deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  organizations?: Prisma.OrganizationUncheckedUpdateManyWithoutTenantNestedInput
+  costCenters?: Prisma.CostCenterUncheckedUpdateManyWithoutTenantNestedInput
+  bankAccounts?: Prisma.BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedUpdateManyWithoutTenantNestedInput
+  financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutTenantNestedInput
+  financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
+  consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
+  storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
+  storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
+  calendars?: Prisma.CalendarUncheckedUpdateManyWithoutTenantNestedInput
+  calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
+  eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
+  eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedUpdateManyWithoutTenantNestedInput
+  emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  emailMessages?: Prisma.EmailMessageUncheckedUpdateManyWithoutTenantNestedInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutTenantNestedInput
+  teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUncheckedUpdateManyWithoutTenantNestedInput
+  tenantConsumptions?: Prisma.TenantConsumptionUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  priceTables?: Prisma.PriceTableUncheckedUpdateManyWithoutTenantNestedInput
+  customerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutTenantNestedInput
+  taxProfiles?: Prisma.TaxProfileUncheckedUpdateManyWithoutTenantNestedInput
+  campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
+  coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
+  combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantCreateWithoutContentTemplatesInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutTenantInput
+  tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
+  permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
+  warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
+  zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
+  bins?: Prisma.BinCreateNestedManyWithoutTenantInput
+  templates?: Prisma.TemplateCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductCreateNestedManyWithoutTenantInput
+  variants?: Prisma.VariantCreateNestedManyWithoutTenantInput
+  items?: Prisma.ItemCreateNestedManyWithoutTenantInput
+  itemMovements?: Prisma.ItemMovementCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierCreateNestedManyWithoutTenantInput
+  manufacturers?: Prisma.ManufacturerCreateNestedManyWithoutTenantInput
+  volumes?: Prisma.VolumeCreateNestedManyWithoutTenantInput
+  purchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutTenantInput
+  productCareInstructions?: Prisma.ProductCareInstructionCreateNestedManyWithoutTenantInput
+  productAttachments?: Prisma.ProductAttachmentCreateNestedManyWithoutTenantInput
+  variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
+  salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
+  companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
+  departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
+  positions?: Prisma.PositionCreateNestedManyWithoutTenantInput
+  employees?: Prisma.EmployeeCreateNestedManyWithoutTenantInput
+  timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutTenantInput
+  workSchedules?: Prisma.WorkScheduleCreateNestedManyWithoutTenantInput
+  overtime?: Prisma.OvertimeCreateNestedManyWithoutTenantInput
+  timeBanks?: Prisma.TimeBankCreateNestedManyWithoutTenantInput
+  absences?: Prisma.AbsenceCreateNestedManyWithoutTenantInput
+  vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutTenantInput
+  payrolls?: Prisma.PayrollCreateNestedManyWithoutTenantInput
+  bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
+  deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
+  organizations?: Prisma.OrganizationCreateNestedManyWithoutTenantInput
+  costCenters?: Prisma.CostCenterCreateNestedManyWithoutTenantInput
+  bankAccounts?: Prisma.BankAccountCreateNestedManyWithoutTenantInput
+  financeCategories?: Prisma.FinanceCategoryCreateNestedManyWithoutTenantInput
+  financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutTenantInput
+  financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
+  loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
+  consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
+  storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
+  storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
+  folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
+  calendars?: Prisma.CalendarCreateNestedManyWithoutTenantInput
+  calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
+  eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
+  eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigCreateNestedManyWithoutTenantInput
+  emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutTenantInput
+  emailMessages?: Prisma.EmailMessageCreateNestedManyWithoutTenantInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessCreateNestedManyWithoutTenantInput
+  teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionCreateNestedManyWithoutTenantInput
+  tenantConsumptions?: Prisma.TenantConsumptionCreateNestedManyWithoutTenantInput
+  tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  priceTables?: Prisma.PriceTableCreateNestedManyWithoutTenantInput
+  customerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutTenantInput
+  taxProfiles?: Prisma.TaxProfileCreateNestedManyWithoutTenantInput
+  campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
+  coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
+  combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
+}
+
+export type TenantUncheckedCreateWithoutContentTemplatesInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutTenantInput
+  tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
+  permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
+  warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
+  zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
+  bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
+  templates?: Prisma.TemplateUncheckedCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutTenantInput
+  variants?: Prisma.VariantUncheckedCreateNestedManyWithoutTenantInput
+  items?: Prisma.ItemUncheckedCreateNestedManyWithoutTenantInput
+  itemMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagUncheckedCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutTenantInput
+  manufacturers?: Prisma.ManufacturerUncheckedCreateNestedManyWithoutTenantInput
+  volumes?: Prisma.VolumeUncheckedCreateNestedManyWithoutTenantInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+  productCareInstructions?: Prisma.ProductCareInstructionUncheckedCreateNestedManyWithoutTenantInput
+  productAttachments?: Prisma.ProductAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
+  salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
+  companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
+  departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
+  positions?: Prisma.PositionUncheckedCreateNestedManyWithoutTenantInput
+  employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutTenantInput
+  timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutTenantInput
+  workSchedules?: Prisma.WorkScheduleUncheckedCreateNestedManyWithoutTenantInput
+  overtime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutTenantInput
+  timeBanks?: Prisma.TimeBankUncheckedCreateNestedManyWithoutTenantInput
+  absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutTenantInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutTenantInput
+  payrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutTenantInput
+  bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
+  deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
+  organizations?: Prisma.OrganizationUncheckedCreateNestedManyWithoutTenantInput
+  costCenters?: Prisma.CostCenterUncheckedCreateNestedManyWithoutTenantInput
+  bankAccounts?: Prisma.BankAccountUncheckedCreateNestedManyWithoutTenantInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedCreateNestedManyWithoutTenantInput
+  financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutTenantInput
+  financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
+  consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
+  storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
+  storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
+  calendars?: Prisma.CalendarUncheckedCreateNestedManyWithoutTenantInput
+  calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
+  eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
+  eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedCreateNestedManyWithoutTenantInput
+  emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  emailMessages?: Prisma.EmailMessageUncheckedCreateNestedManyWithoutTenantInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutTenantInput
+  teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUncheckedCreateNestedManyWithoutTenantInput
+  tenantConsumptions?: Prisma.TenantConsumptionUncheckedCreateNestedManyWithoutTenantInput
+  tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  priceTables?: Prisma.PriceTableUncheckedCreateNestedManyWithoutTenantInput
+  customerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutTenantInput
+  taxProfiles?: Prisma.TaxProfileUncheckedCreateNestedManyWithoutTenantInput
+  campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
+  coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
+  combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
+}
+
+export type TenantCreateOrConnectWithoutContentTemplatesInput = {
+  where: Prisma.TenantWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenantCreateWithoutContentTemplatesInput, Prisma.TenantUncheckedCreateWithoutContentTemplatesInput>
+}
+
+export type TenantUpsertWithoutContentTemplatesInput = {
+  update: Prisma.XOR<Prisma.TenantUpdateWithoutContentTemplatesInput, Prisma.TenantUncheckedUpdateWithoutContentTemplatesInput>
+  create: Prisma.XOR<Prisma.TenantCreateWithoutContentTemplatesInput, Prisma.TenantUncheckedCreateWithoutContentTemplatesInput>
+  where?: Prisma.TenantWhereInput
+}
+
+export type TenantUpdateToOneWithWhereWithoutContentTemplatesInput = {
+  where?: Prisma.TenantWhereInput
+  data: Prisma.XOR<Prisma.TenantUpdateWithoutContentTemplatesInput, Prisma.TenantUncheckedUpdateWithoutContentTemplatesInput>
+}
+
+export type TenantUpdateWithoutContentTemplatesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantStatusEnumFieldUpdateOperationsInput | $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutTenantNestedInput
+  tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
+  permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
+  warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
+  zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
+  bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
+  templates?: Prisma.TemplateUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUpdateManyWithoutTenantNestedInput
+  variants?: Prisma.VariantUpdateManyWithoutTenantNestedInput
+  items?: Prisma.ItemUpdateManyWithoutTenantNestedInput
+  itemMovements?: Prisma.ItemMovementUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUpdateManyWithoutTenantNestedInput
+  manufacturers?: Prisma.ManufacturerUpdateManyWithoutTenantNestedInput
+  volumes?: Prisma.VolumeUpdateManyWithoutTenantNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutTenantNestedInput
+  productCareInstructions?: Prisma.ProductCareInstructionUpdateManyWithoutTenantNestedInput
+  productAttachments?: Prisma.ProductAttachmentUpdateManyWithoutTenantNestedInput
+  variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
+  salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
+  companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
+  departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
+  positions?: Prisma.PositionUpdateManyWithoutTenantNestedInput
+  employees?: Prisma.EmployeeUpdateManyWithoutTenantNestedInput
+  timeEntries?: Prisma.TimeEntryUpdateManyWithoutTenantNestedInput
+  workSchedules?: Prisma.WorkScheduleUpdateManyWithoutTenantNestedInput
+  overtime?: Prisma.OvertimeUpdateManyWithoutTenantNestedInput
+  timeBanks?: Prisma.TimeBankUpdateManyWithoutTenantNestedInput
+  absences?: Prisma.AbsenceUpdateManyWithoutTenantNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutTenantNestedInput
+  payrolls?: Prisma.PayrollUpdateManyWithoutTenantNestedInput
+  bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
+  deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
+  organizations?: Prisma.OrganizationUpdateManyWithoutTenantNestedInput
+  costCenters?: Prisma.CostCenterUpdateManyWithoutTenantNestedInput
+  bankAccounts?: Prisma.BankAccountUpdateManyWithoutTenantNestedInput
+  financeCategories?: Prisma.FinanceCategoryUpdateManyWithoutTenantNestedInput
+  financeEntries?: Prisma.FinanceEntryUpdateManyWithoutTenantNestedInput
+  financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
+  loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
+  consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
+  storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
+  storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
+  calendars?: Prisma.CalendarUpdateManyWithoutTenantNestedInput
+  calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
+  eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
+  eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUpdateManyWithoutTenantNestedInput
+  emailAccounts?: Prisma.EmailAccountUpdateManyWithoutTenantNestedInput
+  emailMessages?: Prisma.EmailMessageUpdateManyWithoutTenantNestedInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUpdateManyWithoutTenantNestedInput
+  teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUpdateManyWithoutTenantNestedInput
+  tenantConsumptions?: Prisma.TenantConsumptionUpdateManyWithoutTenantNestedInput
+  tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  priceTables?: Prisma.PriceTableUpdateManyWithoutTenantNestedInput
+  customerPrices?: Prisma.CustomerPriceUpdateManyWithoutTenantNestedInput
+  taxProfiles?: Prisma.TaxProfileUpdateManyWithoutTenantNestedInput
+  campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
+  coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
+  combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantUncheckedUpdateWithoutContentTemplatesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantStatusEnumFieldUpdateOperationsInput | $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutTenantNestedInput
+  tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
+  permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
+  warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
+  zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
+  bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
+  templates?: Prisma.TemplateUncheckedUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutTenantNestedInput
+  variants?: Prisma.VariantUncheckedUpdateManyWithoutTenantNestedInput
+  items?: Prisma.ItemUncheckedUpdateManyWithoutTenantNestedInput
+  itemMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUncheckedUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutTenantNestedInput
+  manufacturers?: Prisma.ManufacturerUncheckedUpdateManyWithoutTenantNestedInput
+  volumes?: Prisma.VolumeUncheckedUpdateManyWithoutTenantNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+  productCareInstructions?: Prisma.ProductCareInstructionUncheckedUpdateManyWithoutTenantNestedInput
+  productAttachments?: Prisma.ProductAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
+  salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
+  companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
+  positions?: Prisma.PositionUncheckedUpdateManyWithoutTenantNestedInput
+  employees?: Prisma.EmployeeUncheckedUpdateManyWithoutTenantNestedInput
+  timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutTenantNestedInput
+  workSchedules?: Prisma.WorkScheduleUncheckedUpdateManyWithoutTenantNestedInput
+  overtime?: Prisma.OvertimeUncheckedUpdateManyWithoutTenantNestedInput
+  timeBanks?: Prisma.TimeBankUncheckedUpdateManyWithoutTenantNestedInput
+  absences?: Prisma.AbsenceUncheckedUpdateManyWithoutTenantNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutTenantNestedInput
+  payrolls?: Prisma.PayrollUncheckedUpdateManyWithoutTenantNestedInput
+  bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
+  deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  organizations?: Prisma.OrganizationUncheckedUpdateManyWithoutTenantNestedInput
+  costCenters?: Prisma.CostCenterUncheckedUpdateManyWithoutTenantNestedInput
+  bankAccounts?: Prisma.BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedUpdateManyWithoutTenantNestedInput
+  financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutTenantNestedInput
+  financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
+  consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
+  storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
+  storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
+  calendars?: Prisma.CalendarUncheckedUpdateManyWithoutTenantNestedInput
+  calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
+  eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
+  eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedUpdateManyWithoutTenantNestedInput
+  emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  emailMessages?: Prisma.EmailMessageUncheckedUpdateManyWithoutTenantNestedInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutTenantNestedInput
+  teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUncheckedUpdateManyWithoutTenantNestedInput
+  tenantConsumptions?: Prisma.TenantConsumptionUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  priceTables?: Prisma.PriceTableUncheckedUpdateManyWithoutTenantNestedInput
+  customerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutTenantNestedInput
+  taxProfiles?: Prisma.TaxProfileUncheckedUpdateManyWithoutTenantNestedInput
+  campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
+  coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
+  combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantCreateWithoutGeneratedContentsInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutTenantInput
+  tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
+  permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
+  warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
+  zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
+  bins?: Prisma.BinCreateNestedManyWithoutTenantInput
+  templates?: Prisma.TemplateCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductCreateNestedManyWithoutTenantInput
+  variants?: Prisma.VariantCreateNestedManyWithoutTenantInput
+  items?: Prisma.ItemCreateNestedManyWithoutTenantInput
+  itemMovements?: Prisma.ItemMovementCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierCreateNestedManyWithoutTenantInput
+  manufacturers?: Prisma.ManufacturerCreateNestedManyWithoutTenantInput
+  volumes?: Prisma.VolumeCreateNestedManyWithoutTenantInput
+  purchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutTenantInput
+  productCareInstructions?: Prisma.ProductCareInstructionCreateNestedManyWithoutTenantInput
+  productAttachments?: Prisma.ProductAttachmentCreateNestedManyWithoutTenantInput
+  variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
+  salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
+  companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
+  departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
+  positions?: Prisma.PositionCreateNestedManyWithoutTenantInput
+  employees?: Prisma.EmployeeCreateNestedManyWithoutTenantInput
+  timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutTenantInput
+  workSchedules?: Prisma.WorkScheduleCreateNestedManyWithoutTenantInput
+  overtime?: Prisma.OvertimeCreateNestedManyWithoutTenantInput
+  timeBanks?: Prisma.TimeBankCreateNestedManyWithoutTenantInput
+  absences?: Prisma.AbsenceCreateNestedManyWithoutTenantInput
+  vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutTenantInput
+  payrolls?: Prisma.PayrollCreateNestedManyWithoutTenantInput
+  bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
+  deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
+  organizations?: Prisma.OrganizationCreateNestedManyWithoutTenantInput
+  costCenters?: Prisma.CostCenterCreateNestedManyWithoutTenantInput
+  bankAccounts?: Prisma.BankAccountCreateNestedManyWithoutTenantInput
+  financeCategories?: Prisma.FinanceCategoryCreateNestedManyWithoutTenantInput
+  financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutTenantInput
+  financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
+  loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
+  consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
+  storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
+  storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
+  folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
+  calendars?: Prisma.CalendarCreateNestedManyWithoutTenantInput
+  calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
+  eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
+  eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigCreateNestedManyWithoutTenantInput
+  emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutTenantInput
+  emailMessages?: Prisma.EmailMessageCreateNestedManyWithoutTenantInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessCreateNestedManyWithoutTenantInput
+  teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionCreateNestedManyWithoutTenantInput
+  tenantConsumptions?: Prisma.TenantConsumptionCreateNestedManyWithoutTenantInput
+  tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  priceTables?: Prisma.PriceTableCreateNestedManyWithoutTenantInput
+  customerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutTenantInput
+  taxProfiles?: Prisma.TaxProfileCreateNestedManyWithoutTenantInput
+  campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
+  coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
+  combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
+}
+
+export type TenantUncheckedCreateWithoutGeneratedContentsInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutTenantInput
+  tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
+  permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
+  warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
+  zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
+  bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
+  templates?: Prisma.TemplateUncheckedCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutTenantInput
+  variants?: Prisma.VariantUncheckedCreateNestedManyWithoutTenantInput
+  items?: Prisma.ItemUncheckedCreateNestedManyWithoutTenantInput
+  itemMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagUncheckedCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutTenantInput
+  manufacturers?: Prisma.ManufacturerUncheckedCreateNestedManyWithoutTenantInput
+  volumes?: Prisma.VolumeUncheckedCreateNestedManyWithoutTenantInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+  productCareInstructions?: Prisma.ProductCareInstructionUncheckedCreateNestedManyWithoutTenantInput
+  productAttachments?: Prisma.ProductAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
+  salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
+  companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
+  departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
+  positions?: Prisma.PositionUncheckedCreateNestedManyWithoutTenantInput
+  employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutTenantInput
+  timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutTenantInput
+  workSchedules?: Prisma.WorkScheduleUncheckedCreateNestedManyWithoutTenantInput
+  overtime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutTenantInput
+  timeBanks?: Prisma.TimeBankUncheckedCreateNestedManyWithoutTenantInput
+  absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutTenantInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutTenantInput
+  payrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutTenantInput
+  bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
+  deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
+  organizations?: Prisma.OrganizationUncheckedCreateNestedManyWithoutTenantInput
+  costCenters?: Prisma.CostCenterUncheckedCreateNestedManyWithoutTenantInput
+  bankAccounts?: Prisma.BankAccountUncheckedCreateNestedManyWithoutTenantInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedCreateNestedManyWithoutTenantInput
+  financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutTenantInput
+  financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
+  consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
+  storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
+  storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
+  calendars?: Prisma.CalendarUncheckedCreateNestedManyWithoutTenantInput
+  calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
+  eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
+  eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedCreateNestedManyWithoutTenantInput
+  emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  emailMessages?: Prisma.EmailMessageUncheckedCreateNestedManyWithoutTenantInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutTenantInput
+  teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUncheckedCreateNestedManyWithoutTenantInput
+  tenantConsumptions?: Prisma.TenantConsumptionUncheckedCreateNestedManyWithoutTenantInput
+  tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  priceTables?: Prisma.PriceTableUncheckedCreateNestedManyWithoutTenantInput
+  customerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutTenantInput
+  taxProfiles?: Prisma.TaxProfileUncheckedCreateNestedManyWithoutTenantInput
+  campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
+  coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
+  combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
+}
+
+export type TenantCreateOrConnectWithoutGeneratedContentsInput = {
+  where: Prisma.TenantWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenantCreateWithoutGeneratedContentsInput, Prisma.TenantUncheckedCreateWithoutGeneratedContentsInput>
+}
+
+export type TenantUpsertWithoutGeneratedContentsInput = {
+  update: Prisma.XOR<Prisma.TenantUpdateWithoutGeneratedContentsInput, Prisma.TenantUncheckedUpdateWithoutGeneratedContentsInput>
+  create: Prisma.XOR<Prisma.TenantCreateWithoutGeneratedContentsInput, Prisma.TenantUncheckedCreateWithoutGeneratedContentsInput>
+  where?: Prisma.TenantWhereInput
+}
+
+export type TenantUpdateToOneWithWhereWithoutGeneratedContentsInput = {
+  where?: Prisma.TenantWhereInput
+  data: Prisma.XOR<Prisma.TenantUpdateWithoutGeneratedContentsInput, Prisma.TenantUncheckedUpdateWithoutGeneratedContentsInput>
+}
+
+export type TenantUpdateWithoutGeneratedContentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantStatusEnumFieldUpdateOperationsInput | $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutTenantNestedInput
+  tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
+  permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
+  warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
+  zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
+  bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
+  templates?: Prisma.TemplateUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUpdateManyWithoutTenantNestedInput
+  variants?: Prisma.VariantUpdateManyWithoutTenantNestedInput
+  items?: Prisma.ItemUpdateManyWithoutTenantNestedInput
+  itemMovements?: Prisma.ItemMovementUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUpdateManyWithoutTenantNestedInput
+  manufacturers?: Prisma.ManufacturerUpdateManyWithoutTenantNestedInput
+  volumes?: Prisma.VolumeUpdateManyWithoutTenantNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutTenantNestedInput
+  productCareInstructions?: Prisma.ProductCareInstructionUpdateManyWithoutTenantNestedInput
+  productAttachments?: Prisma.ProductAttachmentUpdateManyWithoutTenantNestedInput
+  variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
+  salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
+  companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
+  departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
+  positions?: Prisma.PositionUpdateManyWithoutTenantNestedInput
+  employees?: Prisma.EmployeeUpdateManyWithoutTenantNestedInput
+  timeEntries?: Prisma.TimeEntryUpdateManyWithoutTenantNestedInput
+  workSchedules?: Prisma.WorkScheduleUpdateManyWithoutTenantNestedInput
+  overtime?: Prisma.OvertimeUpdateManyWithoutTenantNestedInput
+  timeBanks?: Prisma.TimeBankUpdateManyWithoutTenantNestedInput
+  absences?: Prisma.AbsenceUpdateManyWithoutTenantNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutTenantNestedInput
+  payrolls?: Prisma.PayrollUpdateManyWithoutTenantNestedInput
+  bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
+  deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
+  organizations?: Prisma.OrganizationUpdateManyWithoutTenantNestedInput
+  costCenters?: Prisma.CostCenterUpdateManyWithoutTenantNestedInput
+  bankAccounts?: Prisma.BankAccountUpdateManyWithoutTenantNestedInput
+  financeCategories?: Prisma.FinanceCategoryUpdateManyWithoutTenantNestedInput
+  financeEntries?: Prisma.FinanceEntryUpdateManyWithoutTenantNestedInput
+  financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
+  loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
+  consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
+  storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
+  storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
+  calendars?: Prisma.CalendarUpdateManyWithoutTenantNestedInput
+  calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
+  eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
+  eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUpdateManyWithoutTenantNestedInput
+  emailAccounts?: Prisma.EmailAccountUpdateManyWithoutTenantNestedInput
+  emailMessages?: Prisma.EmailMessageUpdateManyWithoutTenantNestedInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUpdateManyWithoutTenantNestedInput
+  teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUpdateManyWithoutTenantNestedInput
+  tenantConsumptions?: Prisma.TenantConsumptionUpdateManyWithoutTenantNestedInput
+  tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  priceTables?: Prisma.PriceTableUpdateManyWithoutTenantNestedInput
+  customerPrices?: Prisma.CustomerPriceUpdateManyWithoutTenantNestedInput
+  taxProfiles?: Prisma.TaxProfileUpdateManyWithoutTenantNestedInput
+  campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
+  coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
+  combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantUncheckedUpdateWithoutGeneratedContentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantStatusEnumFieldUpdateOperationsInput | $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutTenantNestedInput
+  tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
+  permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
+  warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
+  zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
+  bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
+  templates?: Prisma.TemplateUncheckedUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutTenantNestedInput
+  variants?: Prisma.VariantUncheckedUpdateManyWithoutTenantNestedInput
+  items?: Prisma.ItemUncheckedUpdateManyWithoutTenantNestedInput
+  itemMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUncheckedUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutTenantNestedInput
+  manufacturers?: Prisma.ManufacturerUncheckedUpdateManyWithoutTenantNestedInput
+  volumes?: Prisma.VolumeUncheckedUpdateManyWithoutTenantNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+  productCareInstructions?: Prisma.ProductCareInstructionUncheckedUpdateManyWithoutTenantNestedInput
+  productAttachments?: Prisma.ProductAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
+  salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
+  companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
+  positions?: Prisma.PositionUncheckedUpdateManyWithoutTenantNestedInput
+  employees?: Prisma.EmployeeUncheckedUpdateManyWithoutTenantNestedInput
+  timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutTenantNestedInput
+  workSchedules?: Prisma.WorkScheduleUncheckedUpdateManyWithoutTenantNestedInput
+  overtime?: Prisma.OvertimeUncheckedUpdateManyWithoutTenantNestedInput
+  timeBanks?: Prisma.TimeBankUncheckedUpdateManyWithoutTenantNestedInput
+  absences?: Prisma.AbsenceUncheckedUpdateManyWithoutTenantNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutTenantNestedInput
+  payrolls?: Prisma.PayrollUncheckedUpdateManyWithoutTenantNestedInput
+  bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
+  deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  organizations?: Prisma.OrganizationUncheckedUpdateManyWithoutTenantNestedInput
+  costCenters?: Prisma.CostCenterUncheckedUpdateManyWithoutTenantNestedInput
+  bankAccounts?: Prisma.BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedUpdateManyWithoutTenantNestedInput
+  financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutTenantNestedInput
+  financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
+  consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
+  storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
+  storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
+  calendars?: Prisma.CalendarUncheckedUpdateManyWithoutTenantNestedInput
+  calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
+  eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
+  eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedUpdateManyWithoutTenantNestedInput
+  emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  emailMessages?: Prisma.EmailMessageUncheckedUpdateManyWithoutTenantNestedInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutTenantNestedInput
+  teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUncheckedUpdateManyWithoutTenantNestedInput
+  tenantConsumptions?: Prisma.TenantConsumptionUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  priceTables?: Prisma.PriceTableUncheckedUpdateManyWithoutTenantNestedInput
+  customerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutTenantNestedInput
+  taxProfiles?: Prisma.TaxProfileUncheckedUpdateManyWithoutTenantNestedInput
+  campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
+  coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
+  combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantCreateWithoutProductMockupsInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutTenantInput
+  tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
+  permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
+  warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
+  zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
+  bins?: Prisma.BinCreateNestedManyWithoutTenantInput
+  templates?: Prisma.TemplateCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductCreateNestedManyWithoutTenantInput
+  variants?: Prisma.VariantCreateNestedManyWithoutTenantInput
+  items?: Prisma.ItemCreateNestedManyWithoutTenantInput
+  itemMovements?: Prisma.ItemMovementCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierCreateNestedManyWithoutTenantInput
+  manufacturers?: Prisma.ManufacturerCreateNestedManyWithoutTenantInput
+  volumes?: Prisma.VolumeCreateNestedManyWithoutTenantInput
+  purchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutTenantInput
+  productCareInstructions?: Prisma.ProductCareInstructionCreateNestedManyWithoutTenantInput
+  productAttachments?: Prisma.ProductAttachmentCreateNestedManyWithoutTenantInput
+  variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
+  salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
+  companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
+  departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
+  positions?: Prisma.PositionCreateNestedManyWithoutTenantInput
+  employees?: Prisma.EmployeeCreateNestedManyWithoutTenantInput
+  timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutTenantInput
+  workSchedules?: Prisma.WorkScheduleCreateNestedManyWithoutTenantInput
+  overtime?: Prisma.OvertimeCreateNestedManyWithoutTenantInput
+  timeBanks?: Prisma.TimeBankCreateNestedManyWithoutTenantInput
+  absences?: Prisma.AbsenceCreateNestedManyWithoutTenantInput
+  vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutTenantInput
+  payrolls?: Prisma.PayrollCreateNestedManyWithoutTenantInput
+  bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
+  deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
+  organizations?: Prisma.OrganizationCreateNestedManyWithoutTenantInput
+  costCenters?: Prisma.CostCenterCreateNestedManyWithoutTenantInput
+  bankAccounts?: Prisma.BankAccountCreateNestedManyWithoutTenantInput
+  financeCategories?: Prisma.FinanceCategoryCreateNestedManyWithoutTenantInput
+  financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutTenantInput
+  financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
+  loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
+  consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
+  storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
+  storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
+  folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
+  calendars?: Prisma.CalendarCreateNestedManyWithoutTenantInput
+  calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
+  eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
+  eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigCreateNestedManyWithoutTenantInput
+  emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutTenantInput
+  emailMessages?: Prisma.EmailMessageCreateNestedManyWithoutTenantInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessCreateNestedManyWithoutTenantInput
+  teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionCreateNestedManyWithoutTenantInput
+  tenantConsumptions?: Prisma.TenantConsumptionCreateNestedManyWithoutTenantInput
+  tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  priceTables?: Prisma.PriceTableCreateNestedManyWithoutTenantInput
+  customerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutTenantInput
+  taxProfiles?: Prisma.TaxProfileCreateNestedManyWithoutTenantInput
+  campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
+  coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
+  combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutTenantInput
+}
+
+export type TenantUncheckedCreateWithoutProductMockupsInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutTenantInput
+  tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
+  permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
+  warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
+  zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
+  bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
+  templates?: Prisma.TemplateUncheckedCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutTenantInput
+  variants?: Prisma.VariantUncheckedCreateNestedManyWithoutTenantInput
+  items?: Prisma.ItemUncheckedCreateNestedManyWithoutTenantInput
+  itemMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagUncheckedCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutTenantInput
+  manufacturers?: Prisma.ManufacturerUncheckedCreateNestedManyWithoutTenantInput
+  volumes?: Prisma.VolumeUncheckedCreateNestedManyWithoutTenantInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+  productCareInstructions?: Prisma.ProductCareInstructionUncheckedCreateNestedManyWithoutTenantInput
+  productAttachments?: Prisma.ProductAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
+  salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
+  companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
+  departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
+  positions?: Prisma.PositionUncheckedCreateNestedManyWithoutTenantInput
+  employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutTenantInput
+  timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutTenantInput
+  workSchedules?: Prisma.WorkScheduleUncheckedCreateNestedManyWithoutTenantInput
+  overtime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutTenantInput
+  timeBanks?: Prisma.TimeBankUncheckedCreateNestedManyWithoutTenantInput
+  absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutTenantInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutTenantInput
+  payrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutTenantInput
+  bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
+  deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
+  organizations?: Prisma.OrganizationUncheckedCreateNestedManyWithoutTenantInput
+  costCenters?: Prisma.CostCenterUncheckedCreateNestedManyWithoutTenantInput
+  bankAccounts?: Prisma.BankAccountUncheckedCreateNestedManyWithoutTenantInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedCreateNestedManyWithoutTenantInput
+  financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutTenantInput
+  financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
+  consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
+  storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
+  storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
+  calendars?: Prisma.CalendarUncheckedCreateNestedManyWithoutTenantInput
+  calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
+  eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
+  eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedCreateNestedManyWithoutTenantInput
+  emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  emailMessages?: Prisma.EmailMessageUncheckedCreateNestedManyWithoutTenantInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutTenantInput
+  teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUncheckedCreateNestedManyWithoutTenantInput
+  tenantConsumptions?: Prisma.TenantConsumptionUncheckedCreateNestedManyWithoutTenantInput
+  tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  priceTables?: Prisma.PriceTableUncheckedCreateNestedManyWithoutTenantInput
+  customerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutTenantInput
+  taxProfiles?: Prisma.TaxProfileUncheckedCreateNestedManyWithoutTenantInput
+  campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
+  coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
+  combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutTenantInput
+}
+
+export type TenantCreateOrConnectWithoutProductMockupsInput = {
+  where: Prisma.TenantWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenantCreateWithoutProductMockupsInput, Prisma.TenantUncheckedCreateWithoutProductMockupsInput>
+}
+
+export type TenantUpsertWithoutProductMockupsInput = {
+  update: Prisma.XOR<Prisma.TenantUpdateWithoutProductMockupsInput, Prisma.TenantUncheckedUpdateWithoutProductMockupsInput>
+  create: Prisma.XOR<Prisma.TenantCreateWithoutProductMockupsInput, Prisma.TenantUncheckedCreateWithoutProductMockupsInput>
+  where?: Prisma.TenantWhereInput
+}
+
+export type TenantUpdateToOneWithWhereWithoutProductMockupsInput = {
+  where?: Prisma.TenantWhereInput
+  data: Prisma.XOR<Prisma.TenantUpdateWithoutProductMockupsInput, Prisma.TenantUncheckedUpdateWithoutProductMockupsInput>
+}
+
+export type TenantUpdateWithoutProductMockupsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantStatusEnumFieldUpdateOperationsInput | $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutTenantNestedInput
+  tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
+  permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
+  warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
+  zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
+  bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
+  templates?: Prisma.TemplateUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUpdateManyWithoutTenantNestedInput
+  variants?: Prisma.VariantUpdateManyWithoutTenantNestedInput
+  items?: Prisma.ItemUpdateManyWithoutTenantNestedInput
+  itemMovements?: Prisma.ItemMovementUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUpdateManyWithoutTenantNestedInput
+  manufacturers?: Prisma.ManufacturerUpdateManyWithoutTenantNestedInput
+  volumes?: Prisma.VolumeUpdateManyWithoutTenantNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutTenantNestedInput
+  productCareInstructions?: Prisma.ProductCareInstructionUpdateManyWithoutTenantNestedInput
+  productAttachments?: Prisma.ProductAttachmentUpdateManyWithoutTenantNestedInput
+  variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
+  salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
+  companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
+  departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
+  positions?: Prisma.PositionUpdateManyWithoutTenantNestedInput
+  employees?: Prisma.EmployeeUpdateManyWithoutTenantNestedInput
+  timeEntries?: Prisma.TimeEntryUpdateManyWithoutTenantNestedInput
+  workSchedules?: Prisma.WorkScheduleUpdateManyWithoutTenantNestedInput
+  overtime?: Prisma.OvertimeUpdateManyWithoutTenantNestedInput
+  timeBanks?: Prisma.TimeBankUpdateManyWithoutTenantNestedInput
+  absences?: Prisma.AbsenceUpdateManyWithoutTenantNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutTenantNestedInput
+  payrolls?: Prisma.PayrollUpdateManyWithoutTenantNestedInput
+  bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
+  deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
+  organizations?: Prisma.OrganizationUpdateManyWithoutTenantNestedInput
+  costCenters?: Prisma.CostCenterUpdateManyWithoutTenantNestedInput
+  bankAccounts?: Prisma.BankAccountUpdateManyWithoutTenantNestedInput
+  financeCategories?: Prisma.FinanceCategoryUpdateManyWithoutTenantNestedInput
+  financeEntries?: Prisma.FinanceEntryUpdateManyWithoutTenantNestedInput
+  financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
+  loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
+  consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
+  storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
+  storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
+  calendars?: Prisma.CalendarUpdateManyWithoutTenantNestedInput
+  calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
+  eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
+  eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUpdateManyWithoutTenantNestedInput
+  emailAccounts?: Prisma.EmailAccountUpdateManyWithoutTenantNestedInput
+  emailMessages?: Prisma.EmailMessageUpdateManyWithoutTenantNestedInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUpdateManyWithoutTenantNestedInput
+  teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUpdateManyWithoutTenantNestedInput
+  tenantConsumptions?: Prisma.TenantConsumptionUpdateManyWithoutTenantNestedInput
+  tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  priceTables?: Prisma.PriceTableUpdateManyWithoutTenantNestedInput
+  customerPrices?: Prisma.CustomerPriceUpdateManyWithoutTenantNestedInput
+  taxProfiles?: Prisma.TaxProfileUpdateManyWithoutTenantNestedInput
+  campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
+  coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
+  combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantUncheckedUpdateWithoutProductMockupsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantStatusEnumFieldUpdateOperationsInput | $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutTenantNestedInput
+  tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
+  permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
+  warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
+  zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
+  bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
+  templates?: Prisma.TemplateUncheckedUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutTenantNestedInput
+  variants?: Prisma.VariantUncheckedUpdateManyWithoutTenantNestedInput
+  items?: Prisma.ItemUncheckedUpdateManyWithoutTenantNestedInput
+  itemMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUncheckedUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutTenantNestedInput
+  manufacturers?: Prisma.ManufacturerUncheckedUpdateManyWithoutTenantNestedInput
+  volumes?: Prisma.VolumeUncheckedUpdateManyWithoutTenantNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+  productCareInstructions?: Prisma.ProductCareInstructionUncheckedUpdateManyWithoutTenantNestedInput
+  productAttachments?: Prisma.ProductAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
+  salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
+  companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
+  positions?: Prisma.PositionUncheckedUpdateManyWithoutTenantNestedInput
+  employees?: Prisma.EmployeeUncheckedUpdateManyWithoutTenantNestedInput
+  timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutTenantNestedInput
+  workSchedules?: Prisma.WorkScheduleUncheckedUpdateManyWithoutTenantNestedInput
+  overtime?: Prisma.OvertimeUncheckedUpdateManyWithoutTenantNestedInput
+  timeBanks?: Prisma.TimeBankUncheckedUpdateManyWithoutTenantNestedInput
+  absences?: Prisma.AbsenceUncheckedUpdateManyWithoutTenantNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutTenantNestedInput
+  payrolls?: Prisma.PayrollUncheckedUpdateManyWithoutTenantNestedInput
+  bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
+  deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  organizations?: Prisma.OrganizationUncheckedUpdateManyWithoutTenantNestedInput
+  costCenters?: Prisma.CostCenterUncheckedUpdateManyWithoutTenantNestedInput
+  bankAccounts?: Prisma.BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedUpdateManyWithoutTenantNestedInput
+  financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutTenantNestedInput
+  financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
+  consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
+  storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
+  storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
+  calendars?: Prisma.CalendarUncheckedUpdateManyWithoutTenantNestedInput
+  calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
+  eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
+  eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedUpdateManyWithoutTenantNestedInput
+  emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  emailMessages?: Prisma.EmailMessageUncheckedUpdateManyWithoutTenantNestedInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutTenantNestedInput
+  teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUncheckedUpdateManyWithoutTenantNestedInput
+  tenantConsumptions?: Prisma.TenantConsumptionUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  priceTables?: Prisma.PriceTableUncheckedUpdateManyWithoutTenantNestedInput
+  customerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutTenantNestedInput
+  taxProfiles?: Prisma.TaxProfileUncheckedUpdateManyWithoutTenantNestedInput
+  campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
+  coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
+  combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantCreateWithoutEmailCampaignsInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutTenantInput
+  tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
+  permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
+  warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
+  zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
+  bins?: Prisma.BinCreateNestedManyWithoutTenantInput
+  templates?: Prisma.TemplateCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductCreateNestedManyWithoutTenantInput
+  variants?: Prisma.VariantCreateNestedManyWithoutTenantInput
+  items?: Prisma.ItemCreateNestedManyWithoutTenantInput
+  itemMovements?: Prisma.ItemMovementCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierCreateNestedManyWithoutTenantInput
+  manufacturers?: Prisma.ManufacturerCreateNestedManyWithoutTenantInput
+  volumes?: Prisma.VolumeCreateNestedManyWithoutTenantInput
+  purchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutTenantInput
+  productCareInstructions?: Prisma.ProductCareInstructionCreateNestedManyWithoutTenantInput
+  productAttachments?: Prisma.ProductAttachmentCreateNestedManyWithoutTenantInput
+  variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
+  salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
+  companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
+  departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
+  positions?: Prisma.PositionCreateNestedManyWithoutTenantInput
+  employees?: Prisma.EmployeeCreateNestedManyWithoutTenantInput
+  timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutTenantInput
+  workSchedules?: Prisma.WorkScheduleCreateNestedManyWithoutTenantInput
+  overtime?: Prisma.OvertimeCreateNestedManyWithoutTenantInput
+  timeBanks?: Prisma.TimeBankCreateNestedManyWithoutTenantInput
+  absences?: Prisma.AbsenceCreateNestedManyWithoutTenantInput
+  vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutTenantInput
+  payrolls?: Prisma.PayrollCreateNestedManyWithoutTenantInput
+  bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
+  deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
+  organizations?: Prisma.OrganizationCreateNestedManyWithoutTenantInput
+  costCenters?: Prisma.CostCenterCreateNestedManyWithoutTenantInput
+  bankAccounts?: Prisma.BankAccountCreateNestedManyWithoutTenantInput
+  financeCategories?: Prisma.FinanceCategoryCreateNestedManyWithoutTenantInput
+  financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutTenantInput
+  financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
+  loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
+  consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
+  storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
+  storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
+  folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
+  calendars?: Prisma.CalendarCreateNestedManyWithoutTenantInput
+  calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
+  eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
+  eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigCreateNestedManyWithoutTenantInput
+  emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutTenantInput
+  emailMessages?: Prisma.EmailMessageCreateNestedManyWithoutTenantInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessCreateNestedManyWithoutTenantInput
+  teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionCreateNestedManyWithoutTenantInput
+  tenantConsumptions?: Prisma.TenantConsumptionCreateNestedManyWithoutTenantInput
+  tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  priceTables?: Prisma.PriceTableCreateNestedManyWithoutTenantInput
+  customerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutTenantInput
+  taxProfiles?: Prisma.TaxProfileCreateNestedManyWithoutTenantInput
+  campaigns?: Prisma.CampaignCreateNestedManyWithoutTenantInput
+  coupons?: Prisma.CouponCreateNestedManyWithoutTenantInput
+  combos?: Prisma.ComboCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupCreateNestedManyWithoutTenantInput
+}
+
+export type TenantUncheckedCreateWithoutEmailCampaignsInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutTenantInput
+  tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
+  permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
+  warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
+  zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
+  bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
+  templates?: Prisma.TemplateUncheckedCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutTenantInput
+  variants?: Prisma.VariantUncheckedCreateNestedManyWithoutTenantInput
+  items?: Prisma.ItemUncheckedCreateNestedManyWithoutTenantInput
+  itemMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagUncheckedCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutTenantInput
+  manufacturers?: Prisma.ManufacturerUncheckedCreateNestedManyWithoutTenantInput
+  volumes?: Prisma.VolumeUncheckedCreateNestedManyWithoutTenantInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+  productCareInstructions?: Prisma.ProductCareInstructionUncheckedCreateNestedManyWithoutTenantInput
+  productAttachments?: Prisma.ProductAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
+  salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
+  companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
+  departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
+  positions?: Prisma.PositionUncheckedCreateNestedManyWithoutTenantInput
+  employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutTenantInput
+  timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutTenantInput
+  workSchedules?: Prisma.WorkScheduleUncheckedCreateNestedManyWithoutTenantInput
+  overtime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutTenantInput
+  timeBanks?: Prisma.TimeBankUncheckedCreateNestedManyWithoutTenantInput
+  absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutTenantInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutTenantInput
+  payrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutTenantInput
+  bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
+  deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
+  organizations?: Prisma.OrganizationUncheckedCreateNestedManyWithoutTenantInput
+  costCenters?: Prisma.CostCenterUncheckedCreateNestedManyWithoutTenantInput
+  bankAccounts?: Prisma.BankAccountUncheckedCreateNestedManyWithoutTenantInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedCreateNestedManyWithoutTenantInput
+  financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutTenantInput
+  financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
+  consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
+  storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
+  storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
+  calendars?: Prisma.CalendarUncheckedCreateNestedManyWithoutTenantInput
+  calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
+  eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
+  eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedCreateNestedManyWithoutTenantInput
+  emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  emailMessages?: Prisma.EmailMessageUncheckedCreateNestedManyWithoutTenantInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutTenantInput
+  teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUncheckedCreateNestedManyWithoutTenantInput
+  tenantConsumptions?: Prisma.TenantConsumptionUncheckedCreateNestedManyWithoutTenantInput
+  tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  priceTables?: Prisma.PriceTableUncheckedCreateNestedManyWithoutTenantInput
+  customerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutTenantInput
+  taxProfiles?: Prisma.TaxProfileUncheckedCreateNestedManyWithoutTenantInput
+  campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutTenantInput
+  coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutTenantInput
+  combos?: Prisma.ComboUncheckedCreateNestedManyWithoutTenantInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutTenantInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutTenantInput
+  tenantBrands?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutTenantInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutTenantInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutTenantInput
+  productMockups?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutTenantInput
+}
+
+export type TenantCreateOrConnectWithoutEmailCampaignsInput = {
+  where: Prisma.TenantWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenantCreateWithoutEmailCampaignsInput, Prisma.TenantUncheckedCreateWithoutEmailCampaignsInput>
+}
+
+export type TenantUpsertWithoutEmailCampaignsInput = {
+  update: Prisma.XOR<Prisma.TenantUpdateWithoutEmailCampaignsInput, Prisma.TenantUncheckedUpdateWithoutEmailCampaignsInput>
+  create: Prisma.XOR<Prisma.TenantCreateWithoutEmailCampaignsInput, Prisma.TenantUncheckedCreateWithoutEmailCampaignsInput>
+  where?: Prisma.TenantWhereInput
+}
+
+export type TenantUpdateToOneWithWhereWithoutEmailCampaignsInput = {
+  where?: Prisma.TenantWhereInput
+  data: Prisma.XOR<Prisma.TenantUpdateWithoutEmailCampaignsInput, Prisma.TenantUncheckedUpdateWithoutEmailCampaignsInput>
+}
+
+export type TenantUpdateWithoutEmailCampaignsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantStatusEnumFieldUpdateOperationsInput | $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutTenantNestedInput
+  tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
+  permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
+  warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
+  zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
+  bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
+  templates?: Prisma.TemplateUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUpdateManyWithoutTenantNestedInput
+  variants?: Prisma.VariantUpdateManyWithoutTenantNestedInput
+  items?: Prisma.ItemUpdateManyWithoutTenantNestedInput
+  itemMovements?: Prisma.ItemMovementUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUpdateManyWithoutTenantNestedInput
+  manufacturers?: Prisma.ManufacturerUpdateManyWithoutTenantNestedInput
+  volumes?: Prisma.VolumeUpdateManyWithoutTenantNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutTenantNestedInput
+  productCareInstructions?: Prisma.ProductCareInstructionUpdateManyWithoutTenantNestedInput
+  productAttachments?: Prisma.ProductAttachmentUpdateManyWithoutTenantNestedInput
+  variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
+  salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
+  companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
+  departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
+  positions?: Prisma.PositionUpdateManyWithoutTenantNestedInput
+  employees?: Prisma.EmployeeUpdateManyWithoutTenantNestedInput
+  timeEntries?: Prisma.TimeEntryUpdateManyWithoutTenantNestedInput
+  workSchedules?: Prisma.WorkScheduleUpdateManyWithoutTenantNestedInput
+  overtime?: Prisma.OvertimeUpdateManyWithoutTenantNestedInput
+  timeBanks?: Prisma.TimeBankUpdateManyWithoutTenantNestedInput
+  absences?: Prisma.AbsenceUpdateManyWithoutTenantNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutTenantNestedInput
+  payrolls?: Prisma.PayrollUpdateManyWithoutTenantNestedInput
+  bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
+  deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
+  organizations?: Prisma.OrganizationUpdateManyWithoutTenantNestedInput
+  costCenters?: Prisma.CostCenterUpdateManyWithoutTenantNestedInput
+  bankAccounts?: Prisma.BankAccountUpdateManyWithoutTenantNestedInput
+  financeCategories?: Prisma.FinanceCategoryUpdateManyWithoutTenantNestedInput
+  financeEntries?: Prisma.FinanceEntryUpdateManyWithoutTenantNestedInput
+  financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
+  loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
+  consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
+  storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
+  storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
+  calendars?: Prisma.CalendarUpdateManyWithoutTenantNestedInput
+  calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
+  eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
+  eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUpdateManyWithoutTenantNestedInput
+  emailAccounts?: Prisma.EmailAccountUpdateManyWithoutTenantNestedInput
+  emailMessages?: Prisma.EmailMessageUpdateManyWithoutTenantNestedInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUpdateManyWithoutTenantNestedInput
+  teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUpdateManyWithoutTenantNestedInput
+  tenantConsumptions?: Prisma.TenantConsumptionUpdateManyWithoutTenantNestedInput
+  tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  priceTables?: Prisma.PriceTableUpdateManyWithoutTenantNestedInput
+  customerPrices?: Prisma.CustomerPriceUpdateManyWithoutTenantNestedInput
+  taxProfiles?: Prisma.TaxProfileUpdateManyWithoutTenantNestedInput
+  campaigns?: Prisma.CampaignUpdateManyWithoutTenantNestedInput
+  coupons?: Prisma.CouponUpdateManyWithoutTenantNestedInput
+  combos?: Prisma.ComboUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantUncheckedUpdateWithoutEmailCampaignsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantStatusEnumFieldUpdateOperationsInput | $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutTenantNestedInput
+  tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
+  permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
+  warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
+  zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
+  bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
+  templates?: Prisma.TemplateUncheckedUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutTenantNestedInput
+  variants?: Prisma.VariantUncheckedUpdateManyWithoutTenantNestedInput
+  items?: Prisma.ItemUncheckedUpdateManyWithoutTenantNestedInput
+  itemMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUncheckedUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutTenantNestedInput
+  manufacturers?: Prisma.ManufacturerUncheckedUpdateManyWithoutTenantNestedInput
+  volumes?: Prisma.VolumeUncheckedUpdateManyWithoutTenantNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+  productCareInstructions?: Prisma.ProductCareInstructionUncheckedUpdateManyWithoutTenantNestedInput
+  productAttachments?: Prisma.ProductAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
+  salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
+  companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
+  positions?: Prisma.PositionUncheckedUpdateManyWithoutTenantNestedInput
+  employees?: Prisma.EmployeeUncheckedUpdateManyWithoutTenantNestedInput
+  timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutTenantNestedInput
+  workSchedules?: Prisma.WorkScheduleUncheckedUpdateManyWithoutTenantNestedInput
+  overtime?: Prisma.OvertimeUncheckedUpdateManyWithoutTenantNestedInput
+  timeBanks?: Prisma.TimeBankUncheckedUpdateManyWithoutTenantNestedInput
+  absences?: Prisma.AbsenceUncheckedUpdateManyWithoutTenantNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutTenantNestedInput
+  payrolls?: Prisma.PayrollUncheckedUpdateManyWithoutTenantNestedInput
+  bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
+  deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  organizations?: Prisma.OrganizationUncheckedUpdateManyWithoutTenantNestedInput
+  costCenters?: Prisma.CostCenterUncheckedUpdateManyWithoutTenantNestedInput
+  bankAccounts?: Prisma.BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedUpdateManyWithoutTenantNestedInput
+  financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutTenantNestedInput
+  financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
+  consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
+  storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
+  storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
+  calendars?: Prisma.CalendarUncheckedUpdateManyWithoutTenantNestedInput
+  calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
+  eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
+  eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedUpdateManyWithoutTenantNestedInput
+  emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  emailMessages?: Prisma.EmailMessageUncheckedUpdateManyWithoutTenantNestedInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutTenantNestedInput
+  teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUncheckedUpdateManyWithoutTenantNestedInput
+  tenantConsumptions?: Prisma.TenantConsumptionUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  priceTables?: Prisma.PriceTableUncheckedUpdateManyWithoutTenantNestedInput
+  customerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutTenantNestedInput
+  taxProfiles?: Prisma.TaxProfileUncheckedUpdateManyWithoutTenantNestedInput
+  campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutTenantNestedInput
+  coupons?: Prisma.CouponUncheckedUpdateManyWithoutTenantNestedInput
+  combos?: Prisma.ComboUncheckedUpdateManyWithoutTenantNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutTenantNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBrands?: Prisma.TenantBrandUncheckedUpdateManyWithoutTenantNestedInput
+  contentTemplates?: Prisma.ContentTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutTenantNestedInput
+  productMockups?: Prisma.ProductMockupUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 
@@ -32911,6 +38184,13 @@ export type TenantCountOutputType = {
   campaigns: number
   coupons: number
   combos: number
+  inventorySessions: number
+  catalogs: number
+  tenantBrands: number
+  contentTemplates: number
+  generatedContents: number
+  productMockups: number
+  emailCampaigns: number
 }
 
 export type TenantCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -32994,6 +38274,13 @@ export type TenantCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions
   campaigns?: boolean | TenantCountOutputTypeCountCampaignsArgs
   coupons?: boolean | TenantCountOutputTypeCountCouponsArgs
   combos?: boolean | TenantCountOutputTypeCountCombosArgs
+  inventorySessions?: boolean | TenantCountOutputTypeCountInventorySessionsArgs
+  catalogs?: boolean | TenantCountOutputTypeCountCatalogsArgs
+  tenantBrands?: boolean | TenantCountOutputTypeCountTenantBrandsArgs
+  contentTemplates?: boolean | TenantCountOutputTypeCountContentTemplatesArgs
+  generatedContents?: boolean | TenantCountOutputTypeCountGeneratedContentsArgs
+  productMockups?: boolean | TenantCountOutputTypeCountProductMockupsArgs
+  emailCampaigns?: boolean | TenantCountOutputTypeCountEmailCampaignsArgs
 }
 
 /**
@@ -33566,6 +38853,55 @@ export type TenantCountOutputTypeCountCombosArgs<ExtArgs extends runtime.Types.E
   where?: Prisma.ComboWhereInput
 }
 
+/**
+ * TenantCountOutputType without action
+ */
+export type TenantCountOutputTypeCountInventorySessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.InventorySessionWhereInput
+}
+
+/**
+ * TenantCountOutputType without action
+ */
+export type TenantCountOutputTypeCountCatalogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CatalogWhereInput
+}
+
+/**
+ * TenantCountOutputType without action
+ */
+export type TenantCountOutputTypeCountTenantBrandsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TenantBrandWhereInput
+}
+
+/**
+ * TenantCountOutputType without action
+ */
+export type TenantCountOutputTypeCountContentTemplatesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ContentTemplateWhereInput
+}
+
+/**
+ * TenantCountOutputType without action
+ */
+export type TenantCountOutputTypeCountGeneratedContentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.GeneratedContentWhereInput
+}
+
+/**
+ * TenantCountOutputType without action
+ */
+export type TenantCountOutputTypeCountProductMockupsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProductMockupWhereInput
+}
+
+/**
+ * TenantCountOutputType without action
+ */
+export type TenantCountOutputTypeCountEmailCampaignsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.EmailCampaignWhereInput
+}
+
 
 export type TenantSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -33658,6 +38994,13 @@ export type TenantSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   campaigns?: boolean | Prisma.Tenant$campaignsArgs<ExtArgs>
   coupons?: boolean | Prisma.Tenant$couponsArgs<ExtArgs>
   combos?: boolean | Prisma.Tenant$combosArgs<ExtArgs>
+  inventorySessions?: boolean | Prisma.Tenant$inventorySessionsArgs<ExtArgs>
+  catalogs?: boolean | Prisma.Tenant$catalogsArgs<ExtArgs>
+  tenantBrands?: boolean | Prisma.Tenant$tenantBrandsArgs<ExtArgs>
+  contentTemplates?: boolean | Prisma.Tenant$contentTemplatesArgs<ExtArgs>
+  generatedContents?: boolean | Prisma.Tenant$generatedContentsArgs<ExtArgs>
+  productMockups?: boolean | Prisma.Tenant$productMockupsArgs<ExtArgs>
+  emailCampaigns?: boolean | Prisma.Tenant$emailCampaignsArgs<ExtArgs>
   _count?: boolean | Prisma.TenantCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["tenant"]>
 
@@ -33782,6 +39125,13 @@ export type TenantInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   campaigns?: boolean | Prisma.Tenant$campaignsArgs<ExtArgs>
   coupons?: boolean | Prisma.Tenant$couponsArgs<ExtArgs>
   combos?: boolean | Prisma.Tenant$combosArgs<ExtArgs>
+  inventorySessions?: boolean | Prisma.Tenant$inventorySessionsArgs<ExtArgs>
+  catalogs?: boolean | Prisma.Tenant$catalogsArgs<ExtArgs>
+  tenantBrands?: boolean | Prisma.Tenant$tenantBrandsArgs<ExtArgs>
+  contentTemplates?: boolean | Prisma.Tenant$contentTemplatesArgs<ExtArgs>
+  generatedContents?: boolean | Prisma.Tenant$generatedContentsArgs<ExtArgs>
+  productMockups?: boolean | Prisma.Tenant$productMockupsArgs<ExtArgs>
+  emailCampaigns?: boolean | Prisma.Tenant$emailCampaignsArgs<ExtArgs>
   _count?: boolean | Prisma.TenantCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type TenantIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -33870,6 +39220,13 @@ export type $TenantPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     campaigns: Prisma.$CampaignPayload<ExtArgs>[]
     coupons: Prisma.$CouponPayload<ExtArgs>[]
     combos: Prisma.$ComboPayload<ExtArgs>[]
+    inventorySessions: Prisma.$InventorySessionPayload<ExtArgs>[]
+    catalogs: Prisma.$CatalogPayload<ExtArgs>[]
+    tenantBrands: Prisma.$TenantBrandPayload<ExtArgs>[]
+    contentTemplates: Prisma.$ContentTemplatePayload<ExtArgs>[]
+    generatedContents: Prisma.$GeneratedContentPayload<ExtArgs>[]
+    productMockups: Prisma.$ProductMockupPayload<ExtArgs>[]
+    emailCampaigns: Prisma.$EmailCampaignPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -34356,6 +39713,13 @@ export interface Prisma__TenantClient<T, Null = never, ExtArgs extends runtime.T
   campaigns<T extends Prisma.Tenant$campaignsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$campaignsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CampaignPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   coupons<T extends Prisma.Tenant$couponsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$couponsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CouponPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   combos<T extends Prisma.Tenant$combosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$combosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ComboPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  inventorySessions<T extends Prisma.Tenant$inventorySessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$inventorySessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InventorySessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  catalogs<T extends Prisma.Tenant$catalogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$catalogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CatalogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  tenantBrands<T extends Prisma.Tenant$tenantBrandsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$tenantBrandsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TenantBrandPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  contentTemplates<T extends Prisma.Tenant$contentTemplatesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$contentTemplatesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ContentTemplatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  generatedContents<T extends Prisma.Tenant$generatedContentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$generatedContentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GeneratedContentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  productMockups<T extends Prisma.Tenant$productMockupsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$productMockupsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductMockupPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  emailCampaigns<T extends Prisma.Tenant$emailCampaignsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$emailCampaignsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EmailCampaignPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -36700,6 +42064,174 @@ export type Tenant$combosArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   distinct?: Prisma.ComboScalarFieldEnum | Prisma.ComboScalarFieldEnum[]
+}
+
+/**
+ * Tenant.inventorySessions
+ */
+export type Tenant$inventorySessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the InventorySession
+   */
+  select?: Prisma.InventorySessionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the InventorySession
+   */
+  omit?: Prisma.InventorySessionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.InventorySessionInclude<ExtArgs> | null
+  where?: Prisma.InventorySessionWhereInput
+  orderBy?: Prisma.InventorySessionOrderByWithRelationInput | Prisma.InventorySessionOrderByWithRelationInput[]
+  cursor?: Prisma.InventorySessionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.InventorySessionScalarFieldEnum | Prisma.InventorySessionScalarFieldEnum[]
+}
+
+/**
+ * Tenant.catalogs
+ */
+export type Tenant$catalogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Catalog
+   */
+  select?: Prisma.CatalogSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Catalog
+   */
+  omit?: Prisma.CatalogOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CatalogInclude<ExtArgs> | null
+  where?: Prisma.CatalogWhereInput
+  orderBy?: Prisma.CatalogOrderByWithRelationInput | Prisma.CatalogOrderByWithRelationInput[]
+  cursor?: Prisma.CatalogWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CatalogScalarFieldEnum | Prisma.CatalogScalarFieldEnum[]
+}
+
+/**
+ * Tenant.tenantBrands
+ */
+export type Tenant$tenantBrandsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TenantBrand
+   */
+  select?: Prisma.TenantBrandSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TenantBrand
+   */
+  omit?: Prisma.TenantBrandOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TenantBrandInclude<ExtArgs> | null
+  where?: Prisma.TenantBrandWhereInput
+  orderBy?: Prisma.TenantBrandOrderByWithRelationInput | Prisma.TenantBrandOrderByWithRelationInput[]
+  cursor?: Prisma.TenantBrandWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TenantBrandScalarFieldEnum | Prisma.TenantBrandScalarFieldEnum[]
+}
+
+/**
+ * Tenant.contentTemplates
+ */
+export type Tenant$contentTemplatesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ContentTemplate
+   */
+  select?: Prisma.ContentTemplateSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ContentTemplate
+   */
+  omit?: Prisma.ContentTemplateOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ContentTemplateInclude<ExtArgs> | null
+  where?: Prisma.ContentTemplateWhereInput
+  orderBy?: Prisma.ContentTemplateOrderByWithRelationInput | Prisma.ContentTemplateOrderByWithRelationInput[]
+  cursor?: Prisma.ContentTemplateWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ContentTemplateScalarFieldEnum | Prisma.ContentTemplateScalarFieldEnum[]
+}
+
+/**
+ * Tenant.generatedContents
+ */
+export type Tenant$generatedContentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the GeneratedContent
+   */
+  select?: Prisma.GeneratedContentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the GeneratedContent
+   */
+  omit?: Prisma.GeneratedContentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GeneratedContentInclude<ExtArgs> | null
+  where?: Prisma.GeneratedContentWhereInput
+  orderBy?: Prisma.GeneratedContentOrderByWithRelationInput | Prisma.GeneratedContentOrderByWithRelationInput[]
+  cursor?: Prisma.GeneratedContentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.GeneratedContentScalarFieldEnum | Prisma.GeneratedContentScalarFieldEnum[]
+}
+
+/**
+ * Tenant.productMockups
+ */
+export type Tenant$productMockupsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProductMockup
+   */
+  select?: Prisma.ProductMockupSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProductMockup
+   */
+  omit?: Prisma.ProductMockupOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProductMockupInclude<ExtArgs> | null
+  where?: Prisma.ProductMockupWhereInput
+  orderBy?: Prisma.ProductMockupOrderByWithRelationInput | Prisma.ProductMockupOrderByWithRelationInput[]
+  cursor?: Prisma.ProductMockupWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProductMockupScalarFieldEnum | Prisma.ProductMockupScalarFieldEnum[]
+}
+
+/**
+ * Tenant.emailCampaigns
+ */
+export type Tenant$emailCampaignsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the EmailCampaign
+   */
+  select?: Prisma.EmailCampaignSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the EmailCampaign
+   */
+  omit?: Prisma.EmailCampaignOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.EmailCampaignInclude<ExtArgs> | null
+  where?: Prisma.EmailCampaignWhereInput
+  orderBy?: Prisma.EmailCampaignOrderByWithRelationInput | Prisma.EmailCampaignOrderByWithRelationInput[]
+  cursor?: Prisma.EmailCampaignWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.EmailCampaignScalarFieldEnum | Prisma.EmailCampaignScalarFieldEnum[]
 }
 
 /**

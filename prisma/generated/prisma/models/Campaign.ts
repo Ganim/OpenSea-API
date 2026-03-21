@@ -353,6 +353,9 @@ export type CampaignWhereInput = {
   rules?: Prisma.CampaignRuleListRelationFilter
   products?: Prisma.CampaignProductListRelationFilter
   coupons?: Prisma.CouponListRelationFilter
+  catalogs?: Prisma.CatalogListRelationFilter
+  generatedContents?: Prisma.GeneratedContentListRelationFilter
+  emailCampaigns?: Prisma.EmailCampaignListRelationFilter
 }
 
 export type CampaignOrderByWithRelationInput = {
@@ -382,6 +385,9 @@ export type CampaignOrderByWithRelationInput = {
   rules?: Prisma.CampaignRuleOrderByRelationAggregateInput
   products?: Prisma.CampaignProductOrderByRelationAggregateInput
   coupons?: Prisma.CouponOrderByRelationAggregateInput
+  catalogs?: Prisma.CatalogOrderByRelationAggregateInput
+  generatedContents?: Prisma.GeneratedContentOrderByRelationAggregateInput
+  emailCampaigns?: Prisma.EmailCampaignOrderByRelationAggregateInput
 }
 
 export type CampaignWhereUniqueInput = Prisma.AtLeast<{
@@ -414,6 +420,9 @@ export type CampaignWhereUniqueInput = Prisma.AtLeast<{
   rules?: Prisma.CampaignRuleListRelationFilter
   products?: Prisma.CampaignProductListRelationFilter
   coupons?: Prisma.CouponListRelationFilter
+  catalogs?: Prisma.CatalogListRelationFilter
+  generatedContents?: Prisma.GeneratedContentListRelationFilter
+  emailCampaigns?: Prisma.EmailCampaignListRelationFilter
 }, "id">
 
 export type CampaignOrderByWithAggregationInput = {
@@ -497,6 +506,9 @@ export type CampaignCreateInput = {
   rules?: Prisma.CampaignRuleCreateNestedManyWithoutCampaignInput
   products?: Prisma.CampaignProductCreateNestedManyWithoutCampaignInput
   coupons?: Prisma.CouponCreateNestedManyWithoutCampaignInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutCampaignInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutCampaignInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutCampaignInput
 }
 
 export type CampaignUncheckedCreateInput = {
@@ -524,6 +536,9 @@ export type CampaignUncheckedCreateInput = {
   rules?: Prisma.CampaignRuleUncheckedCreateNestedManyWithoutCampaignInput
   products?: Prisma.CampaignProductUncheckedCreateNestedManyWithoutCampaignInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutCampaignInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutCampaignInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutCampaignInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutCampaignInput
 }
 
 export type CampaignUpdateInput = {
@@ -551,6 +566,9 @@ export type CampaignUpdateInput = {
   rules?: Prisma.CampaignRuleUpdateManyWithoutCampaignNestedInput
   products?: Prisma.CampaignProductUpdateManyWithoutCampaignNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutCampaignNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutCampaignNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutCampaignNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutCampaignNestedInput
 }
 
 export type CampaignUncheckedUpdateInput = {
@@ -578,6 +596,9 @@ export type CampaignUncheckedUpdateInput = {
   rules?: Prisma.CampaignRuleUncheckedUpdateManyWithoutCampaignNestedInput
   products?: Prisma.CampaignProductUncheckedUpdateManyWithoutCampaignNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutCampaignNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutCampaignNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutCampaignNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutCampaignNestedInput
 }
 
 export type CampaignCreateManyInput = {
@@ -897,6 +918,54 @@ export type CampaignUpdateOneWithoutCouponsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CampaignUpdateToOneWithWhereWithoutCouponsInput, Prisma.CampaignUpdateWithoutCouponsInput>, Prisma.CampaignUncheckedUpdateWithoutCouponsInput>
 }
 
+export type CampaignCreateNestedOneWithoutCatalogsInput = {
+  create?: Prisma.XOR<Prisma.CampaignCreateWithoutCatalogsInput, Prisma.CampaignUncheckedCreateWithoutCatalogsInput>
+  connectOrCreate?: Prisma.CampaignCreateOrConnectWithoutCatalogsInput
+  connect?: Prisma.CampaignWhereUniqueInput
+}
+
+export type CampaignUpdateOneWithoutCatalogsNestedInput = {
+  create?: Prisma.XOR<Prisma.CampaignCreateWithoutCatalogsInput, Prisma.CampaignUncheckedCreateWithoutCatalogsInput>
+  connectOrCreate?: Prisma.CampaignCreateOrConnectWithoutCatalogsInput
+  upsert?: Prisma.CampaignUpsertWithoutCatalogsInput
+  disconnect?: Prisma.CampaignWhereInput | boolean
+  delete?: Prisma.CampaignWhereInput | boolean
+  connect?: Prisma.CampaignWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CampaignUpdateToOneWithWhereWithoutCatalogsInput, Prisma.CampaignUpdateWithoutCatalogsInput>, Prisma.CampaignUncheckedUpdateWithoutCatalogsInput>
+}
+
+export type CampaignCreateNestedOneWithoutGeneratedContentsInput = {
+  create?: Prisma.XOR<Prisma.CampaignCreateWithoutGeneratedContentsInput, Prisma.CampaignUncheckedCreateWithoutGeneratedContentsInput>
+  connectOrCreate?: Prisma.CampaignCreateOrConnectWithoutGeneratedContentsInput
+  connect?: Prisma.CampaignWhereUniqueInput
+}
+
+export type CampaignUpdateOneWithoutGeneratedContentsNestedInput = {
+  create?: Prisma.XOR<Prisma.CampaignCreateWithoutGeneratedContentsInput, Prisma.CampaignUncheckedCreateWithoutGeneratedContentsInput>
+  connectOrCreate?: Prisma.CampaignCreateOrConnectWithoutGeneratedContentsInput
+  upsert?: Prisma.CampaignUpsertWithoutGeneratedContentsInput
+  disconnect?: Prisma.CampaignWhereInput | boolean
+  delete?: Prisma.CampaignWhereInput | boolean
+  connect?: Prisma.CampaignWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CampaignUpdateToOneWithWhereWithoutGeneratedContentsInput, Prisma.CampaignUpdateWithoutGeneratedContentsInput>, Prisma.CampaignUncheckedUpdateWithoutGeneratedContentsInput>
+}
+
+export type CampaignCreateNestedOneWithoutEmailCampaignsInput = {
+  create?: Prisma.XOR<Prisma.CampaignCreateWithoutEmailCampaignsInput, Prisma.CampaignUncheckedCreateWithoutEmailCampaignsInput>
+  connectOrCreate?: Prisma.CampaignCreateOrConnectWithoutEmailCampaignsInput
+  connect?: Prisma.CampaignWhereUniqueInput
+}
+
+export type CampaignUpdateOneWithoutEmailCampaignsNestedInput = {
+  create?: Prisma.XOR<Prisma.CampaignCreateWithoutEmailCampaignsInput, Prisma.CampaignUncheckedCreateWithoutEmailCampaignsInput>
+  connectOrCreate?: Prisma.CampaignCreateOrConnectWithoutEmailCampaignsInput
+  upsert?: Prisma.CampaignUpsertWithoutEmailCampaignsInput
+  disconnect?: Prisma.CampaignWhereInput | boolean
+  delete?: Prisma.CampaignWhereInput | boolean
+  connect?: Prisma.CampaignWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CampaignUpdateToOneWithWhereWithoutEmailCampaignsInput, Prisma.CampaignUpdateWithoutEmailCampaignsInput>, Prisma.CampaignUncheckedUpdateWithoutEmailCampaignsInput>
+}
+
 export type CampaignCreateWithoutCreatedByInput = {
   id?: string
   name: string
@@ -921,6 +990,9 @@ export type CampaignCreateWithoutCreatedByInput = {
   rules?: Prisma.CampaignRuleCreateNestedManyWithoutCampaignInput
   products?: Prisma.CampaignProductCreateNestedManyWithoutCampaignInput
   coupons?: Prisma.CouponCreateNestedManyWithoutCampaignInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutCampaignInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutCampaignInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutCampaignInput
 }
 
 export type CampaignUncheckedCreateWithoutCreatedByInput = {
@@ -947,6 +1019,9 @@ export type CampaignUncheckedCreateWithoutCreatedByInput = {
   rules?: Prisma.CampaignRuleUncheckedCreateNestedManyWithoutCampaignInput
   products?: Prisma.CampaignProductUncheckedCreateNestedManyWithoutCampaignInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutCampaignInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutCampaignInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutCampaignInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutCampaignInput
 }
 
 export type CampaignCreateOrConnectWithoutCreatedByInput = {
@@ -1026,6 +1101,9 @@ export type CampaignCreateWithoutTenantInput = {
   rules?: Prisma.CampaignRuleCreateNestedManyWithoutCampaignInput
   products?: Prisma.CampaignProductCreateNestedManyWithoutCampaignInput
   coupons?: Prisma.CouponCreateNestedManyWithoutCampaignInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutCampaignInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutCampaignInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutCampaignInput
 }
 
 export type CampaignUncheckedCreateWithoutTenantInput = {
@@ -1052,6 +1130,9 @@ export type CampaignUncheckedCreateWithoutTenantInput = {
   rules?: Prisma.CampaignRuleUncheckedCreateNestedManyWithoutCampaignInput
   products?: Prisma.CampaignProductUncheckedCreateNestedManyWithoutCampaignInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutCampaignInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutCampaignInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutCampaignInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutCampaignInput
 }
 
 export type CampaignCreateOrConnectWithoutTenantInput = {
@@ -1104,6 +1185,9 @@ export type CampaignCreateWithoutRulesInput = {
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedCampaignsInput
   products?: Prisma.CampaignProductCreateNestedManyWithoutCampaignInput
   coupons?: Prisma.CouponCreateNestedManyWithoutCampaignInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutCampaignInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutCampaignInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutCampaignInput
 }
 
 export type CampaignUncheckedCreateWithoutRulesInput = {
@@ -1130,6 +1214,9 @@ export type CampaignUncheckedCreateWithoutRulesInput = {
   updatedAt?: Date | string
   products?: Prisma.CampaignProductUncheckedCreateNestedManyWithoutCampaignInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutCampaignInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutCampaignInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutCampaignInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutCampaignInput
 }
 
 export type CampaignCreateOrConnectWithoutRulesInput = {
@@ -1172,6 +1259,9 @@ export type CampaignUpdateWithoutRulesInput = {
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedCampaignsNestedInput
   products?: Prisma.CampaignProductUpdateManyWithoutCampaignNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutCampaignNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutCampaignNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutCampaignNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutCampaignNestedInput
 }
 
 export type CampaignUncheckedUpdateWithoutRulesInput = {
@@ -1198,6 +1288,9 @@ export type CampaignUncheckedUpdateWithoutRulesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   products?: Prisma.CampaignProductUncheckedUpdateManyWithoutCampaignNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutCampaignNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutCampaignNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutCampaignNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutCampaignNestedInput
 }
 
 export type CampaignCreateWithoutProductsInput = {
@@ -1224,6 +1317,9 @@ export type CampaignCreateWithoutProductsInput = {
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedCampaignsInput
   rules?: Prisma.CampaignRuleCreateNestedManyWithoutCampaignInput
   coupons?: Prisma.CouponCreateNestedManyWithoutCampaignInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutCampaignInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutCampaignInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutCampaignInput
 }
 
 export type CampaignUncheckedCreateWithoutProductsInput = {
@@ -1250,6 +1346,9 @@ export type CampaignUncheckedCreateWithoutProductsInput = {
   updatedAt?: Date | string
   rules?: Prisma.CampaignRuleUncheckedCreateNestedManyWithoutCampaignInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutCampaignInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutCampaignInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutCampaignInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutCampaignInput
 }
 
 export type CampaignCreateOrConnectWithoutProductsInput = {
@@ -1292,6 +1391,9 @@ export type CampaignUpdateWithoutProductsInput = {
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedCampaignsNestedInput
   rules?: Prisma.CampaignRuleUpdateManyWithoutCampaignNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutCampaignNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutCampaignNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutCampaignNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutCampaignNestedInput
 }
 
 export type CampaignUncheckedUpdateWithoutProductsInput = {
@@ -1318,6 +1420,9 @@ export type CampaignUncheckedUpdateWithoutProductsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   rules?: Prisma.CampaignRuleUncheckedUpdateManyWithoutCampaignNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutCampaignNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutCampaignNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutCampaignNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutCampaignNestedInput
 }
 
 export type CampaignCreateWithoutCouponsInput = {
@@ -1344,6 +1449,9 @@ export type CampaignCreateWithoutCouponsInput = {
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedCampaignsInput
   rules?: Prisma.CampaignRuleCreateNestedManyWithoutCampaignInput
   products?: Prisma.CampaignProductCreateNestedManyWithoutCampaignInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutCampaignInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutCampaignInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutCampaignInput
 }
 
 export type CampaignUncheckedCreateWithoutCouponsInput = {
@@ -1370,6 +1478,9 @@ export type CampaignUncheckedCreateWithoutCouponsInput = {
   updatedAt?: Date | string
   rules?: Prisma.CampaignRuleUncheckedCreateNestedManyWithoutCampaignInput
   products?: Prisma.CampaignProductUncheckedCreateNestedManyWithoutCampaignInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutCampaignInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutCampaignInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutCampaignInput
 }
 
 export type CampaignCreateOrConnectWithoutCouponsInput = {
@@ -1412,6 +1523,9 @@ export type CampaignUpdateWithoutCouponsInput = {
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedCampaignsNestedInput
   rules?: Prisma.CampaignRuleUpdateManyWithoutCampaignNestedInput
   products?: Prisma.CampaignProductUpdateManyWithoutCampaignNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutCampaignNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutCampaignNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutCampaignNestedInput
 }
 
 export type CampaignUncheckedUpdateWithoutCouponsInput = {
@@ -1438,6 +1552,405 @@ export type CampaignUncheckedUpdateWithoutCouponsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   rules?: Prisma.CampaignRuleUncheckedUpdateManyWithoutCampaignNestedInput
   products?: Prisma.CampaignProductUncheckedUpdateManyWithoutCampaignNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutCampaignNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutCampaignNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutCampaignNestedInput
+}
+
+export type CampaignCreateWithoutCatalogsInput = {
+  id?: string
+  name: string
+  description?: string | null
+  type: $Enums.CampaignType
+  status?: $Enums.CampaignStatusEnum
+  startDate: Date | string
+  endDate: Date | string
+  channels?: Prisma.CampaignCreatechannelsInput | string[]
+  targetAudience?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  priority?: number
+  stackable?: boolean
+  maxUsageTotal?: number | null
+  maxUsagePerCustomer?: number | null
+  usageCount?: number
+  aiGenerated?: boolean
+  aiReason?: string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutCampaignsInput
+  createdBy: Prisma.UserCreateNestedOneWithoutCreatedCampaignsInput
+  rules?: Prisma.CampaignRuleCreateNestedManyWithoutCampaignInput
+  products?: Prisma.CampaignProductCreateNestedManyWithoutCampaignInput
+  coupons?: Prisma.CouponCreateNestedManyWithoutCampaignInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutCampaignInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutCampaignInput
+}
+
+export type CampaignUncheckedCreateWithoutCatalogsInput = {
+  id?: string
+  tenantId: string
+  name: string
+  description?: string | null
+  type: $Enums.CampaignType
+  status?: $Enums.CampaignStatusEnum
+  startDate: Date | string
+  endDate: Date | string
+  channels?: Prisma.CampaignCreatechannelsInput | string[]
+  targetAudience?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  priority?: number
+  stackable?: boolean
+  maxUsageTotal?: number | null
+  maxUsagePerCustomer?: number | null
+  usageCount?: number
+  aiGenerated?: boolean
+  aiReason?: string | null
+  createdByUserId: string
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  rules?: Prisma.CampaignRuleUncheckedCreateNestedManyWithoutCampaignInput
+  products?: Prisma.CampaignProductUncheckedCreateNestedManyWithoutCampaignInput
+  coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutCampaignInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutCampaignInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutCampaignInput
+}
+
+export type CampaignCreateOrConnectWithoutCatalogsInput = {
+  where: Prisma.CampaignWhereUniqueInput
+  create: Prisma.XOR<Prisma.CampaignCreateWithoutCatalogsInput, Prisma.CampaignUncheckedCreateWithoutCatalogsInput>
+}
+
+export type CampaignUpsertWithoutCatalogsInput = {
+  update: Prisma.XOR<Prisma.CampaignUpdateWithoutCatalogsInput, Prisma.CampaignUncheckedUpdateWithoutCatalogsInput>
+  create: Prisma.XOR<Prisma.CampaignCreateWithoutCatalogsInput, Prisma.CampaignUncheckedCreateWithoutCatalogsInput>
+  where?: Prisma.CampaignWhereInput
+}
+
+export type CampaignUpdateToOneWithWhereWithoutCatalogsInput = {
+  where?: Prisma.CampaignWhereInput
+  data: Prisma.XOR<Prisma.CampaignUpdateWithoutCatalogsInput, Prisma.CampaignUncheckedUpdateWithoutCatalogsInput>
+}
+
+export type CampaignUpdateWithoutCatalogsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.EnumCampaignTypeFieldUpdateOperationsInput | $Enums.CampaignType
+  status?: Prisma.EnumCampaignStatusEnumFieldUpdateOperationsInput | $Enums.CampaignStatusEnum
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  channels?: Prisma.CampaignUpdatechannelsInput | string[]
+  targetAudience?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  priority?: Prisma.IntFieldUpdateOperationsInput | number
+  stackable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  maxUsageTotal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  maxUsagePerCustomer?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  usageCount?: Prisma.IntFieldUpdateOperationsInput | number
+  aiGenerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutCampaignsNestedInput
+  createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedCampaignsNestedInput
+  rules?: Prisma.CampaignRuleUpdateManyWithoutCampaignNestedInput
+  products?: Prisma.CampaignProductUpdateManyWithoutCampaignNestedInput
+  coupons?: Prisma.CouponUpdateManyWithoutCampaignNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutCampaignNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutCampaignNestedInput
+}
+
+export type CampaignUncheckedUpdateWithoutCatalogsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.EnumCampaignTypeFieldUpdateOperationsInput | $Enums.CampaignType
+  status?: Prisma.EnumCampaignStatusEnumFieldUpdateOperationsInput | $Enums.CampaignStatusEnum
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  channels?: Prisma.CampaignUpdatechannelsInput | string[]
+  targetAudience?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  priority?: Prisma.IntFieldUpdateOperationsInput | number
+  stackable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  maxUsageTotal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  maxUsagePerCustomer?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  usageCount?: Prisma.IntFieldUpdateOperationsInput | number
+  aiGenerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdByUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  rules?: Prisma.CampaignRuleUncheckedUpdateManyWithoutCampaignNestedInput
+  products?: Prisma.CampaignProductUncheckedUpdateManyWithoutCampaignNestedInput
+  coupons?: Prisma.CouponUncheckedUpdateManyWithoutCampaignNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutCampaignNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutCampaignNestedInput
+}
+
+export type CampaignCreateWithoutGeneratedContentsInput = {
+  id?: string
+  name: string
+  description?: string | null
+  type: $Enums.CampaignType
+  status?: $Enums.CampaignStatusEnum
+  startDate: Date | string
+  endDate: Date | string
+  channels?: Prisma.CampaignCreatechannelsInput | string[]
+  targetAudience?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  priority?: number
+  stackable?: boolean
+  maxUsageTotal?: number | null
+  maxUsagePerCustomer?: number | null
+  usageCount?: number
+  aiGenerated?: boolean
+  aiReason?: string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutCampaignsInput
+  createdBy: Prisma.UserCreateNestedOneWithoutCreatedCampaignsInput
+  rules?: Prisma.CampaignRuleCreateNestedManyWithoutCampaignInput
+  products?: Prisma.CampaignProductCreateNestedManyWithoutCampaignInput
+  coupons?: Prisma.CouponCreateNestedManyWithoutCampaignInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutCampaignInput
+  emailCampaigns?: Prisma.EmailCampaignCreateNestedManyWithoutCampaignInput
+}
+
+export type CampaignUncheckedCreateWithoutGeneratedContentsInput = {
+  id?: string
+  tenantId: string
+  name: string
+  description?: string | null
+  type: $Enums.CampaignType
+  status?: $Enums.CampaignStatusEnum
+  startDate: Date | string
+  endDate: Date | string
+  channels?: Prisma.CampaignCreatechannelsInput | string[]
+  targetAudience?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  priority?: number
+  stackable?: boolean
+  maxUsageTotal?: number | null
+  maxUsagePerCustomer?: number | null
+  usageCount?: number
+  aiGenerated?: boolean
+  aiReason?: string | null
+  createdByUserId: string
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  rules?: Prisma.CampaignRuleUncheckedCreateNestedManyWithoutCampaignInput
+  products?: Prisma.CampaignProductUncheckedCreateNestedManyWithoutCampaignInput
+  coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutCampaignInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutCampaignInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedCreateNestedManyWithoutCampaignInput
+}
+
+export type CampaignCreateOrConnectWithoutGeneratedContentsInput = {
+  where: Prisma.CampaignWhereUniqueInput
+  create: Prisma.XOR<Prisma.CampaignCreateWithoutGeneratedContentsInput, Prisma.CampaignUncheckedCreateWithoutGeneratedContentsInput>
+}
+
+export type CampaignUpsertWithoutGeneratedContentsInput = {
+  update: Prisma.XOR<Prisma.CampaignUpdateWithoutGeneratedContentsInput, Prisma.CampaignUncheckedUpdateWithoutGeneratedContentsInput>
+  create: Prisma.XOR<Prisma.CampaignCreateWithoutGeneratedContentsInput, Prisma.CampaignUncheckedCreateWithoutGeneratedContentsInput>
+  where?: Prisma.CampaignWhereInput
+}
+
+export type CampaignUpdateToOneWithWhereWithoutGeneratedContentsInput = {
+  where?: Prisma.CampaignWhereInput
+  data: Prisma.XOR<Prisma.CampaignUpdateWithoutGeneratedContentsInput, Prisma.CampaignUncheckedUpdateWithoutGeneratedContentsInput>
+}
+
+export type CampaignUpdateWithoutGeneratedContentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.EnumCampaignTypeFieldUpdateOperationsInput | $Enums.CampaignType
+  status?: Prisma.EnumCampaignStatusEnumFieldUpdateOperationsInput | $Enums.CampaignStatusEnum
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  channels?: Prisma.CampaignUpdatechannelsInput | string[]
+  targetAudience?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  priority?: Prisma.IntFieldUpdateOperationsInput | number
+  stackable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  maxUsageTotal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  maxUsagePerCustomer?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  usageCount?: Prisma.IntFieldUpdateOperationsInput | number
+  aiGenerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutCampaignsNestedInput
+  createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedCampaignsNestedInput
+  rules?: Prisma.CampaignRuleUpdateManyWithoutCampaignNestedInput
+  products?: Prisma.CampaignProductUpdateManyWithoutCampaignNestedInput
+  coupons?: Prisma.CouponUpdateManyWithoutCampaignNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutCampaignNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutCampaignNestedInput
+}
+
+export type CampaignUncheckedUpdateWithoutGeneratedContentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.EnumCampaignTypeFieldUpdateOperationsInput | $Enums.CampaignType
+  status?: Prisma.EnumCampaignStatusEnumFieldUpdateOperationsInput | $Enums.CampaignStatusEnum
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  channels?: Prisma.CampaignUpdatechannelsInput | string[]
+  targetAudience?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  priority?: Prisma.IntFieldUpdateOperationsInput | number
+  stackable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  maxUsageTotal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  maxUsagePerCustomer?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  usageCount?: Prisma.IntFieldUpdateOperationsInput | number
+  aiGenerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdByUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  rules?: Prisma.CampaignRuleUncheckedUpdateManyWithoutCampaignNestedInput
+  products?: Prisma.CampaignProductUncheckedUpdateManyWithoutCampaignNestedInput
+  coupons?: Prisma.CouponUncheckedUpdateManyWithoutCampaignNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutCampaignNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutCampaignNestedInput
+}
+
+export type CampaignCreateWithoutEmailCampaignsInput = {
+  id?: string
+  name: string
+  description?: string | null
+  type: $Enums.CampaignType
+  status?: $Enums.CampaignStatusEnum
+  startDate: Date | string
+  endDate: Date | string
+  channels?: Prisma.CampaignCreatechannelsInput | string[]
+  targetAudience?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  priority?: number
+  stackable?: boolean
+  maxUsageTotal?: number | null
+  maxUsagePerCustomer?: number | null
+  usageCount?: number
+  aiGenerated?: boolean
+  aiReason?: string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutCampaignsInput
+  createdBy: Prisma.UserCreateNestedOneWithoutCreatedCampaignsInput
+  rules?: Prisma.CampaignRuleCreateNestedManyWithoutCampaignInput
+  products?: Prisma.CampaignProductCreateNestedManyWithoutCampaignInput
+  coupons?: Prisma.CouponCreateNestedManyWithoutCampaignInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutCampaignInput
+  generatedContents?: Prisma.GeneratedContentCreateNestedManyWithoutCampaignInput
+}
+
+export type CampaignUncheckedCreateWithoutEmailCampaignsInput = {
+  id?: string
+  tenantId: string
+  name: string
+  description?: string | null
+  type: $Enums.CampaignType
+  status?: $Enums.CampaignStatusEnum
+  startDate: Date | string
+  endDate: Date | string
+  channels?: Prisma.CampaignCreatechannelsInput | string[]
+  targetAudience?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  priority?: number
+  stackable?: boolean
+  maxUsageTotal?: number | null
+  maxUsagePerCustomer?: number | null
+  usageCount?: number
+  aiGenerated?: boolean
+  aiReason?: string | null
+  createdByUserId: string
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  rules?: Prisma.CampaignRuleUncheckedCreateNestedManyWithoutCampaignInput
+  products?: Prisma.CampaignProductUncheckedCreateNestedManyWithoutCampaignInput
+  coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutCampaignInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutCampaignInput
+  generatedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutCampaignInput
+}
+
+export type CampaignCreateOrConnectWithoutEmailCampaignsInput = {
+  where: Prisma.CampaignWhereUniqueInput
+  create: Prisma.XOR<Prisma.CampaignCreateWithoutEmailCampaignsInput, Prisma.CampaignUncheckedCreateWithoutEmailCampaignsInput>
+}
+
+export type CampaignUpsertWithoutEmailCampaignsInput = {
+  update: Prisma.XOR<Prisma.CampaignUpdateWithoutEmailCampaignsInput, Prisma.CampaignUncheckedUpdateWithoutEmailCampaignsInput>
+  create: Prisma.XOR<Prisma.CampaignCreateWithoutEmailCampaignsInput, Prisma.CampaignUncheckedCreateWithoutEmailCampaignsInput>
+  where?: Prisma.CampaignWhereInput
+}
+
+export type CampaignUpdateToOneWithWhereWithoutEmailCampaignsInput = {
+  where?: Prisma.CampaignWhereInput
+  data: Prisma.XOR<Prisma.CampaignUpdateWithoutEmailCampaignsInput, Prisma.CampaignUncheckedUpdateWithoutEmailCampaignsInput>
+}
+
+export type CampaignUpdateWithoutEmailCampaignsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.EnumCampaignTypeFieldUpdateOperationsInput | $Enums.CampaignType
+  status?: Prisma.EnumCampaignStatusEnumFieldUpdateOperationsInput | $Enums.CampaignStatusEnum
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  channels?: Prisma.CampaignUpdatechannelsInput | string[]
+  targetAudience?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  priority?: Prisma.IntFieldUpdateOperationsInput | number
+  stackable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  maxUsageTotal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  maxUsagePerCustomer?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  usageCount?: Prisma.IntFieldUpdateOperationsInput | number
+  aiGenerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutCampaignsNestedInput
+  createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedCampaignsNestedInput
+  rules?: Prisma.CampaignRuleUpdateManyWithoutCampaignNestedInput
+  products?: Prisma.CampaignProductUpdateManyWithoutCampaignNestedInput
+  coupons?: Prisma.CouponUpdateManyWithoutCampaignNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutCampaignNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutCampaignNestedInput
+}
+
+export type CampaignUncheckedUpdateWithoutEmailCampaignsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.EnumCampaignTypeFieldUpdateOperationsInput | $Enums.CampaignType
+  status?: Prisma.EnumCampaignStatusEnumFieldUpdateOperationsInput | $Enums.CampaignStatusEnum
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  channels?: Prisma.CampaignUpdatechannelsInput | string[]
+  targetAudience?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  priority?: Prisma.IntFieldUpdateOperationsInput | number
+  stackable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  maxUsageTotal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  maxUsagePerCustomer?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  usageCount?: Prisma.IntFieldUpdateOperationsInput | number
+  aiGenerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdByUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  rules?: Prisma.CampaignRuleUncheckedUpdateManyWithoutCampaignNestedInput
+  products?: Prisma.CampaignProductUncheckedUpdateManyWithoutCampaignNestedInput
+  coupons?: Prisma.CouponUncheckedUpdateManyWithoutCampaignNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutCampaignNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutCampaignNestedInput
 }
 
 export type CampaignCreateManyCreatedByInput = {
@@ -1487,6 +2000,9 @@ export type CampaignUpdateWithoutCreatedByInput = {
   rules?: Prisma.CampaignRuleUpdateManyWithoutCampaignNestedInput
   products?: Prisma.CampaignProductUpdateManyWithoutCampaignNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutCampaignNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutCampaignNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutCampaignNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutCampaignNestedInput
 }
 
 export type CampaignUncheckedUpdateWithoutCreatedByInput = {
@@ -1513,6 +2029,9 @@ export type CampaignUncheckedUpdateWithoutCreatedByInput = {
   rules?: Prisma.CampaignRuleUncheckedUpdateManyWithoutCampaignNestedInput
   products?: Prisma.CampaignProductUncheckedUpdateManyWithoutCampaignNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutCampaignNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutCampaignNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutCampaignNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutCampaignNestedInput
 }
 
 export type CampaignUncheckedUpdateManyWithoutCreatedByInput = {
@@ -1585,6 +2104,9 @@ export type CampaignUpdateWithoutTenantInput = {
   rules?: Prisma.CampaignRuleUpdateManyWithoutCampaignNestedInput
   products?: Prisma.CampaignProductUpdateManyWithoutCampaignNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutCampaignNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutCampaignNestedInput
+  generatedContents?: Prisma.GeneratedContentUpdateManyWithoutCampaignNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUpdateManyWithoutCampaignNestedInput
 }
 
 export type CampaignUncheckedUpdateWithoutTenantInput = {
@@ -1611,6 +2133,9 @@ export type CampaignUncheckedUpdateWithoutTenantInput = {
   rules?: Prisma.CampaignRuleUncheckedUpdateManyWithoutCampaignNestedInput
   products?: Prisma.CampaignProductUncheckedUpdateManyWithoutCampaignNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutCampaignNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutCampaignNestedInput
+  generatedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutCampaignNestedInput
+  emailCampaigns?: Prisma.EmailCampaignUncheckedUpdateManyWithoutCampaignNestedInput
 }
 
 export type CampaignUncheckedUpdateManyWithoutTenantInput = {
@@ -1645,12 +2170,18 @@ export type CampaignCountOutputType = {
   rules: number
   products: number
   coupons: number
+  catalogs: number
+  generatedContents: number
+  emailCampaigns: number
 }
 
 export type CampaignCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   rules?: boolean | CampaignCountOutputTypeCountRulesArgs
   products?: boolean | CampaignCountOutputTypeCountProductsArgs
   coupons?: boolean | CampaignCountOutputTypeCountCouponsArgs
+  catalogs?: boolean | CampaignCountOutputTypeCountCatalogsArgs
+  generatedContents?: boolean | CampaignCountOutputTypeCountGeneratedContentsArgs
+  emailCampaigns?: boolean | CampaignCountOutputTypeCountEmailCampaignsArgs
 }
 
 /**
@@ -1684,6 +2215,27 @@ export type CampaignCountOutputTypeCountCouponsArgs<ExtArgs extends runtime.Type
   where?: Prisma.CouponWhereInput
 }
 
+/**
+ * CampaignCountOutputType without action
+ */
+export type CampaignCountOutputTypeCountCatalogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CatalogWhereInput
+}
+
+/**
+ * CampaignCountOutputType without action
+ */
+export type CampaignCountOutputTypeCountGeneratedContentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.GeneratedContentWhereInput
+}
+
+/**
+ * CampaignCountOutputType without action
+ */
+export type CampaignCountOutputTypeCountEmailCampaignsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.EmailCampaignWhereInput
+}
+
 
 export type CampaignSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1712,6 +2264,9 @@ export type CampaignSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   rules?: boolean | Prisma.Campaign$rulesArgs<ExtArgs>
   products?: boolean | Prisma.Campaign$productsArgs<ExtArgs>
   coupons?: boolean | Prisma.Campaign$couponsArgs<ExtArgs>
+  catalogs?: boolean | Prisma.Campaign$catalogsArgs<ExtArgs>
+  generatedContents?: boolean | Prisma.Campaign$generatedContentsArgs<ExtArgs>
+  emailCampaigns?: boolean | Prisma.Campaign$emailCampaignsArgs<ExtArgs>
   _count?: boolean | Prisma.CampaignCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["campaign"]>
 
@@ -1798,6 +2353,9 @@ export type CampaignInclude<ExtArgs extends runtime.Types.Extensions.InternalArg
   rules?: boolean | Prisma.Campaign$rulesArgs<ExtArgs>
   products?: boolean | Prisma.Campaign$productsArgs<ExtArgs>
   coupons?: boolean | Prisma.Campaign$couponsArgs<ExtArgs>
+  catalogs?: boolean | Prisma.Campaign$catalogsArgs<ExtArgs>
+  generatedContents?: boolean | Prisma.Campaign$generatedContentsArgs<ExtArgs>
+  emailCampaigns?: boolean | Prisma.Campaign$emailCampaignsArgs<ExtArgs>
   _count?: boolean | Prisma.CampaignCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type CampaignIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1817,6 +2375,9 @@ export type $CampaignPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     rules: Prisma.$CampaignRulePayload<ExtArgs>[]
     products: Prisma.$CampaignProductPayload<ExtArgs>[]
     coupons: Prisma.$CouponPayload<ExtArgs>[]
+    catalogs: Prisma.$CatalogPayload<ExtArgs>[]
+    generatedContents: Prisma.$GeneratedContentPayload<ExtArgs>[]
+    emailCampaigns: Prisma.$EmailCampaignPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2239,6 +2800,9 @@ export interface Prisma__CampaignClient<T, Null = never, ExtArgs extends runtime
   rules<T extends Prisma.Campaign$rulesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Campaign$rulesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CampaignRulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   products<T extends Prisma.Campaign$productsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Campaign$productsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CampaignProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   coupons<T extends Prisma.Campaign$couponsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Campaign$couponsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CouponPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  catalogs<T extends Prisma.Campaign$catalogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Campaign$catalogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CatalogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  generatedContents<T extends Prisma.Campaign$generatedContentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Campaign$generatedContentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GeneratedContentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  emailCampaigns<T extends Prisma.Campaign$emailCampaignsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Campaign$emailCampaignsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EmailCampaignPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2754,6 +3318,78 @@ export type Campaign$couponsArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   distinct?: Prisma.CouponScalarFieldEnum | Prisma.CouponScalarFieldEnum[]
+}
+
+/**
+ * Campaign.catalogs
+ */
+export type Campaign$catalogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Catalog
+   */
+  select?: Prisma.CatalogSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Catalog
+   */
+  omit?: Prisma.CatalogOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CatalogInclude<ExtArgs> | null
+  where?: Prisma.CatalogWhereInput
+  orderBy?: Prisma.CatalogOrderByWithRelationInput | Prisma.CatalogOrderByWithRelationInput[]
+  cursor?: Prisma.CatalogWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CatalogScalarFieldEnum | Prisma.CatalogScalarFieldEnum[]
+}
+
+/**
+ * Campaign.generatedContents
+ */
+export type Campaign$generatedContentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the GeneratedContent
+   */
+  select?: Prisma.GeneratedContentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the GeneratedContent
+   */
+  omit?: Prisma.GeneratedContentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GeneratedContentInclude<ExtArgs> | null
+  where?: Prisma.GeneratedContentWhereInput
+  orderBy?: Prisma.GeneratedContentOrderByWithRelationInput | Prisma.GeneratedContentOrderByWithRelationInput[]
+  cursor?: Prisma.GeneratedContentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.GeneratedContentScalarFieldEnum | Prisma.GeneratedContentScalarFieldEnum[]
+}
+
+/**
+ * Campaign.emailCampaigns
+ */
+export type Campaign$emailCampaignsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the EmailCampaign
+   */
+  select?: Prisma.EmailCampaignSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the EmailCampaign
+   */
+  omit?: Prisma.EmailCampaignOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.EmailCampaignInclude<ExtArgs> | null
+  where?: Prisma.EmailCampaignWhereInput
+  orderBy?: Prisma.EmailCampaignOrderByWithRelationInput | Prisma.EmailCampaignOrderByWithRelationInput[]
+  cursor?: Prisma.EmailCampaignWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.EmailCampaignScalarFieldEnum | Prisma.EmailCampaignScalarFieldEnum[]
 }
 
 /**

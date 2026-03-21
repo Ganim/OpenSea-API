@@ -815,6 +815,154 @@ export const ComboDiscountType = {
 export type ComboDiscountType = (typeof ComboDiscountType)[keyof typeof ComboDiscountType]
 
 
+export const CatalogType = {
+  GENERAL: 'GENERAL',
+  SELLER: 'SELLER',
+  CAMPAIGN: 'CAMPAIGN',
+  CUSTOMER: 'CUSTOMER',
+  AI_GENERATED: 'AI_GENERATED'
+} as const
+
+export type CatalogType = (typeof CatalogType)[keyof typeof CatalogType]
+
+
+export const CatalogStatus = {
+  DRAFT: 'DRAFT',
+  ACTIVE: 'ACTIVE',
+  ARCHIVED: 'ARCHIVED'
+} as const
+
+export type CatalogStatus = (typeof CatalogStatus)[keyof typeof CatalogStatus]
+
+
+export const CatalogLayout = {
+  GRID: 'GRID',
+  LIST: 'LIST',
+  MAGAZINE: 'MAGAZINE'
+} as const
+
+export type CatalogLayout = (typeof CatalogLayout)[keyof typeof CatalogLayout]
+
+
+export const CatalogExportType = {
+  PDF_FOLDER: 'PDF_FOLDER',
+  PDF_PRICE_LIST: 'PDF_PRICE_LIST',
+  IMAGE_GRID: 'IMAGE_GRID',
+  SHAREABLE_LINK: 'SHAREABLE_LINK'
+} as const
+
+export type CatalogExportType = (typeof CatalogExportType)[keyof typeof CatalogExportType]
+
+
+export const CatalogExportStatus = {
+  PENDING: 'PENDING',
+  GENERATING: 'GENERATING',
+  READY: 'READY',
+  FAILED: 'FAILED',
+  EXPIRED: 'EXPIRED'
+} as const
+
+export type CatalogExportStatus = (typeof CatalogExportStatus)[keyof typeof CatalogExportStatus]
+
+
+export const ContentTemplateType = {
+  FOLDER_PAGE: 'FOLDER_PAGE',
+  SOCIAL_POST: 'SOCIAL_POST',
+  SOCIAL_STORY: 'SOCIAL_STORY',
+  SOCIAL_REEL: 'SOCIAL_REEL',
+  EMAIL_CAMPAIGN: 'EMAIL_CAMPAIGN',
+  EMAIL_NEWSLETTER: 'EMAIL_NEWSLETTER',
+  BANNER: 'BANNER',
+  PRICE_LIST: 'PRICE_LIST',
+  PRODUCT_CARD: 'PRODUCT_CARD',
+  MOCKUP: 'MOCKUP'
+} as const
+
+export type ContentTemplateType = (typeof ContentTemplateType)[keyof typeof ContentTemplateType]
+
+
+export const ContentChannel = {
+  INSTAGRAM: 'INSTAGRAM',
+  FACEBOOK: 'FACEBOOK',
+  TIKTOK: 'TIKTOK',
+  WHATSAPP: 'WHATSAPP',
+  EMAIL: 'EMAIL',
+  PRINT: 'PRINT',
+  WEB: 'WEB'
+} as const
+
+export type ContentChannel = (typeof ContentChannel)[keyof typeof ContentChannel]
+
+
+export const GeneratedContentType = {
+  SOCIAL_POST: 'SOCIAL_POST',
+  SOCIAL_STORY: 'SOCIAL_STORY',
+  SOCIAL_REEL: 'SOCIAL_REEL',
+  FOLDER_PAGE: 'FOLDER_PAGE',
+  EMAIL_CAMPAIGN: 'EMAIL_CAMPAIGN',
+  BANNER: 'BANNER',
+  PRODUCT_CARD: 'PRODUCT_CARD',
+  VIDEO: 'VIDEO',
+  MOCKUP: 'MOCKUP'
+} as const
+
+export type GeneratedContentType = (typeof GeneratedContentType)[keyof typeof GeneratedContentType]
+
+
+export const ContentStatus = {
+  DRAFT: 'DRAFT',
+  READY: 'READY',
+  APPROVED: 'APPROVED',
+  PUBLISHED: 'PUBLISHED',
+  ARCHIVED: 'ARCHIVED'
+} as const
+
+export type ContentStatus = (typeof ContentStatus)[keyof typeof ContentStatus]
+
+
+export const MockupResultStatus = {
+  PENDING: 'PENDING',
+  GENERATING: 'GENERATING',
+  READY: 'READY',
+  FAILED: 'FAILED'
+} as const
+
+export type MockupResultStatus = (typeof MockupResultStatus)[keyof typeof MockupResultStatus]
+
+
+export const EmailCampaignType = {
+  NEWSLETTER: 'NEWSLETTER',
+  PROMOTION: 'PROMOTION',
+  PRODUCT_LAUNCH: 'PRODUCT_LAUNCH',
+  FOLLOW_UP: 'FOLLOW_UP',
+  CUSTOM: 'CUSTOM'
+} as const
+
+export type EmailCampaignType = (typeof EmailCampaignType)[keyof typeof EmailCampaignType]
+
+
+export const EmailCampaignStatus = {
+  DRAFT: 'DRAFT',
+  SCHEDULED: 'SCHEDULED',
+  SENDING: 'SENDING',
+  SENT: 'SENT',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type EmailCampaignStatus = (typeof EmailCampaignStatus)[keyof typeof EmailCampaignStatus]
+
+
+export const EmailRecipientType = {
+  ALL_CONTACTS: 'ALL_CONTACTS',
+  CUSTOMER_TAG: 'CUSTOMER_TAG',
+  LIFECYCLE_STAGE: 'LIFECYCLE_STAGE',
+  SPECIFIC_CONTACTS: 'SPECIFIC_CONTACTS',
+  SEGMENT: 'SEGMENT'
+} as const
+
+export type EmailRecipientType = (typeof EmailRecipientType)[keyof typeof EmailRecipientType]
+
+
 export const VolumeStatus = {
   OPEN: 'OPEN',
   CLOSED: 'CLOSED',
@@ -823,6 +971,46 @@ export const VolumeStatus = {
 } as const
 
 export type VolumeStatus = (typeof VolumeStatus)[keyof typeof VolumeStatus]
+
+
+export const InventorySessionStatus = {
+  OPEN: 'OPEN',
+  PAUSED: 'PAUSED',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type InventorySessionStatus = (typeof InventorySessionStatus)[keyof typeof InventorySessionStatus]
+
+
+export const InventorySessionMode = {
+  BIN: 'BIN',
+  ZONE: 'ZONE',
+  PRODUCT: 'PRODUCT'
+} as const
+
+export type InventorySessionMode = (typeof InventorySessionMode)[keyof typeof InventorySessionMode]
+
+
+export const InventorySessionItemStatus = {
+  PENDING: 'PENDING',
+  CONFIRMED: 'CONFIRMED',
+  MISSING: 'MISSING',
+  WRONG_BIN: 'WRONG_BIN',
+  EXTRA: 'EXTRA'
+} as const
+
+export type InventorySessionItemStatus = (typeof InventorySessionItemStatus)[keyof typeof InventorySessionItemStatus]
+
+
+export const DivergenceResolution = {
+  LOSS_REGISTERED: 'LOSS_REGISTERED',
+  TRANSFERRED: 'TRANSFERRED',
+  ENTRY_CREATED: 'ENTRY_CREATED',
+  PENDING_REVIEW: 'PENDING_REVIEW'
+} as const
+
+export type DivergenceResolution = (typeof DivergenceResolution)[keyof typeof DivergenceResolution]
 
 
 export const RequestType = {
