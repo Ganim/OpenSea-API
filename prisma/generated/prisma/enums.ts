@@ -1019,6 +1019,18 @@ export const BoardMemberRole = {
 export type BoardMemberRole = (typeof BoardMemberRole)[keyof typeof BoardMemberRole]
 
 
+export const CardIntegrationType = {
+  CUSTOMER: 'CUSTOMER',
+  PRODUCT: 'PRODUCT',
+  FINANCE_ENTRY: 'FINANCE_ENTRY',
+  EMAIL: 'EMAIL',
+  DEPARTMENT: 'DEPARTMENT',
+  CALENDAR_EVENT: 'CALENDAR_EVENT'
+} as const
+
+export type CardIntegrationType = (typeof CardIntegrationType)[keyof typeof CardIntegrationType]
+
+
 export const CardStatus = {
   OPEN: 'OPEN',
   IN_PROGRESS: 'IN_PROGRESS',

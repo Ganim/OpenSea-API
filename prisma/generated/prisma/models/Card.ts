@@ -381,6 +381,7 @@ export type CardWhereInput = {
   checklists?: Prisma.CardChecklistListRelationFilter
   activities?: Prisma.CardActivityListRelationFilter
   watchers?: Prisma.CardWatcherListRelationFilter
+  integrations?: Prisma.CardIntegrationListRelationFilter
 }
 
 export type CardOrderByWithRelationInput = {
@@ -421,6 +422,7 @@ export type CardOrderByWithRelationInput = {
   checklists?: Prisma.CardChecklistOrderByRelationAggregateInput
   activities?: Prisma.CardActivityOrderByRelationAggregateInput
   watchers?: Prisma.CardWatcherOrderByRelationAggregateInput
+  integrations?: Prisma.CardIntegrationOrderByRelationAggregateInput
 }
 
 export type CardWhereUniqueInput = Prisma.AtLeast<{
@@ -464,6 +466,7 @@ export type CardWhereUniqueInput = Prisma.AtLeast<{
   checklists?: Prisma.CardChecklistListRelationFilter
   activities?: Prisma.CardActivityListRelationFilter
   watchers?: Prisma.CardWatcherListRelationFilter
+  integrations?: Prisma.CardIntegrationListRelationFilter
 }, "id">
 
 export type CardOrderByWithAggregationInput = {
@@ -561,6 +564,7 @@ export type CardCreateInput = {
   checklists?: Prisma.CardChecklistCreateNestedManyWithoutCardInput
   activities?: Prisma.CardActivityCreateNestedManyWithoutCardInput
   watchers?: Prisma.CardWatcherCreateNestedManyWithoutCardInput
+  integrations?: Prisma.CardIntegrationCreateNestedManyWithoutCardInput
 }
 
 export type CardUncheckedCreateInput = {
@@ -596,6 +600,7 @@ export type CardUncheckedCreateInput = {
   checklists?: Prisma.CardChecklistUncheckedCreateNestedManyWithoutCardInput
   activities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutCardInput
   watchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutCardInput
+  integrations?: Prisma.CardIntegrationUncheckedCreateNestedManyWithoutCardInput
 }
 
 export type CardUpdateInput = {
@@ -631,6 +636,7 @@ export type CardUpdateInput = {
   checklists?: Prisma.CardChecklistUpdateManyWithoutCardNestedInput
   activities?: Prisma.CardActivityUpdateManyWithoutCardNestedInput
   watchers?: Prisma.CardWatcherUpdateManyWithoutCardNestedInput
+  integrations?: Prisma.CardIntegrationUpdateManyWithoutCardNestedInput
 }
 
 export type CardUncheckedUpdateInput = {
@@ -666,6 +672,7 @@ export type CardUncheckedUpdateInput = {
   checklists?: Prisma.CardChecklistUncheckedUpdateManyWithoutCardNestedInput
   activities?: Prisma.CardActivityUncheckedUpdateManyWithoutCardNestedInput
   watchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutCardNestedInput
+  integrations?: Prisma.CardIntegrationUncheckedUpdateManyWithoutCardNestedInput
 }
 
 export type CardCreateManyInput = {
@@ -1185,6 +1192,20 @@ export type CardUpdateOneRequiredWithoutWatchersNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CardUpdateToOneWithWhereWithoutWatchersInput, Prisma.CardUpdateWithoutWatchersInput>, Prisma.CardUncheckedUpdateWithoutWatchersInput>
 }
 
+export type CardCreateNestedOneWithoutIntegrationsInput = {
+  create?: Prisma.XOR<Prisma.CardCreateWithoutIntegrationsInput, Prisma.CardUncheckedCreateWithoutIntegrationsInput>
+  connectOrCreate?: Prisma.CardCreateOrConnectWithoutIntegrationsInput
+  connect?: Prisma.CardWhereUniqueInput
+}
+
+export type CardUpdateOneRequiredWithoutIntegrationsNestedInput = {
+  create?: Prisma.XOR<Prisma.CardCreateWithoutIntegrationsInput, Prisma.CardUncheckedCreateWithoutIntegrationsInput>
+  connectOrCreate?: Prisma.CardCreateOrConnectWithoutIntegrationsInput
+  upsert?: Prisma.CardUpsertWithoutIntegrationsInput
+  connect?: Prisma.CardWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CardUpdateToOneWithWhereWithoutIntegrationsInput, Prisma.CardUpdateWithoutIntegrationsInput>, Prisma.CardUncheckedUpdateWithoutIntegrationsInput>
+}
+
 export type CardCreateWithoutAssigneeInput = {
   id?: string
   title: string
@@ -1217,6 +1238,7 @@ export type CardCreateWithoutAssigneeInput = {
   checklists?: Prisma.CardChecklistCreateNestedManyWithoutCardInput
   activities?: Prisma.CardActivityCreateNestedManyWithoutCardInput
   watchers?: Prisma.CardWatcherCreateNestedManyWithoutCardInput
+  integrations?: Prisma.CardIntegrationCreateNestedManyWithoutCardInput
 }
 
 export type CardUncheckedCreateWithoutAssigneeInput = {
@@ -1251,6 +1273,7 @@ export type CardUncheckedCreateWithoutAssigneeInput = {
   checklists?: Prisma.CardChecklistUncheckedCreateNestedManyWithoutCardInput
   activities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutCardInput
   watchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutCardInput
+  integrations?: Prisma.CardIntegrationUncheckedCreateNestedManyWithoutCardInput
 }
 
 export type CardCreateOrConnectWithoutAssigneeInput = {
@@ -1295,6 +1318,7 @@ export type CardCreateWithoutReporterInput = {
   checklists?: Prisma.CardChecklistCreateNestedManyWithoutCardInput
   activities?: Prisma.CardActivityCreateNestedManyWithoutCardInput
   watchers?: Prisma.CardWatcherCreateNestedManyWithoutCardInput
+  integrations?: Prisma.CardIntegrationCreateNestedManyWithoutCardInput
 }
 
 export type CardUncheckedCreateWithoutReporterInput = {
@@ -1329,6 +1353,7 @@ export type CardUncheckedCreateWithoutReporterInput = {
   checklists?: Prisma.CardChecklistUncheckedCreateNestedManyWithoutCardInput
   activities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutCardInput
   watchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutCardInput
+  integrations?: Prisma.CardIntegrationUncheckedCreateNestedManyWithoutCardInput
 }
 
 export type CardCreateOrConnectWithoutReporterInput = {
@@ -1435,6 +1460,7 @@ export type CardCreateWithoutBoardInput = {
   checklists?: Prisma.CardChecklistCreateNestedManyWithoutCardInput
   activities?: Prisma.CardActivityCreateNestedManyWithoutCardInput
   watchers?: Prisma.CardWatcherCreateNestedManyWithoutCardInput
+  integrations?: Prisma.CardIntegrationCreateNestedManyWithoutCardInput
 }
 
 export type CardUncheckedCreateWithoutBoardInput = {
@@ -1469,6 +1495,7 @@ export type CardUncheckedCreateWithoutBoardInput = {
   checklists?: Prisma.CardChecklistUncheckedCreateNestedManyWithoutCardInput
   activities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutCardInput
   watchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutCardInput
+  integrations?: Prisma.CardIntegrationUncheckedCreateNestedManyWithoutCardInput
 }
 
 export type CardCreateOrConnectWithoutBoardInput = {
@@ -1529,6 +1556,7 @@ export type CardCreateWithoutColumnInput = {
   checklists?: Prisma.CardChecklistCreateNestedManyWithoutCardInput
   activities?: Prisma.CardActivityCreateNestedManyWithoutCardInput
   watchers?: Prisma.CardWatcherCreateNestedManyWithoutCardInput
+  integrations?: Prisma.CardIntegrationCreateNestedManyWithoutCardInput
 }
 
 export type CardUncheckedCreateWithoutColumnInput = {
@@ -1563,6 +1591,7 @@ export type CardUncheckedCreateWithoutColumnInput = {
   checklists?: Prisma.CardChecklistUncheckedCreateNestedManyWithoutCardInput
   activities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutCardInput
   watchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutCardInput
+  integrations?: Prisma.CardIntegrationUncheckedCreateNestedManyWithoutCardInput
 }
 
 export type CardCreateOrConnectWithoutColumnInput = {
@@ -1623,6 +1652,7 @@ export type CardCreateWithoutSubtasksInput = {
   checklists?: Prisma.CardChecklistCreateNestedManyWithoutCardInput
   activities?: Prisma.CardActivityCreateNestedManyWithoutCardInput
   watchers?: Prisma.CardWatcherCreateNestedManyWithoutCardInput
+  integrations?: Prisma.CardIntegrationCreateNestedManyWithoutCardInput
 }
 
 export type CardUncheckedCreateWithoutSubtasksInput = {
@@ -1657,6 +1687,7 @@ export type CardUncheckedCreateWithoutSubtasksInput = {
   checklists?: Prisma.CardChecklistUncheckedCreateNestedManyWithoutCardInput
   activities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutCardInput
   watchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutCardInput
+  integrations?: Prisma.CardIntegrationUncheckedCreateNestedManyWithoutCardInput
 }
 
 export type CardCreateOrConnectWithoutSubtasksInput = {
@@ -1696,6 +1727,7 @@ export type CardCreateWithoutParentCardInput = {
   checklists?: Prisma.CardChecklistCreateNestedManyWithoutCardInput
   activities?: Prisma.CardActivityCreateNestedManyWithoutCardInput
   watchers?: Prisma.CardWatcherCreateNestedManyWithoutCardInput
+  integrations?: Prisma.CardIntegrationCreateNestedManyWithoutCardInput
 }
 
 export type CardUncheckedCreateWithoutParentCardInput = {
@@ -1730,6 +1762,7 @@ export type CardUncheckedCreateWithoutParentCardInput = {
   checklists?: Prisma.CardChecklistUncheckedCreateNestedManyWithoutCardInput
   activities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutCardInput
   watchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutCardInput
+  integrations?: Prisma.CardIntegrationUncheckedCreateNestedManyWithoutCardInput
 }
 
 export type CardCreateOrConnectWithoutParentCardInput = {
@@ -1785,6 +1818,7 @@ export type CardUpdateWithoutSubtasksInput = {
   checklists?: Prisma.CardChecklistUpdateManyWithoutCardNestedInput
   activities?: Prisma.CardActivityUpdateManyWithoutCardNestedInput
   watchers?: Prisma.CardWatcherUpdateManyWithoutCardNestedInput
+  integrations?: Prisma.CardIntegrationUpdateManyWithoutCardNestedInput
 }
 
 export type CardUncheckedUpdateWithoutSubtasksInput = {
@@ -1819,6 +1853,7 @@ export type CardUncheckedUpdateWithoutSubtasksInput = {
   checklists?: Prisma.CardChecklistUncheckedUpdateManyWithoutCardNestedInput
   activities?: Prisma.CardActivityUncheckedUpdateManyWithoutCardNestedInput
   watchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutCardNestedInput
+  integrations?: Prisma.CardIntegrationUncheckedUpdateManyWithoutCardNestedInput
 }
 
 export type CardUpsertWithWhereUniqueWithoutParentCardInput = {
@@ -1869,6 +1904,7 @@ export type CardCreateWithoutLabelsInput = {
   checklists?: Prisma.CardChecklistCreateNestedManyWithoutCardInput
   activities?: Prisma.CardActivityCreateNestedManyWithoutCardInput
   watchers?: Prisma.CardWatcherCreateNestedManyWithoutCardInput
+  integrations?: Prisma.CardIntegrationCreateNestedManyWithoutCardInput
 }
 
 export type CardUncheckedCreateWithoutLabelsInput = {
@@ -1903,6 +1939,7 @@ export type CardUncheckedCreateWithoutLabelsInput = {
   checklists?: Prisma.CardChecklistUncheckedCreateNestedManyWithoutCardInput
   activities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutCardInput
   watchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutCardInput
+  integrations?: Prisma.CardIntegrationUncheckedCreateNestedManyWithoutCardInput
 }
 
 export type CardCreateOrConnectWithoutLabelsInput = {
@@ -1953,6 +1990,7 @@ export type CardUpdateWithoutLabelsInput = {
   checklists?: Prisma.CardChecklistUpdateManyWithoutCardNestedInput
   activities?: Prisma.CardActivityUpdateManyWithoutCardNestedInput
   watchers?: Prisma.CardWatcherUpdateManyWithoutCardNestedInput
+  integrations?: Prisma.CardIntegrationUpdateManyWithoutCardNestedInput
 }
 
 export type CardUncheckedUpdateWithoutLabelsInput = {
@@ -1987,6 +2025,7 @@ export type CardUncheckedUpdateWithoutLabelsInput = {
   checklists?: Prisma.CardChecklistUncheckedUpdateManyWithoutCardNestedInput
   activities?: Prisma.CardActivityUncheckedUpdateManyWithoutCardNestedInput
   watchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutCardNestedInput
+  integrations?: Prisma.CardIntegrationUncheckedUpdateManyWithoutCardNestedInput
 }
 
 export type CardCreateWithoutCustomFieldValuesInput = {
@@ -2021,6 +2060,7 @@ export type CardCreateWithoutCustomFieldValuesInput = {
   checklists?: Prisma.CardChecklistCreateNestedManyWithoutCardInput
   activities?: Prisma.CardActivityCreateNestedManyWithoutCardInput
   watchers?: Prisma.CardWatcherCreateNestedManyWithoutCardInput
+  integrations?: Prisma.CardIntegrationCreateNestedManyWithoutCardInput
 }
 
 export type CardUncheckedCreateWithoutCustomFieldValuesInput = {
@@ -2055,6 +2095,7 @@ export type CardUncheckedCreateWithoutCustomFieldValuesInput = {
   checklists?: Prisma.CardChecklistUncheckedCreateNestedManyWithoutCardInput
   activities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutCardInput
   watchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutCardInput
+  integrations?: Prisma.CardIntegrationUncheckedCreateNestedManyWithoutCardInput
 }
 
 export type CardCreateOrConnectWithoutCustomFieldValuesInput = {
@@ -2105,6 +2146,7 @@ export type CardUpdateWithoutCustomFieldValuesInput = {
   checklists?: Prisma.CardChecklistUpdateManyWithoutCardNestedInput
   activities?: Prisma.CardActivityUpdateManyWithoutCardNestedInput
   watchers?: Prisma.CardWatcherUpdateManyWithoutCardNestedInput
+  integrations?: Prisma.CardIntegrationUpdateManyWithoutCardNestedInput
 }
 
 export type CardUncheckedUpdateWithoutCustomFieldValuesInput = {
@@ -2139,6 +2181,7 @@ export type CardUncheckedUpdateWithoutCustomFieldValuesInput = {
   checklists?: Prisma.CardChecklistUncheckedUpdateManyWithoutCardNestedInput
   activities?: Prisma.CardActivityUncheckedUpdateManyWithoutCardNestedInput
   watchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutCardNestedInput
+  integrations?: Prisma.CardIntegrationUncheckedUpdateManyWithoutCardNestedInput
 }
 
 export type CardCreateWithoutCommentsInput = {
@@ -2173,6 +2216,7 @@ export type CardCreateWithoutCommentsInput = {
   checklists?: Prisma.CardChecklistCreateNestedManyWithoutCardInput
   activities?: Prisma.CardActivityCreateNestedManyWithoutCardInput
   watchers?: Prisma.CardWatcherCreateNestedManyWithoutCardInput
+  integrations?: Prisma.CardIntegrationCreateNestedManyWithoutCardInput
 }
 
 export type CardUncheckedCreateWithoutCommentsInput = {
@@ -2207,6 +2251,7 @@ export type CardUncheckedCreateWithoutCommentsInput = {
   checklists?: Prisma.CardChecklistUncheckedCreateNestedManyWithoutCardInput
   activities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutCardInput
   watchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutCardInput
+  integrations?: Prisma.CardIntegrationUncheckedCreateNestedManyWithoutCardInput
 }
 
 export type CardCreateOrConnectWithoutCommentsInput = {
@@ -2257,6 +2302,7 @@ export type CardUpdateWithoutCommentsInput = {
   checklists?: Prisma.CardChecklistUpdateManyWithoutCardNestedInput
   activities?: Prisma.CardActivityUpdateManyWithoutCardNestedInput
   watchers?: Prisma.CardWatcherUpdateManyWithoutCardNestedInput
+  integrations?: Prisma.CardIntegrationUpdateManyWithoutCardNestedInput
 }
 
 export type CardUncheckedUpdateWithoutCommentsInput = {
@@ -2291,6 +2337,7 @@ export type CardUncheckedUpdateWithoutCommentsInput = {
   checklists?: Prisma.CardChecklistUncheckedUpdateManyWithoutCardNestedInput
   activities?: Prisma.CardActivityUncheckedUpdateManyWithoutCardNestedInput
   watchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutCardNestedInput
+  integrations?: Prisma.CardIntegrationUncheckedUpdateManyWithoutCardNestedInput
 }
 
 export type CardCreateWithoutAttachmentsInput = {
@@ -2325,6 +2372,7 @@ export type CardCreateWithoutAttachmentsInput = {
   checklists?: Prisma.CardChecklistCreateNestedManyWithoutCardInput
   activities?: Prisma.CardActivityCreateNestedManyWithoutCardInput
   watchers?: Prisma.CardWatcherCreateNestedManyWithoutCardInput
+  integrations?: Prisma.CardIntegrationCreateNestedManyWithoutCardInput
 }
 
 export type CardUncheckedCreateWithoutAttachmentsInput = {
@@ -2359,6 +2407,7 @@ export type CardUncheckedCreateWithoutAttachmentsInput = {
   checklists?: Prisma.CardChecklistUncheckedCreateNestedManyWithoutCardInput
   activities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutCardInput
   watchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutCardInput
+  integrations?: Prisma.CardIntegrationUncheckedCreateNestedManyWithoutCardInput
 }
 
 export type CardCreateOrConnectWithoutAttachmentsInput = {
@@ -2409,6 +2458,7 @@ export type CardUpdateWithoutAttachmentsInput = {
   checklists?: Prisma.CardChecklistUpdateManyWithoutCardNestedInput
   activities?: Prisma.CardActivityUpdateManyWithoutCardNestedInput
   watchers?: Prisma.CardWatcherUpdateManyWithoutCardNestedInput
+  integrations?: Prisma.CardIntegrationUpdateManyWithoutCardNestedInput
 }
 
 export type CardUncheckedUpdateWithoutAttachmentsInput = {
@@ -2443,6 +2493,7 @@ export type CardUncheckedUpdateWithoutAttachmentsInput = {
   checklists?: Prisma.CardChecklistUncheckedUpdateManyWithoutCardNestedInput
   activities?: Prisma.CardActivityUncheckedUpdateManyWithoutCardNestedInput
   watchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutCardNestedInput
+  integrations?: Prisma.CardIntegrationUncheckedUpdateManyWithoutCardNestedInput
 }
 
 export type CardCreateWithoutChecklistsInput = {
@@ -2477,6 +2528,7 @@ export type CardCreateWithoutChecklistsInput = {
   attachments?: Prisma.CardAttachmentCreateNestedManyWithoutCardInput
   activities?: Prisma.CardActivityCreateNestedManyWithoutCardInput
   watchers?: Prisma.CardWatcherCreateNestedManyWithoutCardInput
+  integrations?: Prisma.CardIntegrationCreateNestedManyWithoutCardInput
 }
 
 export type CardUncheckedCreateWithoutChecklistsInput = {
@@ -2511,6 +2563,7 @@ export type CardUncheckedCreateWithoutChecklistsInput = {
   attachments?: Prisma.CardAttachmentUncheckedCreateNestedManyWithoutCardInput
   activities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutCardInput
   watchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutCardInput
+  integrations?: Prisma.CardIntegrationUncheckedCreateNestedManyWithoutCardInput
 }
 
 export type CardCreateOrConnectWithoutChecklistsInput = {
@@ -2561,6 +2614,7 @@ export type CardUpdateWithoutChecklistsInput = {
   attachments?: Prisma.CardAttachmentUpdateManyWithoutCardNestedInput
   activities?: Prisma.CardActivityUpdateManyWithoutCardNestedInput
   watchers?: Prisma.CardWatcherUpdateManyWithoutCardNestedInput
+  integrations?: Prisma.CardIntegrationUpdateManyWithoutCardNestedInput
 }
 
 export type CardUncheckedUpdateWithoutChecklistsInput = {
@@ -2595,6 +2649,7 @@ export type CardUncheckedUpdateWithoutChecklistsInput = {
   attachments?: Prisma.CardAttachmentUncheckedUpdateManyWithoutCardNestedInput
   activities?: Prisma.CardActivityUncheckedUpdateManyWithoutCardNestedInput
   watchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutCardNestedInput
+  integrations?: Prisma.CardIntegrationUncheckedUpdateManyWithoutCardNestedInput
 }
 
 export type CardCreateWithoutActivitiesInput = {
@@ -2629,6 +2684,7 @@ export type CardCreateWithoutActivitiesInput = {
   attachments?: Prisma.CardAttachmentCreateNestedManyWithoutCardInput
   checklists?: Prisma.CardChecklistCreateNestedManyWithoutCardInput
   watchers?: Prisma.CardWatcherCreateNestedManyWithoutCardInput
+  integrations?: Prisma.CardIntegrationCreateNestedManyWithoutCardInput
 }
 
 export type CardUncheckedCreateWithoutActivitiesInput = {
@@ -2663,6 +2719,7 @@ export type CardUncheckedCreateWithoutActivitiesInput = {
   attachments?: Prisma.CardAttachmentUncheckedCreateNestedManyWithoutCardInput
   checklists?: Prisma.CardChecklistUncheckedCreateNestedManyWithoutCardInput
   watchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutCardInput
+  integrations?: Prisma.CardIntegrationUncheckedCreateNestedManyWithoutCardInput
 }
 
 export type CardCreateOrConnectWithoutActivitiesInput = {
@@ -2713,6 +2770,7 @@ export type CardUpdateWithoutActivitiesInput = {
   attachments?: Prisma.CardAttachmentUpdateManyWithoutCardNestedInput
   checklists?: Prisma.CardChecklistUpdateManyWithoutCardNestedInput
   watchers?: Prisma.CardWatcherUpdateManyWithoutCardNestedInput
+  integrations?: Prisma.CardIntegrationUpdateManyWithoutCardNestedInput
 }
 
 export type CardUncheckedUpdateWithoutActivitiesInput = {
@@ -2747,6 +2805,7 @@ export type CardUncheckedUpdateWithoutActivitiesInput = {
   attachments?: Prisma.CardAttachmentUncheckedUpdateManyWithoutCardNestedInput
   checklists?: Prisma.CardChecklistUncheckedUpdateManyWithoutCardNestedInput
   watchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutCardNestedInput
+  integrations?: Prisma.CardIntegrationUncheckedUpdateManyWithoutCardNestedInput
 }
 
 export type CardCreateWithoutWatchersInput = {
@@ -2781,6 +2840,7 @@ export type CardCreateWithoutWatchersInput = {
   attachments?: Prisma.CardAttachmentCreateNestedManyWithoutCardInput
   checklists?: Prisma.CardChecklistCreateNestedManyWithoutCardInput
   activities?: Prisma.CardActivityCreateNestedManyWithoutCardInput
+  integrations?: Prisma.CardIntegrationCreateNestedManyWithoutCardInput
 }
 
 export type CardUncheckedCreateWithoutWatchersInput = {
@@ -2815,6 +2875,7 @@ export type CardUncheckedCreateWithoutWatchersInput = {
   attachments?: Prisma.CardAttachmentUncheckedCreateNestedManyWithoutCardInput
   checklists?: Prisma.CardChecklistUncheckedCreateNestedManyWithoutCardInput
   activities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutCardInput
+  integrations?: Prisma.CardIntegrationUncheckedCreateNestedManyWithoutCardInput
 }
 
 export type CardCreateOrConnectWithoutWatchersInput = {
@@ -2865,6 +2926,7 @@ export type CardUpdateWithoutWatchersInput = {
   attachments?: Prisma.CardAttachmentUpdateManyWithoutCardNestedInput
   checklists?: Prisma.CardChecklistUpdateManyWithoutCardNestedInput
   activities?: Prisma.CardActivityUpdateManyWithoutCardNestedInput
+  integrations?: Prisma.CardIntegrationUpdateManyWithoutCardNestedInput
 }
 
 export type CardUncheckedUpdateWithoutWatchersInput = {
@@ -2899,6 +2961,163 @@ export type CardUncheckedUpdateWithoutWatchersInput = {
   attachments?: Prisma.CardAttachmentUncheckedUpdateManyWithoutCardNestedInput
   checklists?: Prisma.CardChecklistUncheckedUpdateManyWithoutCardNestedInput
   activities?: Prisma.CardActivityUncheckedUpdateManyWithoutCardNestedInput
+  integrations?: Prisma.CardIntegrationUncheckedUpdateManyWithoutCardNestedInput
+}
+
+export type CardCreateWithoutIntegrationsInput = {
+  id?: string
+  title: string
+  description?: string | null
+  status?: $Enums.CardStatus
+  priority?: $Enums.CardPriority
+  position?: number
+  startDate?: Date | string | null
+  dueDate?: Date | string | null
+  completedAt?: Date | string | null
+  estimatedMinutes?: number | null
+  coverColor?: string | null
+  coverImageId?: string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  systemSourceType?: string | null
+  systemSourceId?: string | null
+  archivedAt?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  board: Prisma.BoardCreateNestedOneWithoutCardsInput
+  column: Prisma.BoardColumnCreateNestedOneWithoutCardsInput
+  parentCard?: Prisma.CardCreateNestedOneWithoutSubtasksInput
+  subtasks?: Prisma.CardCreateNestedManyWithoutParentCardInput
+  assignee?: Prisma.UserCreateNestedOneWithoutAssignedCardsInput
+  reporter: Prisma.UserCreateNestedOneWithoutReportedCardsInput
+  labels?: Prisma.CardLabelCreateNestedManyWithoutCardInput
+  customFieldValues?: Prisma.CardCustomFieldValueCreateNestedManyWithoutCardInput
+  comments?: Prisma.CardCommentCreateNestedManyWithoutCardInput
+  attachments?: Prisma.CardAttachmentCreateNestedManyWithoutCardInput
+  checklists?: Prisma.CardChecklistCreateNestedManyWithoutCardInput
+  activities?: Prisma.CardActivityCreateNestedManyWithoutCardInput
+  watchers?: Prisma.CardWatcherCreateNestedManyWithoutCardInput
+}
+
+export type CardUncheckedCreateWithoutIntegrationsInput = {
+  id?: string
+  boardId: string
+  columnId: string
+  parentCardId?: string | null
+  title: string
+  description?: string | null
+  status?: $Enums.CardStatus
+  priority?: $Enums.CardPriority
+  position?: number
+  assigneeId?: string | null
+  reporterId: string
+  startDate?: Date | string | null
+  dueDate?: Date | string | null
+  completedAt?: Date | string | null
+  estimatedMinutes?: number | null
+  coverColor?: string | null
+  coverImageId?: string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  systemSourceType?: string | null
+  systemSourceId?: string | null
+  archivedAt?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subtasks?: Prisma.CardUncheckedCreateNestedManyWithoutParentCardInput
+  labels?: Prisma.CardLabelUncheckedCreateNestedManyWithoutCardInput
+  customFieldValues?: Prisma.CardCustomFieldValueUncheckedCreateNestedManyWithoutCardInput
+  comments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutCardInput
+  attachments?: Prisma.CardAttachmentUncheckedCreateNestedManyWithoutCardInput
+  checklists?: Prisma.CardChecklistUncheckedCreateNestedManyWithoutCardInput
+  activities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutCardInput
+  watchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutCardInput
+}
+
+export type CardCreateOrConnectWithoutIntegrationsInput = {
+  where: Prisma.CardWhereUniqueInput
+  create: Prisma.XOR<Prisma.CardCreateWithoutIntegrationsInput, Prisma.CardUncheckedCreateWithoutIntegrationsInput>
+}
+
+export type CardUpsertWithoutIntegrationsInput = {
+  update: Prisma.XOR<Prisma.CardUpdateWithoutIntegrationsInput, Prisma.CardUncheckedUpdateWithoutIntegrationsInput>
+  create: Prisma.XOR<Prisma.CardCreateWithoutIntegrationsInput, Prisma.CardUncheckedCreateWithoutIntegrationsInput>
+  where?: Prisma.CardWhereInput
+}
+
+export type CardUpdateToOneWithWhereWithoutIntegrationsInput = {
+  where?: Prisma.CardWhereInput
+  data: Prisma.XOR<Prisma.CardUpdateWithoutIntegrationsInput, Prisma.CardUncheckedUpdateWithoutIntegrationsInput>
+}
+
+export type CardUpdateWithoutIntegrationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumCardStatusFieldUpdateOperationsInput | $Enums.CardStatus
+  priority?: Prisma.EnumCardPriorityFieldUpdateOperationsInput | $Enums.CardPriority
+  position?: Prisma.IntFieldUpdateOperationsInput | number
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  estimatedMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  coverColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  systemSourceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  systemSourceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  board?: Prisma.BoardUpdateOneRequiredWithoutCardsNestedInput
+  column?: Prisma.BoardColumnUpdateOneRequiredWithoutCardsNestedInput
+  parentCard?: Prisma.CardUpdateOneWithoutSubtasksNestedInput
+  subtasks?: Prisma.CardUpdateManyWithoutParentCardNestedInput
+  assignee?: Prisma.UserUpdateOneWithoutAssignedCardsNestedInput
+  reporter?: Prisma.UserUpdateOneRequiredWithoutReportedCardsNestedInput
+  labels?: Prisma.CardLabelUpdateManyWithoutCardNestedInput
+  customFieldValues?: Prisma.CardCustomFieldValueUpdateManyWithoutCardNestedInput
+  comments?: Prisma.CardCommentUpdateManyWithoutCardNestedInput
+  attachments?: Prisma.CardAttachmentUpdateManyWithoutCardNestedInput
+  checklists?: Prisma.CardChecklistUpdateManyWithoutCardNestedInput
+  activities?: Prisma.CardActivityUpdateManyWithoutCardNestedInput
+  watchers?: Prisma.CardWatcherUpdateManyWithoutCardNestedInput
+}
+
+export type CardUncheckedUpdateWithoutIntegrationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  boardId?: Prisma.StringFieldUpdateOperationsInput | string
+  columnId?: Prisma.StringFieldUpdateOperationsInput | string
+  parentCardId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumCardStatusFieldUpdateOperationsInput | $Enums.CardStatus
+  priority?: Prisma.EnumCardPriorityFieldUpdateOperationsInput | $Enums.CardPriority
+  position?: Prisma.IntFieldUpdateOperationsInput | number
+  assigneeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reporterId?: Prisma.StringFieldUpdateOperationsInput | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  estimatedMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  coverColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  systemSourceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  systemSourceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subtasks?: Prisma.CardUncheckedUpdateManyWithoutParentCardNestedInput
+  labels?: Prisma.CardLabelUncheckedUpdateManyWithoutCardNestedInput
+  customFieldValues?: Prisma.CardCustomFieldValueUncheckedUpdateManyWithoutCardNestedInput
+  comments?: Prisma.CardCommentUncheckedUpdateManyWithoutCardNestedInput
+  attachments?: Prisma.CardAttachmentUncheckedUpdateManyWithoutCardNestedInput
+  checklists?: Prisma.CardChecklistUncheckedUpdateManyWithoutCardNestedInput
+  activities?: Prisma.CardActivityUncheckedUpdateManyWithoutCardNestedInput
+  watchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutCardNestedInput
 }
 
 export type CardCreateManyAssigneeInput = {
@@ -2985,6 +3204,7 @@ export type CardUpdateWithoutAssigneeInput = {
   checklists?: Prisma.CardChecklistUpdateManyWithoutCardNestedInput
   activities?: Prisma.CardActivityUpdateManyWithoutCardNestedInput
   watchers?: Prisma.CardWatcherUpdateManyWithoutCardNestedInput
+  integrations?: Prisma.CardIntegrationUpdateManyWithoutCardNestedInput
 }
 
 export type CardUncheckedUpdateWithoutAssigneeInput = {
@@ -3019,6 +3239,7 @@ export type CardUncheckedUpdateWithoutAssigneeInput = {
   checklists?: Prisma.CardChecklistUncheckedUpdateManyWithoutCardNestedInput
   activities?: Prisma.CardActivityUncheckedUpdateManyWithoutCardNestedInput
   watchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutCardNestedInput
+  integrations?: Prisma.CardIntegrationUncheckedUpdateManyWithoutCardNestedInput
 }
 
 export type CardUncheckedUpdateManyWithoutAssigneeInput = {
@@ -3079,6 +3300,7 @@ export type CardUpdateWithoutReporterInput = {
   checklists?: Prisma.CardChecklistUpdateManyWithoutCardNestedInput
   activities?: Prisma.CardActivityUpdateManyWithoutCardNestedInput
   watchers?: Prisma.CardWatcherUpdateManyWithoutCardNestedInput
+  integrations?: Prisma.CardIntegrationUpdateManyWithoutCardNestedInput
 }
 
 export type CardUncheckedUpdateWithoutReporterInput = {
@@ -3113,6 +3335,7 @@ export type CardUncheckedUpdateWithoutReporterInput = {
   checklists?: Prisma.CardChecklistUncheckedUpdateManyWithoutCardNestedInput
   activities?: Prisma.CardActivityUncheckedUpdateManyWithoutCardNestedInput
   watchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutCardNestedInput
+  integrations?: Prisma.CardIntegrationUncheckedUpdateManyWithoutCardNestedInput
 }
 
 export type CardUncheckedUpdateManyWithoutReporterInput = {
@@ -3199,6 +3422,7 @@ export type CardUpdateWithoutBoardInput = {
   checklists?: Prisma.CardChecklistUpdateManyWithoutCardNestedInput
   activities?: Prisma.CardActivityUpdateManyWithoutCardNestedInput
   watchers?: Prisma.CardWatcherUpdateManyWithoutCardNestedInput
+  integrations?: Prisma.CardIntegrationUpdateManyWithoutCardNestedInput
 }
 
 export type CardUncheckedUpdateWithoutBoardInput = {
@@ -3233,6 +3457,7 @@ export type CardUncheckedUpdateWithoutBoardInput = {
   checklists?: Prisma.CardChecklistUncheckedUpdateManyWithoutCardNestedInput
   activities?: Prisma.CardActivityUncheckedUpdateManyWithoutCardNestedInput
   watchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutCardNestedInput
+  integrations?: Prisma.CardIntegrationUncheckedUpdateManyWithoutCardNestedInput
 }
 
 export type CardUncheckedUpdateManyWithoutBoardInput = {
@@ -3319,6 +3544,7 @@ export type CardUpdateWithoutColumnInput = {
   checklists?: Prisma.CardChecklistUpdateManyWithoutCardNestedInput
   activities?: Prisma.CardActivityUpdateManyWithoutCardNestedInput
   watchers?: Prisma.CardWatcherUpdateManyWithoutCardNestedInput
+  integrations?: Prisma.CardIntegrationUpdateManyWithoutCardNestedInput
 }
 
 export type CardUncheckedUpdateWithoutColumnInput = {
@@ -3353,6 +3579,7 @@ export type CardUncheckedUpdateWithoutColumnInput = {
   checklists?: Prisma.CardChecklistUncheckedUpdateManyWithoutCardNestedInput
   activities?: Prisma.CardActivityUncheckedUpdateManyWithoutCardNestedInput
   watchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutCardNestedInput
+  integrations?: Prisma.CardIntegrationUncheckedUpdateManyWithoutCardNestedInput
 }
 
 export type CardUncheckedUpdateManyWithoutColumnInput = {
@@ -3439,6 +3666,7 @@ export type CardUpdateWithoutParentCardInput = {
   checklists?: Prisma.CardChecklistUpdateManyWithoutCardNestedInput
   activities?: Prisma.CardActivityUpdateManyWithoutCardNestedInput
   watchers?: Prisma.CardWatcherUpdateManyWithoutCardNestedInput
+  integrations?: Prisma.CardIntegrationUpdateManyWithoutCardNestedInput
 }
 
 export type CardUncheckedUpdateWithoutParentCardInput = {
@@ -3473,6 +3701,7 @@ export type CardUncheckedUpdateWithoutParentCardInput = {
   checklists?: Prisma.CardChecklistUncheckedUpdateManyWithoutCardNestedInput
   activities?: Prisma.CardActivityUncheckedUpdateManyWithoutCardNestedInput
   watchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutCardNestedInput
+  integrations?: Prisma.CardIntegrationUncheckedUpdateManyWithoutCardNestedInput
 }
 
 export type CardUncheckedUpdateManyWithoutParentCardInput = {
@@ -3515,6 +3744,7 @@ export type CardCountOutputType = {
   checklists: number
   activities: number
   watchers: number
+  integrations: number
 }
 
 export type CardCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -3526,6 +3756,7 @@ export type CardCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   checklists?: boolean | CardCountOutputTypeCountChecklistsArgs
   activities?: boolean | CardCountOutputTypeCountActivitiesArgs
   watchers?: boolean | CardCountOutputTypeCountWatchersArgs
+  integrations?: boolean | CardCountOutputTypeCountIntegrationsArgs
 }
 
 /**
@@ -3594,6 +3825,13 @@ export type CardCountOutputTypeCountWatchersArgs<ExtArgs extends runtime.Types.E
   where?: Prisma.CardWatcherWhereInput
 }
 
+/**
+ * CardCountOutputType without action
+ */
+export type CardCountOutputTypeCountIntegrationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CardIntegrationWhereInput
+}
+
 
 export type CardSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -3633,6 +3871,7 @@ export type CardSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   checklists?: boolean | Prisma.Card$checklistsArgs<ExtArgs>
   activities?: boolean | Prisma.Card$activitiesArgs<ExtArgs>
   watchers?: boolean | Prisma.Card$watchersArgs<ExtArgs>
+  integrations?: boolean | Prisma.Card$integrationsArgs<ExtArgs>
   _count?: boolean | Prisma.CardCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["card"]>
 
@@ -3742,6 +3981,7 @@ export type CardInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   checklists?: boolean | Prisma.Card$checklistsArgs<ExtArgs>
   activities?: boolean | Prisma.Card$activitiesArgs<ExtArgs>
   watchers?: boolean | Prisma.Card$watchersArgs<ExtArgs>
+  integrations?: boolean | Prisma.Card$integrationsArgs<ExtArgs>
   _count?: boolean | Prisma.CardCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type CardIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -3775,6 +4015,7 @@ export type $CardPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     checklists: Prisma.$CardChecklistPayload<ExtArgs>[]
     activities: Prisma.$CardActivityPayload<ExtArgs>[]
     watchers: Prisma.$CardWatcherPayload<ExtArgs>[]
+    integrations: Prisma.$CardIntegrationPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -4208,6 +4449,7 @@ export interface Prisma__CardClient<T, Null = never, ExtArgs extends runtime.Typ
   checklists<T extends Prisma.Card$checklistsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Card$checklistsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CardChecklistPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   activities<T extends Prisma.Card$activitiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Card$activitiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CardActivityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   watchers<T extends Prisma.Card$watchersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Card$watchersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CardWatcherPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  integrations<T extends Prisma.Card$integrationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Card$integrationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CardIntegrationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4884,6 +5126,30 @@ export type Card$watchersArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   distinct?: Prisma.CardWatcherScalarFieldEnum | Prisma.CardWatcherScalarFieldEnum[]
+}
+
+/**
+ * Card.integrations
+ */
+export type Card$integrationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CardIntegration
+   */
+  select?: Prisma.CardIntegrationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CardIntegration
+   */
+  omit?: Prisma.CardIntegrationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CardIntegrationInclude<ExtArgs> | null
+  where?: Prisma.CardIntegrationWhereInput
+  orderBy?: Prisma.CardIntegrationOrderByWithRelationInput | Prisma.CardIntegrationOrderByWithRelationInput[]
+  cursor?: Prisma.CardIntegrationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CardIntegrationScalarFieldEnum | Prisma.CardIntegrationScalarFieldEnum[]
 }
 
 /**

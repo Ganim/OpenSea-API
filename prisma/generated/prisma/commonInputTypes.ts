@@ -1768,6 +1768,23 @@ export type EnumAutomationActionWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumAutomationActionFilter<$PrismaModel>
 }
 
+export type EnumCardIntegrationTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.CardIntegrationType | Prisma.EnumCardIntegrationTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.CardIntegrationType[] | Prisma.ListEnumCardIntegrationTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CardIntegrationType[] | Prisma.ListEnumCardIntegrationTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCardIntegrationTypeFilter<$PrismaModel> | $Enums.CardIntegrationType
+}
+
+export type EnumCardIntegrationTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.CardIntegrationType | Prisma.EnumCardIntegrationTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.CardIntegrationType[] | Prisma.ListEnumCardIntegrationTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CardIntegrationType[] | Prisma.ListEnumCardIntegrationTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCardIntegrationTypeWithAggregatesFilter<$PrismaModel> | $Enums.CardIntegrationType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumCardIntegrationTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumCardIntegrationTypeFilter<$PrismaModel>
+}
+
 export type NestedStringFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel>
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
@@ -3457,6 +3474,23 @@ export type NestedEnumAutomationActionWithAggregatesFilter<$PrismaModel = never>
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumAutomationActionFilter<$PrismaModel>
   _max?: Prisma.NestedEnumAutomationActionFilter<$PrismaModel>
+}
+
+export type NestedEnumCardIntegrationTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.CardIntegrationType | Prisma.EnumCardIntegrationTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.CardIntegrationType[] | Prisma.ListEnumCardIntegrationTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CardIntegrationType[] | Prisma.ListEnumCardIntegrationTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCardIntegrationTypeFilter<$PrismaModel> | $Enums.CardIntegrationType
+}
+
+export type NestedEnumCardIntegrationTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.CardIntegrationType | Prisma.EnumCardIntegrationTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.CardIntegrationType[] | Prisma.ListEnumCardIntegrationTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CardIntegrationType[] | Prisma.ListEnumCardIntegrationTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCardIntegrationTypeWithAggregatesFilter<$PrismaModel> | $Enums.CardIntegrationType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumCardIntegrationTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumCardIntegrationTypeFilter<$PrismaModel>
 }
 
 

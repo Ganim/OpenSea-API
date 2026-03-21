@@ -262,8 +262,9 @@ model User {
   cardComments       CardComment[]
   commentReactions   CommentReaction[]
   cardActivities     CardActivity[]
-  cardWatchers       CardWatcher[]
-  checklistAssignees ChecklistItem[]    @relation("ChecklistItemAssignee")
+  cardWatchers              CardWatcher[]
+  cardIntegrationsCreated   CardIntegration[] @relation("CardIntegrationCreator")
+  checklistAssignees        ChecklistItem[]   @relation("ChecklistItemAssignee")
 
   @@unique([email, deletedAt], name: "users_email_unique_active")
   @@unique([username, deletedAt], name: "users_username_unique_active")
@@ -5097,6 +5098,15 @@ enum BoardMemberRole {
   EDITOR
 }
 
+enum CardIntegrationType {
+  CUSTOMER
+  PRODUCT
+  FINANCE_ENTRY
+  EMAIL
+  DEPARTMENT
+  CALENDAR_EVENT
+}
+
 enum CardStatus {
   OPEN
   IN_PROGRESS
@@ -5276,6 +5286,7 @@ model Card {
   checklists        CardChecklist[]
   activities        CardActivity[]
   watchers          CardWatcher[]
+  integrations      CardIntegration[]
 
   @@index([boardId])
   @@index([boardId, columnId])
@@ -5512,6 +5523,7 @@ model CardWatcher {
   cardId    String   @map("card_id")
   userId    String   @map("user_id")
   boardId   String   @map("board_id")
+  role      String   @default("WATCHER") // "WATCHER" | "MEMBER"
   createdAt DateTime @default(now()) @map("created_at")
 
   card  Card  @relation(fields: [cardId], references: [id], onDelete: Cascade)
@@ -5523,4 +5535,21 @@ model CardWatcher {
   @@index([userId])
   @@index([boardId])
   @@map("card_watchers")
+}
+
+model CardIntegration {
+  id          String              @id @default(uuid())
+  cardId      String              @map("card_id")
+  type        CardIntegrationType
+  entityId    String              @map("entity_id")
+  entityLabel String              @map("entity_label") @db.VarChar(256)
+  createdAt   DateTime            @default(now()) @map("created_at")
+  createdBy   String              @map("created_by")
+
+  card    Card @relation(fields: [cardId], references: [id], onDelete: Cascade)
+  creator User @relation("CardIntegrationCreator", fields: [createdBy], references: [id])
+
+  @@unique([cardId, type, entityId])
+  @@index([cardId])
+  @@map("card_integrations")
 }

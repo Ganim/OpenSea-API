@@ -689,3 +689,8 @@ export type BoardAutomation = Prisma.BoardAutomationModel
  * 
  */
 export type CardWatcher = Prisma.CardWatcherModel
+/**
+ * Model CardIntegration
+ * 
+ */
+export type CardIntegration = Prisma.CardIntegrationModel
