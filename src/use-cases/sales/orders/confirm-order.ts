@@ -2,6 +2,9 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { Order } from '@/entities/sales/order';
+import { getTypedEventBus } from '@/lib/events/typed-event-bus';
+import { SALES_EVENTS } from '@/lib/events/sales-events';
+import type { OrderItemsRepository } from '@/repositories/sales/order-items-repository';
 import type { OrdersRepository } from '@/repositories/sales/orders-repository';
 import type { PipelineStagesRepository } from '@/repositories/sales/pipeline-stages-repository';
 
@@ -19,6 +22,7 @@ export class ConfirmOrderUseCase {
   constructor(
     private ordersRepository: OrdersRepository,
     private pipelineStagesRepository: PipelineStagesRepository,
+    private orderItemsRepository?: OrderItemsRepository,
   ) {}
 
   async execute(
@@ -65,6 +69,40 @@ export class ConfirmOrderUseCase {
     order.confirm(new UniqueEntityID(input.userId));
 
     await this.ordersRepository.save(order);
+
+    // Emit domain event for cross-module consumers
+    try {
+      const items = this.orderItemsRepository
+        ? (await this.orderItemsRepository.findManyByOrder(
+            order.id,
+            input.tenantId,
+          )).map((item) => ({
+            variantId: item.variantId?.toString() ?? '',
+            quantity: item.quantity,
+            unitPrice: item.unitPrice,
+          }))
+        : [];
+
+      await getTypedEventBus().publish({
+        type: SALES_EVENTS.ORDER_CONFIRMED,
+        version: 1,
+        tenantId: input.tenantId,
+        source: 'sales',
+        sourceEntityType: 'order',
+        sourceEntityId: order.id.toString(),
+        data: {
+          orderId: order.id.toString(),
+          customerId: order.customerId.toString(),
+          items,
+          total: order.grandTotal,
+        },
+        metadata: {
+          userId: input.userId,
+        },
+      });
+    } catch {
+      // Event emission failure should not block the order confirmation
+    }
 
     return { order };
   }

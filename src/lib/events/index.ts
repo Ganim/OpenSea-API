@@ -25,6 +25,9 @@ export {
 } from './typed-event-bus';
 export type { TypedEventBusOptions } from './typed-event-bus';
 
+// Consumer registration
+export { registerEventConsumers } from './register-consumers';
+
 // Consumers
 export { crmTimelineConsumer } from './consumers/crm-consumer';
 export { notificationConsumer } from './consumers/notification-consumer';

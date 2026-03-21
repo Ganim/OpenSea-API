@@ -2,6 +2,8 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { Deal } from '@/entities/sales/deal';
 import { TimelineEvent } from '@/entities/sales/timeline-event';
+import { getTypedEventBus } from '@/lib/events/typed-event-bus';
+import { SALES_EVENTS } from '@/lib/events/sales-events';
 import type { DealsRepository } from '@/repositories/sales/deals-repository';
 import type { TimelineEventsRepository } from '@/repositories/sales/timeline-events-repository';
 
@@ -94,6 +96,26 @@ export class UpdateDealUseCase {
         userId: userId ? new UniqueEntityID(userId) : undefined,
       });
       await this.timelineEventsRepository.create(event);
+
+      // Emit stage changed domain event
+      try {
+        await getTypedEventBus().publish({
+          type: SALES_EVENTS.STAGE_CHANGED,
+          version: 1,
+          tenantId,
+          source: 'sales',
+          sourceEntityType: 'deal',
+          sourceEntityId: deal.id.toString(),
+          data: {
+            dealId: deal.id.toString(),
+            fromStage: oldStageId,
+            toStage: updates.stageId,
+          },
+          metadata: { userId },
+        });
+      } catch {
+        // Event emission failure should not block the deal update
+      }
     }
 
     // Track status changes (won/lost)
@@ -116,6 +138,42 @@ export class UpdateDealUseCase {
         userId: userId ? new UniqueEntityID(userId) : undefined,
       });
       await this.timelineEventsRepository.create(event);
+
+      // Emit deal won/lost domain event
+      try {
+        if (updates.status === 'WON') {
+          await getTypedEventBus().publish({
+            type: SALES_EVENTS.DEAL_WON,
+            version: 1,
+            tenantId,
+            source: 'sales',
+            sourceEntityType: 'deal',
+            sourceEntityId: deal.id.toString(),
+            data: {
+              dealId: deal.id.toString(),
+              customerId: deal.customerId.toString(),
+              value: deal.value ?? 0,
+            },
+            metadata: { userId },
+          });
+        } else if (updates.status === 'LOST') {
+          await getTypedEventBus().publish({
+            type: SALES_EVENTS.DEAL_LOST,
+            version: 1,
+            tenantId,
+            source: 'sales',
+            sourceEntityType: 'deal',
+            sourceEntityId: deal.id.toString(),
+            data: {
+              dealId: deal.id.toString(),
+              reason: updates.lostReason ?? '',
+            },
+            metadata: { userId },
+          });
+        }
+      } catch {
+        // Event emission failure should not block the deal update
+      }
     }
 
     // Track value changes

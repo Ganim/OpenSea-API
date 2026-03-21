@@ -2,6 +2,8 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { Order } from '@/entities/sales/order';
+import { getTypedEventBus } from '@/lib/events/typed-event-bus';
+import { SALES_EVENTS } from '@/lib/events/sales-events';
 import type { OrdersRepository } from '@/repositories/sales/orders-repository';
 import type { PipelineStagesRepository } from '@/repositories/sales/pipeline-stages-repository';
 
@@ -62,6 +64,25 @@ export class CancelOrderUseCase {
     order.cancel(input.reason);
 
     await this.ordersRepository.save(order);
+
+    // Emit domain event for cross-module consumers
+    try {
+      await getTypedEventBus().publish({
+        type: SALES_EVENTS.ORDER_CANCELLED,
+        version: 1,
+        tenantId: input.tenantId,
+        source: 'sales',
+        sourceEntityType: 'order',
+        sourceEntityId: order.id.toString(),
+        data: {
+          orderId: order.id.toString(),
+          reason: input.reason ?? '',
+        },
+        metadata: {},
+      });
+    } catch {
+      // Event emission failure should not block the order cancellation
+    }
 
     return { order };
   }

@@ -3,6 +3,8 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Deal } from '@/entities/sales/deal';
 import { TimelineEvent } from '@/entities/sales/timeline-event';
+import { getTypedEventBus } from '@/lib/events/typed-event-bus';
+import { SALES_EVENTS } from '@/lib/events/sales-events';
 import type { CustomersRepository } from '@/repositories/sales/customers-repository';
 import type { DealsRepository } from '@/repositories/sales/deals-repository';
 import type { PipelineStagesRepository } from '@/repositories/sales/pipeline-stages-repository';
@@ -111,6 +113,28 @@ export class CreateDealUseCase {
     });
 
     await this.timelineEventsRepository.create(timelineEvent);
+
+    // Emit domain event for cross-module consumers
+    try {
+      await getTypedEventBus().publish({
+        type: SALES_EVENTS.DEAL_CREATED,
+        version: 1,
+        tenantId,
+        source: 'sales',
+        sourceEntityType: 'deal',
+        sourceEntityId: deal.id.toString(),
+        data: {
+          dealId: deal.id.toString(),
+          customerId,
+          value: deal.value ?? 0,
+        },
+        metadata: {
+          userId: request.userId,
+        },
+      });
+    } catch {
+      // Event emission failure should not block the deal creation
+    }
 
     return { deal };
   }
