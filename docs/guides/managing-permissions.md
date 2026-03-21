@@ -38,6 +38,30 @@ tools.email.accounts.access      ← 4 níveis
 tools.storage.files.onlyself     ← 4 níveis
 ```
 
+### Funções utilitárias
+
+Disponíveis em `OpenSea-API/src/constants/rbac/permission-codes.ts`:
+
+```typescript
+import {
+  isValidPermissionCode,
+  parsePermissionCode,
+} from '@/constants/rbac/permission-codes';
+
+// Validação — aceita 3 ou 4 níveis
+isValidPermissionCode('stock.products.access');         // true
+isValidPermissionCode('tools.email.accounts.access');   // true
+isValidPermissionCode('stock.products');                // false (2 níveis)
+
+// Parsing — decompõe em module/resource/action
+parsePermissionCode('stock.products.access');
+// → { module: 'stock', resource: 'products', action: 'access' }
+
+parsePermissionCode('tools.email.accounts.access');
+// → { module: 'tools', resource: 'email.accounts', action: 'access' }
+// O sub-recurso é absorvido pelo campo resource (decisão ADR 024)
+```
+
 ### As 10 ações disponíveis
 
 | Código interno | Rótulo na UI      | Grupo na tabela    |
@@ -54,6 +78,34 @@ tools.storage.files.onlyself     ← 4 níveis
 | `onlyself`     | Pessoal           | Gerenciamento      |
 
 Nem todo recurso precisa de todas as ações. Adicione apenas as que fazem sentido para o domínio.
+
+### Ações domain-specific (Sales)
+
+Além das 10 ações padrão, o módulo Sales introduz 21 ações domain-specific:
+
+| Ação | Significado | Exemplo |
+|------|-------------|---------|
+| `confirm` | Confirmar (irreversível) | `sales.orders.confirm` |
+| `approve` | Aprovar (workflow) | `sales.orders.approve` |
+| `cancel` | Cancelar/anular | `sales.orders.cancel` |
+| `reassign` | Transferir responsável | `sales.deals.reassign` |
+| `reply` | Responder conversa | `sales.conversations.reply` |
+| `execute` | Executar processo | `sales.workflows.execute` |
+| `activate` | Ativar/desativar | `sales.campaigns.activate` |
+| `send` | Enviar a terceiro | `sales.proposals.send` |
+| `convert` | Converter entidade | `sales.quotes.convert` |
+| `sell` | Realizar venda (PDV) | `sales.pos.sell` |
+| `open`/`close` | Sessão de caixa | `sales.cashier.open` |
+| `withdraw`/`supply` | Sangria/suprimento | `sales.cashier.withdraw` |
+| `receive` | Receber pagamento | `sales.cashier.receive` |
+| `verify` | Conferência/auditoria | `sales.cashier.verify` |
+| `override` | Sobrescrever cálculo (PIN) | `sales.pos.override` |
+| `publish` | Publicar | `sales.catalogs.publish` |
+| `generate` | Gerar via IA | `sales.content.generate` |
+| `query` | Consultar IA | `tools.ai.query` |
+| `sync` | Sincronizar externo | `sales.marketplaces.sync` |
+
+Essas ações não aparecem como colunas no editor visual de permissões (matrix table). São gerenciadas via a seção "permissões não mapeadas" do modal ou via API. Veja ADR 025.
 
 ---
 

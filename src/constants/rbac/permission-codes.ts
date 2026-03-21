@@ -1,7 +1,7 @@
 /**
  * Permission Codes Constants
  *
- * 238 códigos de permissão organizados por módulo → recurso → ação
+ * 363 códigos de permissão organizados por módulo → recurso → ação
  * Fornece autocomplete e type-safety ao trabalhar com permissões
  *
  * Formato: module.resource-kebab.action
@@ -239,6 +239,7 @@ export const PermissionCodes = {
   // SALES — Vendas
   // ============================================================================
   SALES: {
+    // --- CRM: Clientes ---
     CUSTOMERS: {
       ACCESS: 'sales.customers.access' as const,
       REGISTER: 'sales.customers.register' as const,
@@ -247,13 +248,100 @@ export const PermissionCodes = {
       IMPORT: 'sales.customers.import' as const,
       EXPORT: 'sales.customers.export' as const,
       ONLYSELF: 'sales.customers.onlyself' as const,
+      ADMIN: 'sales.customers.admin' as const,
     },
+    // --- CRM: Contatos ---
+    CONTACTS: {
+      ACCESS: 'sales.contacts.access' as const,
+      REGISTER: 'sales.contacts.register' as const,
+      MODIFY: 'sales.contacts.modify' as const,
+      REMOVE: 'sales.contacts.remove' as const,
+      ADMIN: 'sales.contacts.admin' as const,
+      ONLYSELF: 'sales.contacts.onlyself' as const,
+    },
+    // --- CRM: Negócios ---
+    DEALS: {
+      ACCESS: 'sales.deals.access' as const,
+      REGISTER: 'sales.deals.register' as const,
+      MODIFY: 'sales.deals.modify' as const,
+      REMOVE: 'sales.deals.remove' as const,
+      REASSIGN: 'sales.deals.reassign' as const,
+      ADMIN: 'sales.deals.admin' as const,
+      ONLYSELF: 'sales.deals.onlyself' as const,
+    },
+    // --- CRM: Pipelines ---
+    PIPELINES: {
+      ACCESS: 'sales.pipelines.access' as const,
+      ADMIN: 'sales.pipelines.admin' as const,
+    },
+    // --- CRM: Atividades ---
+    ACTIVITIES: {
+      ACCESS: 'sales.activities.access' as const,
+      REGISTER: 'sales.activities.register' as const,
+    },
+    // --- CRM: Conversas (Inbox) ---
+    CONVERSATIONS: {
+      ACCESS: 'sales.conversations.access' as const,
+      REPLY: 'sales.conversations.reply' as const,
+      REASSIGN: 'sales.conversations.reassign' as const,
+      ADMIN: 'sales.conversations.admin' as const,
+    },
+    // --- CRM: Workflows ---
+    WORKFLOWS: {
+      ACCESS: 'sales.workflows.access' as const,
+      ADMIN: 'sales.workflows.admin' as const,
+      EXECUTE: 'sales.workflows.execute' as const,
+    },
+    // --- CRM: Formulários ---
+    FORMS: {
+      ACCESS: 'sales.forms.access' as const,
+      ADMIN: 'sales.forms.admin' as const,
+    },
+    // --- CRM: Propostas ---
+    PROPOSALS: {
+      ACCESS: 'sales.proposals.access' as const,
+      REGISTER: 'sales.proposals.register' as const,
+      SEND: 'sales.proposals.send' as const,
+      ADMIN: 'sales.proposals.admin' as const,
+    },
+    // --- CRM: Templates de Mensagem ---
+    MSG_TEMPLATES: {
+      ACCESS: 'sales.msg-templates.access' as const,
+      ADMIN: 'sales.msg-templates.admin' as const,
+    },
+    // --- Preços ---
+    PRICE_TABLES: {
+      ACCESS: 'sales.price-tables.access' as const,
+      REGISTER: 'sales.price-tables.register' as const,
+      MODIFY: 'sales.price-tables.modify' as const,
+      REMOVE: 'sales.price-tables.remove' as const,
+      ADMIN: 'sales.price-tables.admin' as const,
+    },
+    DISCOUNTS: {
+      ACCESS: 'sales.discounts.access' as const,
+      ADMIN: 'sales.discounts.admin' as const,
+    },
+    COUPONS: {
+      ACCESS: 'sales.coupons.access' as const,
+      ADMIN: 'sales.coupons.admin' as const,
+    },
+    CAMPAIGNS: {
+      ACCESS: 'sales.campaigns.access' as const,
+      ADMIN: 'sales.campaigns.admin' as const,
+      ACTIVATE: 'sales.campaigns.activate' as const,
+    },
+    COMBOS: {
+      ACCESS: 'sales.combos.access' as const,
+      ADMIN: 'sales.combos.admin' as const,
+    },
+    // --- Promoções (existente) ---
     PROMOTIONS: {
       ACCESS: 'sales.promotions.access' as const,
       REGISTER: 'sales.promotions.register' as const,
       MODIFY: 'sales.promotions.modify' as const,
       REMOVE: 'sales.promotions.remove' as const,
     },
+    // --- Pedidos (existente, expandido) ---
     ORDERS: {
       ACCESS: 'sales.orders.access' as const,
       REGISTER: 'sales.orders.register' as const,
@@ -263,6 +351,106 @@ export const PermissionCodes = {
       PRINT: 'sales.orders.print' as const,
       ADMIN: 'sales.orders.admin' as const,
       ONLYSELF: 'sales.orders.onlyself' as const,
+      CONFIRM: 'sales.orders.confirm' as const,
+      APPROVE: 'sales.orders.approve' as const,
+      CANCEL: 'sales.orders.cancel' as const,
+    },
+    // --- Orçamentos ---
+    QUOTES: {
+      ACCESS: 'sales.quotes.access' as const,
+      REGISTER: 'sales.quotes.register' as const,
+      MODIFY: 'sales.quotes.modify' as const,
+      REMOVE: 'sales.quotes.remove' as const,
+      CONVERT: 'sales.quotes.convert' as const,
+      SEND: 'sales.quotes.send' as const,
+      PRINT: 'sales.quotes.print' as const,
+      ONLYSELF: 'sales.quotes.onlyself' as const,
+    },
+    // --- Devoluções ---
+    RETURNS: {
+      ACCESS: 'sales.returns.access' as const,
+      REGISTER: 'sales.returns.register' as const,
+      APPROVE: 'sales.returns.approve' as const,
+      ADMIN: 'sales.returns.admin' as const,
+    },
+    // --- Comissões ---
+    COMMISSIONS: {
+      ACCESS: 'sales.commissions.access' as const,
+      ADMIN: 'sales.commissions.admin' as const,
+      ONLYSELF: 'sales.commissions.onlyself' as const,
+    },
+    // --- PDV ---
+    POS: {
+      ACCESS: 'sales.pos.access' as const,
+      SELL: 'sales.pos.sell' as const,
+      CANCEL: 'sales.pos.cancel' as const,
+      OVERRIDE: 'sales.pos.override' as const,
+      ADMIN: 'sales.pos.admin' as const,
+      ONLYSELF: 'sales.pos.onlyself' as const,
+    },
+    // --- Caixa ---
+    CASHIER: {
+      ACCESS: 'sales.cashier.access' as const,
+      OPEN: 'sales.cashier.open' as const,
+      CLOSE: 'sales.cashier.close' as const,
+      WITHDRAW: 'sales.cashier.withdraw' as const,
+      SUPPLY: 'sales.cashier.supply' as const,
+      RECEIVE: 'sales.cashier.receive' as const,
+      VERIFY: 'sales.cashier.verify' as const,
+      OVERRIDE: 'sales.cashier.override' as const,
+      ADMIN: 'sales.cashier.admin' as const,
+    },
+    // --- Licitações ---
+    BIDS: {
+      ACCESS: 'sales.bids.access' as const,
+      REGISTER: 'sales.bids.register' as const,
+      MODIFY: 'sales.bids.modify' as const,
+      REMOVE: 'sales.bids.remove' as const,
+      ADMIN: 'sales.bids.admin' as const,
+    },
+    BID_PROPOSALS: {
+      ACCESS: 'sales.bid-proposals.access' as const,
+      ADMIN: 'sales.bid-proposals.admin' as const,
+      SEND: 'sales.bid-proposals.send' as const,
+    },
+    BID_BOT: {
+      ACCESS: 'sales.bid-bot.access' as const,
+      ADMIN: 'sales.bid-bot.admin' as const,
+      ACTIVATE: 'sales.bid-bot.activate' as const,
+    },
+    BID_CONTRACTS: {
+      ACCESS: 'sales.bid-contracts.access' as const,
+      ADMIN: 'sales.bid-contracts.admin' as const,
+      REGISTER: 'sales.bid-contracts.register' as const,
+    },
+    BID_DOCUMENTS: {
+      ACCESS: 'sales.bid-documents.access' as const,
+      ADMIN: 'sales.bid-documents.admin' as const,
+    },
+    // --- Catálogos e Conteúdo ---
+    CATALOGS: {
+      ACCESS: 'sales.catalogs.access' as const,
+      ADMIN: 'sales.catalogs.admin' as const,
+      PUBLISH: 'sales.catalogs.publish' as const,
+    },
+    CONTENT: {
+      ACCESS: 'sales.content.access' as const,
+      GENERATE: 'sales.content.generate' as const,
+      PUBLISH: 'sales.content.publish' as const,
+      APPROVE: 'sales.content.approve' as const,
+    },
+    // --- Marketplaces ---
+    MARKETPLACES: {
+      ACCESS: 'sales.marketplaces.access' as const,
+      ADMIN: 'sales.marketplaces.admin' as const,
+      SYNC: 'sales.marketplaces.sync' as const,
+    },
+    // --- Analytics ---
+    ANALYTICS: {
+      ACCESS: 'sales.analytics.access' as const,
+      ADMIN: 'sales.analytics.admin' as const,
+      EXPORT: 'sales.analytics.export' as const,
+      ONLYSELF: 'sales.analytics.onlyself' as const,
     },
   },
 
@@ -372,6 +560,12 @@ export const PermissionCodes = {
         ONLYSELF: 'tools.storage.files.onlyself' as const,
       },
     },
+    AI: {
+      ACCESS: 'tools.ai.access' as const,
+      QUERY: 'tools.ai.query' as const,
+      EXECUTE: 'tools.ai.execute' as const,
+      ADMIN: 'tools.ai.admin' as const,
+    },
   },
 
   // ============================================================================
@@ -443,6 +637,22 @@ export const DEFAULT_USER_PERMISSIONS: string[] = [
   PermissionCodes.TOOLS.STORAGE.FILES.MODIFY,
   PermissionCodes.TOOLS.STORAGE.FILES.REMOVE,
   PermissionCodes.TOOLS.STORAGE.FILES.ONLYSELF,
+
+  // tools.ai — acesso básico ao assistente IA
+  PermissionCodes.TOOLS.AI.ACCESS,
+  PermissionCodes.TOOLS.AI.QUERY,
+
+  // sales — CRM básico (visualização + atividades próprias)
+  PermissionCodes.SALES.CUSTOMERS.ACCESS,
+  PermissionCodes.SALES.CONTACTS.ACCESS,
+  PermissionCodes.SALES.DEALS.ACCESS,
+  PermissionCodes.SALES.DEALS.ONLYSELF,
+  PermissionCodes.SALES.ACTIVITIES.ACCESS,
+  PermissionCodes.SALES.ACTIVITIES.REGISTER,
+  PermissionCodes.SALES.CONVERSATIONS.ACCESS,
+  PermissionCodes.SALES.CONVERSATIONS.REPLY,
+  PermissionCodes.SALES.ANALYTICS.ACCESS,
+  PermissionCodes.SALES.ANALYTICS.ONLYSELF,
 ];
 
 // =============================================================================
@@ -451,4 +661,45 @@ export const DEFAULT_USER_PERMISSIONS: string[] = [
 export function isValidPermissionCode(code: string): boolean {
   const parts = code.split('.');
   return parts.length >= 3 && parts.length <= 4;
+}
+
+// =============================================================================
+// parsePermissionCode — Decomposição de código em module/resource/action
+// =============================================================================
+
+export interface ParsedPermissionCode {
+  module: string;
+  resource: string;
+  action: string;
+}
+
+/**
+ * Decompõe um código de permissão em suas partes constituintes.
+ *
+ * - 3 níveis: `stock.products.access` → `{ module: 'stock', resource: 'products', action: 'access' }`
+ * - 4 níveis: `tools.email.accounts.access` → `{ module: 'tools', resource: 'email.accounts', action: 'access' }`
+ *
+ * O sub-recurso é absorvido pelo campo `resource` (Option B),
+ * mantendo `action` sempre como um verbo único.
+ *
+ * @throws Error se o código não tiver 3 ou 4 partes
+ */
+export function parsePermissionCode(code: string): ParsedPermissionCode {
+  const parts = code.split('.');
+
+  if (parts.length === 3) {
+    return { module: parts[0], resource: parts[1], action: parts[2] };
+  }
+
+  if (parts.length === 4) {
+    return {
+      module: parts[0],
+      resource: `${parts[1]}.${parts[2]}`,
+      action: parts[3],
+    };
+  }
+
+  throw new Error(
+    `Invalid permission code: '${code}'. Expected 3 or 4 dot-separated parts.`,
+  );
 }
