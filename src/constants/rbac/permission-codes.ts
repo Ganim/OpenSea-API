@@ -40,6 +40,7 @@ export const PermissionCodes = {
       REGISTER: 'stock.templates.register' as const,
       MODIFY: 'stock.templates.modify' as const,
       REMOVE: 'stock.templates.remove' as const,
+      IMPORT: 'stock.templates.import' as const,
     },
     CATEGORIES: {
       ACCESS: 'stock.categories.access' as const,
@@ -62,6 +63,7 @@ export const PermissionCodes = {
       EXPORT: 'stock.items.export' as const,
       PRINT: 'stock.items.print' as const,
       ADMIN: 'stock.items.admin' as const,
+      IMPORT: 'stock.items.import' as const,
     },
     PURCHASE_ORDERS: {
       ACCESS: 'stock.purchase-orders.access' as const,
@@ -177,12 +179,14 @@ export const PermissionCodes = {
       REGISTER: 'hr.positions.register' as const,
       MODIFY: 'hr.positions.modify' as const,
       REMOVE: 'hr.positions.remove' as const,
+      IMPORT: 'hr.positions.import' as const,
     },
     DEPARTMENTS: {
       ACCESS: 'hr.departments.access' as const,
       REGISTER: 'hr.departments.register' as const,
       MODIFY: 'hr.departments.modify' as const,
       REMOVE: 'hr.departments.remove' as const,
+      IMPORT: 'hr.departments.import' as const,
     },
     WORK_SCHEDULES: {
       ACCESS: 'hr.work-schedules.access' as const,
@@ -272,6 +276,7 @@ export const PermissionCodes = {
       MODIFY: 'admin.users.modify' as const,
       REMOVE: 'admin.users.remove' as const,
       ADMIN: 'admin.users.admin' as const,
+      IMPORT: 'admin.users.import' as const,
     },
     PERMISSION_GROUPS: {
       ACCESS: 'admin.permission-groups.access' as const,
@@ -286,6 +291,7 @@ export const PermissionCodes = {
       MODIFY: 'admin.companies.modify' as const,
       REMOVE: 'admin.companies.remove' as const,
       ADMIN: 'admin.companies.admin' as const,
+      IMPORT: 'admin.companies.import' as const,
     },
     SESSIONS: {
       ACCESS: 'admin.sessions.access' as const,

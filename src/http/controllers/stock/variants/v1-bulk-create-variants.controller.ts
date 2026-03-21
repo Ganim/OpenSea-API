@@ -67,7 +67,7 @@ export async function bulkCreateVariantsController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STOCK.VARIANTS.REGISTER,
+        permissionCode: PermissionCodes.STOCK.VARIANTS.IMPORT,
         resource: 'variants',
       }),
     ],

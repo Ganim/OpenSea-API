@@ -45,7 +45,7 @@ export async function bulkCreateProductsController(app: FastifyInstance) {
       verifyTenant,
       createPlanLimitsMiddleware('products'),
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STOCK.PRODUCTS.REGISTER,
+        permissionCode: PermissionCodes.STOCK.PRODUCTS.IMPORT,
         resource: 'products',
       }),
     ],
