@@ -284,6 +284,30 @@ export const PermissionCodes = {
       ACCESS: 'sales.pipelines.access' as const,
       ADMIN: 'sales.pipelines.admin' as const,
     },
+    BIDS: {
+      ACCESS: 'sales.bids.access' as const,
+      REGISTER: 'sales.bids.register' as const,
+      MODIFY: 'sales.bids.modify' as const,
+      REMOVE: 'sales.bids.remove' as const,
+      ADMIN: 'sales.bids.admin' as const,
+    },
+    BID_DOCUMENTS: {
+      ACCESS: 'sales.bid-documents.access' as const,
+      REGISTER: 'sales.bid-documents.register' as const,
+      MODIFY: 'sales.bid-documents.modify' as const,
+      REMOVE: 'sales.bid-documents.remove' as const,
+    },
+    BID_CONTRACTS: {
+      ACCESS: 'sales.bid-contracts.access' as const,
+      REGISTER: 'sales.bid-contracts.register' as const,
+      MODIFY: 'sales.bid-contracts.modify' as const,
+      REMOVE: 'sales.bid-contracts.remove' as const,
+    },
+    BID_EMPENHOS: {
+      ACCESS: 'sales.bid-empenhos.access' as const,
+      REGISTER: 'sales.bid-empenhos.register' as const,
+      MODIFY: 'sales.bid-empenhos.modify' as const,
+    },
   },
 
   // ============================================================================
