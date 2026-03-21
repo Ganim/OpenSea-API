@@ -54,6 +54,11 @@ export const updateRecurringConfigSchema = z.object({
 export const listRecurringConfigsQuerySchema = z.object({
   page: z.coerce.number().int().positive().optional().default(1),
   limit: z.coerce.number().int().positive().max(100).optional().default(20),
+  sortBy: z
+    .enum(['createdAt', 'description', 'baseAmount', 'status'])
+    .optional()
+    .default('createdAt'),
+  sortOrder: z.enum(['asc', 'desc']).optional().default('desc'),
   type: z.enum(['PAYABLE', 'RECEIVABLE']).optional(),
   status: z.enum(['ACTIVE', 'PAUSED', 'CANCELLED']).optional(),
   search: z.string().optional(),

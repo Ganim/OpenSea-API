@@ -64,6 +64,7 @@ export interface UpdateVariantSchema {
 export interface VariantsRepository {
   create(data: CreateVariantSchema): Promise<Variant>;
   findById(id: UniqueEntityID, tenantId: string): Promise<Variant | null>;
+  findByFullCode(fullCode: string, tenantId: string): Promise<Variant | null>;
   findBySKU(sku: string, tenantId: string): Promise<Variant | null>;
   findByBarcode(barcode: string, tenantId: string): Promise<Variant | null>;
   findByEANCode(eanCode: string, tenantId: string): Promise<Variant | null>;

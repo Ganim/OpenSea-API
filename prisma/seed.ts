@@ -3,18 +3,18 @@ import { hash } from 'bcryptjs';
 import { PrismaClient } from './generated/prisma/client.js';
 
 import {
-    DEFAULT_USER_PERMISSIONS,
-    PermissionCodes,
+  DEFAULT_USER_PERMISSIONS,
+  PermissionCodes,
 } from '../src/constants/rbac/permission-codes.js';
 import {
-    PermissionGroupColors,
-    PermissionGroupPriorities,
-    PermissionGroupSlugs,
+  PermissionGroupColors,
+  PermissionGroupPriorities,
+  PermissionGroupSlugs,
 } from '../src/constants/rbac/permission-groups.js';
 import {
-    FILTER_FOLDER_CONFIGS,
-    ROOT_SYSTEM_FOLDERS,
-    slugify,
+  FILTER_FOLDER_CONFIGS,
+  ROOT_SYSTEM_FOLDERS,
+  slugify,
 } from '../src/constants/storage/folder-templates.js';
 
 const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL! });
@@ -131,10 +131,7 @@ function capitalize(s: string): string {
 
 function formatResource(resource: string): string {
   if (resource === '_root') return '';
-  return resource
-    .split('-')
-    .map(capitalize)
-    .join(' ');
+  return resource.split('-').map(capitalize).join(' ');
 }
 
 function generateName(code: string): string {
@@ -143,7 +140,10 @@ function generateName(code: string): string {
   const mod = parts[0];
   const resourceParts = parts.slice(1, -1); // everything between module and action
   const actionLabel = ACTION_LABELS[action] ?? capitalize(action);
-  const resourceLabel = resourceParts.map(formatResource).filter(Boolean).join(' ');
+  const resourceLabel = resourceParts
+    .map(formatResource)
+    .filter(Boolean)
+    .join(' ');
 
   if (!resourceLabel) {
     const moduleLabel = MODULE_LABELS[mod] ?? capitalize(mod);
@@ -291,9 +291,7 @@ async function seedGroups() {
     },
   });
 
-  console.log(
-    `   ✅ Grupo "Administrador" com ${allPerms.length} permissões`,
-  );
+  console.log(`   ✅ Grupo "Administrador" com ${allPerms.length} permissões`);
 
   // --- User Group ---
   let userGroup = await prisma.permissionGroup.findFirst({
@@ -337,9 +335,7 @@ async function seedGroups() {
     },
   });
 
-  console.log(
-    `   ✅ Grupo "Usuário" com ${userPermIds.length} permissões`,
-  );
+  console.log(`   ✅ Grupo "Usuário" com ${userPermIds.length} permissões`);
 
   return { adminGroupId: adminGroup.id, userGroupId: userGroup.id };
 }
@@ -398,7 +394,9 @@ async function fixLegacyTenantGroups() {
 
   if (legacyGroups.length === 0) return;
 
-  console.log(`🔧 Corrigindo ${legacyGroups.length} grupos com slugs legados...`);
+  console.log(
+    `🔧 Corrigindo ${legacyGroups.length} grupos com slugs legados...`,
+  );
 
   for (const group of legacyGroups) {
     const tenantIdPrefix = group.tenantId!.substring(0, 8);
@@ -529,10 +527,42 @@ async function seedPlans() {
   console.log('📋 Criando planos...');
 
   const plans = [
-    { name: 'Free', tier: 'FREE' as const, price: 0, maxUsers: 3, maxWarehouses: 1, maxProducts: 50, description: 'Plano gratuito para pequenas operações' },
-    { name: 'Starter', tier: 'STARTER' as const, price: 99.90, maxUsers: 10, maxWarehouses: 3, maxProducts: 500, description: 'Plano inicial para empresas em crescimento' },
-    { name: 'Professional', tier: 'PROFESSIONAL' as const, price: 299.90, maxUsers: 50, maxWarehouses: 10, maxProducts: 5000, description: 'Plano profissional com recursos avançados' },
-    { name: 'Enterprise', tier: 'ENTERPRISE' as const, price: 0, maxUsers: 999999, maxWarehouses: 999999, maxProducts: 999999, description: 'Plano empresarial com recursos ilimitados' },
+    {
+      name: 'Free',
+      tier: 'FREE' as const,
+      price: 0,
+      maxUsers: 3,
+      maxWarehouses: 1,
+      maxProducts: 50,
+      description: 'Plano gratuito para pequenas operações',
+    },
+    {
+      name: 'Starter',
+      tier: 'STARTER' as const,
+      price: 99.9,
+      maxUsers: 10,
+      maxWarehouses: 3,
+      maxProducts: 500,
+      description: 'Plano inicial para empresas em crescimento',
+    },
+    {
+      name: 'Professional',
+      tier: 'PROFESSIONAL' as const,
+      price: 299.9,
+      maxUsers: 50,
+      maxWarehouses: 10,
+      maxProducts: 5000,
+      description: 'Plano profissional com recursos avançados',
+    },
+    {
+      name: 'Enterprise',
+      tier: 'ENTERPRISE' as const,
+      price: 0,
+      maxUsers: 999999,
+      maxWarehouses: 999999,
+      maxProducts: 999999,
+      description: 'Plano empresarial com recursos ilimitados',
+    },
   ];
 
   const createdPlans: Record<string, string> = {};
@@ -564,8 +594,37 @@ async function seedPlanModules(planIds: Record<string, string>) {
   const modulesByPlan: Record<string, string[]> = {
     Free: ['CORE'],
     Starter: ['CORE', 'STOCK', 'SALES'],
-    Professional: ['CORE', 'STOCK', 'SALES', 'HR', 'FINANCE', 'REPORTS', 'AUDIT', 'NOTIFICATIONS', 'REQUESTS', 'CALENDAR', 'STORAGE', 'EMAIL', 'TASKS'],
-    Enterprise: ['CORE', 'STOCK', 'SALES', 'HR', 'PAYROLL', 'FINANCE', 'REPORTS', 'AUDIT', 'REQUESTS', 'NOTIFICATIONS', 'CALENDAR', 'STORAGE', 'EMAIL', 'TASKS'],
+    Professional: [
+      'CORE',
+      'STOCK',
+      'SALES',
+      'HR',
+      'FINANCE',
+      'REPORTS',
+      'AUDIT',
+      'NOTIFICATIONS',
+      'REQUESTS',
+      'CALENDAR',
+      'STORAGE',
+      'EMAIL',
+      'TASKS',
+    ],
+    Enterprise: [
+      'CORE',
+      'STOCK',
+      'SALES',
+      'HR',
+      'PAYROLL',
+      'FINANCE',
+      'REPORTS',
+      'AUDIT',
+      'REQUESTS',
+      'NOTIFICATIONS',
+      'CALENDAR',
+      'STORAGE',
+      'EMAIL',
+      'TASKS',
+    ],
   };
 
   for (const [planName, modules] of Object.entries(modulesByPlan)) {
@@ -662,7 +721,7 @@ async function seedDemoTenant(freePlanId: string) {
     where: {
       slug: `${PermissionGroupSlugs.ADMIN}-${tenant.id.substring(0, 8)}`,
       tenantId: tenant.id,
-      deletedAt: null
+      deletedAt: null,
     },
   });
 
@@ -699,14 +758,16 @@ async function seedDemoTenant(freePlanId: string) {
     },
   });
 
-  console.log(`   ✅ Grupo "Administrador" do tenant sincronizado com ${allPerms.length} permissões`);
+  console.log(
+    `   ✅ Grupo "Administrador" do tenant sincronizado com ${allPerms.length} permissões`,
+  );
 
   // Create tenant-specific "Usuário" group
   let tenantUserGroup = await prisma.permissionGroup.findFirst({
     where: {
       slug: `${PermissionGroupSlugs.USER}-${tenant.id.substring(0, 8)}`,
       tenantId: tenant.id,
-      deletedAt: null
+      deletedAt: null,
     },
   });
 
@@ -747,7 +808,9 @@ async function seedDemoTenant(freePlanId: string) {
     },
   });
 
-  console.log(`   ✅ Grupo "Usuário" do tenant sincronizado com ${userPermIds.length} permissões`);
+  console.log(
+    `   ✅ Grupo "Usuário" do tenant sincronizado com ${userPermIds.length} permissões`,
+  );
 
   // Assign admin user to tenant's admin group AND user group
   await prisma.userPermissionGroup.upsert({
@@ -803,9 +866,13 @@ async function seedDemoTenant(freePlanId: string) {
     });
   }
 
-  console.log(`   ✅ ${tenantUsers.length} membros do tenant atribuídos ao grupo "Usuário"`);
+  console.log(
+    `   ✅ ${tenantUsers.length} membros do tenant atribuídos ao grupo "Usuário"`,
+  );
   console.log(`   ✅ Tenant "Empresa Demo" (slug: empresa-demo)`);
-  console.log(`   ✅ admin@teste.com como owner e membro dos grupos Administrador + Usuário`);
+  console.log(
+    `   ✅ admin@teste.com como owner e membro dos grupos Administrador + Usuário`,
+  );
   console.log(`   ✅ Plano Free atribuído`);
 
   return tenant;
@@ -827,14 +894,16 @@ const CALENDAR_NOTIFICATION_TEMPLATES = [
     code: 'calendar.event.rsvp',
     name: 'Resposta ao convite',
     titleTemplate: 'Resposta ao convite',
-    messageTemplate: '{{participantName}} {{status}} o convite para "{{eventTitle}}"',
+    messageTemplate:
+      '{{participantName}} {{status}} o convite para "{{eventTitle}}"',
     defaultChannel: 'IN_APP' as const,
   },
   {
     code: 'calendar.event.reminder',
     name: 'Lembrete de evento',
     titleTemplate: 'Lembrete de evento',
-    messageTemplate: 'Lembrete: "{{eventTitle}}" começa em {{minutesBefore}} minutos',
+    messageTemplate:
+      'Lembrete: "{{eventTitle}}" começa em {{minutesBefore}} minutos',
     defaultChannel: 'IN_APP' as const,
   },
   {
@@ -849,21 +918,24 @@ const CALENDAR_NOTIFICATION_TEMPLATES = [
     code: 'calendar.event.invite.email',
     name: 'Convite para evento (e-mail)',
     titleTemplate: 'Você foi convidado para um evento',
-    messageTemplate: '{{inviterName}} convidou você para o evento "{{eventTitle}}". Acesse a agenda para responder ao convite.',
+    messageTemplate:
+      '{{inviterName}} convidou você para o evento "{{eventTitle}}". Acesse a agenda para responder ao convite.',
     defaultChannel: 'EMAIL' as const,
   },
   {
     code: 'calendar.event.rsvp.email',
     name: 'Resposta ao convite (e-mail)',
     titleTemplate: 'Resposta ao convite do evento',
-    messageTemplate: '{{participantName}} {{status}} o convite para o evento "{{eventTitle}}".',
+    messageTemplate:
+      '{{participantName}} {{status}} o convite para o evento "{{eventTitle}}".',
     defaultChannel: 'EMAIL' as const,
   },
   {
     code: 'calendar.event.reminder.email',
     name: 'Lembrete de evento (e-mail)',
     titleTemplate: 'Lembrete: evento em breve',
-    messageTemplate: 'Lembrete: o evento "{{eventTitle}}" começa em {{minutesBefore}} minutos.',
+    messageTemplate:
+      'Lembrete: o evento "{{eventTitle}}" começa em {{minutesBefore}} minutos.',
     defaultChannel: 'EMAIL' as const,
   },
   {
@@ -1029,7 +1101,9 @@ async function main() {
   console.log('🌱 Iniciando seed do banco de dados...\n');
 
   const allCodes = extractAllCodes(PermissionCodes as Record<string, unknown>);
-  console.log(`📦 ${allCodes.length} permissões descobertas em PermissionCodes\n`);
+  console.log(
+    `📦 ${allCodes.length} permissões descobertas em PermissionCodes\n`,
+  );
 
   await seedPermissions(allCodes);
   await cleanupStalePermissions(new Set(allCodes));
@@ -1048,13 +1122,44 @@ async function main() {
     try {
       await seedStorageFolders(demoTenant.id);
     } catch (storageError) {
-      console.log('   ⚠️ Erro ao inicializar pastas de storage (não crítico):', storageError);
+      console.log(
+        '   ⚠️ Erro ao inicializar pastas de storage (não crítico):',
+        storageError,
+      );
     }
   }
 
   await fixLegacyTenantGroups();
   await assignOrphanUsers(userGroupId);
   await seedNotificationTemplates();
+
+  // Sales pipelines for demo tenant
+  if (demoTenant) {
+    try {
+      const { seedSalesPipelines } = await import(
+        './seeds/sales-pipelines.js'
+      );
+      await seedSalesPipelines(prisma, demoTenant.id);
+    } catch (pipelineError) {
+      console.log(
+        '   ⚠️ Erro ao criar pipelines de vendas (não crítico):',
+        pipelineError,
+      );
+    }
+  }
+
+  // Central Redesign seeds
+  const { seedSkillDefinitions } = await import('./seeds/skill-definitions.js');
+  const { seedSkillPricing } = await import('./seeds/skill-pricing.js');
+  const { seedCentralUsers } = await import('./seeds/central-users.js');
+  const { seedSupportSlaConfig } = await import(
+    './seeds/support-sla-config.js'
+  );
+
+  await seedSkillDefinitions(prisma);
+  await seedSkillPricing(prisma);
+  await seedCentralUsers(prisma);
+  await seedSupportSlaConfig(prisma);
 
   console.log('\n🎉 Seed concluído com sucesso!');
 }

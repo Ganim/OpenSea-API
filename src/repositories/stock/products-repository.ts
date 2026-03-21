@@ -39,6 +39,7 @@ export interface UpdateProductSchema {
 export interface ProductsRepository {
   create(data: CreateProductSchema): Promise<Product>;
   findById(id: UniqueEntityID, tenantId: string): Promise<Product | null>;
+  findByFullCode(fullCode: string, tenantId: string): Promise<Product | null>;
   findByName(name: string, tenantId: string): Promise<Product | null>;
   findManyByNames(names: string[], tenantId: string): Promise<Product[]>;
   findMany(tenantId: string): Promise<Product[]>;

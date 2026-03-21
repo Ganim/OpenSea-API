@@ -29,6 +29,10 @@ export type TenantFeatureFlagMinAggregateOutputType = {
   tenantId: string | null
   flag: string | null
   enabled: boolean | null
+  category: $Enums.FeatureFlagCategory | null
+  expiresAt: Date | null
+  enabledByUserId: string | null
+  notes: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -38,6 +42,10 @@ export type TenantFeatureFlagMaxAggregateOutputType = {
   tenantId: string | null
   flag: string | null
   enabled: boolean | null
+  category: $Enums.FeatureFlagCategory | null
+  expiresAt: Date | null
+  enabledByUserId: string | null
+  notes: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -47,6 +55,10 @@ export type TenantFeatureFlagCountAggregateOutputType = {
   tenantId: number
   flag: number
   enabled: number
+  category: number
+  expiresAt: number
+  enabledByUserId: number
+  notes: number
   metadata: number
   createdAt: number
   updatedAt: number
@@ -59,6 +71,10 @@ export type TenantFeatureFlagMinAggregateInputType = {
   tenantId?: true
   flag?: true
   enabled?: true
+  category?: true
+  expiresAt?: true
+  enabledByUserId?: true
+  notes?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -68,6 +84,10 @@ export type TenantFeatureFlagMaxAggregateInputType = {
   tenantId?: true
   flag?: true
   enabled?: true
+  category?: true
+  expiresAt?: true
+  enabledByUserId?: true
+  notes?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -77,6 +97,10 @@ export type TenantFeatureFlagCountAggregateInputType = {
   tenantId?: true
   flag?: true
   enabled?: true
+  category?: true
+  expiresAt?: true
+  enabledByUserId?: true
+  notes?: true
   metadata?: true
   createdAt?: true
   updatedAt?: true
@@ -160,6 +184,10 @@ export type TenantFeatureFlagGroupByOutputType = {
   tenantId: string
   flag: string
   enabled: boolean
+  category: $Enums.FeatureFlagCategory
+  expiresAt: Date | null
+  enabledByUserId: string | null
+  notes: string | null
   metadata: runtime.JsonValue
   createdAt: Date
   updatedAt: Date
@@ -191,6 +219,10 @@ export type TenantFeatureFlagWhereInput = {
   tenantId?: Prisma.StringFilter<"TenantFeatureFlag"> | string
   flag?: Prisma.StringFilter<"TenantFeatureFlag"> | string
   enabled?: Prisma.BoolFilter<"TenantFeatureFlag"> | boolean
+  category?: Prisma.EnumFeatureFlagCategoryFilter<"TenantFeatureFlag"> | $Enums.FeatureFlagCategory
+  expiresAt?: Prisma.DateTimeNullableFilter<"TenantFeatureFlag"> | Date | string | null
+  enabledByUserId?: Prisma.StringNullableFilter<"TenantFeatureFlag"> | string | null
+  notes?: Prisma.StringNullableFilter<"TenantFeatureFlag"> | string | null
   metadata?: Prisma.JsonFilter<"TenantFeatureFlag">
   createdAt?: Prisma.DateTimeFilter<"TenantFeatureFlag"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"TenantFeatureFlag"> | Date | string
@@ -202,6 +234,10 @@ export type TenantFeatureFlagOrderByWithRelationInput = {
   tenantId?: Prisma.SortOrder
   flag?: Prisma.SortOrder
   enabled?: Prisma.SortOrder
+  category?: Prisma.SortOrder
+  expiresAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  enabledByUserId?: Prisma.SortOrderInput | Prisma.SortOrder
+  notes?: Prisma.SortOrderInput | Prisma.SortOrder
   metadata?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -217,6 +253,10 @@ export type TenantFeatureFlagWhereUniqueInput = Prisma.AtLeast<{
   tenantId?: Prisma.StringFilter<"TenantFeatureFlag"> | string
   flag?: Prisma.StringFilter<"TenantFeatureFlag"> | string
   enabled?: Prisma.BoolFilter<"TenantFeatureFlag"> | boolean
+  category?: Prisma.EnumFeatureFlagCategoryFilter<"TenantFeatureFlag"> | $Enums.FeatureFlagCategory
+  expiresAt?: Prisma.DateTimeNullableFilter<"TenantFeatureFlag"> | Date | string | null
+  enabledByUserId?: Prisma.StringNullableFilter<"TenantFeatureFlag"> | string | null
+  notes?: Prisma.StringNullableFilter<"TenantFeatureFlag"> | string | null
   metadata?: Prisma.JsonFilter<"TenantFeatureFlag">
   createdAt?: Prisma.DateTimeFilter<"TenantFeatureFlag"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"TenantFeatureFlag"> | Date | string
@@ -228,6 +268,10 @@ export type TenantFeatureFlagOrderByWithAggregationInput = {
   tenantId?: Prisma.SortOrder
   flag?: Prisma.SortOrder
   enabled?: Prisma.SortOrder
+  category?: Prisma.SortOrder
+  expiresAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  enabledByUserId?: Prisma.SortOrderInput | Prisma.SortOrder
+  notes?: Prisma.SortOrderInput | Prisma.SortOrder
   metadata?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -244,6 +288,10 @@ export type TenantFeatureFlagScalarWhereWithAggregatesInput = {
   tenantId?: Prisma.StringWithAggregatesFilter<"TenantFeatureFlag"> | string
   flag?: Prisma.StringWithAggregatesFilter<"TenantFeatureFlag"> | string
   enabled?: Prisma.BoolWithAggregatesFilter<"TenantFeatureFlag"> | boolean
+  category?: Prisma.EnumFeatureFlagCategoryWithAggregatesFilter<"TenantFeatureFlag"> | $Enums.FeatureFlagCategory
+  expiresAt?: Prisma.DateTimeNullableWithAggregatesFilter<"TenantFeatureFlag"> | Date | string | null
+  enabledByUserId?: Prisma.StringNullableWithAggregatesFilter<"TenantFeatureFlag"> | string | null
+  notes?: Prisma.StringNullableWithAggregatesFilter<"TenantFeatureFlag"> | string | null
   metadata?: Prisma.JsonWithAggregatesFilter<"TenantFeatureFlag">
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"TenantFeatureFlag"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"TenantFeatureFlag"> | Date | string
@@ -253,6 +301,10 @@ export type TenantFeatureFlagCreateInput = {
   id?: string
   flag: string
   enabled?: boolean
+  category?: $Enums.FeatureFlagCategory
+  expiresAt?: Date | string | null
+  enabledByUserId?: string | null
+  notes?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -264,6 +316,10 @@ export type TenantFeatureFlagUncheckedCreateInput = {
   tenantId: string
   flag: string
   enabled?: boolean
+  category?: $Enums.FeatureFlagCategory
+  expiresAt?: Date | string | null
+  enabledByUserId?: string | null
+  notes?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -273,6 +329,10 @@ export type TenantFeatureFlagUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   flag?: Prisma.StringFieldUpdateOperationsInput | string
   enabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  category?: Prisma.EnumFeatureFlagCategoryFieldUpdateOperationsInput | $Enums.FeatureFlagCategory
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  enabledByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -284,6 +344,10 @@ export type TenantFeatureFlagUncheckedUpdateInput = {
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   flag?: Prisma.StringFieldUpdateOperationsInput | string
   enabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  category?: Prisma.EnumFeatureFlagCategoryFieldUpdateOperationsInput | $Enums.FeatureFlagCategory
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  enabledByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -294,6 +358,10 @@ export type TenantFeatureFlagCreateManyInput = {
   tenantId: string
   flag: string
   enabled?: boolean
+  category?: $Enums.FeatureFlagCategory
+  expiresAt?: Date | string | null
+  enabledByUserId?: string | null
+  notes?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -303,6 +371,10 @@ export type TenantFeatureFlagUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   flag?: Prisma.StringFieldUpdateOperationsInput | string
   enabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  category?: Prisma.EnumFeatureFlagCategoryFieldUpdateOperationsInput | $Enums.FeatureFlagCategory
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  enabledByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -313,6 +385,10 @@ export type TenantFeatureFlagUncheckedUpdateManyInput = {
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   flag?: Prisma.StringFieldUpdateOperationsInput | string
   enabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  category?: Prisma.EnumFeatureFlagCategoryFieldUpdateOperationsInput | $Enums.FeatureFlagCategory
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  enabledByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -338,6 +414,10 @@ export type TenantFeatureFlagCountOrderByAggregateInput = {
   tenantId?: Prisma.SortOrder
   flag?: Prisma.SortOrder
   enabled?: Prisma.SortOrder
+  category?: Prisma.SortOrder
+  expiresAt?: Prisma.SortOrder
+  enabledByUserId?: Prisma.SortOrder
+  notes?: Prisma.SortOrder
   metadata?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -348,6 +428,10 @@ export type TenantFeatureFlagMaxOrderByAggregateInput = {
   tenantId?: Prisma.SortOrder
   flag?: Prisma.SortOrder
   enabled?: Prisma.SortOrder
+  category?: Prisma.SortOrder
+  expiresAt?: Prisma.SortOrder
+  enabledByUserId?: Prisma.SortOrder
+  notes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -357,6 +441,10 @@ export type TenantFeatureFlagMinOrderByAggregateInput = {
   tenantId?: Prisma.SortOrder
   flag?: Prisma.SortOrder
   enabled?: Prisma.SortOrder
+  category?: Prisma.SortOrder
+  expiresAt?: Prisma.SortOrder
+  enabledByUserId?: Prisma.SortOrder
+  notes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -403,10 +491,18 @@ export type TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput = {
   deleteMany?: Prisma.TenantFeatureFlagScalarWhereInput | Prisma.TenantFeatureFlagScalarWhereInput[]
 }
 
+export type EnumFeatureFlagCategoryFieldUpdateOperationsInput = {
+  set?: $Enums.FeatureFlagCategory
+}
+
 export type TenantFeatureFlagCreateWithoutTenantInput = {
   id?: string
   flag: string
   enabled?: boolean
+  category?: $Enums.FeatureFlagCategory
+  expiresAt?: Date | string | null
+  enabledByUserId?: string | null
+  notes?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -416,6 +512,10 @@ export type TenantFeatureFlagUncheckedCreateWithoutTenantInput = {
   id?: string
   flag: string
   enabled?: boolean
+  category?: $Enums.FeatureFlagCategory
+  expiresAt?: Date | string | null
+  enabledByUserId?: string | null
+  notes?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -455,6 +555,10 @@ export type TenantFeatureFlagScalarWhereInput = {
   tenantId?: Prisma.StringFilter<"TenantFeatureFlag"> | string
   flag?: Prisma.StringFilter<"TenantFeatureFlag"> | string
   enabled?: Prisma.BoolFilter<"TenantFeatureFlag"> | boolean
+  category?: Prisma.EnumFeatureFlagCategoryFilter<"TenantFeatureFlag"> | $Enums.FeatureFlagCategory
+  expiresAt?: Prisma.DateTimeNullableFilter<"TenantFeatureFlag"> | Date | string | null
+  enabledByUserId?: Prisma.StringNullableFilter<"TenantFeatureFlag"> | string | null
+  notes?: Prisma.StringNullableFilter<"TenantFeatureFlag"> | string | null
   metadata?: Prisma.JsonFilter<"TenantFeatureFlag">
   createdAt?: Prisma.DateTimeFilter<"TenantFeatureFlag"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"TenantFeatureFlag"> | Date | string
@@ -464,6 +568,10 @@ export type TenantFeatureFlagCreateManyTenantInput = {
   id?: string
   flag: string
   enabled?: boolean
+  category?: $Enums.FeatureFlagCategory
+  expiresAt?: Date | string | null
+  enabledByUserId?: string | null
+  notes?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -473,6 +581,10 @@ export type TenantFeatureFlagUpdateWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   flag?: Prisma.StringFieldUpdateOperationsInput | string
   enabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  category?: Prisma.EnumFeatureFlagCategoryFieldUpdateOperationsInput | $Enums.FeatureFlagCategory
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  enabledByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -482,6 +594,10 @@ export type TenantFeatureFlagUncheckedUpdateWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   flag?: Prisma.StringFieldUpdateOperationsInput | string
   enabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  category?: Prisma.EnumFeatureFlagCategoryFieldUpdateOperationsInput | $Enums.FeatureFlagCategory
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  enabledByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -491,6 +607,10 @@ export type TenantFeatureFlagUncheckedUpdateManyWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   flag?: Prisma.StringFieldUpdateOperationsInput | string
   enabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  category?: Prisma.EnumFeatureFlagCategoryFieldUpdateOperationsInput | $Enums.FeatureFlagCategory
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  enabledByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -503,6 +623,10 @@ export type TenantFeatureFlagSelect<ExtArgs extends runtime.Types.Extensions.Int
   tenantId?: boolean
   flag?: boolean
   enabled?: boolean
+  category?: boolean
+  expiresAt?: boolean
+  enabledByUserId?: boolean
+  notes?: boolean
   metadata?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -514,6 +638,10 @@ export type TenantFeatureFlagSelectCreateManyAndReturn<ExtArgs extends runtime.T
   tenantId?: boolean
   flag?: boolean
   enabled?: boolean
+  category?: boolean
+  expiresAt?: boolean
+  enabledByUserId?: boolean
+  notes?: boolean
   metadata?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -525,6 +653,10 @@ export type TenantFeatureFlagSelectUpdateManyAndReturn<ExtArgs extends runtime.T
   tenantId?: boolean
   flag?: boolean
   enabled?: boolean
+  category?: boolean
+  expiresAt?: boolean
+  enabledByUserId?: boolean
+  notes?: boolean
   metadata?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -536,12 +668,16 @@ export type TenantFeatureFlagSelectScalar = {
   tenantId?: boolean
   flag?: boolean
   enabled?: boolean
+  category?: boolean
+  expiresAt?: boolean
+  enabledByUserId?: boolean
+  notes?: boolean
   metadata?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type TenantFeatureFlagOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "flag" | "enabled" | "metadata" | "createdAt" | "updatedAt", ExtArgs["result"]["tenantFeatureFlag"]>
+export type TenantFeatureFlagOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "flag" | "enabled" | "category" | "expiresAt" | "enabledByUserId" | "notes" | "metadata" | "createdAt" | "updatedAt", ExtArgs["result"]["tenantFeatureFlag"]>
 export type TenantFeatureFlagInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
 }
@@ -562,6 +698,10 @@ export type $TenantFeatureFlagPayload<ExtArgs extends runtime.Types.Extensions.I
     tenantId: string
     flag: string
     enabled: boolean
+    category: $Enums.FeatureFlagCategory
+    expiresAt: Date | null
+    enabledByUserId: string | null
+    notes: string | null
     metadata: runtime.JsonValue
     createdAt: Date
     updatedAt: Date
@@ -993,6 +1133,10 @@ export interface TenantFeatureFlagFieldRefs {
   readonly tenantId: Prisma.FieldRef<"TenantFeatureFlag", 'String'>
   readonly flag: Prisma.FieldRef<"TenantFeatureFlag", 'String'>
   readonly enabled: Prisma.FieldRef<"TenantFeatureFlag", 'Boolean'>
+  readonly category: Prisma.FieldRef<"TenantFeatureFlag", 'FeatureFlagCategory'>
+  readonly expiresAt: Prisma.FieldRef<"TenantFeatureFlag", 'DateTime'>
+  readonly enabledByUserId: Prisma.FieldRef<"TenantFeatureFlag", 'String'>
+  readonly notes: Prisma.FieldRef<"TenantFeatureFlag", 'String'>
   readonly metadata: Prisma.FieldRef<"TenantFeatureFlag", 'Json'>
   readonly createdAt: Prisma.FieldRef<"TenantFeatureFlag", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"TenantFeatureFlag", 'DateTime'>

@@ -5,6 +5,8 @@ interface ListLoansUseCaseRequest {
   tenantId: string;
   page?: number;
   limit?: number;
+  sortBy?: 'createdAt' | 'totalAmount' | 'institution' | 'status';
+  sortOrder?: 'asc' | 'desc';
   bankAccountId?: string;
   costCenterId?: string;
   type?: string;
@@ -35,6 +37,8 @@ export class ListLoansUseCase {
       tenantId: request.tenantId,
       page,
       limit,
+      sortBy: request.sortBy,
+      sortOrder: request.sortOrder,
       bankAccountId: request.bankAccountId,
       costCenterId: request.costCenterId,
       type: request.type,

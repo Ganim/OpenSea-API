@@ -161,10 +161,21 @@ export class PrismaLoansRepository implements LoansRepository {
       ];
     }
 
+    const sortFieldMap: Record<string, string> = {
+      createdAt: 'createdAt',
+      totalAmount: 'principalAmount',
+      institution: 'name',
+      status: 'status',
+    };
+
+    const orderBy: Record<string, 'asc' | 'desc'> = {};
+    orderBy[sortFieldMap[options.sortBy || 'createdAt'] || 'createdAt'] =
+      options.sortOrder || 'desc';
+
     const [loans, total] = await Promise.all([
       prisma.loan.findMany({
         where,
-        orderBy: { createdAt: 'desc' },
+        orderBy,
         skip: (page - 1) * limit,
         take: limit,
       }),

@@ -2,6 +2,7 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
+import { resolveUserName } from '@/http/helpers/resolve-user-name';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
@@ -43,13 +44,14 @@ export async function deleteCommentController(app: FastifyInstance) {
       const userId = request.user.sub;
       const tenantId = request.user.tenantId!;
       const { boardId, cardId, commentId } = request.params;
+      const userName = await resolveUserName(userId);
 
       try {
         const getBoardUseCase = makeGetBoardUseCase();
         await getBoardUseCase.execute({ tenantId, userId, boardId });
 
         const useCase = makeDeleteCommentUseCase();
-        await useCase.execute({ tenantId, userId, cardId, commentId });
+        await useCase.execute({ tenantId, userId, userName, boardId, cardId, commentId });
 
         return reply.status(204).send(null);
       } catch (error) {

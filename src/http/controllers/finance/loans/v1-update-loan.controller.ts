@@ -17,7 +17,7 @@ export async function updateLoanController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'PUT',
     url: '/v1/finance/loans/:id',
-    onRequest: [
+    preHandler: [
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({

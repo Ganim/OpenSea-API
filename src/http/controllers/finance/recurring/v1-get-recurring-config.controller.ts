@@ -13,7 +13,7 @@ export async function getRecurringConfigController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/finance/recurring/:id',
-    onRequest: [
+    preHandler: [
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({

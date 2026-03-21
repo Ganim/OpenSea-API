@@ -2,6 +2,8 @@ import { appendFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { env } from './@env';
 import { app } from './app';
+import { getTypedEventBus } from './lib/events/typed-event-bus';
+import { registerEventConsumers } from './lib/events/register-consumers';
 import { httpLogger } from './lib/logger';
 import { prisma } from './lib/prisma';
 import { moduleLoadStart } from './startup-banner';
@@ -170,6 +172,12 @@ async function start() {
     process.exit(1);
   }
   console.log('[startup] Database connected.');
+
+  // Register cross-module event consumers
+  console.log('[startup] Registering event consumers...');
+  const eventBus = getTypedEventBus();
+  registerEventConsumers(eventBus);
+  console.log(`[startup] ${eventBus.getConsumers().length} event consumers registered.`);
 
   try {
     console.log('[startup] Initializing plugins and routes...');

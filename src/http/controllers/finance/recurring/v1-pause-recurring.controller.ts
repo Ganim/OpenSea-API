@@ -13,7 +13,7 @@ export async function pauseRecurringController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'PATCH',
     url: '/v1/finance/recurring/:id/pause',
-    onRequest: [
+    preHandler: [
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({

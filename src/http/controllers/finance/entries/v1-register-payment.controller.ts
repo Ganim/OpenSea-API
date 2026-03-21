@@ -21,7 +21,7 @@ export async function registerPaymentController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/finance/entries/:id/payments',
-    onRequest: [
+    preHandler: [
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({

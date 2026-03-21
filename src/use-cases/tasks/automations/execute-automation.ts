@@ -1,4 +1,5 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import { logger } from '@/lib/logger';
 import type { NotificationsRepository } from '@/repositories/notifications/notifications-repository';
 import type { BoardAutomationsRepository } from '@/repositories/tasks/board-automations-repository';
 import type { BoardColumnsRepository } from '@/repositories/tasks/board-columns-repository';
@@ -99,9 +100,13 @@ export class ExecuteAutomationUseCase {
           executedCount++;
         }
       } catch (error) {
-        console.error(
-          `[Tasks] Automation ${automation.id} (${automation.name}) failed:`,
-          error instanceof Error ? error.message : error,
+        logger.error(
+          {
+            automationId: automation.id,
+            automationName: automation.name,
+            err: error instanceof Error ? error.message : error,
+          },
+          `[Tasks] Automation ${automation.id} (${automation.name}) failed`,
         );
         continue;
       }
@@ -163,13 +168,25 @@ export class ExecuteAutomationUseCase {
     switch (action) {
       case 'MOVE_CARD': {
         const targetColumnId = actionConfig.columnId as string | undefined;
-        if (!targetColumnId) return null;
+        if (!targetColumnId) {
+          logger.warn(
+            { action, boardId, cardId },
+            '[Tasks] MOVE_CARD automation missing columnId in actionConfig',
+          );
+          return null;
+        }
 
         const targetColumn = await this.boardColumnsRepository.findById(
           targetColumnId,
           boardId,
         );
-        if (!targetColumn) return null;
+        if (!targetColumn) {
+          logger.warn(
+            { action, boardId, cardId, targetColumnId },
+            '[Tasks] MOVE_CARD automation target column not found in board',
+          );
+          return null;
+        }
 
         await this.cardsRepository.update({
           id: cardId,

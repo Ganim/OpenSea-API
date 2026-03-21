@@ -16,7 +16,7 @@ export async function getLoanByIdController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/finance/loans/:id',
-    onRequest: [
+    preHandler: [
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({

@@ -62,6 +62,19 @@ export class InMemoryVariantsRepository implements VariantsRepository {
     return variant ?? null;
   }
 
+  async findByFullCode(
+    fullCode: string,
+    tenantId: string,
+  ): Promise<Variant | null> {
+    const variant = this.items.find(
+      (item) =>
+        !item.deletedAt &&
+        item.fullCode === fullCode &&
+        item.tenantId.toString() === tenantId,
+    );
+    return variant ?? null;
+  }
+
   async findBySKU(sku: string, tenantId: string): Promise<Variant | null> {
     const variant = this.items.find(
       (item) =>

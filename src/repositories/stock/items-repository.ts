@@ -71,6 +71,10 @@ export interface ItemsRepository {
   findById(id: UniqueEntityID, tenantId: string): Promise<Item | null>;
   findManyByIds(ids: UniqueEntityID[], tenantId: string): Promise<Item[]>;
   findByUniqueCode(uniqueCode: string, tenantId: string): Promise<Item | null>;
+  findByFullCode(fullCode: string, tenantId: string): Promise<Item | null>;
+  findByBarcode(barcode: string, tenantId: string): Promise<Item | null>;
+  findByEanCode(eanCode: string, tenantId: string): Promise<Item | null>;
+  findByUpcCode(upcCode: string, tenantId: string): Promise<Item | null>;
   findAll(tenantId: string): Promise<Item[]>;
   findManyByVariant(
     variantId: UniqueEntityID,

@@ -15,7 +15,7 @@ export async function deleteContractController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'DELETE',
     url: '/v1/finance/contracts/:id',
-    onRequest: [
+    preHandler: [
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({

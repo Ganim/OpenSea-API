@@ -92,6 +92,13 @@ export const PermissionCodes = {
       REMOVE: 'stock.warehouses.remove' as const,
       ADMIN: 'stock.warehouses.admin' as const,
     },
+    INVENTORY: {
+      ACCESS: 'stock.inventory.access' as const,
+      REGISTER: 'stock.inventory.register' as const,
+      MODIFY: 'stock.inventory.modify' as const,
+      REMOVE: 'stock.inventory.remove' as const,
+      ADMIN: 'stock.inventory.admin' as const,
+    },
   },
 
   // ============================================================================
@@ -264,6 +271,132 @@ export const PermissionCodes = {
       ADMIN: 'sales.orders.admin' as const,
       ONLYSELF: 'sales.orders.onlyself' as const,
     },
+    CONTACTS: {
+      ACCESS: 'sales.contacts.access' as const,
+      REGISTER: 'sales.contacts.register' as const,
+      MODIFY: 'sales.contacts.modify' as const,
+      REMOVE: 'sales.contacts.remove' as const,
+      ADMIN: 'sales.contacts.admin' as const,
+      ONLYSELF: 'sales.contacts.onlyself' as const,
+    },
+    PIPELINES: {
+      ACCESS: 'sales.pipelines.access' as const,
+      ADMIN: 'sales.pipelines.admin' as const,
+    },
+    PRICE_TABLES: {
+      ACCESS: 'sales.price-tables.access' as const,
+      REGISTER: 'sales.price-tables.register' as const,
+      MODIFY: 'sales.price-tables.modify' as const,
+      REMOVE: 'sales.price-tables.remove' as const,
+    },
+    CUSTOMER_PRICES: {
+      ACCESS: 'sales.customer-prices.access' as const,
+      REGISTER: 'sales.customer-prices.register' as const,
+      MODIFY: 'sales.customer-prices.modify' as const,
+      REMOVE: 'sales.customer-prices.remove' as const,
+    },
+    CAMPAIGNS: {
+      ACCESS: 'sales.campaigns.access' as const,
+      REGISTER: 'sales.campaigns.register' as const,
+      MODIFY: 'sales.campaigns.modify' as const,
+      REMOVE: 'sales.campaigns.remove' as const,
+    },
+    COUPONS: {
+      ACCESS: 'sales.coupons.access' as const,
+      REGISTER: 'sales.coupons.register' as const,
+      REMOVE: 'sales.coupons.remove' as const,
+    },
+    COMBOS: {
+      ACCESS: 'sales.combos.access' as const,
+      REGISTER: 'sales.combos.register' as const,
+      REMOVE: 'sales.combos.remove' as const,
+    },
+    CATALOGS: {
+      ACCESS: 'sales.catalogs.access' as const,
+      REGISTER: 'sales.catalogs.register' as const,
+      MODIFY: 'sales.catalogs.modify' as const,
+      REMOVE: 'sales.catalogs.remove' as const,
+    },
+    BRAND: {
+      ACCESS: 'sales.brand.access' as const,
+      MODIFY: 'sales.brand.modify' as const,
+    },
+    CONTENT: {
+      ACCESS: 'sales.content.access' as const,
+      REGISTER: 'sales.content.register' as const,
+      REMOVE: 'sales.content.remove' as const,
+      ADMIN: 'sales.content.admin' as const,
+    },
+    ANALYTICS_GOALS: {
+      ACCESS: 'sales.analytics-goals.access' as const,
+      REGISTER: 'sales.analytics-goals.register' as const,
+      MODIFY: 'sales.analytics-goals.modify' as const,
+      REMOVE: 'sales.analytics-goals.remove' as const,
+    },
+    ANALYTICS_REPORTS: {
+      ACCESS: 'sales.analytics-reports.access' as const,
+      REGISTER: 'sales.analytics-reports.register' as const,
+      MODIFY: 'sales.analytics-reports.modify' as const,
+      REMOVE: 'sales.analytics-reports.remove' as const,
+      GENERATE: 'sales.analytics-reports.generate' as const,
+    },
+    ANALYTICS_DASHBOARDS: {
+      ACCESS: 'sales.analytics-dashboards.access' as const,
+      REGISTER: 'sales.analytics-dashboards.register' as const,
+      MODIFY: 'sales.analytics-dashboards.modify' as const,
+      REMOVE: 'sales.analytics-dashboards.remove' as const,
+    },
+    ANALYTICS_RANKINGS: {
+      ACCESS: 'sales.analytics-rankings.access' as const,
+    },
+    CUSTOMER_PORTAL: {
+      ACCESS: 'sales.customer-portal.access' as const,
+      REGISTER: 'sales.customer-portal.register' as const,
+      REMOVE: 'sales.customer-portal.remove' as const,
+    },
+    BIDS: {
+      ACCESS: 'sales.bids.access' as const,
+      REGISTER: 'sales.bids.register' as const,
+      MODIFY: 'sales.bids.modify' as const,
+      REMOVE: 'sales.bids.remove' as const,
+      ADMIN: 'sales.bids.admin' as const,
+    },
+    BID_DOCUMENTS: {
+      ACCESS: 'sales.bid-documents.access' as const,
+      REGISTER: 'sales.bid-documents.register' as const,
+      MODIFY: 'sales.bid-documents.modify' as const,
+      REMOVE: 'sales.bid-documents.remove' as const,
+    },
+    BID_CONTRACTS: {
+      ACCESS: 'sales.bid-contracts.access' as const,
+      REGISTER: 'sales.bid-contracts.register' as const,
+      MODIFY: 'sales.bid-contracts.modify' as const,
+      REMOVE: 'sales.bid-contracts.remove' as const,
+    },
+    BID_EMPENHOS: {
+      ACCESS: 'sales.bid-empenhos.access' as const,
+      REGISTER: 'sales.bid-empenhos.register' as const,
+      MODIFY: 'sales.bid-empenhos.modify' as const,
+    },
+    MARKETPLACE_CONNECTIONS: {
+      ACCESS: 'sales.marketplace-connections.access' as const,
+      REGISTER: 'sales.marketplace-connections.register' as const,
+      MODIFY: 'sales.marketplace-connections.modify' as const,
+      REMOVE: 'sales.marketplace-connections.remove' as const,
+    },
+    MARKETPLACE_LISTINGS: {
+      ACCESS: 'sales.marketplace-listings.access' as const,
+      REGISTER: 'sales.marketplace-listings.register' as const,
+      MODIFY: 'sales.marketplace-listings.modify' as const,
+      REMOVE: 'sales.marketplace-listings.remove' as const,
+    },
+    MARKETPLACE_ORDERS: {
+      ACCESS: 'sales.marketplace-orders.access' as const,
+      MODIFY: 'sales.marketplace-orders.modify' as const,
+    },
+    MARKETPLACE_PAYMENTS: {
+      ACCESS: 'sales.marketplace-payments.access' as const,
+    },
   },
 
   // ============================================================================
@@ -372,6 +505,47 @@ export const PermissionCodes = {
         ONLYSELF: 'tools.storage.files.onlyself' as const,
       },
     },
+    SIGNATURE: {
+      ENVELOPES: {
+        ACCESS: 'tools.signature.envelopes.access' as const,
+        REGISTER: 'tools.signature.envelopes.register' as const,
+        MODIFY: 'tools.signature.envelopes.modify' as const,
+        REMOVE: 'tools.signature.envelopes.remove' as const,
+        ADMIN: 'tools.signature.envelopes.admin' as const,
+      },
+      CERTIFICATES: {
+        ACCESS: 'tools.signature.certificates.access' as const,
+        REGISTER: 'tools.signature.certificates.register' as const,
+        REMOVE: 'tools.signature.certificates.remove' as const,
+        ADMIN: 'tools.signature.certificates.admin' as const,
+      },
+      TEMPLATES: {
+        ACCESS: 'tools.signature.templates.access' as const,
+        REGISTER: 'tools.signature.templates.register' as const,
+        MODIFY: 'tools.signature.templates.modify' as const,
+        REMOVE: 'tools.signature.templates.remove' as const,
+      },
+    },
+    AI: {
+      CHAT: {
+        ACCESS: 'tools.ai.chat.access' as const,
+      },
+      INSIGHTS: {
+        ACCESS: 'tools.ai.insights.access' as const,
+      },
+      CONFIG: {
+        ACCESS: 'tools.ai.config.access' as const,
+        MODIFY: 'tools.ai.config.modify' as const,
+      },
+      FAVORITES: {
+        ACCESS: 'tools.ai.favorites.access' as const,
+        REGISTER: 'tools.ai.favorites.register' as const,
+        REMOVE: 'tools.ai.favorites.remove' as const,
+      },
+      ACTIONS: {
+        ACCESS: 'tools.ai.actions.access' as const,
+      },
+    },
   },
 
   // ============================================================================
@@ -443,6 +617,14 @@ export const DEFAULT_USER_PERMISSIONS: string[] = [
   PermissionCodes.TOOLS.STORAGE.FILES.MODIFY,
   PermissionCodes.TOOLS.STORAGE.FILES.REMOVE,
   PermissionCodes.TOOLS.STORAGE.FILES.ONLYSELF,
+
+  // tools.ai — acesso ao assistente IA
+  PermissionCodes.TOOLS.AI.CHAT.ACCESS,
+  PermissionCodes.TOOLS.AI.INSIGHTS.ACCESS,
+  PermissionCodes.TOOLS.AI.FAVORITES.ACCESS,
+  PermissionCodes.TOOLS.AI.FAVORITES.REGISTER,
+  PermissionCodes.TOOLS.AI.FAVORITES.REMOVE,
+  PermissionCodes.TOOLS.AI.ACTIONS.ACCESS,
 ];
 
 // =============================================================================

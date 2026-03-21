@@ -522,6 +522,62 @@ export const OrderStatus = {
 export type OrderStatus = (typeof OrderStatus)[keyof typeof OrderStatus]
 
 
+export const ContactRole = {
+  DECISION_MAKER: 'DECISION_MAKER',
+  INFLUENCER: 'INFLUENCER',
+  CHAMPION: 'CHAMPION',
+  GATEKEEPER: 'GATEKEEPER',
+  END_USER: 'END_USER',
+  OTHER: 'OTHER'
+} as const
+
+export type ContactRole = (typeof ContactRole)[keyof typeof ContactRole]
+
+
+export const ContactLifecycleStage = {
+  SUBSCRIBER: 'SUBSCRIBER',
+  LEAD: 'LEAD',
+  QUALIFIED: 'QUALIFIED',
+  OPPORTUNITY: 'OPPORTUNITY',
+  CUSTOMER: 'CUSTOMER',
+  EVANGELIST: 'EVANGELIST'
+} as const
+
+export type ContactLifecycleStage = (typeof ContactLifecycleStage)[keyof typeof ContactLifecycleStage]
+
+
+export const PipelineType = {
+  SALES: 'SALES',
+  ONBOARDING: 'ONBOARDING',
+  SUPPORT: 'SUPPORT',
+  CUSTOM: 'CUSTOM',
+  ORDER_B2C: 'ORDER_B2C',
+  ORDER_B2B: 'ORDER_B2B',
+  ORDER_BID: 'ORDER_BID',
+  ORDER_ECOMMERCE: 'ORDER_ECOMMERCE'
+} as const
+
+export type PipelineType = (typeof PipelineType)[keyof typeof PipelineType]
+
+
+export const PipelineStageType = {
+  OPEN: 'OPEN',
+  WON: 'WON',
+  LOST: 'LOST',
+  DRAFT: 'DRAFT',
+  PENDING_APPROVAL: 'PENDING_APPROVAL',
+  APPROVED: 'APPROVED',
+  PROCESSING: 'PROCESSING',
+  INVOICED: 'INVOICED',
+  SHIPPED: 'SHIPPED',
+  DELIVERED: 'DELIVERED',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type PipelineStageType = (typeof PipelineStageType)[keyof typeof PipelineStageType]
+
+
 export const LocationType = {
   WAREHOUSE: 'WAREHOUSE',
   ZONE: 'ZONE',
@@ -621,6 +677,292 @@ export const DiscountType = {
 export type DiscountType = (typeof DiscountType)[keyof typeof DiscountType]
 
 
+export const PriceTableType = {
+  DEFAULT: 'DEFAULT',
+  RETAIL: 'RETAIL',
+  WHOLESALE: 'WHOLESALE',
+  REGIONAL: 'REGIONAL',
+  CHANNEL: 'CHANNEL',
+  CUSTOMER: 'CUSTOMER',
+  BID: 'BID'
+} as const
+
+export type PriceTableType = (typeof PriceTableType)[keyof typeof PriceTableType]
+
+
+export const PriceTableRuleType = {
+  CUSTOMER_TYPE: 'CUSTOMER_TYPE',
+  REGION: 'REGION',
+  CHANNEL: 'CHANNEL',
+  CUSTOMER_TAG: 'CUSTOMER_TAG',
+  MIN_QUANTITY: 'MIN_QUANTITY'
+} as const
+
+export type PriceTableRuleType = (typeof PriceTableRuleType)[keyof typeof PriceTableRuleType]
+
+
+export const RuleOperator = {
+  EQUALS: 'EQUALS',
+  IN: 'IN',
+  GREATER_THAN: 'GREATER_THAN',
+  LESS_THAN: 'LESS_THAN',
+  BETWEEN: 'BETWEEN'
+} as const
+
+export type RuleOperator = (typeof RuleOperator)[keyof typeof RuleOperator]
+
+
+export const TaxType = {
+  ICMS: 'ICMS',
+  IPI: 'IPI',
+  PIS: 'PIS',
+  COFINS: 'COFINS',
+  ISS: 'ISS',
+  ICMS_ST: 'ICMS_ST'
+} as const
+
+export type TaxType = (typeof TaxType)[keyof typeof TaxType]
+
+
+export const StBaseCalculation = {
+  MVA: 'MVA',
+  PAUTA: 'PAUTA'
+} as const
+
+export type StBaseCalculation = (typeof StBaseCalculation)[keyof typeof StBaseCalculation]
+
+
+export const CampaignType = {
+  PERCENTAGE: 'PERCENTAGE',
+  FIXED_VALUE: 'FIXED_VALUE',
+  BUY_X_GET_Y: 'BUY_X_GET_Y',
+  BUY_X_GET_DISCOUNT: 'BUY_X_GET_DISCOUNT',
+  FREE_SHIPPING: 'FREE_SHIPPING',
+  BUNDLE_PRICE: 'BUNDLE_PRICE'
+} as const
+
+export type CampaignType = (typeof CampaignType)[keyof typeof CampaignType]
+
+
+export const CampaignStatusEnum = {
+  DRAFT: 'DRAFT',
+  SCHEDULED: 'SCHEDULED',
+  ACTIVE: 'ACTIVE',
+  PAUSED: 'PAUSED',
+  ENDED: 'ENDED',
+  ARCHIVED: 'ARCHIVED'
+} as const
+
+export type CampaignStatusEnum = (typeof CampaignStatusEnum)[keyof typeof CampaignStatusEnum]
+
+
+export const CampaignRuleType = {
+  MIN_QUANTITY: 'MIN_QUANTITY',
+  MIN_VALUE: 'MIN_VALUE',
+  PRODUCT_CATEGORY: 'PRODUCT_CATEGORY',
+  CUSTOMER_TAG: 'CUSTOMER_TAG',
+  CUSTOMER_TYPE: 'CUSTOMER_TYPE',
+  FIRST_PURCHASE: 'FIRST_PURCHASE',
+  DAY_OF_WEEK: 'DAY_OF_WEEK',
+  TIME_RANGE: 'TIME_RANGE'
+} as const
+
+export type CampaignRuleType = (typeof CampaignRuleType)[keyof typeof CampaignRuleType]
+
+
+export const CampaignDiscountType = {
+  PERCENTAGE: 'PERCENTAGE',
+  FIXED_VALUE: 'FIXED_VALUE',
+  FIXED_PRICE: 'FIXED_PRICE',
+  FREE: 'FREE'
+} as const
+
+export type CampaignDiscountType = (typeof CampaignDiscountType)[keyof typeof CampaignDiscountType]
+
+
+export const CouponType = {
+  PERCENTAGE: 'PERCENTAGE',
+  FIXED_VALUE: 'FIXED_VALUE',
+  FREE_SHIPPING: 'FREE_SHIPPING'
+} as const
+
+export type CouponType = (typeof CouponType)[keyof typeof CouponType]
+
+
+export const CouponApplicableTo = {
+  ALL: 'ALL',
+  SPECIFIC_PRODUCTS: 'SPECIFIC_PRODUCTS',
+  SPECIFIC_CATEGORIES: 'SPECIFIC_CATEGORIES',
+  SPECIFIC_CUSTOMERS: 'SPECIFIC_CUSTOMERS'
+} as const
+
+export type CouponApplicableTo = (typeof CouponApplicableTo)[keyof typeof CouponApplicableTo]
+
+
+export const ComboType = {
+  FIXED: 'FIXED',
+  DYNAMIC: 'DYNAMIC'
+} as const
+
+export type ComboType = (typeof ComboType)[keyof typeof ComboType]
+
+
+export const ComboDiscountType = {
+  PERCENTAGE: 'PERCENTAGE',
+  FIXED_VALUE: 'FIXED_VALUE'
+} as const
+
+export type ComboDiscountType = (typeof ComboDiscountType)[keyof typeof ComboDiscountType]
+
+
+export const CatalogType = {
+  GENERAL: 'GENERAL',
+  SELLER: 'SELLER',
+  CAMPAIGN: 'CAMPAIGN',
+  CUSTOMER: 'CUSTOMER',
+  AI_GENERATED: 'AI_GENERATED'
+} as const
+
+export type CatalogType = (typeof CatalogType)[keyof typeof CatalogType]
+
+
+export const CatalogStatus = {
+  DRAFT: 'DRAFT',
+  ACTIVE: 'ACTIVE',
+  ARCHIVED: 'ARCHIVED'
+} as const
+
+export type CatalogStatus = (typeof CatalogStatus)[keyof typeof CatalogStatus]
+
+
+export const CatalogLayout = {
+  GRID: 'GRID',
+  LIST: 'LIST',
+  MAGAZINE: 'MAGAZINE'
+} as const
+
+export type CatalogLayout = (typeof CatalogLayout)[keyof typeof CatalogLayout]
+
+
+export const CatalogExportType = {
+  PDF_FOLDER: 'PDF_FOLDER',
+  PDF_PRICE_LIST: 'PDF_PRICE_LIST',
+  IMAGE_GRID: 'IMAGE_GRID',
+  SHAREABLE_LINK: 'SHAREABLE_LINK'
+} as const
+
+export type CatalogExportType = (typeof CatalogExportType)[keyof typeof CatalogExportType]
+
+
+export const CatalogExportStatus = {
+  PENDING: 'PENDING',
+  GENERATING: 'GENERATING',
+  READY: 'READY',
+  FAILED: 'FAILED',
+  EXPIRED: 'EXPIRED'
+} as const
+
+export type CatalogExportStatus = (typeof CatalogExportStatus)[keyof typeof CatalogExportStatus]
+
+
+export const ContentTemplateType = {
+  FOLDER_PAGE: 'FOLDER_PAGE',
+  SOCIAL_POST: 'SOCIAL_POST',
+  SOCIAL_STORY: 'SOCIAL_STORY',
+  SOCIAL_REEL: 'SOCIAL_REEL',
+  EMAIL_CAMPAIGN: 'EMAIL_CAMPAIGN',
+  EMAIL_NEWSLETTER: 'EMAIL_NEWSLETTER',
+  BANNER: 'BANNER',
+  PRICE_LIST: 'PRICE_LIST',
+  PRODUCT_CARD: 'PRODUCT_CARD',
+  MOCKUP: 'MOCKUP'
+} as const
+
+export type ContentTemplateType = (typeof ContentTemplateType)[keyof typeof ContentTemplateType]
+
+
+export const ContentChannel = {
+  INSTAGRAM: 'INSTAGRAM',
+  FACEBOOK: 'FACEBOOK',
+  TIKTOK: 'TIKTOK',
+  WHATSAPP: 'WHATSAPP',
+  EMAIL: 'EMAIL',
+  PRINT: 'PRINT',
+  WEB: 'WEB'
+} as const
+
+export type ContentChannel = (typeof ContentChannel)[keyof typeof ContentChannel]
+
+
+export const GeneratedContentType = {
+  SOCIAL_POST: 'SOCIAL_POST',
+  SOCIAL_STORY: 'SOCIAL_STORY',
+  SOCIAL_REEL: 'SOCIAL_REEL',
+  FOLDER_PAGE: 'FOLDER_PAGE',
+  EMAIL_CAMPAIGN: 'EMAIL_CAMPAIGN',
+  BANNER: 'BANNER',
+  PRODUCT_CARD: 'PRODUCT_CARD',
+  VIDEO: 'VIDEO',
+  MOCKUP: 'MOCKUP'
+} as const
+
+export type GeneratedContentType = (typeof GeneratedContentType)[keyof typeof GeneratedContentType]
+
+
+export const ContentStatus = {
+  DRAFT: 'DRAFT',
+  READY: 'READY',
+  APPROVED: 'APPROVED',
+  PUBLISHED: 'PUBLISHED',
+  ARCHIVED: 'ARCHIVED'
+} as const
+
+export type ContentStatus = (typeof ContentStatus)[keyof typeof ContentStatus]
+
+
+export const MockupResultStatus = {
+  PENDING: 'PENDING',
+  GENERATING: 'GENERATING',
+  READY: 'READY',
+  FAILED: 'FAILED'
+} as const
+
+export type MockupResultStatus = (typeof MockupResultStatus)[keyof typeof MockupResultStatus]
+
+
+export const EmailCampaignType = {
+  NEWSLETTER: 'NEWSLETTER',
+  PROMOTION: 'PROMOTION',
+  PRODUCT_LAUNCH: 'PRODUCT_LAUNCH',
+  FOLLOW_UP: 'FOLLOW_UP',
+  CUSTOM: 'CUSTOM'
+} as const
+
+export type EmailCampaignType = (typeof EmailCampaignType)[keyof typeof EmailCampaignType]
+
+
+export const EmailCampaignStatus = {
+  DRAFT: 'DRAFT',
+  SCHEDULED: 'SCHEDULED',
+  SENDING: 'SENDING',
+  SENT: 'SENT',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type EmailCampaignStatus = (typeof EmailCampaignStatus)[keyof typeof EmailCampaignStatus]
+
+
+export const EmailRecipientType = {
+  ALL_CONTACTS: 'ALL_CONTACTS',
+  CUSTOMER_TAG: 'CUSTOMER_TAG',
+  LIFECYCLE_STAGE: 'LIFECYCLE_STAGE',
+  SPECIFIC_CONTACTS: 'SPECIFIC_CONTACTS',
+  SEGMENT: 'SEGMENT'
+} as const
+
+export type EmailRecipientType = (typeof EmailRecipientType)[keyof typeof EmailRecipientType]
+
+
 export const VolumeStatus = {
   OPEN: 'OPEN',
   CLOSED: 'CLOSED',
@@ -629,6 +971,46 @@ export const VolumeStatus = {
 } as const
 
 export type VolumeStatus = (typeof VolumeStatus)[keyof typeof VolumeStatus]
+
+
+export const InventorySessionStatus = {
+  OPEN: 'OPEN',
+  PAUSED: 'PAUSED',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type InventorySessionStatus = (typeof InventorySessionStatus)[keyof typeof InventorySessionStatus]
+
+
+export const InventorySessionMode = {
+  BIN: 'BIN',
+  ZONE: 'ZONE',
+  PRODUCT: 'PRODUCT'
+} as const
+
+export type InventorySessionMode = (typeof InventorySessionMode)[keyof typeof InventorySessionMode]
+
+
+export const InventorySessionItemStatus = {
+  PENDING: 'PENDING',
+  CONFIRMED: 'CONFIRMED',
+  MISSING: 'MISSING',
+  WRONG_BIN: 'WRONG_BIN',
+  EXTRA: 'EXTRA'
+} as const
+
+export type InventorySessionItemStatus = (typeof InventorySessionItemStatus)[keyof typeof InventorySessionItemStatus]
+
+
+export const DivergenceResolution = {
+  LOSS_REGISTERED: 'LOSS_REGISTERED',
+  TRANSFERRED: 'TRANSFERRED',
+  ENTRY_CREATED: 'ENTRY_CREATED',
+  PENDING_REVIEW: 'PENDING_REVIEW'
+} as const
+
+export type DivergenceResolution = (typeof DivergenceResolution)[keyof typeof DivergenceResolution]
 
 
 export const RequestType = {
@@ -891,6 +1273,138 @@ export const SystemModuleEnum = {
 export type SystemModuleEnum = (typeof SystemModuleEnum)[keyof typeof SystemModuleEnum]
 
 
+export const SkillCategory = {
+  MODULE: 'MODULE',
+  CHANNEL: 'CHANNEL',
+  AI: 'AI',
+  INTEGRATION: 'INTEGRATION',
+  FEATURE: 'FEATURE'
+} as const
+
+export type SkillCategory = (typeof SkillCategory)[keyof typeof SkillCategory]
+
+
+export const PricingType = {
+  FLAT: 'FLAT',
+  PER_UNIT: 'PER_UNIT',
+  USAGE: 'USAGE'
+} as const
+
+export type PricingType = (typeof PricingType)[keyof typeof PricingType]
+
+
+export const SubscriptionStatus = {
+  ACTIVE: 'ACTIVE',
+  CANCELLED: 'CANCELLED',
+  TRIAL: 'TRIAL',
+  SUSPENDED: 'SUSPENDED'
+} as const
+
+export type SubscriptionStatus = (typeof SubscriptionStatus)[keyof typeof SubscriptionStatus]
+
+
+export const BillingStatus = {
+  PENDING: 'PENDING',
+  PAID: 'PAID',
+  OVERDUE: 'OVERDUE',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type BillingStatus = (typeof BillingStatus)[keyof typeof BillingStatus]
+
+
+export const IntegrationType = {
+  WHATSAPP: 'WHATSAPP',
+  INSTAGRAM: 'INSTAGRAM',
+  TELEGRAM: 'TELEGRAM',
+  SMS: 'SMS',
+  MARKETPLACE_ML: 'MARKETPLACE_ML',
+  MARKETPLACE_SHOPEE: 'MARKETPLACE_SHOPEE',
+  MARKETPLACE_AMAZON: 'MARKETPLACE_AMAZON',
+  BID_PORTAL: 'BID_PORTAL',
+  EMAIL_IMAP: 'EMAIL_IMAP',
+  CERTIFICATE_A1: 'CERTIFICATE_A1',
+  CERTIFICATE_CLOUD: 'CERTIFICATE_CLOUD',
+  TEF: 'TEF',
+  OLLAMA: 'OLLAMA',
+  SEFAZ: 'SEFAZ'
+} as const
+
+export type IntegrationType = (typeof IntegrationType)[keyof typeof IntegrationType]
+
+
+export const IntegrationConnectionStatus = {
+  CONNECTED: 'CONNECTED',
+  DISCONNECTED: 'DISCONNECTED',
+  ERROR: 'ERROR',
+  NOT_CONFIGURED: 'NOT_CONFIGURED'
+} as const
+
+export type IntegrationConnectionStatus = (typeof IntegrationConnectionStatus)[keyof typeof IntegrationConnectionStatus]
+
+
+export const CentralUserRole = {
+  OWNER: 'OWNER',
+  ADMIN: 'ADMIN',
+  SUPPORT: 'SUPPORT',
+  FINANCE: 'FINANCE',
+  VIEWER: 'VIEWER'
+} as const
+
+export type CentralUserRole = (typeof CentralUserRole)[keyof typeof CentralUserRole]
+
+
+export const FeatureFlagCategory = {
+  BETA: 'BETA',
+  EXPERIMENT: 'EXPERIMENT',
+  ROLLOUT: 'ROLLOUT',
+  INTERNAL: 'INTERNAL'
+} as const
+
+export type FeatureFlagCategory = (typeof FeatureFlagCategory)[keyof typeof FeatureFlagCategory]
+
+
+export const TicketCategory = {
+  BUG: 'BUG',
+  QUESTION: 'QUESTION',
+  REQUEST: 'REQUEST',
+  FINANCIAL: 'FINANCIAL',
+  OTHER: 'OTHER'
+} as const
+
+export type TicketCategory = (typeof TicketCategory)[keyof typeof TicketCategory]
+
+
+export const TicketPriority = {
+  CRITICAL: 'CRITICAL',
+  HIGH: 'HIGH',
+  MEDIUM: 'MEDIUM',
+  LOW: 'LOW'
+} as const
+
+export type TicketPriority = (typeof TicketPriority)[keyof typeof TicketPriority]
+
+
+export const TicketStatus = {
+  OPEN: 'OPEN',
+  IN_PROGRESS: 'IN_PROGRESS',
+  WAITING_CLIENT: 'WAITING_CLIENT',
+  RESOLVED: 'RESOLVED',
+  CLOSED: 'CLOSED'
+} as const
+
+export type TicketStatus = (typeof TicketStatus)[keyof typeof TicketStatus]
+
+
+export const TicketAuthorType = {
+  TENANT_USER: 'TENANT_USER',
+  CENTRAL_TEAM: 'CENTRAL_TEAM',
+  AI_ASSISTANT: 'AI_ASSISTANT'
+} as const
+
+export type TicketAuthorType = (typeof TicketAuthorType)[keyof typeof TicketAuthorType]
+
+
 export const TeamMemberRole = {
   OWNER: 'OWNER',
   ADMIN: 'ADMIN',
@@ -1101,3 +1615,720 @@ export const AutomationAction = {
 } as const
 
 export type AutomationAction = (typeof AutomationAction)[keyof typeof AutomationAction]
+
+
+export const OrderType = {
+  QUOTE: 'QUOTE',
+  ORDER: 'ORDER'
+} as const
+
+export type OrderType = (typeof OrderType)[keyof typeof OrderType]
+
+
+export const OrderChannel = {
+  PDV: 'PDV',
+  WEB: 'WEB',
+  WHATSAPP: 'WHATSAPP',
+  MARKETPLACE: 'MARKETPLACE',
+  BID: 'BID',
+  MANUAL: 'MANUAL',
+  API: 'API'
+} as const
+
+export type OrderChannel = (typeof OrderChannel)[keyof typeof OrderChannel]
+
+
+export const DeliveryMethod = {
+  PICKUP: 'PICKUP',
+  OWN_FLEET: 'OWN_FLEET',
+  CARRIER: 'CARRIER',
+  PARTIAL: 'PARTIAL'
+} as const
+
+export type DeliveryMethod = (typeof DeliveryMethod)[keyof typeof DeliveryMethod]
+
+
+export const PaymentMethod = {
+  CASH: 'CASH',
+  CREDIT_CARD: 'CREDIT_CARD',
+  DEBIT_CARD: 'DEBIT_CARD',
+  PIX: 'PIX',
+  BOLETO: 'BOLETO',
+  BANK_TRANSFER: 'BANK_TRANSFER',
+  CHECK: 'CHECK',
+  STORE_CREDIT: 'STORE_CREDIT',
+  OTHER: 'OTHER'
+} as const
+
+export type PaymentMethod = (typeof PaymentMethod)[keyof typeof PaymentMethod]
+
+
+export const PaymentStatus = {
+  PENDING: 'PENDING',
+  PAID: 'PAID',
+  OVERDUE: 'OVERDUE',
+  CANCELLED: 'CANCELLED',
+  REFUNDED: 'REFUNDED'
+} as const
+
+export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus]
+
+
+export const PaymentConditionType = {
+  CASH: 'CASH',
+  INSTALLMENT: 'INSTALLMENT',
+  CUSTOM: 'CUSTOM',
+  CREDIT_LIMIT: 'CREDIT_LIMIT'
+} as const
+
+export type PaymentConditionType = (typeof PaymentConditionType)[keyof typeof PaymentConditionType]
+
+
+export const PaymentConditionApplicable = {
+  ALL: 'ALL',
+  RETAIL: 'RETAIL',
+  WHOLESALE: 'WHOLESALE',
+  BID: 'BID'
+} as const
+
+export type PaymentConditionApplicable = (typeof PaymentConditionApplicable)[keyof typeof PaymentConditionApplicable]
+
+
+export const InterestType = {
+  SIMPLE: 'SIMPLE',
+  COMPOUND: 'COMPOUND'
+} as const
+
+export type InterestType = (typeof InterestType)[keyof typeof InterestType]
+
+
+export const DeliveryStatus = {
+  PREPARING: 'PREPARING',
+  SHIPPED: 'SHIPPED',
+  IN_TRANSIT: 'IN_TRANSIT',
+  DELIVERED: 'DELIVERED',
+  FAILED: 'FAILED'
+} as const
+
+export type DeliveryStatus = (typeof DeliveryStatus)[keyof typeof DeliveryStatus]
+
+
+export const ReturnType = {
+  FULL_RETURN: 'FULL_RETURN',
+  PARTIAL_RETURN: 'PARTIAL_RETURN',
+  EXCHANGE: 'EXCHANGE'
+} as const
+
+export type ReturnType = (typeof ReturnType)[keyof typeof ReturnType]
+
+
+export const ReturnStatus = {
+  REQUESTED: 'REQUESTED',
+  APPROVED: 'APPROVED',
+  RECEIVING: 'RECEIVING',
+  RECEIVED: 'RECEIVED',
+  CREDIT_ISSUED: 'CREDIT_ISSUED',
+  EXCHANGE_COMPLETED: 'EXCHANGE_COMPLETED',
+  REJECTED: 'REJECTED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type ReturnStatus = (typeof ReturnStatus)[keyof typeof ReturnStatus]
+
+
+export const ReturnReason = {
+  DEFECTIVE: 'DEFECTIVE',
+  WRONG_ITEM: 'WRONG_ITEM',
+  CHANGED_MIND: 'CHANGED_MIND',
+  DAMAGED: 'DAMAGED',
+  NOT_AS_DESCRIBED: 'NOT_AS_DESCRIBED',
+  OTHER: 'OTHER'
+} as const
+
+export type ReturnReason = (typeof ReturnReason)[keyof typeof ReturnReason]
+
+
+export const ReturnItemCondition = {
+  NEW: 'NEW',
+  USED: 'USED',
+  DAMAGED: 'DAMAGED',
+  DEFECTIVE: 'DEFECTIVE'
+} as const
+
+export type ReturnItemCondition = (typeof ReturnItemCondition)[keyof typeof ReturnItemCondition]
+
+
+export const RefundMethod = {
+  SAME_METHOD: 'SAME_METHOD',
+  STORE_CREDIT: 'STORE_CREDIT',
+  BANK_TRANSFER: 'BANK_TRANSFER',
+  PIX: 'PIX'
+} as const
+
+export type RefundMethod = (typeof RefundMethod)[keyof typeof RefundMethod]
+
+
+export const StoreCreditSource = {
+  RETURN: 'RETURN',
+  MANUAL: 'MANUAL',
+  CAMPAIGN: 'CAMPAIGN',
+  LOYALTY: 'LOYALTY'
+} as const
+
+export type StoreCreditSource = (typeof StoreCreditSource)[keyof typeof StoreCreditSource]
+
+
+export const ApprovalRuleType = {
+  ORDER_VALUE: 'ORDER_VALUE',
+  DISCOUNT_PERCENT: 'DISCOUNT_PERCENT',
+  CREDIT_EXCEEDED: 'CREDIT_EXCEEDED',
+  NEW_CUSTOMER: 'NEW_CUSTOMER',
+  MANUAL_PRICE: 'MANUAL_PRICE',
+  CUSTOM: 'CUSTOM'
+} as const
+
+export type ApprovalRuleType = (typeof ApprovalRuleType)[keyof typeof ApprovalRuleType]
+
+
+export const CommissionType = {
+  PERCENTAGE: 'PERCENTAGE',
+  FIXED_PER_ORDER: 'FIXED_PER_ORDER',
+  FIXED_PER_ITEM: 'FIXED_PER_ITEM',
+  TIERED: 'TIERED'
+} as const
+
+export type CommissionType = (typeof CommissionType)[keyof typeof CommissionType]
+
+
+export const CommissionStatus = {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  PAID: 'PAID',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type CommissionStatus = (typeof CommissionStatus)[keyof typeof CommissionStatus]
+
+
+export const CommissionAppliesTo = {
+  ALL: 'ALL',
+  SPECIFIC_USERS: 'SPECIFIC_USERS',
+  SPECIFIC_CATEGORIES: 'SPECIFIC_CATEGORIES',
+  SPECIFIC_PRODUCTS: 'SPECIFIC_PRODUCTS'
+} as const
+
+export type CommissionAppliesTo = (typeof CommissionAppliesTo)[keyof typeof CommissionAppliesTo]
+
+
+export const OrderHistoryAction = {
+  CREATED: 'CREATED',
+  STAGE_CHANGED: 'STAGE_CHANGED',
+  ITEM_ADDED: 'ITEM_ADDED',
+  ITEM_REMOVED: 'ITEM_REMOVED',
+  ITEM_MODIFIED: 'ITEM_MODIFIED',
+  PAYMENT_ADDED: 'PAYMENT_ADDED',
+  PAYMENT_RECEIVED: 'PAYMENT_RECEIVED',
+  APPROVAL_REQUESTED: 'APPROVAL_REQUESTED',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED',
+  DELIVERY_CREATED: 'DELIVERY_CREATED',
+  DELIVERY_SHIPPED: 'DELIVERY_SHIPPED',
+  DELIVERY_COMPLETED: 'DELIVERY_COMPLETED',
+  RETURN_REQUESTED: 'RETURN_REQUESTED',
+  RETURN_APPROVED: 'RETURN_APPROVED',
+  RETURN_COMPLETED: 'RETURN_COMPLETED',
+  CANCELLED: 'CANCELLED',
+  NOTE_ADDED: 'NOTE_ADDED',
+  ASSIGNED: 'ASSIGNED',
+  COUPON_APPLIED: 'COUPON_APPLIED'
+} as const
+
+export type OrderHistoryAction = (typeof OrderHistoryAction)[keyof typeof OrderHistoryAction]
+
+
+export const PriceSourceType = {
+  CUSTOMER: 'CUSTOMER',
+  CAMPAIGN: 'CAMPAIGN',
+  COUPON: 'COUPON',
+  QUANTITY_TIER: 'QUANTITY_TIER',
+  TABLE: 'TABLE',
+  DEFAULT: 'DEFAULT',
+  MANUAL: 'MANUAL'
+} as const
+
+export type PriceSourceType = (typeof PriceSourceType)[keyof typeof PriceSourceType]
+
+
+export const CertificateType = {
+  A1: 'A1',
+  A3: 'A3',
+  CLOUD_NEOID: 'CLOUD_NEOID',
+  CLOUD_BIRDID: 'CLOUD_BIRDID',
+  CLOUD_OTHER: 'CLOUD_OTHER'
+} as const
+
+export type CertificateType = (typeof CertificateType)[keyof typeof CertificateType]
+
+
+export const CertificateStatus = {
+  ACTIVE: 'ACTIVE',
+  EXPIRED: 'EXPIRED',
+  REVOKED: 'REVOKED',
+  PENDING_ACTIVATION: 'PENDING_ACTIVATION'
+} as const
+
+export type CertificateStatus = (typeof CertificateStatus)[keyof typeof CertificateStatus]
+
+
+export const SignatureLevel = {
+  SIMPLE: 'SIMPLE',
+  ADVANCED: 'ADVANCED',
+  QUALIFIED: 'QUALIFIED'
+} as const
+
+export type SignatureLevel = (typeof SignatureLevel)[keyof typeof SignatureLevel]
+
+
+export const EnvelopeStatus = {
+  DRAFT: 'DRAFT',
+  PENDING: 'PENDING',
+  IN_PROGRESS: 'IN_PROGRESS',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED',
+  EXPIRED: 'EXPIRED',
+  REJECTED: 'REJECTED'
+} as const
+
+export type EnvelopeStatus = (typeof EnvelopeStatus)[keyof typeof EnvelopeStatus]
+
+
+export const EnvelopeRoutingType = {
+  SEQUENTIAL: 'SEQUENTIAL',
+  PARALLEL: 'PARALLEL',
+  HYBRID: 'HYBRID'
+} as const
+
+export type EnvelopeRoutingType = (typeof EnvelopeRoutingType)[keyof typeof EnvelopeRoutingType]
+
+
+export const SignerRole = {
+  SIGNER: 'SIGNER',
+  APPROVER: 'APPROVER',
+  WITNESS: 'WITNESS',
+  REVIEWER: 'REVIEWER'
+} as const
+
+export type SignerRole = (typeof SignerRole)[keyof typeof SignerRole]
+
+
+export const SignerStatus = {
+  PENDING: 'PENDING',
+  NOTIFIED: 'NOTIFIED',
+  VIEWED: 'VIEWED',
+  SIGNED: 'SIGNED',
+  REJECTED: 'REJECTED',
+  EXPIRED: 'EXPIRED'
+} as const
+
+export type SignerStatus = (typeof SignerStatus)[keyof typeof SignerStatus]
+
+
+export const SignatureAuditType = {
+  CREATED: 'CREATED',
+  SENT: 'SENT',
+  VIEWED: 'VIEWED',
+  SIGNED: 'SIGNED',
+  REJECTED: 'REJECTED',
+  REMINDED: 'REMINDED',
+  EXPIRED: 'EXPIRED',
+  CANCELLED: 'CANCELLED',
+  DOWNLOADED: 'DOWNLOADED',
+  DOCUMENT_VERIFIED: 'DOCUMENT_VERIFIED',
+  CERTIFICATE_VALIDATED: 'CERTIFICATE_VALIDATED',
+  OTP_SENT: 'OTP_SENT',
+  OTP_VERIFIED: 'OTP_VERIFIED',
+  LINK_ACCESSED: 'LINK_ACCESSED'
+} as const
+
+export type SignatureAuditType = (typeof SignatureAuditType)[keyof typeof SignatureAuditType]
+
+
+export const WidgetType = {
+  KPI_CARD: 'KPI_CARD',
+  BAR_CHART: 'BAR_CHART',
+  LINE_CHART: 'LINE_CHART',
+  PIE_CHART: 'PIE_CHART',
+  FUNNEL: 'FUNNEL',
+  TABLE: 'TABLE',
+  HEATMAP: 'HEATMAP',
+  SCATTER: 'SCATTER',
+  GAUGE: 'GAUGE',
+  RANKING: 'RANKING',
+  COMPARISON: 'COMPARISON',
+  TREND: 'TREND'
+} as const
+
+export type WidgetType = (typeof WidgetType)[keyof typeof WidgetType]
+
+
+export const WidgetDataSource = {
+  ORDERS: 'ORDERS',
+  DEALS: 'DEALS',
+  CONTACTS: 'CONTACTS',
+  CUSTOMERS: 'CUSTOMERS',
+  PRODUCTS: 'PRODUCTS',
+  COMMISSIONS: 'COMMISSIONS',
+  CAMPAIGNS: 'CAMPAIGNS',
+  BIDS: 'BIDS',
+  MARKETPLACE: 'MARKETPLACE',
+  CASHIER: 'CASHIER',
+  CUSTOM_QUERY: 'CUSTOM_QUERY'
+} as const
+
+export type WidgetDataSource = (typeof WidgetDataSource)[keyof typeof WidgetDataSource]
+
+
+export const DashboardRole = {
+  SELLER: 'SELLER',
+  MANAGER: 'MANAGER',
+  DIRECTOR: 'DIRECTOR',
+  BID_SPECIALIST: 'BID_SPECIALIST',
+  MARKETPLACE_OPS: 'MARKETPLACE_OPS',
+  CASHIER: 'CASHIER'
+} as const
+
+export type DashboardRole = (typeof DashboardRole)[keyof typeof DashboardRole]
+
+
+export const DashboardVisibility = {
+  PRIVATE: 'PRIVATE',
+  TEAM: 'TEAM',
+  TENANT: 'TENANT'
+} as const
+
+export type DashboardVisibility = (typeof DashboardVisibility)[keyof typeof DashboardVisibility]
+
+
+export const GoalType = {
+  REVENUE: 'REVENUE',
+  QUANTITY: 'QUANTITY',
+  DEALS_WON: 'DEALS_WON',
+  NEW_CUSTOMERS: 'NEW_CUSTOMERS',
+  TICKET_AVERAGE: 'TICKET_AVERAGE',
+  CONVERSION_RATE: 'CONVERSION_RATE',
+  COMMISSION: 'COMMISSION',
+  BID_WIN_RATE: 'BID_WIN_RATE',
+  CUSTOM: 'CUSTOM'
+} as const
+
+export type GoalType = (typeof GoalType)[keyof typeof GoalType]
+
+
+export const GoalPeriod = {
+  DAILY: 'DAILY',
+  WEEKLY: 'WEEKLY',
+  MONTHLY: 'MONTHLY',
+  QUARTERLY: 'QUARTERLY',
+  YEARLY: 'YEARLY',
+  CUSTOM: 'CUSTOM'
+} as const
+
+export type GoalPeriod = (typeof GoalPeriod)[keyof typeof GoalPeriod]
+
+
+export const GoalScope = {
+  INDIVIDUAL: 'INDIVIDUAL',
+  TEAM: 'TEAM',
+  TENANT: 'TENANT'
+} as const
+
+export type GoalScope = (typeof GoalScope)[keyof typeof GoalScope]
+
+
+export const GoalStatus = {
+  ACTIVE: 'ACTIVE',
+  ACHIEVED: 'ACHIEVED',
+  MISSED: 'MISSED',
+  ARCHIVED: 'ARCHIVED'
+} as const
+
+export type GoalStatus = (typeof GoalStatus)[keyof typeof GoalStatus]
+
+
+export const ReportType = {
+  SALES_SUMMARY: 'SALES_SUMMARY',
+  COMMISSION_REPORT: 'COMMISSION_REPORT',
+  PIPELINE_REPORT: 'PIPELINE_REPORT',
+  PRODUCT_PERFORMANCE: 'PRODUCT_PERFORMANCE',
+  CUSTOMER_ANALYSIS: 'CUSTOMER_ANALYSIS',
+  BID_REPORT: 'BID_REPORT',
+  MARKETPLACE_REPORT: 'MARKETPLACE_REPORT',
+  CASHIER_REPORT: 'CASHIER_REPORT',
+  GOAL_PROGRESS: 'GOAL_PROGRESS',
+  CURVA_ABC: 'CURVA_ABC',
+  CUSTOM: 'CUSTOM'
+} as const
+
+export type ReportType = (typeof ReportType)[keyof typeof ReportType]
+
+
+export const ReportFormat = {
+  PDF: 'PDF',
+  EXCEL: 'EXCEL',
+  CSV: 'CSV'
+} as const
+
+export type ReportFormat = (typeof ReportFormat)[keyof typeof ReportFormat]
+
+
+export const ReportFrequency = {
+  DAILY: 'DAILY',
+  WEEKLY: 'WEEKLY',
+  MONTHLY: 'MONTHLY'
+} as const
+
+export type ReportFrequency = (typeof ReportFrequency)[keyof typeof ReportFrequency]
+
+
+export const ReportDeliveryMethod = {
+  EMAIL: 'EMAIL',
+  WHATSAPP: 'WHATSAPP',
+  BOTH: 'BOTH',
+  DOWNLOAD_ONLY: 'DOWNLOAD_ONLY'
+} as const
+
+export type ReportDeliveryMethod = (typeof ReportDeliveryMethod)[keyof typeof ReportDeliveryMethod]
+
+
+export const ReportGenerationStatus = {
+  GENERATING: 'GENERATING',
+  SUCCESS: 'SUCCESS',
+  FAILED: 'FAILED'
+} as const
+
+export type ReportGenerationStatus = (typeof ReportGenerationStatus)[keyof typeof ReportGenerationStatus]
+
+
+export const AiPersonality = {
+  PROFESSIONAL: 'PROFESSIONAL',
+  FRIENDLY: 'FRIENDLY',
+  CASUAL: 'CASUAL',
+  FORMAL: 'FORMAL',
+  CUSTOM: 'CUSTOM'
+} as const
+
+export type AiPersonality = (typeof AiPersonality)[keyof typeof AiPersonality]
+
+
+export const AiToneOfVoice = {
+  NEUTRAL: 'NEUTRAL',
+  WARM: 'WARM',
+  DIRECT: 'DIRECT',
+  ENTHUSIASTIC: 'ENTHUSIASTIC'
+} as const
+
+export type AiToneOfVoice = (typeof AiToneOfVoice)[keyof typeof AiToneOfVoice]
+
+
+export const AiConversationContext = {
+  DEDICATED: 'DEDICATED',
+  INLINE: 'INLINE',
+  COMMAND_BAR: 'COMMAND_BAR',
+  VOICE: 'VOICE'
+} as const
+
+export type AiConversationContext = (typeof AiConversationContext)[keyof typeof AiConversationContext]
+
+
+export const AiConversationStatus = {
+  ACTIVE: 'ACTIVE',
+  ARCHIVED: 'ARCHIVED'
+} as const
+
+export type AiConversationStatus = (typeof AiConversationStatus)[keyof typeof AiConversationStatus]
+
+
+export const AiMessageRole = {
+  USER: 'USER',
+  ASSISTANT: 'ASSISTANT',
+  SYSTEM: 'SYSTEM',
+  TOOL_CALL: 'TOOL_CALL',
+  TOOL_RESULT: 'TOOL_RESULT'
+} as const
+
+export type AiMessageRole = (typeof AiMessageRole)[keyof typeof AiMessageRole]
+
+
+export const AiMessageContentType = {
+  TEXT: 'TEXT',
+  CHART: 'CHART',
+  TABLE: 'TABLE',
+  KPI_CARD: 'KPI_CARD',
+  ACTION_CARD: 'ACTION_CARD',
+  IMAGE: 'IMAGE',
+  ERROR: 'ERROR',
+  LOADING: 'LOADING'
+} as const
+
+export type AiMessageContentType = (typeof AiMessageContentType)[keyof typeof AiMessageContentType]
+
+
+export const AiFavoriteCategory = {
+  SALES: 'SALES',
+  STOCK: 'STOCK',
+  FINANCE: 'FINANCE',
+  HR: 'HR',
+  CRM: 'CRM',
+  GENERAL: 'GENERAL'
+} as const
+
+export type AiFavoriteCategory = (typeof AiFavoriteCategory)[keyof typeof AiFavoriteCategory]
+
+
+export const AiActionStatus = {
+  PROPOSED: 'PROPOSED',
+  CONFIRMED: 'CONFIRMED',
+  EXECUTED: 'EXECUTED',
+  FAILED: 'FAILED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type AiActionStatus = (typeof AiActionStatus)[keyof typeof AiActionStatus]
+
+
+export const AiInsightType = {
+  TREND: 'TREND',
+  ANOMALY: 'ANOMALY',
+  OPPORTUNITY: 'OPPORTUNITY',
+  RISK: 'RISK',
+  PREDICTION: 'PREDICTION',
+  RECOMMENDATION: 'RECOMMENDATION',
+  ALERT: 'ALERT',
+  CELEBRATION: 'CELEBRATION'
+} as const
+
+export type AiInsightType = (typeof AiInsightType)[keyof typeof AiInsightType]
+
+
+export const AiInsightPriority = {
+  LOW: 'LOW',
+  MEDIUM: 'MEDIUM',
+  HIGH: 'HIGH',
+  URGENT: 'URGENT'
+} as const
+
+export type AiInsightPriority = (typeof AiInsightPriority)[keyof typeof AiInsightPriority]
+
+
+export const AiInsightStatus = {
+  NEW: 'NEW',
+  VIEWED: 'VIEWED',
+  ACTED_ON: 'ACTED_ON',
+  DISMISSED: 'DISMISSED',
+  EXPIRED: 'EXPIRED'
+} as const
+
+export type AiInsightStatus = (typeof AiInsightStatus)[keyof typeof AiInsightStatus]
+
+
+export const PosTerminalMode = {
+  FAST_CHECKOUT: 'FAST_CHECKOUT',
+  CONSULTIVE: 'CONSULTIVE',
+  SELF_SERVICE: 'SELF_SERVICE',
+  EXTERNAL: 'EXTERNAL'
+} as const
+
+export type PosTerminalMode = (typeof PosTerminalMode)[keyof typeof PosTerminalMode]
+
+
+export const PosCashierMode = {
+  INTEGRATED: 'INTEGRATED',
+  SEPARATED: 'SEPARATED'
+} as const
+
+export type PosCashierMode = (typeof PosCashierMode)[keyof typeof PosCashierMode]
+
+
+export const PosSessionStatus = {
+  OPEN: 'OPEN',
+  CLOSED: 'CLOSED',
+  SUSPENDED: 'SUSPENDED'
+} as const
+
+export type PosSessionStatus = (typeof PosSessionStatus)[keyof typeof PosSessionStatus]
+
+
+export const PosTransactionStatus = {
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED',
+  SUSPENDED: 'SUSPENDED',
+  PENDING_SYNC: 'PENDING_SYNC'
+} as const
+
+export type PosTransactionStatus = (typeof PosTransactionStatus)[keyof typeof PosTransactionStatus]
+
+
+export const PosPaymentMethod = {
+  CASH: 'CASH',
+  CREDIT_CARD: 'CREDIT_CARD',
+  DEBIT_CARD: 'DEBIT_CARD',
+  PIX: 'PIX',
+  BOLETO: 'BOLETO',
+  STORE_CREDIT: 'STORE_CREDIT',
+  VOUCHER: 'VOUCHER',
+  PAYMENT_LINK: 'PAYMENT_LINK',
+  NFC: 'NFC',
+  CHECK: 'CHECK',
+  OTHER: 'OTHER'
+} as const
+
+export type PosPaymentMethod = (typeof PosPaymentMethod)[keyof typeof PosPaymentMethod]
+
+
+export const PosCashMovementType = {
+  OPENING: 'OPENING',
+  WITHDRAWAL: 'WITHDRAWAL',
+  SUPPLY: 'SUPPLY',
+  CLOSING: 'CLOSING'
+} as const
+
+export type PosCashMovementType = (typeof PosCashMovementType)[keyof typeof PosCashMovementType]
+
+
+export const PosOfflineStatus = {
+  PENDING: 'PENDING',
+  SYNCING: 'SYNCING',
+  SYNCED: 'SYNCED',
+  FAILED: 'FAILED'
+} as const
+
+export type PosOfflineStatus = (typeof PosOfflineStatus)[keyof typeof PosOfflineStatus]
+
+
+export const PosOfflineOperationType = {
+  TRANSACTION: 'TRANSACTION',
+  CASH_MOVEMENT: 'CASH_MOVEMENT',
+  CUSTOMER_CREATE: 'CUSTOMER_CREATE',
+  SESSION_CLOSE: 'SESSION_CLOSE'
+} as const
+
+export type PosOfflineOperationType = (typeof PosOfflineOperationType)[keyof typeof PosOfflineOperationType]
+
+
+export const PosVisitOutcome = {
+  SALE: 'SALE',
+  QUOTE: 'QUOTE',
+  NO_SALE: 'NO_SALE',
+  FOLLOW_UP: 'FOLLOW_UP'
+} as const
+
+export type PosVisitOutcome = (typeof PosVisitOutcome)[keyof typeof PosVisitOutcome]
+
+
+export const PosPaymentLinkStatus = {
+  PENDING: 'PENDING',
+  PAID: 'PAID',
+  EXPIRED: 'EXPIRED'
+} as const
+
+export type PosPaymentLinkStatus = (typeof PosPaymentLinkStatus)[keyof typeof PosPaymentLinkStatus]

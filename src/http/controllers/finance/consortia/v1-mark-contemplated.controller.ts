@@ -20,7 +20,7 @@ export async function markContemplatedController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'PATCH',
     url: '/v1/finance/consortia/:id/contemplated',
-    onRequest: [
+    preHandler: [
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({

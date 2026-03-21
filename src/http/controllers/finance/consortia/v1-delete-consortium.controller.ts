@@ -16,7 +16,7 @@ export async function deleteConsortiumController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'DELETE',
     url: '/v1/finance/consortia/:id',
-    onRequest: [
+    preHandler: [
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({

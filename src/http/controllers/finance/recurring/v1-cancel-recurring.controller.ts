@@ -13,7 +13,7 @@ export async function cancelRecurringController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'PATCH',
     url: '/v1/finance/recurring/:id/cancel',
-    onRequest: [
+    preHandler: [
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({

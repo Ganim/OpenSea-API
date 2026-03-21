@@ -16,7 +16,7 @@ export async function generateContractEntriesController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/finance/contracts/:id/generate-entries',
-    onRequest: [
+    preHandler: [
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({

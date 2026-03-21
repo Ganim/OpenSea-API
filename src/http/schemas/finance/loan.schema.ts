@@ -109,6 +109,11 @@ export const loanInstallmentResponseSchema = z.object({
 export const listLoansQuerySchema = z.object({
   page: z.coerce.number().int().positive().optional().default(1),
   limit: z.coerce.number().int().positive().max(100).optional().default(20),
+  sortBy: z
+    .enum(['createdAt', 'totalAmount', 'institution', 'status'])
+    .optional()
+    .default('createdAt'),
+  sortOrder: z.enum(['asc', 'desc']).optional().default('desc'),
   type: z
     .enum([
       'PERSONAL',

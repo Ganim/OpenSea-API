@@ -153,6 +153,18 @@ export class PrismaProductsRepository implements ProductsRepository {
     return productPrismaToDomain(productData);
   }
 
+  async findByFullCode(
+    fullCode: string,
+    tenantId: string,
+  ): Promise<Product | null> {
+    const productData = await prisma.product.findFirst({
+      where: { fullCode, tenantId, deletedAt: null },
+      include: productInclude,
+    });
+    if (!productData) return null;
+    return productPrismaToDomain(productData);
+  }
+
   async findByName(name: string, tenantId: string): Promise<Product | null> {
     const productData = await prisma.product.findFirst({
       where: {

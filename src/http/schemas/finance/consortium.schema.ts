@@ -96,6 +96,11 @@ export const consortiumPaymentResponseSchema = z.object({
 export const listConsortiaQuerySchema = z.object({
   page: z.coerce.number().int().positive().optional().default(1),
   limit: z.coerce.number().int().positive().max(100).optional().default(20),
+  sortBy: z
+    .enum(['createdAt', 'monthlyPayment', 'administrator', 'status'])
+    .optional()
+    .default('createdAt'),
+  sortOrder: z.enum(['asc', 'desc']).optional().default('desc'),
   status: z
     .enum(['ACTIVE', 'CONTEMPLATED', 'WITHDRAWN', 'COMPLETED', 'CANCELLED'])
     .optional(),

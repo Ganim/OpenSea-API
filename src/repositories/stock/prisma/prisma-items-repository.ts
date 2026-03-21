@@ -464,6 +464,41 @@ export class PrismaItemsRepository implements ItemsRepository {
     return this.toDomainItem(itemData);
   }
 
+  async findByFullCode(
+    fullCode: string,
+    tenantId: string,
+  ): Promise<Item | null> {
+    const itemData = await prisma.item.findFirst({
+      where: { fullCode, tenantId, deletedAt: null },
+    });
+    if (!itemData) return null;
+    return this.toDomainItem(itemData);
+  }
+
+  async findByBarcode(barcode: string, tenantId: string): Promise<Item | null> {
+    const itemData = await prisma.item.findFirst({
+      where: { barcode, tenantId, deletedAt: null },
+    });
+    if (!itemData) return null;
+    return this.toDomainItem(itemData);
+  }
+
+  async findByEanCode(eanCode: string, tenantId: string): Promise<Item | null> {
+    const itemData = await prisma.item.findFirst({
+      where: { eanCode, tenantId, deletedAt: null },
+    });
+    if (!itemData) return null;
+    return this.toDomainItem(itemData);
+  }
+
+  async findByUpcCode(upcCode: string, tenantId: string): Promise<Item | null> {
+    const itemData = await prisma.item.findFirst({
+      where: { upcCode, tenantId, deletedAt: null },
+    });
+    if (!itemData) return null;
+    return this.toDomainItem(itemData);
+  }
+
   async findAll(tenantId: string): Promise<Item[]> {
     const items = await prisma.item.findMany({
       where: {

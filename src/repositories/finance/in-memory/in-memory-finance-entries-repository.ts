@@ -191,6 +191,18 @@ export class InMemoryFinanceEntriesRepository
       return true;
     });
 
+    const sortBy = options.sortBy || 'createdAt';
+    const sortDirection = options.sortOrder === 'asc' ? 1 : -1;
+    filtered.sort((a, b) => {
+      const aVal = a[sortBy as keyof typeof a] ?? '';
+      const bVal = b[sortBy as keyof typeof b] ?? '';
+      return aVal < bVal
+        ? -1 * sortDirection
+        : aVal > bVal
+          ? 1 * sortDirection
+          : 0;
+    });
+
     const total = filtered.length;
     const start = (page - 1) * limit;
     const entries = filtered.slice(start, start + limit);

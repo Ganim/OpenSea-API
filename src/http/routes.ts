@@ -12,7 +12,16 @@ import { healthRoutes } from './controllers/health/routes';
 
 // Admin routes
 import { adminRoutes } from './controllers/admin/routes';
+import { adminCatalogRoutes } from './controllers/admin/catalog/routes';
 import { adminCompaniesRoutes } from './controllers/admin/companies/routes';
+import { adminBillingRoutes } from './controllers/admin/billing/routes';
+import { adminMonitoringRoutes } from './controllers/admin/monitoring/routes';
+import { adminSupportRoutes } from './controllers/admin/support/routes';
+import { adminTeamRoutes } from './controllers/admin/team/routes';
+import { adminTenantSubscriptionsRoutes } from './controllers/admin/tenants/routes';
+
+// Tenant Support routes
+import { tenantSupportRoutes } from './controllers/tenant-support/routes';
 
 // RBAC routes
 import { associationsRoutes } from './controllers/rbac/associations/routes';
@@ -22,11 +31,32 @@ import { userDirectPermissionsRoutes } from './controllers/rbac/user-direct-perm
 
 // Sales routes
 import { commentsRoutes } from './controllers/sales/comments/routes';
+import { contactsRoutes } from './controllers/sales/contacts/routes';
 import { customersRoutes } from './controllers/sales/customers/routes';
 import { itemReservationsRoutes } from './controllers/sales/item-reservations/routes';
 import { notificationPreferencesRoutes } from './controllers/sales/notification-preferences/routes';
+import { pipelineStagesRoutes } from './controllers/sales/pipeline-stages/routes';
+import { pipelinesRoutes } from './controllers/sales/pipelines/routes';
 import { salesOrdersRoutes } from './controllers/sales/sales-orders/routes';
 import { variantPromotionsRoutes } from './controllers/sales/variant-promotions/routes';
+import { priceTablesRoutes } from './controllers/sales/price-tables/routes';
+import { customerPricesRoutes } from './controllers/sales/customer-prices/routes';
+import { campaignsRoutes } from './controllers/sales/campaigns/routes';
+import { couponsRoutes } from './controllers/sales/coupons/routes';
+import { combosRoutes } from './controllers/sales/combos/routes';
+import { catalogsRoutes } from './controllers/sales/catalogs/routes';
+import { brandRoutes } from './controllers/sales/brand/routes';
+import { contentRoutes } from './controllers/sales/content/routes';
+import { ordersRoutes } from './controllers/sales/orders/routes';
+import { paymentConditionsRoutes } from './controllers/sales/payment-conditions/routes';
+import { orderReturnsRoutes } from './controllers/sales/order-returns/routes';
+import { storeCreditsRoutes } from './controllers/sales/store-credits/routes';
+// Sales - Analytics
+import { analyticsGoalsRoutes } from './controllers/sales/analytics/goals/routes';
+import { analyticsDashboardsRoutes } from './controllers/sales/analytics/dashboards/routes';
+import { analyticsReportsRoutes } from './controllers/sales/analytics/reports/routes';
+import { analyticsRankingsRoutes } from './controllers/sales/analytics/rankings/routes';
+import { analyticsCustomerPortalRoutes } from './controllers/sales/analytics/customer-portal/routes';
 // Notifications (Workflow)
 import { notificationsRoutes } from './controllers/notifications/routes';
 
@@ -42,8 +72,10 @@ import { productCareInstructionsRoutes } from './controllers/stock/product-care-
 import { productAttachmentRoutes } from './controllers/stock/product-attachments/routes';
 import { variantAttachmentRoutes } from './controllers/stock/variant-attachments/routes';
 import { categoriesRoutes } from './controllers/stock/categories/routes';
+import { inventorySessionsRoutes } from './controllers/stock/inventory-sessions/routes';
 import { itemMovementsRoutes } from './controllers/stock/item-movements/routes';
 import { itemsRoutes } from './controllers/stock/items/routes';
+import { lookupRoutes } from './controllers/stock/lookup/routes';
 // Location routes replaced by new Warehouse/Zone/Bin system
 import { addressRoutes } from './controllers/stock/address/routes';
 import { binsRoutes } from './controllers/stock/bins/routes';
@@ -107,6 +139,19 @@ import { taskLabelsRoutes } from './controllers/tasks/labels/routes';
 import { taskSubtasksRoutes } from './controllers/tasks/subtasks/routes';
 import { taskWatchersRoutes } from './controllers/tasks/watchers/routes';
 
+// Signature routes
+import { signatureCertificatesRoutes } from './controllers/tools/signature/certificates/routes';
+import { signatureEnvelopesRoutes } from './controllers/tools/signature/envelopes/routes';
+import { signatureSigningRoutes } from './controllers/tools/signature/signing/routes';
+import { signatureTemplatesRoutes } from './controllers/tools/signature/templates/routes';
+
+// AI Assistant routes
+import { aiChatRoutes } from './controllers/ai/chat/routes';
+import { aiInsightsRoutes } from './controllers/ai/insights/routes';
+import { aiConfigRoutes } from './controllers/ai/config/routes';
+import { aiFavoritesRoutes } from './controllers/ai/favorites/routes';
+import { aiActionLogsRoutes } from './controllers/ai/actions/routes';
+
 // HR routes
 import { absencesRoutes } from './controllers/hr/absences/routes';
 import { bonusesRoutes } from './controllers/hr/bonuses/routes';
@@ -136,8 +181,17 @@ export async function registerRoutes(app: FastifyInstance) {
 
   // Admin routes (super-admin)
   await app.register(adminRoutes);
+  await app.register(adminCatalogRoutes);
+  await app.register(adminTenantSubscriptionsRoutes);
+  await app.register(adminTeamRoutes);
+  await app.register(adminMonitoringRoutes);
+  await app.register(adminSupportRoutes);
+  await app.register(adminBillingRoutes);
   // Admin routes (tenant-scoped)
   await app.register(adminCompaniesRoutes);
+
+  // Tenant Support routes
+  await app.register(tenantSupportRoutes);
 
   // RBAC routes
   await app.register(permissionsRoutes);
@@ -161,7 +215,9 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(tagsRoutes);
   await app.register(templatesRoutes);
   await app.register(itemsRoutes);
+  await app.register(lookupRoutes);
   await app.register(itemMovementsRoutes);
+  await app.register(inventorySessionsRoutes);
   await app.register(purchaseOrdersRoutes);
   await app.register(careRoutes);
   await app.register(productCareInstructionsRoutes);
@@ -170,12 +226,38 @@ export async function registerRoutes(app: FastifyInstance) {
 
   // Sales routes
   await app.register(customersRoutes);
+  await app.register(contactsRoutes);
+  await app.register(pipelinesRoutes);
+  await app.register(pipelineStagesRoutes);
+  // TODO: CRM routes not yet implemented (deals, activities, timeline)
+  // await app.register(dealsRoutes);
+  // await app.register(activitiesRoutes);
+  // await app.register(timelineRoutes);
   await app.register(salesOrdersRoutes);
+  await app.register(ordersRoutes);
+  await app.register(paymentConditionsRoutes);
+  await app.register(orderReturnsRoutes);
+  await app.register(storeCreditsRoutes);
   await app.register(commentsRoutes);
   await app.register(variantPromotionsRoutes);
   await app.register(itemReservationsRoutes);
   await app.register(notificationPreferencesRoutes);
+  await app.register(priceTablesRoutes);
+  await app.register(customerPricesRoutes);
+  await app.register(campaignsRoutes);
+  await app.register(couponsRoutes);
+  await app.register(combosRoutes);
+  await app.register(catalogsRoutes);
+  await app.register(brandRoutes);
+  await app.register(contentRoutes);
   await app.register(notificationsRoutes);
+
+  // Sales - Analytics routes
+  await app.register(analyticsGoalsRoutes);
+  await app.register(analyticsDashboardsRoutes);
+  await app.register(analyticsReportsRoutes);
+  await app.register(analyticsRankingsRoutes);
+  await app.register(analyticsCustomerPortalRoutes);
 
   // Requests routes (Workflow)
   await app.register(requestsRoutes);
@@ -242,6 +324,19 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(taskAutomationsRoutes);
   await app.register(taskActivityRoutes);
   await app.register(taskWatchersRoutes);
+
+  // Signature routes
+  await app.register(signatureCertificatesRoutes);
+  await app.register(signatureEnvelopesRoutes);
+  await app.register(signatureSigningRoutes);
+  await app.register(signatureTemplatesRoutes);
+
+  // AI Assistant routes
+  await app.register(aiChatRoutes);
+  await app.register(aiInsightsRoutes);
+  await app.register(aiConfigRoutes);
+  await app.register(aiFavoritesRoutes);
+  await app.register(aiActionLogsRoutes);
 
   // Audit routes
   await app.register(auditRoutes);

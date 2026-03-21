@@ -15,7 +15,7 @@ export async function listContractsController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/finance/contracts',
-    onRequest: [
+    preHandler: [
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
@@ -49,6 +49,8 @@ export async function listContractsController(app: FastifyInstance) {
         tenantId,
         page: query.page,
         limit: query.limit,
+        sortBy: query.sortBy,
+        sortOrder: query.sortOrder,
         status: query.status,
         companyName: query.companyName,
         search: query.search,

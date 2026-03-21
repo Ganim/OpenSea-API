@@ -14,7 +14,7 @@ export async function deleteAttachmentController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'DELETE',
     url: '/v1/finance/entries/:id/attachments/:attachmentId',
-    onRequest: [
+    preHandler: [
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({

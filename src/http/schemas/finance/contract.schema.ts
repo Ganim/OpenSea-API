@@ -97,6 +97,11 @@ export const contractResponseSchema = z.object({
 export const listContractsQuerySchema = z.object({
   page: z.coerce.number().int().positive().optional().default(1),
   limit: z.coerce.number().int().positive().max(100).optional().default(20),
+  sortBy: z
+    .enum(['createdAt', 'startDate', 'endDate', 'monthlyValue', 'status'])
+    .optional()
+    .default('createdAt'),
+  sortOrder: z.enum(['asc', 'desc']).optional().default('desc'),
   status: z
     .enum(['DRAFT', 'ACTIVE', 'EXPIRED', 'RENEWED', 'CANCELLED'])
     .optional(),

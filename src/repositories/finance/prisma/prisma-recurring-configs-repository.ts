@@ -83,12 +83,23 @@ export class PrismaRecurringConfigsRepository
       }),
     };
 
+    const sortFieldMap: Record<string, string> = {
+      createdAt: 'createdAt',
+      description: 'description',
+      baseAmount: 'expectedAmount',
+      status: 'status',
+    };
+
+    const orderBy: Record<string, 'asc' | 'desc'> = {};
+    orderBy[sortFieldMap[options.sortBy || 'createdAt'] || 'createdAt'] =
+      options.sortOrder || 'desc';
+
     const [configs, total] = await Promise.all([
       prisma.recurringConfig.findMany({
         where,
         skip: (page - 1) * limit,
         take: limit,
-        orderBy: { createdAt: 'desc' },
+        orderBy,
       }),
       prisma.recurringConfig.count({ where }),
     ]);

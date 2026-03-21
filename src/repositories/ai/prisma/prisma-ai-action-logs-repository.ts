@@ -1,0 +1,69 @@
+import { prisma } from '@/lib/prisma';
+import type {
+  AiActionLogsRepository,
+  AiActionLogDTO,
+  FindManyActionLogsOptions,
+  FindManyActionLogsResult,
+} from '../ai-action-logs-repository';
+import type { AiActionStatus, Prisma, AiActionLog } from '@prisma/generated/client.js';
+
+function toDTO(raw: AiActionLog): AiActionLogDTO {
+  return {
+    id: raw.id,
+    tenantId: raw.tenantId,
+    userId: raw.userId,
+    conversationId: raw.conversationId,
+    messageId: raw.messageId,
+    actionType: raw.actionType,
+    targetModule: raw.targetModule,
+    targetEntityType: raw.targetEntityType,
+    targetEntityId: raw.targetEntityId,
+    input: raw.input as Record<string, unknown>,
+    output: raw.output as Record<string, unknown> | null,
+    status: raw.status,
+    confirmedByUserId: raw.confirmedByUserId,
+    confirmedAt: raw.confirmedAt,
+    executedAt: raw.executedAt,
+    error: raw.error,
+    createdAt: raw.createdAt,
+  };
+}
+
+export class PrismaAiActionLogsRepository implements AiActionLogsRepository {
+  async findMany(options: FindManyActionLogsOptions): Promise<FindManyActionLogsResult> {
+    const page = options.page ?? 1;
+    const limit = Math.min(options.limit ?? 20, 100);
+    const skip = (page - 1) * limit;
+
+    const where: Prisma.AiActionLogWhereInput = {
+      tenantId: options.tenantId,
+    };
+
+    if (options.userId) {
+      where.userId = options.userId;
+    }
+
+    if (options.status) {
+      where.status = options.status as AiActionStatus;
+    }
+
+    if (options.targetModule) {
+      where.targetModule = options.targetModule;
+    }
+
+    const [actions, total] = await Promise.all([
+      prisma.aiActionLog.findMany({
+        where,
+        orderBy: { createdAt: 'desc' },
+        skip,
+        take: limit,
+      }),
+      prisma.aiActionLog.count({ where }),
+    ]);
+
+    return {
+      actions: actions.map(toDTO),
+      total,
+    };
+  }
+}

@@ -5,6 +5,10 @@ export interface TenantFeatureFlagDTO {
   tenantId: string;
   flag: string;
   enabled: boolean;
+  category: string;
+  expiresAt: Date | null;
+  enabledByUserId: string | null;
+  notes: string | null;
   metadata: Record<string, unknown>;
   createdAt: Date;
   updatedAt: Date;
@@ -18,6 +22,10 @@ export function tenantFeatureFlagToDTO(
     tenantId: flag.tenantId.toString(),
     flag: flag.flag,
     enabled: flag.enabled,
+    category: flag.category,
+    expiresAt: flag.expiresAt,
+    enabledByUserId: flag.enabledByUserId,
+    notes: flag.notes,
     metadata: flag.metadata,
     createdAt: flag.createdAt,
     updatedAt: flag.updatedAt,

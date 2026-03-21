@@ -2,6 +2,7 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
+import { resolveUserName } from '@/http/helpers/resolve-user-name';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
@@ -48,6 +49,7 @@ export async function updateCommentController(app: FastifyInstance) {
       const userId = request.user.sub;
       const tenantId = request.user.tenantId!;
       const { boardId, cardId, commentId } = request.params;
+      const userName = await resolveUserName(userId);
 
       try {
         const getBoardUseCase = makeGetBoardUseCase();
@@ -57,6 +59,8 @@ export async function updateCommentController(app: FastifyInstance) {
         const result = await useCase.execute({
           tenantId,
           userId,
+          userName,
+          boardId,
           cardId,
           commentId,
           ...request.body,

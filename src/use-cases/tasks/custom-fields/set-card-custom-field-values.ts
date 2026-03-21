@@ -4,6 +4,7 @@ import type {
   BoardCustomFieldsRepository,
   BoardCustomFieldRecord,
 } from '@/repositories/tasks/board-custom-fields-repository';
+import type { CardActivitiesRepository } from '@/repositories/tasks/card-activities-repository';
 import type {
   CardCustomFieldValuesRepository,
   CardCustomFieldValueRecord,
@@ -18,6 +19,8 @@ interface FieldValueInput {
 interface SetCardCustomFieldValuesRequest {
   boardId: string;
   cardId: string;
+  userId: string;
+  userName: string;
   values: FieldValueInput[];
 }
 
@@ -30,12 +33,13 @@ export class SetCardCustomFieldValuesUseCase {
     private cardsRepository: CardsRepository,
     private boardCustomFieldsRepository: BoardCustomFieldsRepository,
     private cardCustomFieldValuesRepository: CardCustomFieldValuesRepository,
+    private cardActivitiesRepository: CardActivitiesRepository,
   ) {}
 
   async execute(
     request: SetCardCustomFieldValuesRequest,
   ): Promise<SetCardCustomFieldValuesResponse> {
-    const { boardId, cardId, values } = request;
+    const { boardId, cardId, userId, userName, values } = request;
 
     const card = await this.cardsRepository.findById(cardId, boardId);
 
@@ -67,7 +71,7 @@ export class SetCardCustomFieldValuesUseCase {
 
     for (const field of boardFields) {
       if (field.isRequired && !providedFieldIds.has(field.id)) {
-        throw new BadRequestError(`Field "${field.name}" is required`);
+        throw new BadRequestError(`O campo "${field.name}" é obrigatório`);
       }
     }
 
@@ -82,6 +86,21 @@ export class SetCardCustomFieldValuesUseCase {
       valuesToSet,
     );
 
+    for (const fv of values) {
+      const field = fieldMap.get(fv.fieldId);
+      if (field) {
+        await this.cardActivitiesRepository.create({
+          cardId,
+          boardId,
+          userId,
+          type: 'FIELD_CHANGED',
+          description: `${userName} alterou o campo personalizado "${field.name}" no cartão ${card.title}`,
+          field: `customField:${field.name}`,
+          newValue: fv.value as string,
+        });
+      }
+    }
+
     return { fieldValues };
   }
 
@@ -92,7 +111,7 @@ export class SetCardCustomFieldValuesUseCase {
     if (value === null || value === undefined) {
       if (field.isRequired) {
         throw new BadRequestError(
-          `Field "${field.name}" is required and cannot be empty`,
+          `O campo "${field.name}" é obrigatório e não pode estar vazio`,
         );
       }
       return;
@@ -102,23 +121,24 @@ export class SetCardCustomFieldValuesUseCase {
       case 'TEXT': {
         if (typeof value !== 'string') {
           throw new BadRequestError(
-            `Field "${field.name}" expects a text value`,
+            `O campo "${field.name}" espera um valor de texto`,
           );
         }
         break;
       }
       case 'NUMBER': {
-        if (typeof value !== 'number') {
+        const num = typeof value === 'string' ? parseFloat(value) : value;
+        if (typeof num !== 'number' || isNaN(num)) {
           throw new BadRequestError(
-            `Field "${field.name}" expects a numeric value`,
+            `O campo "${field.name}" espera um valor numérico`,
           );
         }
         break;
       }
       case 'CHECKBOX': {
-        if (typeof value !== 'boolean') {
+        if (typeof value !== 'boolean' && value !== 'true' && value !== 'false') {
           throw new BadRequestError(
-            `Field "${field.name}" expects a boolean value`,
+            `O campo "${field.name}" espera um valor booleano (verdadeiro ou falso)`,
           );
         }
         break;
@@ -126,13 +146,13 @@ export class SetCardCustomFieldValuesUseCase {
       case 'SELECT': {
         if (typeof value !== 'string') {
           throw new BadRequestError(
-            `Field "${field.name}" expects a string value`,
+            `O campo "${field.name}" espera um valor de texto`,
           );
         }
         const selectChoices = (field.options?.choices ?? []) as string[];
         if (!selectChoices.includes(value)) {
           throw new BadRequestError(
-            `Value "${value}" is not a valid option for field "${field.name}"`,
+            `O valor "${value}" não é uma opção válida para o campo "${field.name}"`,
           );
         }
         break;
@@ -140,14 +160,14 @@ export class SetCardCustomFieldValuesUseCase {
       case 'MULTI_SELECT': {
         if (!Array.isArray(value)) {
           throw new BadRequestError(
-            `Field "${field.name}" expects an array of values`,
+            `O campo "${field.name}" espera uma lista de valores`,
           );
         }
         const multiChoices = (field.options?.choices ?? []) as string[];
         for (const selectedValue of value) {
           if (!multiChoices.includes(selectedValue as string)) {
             throw new BadRequestError(
-              `Value "${selectedValue}" is not a valid option for field "${field.name}"`,
+              `O valor "${selectedValue}" não é uma opção válida para o campo "${field.name}"`,
             );
           }
         }
@@ -156,7 +176,13 @@ export class SetCardCustomFieldValuesUseCase {
       case 'DATE': {
         if (typeof value !== 'string') {
           throw new BadRequestError(
-            `Field "${field.name}" expects a date string value`,
+            `O campo "${field.name}" espera uma data em formato texto`,
+          );
+        }
+        const parsed = Date.parse(value);
+        if (isNaN(parsed)) {
+          throw new BadRequestError(
+            `O campo "${field.name}" contém uma data inválida`,
           );
         }
         break;
@@ -164,14 +190,14 @@ export class SetCardCustomFieldValuesUseCase {
       case 'URL': {
         if (typeof value !== 'string') {
           throw new BadRequestError(
-            `Field "${field.name}" expects a URL string value`,
+            `O campo "${field.name}" espera uma URL em formato texto`,
           );
         }
         try {
           new URL(value);
         } catch {
           throw new BadRequestError(
-            `Field "${field.name}" contains an invalid URL`,
+            `O campo "${field.name}" contém uma URL inválida`,
           );
         }
         break;
@@ -179,13 +205,13 @@ export class SetCardCustomFieldValuesUseCase {
       case 'EMAIL': {
         if (typeof value !== 'string') {
           throw new BadRequestError(
-            `Field "${field.name}" expects an email string value`,
+            `O campo "${field.name}" espera um endereço de e-mail`,
           );
         }
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(value)) {
           throw new BadRequestError(
-            `Field "${field.name}" contains an invalid email address`,
+            `O campo "${field.name}" contém um endereço de e-mail inválido`,
           );
         }
         break;
