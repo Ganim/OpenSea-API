@@ -173,6 +173,17 @@ export class PrismaVariantsRepository implements VariantsRepository {
     return this.mapVariantToDomain(variantData);
   }
 
+  async findByFullCode(
+    fullCode: string,
+    tenantId: string,
+  ): Promise<Variant | null> {
+    const variantData = await prisma.variant.findFirst({
+      where: { fullCode, tenantId, deletedAt: null },
+    });
+    if (!variantData) return null;
+    return this.mapVariantToDomain(variantData);
+  }
+
   async findBySKU(sku: string, tenantId: string): Promise<Variant | null> {
     const variantData = await prisma.variant.findFirst({
       where: {

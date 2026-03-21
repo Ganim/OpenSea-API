@@ -47,6 +47,7 @@ import { variantAttachmentRoutes } from './controllers/stock/variant-attachments
 import { categoriesRoutes } from './controllers/stock/categories/routes';
 import { itemMovementsRoutes } from './controllers/stock/item-movements/routes';
 import { itemsRoutes } from './controllers/stock/items/routes';
+import { lookupRoutes } from './controllers/stock/lookup/routes';
 // Location routes replaced by new Warehouse/Zone/Bin system
 import { addressRoutes } from './controllers/stock/address/routes';
 import { binsRoutes } from './controllers/stock/bins/routes';
@@ -164,6 +165,7 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(tagsRoutes);
   await app.register(templatesRoutes);
   await app.register(itemsRoutes);
+  await app.register(lookupRoutes);
   await app.register(itemMovementsRoutes);
   await app.register(purchaseOrdersRoutes);
   await app.register(careRoutes);

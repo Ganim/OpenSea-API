@@ -93,6 +93,49 @@ export class InMemoryItemsRepository implements ItemsRepository {
     return item ?? null;
   }
 
+  async findByFullCode(
+    fullCode: string,
+    tenantId: string,
+  ): Promise<Item | null> {
+    const item = this.items.find(
+      (i) =>
+        !i.deletedAt &&
+        i.fullCode === fullCode &&
+        i.tenantId.toString() === tenantId,
+    );
+    return item ?? null;
+  }
+
+  async findByBarcode(barcode: string, tenantId: string): Promise<Item | null> {
+    const item = this.items.find(
+      (i) =>
+        !i.deletedAt &&
+        i.barcode === barcode &&
+        i.tenantId.toString() === tenantId,
+    );
+    return item ?? null;
+  }
+
+  async findByEanCode(eanCode: string, tenantId: string): Promise<Item | null> {
+    const item = this.items.find(
+      (i) =>
+        !i.deletedAt &&
+        i.eanCode === eanCode &&
+        i.tenantId.toString() === tenantId,
+    );
+    return item ?? null;
+  }
+
+  async findByUpcCode(upcCode: string, tenantId: string): Promise<Item | null> {
+    const item = this.items.find(
+      (i) =>
+        !i.deletedAt &&
+        i.upcCode === upcCode &&
+        i.tenantId.toString() === tenantId,
+    );
+    return item ?? null;
+  }
+
   async findAll(tenantId: string): Promise<Item[]> {
     return this.items.filter(
       (item) => !item.deletedAt && item.tenantId.toString() === tenantId,
