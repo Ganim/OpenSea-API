@@ -28,6 +28,8 @@ export type CentralUserMinAggregateOutputType = {
   id: string | null
   userId: string | null
   role: $Enums.CentralUserRole | null
+  isActive: boolean | null
+  invitedBy: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -36,6 +38,8 @@ export type CentralUserMaxAggregateOutputType = {
   id: string | null
   userId: string | null
   role: $Enums.CentralUserRole | null
+  isActive: boolean | null
+  invitedBy: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -44,6 +48,8 @@ export type CentralUserCountAggregateOutputType = {
   id: number
   userId: number
   role: number
+  isActive: number
+  invitedBy: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -54,6 +60,8 @@ export type CentralUserMinAggregateInputType = {
   id?: true
   userId?: true
   role?: true
+  isActive?: true
+  invitedBy?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -62,6 +70,8 @@ export type CentralUserMaxAggregateInputType = {
   id?: true
   userId?: true
   role?: true
+  isActive?: true
+  invitedBy?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -70,6 +80,8 @@ export type CentralUserCountAggregateInputType = {
   id?: true
   userId?: true
   role?: true
+  isActive?: true
+  invitedBy?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -151,6 +163,8 @@ export type CentralUserGroupByOutputType = {
   id: string
   userId: string
   role: $Enums.CentralUserRole
+  isActive: boolean
+  invitedBy: string | null
   createdAt: Date
   updatedAt: Date
   _count: CentralUserCountAggregateOutputType | null
@@ -180,6 +194,8 @@ export type CentralUserWhereInput = {
   id?: Prisma.StringFilter<"CentralUser"> | string
   userId?: Prisma.StringFilter<"CentralUser"> | string
   role?: Prisma.EnumCentralUserRoleFilter<"CentralUser"> | $Enums.CentralUserRole
+  isActive?: Prisma.BoolFilter<"CentralUser"> | boolean
+  invitedBy?: Prisma.StringNullableFilter<"CentralUser"> | string | null
   createdAt?: Prisma.DateTimeFilter<"CentralUser"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"CentralUser"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -189,6 +205,8 @@ export type CentralUserOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
+  invitedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
@@ -201,6 +219,8 @@ export type CentralUserWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.CentralUserWhereInput[]
   NOT?: Prisma.CentralUserWhereInput | Prisma.CentralUserWhereInput[]
   role?: Prisma.EnumCentralUserRoleFilter<"CentralUser"> | $Enums.CentralUserRole
+  isActive?: Prisma.BoolFilter<"CentralUser"> | boolean
+  invitedBy?: Prisma.StringNullableFilter<"CentralUser"> | string | null
   createdAt?: Prisma.DateTimeFilter<"CentralUser"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"CentralUser"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -210,6 +230,8 @@ export type CentralUserOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
+  invitedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.CentralUserCountOrderByAggregateInput
@@ -224,6 +246,8 @@ export type CentralUserScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"CentralUser"> | string
   userId?: Prisma.StringWithAggregatesFilter<"CentralUser"> | string
   role?: Prisma.EnumCentralUserRoleWithAggregatesFilter<"CentralUser"> | $Enums.CentralUserRole
+  isActive?: Prisma.BoolWithAggregatesFilter<"CentralUser"> | boolean
+  invitedBy?: Prisma.StringNullableWithAggregatesFilter<"CentralUser"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"CentralUser"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"CentralUser"> | Date | string
 }
@@ -231,6 +255,8 @@ export type CentralUserScalarWhereWithAggregatesInput = {
 export type CentralUserCreateInput = {
   id?: string
   role?: $Enums.CentralUserRole
+  isActive?: boolean
+  invitedBy?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutCentralUserInput
@@ -240,6 +266,8 @@ export type CentralUserUncheckedCreateInput = {
   id?: string
   userId: string
   role?: $Enums.CentralUserRole
+  isActive?: boolean
+  invitedBy?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -247,6 +275,8 @@ export type CentralUserUncheckedCreateInput = {
 export type CentralUserUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumCentralUserRoleFieldUpdateOperationsInput | $Enums.CentralUserRole
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  invitedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutCentralUserNestedInput
@@ -256,6 +286,8 @@ export type CentralUserUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumCentralUserRoleFieldUpdateOperationsInput | $Enums.CentralUserRole
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  invitedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -264,6 +296,8 @@ export type CentralUserCreateManyInput = {
   id?: string
   userId: string
   role?: $Enums.CentralUserRole
+  isActive?: boolean
+  invitedBy?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -271,6 +305,8 @@ export type CentralUserCreateManyInput = {
 export type CentralUserUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumCentralUserRoleFieldUpdateOperationsInput | $Enums.CentralUserRole
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  invitedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -279,6 +315,8 @@ export type CentralUserUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumCentralUserRoleFieldUpdateOperationsInput | $Enums.CentralUserRole
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  invitedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -292,6 +330,8 @@ export type CentralUserCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
+  invitedBy?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -300,6 +340,8 @@ export type CentralUserMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
+  invitedBy?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -308,6 +350,8 @@ export type CentralUserMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
+  invitedBy?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -351,6 +395,8 @@ export type EnumCentralUserRoleFieldUpdateOperationsInput = {
 export type CentralUserCreateWithoutUserInput = {
   id?: string
   role?: $Enums.CentralUserRole
+  isActive?: boolean
+  invitedBy?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -358,6 +404,8 @@ export type CentralUserCreateWithoutUserInput = {
 export type CentralUserUncheckedCreateWithoutUserInput = {
   id?: string
   role?: $Enums.CentralUserRole
+  isActive?: boolean
+  invitedBy?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -381,6 +429,8 @@ export type CentralUserUpdateToOneWithWhereWithoutUserInput = {
 export type CentralUserUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumCentralUserRoleFieldUpdateOperationsInput | $Enums.CentralUserRole
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  invitedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -388,6 +438,8 @@ export type CentralUserUpdateWithoutUserInput = {
 export type CentralUserUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumCentralUserRoleFieldUpdateOperationsInput | $Enums.CentralUserRole
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  invitedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -398,6 +450,8 @@ export type CentralUserSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   id?: boolean
   userId?: boolean
   role?: boolean
+  isActive?: boolean
+  invitedBy?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -407,6 +461,8 @@ export type CentralUserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   id?: boolean
   userId?: boolean
   role?: boolean
+  isActive?: boolean
+  invitedBy?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -416,6 +472,8 @@ export type CentralUserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   id?: boolean
   userId?: boolean
   role?: boolean
+  isActive?: boolean
+  invitedBy?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -425,11 +483,13 @@ export type CentralUserSelectScalar = {
   id?: boolean
   userId?: boolean
   role?: boolean
+  isActive?: boolean
+  invitedBy?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type CentralUserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "role" | "createdAt" | "updatedAt", ExtArgs["result"]["centralUser"]>
+export type CentralUserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "role" | "isActive" | "invitedBy" | "createdAt" | "updatedAt", ExtArgs["result"]["centralUser"]>
 export type CentralUserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
@@ -449,6 +509,8 @@ export type $CentralUserPayload<ExtArgs extends runtime.Types.Extensions.Interna
     id: string
     userId: string
     role: $Enums.CentralUserRole
+    isActive: boolean
+    invitedBy: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["centralUser"]>
@@ -878,6 +940,8 @@ export interface CentralUserFieldRefs {
   readonly id: Prisma.FieldRef<"CentralUser", 'String'>
   readonly userId: Prisma.FieldRef<"CentralUser", 'String'>
   readonly role: Prisma.FieldRef<"CentralUser", 'CentralUserRole'>
+  readonly isActive: Prisma.FieldRef<"CentralUser", 'Boolean'>
+  readonly invitedBy: Prisma.FieldRef<"CentralUser", 'String'>
   readonly createdAt: Prisma.FieldRef<"CentralUser", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"CentralUser", 'DateTime'>
 }

@@ -1,5 +1,5 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
-import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found-error';
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { makeGetPortalDataUseCase } from '@/use-cases/sales/analytics/customer-portal/factories/make-get-portal-data-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';

@@ -3075,6 +3075,8 @@ export const CentralUserScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   role: 'role',
+  isActive: 'isActive',
+  invitedBy: 'invitedBy',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

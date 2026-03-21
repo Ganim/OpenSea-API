@@ -1,4 +1,4 @@
-import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found-error';
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { makeGetGoalProgressUseCase } from '@/use-cases/sales/analytics/goals/factories/make-get-goal-progress-use-case';

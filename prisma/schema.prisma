@@ -6484,8 +6484,10 @@ model TenantIntegrationStatus {
 model CentralUser {
   id String @id @default(uuid())
 
-  userId String          @unique @map("user_id")
-  role   CentralUserRole @default(VIEWER)
+  userId    String          @unique @map("user_id")
+  role      CentralUserRole @default(VIEWER)
+  isActive  Boolean         @default(true) @map("is_active")
+  invitedBy String?         @map("invited_by")
 
   // Audit
   createdAt DateTime @default(now()) @map("created_at")
