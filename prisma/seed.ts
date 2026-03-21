@@ -1145,9 +1145,13 @@ async function main() {
     try {
       const { seedSalesPipelines } = await import('./seeds/sales-pipelines.js');
       await seedSalesPipelines(prisma, demoTenant.id);
+
+      // CRM demo data (customers, contacts, deals, activities)
+      const { seedSalesDemoData } = await import('./seeds/sales-demo-data.js');
+      await seedSalesDemoData(prisma, demoTenant.id);
     } catch (pipelineError) {
       console.log(
-        '   ⚠️ Erro ao criar pipelines de vendas (não crítico):',
+        '   ⚠️ Erro ao criar pipelines/dados de vendas (não crítico):',
         pipelineError,
       );
     }
