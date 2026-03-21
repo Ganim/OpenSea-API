@@ -1615,3 +1615,245 @@ export const AutomationAction = {
 } as const
 
 export type AutomationAction = (typeof AutomationAction)[keyof typeof AutomationAction]
+
+
+export const OrderType = {
+  QUOTE: 'QUOTE',
+  ORDER: 'ORDER'
+} as const
+
+export type OrderType = (typeof OrderType)[keyof typeof OrderType]
+
+
+export const OrderChannel = {
+  PDV: 'PDV',
+  WEB: 'WEB',
+  WHATSAPP: 'WHATSAPP',
+  MARKETPLACE: 'MARKETPLACE',
+  BID: 'BID',
+  MANUAL: 'MANUAL',
+  API: 'API'
+} as const
+
+export type OrderChannel = (typeof OrderChannel)[keyof typeof OrderChannel]
+
+
+export const DeliveryMethod = {
+  PICKUP: 'PICKUP',
+  OWN_FLEET: 'OWN_FLEET',
+  CARRIER: 'CARRIER',
+  PARTIAL: 'PARTIAL'
+} as const
+
+export type DeliveryMethod = (typeof DeliveryMethod)[keyof typeof DeliveryMethod]
+
+
+export const PaymentMethod = {
+  CASH: 'CASH',
+  CREDIT_CARD: 'CREDIT_CARD',
+  DEBIT_CARD: 'DEBIT_CARD',
+  PIX: 'PIX',
+  BOLETO: 'BOLETO',
+  BANK_TRANSFER: 'BANK_TRANSFER',
+  CHECK: 'CHECK',
+  STORE_CREDIT: 'STORE_CREDIT',
+  OTHER: 'OTHER'
+} as const
+
+export type PaymentMethod = (typeof PaymentMethod)[keyof typeof PaymentMethod]
+
+
+export const PaymentStatus = {
+  PENDING: 'PENDING',
+  PAID: 'PAID',
+  OVERDUE: 'OVERDUE',
+  CANCELLED: 'CANCELLED',
+  REFUNDED: 'REFUNDED'
+} as const
+
+export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus]
+
+
+export const PaymentConditionType = {
+  CASH: 'CASH',
+  INSTALLMENT: 'INSTALLMENT',
+  CUSTOM: 'CUSTOM',
+  CREDIT_LIMIT: 'CREDIT_LIMIT'
+} as const
+
+export type PaymentConditionType = (typeof PaymentConditionType)[keyof typeof PaymentConditionType]
+
+
+export const PaymentConditionApplicable = {
+  ALL: 'ALL',
+  RETAIL: 'RETAIL',
+  WHOLESALE: 'WHOLESALE',
+  BID: 'BID'
+} as const
+
+export type PaymentConditionApplicable = (typeof PaymentConditionApplicable)[keyof typeof PaymentConditionApplicable]
+
+
+export const InterestType = {
+  SIMPLE: 'SIMPLE',
+  COMPOUND: 'COMPOUND'
+} as const
+
+export type InterestType = (typeof InterestType)[keyof typeof InterestType]
+
+
+export const DeliveryStatus = {
+  PREPARING: 'PREPARING',
+  SHIPPED: 'SHIPPED',
+  IN_TRANSIT: 'IN_TRANSIT',
+  DELIVERED: 'DELIVERED',
+  FAILED: 'FAILED'
+} as const
+
+export type DeliveryStatus = (typeof DeliveryStatus)[keyof typeof DeliveryStatus]
+
+
+export const ReturnType = {
+  FULL_RETURN: 'FULL_RETURN',
+  PARTIAL_RETURN: 'PARTIAL_RETURN',
+  EXCHANGE: 'EXCHANGE'
+} as const
+
+export type ReturnType = (typeof ReturnType)[keyof typeof ReturnType]
+
+
+export const ReturnStatus = {
+  REQUESTED: 'REQUESTED',
+  APPROVED: 'APPROVED',
+  RECEIVING: 'RECEIVING',
+  RECEIVED: 'RECEIVED',
+  CREDIT_ISSUED: 'CREDIT_ISSUED',
+  EXCHANGE_COMPLETED: 'EXCHANGE_COMPLETED',
+  REJECTED: 'REJECTED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type ReturnStatus = (typeof ReturnStatus)[keyof typeof ReturnStatus]
+
+
+export const ReturnReason = {
+  DEFECTIVE: 'DEFECTIVE',
+  WRONG_ITEM: 'WRONG_ITEM',
+  CHANGED_MIND: 'CHANGED_MIND',
+  DAMAGED: 'DAMAGED',
+  NOT_AS_DESCRIBED: 'NOT_AS_DESCRIBED',
+  OTHER: 'OTHER'
+} as const
+
+export type ReturnReason = (typeof ReturnReason)[keyof typeof ReturnReason]
+
+
+export const ReturnItemCondition = {
+  NEW: 'NEW',
+  USED: 'USED',
+  DAMAGED: 'DAMAGED',
+  DEFECTIVE: 'DEFECTIVE'
+} as const
+
+export type ReturnItemCondition = (typeof ReturnItemCondition)[keyof typeof ReturnItemCondition]
+
+
+export const RefundMethod = {
+  SAME_METHOD: 'SAME_METHOD',
+  STORE_CREDIT: 'STORE_CREDIT',
+  BANK_TRANSFER: 'BANK_TRANSFER',
+  PIX: 'PIX'
+} as const
+
+export type RefundMethod = (typeof RefundMethod)[keyof typeof RefundMethod]
+
+
+export const StoreCreditSource = {
+  RETURN: 'RETURN',
+  MANUAL: 'MANUAL',
+  CAMPAIGN: 'CAMPAIGN',
+  LOYALTY: 'LOYALTY'
+} as const
+
+export type StoreCreditSource = (typeof StoreCreditSource)[keyof typeof StoreCreditSource]
+
+
+export const ApprovalRuleType = {
+  ORDER_VALUE: 'ORDER_VALUE',
+  DISCOUNT_PERCENT: 'DISCOUNT_PERCENT',
+  CREDIT_EXCEEDED: 'CREDIT_EXCEEDED',
+  NEW_CUSTOMER: 'NEW_CUSTOMER',
+  MANUAL_PRICE: 'MANUAL_PRICE',
+  CUSTOM: 'CUSTOM'
+} as const
+
+export type ApprovalRuleType = (typeof ApprovalRuleType)[keyof typeof ApprovalRuleType]
+
+
+export const CommissionType = {
+  PERCENTAGE: 'PERCENTAGE',
+  FIXED_PER_ORDER: 'FIXED_PER_ORDER',
+  FIXED_PER_ITEM: 'FIXED_PER_ITEM',
+  TIERED: 'TIERED'
+} as const
+
+export type CommissionType = (typeof CommissionType)[keyof typeof CommissionType]
+
+
+export const CommissionStatus = {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  PAID: 'PAID',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type CommissionStatus = (typeof CommissionStatus)[keyof typeof CommissionStatus]
+
+
+export const CommissionAppliesTo = {
+  ALL: 'ALL',
+  SPECIFIC_USERS: 'SPECIFIC_USERS',
+  SPECIFIC_CATEGORIES: 'SPECIFIC_CATEGORIES',
+  SPECIFIC_PRODUCTS: 'SPECIFIC_PRODUCTS'
+} as const
+
+export type CommissionAppliesTo = (typeof CommissionAppliesTo)[keyof typeof CommissionAppliesTo]
+
+
+export const OrderHistoryAction = {
+  CREATED: 'CREATED',
+  STAGE_CHANGED: 'STAGE_CHANGED',
+  ITEM_ADDED: 'ITEM_ADDED',
+  ITEM_REMOVED: 'ITEM_REMOVED',
+  ITEM_MODIFIED: 'ITEM_MODIFIED',
+  PAYMENT_ADDED: 'PAYMENT_ADDED',
+  PAYMENT_RECEIVED: 'PAYMENT_RECEIVED',
+  APPROVAL_REQUESTED: 'APPROVAL_REQUESTED',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED',
+  DELIVERY_CREATED: 'DELIVERY_CREATED',
+  DELIVERY_SHIPPED: 'DELIVERY_SHIPPED',
+  DELIVERY_COMPLETED: 'DELIVERY_COMPLETED',
+  RETURN_REQUESTED: 'RETURN_REQUESTED',
+  RETURN_APPROVED: 'RETURN_APPROVED',
+  RETURN_COMPLETED: 'RETURN_COMPLETED',
+  CANCELLED: 'CANCELLED',
+  NOTE_ADDED: 'NOTE_ADDED',
+  ASSIGNED: 'ASSIGNED',
+  COUPON_APPLIED: 'COUPON_APPLIED'
+} as const
+
+export type OrderHistoryAction = (typeof OrderHistoryAction)[keyof typeof OrderHistoryAction]
+
+
+export const PriceSourceType = {
+  CUSTOMER: 'CUSTOMER',
+  CAMPAIGN: 'CAMPAIGN',
+  COUPON: 'COUPON',
+  QUANTITY_TIER: 'QUANTITY_TIER',
+  TABLE: 'TABLE',
+  DEFAULT: 'DEFAULT',
+  MANUAL: 'MANUAL'
+} as const
+
+export type PriceSourceType = (typeof PriceSourceType)[keyof typeof PriceSourceType]

@@ -299,6 +299,7 @@ export type PriceTableWhereInput = {
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   prices?: Prisma.PriceTableItemListRelationFilter
   rules?: Prisma.PriceTableRuleListRelationFilter
+  orders?: Prisma.OrderListRelationFilter
   catalogs?: Prisma.CatalogListRelationFilter
 }
 
@@ -321,6 +322,7 @@ export type PriceTableOrderByWithRelationInput = {
   tenant?: Prisma.TenantOrderByWithRelationInput
   prices?: Prisma.PriceTableItemOrderByRelationAggregateInput
   rules?: Prisma.PriceTableRuleOrderByRelationAggregateInput
+  orders?: Prisma.OrderOrderByRelationAggregateInput
   catalogs?: Prisma.CatalogOrderByRelationAggregateInput
 }
 
@@ -346,6 +348,7 @@ export type PriceTableWhereUniqueInput = Prisma.AtLeast<{
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   prices?: Prisma.PriceTableItemListRelationFilter
   rules?: Prisma.PriceTableRuleListRelationFilter
+  orders?: Prisma.OrderListRelationFilter
   catalogs?: Prisma.CatalogListRelationFilter
 }, "id">
 
@@ -411,6 +414,7 @@ export type PriceTableCreateInput = {
   tenant: Prisma.TenantCreateNestedOneWithoutPriceTablesInput
   prices?: Prisma.PriceTableItemCreateNestedManyWithoutPriceTableInput
   rules?: Prisma.PriceTableRuleCreateNestedManyWithoutPriceTableInput
+  orders?: Prisma.OrderCreateNestedManyWithoutPriceTableInput
   catalogs?: Prisma.CatalogCreateNestedManyWithoutPriceTableInput
 }
 
@@ -432,6 +436,7 @@ export type PriceTableUncheckedCreateInput = {
   updatedAt?: Date | string
   prices?: Prisma.PriceTableItemUncheckedCreateNestedManyWithoutPriceTableInput
   rules?: Prisma.PriceTableRuleUncheckedCreateNestedManyWithoutPriceTableInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutPriceTableInput
   catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutPriceTableInput
 }
 
@@ -453,6 +458,7 @@ export type PriceTableUpdateInput = {
   tenant?: Prisma.TenantUpdateOneRequiredWithoutPriceTablesNestedInput
   prices?: Prisma.PriceTableItemUpdateManyWithoutPriceTableNestedInput
   rules?: Prisma.PriceTableRuleUpdateManyWithoutPriceTableNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutPriceTableNestedInput
   catalogs?: Prisma.CatalogUpdateManyWithoutPriceTableNestedInput
 }
 
@@ -474,6 +480,7 @@ export type PriceTableUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   prices?: Prisma.PriceTableItemUncheckedUpdateManyWithoutPriceTableNestedInput
   rules?: Prisma.PriceTableRuleUncheckedUpdateManyWithoutPriceTableNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutPriceTableNestedInput
   catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutPriceTableNestedInput
 }
 
@@ -702,6 +709,22 @@ export type PriceTableUpdateOneWithoutCatalogsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.PriceTableUpdateToOneWithWhereWithoutCatalogsInput, Prisma.PriceTableUpdateWithoutCatalogsInput>, Prisma.PriceTableUncheckedUpdateWithoutCatalogsInput>
 }
 
+export type PriceTableCreateNestedOneWithoutOrdersInput = {
+  create?: Prisma.XOR<Prisma.PriceTableCreateWithoutOrdersInput, Prisma.PriceTableUncheckedCreateWithoutOrdersInput>
+  connectOrCreate?: Prisma.PriceTableCreateOrConnectWithoutOrdersInput
+  connect?: Prisma.PriceTableWhereUniqueInput
+}
+
+export type PriceTableUpdateOneWithoutOrdersNestedInput = {
+  create?: Prisma.XOR<Prisma.PriceTableCreateWithoutOrdersInput, Prisma.PriceTableUncheckedCreateWithoutOrdersInput>
+  connectOrCreate?: Prisma.PriceTableCreateOrConnectWithoutOrdersInput
+  upsert?: Prisma.PriceTableUpsertWithoutOrdersInput
+  disconnect?: Prisma.PriceTableWhereInput | boolean
+  delete?: Prisma.PriceTableWhereInput | boolean
+  connect?: Prisma.PriceTableWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PriceTableUpdateToOneWithWhereWithoutOrdersInput, Prisma.PriceTableUpdateWithoutOrdersInput>, Prisma.PriceTableUncheckedUpdateWithoutOrdersInput>
+}
+
 export type PriceTableCreateWithoutTenantInput = {
   id?: string
   name: string
@@ -719,6 +742,7 @@ export type PriceTableCreateWithoutTenantInput = {
   updatedAt?: Date | string
   prices?: Prisma.PriceTableItemCreateNestedManyWithoutPriceTableInput
   rules?: Prisma.PriceTableRuleCreateNestedManyWithoutPriceTableInput
+  orders?: Prisma.OrderCreateNestedManyWithoutPriceTableInput
   catalogs?: Prisma.CatalogCreateNestedManyWithoutPriceTableInput
 }
 
@@ -739,6 +763,7 @@ export type PriceTableUncheckedCreateWithoutTenantInput = {
   updatedAt?: Date | string
   prices?: Prisma.PriceTableItemUncheckedCreateNestedManyWithoutPriceTableInput
   rules?: Prisma.PriceTableRuleUncheckedCreateNestedManyWithoutPriceTableInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutPriceTableInput
   catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutPriceTableInput
 }
 
@@ -806,6 +831,7 @@ export type PriceTableCreateWithoutRulesInput = {
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutPriceTablesInput
   prices?: Prisma.PriceTableItemCreateNestedManyWithoutPriceTableInput
+  orders?: Prisma.OrderCreateNestedManyWithoutPriceTableInput
   catalogs?: Prisma.CatalogCreateNestedManyWithoutPriceTableInput
 }
 
@@ -826,6 +852,7 @@ export type PriceTableUncheckedCreateWithoutRulesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   prices?: Prisma.PriceTableItemUncheckedCreateNestedManyWithoutPriceTableInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutPriceTableInput
   catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutPriceTableInput
 }
 
@@ -862,6 +889,7 @@ export type PriceTableUpdateWithoutRulesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutPriceTablesNestedInput
   prices?: Prisma.PriceTableItemUpdateManyWithoutPriceTableNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutPriceTableNestedInput
   catalogs?: Prisma.CatalogUpdateManyWithoutPriceTableNestedInput
 }
 
@@ -882,6 +910,7 @@ export type PriceTableUncheckedUpdateWithoutRulesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   prices?: Prisma.PriceTableItemUncheckedUpdateManyWithoutPriceTableNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutPriceTableNestedInput
   catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutPriceTableNestedInput
 }
 
@@ -902,6 +931,7 @@ export type PriceTableCreateWithoutPricesInput = {
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutPriceTablesInput
   rules?: Prisma.PriceTableRuleCreateNestedManyWithoutPriceTableInput
+  orders?: Prisma.OrderCreateNestedManyWithoutPriceTableInput
   catalogs?: Prisma.CatalogCreateNestedManyWithoutPriceTableInput
 }
 
@@ -922,6 +952,7 @@ export type PriceTableUncheckedCreateWithoutPricesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   rules?: Prisma.PriceTableRuleUncheckedCreateNestedManyWithoutPriceTableInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutPriceTableInput
   catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutPriceTableInput
 }
 
@@ -958,6 +989,7 @@ export type PriceTableUpdateWithoutPricesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutPriceTablesNestedInput
   rules?: Prisma.PriceTableRuleUpdateManyWithoutPriceTableNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutPriceTableNestedInput
   catalogs?: Prisma.CatalogUpdateManyWithoutPriceTableNestedInput
 }
 
@@ -978,6 +1010,7 @@ export type PriceTableUncheckedUpdateWithoutPricesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   rules?: Prisma.PriceTableRuleUncheckedUpdateManyWithoutPriceTableNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutPriceTableNestedInput
   catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutPriceTableNestedInput
 }
 
@@ -999,6 +1032,7 @@ export type PriceTableCreateWithoutCatalogsInput = {
   tenant: Prisma.TenantCreateNestedOneWithoutPriceTablesInput
   prices?: Prisma.PriceTableItemCreateNestedManyWithoutPriceTableInput
   rules?: Prisma.PriceTableRuleCreateNestedManyWithoutPriceTableInput
+  orders?: Prisma.OrderCreateNestedManyWithoutPriceTableInput
 }
 
 export type PriceTableUncheckedCreateWithoutCatalogsInput = {
@@ -1019,6 +1053,7 @@ export type PriceTableUncheckedCreateWithoutCatalogsInput = {
   updatedAt?: Date | string
   prices?: Prisma.PriceTableItemUncheckedCreateNestedManyWithoutPriceTableInput
   rules?: Prisma.PriceTableRuleUncheckedCreateNestedManyWithoutPriceTableInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutPriceTableInput
 }
 
 export type PriceTableCreateOrConnectWithoutCatalogsInput = {
@@ -1055,6 +1090,7 @@ export type PriceTableUpdateWithoutCatalogsInput = {
   tenant?: Prisma.TenantUpdateOneRequiredWithoutPriceTablesNestedInput
   prices?: Prisma.PriceTableItemUpdateManyWithoutPriceTableNestedInput
   rules?: Prisma.PriceTableRuleUpdateManyWithoutPriceTableNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutPriceTableNestedInput
 }
 
 export type PriceTableUncheckedUpdateWithoutCatalogsInput = {
@@ -1075,6 +1111,107 @@ export type PriceTableUncheckedUpdateWithoutCatalogsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   prices?: Prisma.PriceTableItemUncheckedUpdateManyWithoutPriceTableNestedInput
   rules?: Prisma.PriceTableRuleUncheckedUpdateManyWithoutPriceTableNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutPriceTableNestedInput
+}
+
+export type PriceTableCreateWithoutOrdersInput = {
+  id?: string
+  name: string
+  description?: string | null
+  type?: $Enums.PriceTableType
+  currency?: string
+  priceIncludesTax?: boolean
+  isDefault?: boolean
+  priority?: number
+  isActive?: boolean
+  validFrom?: Date | string | null
+  validUntil?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutPriceTablesInput
+  prices?: Prisma.PriceTableItemCreateNestedManyWithoutPriceTableInput
+  rules?: Prisma.PriceTableRuleCreateNestedManyWithoutPriceTableInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutPriceTableInput
+}
+
+export type PriceTableUncheckedCreateWithoutOrdersInput = {
+  id?: string
+  tenantId: string
+  name: string
+  description?: string | null
+  type?: $Enums.PriceTableType
+  currency?: string
+  priceIncludesTax?: boolean
+  isDefault?: boolean
+  priority?: number
+  isActive?: boolean
+  validFrom?: Date | string | null
+  validUntil?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  prices?: Prisma.PriceTableItemUncheckedCreateNestedManyWithoutPriceTableInput
+  rules?: Prisma.PriceTableRuleUncheckedCreateNestedManyWithoutPriceTableInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutPriceTableInput
+}
+
+export type PriceTableCreateOrConnectWithoutOrdersInput = {
+  where: Prisma.PriceTableWhereUniqueInput
+  create: Prisma.XOR<Prisma.PriceTableCreateWithoutOrdersInput, Prisma.PriceTableUncheckedCreateWithoutOrdersInput>
+}
+
+export type PriceTableUpsertWithoutOrdersInput = {
+  update: Prisma.XOR<Prisma.PriceTableUpdateWithoutOrdersInput, Prisma.PriceTableUncheckedUpdateWithoutOrdersInput>
+  create: Prisma.XOR<Prisma.PriceTableCreateWithoutOrdersInput, Prisma.PriceTableUncheckedCreateWithoutOrdersInput>
+  where?: Prisma.PriceTableWhereInput
+}
+
+export type PriceTableUpdateToOneWithWhereWithoutOrdersInput = {
+  where?: Prisma.PriceTableWhereInput
+  data: Prisma.XOR<Prisma.PriceTableUpdateWithoutOrdersInput, Prisma.PriceTableUncheckedUpdateWithoutOrdersInput>
+}
+
+export type PriceTableUpdateWithoutOrdersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.EnumPriceTableTypeFieldUpdateOperationsInput | $Enums.PriceTableType
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  priceIncludesTax?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  priority?: Prisma.IntFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  validFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  validUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutPriceTablesNestedInput
+  prices?: Prisma.PriceTableItemUpdateManyWithoutPriceTableNestedInput
+  rules?: Prisma.PriceTableRuleUpdateManyWithoutPriceTableNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutPriceTableNestedInput
+}
+
+export type PriceTableUncheckedUpdateWithoutOrdersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.EnumPriceTableTypeFieldUpdateOperationsInput | $Enums.PriceTableType
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  priceIncludesTax?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  priority?: Prisma.IntFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  validFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  validUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  prices?: Prisma.PriceTableItemUncheckedUpdateManyWithoutPriceTableNestedInput
+  rules?: Prisma.PriceTableRuleUncheckedUpdateManyWithoutPriceTableNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutPriceTableNestedInput
 }
 
 export type PriceTableCreateManyTenantInput = {
@@ -1111,6 +1248,7 @@ export type PriceTableUpdateWithoutTenantInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   prices?: Prisma.PriceTableItemUpdateManyWithoutPriceTableNestedInput
   rules?: Prisma.PriceTableRuleUpdateManyWithoutPriceTableNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutPriceTableNestedInput
   catalogs?: Prisma.CatalogUpdateManyWithoutPriceTableNestedInput
 }
 
@@ -1131,6 +1269,7 @@ export type PriceTableUncheckedUpdateWithoutTenantInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   prices?: Prisma.PriceTableItemUncheckedUpdateManyWithoutPriceTableNestedInput
   rules?: Prisma.PriceTableRuleUncheckedUpdateManyWithoutPriceTableNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutPriceTableNestedInput
   catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutPriceTableNestedInput
 }
 
@@ -1159,12 +1298,14 @@ export type PriceTableUncheckedUpdateManyWithoutTenantInput = {
 export type PriceTableCountOutputType = {
   prices: number
   rules: number
+  orders: number
   catalogs: number
 }
 
 export type PriceTableCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   prices?: boolean | PriceTableCountOutputTypeCountPricesArgs
   rules?: boolean | PriceTableCountOutputTypeCountRulesArgs
+  orders?: boolean | PriceTableCountOutputTypeCountOrdersArgs
   catalogs?: boolean | PriceTableCountOutputTypeCountCatalogsArgs
 }
 
@@ -1195,6 +1336,13 @@ export type PriceTableCountOutputTypeCountRulesArgs<ExtArgs extends runtime.Type
 /**
  * PriceTableCountOutputType without action
  */
+export type PriceTableCountOutputTypeCountOrdersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.OrderWhereInput
+}
+
+/**
+ * PriceTableCountOutputType without action
+ */
 export type PriceTableCountOutputTypeCountCatalogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.CatalogWhereInput
 }
@@ -1219,6 +1367,7 @@ export type PriceTableSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   prices?: boolean | Prisma.PriceTable$pricesArgs<ExtArgs>
   rules?: boolean | Prisma.PriceTable$rulesArgs<ExtArgs>
+  orders?: boolean | Prisma.PriceTable$ordersArgs<ExtArgs>
   catalogs?: boolean | Prisma.PriceTable$catalogsArgs<ExtArgs>
   _count?: boolean | Prisma.PriceTableCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["priceTable"]>
@@ -1284,6 +1433,7 @@ export type PriceTableInclude<ExtArgs extends runtime.Types.Extensions.InternalA
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   prices?: boolean | Prisma.PriceTable$pricesArgs<ExtArgs>
   rules?: boolean | Prisma.PriceTable$rulesArgs<ExtArgs>
+  orders?: boolean | Prisma.PriceTable$ordersArgs<ExtArgs>
   catalogs?: boolean | Prisma.PriceTable$catalogsArgs<ExtArgs>
   _count?: boolean | Prisma.PriceTableCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -1300,6 +1450,7 @@ export type $PriceTablePayload<ExtArgs extends runtime.Types.Extensions.Internal
     tenant: Prisma.$TenantPayload<ExtArgs>
     prices: Prisma.$PriceTableItemPayload<ExtArgs>[]
     rules: Prisma.$PriceTableRulePayload<ExtArgs>[]
+    orders: Prisma.$OrderPayload<ExtArgs>[]
     catalogs: Prisma.$CatalogPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1715,6 +1866,7 @@ export interface Prisma__PriceTableClient<T, Null = never, ExtArgs extends runti
   tenant<T extends Prisma.TenantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   prices<T extends Prisma.PriceTable$pricesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PriceTable$pricesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PriceTableItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   rules<T extends Prisma.PriceTable$rulesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PriceTable$rulesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PriceTableRulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  orders<T extends Prisma.PriceTable$ordersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PriceTable$ordersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   catalogs<T extends Prisma.PriceTable$catalogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PriceTable$catalogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CatalogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -2201,6 +2353,30 @@ export type PriceTable$rulesArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   distinct?: Prisma.PriceTableRuleScalarFieldEnum | Prisma.PriceTableRuleScalarFieldEnum[]
+}
+
+/**
+ * PriceTable.orders
+ */
+export type PriceTable$ordersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Order
+   */
+  select?: Prisma.OrderSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Order
+   */
+  omit?: Prisma.OrderOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OrderInclude<ExtArgs> | null
+  where?: Prisma.OrderWhereInput
+  orderBy?: Prisma.OrderOrderByWithRelationInput | Prisma.OrderOrderByWithRelationInput[]
+  cursor?: Prisma.OrderWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.OrderScalarFieldEnum | Prisma.OrderScalarFieldEnum[]
 }
 
 /**

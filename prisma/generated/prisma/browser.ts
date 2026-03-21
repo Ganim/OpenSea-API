@@ -852,3 +852,78 @@ export type ProductMockup = Prisma.ProductMockupModel
  * 
  */
 export type EmailCampaign = Prisma.EmailCampaignModel
+/**
+ * Model Order
+ * 
+ */
+export type Order = Prisma.OrderModel
+/**
+ * Model OrderItem
+ * 
+ */
+export type OrderItem = Prisma.OrderItemModel
+/**
+ * Model PaymentCondition
+ * 
+ */
+export type PaymentCondition = Prisma.PaymentConditionModel
+/**
+ * Model OrderPayment
+ * 
+ */
+export type OrderPayment = Prisma.OrderPaymentModel
+/**
+ * Model OrderDelivery
+ * 
+ */
+export type OrderDelivery = Prisma.OrderDeliveryModel
+/**
+ * Model OrderDeliveryItem
+ * 
+ */
+export type OrderDeliveryItem = Prisma.OrderDeliveryItemModel
+/**
+ * Model OrderReturn
+ * 
+ */
+export type OrderReturn = Prisma.OrderReturnModel
+/**
+ * Model OrderReturnItem
+ * 
+ */
+export type OrderReturnItem = Prisma.OrderReturnItemModel
+/**
+ * Model StoreCredit
+ * 
+ */
+export type StoreCredit = Prisma.StoreCreditModel
+/**
+ * Model StoreCreditUsage
+ * 
+ */
+export type StoreCreditUsage = Prisma.StoreCreditUsageModel
+/**
+ * Model CustomerCreditLimit
+ * 
+ */
+export type CustomerCreditLimit = Prisma.CustomerCreditLimitModel
+/**
+ * Model ApprovalRule
+ * 
+ */
+export type ApprovalRule = Prisma.ApprovalRuleModel
+/**
+ * Model OrderCommission
+ * 
+ */
+export type OrderCommission = Prisma.OrderCommissionModel
+/**
+ * Model CommissionRule
+ * 
+ */
+export type CommissionRule = Prisma.CommissionRuleModel
+/**
+ * Model OrderHistory
+ * 
+ */
+export type OrderHistory = Prisma.OrderHistoryModel

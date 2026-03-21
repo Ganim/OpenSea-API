@@ -290,6 +290,7 @@ export type CrmPipelineWhereInput = {
   deletedAt?: Prisma.DateTimeNullableFilter<"CrmPipeline"> | Date | string | null
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   stages?: Prisma.CrmPipelineStageListRelationFilter
+  orders?: Prisma.OrderListRelationFilter
 }
 
 export type CrmPipelineOrderByWithRelationInput = {
@@ -309,6 +310,7 @@ export type CrmPipelineOrderByWithRelationInput = {
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   tenant?: Prisma.TenantOrderByWithRelationInput
   stages?: Prisma.CrmPipelineStageOrderByRelationAggregateInput
+  orders?: Prisma.OrderOrderByRelationAggregateInput
 }
 
 export type CrmPipelineWhereUniqueInput = Prisma.AtLeast<{
@@ -331,6 +333,7 @@ export type CrmPipelineWhereUniqueInput = Prisma.AtLeast<{
   deletedAt?: Prisma.DateTimeNullableFilter<"CrmPipeline"> | Date | string | null
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   stages?: Prisma.CrmPipelineStageListRelationFilter
+  orders?: Prisma.OrderListRelationFilter
 }, "id">
 
 export type CrmPipelineOrderByWithAggregationInput = {
@@ -391,6 +394,7 @@ export type CrmPipelineCreateInput = {
   deletedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutCrmPipelinesInput
   stages?: Prisma.CrmPipelineStageCreateNestedManyWithoutPipelineInput
+  orders?: Prisma.OrderCreateNestedManyWithoutPipelineInput
 }
 
 export type CrmPipelineUncheckedCreateInput = {
@@ -409,6 +413,7 @@ export type CrmPipelineUncheckedCreateInput = {
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   stages?: Prisma.CrmPipelineStageUncheckedCreateNestedManyWithoutPipelineInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutPipelineInput
 }
 
 export type CrmPipelineUpdateInput = {
@@ -427,6 +432,7 @@ export type CrmPipelineUpdateInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutCrmPipelinesNestedInput
   stages?: Prisma.CrmPipelineStageUpdateManyWithoutPipelineNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutPipelineNestedInput
 }
 
 export type CrmPipelineUncheckedUpdateInput = {
@@ -445,6 +451,7 @@ export type CrmPipelineUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   stages?: Prisma.CrmPipelineStageUncheckedUpdateManyWithoutPipelineNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutPipelineNestedInput
 }
 
 export type CrmPipelineCreateManyInput = {
@@ -631,6 +638,20 @@ export type CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput = {
   deleteMany?: Prisma.CrmPipelineScalarWhereInput | Prisma.CrmPipelineScalarWhereInput[]
 }
 
+export type CrmPipelineCreateNestedOneWithoutOrdersInput = {
+  create?: Prisma.XOR<Prisma.CrmPipelineCreateWithoutOrdersInput, Prisma.CrmPipelineUncheckedCreateWithoutOrdersInput>
+  connectOrCreate?: Prisma.CrmPipelineCreateOrConnectWithoutOrdersInput
+  connect?: Prisma.CrmPipelineWhereUniqueInput
+}
+
+export type CrmPipelineUpdateOneRequiredWithoutOrdersNestedInput = {
+  create?: Prisma.XOR<Prisma.CrmPipelineCreateWithoutOrdersInput, Prisma.CrmPipelineUncheckedCreateWithoutOrdersInput>
+  connectOrCreate?: Prisma.CrmPipelineCreateOrConnectWithoutOrdersInput
+  upsert?: Prisma.CrmPipelineUpsertWithoutOrdersInput
+  connect?: Prisma.CrmPipelineWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CrmPipelineUpdateToOneWithWhereWithoutOrdersInput, Prisma.CrmPipelineUpdateWithoutOrdersInput>, Prisma.CrmPipelineUncheckedUpdateWithoutOrdersInput>
+}
+
 export type CrmPipelineCreateWithoutStagesInput = {
   id?: string
   name: string
@@ -646,6 +667,7 @@ export type CrmPipelineCreateWithoutStagesInput = {
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutCrmPipelinesInput
+  orders?: Prisma.OrderCreateNestedManyWithoutPipelineInput
 }
 
 export type CrmPipelineUncheckedCreateWithoutStagesInput = {
@@ -663,6 +685,7 @@ export type CrmPipelineUncheckedCreateWithoutStagesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutPipelineInput
 }
 
 export type CrmPipelineCreateOrConnectWithoutStagesInput = {
@@ -696,6 +719,7 @@ export type CrmPipelineUpdateWithoutStagesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutCrmPipelinesNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutPipelineNestedInput
 }
 
 export type CrmPipelineUncheckedUpdateWithoutStagesInput = {
@@ -713,6 +737,7 @@ export type CrmPipelineUncheckedUpdateWithoutStagesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutPipelineNestedInput
 }
 
 export type CrmPipelineCreateWithoutTenantInput = {
@@ -730,6 +755,7 @@ export type CrmPipelineCreateWithoutTenantInput = {
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   stages?: Prisma.CrmPipelineStageCreateNestedManyWithoutPipelineInput
+  orders?: Prisma.OrderCreateNestedManyWithoutPipelineInput
 }
 
 export type CrmPipelineUncheckedCreateWithoutTenantInput = {
@@ -747,6 +773,7 @@ export type CrmPipelineUncheckedCreateWithoutTenantInput = {
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   stages?: Prisma.CrmPipelineStageUncheckedCreateNestedManyWithoutPipelineInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutPipelineInput
 }
 
 export type CrmPipelineCreateOrConnectWithoutTenantInput = {
@@ -795,6 +822,94 @@ export type CrmPipelineScalarWhereInput = {
   deletedAt?: Prisma.DateTimeNullableFilter<"CrmPipeline"> | Date | string | null
 }
 
+export type CrmPipelineCreateWithoutOrdersInput = {
+  id?: string
+  name: string
+  description?: string | null
+  icon?: string | null
+  color?: string | null
+  type?: $Enums.PipelineType
+  isDefault?: boolean
+  position?: number
+  nextPipelineId?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  tenant: Prisma.TenantCreateNestedOneWithoutCrmPipelinesInput
+  stages?: Prisma.CrmPipelineStageCreateNestedManyWithoutPipelineInput
+}
+
+export type CrmPipelineUncheckedCreateWithoutOrdersInput = {
+  id?: string
+  tenantId: string
+  name: string
+  description?: string | null
+  icon?: string | null
+  color?: string | null
+  type?: $Enums.PipelineType
+  isDefault?: boolean
+  position?: number
+  nextPipelineId?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  stages?: Prisma.CrmPipelineStageUncheckedCreateNestedManyWithoutPipelineInput
+}
+
+export type CrmPipelineCreateOrConnectWithoutOrdersInput = {
+  where: Prisma.CrmPipelineWhereUniqueInput
+  create: Prisma.XOR<Prisma.CrmPipelineCreateWithoutOrdersInput, Prisma.CrmPipelineUncheckedCreateWithoutOrdersInput>
+}
+
+export type CrmPipelineUpsertWithoutOrdersInput = {
+  update: Prisma.XOR<Prisma.CrmPipelineUpdateWithoutOrdersInput, Prisma.CrmPipelineUncheckedUpdateWithoutOrdersInput>
+  create: Prisma.XOR<Prisma.CrmPipelineCreateWithoutOrdersInput, Prisma.CrmPipelineUncheckedCreateWithoutOrdersInput>
+  where?: Prisma.CrmPipelineWhereInput
+}
+
+export type CrmPipelineUpdateToOneWithWhereWithoutOrdersInput = {
+  where?: Prisma.CrmPipelineWhereInput
+  data: Prisma.XOR<Prisma.CrmPipelineUpdateWithoutOrdersInput, Prisma.CrmPipelineUncheckedUpdateWithoutOrdersInput>
+}
+
+export type CrmPipelineUpdateWithoutOrdersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.EnumPipelineTypeFieldUpdateOperationsInput | $Enums.PipelineType
+  isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  position?: Prisma.IntFieldUpdateOperationsInput | number
+  nextPipelineId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutCrmPipelinesNestedInput
+  stages?: Prisma.CrmPipelineStageUpdateManyWithoutPipelineNestedInput
+}
+
+export type CrmPipelineUncheckedUpdateWithoutOrdersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.EnumPipelineTypeFieldUpdateOperationsInput | $Enums.PipelineType
+  isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  position?: Prisma.IntFieldUpdateOperationsInput | number
+  nextPipelineId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  stages?: Prisma.CrmPipelineStageUncheckedUpdateManyWithoutPipelineNestedInput
+}
+
 export type CrmPipelineCreateManyTenantInput = {
   id?: string
   name: string
@@ -826,6 +941,7 @@ export type CrmPipelineUpdateWithoutTenantInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   stages?: Prisma.CrmPipelineStageUpdateManyWithoutPipelineNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutPipelineNestedInput
 }
 
 export type CrmPipelineUncheckedUpdateWithoutTenantInput = {
@@ -843,6 +959,7 @@ export type CrmPipelineUncheckedUpdateWithoutTenantInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   stages?: Prisma.CrmPipelineStageUncheckedUpdateManyWithoutPipelineNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutPipelineNestedInput
 }
 
 export type CrmPipelineUncheckedUpdateManyWithoutTenantInput = {
@@ -868,10 +985,12 @@ export type CrmPipelineUncheckedUpdateManyWithoutTenantInput = {
 
 export type CrmPipelineCountOutputType = {
   stages: number
+  orders: number
 }
 
 export type CrmPipelineCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   stages?: boolean | CrmPipelineCountOutputTypeCountStagesArgs
+  orders?: boolean | CrmPipelineCountOutputTypeCountOrdersArgs
 }
 
 /**
@@ -889,6 +1008,13 @@ export type CrmPipelineCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.
  */
 export type CrmPipelineCountOutputTypeCountStagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.CrmPipelineStageWhereInput
+}
+
+/**
+ * CrmPipelineCountOutputType without action
+ */
+export type CrmPipelineCountOutputTypeCountOrdersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.OrderWhereInput
 }
 
 
@@ -909,6 +1035,7 @@ export type CrmPipelineSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   deletedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   stages?: boolean | Prisma.CrmPipeline$stagesArgs<ExtArgs>
+  orders?: boolean | Prisma.CrmPipeline$ordersArgs<ExtArgs>
   _count?: boolean | Prisma.CrmPipelineCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["crmPipeline"]>
 
@@ -969,6 +1096,7 @@ export type CrmPipelineOmit<ExtArgs extends runtime.Types.Extensions.InternalArg
 export type CrmPipelineInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   stages?: boolean | Prisma.CrmPipeline$stagesArgs<ExtArgs>
+  orders?: boolean | Prisma.CrmPipeline$ordersArgs<ExtArgs>
   _count?: boolean | Prisma.CrmPipelineCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type CrmPipelineIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -983,6 +1111,7 @@ export type $CrmPipelinePayload<ExtArgs extends runtime.Types.Extensions.Interna
   objects: {
     tenant: Prisma.$TenantPayload<ExtArgs>
     stages: Prisma.$CrmPipelineStagePayload<ExtArgs>[]
+    orders: Prisma.$OrderPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1395,6 +1524,7 @@ export interface Prisma__CrmPipelineClient<T, Null = never, ExtArgs extends runt
   readonly [Symbol.toStringTag]: "PrismaPromise"
   tenant<T extends Prisma.TenantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   stages<T extends Prisma.CrmPipeline$stagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CrmPipeline$stagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CrmPipelineStagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  orders<T extends Prisma.CrmPipeline$ordersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CrmPipeline$ordersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1855,6 +1985,30 @@ export type CrmPipeline$stagesArgs<ExtArgs extends runtime.Types.Extensions.Inte
   take?: number
   skip?: number
   distinct?: Prisma.CrmPipelineStageScalarFieldEnum | Prisma.CrmPipelineStageScalarFieldEnum[]
+}
+
+/**
+ * CrmPipeline.orders
+ */
+export type CrmPipeline$ordersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Order
+   */
+  select?: Prisma.OrderSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Order
+   */
+  omit?: Prisma.OrderOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OrderInclude<ExtArgs> | null
+  where?: Prisma.OrderWhereInput
+  orderBy?: Prisma.OrderOrderByWithRelationInput | Prisma.OrderOrderByWithRelationInput[]
+  cursor?: Prisma.OrderWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.OrderScalarFieldEnum | Prisma.OrderScalarFieldEnum[]
 }
 
 /**

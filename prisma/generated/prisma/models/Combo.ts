@@ -326,6 +326,7 @@ export type ComboWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Combo"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   items?: Prisma.ComboItemListRelationFilter
+  orderItems?: Prisma.OrderItemListRelationFilter
 }
 
 export type ComboOrderByWithRelationInput = {
@@ -348,6 +349,7 @@ export type ComboOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   tenant?: Prisma.TenantOrderByWithRelationInput
   items?: Prisma.ComboItemOrderByRelationAggregateInput
+  orderItems?: Prisma.OrderItemOrderByRelationAggregateInput
 }
 
 export type ComboWhereUniqueInput = Prisma.AtLeast<{
@@ -373,6 +375,7 @@ export type ComboWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"Combo"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   items?: Prisma.ComboItemListRelationFilter
+  orderItems?: Prisma.OrderItemListRelationFilter
 }, "id">
 
 export type ComboOrderByWithAggregationInput = {
@@ -442,6 +445,7 @@ export type ComboCreateInput = {
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutCombosInput
   items?: Prisma.ComboItemCreateNestedManyWithoutComboInput
+  orderItems?: Prisma.OrderItemCreateNestedManyWithoutComboInput
 }
 
 export type ComboUncheckedCreateInput = {
@@ -463,6 +467,7 @@ export type ComboUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   items?: Prisma.ComboItemUncheckedCreateNestedManyWithoutComboInput
+  orderItems?: Prisma.OrderItemUncheckedCreateNestedManyWithoutComboInput
 }
 
 export type ComboUpdateInput = {
@@ -484,6 +489,7 @@ export type ComboUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutCombosNestedInput
   items?: Prisma.ComboItemUpdateManyWithoutComboNestedInput
+  orderItems?: Prisma.OrderItemUpdateManyWithoutComboNestedInput
 }
 
 export type ComboUncheckedUpdateInput = {
@@ -505,6 +511,7 @@ export type ComboUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.ComboItemUncheckedUpdateManyWithoutComboNestedInput
+  orderItems?: Prisma.OrderItemUncheckedUpdateManyWithoutComboNestedInput
 }
 
 export type ComboCreateManyInput = {
@@ -655,6 +662,11 @@ export type ComboScalarRelationFilter = {
   isNot?: Prisma.ComboWhereInput
 }
 
+export type ComboNullableScalarRelationFilter = {
+  is?: Prisma.ComboWhereInput | null
+  isNot?: Prisma.ComboWhereInput | null
+}
+
 export type ComboCreateNestedManyWithoutTenantInput = {
   create?: Prisma.XOR<Prisma.ComboCreateWithoutTenantInput, Prisma.ComboUncheckedCreateWithoutTenantInput> | Prisma.ComboCreateWithoutTenantInput[] | Prisma.ComboUncheckedCreateWithoutTenantInput[]
   connectOrCreate?: Prisma.ComboCreateOrConnectWithoutTenantInput | Prisma.ComboCreateOrConnectWithoutTenantInput[]
@@ -719,6 +731,22 @@ export type ComboUpdateOneRequiredWithoutItemsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ComboUpdateToOneWithWhereWithoutItemsInput, Prisma.ComboUpdateWithoutItemsInput>, Prisma.ComboUncheckedUpdateWithoutItemsInput>
 }
 
+export type ComboCreateNestedOneWithoutOrderItemsInput = {
+  create?: Prisma.XOR<Prisma.ComboCreateWithoutOrderItemsInput, Prisma.ComboUncheckedCreateWithoutOrderItemsInput>
+  connectOrCreate?: Prisma.ComboCreateOrConnectWithoutOrderItemsInput
+  connect?: Prisma.ComboWhereUniqueInput
+}
+
+export type ComboUpdateOneWithoutOrderItemsNestedInput = {
+  create?: Prisma.XOR<Prisma.ComboCreateWithoutOrderItemsInput, Prisma.ComboUncheckedCreateWithoutOrderItemsInput>
+  connectOrCreate?: Prisma.ComboCreateOrConnectWithoutOrderItemsInput
+  upsert?: Prisma.ComboUpsertWithoutOrderItemsInput
+  disconnect?: Prisma.ComboWhereInput | boolean
+  delete?: Prisma.ComboWhereInput | boolean
+  connect?: Prisma.ComboWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ComboUpdateToOneWithWhereWithoutOrderItemsInput, Prisma.ComboUpdateWithoutOrderItemsInput>, Prisma.ComboUncheckedUpdateWithoutOrderItemsInput>
+}
+
 export type ComboCreateWithoutTenantInput = {
   id?: string
   name: string
@@ -737,6 +765,7 @@ export type ComboCreateWithoutTenantInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   items?: Prisma.ComboItemCreateNestedManyWithoutComboInput
+  orderItems?: Prisma.OrderItemCreateNestedManyWithoutComboInput
 }
 
 export type ComboUncheckedCreateWithoutTenantInput = {
@@ -757,6 +786,7 @@ export type ComboUncheckedCreateWithoutTenantInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   items?: Prisma.ComboItemUncheckedCreateNestedManyWithoutComboInput
+  orderItems?: Prisma.OrderItemUncheckedCreateNestedManyWithoutComboInput
 }
 
 export type ComboCreateOrConnectWithoutTenantInput = {
@@ -826,6 +856,7 @@ export type ComboCreateWithoutItemsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutCombosInput
+  orderItems?: Prisma.OrderItemCreateNestedManyWithoutComboInput
 }
 
 export type ComboUncheckedCreateWithoutItemsInput = {
@@ -846,6 +877,7 @@ export type ComboUncheckedCreateWithoutItemsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  orderItems?: Prisma.OrderItemUncheckedCreateNestedManyWithoutComboInput
 }
 
 export type ComboCreateOrConnectWithoutItemsInput = {
@@ -882,6 +914,7 @@ export type ComboUpdateWithoutItemsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutCombosNestedInput
+  orderItems?: Prisma.OrderItemUpdateManyWithoutComboNestedInput
 }
 
 export type ComboUncheckedUpdateWithoutItemsInput = {
@@ -902,6 +935,107 @@ export type ComboUncheckedUpdateWithoutItemsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  orderItems?: Prisma.OrderItemUncheckedUpdateManyWithoutComboNestedInput
+}
+
+export type ComboCreateWithoutOrderItemsInput = {
+  id?: string
+  name: string
+  description?: string | null
+  type?: $Enums.ComboType
+  fixedPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  discountType?: $Enums.ComboDiscountType | null
+  discountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  minItems?: number | null
+  maxItems?: number | null
+  isActive?: boolean
+  validFrom?: Date | string | null
+  validUntil?: Date | string | null
+  imageUrl?: string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutCombosInput
+  items?: Prisma.ComboItemCreateNestedManyWithoutComboInput
+}
+
+export type ComboUncheckedCreateWithoutOrderItemsInput = {
+  id?: string
+  tenantId: string
+  name: string
+  description?: string | null
+  type?: $Enums.ComboType
+  fixedPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  discountType?: $Enums.ComboDiscountType | null
+  discountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  minItems?: number | null
+  maxItems?: number | null
+  isActive?: boolean
+  validFrom?: Date | string | null
+  validUntil?: Date | string | null
+  imageUrl?: string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  items?: Prisma.ComboItemUncheckedCreateNestedManyWithoutComboInput
+}
+
+export type ComboCreateOrConnectWithoutOrderItemsInput = {
+  where: Prisma.ComboWhereUniqueInput
+  create: Prisma.XOR<Prisma.ComboCreateWithoutOrderItemsInput, Prisma.ComboUncheckedCreateWithoutOrderItemsInput>
+}
+
+export type ComboUpsertWithoutOrderItemsInput = {
+  update: Prisma.XOR<Prisma.ComboUpdateWithoutOrderItemsInput, Prisma.ComboUncheckedUpdateWithoutOrderItemsInput>
+  create: Prisma.XOR<Prisma.ComboCreateWithoutOrderItemsInput, Prisma.ComboUncheckedCreateWithoutOrderItemsInput>
+  where?: Prisma.ComboWhereInput
+}
+
+export type ComboUpdateToOneWithWhereWithoutOrderItemsInput = {
+  where?: Prisma.ComboWhereInput
+  data: Prisma.XOR<Prisma.ComboUpdateWithoutOrderItemsInput, Prisma.ComboUncheckedUpdateWithoutOrderItemsInput>
+}
+
+export type ComboUpdateWithoutOrderItemsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.EnumComboTypeFieldUpdateOperationsInput | $Enums.ComboType
+  fixedPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  discountType?: Prisma.NullableEnumComboDiscountTypeFieldUpdateOperationsInput | $Enums.ComboDiscountType | null
+  discountValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  minItems?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  maxItems?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  validFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  validUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutCombosNestedInput
+  items?: Prisma.ComboItemUpdateManyWithoutComboNestedInput
+}
+
+export type ComboUncheckedUpdateWithoutOrderItemsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.EnumComboTypeFieldUpdateOperationsInput | $Enums.ComboType
+  fixedPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  discountType?: Prisma.NullableEnumComboDiscountTypeFieldUpdateOperationsInput | $Enums.ComboDiscountType | null
+  discountValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  minItems?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  maxItems?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  validFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  validUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  items?: Prisma.ComboItemUncheckedUpdateManyWithoutComboNestedInput
 }
 
 export type ComboCreateManyTenantInput = {
@@ -941,6 +1075,7 @@ export type ComboUpdateWithoutTenantInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.ComboItemUpdateManyWithoutComboNestedInput
+  orderItems?: Prisma.OrderItemUpdateManyWithoutComboNestedInput
 }
 
 export type ComboUncheckedUpdateWithoutTenantInput = {
@@ -961,6 +1096,7 @@ export type ComboUncheckedUpdateWithoutTenantInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.ComboItemUncheckedUpdateManyWithoutComboNestedInput
+  orderItems?: Prisma.OrderItemUncheckedUpdateManyWithoutComboNestedInput
 }
 
 export type ComboUncheckedUpdateManyWithoutTenantInput = {
@@ -989,10 +1125,12 @@ export type ComboUncheckedUpdateManyWithoutTenantInput = {
 
 export type ComboCountOutputType = {
   items: number
+  orderItems: number
 }
 
 export type ComboCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   items?: boolean | ComboCountOutputTypeCountItemsArgs
+  orderItems?: boolean | ComboCountOutputTypeCountOrderItemsArgs
 }
 
 /**
@@ -1010,6 +1148,13 @@ export type ComboCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extens
  */
 export type ComboCountOutputTypeCountItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.ComboItemWhereInput
+}
+
+/**
+ * ComboCountOutputType without action
+ */
+export type ComboCountOutputTypeCountOrderItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.OrderItemWhereInput
 }
 
 
@@ -1033,6 +1178,7 @@ export type ComboSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   items?: boolean | Prisma.Combo$itemsArgs<ExtArgs>
+  orderItems?: boolean | Prisma.Combo$orderItemsArgs<ExtArgs>
   _count?: boolean | Prisma.ComboCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["combo"]>
 
@@ -1102,6 +1248,7 @@ export type ComboOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = ru
 export type ComboInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   items?: boolean | Prisma.Combo$itemsArgs<ExtArgs>
+  orderItems?: boolean | Prisma.Combo$orderItemsArgs<ExtArgs>
   _count?: boolean | Prisma.ComboCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ComboIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1116,6 +1263,7 @@ export type $ComboPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   objects: {
     tenant: Prisma.$TenantPayload<ExtArgs>
     items: Prisma.$ComboItemPayload<ExtArgs>[]
+    orderItems: Prisma.$OrderItemPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1531,6 +1679,7 @@ export interface Prisma__ComboClient<T, Null = never, ExtArgs extends runtime.Ty
   readonly [Symbol.toStringTag]: "PrismaPromise"
   tenant<T extends Prisma.TenantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   items<T extends Prisma.Combo$itemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Combo$itemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ComboItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  orderItems<T extends Prisma.Combo$orderItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Combo$orderItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrderItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1994,6 +2143,30 @@ export type Combo$itemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
   take?: number
   skip?: number
   distinct?: Prisma.ComboItemScalarFieldEnum | Prisma.ComboItemScalarFieldEnum[]
+}
+
+/**
+ * Combo.orderItems
+ */
+export type Combo$orderItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the OrderItem
+   */
+  select?: Prisma.OrderItemSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the OrderItem
+   */
+  omit?: Prisma.OrderItemOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OrderItemInclude<ExtArgs> | null
+  where?: Prisma.OrderItemWhereInput
+  orderBy?: Prisma.OrderItemOrderByWithRelationInput | Prisma.OrderItemOrderByWithRelationInput[]
+  cursor?: Prisma.OrderItemWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.OrderItemScalarFieldEnum | Prisma.OrderItemScalarFieldEnum[]
 }
 
 /**
