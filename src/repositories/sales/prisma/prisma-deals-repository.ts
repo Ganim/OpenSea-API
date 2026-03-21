@@ -7,13 +7,11 @@ import type {
   DealsRepository,
   FindManyDealsPaginatedParams,
 } from '../deals-repository';
-// TODO: CrmDeal model not yet in Prisma schema — using `any` casts until migration is added
-type PrismaDealStatus = string;
-type PrismaDealPriority = string;
+import type { DealStatus, DealPriority } from '@prisma/generated/client.js';
 
 export class PrismaDealsRepository implements DealsRepository {
   async create(deal: Deal): Promise<void> {
-    await (prisma as any).crmDeal.create({
+    await prisma.crmDeal.create({
       data: {
         id: deal.id.toString(),
         tenantId: deal.tenantId.toString(),
@@ -22,8 +20,8 @@ export class PrismaDealsRepository implements DealsRepository {
         contactId: deal.contactId?.toString() ?? null,
         pipelineId: deal.pipelineId.toString(),
         stageId: deal.stageId.toString(),
-        status: deal.status as PrismaDealStatus,
-        priority: deal.priority as PrismaDealPriority,
+        status: deal.status as DealStatus,
+        priority: deal.priority as DealPriority,
         value: deal.value ?? null,
         currency: deal.currency,
         expectedCloseDate: deal.expectedCloseDate ?? null,
@@ -39,11 +37,8 @@ export class PrismaDealsRepository implements DealsRepository {
     });
   }
 
-  async findById(
-    id: UniqueEntityID,
-    tenantId: string,
-  ): Promise<Deal | null> {
-    const data = await (prisma as any).crmDeal.findFirst({
+  async findById(id: UniqueEntityID, tenantId: string): Promise<Deal | null> {
+    const data = await prisma.crmDeal.findFirst({
       where: {
         id: id.toString(),
         tenantId,
@@ -86,7 +81,7 @@ export class PrismaDealsRepository implements DealsRepository {
     }
 
     const [dealsData, total] = await Promise.all([
-      (prisma as any).crmDeal.findMany({
+      prisma.crmDeal.findMany({
         where: where as never,
         skip: (params.page - 1) * params.limit,
         take: params.limit,
@@ -94,7 +89,7 @@ export class PrismaDealsRepository implements DealsRepository {
           [params.sortBy ?? 'createdAt']: params.sortOrder ?? 'desc',
         },
       }),
-      (prisma as any).crmDeal.count({
+      prisma.crmDeal.count({
         where: where as never,
       }),
     ]);
@@ -110,11 +105,8 @@ export class PrismaDealsRepository implements DealsRepository {
     };
   }
 
-  async findManyByStage(
-    stageId: string,
-    tenantId: string,
-  ): Promise<Deal[]> {
-    const items = await (prisma as any).crmDeal.findMany({
+  async findManyByStage(stageId: string, tenantId: string): Promise<Deal[]> {
+    const items = await prisma.crmDeal.findMany({
       where: {
         stageId,
         tenantId,
@@ -129,14 +121,14 @@ export class PrismaDealsRepository implements DealsRepository {
   }
 
   async save(deal: Deal): Promise<void> {
-    await (prisma as any).crmDeal.update({
+    await prisma.crmDeal.update({
       where: { id: deal.id.toString() },
       data: {
         title: deal.title,
         contactId: deal.contactId?.toString() ?? null,
         stageId: deal.stageId.toString(),
-        status: deal.status as PrismaDealStatus,
-        priority: deal.priority as PrismaDealPriority,
+        status: deal.status as DealStatus,
+        priority: deal.priority as DealPriority,
         value: deal.value ?? null,
         expectedCloseDate: deal.expectedCloseDate ?? null,
         closedAt: deal.closedAt ?? null,
@@ -151,7 +143,7 @@ export class PrismaDealsRepository implements DealsRepository {
   }
 
   async delete(id: UniqueEntityID, _tenantId: string): Promise<void> {
-    await (prisma as any).crmDeal.update({
+    await prisma.crmDeal.update({
       where: { id: id.toString() },
       data: { deletedAt: new Date() },
     });

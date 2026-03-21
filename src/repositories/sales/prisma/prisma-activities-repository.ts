@@ -7,22 +7,23 @@ import type {
   ActivitiesRepository,
   FindManyActivitiesPaginatedParams,
 } from '../activities-repository';
-// TODO: CrmActivity model not yet in Prisma schema — using `any` casts until migration is added
-type PrismaActivityType = string;
-type PrismaActivityStatus = string;
+import type {
+  CrmActivityType,
+  CrmActivityStatus,
+} from '@prisma/generated/client.js';
 
 export class PrismaActivitiesRepository implements ActivitiesRepository {
   async create(activity: Activity): Promise<void> {
-    await (prisma as any).crmActivity.create({
+    await prisma.crmActivity.create({
       data: {
         id: activity.id.toString(),
         tenantId: activity.tenantId.toString(),
         dealId: activity.dealId?.toString() ?? null,
         contactId: activity.contactId?.toString() ?? null,
-        type: activity.type as PrismaActivityType,
+        type: activity.type as CrmActivityType,
         title: activity.title,
         description: activity.description ?? null,
-        status: activity.status as PrismaActivityStatus,
+        status: activity.status as CrmActivityStatus,
         dueDate: activity.dueDate ?? null,
         completedAt: activity.completedAt ?? null,
         duration: activity.duration ?? null,
@@ -36,7 +37,7 @@ export class PrismaActivitiesRepository implements ActivitiesRepository {
     id: UniqueEntityID,
     tenantId: string,
   ): Promise<Activity | null> {
-    const data = await (prisma as any).crmActivity.findFirst({
+    const data = await prisma.crmActivity.findFirst({
       where: {
         id: id.toString(),
         tenantId,
@@ -76,7 +77,7 @@ export class PrismaActivitiesRepository implements ActivitiesRepository {
     }
 
     const [activitiesData, total] = await Promise.all([
-      (prisma as any).crmActivity.findMany({
+      prisma.crmActivity.findMany({
         where: where as never,
         skip: (params.page - 1) * params.limit,
         take: params.limit,
@@ -84,7 +85,7 @@ export class PrismaActivitiesRepository implements ActivitiesRepository {
           [params.sortBy ?? 'createdAt']: params.sortOrder ?? 'desc',
         },
       }),
-      (prisma as any).crmActivity.count({
+      prisma.crmActivity.count({
         where: where as never,
       }),
     ]);
@@ -100,11 +101,8 @@ export class PrismaActivitiesRepository implements ActivitiesRepository {
     };
   }
 
-  async findManyByDeal(
-    dealId: string,
-    tenantId: string,
-  ): Promise<Activity[]> {
-    const items = await (prisma as any).crmActivity.findMany({
+  async findManyByDeal(dealId: string, tenantId: string): Promise<Activity[]> {
+    const items = await prisma.crmActivity.findMany({
       where: {
         dealId,
         tenantId,
@@ -119,12 +117,12 @@ export class PrismaActivitiesRepository implements ActivitiesRepository {
   }
 
   async save(activity: Activity): Promise<void> {
-    await (prisma as any).crmActivity.update({
+    await prisma.crmActivity.update({
       where: { id: activity.id.toString() },
       data: {
         title: activity.title,
         description: activity.description ?? null,
-        status: activity.status as PrismaActivityStatus,
+        status: activity.status as CrmActivityStatus,
         dueDate: activity.dueDate ?? null,
         completedAt: activity.completedAt ?? null,
         duration: activity.duration ?? null,
@@ -134,7 +132,7 @@ export class PrismaActivitiesRepository implements ActivitiesRepository {
   }
 
   async delete(id: UniqueEntityID, _tenantId: string): Promise<void> {
-    await (prisma as any).crmActivity.update({
+    await prisma.crmActivity.update({
       where: { id: id.toString() },
       data: { deletedAt: new Date() },
     });

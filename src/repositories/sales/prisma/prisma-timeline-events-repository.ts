@@ -2,19 +2,18 @@ import type { TimelineEvent } from '@/entities/sales/timeline-event';
 import { prisma } from '@/lib/prisma';
 import { timelineEventPrismaToDomain } from '@/mappers/sales/timeline-event/timeline-event-prisma-to-domain';
 import type { TimelineEventsRepository } from '../timeline-events-repository';
-// TODO: CrmTimelineEvent model not yet in Prisma schema — using `any` casts until migration is added
-type PrismaTimelineEventType = string;
+import type { TimelineEventType } from '@prisma/generated/client.js';
 
 export class PrismaTimelineEventsRepository
   implements TimelineEventsRepository
 {
   async create(event: TimelineEvent): Promise<void> {
-    await (prisma as any).crmTimelineEvent.create({
+    await prisma.crmTimelineEvent.create({
       data: {
         id: event.id.toString(),
         tenantId: event.tenantId.toString(),
         dealId: event.dealId.toString(),
-        type: event.type as PrismaTimelineEventType,
+        type: event.type as TimelineEventType,
         title: event.title,
         metadata: (event.metadata ?? undefined) as never,
         userId: event.userId?.toString() ?? null,
@@ -27,7 +26,7 @@ export class PrismaTimelineEventsRepository
     dealId: string,
     tenantId: string,
   ): Promise<TimelineEvent[]> {
-    const items = await (prisma as any).crmTimelineEvent.findMany({
+    const items = await prisma.crmTimelineEvent.findMany({
       where: {
         dealId,
         tenantId,
@@ -41,7 +40,7 @@ export class PrismaTimelineEventsRepository
   }
 
   async deleteByDeal(dealId: string): Promise<void> {
-    await (prisma as any).crmTimelineEvent.deleteMany({
+    await prisma.crmTimelineEvent.deleteMany({
       where: { dealId },
     });
   }
