@@ -419,12 +419,23 @@ export type UserWhereInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitListRelationFilter
   orderCommissions?: Prisma.OrderCommissionListRelationFilter
   orderHistoryActions?: Prisma.OrderHistoryListRelationFilter
+  createdEnvelopes?: Prisma.SignatureEnvelopeListRelationFilter
+  signerAssignments?: Prisma.SignatureEnvelopeSignerListRelationFilter
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetListRelationFilter
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardListRelationFilter
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalListRelationFilter
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalListRelationFilter
+  analyticsReportsCreated?: Prisma.AnalyticsReportListRelationFilter
   centralUser?: Prisma.XOR<Prisma.CentralUserNullableScalarRelationFilter, Prisma.CentralUserWhereInput> | null
   createdSupportTickets?: Prisma.SupportTicketListRelationFilter
   assignedSupportTickets?: Prisma.SupportTicketListRelationFilter
   supportTicketMessages?: Prisma.SupportTicketMessageListRelationFilter
   inventorySessions?: Prisma.InventorySessionListRelationFilter
   resolvedInventoryItems?: Prisma.InventorySessionItemListRelationFilter
+  aiConversations?: Prisma.AiConversationListRelationFilter
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryListRelationFilter
+  aiActionLogs?: Prisma.AiActionLogListRelationFilter
+  aiActionsConfirmed?: Prisma.AiActionLogListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -517,12 +528,23 @@ export type UserOrderByWithRelationInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitOrderByRelationAggregateInput
   orderCommissions?: Prisma.OrderCommissionOrderByRelationAggregateInput
   orderHistoryActions?: Prisma.OrderHistoryOrderByRelationAggregateInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeOrderByRelationAggregateInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerOrderByRelationAggregateInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetOrderByRelationAggregateInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardOrderByRelationAggregateInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalOrderByRelationAggregateInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalOrderByRelationAggregateInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportOrderByRelationAggregateInput
   centralUser?: Prisma.CentralUserOrderByWithRelationInput
   createdSupportTickets?: Prisma.SupportTicketOrderByRelationAggregateInput
   assignedSupportTickets?: Prisma.SupportTicketOrderByRelationAggregateInput
   supportTicketMessages?: Prisma.SupportTicketMessageOrderByRelationAggregateInput
   inventorySessions?: Prisma.InventorySessionOrderByRelationAggregateInput
   resolvedInventoryItems?: Prisma.InventorySessionItemOrderByRelationAggregateInput
+  aiConversations?: Prisma.AiConversationOrderByRelationAggregateInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryOrderByRelationAggregateInput
+  aiActionLogs?: Prisma.AiActionLogOrderByRelationAggregateInput
+  aiActionsConfirmed?: Prisma.AiActionLogOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -620,12 +642,23 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   reviewedCreditLimits?: Prisma.CustomerCreditLimitListRelationFilter
   orderCommissions?: Prisma.OrderCommissionListRelationFilter
   orderHistoryActions?: Prisma.OrderHistoryListRelationFilter
+  createdEnvelopes?: Prisma.SignatureEnvelopeListRelationFilter
+  signerAssignments?: Prisma.SignatureEnvelopeSignerListRelationFilter
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetListRelationFilter
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardListRelationFilter
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalListRelationFilter
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalListRelationFilter
+  analyticsReportsCreated?: Prisma.AnalyticsReportListRelationFilter
   centralUser?: Prisma.XOR<Prisma.CentralUserNullableScalarRelationFilter, Prisma.CentralUserWhereInput> | null
   createdSupportTickets?: Prisma.SupportTicketListRelationFilter
   assignedSupportTickets?: Prisma.SupportTicketListRelationFilter
   supportTicketMessages?: Prisma.SupportTicketMessageListRelationFilter
   inventorySessions?: Prisma.InventorySessionListRelationFilter
   resolvedInventoryItems?: Prisma.InventorySessionItemListRelationFilter
+  aiConversations?: Prisma.AiConversationListRelationFilter
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryListRelationFilter
+  aiActionLogs?: Prisma.AiActionLogListRelationFilter
+  aiActionsConfirmed?: Prisma.AiActionLogListRelationFilter
 }, "id" | "users_email_unique_active" | "users_username_unique_active">
 
 export type UserOrderByWithAggregationInput = {
@@ -776,12 +809,23 @@ export type UserCreateInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -874,12 +918,23 @@ export type UserUncheckedCreateInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUpdateInput = {
@@ -972,12 +1027,23 @@ export type UserUpdateInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -1070,12 +1136,23 @@ export type UserUncheckedUpdateInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -2366,6 +2443,168 @@ export type UserUpdateOneWithoutOrderHistoryActionsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutOrderHistoryActionsInput, Prisma.UserUpdateWithoutOrderHistoryActionsInput>, Prisma.UserUncheckedUpdateWithoutOrderHistoryActionsInput>
 }
 
+export type UserCreateNestedOneWithoutCreatedEnvelopesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedEnvelopesInput, Prisma.UserUncheckedCreateWithoutCreatedEnvelopesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedEnvelopesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutCreatedEnvelopesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedEnvelopesInput, Prisma.UserUncheckedCreateWithoutCreatedEnvelopesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedEnvelopesInput
+  upsert?: Prisma.UserUpsertWithoutCreatedEnvelopesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCreatedEnvelopesInput, Prisma.UserUpdateWithoutCreatedEnvelopesInput>, Prisma.UserUncheckedUpdateWithoutCreatedEnvelopesInput>
+}
+
+export type UserCreateNestedOneWithoutSignerAssignmentsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSignerAssignmentsInput, Prisma.UserUncheckedCreateWithoutSignerAssignmentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSignerAssignmentsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutSignerAssignmentsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSignerAssignmentsInput, Prisma.UserUncheckedCreateWithoutSignerAssignmentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSignerAssignmentsInput
+  upsert?: Prisma.UserUpsertWithoutSignerAssignmentsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSignerAssignmentsInput, Prisma.UserUpdateWithoutSignerAssignmentsInput>, Prisma.UserUncheckedUpdateWithoutSignerAssignmentsInput>
+}
+
+export type UserCreateNestedOneWithoutAnalyticsWidgetsCreatedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAnalyticsWidgetsCreatedInput, Prisma.UserUncheckedCreateWithoutAnalyticsWidgetsCreatedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAnalyticsWidgetsCreatedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutAnalyticsWidgetsCreatedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAnalyticsWidgetsCreatedInput, Prisma.UserUncheckedCreateWithoutAnalyticsWidgetsCreatedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAnalyticsWidgetsCreatedInput
+  upsert?: Prisma.UserUpsertWithoutAnalyticsWidgetsCreatedInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAnalyticsWidgetsCreatedInput, Prisma.UserUpdateWithoutAnalyticsWidgetsCreatedInput>, Prisma.UserUncheckedUpdateWithoutAnalyticsWidgetsCreatedInput>
+}
+
+export type UserCreateNestedOneWithoutAnalyticsDashboardsCreatedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAnalyticsDashboardsCreatedInput, Prisma.UserUncheckedCreateWithoutAnalyticsDashboardsCreatedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAnalyticsDashboardsCreatedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutAnalyticsDashboardsCreatedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAnalyticsDashboardsCreatedInput, Prisma.UserUncheckedCreateWithoutAnalyticsDashboardsCreatedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAnalyticsDashboardsCreatedInput
+  upsert?: Prisma.UserUpsertWithoutAnalyticsDashboardsCreatedInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAnalyticsDashboardsCreatedInput, Prisma.UserUpdateWithoutAnalyticsDashboardsCreatedInput>, Prisma.UserUncheckedUpdateWithoutAnalyticsDashboardsCreatedInput>
+}
+
+export type UserCreateNestedOneWithoutAnalyticsGoalsAssignedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAnalyticsGoalsAssignedInput, Prisma.UserUncheckedCreateWithoutAnalyticsGoalsAssignedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAnalyticsGoalsAssignedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutAnalyticsGoalsCreatedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAnalyticsGoalsCreatedInput, Prisma.UserUncheckedCreateWithoutAnalyticsGoalsCreatedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAnalyticsGoalsCreatedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutAnalyticsGoalsAssignedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAnalyticsGoalsAssignedInput, Prisma.UserUncheckedCreateWithoutAnalyticsGoalsAssignedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAnalyticsGoalsAssignedInput
+  upsert?: Prisma.UserUpsertWithoutAnalyticsGoalsAssignedInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAnalyticsGoalsAssignedInput, Prisma.UserUpdateWithoutAnalyticsGoalsAssignedInput>, Prisma.UserUncheckedUpdateWithoutAnalyticsGoalsAssignedInput>
+}
+
+export type UserUpdateOneRequiredWithoutAnalyticsGoalsCreatedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAnalyticsGoalsCreatedInput, Prisma.UserUncheckedCreateWithoutAnalyticsGoalsCreatedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAnalyticsGoalsCreatedInput
+  upsert?: Prisma.UserUpsertWithoutAnalyticsGoalsCreatedInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAnalyticsGoalsCreatedInput, Prisma.UserUpdateWithoutAnalyticsGoalsCreatedInput>, Prisma.UserUncheckedUpdateWithoutAnalyticsGoalsCreatedInput>
+}
+
+export type UserCreateNestedOneWithoutAnalyticsReportsCreatedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAnalyticsReportsCreatedInput, Prisma.UserUncheckedCreateWithoutAnalyticsReportsCreatedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAnalyticsReportsCreatedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutAnalyticsReportsCreatedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAnalyticsReportsCreatedInput, Prisma.UserUncheckedCreateWithoutAnalyticsReportsCreatedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAnalyticsReportsCreatedInput
+  upsert?: Prisma.UserUpsertWithoutAnalyticsReportsCreatedInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAnalyticsReportsCreatedInput, Prisma.UserUpdateWithoutAnalyticsReportsCreatedInput>, Prisma.UserUncheckedUpdateWithoutAnalyticsReportsCreatedInput>
+}
+
+export type UserCreateNestedOneWithoutAiConversationsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAiConversationsInput, Prisma.UserUncheckedCreateWithoutAiConversationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAiConversationsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutAiConversationsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAiConversationsInput, Prisma.UserUncheckedCreateWithoutAiConversationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAiConversationsInput
+  upsert?: Prisma.UserUpsertWithoutAiConversationsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAiConversationsInput, Prisma.UserUpdateWithoutAiConversationsInput>, Prisma.UserUncheckedUpdateWithoutAiConversationsInput>
+}
+
+export type UserCreateNestedOneWithoutAiFavoriteQueriesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAiFavoriteQueriesInput, Prisma.UserUncheckedCreateWithoutAiFavoriteQueriesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAiFavoriteQueriesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutAiFavoriteQueriesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAiFavoriteQueriesInput, Prisma.UserUncheckedCreateWithoutAiFavoriteQueriesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAiFavoriteQueriesInput
+  upsert?: Prisma.UserUpsertWithoutAiFavoriteQueriesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAiFavoriteQueriesInput, Prisma.UserUpdateWithoutAiFavoriteQueriesInput>, Prisma.UserUncheckedUpdateWithoutAiFavoriteQueriesInput>
+}
+
+export type UserCreateNestedOneWithoutAiActionLogsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAiActionLogsInput, Prisma.UserUncheckedCreateWithoutAiActionLogsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAiActionLogsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutAiActionsConfirmedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAiActionsConfirmedInput, Prisma.UserUncheckedCreateWithoutAiActionsConfirmedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAiActionsConfirmedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutAiActionLogsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAiActionLogsInput, Prisma.UserUncheckedCreateWithoutAiActionLogsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAiActionLogsInput
+  upsert?: Prisma.UserUpsertWithoutAiActionLogsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAiActionLogsInput, Prisma.UserUpdateWithoutAiActionLogsInput>, Prisma.UserUncheckedUpdateWithoutAiActionLogsInput>
+}
+
+export type UserUpdateOneWithoutAiActionsConfirmedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAiActionsConfirmedInput, Prisma.UserUncheckedCreateWithoutAiActionsConfirmedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAiActionsConfirmedInput
+  upsert?: Prisma.UserUpsertWithoutAiActionsConfirmedInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAiActionsConfirmedInput, Prisma.UserUpdateWithoutAiActionsConfirmedInput>, Prisma.UserUncheckedUpdateWithoutAiActionsConfirmedInput>
+}
+
 export type UserCreateWithoutProfileInput = {
   id?: string
   username?: string | null
@@ -2455,12 +2694,23 @@ export type UserCreateWithoutProfileInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutProfileInput = {
@@ -2552,12 +2802,23 @@ export type UserUncheckedCreateWithoutProfileInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutProfileInput = {
@@ -2665,12 +2926,23 @@ export type UserUpdateWithoutProfileInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProfileInput = {
@@ -2762,12 +3034,23 @@ export type UserUncheckedUpdateWithoutProfileInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserCreateWithoutSessionsInput = {
@@ -2859,12 +3142,23 @@ export type UserCreateWithoutSessionsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -2956,12 +3250,23 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -3069,12 +3374,23 @@ export type UserUpdateWithoutSessionsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -3166,12 +3482,23 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserCreateWithoutRefreshTokenInput = {
@@ -3263,12 +3590,23 @@ export type UserCreateWithoutRefreshTokenInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutRefreshTokenInput = {
@@ -3360,12 +3698,23 @@ export type UserUncheckedCreateWithoutRefreshTokenInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutRefreshTokenInput = {
@@ -3473,12 +3822,23 @@ export type UserUpdateWithoutRefreshTokenInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRefreshTokenInput = {
@@ -3570,12 +3930,23 @@ export type UserUncheckedUpdateWithoutRefreshTokenInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserCreateWithoutPermissionGroupsInput = {
@@ -3667,12 +4038,23 @@ export type UserCreateWithoutPermissionGroupsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutPermissionGroupsInput = {
@@ -3764,12 +4146,23 @@ export type UserUncheckedCreateWithoutPermissionGroupsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutPermissionGroupsInput = {
@@ -3866,12 +4259,23 @@ export type UserCreateWithoutGrantedPermissionsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutGrantedPermissionsInput = {
@@ -3963,12 +4367,23 @@ export type UserUncheckedCreateWithoutGrantedPermissionsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutGrantedPermissionsInput = {
@@ -4076,12 +4491,23 @@ export type UserUpdateWithoutPermissionGroupsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPermissionGroupsInput = {
@@ -4173,12 +4599,23 @@ export type UserUncheckedUpdateWithoutPermissionGroupsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUpsertWithoutGrantedPermissionsInput = {
@@ -4281,12 +4718,23 @@ export type UserUpdateWithoutGrantedPermissionsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGrantedPermissionsInput = {
@@ -4378,12 +4826,23 @@ export type UserUncheckedUpdateWithoutGrantedPermissionsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserCreateWithoutDirectPermissionsInput = {
@@ -4475,12 +4934,23 @@ export type UserCreateWithoutDirectPermissionsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutDirectPermissionsInput = {
@@ -4572,12 +5042,23 @@ export type UserUncheckedCreateWithoutDirectPermissionsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutDirectPermissionsInput = {
@@ -4674,12 +5155,23 @@ export type UserCreateWithoutGrantedDirectPermissionsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutGrantedDirectPermissionsInput = {
@@ -4771,12 +5263,23 @@ export type UserUncheckedCreateWithoutGrantedDirectPermissionsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutGrantedDirectPermissionsInput = {
@@ -4884,12 +5387,23 @@ export type UserUpdateWithoutDirectPermissionsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDirectPermissionsInput = {
@@ -4981,12 +5495,23 @@ export type UserUncheckedUpdateWithoutDirectPermissionsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUpsertWithoutGrantedDirectPermissionsInput = {
@@ -5089,12 +5614,23 @@ export type UserUpdateWithoutGrantedDirectPermissionsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGrantedDirectPermissionsInput = {
@@ -5186,12 +5722,23 @@ export type UserUncheckedUpdateWithoutGrantedDirectPermissionsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserCreateWithoutPermissionAuditLogsInput = {
@@ -5283,12 +5830,23 @@ export type UserCreateWithoutPermissionAuditLogsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutPermissionAuditLogsInput = {
@@ -5380,12 +5938,23 @@ export type UserUncheckedCreateWithoutPermissionAuditLogsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutPermissionAuditLogsInput = {
@@ -5493,12 +6062,23 @@ export type UserUpdateWithoutPermissionAuditLogsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPermissionAuditLogsInput = {
@@ -5590,12 +6170,23 @@ export type UserUncheckedUpdateWithoutPermissionAuditLogsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserCreateWithoutVolumesCreatedInput = {
@@ -5687,12 +6278,23 @@ export type UserCreateWithoutVolumesCreatedInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutVolumesCreatedInput = {
@@ -5784,12 +6386,23 @@ export type UserUncheckedCreateWithoutVolumesCreatedInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutVolumesCreatedInput = {
@@ -5886,12 +6499,23 @@ export type UserCreateWithoutVolumesClosedInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutVolumesClosedInput = {
@@ -5983,12 +6607,23 @@ export type UserUncheckedCreateWithoutVolumesClosedInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutVolumesClosedInput = {
@@ -6085,12 +6720,23 @@ export type UserCreateWithoutVolumesDeliveredInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutVolumesDeliveredInput = {
@@ -6182,12 +6828,23 @@ export type UserUncheckedCreateWithoutVolumesDeliveredInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutVolumesDeliveredInput = {
@@ -6295,12 +6952,23 @@ export type UserUpdateWithoutVolumesCreatedInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutVolumesCreatedInput = {
@@ -6392,12 +7060,23 @@ export type UserUncheckedUpdateWithoutVolumesCreatedInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUpsertWithoutVolumesClosedInput = {
@@ -6500,12 +7179,23 @@ export type UserUpdateWithoutVolumesClosedInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutVolumesClosedInput = {
@@ -6597,12 +7287,23 @@ export type UserUncheckedUpdateWithoutVolumesClosedInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUpsertWithoutVolumesDeliveredInput = {
@@ -6705,12 +7406,23 @@ export type UserUpdateWithoutVolumesDeliveredInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutVolumesDeliveredInput = {
@@ -6802,12 +7514,23 @@ export type UserUncheckedUpdateWithoutVolumesDeliveredInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserCreateWithoutItemMovementInput = {
@@ -6899,12 +7622,23 @@ export type UserCreateWithoutItemMovementInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutItemMovementInput = {
@@ -6996,12 +7730,23 @@ export type UserUncheckedCreateWithoutItemMovementInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutItemMovementInput = {
@@ -7098,12 +7843,23 @@ export type UserCreateWithoutApprovedMovementsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutApprovedMovementsInput = {
@@ -7195,12 +7951,23 @@ export type UserUncheckedCreateWithoutApprovedMovementsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutApprovedMovementsInput = {
@@ -7308,12 +8075,23 @@ export type UserUpdateWithoutItemMovementInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutItemMovementInput = {
@@ -7405,12 +8183,23 @@ export type UserUncheckedUpdateWithoutItemMovementInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUpsertWithoutApprovedMovementsInput = {
@@ -7513,12 +8302,23 @@ export type UserUpdateWithoutApprovedMovementsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutApprovedMovementsInput = {
@@ -7610,12 +8410,23 @@ export type UserUncheckedUpdateWithoutApprovedMovementsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserCreateWithoutVariantPriceHistoryInput = {
@@ -7707,12 +8518,23 @@ export type UserCreateWithoutVariantPriceHistoryInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutVariantPriceHistoryInput = {
@@ -7804,12 +8626,23 @@ export type UserUncheckedCreateWithoutVariantPriceHistoryInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutVariantPriceHistoryInput = {
@@ -7917,12 +8750,23 @@ export type UserUpdateWithoutVariantPriceHistoryInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutVariantPriceHistoryInput = {
@@ -8014,12 +8858,23 @@ export type UserUncheckedUpdateWithoutVariantPriceHistoryInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserCreateWithoutAuditLogsInput = {
@@ -8111,12 +8966,23 @@ export type UserCreateWithoutAuditLogsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutAuditLogsInput = {
@@ -8208,12 +9074,23 @@ export type UserUncheckedCreateWithoutAuditLogsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutAuditLogsInput = {
@@ -8321,12 +9198,23 @@ export type UserUpdateWithoutAuditLogsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAuditLogsInput = {
@@ -8418,12 +9306,23 @@ export type UserUncheckedUpdateWithoutAuditLogsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserCreateWithoutAlertsInput = {
@@ -8515,12 +9414,23 @@ export type UserCreateWithoutAlertsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutAlertsInput = {
@@ -8612,12 +9522,23 @@ export type UserUncheckedCreateWithoutAlertsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutAlertsInput = {
@@ -8725,12 +9646,23 @@ export type UserUpdateWithoutAlertsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAlertsInput = {
@@ -8822,12 +9754,23 @@ export type UserUncheckedUpdateWithoutAlertsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserCreateWithoutCreatedPurchaseOrdersInput = {
@@ -8919,12 +9862,23 @@ export type UserCreateWithoutCreatedPurchaseOrdersInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedPurchaseOrdersInput = {
@@ -9016,12 +9970,23 @@ export type UserUncheckedCreateWithoutCreatedPurchaseOrdersInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedPurchaseOrdersInput = {
@@ -9129,12 +10094,23 @@ export type UserUpdateWithoutCreatedPurchaseOrdersInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedPurchaseOrdersInput = {
@@ -9226,12 +10202,23 @@ export type UserUncheckedUpdateWithoutCreatedPurchaseOrdersInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserCreateWithoutInventorySessionsInput = {
@@ -9324,11 +10311,22 @@ export type UserCreateWithoutInventorySessionsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutInventorySessionsInput = {
@@ -9421,11 +10419,22 @@ export type UserUncheckedCreateWithoutInventorySessionsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutInventorySessionsInput = {
@@ -9534,11 +10543,22 @@ export type UserUpdateWithoutInventorySessionsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutInventorySessionsInput = {
@@ -9631,11 +10651,22 @@ export type UserUncheckedUpdateWithoutInventorySessionsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserCreateWithoutResolvedInventoryItemsInput = {
@@ -9728,11 +10759,22 @@ export type UserCreateWithoutResolvedInventoryItemsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutResolvedInventoryItemsInput = {
@@ -9825,11 +10867,22 @@ export type UserUncheckedCreateWithoutResolvedInventoryItemsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutResolvedInventoryItemsInput = {
@@ -9938,11 +10991,22 @@ export type UserUpdateWithoutResolvedInventoryItemsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutResolvedInventoryItemsInput = {
@@ -10035,11 +11099,22 @@ export type UserUncheckedUpdateWithoutResolvedInventoryItemsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserCreateWithoutCreatedSalesOrdersInput = {
@@ -10131,12 +11206,23 @@ export type UserCreateWithoutCreatedSalesOrdersInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedSalesOrdersInput = {
@@ -10228,12 +11314,23 @@ export type UserUncheckedCreateWithoutCreatedSalesOrdersInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedSalesOrdersInput = {
@@ -10341,12 +11438,23 @@ export type UserUpdateWithoutCreatedSalesOrdersInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedSalesOrdersInput = {
@@ -10438,12 +11546,23 @@ export type UserUncheckedUpdateWithoutCreatedSalesOrdersInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserCreateWithoutAssignedContactsInput = {
@@ -10535,12 +11654,23 @@ export type UserCreateWithoutAssignedContactsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutAssignedContactsInput = {
@@ -10632,12 +11762,23 @@ export type UserUncheckedCreateWithoutAssignedContactsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutAssignedContactsInput = {
@@ -10745,12 +11886,23 @@ export type UserUpdateWithoutAssignedContactsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAssignedContactsInput = {
@@ -10842,12 +11994,23 @@ export type UserUncheckedUpdateWithoutAssignedContactsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserCreateWithoutItemReservationsInput = {
@@ -10939,12 +12102,23 @@ export type UserCreateWithoutItemReservationsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutItemReservationsInput = {
@@ -11036,12 +12210,23 @@ export type UserUncheckedCreateWithoutItemReservationsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutItemReservationsInput = {
@@ -11149,12 +12334,23 @@ export type UserUpdateWithoutItemReservationsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutItemReservationsInput = {
@@ -11246,12 +12442,23 @@ export type UserUncheckedUpdateWithoutItemReservationsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserCreateWithoutCommentsInput = {
@@ -11343,12 +12550,23 @@ export type UserCreateWithoutCommentsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutCommentsInput = {
@@ -11440,12 +12658,23 @@ export type UserUncheckedCreateWithoutCommentsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutCommentsInput = {
@@ -11553,12 +12782,23 @@ export type UserUpdateWithoutCommentsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCommentsInput = {
@@ -11650,12 +12890,23 @@ export type UserUncheckedUpdateWithoutCommentsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserCreateWithoutNotificationPreferencesInput = {
@@ -11747,12 +12998,23 @@ export type UserCreateWithoutNotificationPreferencesInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutNotificationPreferencesInput = {
@@ -11844,12 +13106,23 @@ export type UserUncheckedCreateWithoutNotificationPreferencesInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutNotificationPreferencesInput = {
@@ -11957,12 +13230,23 @@ export type UserUpdateWithoutNotificationPreferencesInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationPreferencesInput = {
@@ -12054,12 +13338,23 @@ export type UserUncheckedUpdateWithoutNotificationPreferencesInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
@@ -12151,12 +13446,23 @@ export type UserCreateWithoutNotificationsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -12248,12 +13554,23 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -12361,12 +13678,23 @@ export type UserUpdateWithoutNotificationsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -12458,12 +13786,23 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserCreateWithoutRequestsCreatedInput = {
@@ -12555,12 +13894,23 @@ export type UserCreateWithoutRequestsCreatedInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutRequestsCreatedInput = {
@@ -12652,12 +14002,23 @@ export type UserUncheckedCreateWithoutRequestsCreatedInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutRequestsCreatedInput = {
@@ -12754,12 +14115,23 @@ export type UserCreateWithoutRequestsAssignedInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutRequestsAssignedInput = {
@@ -12851,12 +14223,23 @@ export type UserUncheckedCreateWithoutRequestsAssignedInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutRequestsAssignedInput = {
@@ -12964,12 +14347,23 @@ export type UserUpdateWithoutRequestsCreatedInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRequestsCreatedInput = {
@@ -13061,12 +14455,23 @@ export type UserUncheckedUpdateWithoutRequestsCreatedInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUpsertWithoutRequestsAssignedInput = {
@@ -13169,12 +14574,23 @@ export type UserUpdateWithoutRequestsAssignedInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRequestsAssignedInput = {
@@ -13266,12 +14682,23 @@ export type UserUncheckedUpdateWithoutRequestsAssignedInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserCreateWithoutUploadedAttachmentsInput = {
@@ -13363,12 +14790,23 @@ export type UserCreateWithoutUploadedAttachmentsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutUploadedAttachmentsInput = {
@@ -13460,12 +14898,23 @@ export type UserUncheckedCreateWithoutUploadedAttachmentsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutUploadedAttachmentsInput = {
@@ -13573,12 +15022,23 @@ export type UserUpdateWithoutUploadedAttachmentsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUploadedAttachmentsInput = {
@@ -13670,12 +15130,23 @@ export type UserUncheckedUpdateWithoutUploadedAttachmentsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserCreateWithoutRequestCommentsInput = {
@@ -13767,12 +15238,23 @@ export type UserCreateWithoutRequestCommentsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutRequestCommentsInput = {
@@ -13864,12 +15346,23 @@ export type UserUncheckedCreateWithoutRequestCommentsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutRequestCommentsInput = {
@@ -13977,12 +15470,23 @@ export type UserUpdateWithoutRequestCommentsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRequestCommentsInput = {
@@ -14074,12 +15578,23 @@ export type UserUncheckedUpdateWithoutRequestCommentsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserCreateWithoutRequestHistoryActionsInput = {
@@ -14171,12 +15686,23 @@ export type UserCreateWithoutRequestHistoryActionsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutRequestHistoryActionsInput = {
@@ -14268,12 +15794,23 @@ export type UserUncheckedCreateWithoutRequestHistoryActionsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutRequestHistoryActionsInput = {
@@ -14381,12 +15918,23 @@ export type UserUpdateWithoutRequestHistoryActionsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRequestHistoryActionsInput = {
@@ -14478,12 +16026,23 @@ export type UserUncheckedUpdateWithoutRequestHistoryActionsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserCreateWithoutEmployeeInput = {
@@ -14575,12 +16134,23 @@ export type UserCreateWithoutEmployeeInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutEmployeeInput = {
@@ -14672,12 +16242,23 @@ export type UserUncheckedCreateWithoutEmployeeInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutEmployeeInput = {
@@ -14785,12 +16366,23 @@ export type UserUpdateWithoutEmployeeInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEmployeeInput = {
@@ -14882,12 +16474,23 @@ export type UserUncheckedUpdateWithoutEmployeeInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserCreateWithoutApprovedOvertimeInput = {
@@ -14979,12 +16582,23 @@ export type UserCreateWithoutApprovedOvertimeInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutApprovedOvertimeInput = {
@@ -15076,12 +16690,23 @@ export type UserUncheckedCreateWithoutApprovedOvertimeInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutApprovedOvertimeInput = {
@@ -15189,12 +16814,23 @@ export type UserUpdateWithoutApprovedOvertimeInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutApprovedOvertimeInput = {
@@ -15286,12 +16922,23 @@ export type UserUncheckedUpdateWithoutApprovedOvertimeInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserCreateWithoutApprovedAbsencesInput = {
@@ -15383,12 +17030,23 @@ export type UserCreateWithoutApprovedAbsencesInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutApprovedAbsencesInput = {
@@ -15480,12 +17138,23 @@ export type UserUncheckedCreateWithoutApprovedAbsencesInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutApprovedAbsencesInput = {
@@ -15593,12 +17262,23 @@ export type UserUpdateWithoutApprovedAbsencesInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutApprovedAbsencesInput = {
@@ -15690,12 +17370,23 @@ export type UserUncheckedUpdateWithoutApprovedAbsencesInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserCreateWithoutProcessedPayrollsInput = {
@@ -15787,12 +17478,23 @@ export type UserCreateWithoutProcessedPayrollsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutProcessedPayrollsInput = {
@@ -15884,12 +17586,23 @@ export type UserUncheckedCreateWithoutProcessedPayrollsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutProcessedPayrollsInput = {
@@ -15986,12 +17699,23 @@ export type UserCreateWithoutApprovedPayrollsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutApprovedPayrollsInput = {
@@ -16083,12 +17807,23 @@ export type UserUncheckedCreateWithoutApprovedPayrollsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutApprovedPayrollsInput = {
@@ -16185,12 +17920,23 @@ export type UserCreateWithoutPaidPayrollsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutPaidPayrollsInput = {
@@ -16282,12 +18028,23 @@ export type UserUncheckedCreateWithoutPaidPayrollsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutPaidPayrollsInput = {
@@ -16395,12 +18152,23 @@ export type UserUpdateWithoutProcessedPayrollsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProcessedPayrollsInput = {
@@ -16492,12 +18260,23 @@ export type UserUncheckedUpdateWithoutProcessedPayrollsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUpsertWithoutApprovedPayrollsInput = {
@@ -16600,12 +18379,23 @@ export type UserUpdateWithoutApprovedPayrollsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutApprovedPayrollsInput = {
@@ -16697,12 +18487,23 @@ export type UserUncheckedUpdateWithoutApprovedPayrollsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUpsertWithoutPaidPayrollsInput = {
@@ -16805,12 +18606,23 @@ export type UserUpdateWithoutPaidPayrollsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPaidPayrollsInput = {
@@ -16902,12 +18714,23 @@ export type UserUncheckedUpdateWithoutPaidPayrollsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserCreateWithoutLabelTemplatesCreatedInput = {
@@ -16999,12 +18822,23 @@ export type UserCreateWithoutLabelTemplatesCreatedInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutLabelTemplatesCreatedInput = {
@@ -17096,12 +18930,23 @@ export type UserUncheckedCreateWithoutLabelTemplatesCreatedInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutLabelTemplatesCreatedInput = {
@@ -17209,12 +19054,23 @@ export type UserUpdateWithoutLabelTemplatesCreatedInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutLabelTemplatesCreatedInput = {
@@ -17306,12 +19162,23 @@ export type UserUncheckedUpdateWithoutLabelTemplatesCreatedInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserCreateWithoutTenantUsersInput = {
@@ -17403,12 +19270,23 @@ export type UserCreateWithoutTenantUsersInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutTenantUsersInput = {
@@ -17500,12 +19378,23 @@ export type UserUncheckedCreateWithoutTenantUsersInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutTenantUsersInput = {
@@ -17613,12 +19502,23 @@ export type UserUpdateWithoutTenantUsersInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTenantUsersInput = {
@@ -17710,12 +19610,23 @@ export type UserUncheckedUpdateWithoutTenantUsersInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserCreateWithoutStorageFoldersInput = {
@@ -17807,12 +19718,23 @@ export type UserCreateWithoutStorageFoldersInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutStorageFoldersInput = {
@@ -17904,12 +19826,23 @@ export type UserUncheckedCreateWithoutStorageFoldersInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutStorageFoldersInput = {
@@ -18017,12 +19950,23 @@ export type UserUpdateWithoutStorageFoldersInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutStorageFoldersInput = {
@@ -18114,12 +20058,23 @@ export type UserUncheckedUpdateWithoutStorageFoldersInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserCreateWithoutFolderAccessRulesInput = {
@@ -18211,12 +20166,23 @@ export type UserCreateWithoutFolderAccessRulesInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutFolderAccessRulesInput = {
@@ -18308,12 +20274,23 @@ export type UserUncheckedCreateWithoutFolderAccessRulesInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutFolderAccessRulesInput = {
@@ -18421,12 +20398,23 @@ export type UserUpdateWithoutFolderAccessRulesInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFolderAccessRulesInput = {
@@ -18518,12 +20506,23 @@ export type UserUncheckedUpdateWithoutFolderAccessRulesInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserCreateWithoutCalendarsCreatedInput = {
@@ -18615,12 +20614,23 @@ export type UserCreateWithoutCalendarsCreatedInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutCalendarsCreatedInput = {
@@ -18712,12 +20722,23 @@ export type UserUncheckedCreateWithoutCalendarsCreatedInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutCalendarsCreatedInput = {
@@ -18825,12 +20846,23 @@ export type UserUpdateWithoutCalendarsCreatedInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCalendarsCreatedInput = {
@@ -18922,12 +20954,23 @@ export type UserUncheckedUpdateWithoutCalendarsCreatedInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserCreateWithoutCalendarEventsCreatedInput = {
@@ -19019,12 +21062,23 @@ export type UserCreateWithoutCalendarEventsCreatedInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutCalendarEventsCreatedInput = {
@@ -19116,12 +21170,23 @@ export type UserUncheckedCreateWithoutCalendarEventsCreatedInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutCalendarEventsCreatedInput = {
@@ -19229,12 +21294,23 @@ export type UserUpdateWithoutCalendarEventsCreatedInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCalendarEventsCreatedInput = {
@@ -19326,12 +21402,23 @@ export type UserUncheckedUpdateWithoutCalendarEventsCreatedInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserCreateWithoutEventParticipantsInput = {
@@ -19423,12 +21510,23 @@ export type UserCreateWithoutEventParticipantsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutEventParticipantsInput = {
@@ -19520,12 +21618,23 @@ export type UserUncheckedCreateWithoutEventParticipantsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutEventParticipantsInput = {
@@ -19633,12 +21742,23 @@ export type UserUpdateWithoutEventParticipantsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEventParticipantsInput = {
@@ -19730,12 +21850,23 @@ export type UserUncheckedUpdateWithoutEventParticipantsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserCreateWithoutEventRemindersInput = {
@@ -19827,12 +21958,23 @@ export type UserCreateWithoutEventRemindersInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutEventRemindersInput = {
@@ -19924,12 +22066,23 @@ export type UserUncheckedCreateWithoutEventRemindersInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutEventRemindersInput = {
@@ -20037,12 +22190,23 @@ export type UserUpdateWithoutEventRemindersInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEventRemindersInput = {
@@ -20134,12 +22298,23 @@ export type UserUncheckedUpdateWithoutEventRemindersInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserCreateWithoutEmailAccountsInput = {
@@ -20231,12 +22406,23 @@ export type UserCreateWithoutEmailAccountsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutEmailAccountsInput = {
@@ -20328,12 +22514,23 @@ export type UserUncheckedCreateWithoutEmailAccountsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutEmailAccountsInput = {
@@ -20441,12 +22638,23 @@ export type UserUpdateWithoutEmailAccountsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEmailAccountsInput = {
@@ -20538,12 +22746,23 @@ export type UserUncheckedUpdateWithoutEmailAccountsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserCreateWithoutEmailAccountsAccessInput = {
@@ -20635,12 +22854,23 @@ export type UserCreateWithoutEmailAccountsAccessInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutEmailAccountsAccessInput = {
@@ -20732,12 +22962,23 @@ export type UserUncheckedCreateWithoutEmailAccountsAccessInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutEmailAccountsAccessInput = {
@@ -20845,12 +23086,23 @@ export type UserUpdateWithoutEmailAccountsAccessInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEmailAccountsAccessInput = {
@@ -20942,12 +23194,23 @@ export type UserUncheckedUpdateWithoutEmailAccountsAccessInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserCreateWithoutTeamsCreatedInput = {
@@ -21039,12 +23302,23 @@ export type UserCreateWithoutTeamsCreatedInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutTeamsCreatedInput = {
@@ -21136,12 +23410,23 @@ export type UserUncheckedCreateWithoutTeamsCreatedInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutTeamsCreatedInput = {
@@ -21249,12 +23534,23 @@ export type UserUpdateWithoutTeamsCreatedInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTeamsCreatedInput = {
@@ -21346,12 +23642,23 @@ export type UserUncheckedUpdateWithoutTeamsCreatedInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserCreateWithoutTeamMembersInput = {
@@ -21443,12 +23750,23 @@ export type UserCreateWithoutTeamMembersInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutTeamMembersInput = {
@@ -21540,12 +23858,23 @@ export type UserUncheckedCreateWithoutTeamMembersInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutTeamMembersInput = {
@@ -21653,12 +23982,23 @@ export type UserUpdateWithoutTeamMembersInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTeamMembersInput = {
@@ -21750,12 +24090,23 @@ export type UserUncheckedUpdateWithoutTeamMembersInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserCreateWithoutTeamEmailLinksInput = {
@@ -21847,12 +24198,23 @@ export type UserCreateWithoutTeamEmailLinksInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutTeamEmailLinksInput = {
@@ -21944,12 +24306,23 @@ export type UserUncheckedCreateWithoutTeamEmailLinksInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutTeamEmailLinksInput = {
@@ -22057,12 +24430,23 @@ export type UserUpdateWithoutTeamEmailLinksInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTeamEmailLinksInput = {
@@ -22154,12 +24538,23 @@ export type UserUncheckedUpdateWithoutTeamEmailLinksInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserCreateWithoutOwnedBoardsInput = {
@@ -22251,12 +24646,23 @@ export type UserCreateWithoutOwnedBoardsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutOwnedBoardsInput = {
@@ -22348,12 +24754,23 @@ export type UserUncheckedCreateWithoutOwnedBoardsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutOwnedBoardsInput = {
@@ -22461,12 +24878,23 @@ export type UserUpdateWithoutOwnedBoardsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOwnedBoardsInput = {
@@ -22558,12 +24986,23 @@ export type UserUncheckedUpdateWithoutOwnedBoardsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserCreateWithoutAssignedCardsInput = {
@@ -22655,12 +25094,23 @@ export type UserCreateWithoutAssignedCardsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutAssignedCardsInput = {
@@ -22752,12 +25202,23 @@ export type UserUncheckedCreateWithoutAssignedCardsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutAssignedCardsInput = {
@@ -22854,12 +25315,23 @@ export type UserCreateWithoutReportedCardsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutReportedCardsInput = {
@@ -22951,12 +25423,23 @@ export type UserUncheckedCreateWithoutReportedCardsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutReportedCardsInput = {
@@ -23064,12 +25547,23 @@ export type UserUpdateWithoutAssignedCardsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAssignedCardsInput = {
@@ -23161,12 +25655,23 @@ export type UserUncheckedUpdateWithoutAssignedCardsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUpsertWithoutReportedCardsInput = {
@@ -23269,12 +25774,23 @@ export type UserUpdateWithoutReportedCardsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReportedCardsInput = {
@@ -23366,12 +25882,23 @@ export type UserUncheckedUpdateWithoutReportedCardsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserCreateWithoutBoardMembershipsInput = {
@@ -23463,12 +25990,23 @@ export type UserCreateWithoutBoardMembershipsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutBoardMembershipsInput = {
@@ -23560,12 +26098,23 @@ export type UserUncheckedCreateWithoutBoardMembershipsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutBoardMembershipsInput = {
@@ -23673,12 +26222,23 @@ export type UserUpdateWithoutBoardMembershipsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBoardMembershipsInput = {
@@ -23770,12 +26330,23 @@ export type UserUncheckedUpdateWithoutBoardMembershipsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserCreateWithoutCardCommentsInput = {
@@ -23867,12 +26438,23 @@ export type UserCreateWithoutCardCommentsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutCardCommentsInput = {
@@ -23964,12 +26546,23 @@ export type UserUncheckedCreateWithoutCardCommentsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutCardCommentsInput = {
@@ -24077,12 +26670,23 @@ export type UserUpdateWithoutCardCommentsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCardCommentsInput = {
@@ -24174,12 +26778,23 @@ export type UserUncheckedUpdateWithoutCardCommentsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserCreateWithoutCommentReactionsInput = {
@@ -24271,12 +26886,23 @@ export type UserCreateWithoutCommentReactionsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutCommentReactionsInput = {
@@ -24368,12 +26994,23 @@ export type UserUncheckedCreateWithoutCommentReactionsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutCommentReactionsInput = {
@@ -24481,12 +27118,23 @@ export type UserUpdateWithoutCommentReactionsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCommentReactionsInput = {
@@ -24578,12 +27226,23 @@ export type UserUncheckedUpdateWithoutCommentReactionsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserCreateWithoutChecklistAssigneesInput = {
@@ -24675,12 +27334,23 @@ export type UserCreateWithoutChecklistAssigneesInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutChecklistAssigneesInput = {
@@ -24772,12 +27442,23 @@ export type UserUncheckedCreateWithoutChecklistAssigneesInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutChecklistAssigneesInput = {
@@ -24885,12 +27566,23 @@ export type UserUpdateWithoutChecklistAssigneesInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutChecklistAssigneesInput = {
@@ -24982,12 +27674,23 @@ export type UserUncheckedUpdateWithoutChecklistAssigneesInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserCreateWithoutCardActivitiesInput = {
@@ -25079,12 +27782,23 @@ export type UserCreateWithoutCardActivitiesInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutCardActivitiesInput = {
@@ -25176,12 +27890,23 @@ export type UserUncheckedCreateWithoutCardActivitiesInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutCardActivitiesInput = {
@@ -25289,12 +28014,23 @@ export type UserUpdateWithoutCardActivitiesInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCardActivitiesInput = {
@@ -25386,12 +28122,23 @@ export type UserUncheckedUpdateWithoutCardActivitiesInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserCreateWithoutCardWatchersInput = {
@@ -25483,12 +28230,23 @@ export type UserCreateWithoutCardWatchersInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutCardWatchersInput = {
@@ -25580,12 +28338,23 @@ export type UserUncheckedCreateWithoutCardWatchersInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutCardWatchersInput = {
@@ -25693,12 +28462,23 @@ export type UserUpdateWithoutCardWatchersInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCardWatchersInput = {
@@ -25790,12 +28570,23 @@ export type UserUncheckedUpdateWithoutCardWatchersInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserCreateWithoutCentralUserInput = {
@@ -25888,11 +28679,22 @@ export type UserCreateWithoutCentralUserInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutCentralUserInput = {
@@ -25985,11 +28787,22 @@ export type UserUncheckedCreateWithoutCentralUserInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutCentralUserInput = {
@@ -26098,11 +28911,22 @@ export type UserUpdateWithoutCentralUserInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCentralUserInput = {
@@ -26195,11 +29019,22 @@ export type UserUncheckedUpdateWithoutCentralUserInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserCreateWithoutCreatedSupportTicketsInput = {
@@ -26292,11 +29127,22 @@ export type UserCreateWithoutCreatedSupportTicketsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedSupportTicketsInput = {
@@ -26389,11 +29235,22 @@ export type UserUncheckedCreateWithoutCreatedSupportTicketsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedSupportTicketsInput = {
@@ -26491,11 +29348,22 @@ export type UserCreateWithoutAssignedSupportTicketsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutAssignedSupportTicketsInput = {
@@ -26588,11 +29456,22 @@ export type UserUncheckedCreateWithoutAssignedSupportTicketsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutAssignedSupportTicketsInput = {
@@ -26701,11 +29580,22 @@ export type UserUpdateWithoutCreatedSupportTicketsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedSupportTicketsInput = {
@@ -26798,11 +29688,22 @@ export type UserUncheckedUpdateWithoutCreatedSupportTicketsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUpsertWithoutAssignedSupportTicketsInput = {
@@ -26906,11 +29807,22 @@ export type UserUpdateWithoutAssignedSupportTicketsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAssignedSupportTicketsInput = {
@@ -27003,11 +29915,22 @@ export type UserUncheckedUpdateWithoutAssignedSupportTicketsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserCreateWithoutSupportTicketMessagesInput = {
@@ -27100,11 +30023,22 @@ export type UserCreateWithoutSupportTicketMessagesInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutSupportTicketMessagesInput = {
@@ -27197,11 +30131,22 @@ export type UserUncheckedCreateWithoutSupportTicketMessagesInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutSupportTicketMessagesInput = {
@@ -27310,11 +30255,22 @@ export type UserUpdateWithoutSupportTicketMessagesInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSupportTicketMessagesInput = {
@@ -27407,11 +30363,22 @@ export type UserUncheckedUpdateWithoutSupportTicketMessagesInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserCreateWithoutCreatedCustomerPricesInput = {
@@ -27503,12 +30470,23 @@ export type UserCreateWithoutCreatedCustomerPricesInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedCustomerPricesInput = {
@@ -27600,12 +30578,23 @@ export type UserUncheckedCreateWithoutCreatedCustomerPricesInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedCustomerPricesInput = {
@@ -27713,12 +30702,23 @@ export type UserUpdateWithoutCreatedCustomerPricesInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedCustomerPricesInput = {
@@ -27810,12 +30810,23 @@ export type UserUncheckedUpdateWithoutCreatedCustomerPricesInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserCreateWithoutCreatedCampaignsInput = {
@@ -27907,12 +30918,23 @@ export type UserCreateWithoutCreatedCampaignsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedCampaignsInput = {
@@ -28004,12 +31026,23 @@ export type UserUncheckedCreateWithoutCreatedCampaignsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedCampaignsInput = {
@@ -28117,12 +31150,23 @@ export type UserUpdateWithoutCreatedCampaignsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedCampaignsInput = {
@@ -28214,12 +31258,23 @@ export type UserUncheckedUpdateWithoutCreatedCampaignsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserCreateWithoutAssignedCatalogsInput = {
@@ -28311,12 +31366,23 @@ export type UserCreateWithoutAssignedCatalogsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutAssignedCatalogsInput = {
@@ -28408,12 +31474,23 @@ export type UserUncheckedCreateWithoutAssignedCatalogsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutAssignedCatalogsInput = {
@@ -28521,12 +31598,23 @@ export type UserUpdateWithoutAssignedCatalogsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAssignedCatalogsInput = {
@@ -28618,12 +31706,23 @@ export type UserUncheckedUpdateWithoutAssignedCatalogsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserCreateWithoutApprovedContentsInput = {
@@ -28715,12 +31814,23 @@ export type UserCreateWithoutApprovedContentsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutApprovedContentsInput = {
@@ -28812,12 +31922,23 @@ export type UserUncheckedCreateWithoutApprovedContentsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutApprovedContentsInput = {
@@ -28925,12 +32046,23 @@ export type UserUpdateWithoutApprovedContentsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutApprovedContentsInput = {
@@ -29022,12 +32154,23 @@ export type UserUncheckedUpdateWithoutApprovedContentsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserCreateWithoutAssignedOrdersInput = {
@@ -29119,12 +32262,23 @@ export type UserCreateWithoutAssignedOrdersInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutAssignedOrdersInput = {
@@ -29216,12 +32370,23 @@ export type UserUncheckedCreateWithoutAssignedOrdersInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutAssignedOrdersInput = {
@@ -29318,12 +32483,23 @@ export type UserCreateWithoutApprovedOrdersInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutApprovedOrdersInput = {
@@ -29415,12 +32591,23 @@ export type UserUncheckedCreateWithoutApprovedOrdersInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutApprovedOrdersInput = {
@@ -29528,12 +32715,23 @@ export type UserUpdateWithoutAssignedOrdersInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAssignedOrdersInput = {
@@ -29625,12 +32823,23 @@ export type UserUncheckedUpdateWithoutAssignedOrdersInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUpsertWithoutApprovedOrdersInput = {
@@ -29733,12 +32942,23 @@ export type UserUpdateWithoutApprovedOrdersInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutApprovedOrdersInput = {
@@ -29830,12 +33050,23 @@ export type UserUncheckedUpdateWithoutApprovedOrdersInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserCreateWithoutRequestedReturnsInput = {
@@ -29927,12 +33158,23 @@ export type UserCreateWithoutRequestedReturnsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutRequestedReturnsInput = {
@@ -30024,12 +33266,23 @@ export type UserUncheckedCreateWithoutRequestedReturnsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutRequestedReturnsInput = {
@@ -30126,12 +33379,23 @@ export type UserCreateWithoutApprovedReturnsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutApprovedReturnsInput = {
@@ -30223,12 +33487,23 @@ export type UserUncheckedCreateWithoutApprovedReturnsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutApprovedReturnsInput = {
@@ -30336,12 +33611,23 @@ export type UserUpdateWithoutRequestedReturnsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRequestedReturnsInput = {
@@ -30433,12 +33719,23 @@ export type UserUncheckedUpdateWithoutRequestedReturnsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUpsertWithoutApprovedReturnsInput = {
@@ -30541,12 +33838,23 @@ export type UserUpdateWithoutApprovedReturnsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutApprovedReturnsInput = {
@@ -30638,12 +33946,23 @@ export type UserUncheckedUpdateWithoutApprovedReturnsInput = {
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserCreateWithoutReviewedCreditLimitsInput = {
@@ -30735,12 +34054,23 @@ export type UserCreateWithoutReviewedCreditLimitsInput = {
   approvedReturns?: Prisma.OrderReturnCreateNestedManyWithoutApprovedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutReviewedCreditLimitsInput = {
@@ -30832,12 +34162,23 @@ export type UserUncheckedCreateWithoutReviewedCreditLimitsInput = {
   approvedReturns?: Prisma.OrderReturnUncheckedCreateNestedManyWithoutApprovedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutReviewedCreditLimitsInput = {
@@ -30945,12 +34286,23 @@ export type UserUpdateWithoutReviewedCreditLimitsInput = {
   approvedReturns?: Prisma.OrderReturnUpdateManyWithoutApprovedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewedCreditLimitsInput = {
@@ -31042,12 +34394,23 @@ export type UserUncheckedUpdateWithoutReviewedCreditLimitsInput = {
   approvedReturns?: Prisma.OrderReturnUncheckedUpdateManyWithoutApprovedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserCreateWithoutOrderCommissionsInput = {
@@ -31139,12 +34502,23 @@ export type UserCreateWithoutOrderCommissionsInput = {
   approvedReturns?: Prisma.OrderReturnCreateNestedManyWithoutApprovedByInput
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutOrderCommissionsInput = {
@@ -31236,12 +34610,23 @@ export type UserUncheckedCreateWithoutOrderCommissionsInput = {
   approvedReturns?: Prisma.OrderReturnUncheckedCreateNestedManyWithoutApprovedByInput
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutOrderCommissionsInput = {
@@ -31349,12 +34734,23 @@ export type UserUpdateWithoutOrderCommissionsInput = {
   approvedReturns?: Prisma.OrderReturnUpdateManyWithoutApprovedByNestedInput
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOrderCommissionsInput = {
@@ -31446,12 +34842,23 @@ export type UserUncheckedUpdateWithoutOrderCommissionsInput = {
   approvedReturns?: Prisma.OrderReturnUncheckedUpdateManyWithoutApprovedByNestedInput
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserCreateWithoutOrderHistoryActionsInput = {
@@ -31543,12 +34950,23 @@ export type UserCreateWithoutOrderHistoryActionsInput = {
   approvedReturns?: Prisma.OrderReturnCreateNestedManyWithoutApprovedByInput
   reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserUncheckedCreateWithoutOrderHistoryActionsInput = {
@@ -31640,12 +35058,23 @@ export type UserUncheckedCreateWithoutOrderHistoryActionsInput = {
   approvedReturns?: Prisma.OrderReturnUncheckedCreateNestedManyWithoutApprovedByInput
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
   orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
 }
 
 export type UserCreateOrConnectWithoutOrderHistoryActionsInput = {
@@ -31753,12 +35182,23 @@ export type UserUpdateWithoutOrderHistoryActionsInput = {
   approvedReturns?: Prisma.OrderReturnUpdateManyWithoutApprovedByNestedInput
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOrderHistoryActionsInput = {
@@ -31850,12 +35290,4951 @@ export type UserUncheckedUpdateWithoutOrderHistoryActionsInput = {
   approvedReturns?: Prisma.OrderReturnUncheckedUpdateManyWithoutApprovedByNestedInput
   reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
   orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
+}
+
+export type UserCreateWithoutCreatedEnvelopesInput = {
+  id?: string
+  username?: string | null
+  email: string
+  password_hash: string
+  lastLoginIp?: string | null
+  failedLoginAttempts?: number
+  blockedUntil?: Date | string | null
+  passwordResetToken?: string | null
+  passwordResetExpires?: Date | string | null
+  forcePasswordReset?: boolean
+  forcePasswordResetReason?: string | null
+  forcePasswordResetRequestedBy?: string | null
+  forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
+  isSuperAdmin?: boolean
+  deletedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
+  RefreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutUserInput
+  ItemMovement?: Prisma.ItemMovementCreateNestedManyWithoutUserInput
+  ApprovedMovements?: Prisma.ItemMovementCreateNestedManyWithoutApproverInput
+  AuditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryCreateNestedManyWithoutUserInput
+  Alerts?: Prisma.AlertCreateNestedManyWithoutUserInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutCreatorInput
+  CreatedSalesOrders?: Prisma.SalesOrderCreateNestedManyWithoutCreatorInput
+  ItemReservations?: Prisma.ItemReservationCreateNestedManyWithoutUserInput
+  Comments?: Prisma.CommentCreateNestedManyWithoutUserInput
+  NotificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
+  Notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  permissionGroups?: Prisma.UserPermissionGroupCreateNestedManyWithoutUserInput
+  grantedPermissions?: Prisma.UserPermissionGroupCreateNestedManyWithoutGranterInput
+  directPermissions?: Prisma.UserDirectPermissionCreateNestedManyWithoutUserInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionCreateNestedManyWithoutGranterInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogCreateNestedManyWithoutUserInput
+  RequestsCreated?: Prisma.RequestCreateNestedManyWithoutRequesterInput
+  RequestsAssigned?: Prisma.RequestCreateNestedManyWithoutAssignedToInput
+  UploadedAttachments?: Prisma.RequestAttachmentCreateNestedManyWithoutUploadedByInput
+  RequestComments?: Prisma.RequestCommentCreateNestedManyWithoutAuthorInput
+  RequestHistoryActions?: Prisma.RequestHistoryCreateNestedManyWithoutPerformedByInput
+  employee?: Prisma.EmployeeCreateNestedOneWithoutUserInput
+  processedPayrolls?: Prisma.PayrollCreateNestedManyWithoutProcessorInput
+  approvedPayrolls?: Prisma.PayrollCreateNestedManyWithoutApproverInput
+  paidPayrolls?: Prisma.PayrollCreateNestedManyWithoutPayerInput
+  approvedOvertime?: Prisma.OvertimeCreateNestedManyWithoutApproverInput
+  approvedAbsences?: Prisma.AbsenceCreateNestedManyWithoutApproverInput
+  VolumesCreated?: Prisma.VolumeCreateNestedManyWithoutCreatedByUserInput
+  VolumesClosed?: Prisma.VolumeCreateNestedManyWithoutClosedByUserInput
+  VolumesDelivered?: Prisma.VolumeCreateNestedManyWithoutDeliveredByUserInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
+  folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
+  storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
+  calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
+  eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
+  eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
+  emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
+  ownedBoards?: Prisma.BoardCreateNestedManyWithoutOwnerInput
+  assignedCards?: Prisma.CardCreateNestedManyWithoutAssigneeInput
+  reportedCards?: Prisma.CardCreateNestedManyWithoutReporterInput
+  boardMemberships?: Prisma.BoardMemberCreateNestedManyWithoutUserInput
+  cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
+  commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
+  cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
+  checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
+  assignedCatalogs?: Prisma.CatalogCreateNestedManyWithoutAssignedToInput
+  approvedContents?: Prisma.GeneratedContentCreateNestedManyWithoutApprovedByInput
+  assignedOrders?: Prisma.OrderCreateNestedManyWithoutAssignedToInput
+  approvedOrders?: Prisma.OrderCreateNestedManyWithoutApprovedByInput
+  requestedReturns?: Prisma.OrderReturnCreateNestedManyWithoutRequestedByInput
+  approvedReturns?: Prisma.OrderReturnCreateNestedManyWithoutApprovedByInput
+  reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
+  orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
+  orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
+  centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
+  createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
+  assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
+  supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
+  resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
+}
+
+export type UserUncheckedCreateWithoutCreatedEnvelopesInput = {
+  id?: string
+  username?: string | null
+  email: string
+  password_hash: string
+  lastLoginIp?: string | null
+  failedLoginAttempts?: number
+  blockedUntil?: Date | string | null
+  passwordResetToken?: string | null
+  passwordResetExpires?: Date | string | null
+  forcePasswordReset?: boolean
+  forcePasswordResetReason?: string | null
+  forcePasswordResetRequestedBy?: string | null
+  forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
+  isSuperAdmin?: boolean
+  deletedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
+  RefreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutUserInput
+  ItemMovement?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutUserInput
+  ApprovedMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutApproverInput
+  AuditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUncheckedCreateNestedManyWithoutUserInput
+  Alerts?: Prisma.AlertUncheckedCreateNestedManyWithoutUserInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutCreatorInput
+  CreatedSalesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutCreatorInput
+  ItemReservations?: Prisma.ItemReservationUncheckedCreateNestedManyWithoutUserInput
+  Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
+  Notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  permissionGroups?: Prisma.UserPermissionGroupUncheckedCreateNestedManyWithoutUserInput
+  grantedPermissions?: Prisma.UserPermissionGroupUncheckedCreateNestedManyWithoutGranterInput
+  directPermissions?: Prisma.UserDirectPermissionUncheckedCreateNestedManyWithoutUserInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUncheckedCreateNestedManyWithoutGranterInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUncheckedCreateNestedManyWithoutUserInput
+  RequestsCreated?: Prisma.RequestUncheckedCreateNestedManyWithoutRequesterInput
+  RequestsAssigned?: Prisma.RequestUncheckedCreateNestedManyWithoutAssignedToInput
+  UploadedAttachments?: Prisma.RequestAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  RequestComments?: Prisma.RequestCommentUncheckedCreateNestedManyWithoutAuthorInput
+  RequestHistoryActions?: Prisma.RequestHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  employee?: Prisma.EmployeeUncheckedCreateNestedOneWithoutUserInput
+  processedPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutProcessorInput
+  approvedPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutApproverInput
+  paidPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutPayerInput
+  approvedOvertime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutApproverInput
+  approvedAbsences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutApproverInput
+  VolumesCreated?: Prisma.VolumeUncheckedCreateNestedManyWithoutCreatedByUserInput
+  VolumesClosed?: Prisma.VolumeUncheckedCreateNestedManyWithoutClosedByUserInput
+  VolumesDelivered?: Prisma.VolumeUncheckedCreateNestedManyWithoutDeliveredByUserInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
+  storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
+  calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
+  eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
+  eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
+  emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
+  ownedBoards?: Prisma.BoardUncheckedCreateNestedManyWithoutOwnerInput
+  assignedCards?: Prisma.CardUncheckedCreateNestedManyWithoutAssigneeInput
+  reportedCards?: Prisma.CardUncheckedCreateNestedManyWithoutReporterInput
+  boardMemberships?: Prisma.BoardMemberUncheckedCreateNestedManyWithoutUserInput
+  cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
+  commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
+  cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
+  checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
+  assignedCatalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutAssignedToInput
+  approvedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutApprovedByInput
+  assignedOrders?: Prisma.OrderUncheckedCreateNestedManyWithoutAssignedToInput
+  approvedOrders?: Prisma.OrderUncheckedCreateNestedManyWithoutApprovedByInput
+  requestedReturns?: Prisma.OrderReturnUncheckedCreateNestedManyWithoutRequestedByInput
+  approvedReturns?: Prisma.OrderReturnUncheckedCreateNestedManyWithoutApprovedByInput
+  reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
+  orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
+  orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
+  centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
+  createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
+  resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
+}
+
+export type UserCreateOrConnectWithoutCreatedEnvelopesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedEnvelopesInput, Prisma.UserUncheckedCreateWithoutCreatedEnvelopesInput>
+}
+
+export type UserUpsertWithoutCreatedEnvelopesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCreatedEnvelopesInput, Prisma.UserUncheckedUpdateWithoutCreatedEnvelopesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedEnvelopesInput, Prisma.UserUncheckedCreateWithoutCreatedEnvelopesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCreatedEnvelopesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCreatedEnvelopesInput, Prisma.UserUncheckedUpdateWithoutCreatedEnvelopesInput>
+}
+
+export type UserUpdateWithoutCreatedEnvelopesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  lastLoginIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  blockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  forcePasswordReset?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
+  RefreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutUserNestedInput
+  ItemMovement?: Prisma.ItemMovementUpdateManyWithoutUserNestedInput
+  ApprovedMovements?: Prisma.ItemMovementUpdateManyWithoutApproverNestedInput
+  AuditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUpdateManyWithoutUserNestedInput
+  Alerts?: Prisma.AlertUpdateManyWithoutUserNestedInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutCreatorNestedInput
+  CreatedSalesOrders?: Prisma.SalesOrderUpdateManyWithoutCreatorNestedInput
+  ItemReservations?: Prisma.ItemReservationUpdateManyWithoutUserNestedInput
+  Comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
+  Notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  permissionGroups?: Prisma.UserPermissionGroupUpdateManyWithoutUserNestedInput
+  grantedPermissions?: Prisma.UserPermissionGroupUpdateManyWithoutGranterNestedInput
+  directPermissions?: Prisma.UserDirectPermissionUpdateManyWithoutUserNestedInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUpdateManyWithoutGranterNestedInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUpdateManyWithoutUserNestedInput
+  RequestsCreated?: Prisma.RequestUpdateManyWithoutRequesterNestedInput
+  RequestsAssigned?: Prisma.RequestUpdateManyWithoutAssignedToNestedInput
+  UploadedAttachments?: Prisma.RequestAttachmentUpdateManyWithoutUploadedByNestedInput
+  RequestComments?: Prisma.RequestCommentUpdateManyWithoutAuthorNestedInput
+  RequestHistoryActions?: Prisma.RequestHistoryUpdateManyWithoutPerformedByNestedInput
+  employee?: Prisma.EmployeeUpdateOneWithoutUserNestedInput
+  processedPayrolls?: Prisma.PayrollUpdateManyWithoutProcessorNestedInput
+  approvedPayrolls?: Prisma.PayrollUpdateManyWithoutApproverNestedInput
+  paidPayrolls?: Prisma.PayrollUpdateManyWithoutPayerNestedInput
+  approvedOvertime?: Prisma.OvertimeUpdateManyWithoutApproverNestedInput
+  approvedAbsences?: Prisma.AbsenceUpdateManyWithoutApproverNestedInput
+  VolumesCreated?: Prisma.VolumeUpdateManyWithoutCreatedByUserNestedInput
+  VolumesClosed?: Prisma.VolumeUpdateManyWithoutClosedByUserNestedInput
+  VolumesDelivered?: Prisma.VolumeUpdateManyWithoutDeliveredByUserNestedInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
+  storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
+  calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
+  eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
+  eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
+  emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
+  ownedBoards?: Prisma.BoardUpdateManyWithoutOwnerNestedInput
+  assignedCards?: Prisma.CardUpdateManyWithoutAssigneeNestedInput
+  reportedCards?: Prisma.CardUpdateManyWithoutReporterNestedInput
+  boardMemberships?: Prisma.BoardMemberUpdateManyWithoutUserNestedInput
+  cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
+  commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
+  cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
+  checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
+  assignedCatalogs?: Prisma.CatalogUpdateManyWithoutAssignedToNestedInput
+  approvedContents?: Prisma.GeneratedContentUpdateManyWithoutApprovedByNestedInput
+  assignedOrders?: Prisma.OrderUpdateManyWithoutAssignedToNestedInput
+  approvedOrders?: Prisma.OrderUpdateManyWithoutApprovedByNestedInput
+  requestedReturns?: Prisma.OrderReturnUpdateManyWithoutRequestedByNestedInput
+  approvedReturns?: Prisma.OrderReturnUpdateManyWithoutApprovedByNestedInput
+  reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
+  orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
+  orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
+  centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
+  createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
+  resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCreatedEnvelopesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  lastLoginIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  blockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  forcePasswordReset?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
+  RefreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutUserNestedInput
+  ItemMovement?: Prisma.ItemMovementUncheckedUpdateManyWithoutUserNestedInput
+  ApprovedMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutApproverNestedInput
+  AuditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUncheckedUpdateManyWithoutUserNestedInput
+  Alerts?: Prisma.AlertUncheckedUpdateManyWithoutUserNestedInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutCreatorNestedInput
+  CreatedSalesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutCreatorNestedInput
+  ItemReservations?: Prisma.ItemReservationUncheckedUpdateManyWithoutUserNestedInput
+  Comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
+  Notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  permissionGroups?: Prisma.UserPermissionGroupUncheckedUpdateManyWithoutUserNestedInput
+  grantedPermissions?: Prisma.UserPermissionGroupUncheckedUpdateManyWithoutGranterNestedInput
+  directPermissions?: Prisma.UserDirectPermissionUncheckedUpdateManyWithoutUserNestedInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUncheckedUpdateManyWithoutGranterNestedInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUncheckedUpdateManyWithoutUserNestedInput
+  RequestsCreated?: Prisma.RequestUncheckedUpdateManyWithoutRequesterNestedInput
+  RequestsAssigned?: Prisma.RequestUncheckedUpdateManyWithoutAssignedToNestedInput
+  UploadedAttachments?: Prisma.RequestAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  RequestComments?: Prisma.RequestCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  RequestHistoryActions?: Prisma.RequestHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  employee?: Prisma.EmployeeUncheckedUpdateOneWithoutUserNestedInput
+  processedPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutProcessorNestedInput
+  approvedPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutApproverNestedInput
+  paidPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutPayerNestedInput
+  approvedOvertime?: Prisma.OvertimeUncheckedUpdateManyWithoutApproverNestedInput
+  approvedAbsences?: Prisma.AbsenceUncheckedUpdateManyWithoutApproverNestedInput
+  VolumesCreated?: Prisma.VolumeUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  VolumesClosed?: Prisma.VolumeUncheckedUpdateManyWithoutClosedByUserNestedInput
+  VolumesDelivered?: Prisma.VolumeUncheckedUpdateManyWithoutDeliveredByUserNestedInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
+  storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
+  calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
+  eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
+  eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
+  emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
+  ownedBoards?: Prisma.BoardUncheckedUpdateManyWithoutOwnerNestedInput
+  assignedCards?: Prisma.CardUncheckedUpdateManyWithoutAssigneeNestedInput
+  reportedCards?: Prisma.CardUncheckedUpdateManyWithoutReporterNestedInput
+  boardMemberships?: Prisma.BoardMemberUncheckedUpdateManyWithoutUserNestedInput
+  cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
+  cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
+  checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
+  assignedCatalogs?: Prisma.CatalogUncheckedUpdateManyWithoutAssignedToNestedInput
+  approvedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutApprovedByNestedInput
+  assignedOrders?: Prisma.OrderUncheckedUpdateManyWithoutAssignedToNestedInput
+  approvedOrders?: Prisma.OrderUncheckedUpdateManyWithoutApprovedByNestedInput
+  requestedReturns?: Prisma.OrderReturnUncheckedUpdateManyWithoutRequestedByNestedInput
+  approvedReturns?: Prisma.OrderReturnUncheckedUpdateManyWithoutApprovedByNestedInput
+  reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
+  orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
+  orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
+  createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
+  resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
+}
+
+export type UserCreateWithoutSignerAssignmentsInput = {
+  id?: string
+  username?: string | null
+  email: string
+  password_hash: string
+  lastLoginIp?: string | null
+  failedLoginAttempts?: number
+  blockedUntil?: Date | string | null
+  passwordResetToken?: string | null
+  passwordResetExpires?: Date | string | null
+  forcePasswordReset?: boolean
+  forcePasswordResetReason?: string | null
+  forcePasswordResetRequestedBy?: string | null
+  forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
+  isSuperAdmin?: boolean
+  deletedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
+  RefreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutUserInput
+  ItemMovement?: Prisma.ItemMovementCreateNestedManyWithoutUserInput
+  ApprovedMovements?: Prisma.ItemMovementCreateNestedManyWithoutApproverInput
+  AuditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryCreateNestedManyWithoutUserInput
+  Alerts?: Prisma.AlertCreateNestedManyWithoutUserInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutCreatorInput
+  CreatedSalesOrders?: Prisma.SalesOrderCreateNestedManyWithoutCreatorInput
+  ItemReservations?: Prisma.ItemReservationCreateNestedManyWithoutUserInput
+  Comments?: Prisma.CommentCreateNestedManyWithoutUserInput
+  NotificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
+  Notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  permissionGroups?: Prisma.UserPermissionGroupCreateNestedManyWithoutUserInput
+  grantedPermissions?: Prisma.UserPermissionGroupCreateNestedManyWithoutGranterInput
+  directPermissions?: Prisma.UserDirectPermissionCreateNestedManyWithoutUserInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionCreateNestedManyWithoutGranterInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogCreateNestedManyWithoutUserInput
+  RequestsCreated?: Prisma.RequestCreateNestedManyWithoutRequesterInput
+  RequestsAssigned?: Prisma.RequestCreateNestedManyWithoutAssignedToInput
+  UploadedAttachments?: Prisma.RequestAttachmentCreateNestedManyWithoutUploadedByInput
+  RequestComments?: Prisma.RequestCommentCreateNestedManyWithoutAuthorInput
+  RequestHistoryActions?: Prisma.RequestHistoryCreateNestedManyWithoutPerformedByInput
+  employee?: Prisma.EmployeeCreateNestedOneWithoutUserInput
+  processedPayrolls?: Prisma.PayrollCreateNestedManyWithoutProcessorInput
+  approvedPayrolls?: Prisma.PayrollCreateNestedManyWithoutApproverInput
+  paidPayrolls?: Prisma.PayrollCreateNestedManyWithoutPayerInput
+  approvedOvertime?: Prisma.OvertimeCreateNestedManyWithoutApproverInput
+  approvedAbsences?: Prisma.AbsenceCreateNestedManyWithoutApproverInput
+  VolumesCreated?: Prisma.VolumeCreateNestedManyWithoutCreatedByUserInput
+  VolumesClosed?: Prisma.VolumeCreateNestedManyWithoutClosedByUserInput
+  VolumesDelivered?: Prisma.VolumeCreateNestedManyWithoutDeliveredByUserInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
+  folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
+  storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
+  calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
+  eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
+  eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
+  emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
+  ownedBoards?: Prisma.BoardCreateNestedManyWithoutOwnerInput
+  assignedCards?: Prisma.CardCreateNestedManyWithoutAssigneeInput
+  reportedCards?: Prisma.CardCreateNestedManyWithoutReporterInput
+  boardMemberships?: Prisma.BoardMemberCreateNestedManyWithoutUserInput
+  cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
+  commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
+  cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
+  checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
+  assignedCatalogs?: Prisma.CatalogCreateNestedManyWithoutAssignedToInput
+  approvedContents?: Prisma.GeneratedContentCreateNestedManyWithoutApprovedByInput
+  assignedOrders?: Prisma.OrderCreateNestedManyWithoutAssignedToInput
+  approvedOrders?: Prisma.OrderCreateNestedManyWithoutApprovedByInput
+  requestedReturns?: Prisma.OrderReturnCreateNestedManyWithoutRequestedByInput
+  approvedReturns?: Prisma.OrderReturnCreateNestedManyWithoutApprovedByInput
+  reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
+  orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
+  orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
+  centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
+  createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
+  assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
+  supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
+  resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
+}
+
+export type UserUncheckedCreateWithoutSignerAssignmentsInput = {
+  id?: string
+  username?: string | null
+  email: string
+  password_hash: string
+  lastLoginIp?: string | null
+  failedLoginAttempts?: number
+  blockedUntil?: Date | string | null
+  passwordResetToken?: string | null
+  passwordResetExpires?: Date | string | null
+  forcePasswordReset?: boolean
+  forcePasswordResetReason?: string | null
+  forcePasswordResetRequestedBy?: string | null
+  forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
+  isSuperAdmin?: boolean
+  deletedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
+  RefreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutUserInput
+  ItemMovement?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutUserInput
+  ApprovedMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutApproverInput
+  AuditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUncheckedCreateNestedManyWithoutUserInput
+  Alerts?: Prisma.AlertUncheckedCreateNestedManyWithoutUserInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutCreatorInput
+  CreatedSalesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutCreatorInput
+  ItemReservations?: Prisma.ItemReservationUncheckedCreateNestedManyWithoutUserInput
+  Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
+  Notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  permissionGroups?: Prisma.UserPermissionGroupUncheckedCreateNestedManyWithoutUserInput
+  grantedPermissions?: Prisma.UserPermissionGroupUncheckedCreateNestedManyWithoutGranterInput
+  directPermissions?: Prisma.UserDirectPermissionUncheckedCreateNestedManyWithoutUserInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUncheckedCreateNestedManyWithoutGranterInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUncheckedCreateNestedManyWithoutUserInput
+  RequestsCreated?: Prisma.RequestUncheckedCreateNestedManyWithoutRequesterInput
+  RequestsAssigned?: Prisma.RequestUncheckedCreateNestedManyWithoutAssignedToInput
+  UploadedAttachments?: Prisma.RequestAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  RequestComments?: Prisma.RequestCommentUncheckedCreateNestedManyWithoutAuthorInput
+  RequestHistoryActions?: Prisma.RequestHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  employee?: Prisma.EmployeeUncheckedCreateNestedOneWithoutUserInput
+  processedPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutProcessorInput
+  approvedPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutApproverInput
+  paidPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutPayerInput
+  approvedOvertime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutApproverInput
+  approvedAbsences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutApproverInput
+  VolumesCreated?: Prisma.VolumeUncheckedCreateNestedManyWithoutCreatedByUserInput
+  VolumesClosed?: Prisma.VolumeUncheckedCreateNestedManyWithoutClosedByUserInput
+  VolumesDelivered?: Prisma.VolumeUncheckedCreateNestedManyWithoutDeliveredByUserInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
+  storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
+  calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
+  eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
+  eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
+  emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
+  ownedBoards?: Prisma.BoardUncheckedCreateNestedManyWithoutOwnerInput
+  assignedCards?: Prisma.CardUncheckedCreateNestedManyWithoutAssigneeInput
+  reportedCards?: Prisma.CardUncheckedCreateNestedManyWithoutReporterInput
+  boardMemberships?: Prisma.BoardMemberUncheckedCreateNestedManyWithoutUserInput
+  cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
+  commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
+  cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
+  checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
+  assignedCatalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutAssignedToInput
+  approvedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutApprovedByInput
+  assignedOrders?: Prisma.OrderUncheckedCreateNestedManyWithoutAssignedToInput
+  approvedOrders?: Prisma.OrderUncheckedCreateNestedManyWithoutApprovedByInput
+  requestedReturns?: Prisma.OrderReturnUncheckedCreateNestedManyWithoutRequestedByInput
+  approvedReturns?: Prisma.OrderReturnUncheckedCreateNestedManyWithoutApprovedByInput
+  reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
+  orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
+  orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
+  centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
+  createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
+  resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
+}
+
+export type UserCreateOrConnectWithoutSignerAssignmentsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSignerAssignmentsInput, Prisma.UserUncheckedCreateWithoutSignerAssignmentsInput>
+}
+
+export type UserUpsertWithoutSignerAssignmentsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSignerAssignmentsInput, Prisma.UserUncheckedUpdateWithoutSignerAssignmentsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSignerAssignmentsInput, Prisma.UserUncheckedCreateWithoutSignerAssignmentsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutSignerAssignmentsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSignerAssignmentsInput, Prisma.UserUncheckedUpdateWithoutSignerAssignmentsInput>
+}
+
+export type UserUpdateWithoutSignerAssignmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  lastLoginIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  blockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  forcePasswordReset?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
+  RefreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutUserNestedInput
+  ItemMovement?: Prisma.ItemMovementUpdateManyWithoutUserNestedInput
+  ApprovedMovements?: Prisma.ItemMovementUpdateManyWithoutApproverNestedInput
+  AuditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUpdateManyWithoutUserNestedInput
+  Alerts?: Prisma.AlertUpdateManyWithoutUserNestedInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutCreatorNestedInput
+  CreatedSalesOrders?: Prisma.SalesOrderUpdateManyWithoutCreatorNestedInput
+  ItemReservations?: Prisma.ItemReservationUpdateManyWithoutUserNestedInput
+  Comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
+  Notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  permissionGroups?: Prisma.UserPermissionGroupUpdateManyWithoutUserNestedInput
+  grantedPermissions?: Prisma.UserPermissionGroupUpdateManyWithoutGranterNestedInput
+  directPermissions?: Prisma.UserDirectPermissionUpdateManyWithoutUserNestedInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUpdateManyWithoutGranterNestedInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUpdateManyWithoutUserNestedInput
+  RequestsCreated?: Prisma.RequestUpdateManyWithoutRequesterNestedInput
+  RequestsAssigned?: Prisma.RequestUpdateManyWithoutAssignedToNestedInput
+  UploadedAttachments?: Prisma.RequestAttachmentUpdateManyWithoutUploadedByNestedInput
+  RequestComments?: Prisma.RequestCommentUpdateManyWithoutAuthorNestedInput
+  RequestHistoryActions?: Prisma.RequestHistoryUpdateManyWithoutPerformedByNestedInput
+  employee?: Prisma.EmployeeUpdateOneWithoutUserNestedInput
+  processedPayrolls?: Prisma.PayrollUpdateManyWithoutProcessorNestedInput
+  approvedPayrolls?: Prisma.PayrollUpdateManyWithoutApproverNestedInput
+  paidPayrolls?: Prisma.PayrollUpdateManyWithoutPayerNestedInput
+  approvedOvertime?: Prisma.OvertimeUpdateManyWithoutApproverNestedInput
+  approvedAbsences?: Prisma.AbsenceUpdateManyWithoutApproverNestedInput
+  VolumesCreated?: Prisma.VolumeUpdateManyWithoutCreatedByUserNestedInput
+  VolumesClosed?: Prisma.VolumeUpdateManyWithoutClosedByUserNestedInput
+  VolumesDelivered?: Prisma.VolumeUpdateManyWithoutDeliveredByUserNestedInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
+  storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
+  calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
+  eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
+  eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
+  emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
+  ownedBoards?: Prisma.BoardUpdateManyWithoutOwnerNestedInput
+  assignedCards?: Prisma.CardUpdateManyWithoutAssigneeNestedInput
+  reportedCards?: Prisma.CardUpdateManyWithoutReporterNestedInput
+  boardMemberships?: Prisma.BoardMemberUpdateManyWithoutUserNestedInput
+  cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
+  commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
+  cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
+  checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
+  assignedCatalogs?: Prisma.CatalogUpdateManyWithoutAssignedToNestedInput
+  approvedContents?: Prisma.GeneratedContentUpdateManyWithoutApprovedByNestedInput
+  assignedOrders?: Prisma.OrderUpdateManyWithoutAssignedToNestedInput
+  approvedOrders?: Prisma.OrderUpdateManyWithoutApprovedByNestedInput
+  requestedReturns?: Prisma.OrderReturnUpdateManyWithoutRequestedByNestedInput
+  approvedReturns?: Prisma.OrderReturnUpdateManyWithoutApprovedByNestedInput
+  reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
+  orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
+  orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
+  centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
+  createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
+  resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSignerAssignmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  lastLoginIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  blockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  forcePasswordReset?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
+  RefreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutUserNestedInput
+  ItemMovement?: Prisma.ItemMovementUncheckedUpdateManyWithoutUserNestedInput
+  ApprovedMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutApproverNestedInput
+  AuditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUncheckedUpdateManyWithoutUserNestedInput
+  Alerts?: Prisma.AlertUncheckedUpdateManyWithoutUserNestedInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutCreatorNestedInput
+  CreatedSalesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutCreatorNestedInput
+  ItemReservations?: Prisma.ItemReservationUncheckedUpdateManyWithoutUserNestedInput
+  Comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
+  Notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  permissionGroups?: Prisma.UserPermissionGroupUncheckedUpdateManyWithoutUserNestedInput
+  grantedPermissions?: Prisma.UserPermissionGroupUncheckedUpdateManyWithoutGranterNestedInput
+  directPermissions?: Prisma.UserDirectPermissionUncheckedUpdateManyWithoutUserNestedInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUncheckedUpdateManyWithoutGranterNestedInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUncheckedUpdateManyWithoutUserNestedInput
+  RequestsCreated?: Prisma.RequestUncheckedUpdateManyWithoutRequesterNestedInput
+  RequestsAssigned?: Prisma.RequestUncheckedUpdateManyWithoutAssignedToNestedInput
+  UploadedAttachments?: Prisma.RequestAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  RequestComments?: Prisma.RequestCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  RequestHistoryActions?: Prisma.RequestHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  employee?: Prisma.EmployeeUncheckedUpdateOneWithoutUserNestedInput
+  processedPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutProcessorNestedInput
+  approvedPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutApproverNestedInput
+  paidPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutPayerNestedInput
+  approvedOvertime?: Prisma.OvertimeUncheckedUpdateManyWithoutApproverNestedInput
+  approvedAbsences?: Prisma.AbsenceUncheckedUpdateManyWithoutApproverNestedInput
+  VolumesCreated?: Prisma.VolumeUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  VolumesClosed?: Prisma.VolumeUncheckedUpdateManyWithoutClosedByUserNestedInput
+  VolumesDelivered?: Prisma.VolumeUncheckedUpdateManyWithoutDeliveredByUserNestedInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
+  storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
+  calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
+  eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
+  eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
+  emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
+  ownedBoards?: Prisma.BoardUncheckedUpdateManyWithoutOwnerNestedInput
+  assignedCards?: Prisma.CardUncheckedUpdateManyWithoutAssigneeNestedInput
+  reportedCards?: Prisma.CardUncheckedUpdateManyWithoutReporterNestedInput
+  boardMemberships?: Prisma.BoardMemberUncheckedUpdateManyWithoutUserNestedInput
+  cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
+  cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
+  checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
+  assignedCatalogs?: Prisma.CatalogUncheckedUpdateManyWithoutAssignedToNestedInput
+  approvedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutApprovedByNestedInput
+  assignedOrders?: Prisma.OrderUncheckedUpdateManyWithoutAssignedToNestedInput
+  approvedOrders?: Prisma.OrderUncheckedUpdateManyWithoutApprovedByNestedInput
+  requestedReturns?: Prisma.OrderReturnUncheckedUpdateManyWithoutRequestedByNestedInput
+  approvedReturns?: Prisma.OrderReturnUncheckedUpdateManyWithoutApprovedByNestedInput
+  reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
+  orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
+  orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
+  createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
+  resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
+}
+
+export type UserCreateWithoutAnalyticsWidgetsCreatedInput = {
+  id?: string
+  username?: string | null
+  email: string
+  password_hash: string
+  lastLoginIp?: string | null
+  failedLoginAttempts?: number
+  blockedUntil?: Date | string | null
+  passwordResetToken?: string | null
+  passwordResetExpires?: Date | string | null
+  forcePasswordReset?: boolean
+  forcePasswordResetReason?: string | null
+  forcePasswordResetRequestedBy?: string | null
+  forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
+  isSuperAdmin?: boolean
+  deletedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
+  RefreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutUserInput
+  ItemMovement?: Prisma.ItemMovementCreateNestedManyWithoutUserInput
+  ApprovedMovements?: Prisma.ItemMovementCreateNestedManyWithoutApproverInput
+  AuditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryCreateNestedManyWithoutUserInput
+  Alerts?: Prisma.AlertCreateNestedManyWithoutUserInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutCreatorInput
+  CreatedSalesOrders?: Prisma.SalesOrderCreateNestedManyWithoutCreatorInput
+  ItemReservations?: Prisma.ItemReservationCreateNestedManyWithoutUserInput
+  Comments?: Prisma.CommentCreateNestedManyWithoutUserInput
+  NotificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
+  Notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  permissionGroups?: Prisma.UserPermissionGroupCreateNestedManyWithoutUserInput
+  grantedPermissions?: Prisma.UserPermissionGroupCreateNestedManyWithoutGranterInput
+  directPermissions?: Prisma.UserDirectPermissionCreateNestedManyWithoutUserInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionCreateNestedManyWithoutGranterInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogCreateNestedManyWithoutUserInput
+  RequestsCreated?: Prisma.RequestCreateNestedManyWithoutRequesterInput
+  RequestsAssigned?: Prisma.RequestCreateNestedManyWithoutAssignedToInput
+  UploadedAttachments?: Prisma.RequestAttachmentCreateNestedManyWithoutUploadedByInput
+  RequestComments?: Prisma.RequestCommentCreateNestedManyWithoutAuthorInput
+  RequestHistoryActions?: Prisma.RequestHistoryCreateNestedManyWithoutPerformedByInput
+  employee?: Prisma.EmployeeCreateNestedOneWithoutUserInput
+  processedPayrolls?: Prisma.PayrollCreateNestedManyWithoutProcessorInput
+  approvedPayrolls?: Prisma.PayrollCreateNestedManyWithoutApproverInput
+  paidPayrolls?: Prisma.PayrollCreateNestedManyWithoutPayerInput
+  approvedOvertime?: Prisma.OvertimeCreateNestedManyWithoutApproverInput
+  approvedAbsences?: Prisma.AbsenceCreateNestedManyWithoutApproverInput
+  VolumesCreated?: Prisma.VolumeCreateNestedManyWithoutCreatedByUserInput
+  VolumesClosed?: Prisma.VolumeCreateNestedManyWithoutClosedByUserInput
+  VolumesDelivered?: Prisma.VolumeCreateNestedManyWithoutDeliveredByUserInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
+  folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
+  storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
+  calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
+  eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
+  eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
+  emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
+  ownedBoards?: Prisma.BoardCreateNestedManyWithoutOwnerInput
+  assignedCards?: Prisma.CardCreateNestedManyWithoutAssigneeInput
+  reportedCards?: Prisma.CardCreateNestedManyWithoutReporterInput
+  boardMemberships?: Prisma.BoardMemberCreateNestedManyWithoutUserInput
+  cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
+  commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
+  cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
+  checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
+  assignedCatalogs?: Prisma.CatalogCreateNestedManyWithoutAssignedToInput
+  approvedContents?: Prisma.GeneratedContentCreateNestedManyWithoutApprovedByInput
+  assignedOrders?: Prisma.OrderCreateNestedManyWithoutAssignedToInput
+  approvedOrders?: Prisma.OrderCreateNestedManyWithoutApprovedByInput
+  requestedReturns?: Prisma.OrderReturnCreateNestedManyWithoutRequestedByInput
+  approvedReturns?: Prisma.OrderReturnCreateNestedManyWithoutApprovedByInput
+  reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
+  orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
+  orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
+  centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
+  createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
+  assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
+  supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
+  resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
+}
+
+export type UserUncheckedCreateWithoutAnalyticsWidgetsCreatedInput = {
+  id?: string
+  username?: string | null
+  email: string
+  password_hash: string
+  lastLoginIp?: string | null
+  failedLoginAttempts?: number
+  blockedUntil?: Date | string | null
+  passwordResetToken?: string | null
+  passwordResetExpires?: Date | string | null
+  forcePasswordReset?: boolean
+  forcePasswordResetReason?: string | null
+  forcePasswordResetRequestedBy?: string | null
+  forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
+  isSuperAdmin?: boolean
+  deletedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
+  RefreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutUserInput
+  ItemMovement?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutUserInput
+  ApprovedMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutApproverInput
+  AuditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUncheckedCreateNestedManyWithoutUserInput
+  Alerts?: Prisma.AlertUncheckedCreateNestedManyWithoutUserInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutCreatorInput
+  CreatedSalesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutCreatorInput
+  ItemReservations?: Prisma.ItemReservationUncheckedCreateNestedManyWithoutUserInput
+  Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
+  Notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  permissionGroups?: Prisma.UserPermissionGroupUncheckedCreateNestedManyWithoutUserInput
+  grantedPermissions?: Prisma.UserPermissionGroupUncheckedCreateNestedManyWithoutGranterInput
+  directPermissions?: Prisma.UserDirectPermissionUncheckedCreateNestedManyWithoutUserInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUncheckedCreateNestedManyWithoutGranterInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUncheckedCreateNestedManyWithoutUserInput
+  RequestsCreated?: Prisma.RequestUncheckedCreateNestedManyWithoutRequesterInput
+  RequestsAssigned?: Prisma.RequestUncheckedCreateNestedManyWithoutAssignedToInput
+  UploadedAttachments?: Prisma.RequestAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  RequestComments?: Prisma.RequestCommentUncheckedCreateNestedManyWithoutAuthorInput
+  RequestHistoryActions?: Prisma.RequestHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  employee?: Prisma.EmployeeUncheckedCreateNestedOneWithoutUserInput
+  processedPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutProcessorInput
+  approvedPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutApproverInput
+  paidPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutPayerInput
+  approvedOvertime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutApproverInput
+  approvedAbsences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutApproverInput
+  VolumesCreated?: Prisma.VolumeUncheckedCreateNestedManyWithoutCreatedByUserInput
+  VolumesClosed?: Prisma.VolumeUncheckedCreateNestedManyWithoutClosedByUserInput
+  VolumesDelivered?: Prisma.VolumeUncheckedCreateNestedManyWithoutDeliveredByUserInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
+  storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
+  calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
+  eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
+  eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
+  emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
+  ownedBoards?: Prisma.BoardUncheckedCreateNestedManyWithoutOwnerInput
+  assignedCards?: Prisma.CardUncheckedCreateNestedManyWithoutAssigneeInput
+  reportedCards?: Prisma.CardUncheckedCreateNestedManyWithoutReporterInput
+  boardMemberships?: Prisma.BoardMemberUncheckedCreateNestedManyWithoutUserInput
+  cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
+  commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
+  cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
+  checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
+  assignedCatalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutAssignedToInput
+  approvedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutApprovedByInput
+  assignedOrders?: Prisma.OrderUncheckedCreateNestedManyWithoutAssignedToInput
+  approvedOrders?: Prisma.OrderUncheckedCreateNestedManyWithoutApprovedByInput
+  requestedReturns?: Prisma.OrderReturnUncheckedCreateNestedManyWithoutRequestedByInput
+  approvedReturns?: Prisma.OrderReturnUncheckedCreateNestedManyWithoutApprovedByInput
+  reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
+  orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
+  orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
+  centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
+  createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
+  resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
+}
+
+export type UserCreateOrConnectWithoutAnalyticsWidgetsCreatedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAnalyticsWidgetsCreatedInput, Prisma.UserUncheckedCreateWithoutAnalyticsWidgetsCreatedInput>
+}
+
+export type UserUpsertWithoutAnalyticsWidgetsCreatedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAnalyticsWidgetsCreatedInput, Prisma.UserUncheckedUpdateWithoutAnalyticsWidgetsCreatedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAnalyticsWidgetsCreatedInput, Prisma.UserUncheckedCreateWithoutAnalyticsWidgetsCreatedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAnalyticsWidgetsCreatedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAnalyticsWidgetsCreatedInput, Prisma.UserUncheckedUpdateWithoutAnalyticsWidgetsCreatedInput>
+}
+
+export type UserUpdateWithoutAnalyticsWidgetsCreatedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  lastLoginIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  blockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  forcePasswordReset?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
+  RefreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutUserNestedInput
+  ItemMovement?: Prisma.ItemMovementUpdateManyWithoutUserNestedInput
+  ApprovedMovements?: Prisma.ItemMovementUpdateManyWithoutApproverNestedInput
+  AuditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUpdateManyWithoutUserNestedInput
+  Alerts?: Prisma.AlertUpdateManyWithoutUserNestedInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutCreatorNestedInput
+  CreatedSalesOrders?: Prisma.SalesOrderUpdateManyWithoutCreatorNestedInput
+  ItemReservations?: Prisma.ItemReservationUpdateManyWithoutUserNestedInput
+  Comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
+  Notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  permissionGroups?: Prisma.UserPermissionGroupUpdateManyWithoutUserNestedInput
+  grantedPermissions?: Prisma.UserPermissionGroupUpdateManyWithoutGranterNestedInput
+  directPermissions?: Prisma.UserDirectPermissionUpdateManyWithoutUserNestedInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUpdateManyWithoutGranterNestedInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUpdateManyWithoutUserNestedInput
+  RequestsCreated?: Prisma.RequestUpdateManyWithoutRequesterNestedInput
+  RequestsAssigned?: Prisma.RequestUpdateManyWithoutAssignedToNestedInput
+  UploadedAttachments?: Prisma.RequestAttachmentUpdateManyWithoutUploadedByNestedInput
+  RequestComments?: Prisma.RequestCommentUpdateManyWithoutAuthorNestedInput
+  RequestHistoryActions?: Prisma.RequestHistoryUpdateManyWithoutPerformedByNestedInput
+  employee?: Prisma.EmployeeUpdateOneWithoutUserNestedInput
+  processedPayrolls?: Prisma.PayrollUpdateManyWithoutProcessorNestedInput
+  approvedPayrolls?: Prisma.PayrollUpdateManyWithoutApproverNestedInput
+  paidPayrolls?: Prisma.PayrollUpdateManyWithoutPayerNestedInput
+  approvedOvertime?: Prisma.OvertimeUpdateManyWithoutApproverNestedInput
+  approvedAbsences?: Prisma.AbsenceUpdateManyWithoutApproverNestedInput
+  VolumesCreated?: Prisma.VolumeUpdateManyWithoutCreatedByUserNestedInput
+  VolumesClosed?: Prisma.VolumeUpdateManyWithoutClosedByUserNestedInput
+  VolumesDelivered?: Prisma.VolumeUpdateManyWithoutDeliveredByUserNestedInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
+  storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
+  calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
+  eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
+  eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
+  emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
+  ownedBoards?: Prisma.BoardUpdateManyWithoutOwnerNestedInput
+  assignedCards?: Prisma.CardUpdateManyWithoutAssigneeNestedInput
+  reportedCards?: Prisma.CardUpdateManyWithoutReporterNestedInput
+  boardMemberships?: Prisma.BoardMemberUpdateManyWithoutUserNestedInput
+  cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
+  commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
+  cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
+  checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
+  assignedCatalogs?: Prisma.CatalogUpdateManyWithoutAssignedToNestedInput
+  approvedContents?: Prisma.GeneratedContentUpdateManyWithoutApprovedByNestedInput
+  assignedOrders?: Prisma.OrderUpdateManyWithoutAssignedToNestedInput
+  approvedOrders?: Prisma.OrderUpdateManyWithoutApprovedByNestedInput
+  requestedReturns?: Prisma.OrderReturnUpdateManyWithoutRequestedByNestedInput
+  approvedReturns?: Prisma.OrderReturnUpdateManyWithoutApprovedByNestedInput
+  reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
+  orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
+  orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
+  centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
+  createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
+  resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAnalyticsWidgetsCreatedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  lastLoginIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  blockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  forcePasswordReset?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
+  RefreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutUserNestedInput
+  ItemMovement?: Prisma.ItemMovementUncheckedUpdateManyWithoutUserNestedInput
+  ApprovedMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutApproverNestedInput
+  AuditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUncheckedUpdateManyWithoutUserNestedInput
+  Alerts?: Prisma.AlertUncheckedUpdateManyWithoutUserNestedInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutCreatorNestedInput
+  CreatedSalesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutCreatorNestedInput
+  ItemReservations?: Prisma.ItemReservationUncheckedUpdateManyWithoutUserNestedInput
+  Comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
+  Notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  permissionGroups?: Prisma.UserPermissionGroupUncheckedUpdateManyWithoutUserNestedInput
+  grantedPermissions?: Prisma.UserPermissionGroupUncheckedUpdateManyWithoutGranterNestedInput
+  directPermissions?: Prisma.UserDirectPermissionUncheckedUpdateManyWithoutUserNestedInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUncheckedUpdateManyWithoutGranterNestedInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUncheckedUpdateManyWithoutUserNestedInput
+  RequestsCreated?: Prisma.RequestUncheckedUpdateManyWithoutRequesterNestedInput
+  RequestsAssigned?: Prisma.RequestUncheckedUpdateManyWithoutAssignedToNestedInput
+  UploadedAttachments?: Prisma.RequestAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  RequestComments?: Prisma.RequestCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  RequestHistoryActions?: Prisma.RequestHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  employee?: Prisma.EmployeeUncheckedUpdateOneWithoutUserNestedInput
+  processedPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutProcessorNestedInput
+  approvedPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutApproverNestedInput
+  paidPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutPayerNestedInput
+  approvedOvertime?: Prisma.OvertimeUncheckedUpdateManyWithoutApproverNestedInput
+  approvedAbsences?: Prisma.AbsenceUncheckedUpdateManyWithoutApproverNestedInput
+  VolumesCreated?: Prisma.VolumeUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  VolumesClosed?: Prisma.VolumeUncheckedUpdateManyWithoutClosedByUserNestedInput
+  VolumesDelivered?: Prisma.VolumeUncheckedUpdateManyWithoutDeliveredByUserNestedInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
+  storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
+  calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
+  eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
+  eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
+  emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
+  ownedBoards?: Prisma.BoardUncheckedUpdateManyWithoutOwnerNestedInput
+  assignedCards?: Prisma.CardUncheckedUpdateManyWithoutAssigneeNestedInput
+  reportedCards?: Prisma.CardUncheckedUpdateManyWithoutReporterNestedInput
+  boardMemberships?: Prisma.BoardMemberUncheckedUpdateManyWithoutUserNestedInput
+  cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
+  cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
+  checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
+  assignedCatalogs?: Prisma.CatalogUncheckedUpdateManyWithoutAssignedToNestedInput
+  approvedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutApprovedByNestedInput
+  assignedOrders?: Prisma.OrderUncheckedUpdateManyWithoutAssignedToNestedInput
+  approvedOrders?: Prisma.OrderUncheckedUpdateManyWithoutApprovedByNestedInput
+  requestedReturns?: Prisma.OrderReturnUncheckedUpdateManyWithoutRequestedByNestedInput
+  approvedReturns?: Prisma.OrderReturnUncheckedUpdateManyWithoutApprovedByNestedInput
+  reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
+  orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
+  orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
+  createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
+  resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
+}
+
+export type UserCreateWithoutAnalyticsDashboardsCreatedInput = {
+  id?: string
+  username?: string | null
+  email: string
+  password_hash: string
+  lastLoginIp?: string | null
+  failedLoginAttempts?: number
+  blockedUntil?: Date | string | null
+  passwordResetToken?: string | null
+  passwordResetExpires?: Date | string | null
+  forcePasswordReset?: boolean
+  forcePasswordResetReason?: string | null
+  forcePasswordResetRequestedBy?: string | null
+  forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
+  isSuperAdmin?: boolean
+  deletedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
+  RefreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutUserInput
+  ItemMovement?: Prisma.ItemMovementCreateNestedManyWithoutUserInput
+  ApprovedMovements?: Prisma.ItemMovementCreateNestedManyWithoutApproverInput
+  AuditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryCreateNestedManyWithoutUserInput
+  Alerts?: Prisma.AlertCreateNestedManyWithoutUserInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutCreatorInput
+  CreatedSalesOrders?: Prisma.SalesOrderCreateNestedManyWithoutCreatorInput
+  ItemReservations?: Prisma.ItemReservationCreateNestedManyWithoutUserInput
+  Comments?: Prisma.CommentCreateNestedManyWithoutUserInput
+  NotificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
+  Notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  permissionGroups?: Prisma.UserPermissionGroupCreateNestedManyWithoutUserInput
+  grantedPermissions?: Prisma.UserPermissionGroupCreateNestedManyWithoutGranterInput
+  directPermissions?: Prisma.UserDirectPermissionCreateNestedManyWithoutUserInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionCreateNestedManyWithoutGranterInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogCreateNestedManyWithoutUserInput
+  RequestsCreated?: Prisma.RequestCreateNestedManyWithoutRequesterInput
+  RequestsAssigned?: Prisma.RequestCreateNestedManyWithoutAssignedToInput
+  UploadedAttachments?: Prisma.RequestAttachmentCreateNestedManyWithoutUploadedByInput
+  RequestComments?: Prisma.RequestCommentCreateNestedManyWithoutAuthorInput
+  RequestHistoryActions?: Prisma.RequestHistoryCreateNestedManyWithoutPerformedByInput
+  employee?: Prisma.EmployeeCreateNestedOneWithoutUserInput
+  processedPayrolls?: Prisma.PayrollCreateNestedManyWithoutProcessorInput
+  approvedPayrolls?: Prisma.PayrollCreateNestedManyWithoutApproverInput
+  paidPayrolls?: Prisma.PayrollCreateNestedManyWithoutPayerInput
+  approvedOvertime?: Prisma.OvertimeCreateNestedManyWithoutApproverInput
+  approvedAbsences?: Prisma.AbsenceCreateNestedManyWithoutApproverInput
+  VolumesCreated?: Prisma.VolumeCreateNestedManyWithoutCreatedByUserInput
+  VolumesClosed?: Prisma.VolumeCreateNestedManyWithoutClosedByUserInput
+  VolumesDelivered?: Prisma.VolumeCreateNestedManyWithoutDeliveredByUserInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
+  folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
+  storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
+  calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
+  eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
+  eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
+  emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
+  ownedBoards?: Prisma.BoardCreateNestedManyWithoutOwnerInput
+  assignedCards?: Prisma.CardCreateNestedManyWithoutAssigneeInput
+  reportedCards?: Prisma.CardCreateNestedManyWithoutReporterInput
+  boardMemberships?: Prisma.BoardMemberCreateNestedManyWithoutUserInput
+  cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
+  commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
+  cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
+  checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
+  assignedCatalogs?: Prisma.CatalogCreateNestedManyWithoutAssignedToInput
+  approvedContents?: Prisma.GeneratedContentCreateNestedManyWithoutApprovedByInput
+  assignedOrders?: Prisma.OrderCreateNestedManyWithoutAssignedToInput
+  approvedOrders?: Prisma.OrderCreateNestedManyWithoutApprovedByInput
+  requestedReturns?: Prisma.OrderReturnCreateNestedManyWithoutRequestedByInput
+  approvedReturns?: Prisma.OrderReturnCreateNestedManyWithoutApprovedByInput
+  reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
+  orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
+  orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
+  centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
+  createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
+  assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
+  supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
+  resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
+}
+
+export type UserUncheckedCreateWithoutAnalyticsDashboardsCreatedInput = {
+  id?: string
+  username?: string | null
+  email: string
+  password_hash: string
+  lastLoginIp?: string | null
+  failedLoginAttempts?: number
+  blockedUntil?: Date | string | null
+  passwordResetToken?: string | null
+  passwordResetExpires?: Date | string | null
+  forcePasswordReset?: boolean
+  forcePasswordResetReason?: string | null
+  forcePasswordResetRequestedBy?: string | null
+  forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
+  isSuperAdmin?: boolean
+  deletedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
+  RefreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutUserInput
+  ItemMovement?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutUserInput
+  ApprovedMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutApproverInput
+  AuditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUncheckedCreateNestedManyWithoutUserInput
+  Alerts?: Prisma.AlertUncheckedCreateNestedManyWithoutUserInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutCreatorInput
+  CreatedSalesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutCreatorInput
+  ItemReservations?: Prisma.ItemReservationUncheckedCreateNestedManyWithoutUserInput
+  Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
+  Notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  permissionGroups?: Prisma.UserPermissionGroupUncheckedCreateNestedManyWithoutUserInput
+  grantedPermissions?: Prisma.UserPermissionGroupUncheckedCreateNestedManyWithoutGranterInput
+  directPermissions?: Prisma.UserDirectPermissionUncheckedCreateNestedManyWithoutUserInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUncheckedCreateNestedManyWithoutGranterInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUncheckedCreateNestedManyWithoutUserInput
+  RequestsCreated?: Prisma.RequestUncheckedCreateNestedManyWithoutRequesterInput
+  RequestsAssigned?: Prisma.RequestUncheckedCreateNestedManyWithoutAssignedToInput
+  UploadedAttachments?: Prisma.RequestAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  RequestComments?: Prisma.RequestCommentUncheckedCreateNestedManyWithoutAuthorInput
+  RequestHistoryActions?: Prisma.RequestHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  employee?: Prisma.EmployeeUncheckedCreateNestedOneWithoutUserInput
+  processedPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutProcessorInput
+  approvedPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutApproverInput
+  paidPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutPayerInput
+  approvedOvertime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutApproverInput
+  approvedAbsences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutApproverInput
+  VolumesCreated?: Prisma.VolumeUncheckedCreateNestedManyWithoutCreatedByUserInput
+  VolumesClosed?: Prisma.VolumeUncheckedCreateNestedManyWithoutClosedByUserInput
+  VolumesDelivered?: Prisma.VolumeUncheckedCreateNestedManyWithoutDeliveredByUserInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
+  storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
+  calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
+  eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
+  eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
+  emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
+  ownedBoards?: Prisma.BoardUncheckedCreateNestedManyWithoutOwnerInput
+  assignedCards?: Prisma.CardUncheckedCreateNestedManyWithoutAssigneeInput
+  reportedCards?: Prisma.CardUncheckedCreateNestedManyWithoutReporterInput
+  boardMemberships?: Prisma.BoardMemberUncheckedCreateNestedManyWithoutUserInput
+  cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
+  commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
+  cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
+  checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
+  assignedCatalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutAssignedToInput
+  approvedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutApprovedByInput
+  assignedOrders?: Prisma.OrderUncheckedCreateNestedManyWithoutAssignedToInput
+  approvedOrders?: Prisma.OrderUncheckedCreateNestedManyWithoutApprovedByInput
+  requestedReturns?: Prisma.OrderReturnUncheckedCreateNestedManyWithoutRequestedByInput
+  approvedReturns?: Prisma.OrderReturnUncheckedCreateNestedManyWithoutApprovedByInput
+  reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
+  orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
+  orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
+  centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
+  createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
+  resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
+}
+
+export type UserCreateOrConnectWithoutAnalyticsDashboardsCreatedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAnalyticsDashboardsCreatedInput, Prisma.UserUncheckedCreateWithoutAnalyticsDashboardsCreatedInput>
+}
+
+export type UserUpsertWithoutAnalyticsDashboardsCreatedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAnalyticsDashboardsCreatedInput, Prisma.UserUncheckedUpdateWithoutAnalyticsDashboardsCreatedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAnalyticsDashboardsCreatedInput, Prisma.UserUncheckedCreateWithoutAnalyticsDashboardsCreatedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAnalyticsDashboardsCreatedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAnalyticsDashboardsCreatedInput, Prisma.UserUncheckedUpdateWithoutAnalyticsDashboardsCreatedInput>
+}
+
+export type UserUpdateWithoutAnalyticsDashboardsCreatedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  lastLoginIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  blockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  forcePasswordReset?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
+  RefreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutUserNestedInput
+  ItemMovement?: Prisma.ItemMovementUpdateManyWithoutUserNestedInput
+  ApprovedMovements?: Prisma.ItemMovementUpdateManyWithoutApproverNestedInput
+  AuditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUpdateManyWithoutUserNestedInput
+  Alerts?: Prisma.AlertUpdateManyWithoutUserNestedInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutCreatorNestedInput
+  CreatedSalesOrders?: Prisma.SalesOrderUpdateManyWithoutCreatorNestedInput
+  ItemReservations?: Prisma.ItemReservationUpdateManyWithoutUserNestedInput
+  Comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
+  Notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  permissionGroups?: Prisma.UserPermissionGroupUpdateManyWithoutUserNestedInput
+  grantedPermissions?: Prisma.UserPermissionGroupUpdateManyWithoutGranterNestedInput
+  directPermissions?: Prisma.UserDirectPermissionUpdateManyWithoutUserNestedInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUpdateManyWithoutGranterNestedInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUpdateManyWithoutUserNestedInput
+  RequestsCreated?: Prisma.RequestUpdateManyWithoutRequesterNestedInput
+  RequestsAssigned?: Prisma.RequestUpdateManyWithoutAssignedToNestedInput
+  UploadedAttachments?: Prisma.RequestAttachmentUpdateManyWithoutUploadedByNestedInput
+  RequestComments?: Prisma.RequestCommentUpdateManyWithoutAuthorNestedInput
+  RequestHistoryActions?: Prisma.RequestHistoryUpdateManyWithoutPerformedByNestedInput
+  employee?: Prisma.EmployeeUpdateOneWithoutUserNestedInput
+  processedPayrolls?: Prisma.PayrollUpdateManyWithoutProcessorNestedInput
+  approvedPayrolls?: Prisma.PayrollUpdateManyWithoutApproverNestedInput
+  paidPayrolls?: Prisma.PayrollUpdateManyWithoutPayerNestedInput
+  approvedOvertime?: Prisma.OvertimeUpdateManyWithoutApproverNestedInput
+  approvedAbsences?: Prisma.AbsenceUpdateManyWithoutApproverNestedInput
+  VolumesCreated?: Prisma.VolumeUpdateManyWithoutCreatedByUserNestedInput
+  VolumesClosed?: Prisma.VolumeUpdateManyWithoutClosedByUserNestedInput
+  VolumesDelivered?: Prisma.VolumeUpdateManyWithoutDeliveredByUserNestedInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
+  storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
+  calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
+  eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
+  eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
+  emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
+  ownedBoards?: Prisma.BoardUpdateManyWithoutOwnerNestedInput
+  assignedCards?: Prisma.CardUpdateManyWithoutAssigneeNestedInput
+  reportedCards?: Prisma.CardUpdateManyWithoutReporterNestedInput
+  boardMemberships?: Prisma.BoardMemberUpdateManyWithoutUserNestedInput
+  cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
+  commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
+  cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
+  checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
+  assignedCatalogs?: Prisma.CatalogUpdateManyWithoutAssignedToNestedInput
+  approvedContents?: Prisma.GeneratedContentUpdateManyWithoutApprovedByNestedInput
+  assignedOrders?: Prisma.OrderUpdateManyWithoutAssignedToNestedInput
+  approvedOrders?: Prisma.OrderUpdateManyWithoutApprovedByNestedInput
+  requestedReturns?: Prisma.OrderReturnUpdateManyWithoutRequestedByNestedInput
+  approvedReturns?: Prisma.OrderReturnUpdateManyWithoutApprovedByNestedInput
+  reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
+  orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
+  orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
+  centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
+  createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
+  resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAnalyticsDashboardsCreatedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  lastLoginIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  blockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  forcePasswordReset?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
+  RefreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutUserNestedInput
+  ItemMovement?: Prisma.ItemMovementUncheckedUpdateManyWithoutUserNestedInput
+  ApprovedMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutApproverNestedInput
+  AuditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUncheckedUpdateManyWithoutUserNestedInput
+  Alerts?: Prisma.AlertUncheckedUpdateManyWithoutUserNestedInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutCreatorNestedInput
+  CreatedSalesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutCreatorNestedInput
+  ItemReservations?: Prisma.ItemReservationUncheckedUpdateManyWithoutUserNestedInput
+  Comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
+  Notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  permissionGroups?: Prisma.UserPermissionGroupUncheckedUpdateManyWithoutUserNestedInput
+  grantedPermissions?: Prisma.UserPermissionGroupUncheckedUpdateManyWithoutGranterNestedInput
+  directPermissions?: Prisma.UserDirectPermissionUncheckedUpdateManyWithoutUserNestedInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUncheckedUpdateManyWithoutGranterNestedInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUncheckedUpdateManyWithoutUserNestedInput
+  RequestsCreated?: Prisma.RequestUncheckedUpdateManyWithoutRequesterNestedInput
+  RequestsAssigned?: Prisma.RequestUncheckedUpdateManyWithoutAssignedToNestedInput
+  UploadedAttachments?: Prisma.RequestAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  RequestComments?: Prisma.RequestCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  RequestHistoryActions?: Prisma.RequestHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  employee?: Prisma.EmployeeUncheckedUpdateOneWithoutUserNestedInput
+  processedPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutProcessorNestedInput
+  approvedPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutApproverNestedInput
+  paidPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutPayerNestedInput
+  approvedOvertime?: Prisma.OvertimeUncheckedUpdateManyWithoutApproverNestedInput
+  approvedAbsences?: Prisma.AbsenceUncheckedUpdateManyWithoutApproverNestedInput
+  VolumesCreated?: Prisma.VolumeUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  VolumesClosed?: Prisma.VolumeUncheckedUpdateManyWithoutClosedByUserNestedInput
+  VolumesDelivered?: Prisma.VolumeUncheckedUpdateManyWithoutDeliveredByUserNestedInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
+  storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
+  calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
+  eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
+  eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
+  emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
+  ownedBoards?: Prisma.BoardUncheckedUpdateManyWithoutOwnerNestedInput
+  assignedCards?: Prisma.CardUncheckedUpdateManyWithoutAssigneeNestedInput
+  reportedCards?: Prisma.CardUncheckedUpdateManyWithoutReporterNestedInput
+  boardMemberships?: Prisma.BoardMemberUncheckedUpdateManyWithoutUserNestedInput
+  cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
+  cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
+  checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
+  assignedCatalogs?: Prisma.CatalogUncheckedUpdateManyWithoutAssignedToNestedInput
+  approvedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutApprovedByNestedInput
+  assignedOrders?: Prisma.OrderUncheckedUpdateManyWithoutAssignedToNestedInput
+  approvedOrders?: Prisma.OrderUncheckedUpdateManyWithoutApprovedByNestedInput
+  requestedReturns?: Prisma.OrderReturnUncheckedUpdateManyWithoutRequestedByNestedInput
+  approvedReturns?: Prisma.OrderReturnUncheckedUpdateManyWithoutApprovedByNestedInput
+  reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
+  orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
+  orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
+  createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
+  resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
+}
+
+export type UserCreateWithoutAnalyticsGoalsAssignedInput = {
+  id?: string
+  username?: string | null
+  email: string
+  password_hash: string
+  lastLoginIp?: string | null
+  failedLoginAttempts?: number
+  blockedUntil?: Date | string | null
+  passwordResetToken?: string | null
+  passwordResetExpires?: Date | string | null
+  forcePasswordReset?: boolean
+  forcePasswordResetReason?: string | null
+  forcePasswordResetRequestedBy?: string | null
+  forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
+  isSuperAdmin?: boolean
+  deletedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
+  RefreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutUserInput
+  ItemMovement?: Prisma.ItemMovementCreateNestedManyWithoutUserInput
+  ApprovedMovements?: Prisma.ItemMovementCreateNestedManyWithoutApproverInput
+  AuditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryCreateNestedManyWithoutUserInput
+  Alerts?: Prisma.AlertCreateNestedManyWithoutUserInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutCreatorInput
+  CreatedSalesOrders?: Prisma.SalesOrderCreateNestedManyWithoutCreatorInput
+  ItemReservations?: Prisma.ItemReservationCreateNestedManyWithoutUserInput
+  Comments?: Prisma.CommentCreateNestedManyWithoutUserInput
+  NotificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
+  Notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  permissionGroups?: Prisma.UserPermissionGroupCreateNestedManyWithoutUserInput
+  grantedPermissions?: Prisma.UserPermissionGroupCreateNestedManyWithoutGranterInput
+  directPermissions?: Prisma.UserDirectPermissionCreateNestedManyWithoutUserInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionCreateNestedManyWithoutGranterInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogCreateNestedManyWithoutUserInput
+  RequestsCreated?: Prisma.RequestCreateNestedManyWithoutRequesterInput
+  RequestsAssigned?: Prisma.RequestCreateNestedManyWithoutAssignedToInput
+  UploadedAttachments?: Prisma.RequestAttachmentCreateNestedManyWithoutUploadedByInput
+  RequestComments?: Prisma.RequestCommentCreateNestedManyWithoutAuthorInput
+  RequestHistoryActions?: Prisma.RequestHistoryCreateNestedManyWithoutPerformedByInput
+  employee?: Prisma.EmployeeCreateNestedOneWithoutUserInput
+  processedPayrolls?: Prisma.PayrollCreateNestedManyWithoutProcessorInput
+  approvedPayrolls?: Prisma.PayrollCreateNestedManyWithoutApproverInput
+  paidPayrolls?: Prisma.PayrollCreateNestedManyWithoutPayerInput
+  approvedOvertime?: Prisma.OvertimeCreateNestedManyWithoutApproverInput
+  approvedAbsences?: Prisma.AbsenceCreateNestedManyWithoutApproverInput
+  VolumesCreated?: Prisma.VolumeCreateNestedManyWithoutCreatedByUserInput
+  VolumesClosed?: Prisma.VolumeCreateNestedManyWithoutClosedByUserInput
+  VolumesDelivered?: Prisma.VolumeCreateNestedManyWithoutDeliveredByUserInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
+  folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
+  storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
+  calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
+  eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
+  eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
+  emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
+  ownedBoards?: Prisma.BoardCreateNestedManyWithoutOwnerInput
+  assignedCards?: Prisma.CardCreateNestedManyWithoutAssigneeInput
+  reportedCards?: Prisma.CardCreateNestedManyWithoutReporterInput
+  boardMemberships?: Prisma.BoardMemberCreateNestedManyWithoutUserInput
+  cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
+  commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
+  cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
+  checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
+  assignedCatalogs?: Prisma.CatalogCreateNestedManyWithoutAssignedToInput
+  approvedContents?: Prisma.GeneratedContentCreateNestedManyWithoutApprovedByInput
+  assignedOrders?: Prisma.OrderCreateNestedManyWithoutAssignedToInput
+  approvedOrders?: Prisma.OrderCreateNestedManyWithoutApprovedByInput
+  requestedReturns?: Prisma.OrderReturnCreateNestedManyWithoutRequestedByInput
+  approvedReturns?: Prisma.OrderReturnCreateNestedManyWithoutApprovedByInput
+  reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
+  orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
+  orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
+  centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
+  createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
+  assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
+  supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
+  resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
+}
+
+export type UserUncheckedCreateWithoutAnalyticsGoalsAssignedInput = {
+  id?: string
+  username?: string | null
+  email: string
+  password_hash: string
+  lastLoginIp?: string | null
+  failedLoginAttempts?: number
+  blockedUntil?: Date | string | null
+  passwordResetToken?: string | null
+  passwordResetExpires?: Date | string | null
+  forcePasswordReset?: boolean
+  forcePasswordResetReason?: string | null
+  forcePasswordResetRequestedBy?: string | null
+  forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
+  isSuperAdmin?: boolean
+  deletedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
+  RefreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutUserInput
+  ItemMovement?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutUserInput
+  ApprovedMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutApproverInput
+  AuditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUncheckedCreateNestedManyWithoutUserInput
+  Alerts?: Prisma.AlertUncheckedCreateNestedManyWithoutUserInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutCreatorInput
+  CreatedSalesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutCreatorInput
+  ItemReservations?: Prisma.ItemReservationUncheckedCreateNestedManyWithoutUserInput
+  Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
+  Notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  permissionGroups?: Prisma.UserPermissionGroupUncheckedCreateNestedManyWithoutUserInput
+  grantedPermissions?: Prisma.UserPermissionGroupUncheckedCreateNestedManyWithoutGranterInput
+  directPermissions?: Prisma.UserDirectPermissionUncheckedCreateNestedManyWithoutUserInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUncheckedCreateNestedManyWithoutGranterInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUncheckedCreateNestedManyWithoutUserInput
+  RequestsCreated?: Prisma.RequestUncheckedCreateNestedManyWithoutRequesterInput
+  RequestsAssigned?: Prisma.RequestUncheckedCreateNestedManyWithoutAssignedToInput
+  UploadedAttachments?: Prisma.RequestAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  RequestComments?: Prisma.RequestCommentUncheckedCreateNestedManyWithoutAuthorInput
+  RequestHistoryActions?: Prisma.RequestHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  employee?: Prisma.EmployeeUncheckedCreateNestedOneWithoutUserInput
+  processedPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutProcessorInput
+  approvedPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutApproverInput
+  paidPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutPayerInput
+  approvedOvertime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutApproverInput
+  approvedAbsences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutApproverInput
+  VolumesCreated?: Prisma.VolumeUncheckedCreateNestedManyWithoutCreatedByUserInput
+  VolumesClosed?: Prisma.VolumeUncheckedCreateNestedManyWithoutClosedByUserInput
+  VolumesDelivered?: Prisma.VolumeUncheckedCreateNestedManyWithoutDeliveredByUserInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
+  storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
+  calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
+  eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
+  eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
+  emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
+  ownedBoards?: Prisma.BoardUncheckedCreateNestedManyWithoutOwnerInput
+  assignedCards?: Prisma.CardUncheckedCreateNestedManyWithoutAssigneeInput
+  reportedCards?: Prisma.CardUncheckedCreateNestedManyWithoutReporterInput
+  boardMemberships?: Prisma.BoardMemberUncheckedCreateNestedManyWithoutUserInput
+  cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
+  commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
+  cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
+  checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
+  assignedCatalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutAssignedToInput
+  approvedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutApprovedByInput
+  assignedOrders?: Prisma.OrderUncheckedCreateNestedManyWithoutAssignedToInput
+  approvedOrders?: Prisma.OrderUncheckedCreateNestedManyWithoutApprovedByInput
+  requestedReturns?: Prisma.OrderReturnUncheckedCreateNestedManyWithoutRequestedByInput
+  approvedReturns?: Prisma.OrderReturnUncheckedCreateNestedManyWithoutApprovedByInput
+  reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
+  orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
+  orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
+  centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
+  createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
+  resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
+}
+
+export type UserCreateOrConnectWithoutAnalyticsGoalsAssignedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAnalyticsGoalsAssignedInput, Prisma.UserUncheckedCreateWithoutAnalyticsGoalsAssignedInput>
+}
+
+export type UserCreateWithoutAnalyticsGoalsCreatedInput = {
+  id?: string
+  username?: string | null
+  email: string
+  password_hash: string
+  lastLoginIp?: string | null
+  failedLoginAttempts?: number
+  blockedUntil?: Date | string | null
+  passwordResetToken?: string | null
+  passwordResetExpires?: Date | string | null
+  forcePasswordReset?: boolean
+  forcePasswordResetReason?: string | null
+  forcePasswordResetRequestedBy?: string | null
+  forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
+  isSuperAdmin?: boolean
+  deletedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
+  RefreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutUserInput
+  ItemMovement?: Prisma.ItemMovementCreateNestedManyWithoutUserInput
+  ApprovedMovements?: Prisma.ItemMovementCreateNestedManyWithoutApproverInput
+  AuditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryCreateNestedManyWithoutUserInput
+  Alerts?: Prisma.AlertCreateNestedManyWithoutUserInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutCreatorInput
+  CreatedSalesOrders?: Prisma.SalesOrderCreateNestedManyWithoutCreatorInput
+  ItemReservations?: Prisma.ItemReservationCreateNestedManyWithoutUserInput
+  Comments?: Prisma.CommentCreateNestedManyWithoutUserInput
+  NotificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
+  Notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  permissionGroups?: Prisma.UserPermissionGroupCreateNestedManyWithoutUserInput
+  grantedPermissions?: Prisma.UserPermissionGroupCreateNestedManyWithoutGranterInput
+  directPermissions?: Prisma.UserDirectPermissionCreateNestedManyWithoutUserInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionCreateNestedManyWithoutGranterInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogCreateNestedManyWithoutUserInput
+  RequestsCreated?: Prisma.RequestCreateNestedManyWithoutRequesterInput
+  RequestsAssigned?: Prisma.RequestCreateNestedManyWithoutAssignedToInput
+  UploadedAttachments?: Prisma.RequestAttachmentCreateNestedManyWithoutUploadedByInput
+  RequestComments?: Prisma.RequestCommentCreateNestedManyWithoutAuthorInput
+  RequestHistoryActions?: Prisma.RequestHistoryCreateNestedManyWithoutPerformedByInput
+  employee?: Prisma.EmployeeCreateNestedOneWithoutUserInput
+  processedPayrolls?: Prisma.PayrollCreateNestedManyWithoutProcessorInput
+  approvedPayrolls?: Prisma.PayrollCreateNestedManyWithoutApproverInput
+  paidPayrolls?: Prisma.PayrollCreateNestedManyWithoutPayerInput
+  approvedOvertime?: Prisma.OvertimeCreateNestedManyWithoutApproverInput
+  approvedAbsences?: Prisma.AbsenceCreateNestedManyWithoutApproverInput
+  VolumesCreated?: Prisma.VolumeCreateNestedManyWithoutCreatedByUserInput
+  VolumesClosed?: Prisma.VolumeCreateNestedManyWithoutClosedByUserInput
+  VolumesDelivered?: Prisma.VolumeCreateNestedManyWithoutDeliveredByUserInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
+  folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
+  storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
+  calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
+  eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
+  eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
+  emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
+  ownedBoards?: Prisma.BoardCreateNestedManyWithoutOwnerInput
+  assignedCards?: Prisma.CardCreateNestedManyWithoutAssigneeInput
+  reportedCards?: Prisma.CardCreateNestedManyWithoutReporterInput
+  boardMemberships?: Prisma.BoardMemberCreateNestedManyWithoutUserInput
+  cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
+  commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
+  cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
+  checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
+  assignedCatalogs?: Prisma.CatalogCreateNestedManyWithoutAssignedToInput
+  approvedContents?: Prisma.GeneratedContentCreateNestedManyWithoutApprovedByInput
+  assignedOrders?: Prisma.OrderCreateNestedManyWithoutAssignedToInput
+  approvedOrders?: Prisma.OrderCreateNestedManyWithoutApprovedByInput
+  requestedReturns?: Prisma.OrderReturnCreateNestedManyWithoutRequestedByInput
+  approvedReturns?: Prisma.OrderReturnCreateNestedManyWithoutApprovedByInput
+  reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
+  orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
+  orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
+  centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
+  createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
+  assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
+  supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
+  resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
+}
+
+export type UserUncheckedCreateWithoutAnalyticsGoalsCreatedInput = {
+  id?: string
+  username?: string | null
+  email: string
+  password_hash: string
+  lastLoginIp?: string | null
+  failedLoginAttempts?: number
+  blockedUntil?: Date | string | null
+  passwordResetToken?: string | null
+  passwordResetExpires?: Date | string | null
+  forcePasswordReset?: boolean
+  forcePasswordResetReason?: string | null
+  forcePasswordResetRequestedBy?: string | null
+  forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
+  isSuperAdmin?: boolean
+  deletedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
+  RefreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutUserInput
+  ItemMovement?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutUserInput
+  ApprovedMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutApproverInput
+  AuditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUncheckedCreateNestedManyWithoutUserInput
+  Alerts?: Prisma.AlertUncheckedCreateNestedManyWithoutUserInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutCreatorInput
+  CreatedSalesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutCreatorInput
+  ItemReservations?: Prisma.ItemReservationUncheckedCreateNestedManyWithoutUserInput
+  Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
+  Notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  permissionGroups?: Prisma.UserPermissionGroupUncheckedCreateNestedManyWithoutUserInput
+  grantedPermissions?: Prisma.UserPermissionGroupUncheckedCreateNestedManyWithoutGranterInput
+  directPermissions?: Prisma.UserDirectPermissionUncheckedCreateNestedManyWithoutUserInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUncheckedCreateNestedManyWithoutGranterInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUncheckedCreateNestedManyWithoutUserInput
+  RequestsCreated?: Prisma.RequestUncheckedCreateNestedManyWithoutRequesterInput
+  RequestsAssigned?: Prisma.RequestUncheckedCreateNestedManyWithoutAssignedToInput
+  UploadedAttachments?: Prisma.RequestAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  RequestComments?: Prisma.RequestCommentUncheckedCreateNestedManyWithoutAuthorInput
+  RequestHistoryActions?: Prisma.RequestHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  employee?: Prisma.EmployeeUncheckedCreateNestedOneWithoutUserInput
+  processedPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutProcessorInput
+  approvedPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutApproverInput
+  paidPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutPayerInput
+  approvedOvertime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutApproverInput
+  approvedAbsences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutApproverInput
+  VolumesCreated?: Prisma.VolumeUncheckedCreateNestedManyWithoutCreatedByUserInput
+  VolumesClosed?: Prisma.VolumeUncheckedCreateNestedManyWithoutClosedByUserInput
+  VolumesDelivered?: Prisma.VolumeUncheckedCreateNestedManyWithoutDeliveredByUserInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
+  storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
+  calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
+  eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
+  eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
+  emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
+  ownedBoards?: Prisma.BoardUncheckedCreateNestedManyWithoutOwnerInput
+  assignedCards?: Prisma.CardUncheckedCreateNestedManyWithoutAssigneeInput
+  reportedCards?: Prisma.CardUncheckedCreateNestedManyWithoutReporterInput
+  boardMemberships?: Prisma.BoardMemberUncheckedCreateNestedManyWithoutUserInput
+  cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
+  commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
+  cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
+  checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
+  assignedCatalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutAssignedToInput
+  approvedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutApprovedByInput
+  assignedOrders?: Prisma.OrderUncheckedCreateNestedManyWithoutAssignedToInput
+  approvedOrders?: Prisma.OrderUncheckedCreateNestedManyWithoutApprovedByInput
+  requestedReturns?: Prisma.OrderReturnUncheckedCreateNestedManyWithoutRequestedByInput
+  approvedReturns?: Prisma.OrderReturnUncheckedCreateNestedManyWithoutApprovedByInput
+  reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
+  orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
+  orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
+  centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
+  createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
+  resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
+}
+
+export type UserCreateOrConnectWithoutAnalyticsGoalsCreatedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAnalyticsGoalsCreatedInput, Prisma.UserUncheckedCreateWithoutAnalyticsGoalsCreatedInput>
+}
+
+export type UserUpsertWithoutAnalyticsGoalsAssignedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAnalyticsGoalsAssignedInput, Prisma.UserUncheckedUpdateWithoutAnalyticsGoalsAssignedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAnalyticsGoalsAssignedInput, Prisma.UserUncheckedCreateWithoutAnalyticsGoalsAssignedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAnalyticsGoalsAssignedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAnalyticsGoalsAssignedInput, Prisma.UserUncheckedUpdateWithoutAnalyticsGoalsAssignedInput>
+}
+
+export type UserUpdateWithoutAnalyticsGoalsAssignedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  lastLoginIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  blockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  forcePasswordReset?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
+  RefreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutUserNestedInput
+  ItemMovement?: Prisma.ItemMovementUpdateManyWithoutUserNestedInput
+  ApprovedMovements?: Prisma.ItemMovementUpdateManyWithoutApproverNestedInput
+  AuditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUpdateManyWithoutUserNestedInput
+  Alerts?: Prisma.AlertUpdateManyWithoutUserNestedInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutCreatorNestedInput
+  CreatedSalesOrders?: Prisma.SalesOrderUpdateManyWithoutCreatorNestedInput
+  ItemReservations?: Prisma.ItemReservationUpdateManyWithoutUserNestedInput
+  Comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
+  Notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  permissionGroups?: Prisma.UserPermissionGroupUpdateManyWithoutUserNestedInput
+  grantedPermissions?: Prisma.UserPermissionGroupUpdateManyWithoutGranterNestedInput
+  directPermissions?: Prisma.UserDirectPermissionUpdateManyWithoutUserNestedInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUpdateManyWithoutGranterNestedInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUpdateManyWithoutUserNestedInput
+  RequestsCreated?: Prisma.RequestUpdateManyWithoutRequesterNestedInput
+  RequestsAssigned?: Prisma.RequestUpdateManyWithoutAssignedToNestedInput
+  UploadedAttachments?: Prisma.RequestAttachmentUpdateManyWithoutUploadedByNestedInput
+  RequestComments?: Prisma.RequestCommentUpdateManyWithoutAuthorNestedInput
+  RequestHistoryActions?: Prisma.RequestHistoryUpdateManyWithoutPerformedByNestedInput
+  employee?: Prisma.EmployeeUpdateOneWithoutUserNestedInput
+  processedPayrolls?: Prisma.PayrollUpdateManyWithoutProcessorNestedInput
+  approvedPayrolls?: Prisma.PayrollUpdateManyWithoutApproverNestedInput
+  paidPayrolls?: Prisma.PayrollUpdateManyWithoutPayerNestedInput
+  approvedOvertime?: Prisma.OvertimeUpdateManyWithoutApproverNestedInput
+  approvedAbsences?: Prisma.AbsenceUpdateManyWithoutApproverNestedInput
+  VolumesCreated?: Prisma.VolumeUpdateManyWithoutCreatedByUserNestedInput
+  VolumesClosed?: Prisma.VolumeUpdateManyWithoutClosedByUserNestedInput
+  VolumesDelivered?: Prisma.VolumeUpdateManyWithoutDeliveredByUserNestedInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
+  storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
+  calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
+  eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
+  eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
+  emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
+  ownedBoards?: Prisma.BoardUpdateManyWithoutOwnerNestedInput
+  assignedCards?: Prisma.CardUpdateManyWithoutAssigneeNestedInput
+  reportedCards?: Prisma.CardUpdateManyWithoutReporterNestedInput
+  boardMemberships?: Prisma.BoardMemberUpdateManyWithoutUserNestedInput
+  cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
+  commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
+  cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
+  checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
+  assignedCatalogs?: Prisma.CatalogUpdateManyWithoutAssignedToNestedInput
+  approvedContents?: Prisma.GeneratedContentUpdateManyWithoutApprovedByNestedInput
+  assignedOrders?: Prisma.OrderUpdateManyWithoutAssignedToNestedInput
+  approvedOrders?: Prisma.OrderUpdateManyWithoutApprovedByNestedInput
+  requestedReturns?: Prisma.OrderReturnUpdateManyWithoutRequestedByNestedInput
+  approvedReturns?: Prisma.OrderReturnUpdateManyWithoutApprovedByNestedInput
+  reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
+  orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
+  orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
+  centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
+  createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
+  resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAnalyticsGoalsAssignedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  lastLoginIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  blockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  forcePasswordReset?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
+  RefreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutUserNestedInput
+  ItemMovement?: Prisma.ItemMovementUncheckedUpdateManyWithoutUserNestedInput
+  ApprovedMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutApproverNestedInput
+  AuditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUncheckedUpdateManyWithoutUserNestedInput
+  Alerts?: Prisma.AlertUncheckedUpdateManyWithoutUserNestedInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutCreatorNestedInput
+  CreatedSalesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutCreatorNestedInput
+  ItemReservations?: Prisma.ItemReservationUncheckedUpdateManyWithoutUserNestedInput
+  Comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
+  Notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  permissionGroups?: Prisma.UserPermissionGroupUncheckedUpdateManyWithoutUserNestedInput
+  grantedPermissions?: Prisma.UserPermissionGroupUncheckedUpdateManyWithoutGranterNestedInput
+  directPermissions?: Prisma.UserDirectPermissionUncheckedUpdateManyWithoutUserNestedInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUncheckedUpdateManyWithoutGranterNestedInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUncheckedUpdateManyWithoutUserNestedInput
+  RequestsCreated?: Prisma.RequestUncheckedUpdateManyWithoutRequesterNestedInput
+  RequestsAssigned?: Prisma.RequestUncheckedUpdateManyWithoutAssignedToNestedInput
+  UploadedAttachments?: Prisma.RequestAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  RequestComments?: Prisma.RequestCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  RequestHistoryActions?: Prisma.RequestHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  employee?: Prisma.EmployeeUncheckedUpdateOneWithoutUserNestedInput
+  processedPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutProcessorNestedInput
+  approvedPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutApproverNestedInput
+  paidPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutPayerNestedInput
+  approvedOvertime?: Prisma.OvertimeUncheckedUpdateManyWithoutApproverNestedInput
+  approvedAbsences?: Prisma.AbsenceUncheckedUpdateManyWithoutApproverNestedInput
+  VolumesCreated?: Prisma.VolumeUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  VolumesClosed?: Prisma.VolumeUncheckedUpdateManyWithoutClosedByUserNestedInput
+  VolumesDelivered?: Prisma.VolumeUncheckedUpdateManyWithoutDeliveredByUserNestedInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
+  storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
+  calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
+  eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
+  eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
+  emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
+  ownedBoards?: Prisma.BoardUncheckedUpdateManyWithoutOwnerNestedInput
+  assignedCards?: Prisma.CardUncheckedUpdateManyWithoutAssigneeNestedInput
+  reportedCards?: Prisma.CardUncheckedUpdateManyWithoutReporterNestedInput
+  boardMemberships?: Prisma.BoardMemberUncheckedUpdateManyWithoutUserNestedInput
+  cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
+  cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
+  checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
+  assignedCatalogs?: Prisma.CatalogUncheckedUpdateManyWithoutAssignedToNestedInput
+  approvedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutApprovedByNestedInput
+  assignedOrders?: Prisma.OrderUncheckedUpdateManyWithoutAssignedToNestedInput
+  approvedOrders?: Prisma.OrderUncheckedUpdateManyWithoutApprovedByNestedInput
+  requestedReturns?: Prisma.OrderReturnUncheckedUpdateManyWithoutRequestedByNestedInput
+  approvedReturns?: Prisma.OrderReturnUncheckedUpdateManyWithoutApprovedByNestedInput
+  reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
+  orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
+  orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
+  createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
+  resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
+}
+
+export type UserUpsertWithoutAnalyticsGoalsCreatedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAnalyticsGoalsCreatedInput, Prisma.UserUncheckedUpdateWithoutAnalyticsGoalsCreatedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAnalyticsGoalsCreatedInput, Prisma.UserUncheckedCreateWithoutAnalyticsGoalsCreatedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAnalyticsGoalsCreatedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAnalyticsGoalsCreatedInput, Prisma.UserUncheckedUpdateWithoutAnalyticsGoalsCreatedInput>
+}
+
+export type UserUpdateWithoutAnalyticsGoalsCreatedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  lastLoginIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  blockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  forcePasswordReset?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
+  RefreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutUserNestedInput
+  ItemMovement?: Prisma.ItemMovementUpdateManyWithoutUserNestedInput
+  ApprovedMovements?: Prisma.ItemMovementUpdateManyWithoutApproverNestedInput
+  AuditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUpdateManyWithoutUserNestedInput
+  Alerts?: Prisma.AlertUpdateManyWithoutUserNestedInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutCreatorNestedInput
+  CreatedSalesOrders?: Prisma.SalesOrderUpdateManyWithoutCreatorNestedInput
+  ItemReservations?: Prisma.ItemReservationUpdateManyWithoutUserNestedInput
+  Comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
+  Notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  permissionGroups?: Prisma.UserPermissionGroupUpdateManyWithoutUserNestedInput
+  grantedPermissions?: Prisma.UserPermissionGroupUpdateManyWithoutGranterNestedInput
+  directPermissions?: Prisma.UserDirectPermissionUpdateManyWithoutUserNestedInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUpdateManyWithoutGranterNestedInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUpdateManyWithoutUserNestedInput
+  RequestsCreated?: Prisma.RequestUpdateManyWithoutRequesterNestedInput
+  RequestsAssigned?: Prisma.RequestUpdateManyWithoutAssignedToNestedInput
+  UploadedAttachments?: Prisma.RequestAttachmentUpdateManyWithoutUploadedByNestedInput
+  RequestComments?: Prisma.RequestCommentUpdateManyWithoutAuthorNestedInput
+  RequestHistoryActions?: Prisma.RequestHistoryUpdateManyWithoutPerformedByNestedInput
+  employee?: Prisma.EmployeeUpdateOneWithoutUserNestedInput
+  processedPayrolls?: Prisma.PayrollUpdateManyWithoutProcessorNestedInput
+  approvedPayrolls?: Prisma.PayrollUpdateManyWithoutApproverNestedInput
+  paidPayrolls?: Prisma.PayrollUpdateManyWithoutPayerNestedInput
+  approvedOvertime?: Prisma.OvertimeUpdateManyWithoutApproverNestedInput
+  approvedAbsences?: Prisma.AbsenceUpdateManyWithoutApproverNestedInput
+  VolumesCreated?: Prisma.VolumeUpdateManyWithoutCreatedByUserNestedInput
+  VolumesClosed?: Prisma.VolumeUpdateManyWithoutClosedByUserNestedInput
+  VolumesDelivered?: Prisma.VolumeUpdateManyWithoutDeliveredByUserNestedInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
+  storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
+  calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
+  eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
+  eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
+  emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
+  ownedBoards?: Prisma.BoardUpdateManyWithoutOwnerNestedInput
+  assignedCards?: Prisma.CardUpdateManyWithoutAssigneeNestedInput
+  reportedCards?: Prisma.CardUpdateManyWithoutReporterNestedInput
+  boardMemberships?: Prisma.BoardMemberUpdateManyWithoutUserNestedInput
+  cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
+  commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
+  cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
+  checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
+  assignedCatalogs?: Prisma.CatalogUpdateManyWithoutAssignedToNestedInput
+  approvedContents?: Prisma.GeneratedContentUpdateManyWithoutApprovedByNestedInput
+  assignedOrders?: Prisma.OrderUpdateManyWithoutAssignedToNestedInput
+  approvedOrders?: Prisma.OrderUpdateManyWithoutApprovedByNestedInput
+  requestedReturns?: Prisma.OrderReturnUpdateManyWithoutRequestedByNestedInput
+  approvedReturns?: Prisma.OrderReturnUpdateManyWithoutApprovedByNestedInput
+  reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
+  orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
+  orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
+  centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
+  createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
+  resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAnalyticsGoalsCreatedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  lastLoginIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  blockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  forcePasswordReset?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
+  RefreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutUserNestedInput
+  ItemMovement?: Prisma.ItemMovementUncheckedUpdateManyWithoutUserNestedInput
+  ApprovedMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutApproverNestedInput
+  AuditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUncheckedUpdateManyWithoutUserNestedInput
+  Alerts?: Prisma.AlertUncheckedUpdateManyWithoutUserNestedInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutCreatorNestedInput
+  CreatedSalesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutCreatorNestedInput
+  ItemReservations?: Prisma.ItemReservationUncheckedUpdateManyWithoutUserNestedInput
+  Comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
+  Notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  permissionGroups?: Prisma.UserPermissionGroupUncheckedUpdateManyWithoutUserNestedInput
+  grantedPermissions?: Prisma.UserPermissionGroupUncheckedUpdateManyWithoutGranterNestedInput
+  directPermissions?: Prisma.UserDirectPermissionUncheckedUpdateManyWithoutUserNestedInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUncheckedUpdateManyWithoutGranterNestedInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUncheckedUpdateManyWithoutUserNestedInput
+  RequestsCreated?: Prisma.RequestUncheckedUpdateManyWithoutRequesterNestedInput
+  RequestsAssigned?: Prisma.RequestUncheckedUpdateManyWithoutAssignedToNestedInput
+  UploadedAttachments?: Prisma.RequestAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  RequestComments?: Prisma.RequestCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  RequestHistoryActions?: Prisma.RequestHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  employee?: Prisma.EmployeeUncheckedUpdateOneWithoutUserNestedInput
+  processedPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutProcessorNestedInput
+  approvedPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutApproverNestedInput
+  paidPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutPayerNestedInput
+  approvedOvertime?: Prisma.OvertimeUncheckedUpdateManyWithoutApproverNestedInput
+  approvedAbsences?: Prisma.AbsenceUncheckedUpdateManyWithoutApproverNestedInput
+  VolumesCreated?: Prisma.VolumeUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  VolumesClosed?: Prisma.VolumeUncheckedUpdateManyWithoutClosedByUserNestedInput
+  VolumesDelivered?: Prisma.VolumeUncheckedUpdateManyWithoutDeliveredByUserNestedInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
+  storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
+  calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
+  eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
+  eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
+  emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
+  ownedBoards?: Prisma.BoardUncheckedUpdateManyWithoutOwnerNestedInput
+  assignedCards?: Prisma.CardUncheckedUpdateManyWithoutAssigneeNestedInput
+  reportedCards?: Prisma.CardUncheckedUpdateManyWithoutReporterNestedInput
+  boardMemberships?: Prisma.BoardMemberUncheckedUpdateManyWithoutUserNestedInput
+  cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
+  cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
+  checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
+  assignedCatalogs?: Prisma.CatalogUncheckedUpdateManyWithoutAssignedToNestedInput
+  approvedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutApprovedByNestedInput
+  assignedOrders?: Prisma.OrderUncheckedUpdateManyWithoutAssignedToNestedInput
+  approvedOrders?: Prisma.OrderUncheckedUpdateManyWithoutApprovedByNestedInput
+  requestedReturns?: Prisma.OrderReturnUncheckedUpdateManyWithoutRequestedByNestedInput
+  approvedReturns?: Prisma.OrderReturnUncheckedUpdateManyWithoutApprovedByNestedInput
+  reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
+  orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
+  orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
+  createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
+  resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
+}
+
+export type UserCreateWithoutAnalyticsReportsCreatedInput = {
+  id?: string
+  username?: string | null
+  email: string
+  password_hash: string
+  lastLoginIp?: string | null
+  failedLoginAttempts?: number
+  blockedUntil?: Date | string | null
+  passwordResetToken?: string | null
+  passwordResetExpires?: Date | string | null
+  forcePasswordReset?: boolean
+  forcePasswordResetReason?: string | null
+  forcePasswordResetRequestedBy?: string | null
+  forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
+  isSuperAdmin?: boolean
+  deletedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
+  RefreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutUserInput
+  ItemMovement?: Prisma.ItemMovementCreateNestedManyWithoutUserInput
+  ApprovedMovements?: Prisma.ItemMovementCreateNestedManyWithoutApproverInput
+  AuditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryCreateNestedManyWithoutUserInput
+  Alerts?: Prisma.AlertCreateNestedManyWithoutUserInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutCreatorInput
+  CreatedSalesOrders?: Prisma.SalesOrderCreateNestedManyWithoutCreatorInput
+  ItemReservations?: Prisma.ItemReservationCreateNestedManyWithoutUserInput
+  Comments?: Prisma.CommentCreateNestedManyWithoutUserInput
+  NotificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
+  Notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  permissionGroups?: Prisma.UserPermissionGroupCreateNestedManyWithoutUserInput
+  grantedPermissions?: Prisma.UserPermissionGroupCreateNestedManyWithoutGranterInput
+  directPermissions?: Prisma.UserDirectPermissionCreateNestedManyWithoutUserInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionCreateNestedManyWithoutGranterInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogCreateNestedManyWithoutUserInput
+  RequestsCreated?: Prisma.RequestCreateNestedManyWithoutRequesterInput
+  RequestsAssigned?: Prisma.RequestCreateNestedManyWithoutAssignedToInput
+  UploadedAttachments?: Prisma.RequestAttachmentCreateNestedManyWithoutUploadedByInput
+  RequestComments?: Prisma.RequestCommentCreateNestedManyWithoutAuthorInput
+  RequestHistoryActions?: Prisma.RequestHistoryCreateNestedManyWithoutPerformedByInput
+  employee?: Prisma.EmployeeCreateNestedOneWithoutUserInput
+  processedPayrolls?: Prisma.PayrollCreateNestedManyWithoutProcessorInput
+  approvedPayrolls?: Prisma.PayrollCreateNestedManyWithoutApproverInput
+  paidPayrolls?: Prisma.PayrollCreateNestedManyWithoutPayerInput
+  approvedOvertime?: Prisma.OvertimeCreateNestedManyWithoutApproverInput
+  approvedAbsences?: Prisma.AbsenceCreateNestedManyWithoutApproverInput
+  VolumesCreated?: Prisma.VolumeCreateNestedManyWithoutCreatedByUserInput
+  VolumesClosed?: Prisma.VolumeCreateNestedManyWithoutClosedByUserInput
+  VolumesDelivered?: Prisma.VolumeCreateNestedManyWithoutDeliveredByUserInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
+  folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
+  storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
+  calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
+  eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
+  eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
+  emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
+  ownedBoards?: Prisma.BoardCreateNestedManyWithoutOwnerInput
+  assignedCards?: Prisma.CardCreateNestedManyWithoutAssigneeInput
+  reportedCards?: Prisma.CardCreateNestedManyWithoutReporterInput
+  boardMemberships?: Prisma.BoardMemberCreateNestedManyWithoutUserInput
+  cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
+  commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
+  cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
+  checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
+  assignedCatalogs?: Prisma.CatalogCreateNestedManyWithoutAssignedToInput
+  approvedContents?: Prisma.GeneratedContentCreateNestedManyWithoutApprovedByInput
+  assignedOrders?: Prisma.OrderCreateNestedManyWithoutAssignedToInput
+  approvedOrders?: Prisma.OrderCreateNestedManyWithoutApprovedByInput
+  requestedReturns?: Prisma.OrderReturnCreateNestedManyWithoutRequestedByInput
+  approvedReturns?: Prisma.OrderReturnCreateNestedManyWithoutApprovedByInput
+  reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
+  orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
+  orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
+  createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
+  assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
+  supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
+  resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
+}
+
+export type UserUncheckedCreateWithoutAnalyticsReportsCreatedInput = {
+  id?: string
+  username?: string | null
+  email: string
+  password_hash: string
+  lastLoginIp?: string | null
+  failedLoginAttempts?: number
+  blockedUntil?: Date | string | null
+  passwordResetToken?: string | null
+  passwordResetExpires?: Date | string | null
+  forcePasswordReset?: boolean
+  forcePasswordResetReason?: string | null
+  forcePasswordResetRequestedBy?: string | null
+  forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
+  isSuperAdmin?: boolean
+  deletedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
+  RefreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutUserInput
+  ItemMovement?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutUserInput
+  ApprovedMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutApproverInput
+  AuditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUncheckedCreateNestedManyWithoutUserInput
+  Alerts?: Prisma.AlertUncheckedCreateNestedManyWithoutUserInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutCreatorInput
+  CreatedSalesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutCreatorInput
+  ItemReservations?: Prisma.ItemReservationUncheckedCreateNestedManyWithoutUserInput
+  Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
+  Notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  permissionGroups?: Prisma.UserPermissionGroupUncheckedCreateNestedManyWithoutUserInput
+  grantedPermissions?: Prisma.UserPermissionGroupUncheckedCreateNestedManyWithoutGranterInput
+  directPermissions?: Prisma.UserDirectPermissionUncheckedCreateNestedManyWithoutUserInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUncheckedCreateNestedManyWithoutGranterInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUncheckedCreateNestedManyWithoutUserInput
+  RequestsCreated?: Prisma.RequestUncheckedCreateNestedManyWithoutRequesterInput
+  RequestsAssigned?: Prisma.RequestUncheckedCreateNestedManyWithoutAssignedToInput
+  UploadedAttachments?: Prisma.RequestAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  RequestComments?: Prisma.RequestCommentUncheckedCreateNestedManyWithoutAuthorInput
+  RequestHistoryActions?: Prisma.RequestHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  employee?: Prisma.EmployeeUncheckedCreateNestedOneWithoutUserInput
+  processedPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutProcessorInput
+  approvedPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutApproverInput
+  paidPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutPayerInput
+  approvedOvertime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutApproverInput
+  approvedAbsences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutApproverInput
+  VolumesCreated?: Prisma.VolumeUncheckedCreateNestedManyWithoutCreatedByUserInput
+  VolumesClosed?: Prisma.VolumeUncheckedCreateNestedManyWithoutClosedByUserInput
+  VolumesDelivered?: Prisma.VolumeUncheckedCreateNestedManyWithoutDeliveredByUserInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
+  storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
+  calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
+  eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
+  eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
+  emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
+  ownedBoards?: Prisma.BoardUncheckedCreateNestedManyWithoutOwnerInput
+  assignedCards?: Prisma.CardUncheckedCreateNestedManyWithoutAssigneeInput
+  reportedCards?: Prisma.CardUncheckedCreateNestedManyWithoutReporterInput
+  boardMemberships?: Prisma.BoardMemberUncheckedCreateNestedManyWithoutUserInput
+  cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
+  commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
+  cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
+  checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
+  assignedCatalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutAssignedToInput
+  approvedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutApprovedByInput
+  assignedOrders?: Prisma.OrderUncheckedCreateNestedManyWithoutAssignedToInput
+  approvedOrders?: Prisma.OrderUncheckedCreateNestedManyWithoutApprovedByInput
+  requestedReturns?: Prisma.OrderReturnUncheckedCreateNestedManyWithoutRequestedByInput
+  approvedReturns?: Prisma.OrderReturnUncheckedCreateNestedManyWithoutApprovedByInput
+  reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
+  orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
+  orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
+  createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
+  resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
+}
+
+export type UserCreateOrConnectWithoutAnalyticsReportsCreatedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAnalyticsReportsCreatedInput, Prisma.UserUncheckedCreateWithoutAnalyticsReportsCreatedInput>
+}
+
+export type UserUpsertWithoutAnalyticsReportsCreatedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAnalyticsReportsCreatedInput, Prisma.UserUncheckedUpdateWithoutAnalyticsReportsCreatedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAnalyticsReportsCreatedInput, Prisma.UserUncheckedCreateWithoutAnalyticsReportsCreatedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAnalyticsReportsCreatedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAnalyticsReportsCreatedInput, Prisma.UserUncheckedUpdateWithoutAnalyticsReportsCreatedInput>
+}
+
+export type UserUpdateWithoutAnalyticsReportsCreatedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  lastLoginIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  blockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  forcePasswordReset?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
+  RefreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutUserNestedInput
+  ItemMovement?: Prisma.ItemMovementUpdateManyWithoutUserNestedInput
+  ApprovedMovements?: Prisma.ItemMovementUpdateManyWithoutApproverNestedInput
+  AuditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUpdateManyWithoutUserNestedInput
+  Alerts?: Prisma.AlertUpdateManyWithoutUserNestedInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutCreatorNestedInput
+  CreatedSalesOrders?: Prisma.SalesOrderUpdateManyWithoutCreatorNestedInput
+  ItemReservations?: Prisma.ItemReservationUpdateManyWithoutUserNestedInput
+  Comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
+  Notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  permissionGroups?: Prisma.UserPermissionGroupUpdateManyWithoutUserNestedInput
+  grantedPermissions?: Prisma.UserPermissionGroupUpdateManyWithoutGranterNestedInput
+  directPermissions?: Prisma.UserDirectPermissionUpdateManyWithoutUserNestedInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUpdateManyWithoutGranterNestedInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUpdateManyWithoutUserNestedInput
+  RequestsCreated?: Prisma.RequestUpdateManyWithoutRequesterNestedInput
+  RequestsAssigned?: Prisma.RequestUpdateManyWithoutAssignedToNestedInput
+  UploadedAttachments?: Prisma.RequestAttachmentUpdateManyWithoutUploadedByNestedInput
+  RequestComments?: Prisma.RequestCommentUpdateManyWithoutAuthorNestedInput
+  RequestHistoryActions?: Prisma.RequestHistoryUpdateManyWithoutPerformedByNestedInput
+  employee?: Prisma.EmployeeUpdateOneWithoutUserNestedInput
+  processedPayrolls?: Prisma.PayrollUpdateManyWithoutProcessorNestedInput
+  approvedPayrolls?: Prisma.PayrollUpdateManyWithoutApproverNestedInput
+  paidPayrolls?: Prisma.PayrollUpdateManyWithoutPayerNestedInput
+  approvedOvertime?: Prisma.OvertimeUpdateManyWithoutApproverNestedInput
+  approvedAbsences?: Prisma.AbsenceUpdateManyWithoutApproverNestedInput
+  VolumesCreated?: Prisma.VolumeUpdateManyWithoutCreatedByUserNestedInput
+  VolumesClosed?: Prisma.VolumeUpdateManyWithoutClosedByUserNestedInput
+  VolumesDelivered?: Prisma.VolumeUpdateManyWithoutDeliveredByUserNestedInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
+  storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
+  calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
+  eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
+  eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
+  emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
+  ownedBoards?: Prisma.BoardUpdateManyWithoutOwnerNestedInput
+  assignedCards?: Prisma.CardUpdateManyWithoutAssigneeNestedInput
+  reportedCards?: Prisma.CardUpdateManyWithoutReporterNestedInput
+  boardMemberships?: Prisma.BoardMemberUpdateManyWithoutUserNestedInput
+  cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
+  commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
+  cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
+  checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
+  assignedCatalogs?: Prisma.CatalogUpdateManyWithoutAssignedToNestedInput
+  approvedContents?: Prisma.GeneratedContentUpdateManyWithoutApprovedByNestedInput
+  assignedOrders?: Prisma.OrderUpdateManyWithoutAssignedToNestedInput
+  approvedOrders?: Prisma.OrderUpdateManyWithoutApprovedByNestedInput
+  requestedReturns?: Prisma.OrderReturnUpdateManyWithoutRequestedByNestedInput
+  approvedReturns?: Prisma.OrderReturnUpdateManyWithoutApprovedByNestedInput
+  reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
+  orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
+  orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
+  createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
+  resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAnalyticsReportsCreatedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  lastLoginIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  blockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  forcePasswordReset?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
+  RefreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutUserNestedInput
+  ItemMovement?: Prisma.ItemMovementUncheckedUpdateManyWithoutUserNestedInput
+  ApprovedMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutApproverNestedInput
+  AuditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUncheckedUpdateManyWithoutUserNestedInput
+  Alerts?: Prisma.AlertUncheckedUpdateManyWithoutUserNestedInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutCreatorNestedInput
+  CreatedSalesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutCreatorNestedInput
+  ItemReservations?: Prisma.ItemReservationUncheckedUpdateManyWithoutUserNestedInput
+  Comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
+  Notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  permissionGroups?: Prisma.UserPermissionGroupUncheckedUpdateManyWithoutUserNestedInput
+  grantedPermissions?: Prisma.UserPermissionGroupUncheckedUpdateManyWithoutGranterNestedInput
+  directPermissions?: Prisma.UserDirectPermissionUncheckedUpdateManyWithoutUserNestedInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUncheckedUpdateManyWithoutGranterNestedInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUncheckedUpdateManyWithoutUserNestedInput
+  RequestsCreated?: Prisma.RequestUncheckedUpdateManyWithoutRequesterNestedInput
+  RequestsAssigned?: Prisma.RequestUncheckedUpdateManyWithoutAssignedToNestedInput
+  UploadedAttachments?: Prisma.RequestAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  RequestComments?: Prisma.RequestCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  RequestHistoryActions?: Prisma.RequestHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  employee?: Prisma.EmployeeUncheckedUpdateOneWithoutUserNestedInput
+  processedPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutProcessorNestedInput
+  approvedPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutApproverNestedInput
+  paidPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutPayerNestedInput
+  approvedOvertime?: Prisma.OvertimeUncheckedUpdateManyWithoutApproverNestedInput
+  approvedAbsences?: Prisma.AbsenceUncheckedUpdateManyWithoutApproverNestedInput
+  VolumesCreated?: Prisma.VolumeUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  VolumesClosed?: Prisma.VolumeUncheckedUpdateManyWithoutClosedByUserNestedInput
+  VolumesDelivered?: Prisma.VolumeUncheckedUpdateManyWithoutDeliveredByUserNestedInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
+  storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
+  calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
+  eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
+  eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
+  emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
+  ownedBoards?: Prisma.BoardUncheckedUpdateManyWithoutOwnerNestedInput
+  assignedCards?: Prisma.CardUncheckedUpdateManyWithoutAssigneeNestedInput
+  reportedCards?: Prisma.CardUncheckedUpdateManyWithoutReporterNestedInput
+  boardMemberships?: Prisma.BoardMemberUncheckedUpdateManyWithoutUserNestedInput
+  cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
+  cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
+  checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
+  assignedCatalogs?: Prisma.CatalogUncheckedUpdateManyWithoutAssignedToNestedInput
+  approvedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutApprovedByNestedInput
+  assignedOrders?: Prisma.OrderUncheckedUpdateManyWithoutAssignedToNestedInput
+  approvedOrders?: Prisma.OrderUncheckedUpdateManyWithoutApprovedByNestedInput
+  requestedReturns?: Prisma.OrderReturnUncheckedUpdateManyWithoutRequestedByNestedInput
+  approvedReturns?: Prisma.OrderReturnUncheckedUpdateManyWithoutApprovedByNestedInput
+  reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
+  orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
+  orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
+  createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
+  resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
+}
+
+export type UserCreateWithoutAiConversationsInput = {
+  id?: string
+  username?: string | null
+  email: string
+  password_hash: string
+  lastLoginIp?: string | null
+  failedLoginAttempts?: number
+  blockedUntil?: Date | string | null
+  passwordResetToken?: string | null
+  passwordResetExpires?: Date | string | null
+  forcePasswordReset?: boolean
+  forcePasswordResetReason?: string | null
+  forcePasswordResetRequestedBy?: string | null
+  forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
+  isSuperAdmin?: boolean
+  deletedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
+  RefreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutUserInput
+  ItemMovement?: Prisma.ItemMovementCreateNestedManyWithoutUserInput
+  ApprovedMovements?: Prisma.ItemMovementCreateNestedManyWithoutApproverInput
+  AuditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryCreateNestedManyWithoutUserInput
+  Alerts?: Prisma.AlertCreateNestedManyWithoutUserInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutCreatorInput
+  CreatedSalesOrders?: Prisma.SalesOrderCreateNestedManyWithoutCreatorInput
+  ItemReservations?: Prisma.ItemReservationCreateNestedManyWithoutUserInput
+  Comments?: Prisma.CommentCreateNestedManyWithoutUserInput
+  NotificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
+  Notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  permissionGroups?: Prisma.UserPermissionGroupCreateNestedManyWithoutUserInput
+  grantedPermissions?: Prisma.UserPermissionGroupCreateNestedManyWithoutGranterInput
+  directPermissions?: Prisma.UserDirectPermissionCreateNestedManyWithoutUserInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionCreateNestedManyWithoutGranterInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogCreateNestedManyWithoutUserInput
+  RequestsCreated?: Prisma.RequestCreateNestedManyWithoutRequesterInput
+  RequestsAssigned?: Prisma.RequestCreateNestedManyWithoutAssignedToInput
+  UploadedAttachments?: Prisma.RequestAttachmentCreateNestedManyWithoutUploadedByInput
+  RequestComments?: Prisma.RequestCommentCreateNestedManyWithoutAuthorInput
+  RequestHistoryActions?: Prisma.RequestHistoryCreateNestedManyWithoutPerformedByInput
+  employee?: Prisma.EmployeeCreateNestedOneWithoutUserInput
+  processedPayrolls?: Prisma.PayrollCreateNestedManyWithoutProcessorInput
+  approvedPayrolls?: Prisma.PayrollCreateNestedManyWithoutApproverInput
+  paidPayrolls?: Prisma.PayrollCreateNestedManyWithoutPayerInput
+  approvedOvertime?: Prisma.OvertimeCreateNestedManyWithoutApproverInput
+  approvedAbsences?: Prisma.AbsenceCreateNestedManyWithoutApproverInput
+  VolumesCreated?: Prisma.VolumeCreateNestedManyWithoutCreatedByUserInput
+  VolumesClosed?: Prisma.VolumeCreateNestedManyWithoutClosedByUserInput
+  VolumesDelivered?: Prisma.VolumeCreateNestedManyWithoutDeliveredByUserInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
+  folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
+  storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
+  calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
+  eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
+  eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
+  emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
+  ownedBoards?: Prisma.BoardCreateNestedManyWithoutOwnerInput
+  assignedCards?: Prisma.CardCreateNestedManyWithoutAssigneeInput
+  reportedCards?: Prisma.CardCreateNestedManyWithoutReporterInput
+  boardMemberships?: Prisma.BoardMemberCreateNestedManyWithoutUserInput
+  cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
+  commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
+  cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
+  checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
+  assignedCatalogs?: Prisma.CatalogCreateNestedManyWithoutAssignedToInput
+  approvedContents?: Prisma.GeneratedContentCreateNestedManyWithoutApprovedByInput
+  assignedOrders?: Prisma.OrderCreateNestedManyWithoutAssignedToInput
+  approvedOrders?: Prisma.OrderCreateNestedManyWithoutApprovedByInput
+  requestedReturns?: Prisma.OrderReturnCreateNestedManyWithoutRequestedByInput
+  approvedReturns?: Prisma.OrderReturnCreateNestedManyWithoutApprovedByInput
+  reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
+  orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
+  orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
+  centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
+  createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
+  assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
+  supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
+  resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
+}
+
+export type UserUncheckedCreateWithoutAiConversationsInput = {
+  id?: string
+  username?: string | null
+  email: string
+  password_hash: string
+  lastLoginIp?: string | null
+  failedLoginAttempts?: number
+  blockedUntil?: Date | string | null
+  passwordResetToken?: string | null
+  passwordResetExpires?: Date | string | null
+  forcePasswordReset?: boolean
+  forcePasswordResetReason?: string | null
+  forcePasswordResetRequestedBy?: string | null
+  forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
+  isSuperAdmin?: boolean
+  deletedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
+  RefreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutUserInput
+  ItemMovement?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutUserInput
+  ApprovedMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutApproverInput
+  AuditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUncheckedCreateNestedManyWithoutUserInput
+  Alerts?: Prisma.AlertUncheckedCreateNestedManyWithoutUserInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutCreatorInput
+  CreatedSalesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutCreatorInput
+  ItemReservations?: Prisma.ItemReservationUncheckedCreateNestedManyWithoutUserInput
+  Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
+  Notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  permissionGroups?: Prisma.UserPermissionGroupUncheckedCreateNestedManyWithoutUserInput
+  grantedPermissions?: Prisma.UserPermissionGroupUncheckedCreateNestedManyWithoutGranterInput
+  directPermissions?: Prisma.UserDirectPermissionUncheckedCreateNestedManyWithoutUserInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUncheckedCreateNestedManyWithoutGranterInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUncheckedCreateNestedManyWithoutUserInput
+  RequestsCreated?: Prisma.RequestUncheckedCreateNestedManyWithoutRequesterInput
+  RequestsAssigned?: Prisma.RequestUncheckedCreateNestedManyWithoutAssignedToInput
+  UploadedAttachments?: Prisma.RequestAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  RequestComments?: Prisma.RequestCommentUncheckedCreateNestedManyWithoutAuthorInput
+  RequestHistoryActions?: Prisma.RequestHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  employee?: Prisma.EmployeeUncheckedCreateNestedOneWithoutUserInput
+  processedPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutProcessorInput
+  approvedPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutApproverInput
+  paidPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutPayerInput
+  approvedOvertime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutApproverInput
+  approvedAbsences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutApproverInput
+  VolumesCreated?: Prisma.VolumeUncheckedCreateNestedManyWithoutCreatedByUserInput
+  VolumesClosed?: Prisma.VolumeUncheckedCreateNestedManyWithoutClosedByUserInput
+  VolumesDelivered?: Prisma.VolumeUncheckedCreateNestedManyWithoutDeliveredByUserInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
+  storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
+  calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
+  eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
+  eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
+  emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
+  ownedBoards?: Prisma.BoardUncheckedCreateNestedManyWithoutOwnerInput
+  assignedCards?: Prisma.CardUncheckedCreateNestedManyWithoutAssigneeInput
+  reportedCards?: Prisma.CardUncheckedCreateNestedManyWithoutReporterInput
+  boardMemberships?: Prisma.BoardMemberUncheckedCreateNestedManyWithoutUserInput
+  cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
+  commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
+  cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
+  checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
+  assignedCatalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutAssignedToInput
+  approvedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutApprovedByInput
+  assignedOrders?: Prisma.OrderUncheckedCreateNestedManyWithoutAssignedToInput
+  approvedOrders?: Prisma.OrderUncheckedCreateNestedManyWithoutApprovedByInput
+  requestedReturns?: Prisma.OrderReturnUncheckedCreateNestedManyWithoutRequestedByInput
+  approvedReturns?: Prisma.OrderReturnUncheckedCreateNestedManyWithoutApprovedByInput
+  reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
+  orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
+  orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
+  centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
+  createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
+  resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
+}
+
+export type UserCreateOrConnectWithoutAiConversationsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAiConversationsInput, Prisma.UserUncheckedCreateWithoutAiConversationsInput>
+}
+
+export type UserUpsertWithoutAiConversationsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAiConversationsInput, Prisma.UserUncheckedUpdateWithoutAiConversationsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAiConversationsInput, Prisma.UserUncheckedCreateWithoutAiConversationsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAiConversationsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAiConversationsInput, Prisma.UserUncheckedUpdateWithoutAiConversationsInput>
+}
+
+export type UserUpdateWithoutAiConversationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  lastLoginIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  blockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  forcePasswordReset?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
+  RefreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutUserNestedInput
+  ItemMovement?: Prisma.ItemMovementUpdateManyWithoutUserNestedInput
+  ApprovedMovements?: Prisma.ItemMovementUpdateManyWithoutApproverNestedInput
+  AuditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUpdateManyWithoutUserNestedInput
+  Alerts?: Prisma.AlertUpdateManyWithoutUserNestedInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutCreatorNestedInput
+  CreatedSalesOrders?: Prisma.SalesOrderUpdateManyWithoutCreatorNestedInput
+  ItemReservations?: Prisma.ItemReservationUpdateManyWithoutUserNestedInput
+  Comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
+  Notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  permissionGroups?: Prisma.UserPermissionGroupUpdateManyWithoutUserNestedInput
+  grantedPermissions?: Prisma.UserPermissionGroupUpdateManyWithoutGranterNestedInput
+  directPermissions?: Prisma.UserDirectPermissionUpdateManyWithoutUserNestedInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUpdateManyWithoutGranterNestedInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUpdateManyWithoutUserNestedInput
+  RequestsCreated?: Prisma.RequestUpdateManyWithoutRequesterNestedInput
+  RequestsAssigned?: Prisma.RequestUpdateManyWithoutAssignedToNestedInput
+  UploadedAttachments?: Prisma.RequestAttachmentUpdateManyWithoutUploadedByNestedInput
+  RequestComments?: Prisma.RequestCommentUpdateManyWithoutAuthorNestedInput
+  RequestHistoryActions?: Prisma.RequestHistoryUpdateManyWithoutPerformedByNestedInput
+  employee?: Prisma.EmployeeUpdateOneWithoutUserNestedInput
+  processedPayrolls?: Prisma.PayrollUpdateManyWithoutProcessorNestedInput
+  approvedPayrolls?: Prisma.PayrollUpdateManyWithoutApproverNestedInput
+  paidPayrolls?: Prisma.PayrollUpdateManyWithoutPayerNestedInput
+  approvedOvertime?: Prisma.OvertimeUpdateManyWithoutApproverNestedInput
+  approvedAbsences?: Prisma.AbsenceUpdateManyWithoutApproverNestedInput
+  VolumesCreated?: Prisma.VolumeUpdateManyWithoutCreatedByUserNestedInput
+  VolumesClosed?: Prisma.VolumeUpdateManyWithoutClosedByUserNestedInput
+  VolumesDelivered?: Prisma.VolumeUpdateManyWithoutDeliveredByUserNestedInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
+  storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
+  calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
+  eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
+  eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
+  emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
+  ownedBoards?: Prisma.BoardUpdateManyWithoutOwnerNestedInput
+  assignedCards?: Prisma.CardUpdateManyWithoutAssigneeNestedInput
+  reportedCards?: Prisma.CardUpdateManyWithoutReporterNestedInput
+  boardMemberships?: Prisma.BoardMemberUpdateManyWithoutUserNestedInput
+  cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
+  commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
+  cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
+  checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
+  assignedCatalogs?: Prisma.CatalogUpdateManyWithoutAssignedToNestedInput
+  approvedContents?: Prisma.GeneratedContentUpdateManyWithoutApprovedByNestedInput
+  assignedOrders?: Prisma.OrderUpdateManyWithoutAssignedToNestedInput
+  approvedOrders?: Prisma.OrderUpdateManyWithoutApprovedByNestedInput
+  requestedReturns?: Prisma.OrderReturnUpdateManyWithoutRequestedByNestedInput
+  approvedReturns?: Prisma.OrderReturnUpdateManyWithoutApprovedByNestedInput
+  reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
+  orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
+  orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
+  centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
+  createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
+  resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAiConversationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  lastLoginIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  blockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  forcePasswordReset?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
+  RefreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutUserNestedInput
+  ItemMovement?: Prisma.ItemMovementUncheckedUpdateManyWithoutUserNestedInput
+  ApprovedMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutApproverNestedInput
+  AuditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUncheckedUpdateManyWithoutUserNestedInput
+  Alerts?: Prisma.AlertUncheckedUpdateManyWithoutUserNestedInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutCreatorNestedInput
+  CreatedSalesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutCreatorNestedInput
+  ItemReservations?: Prisma.ItemReservationUncheckedUpdateManyWithoutUserNestedInput
+  Comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
+  Notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  permissionGroups?: Prisma.UserPermissionGroupUncheckedUpdateManyWithoutUserNestedInput
+  grantedPermissions?: Prisma.UserPermissionGroupUncheckedUpdateManyWithoutGranterNestedInput
+  directPermissions?: Prisma.UserDirectPermissionUncheckedUpdateManyWithoutUserNestedInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUncheckedUpdateManyWithoutGranterNestedInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUncheckedUpdateManyWithoutUserNestedInput
+  RequestsCreated?: Prisma.RequestUncheckedUpdateManyWithoutRequesterNestedInput
+  RequestsAssigned?: Prisma.RequestUncheckedUpdateManyWithoutAssignedToNestedInput
+  UploadedAttachments?: Prisma.RequestAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  RequestComments?: Prisma.RequestCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  RequestHistoryActions?: Prisma.RequestHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  employee?: Prisma.EmployeeUncheckedUpdateOneWithoutUserNestedInput
+  processedPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutProcessorNestedInput
+  approvedPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutApproverNestedInput
+  paidPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutPayerNestedInput
+  approvedOvertime?: Prisma.OvertimeUncheckedUpdateManyWithoutApproverNestedInput
+  approvedAbsences?: Prisma.AbsenceUncheckedUpdateManyWithoutApproverNestedInput
+  VolumesCreated?: Prisma.VolumeUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  VolumesClosed?: Prisma.VolumeUncheckedUpdateManyWithoutClosedByUserNestedInput
+  VolumesDelivered?: Prisma.VolumeUncheckedUpdateManyWithoutDeliveredByUserNestedInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
+  storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
+  calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
+  eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
+  eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
+  emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
+  ownedBoards?: Prisma.BoardUncheckedUpdateManyWithoutOwnerNestedInput
+  assignedCards?: Prisma.CardUncheckedUpdateManyWithoutAssigneeNestedInput
+  reportedCards?: Prisma.CardUncheckedUpdateManyWithoutReporterNestedInput
+  boardMemberships?: Prisma.BoardMemberUncheckedUpdateManyWithoutUserNestedInput
+  cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
+  cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
+  checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
+  assignedCatalogs?: Prisma.CatalogUncheckedUpdateManyWithoutAssignedToNestedInput
+  approvedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutApprovedByNestedInput
+  assignedOrders?: Prisma.OrderUncheckedUpdateManyWithoutAssignedToNestedInput
+  approvedOrders?: Prisma.OrderUncheckedUpdateManyWithoutApprovedByNestedInput
+  requestedReturns?: Prisma.OrderReturnUncheckedUpdateManyWithoutRequestedByNestedInput
+  approvedReturns?: Prisma.OrderReturnUncheckedUpdateManyWithoutApprovedByNestedInput
+  reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
+  orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
+  orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
+  createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
+  resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
+}
+
+export type UserCreateWithoutAiFavoriteQueriesInput = {
+  id?: string
+  username?: string | null
+  email: string
+  password_hash: string
+  lastLoginIp?: string | null
+  failedLoginAttempts?: number
+  blockedUntil?: Date | string | null
+  passwordResetToken?: string | null
+  passwordResetExpires?: Date | string | null
+  forcePasswordReset?: boolean
+  forcePasswordResetReason?: string | null
+  forcePasswordResetRequestedBy?: string | null
+  forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
+  isSuperAdmin?: boolean
+  deletedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
+  RefreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutUserInput
+  ItemMovement?: Prisma.ItemMovementCreateNestedManyWithoutUserInput
+  ApprovedMovements?: Prisma.ItemMovementCreateNestedManyWithoutApproverInput
+  AuditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryCreateNestedManyWithoutUserInput
+  Alerts?: Prisma.AlertCreateNestedManyWithoutUserInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutCreatorInput
+  CreatedSalesOrders?: Prisma.SalesOrderCreateNestedManyWithoutCreatorInput
+  ItemReservations?: Prisma.ItemReservationCreateNestedManyWithoutUserInput
+  Comments?: Prisma.CommentCreateNestedManyWithoutUserInput
+  NotificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
+  Notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  permissionGroups?: Prisma.UserPermissionGroupCreateNestedManyWithoutUserInput
+  grantedPermissions?: Prisma.UserPermissionGroupCreateNestedManyWithoutGranterInput
+  directPermissions?: Prisma.UserDirectPermissionCreateNestedManyWithoutUserInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionCreateNestedManyWithoutGranterInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogCreateNestedManyWithoutUserInput
+  RequestsCreated?: Prisma.RequestCreateNestedManyWithoutRequesterInput
+  RequestsAssigned?: Prisma.RequestCreateNestedManyWithoutAssignedToInput
+  UploadedAttachments?: Prisma.RequestAttachmentCreateNestedManyWithoutUploadedByInput
+  RequestComments?: Prisma.RequestCommentCreateNestedManyWithoutAuthorInput
+  RequestHistoryActions?: Prisma.RequestHistoryCreateNestedManyWithoutPerformedByInput
+  employee?: Prisma.EmployeeCreateNestedOneWithoutUserInput
+  processedPayrolls?: Prisma.PayrollCreateNestedManyWithoutProcessorInput
+  approvedPayrolls?: Prisma.PayrollCreateNestedManyWithoutApproverInput
+  paidPayrolls?: Prisma.PayrollCreateNestedManyWithoutPayerInput
+  approvedOvertime?: Prisma.OvertimeCreateNestedManyWithoutApproverInput
+  approvedAbsences?: Prisma.AbsenceCreateNestedManyWithoutApproverInput
+  VolumesCreated?: Prisma.VolumeCreateNestedManyWithoutCreatedByUserInput
+  VolumesClosed?: Prisma.VolumeCreateNestedManyWithoutClosedByUserInput
+  VolumesDelivered?: Prisma.VolumeCreateNestedManyWithoutDeliveredByUserInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
+  folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
+  storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
+  calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
+  eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
+  eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
+  emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
+  ownedBoards?: Prisma.BoardCreateNestedManyWithoutOwnerInput
+  assignedCards?: Prisma.CardCreateNestedManyWithoutAssigneeInput
+  reportedCards?: Prisma.CardCreateNestedManyWithoutReporterInput
+  boardMemberships?: Prisma.BoardMemberCreateNestedManyWithoutUserInput
+  cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
+  commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
+  cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
+  checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
+  assignedCatalogs?: Prisma.CatalogCreateNestedManyWithoutAssignedToInput
+  approvedContents?: Prisma.GeneratedContentCreateNestedManyWithoutApprovedByInput
+  assignedOrders?: Prisma.OrderCreateNestedManyWithoutAssignedToInput
+  approvedOrders?: Prisma.OrderCreateNestedManyWithoutApprovedByInput
+  requestedReturns?: Prisma.OrderReturnCreateNestedManyWithoutRequestedByInput
+  approvedReturns?: Prisma.OrderReturnCreateNestedManyWithoutApprovedByInput
+  reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
+  orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
+  orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
+  centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
+  createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
+  assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
+  supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
+  resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
+}
+
+export type UserUncheckedCreateWithoutAiFavoriteQueriesInput = {
+  id?: string
+  username?: string | null
+  email: string
+  password_hash: string
+  lastLoginIp?: string | null
+  failedLoginAttempts?: number
+  blockedUntil?: Date | string | null
+  passwordResetToken?: string | null
+  passwordResetExpires?: Date | string | null
+  forcePasswordReset?: boolean
+  forcePasswordResetReason?: string | null
+  forcePasswordResetRequestedBy?: string | null
+  forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
+  isSuperAdmin?: boolean
+  deletedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
+  RefreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutUserInput
+  ItemMovement?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutUserInput
+  ApprovedMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutApproverInput
+  AuditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUncheckedCreateNestedManyWithoutUserInput
+  Alerts?: Prisma.AlertUncheckedCreateNestedManyWithoutUserInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutCreatorInput
+  CreatedSalesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutCreatorInput
+  ItemReservations?: Prisma.ItemReservationUncheckedCreateNestedManyWithoutUserInput
+  Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
+  Notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  permissionGroups?: Prisma.UserPermissionGroupUncheckedCreateNestedManyWithoutUserInput
+  grantedPermissions?: Prisma.UserPermissionGroupUncheckedCreateNestedManyWithoutGranterInput
+  directPermissions?: Prisma.UserDirectPermissionUncheckedCreateNestedManyWithoutUserInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUncheckedCreateNestedManyWithoutGranterInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUncheckedCreateNestedManyWithoutUserInput
+  RequestsCreated?: Prisma.RequestUncheckedCreateNestedManyWithoutRequesterInput
+  RequestsAssigned?: Prisma.RequestUncheckedCreateNestedManyWithoutAssignedToInput
+  UploadedAttachments?: Prisma.RequestAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  RequestComments?: Prisma.RequestCommentUncheckedCreateNestedManyWithoutAuthorInput
+  RequestHistoryActions?: Prisma.RequestHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  employee?: Prisma.EmployeeUncheckedCreateNestedOneWithoutUserInput
+  processedPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutProcessorInput
+  approvedPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutApproverInput
+  paidPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutPayerInput
+  approvedOvertime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutApproverInput
+  approvedAbsences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutApproverInput
+  VolumesCreated?: Prisma.VolumeUncheckedCreateNestedManyWithoutCreatedByUserInput
+  VolumesClosed?: Prisma.VolumeUncheckedCreateNestedManyWithoutClosedByUserInput
+  VolumesDelivered?: Prisma.VolumeUncheckedCreateNestedManyWithoutDeliveredByUserInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
+  storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
+  calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
+  eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
+  eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
+  emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
+  ownedBoards?: Prisma.BoardUncheckedCreateNestedManyWithoutOwnerInput
+  assignedCards?: Prisma.CardUncheckedCreateNestedManyWithoutAssigneeInput
+  reportedCards?: Prisma.CardUncheckedCreateNestedManyWithoutReporterInput
+  boardMemberships?: Prisma.BoardMemberUncheckedCreateNestedManyWithoutUserInput
+  cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
+  commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
+  cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
+  checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
+  assignedCatalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutAssignedToInput
+  approvedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutApprovedByInput
+  assignedOrders?: Prisma.OrderUncheckedCreateNestedManyWithoutAssignedToInput
+  approvedOrders?: Prisma.OrderUncheckedCreateNestedManyWithoutApprovedByInput
+  requestedReturns?: Prisma.OrderReturnUncheckedCreateNestedManyWithoutRequestedByInput
+  approvedReturns?: Prisma.OrderReturnUncheckedCreateNestedManyWithoutApprovedByInput
+  reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
+  orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
+  orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
+  centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
+  createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
+  resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
+}
+
+export type UserCreateOrConnectWithoutAiFavoriteQueriesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAiFavoriteQueriesInput, Prisma.UserUncheckedCreateWithoutAiFavoriteQueriesInput>
+}
+
+export type UserUpsertWithoutAiFavoriteQueriesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAiFavoriteQueriesInput, Prisma.UserUncheckedUpdateWithoutAiFavoriteQueriesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAiFavoriteQueriesInput, Prisma.UserUncheckedCreateWithoutAiFavoriteQueriesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAiFavoriteQueriesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAiFavoriteQueriesInput, Prisma.UserUncheckedUpdateWithoutAiFavoriteQueriesInput>
+}
+
+export type UserUpdateWithoutAiFavoriteQueriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  lastLoginIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  blockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  forcePasswordReset?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
+  RefreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutUserNestedInput
+  ItemMovement?: Prisma.ItemMovementUpdateManyWithoutUserNestedInput
+  ApprovedMovements?: Prisma.ItemMovementUpdateManyWithoutApproverNestedInput
+  AuditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUpdateManyWithoutUserNestedInput
+  Alerts?: Prisma.AlertUpdateManyWithoutUserNestedInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutCreatorNestedInput
+  CreatedSalesOrders?: Prisma.SalesOrderUpdateManyWithoutCreatorNestedInput
+  ItemReservations?: Prisma.ItemReservationUpdateManyWithoutUserNestedInput
+  Comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
+  Notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  permissionGroups?: Prisma.UserPermissionGroupUpdateManyWithoutUserNestedInput
+  grantedPermissions?: Prisma.UserPermissionGroupUpdateManyWithoutGranterNestedInput
+  directPermissions?: Prisma.UserDirectPermissionUpdateManyWithoutUserNestedInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUpdateManyWithoutGranterNestedInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUpdateManyWithoutUserNestedInput
+  RequestsCreated?: Prisma.RequestUpdateManyWithoutRequesterNestedInput
+  RequestsAssigned?: Prisma.RequestUpdateManyWithoutAssignedToNestedInput
+  UploadedAttachments?: Prisma.RequestAttachmentUpdateManyWithoutUploadedByNestedInput
+  RequestComments?: Prisma.RequestCommentUpdateManyWithoutAuthorNestedInput
+  RequestHistoryActions?: Prisma.RequestHistoryUpdateManyWithoutPerformedByNestedInput
+  employee?: Prisma.EmployeeUpdateOneWithoutUserNestedInput
+  processedPayrolls?: Prisma.PayrollUpdateManyWithoutProcessorNestedInput
+  approvedPayrolls?: Prisma.PayrollUpdateManyWithoutApproverNestedInput
+  paidPayrolls?: Prisma.PayrollUpdateManyWithoutPayerNestedInput
+  approvedOvertime?: Prisma.OvertimeUpdateManyWithoutApproverNestedInput
+  approvedAbsences?: Prisma.AbsenceUpdateManyWithoutApproverNestedInput
+  VolumesCreated?: Prisma.VolumeUpdateManyWithoutCreatedByUserNestedInput
+  VolumesClosed?: Prisma.VolumeUpdateManyWithoutClosedByUserNestedInput
+  VolumesDelivered?: Prisma.VolumeUpdateManyWithoutDeliveredByUserNestedInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
+  storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
+  calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
+  eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
+  eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
+  emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
+  ownedBoards?: Prisma.BoardUpdateManyWithoutOwnerNestedInput
+  assignedCards?: Prisma.CardUpdateManyWithoutAssigneeNestedInput
+  reportedCards?: Prisma.CardUpdateManyWithoutReporterNestedInput
+  boardMemberships?: Prisma.BoardMemberUpdateManyWithoutUserNestedInput
+  cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
+  commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
+  cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
+  checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
+  assignedCatalogs?: Prisma.CatalogUpdateManyWithoutAssignedToNestedInput
+  approvedContents?: Prisma.GeneratedContentUpdateManyWithoutApprovedByNestedInput
+  assignedOrders?: Prisma.OrderUpdateManyWithoutAssignedToNestedInput
+  approvedOrders?: Prisma.OrderUpdateManyWithoutApprovedByNestedInput
+  requestedReturns?: Prisma.OrderReturnUpdateManyWithoutRequestedByNestedInput
+  approvedReturns?: Prisma.OrderReturnUpdateManyWithoutApprovedByNestedInput
+  reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
+  orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
+  orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
+  centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
+  createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
+  resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAiFavoriteQueriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  lastLoginIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  blockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  forcePasswordReset?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
+  RefreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutUserNestedInput
+  ItemMovement?: Prisma.ItemMovementUncheckedUpdateManyWithoutUserNestedInput
+  ApprovedMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutApproverNestedInput
+  AuditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUncheckedUpdateManyWithoutUserNestedInput
+  Alerts?: Prisma.AlertUncheckedUpdateManyWithoutUserNestedInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutCreatorNestedInput
+  CreatedSalesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutCreatorNestedInput
+  ItemReservations?: Prisma.ItemReservationUncheckedUpdateManyWithoutUserNestedInput
+  Comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
+  Notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  permissionGroups?: Prisma.UserPermissionGroupUncheckedUpdateManyWithoutUserNestedInput
+  grantedPermissions?: Prisma.UserPermissionGroupUncheckedUpdateManyWithoutGranterNestedInput
+  directPermissions?: Prisma.UserDirectPermissionUncheckedUpdateManyWithoutUserNestedInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUncheckedUpdateManyWithoutGranterNestedInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUncheckedUpdateManyWithoutUserNestedInput
+  RequestsCreated?: Prisma.RequestUncheckedUpdateManyWithoutRequesterNestedInput
+  RequestsAssigned?: Prisma.RequestUncheckedUpdateManyWithoutAssignedToNestedInput
+  UploadedAttachments?: Prisma.RequestAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  RequestComments?: Prisma.RequestCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  RequestHistoryActions?: Prisma.RequestHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  employee?: Prisma.EmployeeUncheckedUpdateOneWithoutUserNestedInput
+  processedPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutProcessorNestedInput
+  approvedPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutApproverNestedInput
+  paidPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutPayerNestedInput
+  approvedOvertime?: Prisma.OvertimeUncheckedUpdateManyWithoutApproverNestedInput
+  approvedAbsences?: Prisma.AbsenceUncheckedUpdateManyWithoutApproverNestedInput
+  VolumesCreated?: Prisma.VolumeUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  VolumesClosed?: Prisma.VolumeUncheckedUpdateManyWithoutClosedByUserNestedInput
+  VolumesDelivered?: Prisma.VolumeUncheckedUpdateManyWithoutDeliveredByUserNestedInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
+  storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
+  calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
+  eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
+  eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
+  emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
+  ownedBoards?: Prisma.BoardUncheckedUpdateManyWithoutOwnerNestedInput
+  assignedCards?: Prisma.CardUncheckedUpdateManyWithoutAssigneeNestedInput
+  reportedCards?: Prisma.CardUncheckedUpdateManyWithoutReporterNestedInput
+  boardMemberships?: Prisma.BoardMemberUncheckedUpdateManyWithoutUserNestedInput
+  cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
+  cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
+  checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
+  assignedCatalogs?: Prisma.CatalogUncheckedUpdateManyWithoutAssignedToNestedInput
+  approvedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutApprovedByNestedInput
+  assignedOrders?: Prisma.OrderUncheckedUpdateManyWithoutAssignedToNestedInput
+  approvedOrders?: Prisma.OrderUncheckedUpdateManyWithoutApprovedByNestedInput
+  requestedReturns?: Prisma.OrderReturnUncheckedUpdateManyWithoutRequestedByNestedInput
+  approvedReturns?: Prisma.OrderReturnUncheckedUpdateManyWithoutApprovedByNestedInput
+  reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
+  orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
+  orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
+  createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
+  resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
+}
+
+export type UserCreateWithoutAiActionLogsInput = {
+  id?: string
+  username?: string | null
+  email: string
+  password_hash: string
+  lastLoginIp?: string | null
+  failedLoginAttempts?: number
+  blockedUntil?: Date | string | null
+  passwordResetToken?: string | null
+  passwordResetExpires?: Date | string | null
+  forcePasswordReset?: boolean
+  forcePasswordResetReason?: string | null
+  forcePasswordResetRequestedBy?: string | null
+  forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
+  isSuperAdmin?: boolean
+  deletedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
+  RefreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutUserInput
+  ItemMovement?: Prisma.ItemMovementCreateNestedManyWithoutUserInput
+  ApprovedMovements?: Prisma.ItemMovementCreateNestedManyWithoutApproverInput
+  AuditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryCreateNestedManyWithoutUserInput
+  Alerts?: Prisma.AlertCreateNestedManyWithoutUserInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutCreatorInput
+  CreatedSalesOrders?: Prisma.SalesOrderCreateNestedManyWithoutCreatorInput
+  ItemReservations?: Prisma.ItemReservationCreateNestedManyWithoutUserInput
+  Comments?: Prisma.CommentCreateNestedManyWithoutUserInput
+  NotificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
+  Notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  permissionGroups?: Prisma.UserPermissionGroupCreateNestedManyWithoutUserInput
+  grantedPermissions?: Prisma.UserPermissionGroupCreateNestedManyWithoutGranterInput
+  directPermissions?: Prisma.UserDirectPermissionCreateNestedManyWithoutUserInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionCreateNestedManyWithoutGranterInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogCreateNestedManyWithoutUserInput
+  RequestsCreated?: Prisma.RequestCreateNestedManyWithoutRequesterInput
+  RequestsAssigned?: Prisma.RequestCreateNestedManyWithoutAssignedToInput
+  UploadedAttachments?: Prisma.RequestAttachmentCreateNestedManyWithoutUploadedByInput
+  RequestComments?: Prisma.RequestCommentCreateNestedManyWithoutAuthorInput
+  RequestHistoryActions?: Prisma.RequestHistoryCreateNestedManyWithoutPerformedByInput
+  employee?: Prisma.EmployeeCreateNestedOneWithoutUserInput
+  processedPayrolls?: Prisma.PayrollCreateNestedManyWithoutProcessorInput
+  approvedPayrolls?: Prisma.PayrollCreateNestedManyWithoutApproverInput
+  paidPayrolls?: Prisma.PayrollCreateNestedManyWithoutPayerInput
+  approvedOvertime?: Prisma.OvertimeCreateNestedManyWithoutApproverInput
+  approvedAbsences?: Prisma.AbsenceCreateNestedManyWithoutApproverInput
+  VolumesCreated?: Prisma.VolumeCreateNestedManyWithoutCreatedByUserInput
+  VolumesClosed?: Prisma.VolumeCreateNestedManyWithoutClosedByUserInput
+  VolumesDelivered?: Prisma.VolumeCreateNestedManyWithoutDeliveredByUserInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
+  folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
+  storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
+  calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
+  eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
+  eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
+  emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
+  ownedBoards?: Prisma.BoardCreateNestedManyWithoutOwnerInput
+  assignedCards?: Prisma.CardCreateNestedManyWithoutAssigneeInput
+  reportedCards?: Prisma.CardCreateNestedManyWithoutReporterInput
+  boardMemberships?: Prisma.BoardMemberCreateNestedManyWithoutUserInput
+  cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
+  commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
+  cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
+  checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
+  assignedCatalogs?: Prisma.CatalogCreateNestedManyWithoutAssignedToInput
+  approvedContents?: Prisma.GeneratedContentCreateNestedManyWithoutApprovedByInput
+  assignedOrders?: Prisma.OrderCreateNestedManyWithoutAssignedToInput
+  approvedOrders?: Prisma.OrderCreateNestedManyWithoutApprovedByInput
+  requestedReturns?: Prisma.OrderReturnCreateNestedManyWithoutRequestedByInput
+  approvedReturns?: Prisma.OrderReturnCreateNestedManyWithoutApprovedByInput
+  reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
+  orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
+  orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
+  centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
+  createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
+  assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
+  supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
+  resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogCreateNestedManyWithoutConfirmedByInput
+}
+
+export type UserUncheckedCreateWithoutAiActionLogsInput = {
+  id?: string
+  username?: string | null
+  email: string
+  password_hash: string
+  lastLoginIp?: string | null
+  failedLoginAttempts?: number
+  blockedUntil?: Date | string | null
+  passwordResetToken?: string | null
+  passwordResetExpires?: Date | string | null
+  forcePasswordReset?: boolean
+  forcePasswordResetReason?: string | null
+  forcePasswordResetRequestedBy?: string | null
+  forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
+  isSuperAdmin?: boolean
+  deletedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
+  RefreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutUserInput
+  ItemMovement?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutUserInput
+  ApprovedMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutApproverInput
+  AuditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUncheckedCreateNestedManyWithoutUserInput
+  Alerts?: Prisma.AlertUncheckedCreateNestedManyWithoutUserInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutCreatorInput
+  CreatedSalesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutCreatorInput
+  ItemReservations?: Prisma.ItemReservationUncheckedCreateNestedManyWithoutUserInput
+  Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
+  Notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  permissionGroups?: Prisma.UserPermissionGroupUncheckedCreateNestedManyWithoutUserInput
+  grantedPermissions?: Prisma.UserPermissionGroupUncheckedCreateNestedManyWithoutGranterInput
+  directPermissions?: Prisma.UserDirectPermissionUncheckedCreateNestedManyWithoutUserInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUncheckedCreateNestedManyWithoutGranterInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUncheckedCreateNestedManyWithoutUserInput
+  RequestsCreated?: Prisma.RequestUncheckedCreateNestedManyWithoutRequesterInput
+  RequestsAssigned?: Prisma.RequestUncheckedCreateNestedManyWithoutAssignedToInput
+  UploadedAttachments?: Prisma.RequestAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  RequestComments?: Prisma.RequestCommentUncheckedCreateNestedManyWithoutAuthorInput
+  RequestHistoryActions?: Prisma.RequestHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  employee?: Prisma.EmployeeUncheckedCreateNestedOneWithoutUserInput
+  processedPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutProcessorInput
+  approvedPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutApproverInput
+  paidPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutPayerInput
+  approvedOvertime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutApproverInput
+  approvedAbsences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutApproverInput
+  VolumesCreated?: Prisma.VolumeUncheckedCreateNestedManyWithoutCreatedByUserInput
+  VolumesClosed?: Prisma.VolumeUncheckedCreateNestedManyWithoutClosedByUserInput
+  VolumesDelivered?: Prisma.VolumeUncheckedCreateNestedManyWithoutDeliveredByUserInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
+  storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
+  calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
+  eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
+  eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
+  emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
+  ownedBoards?: Prisma.BoardUncheckedCreateNestedManyWithoutOwnerInput
+  assignedCards?: Prisma.CardUncheckedCreateNestedManyWithoutAssigneeInput
+  reportedCards?: Prisma.CardUncheckedCreateNestedManyWithoutReporterInput
+  boardMemberships?: Prisma.BoardMemberUncheckedCreateNestedManyWithoutUserInput
+  cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
+  commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
+  cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
+  checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
+  assignedCatalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutAssignedToInput
+  approvedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutApprovedByInput
+  assignedOrders?: Prisma.OrderUncheckedCreateNestedManyWithoutAssignedToInput
+  approvedOrders?: Prisma.OrderUncheckedCreateNestedManyWithoutApprovedByInput
+  requestedReturns?: Prisma.OrderReturnUncheckedCreateNestedManyWithoutRequestedByInput
+  approvedReturns?: Prisma.OrderReturnUncheckedCreateNestedManyWithoutApprovedByInput
+  reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
+  orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
+  orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
+  centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
+  createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
+  resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutConfirmedByInput
+}
+
+export type UserCreateOrConnectWithoutAiActionLogsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAiActionLogsInput, Prisma.UserUncheckedCreateWithoutAiActionLogsInput>
+}
+
+export type UserCreateWithoutAiActionsConfirmedInput = {
+  id?: string
+  username?: string | null
+  email: string
+  password_hash: string
+  lastLoginIp?: string | null
+  failedLoginAttempts?: number
+  blockedUntil?: Date | string | null
+  passwordResetToken?: string | null
+  passwordResetExpires?: Date | string | null
+  forcePasswordReset?: boolean
+  forcePasswordResetReason?: string | null
+  forcePasswordResetRequestedBy?: string | null
+  forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
+  isSuperAdmin?: boolean
+  deletedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
+  RefreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutUserInput
+  ItemMovement?: Prisma.ItemMovementCreateNestedManyWithoutUserInput
+  ApprovedMovements?: Prisma.ItemMovementCreateNestedManyWithoutApproverInput
+  AuditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryCreateNestedManyWithoutUserInput
+  Alerts?: Prisma.AlertCreateNestedManyWithoutUserInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutCreatorInput
+  CreatedSalesOrders?: Prisma.SalesOrderCreateNestedManyWithoutCreatorInput
+  ItemReservations?: Prisma.ItemReservationCreateNestedManyWithoutUserInput
+  Comments?: Prisma.CommentCreateNestedManyWithoutUserInput
+  NotificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
+  Notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  permissionGroups?: Prisma.UserPermissionGroupCreateNestedManyWithoutUserInput
+  grantedPermissions?: Prisma.UserPermissionGroupCreateNestedManyWithoutGranterInput
+  directPermissions?: Prisma.UserDirectPermissionCreateNestedManyWithoutUserInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionCreateNestedManyWithoutGranterInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogCreateNestedManyWithoutUserInput
+  RequestsCreated?: Prisma.RequestCreateNestedManyWithoutRequesterInput
+  RequestsAssigned?: Prisma.RequestCreateNestedManyWithoutAssignedToInput
+  UploadedAttachments?: Prisma.RequestAttachmentCreateNestedManyWithoutUploadedByInput
+  RequestComments?: Prisma.RequestCommentCreateNestedManyWithoutAuthorInput
+  RequestHistoryActions?: Prisma.RequestHistoryCreateNestedManyWithoutPerformedByInput
+  employee?: Prisma.EmployeeCreateNestedOneWithoutUserInput
+  processedPayrolls?: Prisma.PayrollCreateNestedManyWithoutProcessorInput
+  approvedPayrolls?: Prisma.PayrollCreateNestedManyWithoutApproverInput
+  paidPayrolls?: Prisma.PayrollCreateNestedManyWithoutPayerInput
+  approvedOvertime?: Prisma.OvertimeCreateNestedManyWithoutApproverInput
+  approvedAbsences?: Prisma.AbsenceCreateNestedManyWithoutApproverInput
+  VolumesCreated?: Prisma.VolumeCreateNestedManyWithoutCreatedByUserInput
+  VolumesClosed?: Prisma.VolumeCreateNestedManyWithoutClosedByUserInput
+  VolumesDelivered?: Prisma.VolumeCreateNestedManyWithoutDeliveredByUserInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
+  folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
+  storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
+  calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
+  eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
+  eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
+  emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
+  ownedBoards?: Prisma.BoardCreateNestedManyWithoutOwnerInput
+  assignedCards?: Prisma.CardCreateNestedManyWithoutAssigneeInput
+  reportedCards?: Prisma.CardCreateNestedManyWithoutReporterInput
+  boardMemberships?: Prisma.BoardMemberCreateNestedManyWithoutUserInput
+  cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
+  commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
+  cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
+  checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
+  assignedCatalogs?: Prisma.CatalogCreateNestedManyWithoutAssignedToInput
+  approvedContents?: Prisma.GeneratedContentCreateNestedManyWithoutApprovedByInput
+  assignedOrders?: Prisma.OrderCreateNestedManyWithoutAssignedToInput
+  approvedOrders?: Prisma.OrderCreateNestedManyWithoutApprovedByInput
+  requestedReturns?: Prisma.OrderReturnCreateNestedManyWithoutRequestedByInput
+  approvedReturns?: Prisma.OrderReturnCreateNestedManyWithoutApprovedByInput
+  reviewedCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutReviewedByInput
+  orderCommissions?: Prisma.OrderCommissionCreateNestedManyWithoutUserInput
+  orderHistoryActions?: Prisma.OrderHistoryCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportCreateNestedManyWithoutCreatedByInput
+  centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
+  createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
+  assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
+  supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
+  resolvedInventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutAiActionsConfirmedInput = {
+  id?: string
+  username?: string | null
+  email: string
+  password_hash: string
+  lastLoginIp?: string | null
+  failedLoginAttempts?: number
+  blockedUntil?: Date | string | null
+  passwordResetToken?: string | null
+  passwordResetExpires?: Date | string | null
+  forcePasswordReset?: boolean
+  forcePasswordResetReason?: string | null
+  forcePasswordResetRequestedBy?: string | null
+  forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
+  isSuperAdmin?: boolean
+  deletedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
+  RefreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutUserInput
+  ItemMovement?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutUserInput
+  ApprovedMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutApproverInput
+  AuditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUncheckedCreateNestedManyWithoutUserInput
+  Alerts?: Prisma.AlertUncheckedCreateNestedManyWithoutUserInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutCreatorInput
+  CreatedSalesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutCreatorInput
+  ItemReservations?: Prisma.ItemReservationUncheckedCreateNestedManyWithoutUserInput
+  Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
+  Notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  permissionGroups?: Prisma.UserPermissionGroupUncheckedCreateNestedManyWithoutUserInput
+  grantedPermissions?: Prisma.UserPermissionGroupUncheckedCreateNestedManyWithoutGranterInput
+  directPermissions?: Prisma.UserDirectPermissionUncheckedCreateNestedManyWithoutUserInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUncheckedCreateNestedManyWithoutGranterInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUncheckedCreateNestedManyWithoutUserInput
+  RequestsCreated?: Prisma.RequestUncheckedCreateNestedManyWithoutRequesterInput
+  RequestsAssigned?: Prisma.RequestUncheckedCreateNestedManyWithoutAssignedToInput
+  UploadedAttachments?: Prisma.RequestAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  RequestComments?: Prisma.RequestCommentUncheckedCreateNestedManyWithoutAuthorInput
+  RequestHistoryActions?: Prisma.RequestHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  employee?: Prisma.EmployeeUncheckedCreateNestedOneWithoutUserInput
+  processedPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutProcessorInput
+  approvedPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutApproverInput
+  paidPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutPayerInput
+  approvedOvertime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutApproverInput
+  approvedAbsences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutApproverInput
+  VolumesCreated?: Prisma.VolumeUncheckedCreateNestedManyWithoutCreatedByUserInput
+  VolumesClosed?: Prisma.VolumeUncheckedCreateNestedManyWithoutClosedByUserInput
+  VolumesDelivered?: Prisma.VolumeUncheckedCreateNestedManyWithoutDeliveredByUserInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
+  storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
+  calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
+  eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
+  eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
+  emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
+  ownedBoards?: Prisma.BoardUncheckedCreateNestedManyWithoutOwnerInput
+  assignedCards?: Prisma.CardUncheckedCreateNestedManyWithoutAssigneeInput
+  reportedCards?: Prisma.CardUncheckedCreateNestedManyWithoutReporterInput
+  boardMemberships?: Prisma.BoardMemberUncheckedCreateNestedManyWithoutUserInput
+  cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
+  commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
+  cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
+  checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
+  assignedCatalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutAssignedToInput
+  approvedContents?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutApprovedByInput
+  assignedOrders?: Prisma.OrderUncheckedCreateNestedManyWithoutAssignedToInput
+  approvedOrders?: Prisma.OrderUncheckedCreateNestedManyWithoutApprovedByInput
+  requestedReturns?: Prisma.OrderReturnUncheckedCreateNestedManyWithoutRequestedByInput
+  approvedReturns?: Prisma.OrderReturnUncheckedCreateNestedManyWithoutApprovedByInput
+  reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutReviewedByInput
+  orderCommissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutUserInput
+  orderHistoryActions?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutCreatedByInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutUserInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutUserInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedCreateNestedManyWithoutCreatedByInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutCreatedByInput
+  centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
+  createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
+  resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedCreateNestedManyWithoutUserInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutAiActionsConfirmedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAiActionsConfirmedInput, Prisma.UserUncheckedCreateWithoutAiActionsConfirmedInput>
+}
+
+export type UserUpsertWithoutAiActionLogsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAiActionLogsInput, Prisma.UserUncheckedUpdateWithoutAiActionLogsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAiActionLogsInput, Prisma.UserUncheckedCreateWithoutAiActionLogsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAiActionLogsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAiActionLogsInput, Prisma.UserUncheckedUpdateWithoutAiActionLogsInput>
+}
+
+export type UserUpdateWithoutAiActionLogsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  lastLoginIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  blockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  forcePasswordReset?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
+  RefreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutUserNestedInput
+  ItemMovement?: Prisma.ItemMovementUpdateManyWithoutUserNestedInput
+  ApprovedMovements?: Prisma.ItemMovementUpdateManyWithoutApproverNestedInput
+  AuditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUpdateManyWithoutUserNestedInput
+  Alerts?: Prisma.AlertUpdateManyWithoutUserNestedInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutCreatorNestedInput
+  CreatedSalesOrders?: Prisma.SalesOrderUpdateManyWithoutCreatorNestedInput
+  ItemReservations?: Prisma.ItemReservationUpdateManyWithoutUserNestedInput
+  Comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
+  Notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  permissionGroups?: Prisma.UserPermissionGroupUpdateManyWithoutUserNestedInput
+  grantedPermissions?: Prisma.UserPermissionGroupUpdateManyWithoutGranterNestedInput
+  directPermissions?: Prisma.UserDirectPermissionUpdateManyWithoutUserNestedInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUpdateManyWithoutGranterNestedInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUpdateManyWithoutUserNestedInput
+  RequestsCreated?: Prisma.RequestUpdateManyWithoutRequesterNestedInput
+  RequestsAssigned?: Prisma.RequestUpdateManyWithoutAssignedToNestedInput
+  UploadedAttachments?: Prisma.RequestAttachmentUpdateManyWithoutUploadedByNestedInput
+  RequestComments?: Prisma.RequestCommentUpdateManyWithoutAuthorNestedInput
+  RequestHistoryActions?: Prisma.RequestHistoryUpdateManyWithoutPerformedByNestedInput
+  employee?: Prisma.EmployeeUpdateOneWithoutUserNestedInput
+  processedPayrolls?: Prisma.PayrollUpdateManyWithoutProcessorNestedInput
+  approvedPayrolls?: Prisma.PayrollUpdateManyWithoutApproverNestedInput
+  paidPayrolls?: Prisma.PayrollUpdateManyWithoutPayerNestedInput
+  approvedOvertime?: Prisma.OvertimeUpdateManyWithoutApproverNestedInput
+  approvedAbsences?: Prisma.AbsenceUpdateManyWithoutApproverNestedInput
+  VolumesCreated?: Prisma.VolumeUpdateManyWithoutCreatedByUserNestedInput
+  VolumesClosed?: Prisma.VolumeUpdateManyWithoutClosedByUserNestedInput
+  VolumesDelivered?: Prisma.VolumeUpdateManyWithoutDeliveredByUserNestedInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
+  storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
+  calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
+  eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
+  eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
+  emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
+  ownedBoards?: Prisma.BoardUpdateManyWithoutOwnerNestedInput
+  assignedCards?: Prisma.CardUpdateManyWithoutAssigneeNestedInput
+  reportedCards?: Prisma.CardUpdateManyWithoutReporterNestedInput
+  boardMemberships?: Prisma.BoardMemberUpdateManyWithoutUserNestedInput
+  cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
+  commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
+  cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
+  checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
+  assignedCatalogs?: Prisma.CatalogUpdateManyWithoutAssignedToNestedInput
+  approvedContents?: Prisma.GeneratedContentUpdateManyWithoutApprovedByNestedInput
+  assignedOrders?: Prisma.OrderUpdateManyWithoutAssignedToNestedInput
+  approvedOrders?: Prisma.OrderUpdateManyWithoutApprovedByNestedInput
+  requestedReturns?: Prisma.OrderReturnUpdateManyWithoutRequestedByNestedInput
+  approvedReturns?: Prisma.OrderReturnUpdateManyWithoutApprovedByNestedInput
+  reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
+  orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
+  orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
+  centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
+  createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
+  resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUpdateManyWithoutConfirmedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAiActionLogsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  lastLoginIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  blockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  forcePasswordReset?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
+  RefreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutUserNestedInput
+  ItemMovement?: Prisma.ItemMovementUncheckedUpdateManyWithoutUserNestedInput
+  ApprovedMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutApproverNestedInput
+  AuditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUncheckedUpdateManyWithoutUserNestedInput
+  Alerts?: Prisma.AlertUncheckedUpdateManyWithoutUserNestedInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutCreatorNestedInput
+  CreatedSalesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutCreatorNestedInput
+  ItemReservations?: Prisma.ItemReservationUncheckedUpdateManyWithoutUserNestedInput
+  Comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
+  Notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  permissionGroups?: Prisma.UserPermissionGroupUncheckedUpdateManyWithoutUserNestedInput
+  grantedPermissions?: Prisma.UserPermissionGroupUncheckedUpdateManyWithoutGranterNestedInput
+  directPermissions?: Prisma.UserDirectPermissionUncheckedUpdateManyWithoutUserNestedInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUncheckedUpdateManyWithoutGranterNestedInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUncheckedUpdateManyWithoutUserNestedInput
+  RequestsCreated?: Prisma.RequestUncheckedUpdateManyWithoutRequesterNestedInput
+  RequestsAssigned?: Prisma.RequestUncheckedUpdateManyWithoutAssignedToNestedInput
+  UploadedAttachments?: Prisma.RequestAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  RequestComments?: Prisma.RequestCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  RequestHistoryActions?: Prisma.RequestHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  employee?: Prisma.EmployeeUncheckedUpdateOneWithoutUserNestedInput
+  processedPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutProcessorNestedInput
+  approvedPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutApproverNestedInput
+  paidPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutPayerNestedInput
+  approvedOvertime?: Prisma.OvertimeUncheckedUpdateManyWithoutApproverNestedInput
+  approvedAbsences?: Prisma.AbsenceUncheckedUpdateManyWithoutApproverNestedInput
+  VolumesCreated?: Prisma.VolumeUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  VolumesClosed?: Prisma.VolumeUncheckedUpdateManyWithoutClosedByUserNestedInput
+  VolumesDelivered?: Prisma.VolumeUncheckedUpdateManyWithoutDeliveredByUserNestedInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
+  storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
+  calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
+  eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
+  eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
+  emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
+  ownedBoards?: Prisma.BoardUncheckedUpdateManyWithoutOwnerNestedInput
+  assignedCards?: Prisma.CardUncheckedUpdateManyWithoutAssigneeNestedInput
+  reportedCards?: Prisma.CardUncheckedUpdateManyWithoutReporterNestedInput
+  boardMemberships?: Prisma.BoardMemberUncheckedUpdateManyWithoutUserNestedInput
+  cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
+  cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
+  checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
+  assignedCatalogs?: Prisma.CatalogUncheckedUpdateManyWithoutAssignedToNestedInput
+  approvedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutApprovedByNestedInput
+  assignedOrders?: Prisma.OrderUncheckedUpdateManyWithoutAssignedToNestedInput
+  approvedOrders?: Prisma.OrderUncheckedUpdateManyWithoutApprovedByNestedInput
+  requestedReturns?: Prisma.OrderReturnUncheckedUpdateManyWithoutRequestedByNestedInput
+  approvedReturns?: Prisma.OrderReturnUncheckedUpdateManyWithoutApprovedByNestedInput
+  reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
+  orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
+  orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
+  createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
+  resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionsConfirmed?: Prisma.AiActionLogUncheckedUpdateManyWithoutConfirmedByNestedInput
+}
+
+export type UserUpsertWithoutAiActionsConfirmedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAiActionsConfirmedInput, Prisma.UserUncheckedUpdateWithoutAiActionsConfirmedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAiActionsConfirmedInput, Prisma.UserUncheckedCreateWithoutAiActionsConfirmedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAiActionsConfirmedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAiActionsConfirmedInput, Prisma.UserUncheckedUpdateWithoutAiActionsConfirmedInput>
+}
+
+export type UserUpdateWithoutAiActionsConfirmedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  lastLoginIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  blockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  forcePasswordReset?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
+  RefreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutUserNestedInput
+  ItemMovement?: Prisma.ItemMovementUpdateManyWithoutUserNestedInput
+  ApprovedMovements?: Prisma.ItemMovementUpdateManyWithoutApproverNestedInput
+  AuditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUpdateManyWithoutUserNestedInput
+  Alerts?: Prisma.AlertUpdateManyWithoutUserNestedInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutCreatorNestedInput
+  CreatedSalesOrders?: Prisma.SalesOrderUpdateManyWithoutCreatorNestedInput
+  ItemReservations?: Prisma.ItemReservationUpdateManyWithoutUserNestedInput
+  Comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
+  Notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  permissionGroups?: Prisma.UserPermissionGroupUpdateManyWithoutUserNestedInput
+  grantedPermissions?: Prisma.UserPermissionGroupUpdateManyWithoutGranterNestedInput
+  directPermissions?: Prisma.UserDirectPermissionUpdateManyWithoutUserNestedInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUpdateManyWithoutGranterNestedInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUpdateManyWithoutUserNestedInput
+  RequestsCreated?: Prisma.RequestUpdateManyWithoutRequesterNestedInput
+  RequestsAssigned?: Prisma.RequestUpdateManyWithoutAssignedToNestedInput
+  UploadedAttachments?: Prisma.RequestAttachmentUpdateManyWithoutUploadedByNestedInput
+  RequestComments?: Prisma.RequestCommentUpdateManyWithoutAuthorNestedInput
+  RequestHistoryActions?: Prisma.RequestHistoryUpdateManyWithoutPerformedByNestedInput
+  employee?: Prisma.EmployeeUpdateOneWithoutUserNestedInput
+  processedPayrolls?: Prisma.PayrollUpdateManyWithoutProcessorNestedInput
+  approvedPayrolls?: Prisma.PayrollUpdateManyWithoutApproverNestedInput
+  paidPayrolls?: Prisma.PayrollUpdateManyWithoutPayerNestedInput
+  approvedOvertime?: Prisma.OvertimeUpdateManyWithoutApproverNestedInput
+  approvedAbsences?: Prisma.AbsenceUpdateManyWithoutApproverNestedInput
+  VolumesCreated?: Prisma.VolumeUpdateManyWithoutCreatedByUserNestedInput
+  VolumesClosed?: Prisma.VolumeUpdateManyWithoutClosedByUserNestedInput
+  VolumesDelivered?: Prisma.VolumeUpdateManyWithoutDeliveredByUserNestedInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
+  storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
+  calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
+  eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
+  eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
+  emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
+  ownedBoards?: Prisma.BoardUpdateManyWithoutOwnerNestedInput
+  assignedCards?: Prisma.CardUpdateManyWithoutAssigneeNestedInput
+  reportedCards?: Prisma.CardUpdateManyWithoutReporterNestedInput
+  boardMemberships?: Prisma.BoardMemberUpdateManyWithoutUserNestedInput
+  cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
+  commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
+  cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
+  checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
+  assignedCatalogs?: Prisma.CatalogUpdateManyWithoutAssignedToNestedInput
+  approvedContents?: Prisma.GeneratedContentUpdateManyWithoutApprovedByNestedInput
+  assignedOrders?: Prisma.OrderUpdateManyWithoutAssignedToNestedInput
+  approvedOrders?: Prisma.OrderUpdateManyWithoutApprovedByNestedInput
+  requestedReturns?: Prisma.OrderReturnUpdateManyWithoutRequestedByNestedInput
+  approvedReturns?: Prisma.OrderReturnUpdateManyWithoutApprovedByNestedInput
+  reviewedCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutReviewedByNestedInput
+  orderCommissions?: Prisma.OrderCommissionUpdateManyWithoutUserNestedInput
+  orderHistoryActions?: Prisma.OrderHistoryUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUpdateManyWithoutCreatedByNestedInput
+  centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
+  createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
+  resolvedInventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAiActionsConfirmedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  lastLoginIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  blockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  forcePasswordReset?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
+  RefreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutUserNestedInput
+  ItemMovement?: Prisma.ItemMovementUncheckedUpdateManyWithoutUserNestedInput
+  ApprovedMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutApproverNestedInput
+  AuditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUncheckedUpdateManyWithoutUserNestedInput
+  Alerts?: Prisma.AlertUncheckedUpdateManyWithoutUserNestedInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutCreatorNestedInput
+  CreatedSalesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutCreatorNestedInput
+  ItemReservations?: Prisma.ItemReservationUncheckedUpdateManyWithoutUserNestedInput
+  Comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
+  Notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  permissionGroups?: Prisma.UserPermissionGroupUncheckedUpdateManyWithoutUserNestedInput
+  grantedPermissions?: Prisma.UserPermissionGroupUncheckedUpdateManyWithoutGranterNestedInput
+  directPermissions?: Prisma.UserDirectPermissionUncheckedUpdateManyWithoutUserNestedInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUncheckedUpdateManyWithoutGranterNestedInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUncheckedUpdateManyWithoutUserNestedInput
+  RequestsCreated?: Prisma.RequestUncheckedUpdateManyWithoutRequesterNestedInput
+  RequestsAssigned?: Prisma.RequestUncheckedUpdateManyWithoutAssignedToNestedInput
+  UploadedAttachments?: Prisma.RequestAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  RequestComments?: Prisma.RequestCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  RequestHistoryActions?: Prisma.RequestHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  employee?: Prisma.EmployeeUncheckedUpdateOneWithoutUserNestedInput
+  processedPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutProcessorNestedInput
+  approvedPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutApproverNestedInput
+  paidPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutPayerNestedInput
+  approvedOvertime?: Prisma.OvertimeUncheckedUpdateManyWithoutApproverNestedInput
+  approvedAbsences?: Prisma.AbsenceUncheckedUpdateManyWithoutApproverNestedInput
+  VolumesCreated?: Prisma.VolumeUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  VolumesClosed?: Prisma.VolumeUncheckedUpdateManyWithoutClosedByUserNestedInput
+  VolumesDelivered?: Prisma.VolumeUncheckedUpdateManyWithoutDeliveredByUserNestedInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
+  storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
+  calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
+  eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
+  eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
+  emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
+  ownedBoards?: Prisma.BoardUncheckedUpdateManyWithoutOwnerNestedInput
+  assignedCards?: Prisma.CardUncheckedUpdateManyWithoutAssigneeNestedInput
+  reportedCards?: Prisma.CardUncheckedUpdateManyWithoutReporterNestedInput
+  boardMemberships?: Prisma.BoardMemberUncheckedUpdateManyWithoutUserNestedInput
+  cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
+  cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
+  checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
+  assignedCatalogs?: Prisma.CatalogUncheckedUpdateManyWithoutAssignedToNestedInput
+  approvedContents?: Prisma.GeneratedContentUncheckedUpdateManyWithoutApprovedByNestedInput
+  assignedOrders?: Prisma.OrderUncheckedUpdateManyWithoutAssignedToNestedInput
+  approvedOrders?: Prisma.OrderUncheckedUpdateManyWithoutApprovedByNestedInput
+  requestedReturns?: Prisma.OrderReturnUncheckedUpdateManyWithoutRequestedByNestedInput
+  approvedReturns?: Prisma.OrderReturnUncheckedUpdateManyWithoutApprovedByNestedInput
+  reviewedCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutReviewedByNestedInput
+  orderCommissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutUserNestedInput
+  orderHistoryActions?: Prisma.OrderHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  createdEnvelopes?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserNestedInput
+  analyticsWidgetsCreated?: Prisma.AnalyticsWidgetUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsDashboardsCreated?: Prisma.AnalyticsDashboardUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsGoalsAssigned?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutUserNestedInput
+  analyticsGoalsCreated?: Prisma.AnalyticsGoalUncheckedUpdateManyWithoutCreatedByNestedInput
+  analyticsReportsCreated?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
+  createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
+  resolvedInventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiFavoriteQueries?: Prisma.AiFavoriteQueryUncheckedUpdateManyWithoutUserNestedInput
+  aiActionLogs?: Prisma.AiActionLogUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -31929,11 +40308,22 @@ export type UserCountOutputType = {
   reviewedCreditLimits: number
   orderCommissions: number
   orderHistoryActions: number
+  createdEnvelopes: number
+  signerAssignments: number
+  analyticsWidgetsCreated: number
+  analyticsDashboardsCreated: number
+  analyticsGoalsAssigned: number
+  analyticsGoalsCreated: number
+  analyticsReportsCreated: number
   createdSupportTickets: number
   assignedSupportTickets: number
   supportTicketMessages: number
   inventorySessions: number
   resolvedInventoryItems: number
+  aiConversations: number
+  aiFavoriteQueries: number
+  aiActionLogs: number
+  aiActionsConfirmed: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -32002,11 +40392,22 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   reviewedCreditLimits?: boolean | UserCountOutputTypeCountReviewedCreditLimitsArgs
   orderCommissions?: boolean | UserCountOutputTypeCountOrderCommissionsArgs
   orderHistoryActions?: boolean | UserCountOutputTypeCountOrderHistoryActionsArgs
+  createdEnvelopes?: boolean | UserCountOutputTypeCountCreatedEnvelopesArgs
+  signerAssignments?: boolean | UserCountOutputTypeCountSignerAssignmentsArgs
+  analyticsWidgetsCreated?: boolean | UserCountOutputTypeCountAnalyticsWidgetsCreatedArgs
+  analyticsDashboardsCreated?: boolean | UserCountOutputTypeCountAnalyticsDashboardsCreatedArgs
+  analyticsGoalsAssigned?: boolean | UserCountOutputTypeCountAnalyticsGoalsAssignedArgs
+  analyticsGoalsCreated?: boolean | UserCountOutputTypeCountAnalyticsGoalsCreatedArgs
+  analyticsReportsCreated?: boolean | UserCountOutputTypeCountAnalyticsReportsCreatedArgs
   createdSupportTickets?: boolean | UserCountOutputTypeCountCreatedSupportTicketsArgs
   assignedSupportTickets?: boolean | UserCountOutputTypeCountAssignedSupportTicketsArgs
   supportTicketMessages?: boolean | UserCountOutputTypeCountSupportTicketMessagesArgs
   inventorySessions?: boolean | UserCountOutputTypeCountInventorySessionsArgs
   resolvedInventoryItems?: boolean | UserCountOutputTypeCountResolvedInventoryItemsArgs
+  aiConversations?: boolean | UserCountOutputTypeCountAiConversationsArgs
+  aiFavoriteQueries?: boolean | UserCountOutputTypeCountAiFavoriteQueriesArgs
+  aiActionLogs?: boolean | UserCountOutputTypeCountAiActionLogsArgs
+  aiActionsConfirmed?: boolean | UserCountOutputTypeCountAiActionsConfirmedArgs
 }
 
 /**
@@ -32477,6 +40878,55 @@ export type UserCountOutputTypeCountOrderHistoryActionsArgs<ExtArgs extends runt
 /**
  * UserCountOutputType without action
  */
+export type UserCountOutputTypeCountCreatedEnvelopesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SignatureEnvelopeWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountSignerAssignmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SignatureEnvelopeSignerWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAnalyticsWidgetsCreatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AnalyticsWidgetWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAnalyticsDashboardsCreatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AnalyticsDashboardWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAnalyticsGoalsAssignedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AnalyticsGoalWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAnalyticsGoalsCreatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AnalyticsGoalWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAnalyticsReportsCreatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AnalyticsReportWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
 export type UserCountOutputTypeCountCreatedSupportTicketsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.SupportTicketWhereInput
 }
@@ -32507,6 +40957,34 @@ export type UserCountOutputTypeCountInventorySessionsArgs<ExtArgs extends runtim
  */
 export type UserCountOutputTypeCountResolvedInventoryItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.InventorySessionItemWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAiConversationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AiConversationWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAiFavoriteQueriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AiFavoriteQueryWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAiActionLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AiActionLogWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAiActionsConfirmedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AiActionLogWhereInput
 }
 
 
@@ -32600,12 +41078,23 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   reviewedCreditLimits?: boolean | Prisma.User$reviewedCreditLimitsArgs<ExtArgs>
   orderCommissions?: boolean | Prisma.User$orderCommissionsArgs<ExtArgs>
   orderHistoryActions?: boolean | Prisma.User$orderHistoryActionsArgs<ExtArgs>
+  createdEnvelopes?: boolean | Prisma.User$createdEnvelopesArgs<ExtArgs>
+  signerAssignments?: boolean | Prisma.User$signerAssignmentsArgs<ExtArgs>
+  analyticsWidgetsCreated?: boolean | Prisma.User$analyticsWidgetsCreatedArgs<ExtArgs>
+  analyticsDashboardsCreated?: boolean | Prisma.User$analyticsDashboardsCreatedArgs<ExtArgs>
+  analyticsGoalsAssigned?: boolean | Prisma.User$analyticsGoalsAssignedArgs<ExtArgs>
+  analyticsGoalsCreated?: boolean | Prisma.User$analyticsGoalsCreatedArgs<ExtArgs>
+  analyticsReportsCreated?: boolean | Prisma.User$analyticsReportsCreatedArgs<ExtArgs>
   centralUser?: boolean | Prisma.User$centralUserArgs<ExtArgs>
   createdSupportTickets?: boolean | Prisma.User$createdSupportTicketsArgs<ExtArgs>
   assignedSupportTickets?: boolean | Prisma.User$assignedSupportTicketsArgs<ExtArgs>
   supportTicketMessages?: boolean | Prisma.User$supportTicketMessagesArgs<ExtArgs>
   inventorySessions?: boolean | Prisma.User$inventorySessionsArgs<ExtArgs>
   resolvedInventoryItems?: boolean | Prisma.User$resolvedInventoryItemsArgs<ExtArgs>
+  aiConversations?: boolean | Prisma.User$aiConversationsArgs<ExtArgs>
+  aiFavoriteQueries?: boolean | Prisma.User$aiFavoriteQueriesArgs<ExtArgs>
+  aiActionLogs?: boolean | Prisma.User$aiActionLogsArgs<ExtArgs>
+  aiActionsConfirmed?: boolean | Prisma.User$aiActionsConfirmedArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -32753,12 +41242,23 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   reviewedCreditLimits?: boolean | Prisma.User$reviewedCreditLimitsArgs<ExtArgs>
   orderCommissions?: boolean | Prisma.User$orderCommissionsArgs<ExtArgs>
   orderHistoryActions?: boolean | Prisma.User$orderHistoryActionsArgs<ExtArgs>
+  createdEnvelopes?: boolean | Prisma.User$createdEnvelopesArgs<ExtArgs>
+  signerAssignments?: boolean | Prisma.User$signerAssignmentsArgs<ExtArgs>
+  analyticsWidgetsCreated?: boolean | Prisma.User$analyticsWidgetsCreatedArgs<ExtArgs>
+  analyticsDashboardsCreated?: boolean | Prisma.User$analyticsDashboardsCreatedArgs<ExtArgs>
+  analyticsGoalsAssigned?: boolean | Prisma.User$analyticsGoalsAssignedArgs<ExtArgs>
+  analyticsGoalsCreated?: boolean | Prisma.User$analyticsGoalsCreatedArgs<ExtArgs>
+  analyticsReportsCreated?: boolean | Prisma.User$analyticsReportsCreatedArgs<ExtArgs>
   centralUser?: boolean | Prisma.User$centralUserArgs<ExtArgs>
   createdSupportTickets?: boolean | Prisma.User$createdSupportTicketsArgs<ExtArgs>
   assignedSupportTickets?: boolean | Prisma.User$assignedSupportTicketsArgs<ExtArgs>
   supportTicketMessages?: boolean | Prisma.User$supportTicketMessagesArgs<ExtArgs>
   inventorySessions?: boolean | Prisma.User$inventorySessionsArgs<ExtArgs>
   resolvedInventoryItems?: boolean | Prisma.User$resolvedInventoryItemsArgs<ExtArgs>
+  aiConversations?: boolean | Prisma.User$aiConversationsArgs<ExtArgs>
+  aiFavoriteQueries?: boolean | Prisma.User$aiFavoriteQueriesArgs<ExtArgs>
+  aiActionLogs?: boolean | Prisma.User$aiActionLogsArgs<ExtArgs>
+  aiActionsConfirmed?: boolean | Prisma.User$aiActionsConfirmedArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -32834,12 +41334,23 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     reviewedCreditLimits: Prisma.$CustomerCreditLimitPayload<ExtArgs>[]
     orderCommissions: Prisma.$OrderCommissionPayload<ExtArgs>[]
     orderHistoryActions: Prisma.$OrderHistoryPayload<ExtArgs>[]
+    createdEnvelopes: Prisma.$SignatureEnvelopePayload<ExtArgs>[]
+    signerAssignments: Prisma.$SignatureEnvelopeSignerPayload<ExtArgs>[]
+    analyticsWidgetsCreated: Prisma.$AnalyticsWidgetPayload<ExtArgs>[]
+    analyticsDashboardsCreated: Prisma.$AnalyticsDashboardPayload<ExtArgs>[]
+    analyticsGoalsAssigned: Prisma.$AnalyticsGoalPayload<ExtArgs>[]
+    analyticsGoalsCreated: Prisma.$AnalyticsGoalPayload<ExtArgs>[]
+    analyticsReportsCreated: Prisma.$AnalyticsReportPayload<ExtArgs>[]
     centralUser: Prisma.$CentralUserPayload<ExtArgs> | null
     createdSupportTickets: Prisma.$SupportTicketPayload<ExtArgs>[]
     assignedSupportTickets: Prisma.$SupportTicketPayload<ExtArgs>[]
     supportTicketMessages: Prisma.$SupportTicketMessagePayload<ExtArgs>[]
     inventorySessions: Prisma.$InventorySessionPayload<ExtArgs>[]
     resolvedInventoryItems: Prisma.$InventorySessionItemPayload<ExtArgs>[]
+    aiConversations: Prisma.$AiConversationPayload<ExtArgs>[]
+    aiFavoriteQueries: Prisma.$AiFavoriteQueryPayload<ExtArgs>[]
+    aiActionLogs: Prisma.$AiActionLogPayload<ExtArgs>[]
+    aiActionsConfirmed: Prisma.$AiActionLogPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -33325,12 +41836,23 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   reviewedCreditLimits<T extends Prisma.User$reviewedCreditLimitsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$reviewedCreditLimitsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerCreditLimitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   orderCommissions<T extends Prisma.User$orderCommissionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$orderCommissionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrderCommissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   orderHistoryActions<T extends Prisma.User$orderHistoryActionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$orderHistoryActionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrderHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  createdEnvelopes<T extends Prisma.User$createdEnvelopesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$createdEnvelopesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SignatureEnvelopePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  signerAssignments<T extends Prisma.User$signerAssignmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$signerAssignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SignatureEnvelopeSignerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  analyticsWidgetsCreated<T extends Prisma.User$analyticsWidgetsCreatedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$analyticsWidgetsCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AnalyticsWidgetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  analyticsDashboardsCreated<T extends Prisma.User$analyticsDashboardsCreatedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$analyticsDashboardsCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AnalyticsDashboardPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  analyticsGoalsAssigned<T extends Prisma.User$analyticsGoalsAssignedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$analyticsGoalsAssignedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AnalyticsGoalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  analyticsGoalsCreated<T extends Prisma.User$analyticsGoalsCreatedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$analyticsGoalsCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AnalyticsGoalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  analyticsReportsCreated<T extends Prisma.User$analyticsReportsCreatedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$analyticsReportsCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AnalyticsReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   centralUser<T extends Prisma.User$centralUserArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$centralUserArgs<ExtArgs>>): Prisma.Prisma__CentralUserClient<runtime.Types.Result.GetResult<Prisma.$CentralUserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   createdSupportTickets<T extends Prisma.User$createdSupportTicketsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$createdSupportTicketsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SupportTicketPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   assignedSupportTickets<T extends Prisma.User$assignedSupportTicketsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$assignedSupportTicketsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SupportTicketPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   supportTicketMessages<T extends Prisma.User$supportTicketMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$supportTicketMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SupportTicketMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   inventorySessions<T extends Prisma.User$inventorySessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$inventorySessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InventorySessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   resolvedInventoryItems<T extends Prisma.User$resolvedInventoryItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$resolvedInventoryItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InventorySessionItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  aiConversations<T extends Prisma.User$aiConversationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$aiConversationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AiConversationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  aiFavoriteQueries<T extends Prisma.User$aiFavoriteQueriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$aiFavoriteQueriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AiFavoriteQueryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  aiActionLogs<T extends Prisma.User$aiActionLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$aiActionLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AiActionLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  aiActionsConfirmed<T extends Prisma.User$aiActionsConfirmedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$aiActionsConfirmedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AiActionLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -35368,6 +43890,174 @@ export type User$orderHistoryActionsArgs<ExtArgs extends runtime.Types.Extension
 }
 
 /**
+ * User.createdEnvelopes
+ */
+export type User$createdEnvelopesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SignatureEnvelope
+   */
+  select?: Prisma.SignatureEnvelopeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SignatureEnvelope
+   */
+  omit?: Prisma.SignatureEnvelopeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SignatureEnvelopeInclude<ExtArgs> | null
+  where?: Prisma.SignatureEnvelopeWhereInput
+  orderBy?: Prisma.SignatureEnvelopeOrderByWithRelationInput | Prisma.SignatureEnvelopeOrderByWithRelationInput[]
+  cursor?: Prisma.SignatureEnvelopeWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SignatureEnvelopeScalarFieldEnum | Prisma.SignatureEnvelopeScalarFieldEnum[]
+}
+
+/**
+ * User.signerAssignments
+ */
+export type User$signerAssignmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SignatureEnvelopeSigner
+   */
+  select?: Prisma.SignatureEnvelopeSignerSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SignatureEnvelopeSigner
+   */
+  omit?: Prisma.SignatureEnvelopeSignerOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SignatureEnvelopeSignerInclude<ExtArgs> | null
+  where?: Prisma.SignatureEnvelopeSignerWhereInput
+  orderBy?: Prisma.SignatureEnvelopeSignerOrderByWithRelationInput | Prisma.SignatureEnvelopeSignerOrderByWithRelationInput[]
+  cursor?: Prisma.SignatureEnvelopeSignerWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SignatureEnvelopeSignerScalarFieldEnum | Prisma.SignatureEnvelopeSignerScalarFieldEnum[]
+}
+
+/**
+ * User.analyticsWidgetsCreated
+ */
+export type User$analyticsWidgetsCreatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AnalyticsWidget
+   */
+  select?: Prisma.AnalyticsWidgetSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AnalyticsWidget
+   */
+  omit?: Prisma.AnalyticsWidgetOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AnalyticsWidgetInclude<ExtArgs> | null
+  where?: Prisma.AnalyticsWidgetWhereInput
+  orderBy?: Prisma.AnalyticsWidgetOrderByWithRelationInput | Prisma.AnalyticsWidgetOrderByWithRelationInput[]
+  cursor?: Prisma.AnalyticsWidgetWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AnalyticsWidgetScalarFieldEnum | Prisma.AnalyticsWidgetScalarFieldEnum[]
+}
+
+/**
+ * User.analyticsDashboardsCreated
+ */
+export type User$analyticsDashboardsCreatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AnalyticsDashboard
+   */
+  select?: Prisma.AnalyticsDashboardSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AnalyticsDashboard
+   */
+  omit?: Prisma.AnalyticsDashboardOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AnalyticsDashboardInclude<ExtArgs> | null
+  where?: Prisma.AnalyticsDashboardWhereInput
+  orderBy?: Prisma.AnalyticsDashboardOrderByWithRelationInput | Prisma.AnalyticsDashboardOrderByWithRelationInput[]
+  cursor?: Prisma.AnalyticsDashboardWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AnalyticsDashboardScalarFieldEnum | Prisma.AnalyticsDashboardScalarFieldEnum[]
+}
+
+/**
+ * User.analyticsGoalsAssigned
+ */
+export type User$analyticsGoalsAssignedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AnalyticsGoal
+   */
+  select?: Prisma.AnalyticsGoalSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AnalyticsGoal
+   */
+  omit?: Prisma.AnalyticsGoalOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AnalyticsGoalInclude<ExtArgs> | null
+  where?: Prisma.AnalyticsGoalWhereInput
+  orderBy?: Prisma.AnalyticsGoalOrderByWithRelationInput | Prisma.AnalyticsGoalOrderByWithRelationInput[]
+  cursor?: Prisma.AnalyticsGoalWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AnalyticsGoalScalarFieldEnum | Prisma.AnalyticsGoalScalarFieldEnum[]
+}
+
+/**
+ * User.analyticsGoalsCreated
+ */
+export type User$analyticsGoalsCreatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AnalyticsGoal
+   */
+  select?: Prisma.AnalyticsGoalSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AnalyticsGoal
+   */
+  omit?: Prisma.AnalyticsGoalOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AnalyticsGoalInclude<ExtArgs> | null
+  where?: Prisma.AnalyticsGoalWhereInput
+  orderBy?: Prisma.AnalyticsGoalOrderByWithRelationInput | Prisma.AnalyticsGoalOrderByWithRelationInput[]
+  cursor?: Prisma.AnalyticsGoalWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AnalyticsGoalScalarFieldEnum | Prisma.AnalyticsGoalScalarFieldEnum[]
+}
+
+/**
+ * User.analyticsReportsCreated
+ */
+export type User$analyticsReportsCreatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AnalyticsReport
+   */
+  select?: Prisma.AnalyticsReportSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AnalyticsReport
+   */
+  omit?: Prisma.AnalyticsReportOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AnalyticsReportInclude<ExtArgs> | null
+  where?: Prisma.AnalyticsReportWhereInput
+  orderBy?: Prisma.AnalyticsReportOrderByWithRelationInput | Prisma.AnalyticsReportOrderByWithRelationInput[]
+  cursor?: Prisma.AnalyticsReportWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AnalyticsReportScalarFieldEnum | Prisma.AnalyticsReportScalarFieldEnum[]
+}
+
+/**
  * User.centralUser
  */
 export type User$centralUserArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -35504,6 +44194,102 @@ export type User$resolvedInventoryItemsArgs<ExtArgs extends runtime.Types.Extens
   take?: number
   skip?: number
   distinct?: Prisma.InventorySessionItemScalarFieldEnum | Prisma.InventorySessionItemScalarFieldEnum[]
+}
+
+/**
+ * User.aiConversations
+ */
+export type User$aiConversationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AiConversation
+   */
+  select?: Prisma.AiConversationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AiConversation
+   */
+  omit?: Prisma.AiConversationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AiConversationInclude<ExtArgs> | null
+  where?: Prisma.AiConversationWhereInput
+  orderBy?: Prisma.AiConversationOrderByWithRelationInput | Prisma.AiConversationOrderByWithRelationInput[]
+  cursor?: Prisma.AiConversationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AiConversationScalarFieldEnum | Prisma.AiConversationScalarFieldEnum[]
+}
+
+/**
+ * User.aiFavoriteQueries
+ */
+export type User$aiFavoriteQueriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AiFavoriteQuery
+   */
+  select?: Prisma.AiFavoriteQuerySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AiFavoriteQuery
+   */
+  omit?: Prisma.AiFavoriteQueryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AiFavoriteQueryInclude<ExtArgs> | null
+  where?: Prisma.AiFavoriteQueryWhereInput
+  orderBy?: Prisma.AiFavoriteQueryOrderByWithRelationInput | Prisma.AiFavoriteQueryOrderByWithRelationInput[]
+  cursor?: Prisma.AiFavoriteQueryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AiFavoriteQueryScalarFieldEnum | Prisma.AiFavoriteQueryScalarFieldEnum[]
+}
+
+/**
+ * User.aiActionLogs
+ */
+export type User$aiActionLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AiActionLog
+   */
+  select?: Prisma.AiActionLogSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AiActionLog
+   */
+  omit?: Prisma.AiActionLogOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AiActionLogInclude<ExtArgs> | null
+  where?: Prisma.AiActionLogWhereInput
+  orderBy?: Prisma.AiActionLogOrderByWithRelationInput | Prisma.AiActionLogOrderByWithRelationInput[]
+  cursor?: Prisma.AiActionLogWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AiActionLogScalarFieldEnum | Prisma.AiActionLogScalarFieldEnum[]
+}
+
+/**
+ * User.aiActionsConfirmed
+ */
+export type User$aiActionsConfirmedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AiActionLog
+   */
+  select?: Prisma.AiActionLogSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AiActionLog
+   */
+  omit?: Prisma.AiActionLogOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AiActionLogInclude<ExtArgs> | null
+  where?: Prisma.AiActionLogWhereInput
+  orderBy?: Prisma.AiActionLogOrderByWithRelationInput | Prisma.AiActionLogOrderByWithRelationInput[]
+  cursor?: Prisma.AiActionLogWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AiActionLogScalarFieldEnum | Prisma.AiActionLogScalarFieldEnum[]
 }
 
 /**

@@ -232,7 +232,25 @@ export const ModelName = {
   ApprovalRule: 'ApprovalRule',
   OrderCommission: 'OrderCommission',
   CommissionRule: 'CommissionRule',
-  OrderHistory: 'OrderHistory'
+  OrderHistory: 'OrderHistory',
+  DigitalCertificate: 'DigitalCertificate',
+  SignatureEnvelope: 'SignatureEnvelope',
+  SignatureEnvelopeSigner: 'SignatureEnvelopeSigner',
+  SignatureAuditEvent: 'SignatureAuditEvent',
+  SignatureTemplate: 'SignatureTemplate',
+  AnalyticsWidget: 'AnalyticsWidget',
+  AnalyticsDashboard: 'AnalyticsDashboard',
+  AnalyticsDashboardWidget: 'AnalyticsDashboardWidget',
+  AnalyticsGoal: 'AnalyticsGoal',
+  AnalyticsReport: 'AnalyticsReport',
+  AnalyticsReportGeneration: 'AnalyticsReportGeneration',
+  CustomerPortalAccess: 'CustomerPortalAccess',
+  AiTenantConfig: 'AiTenantConfig',
+  AiConversation: 'AiConversation',
+  AiMessage: 'AiMessage',
+  AiFavoriteQuery: 'AiFavoriteQuery',
+  AiActionLog: 'AiActionLog',
+  AiInsight: 'AiInsight'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -3891,6 +3909,424 @@ export const OrderHistoryScalarFieldEnum = {
 } as const
 
 export type OrderHistoryScalarFieldEnum = (typeof OrderHistoryScalarFieldEnum)[keyof typeof OrderHistoryScalarFieldEnum]
+
+
+export const DigitalCertificateScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  name: 'name',
+  type: 'type',
+  status: 'status',
+  subjectName: 'subjectName',
+  subjectCnpj: 'subjectCnpj',
+  subjectCpf: 'subjectCpf',
+  issuerName: 'issuerName',
+  serialNumber: 'serialNumber',
+  validFrom: 'validFrom',
+  validUntil: 'validUntil',
+  thumbprint: 'thumbprint',
+  pfxFileId: 'pfxFileId',
+  pfxPassword: 'pfxPassword',
+  cloudProviderId: 'cloudProviderId',
+  alertDaysBefore: 'alertDaysBefore',
+  isDefault: 'isDefault',
+  allowedModules: 'allowedModules',
+  lastUsedAt: 'lastUsedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type DigitalCertificateScalarFieldEnum = (typeof DigitalCertificateScalarFieldEnum)[keyof typeof DigitalCertificateScalarFieldEnum]
+
+
+export const SignatureEnvelopeScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  title: 'title',
+  description: 'description',
+  status: 'status',
+  signatureLevel: 'signatureLevel',
+  minSignatureLevel: 'minSignatureLevel',
+  documentFileId: 'documentFileId',
+  documentHash: 'documentHash',
+  signedFileId: 'signedFileId',
+  documentType: 'documentType',
+  sourceModule: 'sourceModule',
+  sourceEntityType: 'sourceEntityType',
+  sourceEntityId: 'sourceEntityId',
+  routingType: 'routingType',
+  expiresAt: 'expiresAt',
+  reminderDays: 'reminderDays',
+  autoExpireDays: 'autoExpireDays',
+  completedAt: 'completedAt',
+  cancelledAt: 'cancelledAt',
+  cancelReason: 'cancelReason',
+  createdByUserId: 'createdByUserId',
+  tags: 'tags',
+  metadata: 'metadata',
+  deletedAt: 'deletedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SignatureEnvelopeScalarFieldEnum = (typeof SignatureEnvelopeScalarFieldEnum)[keyof typeof SignatureEnvelopeScalarFieldEnum]
+
+
+export const SignatureEnvelopeSignerScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  envelopeId: 'envelopeId',
+  order: 'order',
+  group: 'group',
+  role: 'role',
+  status: 'status',
+  userId: 'userId',
+  contactId: 'contactId',
+  externalName: 'externalName',
+  externalEmail: 'externalEmail',
+  externalPhone: 'externalPhone',
+  externalDocument: 'externalDocument',
+  signatureLevel: 'signatureLevel',
+  certificateId: 'certificateId',
+  accessToken: 'accessToken',
+  accessTokenExpiresAt: 'accessTokenExpiresAt',
+  signedAt: 'signedAt',
+  signatureImageFileId: 'signatureImageFileId',
+  signatureData: 'signatureData',
+  ipAddress: 'ipAddress',
+  userAgent: 'userAgent',
+  geoLatitude: 'geoLatitude',
+  geoLongitude: 'geoLongitude',
+  otpVerified: 'otpVerified',
+  rejectedAt: 'rejectedAt',
+  rejectedReason: 'rejectedReason',
+  lastNotifiedAt: 'lastNotifiedAt',
+  notificationCount: 'notificationCount',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SignatureEnvelopeSignerScalarFieldEnum = (typeof SignatureEnvelopeSignerScalarFieldEnum)[keyof typeof SignatureEnvelopeSignerScalarFieldEnum]
+
+
+export const SignatureAuditEventScalarFieldEnum = {
+  id: 'id',
+  envelopeId: 'envelopeId',
+  tenantId: 'tenantId',
+  type: 'type',
+  signerId: 'signerId',
+  description: 'description',
+  ipAddress: 'ipAddress',
+  userAgent: 'userAgent',
+  geoLatitude: 'geoLatitude',
+  geoLongitude: 'geoLongitude',
+  metadata: 'metadata',
+  timestamp: 'timestamp'
+} as const
+
+export type SignatureAuditEventScalarFieldEnum = (typeof SignatureAuditEventScalarFieldEnum)[keyof typeof SignatureAuditEventScalarFieldEnum]
+
+
+export const SignatureTemplateScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  name: 'name',
+  description: 'description',
+  signatureLevel: 'signatureLevel',
+  routingType: 'routingType',
+  signerSlots: 'signerSlots',
+  expirationDays: 'expirationDays',
+  reminderDays: 'reminderDays',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SignatureTemplateScalarFieldEnum = (typeof SignatureTemplateScalarFieldEnum)[keyof typeof SignatureTemplateScalarFieldEnum]
+
+
+export const AnalyticsWidgetScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  name: 'name',
+  type: 'type',
+  dataSource: 'dataSource',
+  config: 'config',
+  position: 'position',
+  refreshInterval: 'refreshInterval',
+  isSystem: 'isSystem',
+  createdByUserId: 'createdByUserId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AnalyticsWidgetScalarFieldEnum = (typeof AnalyticsWidgetScalarFieldEnum)[keyof typeof AnalyticsWidgetScalarFieldEnum]
+
+
+export const AnalyticsDashboardScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  name: 'name',
+  description: 'description',
+  isDefault: 'isDefault',
+  isSystem: 'isSystem',
+  role: 'role',
+  visibility: 'visibility',
+  layout: 'layout',
+  createdByUserId: 'createdByUserId',
+  deletedAt: 'deletedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AnalyticsDashboardScalarFieldEnum = (typeof AnalyticsDashboardScalarFieldEnum)[keyof typeof AnalyticsDashboardScalarFieldEnum]
+
+
+export const AnalyticsDashboardWidgetScalarFieldEnum = {
+  id: 'id',
+  dashboardId: 'dashboardId',
+  widgetId: 'widgetId',
+  position: 'position',
+  createdAt: 'createdAt'
+} as const
+
+export type AnalyticsDashboardWidgetScalarFieldEnum = (typeof AnalyticsDashboardWidgetScalarFieldEnum)[keyof typeof AnalyticsDashboardWidgetScalarFieldEnum]
+
+
+export const AnalyticsGoalScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  name: 'name',
+  type: 'type',
+  targetValue: 'targetValue',
+  currentValue: 'currentValue',
+  unit: 'unit',
+  period: 'period',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  scope: 'scope',
+  userId: 'userId',
+  teamId: 'teamId',
+  status: 'status',
+  achievedAt: 'achievedAt',
+  createdByUserId: 'createdByUserId',
+  deletedAt: 'deletedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AnalyticsGoalScalarFieldEnum = (typeof AnalyticsGoalScalarFieldEnum)[keyof typeof AnalyticsGoalScalarFieldEnum]
+
+
+export const AnalyticsReportScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  name: 'name',
+  type: 'type',
+  config: 'config',
+  format: 'format',
+  dashboardId: 'dashboardId',
+  isScheduled: 'isScheduled',
+  scheduleFrequency: 'scheduleFrequency',
+  scheduleDayOfWeek: 'scheduleDayOfWeek',
+  scheduleDayOfMonth: 'scheduleDayOfMonth',
+  scheduleHour: 'scheduleHour',
+  scheduleTimezone: 'scheduleTimezone',
+  deliveryMethod: 'deliveryMethod',
+  recipientUserIds: 'recipientUserIds',
+  recipientEmails: 'recipientEmails',
+  recipientPhones: 'recipientPhones',
+  lastGeneratedAt: 'lastGeneratedAt',
+  lastFileId: 'lastFileId',
+  lastStatus: 'lastStatus',
+  lastError: 'lastError',
+  isActive: 'isActive',
+  createdByUserId: 'createdByUserId',
+  deletedAt: 'deletedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AnalyticsReportScalarFieldEnum = (typeof AnalyticsReportScalarFieldEnum)[keyof typeof AnalyticsReportScalarFieldEnum]
+
+
+export const AnalyticsReportGenerationScalarFieldEnum = {
+  id: 'id',
+  reportId: 'reportId',
+  tenantId: 'tenantId',
+  status: 'status',
+  fileId: 'fileId',
+  format: 'format',
+  periodStart: 'periodStart',
+  periodEnd: 'periodEnd',
+  deliveredTo: 'deliveredTo',
+  deliveredVia: 'deliveredVia',
+  error: 'error',
+  generatedAt: 'generatedAt'
+} as const
+
+export type AnalyticsReportGenerationScalarFieldEnum = (typeof AnalyticsReportGenerationScalarFieldEnum)[keyof typeof AnalyticsReportGenerationScalarFieldEnum]
+
+
+export const CustomerPortalAccessScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  customerId: 'customerId',
+  accessToken: 'accessToken',
+  contactId: 'contactId',
+  isActive: 'isActive',
+  permissions: 'permissions',
+  lastAccessAt: 'lastAccessAt',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CustomerPortalAccessScalarFieldEnum = (typeof CustomerPortalAccessScalarFieldEnum)[keyof typeof CustomerPortalAccessScalarFieldEnum]
+
+
+export const AiTenantConfigScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  assistantName: 'assistantName',
+  assistantAvatar: 'assistantAvatar',
+  personality: 'personality',
+  customPersonality: 'customPersonality',
+  toneOfVoice: 'toneOfVoice',
+  language: 'language',
+  greeting: 'greeting',
+  enableDedicatedChat: 'enableDedicatedChat',
+  enableInlineContext: 'enableInlineContext',
+  enableCommandBar: 'enableCommandBar',
+  enableVoice: 'enableVoice',
+  wakeWord: 'wakeWord',
+  tier1Provider: 'tier1Provider',
+  tier2Provider: 'tier2Provider',
+  tier3Provider: 'tier3Provider',
+  selfHostedEndpoint: 'selfHostedEndpoint',
+  tier1ApiKey: 'tier1ApiKey',
+  tier2ApiKey: 'tier2ApiKey',
+  tier3ApiKey: 'tier3ApiKey',
+  canExecuteActions: 'canExecuteActions',
+  requireConfirmation: 'requireConfirmation',
+  maxActionsPerMinute: 'maxActionsPerMinute',
+  enableProactiveInsights: 'enableProactiveInsights',
+  insightFrequency: 'insightFrequency',
+  enableScheduledReports: 'enableScheduledReports',
+  accessibleModules: 'accessibleModules',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AiTenantConfigScalarFieldEnum = (typeof AiTenantConfigScalarFieldEnum)[keyof typeof AiTenantConfigScalarFieldEnum]
+
+
+export const AiConversationScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  userId: 'userId',
+  title: 'title',
+  status: 'status',
+  context: 'context',
+  contextModule: 'contextModule',
+  contextEntityType: 'contextEntityType',
+  contextEntityId: 'contextEntityId',
+  messageCount: 'messageCount',
+  lastMessageAt: 'lastMessageAt',
+  isPinned: 'isPinned',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AiConversationScalarFieldEnum = (typeof AiConversationScalarFieldEnum)[keyof typeof AiConversationScalarFieldEnum]
+
+
+export const AiMessageScalarFieldEnum = {
+  id: 'id',
+  conversationId: 'conversationId',
+  role: 'role',
+  content: 'content',
+  contentType: 'contentType',
+  renderData: 'renderData',
+  attachments: 'attachments',
+  aiTier: 'aiTier',
+  aiModel: 'aiModel',
+  aiTokensInput: 'aiTokensInput',
+  aiTokensOutput: 'aiTokensOutput',
+  aiLatencyMs: 'aiLatencyMs',
+  aiCost: 'aiCost',
+  toolCalls: 'toolCalls',
+  actionsTaken: 'actionsTaken',
+  audioUrl: 'audioUrl',
+  transcription: 'transcription',
+  createdAt: 'createdAt'
+} as const
+
+export type AiMessageScalarFieldEnum = (typeof AiMessageScalarFieldEnum)[keyof typeof AiMessageScalarFieldEnum]
+
+
+export const AiFavoriteQueryScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  userId: 'userId',
+  query: 'query',
+  shortcut: 'shortcut',
+  category: 'category',
+  usageCount: 'usageCount',
+  lastUsedAt: 'lastUsedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type AiFavoriteQueryScalarFieldEnum = (typeof AiFavoriteQueryScalarFieldEnum)[keyof typeof AiFavoriteQueryScalarFieldEnum]
+
+
+export const AiActionLogScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  userId: 'userId',
+  conversationId: 'conversationId',
+  messageId: 'messageId',
+  actionType: 'actionType',
+  targetModule: 'targetModule',
+  targetEntityType: 'targetEntityType',
+  targetEntityId: 'targetEntityId',
+  input: 'input',
+  output: 'output',
+  status: 'status',
+  confirmedByUserId: 'confirmedByUserId',
+  confirmedAt: 'confirmedAt',
+  executedAt: 'executedAt',
+  error: 'error',
+  createdAt: 'createdAt'
+} as const
+
+export type AiActionLogScalarFieldEnum = (typeof AiActionLogScalarFieldEnum)[keyof typeof AiActionLogScalarFieldEnum]
+
+
+export const AiInsightScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  type: 'type',
+  priority: 'priority',
+  title: 'title',
+  content: 'content',
+  renderData: 'renderData',
+  module: 'module',
+  relatedEntityType: 'relatedEntityType',
+  relatedEntityId: 'relatedEntityId',
+  targetUserIds: 'targetUserIds',
+  status: 'status',
+  actionUrl: 'actionUrl',
+  suggestedAction: 'suggestedAction',
+  expiresAt: 'expiresAt',
+  viewedAt: 'viewedAt',
+  actedOnAt: 'actedOnAt',
+  dismissedAt: 'dismissedAt',
+  aiModel: 'aiModel',
+  createdAt: 'createdAt'
+} as const
+
+export type AiInsightScalarFieldEnum = (typeof AiInsightScalarFieldEnum)[keyof typeof AiInsightScalarFieldEnum]
 
 
 export const SortOrder = {

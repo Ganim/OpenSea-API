@@ -949,3 +949,93 @@ export type CommissionRule = Prisma.CommissionRuleModel
  * 
  */
 export type OrderHistory = Prisma.OrderHistoryModel
+/**
+ * Model DigitalCertificate
+ * 
+ */
+export type DigitalCertificate = Prisma.DigitalCertificateModel
+/**
+ * Model SignatureEnvelope
+ * 
+ */
+export type SignatureEnvelope = Prisma.SignatureEnvelopeModel
+/**
+ * Model SignatureEnvelopeSigner
+ * 
+ */
+export type SignatureEnvelopeSigner = Prisma.SignatureEnvelopeSignerModel
+/**
+ * Model SignatureAuditEvent
+ * 
+ */
+export type SignatureAuditEvent = Prisma.SignatureAuditEventModel
+/**
+ * Model SignatureTemplate
+ * 
+ */
+export type SignatureTemplate = Prisma.SignatureTemplateModel
+/**
+ * Model AnalyticsWidget
+ * 
+ */
+export type AnalyticsWidget = Prisma.AnalyticsWidgetModel
+/**
+ * Model AnalyticsDashboard
+ * 
+ */
+export type AnalyticsDashboard = Prisma.AnalyticsDashboardModel
+/**
+ * Model AnalyticsDashboardWidget
+ * 
+ */
+export type AnalyticsDashboardWidget = Prisma.AnalyticsDashboardWidgetModel
+/**
+ * Model AnalyticsGoal
+ * 
+ */
+export type AnalyticsGoal = Prisma.AnalyticsGoalModel
+/**
+ * Model AnalyticsReport
+ * 
+ */
+export type AnalyticsReport = Prisma.AnalyticsReportModel
+/**
+ * Model AnalyticsReportGeneration
+ * 
+ */
+export type AnalyticsReportGeneration = Prisma.AnalyticsReportGenerationModel
+/**
+ * Model CustomerPortalAccess
+ * 
+ */
+export type CustomerPortalAccess = Prisma.CustomerPortalAccessModel
+/**
+ * Model AiTenantConfig
+ * 
+ */
+export type AiTenantConfig = Prisma.AiTenantConfigModel
+/**
+ * Model AiConversation
+ * 
+ */
+export type AiConversation = Prisma.AiConversationModel
+/**
+ * Model AiMessage
+ * 
+ */
+export type AiMessage = Prisma.AiMessageModel
+/**
+ * Model AiFavoriteQuery
+ * 
+ */
+export type AiFavoriteQuery = Prisma.AiFavoriteQueryModel
+/**
+ * Model AiActionLog
+ * 
+ */
+export type AiActionLog = Prisma.AiActionLogModel
+/**
+ * Model AiInsight
+ * 
+ */
+export type AiInsight = Prisma.AiInsightModel

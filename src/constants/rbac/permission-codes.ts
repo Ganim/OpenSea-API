@@ -327,6 +327,33 @@ export const PermissionCodes = {
       REMOVE: 'sales.content.remove' as const,
       ADMIN: 'sales.content.admin' as const,
     },
+    ANALYTICS_GOALS: {
+      ACCESS: 'sales.analytics-goals.access' as const,
+      REGISTER: 'sales.analytics-goals.register' as const,
+      MODIFY: 'sales.analytics-goals.modify' as const,
+      REMOVE: 'sales.analytics-goals.remove' as const,
+    },
+    ANALYTICS_REPORTS: {
+      ACCESS: 'sales.analytics-reports.access' as const,
+      REGISTER: 'sales.analytics-reports.register' as const,
+      MODIFY: 'sales.analytics-reports.modify' as const,
+      REMOVE: 'sales.analytics-reports.remove' as const,
+      GENERATE: 'sales.analytics-reports.generate' as const,
+    },
+    ANALYTICS_DASHBOARDS: {
+      ACCESS: 'sales.analytics-dashboards.access' as const,
+      REGISTER: 'sales.analytics-dashboards.register' as const,
+      MODIFY: 'sales.analytics-dashboards.modify' as const,
+      REMOVE: 'sales.analytics-dashboards.remove' as const,
+    },
+    ANALYTICS_RANKINGS: {
+      ACCESS: 'sales.analytics-rankings.access' as const,
+    },
+    CUSTOMER_PORTAL: {
+      ACCESS: 'sales.customer-portal.access' as const,
+      REGISTER: 'sales.customer-portal.register' as const,
+      REMOVE: 'sales.customer-portal.remove' as const,
+    },
   },
 
   // ============================================================================
@@ -433,6 +460,27 @@ export const PermissionCodes = {
         ADMIN: 'tools.storage.files.admin' as const,
         SHARE: 'tools.storage.files.share' as const,
         ONLYSELF: 'tools.storage.files.onlyself' as const,
+      },
+    },
+    SIGNATURE: {
+      ENVELOPES: {
+        ACCESS: 'tools.signature.envelopes.access' as const,
+        REGISTER: 'tools.signature.envelopes.register' as const,
+        MODIFY: 'tools.signature.envelopes.modify' as const,
+        REMOVE: 'tools.signature.envelopes.remove' as const,
+        ADMIN: 'tools.signature.envelopes.admin' as const,
+      },
+      CERTIFICATES: {
+        ACCESS: 'tools.signature.certificates.access' as const,
+        REGISTER: 'tools.signature.certificates.register' as const,
+        REMOVE: 'tools.signature.certificates.remove' as const,
+        ADMIN: 'tools.signature.certificates.admin' as const,
+      },
+      TEMPLATES: {
+        ACCESS: 'tools.signature.templates.access' as const,
+        REGISTER: 'tools.signature.templates.register' as const,
+        MODIFY: 'tools.signature.templates.modify' as const,
+        REMOVE: 'tools.signature.templates.remove' as const,
       },
     },
   },

@@ -304,6 +304,7 @@ export type CustomerWhereInput = {
   orders?: Prisma.OrderListRelationFilter
   storeCredits?: Prisma.StoreCreditListRelationFilter
   customerCreditLimits?: Prisma.CustomerCreditLimitListRelationFilter
+  portalAccesses?: Prisma.CustomerPortalAccessListRelationFilter
 }
 
 export type CustomerOrderByWithRelationInput = {
@@ -336,6 +337,7 @@ export type CustomerOrderByWithRelationInput = {
   orders?: Prisma.OrderOrderByRelationAggregateInput
   storeCredits?: Prisma.StoreCreditOrderByRelationAggregateInput
   customerCreditLimits?: Prisma.CustomerCreditLimitOrderByRelationAggregateInput
+  portalAccesses?: Prisma.CustomerPortalAccessOrderByRelationAggregateInput
 }
 
 export type CustomerWhereUniqueInput = Prisma.AtLeast<{
@@ -372,6 +374,7 @@ export type CustomerWhereUniqueInput = Prisma.AtLeast<{
   orders?: Prisma.OrderListRelationFilter
   storeCredits?: Prisma.StoreCreditListRelationFilter
   customerCreditLimits?: Prisma.CustomerCreditLimitListRelationFilter
+  portalAccesses?: Prisma.CustomerPortalAccessListRelationFilter
 }, "id" | "customers_document_unique_active">
 
 export type CustomerOrderByWithAggregationInput = {
@@ -453,6 +456,7 @@ export type CustomerCreateInput = {
   orders?: Prisma.OrderCreateNestedManyWithoutCustomerInput
   storeCredits?: Prisma.StoreCreditCreateNestedManyWithoutCustomerInput
   customerCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutCustomerInput
+  portalAccesses?: Prisma.CustomerPortalAccessCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerUncheckedCreateInput = {
@@ -484,6 +488,7 @@ export type CustomerUncheckedCreateInput = {
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutCustomerInput
   storeCredits?: Prisma.StoreCreditUncheckedCreateNestedManyWithoutCustomerInput
   customerCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutCustomerInput
+  portalAccesses?: Prisma.CustomerPortalAccessUncheckedCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerUpdateInput = {
@@ -515,6 +520,7 @@ export type CustomerUpdateInput = {
   orders?: Prisma.OrderUpdateManyWithoutCustomerNestedInput
   storeCredits?: Prisma.StoreCreditUpdateManyWithoutCustomerNestedInput
   customerCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutCustomerNestedInput
+  portalAccesses?: Prisma.CustomerPortalAccessUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerUncheckedUpdateInput = {
@@ -546,6 +552,7 @@ export type CustomerUncheckedUpdateInput = {
   orders?: Prisma.OrderUncheckedUpdateManyWithoutCustomerNestedInput
   storeCredits?: Prisma.StoreCreditUncheckedUpdateManyWithoutCustomerNestedInput
   customerCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutCustomerNestedInput
+  portalAccesses?: Prisma.CustomerPortalAccessUncheckedUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerCreateManyInput = {
@@ -881,6 +888,20 @@ export type CustomerUpdateOneRequiredWithoutCustomerCreditLimitsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CustomerUpdateToOneWithWhereWithoutCustomerCreditLimitsInput, Prisma.CustomerUpdateWithoutCustomerCreditLimitsInput>, Prisma.CustomerUncheckedUpdateWithoutCustomerCreditLimitsInput>
 }
 
+export type CustomerCreateNestedOneWithoutPortalAccessesInput = {
+  create?: Prisma.XOR<Prisma.CustomerCreateWithoutPortalAccessesInput, Prisma.CustomerUncheckedCreateWithoutPortalAccessesInput>
+  connectOrCreate?: Prisma.CustomerCreateOrConnectWithoutPortalAccessesInput
+  connect?: Prisma.CustomerWhereUniqueInput
+}
+
+export type CustomerUpdateOneRequiredWithoutPortalAccessesNestedInput = {
+  create?: Prisma.XOR<Prisma.CustomerCreateWithoutPortalAccessesInput, Prisma.CustomerUncheckedCreateWithoutPortalAccessesInput>
+  connectOrCreate?: Prisma.CustomerCreateOrConnectWithoutPortalAccessesInput
+  upsert?: Prisma.CustomerUpsertWithoutPortalAccessesInput
+  connect?: Prisma.CustomerWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CustomerUpdateToOneWithWhereWithoutPortalAccessesInput, Prisma.CustomerUpdateWithoutPortalAccessesInput>, Prisma.CustomerUncheckedUpdateWithoutPortalAccessesInput>
+}
+
 export type CustomerCreateWithoutSalesOrdersInput = {
   id?: string
   name: string
@@ -909,6 +930,7 @@ export type CustomerCreateWithoutSalesOrdersInput = {
   orders?: Prisma.OrderCreateNestedManyWithoutCustomerInput
   storeCredits?: Prisma.StoreCreditCreateNestedManyWithoutCustomerInput
   customerCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutCustomerInput
+  portalAccesses?: Prisma.CustomerPortalAccessCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerUncheckedCreateWithoutSalesOrdersInput = {
@@ -939,6 +961,7 @@ export type CustomerUncheckedCreateWithoutSalesOrdersInput = {
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutCustomerInput
   storeCredits?: Prisma.StoreCreditUncheckedCreateNestedManyWithoutCustomerInput
   customerCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutCustomerInput
+  portalAccesses?: Prisma.CustomerPortalAccessUncheckedCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerCreateOrConnectWithoutSalesOrdersInput = {
@@ -985,6 +1008,7 @@ export type CustomerUpdateWithoutSalesOrdersInput = {
   orders?: Prisma.OrderUpdateManyWithoutCustomerNestedInput
   storeCredits?: Prisma.StoreCreditUpdateManyWithoutCustomerNestedInput
   customerCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutCustomerNestedInput
+  portalAccesses?: Prisma.CustomerPortalAccessUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerUncheckedUpdateWithoutSalesOrdersInput = {
@@ -1015,6 +1039,7 @@ export type CustomerUncheckedUpdateWithoutSalesOrdersInput = {
   orders?: Prisma.OrderUncheckedUpdateManyWithoutCustomerNestedInput
   storeCredits?: Prisma.StoreCreditUncheckedUpdateManyWithoutCustomerNestedInput
   customerCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutCustomerNestedInput
+  portalAccesses?: Prisma.CustomerPortalAccessUncheckedUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerCreateWithoutCrmContactsInput = {
@@ -1045,6 +1070,7 @@ export type CustomerCreateWithoutCrmContactsInput = {
   orders?: Prisma.OrderCreateNestedManyWithoutCustomerInput
   storeCredits?: Prisma.StoreCreditCreateNestedManyWithoutCustomerInput
   customerCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutCustomerInput
+  portalAccesses?: Prisma.CustomerPortalAccessCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerUncheckedCreateWithoutCrmContactsInput = {
@@ -1075,6 +1101,7 @@ export type CustomerUncheckedCreateWithoutCrmContactsInput = {
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutCustomerInput
   storeCredits?: Prisma.StoreCreditUncheckedCreateNestedManyWithoutCustomerInput
   customerCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutCustomerInput
+  portalAccesses?: Prisma.CustomerPortalAccessUncheckedCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerCreateOrConnectWithoutCrmContactsInput = {
@@ -1121,6 +1148,7 @@ export type CustomerUpdateWithoutCrmContactsInput = {
   orders?: Prisma.OrderUpdateManyWithoutCustomerNestedInput
   storeCredits?: Prisma.StoreCreditUpdateManyWithoutCustomerNestedInput
   customerCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutCustomerNestedInput
+  portalAccesses?: Prisma.CustomerPortalAccessUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerUncheckedUpdateWithoutCrmContactsInput = {
@@ -1151,6 +1179,7 @@ export type CustomerUncheckedUpdateWithoutCrmContactsInput = {
   orders?: Prisma.OrderUncheckedUpdateManyWithoutCustomerNestedInput
   storeCredits?: Prisma.StoreCreditUncheckedUpdateManyWithoutCustomerNestedInput
   customerCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutCustomerNestedInput
+  portalAccesses?: Prisma.CustomerPortalAccessUncheckedUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerCreateWithoutTenantInput = {
@@ -1181,6 +1210,7 @@ export type CustomerCreateWithoutTenantInput = {
   orders?: Prisma.OrderCreateNestedManyWithoutCustomerInput
   storeCredits?: Prisma.StoreCreditCreateNestedManyWithoutCustomerInput
   customerCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutCustomerInput
+  portalAccesses?: Prisma.CustomerPortalAccessCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerUncheckedCreateWithoutTenantInput = {
@@ -1211,6 +1241,7 @@ export type CustomerUncheckedCreateWithoutTenantInput = {
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutCustomerInput
   storeCredits?: Prisma.StoreCreditUncheckedCreateNestedManyWithoutCustomerInput
   customerCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutCustomerInput
+  portalAccesses?: Prisma.CustomerPortalAccessUncheckedCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerCreateOrConnectWithoutTenantInput = {
@@ -1292,6 +1323,7 @@ export type CustomerCreateWithoutCustomerPricesInput = {
   orders?: Prisma.OrderCreateNestedManyWithoutCustomerInput
   storeCredits?: Prisma.StoreCreditCreateNestedManyWithoutCustomerInput
   customerCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutCustomerInput
+  portalAccesses?: Prisma.CustomerPortalAccessCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerUncheckedCreateWithoutCustomerPricesInput = {
@@ -1322,6 +1354,7 @@ export type CustomerUncheckedCreateWithoutCustomerPricesInput = {
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutCustomerInput
   storeCredits?: Prisma.StoreCreditUncheckedCreateNestedManyWithoutCustomerInput
   customerCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutCustomerInput
+  portalAccesses?: Prisma.CustomerPortalAccessUncheckedCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerCreateOrConnectWithoutCustomerPricesInput = {
@@ -1368,6 +1401,7 @@ export type CustomerUpdateWithoutCustomerPricesInput = {
   orders?: Prisma.OrderUpdateManyWithoutCustomerNestedInput
   storeCredits?: Prisma.StoreCreditUpdateManyWithoutCustomerNestedInput
   customerCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutCustomerNestedInput
+  portalAccesses?: Prisma.CustomerPortalAccessUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerUncheckedUpdateWithoutCustomerPricesInput = {
@@ -1398,6 +1432,7 @@ export type CustomerUncheckedUpdateWithoutCustomerPricesInput = {
   orders?: Prisma.OrderUncheckedUpdateManyWithoutCustomerNestedInput
   storeCredits?: Prisma.StoreCreditUncheckedUpdateManyWithoutCustomerNestedInput
   customerCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutCustomerNestedInput
+  portalAccesses?: Prisma.CustomerPortalAccessUncheckedUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerCreateWithoutCouponsInput = {
@@ -1428,6 +1463,7 @@ export type CustomerCreateWithoutCouponsInput = {
   orders?: Prisma.OrderCreateNestedManyWithoutCustomerInput
   storeCredits?: Prisma.StoreCreditCreateNestedManyWithoutCustomerInput
   customerCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutCustomerInput
+  portalAccesses?: Prisma.CustomerPortalAccessCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerUncheckedCreateWithoutCouponsInput = {
@@ -1458,6 +1494,7 @@ export type CustomerUncheckedCreateWithoutCouponsInput = {
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutCustomerInput
   storeCredits?: Prisma.StoreCreditUncheckedCreateNestedManyWithoutCustomerInput
   customerCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutCustomerInput
+  portalAccesses?: Prisma.CustomerPortalAccessUncheckedCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerCreateOrConnectWithoutCouponsInput = {
@@ -1504,6 +1541,7 @@ export type CustomerUpdateWithoutCouponsInput = {
   orders?: Prisma.OrderUpdateManyWithoutCustomerNestedInput
   storeCredits?: Prisma.StoreCreditUpdateManyWithoutCustomerNestedInput
   customerCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutCustomerNestedInput
+  portalAccesses?: Prisma.CustomerPortalAccessUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerUncheckedUpdateWithoutCouponsInput = {
@@ -1534,6 +1572,7 @@ export type CustomerUncheckedUpdateWithoutCouponsInput = {
   orders?: Prisma.OrderUncheckedUpdateManyWithoutCustomerNestedInput
   storeCredits?: Prisma.StoreCreditUncheckedUpdateManyWithoutCustomerNestedInput
   customerCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutCustomerNestedInput
+  portalAccesses?: Prisma.CustomerPortalAccessUncheckedUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerCreateWithoutCouponUsagesInput = {
@@ -1564,6 +1603,7 @@ export type CustomerCreateWithoutCouponUsagesInput = {
   orders?: Prisma.OrderCreateNestedManyWithoutCustomerInput
   storeCredits?: Prisma.StoreCreditCreateNestedManyWithoutCustomerInput
   customerCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutCustomerInput
+  portalAccesses?: Prisma.CustomerPortalAccessCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerUncheckedCreateWithoutCouponUsagesInput = {
@@ -1594,6 +1634,7 @@ export type CustomerUncheckedCreateWithoutCouponUsagesInput = {
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutCustomerInput
   storeCredits?: Prisma.StoreCreditUncheckedCreateNestedManyWithoutCustomerInput
   customerCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutCustomerInput
+  portalAccesses?: Prisma.CustomerPortalAccessUncheckedCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerCreateOrConnectWithoutCouponUsagesInput = {
@@ -1640,6 +1681,7 @@ export type CustomerUpdateWithoutCouponUsagesInput = {
   orders?: Prisma.OrderUpdateManyWithoutCustomerNestedInput
   storeCredits?: Prisma.StoreCreditUpdateManyWithoutCustomerNestedInput
   customerCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutCustomerNestedInput
+  portalAccesses?: Prisma.CustomerPortalAccessUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerUncheckedUpdateWithoutCouponUsagesInput = {
@@ -1670,6 +1712,7 @@ export type CustomerUncheckedUpdateWithoutCouponUsagesInput = {
   orders?: Prisma.OrderUncheckedUpdateManyWithoutCustomerNestedInput
   storeCredits?: Prisma.StoreCreditUncheckedUpdateManyWithoutCustomerNestedInput
   customerCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutCustomerNestedInput
+  portalAccesses?: Prisma.CustomerPortalAccessUncheckedUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerCreateWithoutCatalogsInput = {
@@ -1700,6 +1743,7 @@ export type CustomerCreateWithoutCatalogsInput = {
   orders?: Prisma.OrderCreateNestedManyWithoutCustomerInput
   storeCredits?: Prisma.StoreCreditCreateNestedManyWithoutCustomerInput
   customerCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutCustomerInput
+  portalAccesses?: Prisma.CustomerPortalAccessCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerUncheckedCreateWithoutCatalogsInput = {
@@ -1730,6 +1774,7 @@ export type CustomerUncheckedCreateWithoutCatalogsInput = {
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutCustomerInput
   storeCredits?: Prisma.StoreCreditUncheckedCreateNestedManyWithoutCustomerInput
   customerCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutCustomerInput
+  portalAccesses?: Prisma.CustomerPortalAccessUncheckedCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerCreateOrConnectWithoutCatalogsInput = {
@@ -1776,6 +1821,7 @@ export type CustomerUpdateWithoutCatalogsInput = {
   orders?: Prisma.OrderUpdateManyWithoutCustomerNestedInput
   storeCredits?: Prisma.StoreCreditUpdateManyWithoutCustomerNestedInput
   customerCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutCustomerNestedInput
+  portalAccesses?: Prisma.CustomerPortalAccessUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerUncheckedUpdateWithoutCatalogsInput = {
@@ -1806,6 +1852,7 @@ export type CustomerUncheckedUpdateWithoutCatalogsInput = {
   orders?: Prisma.OrderUncheckedUpdateManyWithoutCustomerNestedInput
   storeCredits?: Prisma.StoreCreditUncheckedUpdateManyWithoutCustomerNestedInput
   customerCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutCustomerNestedInput
+  portalAccesses?: Prisma.CustomerPortalAccessUncheckedUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerCreateWithoutOrdersInput = {
@@ -1836,6 +1883,7 @@ export type CustomerCreateWithoutOrdersInput = {
   catalogs?: Prisma.CatalogCreateNestedManyWithoutCustomerInput
   storeCredits?: Prisma.StoreCreditCreateNestedManyWithoutCustomerInput
   customerCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutCustomerInput
+  portalAccesses?: Prisma.CustomerPortalAccessCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerUncheckedCreateWithoutOrdersInput = {
@@ -1866,6 +1914,7 @@ export type CustomerUncheckedCreateWithoutOrdersInput = {
   catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutCustomerInput
   storeCredits?: Prisma.StoreCreditUncheckedCreateNestedManyWithoutCustomerInput
   customerCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutCustomerInput
+  portalAccesses?: Prisma.CustomerPortalAccessUncheckedCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerCreateOrConnectWithoutOrdersInput = {
@@ -1912,6 +1961,7 @@ export type CustomerUpdateWithoutOrdersInput = {
   catalogs?: Prisma.CatalogUpdateManyWithoutCustomerNestedInput
   storeCredits?: Prisma.StoreCreditUpdateManyWithoutCustomerNestedInput
   customerCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutCustomerNestedInput
+  portalAccesses?: Prisma.CustomerPortalAccessUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerUncheckedUpdateWithoutOrdersInput = {
@@ -1942,6 +1992,7 @@ export type CustomerUncheckedUpdateWithoutOrdersInput = {
   catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutCustomerNestedInput
   storeCredits?: Prisma.StoreCreditUncheckedUpdateManyWithoutCustomerNestedInput
   customerCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutCustomerNestedInput
+  portalAccesses?: Prisma.CustomerPortalAccessUncheckedUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerCreateWithoutStoreCreditsInput = {
@@ -1972,6 +2023,7 @@ export type CustomerCreateWithoutStoreCreditsInput = {
   catalogs?: Prisma.CatalogCreateNestedManyWithoutCustomerInput
   orders?: Prisma.OrderCreateNestedManyWithoutCustomerInput
   customerCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutCustomerInput
+  portalAccesses?: Prisma.CustomerPortalAccessCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerUncheckedCreateWithoutStoreCreditsInput = {
@@ -2002,6 +2054,7 @@ export type CustomerUncheckedCreateWithoutStoreCreditsInput = {
   catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutCustomerInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutCustomerInput
   customerCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutCustomerInput
+  portalAccesses?: Prisma.CustomerPortalAccessUncheckedCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerCreateOrConnectWithoutStoreCreditsInput = {
@@ -2048,6 +2101,7 @@ export type CustomerUpdateWithoutStoreCreditsInput = {
   catalogs?: Prisma.CatalogUpdateManyWithoutCustomerNestedInput
   orders?: Prisma.OrderUpdateManyWithoutCustomerNestedInput
   customerCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutCustomerNestedInput
+  portalAccesses?: Prisma.CustomerPortalAccessUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerUncheckedUpdateWithoutStoreCreditsInput = {
@@ -2078,6 +2132,7 @@ export type CustomerUncheckedUpdateWithoutStoreCreditsInput = {
   catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutCustomerNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutCustomerNestedInput
   customerCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutCustomerNestedInput
+  portalAccesses?: Prisma.CustomerPortalAccessUncheckedUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerCreateWithoutCustomerCreditLimitsInput = {
@@ -2108,6 +2163,7 @@ export type CustomerCreateWithoutCustomerCreditLimitsInput = {
   catalogs?: Prisma.CatalogCreateNestedManyWithoutCustomerInput
   orders?: Prisma.OrderCreateNestedManyWithoutCustomerInput
   storeCredits?: Prisma.StoreCreditCreateNestedManyWithoutCustomerInput
+  portalAccesses?: Prisma.CustomerPortalAccessCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerUncheckedCreateWithoutCustomerCreditLimitsInput = {
@@ -2138,6 +2194,7 @@ export type CustomerUncheckedCreateWithoutCustomerCreditLimitsInput = {
   catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutCustomerInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutCustomerInput
   storeCredits?: Prisma.StoreCreditUncheckedCreateNestedManyWithoutCustomerInput
+  portalAccesses?: Prisma.CustomerPortalAccessUncheckedCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerCreateOrConnectWithoutCustomerCreditLimitsInput = {
@@ -2184,6 +2241,7 @@ export type CustomerUpdateWithoutCustomerCreditLimitsInput = {
   catalogs?: Prisma.CatalogUpdateManyWithoutCustomerNestedInput
   orders?: Prisma.OrderUpdateManyWithoutCustomerNestedInput
   storeCredits?: Prisma.StoreCreditUpdateManyWithoutCustomerNestedInput
+  portalAccesses?: Prisma.CustomerPortalAccessUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerUncheckedUpdateWithoutCustomerCreditLimitsInput = {
@@ -2214,6 +2272,147 @@ export type CustomerUncheckedUpdateWithoutCustomerCreditLimitsInput = {
   catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutCustomerNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutCustomerNestedInput
   storeCredits?: Prisma.StoreCreditUncheckedUpdateManyWithoutCustomerNestedInput
+  portalAccesses?: Prisma.CustomerPortalAccessUncheckedUpdateManyWithoutCustomerNestedInput
+}
+
+export type CustomerCreateWithoutPortalAccessesInput = {
+  id?: string
+  name: string
+  type?: $Enums.CustomerType
+  document?: string | null
+  email?: string | null
+  phone?: string | null
+  address?: string | null
+  city?: string | null
+  state?: string | null
+  zipCode?: string | null
+  documentHash?: string | null
+  emailHash?: string | null
+  country?: string | null
+  notes?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  tenant: Prisma.TenantCreateNestedOneWithoutCustomersInput
+  salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutCustomerInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutCustomerInput
+  customerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCustomerInput
+  coupons?: Prisma.CouponCreateNestedManyWithoutCustomerInput
+  couponUsages?: Prisma.CouponUsageCreateNestedManyWithoutCustomerInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutCustomerInput
+  orders?: Prisma.OrderCreateNestedManyWithoutCustomerInput
+  storeCredits?: Prisma.StoreCreditCreateNestedManyWithoutCustomerInput
+  customerCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutCustomerInput
+}
+
+export type CustomerUncheckedCreateWithoutPortalAccessesInput = {
+  id?: string
+  name: string
+  type?: $Enums.CustomerType
+  document?: string | null
+  email?: string | null
+  phone?: string | null
+  address?: string | null
+  city?: string | null
+  state?: string | null
+  zipCode?: string | null
+  documentHash?: string | null
+  emailHash?: string | null
+  country?: string | null
+  notes?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  tenantId: string
+  salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutCustomerInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutCustomerInput
+  customerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCustomerInput
+  coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutCustomerInput
+  couponUsages?: Prisma.CouponUsageUncheckedCreateNestedManyWithoutCustomerInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutCustomerInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutCustomerInput
+  storeCredits?: Prisma.StoreCreditUncheckedCreateNestedManyWithoutCustomerInput
+  customerCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutCustomerInput
+}
+
+export type CustomerCreateOrConnectWithoutPortalAccessesInput = {
+  where: Prisma.CustomerWhereUniqueInput
+  create: Prisma.XOR<Prisma.CustomerCreateWithoutPortalAccessesInput, Prisma.CustomerUncheckedCreateWithoutPortalAccessesInput>
+}
+
+export type CustomerUpsertWithoutPortalAccessesInput = {
+  update: Prisma.XOR<Prisma.CustomerUpdateWithoutPortalAccessesInput, Prisma.CustomerUncheckedUpdateWithoutPortalAccessesInput>
+  create: Prisma.XOR<Prisma.CustomerCreateWithoutPortalAccessesInput, Prisma.CustomerUncheckedCreateWithoutPortalAccessesInput>
+  where?: Prisma.CustomerWhereInput
+}
+
+export type CustomerUpdateToOneWithWhereWithoutPortalAccessesInput = {
+  where?: Prisma.CustomerWhereInput
+  data: Prisma.XOR<Prisma.CustomerUpdateWithoutPortalAccessesInput, Prisma.CustomerUncheckedUpdateWithoutPortalAccessesInput>
+}
+
+export type CustomerUpdateWithoutPortalAccessesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumCustomerTypeFieldUpdateOperationsInput | $Enums.CustomerType
+  document?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  documentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutCustomersNestedInput
+  salesOrders?: Prisma.SalesOrderUpdateManyWithoutCustomerNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutCustomerNestedInput
+  customerPrices?: Prisma.CustomerPriceUpdateManyWithoutCustomerNestedInput
+  coupons?: Prisma.CouponUpdateManyWithoutCustomerNestedInput
+  couponUsages?: Prisma.CouponUsageUpdateManyWithoutCustomerNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutCustomerNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutCustomerNestedInput
+  storeCredits?: Prisma.StoreCreditUpdateManyWithoutCustomerNestedInput
+  customerCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutCustomerNestedInput
+}
+
+export type CustomerUncheckedUpdateWithoutPortalAccessesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumCustomerTypeFieldUpdateOperationsInput | $Enums.CustomerType
+  document?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  documentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutCustomerNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutCustomerNestedInput
+  customerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCustomerNestedInput
+  coupons?: Prisma.CouponUncheckedUpdateManyWithoutCustomerNestedInput
+  couponUsages?: Prisma.CouponUsageUncheckedUpdateManyWithoutCustomerNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutCustomerNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutCustomerNestedInput
+  storeCredits?: Prisma.StoreCreditUncheckedUpdateManyWithoutCustomerNestedInput
+  customerCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerCreateManyTenantInput = {
@@ -2265,6 +2464,7 @@ export type CustomerUpdateWithoutTenantInput = {
   orders?: Prisma.OrderUpdateManyWithoutCustomerNestedInput
   storeCredits?: Prisma.StoreCreditUpdateManyWithoutCustomerNestedInput
   customerCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutCustomerNestedInput
+  portalAccesses?: Prisma.CustomerPortalAccessUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerUncheckedUpdateWithoutTenantInput = {
@@ -2295,6 +2495,7 @@ export type CustomerUncheckedUpdateWithoutTenantInput = {
   orders?: Prisma.OrderUncheckedUpdateManyWithoutCustomerNestedInput
   storeCredits?: Prisma.StoreCreditUncheckedUpdateManyWithoutCustomerNestedInput
   customerCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutCustomerNestedInput
+  portalAccesses?: Prisma.CustomerPortalAccessUncheckedUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerUncheckedUpdateManyWithoutTenantInput = {
@@ -2333,6 +2534,7 @@ export type CustomerCountOutputType = {
   orders: number
   storeCredits: number
   customerCreditLimits: number
+  portalAccesses: number
 }
 
 export type CustomerCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2345,6 +2547,7 @@ export type CustomerCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensio
   orders?: boolean | CustomerCountOutputTypeCountOrdersArgs
   storeCredits?: boolean | CustomerCountOutputTypeCountStoreCreditsArgs
   customerCreditLimits?: boolean | CustomerCountOutputTypeCountCustomerCreditLimitsArgs
+  portalAccesses?: boolean | CustomerCountOutputTypeCountPortalAccessesArgs
 }
 
 /**
@@ -2420,6 +2623,13 @@ export type CustomerCountOutputTypeCountCustomerCreditLimitsArgs<ExtArgs extends
   where?: Prisma.CustomerCreditLimitWhereInput
 }
 
+/**
+ * CustomerCountOutputType without action
+ */
+export type CustomerCountOutputTypeCountPortalAccessesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CustomerPortalAccessWhereInput
+}
+
 
 export type CustomerSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -2451,6 +2661,7 @@ export type CustomerSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   orders?: boolean | Prisma.Customer$ordersArgs<ExtArgs>
   storeCredits?: boolean | Prisma.Customer$storeCreditsArgs<ExtArgs>
   customerCreditLimits?: boolean | Prisma.Customer$customerCreditLimitsArgs<ExtArgs>
+  portalAccesses?: boolean | Prisma.Customer$portalAccessesArgs<ExtArgs>
   _count?: boolean | Prisma.CustomerCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["customer"]>
 
@@ -2534,6 +2745,7 @@ export type CustomerInclude<ExtArgs extends runtime.Types.Extensions.InternalArg
   orders?: boolean | Prisma.Customer$ordersArgs<ExtArgs>
   storeCredits?: boolean | Prisma.Customer$storeCreditsArgs<ExtArgs>
   customerCreditLimits?: boolean | Prisma.Customer$customerCreditLimitsArgs<ExtArgs>
+  portalAccesses?: boolean | Prisma.Customer$portalAccessesArgs<ExtArgs>
   _count?: boolean | Prisma.CustomerCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type CustomerIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2556,6 +2768,7 @@ export type $CustomerPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     orders: Prisma.$OrderPayload<ExtArgs>[]
     storeCredits: Prisma.$StoreCreditPayload<ExtArgs>[]
     customerCreditLimits: Prisma.$CustomerCreditLimitPayload<ExtArgs>[]
+    portalAccesses: Prisma.$CustomerPortalAccessPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2981,6 +3194,7 @@ export interface Prisma__CustomerClient<T, Null = never, ExtArgs extends runtime
   orders<T extends Prisma.Customer$ordersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Customer$ordersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   storeCredits<T extends Prisma.Customer$storeCreditsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Customer$storeCreditsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StoreCreditPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   customerCreditLimits<T extends Prisma.Customer$customerCreditLimitsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Customer$customerCreditLimitsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerCreditLimitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  portalAccesses<T extends Prisma.Customer$portalAccessesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Customer$portalAccessesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerPortalAccessPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3638,6 +3852,30 @@ export type Customer$customerCreditLimitsArgs<ExtArgs extends runtime.Types.Exte
   take?: number
   skip?: number
   distinct?: Prisma.CustomerCreditLimitScalarFieldEnum | Prisma.CustomerCreditLimitScalarFieldEnum[]
+}
+
+/**
+ * Customer.portalAccesses
+ */
+export type Customer$portalAccessesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CustomerPortalAccess
+   */
+  select?: Prisma.CustomerPortalAccessSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CustomerPortalAccess
+   */
+  omit?: Prisma.CustomerPortalAccessOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CustomerPortalAccessInclude<ExtArgs> | null
+  where?: Prisma.CustomerPortalAccessWhereInput
+  orderBy?: Prisma.CustomerPortalAccessOrderByWithRelationInput | Prisma.CustomerPortalAccessOrderByWithRelationInput[]
+  cursor?: Prisma.CustomerPortalAccessWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CustomerPortalAccessScalarFieldEnum | Prisma.CustomerPortalAccessScalarFieldEnum[]
 }
 
 /**

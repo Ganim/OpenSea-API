@@ -1857,3 +1857,375 @@ export const PriceSourceType = {
 } as const
 
 export type PriceSourceType = (typeof PriceSourceType)[keyof typeof PriceSourceType]
+
+
+export const CertificateType = {
+  A1: 'A1',
+  A3: 'A3',
+  CLOUD_NEOID: 'CLOUD_NEOID',
+  CLOUD_BIRDID: 'CLOUD_BIRDID',
+  CLOUD_OTHER: 'CLOUD_OTHER'
+} as const
+
+export type CertificateType = (typeof CertificateType)[keyof typeof CertificateType]
+
+
+export const CertificateStatus = {
+  ACTIVE: 'ACTIVE',
+  EXPIRED: 'EXPIRED',
+  REVOKED: 'REVOKED',
+  PENDING_ACTIVATION: 'PENDING_ACTIVATION'
+} as const
+
+export type CertificateStatus = (typeof CertificateStatus)[keyof typeof CertificateStatus]
+
+
+export const SignatureLevel = {
+  SIMPLE: 'SIMPLE',
+  ADVANCED: 'ADVANCED',
+  QUALIFIED: 'QUALIFIED'
+} as const
+
+export type SignatureLevel = (typeof SignatureLevel)[keyof typeof SignatureLevel]
+
+
+export const EnvelopeStatus = {
+  DRAFT: 'DRAFT',
+  PENDING: 'PENDING',
+  IN_PROGRESS: 'IN_PROGRESS',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED',
+  EXPIRED: 'EXPIRED',
+  REJECTED: 'REJECTED'
+} as const
+
+export type EnvelopeStatus = (typeof EnvelopeStatus)[keyof typeof EnvelopeStatus]
+
+
+export const EnvelopeRoutingType = {
+  SEQUENTIAL: 'SEQUENTIAL',
+  PARALLEL: 'PARALLEL',
+  HYBRID: 'HYBRID'
+} as const
+
+export type EnvelopeRoutingType = (typeof EnvelopeRoutingType)[keyof typeof EnvelopeRoutingType]
+
+
+export const SignerRole = {
+  SIGNER: 'SIGNER',
+  APPROVER: 'APPROVER',
+  WITNESS: 'WITNESS',
+  REVIEWER: 'REVIEWER'
+} as const
+
+export type SignerRole = (typeof SignerRole)[keyof typeof SignerRole]
+
+
+export const SignerStatus = {
+  PENDING: 'PENDING',
+  NOTIFIED: 'NOTIFIED',
+  VIEWED: 'VIEWED',
+  SIGNED: 'SIGNED',
+  REJECTED: 'REJECTED',
+  EXPIRED: 'EXPIRED'
+} as const
+
+export type SignerStatus = (typeof SignerStatus)[keyof typeof SignerStatus]
+
+
+export const SignatureAuditType = {
+  CREATED: 'CREATED',
+  SENT: 'SENT',
+  VIEWED: 'VIEWED',
+  SIGNED: 'SIGNED',
+  REJECTED: 'REJECTED',
+  REMINDED: 'REMINDED',
+  EXPIRED: 'EXPIRED',
+  CANCELLED: 'CANCELLED',
+  DOWNLOADED: 'DOWNLOADED',
+  DOCUMENT_VERIFIED: 'DOCUMENT_VERIFIED',
+  CERTIFICATE_VALIDATED: 'CERTIFICATE_VALIDATED',
+  OTP_SENT: 'OTP_SENT',
+  OTP_VERIFIED: 'OTP_VERIFIED',
+  LINK_ACCESSED: 'LINK_ACCESSED'
+} as const
+
+export type SignatureAuditType = (typeof SignatureAuditType)[keyof typeof SignatureAuditType]
+
+
+export const WidgetType = {
+  KPI_CARD: 'KPI_CARD',
+  BAR_CHART: 'BAR_CHART',
+  LINE_CHART: 'LINE_CHART',
+  PIE_CHART: 'PIE_CHART',
+  FUNNEL: 'FUNNEL',
+  TABLE: 'TABLE',
+  HEATMAP: 'HEATMAP',
+  SCATTER: 'SCATTER',
+  GAUGE: 'GAUGE',
+  RANKING: 'RANKING',
+  COMPARISON: 'COMPARISON',
+  TREND: 'TREND'
+} as const
+
+export type WidgetType = (typeof WidgetType)[keyof typeof WidgetType]
+
+
+export const WidgetDataSource = {
+  ORDERS: 'ORDERS',
+  DEALS: 'DEALS',
+  CONTACTS: 'CONTACTS',
+  CUSTOMERS: 'CUSTOMERS',
+  PRODUCTS: 'PRODUCTS',
+  COMMISSIONS: 'COMMISSIONS',
+  CAMPAIGNS: 'CAMPAIGNS',
+  BIDS: 'BIDS',
+  MARKETPLACE: 'MARKETPLACE',
+  CASHIER: 'CASHIER',
+  CUSTOM_QUERY: 'CUSTOM_QUERY'
+} as const
+
+export type WidgetDataSource = (typeof WidgetDataSource)[keyof typeof WidgetDataSource]
+
+
+export const DashboardRole = {
+  SELLER: 'SELLER',
+  MANAGER: 'MANAGER',
+  DIRECTOR: 'DIRECTOR',
+  BID_SPECIALIST: 'BID_SPECIALIST',
+  MARKETPLACE_OPS: 'MARKETPLACE_OPS',
+  CASHIER: 'CASHIER'
+} as const
+
+export type DashboardRole = (typeof DashboardRole)[keyof typeof DashboardRole]
+
+
+export const DashboardVisibility = {
+  PRIVATE: 'PRIVATE',
+  TEAM: 'TEAM',
+  TENANT: 'TENANT'
+} as const
+
+export type DashboardVisibility = (typeof DashboardVisibility)[keyof typeof DashboardVisibility]
+
+
+export const GoalType = {
+  REVENUE: 'REVENUE',
+  QUANTITY: 'QUANTITY',
+  DEALS_WON: 'DEALS_WON',
+  NEW_CUSTOMERS: 'NEW_CUSTOMERS',
+  TICKET_AVERAGE: 'TICKET_AVERAGE',
+  CONVERSION_RATE: 'CONVERSION_RATE',
+  COMMISSION: 'COMMISSION',
+  BID_WIN_RATE: 'BID_WIN_RATE',
+  CUSTOM: 'CUSTOM'
+} as const
+
+export type GoalType = (typeof GoalType)[keyof typeof GoalType]
+
+
+export const GoalPeriod = {
+  DAILY: 'DAILY',
+  WEEKLY: 'WEEKLY',
+  MONTHLY: 'MONTHLY',
+  QUARTERLY: 'QUARTERLY',
+  YEARLY: 'YEARLY',
+  CUSTOM: 'CUSTOM'
+} as const
+
+export type GoalPeriod = (typeof GoalPeriod)[keyof typeof GoalPeriod]
+
+
+export const GoalScope = {
+  INDIVIDUAL: 'INDIVIDUAL',
+  TEAM: 'TEAM',
+  TENANT: 'TENANT'
+} as const
+
+export type GoalScope = (typeof GoalScope)[keyof typeof GoalScope]
+
+
+export const GoalStatus = {
+  ACTIVE: 'ACTIVE',
+  ACHIEVED: 'ACHIEVED',
+  MISSED: 'MISSED',
+  ARCHIVED: 'ARCHIVED'
+} as const
+
+export type GoalStatus = (typeof GoalStatus)[keyof typeof GoalStatus]
+
+
+export const ReportType = {
+  SALES_SUMMARY: 'SALES_SUMMARY',
+  COMMISSION_REPORT: 'COMMISSION_REPORT',
+  PIPELINE_REPORT: 'PIPELINE_REPORT',
+  PRODUCT_PERFORMANCE: 'PRODUCT_PERFORMANCE',
+  CUSTOMER_ANALYSIS: 'CUSTOMER_ANALYSIS',
+  BID_REPORT: 'BID_REPORT',
+  MARKETPLACE_REPORT: 'MARKETPLACE_REPORT',
+  CASHIER_REPORT: 'CASHIER_REPORT',
+  GOAL_PROGRESS: 'GOAL_PROGRESS',
+  CURVA_ABC: 'CURVA_ABC',
+  CUSTOM: 'CUSTOM'
+} as const
+
+export type ReportType = (typeof ReportType)[keyof typeof ReportType]
+
+
+export const ReportFormat = {
+  PDF: 'PDF',
+  EXCEL: 'EXCEL',
+  CSV: 'CSV'
+} as const
+
+export type ReportFormat = (typeof ReportFormat)[keyof typeof ReportFormat]
+
+
+export const ReportFrequency = {
+  DAILY: 'DAILY',
+  WEEKLY: 'WEEKLY',
+  MONTHLY: 'MONTHLY'
+} as const
+
+export type ReportFrequency = (typeof ReportFrequency)[keyof typeof ReportFrequency]
+
+
+export const ReportDeliveryMethod = {
+  EMAIL: 'EMAIL',
+  WHATSAPP: 'WHATSAPP',
+  BOTH: 'BOTH',
+  DOWNLOAD_ONLY: 'DOWNLOAD_ONLY'
+} as const
+
+export type ReportDeliveryMethod = (typeof ReportDeliveryMethod)[keyof typeof ReportDeliveryMethod]
+
+
+export const ReportGenerationStatus = {
+  GENERATING: 'GENERATING',
+  SUCCESS: 'SUCCESS',
+  FAILED: 'FAILED'
+} as const
+
+export type ReportGenerationStatus = (typeof ReportGenerationStatus)[keyof typeof ReportGenerationStatus]
+
+
+export const AiPersonality = {
+  PROFESSIONAL: 'PROFESSIONAL',
+  FRIENDLY: 'FRIENDLY',
+  CASUAL: 'CASUAL',
+  FORMAL: 'FORMAL',
+  CUSTOM: 'CUSTOM'
+} as const
+
+export type AiPersonality = (typeof AiPersonality)[keyof typeof AiPersonality]
+
+
+export const AiToneOfVoice = {
+  NEUTRAL: 'NEUTRAL',
+  WARM: 'WARM',
+  DIRECT: 'DIRECT',
+  ENTHUSIASTIC: 'ENTHUSIASTIC'
+} as const
+
+export type AiToneOfVoice = (typeof AiToneOfVoice)[keyof typeof AiToneOfVoice]
+
+
+export const AiConversationContext = {
+  DEDICATED: 'DEDICATED',
+  INLINE: 'INLINE',
+  COMMAND_BAR: 'COMMAND_BAR',
+  VOICE: 'VOICE'
+} as const
+
+export type AiConversationContext = (typeof AiConversationContext)[keyof typeof AiConversationContext]
+
+
+export const AiConversationStatus = {
+  ACTIVE: 'ACTIVE',
+  ARCHIVED: 'ARCHIVED'
+} as const
+
+export type AiConversationStatus = (typeof AiConversationStatus)[keyof typeof AiConversationStatus]
+
+
+export const AiMessageRole = {
+  USER: 'USER',
+  ASSISTANT: 'ASSISTANT',
+  SYSTEM: 'SYSTEM',
+  TOOL_CALL: 'TOOL_CALL',
+  TOOL_RESULT: 'TOOL_RESULT'
+} as const
+
+export type AiMessageRole = (typeof AiMessageRole)[keyof typeof AiMessageRole]
+
+
+export const AiMessageContentType = {
+  TEXT: 'TEXT',
+  CHART: 'CHART',
+  TABLE: 'TABLE',
+  KPI_CARD: 'KPI_CARD',
+  ACTION_CARD: 'ACTION_CARD',
+  IMAGE: 'IMAGE',
+  ERROR: 'ERROR',
+  LOADING: 'LOADING'
+} as const
+
+export type AiMessageContentType = (typeof AiMessageContentType)[keyof typeof AiMessageContentType]
+
+
+export const AiFavoriteCategory = {
+  SALES: 'SALES',
+  STOCK: 'STOCK',
+  FINANCE: 'FINANCE',
+  HR: 'HR',
+  CRM: 'CRM',
+  GENERAL: 'GENERAL'
+} as const
+
+export type AiFavoriteCategory = (typeof AiFavoriteCategory)[keyof typeof AiFavoriteCategory]
+
+
+export const AiActionStatus = {
+  PROPOSED: 'PROPOSED',
+  CONFIRMED: 'CONFIRMED',
+  EXECUTED: 'EXECUTED',
+  FAILED: 'FAILED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type AiActionStatus = (typeof AiActionStatus)[keyof typeof AiActionStatus]
+
+
+export const AiInsightType = {
+  TREND: 'TREND',
+  ANOMALY: 'ANOMALY',
+  OPPORTUNITY: 'OPPORTUNITY',
+  RISK: 'RISK',
+  PREDICTION: 'PREDICTION',
+  RECOMMENDATION: 'RECOMMENDATION',
+  ALERT: 'ALERT',
+  CELEBRATION: 'CELEBRATION'
+} as const
+
+export type AiInsightType = (typeof AiInsightType)[keyof typeof AiInsightType]
+
+
+export const AiInsightPriority = {
+  LOW: 'LOW',
+  MEDIUM: 'MEDIUM',
+  HIGH: 'HIGH',
+  URGENT: 'URGENT'
+} as const
+
+export type AiInsightPriority = (typeof AiInsightPriority)[keyof typeof AiInsightPriority]
+
+
+export const AiInsightStatus = {
+  NEW: 'NEW',
+  VIEWED: 'VIEWED',
+  ACTED_ON: 'ACTED_ON',
+  DISMISSED: 'DISMISSED',
+  EXPIRED: 'EXPIRED'
+} as const
+
+export type AiInsightStatus = (typeof AiInsightStatus)[keyof typeof AiInsightStatus]

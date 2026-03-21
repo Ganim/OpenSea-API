@@ -14,6 +14,7 @@ import { healthRoutes } from './controllers/health/routes';
 import { adminRoutes } from './controllers/admin/routes';
 import { adminCatalogRoutes } from './controllers/admin/catalog/routes';
 import { adminCompaniesRoutes } from './controllers/admin/companies/routes';
+import { adminMonitoringRoutes } from './controllers/admin/monitoring/routes';
 import { adminTeamRoutes } from './controllers/admin/team/routes';
 import { adminTenantSubscriptionsRoutes } from './controllers/admin/tenants/routes';
 
@@ -127,6 +128,12 @@ import { taskLabelsRoutes } from './controllers/tasks/labels/routes';
 import { taskSubtasksRoutes } from './controllers/tasks/subtasks/routes';
 import { taskWatchersRoutes } from './controllers/tasks/watchers/routes';
 
+// Signature routes
+import { signatureCertificatesRoutes } from './controllers/tools/signature/certificates/routes';
+import { signatureEnvelopesRoutes } from './controllers/tools/signature/envelopes/routes';
+import { signatureSigningRoutes } from './controllers/tools/signature/signing/routes';
+import { signatureTemplatesRoutes } from './controllers/tools/signature/templates/routes';
+
 // HR routes
 import { absencesRoutes } from './controllers/hr/absences/routes';
 import { bonusesRoutes } from './controllers/hr/bonuses/routes';
@@ -159,6 +166,7 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(adminCatalogRoutes);
   await app.register(adminTenantSubscriptionsRoutes);
   await app.register(adminTeamRoutes);
+  await app.register(adminMonitoringRoutes);
   // Admin routes (tenant-scoped)
   await app.register(adminCompaniesRoutes);
 
@@ -282,6 +290,12 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(taskAutomationsRoutes);
   await app.register(taskActivityRoutes);
   await app.register(taskWatchersRoutes);
+
+  // Signature routes
+  await app.register(signatureCertificatesRoutes);
+  await app.register(signatureEnvelopesRoutes);
+  await app.register(signatureSigningRoutes);
+  await app.register(signatureTemplatesRoutes);
 
   // Audit routes
   await app.register(auditRoutes);
