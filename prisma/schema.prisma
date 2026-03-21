@@ -995,6 +995,52 @@ enum OrderStatus {
   RETURNED
 }
 
+// --- CRM Enums ---
+
+enum ContactRole {
+  DECISION_MAKER
+  INFLUENCER
+  CHAMPION
+  GATEKEEPER
+  END_USER
+  OTHER
+}
+
+enum ContactLifecycleStage {
+  SUBSCRIBER
+  LEAD
+  QUALIFIED
+  OPPORTUNITY
+  CUSTOMER
+  EVANGELIST
+}
+
+enum PipelineType {
+  SALES
+  ONBOARDING
+  SUPPORT
+  CUSTOM
+  ORDER_B2C
+  ORDER_B2B
+  ORDER_BID
+  ORDER_ECOMMERCE
+}
+
+enum PipelineStageType {
+  OPEN
+  WON
+  LOST
+  DRAFT
+  PENDING_APPROVAL
+  APPROVED
+  PROCESSING
+  INVOICED
+  SHIPPED
+  DELIVERED
+  COMPLETED
+  CANCELLED
+}
+
 // --- Location System v2 Enums ---
 
 enum LocationType {
@@ -2186,6 +2232,7 @@ model Customer {
   tenant   Tenant @relation(fields: [tenantId], references: [id])
 
   salesOrders SalesOrder[]
+  crmContacts CrmContact[]
 
   @@unique([documentHash, tenantId, deletedAt], name: "customers_document_unique_active")
   @@index([documentHash])
@@ -2246,6 +2293,95 @@ model SalesOrderItem {
   @@index([orderId])
   @@index([variantId])
   @@map("sales_order_items")
+}
+
+// --- CRM: Contacts, Pipelines, Stages ---
+
+model CrmContact {
+  id         String                @id @default(uuid())
+  tenantId   String                @map("tenant_id")
+  customerId String                @map("customer_id")
+  firstName  String                @map("first_name") @db.VarChar(100)
+  lastName   String?               @map("last_name") @db.VarChar(100)
+  fullName   String                @map("full_name") @db.VarChar(201)
+  email      String?               @db.VarChar(254)
+  phone      String?               @db.VarChar(30)
+  whatsapp   String?               @db.VarChar(30)
+  role       ContactRole           @default(OTHER)
+  jobTitle   String?               @map("job_title") @db.VarChar(150)
+  department String?               @db.VarChar(150)
+  lifecycleStage ContactLifecycleStage @default(LEAD) @map("lifecycle_stage")
+  leadScore      Int                   @default(0) @map("lead_score")
+  leadTemperature String?             @map("lead_temperature") @db.VarChar(50)
+  source         String              @default("MANUAL") @db.VarChar(100)
+  lastInteractionAt DateTime?        @map("last_interaction_at")
+  lastChannelUsed   String?          @map("last_channel_used") @db.VarChar(50)
+  socialProfiles    Json?            @map("social_profiles")
+  tags              Json             @default("[]")
+  customFields      Json?            @map("custom_fields")
+  avatarUrl         String?          @map("avatar_url") @db.VarChar(500)
+  assignedToUserId  String?          @map("assigned_to_user_id")
+  isMainContact     Boolean          @default(false) @map("is_main_contact")
+  createdAt         DateTime         @default(now()) @map("created_at")
+  updatedAt         DateTime         @updatedAt @map("updated_at")
+  deletedAt         DateTime?        @map("deleted_at")
+
+  tenant     Tenant   @relation(fields: [tenantId], references: [id])
+  customer   Customer @relation(fields: [customerId], references: [id])
+  assignedTo User?    @relation("AssignedContacts", fields: [assignedToUserId], references: [id])
+
+  @@index([tenantId])
+  @@index([customerId])
+  @@index([assignedToUserId])
+  @@index([lifecycleStage])
+  @@index([tenantId, deletedAt])
+  @@map("crm_contacts")
+}
+
+model CrmPipeline {
+  id            String       @id @default(uuid())
+  tenantId      String       @map("tenant_id")
+  name          String       @db.VarChar(150)
+  description   String?      @db.VarChar(500)
+  icon          String?      @db.VarChar(50)
+  color         String?      @db.VarChar(30)
+  type          PipelineType @default(SALES)
+  isDefault     Boolean      @default(false) @map("is_default")
+  position      Int          @default(0)
+  nextPipelineId String?     @map("next_pipeline_id")
+  isActive      Boolean      @default(true) @map("is_active")
+  createdAt     DateTime     @default(now()) @map("created_at")
+  updatedAt     DateTime     @updatedAt @map("updated_at")
+  deletedAt     DateTime?    @map("deleted_at")
+
+  tenant     Tenant        @relation(fields: [tenantId], references: [id])
+  stages     CrmPipelineStage[]
+
+  @@index([tenantId])
+  @@index([tenantId, deletedAt])
+  @@index([isActive])
+  @@map("crm_pipelines")
+}
+
+model CrmPipelineStage {
+  id              String            @id @default(uuid())
+  pipelineId      String            @map("pipeline_id")
+  name            String            @db.VarChar(150)
+  color           String?           @db.VarChar(30)
+  icon            String?           @db.VarChar(50)
+  position        Int               @default(0)
+  type            PipelineStageType @default(OPEN)
+  probability     Float?
+  autoActions     Json?             @map("auto_actions")
+  rottenAfterDays Int?              @map("rotten_after_days")
+  createdAt       DateTime          @default(now()) @map("created_at")
+  updatedAt       DateTime          @updatedAt @map("updated_at")
+
+  pipeline CrmPipeline @relation(fields: [pipelineId], references: [id], onDelete: Cascade)
+
+  @@index([pipelineId])
+  @@index([pipelineId, position])
+  @@map("crm_pipeline_stages")
 }
 
 // --- Sistema de Reservas ---
@@ -3848,6 +3984,9 @@ model Tenant {
   // Sales domain
   customers               Customer[]
   salesOrders             SalesOrder[]
+  // CRM domain
+  crmContacts             CrmContact[]
+  crmPipelines            CrmPipeline[]
   // HR domain
   companies               Company[]
   companyDocuments        CompanyDocument[]
@@ -5452,6 +5591,7 @@ model BoardMember {
 
   @@unique([boardId, userId])
   @@index([boardId])
+  @@index([userId])
   @@map("board_members")
 }
 
