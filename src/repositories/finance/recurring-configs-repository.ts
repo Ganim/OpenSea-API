@@ -48,6 +48,8 @@ export interface FindManyRecurringConfigsOptions {
   tenantId: string;
   page?: number;
   limit?: number;
+  sortBy?: 'createdAt' | 'description' | 'baseAmount' | 'status';
+  sortOrder?: 'asc' | 'desc';
   type?: string;
   status?: string;
   search?: string;

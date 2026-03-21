@@ -176,10 +176,22 @@ export class PrismaContractsRepository implements ContractsRepository {
       if (options.endDateTo) where.endDate.lte = options.endDateTo;
     }
 
+    const sortFieldMap: Record<string, string> = {
+      createdAt: 'createdAt',
+      startDate: 'startDate',
+      endDate: 'endDate',
+      monthlyValue: 'paymentAmount',
+      status: 'status',
+    };
+
+    const orderBy: Record<string, 'asc' | 'desc'> = {};
+    orderBy[sortFieldMap[options.sortBy || 'createdAt'] || 'createdAt'] =
+      options.sortOrder || 'desc';
+
     const [contracts, total] = await Promise.all([
       prisma.contract.findMany({
         where,
-        orderBy: { createdAt: 'desc' },
+        orderBy,
         skip: (page - 1) * limit,
         take: limit,
       }),

@@ -181,10 +181,13 @@ export class PrismaConsortiaRepository implements ConsortiaRepository {
       ];
     }
 
+    const orderBy: Record<string, 'asc' | 'desc'> = {};
+    orderBy[options.sortBy || 'createdAt'] = options.sortOrder || 'desc';
+
     const [consortia, total] = await Promise.all([
       prisma.consortium.findMany({
         where,
-        orderBy: { createdAt: 'desc' },
+        orderBy,
         skip: (page - 1) * limit,
         take: limit,
       }),

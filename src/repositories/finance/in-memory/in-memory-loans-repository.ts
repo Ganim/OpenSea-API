@@ -80,6 +80,24 @@ export class InMemoryLoansRepository implements LoansRepository {
       return true;
     });
 
+    const sortFieldMap: Record<string, string> = {
+      createdAt: 'createdAt',
+      totalAmount: 'principalAmount',
+      institution: 'name',
+      status: 'status',
+    };
+    const sortKey = sortFieldMap[options.sortBy || 'createdAt'] || 'createdAt';
+    const sortDirection = options.sortOrder === 'asc' ? 1 : -1;
+    filtered.sort((a, b) => {
+      const aVal = a[sortKey as keyof typeof a] ?? '';
+      const bVal = b[sortKey as keyof typeof b] ?? '';
+      return aVal < bVal
+        ? -1 * sortDirection
+        : aVal > bVal
+          ? 1 * sortDirection
+          : 0;
+    });
+
     const total = filtered.length;
     const start = (page - 1) * limit;
     const loans = filtered.slice(start, start + limit);

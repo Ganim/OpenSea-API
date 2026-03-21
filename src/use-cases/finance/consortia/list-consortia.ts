@@ -8,6 +8,8 @@ interface ListConsortiaUseCaseRequest {
   tenantId: string;
   page?: number;
   limit?: number;
+  sortBy?: 'createdAt' | 'monthlyPayment' | 'administrator' | 'status';
+  sortOrder?: 'asc' | 'desc';
   bankAccountId?: string;
   costCenterId?: string;
   status?: string;
@@ -38,6 +40,8 @@ export class ListConsortiaUseCase {
       tenantId: request.tenantId,
       page,
       limit,
+      sortBy: request.sortBy,
+      sortOrder: request.sortOrder,
       bankAccountId: request.bankAccountId,
       costCenterId: request.costCenterId,
       status: request.status,

@@ -38,6 +38,8 @@ export interface FindManyLoansOptions {
   tenantId: string;
   page?: number;
   limit?: number;
+  sortBy?: 'createdAt' | 'totalAmount' | 'institution' | 'status';
+  sortOrder?: 'asc' | 'desc';
   bankAccountId?: string;
   costCenterId?: string;
   type?: string;

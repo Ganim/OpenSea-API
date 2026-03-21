@@ -268,10 +268,14 @@ export class PrismaFinanceEntriesRepository
     }
 
     const client = tx ?? prisma;
+
+    const orderBy: Record<string, 'asc' | 'desc'> = {};
+    orderBy[options.sortBy || 'createdAt'] = options.sortOrder || 'desc';
+
     const [entries, total] = await Promise.all([
       client.financeEntry.findMany({
         where,
-        orderBy: { dueDate: 'asc' },
+        orderBy,
         skip: (page - 1) * limit,
         take: limit,
       }),

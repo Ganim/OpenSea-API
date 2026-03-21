@@ -8,6 +8,8 @@ interface ListContractsUseCaseRequest {
   tenantId: string;
   page?: number;
   limit?: number;
+  sortBy?: 'createdAt' | 'startDate' | 'endDate' | 'monthlyValue' | 'status';
+  sortOrder?: 'asc' | 'desc';
   status?: string;
   companyName?: string;
   search?: string;
@@ -32,6 +34,8 @@ export class ListContractsUseCase {
       tenantId: request.tenantId,
       page: request.page,
       limit: request.limit,
+      sortBy: request.sortBy,
+      sortOrder: request.sortOrder,
       status: request.status,
       companyName: request.companyName,
       search: request.search,

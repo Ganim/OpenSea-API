@@ -74,6 +74,13 @@ export interface FindManyFinanceEntriesOptions {
   tenantId: string;
   page?: number;
   limit?: number;
+  sortBy?:
+    | 'createdAt'
+    | 'dueDate'
+    | 'expectedAmount'
+    | 'description'
+    | 'status';
+  sortOrder?: 'asc' | 'desc';
   type?: string;
   status?: string;
   categoryId?: string;

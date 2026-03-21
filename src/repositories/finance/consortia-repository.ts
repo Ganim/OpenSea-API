@@ -42,6 +42,8 @@ export interface FindManyConsortiaOptions {
   tenantId: string;
   page?: number;
   limit?: number;
+  sortBy?: 'createdAt' | 'monthlyPayment' | 'administrator' | 'status';
+  sortOrder?: 'asc' | 'desc';
   bankAccountId?: string;
   costCenterId?: string;
   status?: string;

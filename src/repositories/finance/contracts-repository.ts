@@ -57,6 +57,8 @@ export interface FindManyContractsOptions {
   tenantId: string;
   page?: number;
   limit?: number;
+  sortBy?: 'createdAt' | 'startDate' | 'endDate' | 'monthlyValue' | 'status';
+  sortOrder?: 'asc' | 'desc';
   status?: string;
   companyName?: string;
   companyId?: string;

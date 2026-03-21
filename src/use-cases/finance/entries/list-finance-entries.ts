@@ -8,6 +8,13 @@ interface ListFinanceEntriesUseCaseRequest {
   tenantId: string;
   page?: number;
   limit?: number;
+  sortBy?:
+    | 'createdAt'
+    | 'dueDate'
+    | 'expectedAmount'
+    | 'description'
+    | 'status';
+  sortOrder?: 'asc' | 'desc';
   type?: string;
   status?: string;
   categoryId?: string;
@@ -45,6 +52,8 @@ export class ListFinanceEntriesUseCase {
       tenantId: request.tenantId,
       page,
       limit,
+      sortBy: request.sortBy,
+      sortOrder: request.sortOrder,
       type: request.type,
       status: request.status,
       categoryId: request.categoryId,
