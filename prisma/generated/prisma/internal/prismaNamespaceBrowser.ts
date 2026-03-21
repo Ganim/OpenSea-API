@@ -96,6 +96,9 @@ export const ModelName = {
   Customer: 'Customer',
   SalesOrder: 'SalesOrder',
   SalesOrderItem: 'SalesOrderItem',
+  CrmContact: 'CrmContact',
+  CrmPipeline: 'CrmPipeline',
+  CrmPipelineStage: 'CrmPipelineStage',
   ItemReservation: 'ItemReservation',
   VariantSupplierCode: 'VariantSupplierCode',
   VariantPromotion: 'VariantPromotion',
@@ -191,7 +194,20 @@ export const ModelName = {
   SupportTicket: 'SupportTicket',
   SupportTicketMessage: 'SupportTicketMessage',
   SupportTicketAttachment: 'SupportTicketAttachment',
-  SupportSlaConfig: 'SupportSlaConfig'
+  SupportSlaConfig: 'SupportSlaConfig',
+  PriceTable: 'PriceTable',
+  PriceTableRule: 'PriceTableRule',
+  PriceTableItem: 'PriceTableItem',
+  CustomerPrice: 'CustomerPrice',
+  TaxProfile: 'TaxProfile',
+  TaxRule: 'TaxRule',
+  Campaign: 'Campaign',
+  CampaignRule: 'CampaignRule',
+  CampaignProduct: 'CampaignProduct',
+  Coupon: 'Coupon',
+  CouponUsage: 'CouponUsage',
+  Combo: 'Combo',
+  ComboItem: 'ComboItem'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1085,6 +1101,77 @@ export const SalesOrderItemScalarFieldEnum = {
 } as const
 
 export type SalesOrderItemScalarFieldEnum = (typeof SalesOrderItemScalarFieldEnum)[keyof typeof SalesOrderItemScalarFieldEnum]
+
+
+export const CrmContactScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  customerId: 'customerId',
+  firstName: 'firstName',
+  lastName: 'lastName',
+  fullName: 'fullName',
+  email: 'email',
+  phone: 'phone',
+  whatsapp: 'whatsapp',
+  role: 'role',
+  jobTitle: 'jobTitle',
+  department: 'department',
+  lifecycleStage: 'lifecycleStage',
+  leadScore: 'leadScore',
+  leadTemperature: 'leadTemperature',
+  source: 'source',
+  lastInteractionAt: 'lastInteractionAt',
+  lastChannelUsed: 'lastChannelUsed',
+  socialProfiles: 'socialProfiles',
+  tags: 'tags',
+  customFields: 'customFields',
+  avatarUrl: 'avatarUrl',
+  assignedToUserId: 'assignedToUserId',
+  isMainContact: 'isMainContact',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type CrmContactScalarFieldEnum = (typeof CrmContactScalarFieldEnum)[keyof typeof CrmContactScalarFieldEnum]
+
+
+export const CrmPipelineScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  name: 'name',
+  description: 'description',
+  icon: 'icon',
+  color: 'color',
+  type: 'type',
+  isDefault: 'isDefault',
+  position: 'position',
+  nextPipelineId: 'nextPipelineId',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type CrmPipelineScalarFieldEnum = (typeof CrmPipelineScalarFieldEnum)[keyof typeof CrmPipelineScalarFieldEnum]
+
+
+export const CrmPipelineStageScalarFieldEnum = {
+  id: 'id',
+  pipelineId: 'pipelineId',
+  name: 'name',
+  color: 'color',
+  icon: 'icon',
+  position: 'position',
+  type: 'type',
+  probability: 'probability',
+  autoActions: 'autoActions',
+  rottenAfterDays: 'rottenAfterDays',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CrmPipelineStageScalarFieldEnum = (typeof CrmPipelineStageScalarFieldEnum)[keyof typeof CrmPipelineStageScalarFieldEnum]
 
 
 export const ItemReservationScalarFieldEnum = {
@@ -2787,6 +2874,9 @@ export const SystemSkillDefinitionScalarFieldEnum = {
   isCore: 'isCore',
   isVisible: 'isVisible',
   iconUrl: 'iconUrl',
+  requiresSetup: 'requiresSetup',
+  setupUrl: 'setupUrl',
+  sortOrder: 'sortOrder',
   metadata: 'metadata',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -2803,6 +2893,13 @@ export const SkillPricingScalarFieldEnum = {
   unitPrice: 'unitPrice',
   freeQuota: 'freeQuota',
   usageMetric: 'usageMetric',
+  unitMetric: 'unitMetric',
+  unitMetricLabel: 'unitMetricLabel',
+  usageIncluded: 'usageIncluded',
+  usagePrice: 'usagePrice',
+  usageMetricLabel: 'usageMetricLabel',
+  annualDiscount: 'annualDiscount',
+  isActive: 'isActive',
   tiers: 'tiers',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -2820,6 +2917,10 @@ export const TenantSubscriptionScalarFieldEnum = {
   startsAt: 'startsAt',
   expiresAt: 'expiresAt',
   cancelledAt: 'cancelledAt',
+  customPrice: 'customPrice',
+  discountPercent: 'discountPercent',
+  notes: 'notes',
+  grantedBy: 'grantedBy',
   metadata: 'metadata',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -2835,6 +2936,10 @@ export const TenantConsumptionScalarFieldEnum = {
   metric: 'metric',
   quantity: 'quantity',
   limit: 'limit',
+  used: 'used',
+  included: 'included',
+  overage: 'overage',
+  overageCost: 'overageCost',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -2909,6 +3014,7 @@ export const SupportTicketMessageScalarFieldEnum = {
   authorId: 'authorId',
   authorType: 'authorType',
   body: 'body',
+  isInternal: 'isInternal',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -2939,6 +3045,245 @@ export const SupportSlaConfigScalarFieldEnum = {
 } as const
 
 export type SupportSlaConfigScalarFieldEnum = (typeof SupportSlaConfigScalarFieldEnum)[keyof typeof SupportSlaConfigScalarFieldEnum]
+
+
+export const PriceTableScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  name: 'name',
+  description: 'description',
+  type: 'type',
+  currency: 'currency',
+  priceIncludesTax: 'priceIncludesTax',
+  isDefault: 'isDefault',
+  priority: 'priority',
+  isActive: 'isActive',
+  validFrom: 'validFrom',
+  validUntil: 'validUntil',
+  deletedAt: 'deletedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PriceTableScalarFieldEnum = (typeof PriceTableScalarFieldEnum)[keyof typeof PriceTableScalarFieldEnum]
+
+
+export const PriceTableRuleScalarFieldEnum = {
+  id: 'id',
+  priceTableId: 'priceTableId',
+  tenantId: 'tenantId',
+  ruleType: 'ruleType',
+  operator: 'operator',
+  value: 'value',
+  createdAt: 'createdAt'
+} as const
+
+export type PriceTableRuleScalarFieldEnum = (typeof PriceTableRuleScalarFieldEnum)[keyof typeof PriceTableRuleScalarFieldEnum]
+
+
+export const PriceTableItemScalarFieldEnum = {
+  id: 'id',
+  priceTableId: 'priceTableId',
+  tenantId: 'tenantId',
+  variantId: 'variantId',
+  price: 'price',
+  minQuantity: 'minQuantity',
+  maxQuantity: 'maxQuantity',
+  costPrice: 'costPrice',
+  marginPercent: 'marginPercent',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PriceTableItemScalarFieldEnum = (typeof PriceTableItemScalarFieldEnum)[keyof typeof PriceTableItemScalarFieldEnum]
+
+
+export const CustomerPriceScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  customerId: 'customerId',
+  variantId: 'variantId',
+  price: 'price',
+  validFrom: 'validFrom',
+  validUntil: 'validUntil',
+  notes: 'notes',
+  createdByUserId: 'createdByUserId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CustomerPriceScalarFieldEnum = (typeof CustomerPriceScalarFieldEnum)[keyof typeof CustomerPriceScalarFieldEnum]
+
+
+export const TaxProfileScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  name: 'name',
+  regime: 'regime',
+  isDefault: 'isDefault',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TaxProfileScalarFieldEnum = (typeof TaxProfileScalarFieldEnum)[keyof typeof TaxProfileScalarFieldEnum]
+
+
+export const TaxRuleScalarFieldEnum = {
+  id: 'id',
+  taxProfileId: 'taxProfileId',
+  tenantId: 'tenantId',
+  taxType: 'taxType',
+  ncm: 'ncm',
+  cfop: 'cfop',
+  originState: 'originState',
+  destinationState: 'destinationState',
+  rate: 'rate',
+  reduction: 'reduction',
+  isExempt: 'isExempt',
+  mvaPercent: 'mvaPercent',
+  stBaseMethod: 'stBaseMethod',
+  pautaValue: 'pautaValue',
+  stRate: 'stRate',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TaxRuleScalarFieldEnum = (typeof TaxRuleScalarFieldEnum)[keyof typeof TaxRuleScalarFieldEnum]
+
+
+export const CampaignScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  name: 'name',
+  description: 'description',
+  type: 'type',
+  status: 'status',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  channels: 'channels',
+  targetAudience: 'targetAudience',
+  priority: 'priority',
+  stackable: 'stackable',
+  maxUsageTotal: 'maxUsageTotal',
+  maxUsagePerCustomer: 'maxUsagePerCustomer',
+  usageCount: 'usageCount',
+  aiGenerated: 'aiGenerated',
+  aiReason: 'aiReason',
+  createdByUserId: 'createdByUserId',
+  deletedAt: 'deletedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CampaignScalarFieldEnum = (typeof CampaignScalarFieldEnum)[keyof typeof CampaignScalarFieldEnum]
+
+
+export const CampaignRuleScalarFieldEnum = {
+  id: 'id',
+  campaignId: 'campaignId',
+  tenantId: 'tenantId',
+  ruleType: 'ruleType',
+  operator: 'operator',
+  value: 'value',
+  value2: 'value2',
+  createdAt: 'createdAt'
+} as const
+
+export type CampaignRuleScalarFieldEnum = (typeof CampaignRuleScalarFieldEnum)[keyof typeof CampaignRuleScalarFieldEnum]
+
+
+export const CampaignProductScalarFieldEnum = {
+  id: 'id',
+  campaignId: 'campaignId',
+  tenantId: 'tenantId',
+  variantId: 'variantId',
+  categoryId: 'categoryId',
+  discountType: 'discountType',
+  discountValue: 'discountValue',
+  maxDiscount: 'maxDiscount',
+  createdAt: 'createdAt'
+} as const
+
+export type CampaignProductScalarFieldEnum = (typeof CampaignProductScalarFieldEnum)[keyof typeof CampaignProductScalarFieldEnum]
+
+
+export const CouponScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  campaignId: 'campaignId',
+  code: 'code',
+  type: 'type',
+  value: 'value',
+  minOrderValue: 'minOrderValue',
+  maxDiscount: 'maxDiscount',
+  maxUsageTotal: 'maxUsageTotal',
+  maxUsagePerCustomer: 'maxUsagePerCustomer',
+  usageCount: 'usageCount',
+  validFrom: 'validFrom',
+  validUntil: 'validUntil',
+  isActive: 'isActive',
+  applicableTo: 'applicableTo',
+  targetIds: 'targetIds',
+  aiGenerated: 'aiGenerated',
+  aiReason: 'aiReason',
+  customerId: 'customerId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CouponScalarFieldEnum = (typeof CouponScalarFieldEnum)[keyof typeof CouponScalarFieldEnum]
+
+
+export const CouponUsageScalarFieldEnum = {
+  id: 'id',
+  couponId: 'couponId',
+  tenantId: 'tenantId',
+  customerId: 'customerId',
+  orderId: 'orderId',
+  discountApplied: 'discountApplied',
+  usedAt: 'usedAt'
+} as const
+
+export type CouponUsageScalarFieldEnum = (typeof CouponUsageScalarFieldEnum)[keyof typeof CouponUsageScalarFieldEnum]
+
+
+export const ComboScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  name: 'name',
+  description: 'description',
+  type: 'type',
+  fixedPrice: 'fixedPrice',
+  discountType: 'discountType',
+  discountValue: 'discountValue',
+  minItems: 'minItems',
+  maxItems: 'maxItems',
+  isActive: 'isActive',
+  validFrom: 'validFrom',
+  validUntil: 'validUntil',
+  imageUrl: 'imageUrl',
+  deletedAt: 'deletedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ComboScalarFieldEnum = (typeof ComboScalarFieldEnum)[keyof typeof ComboScalarFieldEnum]
+
+
+export const ComboItemScalarFieldEnum = {
+  id: 'id',
+  comboId: 'comboId',
+  tenantId: 'tenantId',
+  variantId: 'variantId',
+  categoryId: 'categoryId',
+  quantity: 'quantity',
+  isRequired: 'isRequired',
+  position: 'position',
+  createdAt: 'createdAt'
+} as const
+
+export type ComboItemScalarFieldEnum = (typeof ComboItemScalarFieldEnum)[keyof typeof ComboItemScalarFieldEnum]
 
 
 export const SortOrder = {

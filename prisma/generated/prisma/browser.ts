@@ -243,6 +243,21 @@ export type SalesOrder = Prisma.SalesOrderModel
  */
 export type SalesOrderItem = Prisma.SalesOrderItemModel
 /**
+ * Model CrmContact
+ * 
+ */
+export type CrmContact = Prisma.CrmContactModel
+/**
+ * Model CrmPipeline
+ * 
+ */
+export type CrmPipeline = Prisma.CrmPipelineModel
+/**
+ * Model CrmPipelineStage
+ * 
+ */
+export type CrmPipelineStage = Prisma.CrmPipelineStageModel
+/**
  * Model ItemReservation
  * 
  */
@@ -722,3 +737,68 @@ export type SupportTicketAttachment = Prisma.SupportTicketAttachmentModel
  * 
  */
 export type SupportSlaConfig = Prisma.SupportSlaConfigModel
+/**
+ * Model PriceTable
+ * 
+ */
+export type PriceTable = Prisma.PriceTableModel
+/**
+ * Model PriceTableRule
+ * 
+ */
+export type PriceTableRule = Prisma.PriceTableRuleModel
+/**
+ * Model PriceTableItem
+ * 
+ */
+export type PriceTableItem = Prisma.PriceTableItemModel
+/**
+ * Model CustomerPrice
+ * 
+ */
+export type CustomerPrice = Prisma.CustomerPriceModel
+/**
+ * Model TaxProfile
+ * 
+ */
+export type TaxProfile = Prisma.TaxProfileModel
+/**
+ * Model TaxRule
+ * 
+ */
+export type TaxRule = Prisma.TaxRuleModel
+/**
+ * Model Campaign
+ * 
+ */
+export type Campaign = Prisma.CampaignModel
+/**
+ * Model CampaignRule
+ * 
+ */
+export type CampaignRule = Prisma.CampaignRuleModel
+/**
+ * Model CampaignProduct
+ * 
+ */
+export type CampaignProduct = Prisma.CampaignProductModel
+/**
+ * Model Coupon
+ * 
+ */
+export type Coupon = Prisma.CouponModel
+/**
+ * Model CouponUsage
+ * 
+ */
+export type CouponUsage = Prisma.CouponUsageModel
+/**
+ * Model Combo
+ * 
+ */
+export type Combo = Prisma.ComboModel
+/**
+ * Model ComboItem
+ * 
+ */
+export type ComboItem = Prisma.ComboItemModel

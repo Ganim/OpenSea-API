@@ -407,6 +407,9 @@ export type UserWhereInput = {
   cardActivities?: Prisma.CardActivityListRelationFilter
   cardWatchers?: Prisma.CardWatcherListRelationFilter
   checklistAssignees?: Prisma.ChecklistItemListRelationFilter
+  assignedContacts?: Prisma.CrmContactListRelationFilter
+  createdCustomerPrices?: Prisma.CustomerPriceListRelationFilter
+  createdCampaigns?: Prisma.CampaignListRelationFilter
   centralUser?: Prisma.XOR<Prisma.CentralUserNullableScalarRelationFilter, Prisma.CentralUserWhereInput> | null
   createdSupportTickets?: Prisma.SupportTicketListRelationFilter
   assignedSupportTickets?: Prisma.SupportTicketListRelationFilter
@@ -491,6 +494,9 @@ export type UserOrderByWithRelationInput = {
   cardActivities?: Prisma.CardActivityOrderByRelationAggregateInput
   cardWatchers?: Prisma.CardWatcherOrderByRelationAggregateInput
   checklistAssignees?: Prisma.ChecklistItemOrderByRelationAggregateInput
+  assignedContacts?: Prisma.CrmContactOrderByRelationAggregateInput
+  createdCustomerPrices?: Prisma.CustomerPriceOrderByRelationAggregateInput
+  createdCampaigns?: Prisma.CampaignOrderByRelationAggregateInput
   centralUser?: Prisma.CentralUserOrderByWithRelationInput
   createdSupportTickets?: Prisma.SupportTicketOrderByRelationAggregateInput
   assignedSupportTickets?: Prisma.SupportTicketOrderByRelationAggregateInput
@@ -580,6 +586,9 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   cardActivities?: Prisma.CardActivityListRelationFilter
   cardWatchers?: Prisma.CardWatcherListRelationFilter
   checklistAssignees?: Prisma.ChecklistItemListRelationFilter
+  assignedContacts?: Prisma.CrmContactListRelationFilter
+  createdCustomerPrices?: Prisma.CustomerPriceListRelationFilter
+  createdCampaigns?: Prisma.CampaignListRelationFilter
   centralUser?: Prisma.XOR<Prisma.CentralUserNullableScalarRelationFilter, Prisma.CentralUserWhereInput> | null
   createdSupportTickets?: Prisma.SupportTicketListRelationFilter
   assignedSupportTickets?: Prisma.SupportTicketListRelationFilter
@@ -722,6 +731,9 @@ export type UserCreateInput = {
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
@@ -806,6 +818,9 @@ export type UserUncheckedCreateInput = {
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
@@ -890,6 +905,9 @@ export type UserUpdateInput = {
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
@@ -974,6 +992,9 @@ export type UserUncheckedUpdateInput = {
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
@@ -1452,6 +1473,22 @@ export type UserUpdateOneWithoutCreatedSalesOrdersNestedInput = {
   delete?: Prisma.UserWhereInput | boolean
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCreatedSalesOrdersInput, Prisma.UserUpdateWithoutCreatedSalesOrdersInput>, Prisma.UserUncheckedUpdateWithoutCreatedSalesOrdersInput>
+}
+
+export type UserCreateNestedOneWithoutAssignedContactsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAssignedContactsInput, Prisma.UserUncheckedCreateWithoutAssignedContactsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAssignedContactsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutAssignedContactsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAssignedContactsInput, Prisma.UserUncheckedCreateWithoutAssignedContactsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAssignedContactsInput
+  upsert?: Prisma.UserUpsertWithoutAssignedContactsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAssignedContactsInput, Prisma.UserUpdateWithoutAssignedContactsInput>, Prisma.UserUncheckedUpdateWithoutAssignedContactsInput>
 }
 
 export type UserCreateNestedOneWithoutItemReservationsInput = {
@@ -2054,6 +2091,34 @@ export type UserUpdateOneWithoutSupportTicketMessagesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSupportTicketMessagesInput, Prisma.UserUpdateWithoutSupportTicketMessagesInput>, Prisma.UserUncheckedUpdateWithoutSupportTicketMessagesInput>
 }
 
+export type UserCreateNestedOneWithoutCreatedCustomerPricesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedCustomerPricesInput, Prisma.UserUncheckedCreateWithoutCreatedCustomerPricesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedCustomerPricesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutCreatedCustomerPricesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedCustomerPricesInput, Prisma.UserUncheckedCreateWithoutCreatedCustomerPricesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedCustomerPricesInput
+  upsert?: Prisma.UserUpsertWithoutCreatedCustomerPricesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCreatedCustomerPricesInput, Prisma.UserUpdateWithoutCreatedCustomerPricesInput>, Prisma.UserUncheckedUpdateWithoutCreatedCustomerPricesInput>
+}
+
+export type UserCreateNestedOneWithoutCreatedCampaignsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedCampaignsInput, Prisma.UserUncheckedCreateWithoutCreatedCampaignsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedCampaignsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutCreatedCampaignsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedCampaignsInput, Prisma.UserUncheckedCreateWithoutCreatedCampaignsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedCampaignsInput
+  upsert?: Prisma.UserUpsertWithoutCreatedCampaignsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCreatedCampaignsInput, Prisma.UserUpdateWithoutCreatedCampaignsInput>, Prisma.UserUncheckedUpdateWithoutCreatedCampaignsInput>
+}
+
 export type UserCreateWithoutProfileInput = {
   id?: string
   username?: string | null
@@ -2131,6 +2196,9 @@ export type UserCreateWithoutProfileInput = {
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
@@ -2214,6 +2282,9 @@ export type UserUncheckedCreateWithoutProfileInput = {
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
@@ -2313,6 +2384,9 @@ export type UserUpdateWithoutProfileInput = {
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
@@ -2396,6 +2470,9 @@ export type UserUncheckedUpdateWithoutProfileInput = {
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
@@ -2479,6 +2556,9 @@ export type UserCreateWithoutSessionsInput = {
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
@@ -2562,6 +2642,9 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
@@ -2661,6 +2744,9 @@ export type UserUpdateWithoutSessionsInput = {
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
@@ -2744,6 +2830,9 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
@@ -2827,6 +2916,9 @@ export type UserCreateWithoutRefreshTokenInput = {
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
@@ -2910,6 +3002,9 @@ export type UserUncheckedCreateWithoutRefreshTokenInput = {
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
@@ -3009,6 +3104,9 @@ export type UserUpdateWithoutRefreshTokenInput = {
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
@@ -3092,6 +3190,9 @@ export type UserUncheckedUpdateWithoutRefreshTokenInput = {
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
@@ -3175,6 +3276,9 @@ export type UserCreateWithoutPermissionGroupsInput = {
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
@@ -3258,6 +3362,9 @@ export type UserUncheckedCreateWithoutPermissionGroupsInput = {
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
@@ -3346,6 +3453,9 @@ export type UserCreateWithoutGrantedPermissionsInput = {
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
@@ -3429,6 +3539,9 @@ export type UserUncheckedCreateWithoutGrantedPermissionsInput = {
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
@@ -3528,6 +3641,9 @@ export type UserUpdateWithoutPermissionGroupsInput = {
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
@@ -3611,6 +3727,9 @@ export type UserUncheckedUpdateWithoutPermissionGroupsInput = {
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
@@ -3705,6 +3824,9 @@ export type UserUpdateWithoutGrantedPermissionsInput = {
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
@@ -3788,6 +3910,9 @@ export type UserUncheckedUpdateWithoutGrantedPermissionsInput = {
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
@@ -3871,6 +3996,9 @@ export type UserCreateWithoutDirectPermissionsInput = {
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
@@ -3954,6 +4082,9 @@ export type UserUncheckedCreateWithoutDirectPermissionsInput = {
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
@@ -4042,6 +4173,9 @@ export type UserCreateWithoutGrantedDirectPermissionsInput = {
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
@@ -4125,6 +4259,9 @@ export type UserUncheckedCreateWithoutGrantedDirectPermissionsInput = {
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
@@ -4224,6 +4361,9 @@ export type UserUpdateWithoutDirectPermissionsInput = {
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
@@ -4307,6 +4447,9 @@ export type UserUncheckedUpdateWithoutDirectPermissionsInput = {
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
@@ -4401,6 +4544,9 @@ export type UserUpdateWithoutGrantedDirectPermissionsInput = {
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
@@ -4484,6 +4630,9 @@ export type UserUncheckedUpdateWithoutGrantedDirectPermissionsInput = {
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
@@ -4567,6 +4716,9 @@ export type UserCreateWithoutPermissionAuditLogsInput = {
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
@@ -4650,6 +4802,9 @@ export type UserUncheckedCreateWithoutPermissionAuditLogsInput = {
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
@@ -4749,6 +4904,9 @@ export type UserUpdateWithoutPermissionAuditLogsInput = {
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
@@ -4832,6 +4990,9 @@ export type UserUncheckedUpdateWithoutPermissionAuditLogsInput = {
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
@@ -4915,6 +5076,9 @@ export type UserCreateWithoutVolumesCreatedInput = {
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
@@ -4998,6 +5162,9 @@ export type UserUncheckedCreateWithoutVolumesCreatedInput = {
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
@@ -5086,6 +5253,9 @@ export type UserCreateWithoutVolumesClosedInput = {
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
@@ -5169,6 +5339,9 @@ export type UserUncheckedCreateWithoutVolumesClosedInput = {
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
@@ -5257,6 +5430,9 @@ export type UserCreateWithoutVolumesDeliveredInput = {
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
@@ -5340,6 +5516,9 @@ export type UserUncheckedCreateWithoutVolumesDeliveredInput = {
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
@@ -5439,6 +5618,9 @@ export type UserUpdateWithoutVolumesCreatedInput = {
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
@@ -5522,6 +5704,9 @@ export type UserUncheckedUpdateWithoutVolumesCreatedInput = {
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
@@ -5616,6 +5801,9 @@ export type UserUpdateWithoutVolumesClosedInput = {
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
@@ -5699,6 +5887,9 @@ export type UserUncheckedUpdateWithoutVolumesClosedInput = {
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
@@ -5793,6 +5984,9 @@ export type UserUpdateWithoutVolumesDeliveredInput = {
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
@@ -5876,6 +6070,9 @@ export type UserUncheckedUpdateWithoutVolumesDeliveredInput = {
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
@@ -5959,6 +6156,9 @@ export type UserCreateWithoutItemMovementInput = {
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
@@ -6042,6 +6242,9 @@ export type UserUncheckedCreateWithoutItemMovementInput = {
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
@@ -6130,6 +6333,9 @@ export type UserCreateWithoutApprovedMovementsInput = {
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
@@ -6213,6 +6419,9 @@ export type UserUncheckedCreateWithoutApprovedMovementsInput = {
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
@@ -6312,6 +6521,9 @@ export type UserUpdateWithoutItemMovementInput = {
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
@@ -6395,6 +6607,9 @@ export type UserUncheckedUpdateWithoutItemMovementInput = {
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
@@ -6489,6 +6704,9 @@ export type UserUpdateWithoutApprovedMovementsInput = {
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
@@ -6572,6 +6790,9 @@ export type UserUncheckedUpdateWithoutApprovedMovementsInput = {
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
@@ -6655,6 +6876,9 @@ export type UserCreateWithoutVariantPriceHistoryInput = {
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
@@ -6738,6 +6962,9 @@ export type UserUncheckedCreateWithoutVariantPriceHistoryInput = {
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
@@ -6837,6 +7064,9 @@ export type UserUpdateWithoutVariantPriceHistoryInput = {
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
@@ -6920,6 +7150,9 @@ export type UserUncheckedUpdateWithoutVariantPriceHistoryInput = {
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
@@ -7003,6 +7236,9 @@ export type UserCreateWithoutAuditLogsInput = {
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
@@ -7086,6 +7322,9 @@ export type UserUncheckedCreateWithoutAuditLogsInput = {
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
@@ -7185,6 +7424,9 @@ export type UserUpdateWithoutAuditLogsInput = {
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
@@ -7268,6 +7510,9 @@ export type UserUncheckedUpdateWithoutAuditLogsInput = {
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
@@ -7351,6 +7596,9 @@ export type UserCreateWithoutAlertsInput = {
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
@@ -7434,6 +7682,9 @@ export type UserUncheckedCreateWithoutAlertsInput = {
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
@@ -7533,6 +7784,9 @@ export type UserUpdateWithoutAlertsInput = {
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
@@ -7616,6 +7870,9 @@ export type UserUncheckedUpdateWithoutAlertsInput = {
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
@@ -7699,6 +7956,9 @@ export type UserCreateWithoutCreatedPurchaseOrdersInput = {
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
@@ -7782,6 +8042,9 @@ export type UserUncheckedCreateWithoutCreatedPurchaseOrdersInput = {
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
@@ -7881,6 +8144,9 @@ export type UserUpdateWithoutCreatedPurchaseOrdersInput = {
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
@@ -7964,6 +8230,9 @@ export type UserUncheckedUpdateWithoutCreatedPurchaseOrdersInput = {
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
@@ -8047,6 +8316,9 @@ export type UserCreateWithoutCreatedSalesOrdersInput = {
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
@@ -8130,6 +8402,9 @@ export type UserUncheckedCreateWithoutCreatedSalesOrdersInput = {
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
@@ -8229,6 +8504,9 @@ export type UserUpdateWithoutCreatedSalesOrdersInput = {
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
@@ -8312,6 +8590,369 @@ export type UserUncheckedUpdateWithoutCreatedSalesOrdersInput = {
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
+  centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
+  createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
+}
+
+export type UserCreateWithoutAssignedContactsInput = {
+  id?: string
+  username?: string | null
+  email: string
+  password_hash: string
+  lastLoginIp?: string | null
+  failedLoginAttempts?: number
+  blockedUntil?: Date | string | null
+  passwordResetToken?: string | null
+  passwordResetExpires?: Date | string | null
+  forcePasswordReset?: boolean
+  forcePasswordResetReason?: string | null
+  forcePasswordResetRequestedBy?: string | null
+  forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
+  isSuperAdmin?: boolean
+  deletedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
+  RefreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutUserInput
+  ItemMovement?: Prisma.ItemMovementCreateNestedManyWithoutUserInput
+  ApprovedMovements?: Prisma.ItemMovementCreateNestedManyWithoutApproverInput
+  AuditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryCreateNestedManyWithoutUserInput
+  Alerts?: Prisma.AlertCreateNestedManyWithoutUserInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutCreatorInput
+  CreatedSalesOrders?: Prisma.SalesOrderCreateNestedManyWithoutCreatorInput
+  ItemReservations?: Prisma.ItemReservationCreateNestedManyWithoutUserInput
+  Comments?: Prisma.CommentCreateNestedManyWithoutUserInput
+  NotificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
+  Notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  permissionGroups?: Prisma.UserPermissionGroupCreateNestedManyWithoutUserInput
+  grantedPermissions?: Prisma.UserPermissionGroupCreateNestedManyWithoutGranterInput
+  directPermissions?: Prisma.UserDirectPermissionCreateNestedManyWithoutUserInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionCreateNestedManyWithoutGranterInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogCreateNestedManyWithoutUserInput
+  RequestsCreated?: Prisma.RequestCreateNestedManyWithoutRequesterInput
+  RequestsAssigned?: Prisma.RequestCreateNestedManyWithoutAssignedToInput
+  UploadedAttachments?: Prisma.RequestAttachmentCreateNestedManyWithoutUploadedByInput
+  RequestComments?: Prisma.RequestCommentCreateNestedManyWithoutAuthorInput
+  RequestHistoryActions?: Prisma.RequestHistoryCreateNestedManyWithoutPerformedByInput
+  employee?: Prisma.EmployeeCreateNestedOneWithoutUserInput
+  processedPayrolls?: Prisma.PayrollCreateNestedManyWithoutProcessorInput
+  approvedPayrolls?: Prisma.PayrollCreateNestedManyWithoutApproverInput
+  paidPayrolls?: Prisma.PayrollCreateNestedManyWithoutPayerInput
+  approvedOvertime?: Prisma.OvertimeCreateNestedManyWithoutApproverInput
+  approvedAbsences?: Prisma.AbsenceCreateNestedManyWithoutApproverInput
+  VolumesCreated?: Prisma.VolumeCreateNestedManyWithoutCreatedByUserInput
+  VolumesClosed?: Prisma.VolumeCreateNestedManyWithoutClosedByUserInput
+  VolumesDelivered?: Prisma.VolumeCreateNestedManyWithoutDeliveredByUserInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
+  folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
+  storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
+  calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
+  eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
+  eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
+  emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
+  ownedBoards?: Prisma.BoardCreateNestedManyWithoutOwnerInput
+  assignedCards?: Prisma.CardCreateNestedManyWithoutAssigneeInput
+  reportedCards?: Prisma.CardCreateNestedManyWithoutReporterInput
+  boardMemberships?: Prisma.BoardMemberCreateNestedManyWithoutUserInput
+  cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
+  commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
+  cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
+  checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
+  centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
+  createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
+  assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
+  supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
+}
+
+export type UserUncheckedCreateWithoutAssignedContactsInput = {
+  id?: string
+  username?: string | null
+  email: string
+  password_hash: string
+  lastLoginIp?: string | null
+  failedLoginAttempts?: number
+  blockedUntil?: Date | string | null
+  passwordResetToken?: string | null
+  passwordResetExpires?: Date | string | null
+  forcePasswordReset?: boolean
+  forcePasswordResetReason?: string | null
+  forcePasswordResetRequestedBy?: string | null
+  forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
+  isSuperAdmin?: boolean
+  deletedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
+  RefreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutUserInput
+  ItemMovement?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutUserInput
+  ApprovedMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutApproverInput
+  AuditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUncheckedCreateNestedManyWithoutUserInput
+  Alerts?: Prisma.AlertUncheckedCreateNestedManyWithoutUserInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutCreatorInput
+  CreatedSalesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutCreatorInput
+  ItemReservations?: Prisma.ItemReservationUncheckedCreateNestedManyWithoutUserInput
+  Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
+  Notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  permissionGroups?: Prisma.UserPermissionGroupUncheckedCreateNestedManyWithoutUserInput
+  grantedPermissions?: Prisma.UserPermissionGroupUncheckedCreateNestedManyWithoutGranterInput
+  directPermissions?: Prisma.UserDirectPermissionUncheckedCreateNestedManyWithoutUserInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUncheckedCreateNestedManyWithoutGranterInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUncheckedCreateNestedManyWithoutUserInput
+  RequestsCreated?: Prisma.RequestUncheckedCreateNestedManyWithoutRequesterInput
+  RequestsAssigned?: Prisma.RequestUncheckedCreateNestedManyWithoutAssignedToInput
+  UploadedAttachments?: Prisma.RequestAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  RequestComments?: Prisma.RequestCommentUncheckedCreateNestedManyWithoutAuthorInput
+  RequestHistoryActions?: Prisma.RequestHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  employee?: Prisma.EmployeeUncheckedCreateNestedOneWithoutUserInput
+  processedPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutProcessorInput
+  approvedPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutApproverInput
+  paidPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutPayerInput
+  approvedOvertime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutApproverInput
+  approvedAbsences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutApproverInput
+  VolumesCreated?: Prisma.VolumeUncheckedCreateNestedManyWithoutCreatedByUserInput
+  VolumesClosed?: Prisma.VolumeUncheckedCreateNestedManyWithoutClosedByUserInput
+  VolumesDelivered?: Prisma.VolumeUncheckedCreateNestedManyWithoutDeliveredByUserInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
+  storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
+  calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
+  eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
+  eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
+  emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
+  ownedBoards?: Prisma.BoardUncheckedCreateNestedManyWithoutOwnerInput
+  assignedCards?: Prisma.CardUncheckedCreateNestedManyWithoutAssigneeInput
+  reportedCards?: Prisma.CardUncheckedCreateNestedManyWithoutReporterInput
+  boardMemberships?: Prisma.BoardMemberUncheckedCreateNestedManyWithoutUserInput
+  cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
+  commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
+  cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
+  checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
+  centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
+  createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
+}
+
+export type UserCreateOrConnectWithoutAssignedContactsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAssignedContactsInput, Prisma.UserUncheckedCreateWithoutAssignedContactsInput>
+}
+
+export type UserUpsertWithoutAssignedContactsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAssignedContactsInput, Prisma.UserUncheckedUpdateWithoutAssignedContactsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAssignedContactsInput, Prisma.UserUncheckedCreateWithoutAssignedContactsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAssignedContactsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAssignedContactsInput, Prisma.UserUncheckedUpdateWithoutAssignedContactsInput>
+}
+
+export type UserUpdateWithoutAssignedContactsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  lastLoginIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  blockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  forcePasswordReset?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
+  RefreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutUserNestedInput
+  ItemMovement?: Prisma.ItemMovementUpdateManyWithoutUserNestedInput
+  ApprovedMovements?: Prisma.ItemMovementUpdateManyWithoutApproverNestedInput
+  AuditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUpdateManyWithoutUserNestedInput
+  Alerts?: Prisma.AlertUpdateManyWithoutUserNestedInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutCreatorNestedInput
+  CreatedSalesOrders?: Prisma.SalesOrderUpdateManyWithoutCreatorNestedInput
+  ItemReservations?: Prisma.ItemReservationUpdateManyWithoutUserNestedInput
+  Comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
+  Notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  permissionGroups?: Prisma.UserPermissionGroupUpdateManyWithoutUserNestedInput
+  grantedPermissions?: Prisma.UserPermissionGroupUpdateManyWithoutGranterNestedInput
+  directPermissions?: Prisma.UserDirectPermissionUpdateManyWithoutUserNestedInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUpdateManyWithoutGranterNestedInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUpdateManyWithoutUserNestedInput
+  RequestsCreated?: Prisma.RequestUpdateManyWithoutRequesterNestedInput
+  RequestsAssigned?: Prisma.RequestUpdateManyWithoutAssignedToNestedInput
+  UploadedAttachments?: Prisma.RequestAttachmentUpdateManyWithoutUploadedByNestedInput
+  RequestComments?: Prisma.RequestCommentUpdateManyWithoutAuthorNestedInput
+  RequestHistoryActions?: Prisma.RequestHistoryUpdateManyWithoutPerformedByNestedInput
+  employee?: Prisma.EmployeeUpdateOneWithoutUserNestedInput
+  processedPayrolls?: Prisma.PayrollUpdateManyWithoutProcessorNestedInput
+  approvedPayrolls?: Prisma.PayrollUpdateManyWithoutApproverNestedInput
+  paidPayrolls?: Prisma.PayrollUpdateManyWithoutPayerNestedInput
+  approvedOvertime?: Prisma.OvertimeUpdateManyWithoutApproverNestedInput
+  approvedAbsences?: Prisma.AbsenceUpdateManyWithoutApproverNestedInput
+  VolumesCreated?: Prisma.VolumeUpdateManyWithoutCreatedByUserNestedInput
+  VolumesClosed?: Prisma.VolumeUpdateManyWithoutClosedByUserNestedInput
+  VolumesDelivered?: Prisma.VolumeUpdateManyWithoutDeliveredByUserNestedInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
+  storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
+  calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
+  eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
+  eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
+  emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
+  ownedBoards?: Prisma.BoardUpdateManyWithoutOwnerNestedInput
+  assignedCards?: Prisma.CardUpdateManyWithoutAssigneeNestedInput
+  reportedCards?: Prisma.CardUpdateManyWithoutReporterNestedInput
+  boardMemberships?: Prisma.BoardMemberUpdateManyWithoutUserNestedInput
+  cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
+  commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
+  cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
+  checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
+  centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
+  createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAssignedContactsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  lastLoginIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  blockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  forcePasswordReset?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
+  RefreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutUserNestedInput
+  ItemMovement?: Prisma.ItemMovementUncheckedUpdateManyWithoutUserNestedInput
+  ApprovedMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutApproverNestedInput
+  AuditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUncheckedUpdateManyWithoutUserNestedInput
+  Alerts?: Prisma.AlertUncheckedUpdateManyWithoutUserNestedInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutCreatorNestedInput
+  CreatedSalesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutCreatorNestedInput
+  ItemReservations?: Prisma.ItemReservationUncheckedUpdateManyWithoutUserNestedInput
+  Comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
+  Notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  permissionGroups?: Prisma.UserPermissionGroupUncheckedUpdateManyWithoutUserNestedInput
+  grantedPermissions?: Prisma.UserPermissionGroupUncheckedUpdateManyWithoutGranterNestedInput
+  directPermissions?: Prisma.UserDirectPermissionUncheckedUpdateManyWithoutUserNestedInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUncheckedUpdateManyWithoutGranterNestedInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUncheckedUpdateManyWithoutUserNestedInput
+  RequestsCreated?: Prisma.RequestUncheckedUpdateManyWithoutRequesterNestedInput
+  RequestsAssigned?: Prisma.RequestUncheckedUpdateManyWithoutAssignedToNestedInput
+  UploadedAttachments?: Prisma.RequestAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  RequestComments?: Prisma.RequestCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  RequestHistoryActions?: Prisma.RequestHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  employee?: Prisma.EmployeeUncheckedUpdateOneWithoutUserNestedInput
+  processedPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutProcessorNestedInput
+  approvedPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutApproverNestedInput
+  paidPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutPayerNestedInput
+  approvedOvertime?: Prisma.OvertimeUncheckedUpdateManyWithoutApproverNestedInput
+  approvedAbsences?: Prisma.AbsenceUncheckedUpdateManyWithoutApproverNestedInput
+  VolumesCreated?: Prisma.VolumeUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  VolumesClosed?: Prisma.VolumeUncheckedUpdateManyWithoutClosedByUserNestedInput
+  VolumesDelivered?: Prisma.VolumeUncheckedUpdateManyWithoutDeliveredByUserNestedInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
+  storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
+  calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
+  eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
+  eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
+  emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
+  ownedBoards?: Prisma.BoardUncheckedUpdateManyWithoutOwnerNestedInput
+  assignedCards?: Prisma.CardUncheckedUpdateManyWithoutAssigneeNestedInput
+  reportedCards?: Prisma.CardUncheckedUpdateManyWithoutReporterNestedInput
+  boardMemberships?: Prisma.BoardMemberUncheckedUpdateManyWithoutUserNestedInput
+  cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
+  cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
+  checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
@@ -8395,6 +9036,9 @@ export type UserCreateWithoutItemReservationsInput = {
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
@@ -8478,6 +9122,9 @@ export type UserUncheckedCreateWithoutItemReservationsInput = {
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
@@ -8577,6 +9224,9 @@ export type UserUpdateWithoutItemReservationsInput = {
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
@@ -8660,6 +9310,9 @@ export type UserUncheckedUpdateWithoutItemReservationsInput = {
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
@@ -8743,6 +9396,9 @@ export type UserCreateWithoutCommentsInput = {
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
@@ -8826,6 +9482,9 @@ export type UserUncheckedCreateWithoutCommentsInput = {
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
@@ -8925,6 +9584,9 @@ export type UserUpdateWithoutCommentsInput = {
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
@@ -9008,6 +9670,9 @@ export type UserUncheckedUpdateWithoutCommentsInput = {
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
@@ -9091,6 +9756,9 @@ export type UserCreateWithoutNotificationPreferencesInput = {
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
@@ -9174,6 +9842,9 @@ export type UserUncheckedCreateWithoutNotificationPreferencesInput = {
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
@@ -9273,6 +9944,9 @@ export type UserUpdateWithoutNotificationPreferencesInput = {
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
@@ -9356,6 +10030,9 @@ export type UserUncheckedUpdateWithoutNotificationPreferencesInput = {
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
@@ -9439,6 +10116,9 @@ export type UserCreateWithoutNotificationsInput = {
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
@@ -9522,6 +10202,9 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
@@ -9621,6 +10304,9 @@ export type UserUpdateWithoutNotificationsInput = {
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
@@ -9704,6 +10390,9 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
@@ -9787,6 +10476,9 @@ export type UserCreateWithoutRequestsCreatedInput = {
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
@@ -9870,6 +10562,9 @@ export type UserUncheckedCreateWithoutRequestsCreatedInput = {
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
@@ -9958,6 +10653,9 @@ export type UserCreateWithoutRequestsAssignedInput = {
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
@@ -10041,6 +10739,9 @@ export type UserUncheckedCreateWithoutRequestsAssignedInput = {
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
@@ -10140,6 +10841,9 @@ export type UserUpdateWithoutRequestsCreatedInput = {
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
@@ -10223,6 +10927,9 @@ export type UserUncheckedUpdateWithoutRequestsCreatedInput = {
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
@@ -10317,6 +11024,9 @@ export type UserUpdateWithoutRequestsAssignedInput = {
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
@@ -10400,6 +11110,9 @@ export type UserUncheckedUpdateWithoutRequestsAssignedInput = {
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
@@ -10483,6 +11196,9 @@ export type UserCreateWithoutUploadedAttachmentsInput = {
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
@@ -10566,6 +11282,9 @@ export type UserUncheckedCreateWithoutUploadedAttachmentsInput = {
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
@@ -10665,6 +11384,9 @@ export type UserUpdateWithoutUploadedAttachmentsInput = {
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
@@ -10748,6 +11470,9 @@ export type UserUncheckedUpdateWithoutUploadedAttachmentsInput = {
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
@@ -10831,6 +11556,9 @@ export type UserCreateWithoutRequestCommentsInput = {
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
@@ -10914,6 +11642,9 @@ export type UserUncheckedCreateWithoutRequestCommentsInput = {
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
@@ -11013,6 +11744,9 @@ export type UserUpdateWithoutRequestCommentsInput = {
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
@@ -11096,6 +11830,9 @@ export type UserUncheckedUpdateWithoutRequestCommentsInput = {
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
@@ -11179,6 +11916,9 @@ export type UserCreateWithoutRequestHistoryActionsInput = {
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
@@ -11262,6 +12002,9 @@ export type UserUncheckedCreateWithoutRequestHistoryActionsInput = {
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
@@ -11361,6 +12104,9 @@ export type UserUpdateWithoutRequestHistoryActionsInput = {
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
@@ -11444,6 +12190,9 @@ export type UserUncheckedUpdateWithoutRequestHistoryActionsInput = {
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
@@ -11527,6 +12276,9 @@ export type UserCreateWithoutEmployeeInput = {
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
@@ -11610,6 +12362,9 @@ export type UserUncheckedCreateWithoutEmployeeInput = {
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
@@ -11709,6 +12464,9 @@ export type UserUpdateWithoutEmployeeInput = {
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
@@ -11792,6 +12550,9 @@ export type UserUncheckedUpdateWithoutEmployeeInput = {
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
@@ -11875,6 +12636,9 @@ export type UserCreateWithoutApprovedOvertimeInput = {
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
@@ -11958,6 +12722,9 @@ export type UserUncheckedCreateWithoutApprovedOvertimeInput = {
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
@@ -12057,6 +12824,9 @@ export type UserUpdateWithoutApprovedOvertimeInput = {
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
@@ -12140,6 +12910,9 @@ export type UserUncheckedUpdateWithoutApprovedOvertimeInput = {
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
@@ -12223,6 +12996,9 @@ export type UserCreateWithoutApprovedAbsencesInput = {
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
@@ -12306,6 +13082,9 @@ export type UserUncheckedCreateWithoutApprovedAbsencesInput = {
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
@@ -12405,6 +13184,9 @@ export type UserUpdateWithoutApprovedAbsencesInput = {
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
@@ -12488,6 +13270,9 @@ export type UserUncheckedUpdateWithoutApprovedAbsencesInput = {
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
@@ -12571,6 +13356,9 @@ export type UserCreateWithoutProcessedPayrollsInput = {
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
@@ -12654,6 +13442,9 @@ export type UserUncheckedCreateWithoutProcessedPayrollsInput = {
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
@@ -12742,6 +13533,9 @@ export type UserCreateWithoutApprovedPayrollsInput = {
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
@@ -12825,6 +13619,9 @@ export type UserUncheckedCreateWithoutApprovedPayrollsInput = {
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
@@ -12913,6 +13710,9 @@ export type UserCreateWithoutPaidPayrollsInput = {
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
@@ -12996,6 +13796,9 @@ export type UserUncheckedCreateWithoutPaidPayrollsInput = {
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
@@ -13095,6 +13898,9 @@ export type UserUpdateWithoutProcessedPayrollsInput = {
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
@@ -13178,6 +13984,9 @@ export type UserUncheckedUpdateWithoutProcessedPayrollsInput = {
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
@@ -13272,6 +14081,9 @@ export type UserUpdateWithoutApprovedPayrollsInput = {
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
@@ -13355,6 +14167,9 @@ export type UserUncheckedUpdateWithoutApprovedPayrollsInput = {
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
@@ -13449,6 +14264,9 @@ export type UserUpdateWithoutPaidPayrollsInput = {
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
@@ -13532,6 +14350,9 @@ export type UserUncheckedUpdateWithoutPaidPayrollsInput = {
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
@@ -13615,6 +14436,9 @@ export type UserCreateWithoutLabelTemplatesCreatedInput = {
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
@@ -13698,6 +14522,9 @@ export type UserUncheckedCreateWithoutLabelTemplatesCreatedInput = {
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
@@ -13797,6 +14624,9 @@ export type UserUpdateWithoutLabelTemplatesCreatedInput = {
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
@@ -13880,6 +14710,9 @@ export type UserUncheckedUpdateWithoutLabelTemplatesCreatedInput = {
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
@@ -13963,6 +14796,9 @@ export type UserCreateWithoutTenantUsersInput = {
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
@@ -14046,6 +14882,9 @@ export type UserUncheckedCreateWithoutTenantUsersInput = {
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
@@ -14145,6 +14984,9 @@ export type UserUpdateWithoutTenantUsersInput = {
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
@@ -14228,6 +15070,9 @@ export type UserUncheckedUpdateWithoutTenantUsersInput = {
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
@@ -14311,6 +15156,9 @@ export type UserCreateWithoutStorageFoldersInput = {
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
@@ -14394,6 +15242,9 @@ export type UserUncheckedCreateWithoutStorageFoldersInput = {
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
@@ -14493,6 +15344,9 @@ export type UserUpdateWithoutStorageFoldersInput = {
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
@@ -14576,6 +15430,9 @@ export type UserUncheckedUpdateWithoutStorageFoldersInput = {
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
@@ -14659,6 +15516,9 @@ export type UserCreateWithoutFolderAccessRulesInput = {
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
@@ -14742,6 +15602,9 @@ export type UserUncheckedCreateWithoutFolderAccessRulesInput = {
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
@@ -14841,6 +15704,9 @@ export type UserUpdateWithoutFolderAccessRulesInput = {
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
@@ -14924,6 +15790,9 @@ export type UserUncheckedUpdateWithoutFolderAccessRulesInput = {
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
@@ -15007,6 +15876,9 @@ export type UserCreateWithoutCalendarsCreatedInput = {
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
@@ -15090,6 +15962,9 @@ export type UserUncheckedCreateWithoutCalendarsCreatedInput = {
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
@@ -15189,6 +16064,9 @@ export type UserUpdateWithoutCalendarsCreatedInput = {
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
@@ -15272,6 +16150,9 @@ export type UserUncheckedUpdateWithoutCalendarsCreatedInput = {
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
@@ -15355,6 +16236,9 @@ export type UserCreateWithoutCalendarEventsCreatedInput = {
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
@@ -15438,6 +16322,9 @@ export type UserUncheckedCreateWithoutCalendarEventsCreatedInput = {
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
@@ -15537,6 +16424,9 @@ export type UserUpdateWithoutCalendarEventsCreatedInput = {
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
@@ -15620,6 +16510,9 @@ export type UserUncheckedUpdateWithoutCalendarEventsCreatedInput = {
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
@@ -15703,6 +16596,9 @@ export type UserCreateWithoutEventParticipantsInput = {
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
@@ -15786,6 +16682,9 @@ export type UserUncheckedCreateWithoutEventParticipantsInput = {
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
@@ -15885,6 +16784,9 @@ export type UserUpdateWithoutEventParticipantsInput = {
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
@@ -15968,6 +16870,9 @@ export type UserUncheckedUpdateWithoutEventParticipantsInput = {
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
@@ -16051,6 +16956,9 @@ export type UserCreateWithoutEventRemindersInput = {
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
@@ -16134,6 +17042,9 @@ export type UserUncheckedCreateWithoutEventRemindersInput = {
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
@@ -16233,6 +17144,9 @@ export type UserUpdateWithoutEventRemindersInput = {
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
@@ -16316,6 +17230,9 @@ export type UserUncheckedUpdateWithoutEventRemindersInput = {
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
@@ -16399,6 +17316,9 @@ export type UserCreateWithoutEmailAccountsInput = {
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
@@ -16482,6 +17402,9 @@ export type UserUncheckedCreateWithoutEmailAccountsInput = {
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
@@ -16581,6 +17504,9 @@ export type UserUpdateWithoutEmailAccountsInput = {
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
@@ -16664,6 +17590,9 @@ export type UserUncheckedUpdateWithoutEmailAccountsInput = {
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
@@ -16747,6 +17676,9 @@ export type UserCreateWithoutEmailAccountsAccessInput = {
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
@@ -16830,6 +17762,9 @@ export type UserUncheckedCreateWithoutEmailAccountsAccessInput = {
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
@@ -16929,6 +17864,9 @@ export type UserUpdateWithoutEmailAccountsAccessInput = {
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
@@ -17012,6 +17950,9 @@ export type UserUncheckedUpdateWithoutEmailAccountsAccessInput = {
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
@@ -17095,6 +18036,9 @@ export type UserCreateWithoutTeamsCreatedInput = {
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
@@ -17178,6 +18122,9 @@ export type UserUncheckedCreateWithoutTeamsCreatedInput = {
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
@@ -17277,6 +18224,9 @@ export type UserUpdateWithoutTeamsCreatedInput = {
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
@@ -17360,6 +18310,9 @@ export type UserUncheckedUpdateWithoutTeamsCreatedInput = {
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
@@ -17443,6 +18396,9 @@ export type UserCreateWithoutTeamMembersInput = {
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
@@ -17526,6 +18482,9 @@ export type UserUncheckedCreateWithoutTeamMembersInput = {
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
@@ -17625,6 +18584,9 @@ export type UserUpdateWithoutTeamMembersInput = {
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
@@ -17708,6 +18670,9 @@ export type UserUncheckedUpdateWithoutTeamMembersInput = {
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
@@ -17791,6 +18756,9 @@ export type UserCreateWithoutTeamEmailLinksInput = {
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
@@ -17874,6 +18842,9 @@ export type UserUncheckedCreateWithoutTeamEmailLinksInput = {
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
@@ -17973,6 +18944,9 @@ export type UserUpdateWithoutTeamEmailLinksInput = {
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
@@ -18056,6 +19030,9 @@ export type UserUncheckedUpdateWithoutTeamEmailLinksInput = {
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
@@ -18139,6 +19116,9 @@ export type UserCreateWithoutOwnedBoardsInput = {
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
@@ -18222,6 +19202,9 @@ export type UserUncheckedCreateWithoutOwnedBoardsInput = {
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
@@ -18321,6 +19304,9 @@ export type UserUpdateWithoutOwnedBoardsInput = {
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
@@ -18404,6 +19390,9 @@ export type UserUncheckedUpdateWithoutOwnedBoardsInput = {
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
@@ -18487,6 +19476,9 @@ export type UserCreateWithoutAssignedCardsInput = {
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
@@ -18570,6 +19562,9 @@ export type UserUncheckedCreateWithoutAssignedCardsInput = {
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
@@ -18658,6 +19653,9 @@ export type UserCreateWithoutReportedCardsInput = {
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
@@ -18741,6 +19739,9 @@ export type UserUncheckedCreateWithoutReportedCardsInput = {
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
@@ -18840,6 +19841,9 @@ export type UserUpdateWithoutAssignedCardsInput = {
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
@@ -18923,6 +19927,9 @@ export type UserUncheckedUpdateWithoutAssignedCardsInput = {
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
@@ -19017,6 +20024,9 @@ export type UserUpdateWithoutReportedCardsInput = {
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
@@ -19100,6 +20110,9 @@ export type UserUncheckedUpdateWithoutReportedCardsInput = {
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
@@ -19183,6 +20196,9 @@ export type UserCreateWithoutBoardMembershipsInput = {
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
@@ -19266,6 +20282,9 @@ export type UserUncheckedCreateWithoutBoardMembershipsInput = {
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
@@ -19365,6 +20384,9 @@ export type UserUpdateWithoutBoardMembershipsInput = {
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
@@ -19448,6 +20470,9 @@ export type UserUncheckedUpdateWithoutBoardMembershipsInput = {
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
@@ -19531,6 +20556,9 @@ export type UserCreateWithoutCardCommentsInput = {
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
@@ -19614,6 +20642,9 @@ export type UserUncheckedCreateWithoutCardCommentsInput = {
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
@@ -19713,6 +20744,9 @@ export type UserUpdateWithoutCardCommentsInput = {
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
@@ -19796,6 +20830,9 @@ export type UserUncheckedUpdateWithoutCardCommentsInput = {
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
@@ -19879,6 +20916,9 @@ export type UserCreateWithoutCommentReactionsInput = {
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
@@ -19962,6 +21002,9 @@ export type UserUncheckedCreateWithoutCommentReactionsInput = {
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
@@ -20061,6 +21104,9 @@ export type UserUpdateWithoutCommentReactionsInput = {
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
@@ -20144,6 +21190,9 @@ export type UserUncheckedUpdateWithoutCommentReactionsInput = {
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
@@ -20227,6 +21276,9 @@ export type UserCreateWithoutChecklistAssigneesInput = {
   commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
@@ -20310,6 +21362,9 @@ export type UserUncheckedCreateWithoutChecklistAssigneesInput = {
   commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
@@ -20409,6 +21464,9 @@ export type UserUpdateWithoutChecklistAssigneesInput = {
   commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
@@ -20492,6 +21550,9 @@ export type UserUncheckedUpdateWithoutChecklistAssigneesInput = {
   commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
@@ -20575,6 +21636,9 @@ export type UserCreateWithoutCardActivitiesInput = {
   commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
@@ -20658,6 +21722,9 @@ export type UserUncheckedCreateWithoutCardActivitiesInput = {
   commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
@@ -20757,6 +21824,9 @@ export type UserUpdateWithoutCardActivitiesInput = {
   commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
@@ -20840,6 +21910,9 @@ export type UserUncheckedUpdateWithoutCardActivitiesInput = {
   commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
@@ -20923,6 +21996,9 @@ export type UserCreateWithoutCardWatchersInput = {
   commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
@@ -21006,6 +22082,9 @@ export type UserUncheckedCreateWithoutCardWatchersInput = {
   commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
@@ -21105,6 +22184,9 @@ export type UserUpdateWithoutCardWatchersInput = {
   commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
@@ -21188,6 +22270,9 @@ export type UserUncheckedUpdateWithoutCardWatchersInput = {
   commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
@@ -21272,6 +22357,9 @@ export type UserCreateWithoutCentralUserInput = {
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
@@ -21355,6 +22443,9 @@ export type UserUncheckedCreateWithoutCentralUserInput = {
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
@@ -21454,6 +22545,9 @@ export type UserUpdateWithoutCentralUserInput = {
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
@@ -21537,6 +22631,9 @@ export type UserUncheckedUpdateWithoutCentralUserInput = {
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
@@ -21620,6 +22717,9 @@ export type UserCreateWithoutCreatedSupportTicketsInput = {
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
@@ -21703,6 +22803,9 @@ export type UserUncheckedCreateWithoutCreatedSupportTicketsInput = {
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
@@ -21791,6 +22894,9 @@ export type UserCreateWithoutAssignedSupportTicketsInput = {
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
@@ -21874,6 +22980,9 @@ export type UserUncheckedCreateWithoutAssignedSupportTicketsInput = {
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
@@ -21973,6 +23082,9 @@ export type UserUpdateWithoutCreatedSupportTicketsInput = {
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
@@ -22056,6 +23168,9 @@ export type UserUncheckedUpdateWithoutCreatedSupportTicketsInput = {
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
@@ -22150,6 +23265,9 @@ export type UserUpdateWithoutAssignedSupportTicketsInput = {
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
@@ -22233,6 +23351,9 @@ export type UserUncheckedUpdateWithoutAssignedSupportTicketsInput = {
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
@@ -22316,6 +23437,9 @@ export type UserCreateWithoutSupportTicketMessagesInput = {
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
@@ -22399,6 +23523,9 @@ export type UserUncheckedCreateWithoutSupportTicketMessagesInput = {
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
   cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
   centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
@@ -22498,6 +23625,9 @@ export type UserUpdateWithoutSupportTicketMessagesInput = {
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
@@ -22581,9 +23711,732 @@ export type UserUncheckedUpdateWithoutSupportTicketMessagesInput = {
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
   cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
   centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
   createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
+}
+
+export type UserCreateWithoutCreatedCustomerPricesInput = {
+  id?: string
+  username?: string | null
+  email: string
+  password_hash: string
+  lastLoginIp?: string | null
+  failedLoginAttempts?: number
+  blockedUntil?: Date | string | null
+  passwordResetToken?: string | null
+  passwordResetExpires?: Date | string | null
+  forcePasswordReset?: boolean
+  forcePasswordResetReason?: string | null
+  forcePasswordResetRequestedBy?: string | null
+  forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
+  isSuperAdmin?: boolean
+  deletedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
+  RefreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutUserInput
+  ItemMovement?: Prisma.ItemMovementCreateNestedManyWithoutUserInput
+  ApprovedMovements?: Prisma.ItemMovementCreateNestedManyWithoutApproverInput
+  AuditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryCreateNestedManyWithoutUserInput
+  Alerts?: Prisma.AlertCreateNestedManyWithoutUserInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutCreatorInput
+  CreatedSalesOrders?: Prisma.SalesOrderCreateNestedManyWithoutCreatorInput
+  ItemReservations?: Prisma.ItemReservationCreateNestedManyWithoutUserInput
+  Comments?: Prisma.CommentCreateNestedManyWithoutUserInput
+  NotificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
+  Notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  permissionGroups?: Prisma.UserPermissionGroupCreateNestedManyWithoutUserInput
+  grantedPermissions?: Prisma.UserPermissionGroupCreateNestedManyWithoutGranterInput
+  directPermissions?: Prisma.UserDirectPermissionCreateNestedManyWithoutUserInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionCreateNestedManyWithoutGranterInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogCreateNestedManyWithoutUserInput
+  RequestsCreated?: Prisma.RequestCreateNestedManyWithoutRequesterInput
+  RequestsAssigned?: Prisma.RequestCreateNestedManyWithoutAssignedToInput
+  UploadedAttachments?: Prisma.RequestAttachmentCreateNestedManyWithoutUploadedByInput
+  RequestComments?: Prisma.RequestCommentCreateNestedManyWithoutAuthorInput
+  RequestHistoryActions?: Prisma.RequestHistoryCreateNestedManyWithoutPerformedByInput
+  employee?: Prisma.EmployeeCreateNestedOneWithoutUserInput
+  processedPayrolls?: Prisma.PayrollCreateNestedManyWithoutProcessorInput
+  approvedPayrolls?: Prisma.PayrollCreateNestedManyWithoutApproverInput
+  paidPayrolls?: Prisma.PayrollCreateNestedManyWithoutPayerInput
+  approvedOvertime?: Prisma.OvertimeCreateNestedManyWithoutApproverInput
+  approvedAbsences?: Prisma.AbsenceCreateNestedManyWithoutApproverInput
+  VolumesCreated?: Prisma.VolumeCreateNestedManyWithoutCreatedByUserInput
+  VolumesClosed?: Prisma.VolumeCreateNestedManyWithoutClosedByUserInput
+  VolumesDelivered?: Prisma.VolumeCreateNestedManyWithoutDeliveredByUserInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
+  folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
+  storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
+  calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
+  eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
+  eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
+  emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
+  ownedBoards?: Prisma.BoardCreateNestedManyWithoutOwnerInput
+  assignedCards?: Prisma.CardCreateNestedManyWithoutAssigneeInput
+  reportedCards?: Prisma.CardCreateNestedManyWithoutReporterInput
+  boardMemberships?: Prisma.BoardMemberCreateNestedManyWithoutUserInput
+  cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
+  commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
+  cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
+  checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCampaigns?: Prisma.CampaignCreateNestedManyWithoutCreatedByInput
+  centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
+  createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
+  assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
+  supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
+}
+
+export type UserUncheckedCreateWithoutCreatedCustomerPricesInput = {
+  id?: string
+  username?: string | null
+  email: string
+  password_hash: string
+  lastLoginIp?: string | null
+  failedLoginAttempts?: number
+  blockedUntil?: Date | string | null
+  passwordResetToken?: string | null
+  passwordResetExpires?: Date | string | null
+  forcePasswordReset?: boolean
+  forcePasswordResetReason?: string | null
+  forcePasswordResetRequestedBy?: string | null
+  forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
+  isSuperAdmin?: boolean
+  deletedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
+  RefreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutUserInput
+  ItemMovement?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutUserInput
+  ApprovedMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutApproverInput
+  AuditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUncheckedCreateNestedManyWithoutUserInput
+  Alerts?: Prisma.AlertUncheckedCreateNestedManyWithoutUserInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutCreatorInput
+  CreatedSalesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutCreatorInput
+  ItemReservations?: Prisma.ItemReservationUncheckedCreateNestedManyWithoutUserInput
+  Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
+  Notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  permissionGroups?: Prisma.UserPermissionGroupUncheckedCreateNestedManyWithoutUserInput
+  grantedPermissions?: Prisma.UserPermissionGroupUncheckedCreateNestedManyWithoutGranterInput
+  directPermissions?: Prisma.UserDirectPermissionUncheckedCreateNestedManyWithoutUserInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUncheckedCreateNestedManyWithoutGranterInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUncheckedCreateNestedManyWithoutUserInput
+  RequestsCreated?: Prisma.RequestUncheckedCreateNestedManyWithoutRequesterInput
+  RequestsAssigned?: Prisma.RequestUncheckedCreateNestedManyWithoutAssignedToInput
+  UploadedAttachments?: Prisma.RequestAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  RequestComments?: Prisma.RequestCommentUncheckedCreateNestedManyWithoutAuthorInput
+  RequestHistoryActions?: Prisma.RequestHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  employee?: Prisma.EmployeeUncheckedCreateNestedOneWithoutUserInput
+  processedPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutProcessorInput
+  approvedPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutApproverInput
+  paidPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutPayerInput
+  approvedOvertime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutApproverInput
+  approvedAbsences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutApproverInput
+  VolumesCreated?: Prisma.VolumeUncheckedCreateNestedManyWithoutCreatedByUserInput
+  VolumesClosed?: Prisma.VolumeUncheckedCreateNestedManyWithoutClosedByUserInput
+  VolumesDelivered?: Prisma.VolumeUncheckedCreateNestedManyWithoutDeliveredByUserInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
+  storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
+  calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
+  eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
+  eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
+  emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
+  ownedBoards?: Prisma.BoardUncheckedCreateNestedManyWithoutOwnerInput
+  assignedCards?: Prisma.CardUncheckedCreateNestedManyWithoutAssigneeInput
+  reportedCards?: Prisma.CardUncheckedCreateNestedManyWithoutReporterInput
+  boardMemberships?: Prisma.BoardMemberUncheckedCreateNestedManyWithoutUserInput
+  cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
+  commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
+  cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
+  checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCampaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutCreatedByInput
+  centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
+  createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
+}
+
+export type UserCreateOrConnectWithoutCreatedCustomerPricesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedCustomerPricesInput, Prisma.UserUncheckedCreateWithoutCreatedCustomerPricesInput>
+}
+
+export type UserUpsertWithoutCreatedCustomerPricesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCreatedCustomerPricesInput, Prisma.UserUncheckedUpdateWithoutCreatedCustomerPricesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedCustomerPricesInput, Prisma.UserUncheckedCreateWithoutCreatedCustomerPricesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCreatedCustomerPricesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCreatedCustomerPricesInput, Prisma.UserUncheckedUpdateWithoutCreatedCustomerPricesInput>
+}
+
+export type UserUpdateWithoutCreatedCustomerPricesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  lastLoginIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  blockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  forcePasswordReset?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
+  RefreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutUserNestedInput
+  ItemMovement?: Prisma.ItemMovementUpdateManyWithoutUserNestedInput
+  ApprovedMovements?: Prisma.ItemMovementUpdateManyWithoutApproverNestedInput
+  AuditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUpdateManyWithoutUserNestedInput
+  Alerts?: Prisma.AlertUpdateManyWithoutUserNestedInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutCreatorNestedInput
+  CreatedSalesOrders?: Prisma.SalesOrderUpdateManyWithoutCreatorNestedInput
+  ItemReservations?: Prisma.ItemReservationUpdateManyWithoutUserNestedInput
+  Comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
+  Notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  permissionGroups?: Prisma.UserPermissionGroupUpdateManyWithoutUserNestedInput
+  grantedPermissions?: Prisma.UserPermissionGroupUpdateManyWithoutGranterNestedInput
+  directPermissions?: Prisma.UserDirectPermissionUpdateManyWithoutUserNestedInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUpdateManyWithoutGranterNestedInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUpdateManyWithoutUserNestedInput
+  RequestsCreated?: Prisma.RequestUpdateManyWithoutRequesterNestedInput
+  RequestsAssigned?: Prisma.RequestUpdateManyWithoutAssignedToNestedInput
+  UploadedAttachments?: Prisma.RequestAttachmentUpdateManyWithoutUploadedByNestedInput
+  RequestComments?: Prisma.RequestCommentUpdateManyWithoutAuthorNestedInput
+  RequestHistoryActions?: Prisma.RequestHistoryUpdateManyWithoutPerformedByNestedInput
+  employee?: Prisma.EmployeeUpdateOneWithoutUserNestedInput
+  processedPayrolls?: Prisma.PayrollUpdateManyWithoutProcessorNestedInput
+  approvedPayrolls?: Prisma.PayrollUpdateManyWithoutApproverNestedInput
+  paidPayrolls?: Prisma.PayrollUpdateManyWithoutPayerNestedInput
+  approvedOvertime?: Prisma.OvertimeUpdateManyWithoutApproverNestedInput
+  approvedAbsences?: Prisma.AbsenceUpdateManyWithoutApproverNestedInput
+  VolumesCreated?: Prisma.VolumeUpdateManyWithoutCreatedByUserNestedInput
+  VolumesClosed?: Prisma.VolumeUpdateManyWithoutClosedByUserNestedInput
+  VolumesDelivered?: Prisma.VolumeUpdateManyWithoutDeliveredByUserNestedInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
+  storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
+  calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
+  eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
+  eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
+  emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
+  ownedBoards?: Prisma.BoardUpdateManyWithoutOwnerNestedInput
+  assignedCards?: Prisma.CardUpdateManyWithoutAssigneeNestedInput
+  reportedCards?: Prisma.CardUpdateManyWithoutReporterNestedInput
+  boardMemberships?: Prisma.BoardMemberUpdateManyWithoutUserNestedInput
+  cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
+  commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
+  cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
+  checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCampaigns?: Prisma.CampaignUpdateManyWithoutCreatedByNestedInput
+  centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
+  createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCreatedCustomerPricesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  lastLoginIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  blockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  forcePasswordReset?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
+  RefreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutUserNestedInput
+  ItemMovement?: Prisma.ItemMovementUncheckedUpdateManyWithoutUserNestedInput
+  ApprovedMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutApproverNestedInput
+  AuditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUncheckedUpdateManyWithoutUserNestedInput
+  Alerts?: Prisma.AlertUncheckedUpdateManyWithoutUserNestedInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutCreatorNestedInput
+  CreatedSalesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutCreatorNestedInput
+  ItemReservations?: Prisma.ItemReservationUncheckedUpdateManyWithoutUserNestedInput
+  Comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
+  Notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  permissionGroups?: Prisma.UserPermissionGroupUncheckedUpdateManyWithoutUserNestedInput
+  grantedPermissions?: Prisma.UserPermissionGroupUncheckedUpdateManyWithoutGranterNestedInput
+  directPermissions?: Prisma.UserDirectPermissionUncheckedUpdateManyWithoutUserNestedInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUncheckedUpdateManyWithoutGranterNestedInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUncheckedUpdateManyWithoutUserNestedInput
+  RequestsCreated?: Prisma.RequestUncheckedUpdateManyWithoutRequesterNestedInput
+  RequestsAssigned?: Prisma.RequestUncheckedUpdateManyWithoutAssignedToNestedInput
+  UploadedAttachments?: Prisma.RequestAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  RequestComments?: Prisma.RequestCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  RequestHistoryActions?: Prisma.RequestHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  employee?: Prisma.EmployeeUncheckedUpdateOneWithoutUserNestedInput
+  processedPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutProcessorNestedInput
+  approvedPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutApproverNestedInput
+  paidPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutPayerNestedInput
+  approvedOvertime?: Prisma.OvertimeUncheckedUpdateManyWithoutApproverNestedInput
+  approvedAbsences?: Prisma.AbsenceUncheckedUpdateManyWithoutApproverNestedInput
+  VolumesCreated?: Prisma.VolumeUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  VolumesClosed?: Prisma.VolumeUncheckedUpdateManyWithoutClosedByUserNestedInput
+  VolumesDelivered?: Prisma.VolumeUncheckedUpdateManyWithoutDeliveredByUserNestedInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
+  storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
+  calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
+  eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
+  eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
+  emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
+  ownedBoards?: Prisma.BoardUncheckedUpdateManyWithoutOwnerNestedInput
+  assignedCards?: Prisma.CardUncheckedUpdateManyWithoutAssigneeNestedInput
+  reportedCards?: Prisma.CardUncheckedUpdateManyWithoutReporterNestedInput
+  boardMemberships?: Prisma.BoardMemberUncheckedUpdateManyWithoutUserNestedInput
+  cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
+  cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
+  checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCampaigns?: Prisma.CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
+  centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
+  createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
+}
+
+export type UserCreateWithoutCreatedCampaignsInput = {
+  id?: string
+  username?: string | null
+  email: string
+  password_hash: string
+  lastLoginIp?: string | null
+  failedLoginAttempts?: number
+  blockedUntil?: Date | string | null
+  passwordResetToken?: string | null
+  passwordResetExpires?: Date | string | null
+  forcePasswordReset?: boolean
+  forcePasswordResetReason?: string | null
+  forcePasswordResetRequestedBy?: string | null
+  forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
+  isSuperAdmin?: boolean
+  deletedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
+  RefreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutUserInput
+  ItemMovement?: Prisma.ItemMovementCreateNestedManyWithoutUserInput
+  ApprovedMovements?: Prisma.ItemMovementCreateNestedManyWithoutApproverInput
+  AuditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryCreateNestedManyWithoutUserInput
+  Alerts?: Prisma.AlertCreateNestedManyWithoutUserInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutCreatorInput
+  CreatedSalesOrders?: Prisma.SalesOrderCreateNestedManyWithoutCreatorInput
+  ItemReservations?: Prisma.ItemReservationCreateNestedManyWithoutUserInput
+  Comments?: Prisma.CommentCreateNestedManyWithoutUserInput
+  NotificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
+  Notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  permissionGroups?: Prisma.UserPermissionGroupCreateNestedManyWithoutUserInput
+  grantedPermissions?: Prisma.UserPermissionGroupCreateNestedManyWithoutGranterInput
+  directPermissions?: Prisma.UserDirectPermissionCreateNestedManyWithoutUserInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionCreateNestedManyWithoutGranterInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogCreateNestedManyWithoutUserInput
+  RequestsCreated?: Prisma.RequestCreateNestedManyWithoutRequesterInput
+  RequestsAssigned?: Prisma.RequestCreateNestedManyWithoutAssignedToInput
+  UploadedAttachments?: Prisma.RequestAttachmentCreateNestedManyWithoutUploadedByInput
+  RequestComments?: Prisma.RequestCommentCreateNestedManyWithoutAuthorInput
+  RequestHistoryActions?: Prisma.RequestHistoryCreateNestedManyWithoutPerformedByInput
+  employee?: Prisma.EmployeeCreateNestedOneWithoutUserInput
+  processedPayrolls?: Prisma.PayrollCreateNestedManyWithoutProcessorInput
+  approvedPayrolls?: Prisma.PayrollCreateNestedManyWithoutApproverInput
+  paidPayrolls?: Prisma.PayrollCreateNestedManyWithoutPayerInput
+  approvedOvertime?: Prisma.OvertimeCreateNestedManyWithoutApproverInput
+  approvedAbsences?: Prisma.AbsenceCreateNestedManyWithoutApproverInput
+  VolumesCreated?: Prisma.VolumeCreateNestedManyWithoutCreatedByUserInput
+  VolumesClosed?: Prisma.VolumeCreateNestedManyWithoutClosedByUserInput
+  VolumesDelivered?: Prisma.VolumeCreateNestedManyWithoutDeliveredByUserInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
+  folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
+  storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
+  calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
+  eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
+  eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
+  emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
+  ownedBoards?: Prisma.BoardCreateNestedManyWithoutOwnerInput
+  assignedCards?: Prisma.CardCreateNestedManyWithoutAssigneeInput
+  reportedCards?: Prisma.CardCreateNestedManyWithoutReporterInput
+  boardMemberships?: Prisma.BoardMemberCreateNestedManyWithoutUserInput
+  cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
+  commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
+  cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
+  checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCreatedByInput
+  centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
+  createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
+  assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
+  supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
+}
+
+export type UserUncheckedCreateWithoutCreatedCampaignsInput = {
+  id?: string
+  username?: string | null
+  email: string
+  password_hash: string
+  lastLoginIp?: string | null
+  failedLoginAttempts?: number
+  blockedUntil?: Date | string | null
+  passwordResetToken?: string | null
+  passwordResetExpires?: Date | string | null
+  forcePasswordReset?: boolean
+  forcePasswordResetReason?: string | null
+  forcePasswordResetRequestedBy?: string | null
+  forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
+  isSuperAdmin?: boolean
+  deletedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
+  RefreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutUserInput
+  ItemMovement?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutUserInput
+  ApprovedMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutApproverInput
+  AuditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUncheckedCreateNestedManyWithoutUserInput
+  Alerts?: Prisma.AlertUncheckedCreateNestedManyWithoutUserInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutCreatorInput
+  CreatedSalesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutCreatorInput
+  ItemReservations?: Prisma.ItemReservationUncheckedCreateNestedManyWithoutUserInput
+  Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
+  Notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  permissionGroups?: Prisma.UserPermissionGroupUncheckedCreateNestedManyWithoutUserInput
+  grantedPermissions?: Prisma.UserPermissionGroupUncheckedCreateNestedManyWithoutGranterInput
+  directPermissions?: Prisma.UserDirectPermissionUncheckedCreateNestedManyWithoutUserInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUncheckedCreateNestedManyWithoutGranterInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUncheckedCreateNestedManyWithoutUserInput
+  RequestsCreated?: Prisma.RequestUncheckedCreateNestedManyWithoutRequesterInput
+  RequestsAssigned?: Prisma.RequestUncheckedCreateNestedManyWithoutAssignedToInput
+  UploadedAttachments?: Prisma.RequestAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  RequestComments?: Prisma.RequestCommentUncheckedCreateNestedManyWithoutAuthorInput
+  RequestHistoryActions?: Prisma.RequestHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  employee?: Prisma.EmployeeUncheckedCreateNestedOneWithoutUserInput
+  processedPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutProcessorInput
+  approvedPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutApproverInput
+  paidPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutPayerInput
+  approvedOvertime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutApproverInput
+  approvedAbsences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutApproverInput
+  VolumesCreated?: Prisma.VolumeUncheckedCreateNestedManyWithoutCreatedByUserInput
+  VolumesClosed?: Prisma.VolumeUncheckedCreateNestedManyWithoutClosedByUserInput
+  VolumesDelivered?: Prisma.VolumeUncheckedCreateNestedManyWithoutDeliveredByUserInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
+  storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
+  calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
+  eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
+  eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
+  emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
+  ownedBoards?: Prisma.BoardUncheckedCreateNestedManyWithoutOwnerInput
+  assignedCards?: Prisma.CardUncheckedCreateNestedManyWithoutAssigneeInput
+  reportedCards?: Prisma.CardUncheckedCreateNestedManyWithoutReporterInput
+  boardMemberships?: Prisma.BoardMemberUncheckedCreateNestedManyWithoutUserInput
+  cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
+  commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
+  cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
+  checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCreatedByInput
+  centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
+  createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
+}
+
+export type UserCreateOrConnectWithoutCreatedCampaignsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedCampaignsInput, Prisma.UserUncheckedCreateWithoutCreatedCampaignsInput>
+}
+
+export type UserUpsertWithoutCreatedCampaignsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCreatedCampaignsInput, Prisma.UserUncheckedUpdateWithoutCreatedCampaignsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedCampaignsInput, Prisma.UserUncheckedCreateWithoutCreatedCampaignsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCreatedCampaignsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCreatedCampaignsInput, Prisma.UserUncheckedUpdateWithoutCreatedCampaignsInput>
+}
+
+export type UserUpdateWithoutCreatedCampaignsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  lastLoginIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  blockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  forcePasswordReset?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
+  RefreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutUserNestedInput
+  ItemMovement?: Prisma.ItemMovementUpdateManyWithoutUserNestedInput
+  ApprovedMovements?: Prisma.ItemMovementUpdateManyWithoutApproverNestedInput
+  AuditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUpdateManyWithoutUserNestedInput
+  Alerts?: Prisma.AlertUpdateManyWithoutUserNestedInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutCreatorNestedInput
+  CreatedSalesOrders?: Prisma.SalesOrderUpdateManyWithoutCreatorNestedInput
+  ItemReservations?: Prisma.ItemReservationUpdateManyWithoutUserNestedInput
+  Comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
+  Notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  permissionGroups?: Prisma.UserPermissionGroupUpdateManyWithoutUserNestedInput
+  grantedPermissions?: Prisma.UserPermissionGroupUpdateManyWithoutGranterNestedInput
+  directPermissions?: Prisma.UserDirectPermissionUpdateManyWithoutUserNestedInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUpdateManyWithoutGranterNestedInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUpdateManyWithoutUserNestedInput
+  RequestsCreated?: Prisma.RequestUpdateManyWithoutRequesterNestedInput
+  RequestsAssigned?: Prisma.RequestUpdateManyWithoutAssignedToNestedInput
+  UploadedAttachments?: Prisma.RequestAttachmentUpdateManyWithoutUploadedByNestedInput
+  RequestComments?: Prisma.RequestCommentUpdateManyWithoutAuthorNestedInput
+  RequestHistoryActions?: Prisma.RequestHistoryUpdateManyWithoutPerformedByNestedInput
+  employee?: Prisma.EmployeeUpdateOneWithoutUserNestedInput
+  processedPayrolls?: Prisma.PayrollUpdateManyWithoutProcessorNestedInput
+  approvedPayrolls?: Prisma.PayrollUpdateManyWithoutApproverNestedInput
+  paidPayrolls?: Prisma.PayrollUpdateManyWithoutPayerNestedInput
+  approvedOvertime?: Prisma.OvertimeUpdateManyWithoutApproverNestedInput
+  approvedAbsences?: Prisma.AbsenceUpdateManyWithoutApproverNestedInput
+  VolumesCreated?: Prisma.VolumeUpdateManyWithoutCreatedByUserNestedInput
+  VolumesClosed?: Prisma.VolumeUpdateManyWithoutClosedByUserNestedInput
+  VolumesDelivered?: Prisma.VolumeUpdateManyWithoutDeliveredByUserNestedInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
+  storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
+  calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
+  eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
+  eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
+  emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
+  ownedBoards?: Prisma.BoardUpdateManyWithoutOwnerNestedInput
+  assignedCards?: Prisma.CardUpdateManyWithoutAssigneeNestedInput
+  reportedCards?: Prisma.CardUpdateManyWithoutReporterNestedInput
+  boardMemberships?: Prisma.BoardMemberUpdateManyWithoutUserNestedInput
+  cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
+  commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
+  cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
+  checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUpdateManyWithoutCreatedByNestedInput
+  centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
+  createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCreatedCampaignsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  lastLoginIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  blockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  forcePasswordReset?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
+  RefreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutUserNestedInput
+  ItemMovement?: Prisma.ItemMovementUncheckedUpdateManyWithoutUserNestedInput
+  ApprovedMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutApproverNestedInput
+  AuditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUncheckedUpdateManyWithoutUserNestedInput
+  Alerts?: Prisma.AlertUncheckedUpdateManyWithoutUserNestedInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutCreatorNestedInput
+  CreatedSalesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutCreatorNestedInput
+  ItemReservations?: Prisma.ItemReservationUncheckedUpdateManyWithoutUserNestedInput
+  Comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
+  Notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  permissionGroups?: Prisma.UserPermissionGroupUncheckedUpdateManyWithoutUserNestedInput
+  grantedPermissions?: Prisma.UserPermissionGroupUncheckedUpdateManyWithoutGranterNestedInput
+  directPermissions?: Prisma.UserDirectPermissionUncheckedUpdateManyWithoutUserNestedInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUncheckedUpdateManyWithoutGranterNestedInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUncheckedUpdateManyWithoutUserNestedInput
+  RequestsCreated?: Prisma.RequestUncheckedUpdateManyWithoutRequesterNestedInput
+  RequestsAssigned?: Prisma.RequestUncheckedUpdateManyWithoutAssignedToNestedInput
+  UploadedAttachments?: Prisma.RequestAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  RequestComments?: Prisma.RequestCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  RequestHistoryActions?: Prisma.RequestHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  employee?: Prisma.EmployeeUncheckedUpdateOneWithoutUserNestedInput
+  processedPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutProcessorNestedInput
+  approvedPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutApproverNestedInput
+  paidPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutPayerNestedInput
+  approvedOvertime?: Prisma.OvertimeUncheckedUpdateManyWithoutApproverNestedInput
+  approvedAbsences?: Prisma.AbsenceUncheckedUpdateManyWithoutApproverNestedInput
+  VolumesCreated?: Prisma.VolumeUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  VolumesClosed?: Prisma.VolumeUncheckedUpdateManyWithoutClosedByUserNestedInput
+  VolumesDelivered?: Prisma.VolumeUncheckedUpdateManyWithoutDeliveredByUserNestedInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
+  storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
+  calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
+  eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
+  eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
+  emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
+  ownedBoards?: Prisma.BoardUncheckedUpdateManyWithoutOwnerNestedInput
+  assignedCards?: Prisma.CardUncheckedUpdateManyWithoutAssigneeNestedInput
+  reportedCards?: Prisma.CardUncheckedUpdateManyWithoutReporterNestedInput
+  boardMemberships?: Prisma.BoardMemberUncheckedUpdateManyWithoutUserNestedInput
+  cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
+  cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
+  checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  createdCustomerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCreatedByNestedInput
+  centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
+  createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
 }
 
 
@@ -22645,6 +24498,9 @@ export type UserCountOutputType = {
   cardActivities: number
   cardWatchers: number
   checklistAssignees: number
+  assignedContacts: number
+  createdCustomerPrices: number
+  createdCampaigns: number
   createdSupportTickets: number
   assignedSupportTickets: number
   supportTicketMessages: number
@@ -22704,6 +24560,9 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   cardActivities?: boolean | UserCountOutputTypeCountCardActivitiesArgs
   cardWatchers?: boolean | UserCountOutputTypeCountCardWatchersArgs
   checklistAssignees?: boolean | UserCountOutputTypeCountChecklistAssigneesArgs
+  assignedContacts?: boolean | UserCountOutputTypeCountAssignedContactsArgs
+  createdCustomerPrices?: boolean | UserCountOutputTypeCountCreatedCustomerPricesArgs
+  createdCampaigns?: boolean | UserCountOutputTypeCountCreatedCampaignsArgs
   createdSupportTickets?: boolean | UserCountOutputTypeCountCreatedSupportTicketsArgs
   assignedSupportTickets?: boolean | UserCountOutputTypeCountAssignedSupportTicketsArgs
   supportTicketMessages?: boolean | UserCountOutputTypeCountSupportTicketMessagesArgs
@@ -23093,6 +24952,27 @@ export type UserCountOutputTypeCountChecklistAssigneesArgs<ExtArgs extends runti
 /**
  * UserCountOutputType without action
  */
+export type UserCountOutputTypeCountAssignedContactsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CrmContactWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCreatedCustomerPricesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CustomerPriceWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCreatedCampaignsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CampaignWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
 export type UserCountOutputTypeCountCreatedSupportTicketsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.SupportTicketWhereInput
 }
@@ -23190,6 +25070,9 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   cardActivities?: boolean | Prisma.User$cardActivitiesArgs<ExtArgs>
   cardWatchers?: boolean | Prisma.User$cardWatchersArgs<ExtArgs>
   checklistAssignees?: boolean | Prisma.User$checklistAssigneesArgs<ExtArgs>
+  assignedContacts?: boolean | Prisma.User$assignedContactsArgs<ExtArgs>
+  createdCustomerPrices?: boolean | Prisma.User$createdCustomerPricesArgs<ExtArgs>
+  createdCampaigns?: boolean | Prisma.User$createdCampaignsArgs<ExtArgs>
   centralUser?: boolean | Prisma.User$centralUserArgs<ExtArgs>
   createdSupportTickets?: boolean | Prisma.User$createdSupportTicketsArgs<ExtArgs>
   assignedSupportTickets?: boolean | Prisma.User$assignedSupportTicketsArgs<ExtArgs>
@@ -23329,6 +25212,9 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   cardActivities?: boolean | Prisma.User$cardActivitiesArgs<ExtArgs>
   cardWatchers?: boolean | Prisma.User$cardWatchersArgs<ExtArgs>
   checklistAssignees?: boolean | Prisma.User$checklistAssigneesArgs<ExtArgs>
+  assignedContacts?: boolean | Prisma.User$assignedContactsArgs<ExtArgs>
+  createdCustomerPrices?: boolean | Prisma.User$createdCustomerPricesArgs<ExtArgs>
+  createdCampaigns?: boolean | Prisma.User$createdCampaignsArgs<ExtArgs>
   centralUser?: boolean | Prisma.User$centralUserArgs<ExtArgs>
   createdSupportTickets?: boolean | Prisma.User$createdSupportTicketsArgs<ExtArgs>
   assignedSupportTickets?: boolean | Prisma.User$assignedSupportTicketsArgs<ExtArgs>
@@ -23396,6 +25282,9 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     cardActivities: Prisma.$CardActivityPayload<ExtArgs>[]
     cardWatchers: Prisma.$CardWatcherPayload<ExtArgs>[]
     checklistAssignees: Prisma.$ChecklistItemPayload<ExtArgs>[]
+    assignedContacts: Prisma.$CrmContactPayload<ExtArgs>[]
+    createdCustomerPrices: Prisma.$CustomerPricePayload<ExtArgs>[]
+    createdCampaigns: Prisma.$CampaignPayload<ExtArgs>[]
     centralUser: Prisma.$CentralUserPayload<ExtArgs> | null
     createdSupportTickets: Prisma.$SupportTicketPayload<ExtArgs>[]
     assignedSupportTickets: Prisma.$SupportTicketPayload<ExtArgs>[]
@@ -23873,6 +25762,9 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   cardActivities<T extends Prisma.User$cardActivitiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$cardActivitiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CardActivityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   cardWatchers<T extends Prisma.User$cardWatchersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$cardWatchersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CardWatcherPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   checklistAssignees<T extends Prisma.User$checklistAssigneesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$checklistAssigneesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ChecklistItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  assignedContacts<T extends Prisma.User$assignedContactsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$assignedContactsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CrmContactPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  createdCustomerPrices<T extends Prisma.User$createdCustomerPricesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$createdCustomerPricesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerPricePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  createdCampaigns<T extends Prisma.User$createdCampaignsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$createdCampaignsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CampaignPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   centralUser<T extends Prisma.User$centralUserArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$centralUserArgs<ExtArgs>>): Prisma.Prisma__CentralUserClient<runtime.Types.Result.GetResult<Prisma.$CentralUserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   createdSupportTickets<T extends Prisma.User$createdSupportTicketsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$createdSupportTicketsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SupportTicketPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   assignedSupportTickets<T extends Prisma.User$assignedSupportTicketsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$assignedSupportTicketsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SupportTicketPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -25623,6 +27515,78 @@ export type User$checklistAssigneesArgs<ExtArgs extends runtime.Types.Extensions
   take?: number
   skip?: number
   distinct?: Prisma.ChecklistItemScalarFieldEnum | Prisma.ChecklistItemScalarFieldEnum[]
+}
+
+/**
+ * User.assignedContacts
+ */
+export type User$assignedContactsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CrmContact
+   */
+  select?: Prisma.CrmContactSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CrmContact
+   */
+  omit?: Prisma.CrmContactOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CrmContactInclude<ExtArgs> | null
+  where?: Prisma.CrmContactWhereInput
+  orderBy?: Prisma.CrmContactOrderByWithRelationInput | Prisma.CrmContactOrderByWithRelationInput[]
+  cursor?: Prisma.CrmContactWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CrmContactScalarFieldEnum | Prisma.CrmContactScalarFieldEnum[]
+}
+
+/**
+ * User.createdCustomerPrices
+ */
+export type User$createdCustomerPricesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CustomerPrice
+   */
+  select?: Prisma.CustomerPriceSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CustomerPrice
+   */
+  omit?: Prisma.CustomerPriceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CustomerPriceInclude<ExtArgs> | null
+  where?: Prisma.CustomerPriceWhereInput
+  orderBy?: Prisma.CustomerPriceOrderByWithRelationInput | Prisma.CustomerPriceOrderByWithRelationInput[]
+  cursor?: Prisma.CustomerPriceWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CustomerPriceScalarFieldEnum | Prisma.CustomerPriceScalarFieldEnum[]
+}
+
+/**
+ * User.createdCampaigns
+ */
+export type User$createdCampaignsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Campaign
+   */
+  select?: Prisma.CampaignSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Campaign
+   */
+  omit?: Prisma.CampaignOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CampaignInclude<ExtArgs> | null
+  where?: Prisma.CampaignWhereInput
+  orderBy?: Prisma.CampaignOrderByWithRelationInput | Prisma.CampaignOrderByWithRelationInput[]
+  cursor?: Prisma.CampaignWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CampaignScalarFieldEnum | Prisma.CampaignScalarFieldEnum[]
 }
 
 /**

@@ -522,6 +522,62 @@ export const OrderStatus = {
 export type OrderStatus = (typeof OrderStatus)[keyof typeof OrderStatus]
 
 
+export const ContactRole = {
+  DECISION_MAKER: 'DECISION_MAKER',
+  INFLUENCER: 'INFLUENCER',
+  CHAMPION: 'CHAMPION',
+  GATEKEEPER: 'GATEKEEPER',
+  END_USER: 'END_USER',
+  OTHER: 'OTHER'
+} as const
+
+export type ContactRole = (typeof ContactRole)[keyof typeof ContactRole]
+
+
+export const ContactLifecycleStage = {
+  SUBSCRIBER: 'SUBSCRIBER',
+  LEAD: 'LEAD',
+  QUALIFIED: 'QUALIFIED',
+  OPPORTUNITY: 'OPPORTUNITY',
+  CUSTOMER: 'CUSTOMER',
+  EVANGELIST: 'EVANGELIST'
+} as const
+
+export type ContactLifecycleStage = (typeof ContactLifecycleStage)[keyof typeof ContactLifecycleStage]
+
+
+export const PipelineType = {
+  SALES: 'SALES',
+  ONBOARDING: 'ONBOARDING',
+  SUPPORT: 'SUPPORT',
+  CUSTOM: 'CUSTOM',
+  ORDER_B2C: 'ORDER_B2C',
+  ORDER_B2B: 'ORDER_B2B',
+  ORDER_BID: 'ORDER_BID',
+  ORDER_ECOMMERCE: 'ORDER_ECOMMERCE'
+} as const
+
+export type PipelineType = (typeof PipelineType)[keyof typeof PipelineType]
+
+
+export const PipelineStageType = {
+  OPEN: 'OPEN',
+  WON: 'WON',
+  LOST: 'LOST',
+  DRAFT: 'DRAFT',
+  PENDING_APPROVAL: 'PENDING_APPROVAL',
+  APPROVED: 'APPROVED',
+  PROCESSING: 'PROCESSING',
+  INVOICED: 'INVOICED',
+  SHIPPED: 'SHIPPED',
+  DELIVERED: 'DELIVERED',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type PipelineStageType = (typeof PipelineStageType)[keyof typeof PipelineStageType]
+
+
 export const LocationType = {
   WAREHOUSE: 'WAREHOUSE',
   ZONE: 'ZONE',
@@ -619,6 +675,144 @@ export const DiscountType = {
 } as const
 
 export type DiscountType = (typeof DiscountType)[keyof typeof DiscountType]
+
+
+export const PriceTableType = {
+  DEFAULT: 'DEFAULT',
+  RETAIL: 'RETAIL',
+  WHOLESALE: 'WHOLESALE',
+  REGIONAL: 'REGIONAL',
+  CHANNEL: 'CHANNEL',
+  CUSTOMER: 'CUSTOMER',
+  BID: 'BID'
+} as const
+
+export type PriceTableType = (typeof PriceTableType)[keyof typeof PriceTableType]
+
+
+export const PriceTableRuleType = {
+  CUSTOMER_TYPE: 'CUSTOMER_TYPE',
+  REGION: 'REGION',
+  CHANNEL: 'CHANNEL',
+  CUSTOMER_TAG: 'CUSTOMER_TAG',
+  MIN_QUANTITY: 'MIN_QUANTITY'
+} as const
+
+export type PriceTableRuleType = (typeof PriceTableRuleType)[keyof typeof PriceTableRuleType]
+
+
+export const RuleOperator = {
+  EQUALS: 'EQUALS',
+  IN: 'IN',
+  GREATER_THAN: 'GREATER_THAN',
+  LESS_THAN: 'LESS_THAN',
+  BETWEEN: 'BETWEEN'
+} as const
+
+export type RuleOperator = (typeof RuleOperator)[keyof typeof RuleOperator]
+
+
+export const TaxType = {
+  ICMS: 'ICMS',
+  IPI: 'IPI',
+  PIS: 'PIS',
+  COFINS: 'COFINS',
+  ISS: 'ISS',
+  ICMS_ST: 'ICMS_ST'
+} as const
+
+export type TaxType = (typeof TaxType)[keyof typeof TaxType]
+
+
+export const StBaseCalculation = {
+  MVA: 'MVA',
+  PAUTA: 'PAUTA'
+} as const
+
+export type StBaseCalculation = (typeof StBaseCalculation)[keyof typeof StBaseCalculation]
+
+
+export const CampaignType = {
+  PERCENTAGE: 'PERCENTAGE',
+  FIXED_VALUE: 'FIXED_VALUE',
+  BUY_X_GET_Y: 'BUY_X_GET_Y',
+  BUY_X_GET_DISCOUNT: 'BUY_X_GET_DISCOUNT',
+  FREE_SHIPPING: 'FREE_SHIPPING',
+  BUNDLE_PRICE: 'BUNDLE_PRICE'
+} as const
+
+export type CampaignType = (typeof CampaignType)[keyof typeof CampaignType]
+
+
+export const CampaignStatusEnum = {
+  DRAFT: 'DRAFT',
+  SCHEDULED: 'SCHEDULED',
+  ACTIVE: 'ACTIVE',
+  PAUSED: 'PAUSED',
+  ENDED: 'ENDED',
+  ARCHIVED: 'ARCHIVED'
+} as const
+
+export type CampaignStatusEnum = (typeof CampaignStatusEnum)[keyof typeof CampaignStatusEnum]
+
+
+export const CampaignRuleType = {
+  MIN_QUANTITY: 'MIN_QUANTITY',
+  MIN_VALUE: 'MIN_VALUE',
+  PRODUCT_CATEGORY: 'PRODUCT_CATEGORY',
+  CUSTOMER_TAG: 'CUSTOMER_TAG',
+  CUSTOMER_TYPE: 'CUSTOMER_TYPE',
+  FIRST_PURCHASE: 'FIRST_PURCHASE',
+  DAY_OF_WEEK: 'DAY_OF_WEEK',
+  TIME_RANGE: 'TIME_RANGE'
+} as const
+
+export type CampaignRuleType = (typeof CampaignRuleType)[keyof typeof CampaignRuleType]
+
+
+export const CampaignDiscountType = {
+  PERCENTAGE: 'PERCENTAGE',
+  FIXED_VALUE: 'FIXED_VALUE',
+  FIXED_PRICE: 'FIXED_PRICE',
+  FREE: 'FREE'
+} as const
+
+export type CampaignDiscountType = (typeof CampaignDiscountType)[keyof typeof CampaignDiscountType]
+
+
+export const CouponType = {
+  PERCENTAGE: 'PERCENTAGE',
+  FIXED_VALUE: 'FIXED_VALUE',
+  FREE_SHIPPING: 'FREE_SHIPPING'
+} as const
+
+export type CouponType = (typeof CouponType)[keyof typeof CouponType]
+
+
+export const CouponApplicableTo = {
+  ALL: 'ALL',
+  SPECIFIC_PRODUCTS: 'SPECIFIC_PRODUCTS',
+  SPECIFIC_CATEGORIES: 'SPECIFIC_CATEGORIES',
+  SPECIFIC_CUSTOMERS: 'SPECIFIC_CUSTOMERS'
+} as const
+
+export type CouponApplicableTo = (typeof CouponApplicableTo)[keyof typeof CouponApplicableTo]
+
+
+export const ComboType = {
+  FIXED: 'FIXED',
+  DYNAMIC: 'DYNAMIC'
+} as const
+
+export type ComboType = (typeof ComboType)[keyof typeof ComboType]
+
+
+export const ComboDiscountType = {
+  PERCENTAGE: 'PERCENTAGE',
+  FIXED_VALUE: 'FIXED_VALUE'
+} as const
+
+export type ComboDiscountType = (typeof ComboDiscountType)[keyof typeof ComboDiscountType]
 
 
 export const VolumeStatus = {

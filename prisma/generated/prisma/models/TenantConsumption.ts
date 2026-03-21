@@ -29,11 +29,19 @@ export type AggregateTenantConsumption = {
 export type TenantConsumptionAvgAggregateOutputType = {
   quantity: number | null
   limit: number | null
+  used: number | null
+  included: number | null
+  overage: number | null
+  overageCost: runtime.Decimal | null
 }
 
 export type TenantConsumptionSumAggregateOutputType = {
   quantity: number | null
   limit: number | null
+  used: number | null
+  included: number | null
+  overage: number | null
+  overageCost: runtime.Decimal | null
 }
 
 export type TenantConsumptionMinAggregateOutputType = {
@@ -43,6 +51,10 @@ export type TenantConsumptionMinAggregateOutputType = {
   metric: string | null
   quantity: number | null
   limit: number | null
+  used: number | null
+  included: number | null
+  overage: number | null
+  overageCost: runtime.Decimal | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -54,6 +66,10 @@ export type TenantConsumptionMaxAggregateOutputType = {
   metric: string | null
   quantity: number | null
   limit: number | null
+  used: number | null
+  included: number | null
+  overage: number | null
+  overageCost: runtime.Decimal | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -65,6 +81,10 @@ export type TenantConsumptionCountAggregateOutputType = {
   metric: number
   quantity: number
   limit: number
+  used: number
+  included: number
+  overage: number
+  overageCost: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -74,11 +94,19 @@ export type TenantConsumptionCountAggregateOutputType = {
 export type TenantConsumptionAvgAggregateInputType = {
   quantity?: true
   limit?: true
+  used?: true
+  included?: true
+  overage?: true
+  overageCost?: true
 }
 
 export type TenantConsumptionSumAggregateInputType = {
   quantity?: true
   limit?: true
+  used?: true
+  included?: true
+  overage?: true
+  overageCost?: true
 }
 
 export type TenantConsumptionMinAggregateInputType = {
@@ -88,6 +116,10 @@ export type TenantConsumptionMinAggregateInputType = {
   metric?: true
   quantity?: true
   limit?: true
+  used?: true
+  included?: true
+  overage?: true
+  overageCost?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -99,6 +131,10 @@ export type TenantConsumptionMaxAggregateInputType = {
   metric?: true
   quantity?: true
   limit?: true
+  used?: true
+  included?: true
+  overage?: true
+  overageCost?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -110,6 +146,10 @@ export type TenantConsumptionCountAggregateInputType = {
   metric?: true
   quantity?: true
   limit?: true
+  used?: true
+  included?: true
+  overage?: true
+  overageCost?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -208,6 +248,10 @@ export type TenantConsumptionGroupByOutputType = {
   metric: string
   quantity: number
   limit: number | null
+  used: number
+  included: number
+  overage: number
+  overageCost: runtime.Decimal
   createdAt: Date
   updatedAt: Date
   _count: TenantConsumptionCountAggregateOutputType | null
@@ -242,6 +286,10 @@ export type TenantConsumptionWhereInput = {
   metric?: Prisma.StringFilter<"TenantConsumption"> | string
   quantity?: Prisma.IntFilter<"TenantConsumption"> | number
   limit?: Prisma.IntNullableFilter<"TenantConsumption"> | number | null
+  used?: Prisma.IntFilter<"TenantConsumption"> | number
+  included?: Prisma.IntFilter<"TenantConsumption"> | number
+  overage?: Prisma.IntFilter<"TenantConsumption"> | number
+  overageCost?: Prisma.DecimalFilter<"TenantConsumption"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFilter<"TenantConsumption"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"TenantConsumption"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
@@ -254,6 +302,10 @@ export type TenantConsumptionOrderByWithRelationInput = {
   metric?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
   limit?: Prisma.SortOrderInput | Prisma.SortOrder
+  used?: Prisma.SortOrder
+  included?: Prisma.SortOrder
+  overage?: Prisma.SortOrder
+  overageCost?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   tenant?: Prisma.TenantOrderByWithRelationInput
@@ -270,6 +322,10 @@ export type TenantConsumptionWhereUniqueInput = Prisma.AtLeast<{
   metric?: Prisma.StringFilter<"TenantConsumption"> | string
   quantity?: Prisma.IntFilter<"TenantConsumption"> | number
   limit?: Prisma.IntNullableFilter<"TenantConsumption"> | number | null
+  used?: Prisma.IntFilter<"TenantConsumption"> | number
+  included?: Prisma.IntFilter<"TenantConsumption"> | number
+  overage?: Prisma.IntFilter<"TenantConsumption"> | number
+  overageCost?: Prisma.DecimalFilter<"TenantConsumption"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFilter<"TenantConsumption"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"TenantConsumption"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
@@ -282,6 +338,10 @@ export type TenantConsumptionOrderByWithAggregationInput = {
   metric?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
   limit?: Prisma.SortOrderInput | Prisma.SortOrder
+  used?: Prisma.SortOrder
+  included?: Prisma.SortOrder
+  overage?: Prisma.SortOrder
+  overageCost?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.TenantConsumptionCountOrderByAggregateInput
@@ -301,6 +361,10 @@ export type TenantConsumptionScalarWhereWithAggregatesInput = {
   metric?: Prisma.StringWithAggregatesFilter<"TenantConsumption"> | string
   quantity?: Prisma.IntWithAggregatesFilter<"TenantConsumption"> | number
   limit?: Prisma.IntNullableWithAggregatesFilter<"TenantConsumption"> | number | null
+  used?: Prisma.IntWithAggregatesFilter<"TenantConsumption"> | number
+  included?: Prisma.IntWithAggregatesFilter<"TenantConsumption"> | number
+  overage?: Prisma.IntWithAggregatesFilter<"TenantConsumption"> | number
+  overageCost?: Prisma.DecimalWithAggregatesFilter<"TenantConsumption"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"TenantConsumption"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"TenantConsumption"> | Date | string
 }
@@ -311,6 +375,10 @@ export type TenantConsumptionCreateInput = {
   metric: string
   quantity?: number
   limit?: number | null
+  used?: number
+  included?: number
+  overage?: number
+  overageCost?: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutTenantConsumptionsInput
@@ -323,6 +391,10 @@ export type TenantConsumptionUncheckedCreateInput = {
   metric: string
   quantity?: number
   limit?: number | null
+  used?: number
+  included?: number
+  overage?: number
+  overageCost?: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -333,6 +405,10 @@ export type TenantConsumptionUpdateInput = {
   metric?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   limit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  used?: Prisma.IntFieldUpdateOperationsInput | number
+  included?: Prisma.IntFieldUpdateOperationsInput | number
+  overage?: Prisma.IntFieldUpdateOperationsInput | number
+  overageCost?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutTenantConsumptionsNestedInput
@@ -345,6 +421,10 @@ export type TenantConsumptionUncheckedUpdateInput = {
   metric?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   limit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  used?: Prisma.IntFieldUpdateOperationsInput | number
+  included?: Prisma.IntFieldUpdateOperationsInput | number
+  overage?: Prisma.IntFieldUpdateOperationsInput | number
+  overageCost?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -356,6 +436,10 @@ export type TenantConsumptionCreateManyInput = {
   metric: string
   quantity?: number
   limit?: number | null
+  used?: number
+  included?: number
+  overage?: number
+  overageCost?: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -366,6 +450,10 @@ export type TenantConsumptionUpdateManyMutationInput = {
   metric?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   limit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  used?: Prisma.IntFieldUpdateOperationsInput | number
+  included?: Prisma.IntFieldUpdateOperationsInput | number
+  overage?: Prisma.IntFieldUpdateOperationsInput | number
+  overageCost?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -377,6 +465,10 @@ export type TenantConsumptionUncheckedUpdateManyInput = {
   metric?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   limit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  used?: Prisma.IntFieldUpdateOperationsInput | number
+  included?: Prisma.IntFieldUpdateOperationsInput | number
+  overage?: Prisma.IntFieldUpdateOperationsInput | number
+  overageCost?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -404,6 +496,10 @@ export type TenantConsumptionCountOrderByAggregateInput = {
   metric?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
   limit?: Prisma.SortOrder
+  used?: Prisma.SortOrder
+  included?: Prisma.SortOrder
+  overage?: Prisma.SortOrder
+  overageCost?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -411,6 +507,10 @@ export type TenantConsumptionCountOrderByAggregateInput = {
 export type TenantConsumptionAvgOrderByAggregateInput = {
   quantity?: Prisma.SortOrder
   limit?: Prisma.SortOrder
+  used?: Prisma.SortOrder
+  included?: Prisma.SortOrder
+  overage?: Prisma.SortOrder
+  overageCost?: Prisma.SortOrder
 }
 
 export type TenantConsumptionMaxOrderByAggregateInput = {
@@ -420,6 +520,10 @@ export type TenantConsumptionMaxOrderByAggregateInput = {
   metric?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
   limit?: Prisma.SortOrder
+  used?: Prisma.SortOrder
+  included?: Prisma.SortOrder
+  overage?: Prisma.SortOrder
+  overageCost?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -431,6 +535,10 @@ export type TenantConsumptionMinOrderByAggregateInput = {
   metric?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
   limit?: Prisma.SortOrder
+  used?: Prisma.SortOrder
+  included?: Prisma.SortOrder
+  overage?: Prisma.SortOrder
+  overageCost?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -438,6 +546,10 @@ export type TenantConsumptionMinOrderByAggregateInput = {
 export type TenantConsumptionSumOrderByAggregateInput = {
   quantity?: Prisma.SortOrder
   limit?: Prisma.SortOrder
+  used?: Prisma.SortOrder
+  included?: Prisma.SortOrder
+  overage?: Prisma.SortOrder
+  overageCost?: Prisma.SortOrder
 }
 
 export type TenantConsumptionCreateNestedManyWithoutTenantInput = {
@@ -488,6 +600,10 @@ export type TenantConsumptionCreateWithoutTenantInput = {
   metric: string
   quantity?: number
   limit?: number | null
+  used?: number
+  included?: number
+  overage?: number
+  overageCost?: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -498,6 +614,10 @@ export type TenantConsumptionUncheckedCreateWithoutTenantInput = {
   metric: string
   quantity?: number
   limit?: number | null
+  used?: number
+  included?: number
+  overage?: number
+  overageCost?: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -538,6 +658,10 @@ export type TenantConsumptionScalarWhereInput = {
   metric?: Prisma.StringFilter<"TenantConsumption"> | string
   quantity?: Prisma.IntFilter<"TenantConsumption"> | number
   limit?: Prisma.IntNullableFilter<"TenantConsumption"> | number | null
+  used?: Prisma.IntFilter<"TenantConsumption"> | number
+  included?: Prisma.IntFilter<"TenantConsumption"> | number
+  overage?: Prisma.IntFilter<"TenantConsumption"> | number
+  overageCost?: Prisma.DecimalFilter<"TenantConsumption"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFilter<"TenantConsumption"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"TenantConsumption"> | Date | string
 }
@@ -548,6 +672,10 @@ export type TenantConsumptionCreateManyTenantInput = {
   metric: string
   quantity?: number
   limit?: number | null
+  used?: number
+  included?: number
+  overage?: number
+  overageCost?: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -558,6 +686,10 @@ export type TenantConsumptionUpdateWithoutTenantInput = {
   metric?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   limit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  used?: Prisma.IntFieldUpdateOperationsInput | number
+  included?: Prisma.IntFieldUpdateOperationsInput | number
+  overage?: Prisma.IntFieldUpdateOperationsInput | number
+  overageCost?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -568,6 +700,10 @@ export type TenantConsumptionUncheckedUpdateWithoutTenantInput = {
   metric?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   limit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  used?: Prisma.IntFieldUpdateOperationsInput | number
+  included?: Prisma.IntFieldUpdateOperationsInput | number
+  overage?: Prisma.IntFieldUpdateOperationsInput | number
+  overageCost?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -578,6 +714,10 @@ export type TenantConsumptionUncheckedUpdateManyWithoutTenantInput = {
   metric?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   limit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  used?: Prisma.IntFieldUpdateOperationsInput | number
+  included?: Prisma.IntFieldUpdateOperationsInput | number
+  overage?: Prisma.IntFieldUpdateOperationsInput | number
+  overageCost?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -591,6 +731,10 @@ export type TenantConsumptionSelect<ExtArgs extends runtime.Types.Extensions.Int
   metric?: boolean
   quantity?: boolean
   limit?: boolean
+  used?: boolean
+  included?: boolean
+  overage?: boolean
+  overageCost?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
@@ -603,6 +747,10 @@ export type TenantConsumptionSelectCreateManyAndReturn<ExtArgs extends runtime.T
   metric?: boolean
   quantity?: boolean
   limit?: boolean
+  used?: boolean
+  included?: boolean
+  overage?: boolean
+  overageCost?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
@@ -615,6 +763,10 @@ export type TenantConsumptionSelectUpdateManyAndReturn<ExtArgs extends runtime.T
   metric?: boolean
   quantity?: boolean
   limit?: boolean
+  used?: boolean
+  included?: boolean
+  overage?: boolean
+  overageCost?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
@@ -627,11 +779,15 @@ export type TenantConsumptionSelectScalar = {
   metric?: boolean
   quantity?: boolean
   limit?: boolean
+  used?: boolean
+  included?: boolean
+  overage?: boolean
+  overageCost?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type TenantConsumptionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "period" | "metric" | "quantity" | "limit" | "createdAt" | "updatedAt", ExtArgs["result"]["tenantConsumption"]>
+export type TenantConsumptionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "period" | "metric" | "quantity" | "limit" | "used" | "included" | "overage" | "overageCost" | "createdAt" | "updatedAt", ExtArgs["result"]["tenantConsumption"]>
 export type TenantConsumptionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
 }
@@ -654,6 +810,10 @@ export type $TenantConsumptionPayload<ExtArgs extends runtime.Types.Extensions.I
     metric: string
     quantity: number
     limit: number | null
+    used: number
+    included: number
+    overage: number
+    overageCost: runtime.Decimal
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["tenantConsumption"]>
@@ -1086,6 +1246,10 @@ export interface TenantConsumptionFieldRefs {
   readonly metric: Prisma.FieldRef<"TenantConsumption", 'String'>
   readonly quantity: Prisma.FieldRef<"TenantConsumption", 'Int'>
   readonly limit: Prisma.FieldRef<"TenantConsumption", 'Int'>
+  readonly used: Prisma.FieldRef<"TenantConsumption", 'Int'>
+  readonly included: Prisma.FieldRef<"TenantConsumption", 'Int'>
+  readonly overage: Prisma.FieldRef<"TenantConsumption", 'Int'>
+  readonly overageCost: Prisma.FieldRef<"TenantConsumption", 'Decimal'>
   readonly createdAt: Prisma.FieldRef<"TenantConsumption", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"TenantConsumption", 'DateTime'>
 }
