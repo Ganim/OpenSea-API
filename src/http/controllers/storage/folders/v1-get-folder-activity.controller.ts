@@ -15,7 +15,7 @@ export async function getFolderActivityController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.TOOLS.STORAGE_FOLDERS.ACCESS,
+        permissionCode: PermissionCodes.TOOLS.STORAGE.FOLDERS.ACCESS,
         resource: 'storage-folders',
       }),
     ],

@@ -24,7 +24,7 @@ export async function uploadFileVersionController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.TOOLS.STORAGE_FILES.MODIFY,
+        permissionCode: PermissionCodes.TOOLS.STORAGE.FILES.MODIFY,
         resource: 'storage-file-versions',
       }),
     ],

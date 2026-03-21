@@ -17,7 +17,7 @@ export async function deleteSubtaskController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.TOOLS.TASK_CARDS.REMOVE,
+        permissionCode: PermissionCodes.TOOLS.TASKS.CARDS.REMOVE,
         resource: 'task-cards',
       }),
     ],

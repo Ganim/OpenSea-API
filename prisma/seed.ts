@@ -139,28 +139,32 @@ function formatResource(resource: string): string {
 
 function generateName(code: string): string {
   const parts = code.split('.');
-  const [mod, resource, action, scope] = parts;
+  const action = parts[parts.length - 1]; // last part is always the action
+  const mod = parts[0];
+  const resourceParts = parts.slice(1, -1); // everything between module and action
   const actionLabel = ACTION_LABELS[action] ?? capitalize(action);
-  const resourceLabel = formatResource(resource);
-  const scopeSuffix = scope ? ` (${SCOPE_LABELS[scope] ?? scope})` : '';
+  const resourceLabel = resourceParts.map(formatResource).filter(Boolean).join(' ');
 
   if (!resourceLabel) {
     const moduleLabel = MODULE_LABELS[mod] ?? capitalize(mod);
-    return `${actionLabel} ${moduleLabel}${scopeSuffix}`;
+    return `${actionLabel} ${moduleLabel}`;
   }
 
-  return `${actionLabel} ${resourceLabel}${scopeSuffix}`;
+  return `${actionLabel} ${resourceLabel}`;
 }
 
 function buildPermissionData(code: string) {
   const parts = code.split('.');
+  const action = parts[parts.length - 1];
+  const module = parts[0];
+  const resource = parts.slice(1, -1).join('.');
   return {
     code,
     name: generateName(code),
     description: `Permite ${generateName(code).toLowerCase()}`,
-    module: parts[0],
-    resource: parts[1],
-    action: parts[2],
+    module,
+    resource,
+    action,
     isSystem: true,
   };
 }

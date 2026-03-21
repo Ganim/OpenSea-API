@@ -302,36 +302,40 @@ export const PermissionCodes = {
   // TOOLS — Ferramentas de produtividade
   // ============================================================================
   TOOLS: {
-    EMAIL_ACCOUNTS: {
-      ACCESS: 'tools.email-accounts.access' as const,
-      REGISTER: 'tools.email-accounts.register' as const,
-      MODIFY: 'tools.email-accounts.modify' as const,
-      REMOVE: 'tools.email-accounts.remove' as const,
-      ADMIN: 'tools.email-accounts.admin' as const,
-      SHARE: 'tools.email-accounts.share' as const,
+    EMAIL: {
+      ACCOUNTS: {
+        ACCESS: 'tools.email.accounts.access' as const,
+        REGISTER: 'tools.email.accounts.register' as const,
+        MODIFY: 'tools.email.accounts.modify' as const,
+        REMOVE: 'tools.email.accounts.remove' as const,
+        ADMIN: 'tools.email.accounts.admin' as const,
+        SHARE: 'tools.email.accounts.share' as const,
+      },
+      MESSAGES: {
+        ACCESS: 'tools.email.messages.access' as const,
+        REGISTER: 'tools.email.messages.register' as const,
+        MODIFY: 'tools.email.messages.modify' as const,
+        REMOVE: 'tools.email.messages.remove' as const,
+        ONLYSELF: 'tools.email.messages.onlyself' as const,
+      },
     },
-    EMAIL_MESSAGES: {
-      ACCESS: 'tools.email-messages.access' as const,
-      REGISTER: 'tools.email-messages.register' as const,
-      MODIFY: 'tools.email-messages.modify' as const,
-      REMOVE: 'tools.email-messages.remove' as const,
-      ONLYSELF: 'tools.email-messages.onlyself' as const,
-    },
-    TASK_BOARDS: {
-      ACCESS: 'tools.task-boards.access' as const,
-      REGISTER: 'tools.task-boards.register' as const,
-      MODIFY: 'tools.task-boards.modify' as const,
-      REMOVE: 'tools.task-boards.remove' as const,
-      SHARE: 'tools.task-boards.share' as const,
-    },
-    TASK_CARDS: {
-      ACCESS: 'tools.task-cards.access' as const,
-      REGISTER: 'tools.task-cards.register' as const,
-      MODIFY: 'tools.task-cards.modify' as const,
-      REMOVE: 'tools.task-cards.remove' as const,
-      ADMIN: 'tools.task-cards.admin' as const,
-      SHARE: 'tools.task-cards.share' as const,
-      ONLYSELF: 'tools.task-cards.onlyself' as const,
+    TASKS: {
+      BOARDS: {
+        ACCESS: 'tools.tasks.boards.access' as const,
+        REGISTER: 'tools.tasks.boards.register' as const,
+        MODIFY: 'tools.tasks.boards.modify' as const,
+        REMOVE: 'tools.tasks.boards.remove' as const,
+        SHARE: 'tools.tasks.boards.share' as const,
+      },
+      CARDS: {
+        ACCESS: 'tools.tasks.cards.access' as const,
+        REGISTER: 'tools.tasks.cards.register' as const,
+        MODIFY: 'tools.tasks.cards.modify' as const,
+        REMOVE: 'tools.tasks.cards.remove' as const,
+        ADMIN: 'tools.tasks.cards.admin' as const,
+        SHARE: 'tools.tasks.cards.share' as const,
+        ONLYSELF: 'tools.tasks.cards.onlyself' as const,
+      },
     },
     CALENDAR: {
       ACCESS: 'tools.calendar.access' as const,
@@ -343,22 +347,24 @@ export const PermissionCodes = {
       SHARE: 'tools.calendar.share' as const,
       ONLYSELF: 'tools.calendar.onlyself' as const,
     },
-    STORAGE_FOLDERS: {
-      ACCESS: 'tools.storage-folders.access' as const,
-      REGISTER: 'tools.storage-folders.register' as const,
-      MODIFY: 'tools.storage-folders.modify' as const,
-      REMOVE: 'tools.storage-folders.remove' as const,
-      ADMIN: 'tools.storage-folders.admin' as const,
-      SHARE: 'tools.storage-folders.share' as const,
-    },
-    STORAGE_FILES: {
-      ACCESS: 'tools.storage-files.access' as const,
-      REGISTER: 'tools.storage-files.register' as const,
-      MODIFY: 'tools.storage-files.modify' as const,
-      REMOVE: 'tools.storage-files.remove' as const,
-      ADMIN: 'tools.storage-files.admin' as const,
-      SHARE: 'tools.storage-files.share' as const,
-      ONLYSELF: 'tools.storage-files.onlyself' as const,
+    STORAGE: {
+      FOLDERS: {
+        ACCESS: 'tools.storage.folders.access' as const,
+        REGISTER: 'tools.storage.folders.register' as const,
+        MODIFY: 'tools.storage.folders.modify' as const,
+        REMOVE: 'tools.storage.folders.remove' as const,
+        ADMIN: 'tools.storage.folders.admin' as const,
+        SHARE: 'tools.storage.folders.share' as const,
+      },
+      FILES: {
+        ACCESS: 'tools.storage.files.access' as const,
+        REGISTER: 'tools.storage.files.register' as const,
+        MODIFY: 'tools.storage.files.modify' as const,
+        REMOVE: 'tools.storage.files.remove' as const,
+        ADMIN: 'tools.storage.files.admin' as const,
+        SHARE: 'tools.storage.files.share' as const,
+        ONLYSELF: 'tools.storage.files.onlyself' as const,
+      },
     },
   },
 
@@ -395,25 +401,25 @@ export const DEFAULT_USER_PERMISSIONS: string[] = [
   // system.label-templates — apenas visualizar
   PermissionCodes.SYSTEM.LABEL_TEMPLATES.ACCESS,
 
-  // tools.email-accounts — visualizar contas compartilhadas
-  PermissionCodes.TOOLS.EMAIL_ACCOUNTS.ACCESS,
+  // tools.email.accounts — visualizar contas compartilhadas
+  PermissionCodes.TOOLS.EMAIL.ACCOUNTS.ACCESS,
 
-  // tools.email-messages — gerenciar próprios e-mails
-  PermissionCodes.TOOLS.EMAIL_MESSAGES.ACCESS,
-  PermissionCodes.TOOLS.EMAIL_MESSAGES.REGISTER,
-  PermissionCodes.TOOLS.EMAIL_MESSAGES.MODIFY,
-  PermissionCodes.TOOLS.EMAIL_MESSAGES.REMOVE,
-  PermissionCodes.TOOLS.EMAIL_MESSAGES.ONLYSELF,
+  // tools.email.messages — gerenciar próprios e-mails
+  PermissionCodes.TOOLS.EMAIL.MESSAGES.ACCESS,
+  PermissionCodes.TOOLS.EMAIL.MESSAGES.REGISTER,
+  PermissionCodes.TOOLS.EMAIL.MESSAGES.MODIFY,
+  PermissionCodes.TOOLS.EMAIL.MESSAGES.REMOVE,
+  PermissionCodes.TOOLS.EMAIL.MESSAGES.ONLYSELF,
 
-  // tools.task-boards — visualizar quadros
-  PermissionCodes.TOOLS.TASK_BOARDS.ACCESS,
+  // tools.tasks.boards — visualizar quadros
+  PermissionCodes.TOOLS.TASKS.BOARDS.ACCESS,
 
-  // tools.task-cards — gerenciar próprios cards
-  PermissionCodes.TOOLS.TASK_CARDS.ACCESS,
-  PermissionCodes.TOOLS.TASK_CARDS.REGISTER,
-  PermissionCodes.TOOLS.TASK_CARDS.MODIFY,
-  PermissionCodes.TOOLS.TASK_CARDS.REMOVE,
-  PermissionCodes.TOOLS.TASK_CARDS.ONLYSELF,
+  // tools.tasks.cards — gerenciar próprios cards
+  PermissionCodes.TOOLS.TASKS.CARDS.ACCESS,
+  PermissionCodes.TOOLS.TASKS.CARDS.REGISTER,
+  PermissionCodes.TOOLS.TASKS.CARDS.MODIFY,
+  PermissionCodes.TOOLS.TASKS.CARDS.REMOVE,
+  PermissionCodes.TOOLS.TASKS.CARDS.ONLYSELF,
 
   // tools.calendar — gerenciar próprios eventos
   PermissionCodes.TOOLS.CALENDAR.ACCESS,
@@ -422,15 +428,15 @@ export const DEFAULT_USER_PERMISSIONS: string[] = [
   PermissionCodes.TOOLS.CALENDAR.REMOVE,
   PermissionCodes.TOOLS.CALENDAR.ONLYSELF,
 
-  // tools.storage-folders — navegação
-  PermissionCodes.TOOLS.STORAGE_FOLDERS.ACCESS,
+  // tools.storage.folders — navegação
+  PermissionCodes.TOOLS.STORAGE.FOLDERS.ACCESS,
 
-  // tools.storage-files — gerenciar próprios arquivos
-  PermissionCodes.TOOLS.STORAGE_FILES.ACCESS,
-  PermissionCodes.TOOLS.STORAGE_FILES.REGISTER,
-  PermissionCodes.TOOLS.STORAGE_FILES.MODIFY,
-  PermissionCodes.TOOLS.STORAGE_FILES.REMOVE,
-  PermissionCodes.TOOLS.STORAGE_FILES.ONLYSELF,
+  // tools.storage.files — gerenciar próprios arquivos
+  PermissionCodes.TOOLS.STORAGE.FILES.ACCESS,
+  PermissionCodes.TOOLS.STORAGE.FILES.REGISTER,
+  PermissionCodes.TOOLS.STORAGE.FILES.MODIFY,
+  PermissionCodes.TOOLS.STORAGE.FILES.REMOVE,
+  PermissionCodes.TOOLS.STORAGE.FILES.ONLYSELF,
 ];
 
 // =============================================================================
@@ -438,5 +444,5 @@ export const DEFAULT_USER_PERMISSIONS: string[] = [
 // =============================================================================
 export function isValidPermissionCode(code: string): boolean {
   const parts = code.split('.');
-  return parts.length === 3;
+  return parts.length >= 3 && parts.length <= 4;
 }

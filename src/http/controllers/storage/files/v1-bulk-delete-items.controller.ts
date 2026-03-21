@@ -18,7 +18,7 @@ export async function bulkDeleteItemsController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.TOOLS.STORAGE_FILES.REMOVE,
+        permissionCode: PermissionCodes.TOOLS.STORAGE.FILES.REMOVE,
         resource: 'storage-files',
       }),
     ],

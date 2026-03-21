@@ -24,7 +24,7 @@ export async function moveFolderController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.TOOLS.STORAGE_FOLDERS.MODIFY,
+        permissionCode: PermissionCodes.TOOLS.STORAGE.FOLDERS.MODIFY,
         resource: 'storage-folders',
       }),
     ],

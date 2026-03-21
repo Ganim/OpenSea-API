@@ -76,21 +76,32 @@ function formatResource(resource: string): string {
 }
 
 function generateName(code: string): string {
-  const [mod, resource, action] = code.split('.');
+  const parts = code.split('.');
+  const action = parts[parts.length - 1];
+  const mod = parts[0];
+  const resourceParts = parts.slice(1, -1);
   const actionLabel = ACTION_LABELS[action] ?? capitalize(action);
-  const resourceLabel = formatResource(resource);
+  const resourceLabel = resourceParts.map(formatResource).filter(Boolean).join(' ');
+
+  if (!resourceLabel) {
+    return `${actionLabel} ${capitalize(mod)}`;
+  }
+
   return `${actionLabel} ${resourceLabel}`;
 }
 
 function buildPermissionData(code: string) {
   const parts = code.split('.');
+  const action = parts[parts.length - 1];
+  const module = parts[0];
+  const resource = parts.slice(1, -1).join('.');
   return {
     code,
     name: generateName(code),
     description: `Permite ${generateName(code).toLowerCase()}`,
-    module: parts[0],
-    resource: parts[1],
-    action: parts[2],
+    module,
+    resource,
+    action,
     isSystem: true,
   };
 }

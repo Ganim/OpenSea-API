@@ -140,7 +140,7 @@ export async function emailAccountsRoutes(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.TOOLS.EMAIL_ACCOUNTS.REGISTER,
+        permissionCode: PermissionCodes.TOOLS.EMAIL.ACCOUNTS.REGISTER,
         resource: 'email-accounts',
       }),
     ],
@@ -183,7 +183,7 @@ export async function emailAccountsRoutes(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.TOOLS.EMAIL_ACCOUNTS.ACCESS,
+        permissionCode: PermissionCodes.TOOLS.EMAIL.ACCOUNTS.ACCESS,
         resource: 'email-accounts',
       }),
     ],
@@ -213,7 +213,7 @@ export async function emailAccountsRoutes(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.TOOLS.EMAIL_ACCOUNTS.ACCESS,
+        permissionCode: PermissionCodes.TOOLS.EMAIL.ACCOUNTS.ACCESS,
         resource: 'email-accounts',
       }),
     ],
@@ -260,7 +260,7 @@ export async function emailAccountsRoutes(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.TOOLS.EMAIL_ACCOUNTS.MODIFY,
+        permissionCode: PermissionCodes.TOOLS.EMAIL.ACCOUNTS.MODIFY,
         resource: 'email-accounts',
       }),
     ],
@@ -313,7 +313,7 @@ export async function emailAccountsRoutes(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.TOOLS.EMAIL_ACCOUNTS.REMOVE,
+        permissionCode: PermissionCodes.TOOLS.EMAIL.ACCOUNTS.REMOVE,
         resource: 'email-accounts',
       }),
     ],
@@ -360,7 +360,7 @@ export async function emailAccountsRoutes(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.TOOLS.EMAIL_ACCOUNTS.ACCESS,
+        permissionCode: PermissionCodes.TOOLS.EMAIL.ACCOUNTS.ACCESS,
         resource: 'email-accounts',
       }),
     ],
@@ -411,7 +411,7 @@ export async function emailAccountsRoutes(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.TOOLS.EMAIL_ACCOUNTS.ACCESS,
+        permissionCode: PermissionCodes.TOOLS.EMAIL.ACCOUNTS.ACCESS,
         resource: 'email-accounts',
       }),
     ],
@@ -458,7 +458,7 @@ export async function emailAccountsRoutes(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.TOOLS.EMAIL_ACCOUNTS.ADMIN,
+        permissionCode: PermissionCodes.TOOLS.EMAIL.ACCOUNTS.ADMIN,
         resource: 'email-sync',
       }),
     ],
@@ -533,7 +533,7 @@ export async function emailAccountsRoutes(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.TOOLS.EMAIL_ACCOUNTS.SHARE,
+        permissionCode: PermissionCodes.TOOLS.EMAIL.ACCOUNTS.SHARE,
         resource: 'email-accounts',
       }),
     ],
@@ -593,7 +593,7 @@ export async function emailAccountsRoutes(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.TOOLS.EMAIL_ACCOUNTS.SHARE,
+        permissionCode: PermissionCodes.TOOLS.EMAIL.ACCOUNTS.SHARE,
         resource: 'email-accounts',
       }),
     ],

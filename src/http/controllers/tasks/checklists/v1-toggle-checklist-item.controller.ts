@@ -18,7 +18,7 @@ export async function toggleChecklistItemController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.TOOLS.TASK_CARDS.MODIFY,
+        permissionCode: PermissionCodes.TOOLS.TASKS.CARDS.MODIFY,
         resource: 'task-cards',
       }),
     ],

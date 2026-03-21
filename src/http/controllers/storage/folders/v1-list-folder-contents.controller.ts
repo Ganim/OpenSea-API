@@ -24,7 +24,7 @@ export async function listFolderContentsController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.TOOLS.STORAGE_FILES.ACCESS,
+        permissionCode: PermissionCodes.TOOLS.STORAGE.FILES.ACCESS,
         resource: 'storage-folders',
       }),
     ],
@@ -74,10 +74,10 @@ export async function listFolderContentsController(app: FastifyInstance) {
             .map((p) => p.permission.code.toString()),
         );
         const canViewSystemFolders = permCodes.has(
-          PermissionCodes.TOOLS.STORAGE_FOLDERS.ACCESS,
+          PermissionCodes.TOOLS.STORAGE.FOLDERS.ACCESS,
         );
         const canViewFilterFolders = permCodes.has(
-          PermissionCodes.TOOLS.STORAGE_FOLDERS.ACCESS,
+          PermissionCodes.TOOLS.STORAGE.FOLDERS.ACCESS,
         );
 
         // Fetch user's team IDs for visibility filtering

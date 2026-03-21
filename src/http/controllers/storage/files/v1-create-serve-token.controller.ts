@@ -14,7 +14,7 @@ export async function createServeTokenController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.TOOLS.STORAGE_FILES.ACCESS,
+        permissionCode: PermissionCodes.TOOLS.STORAGE.FILES.ACCESS,
         resource: 'storage-files',
       }),
     ],

@@ -23,7 +23,7 @@ export async function restoreFileVersionController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.TOOLS.STORAGE_FILES.ADMIN,
+        permissionCode: PermissionCodes.TOOLS.STORAGE.FILES.ADMIN,
         resource: 'storage-file-versions',
       }),
     ],

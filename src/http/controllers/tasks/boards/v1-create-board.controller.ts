@@ -19,7 +19,7 @@ export async function createBoardController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.TOOLS.TASK_BOARDS.REGISTER,
+        permissionCode: PermissionCodes.TOOLS.TASKS.BOARDS.REGISTER,
         resource: 'task-boards',
       }),
     ],

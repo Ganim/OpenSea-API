@@ -19,7 +19,7 @@ export async function applyFolderTemplateController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.TOOLS.STORAGE_FOLDERS.REGISTER,
+        permissionCode: PermissionCodes.TOOLS.STORAGE.FOLDERS.REGISTER,
         resource: 'storage-folders',
       }),
     ],

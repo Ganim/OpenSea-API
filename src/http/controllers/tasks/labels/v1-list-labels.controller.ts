@@ -16,7 +16,7 @@ export async function listLabelsController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.TOOLS.TASK_BOARDS.ACCESS,
+        permissionCode: PermissionCodes.TOOLS.TASKS.BOARDS.ACCESS,
         resource: 'task-boards',
       }),
     ],

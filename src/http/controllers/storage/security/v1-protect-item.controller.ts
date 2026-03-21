@@ -18,7 +18,7 @@ export async function protectItemController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.TOOLS.STORAGE_FOLDERS.ADMIN,
+        permissionCode: PermissionCodes.TOOLS.STORAGE.FOLDERS.ADMIN,
         resource: 'storage-security',
       }),
     ],
