@@ -12,7 +12,10 @@ import { healthRoutes } from './controllers/health/routes';
 
 // Admin routes
 import { adminRoutes } from './controllers/admin/routes';
+import { adminCatalogRoutes } from './controllers/admin/catalog/routes';
 import { adminCompaniesRoutes } from './controllers/admin/companies/routes';
+import { adminTeamRoutes } from './controllers/admin/team/routes';
+import { adminTenantSubscriptionsRoutes } from './controllers/admin/tenants/routes';
 
 // RBAC routes
 import { associationsRoutes } from './controllers/rbac/associations/routes';
@@ -45,6 +48,7 @@ import { productCareInstructionsRoutes } from './controllers/stock/product-care-
 import { productAttachmentRoutes } from './controllers/stock/product-attachments/routes';
 import { variantAttachmentRoutes } from './controllers/stock/variant-attachments/routes';
 import { categoriesRoutes } from './controllers/stock/categories/routes';
+import { inventorySessionsRoutes } from './controllers/stock/inventory-sessions/routes';
 import { itemMovementsRoutes } from './controllers/stock/item-movements/routes';
 import { itemsRoutes } from './controllers/stock/items/routes';
 import { lookupRoutes } from './controllers/stock/lookup/routes';
@@ -140,6 +144,9 @@ export async function registerRoutes(app: FastifyInstance) {
 
   // Admin routes (super-admin)
   await app.register(adminRoutes);
+  await app.register(adminCatalogRoutes);
+  await app.register(adminTenantSubscriptionsRoutes);
+  await app.register(adminTeamRoutes);
   // Admin routes (tenant-scoped)
   await app.register(adminCompaniesRoutes);
 
@@ -167,6 +174,7 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(itemsRoutes);
   await app.register(lookupRoutes);
   await app.register(itemMovementsRoutes);
+  await app.register(inventorySessionsRoutes);
   await app.register(purchaseOrdersRoutes);
   await app.register(careRoutes);
   await app.register(productCareInstructionsRoutes);

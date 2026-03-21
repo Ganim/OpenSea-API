@@ -92,6 +92,13 @@ export const PermissionCodes = {
       REMOVE: 'stock.warehouses.remove' as const,
       ADMIN: 'stock.warehouses.admin' as const,
     },
+    INVENTORY: {
+      ACCESS: 'stock.inventory.access' as const,
+      REGISTER: 'stock.inventory.register' as const,
+      MODIFY: 'stock.inventory.modify' as const,
+      REMOVE: 'stock.inventory.remove' as const,
+      ADMIN: 'stock.inventory.admin' as const,
+    },
   },
 
   // ============================================================================
