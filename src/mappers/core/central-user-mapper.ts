@@ -66,8 +66,8 @@ export function centralUserToDTO(
       username: prismaRaw.user.username,
       profile: prismaRaw.user.profile
         ? {
-            firstName: prismaRaw.user.profile.firstName,
-            lastName: prismaRaw.user.profile.lastName,
+            firstName: prismaRaw.user.profile.name,
+            lastName: prismaRaw.user.profile.surname,
             avatarUrl: prismaRaw.user.profile.avatarUrl,
           }
         : null,
