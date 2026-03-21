@@ -62,6 +62,10 @@ export enum AuditEntity {
   CAMPAIGN = 'CAMPAIGN',
   COUPON = 'COUPON',
   COMBO = 'COMBO',
+  CATALOG = 'CATALOG',
+  CATALOG_ITEM = 'CATALOG_ITEM',
+  TENANT_BRAND = 'TENANT_BRAND',
+  GENERATED_CONTENT = 'GENERATED_CONTENT',
 
   // ==========================================
   // Alerts & Notifications

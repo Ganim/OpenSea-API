@@ -374,6 +374,81 @@ export const SALES_AUDIT_MESSAGES = {
     module: AuditModule.SALES,
     description: "Combo '{{comboName}}' excluído por {{userName}}",
   } satisfies AuditMessage,
+
+  // ============================================================================
+  // CATALOGS - Catálogos de produtos
+  // ============================================================================
+
+  CATALOG_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.CATALOG,
+    module: AuditModule.SALES,
+    description: "Catálogo '{{catalogName}}' criado por {{userName}}",
+  } satisfies AuditMessage,
+
+  CATALOG_UPDATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.CATALOG,
+    module: AuditModule.SALES,
+    description: "Catálogo '{{catalogName}}' atualizado por {{userName}}",
+  } satisfies AuditMessage,
+
+  CATALOG_DELETE: {
+    action: AuditAction.DELETE,
+    entity: AuditEntity.CATALOG,
+    module: AuditModule.SALES,
+    description: "Catálogo '{{catalogName}}' excluído por {{userName}}",
+  } satisfies AuditMessage,
+
+  CATALOG_ITEM_ADD: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.CATALOG_ITEM,
+    module: AuditModule.SALES,
+    description: '{{userName}} adicionou item ao catálogo {{catalogName}}',
+  } satisfies AuditMessage,
+
+  CATALOG_ITEM_REMOVE: {
+    action: AuditAction.DELETE,
+    entity: AuditEntity.CATALOG_ITEM,
+    module: AuditModule.SALES,
+    description: '{{userName}} removeu item do catálogo {{catalogName}}',
+  } satisfies AuditMessage,
+
+  // ============================================================================
+  // BRAND - Identidade visual
+  // ============================================================================
+
+  BRAND_UPDATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.TENANT_BRAND,
+    module: AuditModule.SALES,
+    description: '{{userName}} atualizou a identidade visual',
+  } satisfies AuditMessage,
+
+  // ============================================================================
+  // GENERATED CONTENT - Conteúdo gerado
+  // ============================================================================
+
+  CONTENT_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.GENERATED_CONTENT,
+    module: AuditModule.SALES,
+    description: "Conteúdo '{{contentTitle}}' criado por {{userName}}",
+  } satisfies AuditMessage,
+
+  CONTENT_DELETE: {
+    action: AuditAction.DELETE,
+    entity: AuditEntity.GENERATED_CONTENT,
+    module: AuditModule.SALES,
+    description: "Conteúdo '{{contentTitle}}' excluído por {{userName}}",
+  } satisfies AuditMessage,
+
+  CONTENT_APPROVE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.GENERATED_CONTENT,
+    module: AuditModule.SALES,
+    description: "Conteúdo '{{contentTitle}}' aprovado por {{userName}}",
+  } satisfies AuditMessage,
 } as const;
 
 export type SalesAuditMessageKey = keyof typeof SALES_AUDIT_MESSAGES;

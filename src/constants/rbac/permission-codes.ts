@@ -311,6 +311,22 @@ export const PermissionCodes = {
       REGISTER: 'sales.combos.register' as const,
       REMOVE: 'sales.combos.remove' as const,
     },
+    CATALOGS: {
+      ACCESS: 'sales.catalogs.access' as const,
+      REGISTER: 'sales.catalogs.register' as const,
+      MODIFY: 'sales.catalogs.modify' as const,
+      REMOVE: 'sales.catalogs.remove' as const,
+    },
+    BRAND: {
+      ACCESS: 'sales.brand.access' as const,
+      MODIFY: 'sales.brand.modify' as const,
+    },
+    CONTENT: {
+      ACCESS: 'sales.content.access' as const,
+      REGISTER: 'sales.content.register' as const,
+      REMOVE: 'sales.content.remove' as const,
+      ADMIN: 'sales.content.admin' as const,
+    },
   },
 
   // ============================================================================
