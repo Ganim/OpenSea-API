@@ -2,7 +2,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import type { BoardMembersRepository } from '@/repositories/tasks/board-members-repository';
 import type { BoardsRepository } from '@/repositories/tasks/boards-repository';
 import type {
-  CardWatcherRecord,
+  CardMemberRecord,
   CardWatchersRepository,
 } from '@/repositories/tasks/card-watchers-repository';
 import { verifyBoardAccess } from '../helpers/verify-board-access';
@@ -15,7 +15,7 @@ interface ListCardMembersRequest {
 }
 
 interface ListCardMembersResponse {
-  members: CardWatcherRecord[];
+  members: CardMemberRecord[];
 }
 
 export class ListCardMembersUseCase {

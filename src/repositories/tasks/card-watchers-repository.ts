@@ -19,6 +19,15 @@ export interface AddMemberSchema {
   addedBy: string;
 }
 
+export interface CardMemberRecord {
+  id: string;
+  cardId: string;
+  userId: string;
+  userName: string | null;
+  userEmail: string | null;
+  addedAt: Date;
+}
+
 export interface CardWatchersRepository {
   create(data: CreateCardWatcherSchema): Promise<CardWatcherRecord>;
   findByCardId(cardId: string): Promise<CardWatcherRecord[]>;
@@ -27,7 +36,7 @@ export interface CardWatchersRepository {
     userId: string,
   ): Promise<CardWatcherRecord | null>;
   delete(cardId: string, userId: string): Promise<void>;
-  findMembersByCardId(cardId: string): Promise<CardWatcherRecord[]>;
+  findMembersByCardId(cardId: string): Promise<CardMemberRecord[]>;
   addMember(data: AddMemberSchema): Promise<CardWatcherRecord>;
   removeMember(cardId: string, userId: string): Promise<void>;
 }

@@ -3,6 +3,7 @@ import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
+import { resolveUserName } from '@/http/helpers/resolve-user-name';
 import { makeDeleteCardIntegrationUseCase } from '@/use-cases/tasks/integrations/factories/make-delete-card-integration-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -39,11 +40,12 @@ export async function deleteCardIntegrationController(app: FastifyInstance) {
       const { boardId, cardId, integrationId } = request.params;
 
       try {
+        const userName = await resolveUserName(userId);
         const useCase = makeDeleteCardIntegrationUseCase();
         await useCase.execute({
           tenantId: request.user.tenantId!,
           userId,
-          userName: 'System',
+          userName,
           boardId,
           cardId,
           integrationId,

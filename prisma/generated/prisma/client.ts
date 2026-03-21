@@ -265,6 +265,41 @@ export type SalesOrder = Prisma.SalesOrderModel
  */
 export type SalesOrderItem = Prisma.SalesOrderItemModel
 /**
+ * Model Pipeline
+ * 
+ */
+export type Pipeline = Prisma.PipelineModel
+/**
+ * Model PipelineStage
+ * 
+ */
+export type PipelineStage = Prisma.PipelineStageModel
+/**
+ * Model Contact
+ * 
+ */
+export type Contact = Prisma.ContactModel
+/**
+ * Model Deal
+ * 
+ */
+export type Deal = Prisma.DealModel
+/**
+ * Model ContactDeal
+ * 
+ */
+export type ContactDeal = Prisma.ContactDealModel
+/**
+ * Model Activity
+ * 
+ */
+export type Activity = Prisma.ActivityModel
+/**
+ * Model TimelineEvent
+ * 
+ */
+export type TimelineEvent = Prisma.TimelineEventModel
+/**
  * Model ItemReservation
  * 
  */

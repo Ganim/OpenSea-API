@@ -8,6 +8,7 @@ import {
   createIntegrationSchema,
   integrationResponseSchema,
 } from '@/http/schemas/tasks/integration.schema';
+import { resolveUserName } from '@/http/helpers/resolve-user-name';
 import { makeCreateCardIntegrationUseCase } from '@/use-cases/tasks/integrations/factories/make-create-card-integration-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -48,11 +49,12 @@ export async function createCardIntegrationController(app: FastifyInstance) {
       const { type, entityId, entityLabel } = request.body;
 
       try {
+        const userName = await resolveUserName(userId);
         const useCase = makeCreateCardIntegrationUseCase();
         const result = await useCase.execute({
           tenantId,
           userId,
-          userName: 'System',
+          userName,
           boardId,
           cardId,
           type,

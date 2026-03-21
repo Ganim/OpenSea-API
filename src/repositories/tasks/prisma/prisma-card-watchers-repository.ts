@@ -1,6 +1,7 @@
 import { prisma } from '@/lib/prisma';
 import type {
   AddMemberSchema,
+  CardMemberRecord,
   CardWatcherRecord,
   CardWatchersRepository,
   CreateCardWatcherSchema,
@@ -61,13 +62,25 @@ export class PrismaCardWatchersRepository implements CardWatchersRepository {
     });
   }
 
-  async findMembersByCardId(cardId: string): Promise<CardWatcherRecord[]> {
+  async findMembersByCardId(cardId: string): Promise<CardMemberRecord[]> {
     const rows = await prisma.cardWatcher.findMany({
       where: { cardId, role: 'MEMBER' },
       orderBy: { createdAt: 'asc' },
+      include: {
+        user: {
+          select: { name: true, email: true },
+        },
+      },
     });
 
-    return rows.map(toRecord);
+    return rows.map(row => ({
+      id: row.id,
+      cardId: row.cardId,
+      userId: row.userId,
+      userName: row.user?.name ?? null,
+      userEmail: row.user?.email ?? null,
+      addedAt: row.createdAt,
+    }));
   }
 
   async addMember(data: AddMemberSchema): Promise<CardWatcherRecord> {

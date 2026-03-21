@@ -1,6 +1,7 @@
 import { randomUUID } from 'node:crypto';
 import type {
   AddMemberSchema,
+  CardMemberRecord,
   CardWatcherRecord,
   CardWatchersRepository,
   CreateCardWatcherSchema,
@@ -44,10 +45,18 @@ export class InMemoryCardWatchersRepository implements CardWatchersRepository {
     );
   }
 
-  async findMembersByCardId(cardId: string): Promise<CardWatcherRecord[]> {
+  async findMembersByCardId(cardId: string): Promise<CardMemberRecord[]> {
     return this.items
       .filter((w) => w.cardId === cardId && w.role === 'MEMBER')
-      .sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime());
+      .sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime())
+      .map(w => ({
+        id: w.id,
+        cardId: w.cardId,
+        userId: w.userId,
+        userName: null,
+        userEmail: null,
+        addedAt: w.createdAt,
+      }));
   }
 
   async addMember(data: AddMemberSchema): Promise<CardWatcherRecord> {

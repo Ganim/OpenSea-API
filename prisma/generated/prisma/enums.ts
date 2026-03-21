@@ -185,6 +185,147 @@ export const StorageFileStatus = {
 export type StorageFileStatus = (typeof StorageFileStatus)[keyof typeof StorageFileStatus]
 
 
+export const ContactRole = {
+  DECISION_MAKER: 'DECISION_MAKER',
+  INFLUENCER: 'INFLUENCER',
+  CHAMPION: 'CHAMPION',
+  GATEKEEPER: 'GATEKEEPER',
+  END_USER: 'END_USER',
+  OTHER: 'OTHER'
+} as const
+
+export type ContactRole = (typeof ContactRole)[keyof typeof ContactRole]
+
+
+export const LifecycleStage = {
+  SUBSCRIBER: 'SUBSCRIBER',
+  LEAD: 'LEAD',
+  QUALIFIED: 'QUALIFIED',
+  OPPORTUNITY: 'OPPORTUNITY',
+  CUSTOMER: 'CUSTOMER',
+  EVANGELIST: 'EVANGELIST'
+} as const
+
+export type LifecycleStage = (typeof LifecycleStage)[keyof typeof LifecycleStage]
+
+
+export const LeadTemperature = {
+  HOT: 'HOT',
+  WARM: 'WARM',
+  COLD: 'COLD'
+} as const
+
+export type LeadTemperature = (typeof LeadTemperature)[keyof typeof LeadTemperature]
+
+
+export const ContactSource = {
+  MANUAL: 'MANUAL',
+  IMPORT: 'IMPORT',
+  FORM: 'FORM',
+  WHATSAPP: 'WHATSAPP',
+  INSTAGRAM: 'INSTAGRAM',
+  TELEGRAM: 'TELEGRAM',
+  SMS: 'SMS',
+  WEBCHAT: 'WEBCHAT',
+  EMAIL: 'EMAIL',
+  PDV: 'PDV',
+  MARKETPLACE: 'MARKETPLACE',
+  BID: 'BID',
+  API: 'API'
+} as const
+
+export type ContactSource = (typeof ContactSource)[keyof typeof ContactSource]
+
+
+export const PipelineType = {
+  SALES: 'SALES',
+  ONBOARDING: 'ONBOARDING',
+  SUPPORT: 'SUPPORT',
+  CUSTOM: 'CUSTOM',
+  ORDER_B2C: 'ORDER_B2C',
+  ORDER_B2B: 'ORDER_B2B',
+  ORDER_BID: 'ORDER_BID',
+  ORDER_ECOMMERCE: 'ORDER_ECOMMERCE'
+} as const
+
+export type PipelineType = (typeof PipelineType)[keyof typeof PipelineType]
+
+
+export const PipelineStageType = {
+  OPEN: 'OPEN',
+  WON: 'WON',
+  LOST: 'LOST',
+  DRAFT: 'DRAFT',
+  PENDING_APPROVAL: 'PENDING_APPROVAL',
+  APPROVED: 'APPROVED',
+  PROCESSING: 'PROCESSING',
+  INVOICED: 'INVOICED',
+  SHIPPED: 'SHIPPED',
+  DELIVERED: 'DELIVERED',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type PipelineStageType = (typeof PipelineStageType)[keyof typeof PipelineStageType]
+
+
+export const DealStatus = {
+  OPEN: 'OPEN',
+  WON: 'WON',
+  LOST: 'LOST'
+} as const
+
+export type DealStatus = (typeof DealStatus)[keyof typeof DealStatus]
+
+
+export const ActivityType = {
+  NOTE: 'NOTE',
+  CALL: 'CALL',
+  MEETING: 'MEETING',
+  TASK: 'TASK',
+  EMAIL_SENT: 'EMAIL_SENT',
+  EMAIL_RECEIVED: 'EMAIL_RECEIVED'
+} as const
+
+export type ActivityType = (typeof ActivityType)[keyof typeof ActivityType]
+
+
+export const ActivityOutcome = {
+  ANSWERED: 'ANSWERED',
+  NO_ANSWER: 'NO_ANSWER',
+  VOICEMAIL: 'VOICEMAIL',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type ActivityOutcome = (typeof ActivityOutcome)[keyof typeof ActivityOutcome]
+
+
+export const TimelineEventType = {
+  STAGE_CHANGE: 'STAGE_CHANGE',
+  LIFECYCLE_CHANGE: 'LIFECYCLE_CHANGE',
+  DEAL_CREATED: 'DEAL_CREATED',
+  DEAL_WON: 'DEAL_WON',
+  DEAL_LOST: 'DEAL_LOST',
+  SCORE_CHANGE: 'SCORE_CHANGE',
+  ASSIGNMENT_CHANGE: 'ASSIGNMENT_CHANGE',
+  AI_INSIGHT: 'AI_INSIGHT',
+  SYSTEM_EVENT: 'SYSTEM_EVENT',
+  EXTERNAL_EVENT: 'EXTERNAL_EVENT'
+} as const
+
+export type TimelineEventType = (typeof TimelineEventType)[keyof typeof TimelineEventType]
+
+
+export const TimelineEventSource = {
+  SYSTEM: 'SYSTEM',
+  AI: 'AI',
+  EXTERNAL_MODULE: 'EXTERNAL_MODULE'
+} as const
+
+export type TimelineEventSource = (typeof TimelineEventSource)[keyof typeof TimelineEventSource]
+
+
 export const UnitOfMeasure = {
   UNITS: 'UNITS',
   METERS: 'METERS',

@@ -8,7 +8,7 @@ export const cardMemberResponseSchema = z.object({
   id: z.string().uuid(),
   cardId: z.string().uuid(),
   userId: z.string().uuid(),
-  boardId: z.string().uuid(),
-  role: z.string(),
-  createdAt: z.date(),
+  userName: z.string().nullable(),
+  userEmail: z.string().nullable(),
+  addedAt: z.date(),
 });
