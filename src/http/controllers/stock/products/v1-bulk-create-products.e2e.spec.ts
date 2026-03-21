@@ -129,6 +129,61 @@ describe('Bulk Create Products (E2E)', () => {
     expect(response.status).toBe(403);
   });
 
+  it('should return 403 when user has register but not import permission', async () => {
+    const { token } = await createAndAuthenticateUser(app, {
+      tenantId,
+      permissions: ['stock.products.register', 'stock.products.access'],
+    });
+
+    const template = await prisma.template.create({
+      data: {
+        tenantId,
+        name: `Template PermTest ${Date.now()}`,
+        productAttributes: {},
+        variantAttributes: {},
+        itemAttributes: {},
+      },
+    });
+
+    const response = await request(app.server)
+      .post('/v1/products/bulk')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        products: [{ name: `Perm Test ${Date.now()}`, templateId: template.id }],
+      });
+
+    expect(response.status).toBe(403);
+  });
+
+  it('should return 201 when user has import permission', async () => {
+    const { token } = await createAndAuthenticateUser(app, {
+      tenantId,
+      permissions: ['stock.products.import'],
+    });
+
+    const template = await prisma.template.create({
+      data: {
+        tenantId,
+        name: `Template ImportPerm ${Date.now()}`,
+        productAttributes: {},
+        variantAttributes: {},
+        itemAttributes: {},
+      },
+    });
+
+    const response = await request(app.server)
+      .post('/v1/products/bulk')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        products: [
+          { name: `Import Perm Test ${Date.now()}`, templateId: template.id },
+        ],
+      });
+
+    expect(response.status).toBe(201);
+    expect(response.body.created).toHaveLength(1);
+  });
+
   it('should return 400 with invalid payload', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

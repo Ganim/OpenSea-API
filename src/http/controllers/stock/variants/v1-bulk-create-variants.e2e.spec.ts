@@ -120,6 +120,95 @@ describe('Bulk Create Variants (E2E)', () => {
     expect(response.body.created[0].name).toContain('New Variant');
   });
 
+  it('should return 403 when user has register but not import permission', async () => {
+    const { token: adminToken } = await createAndAuthenticateUser(app, {
+      tenantId,
+    });
+    const timestamp = Date.now();
+
+    const template = await prisma.template.create({
+      data: {
+        tenantId,
+        name: `Template VarPerm ${timestamp}`,
+        productAttributes: {},
+        variantAttributes: {},
+        itemAttributes: {},
+      },
+    });
+
+    const productRes = await request(app.server)
+      .post('/v1/products')
+      .set('Authorization', `Bearer ${adminToken}`)
+      .send({
+        name: `Product VarPerm ${timestamp}`,
+        templateId: template.id,
+      });
+
+    const { token } = await createAndAuthenticateUser(app, {
+      tenantId,
+      permissions: ['stock.variants.register', 'stock.variants.access'],
+    });
+
+    const response = await request(app.server)
+      .post('/v1/variants/bulk')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        variants: [
+          {
+            name: `Variant PermTest ${timestamp}`,
+            productId: productRes.body.product.id,
+          },
+        ],
+      });
+
+    expect(response.status).toBe(403);
+  });
+
+  it('should return 201 when user has import permission', async () => {
+    const { token: adminToken } = await createAndAuthenticateUser(app, {
+      tenantId,
+    });
+    const timestamp = Date.now();
+
+    const template = await prisma.template.create({
+      data: {
+        tenantId,
+        name: `Template VarImport ${timestamp}`,
+        productAttributes: {},
+        variantAttributes: {},
+        itemAttributes: {},
+      },
+    });
+
+    const productRes = await request(app.server)
+      .post('/v1/products')
+      .set('Authorization', `Bearer ${adminToken}`)
+      .send({
+        name: `Product VarImport ${timestamp}`,
+        templateId: template.id,
+      });
+
+    const { token } = await createAndAuthenticateUser(app, {
+      tenantId,
+      permissions: ['stock.variants.import'],
+    });
+
+    const response = await request(app.server)
+      .post('/v1/variants/bulk')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        variants: [
+          {
+            name: `Variant Import ${timestamp}`,
+            productId: productRes.body.product.id,
+          },
+        ],
+      });
+
+    expect(response.status).toBe(201);
+    expect(response.body.created).toHaveLength(1);
+  });
+
   it('should return 400 with invalid payload', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

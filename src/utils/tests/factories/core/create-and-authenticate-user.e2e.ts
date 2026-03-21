@@ -62,6 +62,8 @@ const ALL_PERMISSIONS = {
       'manage',
       'access',
       'modify',
+      'import',
+      'register',
     ],
     variants: [
       'create',
@@ -72,6 +74,8 @@ const ALL_PERMISSIONS = {
       'request',
       'approve',
       'manage',
+      'import',
+      'register',
     ],
     items: [
       'create',
@@ -523,6 +527,8 @@ function generatePermissionName(
     export: 'Exportar',
     move: 'Mover',
     upload: 'Enviar',
+    import: 'Importar',
+    register: 'Registrar',
   };
 
   const resourceNames: Record<string, string> = {
