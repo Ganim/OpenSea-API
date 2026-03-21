@@ -6,7 +6,7 @@ import { deleteAttachmentController } from './v1-delete-attachment.controller';
 import { listAttachmentsController } from './v1-list-attachments.controller';
 
 export async function financeAttachmentsRoutes(app: FastifyInstance) {
-  app.addHook('onRequest', createModuleMiddleware('FINANCE'));
+  app.addHook('preHandler', createModuleMiddleware('FINANCE'));
 
   app.register(uploadAttachmentController);
   app.register(deleteAttachmentController);

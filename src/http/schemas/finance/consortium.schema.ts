@@ -94,18 +94,20 @@ export const consortiumPaymentResponseSchema = z.object({
 });
 
 export const listConsortiaQuerySchema = z.object({
-  page: z.coerce.number().int().positive().optional().default(1),
-  limit: z.coerce.number().int().positive().max(100).optional().default(20),
+  page: z.coerce.number().int().positive().optional().default(1).describe('Número da página'),
+  limit: z.coerce.number().int().positive().max(100).optional().default(20).describe('Itens por página'),
   status: z
     .enum(['ACTIVE', 'CONTEMPLATED', 'WITHDRAWN', 'COMPLETED', 'CANCELLED'])
-    .optional(),
+    .optional()
+    .describe('Status do consórcio'),
   isContemplated: z
     .enum(['true', 'false'])
     .transform((v) => v === 'true')
-    .optional(),
-  bankAccountId: z.string().uuid().optional(),
-  costCenterId: z.string().uuid().optional(),
-  search: z.string().optional(),
+    .optional()
+    .describe('Filtrar apenas contemplados'),
+  bankAccountId: z.string().uuid().optional().describe('Filtrar por conta bancária'),
+  costCenterId: z.string().uuid().optional().describe('Filtrar por centro de custo'),
+  search: z.string().optional().describe('Busca textual por descrição ou administradora'),
 });
 
 export const registerConsortiumPaymentSchema = z.object({

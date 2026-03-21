@@ -9,7 +9,7 @@ import { listLoansController } from './v1-list-loans.controller';
 import { registerLoanPaymentController } from './v1-register-loan-payment.controller';
 
 export async function loansRoutes(app: FastifyInstance) {
-  app.addHook('onRequest', createModuleMiddleware('FINANCE'));
+  app.addHook('preHandler', createModuleMiddleware('FINANCE'));
 
   app.register(getLoanByIdController);
   app.register(listLoansController);

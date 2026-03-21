@@ -10,7 +10,7 @@ import { generateContractEntriesController } from './v1-generate-contract-entrie
 import { getSupplierHistoryController } from './v1-get-supplier-history.controller';
 
 export async function contractsRoutes(app: FastifyInstance) {
-  app.addHook('onRequest', createModuleMiddleware('FINANCE'));
+  app.addHook('preHandler', createModuleMiddleware('FINANCE'));
 
   // supplier-history must be registered BEFORE :id routes to avoid param collision
   app.register(getSupplierHistoryController);

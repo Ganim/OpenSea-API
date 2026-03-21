@@ -10,7 +10,7 @@ import { resumeRecurringController } from './v1-resume-recurring.controller';
 import { cancelRecurringController } from './v1-cancel-recurring.controller';
 
 export async function financeRecurringRoutes(app: FastifyInstance) {
-  app.addHook('onRequest', createModuleMiddleware('FINANCE'));
+  app.addHook('preHandler', createModuleMiddleware('FINANCE'));
 
   app.register(createRecurringConfigController);
   app.register(listRecurringConfigsController);

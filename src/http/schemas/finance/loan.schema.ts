@@ -107,8 +107,8 @@ export const loanInstallmentResponseSchema = z.object({
 });
 
 export const listLoansQuerySchema = z.object({
-  page: z.coerce.number().int().positive().optional().default(1),
-  limit: z.coerce.number().int().positive().max(100).optional().default(20),
+  page: z.coerce.number().int().positive().optional().default(1).describe('Número da página'),
+  limit: z.coerce.number().int().positive().max(100).optional().default(20).describe('Itens por página'),
   type: z
     .enum([
       'PERSONAL',
@@ -119,13 +119,15 @@ export const listLoansQuerySchema = z.object({
       'CREDIT_LINE',
       'OTHER',
     ])
-    .optional(),
+    .optional()
+    .describe('Tipo do empréstimo'),
   status: z
     .enum(['ACTIVE', 'PAID_OFF', 'DEFAULTED', 'RENEGOTIATED', 'CANCELLED'])
-    .optional(),
-  bankAccountId: z.string().uuid().optional(),
-  costCenterId: z.string().uuid().optional(),
-  search: z.string().optional(),
+    .optional()
+    .describe('Status do empréstimo'),
+  bankAccountId: z.string().uuid().optional().describe('Filtrar por conta bancária'),
+  costCenterId: z.string().uuid().optional().describe('Filtrar por centro de custo'),
+  search: z.string().optional().describe('Busca textual por descrição ou instituição'),
 });
 
 export const registerLoanPaymentSchema = z.object({

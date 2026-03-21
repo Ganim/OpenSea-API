@@ -4,7 +4,7 @@ import { createModuleMiddleware } from '@/http/middlewares/tenant/verify-module'
 import { exportAccountingController } from './v1-export-accounting.controller';
 
 export async function financeExportRoutes(app: FastifyInstance) {
-  app.addHook('onRequest', createModuleMiddleware('FINANCE'));
+  app.addHook('preHandler', createModuleMiddleware('FINANCE'));
 
   app.register(exportAccountingController);
 }
