@@ -30,6 +30,15 @@ export class InMemoryTenantConsumptionsRepository
     return consumption ?? null;
   }
 
+  async findByPeriodAndMetricPrefix(
+    period: string,
+    metricPrefix: string,
+  ): Promise<TenantConsumption[]> {
+    return this.items.filter(
+      (item) => item.period === period && item.metric.startsWith(metricPrefix),
+    );
+  }
+
   async upsert(entity: TenantConsumption): Promise<void> {
     const existingIndex = this.items.findIndex(
       (item) =>

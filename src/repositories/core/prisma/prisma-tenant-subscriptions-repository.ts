@@ -40,6 +40,15 @@ export class PrismaTenantSubscriptionsRepository
     return subscriptionsDb.map(tenantSubscriptionPrismaToDomain);
   }
 
+  async findAllActive(): Promise<TenantSubscription[]> {
+    const subscriptionsDb = await prisma.tenantSubscription.findMany({
+      where: { status: 'ACTIVE' },
+      orderBy: { createdAt: 'desc' },
+    });
+
+    return subscriptionsDb.map(tenantSubscriptionPrismaToDomain);
+  }
+
   async create(entity: TenantSubscription): Promise<void> {
     const prismaData = tenantSubscriptionToPrisma(entity);
 

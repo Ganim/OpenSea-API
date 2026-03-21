@@ -7,6 +7,7 @@ export interface TenantSubscriptionsRepository {
     skillCode: string,
   ): Promise<TenantSubscription | null>;
   findActiveByTenantId(tenantId: string): Promise<TenantSubscription[]>;
+  findAllActive(): Promise<TenantSubscription[]>;
   create(entity: TenantSubscription): Promise<void>;
   save(entity: TenantSubscription): Promise<void>;
   delete(id: string): Promise<void>;

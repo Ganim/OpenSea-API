@@ -6,6 +6,10 @@ export class InMemoryTenantIntegrationStatusRepository
 {
   public items: TenantIntegrationStatus[] = [];
 
+  async findAll(): Promise<TenantIntegrationStatus[]> {
+    return [...this.items];
+  }
+
   async findByTenantId(tenantId: string): Promise<TenantIntegrationStatus[]> {
     return this.items.filter((item) => item.tenantId === tenantId);
   }

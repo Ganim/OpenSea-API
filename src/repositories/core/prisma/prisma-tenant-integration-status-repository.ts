@@ -10,6 +10,14 @@ import type { TenantIntegrationStatusRepository } from '../tenant-integration-st
 export class PrismaTenantIntegrationStatusRepository
   implements TenantIntegrationStatusRepository
 {
+  async findAll(): Promise<TenantIntegrationStatus[]> {
+    const integrationsDb = await prisma.tenantIntegrationStatus.findMany({
+      orderBy: { createdAt: 'desc' },
+    });
+
+    return integrationsDb.map(tenantIntegrationStatusPrismaToDomain);
+  }
+
   async findByTenantId(tenantId: string): Promise<TenantIntegrationStatus[]> {
     const integrationsDb = await prisma.tenantIntegrationStatus.findMany({
       where: { tenantId },

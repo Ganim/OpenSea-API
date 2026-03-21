@@ -10,6 +10,10 @@ export interface TenantConsumptionsRepository {
     period: string,
     metric: string,
   ): Promise<TenantConsumption | null>;
+  findByPeriodAndMetricPrefix(
+    period: string,
+    metricPrefix: string,
+  ): Promise<TenantConsumption[]>;
   upsert(entity: TenantConsumption): Promise<void>;
   incrementUsage(
     tenantId: string,

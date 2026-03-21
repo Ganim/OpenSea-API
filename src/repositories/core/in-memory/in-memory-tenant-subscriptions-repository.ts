@@ -27,6 +27,10 @@ export class InMemoryTenantSubscriptionsRepository
     );
   }
 
+  async findAllActive(): Promise<TenantSubscription[]> {
+    return this.items.filter((item) => item.status === 'ACTIVE');
+  }
+
   async create(entity: TenantSubscription): Promise<void> {
     this.items.push(entity);
   }
