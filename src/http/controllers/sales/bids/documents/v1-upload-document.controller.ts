@@ -18,7 +18,7 @@ export async function uploadBidDocumentController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.SALES.BID_DOCUMENTS.ADMIN,
+        permissionCode: PermissionCodes.SALES.BID_DOCUMENTS.REGISTER,
         resource: 'bid-documents',
       }),
     ],

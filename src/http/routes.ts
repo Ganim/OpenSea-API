@@ -50,6 +50,7 @@ import { combosRoutes } from './controllers/sales/combos/routes';
 import { catalogsRoutes } from './controllers/sales/catalogs/routes';
 import { brandRoutes } from './controllers/sales/brand/routes';
 import { contentRoutes } from './controllers/sales/content/routes';
+import { bidsRoutes } from './controllers/sales/bids/routes';
 import { marketplacesRoutes } from './controllers/sales/marketplaces/routes';
 import { ordersRoutes } from './controllers/sales/orders/routes';
 import { posRoutes } from './controllers/sales/pos/routes';
@@ -257,6 +258,7 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(catalogsRoutes);
   await app.register(brandRoutes);
   await app.register(contentRoutes);
+  await app.register(bidsRoutes);
   await app.register(marketplacesRoutes);
   await app.register(notificationsRoutes);
 

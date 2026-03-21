@@ -73,6 +73,15 @@ export enum AuditEntity {
   GENERATED_CONTENT = 'GENERATED_CONTENT',
 
   // ==========================================
+  // Bids - Licitacoes
+  // ==========================================
+  BID = 'BID',
+  BID_DOCUMENT = 'BID_DOCUMENT',
+  BID_CONTRACT = 'BID_CONTRACT',
+  BID_EMPENHO = 'BID_EMPENHO',
+  BID_AI_CONFIG = 'BID_AI_CONFIG',
+
+  // ==========================================
   // Alerts & Notifications
   // ==========================================
   ALERT = 'ALERT',

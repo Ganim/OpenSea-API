@@ -583,6 +583,64 @@ export const SALES_AUDIT_MESSAGES = {
     module: AuditModule.SALES,
     description: "Conteúdo '{{contentTitle}}' aprovado por {{userName}}",
   } satisfies AuditMessage,
+
+  // ─── Bids (Licitacoes) ──────────────────────────────────────────────────
+
+  BID_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.BID,
+    module: AuditModule.SALES,
+    description: "Licitacao '{{bidTitle}}' criada por {{userName}}",
+  } satisfies AuditMessage,
+
+  BID_UPDATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.BID,
+    module: AuditModule.SALES,
+    description: "Licitacao '{{bidTitle}}' atualizada por {{userName}}",
+  } satisfies AuditMessage,
+
+  BID_DELETE: {
+    action: AuditAction.DELETE,
+    entity: AuditEntity.BID,
+    module: AuditModule.SALES,
+    description: "Licitacao '{{bidTitle}}' excluida por {{userName}}",
+  } satisfies AuditMessage,
+
+  BID_STATUS_CHANGE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.BID,
+    module: AuditModule.SALES,
+    description: "Status da licitacao '{{bidTitle}}' alterado para {{newStatus}} por {{userName}}",
+  } satisfies AuditMessage,
+
+  BID_DOCUMENT_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.BID_DOCUMENT,
+    module: AuditModule.SALES,
+    description: "Documento '{{documentName}}' adicionado a licitacao por {{userName}}",
+  } satisfies AuditMessage,
+
+  BID_CONTRACT_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.BID_CONTRACT,
+    module: AuditModule.SALES,
+    description: "Contrato '{{contractNumber}}' criado por {{userName}}",
+  } satisfies AuditMessage,
+
+  BID_EMPENHO_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.BID_EMPENHO,
+    module: AuditModule.SALES,
+    description: "Empenho '{{empenhoNumber}}' criado por {{userName}}",
+  } satisfies AuditMessage,
+
+  BID_AI_CONFIG_UPDATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.BID_AI_CONFIG,
+    module: AuditModule.SALES,
+    description: "Configuracao de IA para licitacoes atualizada por {{userName}}",
+  } satisfies AuditMessage,
 } as const;
 
 export type SalesAuditMessageKey = keyof typeof SALES_AUDIT_MESSAGES;

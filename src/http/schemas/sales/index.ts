@@ -16,3 +16,4 @@ export * from './pricing';
 export * from './catalogs';
 export * from './brand';
 export * from './content';
+export * from './bids';
