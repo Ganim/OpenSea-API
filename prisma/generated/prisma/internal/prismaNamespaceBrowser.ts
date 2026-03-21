@@ -250,7 +250,14 @@ export const ModelName = {
   AiMessage: 'AiMessage',
   AiFavoriteQuery: 'AiFavoriteQuery',
   AiActionLog: 'AiActionLog',
-  AiInsight: 'AiInsight'
+  AiInsight: 'AiInsight',
+  PosTerminal: 'PosTerminal',
+  PosSession: 'PosSession',
+  PosTransaction: 'PosTransaction',
+  PosTransactionPayment: 'PosTransactionPayment',
+  PosCashMovement: 'PosCashMovement',
+  PosOfflineQueue: 'PosOfflineQueue',
+  PosVisitLog: 'PosVisitLog'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -4327,6 +4334,147 @@ export const AiInsightScalarFieldEnum = {
 } as const
 
 export type AiInsightScalarFieldEnum = (typeof AiInsightScalarFieldEnum)[keyof typeof AiInsightScalarFieldEnum]
+
+
+export const PosTerminalScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  name: 'name',
+  deviceId: 'deviceId',
+  mode: 'mode',
+  cashierMode: 'cashierMode',
+  acceptsPendingOrders: 'acceptsPendingOrders',
+  warehouseId: 'warehouseId',
+  defaultPriceTableId: 'defaultPriceTableId',
+  isActive: 'isActive',
+  lastSyncAt: 'lastSyncAt',
+  lastOnlineAt: 'lastOnlineAt',
+  settings: 'settings',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PosTerminalScalarFieldEnum = (typeof PosTerminalScalarFieldEnum)[keyof typeof PosTerminalScalarFieldEnum]
+
+
+export const PosSessionScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  terminalId: 'terminalId',
+  operatorUserId: 'operatorUserId',
+  status: 'status',
+  openedAt: 'openedAt',
+  closedAt: 'closedAt',
+  openingBalance: 'openingBalance',
+  closingBalance: 'closingBalance',
+  expectedBalance: 'expectedBalance',
+  difference: 'difference',
+  closingBreakdown: 'closingBreakdown',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PosSessionScalarFieldEnum = (typeof PosSessionScalarFieldEnum)[keyof typeof PosSessionScalarFieldEnum]
+
+
+export const PosTransactionScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  sessionId: 'sessionId',
+  orderId: 'orderId',
+  transactionNumber: 'transactionNumber',
+  status: 'status',
+  subtotal: 'subtotal',
+  discountTotal: 'discountTotal',
+  taxTotal: 'taxTotal',
+  grandTotal: 'grandTotal',
+  changeAmount: 'changeAmount',
+  customerId: 'customerId',
+  customerName: 'customerName',
+  customerDocument: 'customerDocument',
+  overrideByUserId: 'overrideByUserId',
+  overrideReason: 'overrideReason',
+  syncedAt: 'syncedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type PosTransactionScalarFieldEnum = (typeof PosTransactionScalarFieldEnum)[keyof typeof PosTransactionScalarFieldEnum]
+
+
+export const PosTransactionPaymentScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  transactionId: 'transactionId',
+  method: 'method',
+  amount: 'amount',
+  receivedAmount: 'receivedAmount',
+  changeAmount: 'changeAmount',
+  installments: 'installments',
+  authCode: 'authCode',
+  nsu: 'nsu',
+  pixTxId: 'pixTxId',
+  paymentLinkUrl: 'paymentLinkUrl',
+  paymentLinkStatus: 'paymentLinkStatus',
+  tefTransactionId: 'tefTransactionId',
+  notes: 'notes',
+  createdAt: 'createdAt'
+} as const
+
+export type PosTransactionPaymentScalarFieldEnum = (typeof PosTransactionPaymentScalarFieldEnum)[keyof typeof PosTransactionPaymentScalarFieldEnum]
+
+
+export const PosCashMovementScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  sessionId: 'sessionId',
+  type: 'type',
+  amount: 'amount',
+  reason: 'reason',
+  performedByUserId: 'performedByUserId',
+  authorizedByUserId: 'authorizedByUserId',
+  createdAt: 'createdAt'
+} as const
+
+export type PosCashMovementScalarFieldEnum = (typeof PosCashMovementScalarFieldEnum)[keyof typeof PosCashMovementScalarFieldEnum]
+
+
+export const PosOfflineQueueScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  terminalId: 'terminalId',
+  operationType: 'operationType',
+  payload: 'payload',
+  status: 'status',
+  attempts: 'attempts',
+  lastError: 'lastError',
+  createdAt: 'createdAt',
+  syncedAt: 'syncedAt'
+} as const
+
+export type PosOfflineQueueScalarFieldEnum = (typeof PosOfflineQueueScalarFieldEnum)[keyof typeof PosOfflineQueueScalarFieldEnum]
+
+
+export const PosVisitLogScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  userId: 'userId',
+  customerId: 'customerId',
+  latitude: 'latitude',
+  longitude: 'longitude',
+  address: 'address',
+  checkInAt: 'checkInAt',
+  checkOutAt: 'checkOutAt',
+  duration: 'duration',
+  outcome: 'outcome',
+  orderId: 'orderId',
+  notes: 'notes',
+  signatureFileId: 'signatureFileId',
+  photos: 'photos',
+  createdAt: 'createdAt'
+} as const
+
+export type PosVisitLogScalarFieldEnum = (typeof PosVisitLogScalarFieldEnum)[keyof typeof PosVisitLogScalarFieldEnum]
 
 
 export const SortOrder = {

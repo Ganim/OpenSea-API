@@ -1039,3 +1039,38 @@ export type AiActionLog = Prisma.AiActionLogModel
  * 
  */
 export type AiInsight = Prisma.AiInsightModel
+/**
+ * Model PosTerminal
+ * 
+ */
+export type PosTerminal = Prisma.PosTerminalModel
+/**
+ * Model PosSession
+ * 
+ */
+export type PosSession = Prisma.PosSessionModel
+/**
+ * Model PosTransaction
+ * 
+ */
+export type PosTransaction = Prisma.PosTransactionModel
+/**
+ * Model PosTransactionPayment
+ * 
+ */
+export type PosTransactionPayment = Prisma.PosTransactionPaymentModel
+/**
+ * Model PosCashMovement
+ * 
+ */
+export type PosCashMovement = Prisma.PosCashMovementModel
+/**
+ * Model PosOfflineQueue
+ * 
+ */
+export type PosOfflineQueue = Prisma.PosOfflineQueueModel
+/**
+ * Model PosVisitLog
+ * 
+ */
+export type PosVisitLog = Prisma.PosVisitLogModel

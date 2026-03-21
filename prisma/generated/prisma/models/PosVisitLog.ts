@@ -312,6 +312,7 @@ export type PosVisitLogWhereInput = {
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   customer?: Prisma.XOR<Prisma.CustomerScalarRelationFilter, Prisma.CustomerWhereInput>
   order?: Prisma.XOR<Prisma.OrderNullableScalarRelationFilter, Prisma.OrderWhereInput> | null
+  signatureFile?: Prisma.XOR<Prisma.StorageFileNullableScalarRelationFilter, Prisma.StorageFileWhereInput> | null
 }
 
 export type PosVisitLogOrderByWithRelationInput = {
@@ -335,6 +336,7 @@ export type PosVisitLogOrderByWithRelationInput = {
   user?: Prisma.UserOrderByWithRelationInput
   customer?: Prisma.CustomerOrderByWithRelationInput
   order?: Prisma.OrderOrderByWithRelationInput
+  signatureFile?: Prisma.StorageFileOrderByWithRelationInput
 }
 
 export type PosVisitLogWhereUniqueInput = Prisma.AtLeast<{
@@ -361,6 +363,7 @@ export type PosVisitLogWhereUniqueInput = Prisma.AtLeast<{
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   customer?: Prisma.XOR<Prisma.CustomerScalarRelationFilter, Prisma.CustomerWhereInput>
   order?: Prisma.XOR<Prisma.OrderNullableScalarRelationFilter, Prisma.OrderWhereInput> | null
+  signatureFile?: Prisma.XOR<Prisma.StorageFileNullableScalarRelationFilter, Prisma.StorageFileWhereInput> | null
 }, "id">
 
 export type PosVisitLogOrderByWithAggregationInput = {
@@ -419,13 +422,13 @@ export type PosVisitLogCreateInput = {
   duration?: number | null
   outcome: $Enums.PosVisitOutcome
   notes?: string | null
-  signatureFileId?: string | null
   photos?: Prisma.PosVisitLogCreatephotosInput | string[]
   createdAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutPosVisitLogsInput
   user: Prisma.UserCreateNestedOneWithoutPosVisitLogsInput
   customer: Prisma.CustomerCreateNestedOneWithoutPosVisitLogsInput
   order?: Prisma.OrderCreateNestedOneWithoutPosVisitLogsInput
+  signatureFile?: Prisma.StorageFileCreateNestedOneWithoutPosVisitSignaturesInput
 }
 
 export type PosVisitLogUncheckedCreateInput = {
@@ -457,13 +460,13 @@ export type PosVisitLogUpdateInput = {
   duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   outcome?: Prisma.EnumPosVisitOutcomeFieldUpdateOperationsInput | $Enums.PosVisitOutcome
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  signatureFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photos?: Prisma.PosVisitLogUpdatephotosInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutPosVisitLogsNestedInput
   user?: Prisma.UserUpdateOneRequiredWithoutPosVisitLogsNestedInput
   customer?: Prisma.CustomerUpdateOneRequiredWithoutPosVisitLogsNestedInput
   order?: Prisma.OrderUpdateOneWithoutPosVisitLogsNestedInput
+  signatureFile?: Prisma.StorageFileUpdateOneWithoutPosVisitSignaturesNestedInput
 }
 
 export type PosVisitLogUncheckedUpdateInput = {
@@ -514,7 +517,6 @@ export type PosVisitLogUpdateManyMutationInput = {
   duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   outcome?: Prisma.EnumPosVisitOutcomeFieldUpdateOperationsInput | $Enums.PosVisitOutcome
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  signatureFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photos?: Prisma.PosVisitLogUpdatephotosInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -741,6 +743,48 @@ export type PosVisitLogUncheckedUpdateManyWithoutTenantNestedInput = {
   deleteMany?: Prisma.PosVisitLogScalarWhereInput | Prisma.PosVisitLogScalarWhereInput[]
 }
 
+export type PosVisitLogCreateNestedManyWithoutSignatureFileInput = {
+  create?: Prisma.XOR<Prisma.PosVisitLogCreateWithoutSignatureFileInput, Prisma.PosVisitLogUncheckedCreateWithoutSignatureFileInput> | Prisma.PosVisitLogCreateWithoutSignatureFileInput[] | Prisma.PosVisitLogUncheckedCreateWithoutSignatureFileInput[]
+  connectOrCreate?: Prisma.PosVisitLogCreateOrConnectWithoutSignatureFileInput | Prisma.PosVisitLogCreateOrConnectWithoutSignatureFileInput[]
+  createMany?: Prisma.PosVisitLogCreateManySignatureFileInputEnvelope
+  connect?: Prisma.PosVisitLogWhereUniqueInput | Prisma.PosVisitLogWhereUniqueInput[]
+}
+
+export type PosVisitLogUncheckedCreateNestedManyWithoutSignatureFileInput = {
+  create?: Prisma.XOR<Prisma.PosVisitLogCreateWithoutSignatureFileInput, Prisma.PosVisitLogUncheckedCreateWithoutSignatureFileInput> | Prisma.PosVisitLogCreateWithoutSignatureFileInput[] | Prisma.PosVisitLogUncheckedCreateWithoutSignatureFileInput[]
+  connectOrCreate?: Prisma.PosVisitLogCreateOrConnectWithoutSignatureFileInput | Prisma.PosVisitLogCreateOrConnectWithoutSignatureFileInput[]
+  createMany?: Prisma.PosVisitLogCreateManySignatureFileInputEnvelope
+  connect?: Prisma.PosVisitLogWhereUniqueInput | Prisma.PosVisitLogWhereUniqueInput[]
+}
+
+export type PosVisitLogUpdateManyWithoutSignatureFileNestedInput = {
+  create?: Prisma.XOR<Prisma.PosVisitLogCreateWithoutSignatureFileInput, Prisma.PosVisitLogUncheckedCreateWithoutSignatureFileInput> | Prisma.PosVisitLogCreateWithoutSignatureFileInput[] | Prisma.PosVisitLogUncheckedCreateWithoutSignatureFileInput[]
+  connectOrCreate?: Prisma.PosVisitLogCreateOrConnectWithoutSignatureFileInput | Prisma.PosVisitLogCreateOrConnectWithoutSignatureFileInput[]
+  upsert?: Prisma.PosVisitLogUpsertWithWhereUniqueWithoutSignatureFileInput | Prisma.PosVisitLogUpsertWithWhereUniqueWithoutSignatureFileInput[]
+  createMany?: Prisma.PosVisitLogCreateManySignatureFileInputEnvelope
+  set?: Prisma.PosVisitLogWhereUniqueInput | Prisma.PosVisitLogWhereUniqueInput[]
+  disconnect?: Prisma.PosVisitLogWhereUniqueInput | Prisma.PosVisitLogWhereUniqueInput[]
+  delete?: Prisma.PosVisitLogWhereUniqueInput | Prisma.PosVisitLogWhereUniqueInput[]
+  connect?: Prisma.PosVisitLogWhereUniqueInput | Prisma.PosVisitLogWhereUniqueInput[]
+  update?: Prisma.PosVisitLogUpdateWithWhereUniqueWithoutSignatureFileInput | Prisma.PosVisitLogUpdateWithWhereUniqueWithoutSignatureFileInput[]
+  updateMany?: Prisma.PosVisitLogUpdateManyWithWhereWithoutSignatureFileInput | Prisma.PosVisitLogUpdateManyWithWhereWithoutSignatureFileInput[]
+  deleteMany?: Prisma.PosVisitLogScalarWhereInput | Prisma.PosVisitLogScalarWhereInput[]
+}
+
+export type PosVisitLogUncheckedUpdateManyWithoutSignatureFileNestedInput = {
+  create?: Prisma.XOR<Prisma.PosVisitLogCreateWithoutSignatureFileInput, Prisma.PosVisitLogUncheckedCreateWithoutSignatureFileInput> | Prisma.PosVisitLogCreateWithoutSignatureFileInput[] | Prisma.PosVisitLogUncheckedCreateWithoutSignatureFileInput[]
+  connectOrCreate?: Prisma.PosVisitLogCreateOrConnectWithoutSignatureFileInput | Prisma.PosVisitLogCreateOrConnectWithoutSignatureFileInput[]
+  upsert?: Prisma.PosVisitLogUpsertWithWhereUniqueWithoutSignatureFileInput | Prisma.PosVisitLogUpsertWithWhereUniqueWithoutSignatureFileInput[]
+  createMany?: Prisma.PosVisitLogCreateManySignatureFileInputEnvelope
+  set?: Prisma.PosVisitLogWhereUniqueInput | Prisma.PosVisitLogWhereUniqueInput[]
+  disconnect?: Prisma.PosVisitLogWhereUniqueInput | Prisma.PosVisitLogWhereUniqueInput[]
+  delete?: Prisma.PosVisitLogWhereUniqueInput | Prisma.PosVisitLogWhereUniqueInput[]
+  connect?: Prisma.PosVisitLogWhereUniqueInput | Prisma.PosVisitLogWhereUniqueInput[]
+  update?: Prisma.PosVisitLogUpdateWithWhereUniqueWithoutSignatureFileInput | Prisma.PosVisitLogUpdateWithWhereUniqueWithoutSignatureFileInput[]
+  updateMany?: Prisma.PosVisitLogUpdateManyWithWhereWithoutSignatureFileInput | Prisma.PosVisitLogUpdateManyWithWhereWithoutSignatureFileInput[]
+  deleteMany?: Prisma.PosVisitLogScalarWhereInput | Prisma.PosVisitLogScalarWhereInput[]
+}
+
 export type PosVisitLogCreateNestedManyWithoutOrderInput = {
   create?: Prisma.XOR<Prisma.PosVisitLogCreateWithoutOrderInput, Prisma.PosVisitLogUncheckedCreateWithoutOrderInput> | Prisma.PosVisitLogCreateWithoutOrderInput[] | Prisma.PosVisitLogUncheckedCreateWithoutOrderInput[]
   connectOrCreate?: Prisma.PosVisitLogCreateOrConnectWithoutOrderInput | Prisma.PosVisitLogCreateOrConnectWithoutOrderInput[]
@@ -806,12 +850,12 @@ export type PosVisitLogCreateWithoutUserInput = {
   duration?: number | null
   outcome: $Enums.PosVisitOutcome
   notes?: string | null
-  signatureFileId?: string | null
   photos?: Prisma.PosVisitLogCreatephotosInput | string[]
   createdAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutPosVisitLogsInput
   customer: Prisma.CustomerCreateNestedOneWithoutPosVisitLogsInput
   order?: Prisma.OrderCreateNestedOneWithoutPosVisitLogsInput
+  signatureFile?: Prisma.StorageFileCreateNestedOneWithoutPosVisitSignaturesInput
 }
 
 export type PosVisitLogUncheckedCreateWithoutUserInput = {
@@ -890,12 +934,12 @@ export type PosVisitLogCreateWithoutCustomerInput = {
   duration?: number | null
   outcome: $Enums.PosVisitOutcome
   notes?: string | null
-  signatureFileId?: string | null
   photos?: Prisma.PosVisitLogCreatephotosInput | string[]
   createdAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutPosVisitLogsInput
   user: Prisma.UserCreateNestedOneWithoutPosVisitLogsInput
   order?: Prisma.OrderCreateNestedOneWithoutPosVisitLogsInput
+  signatureFile?: Prisma.StorageFileCreateNestedOneWithoutPosVisitSignaturesInput
 }
 
 export type PosVisitLogUncheckedCreateWithoutCustomerInput = {
@@ -952,12 +996,12 @@ export type PosVisitLogCreateWithoutTenantInput = {
   duration?: number | null
   outcome: $Enums.PosVisitOutcome
   notes?: string | null
-  signatureFileId?: string | null
   photos?: Prisma.PosVisitLogCreatephotosInput | string[]
   createdAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutPosVisitLogsInput
   customer: Prisma.CustomerCreateNestedOneWithoutPosVisitLogsInput
   order?: Prisma.OrderCreateNestedOneWithoutPosVisitLogsInput
+  signatureFile?: Prisma.StorageFileCreateNestedOneWithoutPosVisitSignaturesInput
 }
 
 export type PosVisitLogUncheckedCreateWithoutTenantInput = {
@@ -1004,6 +1048,68 @@ export type PosVisitLogUpdateManyWithWhereWithoutTenantInput = {
   data: Prisma.XOR<Prisma.PosVisitLogUpdateManyMutationInput, Prisma.PosVisitLogUncheckedUpdateManyWithoutTenantInput>
 }
 
+export type PosVisitLogCreateWithoutSignatureFileInput = {
+  id?: string
+  latitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  address?: string | null
+  checkInAt: Date | string
+  checkOutAt?: Date | string | null
+  duration?: number | null
+  outcome: $Enums.PosVisitOutcome
+  notes?: string | null
+  photos?: Prisma.PosVisitLogCreatephotosInput | string[]
+  createdAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutPosVisitLogsInput
+  user: Prisma.UserCreateNestedOneWithoutPosVisitLogsInput
+  customer: Prisma.CustomerCreateNestedOneWithoutPosVisitLogsInput
+  order?: Prisma.OrderCreateNestedOneWithoutPosVisitLogsInput
+}
+
+export type PosVisitLogUncheckedCreateWithoutSignatureFileInput = {
+  id?: string
+  tenantId: string
+  userId: string
+  customerId: string
+  latitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  address?: string | null
+  checkInAt: Date | string
+  checkOutAt?: Date | string | null
+  duration?: number | null
+  outcome: $Enums.PosVisitOutcome
+  orderId?: string | null
+  notes?: string | null
+  photos?: Prisma.PosVisitLogCreatephotosInput | string[]
+  createdAt?: Date | string
+}
+
+export type PosVisitLogCreateOrConnectWithoutSignatureFileInput = {
+  where: Prisma.PosVisitLogWhereUniqueInput
+  create: Prisma.XOR<Prisma.PosVisitLogCreateWithoutSignatureFileInput, Prisma.PosVisitLogUncheckedCreateWithoutSignatureFileInput>
+}
+
+export type PosVisitLogCreateManySignatureFileInputEnvelope = {
+  data: Prisma.PosVisitLogCreateManySignatureFileInput | Prisma.PosVisitLogCreateManySignatureFileInput[]
+  skipDuplicates?: boolean
+}
+
+export type PosVisitLogUpsertWithWhereUniqueWithoutSignatureFileInput = {
+  where: Prisma.PosVisitLogWhereUniqueInput
+  update: Prisma.XOR<Prisma.PosVisitLogUpdateWithoutSignatureFileInput, Prisma.PosVisitLogUncheckedUpdateWithoutSignatureFileInput>
+  create: Prisma.XOR<Prisma.PosVisitLogCreateWithoutSignatureFileInput, Prisma.PosVisitLogUncheckedCreateWithoutSignatureFileInput>
+}
+
+export type PosVisitLogUpdateWithWhereUniqueWithoutSignatureFileInput = {
+  where: Prisma.PosVisitLogWhereUniqueInput
+  data: Prisma.XOR<Prisma.PosVisitLogUpdateWithoutSignatureFileInput, Prisma.PosVisitLogUncheckedUpdateWithoutSignatureFileInput>
+}
+
+export type PosVisitLogUpdateManyWithWhereWithoutSignatureFileInput = {
+  where: Prisma.PosVisitLogScalarWhereInput
+  data: Prisma.XOR<Prisma.PosVisitLogUpdateManyMutationInput, Prisma.PosVisitLogUncheckedUpdateManyWithoutSignatureFileInput>
+}
+
 export type PosVisitLogCreateWithoutOrderInput = {
   id?: string
   latitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1014,12 +1120,12 @@ export type PosVisitLogCreateWithoutOrderInput = {
   duration?: number | null
   outcome: $Enums.PosVisitOutcome
   notes?: string | null
-  signatureFileId?: string | null
   photos?: Prisma.PosVisitLogCreatephotosInput | string[]
   createdAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutPosVisitLogsInput
   user: Prisma.UserCreateNestedOneWithoutPosVisitLogsInput
   customer: Prisma.CustomerCreateNestedOneWithoutPosVisitLogsInput
+  signatureFile?: Prisma.StorageFileCreateNestedOneWithoutPosVisitSignaturesInput
 }
 
 export type PosVisitLogUncheckedCreateWithoutOrderInput = {
@@ -1094,12 +1200,12 @@ export type PosVisitLogUpdateWithoutUserInput = {
   duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   outcome?: Prisma.EnumPosVisitOutcomeFieldUpdateOperationsInput | $Enums.PosVisitOutcome
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  signatureFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photos?: Prisma.PosVisitLogUpdatephotosInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutPosVisitLogsNestedInput
   customer?: Prisma.CustomerUpdateOneRequiredWithoutPosVisitLogsNestedInput
   order?: Prisma.OrderUpdateOneWithoutPosVisitLogsNestedInput
+  signatureFile?: Prisma.StorageFileUpdateOneWithoutPosVisitSignaturesNestedInput
 }
 
 export type PosVisitLogUncheckedUpdateWithoutUserInput = {
@@ -1166,12 +1272,12 @@ export type PosVisitLogUpdateWithoutCustomerInput = {
   duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   outcome?: Prisma.EnumPosVisitOutcomeFieldUpdateOperationsInput | $Enums.PosVisitOutcome
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  signatureFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photos?: Prisma.PosVisitLogUpdatephotosInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutPosVisitLogsNestedInput
   user?: Prisma.UserUpdateOneRequiredWithoutPosVisitLogsNestedInput
   order?: Prisma.OrderUpdateOneWithoutPosVisitLogsNestedInput
+  signatureFile?: Prisma.StorageFileUpdateOneWithoutPosVisitSignaturesNestedInput
 }
 
 export type PosVisitLogUncheckedUpdateWithoutCustomerInput = {
@@ -1238,12 +1344,12 @@ export type PosVisitLogUpdateWithoutTenantInput = {
   duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   outcome?: Prisma.EnumPosVisitOutcomeFieldUpdateOperationsInput | $Enums.PosVisitOutcome
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  signatureFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photos?: Prisma.PosVisitLogUpdatephotosInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutPosVisitLogsNestedInput
   customer?: Prisma.CustomerUpdateOneRequiredWithoutPosVisitLogsNestedInput
   order?: Prisma.OrderUpdateOneWithoutPosVisitLogsNestedInput
+  signatureFile?: Prisma.StorageFileUpdateOneWithoutPosVisitSignaturesNestedInput
 }
 
 export type PosVisitLogUncheckedUpdateWithoutTenantInput = {
@@ -1282,6 +1388,78 @@ export type PosVisitLogUncheckedUpdateManyWithoutTenantInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+export type PosVisitLogCreateManySignatureFileInput = {
+  id?: string
+  tenantId: string
+  userId: string
+  customerId: string
+  latitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  address?: string | null
+  checkInAt: Date | string
+  checkOutAt?: Date | string | null
+  duration?: number | null
+  outcome: $Enums.PosVisitOutcome
+  orderId?: string | null
+  notes?: string | null
+  photos?: Prisma.PosVisitLogCreatephotosInput | string[]
+  createdAt?: Date | string
+}
+
+export type PosVisitLogUpdateWithoutSignatureFileInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  latitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  checkInAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  checkOutAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  outcome?: Prisma.EnumPosVisitOutcomeFieldUpdateOperationsInput | $Enums.PosVisitOutcome
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  photos?: Prisma.PosVisitLogUpdatephotosInput | string[]
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutPosVisitLogsNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutPosVisitLogsNestedInput
+  customer?: Prisma.CustomerUpdateOneRequiredWithoutPosVisitLogsNestedInput
+  order?: Prisma.OrderUpdateOneWithoutPosVisitLogsNestedInput
+}
+
+export type PosVisitLogUncheckedUpdateWithoutSignatureFileInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  customerId?: Prisma.StringFieldUpdateOperationsInput | string
+  latitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  checkInAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  checkOutAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  outcome?: Prisma.EnumPosVisitOutcomeFieldUpdateOperationsInput | $Enums.PosVisitOutcome
+  orderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  photos?: Prisma.PosVisitLogUpdatephotosInput | string[]
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type PosVisitLogUncheckedUpdateManyWithoutSignatureFileInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  customerId?: Prisma.StringFieldUpdateOperationsInput | string
+  latitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  checkInAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  checkOutAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  outcome?: Prisma.EnumPosVisitOutcomeFieldUpdateOperationsInput | $Enums.PosVisitOutcome
+  orderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  photos?: Prisma.PosVisitLogUpdatephotosInput | string[]
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 export type PosVisitLogCreateManyOrderInput = {
   id?: string
   tenantId: string
@@ -1310,12 +1488,12 @@ export type PosVisitLogUpdateWithoutOrderInput = {
   duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   outcome?: Prisma.EnumPosVisitOutcomeFieldUpdateOperationsInput | $Enums.PosVisitOutcome
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  signatureFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photos?: Prisma.PosVisitLogUpdatephotosInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutPosVisitLogsNestedInput
   user?: Prisma.UserUpdateOneRequiredWithoutPosVisitLogsNestedInput
   customer?: Prisma.CustomerUpdateOneRequiredWithoutPosVisitLogsNestedInput
+  signatureFile?: Prisma.StorageFileUpdateOneWithoutPosVisitSignaturesNestedInput
 }
 
 export type PosVisitLogUncheckedUpdateWithoutOrderInput = {
@@ -1377,6 +1555,7 @@ export type PosVisitLogSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
   order?: boolean | Prisma.PosVisitLog$orderArgs<ExtArgs>
+  signatureFile?: boolean | Prisma.PosVisitLog$signatureFileArgs<ExtArgs>
 }, ExtArgs["result"]["posVisitLog"]>
 
 export type PosVisitLogSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1400,6 +1579,7 @@ export type PosVisitLogSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
   order?: boolean | Prisma.PosVisitLog$orderArgs<ExtArgs>
+  signatureFile?: boolean | Prisma.PosVisitLog$signatureFileArgs<ExtArgs>
 }, ExtArgs["result"]["posVisitLog"]>
 
 export type PosVisitLogSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1423,6 +1603,7 @@ export type PosVisitLogSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
   order?: boolean | Prisma.PosVisitLog$orderArgs<ExtArgs>
+  signatureFile?: boolean | Prisma.PosVisitLog$signatureFileArgs<ExtArgs>
 }, ExtArgs["result"]["posVisitLog"]>
 
 export type PosVisitLogSelectScalar = {
@@ -1450,18 +1631,21 @@ export type PosVisitLogInclude<ExtArgs extends runtime.Types.Extensions.Internal
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
   order?: boolean | Prisma.PosVisitLog$orderArgs<ExtArgs>
+  signatureFile?: boolean | Prisma.PosVisitLog$signatureFileArgs<ExtArgs>
 }
 export type PosVisitLogIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
   order?: boolean | Prisma.PosVisitLog$orderArgs<ExtArgs>
+  signatureFile?: boolean | Prisma.PosVisitLog$signatureFileArgs<ExtArgs>
 }
 export type PosVisitLogIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
   order?: boolean | Prisma.PosVisitLog$orderArgs<ExtArgs>
+  signatureFile?: boolean | Prisma.PosVisitLog$signatureFileArgs<ExtArgs>
 }
 
 export type $PosVisitLogPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1471,6 +1655,7 @@ export type $PosVisitLogPayload<ExtArgs extends runtime.Types.Extensions.Interna
     user: Prisma.$UserPayload<ExtArgs>
     customer: Prisma.$CustomerPayload<ExtArgs>
     order: Prisma.$OrderPayload<ExtArgs> | null
+    signatureFile: Prisma.$StorageFilePayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1887,6 +2072,7 @@ export interface Prisma__PosVisitLogClient<T, Null = never, ExtArgs extends runt
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   customer<T extends Prisma.CustomerDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CustomerDefaultArgs<ExtArgs>>): Prisma.Prisma__CustomerClient<runtime.Types.Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   order<T extends Prisma.PosVisitLog$orderArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PosVisitLog$orderArgs<ExtArgs>>): Prisma.Prisma__OrderClient<runtime.Types.Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  signatureFile<T extends Prisma.PosVisitLog$signatureFileArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PosVisitLog$signatureFileArgs<ExtArgs>>): Prisma.Prisma__StorageFileClient<runtime.Types.Result.GetResult<Prisma.$StorageFilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2344,6 +2530,25 @@ export type PosVisitLog$orderArgs<ExtArgs extends runtime.Types.Extensions.Inter
    */
   include?: Prisma.OrderInclude<ExtArgs> | null
   where?: Prisma.OrderWhereInput
+}
+
+/**
+ * PosVisitLog.signatureFile
+ */
+export type PosVisitLog$signatureFileArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the StorageFile
+   */
+  select?: Prisma.StorageFileSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the StorageFile
+   */
+  omit?: Prisma.StorageFileOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StorageFileInclude<ExtArgs> | null
+  where?: Prisma.StorageFileWhereInput
 }
 
 /**

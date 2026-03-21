@@ -583,7 +583,14 @@ export const ModelName = {
   AiMessage: 'AiMessage',
   AiFavoriteQuery: 'AiFavoriteQuery',
   AiActionLog: 'AiActionLog',
-  AiInsight: 'AiInsight'
+  AiInsight: 'AiInsight',
+  PosTerminal: 'PosTerminal',
+  PosSession: 'PosSession',
+  PosTransaction: 'PosTransaction',
+  PosTransactionPayment: 'PosTransactionPayment',
+  PosCashMovement: 'PosCashMovement',
+  PosOfflineQueue: 'PosOfflineQueue',
+  PosVisitLog: 'PosVisitLog'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -599,7 +606,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "userProfile" | "session" | "refreshToken" | "permission" | "permissionGroup" | "permissionGroupPermission" | "userPermissionGroup" | "userDirectPermission" | "permissionAuditLog" | "organization" | "organizationAddress" | "organizationCnae" | "organizationFiscalSettings" | "organizationStakeholder" | "supplier" | "manufacturer" | "category" | "warehouse" | "zone" | "bin" | "volume" | "volumeItem" | "template" | "product" | "variant" | "item" | "itemMovement" | "productCategory" | "variantPriceHistory" | "auditLog" | "tag" | "productTag" | "variantImage" | "productCareInstruction" | "productAttachment" | "variantAttachment" | "alert" | "purchaseOrder" | "purchaseOrderItem" | "unitConversion" | "stockSnapshot" | "inventorySession" | "inventorySessionItem" | "customer" | "salesOrder" | "salesOrderItem" | "crmContact" | "crmPipeline" | "crmPipelineStage" | "itemReservation" | "variantSupplierCode" | "variantPromotion" | "comment" | "notificationPreference" | "notificationTemplate" | "notification" | "request" | "requestAttachment" | "requestComment" | "requestHistory" | "employee" | "department" | "position" | "timeEntry" | "workSchedule" | "overtime" | "timeBank" | "absence" | "vacationPeriod" | "payroll" | "payrollItem" | "bonus" | "deduction" | "company" | "companyDocument" | "companyAddress" | "companyCnae" | "companyFiscalSettings" | "companyStakeholder" | "labelTemplate" | "tenant" | "plan" | "planModule" | "tenantPlan" | "tenantUser" | "tenantFeatureFlag" | "costCenter" | "bankAccount" | "financeCategory" | "financeEntry" | "financeCodeSequence" | "financeEntryPayment" | "financeEntryCostCenter" | "recurringConfig" | "financeAttachment" | "loan" | "loanInstallment" | "consortium" | "consortiumPayment" | "contract" | "storageFolder" | "storageFile" | "storageFileVersion" | "folderAccessRule" | "storageShareLink" | "calendar" | "teamCalendarConfig" | "calendarEvent" | "eventParticipant" | "eventReminder" | "emailAccount" | "emailAccountAccess" | "emailFolder" | "emailMessage" | "emailAttachment" | "team" | "teamMember" | "teamEmailAccount" | "board" | "boardColumn" | "card" | "boardLabel" | "cardLabel" | "boardMember" | "boardCustomField" | "cardCustomFieldValue" | "cardComment" | "commentReaction" | "cardAttachment" | "cardChecklist" | "checklistItem" | "cardActivity" | "boardAutomation" | "cardWatcher" | "systemSkillDefinition" | "skillPricing" | "tenantSubscription" | "tenantConsumption" | "tenantBilling" | "tenantIntegrationStatus" | "centralUser" | "supportTicket" | "supportTicketMessage" | "supportTicketAttachment" | "supportSlaConfig" | "priceTable" | "priceTableRule" | "priceTableItem" | "customerPrice" | "taxProfile" | "taxRule" | "campaign" | "campaignRule" | "campaignProduct" | "coupon" | "couponUsage" | "combo" | "comboItem" | "catalog" | "catalogItem" | "catalogExport" | "tenantBrand" | "contentTemplate" | "generatedContent" | "productMockup" | "emailCampaign" | "order" | "orderItem" | "paymentCondition" | "orderPayment" | "orderDelivery" | "orderDeliveryItem" | "orderReturn" | "orderReturnItem" | "storeCredit" | "storeCreditUsage" | "customerCreditLimit" | "approvalRule" | "orderCommission" | "commissionRule" | "orderHistory" | "digitalCertificate" | "signatureEnvelope" | "signatureEnvelopeSigner" | "signatureAuditEvent" | "signatureTemplate" | "analyticsWidget" | "analyticsDashboard" | "analyticsDashboardWidget" | "analyticsGoal" | "analyticsReport" | "analyticsReportGeneration" | "customerPortalAccess" | "aiTenantConfig" | "aiConversation" | "aiMessage" | "aiFavoriteQuery" | "aiActionLog" | "aiInsight"
+    modelProps: "user" | "userProfile" | "session" | "refreshToken" | "permission" | "permissionGroup" | "permissionGroupPermission" | "userPermissionGroup" | "userDirectPermission" | "permissionAuditLog" | "organization" | "organizationAddress" | "organizationCnae" | "organizationFiscalSettings" | "organizationStakeholder" | "supplier" | "manufacturer" | "category" | "warehouse" | "zone" | "bin" | "volume" | "volumeItem" | "template" | "product" | "variant" | "item" | "itemMovement" | "productCategory" | "variantPriceHistory" | "auditLog" | "tag" | "productTag" | "variantImage" | "productCareInstruction" | "productAttachment" | "variantAttachment" | "alert" | "purchaseOrder" | "purchaseOrderItem" | "unitConversion" | "stockSnapshot" | "inventorySession" | "inventorySessionItem" | "customer" | "salesOrder" | "salesOrderItem" | "crmContact" | "crmPipeline" | "crmPipelineStage" | "itemReservation" | "variantSupplierCode" | "variantPromotion" | "comment" | "notificationPreference" | "notificationTemplate" | "notification" | "request" | "requestAttachment" | "requestComment" | "requestHistory" | "employee" | "department" | "position" | "timeEntry" | "workSchedule" | "overtime" | "timeBank" | "absence" | "vacationPeriod" | "payroll" | "payrollItem" | "bonus" | "deduction" | "company" | "companyDocument" | "companyAddress" | "companyCnae" | "companyFiscalSettings" | "companyStakeholder" | "labelTemplate" | "tenant" | "plan" | "planModule" | "tenantPlan" | "tenantUser" | "tenantFeatureFlag" | "costCenter" | "bankAccount" | "financeCategory" | "financeEntry" | "financeCodeSequence" | "financeEntryPayment" | "financeEntryCostCenter" | "recurringConfig" | "financeAttachment" | "loan" | "loanInstallment" | "consortium" | "consortiumPayment" | "contract" | "storageFolder" | "storageFile" | "storageFileVersion" | "folderAccessRule" | "storageShareLink" | "calendar" | "teamCalendarConfig" | "calendarEvent" | "eventParticipant" | "eventReminder" | "emailAccount" | "emailAccountAccess" | "emailFolder" | "emailMessage" | "emailAttachment" | "team" | "teamMember" | "teamEmailAccount" | "board" | "boardColumn" | "card" | "boardLabel" | "cardLabel" | "boardMember" | "boardCustomField" | "cardCustomFieldValue" | "cardComment" | "commentReaction" | "cardAttachment" | "cardChecklist" | "checklistItem" | "cardActivity" | "boardAutomation" | "cardWatcher" | "systemSkillDefinition" | "skillPricing" | "tenantSubscription" | "tenantConsumption" | "tenantBilling" | "tenantIntegrationStatus" | "centralUser" | "supportTicket" | "supportTicketMessage" | "supportTicketAttachment" | "supportSlaConfig" | "priceTable" | "priceTableRule" | "priceTableItem" | "customerPrice" | "taxProfile" | "taxRule" | "campaign" | "campaignRule" | "campaignProduct" | "coupon" | "couponUsage" | "combo" | "comboItem" | "catalog" | "catalogItem" | "catalogExport" | "tenantBrand" | "contentTemplate" | "generatedContent" | "productMockup" | "emailCampaign" | "order" | "orderItem" | "paymentCondition" | "orderPayment" | "orderDelivery" | "orderDeliveryItem" | "orderReturn" | "orderReturnItem" | "storeCredit" | "storeCreditUsage" | "customerCreditLimit" | "approvalRule" | "orderCommission" | "commissionRule" | "orderHistory" | "digitalCertificate" | "signatureEnvelope" | "signatureEnvelopeSigner" | "signatureAuditEvent" | "signatureTemplate" | "analyticsWidget" | "analyticsDashboard" | "analyticsDashboardWidget" | "analyticsGoal" | "analyticsReport" | "analyticsReportGeneration" | "customerPortalAccess" | "aiTenantConfig" | "aiConversation" | "aiMessage" | "aiFavoriteQuery" | "aiActionLog" | "aiInsight" | "posTerminal" | "posSession" | "posTransaction" | "posTransactionPayment" | "posCashMovement" | "posOfflineQueue" | "posVisitLog"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -15403,6 +15410,524 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    PosTerminal: {
+      payload: Prisma.$PosTerminalPayload<ExtArgs>
+      fields: Prisma.PosTerminalFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PosTerminalFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosTerminalPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PosTerminalFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosTerminalPayload>
+        }
+        findFirst: {
+          args: Prisma.PosTerminalFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosTerminalPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PosTerminalFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosTerminalPayload>
+        }
+        findMany: {
+          args: Prisma.PosTerminalFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosTerminalPayload>[]
+        }
+        create: {
+          args: Prisma.PosTerminalCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosTerminalPayload>
+        }
+        createMany: {
+          args: Prisma.PosTerminalCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PosTerminalCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosTerminalPayload>[]
+        }
+        delete: {
+          args: Prisma.PosTerminalDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosTerminalPayload>
+        }
+        update: {
+          args: Prisma.PosTerminalUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosTerminalPayload>
+        }
+        deleteMany: {
+          args: Prisma.PosTerminalDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PosTerminalUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PosTerminalUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosTerminalPayload>[]
+        }
+        upsert: {
+          args: Prisma.PosTerminalUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosTerminalPayload>
+        }
+        aggregate: {
+          args: Prisma.PosTerminalAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePosTerminal>
+        }
+        groupBy: {
+          args: Prisma.PosTerminalGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PosTerminalGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PosTerminalCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PosTerminalCountAggregateOutputType> | number
+        }
+      }
+    }
+    PosSession: {
+      payload: Prisma.$PosSessionPayload<ExtArgs>
+      fields: Prisma.PosSessionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PosSessionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosSessionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PosSessionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosSessionPayload>
+        }
+        findFirst: {
+          args: Prisma.PosSessionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosSessionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PosSessionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosSessionPayload>
+        }
+        findMany: {
+          args: Prisma.PosSessionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosSessionPayload>[]
+        }
+        create: {
+          args: Prisma.PosSessionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosSessionPayload>
+        }
+        createMany: {
+          args: Prisma.PosSessionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PosSessionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosSessionPayload>[]
+        }
+        delete: {
+          args: Prisma.PosSessionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosSessionPayload>
+        }
+        update: {
+          args: Prisma.PosSessionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosSessionPayload>
+        }
+        deleteMany: {
+          args: Prisma.PosSessionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PosSessionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PosSessionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosSessionPayload>[]
+        }
+        upsert: {
+          args: Prisma.PosSessionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosSessionPayload>
+        }
+        aggregate: {
+          args: Prisma.PosSessionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePosSession>
+        }
+        groupBy: {
+          args: Prisma.PosSessionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PosSessionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PosSessionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PosSessionCountAggregateOutputType> | number
+        }
+      }
+    }
+    PosTransaction: {
+      payload: Prisma.$PosTransactionPayload<ExtArgs>
+      fields: Prisma.PosTransactionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PosTransactionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosTransactionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PosTransactionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosTransactionPayload>
+        }
+        findFirst: {
+          args: Prisma.PosTransactionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosTransactionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PosTransactionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosTransactionPayload>
+        }
+        findMany: {
+          args: Prisma.PosTransactionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosTransactionPayload>[]
+        }
+        create: {
+          args: Prisma.PosTransactionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosTransactionPayload>
+        }
+        createMany: {
+          args: Prisma.PosTransactionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PosTransactionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosTransactionPayload>[]
+        }
+        delete: {
+          args: Prisma.PosTransactionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosTransactionPayload>
+        }
+        update: {
+          args: Prisma.PosTransactionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosTransactionPayload>
+        }
+        deleteMany: {
+          args: Prisma.PosTransactionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PosTransactionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PosTransactionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosTransactionPayload>[]
+        }
+        upsert: {
+          args: Prisma.PosTransactionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosTransactionPayload>
+        }
+        aggregate: {
+          args: Prisma.PosTransactionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePosTransaction>
+        }
+        groupBy: {
+          args: Prisma.PosTransactionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PosTransactionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PosTransactionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PosTransactionCountAggregateOutputType> | number
+        }
+      }
+    }
+    PosTransactionPayment: {
+      payload: Prisma.$PosTransactionPaymentPayload<ExtArgs>
+      fields: Prisma.PosTransactionPaymentFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PosTransactionPaymentFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosTransactionPaymentPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PosTransactionPaymentFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosTransactionPaymentPayload>
+        }
+        findFirst: {
+          args: Prisma.PosTransactionPaymentFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosTransactionPaymentPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PosTransactionPaymentFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosTransactionPaymentPayload>
+        }
+        findMany: {
+          args: Prisma.PosTransactionPaymentFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosTransactionPaymentPayload>[]
+        }
+        create: {
+          args: Prisma.PosTransactionPaymentCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosTransactionPaymentPayload>
+        }
+        createMany: {
+          args: Prisma.PosTransactionPaymentCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PosTransactionPaymentCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosTransactionPaymentPayload>[]
+        }
+        delete: {
+          args: Prisma.PosTransactionPaymentDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosTransactionPaymentPayload>
+        }
+        update: {
+          args: Prisma.PosTransactionPaymentUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosTransactionPaymentPayload>
+        }
+        deleteMany: {
+          args: Prisma.PosTransactionPaymentDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PosTransactionPaymentUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PosTransactionPaymentUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosTransactionPaymentPayload>[]
+        }
+        upsert: {
+          args: Prisma.PosTransactionPaymentUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosTransactionPaymentPayload>
+        }
+        aggregate: {
+          args: Prisma.PosTransactionPaymentAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePosTransactionPayment>
+        }
+        groupBy: {
+          args: Prisma.PosTransactionPaymentGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PosTransactionPaymentGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PosTransactionPaymentCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PosTransactionPaymentCountAggregateOutputType> | number
+        }
+      }
+    }
+    PosCashMovement: {
+      payload: Prisma.$PosCashMovementPayload<ExtArgs>
+      fields: Prisma.PosCashMovementFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PosCashMovementFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosCashMovementPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PosCashMovementFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosCashMovementPayload>
+        }
+        findFirst: {
+          args: Prisma.PosCashMovementFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosCashMovementPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PosCashMovementFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosCashMovementPayload>
+        }
+        findMany: {
+          args: Prisma.PosCashMovementFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosCashMovementPayload>[]
+        }
+        create: {
+          args: Prisma.PosCashMovementCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosCashMovementPayload>
+        }
+        createMany: {
+          args: Prisma.PosCashMovementCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PosCashMovementCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosCashMovementPayload>[]
+        }
+        delete: {
+          args: Prisma.PosCashMovementDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosCashMovementPayload>
+        }
+        update: {
+          args: Prisma.PosCashMovementUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosCashMovementPayload>
+        }
+        deleteMany: {
+          args: Prisma.PosCashMovementDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PosCashMovementUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PosCashMovementUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosCashMovementPayload>[]
+        }
+        upsert: {
+          args: Prisma.PosCashMovementUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosCashMovementPayload>
+        }
+        aggregate: {
+          args: Prisma.PosCashMovementAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePosCashMovement>
+        }
+        groupBy: {
+          args: Prisma.PosCashMovementGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PosCashMovementGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PosCashMovementCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PosCashMovementCountAggregateOutputType> | number
+        }
+      }
+    }
+    PosOfflineQueue: {
+      payload: Prisma.$PosOfflineQueuePayload<ExtArgs>
+      fields: Prisma.PosOfflineQueueFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PosOfflineQueueFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosOfflineQueuePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PosOfflineQueueFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosOfflineQueuePayload>
+        }
+        findFirst: {
+          args: Prisma.PosOfflineQueueFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosOfflineQueuePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PosOfflineQueueFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosOfflineQueuePayload>
+        }
+        findMany: {
+          args: Prisma.PosOfflineQueueFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosOfflineQueuePayload>[]
+        }
+        create: {
+          args: Prisma.PosOfflineQueueCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosOfflineQueuePayload>
+        }
+        createMany: {
+          args: Prisma.PosOfflineQueueCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PosOfflineQueueCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosOfflineQueuePayload>[]
+        }
+        delete: {
+          args: Prisma.PosOfflineQueueDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosOfflineQueuePayload>
+        }
+        update: {
+          args: Prisma.PosOfflineQueueUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosOfflineQueuePayload>
+        }
+        deleteMany: {
+          args: Prisma.PosOfflineQueueDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PosOfflineQueueUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PosOfflineQueueUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosOfflineQueuePayload>[]
+        }
+        upsert: {
+          args: Prisma.PosOfflineQueueUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosOfflineQueuePayload>
+        }
+        aggregate: {
+          args: Prisma.PosOfflineQueueAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePosOfflineQueue>
+        }
+        groupBy: {
+          args: Prisma.PosOfflineQueueGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PosOfflineQueueGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PosOfflineQueueCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PosOfflineQueueCountAggregateOutputType> | number
+        }
+      }
+    }
+    PosVisitLog: {
+      payload: Prisma.$PosVisitLogPayload<ExtArgs>
+      fields: Prisma.PosVisitLogFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PosVisitLogFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosVisitLogPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PosVisitLogFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosVisitLogPayload>
+        }
+        findFirst: {
+          args: Prisma.PosVisitLogFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosVisitLogPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PosVisitLogFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosVisitLogPayload>
+        }
+        findMany: {
+          args: Prisma.PosVisitLogFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosVisitLogPayload>[]
+        }
+        create: {
+          args: Prisma.PosVisitLogCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosVisitLogPayload>
+        }
+        createMany: {
+          args: Prisma.PosVisitLogCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PosVisitLogCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosVisitLogPayload>[]
+        }
+        delete: {
+          args: Prisma.PosVisitLogDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosVisitLogPayload>
+        }
+        update: {
+          args: Prisma.PosVisitLogUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosVisitLogPayload>
+        }
+        deleteMany: {
+          args: Prisma.PosVisitLogDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PosVisitLogUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PosVisitLogUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosVisitLogPayload>[]
+        }
+        upsert: {
+          args: Prisma.PosVisitLogUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PosVisitLogPayload>
+        }
+        aggregate: {
+          args: Prisma.PosVisitLogAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePosVisitLog>
+        }
+        groupBy: {
+          args: Prisma.PosVisitLogGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PosVisitLogGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PosVisitLogCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PosVisitLogCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -19502,6 +20027,147 @@ export const AiInsightScalarFieldEnum = {
 export type AiInsightScalarFieldEnum = (typeof AiInsightScalarFieldEnum)[keyof typeof AiInsightScalarFieldEnum]
 
 
+export const PosTerminalScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  name: 'name',
+  deviceId: 'deviceId',
+  mode: 'mode',
+  cashierMode: 'cashierMode',
+  acceptsPendingOrders: 'acceptsPendingOrders',
+  warehouseId: 'warehouseId',
+  defaultPriceTableId: 'defaultPriceTableId',
+  isActive: 'isActive',
+  lastSyncAt: 'lastSyncAt',
+  lastOnlineAt: 'lastOnlineAt',
+  settings: 'settings',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PosTerminalScalarFieldEnum = (typeof PosTerminalScalarFieldEnum)[keyof typeof PosTerminalScalarFieldEnum]
+
+
+export const PosSessionScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  terminalId: 'terminalId',
+  operatorUserId: 'operatorUserId',
+  status: 'status',
+  openedAt: 'openedAt',
+  closedAt: 'closedAt',
+  openingBalance: 'openingBalance',
+  closingBalance: 'closingBalance',
+  expectedBalance: 'expectedBalance',
+  difference: 'difference',
+  closingBreakdown: 'closingBreakdown',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PosSessionScalarFieldEnum = (typeof PosSessionScalarFieldEnum)[keyof typeof PosSessionScalarFieldEnum]
+
+
+export const PosTransactionScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  sessionId: 'sessionId',
+  orderId: 'orderId',
+  transactionNumber: 'transactionNumber',
+  status: 'status',
+  subtotal: 'subtotal',
+  discountTotal: 'discountTotal',
+  taxTotal: 'taxTotal',
+  grandTotal: 'grandTotal',
+  changeAmount: 'changeAmount',
+  customerId: 'customerId',
+  customerName: 'customerName',
+  customerDocument: 'customerDocument',
+  overrideByUserId: 'overrideByUserId',
+  overrideReason: 'overrideReason',
+  syncedAt: 'syncedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type PosTransactionScalarFieldEnum = (typeof PosTransactionScalarFieldEnum)[keyof typeof PosTransactionScalarFieldEnum]
+
+
+export const PosTransactionPaymentScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  transactionId: 'transactionId',
+  method: 'method',
+  amount: 'amount',
+  receivedAmount: 'receivedAmount',
+  changeAmount: 'changeAmount',
+  installments: 'installments',
+  authCode: 'authCode',
+  nsu: 'nsu',
+  pixTxId: 'pixTxId',
+  paymentLinkUrl: 'paymentLinkUrl',
+  paymentLinkStatus: 'paymentLinkStatus',
+  tefTransactionId: 'tefTransactionId',
+  notes: 'notes',
+  createdAt: 'createdAt'
+} as const
+
+export type PosTransactionPaymentScalarFieldEnum = (typeof PosTransactionPaymentScalarFieldEnum)[keyof typeof PosTransactionPaymentScalarFieldEnum]
+
+
+export const PosCashMovementScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  sessionId: 'sessionId',
+  type: 'type',
+  amount: 'amount',
+  reason: 'reason',
+  performedByUserId: 'performedByUserId',
+  authorizedByUserId: 'authorizedByUserId',
+  createdAt: 'createdAt'
+} as const
+
+export type PosCashMovementScalarFieldEnum = (typeof PosCashMovementScalarFieldEnum)[keyof typeof PosCashMovementScalarFieldEnum]
+
+
+export const PosOfflineQueueScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  terminalId: 'terminalId',
+  operationType: 'operationType',
+  payload: 'payload',
+  status: 'status',
+  attempts: 'attempts',
+  lastError: 'lastError',
+  createdAt: 'createdAt',
+  syncedAt: 'syncedAt'
+} as const
+
+export type PosOfflineQueueScalarFieldEnum = (typeof PosOfflineQueueScalarFieldEnum)[keyof typeof PosOfflineQueueScalarFieldEnum]
+
+
+export const PosVisitLogScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  userId: 'userId',
+  customerId: 'customerId',
+  latitude: 'latitude',
+  longitude: 'longitude',
+  address: 'address',
+  checkInAt: 'checkInAt',
+  checkOutAt: 'checkOutAt',
+  duration: 'duration',
+  outcome: 'outcome',
+  orderId: 'orderId',
+  notes: 'notes',
+  signatureFileId: 'signatureFileId',
+  photos: 'photos',
+  createdAt: 'createdAt'
+} as const
+
+export type PosVisitLogScalarFieldEnum = (typeof PosVisitLogScalarFieldEnum)[keyof typeof PosVisitLogScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -22096,6 +22762,146 @@ export type EnumAiInsightStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$
 export type ListEnumAiInsightStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AiInsightStatus[]'>
     
 
+
+/**
+ * Reference to a field of type 'PosTerminalMode'
+ */
+export type EnumPosTerminalModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PosTerminalMode'>
+    
+
+
+/**
+ * Reference to a field of type 'PosTerminalMode[]'
+ */
+export type ListEnumPosTerminalModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PosTerminalMode[]'>
+    
+
+
+/**
+ * Reference to a field of type 'PosCashierMode'
+ */
+export type EnumPosCashierModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PosCashierMode'>
+    
+
+
+/**
+ * Reference to a field of type 'PosCashierMode[]'
+ */
+export type ListEnumPosCashierModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PosCashierMode[]'>
+    
+
+
+/**
+ * Reference to a field of type 'PosSessionStatus'
+ */
+export type EnumPosSessionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PosSessionStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'PosSessionStatus[]'
+ */
+export type ListEnumPosSessionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PosSessionStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'PosTransactionStatus'
+ */
+export type EnumPosTransactionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PosTransactionStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'PosTransactionStatus[]'
+ */
+export type ListEnumPosTransactionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PosTransactionStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'PosPaymentMethod'
+ */
+export type EnumPosPaymentMethodFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PosPaymentMethod'>
+    
+
+
+/**
+ * Reference to a field of type 'PosPaymentMethod[]'
+ */
+export type ListEnumPosPaymentMethodFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PosPaymentMethod[]'>
+    
+
+
+/**
+ * Reference to a field of type 'PosPaymentLinkStatus'
+ */
+export type EnumPosPaymentLinkStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PosPaymentLinkStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'PosPaymentLinkStatus[]'
+ */
+export type ListEnumPosPaymentLinkStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PosPaymentLinkStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'PosCashMovementType'
+ */
+export type EnumPosCashMovementTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PosCashMovementType'>
+    
+
+
+/**
+ * Reference to a field of type 'PosCashMovementType[]'
+ */
+export type ListEnumPosCashMovementTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PosCashMovementType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'PosOfflineOperationType'
+ */
+export type EnumPosOfflineOperationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PosOfflineOperationType'>
+    
+
+
+/**
+ * Reference to a field of type 'PosOfflineOperationType[]'
+ */
+export type ListEnumPosOfflineOperationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PosOfflineOperationType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'PosOfflineStatus'
+ */
+export type EnumPosOfflineStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PosOfflineStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'PosOfflineStatus[]'
+ */
+export type ListEnumPosOfflineStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PosOfflineStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'PosVisitOutcome'
+ */
+export type EnumPosVisitOutcomeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PosVisitOutcome'>
+    
+
+
+/**
+ * Reference to a field of type 'PosVisitOutcome[]'
+ */
+export type ListEnumPosVisitOutcomeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PosVisitOutcome[]'>
+    
+
 /**
  * Batch Payload for updateMany & deleteMany & createMany
  */
@@ -22391,6 +23197,13 @@ export type GlobalOmitConfig = {
   aiFavoriteQuery?: Prisma.AiFavoriteQueryOmit
   aiActionLog?: Prisma.AiActionLogOmit
   aiInsight?: Prisma.AiInsightOmit
+  posTerminal?: Prisma.PosTerminalOmit
+  posSession?: Prisma.PosSessionOmit
+  posTransaction?: Prisma.PosTransactionOmit
+  posTransactionPayment?: Prisma.PosTransactionPaymentOmit
+  posCashMovement?: Prisma.PosCashMovementOmit
+  posOfflineQueue?: Prisma.PosOfflineQueueOmit
+  posVisitLog?: Prisma.PosVisitLogOmit
 }
 
 /* Types for Logging */

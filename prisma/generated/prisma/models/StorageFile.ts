@@ -392,6 +392,7 @@ export type StorageFileWhereInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerListRelationFilter
   analyticsReportLastFiles?: Prisma.AnalyticsReportListRelationFilter
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationListRelationFilter
+  posVisitSignatures?: Prisma.PosVisitLogListRelationFilter
 }
 
 export type StorageFileOrderByWithRelationInput = {
@@ -439,6 +440,7 @@ export type StorageFileOrderByWithRelationInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerOrderByRelationAggregateInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportOrderByRelationAggregateInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationOrderByRelationAggregateInput
+  posVisitSignatures?: Prisma.PosVisitLogOrderByRelationAggregateInput
 }
 
 export type StorageFileWhereUniqueInput = Prisma.AtLeast<{
@@ -490,6 +492,7 @@ export type StorageFileWhereUniqueInput = Prisma.AtLeast<{
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerListRelationFilter
   analyticsReportLastFiles?: Prisma.AnalyticsReportListRelationFilter
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationListRelationFilter
+  posVisitSignatures?: Prisma.PosVisitLogListRelationFilter
 }, "id" | "storage_files_path_tenant_unique">
 
 export type StorageFileOrderByWithAggregationInput = {
@@ -597,6 +600,7 @@ export type StorageFileCreateInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutSignatureImageInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportCreateNestedManyWithoutLastFileInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationCreateNestedManyWithoutFileInput
+  posVisitSignatures?: Prisma.PosVisitLogCreateNestedManyWithoutSignatureFileInput
 }
 
 export type StorageFileUncheckedCreateInput = {
@@ -642,6 +646,7 @@ export type StorageFileUncheckedCreateInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutSignatureImageInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutLastFileInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedCreateNestedManyWithoutFileInput
+  posVisitSignatures?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutSignatureFileInput
 }
 
 export type StorageFileUpdateInput = {
@@ -687,6 +692,7 @@ export type StorageFileUpdateInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutSignatureImageNestedInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportUpdateManyWithoutLastFileNestedInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUpdateManyWithoutFileNestedInput
+  posVisitSignatures?: Prisma.PosVisitLogUpdateManyWithoutSignatureFileNestedInput
 }
 
 export type StorageFileUncheckedUpdateInput = {
@@ -732,6 +738,7 @@ export type StorageFileUncheckedUpdateInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutSignatureImageNestedInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutLastFileNestedInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedUpdateManyWithoutFileNestedInput
+  posVisitSignatures?: Prisma.PosVisitLogUncheckedUpdateManyWithoutSignatureFileNestedInput
 }
 
 export type StorageFileCreateManyInput = {
@@ -1298,6 +1305,22 @@ export type StorageFileUpdateOneWithoutAnalyticsReportGenerationFilesNestedInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.StorageFileUpdateToOneWithWhereWithoutAnalyticsReportGenerationFilesInput, Prisma.StorageFileUpdateWithoutAnalyticsReportGenerationFilesInput>, Prisma.StorageFileUncheckedUpdateWithoutAnalyticsReportGenerationFilesInput>
 }
 
+export type StorageFileCreateNestedOneWithoutPosVisitSignaturesInput = {
+  create?: Prisma.XOR<Prisma.StorageFileCreateWithoutPosVisitSignaturesInput, Prisma.StorageFileUncheckedCreateWithoutPosVisitSignaturesInput>
+  connectOrCreate?: Prisma.StorageFileCreateOrConnectWithoutPosVisitSignaturesInput
+  connect?: Prisma.StorageFileWhereUniqueInput
+}
+
+export type StorageFileUpdateOneWithoutPosVisitSignaturesNestedInput = {
+  create?: Prisma.XOR<Prisma.StorageFileCreateWithoutPosVisitSignaturesInput, Prisma.StorageFileUncheckedCreateWithoutPosVisitSignaturesInput>
+  connectOrCreate?: Prisma.StorageFileCreateOrConnectWithoutPosVisitSignaturesInput
+  upsert?: Prisma.StorageFileUpsertWithoutPosVisitSignaturesInput
+  disconnect?: Prisma.StorageFileWhereInput | boolean
+  delete?: Prisma.StorageFileWhereInput | boolean
+  connect?: Prisma.StorageFileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.StorageFileUpdateToOneWithWhereWithoutPosVisitSignaturesInput, Prisma.StorageFileUpdateWithoutPosVisitSignaturesInput>, Prisma.StorageFileUncheckedUpdateWithoutPosVisitSignaturesInput>
+}
+
 export type StorageFileCreateWithoutTenantInput = {
   id?: string
   name: string
@@ -1340,6 +1363,7 @@ export type StorageFileCreateWithoutTenantInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutSignatureImageInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportCreateNestedManyWithoutLastFileInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationCreateNestedManyWithoutFileInput
+  posVisitSignatures?: Prisma.PosVisitLogCreateNestedManyWithoutSignatureFileInput
 }
 
 export type StorageFileUncheckedCreateWithoutTenantInput = {
@@ -1384,6 +1408,7 @@ export type StorageFileUncheckedCreateWithoutTenantInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutSignatureImageInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutLastFileInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedCreateNestedManyWithoutFileInput
+  posVisitSignatures?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutSignatureFileInput
 }
 
 export type StorageFileCreateOrConnectWithoutTenantInput = {
@@ -1484,6 +1509,7 @@ export type StorageFileCreateWithoutFolderInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutSignatureImageInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportCreateNestedManyWithoutLastFileInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationCreateNestedManyWithoutFileInput
+  posVisitSignatures?: Prisma.PosVisitLogCreateNestedManyWithoutSignatureFileInput
 }
 
 export type StorageFileUncheckedCreateWithoutFolderInput = {
@@ -1528,6 +1554,7 @@ export type StorageFileUncheckedCreateWithoutFolderInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutSignatureImageInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutLastFileInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedCreateNestedManyWithoutFileInput
+  posVisitSignatures?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutSignatureFileInput
 }
 
 export type StorageFileCreateOrConnectWithoutFolderInput = {
@@ -1598,6 +1625,7 @@ export type StorageFileCreateWithoutVersionsInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutSignatureImageInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportCreateNestedManyWithoutLastFileInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationCreateNestedManyWithoutFileInput
+  posVisitSignatures?: Prisma.PosVisitLogCreateNestedManyWithoutSignatureFileInput
 }
 
 export type StorageFileUncheckedCreateWithoutVersionsInput = {
@@ -1642,6 +1670,7 @@ export type StorageFileUncheckedCreateWithoutVersionsInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutSignatureImageInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutLastFileInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedCreateNestedManyWithoutFileInput
+  posVisitSignatures?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutSignatureFileInput
 }
 
 export type StorageFileCreateOrConnectWithoutVersionsInput = {
@@ -1702,6 +1731,7 @@ export type StorageFileUpdateWithoutVersionsInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutSignatureImageNestedInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportUpdateManyWithoutLastFileNestedInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUpdateManyWithoutFileNestedInput
+  posVisitSignatures?: Prisma.PosVisitLogUpdateManyWithoutSignatureFileNestedInput
 }
 
 export type StorageFileUncheckedUpdateWithoutVersionsInput = {
@@ -1746,6 +1776,7 @@ export type StorageFileUncheckedUpdateWithoutVersionsInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutSignatureImageNestedInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutLastFileNestedInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedUpdateManyWithoutFileNestedInput
+  posVisitSignatures?: Prisma.PosVisitLogUncheckedUpdateManyWithoutSignatureFileNestedInput
 }
 
 export type StorageFileCreateWithoutShareLinksInput = {
@@ -1790,6 +1821,7 @@ export type StorageFileCreateWithoutShareLinksInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutSignatureImageInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportCreateNestedManyWithoutLastFileInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationCreateNestedManyWithoutFileInput
+  posVisitSignatures?: Prisma.PosVisitLogCreateNestedManyWithoutSignatureFileInput
 }
 
 export type StorageFileUncheckedCreateWithoutShareLinksInput = {
@@ -1834,6 +1866,7 @@ export type StorageFileUncheckedCreateWithoutShareLinksInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutSignatureImageInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutLastFileInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedCreateNestedManyWithoutFileInput
+  posVisitSignatures?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutSignatureFileInput
 }
 
 export type StorageFileCreateOrConnectWithoutShareLinksInput = {
@@ -1894,6 +1927,7 @@ export type StorageFileUpdateWithoutShareLinksInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutSignatureImageNestedInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportUpdateManyWithoutLastFileNestedInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUpdateManyWithoutFileNestedInput
+  posVisitSignatures?: Prisma.PosVisitLogUpdateManyWithoutSignatureFileNestedInput
 }
 
 export type StorageFileUncheckedUpdateWithoutShareLinksInput = {
@@ -1938,6 +1972,7 @@ export type StorageFileUncheckedUpdateWithoutShareLinksInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutSignatureImageNestedInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutLastFileNestedInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedUpdateManyWithoutFileNestedInput
+  posVisitSignatures?: Prisma.PosVisitLogUncheckedUpdateManyWithoutSignatureFileNestedInput
 }
 
 export type StorageFileCreateWithoutCardAttachmentsInput = {
@@ -1982,6 +2017,7 @@ export type StorageFileCreateWithoutCardAttachmentsInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutSignatureImageInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportCreateNestedManyWithoutLastFileInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationCreateNestedManyWithoutFileInput
+  posVisitSignatures?: Prisma.PosVisitLogCreateNestedManyWithoutSignatureFileInput
 }
 
 export type StorageFileUncheckedCreateWithoutCardAttachmentsInput = {
@@ -2026,6 +2062,7 @@ export type StorageFileUncheckedCreateWithoutCardAttachmentsInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutSignatureImageInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutLastFileInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedCreateNestedManyWithoutFileInput
+  posVisitSignatures?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutSignatureFileInput
 }
 
 export type StorageFileCreateOrConnectWithoutCardAttachmentsInput = {
@@ -2086,6 +2123,7 @@ export type StorageFileUpdateWithoutCardAttachmentsInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutSignatureImageNestedInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportUpdateManyWithoutLastFileNestedInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUpdateManyWithoutFileNestedInput
+  posVisitSignatures?: Prisma.PosVisitLogUpdateManyWithoutSignatureFileNestedInput
 }
 
 export type StorageFileUncheckedUpdateWithoutCardAttachmentsInput = {
@@ -2130,6 +2168,7 @@ export type StorageFileUncheckedUpdateWithoutCardAttachmentsInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutSignatureImageNestedInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutLastFileNestedInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedUpdateManyWithoutFileNestedInput
+  posVisitSignatures?: Prisma.PosVisitLogUncheckedUpdateManyWithoutSignatureFileNestedInput
 }
 
 export type StorageFileCreateWithoutCatalogCoverImagesInput = {
@@ -2174,6 +2213,7 @@ export type StorageFileCreateWithoutCatalogCoverImagesInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutSignatureImageInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportCreateNestedManyWithoutLastFileInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationCreateNestedManyWithoutFileInput
+  posVisitSignatures?: Prisma.PosVisitLogCreateNestedManyWithoutSignatureFileInput
 }
 
 export type StorageFileUncheckedCreateWithoutCatalogCoverImagesInput = {
@@ -2218,6 +2258,7 @@ export type StorageFileUncheckedCreateWithoutCatalogCoverImagesInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutSignatureImageInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutLastFileInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedCreateNestedManyWithoutFileInput
+  posVisitSignatures?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutSignatureFileInput
 }
 
 export type StorageFileCreateOrConnectWithoutCatalogCoverImagesInput = {
@@ -2278,6 +2319,7 @@ export type StorageFileUpdateWithoutCatalogCoverImagesInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutSignatureImageNestedInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportUpdateManyWithoutLastFileNestedInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUpdateManyWithoutFileNestedInput
+  posVisitSignatures?: Prisma.PosVisitLogUpdateManyWithoutSignatureFileNestedInput
 }
 
 export type StorageFileUncheckedUpdateWithoutCatalogCoverImagesInput = {
@@ -2322,6 +2364,7 @@ export type StorageFileUncheckedUpdateWithoutCatalogCoverImagesInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutSignatureImageNestedInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutLastFileNestedInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedUpdateManyWithoutFileNestedInput
+  posVisitSignatures?: Prisma.PosVisitLogUncheckedUpdateManyWithoutSignatureFileNestedInput
 }
 
 export type StorageFileCreateWithoutCatalogExportFilesInput = {
@@ -2366,6 +2409,7 @@ export type StorageFileCreateWithoutCatalogExportFilesInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutSignatureImageInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportCreateNestedManyWithoutLastFileInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationCreateNestedManyWithoutFileInput
+  posVisitSignatures?: Prisma.PosVisitLogCreateNestedManyWithoutSignatureFileInput
 }
 
 export type StorageFileUncheckedCreateWithoutCatalogExportFilesInput = {
@@ -2410,6 +2454,7 @@ export type StorageFileUncheckedCreateWithoutCatalogExportFilesInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutSignatureImageInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutLastFileInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedCreateNestedManyWithoutFileInput
+  posVisitSignatures?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutSignatureFileInput
 }
 
 export type StorageFileCreateOrConnectWithoutCatalogExportFilesInput = {
@@ -2470,6 +2515,7 @@ export type StorageFileUpdateWithoutCatalogExportFilesInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutSignatureImageNestedInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportUpdateManyWithoutLastFileNestedInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUpdateManyWithoutFileNestedInput
+  posVisitSignatures?: Prisma.PosVisitLogUpdateManyWithoutSignatureFileNestedInput
 }
 
 export type StorageFileUncheckedUpdateWithoutCatalogExportFilesInput = {
@@ -2514,6 +2560,7 @@ export type StorageFileUncheckedUpdateWithoutCatalogExportFilesInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutSignatureImageNestedInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutLastFileNestedInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedUpdateManyWithoutFileNestedInput
+  posVisitSignatures?: Prisma.PosVisitLogUncheckedUpdateManyWithoutSignatureFileNestedInput
 }
 
 export type StorageFileCreateWithoutTenantBrandLogosInput = {
@@ -2558,6 +2605,7 @@ export type StorageFileCreateWithoutTenantBrandLogosInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutSignatureImageInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportCreateNestedManyWithoutLastFileInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationCreateNestedManyWithoutFileInput
+  posVisitSignatures?: Prisma.PosVisitLogCreateNestedManyWithoutSignatureFileInput
 }
 
 export type StorageFileUncheckedCreateWithoutTenantBrandLogosInput = {
@@ -2602,6 +2650,7 @@ export type StorageFileUncheckedCreateWithoutTenantBrandLogosInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutSignatureImageInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutLastFileInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedCreateNestedManyWithoutFileInput
+  posVisitSignatures?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutSignatureFileInput
 }
 
 export type StorageFileCreateOrConnectWithoutTenantBrandLogosInput = {
@@ -2651,6 +2700,7 @@ export type StorageFileCreateWithoutTenantBrandLogoIconsInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutSignatureImageInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportCreateNestedManyWithoutLastFileInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationCreateNestedManyWithoutFileInput
+  posVisitSignatures?: Prisma.PosVisitLogCreateNestedManyWithoutSignatureFileInput
 }
 
 export type StorageFileUncheckedCreateWithoutTenantBrandLogoIconsInput = {
@@ -2695,6 +2745,7 @@ export type StorageFileUncheckedCreateWithoutTenantBrandLogoIconsInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutSignatureImageInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutLastFileInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedCreateNestedManyWithoutFileInput
+  posVisitSignatures?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutSignatureFileInput
 }
 
 export type StorageFileCreateOrConnectWithoutTenantBrandLogoIconsInput = {
@@ -2755,6 +2806,7 @@ export type StorageFileUpdateWithoutTenantBrandLogosInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutSignatureImageNestedInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportUpdateManyWithoutLastFileNestedInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUpdateManyWithoutFileNestedInput
+  posVisitSignatures?: Prisma.PosVisitLogUpdateManyWithoutSignatureFileNestedInput
 }
 
 export type StorageFileUncheckedUpdateWithoutTenantBrandLogosInput = {
@@ -2799,6 +2851,7 @@ export type StorageFileUncheckedUpdateWithoutTenantBrandLogosInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutSignatureImageNestedInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutLastFileNestedInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedUpdateManyWithoutFileNestedInput
+  posVisitSignatures?: Prisma.PosVisitLogUncheckedUpdateManyWithoutSignatureFileNestedInput
 }
 
 export type StorageFileUpsertWithoutTenantBrandLogoIconsInput = {
@@ -2854,6 +2907,7 @@ export type StorageFileUpdateWithoutTenantBrandLogoIconsInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutSignatureImageNestedInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportUpdateManyWithoutLastFileNestedInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUpdateManyWithoutFileNestedInput
+  posVisitSignatures?: Prisma.PosVisitLogUpdateManyWithoutSignatureFileNestedInput
 }
 
 export type StorageFileUncheckedUpdateWithoutTenantBrandLogoIconsInput = {
@@ -2898,6 +2952,7 @@ export type StorageFileUncheckedUpdateWithoutTenantBrandLogoIconsInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutSignatureImageNestedInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutLastFileNestedInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedUpdateManyWithoutFileNestedInput
+  posVisitSignatures?: Prisma.PosVisitLogUncheckedUpdateManyWithoutSignatureFileNestedInput
 }
 
 export type StorageFileCreateWithoutContentTemplatePreviewsInput = {
@@ -2942,6 +2997,7 @@ export type StorageFileCreateWithoutContentTemplatePreviewsInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutSignatureImageInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportCreateNestedManyWithoutLastFileInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationCreateNestedManyWithoutFileInput
+  posVisitSignatures?: Prisma.PosVisitLogCreateNestedManyWithoutSignatureFileInput
 }
 
 export type StorageFileUncheckedCreateWithoutContentTemplatePreviewsInput = {
@@ -2986,6 +3042,7 @@ export type StorageFileUncheckedCreateWithoutContentTemplatePreviewsInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutSignatureImageInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutLastFileInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedCreateNestedManyWithoutFileInput
+  posVisitSignatures?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutSignatureFileInput
 }
 
 export type StorageFileCreateOrConnectWithoutContentTemplatePreviewsInput = {
@@ -3046,6 +3103,7 @@ export type StorageFileUpdateWithoutContentTemplatePreviewsInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutSignatureImageNestedInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportUpdateManyWithoutLastFileNestedInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUpdateManyWithoutFileNestedInput
+  posVisitSignatures?: Prisma.PosVisitLogUpdateManyWithoutSignatureFileNestedInput
 }
 
 export type StorageFileUncheckedUpdateWithoutContentTemplatePreviewsInput = {
@@ -3090,6 +3148,7 @@ export type StorageFileUncheckedUpdateWithoutContentTemplatePreviewsInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutSignatureImageNestedInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutLastFileNestedInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedUpdateManyWithoutFileNestedInput
+  posVisitSignatures?: Prisma.PosVisitLogUncheckedUpdateManyWithoutSignatureFileNestedInput
 }
 
 export type StorageFileCreateWithoutGeneratedContentFilesInput = {
@@ -3134,6 +3193,7 @@ export type StorageFileCreateWithoutGeneratedContentFilesInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutSignatureImageInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportCreateNestedManyWithoutLastFileInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationCreateNestedManyWithoutFileInput
+  posVisitSignatures?: Prisma.PosVisitLogCreateNestedManyWithoutSignatureFileInput
 }
 
 export type StorageFileUncheckedCreateWithoutGeneratedContentFilesInput = {
@@ -3178,6 +3238,7 @@ export type StorageFileUncheckedCreateWithoutGeneratedContentFilesInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutSignatureImageInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutLastFileInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedCreateNestedManyWithoutFileInput
+  posVisitSignatures?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutSignatureFileInput
 }
 
 export type StorageFileCreateOrConnectWithoutGeneratedContentFilesInput = {
@@ -3227,6 +3288,7 @@ export type StorageFileCreateWithoutGeneratedContentThumbsInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutSignatureImageInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportCreateNestedManyWithoutLastFileInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationCreateNestedManyWithoutFileInput
+  posVisitSignatures?: Prisma.PosVisitLogCreateNestedManyWithoutSignatureFileInput
 }
 
 export type StorageFileUncheckedCreateWithoutGeneratedContentThumbsInput = {
@@ -3271,6 +3333,7 @@ export type StorageFileUncheckedCreateWithoutGeneratedContentThumbsInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutSignatureImageInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutLastFileInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedCreateNestedManyWithoutFileInput
+  posVisitSignatures?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutSignatureFileInput
 }
 
 export type StorageFileCreateOrConnectWithoutGeneratedContentThumbsInput = {
@@ -3331,6 +3394,7 @@ export type StorageFileUpdateWithoutGeneratedContentFilesInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutSignatureImageNestedInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportUpdateManyWithoutLastFileNestedInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUpdateManyWithoutFileNestedInput
+  posVisitSignatures?: Prisma.PosVisitLogUpdateManyWithoutSignatureFileNestedInput
 }
 
 export type StorageFileUncheckedUpdateWithoutGeneratedContentFilesInput = {
@@ -3375,6 +3439,7 @@ export type StorageFileUncheckedUpdateWithoutGeneratedContentFilesInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutSignatureImageNestedInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutLastFileNestedInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedUpdateManyWithoutFileNestedInput
+  posVisitSignatures?: Prisma.PosVisitLogUncheckedUpdateManyWithoutSignatureFileNestedInput
 }
 
 export type StorageFileUpsertWithoutGeneratedContentThumbsInput = {
@@ -3430,6 +3495,7 @@ export type StorageFileUpdateWithoutGeneratedContentThumbsInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutSignatureImageNestedInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportUpdateManyWithoutLastFileNestedInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUpdateManyWithoutFileNestedInput
+  posVisitSignatures?: Prisma.PosVisitLogUpdateManyWithoutSignatureFileNestedInput
 }
 
 export type StorageFileUncheckedUpdateWithoutGeneratedContentThumbsInput = {
@@ -3474,6 +3540,7 @@ export type StorageFileUncheckedUpdateWithoutGeneratedContentThumbsInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutSignatureImageNestedInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutLastFileNestedInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedUpdateManyWithoutFileNestedInput
+  posVisitSignatures?: Prisma.PosVisitLogUncheckedUpdateManyWithoutSignatureFileNestedInput
 }
 
 export type StorageFileCreateWithoutMockupClientLogosInput = {
@@ -3518,6 +3585,7 @@ export type StorageFileCreateWithoutMockupClientLogosInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutSignatureImageInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportCreateNestedManyWithoutLastFileInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationCreateNestedManyWithoutFileInput
+  posVisitSignatures?: Prisma.PosVisitLogCreateNestedManyWithoutSignatureFileInput
 }
 
 export type StorageFileUncheckedCreateWithoutMockupClientLogosInput = {
@@ -3562,6 +3630,7 @@ export type StorageFileUncheckedCreateWithoutMockupClientLogosInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutSignatureImageInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutLastFileInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedCreateNestedManyWithoutFileInput
+  posVisitSignatures?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutSignatureFileInput
 }
 
 export type StorageFileCreateOrConnectWithoutMockupClientLogosInput = {
@@ -3611,6 +3680,7 @@ export type StorageFileCreateWithoutMockupResultFilesInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutSignatureImageInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportCreateNestedManyWithoutLastFileInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationCreateNestedManyWithoutFileInput
+  posVisitSignatures?: Prisma.PosVisitLogCreateNestedManyWithoutSignatureFileInput
 }
 
 export type StorageFileUncheckedCreateWithoutMockupResultFilesInput = {
@@ -3655,6 +3725,7 @@ export type StorageFileUncheckedCreateWithoutMockupResultFilesInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutSignatureImageInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutLastFileInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedCreateNestedManyWithoutFileInput
+  posVisitSignatures?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutSignatureFileInput
 }
 
 export type StorageFileCreateOrConnectWithoutMockupResultFilesInput = {
@@ -3715,6 +3786,7 @@ export type StorageFileUpdateWithoutMockupClientLogosInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutSignatureImageNestedInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportUpdateManyWithoutLastFileNestedInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUpdateManyWithoutFileNestedInput
+  posVisitSignatures?: Prisma.PosVisitLogUpdateManyWithoutSignatureFileNestedInput
 }
 
 export type StorageFileUncheckedUpdateWithoutMockupClientLogosInput = {
@@ -3759,6 +3831,7 @@ export type StorageFileUncheckedUpdateWithoutMockupClientLogosInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutSignatureImageNestedInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutLastFileNestedInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedUpdateManyWithoutFileNestedInput
+  posVisitSignatures?: Prisma.PosVisitLogUncheckedUpdateManyWithoutSignatureFileNestedInput
 }
 
 export type StorageFileUpsertWithoutMockupResultFilesInput = {
@@ -3814,6 +3887,7 @@ export type StorageFileUpdateWithoutMockupResultFilesInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutSignatureImageNestedInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportUpdateManyWithoutLastFileNestedInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUpdateManyWithoutFileNestedInput
+  posVisitSignatures?: Prisma.PosVisitLogUpdateManyWithoutSignatureFileNestedInput
 }
 
 export type StorageFileUncheckedUpdateWithoutMockupResultFilesInput = {
@@ -3858,6 +3932,7 @@ export type StorageFileUncheckedUpdateWithoutMockupResultFilesInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutSignatureImageNestedInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutLastFileNestedInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedUpdateManyWithoutFileNestedInput
+  posVisitSignatures?: Prisma.PosVisitLogUncheckedUpdateManyWithoutSignatureFileNestedInput
 }
 
 export type StorageFileCreateWithoutCertificatePfxFilesInput = {
@@ -3902,6 +3977,7 @@ export type StorageFileCreateWithoutCertificatePfxFilesInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutSignatureImageInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportCreateNestedManyWithoutLastFileInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationCreateNestedManyWithoutFileInput
+  posVisitSignatures?: Prisma.PosVisitLogCreateNestedManyWithoutSignatureFileInput
 }
 
 export type StorageFileUncheckedCreateWithoutCertificatePfxFilesInput = {
@@ -3946,6 +4022,7 @@ export type StorageFileUncheckedCreateWithoutCertificatePfxFilesInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutSignatureImageInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutLastFileInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedCreateNestedManyWithoutFileInput
+  posVisitSignatures?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutSignatureFileInput
 }
 
 export type StorageFileCreateOrConnectWithoutCertificatePfxFilesInput = {
@@ -4006,6 +4083,7 @@ export type StorageFileUpdateWithoutCertificatePfxFilesInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutSignatureImageNestedInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportUpdateManyWithoutLastFileNestedInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUpdateManyWithoutFileNestedInput
+  posVisitSignatures?: Prisma.PosVisitLogUpdateManyWithoutSignatureFileNestedInput
 }
 
 export type StorageFileUncheckedUpdateWithoutCertificatePfxFilesInput = {
@@ -4050,6 +4128,7 @@ export type StorageFileUncheckedUpdateWithoutCertificatePfxFilesInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutSignatureImageNestedInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutLastFileNestedInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedUpdateManyWithoutFileNestedInput
+  posVisitSignatures?: Prisma.PosVisitLogUncheckedUpdateManyWithoutSignatureFileNestedInput
 }
 
 export type StorageFileCreateWithoutEnvelopeDocumentFilesInput = {
@@ -4094,6 +4173,7 @@ export type StorageFileCreateWithoutEnvelopeDocumentFilesInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutSignatureImageInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportCreateNestedManyWithoutLastFileInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationCreateNestedManyWithoutFileInput
+  posVisitSignatures?: Prisma.PosVisitLogCreateNestedManyWithoutSignatureFileInput
 }
 
 export type StorageFileUncheckedCreateWithoutEnvelopeDocumentFilesInput = {
@@ -4138,6 +4218,7 @@ export type StorageFileUncheckedCreateWithoutEnvelopeDocumentFilesInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutSignatureImageInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutLastFileInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedCreateNestedManyWithoutFileInput
+  posVisitSignatures?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutSignatureFileInput
 }
 
 export type StorageFileCreateOrConnectWithoutEnvelopeDocumentFilesInput = {
@@ -4187,6 +4268,7 @@ export type StorageFileCreateWithoutEnvelopeSignedFilesInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutSignatureImageInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportCreateNestedManyWithoutLastFileInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationCreateNestedManyWithoutFileInput
+  posVisitSignatures?: Prisma.PosVisitLogCreateNestedManyWithoutSignatureFileInput
 }
 
 export type StorageFileUncheckedCreateWithoutEnvelopeSignedFilesInput = {
@@ -4231,6 +4313,7 @@ export type StorageFileUncheckedCreateWithoutEnvelopeSignedFilesInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutSignatureImageInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutLastFileInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedCreateNestedManyWithoutFileInput
+  posVisitSignatures?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutSignatureFileInput
 }
 
 export type StorageFileCreateOrConnectWithoutEnvelopeSignedFilesInput = {
@@ -4291,6 +4374,7 @@ export type StorageFileUpdateWithoutEnvelopeDocumentFilesInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutSignatureImageNestedInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportUpdateManyWithoutLastFileNestedInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUpdateManyWithoutFileNestedInput
+  posVisitSignatures?: Prisma.PosVisitLogUpdateManyWithoutSignatureFileNestedInput
 }
 
 export type StorageFileUncheckedUpdateWithoutEnvelopeDocumentFilesInput = {
@@ -4335,6 +4419,7 @@ export type StorageFileUncheckedUpdateWithoutEnvelopeDocumentFilesInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutSignatureImageNestedInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutLastFileNestedInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedUpdateManyWithoutFileNestedInput
+  posVisitSignatures?: Prisma.PosVisitLogUncheckedUpdateManyWithoutSignatureFileNestedInput
 }
 
 export type StorageFileUpsertWithoutEnvelopeSignedFilesInput = {
@@ -4390,6 +4475,7 @@ export type StorageFileUpdateWithoutEnvelopeSignedFilesInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutSignatureImageNestedInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportUpdateManyWithoutLastFileNestedInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUpdateManyWithoutFileNestedInput
+  posVisitSignatures?: Prisma.PosVisitLogUpdateManyWithoutSignatureFileNestedInput
 }
 
 export type StorageFileUncheckedUpdateWithoutEnvelopeSignedFilesInput = {
@@ -4434,6 +4520,7 @@ export type StorageFileUncheckedUpdateWithoutEnvelopeSignedFilesInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutSignatureImageNestedInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutLastFileNestedInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedUpdateManyWithoutFileNestedInput
+  posVisitSignatures?: Prisma.PosVisitLogUncheckedUpdateManyWithoutSignatureFileNestedInput
 }
 
 export type StorageFileCreateWithoutSignerSignatureImagesInput = {
@@ -4478,6 +4565,7 @@ export type StorageFileCreateWithoutSignerSignatureImagesInput = {
   envelopeSignedFiles?: Prisma.SignatureEnvelopeCreateNestedManyWithoutSignedFileInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportCreateNestedManyWithoutLastFileInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationCreateNestedManyWithoutFileInput
+  posVisitSignatures?: Prisma.PosVisitLogCreateNestedManyWithoutSignatureFileInput
 }
 
 export type StorageFileUncheckedCreateWithoutSignerSignatureImagesInput = {
@@ -4522,6 +4610,7 @@ export type StorageFileUncheckedCreateWithoutSignerSignatureImagesInput = {
   envelopeSignedFiles?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutSignedFileInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutLastFileInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedCreateNestedManyWithoutFileInput
+  posVisitSignatures?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutSignatureFileInput
 }
 
 export type StorageFileCreateOrConnectWithoutSignerSignatureImagesInput = {
@@ -4582,6 +4671,7 @@ export type StorageFileUpdateWithoutSignerSignatureImagesInput = {
   envelopeSignedFiles?: Prisma.SignatureEnvelopeUpdateManyWithoutSignedFileNestedInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportUpdateManyWithoutLastFileNestedInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUpdateManyWithoutFileNestedInput
+  posVisitSignatures?: Prisma.PosVisitLogUpdateManyWithoutSignatureFileNestedInput
 }
 
 export type StorageFileUncheckedUpdateWithoutSignerSignatureImagesInput = {
@@ -4626,6 +4716,7 @@ export type StorageFileUncheckedUpdateWithoutSignerSignatureImagesInput = {
   envelopeSignedFiles?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutSignedFileNestedInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutLastFileNestedInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedUpdateManyWithoutFileNestedInput
+  posVisitSignatures?: Prisma.PosVisitLogUncheckedUpdateManyWithoutSignatureFileNestedInput
 }
 
 export type StorageFileCreateWithoutAnalyticsReportLastFilesInput = {
@@ -4670,6 +4761,7 @@ export type StorageFileCreateWithoutAnalyticsReportLastFilesInput = {
   envelopeSignedFiles?: Prisma.SignatureEnvelopeCreateNestedManyWithoutSignedFileInput
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutSignatureImageInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationCreateNestedManyWithoutFileInput
+  posVisitSignatures?: Prisma.PosVisitLogCreateNestedManyWithoutSignatureFileInput
 }
 
 export type StorageFileUncheckedCreateWithoutAnalyticsReportLastFilesInput = {
@@ -4714,6 +4806,7 @@ export type StorageFileUncheckedCreateWithoutAnalyticsReportLastFilesInput = {
   envelopeSignedFiles?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutSignedFileInput
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutSignatureImageInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedCreateNestedManyWithoutFileInput
+  posVisitSignatures?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutSignatureFileInput
 }
 
 export type StorageFileCreateOrConnectWithoutAnalyticsReportLastFilesInput = {
@@ -4774,6 +4867,7 @@ export type StorageFileUpdateWithoutAnalyticsReportLastFilesInput = {
   envelopeSignedFiles?: Prisma.SignatureEnvelopeUpdateManyWithoutSignedFileNestedInput
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutSignatureImageNestedInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUpdateManyWithoutFileNestedInput
+  posVisitSignatures?: Prisma.PosVisitLogUpdateManyWithoutSignatureFileNestedInput
 }
 
 export type StorageFileUncheckedUpdateWithoutAnalyticsReportLastFilesInput = {
@@ -4818,6 +4912,7 @@ export type StorageFileUncheckedUpdateWithoutAnalyticsReportLastFilesInput = {
   envelopeSignedFiles?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutSignedFileNestedInput
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutSignatureImageNestedInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedUpdateManyWithoutFileNestedInput
+  posVisitSignatures?: Prisma.PosVisitLogUncheckedUpdateManyWithoutSignatureFileNestedInput
 }
 
 export type StorageFileCreateWithoutAnalyticsReportGenerationFilesInput = {
@@ -4862,6 +4957,7 @@ export type StorageFileCreateWithoutAnalyticsReportGenerationFilesInput = {
   envelopeSignedFiles?: Prisma.SignatureEnvelopeCreateNestedManyWithoutSignedFileInput
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutSignatureImageInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportCreateNestedManyWithoutLastFileInput
+  posVisitSignatures?: Prisma.PosVisitLogCreateNestedManyWithoutSignatureFileInput
 }
 
 export type StorageFileUncheckedCreateWithoutAnalyticsReportGenerationFilesInput = {
@@ -4906,6 +5002,7 @@ export type StorageFileUncheckedCreateWithoutAnalyticsReportGenerationFilesInput
   envelopeSignedFiles?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutSignedFileInput
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutSignatureImageInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutLastFileInput
+  posVisitSignatures?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutSignatureFileInput
 }
 
 export type StorageFileCreateOrConnectWithoutAnalyticsReportGenerationFilesInput = {
@@ -4966,6 +5063,7 @@ export type StorageFileUpdateWithoutAnalyticsReportGenerationFilesInput = {
   envelopeSignedFiles?: Prisma.SignatureEnvelopeUpdateManyWithoutSignedFileNestedInput
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutSignatureImageNestedInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportUpdateManyWithoutLastFileNestedInput
+  posVisitSignatures?: Prisma.PosVisitLogUpdateManyWithoutSignatureFileNestedInput
 }
 
 export type StorageFileUncheckedUpdateWithoutAnalyticsReportGenerationFilesInput = {
@@ -5010,6 +5108,203 @@ export type StorageFileUncheckedUpdateWithoutAnalyticsReportGenerationFilesInput
   envelopeSignedFiles?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutSignedFileNestedInput
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutSignatureImageNestedInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutLastFileNestedInput
+  posVisitSignatures?: Prisma.PosVisitLogUncheckedUpdateManyWithoutSignatureFileNestedInput
+}
+
+export type StorageFileCreateWithoutPosVisitSignaturesInput = {
+  id?: string
+  name: string
+  originalName: string
+  fileKey: string
+  path: string
+  size: number
+  mimeType: string
+  fileType: string
+  thumbnailKey?: string | null
+  status?: $Enums.StorageFileStatus
+  currentVersion?: number
+  entityType?: string | null
+  entityId?: string | null
+  expiresAt?: Date | string | null
+  uploadedBy: string
+  isEncrypted?: boolean
+  isProtected?: boolean
+  protectionHash?: string | null
+  isHidden?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  tenant: Prisma.TenantCreateNestedOneWithoutStorageFilesInput
+  folder?: Prisma.StorageFolderCreateNestedOneWithoutFilesInput
+  versions?: Prisma.StorageFileVersionCreateNestedManyWithoutFileInput
+  shareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutFileInput
+  cardAttachments?: Prisma.CardAttachmentCreateNestedManyWithoutFileInput
+  catalogCoverImages?: Prisma.CatalogCreateNestedManyWithoutCoverImageInput
+  catalogExportFiles?: Prisma.CatalogExportCreateNestedManyWithoutFileInput
+  tenantBrandLogos?: Prisma.TenantBrandCreateNestedManyWithoutLogoInput
+  tenantBrandLogoIcons?: Prisma.TenantBrandCreateNestedManyWithoutLogoIconInput
+  contentTemplatePreviews?: Prisma.ContentTemplateCreateNestedManyWithoutPreviewFileInput
+  generatedContentFiles?: Prisma.GeneratedContentCreateNestedManyWithoutFileInput
+  generatedContentThumbs?: Prisma.GeneratedContentCreateNestedManyWithoutThumbnailInput
+  mockupClientLogos?: Prisma.ProductMockupCreateNestedManyWithoutClientLogoInput
+  mockupResultFiles?: Prisma.ProductMockupCreateNestedManyWithoutResultFileInput
+  certificatePfxFiles?: Prisma.DigitalCertificateCreateNestedManyWithoutPfxFileInput
+  envelopeDocumentFiles?: Prisma.SignatureEnvelopeCreateNestedManyWithoutDocumentFileInput
+  envelopeSignedFiles?: Prisma.SignatureEnvelopeCreateNestedManyWithoutSignedFileInput
+  signerSignatureImages?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutSignatureImageInput
+  analyticsReportLastFiles?: Prisma.AnalyticsReportCreateNestedManyWithoutLastFileInput
+  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationCreateNestedManyWithoutFileInput
+}
+
+export type StorageFileUncheckedCreateWithoutPosVisitSignaturesInput = {
+  id?: string
+  tenantId: string
+  folderId?: string | null
+  name: string
+  originalName: string
+  fileKey: string
+  path: string
+  size: number
+  mimeType: string
+  fileType: string
+  thumbnailKey?: string | null
+  status?: $Enums.StorageFileStatus
+  currentVersion?: number
+  entityType?: string | null
+  entityId?: string | null
+  expiresAt?: Date | string | null
+  uploadedBy: string
+  isEncrypted?: boolean
+  isProtected?: boolean
+  protectionHash?: string | null
+  isHidden?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  versions?: Prisma.StorageFileVersionUncheckedCreateNestedManyWithoutFileInput
+  shareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutFileInput
+  cardAttachments?: Prisma.CardAttachmentUncheckedCreateNestedManyWithoutFileInput
+  catalogCoverImages?: Prisma.CatalogUncheckedCreateNestedManyWithoutCoverImageInput
+  catalogExportFiles?: Prisma.CatalogExportUncheckedCreateNestedManyWithoutFileInput
+  tenantBrandLogos?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutLogoInput
+  tenantBrandLogoIcons?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutLogoIconInput
+  contentTemplatePreviews?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutPreviewFileInput
+  generatedContentFiles?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutFileInput
+  generatedContentThumbs?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutThumbnailInput
+  mockupClientLogos?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutClientLogoInput
+  mockupResultFiles?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutResultFileInput
+  certificatePfxFiles?: Prisma.DigitalCertificateUncheckedCreateNestedManyWithoutPfxFileInput
+  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutDocumentFileInput
+  envelopeSignedFiles?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutSignedFileInput
+  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutSignatureImageInput
+  analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutLastFileInput
+  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedCreateNestedManyWithoutFileInput
+}
+
+export type StorageFileCreateOrConnectWithoutPosVisitSignaturesInput = {
+  where: Prisma.StorageFileWhereUniqueInput
+  create: Prisma.XOR<Prisma.StorageFileCreateWithoutPosVisitSignaturesInput, Prisma.StorageFileUncheckedCreateWithoutPosVisitSignaturesInput>
+}
+
+export type StorageFileUpsertWithoutPosVisitSignaturesInput = {
+  update: Prisma.XOR<Prisma.StorageFileUpdateWithoutPosVisitSignaturesInput, Prisma.StorageFileUncheckedUpdateWithoutPosVisitSignaturesInput>
+  create: Prisma.XOR<Prisma.StorageFileCreateWithoutPosVisitSignaturesInput, Prisma.StorageFileUncheckedCreateWithoutPosVisitSignaturesInput>
+  where?: Prisma.StorageFileWhereInput
+}
+
+export type StorageFileUpdateToOneWithWhereWithoutPosVisitSignaturesInput = {
+  where?: Prisma.StorageFileWhereInput
+  data: Prisma.XOR<Prisma.StorageFileUpdateWithoutPosVisitSignaturesInput, Prisma.StorageFileUncheckedUpdateWithoutPosVisitSignaturesInput>
+}
+
+export type StorageFileUpdateWithoutPosVisitSignaturesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  originalName?: Prisma.StringFieldUpdateOperationsInput | string
+  fileKey?: Prisma.StringFieldUpdateOperationsInput | string
+  path?: Prisma.StringFieldUpdateOperationsInput | string
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  fileType?: Prisma.StringFieldUpdateOperationsInput | string
+  thumbnailKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumStorageFileStatusFieldUpdateOperationsInput | $Enums.StorageFileStatus
+  currentVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
+  isEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutStorageFilesNestedInput
+  folder?: Prisma.StorageFolderUpdateOneWithoutFilesNestedInput
+  versions?: Prisma.StorageFileVersionUpdateManyWithoutFileNestedInput
+  shareLinks?: Prisma.StorageShareLinkUpdateManyWithoutFileNestedInput
+  cardAttachments?: Prisma.CardAttachmentUpdateManyWithoutFileNestedInput
+  catalogCoverImages?: Prisma.CatalogUpdateManyWithoutCoverImageNestedInput
+  catalogExportFiles?: Prisma.CatalogExportUpdateManyWithoutFileNestedInput
+  tenantBrandLogos?: Prisma.TenantBrandUpdateManyWithoutLogoNestedInput
+  tenantBrandLogoIcons?: Prisma.TenantBrandUpdateManyWithoutLogoIconNestedInput
+  contentTemplatePreviews?: Prisma.ContentTemplateUpdateManyWithoutPreviewFileNestedInput
+  generatedContentFiles?: Prisma.GeneratedContentUpdateManyWithoutFileNestedInput
+  generatedContentThumbs?: Prisma.GeneratedContentUpdateManyWithoutThumbnailNestedInput
+  mockupClientLogos?: Prisma.ProductMockupUpdateManyWithoutClientLogoNestedInput
+  mockupResultFiles?: Prisma.ProductMockupUpdateManyWithoutResultFileNestedInput
+  certificatePfxFiles?: Prisma.DigitalCertificateUpdateManyWithoutPfxFileNestedInput
+  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUpdateManyWithoutDocumentFileNestedInput
+  envelopeSignedFiles?: Prisma.SignatureEnvelopeUpdateManyWithoutSignedFileNestedInput
+  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutSignatureImageNestedInput
+  analyticsReportLastFiles?: Prisma.AnalyticsReportUpdateManyWithoutLastFileNestedInput
+  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUpdateManyWithoutFileNestedInput
+}
+
+export type StorageFileUncheckedUpdateWithoutPosVisitSignaturesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  folderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  originalName?: Prisma.StringFieldUpdateOperationsInput | string
+  fileKey?: Prisma.StringFieldUpdateOperationsInput | string
+  path?: Prisma.StringFieldUpdateOperationsInput | string
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  fileType?: Prisma.StringFieldUpdateOperationsInput | string
+  thumbnailKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumStorageFileStatusFieldUpdateOperationsInput | $Enums.StorageFileStatus
+  currentVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
+  isEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  versions?: Prisma.StorageFileVersionUncheckedUpdateManyWithoutFileNestedInput
+  shareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutFileNestedInput
+  cardAttachments?: Prisma.CardAttachmentUncheckedUpdateManyWithoutFileNestedInput
+  catalogCoverImages?: Prisma.CatalogUncheckedUpdateManyWithoutCoverImageNestedInput
+  catalogExportFiles?: Prisma.CatalogExportUncheckedUpdateManyWithoutFileNestedInput
+  tenantBrandLogos?: Prisma.TenantBrandUncheckedUpdateManyWithoutLogoNestedInput
+  tenantBrandLogoIcons?: Prisma.TenantBrandUncheckedUpdateManyWithoutLogoIconNestedInput
+  contentTemplatePreviews?: Prisma.ContentTemplateUncheckedUpdateManyWithoutPreviewFileNestedInput
+  generatedContentFiles?: Prisma.GeneratedContentUncheckedUpdateManyWithoutFileNestedInput
+  generatedContentThumbs?: Prisma.GeneratedContentUncheckedUpdateManyWithoutThumbnailNestedInput
+  mockupClientLogos?: Prisma.ProductMockupUncheckedUpdateManyWithoutClientLogoNestedInput
+  mockupResultFiles?: Prisma.ProductMockupUncheckedUpdateManyWithoutResultFileNestedInput
+  certificatePfxFiles?: Prisma.DigitalCertificateUncheckedUpdateManyWithoutPfxFileNestedInput
+  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutDocumentFileNestedInput
+  envelopeSignedFiles?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutSignedFileNestedInput
+  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutSignatureImageNestedInput
+  analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutLastFileNestedInput
+  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedUpdateManyWithoutFileNestedInput
 }
 
 export type StorageFileCreateManyTenantInput = {
@@ -5080,6 +5375,7 @@ export type StorageFileUpdateWithoutTenantInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutSignatureImageNestedInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportUpdateManyWithoutLastFileNestedInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUpdateManyWithoutFileNestedInput
+  posVisitSignatures?: Prisma.PosVisitLogUpdateManyWithoutSignatureFileNestedInput
 }
 
 export type StorageFileUncheckedUpdateWithoutTenantInput = {
@@ -5124,6 +5420,7 @@ export type StorageFileUncheckedUpdateWithoutTenantInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutSignatureImageNestedInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutLastFileNestedInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedUpdateManyWithoutFileNestedInput
+  posVisitSignatures?: Prisma.PosVisitLogUncheckedUpdateManyWithoutSignatureFileNestedInput
 }
 
 export type StorageFileUncheckedUpdateManyWithoutTenantInput = {
@@ -5220,6 +5517,7 @@ export type StorageFileUpdateWithoutFolderInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutSignatureImageNestedInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportUpdateManyWithoutLastFileNestedInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUpdateManyWithoutFileNestedInput
+  posVisitSignatures?: Prisma.PosVisitLogUpdateManyWithoutSignatureFileNestedInput
 }
 
 export type StorageFileUncheckedUpdateWithoutFolderInput = {
@@ -5264,6 +5562,7 @@ export type StorageFileUncheckedUpdateWithoutFolderInput = {
   signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutSignatureImageNestedInput
   analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutLastFileNestedInput
   analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedUpdateManyWithoutFileNestedInput
+  posVisitSignatures?: Prisma.PosVisitLogUncheckedUpdateManyWithoutSignatureFileNestedInput
 }
 
 export type StorageFileUncheckedUpdateManyWithoutFolderInput = {
@@ -5316,6 +5615,7 @@ export type StorageFileCountOutputType = {
   signerSignatureImages: number
   analyticsReportLastFiles: number
   analyticsReportGenerationFiles: number
+  posVisitSignatures: number
 }
 
 export type StorageFileCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -5337,6 +5637,7 @@ export type StorageFileCountOutputTypeSelect<ExtArgs extends runtime.Types.Exten
   signerSignatureImages?: boolean | StorageFileCountOutputTypeCountSignerSignatureImagesArgs
   analyticsReportLastFiles?: boolean | StorageFileCountOutputTypeCountAnalyticsReportLastFilesArgs
   analyticsReportGenerationFiles?: boolean | StorageFileCountOutputTypeCountAnalyticsReportGenerationFilesArgs
+  posVisitSignatures?: boolean | StorageFileCountOutputTypeCountPosVisitSignaturesArgs
 }
 
 /**
@@ -5475,6 +5776,13 @@ export type StorageFileCountOutputTypeCountAnalyticsReportGenerationFilesArgs<Ex
   where?: Prisma.AnalyticsReportGenerationWhereInput
 }
 
+/**
+ * StorageFileCountOutputType without action
+ */
+export type StorageFileCountOutputTypeCountPosVisitSignaturesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PosVisitLogWhereInput
+}
+
 
 export type StorageFileSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -5521,6 +5829,7 @@ export type StorageFileSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   signerSignatureImages?: boolean | Prisma.StorageFile$signerSignatureImagesArgs<ExtArgs>
   analyticsReportLastFiles?: boolean | Prisma.StorageFile$analyticsReportLastFilesArgs<ExtArgs>
   analyticsReportGenerationFiles?: boolean | Prisma.StorageFile$analyticsReportGenerationFilesArgs<ExtArgs>
+  posVisitSignatures?: boolean | Prisma.StorageFile$posVisitSignaturesArgs<ExtArgs>
   _count?: boolean | Prisma.StorageFileCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["storageFile"]>
 
@@ -5631,6 +5940,7 @@ export type StorageFileInclude<ExtArgs extends runtime.Types.Extensions.Internal
   signerSignatureImages?: boolean | Prisma.StorageFile$signerSignatureImagesArgs<ExtArgs>
   analyticsReportLastFiles?: boolean | Prisma.StorageFile$analyticsReportLastFilesArgs<ExtArgs>
   analyticsReportGenerationFiles?: boolean | Prisma.StorageFile$analyticsReportGenerationFilesArgs<ExtArgs>
+  posVisitSignatures?: boolean | Prisma.StorageFile$posVisitSignaturesArgs<ExtArgs>
   _count?: boolean | Prisma.StorageFileCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type StorageFileIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -5665,6 +5975,7 @@ export type $StorageFilePayload<ExtArgs extends runtime.Types.Extensions.Interna
     signerSignatureImages: Prisma.$SignatureEnvelopeSignerPayload<ExtArgs>[]
     analyticsReportLastFiles: Prisma.$AnalyticsReportPayload<ExtArgs>[]
     analyticsReportGenerationFiles: Prisma.$AnalyticsReportGenerationPayload<ExtArgs>[]
+    posVisitSignatures: Prisma.$PosVisitLogPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -6105,6 +6416,7 @@ export interface Prisma__StorageFileClient<T, Null = never, ExtArgs extends runt
   signerSignatureImages<T extends Prisma.StorageFile$signerSignatureImagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StorageFile$signerSignatureImagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SignatureEnvelopeSignerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   analyticsReportLastFiles<T extends Prisma.StorageFile$analyticsReportLastFilesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StorageFile$analyticsReportLastFilesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AnalyticsReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   analyticsReportGenerationFiles<T extends Prisma.StorageFile$analyticsReportGenerationFilesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StorageFile$analyticsReportGenerationFilesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AnalyticsReportGenerationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  posVisitSignatures<T extends Prisma.StorageFile$posVisitSignaturesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StorageFile$posVisitSignaturesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PosVisitLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7002,6 +7314,30 @@ export type StorageFile$analyticsReportGenerationFilesArgs<ExtArgs extends runti
   take?: number
   skip?: number
   distinct?: Prisma.AnalyticsReportGenerationScalarFieldEnum | Prisma.AnalyticsReportGenerationScalarFieldEnum[]
+}
+
+/**
+ * StorageFile.posVisitSignatures
+ */
+export type StorageFile$posVisitSignaturesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PosVisitLog
+   */
+  select?: Prisma.PosVisitLogSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PosVisitLog
+   */
+  omit?: Prisma.PosVisitLogOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PosVisitLogInclude<ExtArgs> | null
+  where?: Prisma.PosVisitLogWhereInput
+  orderBy?: Prisma.PosVisitLogOrderByWithRelationInput | Prisma.PosVisitLogOrderByWithRelationInput[]
+  cursor?: Prisma.PosVisitLogWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PosVisitLogScalarFieldEnum | Prisma.PosVisitLogScalarFieldEnum[]
 }
 
 /**

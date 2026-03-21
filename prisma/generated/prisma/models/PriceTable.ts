@@ -301,6 +301,7 @@ export type PriceTableWhereInput = {
   rules?: Prisma.PriceTableRuleListRelationFilter
   orders?: Prisma.OrderListRelationFilter
   catalogs?: Prisma.CatalogListRelationFilter
+  posTerminals?: Prisma.PosTerminalListRelationFilter
 }
 
 export type PriceTableOrderByWithRelationInput = {
@@ -324,6 +325,7 @@ export type PriceTableOrderByWithRelationInput = {
   rules?: Prisma.PriceTableRuleOrderByRelationAggregateInput
   orders?: Prisma.OrderOrderByRelationAggregateInput
   catalogs?: Prisma.CatalogOrderByRelationAggregateInput
+  posTerminals?: Prisma.PosTerminalOrderByRelationAggregateInput
 }
 
 export type PriceTableWhereUniqueInput = Prisma.AtLeast<{
@@ -350,6 +352,7 @@ export type PriceTableWhereUniqueInput = Prisma.AtLeast<{
   rules?: Prisma.PriceTableRuleListRelationFilter
   orders?: Prisma.OrderListRelationFilter
   catalogs?: Prisma.CatalogListRelationFilter
+  posTerminals?: Prisma.PosTerminalListRelationFilter
 }, "id">
 
 export type PriceTableOrderByWithAggregationInput = {
@@ -416,6 +419,7 @@ export type PriceTableCreateInput = {
   rules?: Prisma.PriceTableRuleCreateNestedManyWithoutPriceTableInput
   orders?: Prisma.OrderCreateNestedManyWithoutPriceTableInput
   catalogs?: Prisma.CatalogCreateNestedManyWithoutPriceTableInput
+  posTerminals?: Prisma.PosTerminalCreateNestedManyWithoutPriceTableInput
 }
 
 export type PriceTableUncheckedCreateInput = {
@@ -438,6 +442,7 @@ export type PriceTableUncheckedCreateInput = {
   rules?: Prisma.PriceTableRuleUncheckedCreateNestedManyWithoutPriceTableInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutPriceTableInput
   catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutPriceTableInput
+  posTerminals?: Prisma.PosTerminalUncheckedCreateNestedManyWithoutPriceTableInput
 }
 
 export type PriceTableUpdateInput = {
@@ -460,6 +465,7 @@ export type PriceTableUpdateInput = {
   rules?: Prisma.PriceTableRuleUpdateManyWithoutPriceTableNestedInput
   orders?: Prisma.OrderUpdateManyWithoutPriceTableNestedInput
   catalogs?: Prisma.CatalogUpdateManyWithoutPriceTableNestedInput
+  posTerminals?: Prisma.PosTerminalUpdateManyWithoutPriceTableNestedInput
 }
 
 export type PriceTableUncheckedUpdateInput = {
@@ -482,6 +488,7 @@ export type PriceTableUncheckedUpdateInput = {
   rules?: Prisma.PriceTableRuleUncheckedUpdateManyWithoutPriceTableNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutPriceTableNestedInput
   catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutPriceTableNestedInput
+  posTerminals?: Prisma.PosTerminalUncheckedUpdateManyWithoutPriceTableNestedInput
 }
 
 export type PriceTableCreateManyInput = {
@@ -725,6 +732,22 @@ export type PriceTableUpdateOneWithoutOrdersNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.PriceTableUpdateToOneWithWhereWithoutOrdersInput, Prisma.PriceTableUpdateWithoutOrdersInput>, Prisma.PriceTableUncheckedUpdateWithoutOrdersInput>
 }
 
+export type PriceTableCreateNestedOneWithoutPosTerminalsInput = {
+  create?: Prisma.XOR<Prisma.PriceTableCreateWithoutPosTerminalsInput, Prisma.PriceTableUncheckedCreateWithoutPosTerminalsInput>
+  connectOrCreate?: Prisma.PriceTableCreateOrConnectWithoutPosTerminalsInput
+  connect?: Prisma.PriceTableWhereUniqueInput
+}
+
+export type PriceTableUpdateOneWithoutPosTerminalsNestedInput = {
+  create?: Prisma.XOR<Prisma.PriceTableCreateWithoutPosTerminalsInput, Prisma.PriceTableUncheckedCreateWithoutPosTerminalsInput>
+  connectOrCreate?: Prisma.PriceTableCreateOrConnectWithoutPosTerminalsInput
+  upsert?: Prisma.PriceTableUpsertWithoutPosTerminalsInput
+  disconnect?: Prisma.PriceTableWhereInput | boolean
+  delete?: Prisma.PriceTableWhereInput | boolean
+  connect?: Prisma.PriceTableWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PriceTableUpdateToOneWithWhereWithoutPosTerminalsInput, Prisma.PriceTableUpdateWithoutPosTerminalsInput>, Prisma.PriceTableUncheckedUpdateWithoutPosTerminalsInput>
+}
+
 export type PriceTableCreateWithoutTenantInput = {
   id?: string
   name: string
@@ -744,6 +767,7 @@ export type PriceTableCreateWithoutTenantInput = {
   rules?: Prisma.PriceTableRuleCreateNestedManyWithoutPriceTableInput
   orders?: Prisma.OrderCreateNestedManyWithoutPriceTableInput
   catalogs?: Prisma.CatalogCreateNestedManyWithoutPriceTableInput
+  posTerminals?: Prisma.PosTerminalCreateNestedManyWithoutPriceTableInput
 }
 
 export type PriceTableUncheckedCreateWithoutTenantInput = {
@@ -765,6 +789,7 @@ export type PriceTableUncheckedCreateWithoutTenantInput = {
   rules?: Prisma.PriceTableRuleUncheckedCreateNestedManyWithoutPriceTableInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutPriceTableInput
   catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutPriceTableInput
+  posTerminals?: Prisma.PosTerminalUncheckedCreateNestedManyWithoutPriceTableInput
 }
 
 export type PriceTableCreateOrConnectWithoutTenantInput = {
@@ -833,6 +858,7 @@ export type PriceTableCreateWithoutRulesInput = {
   prices?: Prisma.PriceTableItemCreateNestedManyWithoutPriceTableInput
   orders?: Prisma.OrderCreateNestedManyWithoutPriceTableInput
   catalogs?: Prisma.CatalogCreateNestedManyWithoutPriceTableInput
+  posTerminals?: Prisma.PosTerminalCreateNestedManyWithoutPriceTableInput
 }
 
 export type PriceTableUncheckedCreateWithoutRulesInput = {
@@ -854,6 +880,7 @@ export type PriceTableUncheckedCreateWithoutRulesInput = {
   prices?: Prisma.PriceTableItemUncheckedCreateNestedManyWithoutPriceTableInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutPriceTableInput
   catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutPriceTableInput
+  posTerminals?: Prisma.PosTerminalUncheckedCreateNestedManyWithoutPriceTableInput
 }
 
 export type PriceTableCreateOrConnectWithoutRulesInput = {
@@ -891,6 +918,7 @@ export type PriceTableUpdateWithoutRulesInput = {
   prices?: Prisma.PriceTableItemUpdateManyWithoutPriceTableNestedInput
   orders?: Prisma.OrderUpdateManyWithoutPriceTableNestedInput
   catalogs?: Prisma.CatalogUpdateManyWithoutPriceTableNestedInput
+  posTerminals?: Prisma.PosTerminalUpdateManyWithoutPriceTableNestedInput
 }
 
 export type PriceTableUncheckedUpdateWithoutRulesInput = {
@@ -912,6 +940,7 @@ export type PriceTableUncheckedUpdateWithoutRulesInput = {
   prices?: Prisma.PriceTableItemUncheckedUpdateManyWithoutPriceTableNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutPriceTableNestedInput
   catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutPriceTableNestedInput
+  posTerminals?: Prisma.PosTerminalUncheckedUpdateManyWithoutPriceTableNestedInput
 }
 
 export type PriceTableCreateWithoutPricesInput = {
@@ -933,6 +962,7 @@ export type PriceTableCreateWithoutPricesInput = {
   rules?: Prisma.PriceTableRuleCreateNestedManyWithoutPriceTableInput
   orders?: Prisma.OrderCreateNestedManyWithoutPriceTableInput
   catalogs?: Prisma.CatalogCreateNestedManyWithoutPriceTableInput
+  posTerminals?: Prisma.PosTerminalCreateNestedManyWithoutPriceTableInput
 }
 
 export type PriceTableUncheckedCreateWithoutPricesInput = {
@@ -954,6 +984,7 @@ export type PriceTableUncheckedCreateWithoutPricesInput = {
   rules?: Prisma.PriceTableRuleUncheckedCreateNestedManyWithoutPriceTableInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutPriceTableInput
   catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutPriceTableInput
+  posTerminals?: Prisma.PosTerminalUncheckedCreateNestedManyWithoutPriceTableInput
 }
 
 export type PriceTableCreateOrConnectWithoutPricesInput = {
@@ -991,6 +1022,7 @@ export type PriceTableUpdateWithoutPricesInput = {
   rules?: Prisma.PriceTableRuleUpdateManyWithoutPriceTableNestedInput
   orders?: Prisma.OrderUpdateManyWithoutPriceTableNestedInput
   catalogs?: Prisma.CatalogUpdateManyWithoutPriceTableNestedInput
+  posTerminals?: Prisma.PosTerminalUpdateManyWithoutPriceTableNestedInput
 }
 
 export type PriceTableUncheckedUpdateWithoutPricesInput = {
@@ -1012,6 +1044,7 @@ export type PriceTableUncheckedUpdateWithoutPricesInput = {
   rules?: Prisma.PriceTableRuleUncheckedUpdateManyWithoutPriceTableNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutPriceTableNestedInput
   catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutPriceTableNestedInput
+  posTerminals?: Prisma.PosTerminalUncheckedUpdateManyWithoutPriceTableNestedInput
 }
 
 export type PriceTableCreateWithoutCatalogsInput = {
@@ -1033,6 +1066,7 @@ export type PriceTableCreateWithoutCatalogsInput = {
   prices?: Prisma.PriceTableItemCreateNestedManyWithoutPriceTableInput
   rules?: Prisma.PriceTableRuleCreateNestedManyWithoutPriceTableInput
   orders?: Prisma.OrderCreateNestedManyWithoutPriceTableInput
+  posTerminals?: Prisma.PosTerminalCreateNestedManyWithoutPriceTableInput
 }
 
 export type PriceTableUncheckedCreateWithoutCatalogsInput = {
@@ -1054,6 +1088,7 @@ export type PriceTableUncheckedCreateWithoutCatalogsInput = {
   prices?: Prisma.PriceTableItemUncheckedCreateNestedManyWithoutPriceTableInput
   rules?: Prisma.PriceTableRuleUncheckedCreateNestedManyWithoutPriceTableInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutPriceTableInput
+  posTerminals?: Prisma.PosTerminalUncheckedCreateNestedManyWithoutPriceTableInput
 }
 
 export type PriceTableCreateOrConnectWithoutCatalogsInput = {
@@ -1091,6 +1126,7 @@ export type PriceTableUpdateWithoutCatalogsInput = {
   prices?: Prisma.PriceTableItemUpdateManyWithoutPriceTableNestedInput
   rules?: Prisma.PriceTableRuleUpdateManyWithoutPriceTableNestedInput
   orders?: Prisma.OrderUpdateManyWithoutPriceTableNestedInput
+  posTerminals?: Prisma.PosTerminalUpdateManyWithoutPriceTableNestedInput
 }
 
 export type PriceTableUncheckedUpdateWithoutCatalogsInput = {
@@ -1112,6 +1148,7 @@ export type PriceTableUncheckedUpdateWithoutCatalogsInput = {
   prices?: Prisma.PriceTableItemUncheckedUpdateManyWithoutPriceTableNestedInput
   rules?: Prisma.PriceTableRuleUncheckedUpdateManyWithoutPriceTableNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutPriceTableNestedInput
+  posTerminals?: Prisma.PosTerminalUncheckedUpdateManyWithoutPriceTableNestedInput
 }
 
 export type PriceTableCreateWithoutOrdersInput = {
@@ -1133,6 +1170,7 @@ export type PriceTableCreateWithoutOrdersInput = {
   prices?: Prisma.PriceTableItemCreateNestedManyWithoutPriceTableInput
   rules?: Prisma.PriceTableRuleCreateNestedManyWithoutPriceTableInput
   catalogs?: Prisma.CatalogCreateNestedManyWithoutPriceTableInput
+  posTerminals?: Prisma.PosTerminalCreateNestedManyWithoutPriceTableInput
 }
 
 export type PriceTableUncheckedCreateWithoutOrdersInput = {
@@ -1154,6 +1192,7 @@ export type PriceTableUncheckedCreateWithoutOrdersInput = {
   prices?: Prisma.PriceTableItemUncheckedCreateNestedManyWithoutPriceTableInput
   rules?: Prisma.PriceTableRuleUncheckedCreateNestedManyWithoutPriceTableInput
   catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutPriceTableInput
+  posTerminals?: Prisma.PosTerminalUncheckedCreateNestedManyWithoutPriceTableInput
 }
 
 export type PriceTableCreateOrConnectWithoutOrdersInput = {
@@ -1191,6 +1230,7 @@ export type PriceTableUpdateWithoutOrdersInput = {
   prices?: Prisma.PriceTableItemUpdateManyWithoutPriceTableNestedInput
   rules?: Prisma.PriceTableRuleUpdateManyWithoutPriceTableNestedInput
   catalogs?: Prisma.CatalogUpdateManyWithoutPriceTableNestedInput
+  posTerminals?: Prisma.PosTerminalUpdateManyWithoutPriceTableNestedInput
 }
 
 export type PriceTableUncheckedUpdateWithoutOrdersInput = {
@@ -1211,6 +1251,111 @@ export type PriceTableUncheckedUpdateWithoutOrdersInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   prices?: Prisma.PriceTableItemUncheckedUpdateManyWithoutPriceTableNestedInput
   rules?: Prisma.PriceTableRuleUncheckedUpdateManyWithoutPriceTableNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutPriceTableNestedInput
+  posTerminals?: Prisma.PosTerminalUncheckedUpdateManyWithoutPriceTableNestedInput
+}
+
+export type PriceTableCreateWithoutPosTerminalsInput = {
+  id?: string
+  name: string
+  description?: string | null
+  type?: $Enums.PriceTableType
+  currency?: string
+  priceIncludesTax?: boolean
+  isDefault?: boolean
+  priority?: number
+  isActive?: boolean
+  validFrom?: Date | string | null
+  validUntil?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutPriceTablesInput
+  prices?: Prisma.PriceTableItemCreateNestedManyWithoutPriceTableInput
+  rules?: Prisma.PriceTableRuleCreateNestedManyWithoutPriceTableInput
+  orders?: Prisma.OrderCreateNestedManyWithoutPriceTableInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutPriceTableInput
+}
+
+export type PriceTableUncheckedCreateWithoutPosTerminalsInput = {
+  id?: string
+  tenantId: string
+  name: string
+  description?: string | null
+  type?: $Enums.PriceTableType
+  currency?: string
+  priceIncludesTax?: boolean
+  isDefault?: boolean
+  priority?: number
+  isActive?: boolean
+  validFrom?: Date | string | null
+  validUntil?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  prices?: Prisma.PriceTableItemUncheckedCreateNestedManyWithoutPriceTableInput
+  rules?: Prisma.PriceTableRuleUncheckedCreateNestedManyWithoutPriceTableInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutPriceTableInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutPriceTableInput
+}
+
+export type PriceTableCreateOrConnectWithoutPosTerminalsInput = {
+  where: Prisma.PriceTableWhereUniqueInput
+  create: Prisma.XOR<Prisma.PriceTableCreateWithoutPosTerminalsInput, Prisma.PriceTableUncheckedCreateWithoutPosTerminalsInput>
+}
+
+export type PriceTableUpsertWithoutPosTerminalsInput = {
+  update: Prisma.XOR<Prisma.PriceTableUpdateWithoutPosTerminalsInput, Prisma.PriceTableUncheckedUpdateWithoutPosTerminalsInput>
+  create: Prisma.XOR<Prisma.PriceTableCreateWithoutPosTerminalsInput, Prisma.PriceTableUncheckedCreateWithoutPosTerminalsInput>
+  where?: Prisma.PriceTableWhereInput
+}
+
+export type PriceTableUpdateToOneWithWhereWithoutPosTerminalsInput = {
+  where?: Prisma.PriceTableWhereInput
+  data: Prisma.XOR<Prisma.PriceTableUpdateWithoutPosTerminalsInput, Prisma.PriceTableUncheckedUpdateWithoutPosTerminalsInput>
+}
+
+export type PriceTableUpdateWithoutPosTerminalsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.EnumPriceTableTypeFieldUpdateOperationsInput | $Enums.PriceTableType
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  priceIncludesTax?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  priority?: Prisma.IntFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  validFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  validUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutPriceTablesNestedInput
+  prices?: Prisma.PriceTableItemUpdateManyWithoutPriceTableNestedInput
+  rules?: Prisma.PriceTableRuleUpdateManyWithoutPriceTableNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutPriceTableNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutPriceTableNestedInput
+}
+
+export type PriceTableUncheckedUpdateWithoutPosTerminalsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.EnumPriceTableTypeFieldUpdateOperationsInput | $Enums.PriceTableType
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  priceIncludesTax?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  priority?: Prisma.IntFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  validFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  validUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  prices?: Prisma.PriceTableItemUncheckedUpdateManyWithoutPriceTableNestedInput
+  rules?: Prisma.PriceTableRuleUncheckedUpdateManyWithoutPriceTableNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutPriceTableNestedInput
   catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutPriceTableNestedInput
 }
 
@@ -1250,6 +1395,7 @@ export type PriceTableUpdateWithoutTenantInput = {
   rules?: Prisma.PriceTableRuleUpdateManyWithoutPriceTableNestedInput
   orders?: Prisma.OrderUpdateManyWithoutPriceTableNestedInput
   catalogs?: Prisma.CatalogUpdateManyWithoutPriceTableNestedInput
+  posTerminals?: Prisma.PosTerminalUpdateManyWithoutPriceTableNestedInput
 }
 
 export type PriceTableUncheckedUpdateWithoutTenantInput = {
@@ -1271,6 +1417,7 @@ export type PriceTableUncheckedUpdateWithoutTenantInput = {
   rules?: Prisma.PriceTableRuleUncheckedUpdateManyWithoutPriceTableNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutPriceTableNestedInput
   catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutPriceTableNestedInput
+  posTerminals?: Prisma.PosTerminalUncheckedUpdateManyWithoutPriceTableNestedInput
 }
 
 export type PriceTableUncheckedUpdateManyWithoutTenantInput = {
@@ -1300,6 +1447,7 @@ export type PriceTableCountOutputType = {
   rules: number
   orders: number
   catalogs: number
+  posTerminals: number
 }
 
 export type PriceTableCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1307,6 +1455,7 @@ export type PriceTableCountOutputTypeSelect<ExtArgs extends runtime.Types.Extens
   rules?: boolean | PriceTableCountOutputTypeCountRulesArgs
   orders?: boolean | PriceTableCountOutputTypeCountOrdersArgs
   catalogs?: boolean | PriceTableCountOutputTypeCountCatalogsArgs
+  posTerminals?: boolean | PriceTableCountOutputTypeCountPosTerminalsArgs
 }
 
 /**
@@ -1347,6 +1496,13 @@ export type PriceTableCountOutputTypeCountCatalogsArgs<ExtArgs extends runtime.T
   where?: Prisma.CatalogWhereInput
 }
 
+/**
+ * PriceTableCountOutputType without action
+ */
+export type PriceTableCountOutputTypeCountPosTerminalsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PosTerminalWhereInput
+}
+
 
 export type PriceTableSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1369,6 +1525,7 @@ export type PriceTableSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   rules?: boolean | Prisma.PriceTable$rulesArgs<ExtArgs>
   orders?: boolean | Prisma.PriceTable$ordersArgs<ExtArgs>
   catalogs?: boolean | Prisma.PriceTable$catalogsArgs<ExtArgs>
+  posTerminals?: boolean | Prisma.PriceTable$posTerminalsArgs<ExtArgs>
   _count?: boolean | Prisma.PriceTableCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["priceTable"]>
 
@@ -1435,6 +1592,7 @@ export type PriceTableInclude<ExtArgs extends runtime.Types.Extensions.InternalA
   rules?: boolean | Prisma.PriceTable$rulesArgs<ExtArgs>
   orders?: boolean | Prisma.PriceTable$ordersArgs<ExtArgs>
   catalogs?: boolean | Prisma.PriceTable$catalogsArgs<ExtArgs>
+  posTerminals?: boolean | Prisma.PriceTable$posTerminalsArgs<ExtArgs>
   _count?: boolean | Prisma.PriceTableCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type PriceTableIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1452,6 +1610,7 @@ export type $PriceTablePayload<ExtArgs extends runtime.Types.Extensions.Internal
     rules: Prisma.$PriceTableRulePayload<ExtArgs>[]
     orders: Prisma.$OrderPayload<ExtArgs>[]
     catalogs: Prisma.$CatalogPayload<ExtArgs>[]
+    posTerminals: Prisma.$PosTerminalPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1868,6 +2027,7 @@ export interface Prisma__PriceTableClient<T, Null = never, ExtArgs extends runti
   rules<T extends Prisma.PriceTable$rulesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PriceTable$rulesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PriceTableRulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   orders<T extends Prisma.PriceTable$ordersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PriceTable$ordersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   catalogs<T extends Prisma.PriceTable$catalogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PriceTable$catalogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CatalogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  posTerminals<T extends Prisma.PriceTable$posTerminalsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PriceTable$posTerminalsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PosTerminalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2401,6 +2561,30 @@ export type PriceTable$catalogsArgs<ExtArgs extends runtime.Types.Extensions.Int
   take?: number
   skip?: number
   distinct?: Prisma.CatalogScalarFieldEnum | Prisma.CatalogScalarFieldEnum[]
+}
+
+/**
+ * PriceTable.posTerminals
+ */
+export type PriceTable$posTerminalsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PosTerminal
+   */
+  select?: Prisma.PosTerminalSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PosTerminal
+   */
+  omit?: Prisma.PosTerminalOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PosTerminalInclude<ExtArgs> | null
+  where?: Prisma.PosTerminalWhereInput
+  orderBy?: Prisma.PosTerminalOrderByWithRelationInput | Prisma.PosTerminalOrderByWithRelationInput[]
+  cursor?: Prisma.PosTerminalWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PosTerminalScalarFieldEnum | Prisma.PosTerminalScalarFieldEnum[]
 }
 
 /**

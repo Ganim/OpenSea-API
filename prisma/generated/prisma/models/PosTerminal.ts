@@ -260,7 +260,7 @@ export type PosTerminalWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"PosTerminal"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   warehouse?: Prisma.XOR<Prisma.WarehouseScalarRelationFilter, Prisma.WarehouseWhereInput>
-  defaultPriceTable?: Prisma.XOR<Prisma.PriceTableNullableScalarRelationFilter, Prisma.PriceTableWhereInput> | null
+  priceTable?: Prisma.XOR<Prisma.PriceTableNullableScalarRelationFilter, Prisma.PriceTableWhereInput> | null
   sessions?: Prisma.PosSessionListRelationFilter
   offlineQueue?: Prisma.PosOfflineQueueListRelationFilter
 }
@@ -283,7 +283,7 @@ export type PosTerminalOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   tenant?: Prisma.TenantOrderByWithRelationInput
   warehouse?: Prisma.WarehouseOrderByWithRelationInput
-  defaultPriceTable?: Prisma.PriceTableOrderByWithRelationInput
+  priceTable?: Prisma.PriceTableOrderByWithRelationInput
   sessions?: Prisma.PosSessionOrderByRelationAggregateInput
   offlineQueue?: Prisma.PosOfflineQueueOrderByRelationAggregateInput
 }
@@ -310,7 +310,7 @@ export type PosTerminalWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"PosTerminal"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   warehouse?: Prisma.XOR<Prisma.WarehouseScalarRelationFilter, Prisma.WarehouseWhereInput>
-  defaultPriceTable?: Prisma.XOR<Prisma.PriceTableNullableScalarRelationFilter, Prisma.PriceTableWhereInput> | null
+  priceTable?: Prisma.XOR<Prisma.PriceTableNullableScalarRelationFilter, Prisma.PriceTableWhereInput> | null
   sessions?: Prisma.PosSessionListRelationFilter
   offlineQueue?: Prisma.PosOfflineQueueListRelationFilter
 }, "id" | "tenantId_deviceId">
@@ -372,7 +372,7 @@ export type PosTerminalCreateInput = {
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutPosTerminalsInput
   warehouse: Prisma.WarehouseCreateNestedOneWithoutPosTerminalsInput
-  defaultPriceTable?: Prisma.PriceTableCreateNestedOneWithoutPosTerminalsInput
+  priceTable?: Prisma.PriceTableCreateNestedOneWithoutPosTerminalsInput
   sessions?: Prisma.PosSessionCreateNestedManyWithoutTerminalInput
   offlineQueue?: Prisma.PosOfflineQueueCreateNestedManyWithoutTerminalInput
 }
@@ -412,7 +412,7 @@ export type PosTerminalUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutPosTerminalsNestedInput
   warehouse?: Prisma.WarehouseUpdateOneRequiredWithoutPosTerminalsNestedInput
-  defaultPriceTable?: Prisma.PriceTableUpdateOneWithoutPosTerminalsNestedInput
+  priceTable?: Prisma.PriceTableUpdateOneWithoutPosTerminalsNestedInput
   sessions?: Prisma.PosSessionUpdateManyWithoutTerminalNestedInput
   offlineQueue?: Prisma.PosOfflineQueueUpdateManyWithoutTerminalNestedInput
 }
@@ -644,45 +644,45 @@ export type PosTerminalUncheckedUpdateManyWithoutTenantNestedInput = {
   deleteMany?: Prisma.PosTerminalScalarWhereInput | Prisma.PosTerminalScalarWhereInput[]
 }
 
-export type PosTerminalCreateNestedManyWithoutDefaultPriceTableInput = {
-  create?: Prisma.XOR<Prisma.PosTerminalCreateWithoutDefaultPriceTableInput, Prisma.PosTerminalUncheckedCreateWithoutDefaultPriceTableInput> | Prisma.PosTerminalCreateWithoutDefaultPriceTableInput[] | Prisma.PosTerminalUncheckedCreateWithoutDefaultPriceTableInput[]
-  connectOrCreate?: Prisma.PosTerminalCreateOrConnectWithoutDefaultPriceTableInput | Prisma.PosTerminalCreateOrConnectWithoutDefaultPriceTableInput[]
-  createMany?: Prisma.PosTerminalCreateManyDefaultPriceTableInputEnvelope
+export type PosTerminalCreateNestedManyWithoutPriceTableInput = {
+  create?: Prisma.XOR<Prisma.PosTerminalCreateWithoutPriceTableInput, Prisma.PosTerminalUncheckedCreateWithoutPriceTableInput> | Prisma.PosTerminalCreateWithoutPriceTableInput[] | Prisma.PosTerminalUncheckedCreateWithoutPriceTableInput[]
+  connectOrCreate?: Prisma.PosTerminalCreateOrConnectWithoutPriceTableInput | Prisma.PosTerminalCreateOrConnectWithoutPriceTableInput[]
+  createMany?: Prisma.PosTerminalCreateManyPriceTableInputEnvelope
   connect?: Prisma.PosTerminalWhereUniqueInput | Prisma.PosTerminalWhereUniqueInput[]
 }
 
-export type PosTerminalUncheckedCreateNestedManyWithoutDefaultPriceTableInput = {
-  create?: Prisma.XOR<Prisma.PosTerminalCreateWithoutDefaultPriceTableInput, Prisma.PosTerminalUncheckedCreateWithoutDefaultPriceTableInput> | Prisma.PosTerminalCreateWithoutDefaultPriceTableInput[] | Prisma.PosTerminalUncheckedCreateWithoutDefaultPriceTableInput[]
-  connectOrCreate?: Prisma.PosTerminalCreateOrConnectWithoutDefaultPriceTableInput | Prisma.PosTerminalCreateOrConnectWithoutDefaultPriceTableInput[]
-  createMany?: Prisma.PosTerminalCreateManyDefaultPriceTableInputEnvelope
+export type PosTerminalUncheckedCreateNestedManyWithoutPriceTableInput = {
+  create?: Prisma.XOR<Prisma.PosTerminalCreateWithoutPriceTableInput, Prisma.PosTerminalUncheckedCreateWithoutPriceTableInput> | Prisma.PosTerminalCreateWithoutPriceTableInput[] | Prisma.PosTerminalUncheckedCreateWithoutPriceTableInput[]
+  connectOrCreate?: Prisma.PosTerminalCreateOrConnectWithoutPriceTableInput | Prisma.PosTerminalCreateOrConnectWithoutPriceTableInput[]
+  createMany?: Prisma.PosTerminalCreateManyPriceTableInputEnvelope
   connect?: Prisma.PosTerminalWhereUniqueInput | Prisma.PosTerminalWhereUniqueInput[]
 }
 
-export type PosTerminalUpdateManyWithoutDefaultPriceTableNestedInput = {
-  create?: Prisma.XOR<Prisma.PosTerminalCreateWithoutDefaultPriceTableInput, Prisma.PosTerminalUncheckedCreateWithoutDefaultPriceTableInput> | Prisma.PosTerminalCreateWithoutDefaultPriceTableInput[] | Prisma.PosTerminalUncheckedCreateWithoutDefaultPriceTableInput[]
-  connectOrCreate?: Prisma.PosTerminalCreateOrConnectWithoutDefaultPriceTableInput | Prisma.PosTerminalCreateOrConnectWithoutDefaultPriceTableInput[]
-  upsert?: Prisma.PosTerminalUpsertWithWhereUniqueWithoutDefaultPriceTableInput | Prisma.PosTerminalUpsertWithWhereUniqueWithoutDefaultPriceTableInput[]
-  createMany?: Prisma.PosTerminalCreateManyDefaultPriceTableInputEnvelope
+export type PosTerminalUpdateManyWithoutPriceTableNestedInput = {
+  create?: Prisma.XOR<Prisma.PosTerminalCreateWithoutPriceTableInput, Prisma.PosTerminalUncheckedCreateWithoutPriceTableInput> | Prisma.PosTerminalCreateWithoutPriceTableInput[] | Prisma.PosTerminalUncheckedCreateWithoutPriceTableInput[]
+  connectOrCreate?: Prisma.PosTerminalCreateOrConnectWithoutPriceTableInput | Prisma.PosTerminalCreateOrConnectWithoutPriceTableInput[]
+  upsert?: Prisma.PosTerminalUpsertWithWhereUniqueWithoutPriceTableInput | Prisma.PosTerminalUpsertWithWhereUniqueWithoutPriceTableInput[]
+  createMany?: Prisma.PosTerminalCreateManyPriceTableInputEnvelope
   set?: Prisma.PosTerminalWhereUniqueInput | Prisma.PosTerminalWhereUniqueInput[]
   disconnect?: Prisma.PosTerminalWhereUniqueInput | Prisma.PosTerminalWhereUniqueInput[]
   delete?: Prisma.PosTerminalWhereUniqueInput | Prisma.PosTerminalWhereUniqueInput[]
   connect?: Prisma.PosTerminalWhereUniqueInput | Prisma.PosTerminalWhereUniqueInput[]
-  update?: Prisma.PosTerminalUpdateWithWhereUniqueWithoutDefaultPriceTableInput | Prisma.PosTerminalUpdateWithWhereUniqueWithoutDefaultPriceTableInput[]
-  updateMany?: Prisma.PosTerminalUpdateManyWithWhereWithoutDefaultPriceTableInput | Prisma.PosTerminalUpdateManyWithWhereWithoutDefaultPriceTableInput[]
+  update?: Prisma.PosTerminalUpdateWithWhereUniqueWithoutPriceTableInput | Prisma.PosTerminalUpdateWithWhereUniqueWithoutPriceTableInput[]
+  updateMany?: Prisma.PosTerminalUpdateManyWithWhereWithoutPriceTableInput | Prisma.PosTerminalUpdateManyWithWhereWithoutPriceTableInput[]
   deleteMany?: Prisma.PosTerminalScalarWhereInput | Prisma.PosTerminalScalarWhereInput[]
 }
 
-export type PosTerminalUncheckedUpdateManyWithoutDefaultPriceTableNestedInput = {
-  create?: Prisma.XOR<Prisma.PosTerminalCreateWithoutDefaultPriceTableInput, Prisma.PosTerminalUncheckedCreateWithoutDefaultPriceTableInput> | Prisma.PosTerminalCreateWithoutDefaultPriceTableInput[] | Prisma.PosTerminalUncheckedCreateWithoutDefaultPriceTableInput[]
-  connectOrCreate?: Prisma.PosTerminalCreateOrConnectWithoutDefaultPriceTableInput | Prisma.PosTerminalCreateOrConnectWithoutDefaultPriceTableInput[]
-  upsert?: Prisma.PosTerminalUpsertWithWhereUniqueWithoutDefaultPriceTableInput | Prisma.PosTerminalUpsertWithWhereUniqueWithoutDefaultPriceTableInput[]
-  createMany?: Prisma.PosTerminalCreateManyDefaultPriceTableInputEnvelope
+export type PosTerminalUncheckedUpdateManyWithoutPriceTableNestedInput = {
+  create?: Prisma.XOR<Prisma.PosTerminalCreateWithoutPriceTableInput, Prisma.PosTerminalUncheckedCreateWithoutPriceTableInput> | Prisma.PosTerminalCreateWithoutPriceTableInput[] | Prisma.PosTerminalUncheckedCreateWithoutPriceTableInput[]
+  connectOrCreate?: Prisma.PosTerminalCreateOrConnectWithoutPriceTableInput | Prisma.PosTerminalCreateOrConnectWithoutPriceTableInput[]
+  upsert?: Prisma.PosTerminalUpsertWithWhereUniqueWithoutPriceTableInput | Prisma.PosTerminalUpsertWithWhereUniqueWithoutPriceTableInput[]
+  createMany?: Prisma.PosTerminalCreateManyPriceTableInputEnvelope
   set?: Prisma.PosTerminalWhereUniqueInput | Prisma.PosTerminalWhereUniqueInput[]
   disconnect?: Prisma.PosTerminalWhereUniqueInput | Prisma.PosTerminalWhereUniqueInput[]
   delete?: Prisma.PosTerminalWhereUniqueInput | Prisma.PosTerminalWhereUniqueInput[]
   connect?: Prisma.PosTerminalWhereUniqueInput | Prisma.PosTerminalWhereUniqueInput[]
-  update?: Prisma.PosTerminalUpdateWithWhereUniqueWithoutDefaultPriceTableInput | Prisma.PosTerminalUpdateWithWhereUniqueWithoutDefaultPriceTableInput[]
-  updateMany?: Prisma.PosTerminalUpdateManyWithWhereWithoutDefaultPriceTableInput | Prisma.PosTerminalUpdateManyWithWhereWithoutDefaultPriceTableInput[]
+  update?: Prisma.PosTerminalUpdateWithWhereUniqueWithoutPriceTableInput | Prisma.PosTerminalUpdateWithWhereUniqueWithoutPriceTableInput[]
+  updateMany?: Prisma.PosTerminalUpdateManyWithWhereWithoutPriceTableInput | Prisma.PosTerminalUpdateManyWithWhereWithoutPriceTableInput[]
   deleteMany?: Prisma.PosTerminalScalarWhereInput | Prisma.PosTerminalScalarWhereInput[]
 }
 
@@ -736,7 +736,7 @@ export type PosTerminalCreateWithoutWarehouseInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutPosTerminalsInput
-  defaultPriceTable?: Prisma.PriceTableCreateNestedOneWithoutPosTerminalsInput
+  priceTable?: Prisma.PriceTableCreateNestedOneWithoutPosTerminalsInput
   sessions?: Prisma.PosSessionCreateNestedManyWithoutTerminalInput
   offlineQueue?: Prisma.PosOfflineQueueCreateNestedManyWithoutTerminalInput
 }
@@ -821,7 +821,7 @@ export type PosTerminalCreateWithoutTenantInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   warehouse: Prisma.WarehouseCreateNestedOneWithoutPosTerminalsInput
-  defaultPriceTable?: Prisma.PriceTableCreateNestedOneWithoutPosTerminalsInput
+  priceTable?: Prisma.PriceTableCreateNestedOneWithoutPosTerminalsInput
   sessions?: Prisma.PosSessionCreateNestedManyWithoutTerminalInput
   offlineQueue?: Prisma.PosOfflineQueueCreateNestedManyWithoutTerminalInput
 }
@@ -871,7 +871,7 @@ export type PosTerminalUpdateManyWithWhereWithoutTenantInput = {
   data: Prisma.XOR<Prisma.PosTerminalUpdateManyMutationInput, Prisma.PosTerminalUncheckedUpdateManyWithoutTenantInput>
 }
 
-export type PosTerminalCreateWithoutDefaultPriceTableInput = {
+export type PosTerminalCreateWithoutPriceTableInput = {
   id?: string
   name: string
   deviceId: string
@@ -890,7 +890,7 @@ export type PosTerminalCreateWithoutDefaultPriceTableInput = {
   offlineQueue?: Prisma.PosOfflineQueueCreateNestedManyWithoutTerminalInput
 }
 
-export type PosTerminalUncheckedCreateWithoutDefaultPriceTableInput = {
+export type PosTerminalUncheckedCreateWithoutPriceTableInput = {
   id?: string
   tenantId: string
   name: string
@@ -909,30 +909,30 @@ export type PosTerminalUncheckedCreateWithoutDefaultPriceTableInput = {
   offlineQueue?: Prisma.PosOfflineQueueUncheckedCreateNestedManyWithoutTerminalInput
 }
 
-export type PosTerminalCreateOrConnectWithoutDefaultPriceTableInput = {
+export type PosTerminalCreateOrConnectWithoutPriceTableInput = {
   where: Prisma.PosTerminalWhereUniqueInput
-  create: Prisma.XOR<Prisma.PosTerminalCreateWithoutDefaultPriceTableInput, Prisma.PosTerminalUncheckedCreateWithoutDefaultPriceTableInput>
+  create: Prisma.XOR<Prisma.PosTerminalCreateWithoutPriceTableInput, Prisma.PosTerminalUncheckedCreateWithoutPriceTableInput>
 }
 
-export type PosTerminalCreateManyDefaultPriceTableInputEnvelope = {
-  data: Prisma.PosTerminalCreateManyDefaultPriceTableInput | Prisma.PosTerminalCreateManyDefaultPriceTableInput[]
+export type PosTerminalCreateManyPriceTableInputEnvelope = {
+  data: Prisma.PosTerminalCreateManyPriceTableInput | Prisma.PosTerminalCreateManyPriceTableInput[]
   skipDuplicates?: boolean
 }
 
-export type PosTerminalUpsertWithWhereUniqueWithoutDefaultPriceTableInput = {
+export type PosTerminalUpsertWithWhereUniqueWithoutPriceTableInput = {
   where: Prisma.PosTerminalWhereUniqueInput
-  update: Prisma.XOR<Prisma.PosTerminalUpdateWithoutDefaultPriceTableInput, Prisma.PosTerminalUncheckedUpdateWithoutDefaultPriceTableInput>
-  create: Prisma.XOR<Prisma.PosTerminalCreateWithoutDefaultPriceTableInput, Prisma.PosTerminalUncheckedCreateWithoutDefaultPriceTableInput>
+  update: Prisma.XOR<Prisma.PosTerminalUpdateWithoutPriceTableInput, Prisma.PosTerminalUncheckedUpdateWithoutPriceTableInput>
+  create: Prisma.XOR<Prisma.PosTerminalCreateWithoutPriceTableInput, Prisma.PosTerminalUncheckedCreateWithoutPriceTableInput>
 }
 
-export type PosTerminalUpdateWithWhereUniqueWithoutDefaultPriceTableInput = {
+export type PosTerminalUpdateWithWhereUniqueWithoutPriceTableInput = {
   where: Prisma.PosTerminalWhereUniqueInput
-  data: Prisma.XOR<Prisma.PosTerminalUpdateWithoutDefaultPriceTableInput, Prisma.PosTerminalUncheckedUpdateWithoutDefaultPriceTableInput>
+  data: Prisma.XOR<Prisma.PosTerminalUpdateWithoutPriceTableInput, Prisma.PosTerminalUncheckedUpdateWithoutPriceTableInput>
 }
 
-export type PosTerminalUpdateManyWithWhereWithoutDefaultPriceTableInput = {
+export type PosTerminalUpdateManyWithWhereWithoutPriceTableInput = {
   where: Prisma.PosTerminalScalarWhereInput
-  data: Prisma.XOR<Prisma.PosTerminalUpdateManyMutationInput, Prisma.PosTerminalUncheckedUpdateManyWithoutDefaultPriceTableInput>
+  data: Prisma.XOR<Prisma.PosTerminalUpdateManyMutationInput, Prisma.PosTerminalUncheckedUpdateManyWithoutPriceTableInput>
 }
 
 export type PosTerminalCreateWithoutSessionsInput = {
@@ -950,7 +950,7 @@ export type PosTerminalCreateWithoutSessionsInput = {
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutPosTerminalsInput
   warehouse: Prisma.WarehouseCreateNestedOneWithoutPosTerminalsInput
-  defaultPriceTable?: Prisma.PriceTableCreateNestedOneWithoutPosTerminalsInput
+  priceTable?: Prisma.PriceTableCreateNestedOneWithoutPosTerminalsInput
   offlineQueue?: Prisma.PosOfflineQueueCreateNestedManyWithoutTerminalInput
 }
 
@@ -1004,7 +1004,7 @@ export type PosTerminalUpdateWithoutSessionsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutPosTerminalsNestedInput
   warehouse?: Prisma.WarehouseUpdateOneRequiredWithoutPosTerminalsNestedInput
-  defaultPriceTable?: Prisma.PriceTableUpdateOneWithoutPosTerminalsNestedInput
+  priceTable?: Prisma.PriceTableUpdateOneWithoutPosTerminalsNestedInput
   offlineQueue?: Prisma.PosOfflineQueueUpdateManyWithoutTerminalNestedInput
 }
 
@@ -1042,7 +1042,7 @@ export type PosTerminalCreateWithoutOfflineQueueInput = {
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutPosTerminalsInput
   warehouse: Prisma.WarehouseCreateNestedOneWithoutPosTerminalsInput
-  defaultPriceTable?: Prisma.PriceTableCreateNestedOneWithoutPosTerminalsInput
+  priceTable?: Prisma.PriceTableCreateNestedOneWithoutPosTerminalsInput
   sessions?: Prisma.PosSessionCreateNestedManyWithoutTerminalInput
 }
 
@@ -1096,7 +1096,7 @@ export type PosTerminalUpdateWithoutOfflineQueueInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutPosTerminalsNestedInput
   warehouse?: Prisma.WarehouseUpdateOneRequiredWithoutPosTerminalsNestedInput
-  defaultPriceTable?: Prisma.PriceTableUpdateOneWithoutPosTerminalsNestedInput
+  priceTable?: Prisma.PriceTableUpdateOneWithoutPosTerminalsNestedInput
   sessions?: Prisma.PosSessionUpdateManyWithoutTerminalNestedInput
 }
 
@@ -1150,7 +1150,7 @@ export type PosTerminalUpdateWithoutWarehouseInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutPosTerminalsNestedInput
-  defaultPriceTable?: Prisma.PriceTableUpdateOneWithoutPosTerminalsNestedInput
+  priceTable?: Prisma.PriceTableUpdateOneWithoutPosTerminalsNestedInput
   sessions?: Prisma.PosSessionUpdateManyWithoutTerminalNestedInput
   offlineQueue?: Prisma.PosOfflineQueueUpdateManyWithoutTerminalNestedInput
 }
@@ -1222,7 +1222,7 @@ export type PosTerminalUpdateWithoutTenantInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   warehouse?: Prisma.WarehouseUpdateOneRequiredWithoutPosTerminalsNestedInput
-  defaultPriceTable?: Prisma.PriceTableUpdateOneWithoutPosTerminalsNestedInput
+  priceTable?: Prisma.PriceTableUpdateOneWithoutPosTerminalsNestedInput
   sessions?: Prisma.PosSessionUpdateManyWithoutTerminalNestedInput
   offlineQueue?: Prisma.PosOfflineQueueUpdateManyWithoutTerminalNestedInput
 }
@@ -1263,7 +1263,7 @@ export type PosTerminalUncheckedUpdateManyWithoutTenantInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type PosTerminalCreateManyDefaultPriceTableInput = {
+export type PosTerminalCreateManyPriceTableInput = {
   id?: string
   tenantId: string
   name: string
@@ -1280,7 +1280,7 @@ export type PosTerminalCreateManyDefaultPriceTableInput = {
   updatedAt?: Date | string
 }
 
-export type PosTerminalUpdateWithoutDefaultPriceTableInput = {
+export type PosTerminalUpdateWithoutPriceTableInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   deviceId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1299,7 +1299,7 @@ export type PosTerminalUpdateWithoutDefaultPriceTableInput = {
   offlineQueue?: Prisma.PosOfflineQueueUpdateManyWithoutTerminalNestedInput
 }
 
-export type PosTerminalUncheckedUpdateWithoutDefaultPriceTableInput = {
+export type PosTerminalUncheckedUpdateWithoutPriceTableInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1318,7 +1318,7 @@ export type PosTerminalUncheckedUpdateWithoutDefaultPriceTableInput = {
   offlineQueue?: Prisma.PosOfflineQueueUncheckedUpdateManyWithoutTerminalNestedInput
 }
 
-export type PosTerminalUncheckedUpdateManyWithoutDefaultPriceTableInput = {
+export type PosTerminalUncheckedUpdateManyWithoutPriceTableInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1393,7 +1393,7 @@ export type PosTerminalSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   warehouse?: boolean | Prisma.WarehouseDefaultArgs<ExtArgs>
-  defaultPriceTable?: boolean | Prisma.PosTerminal$defaultPriceTableArgs<ExtArgs>
+  priceTable?: boolean | Prisma.PosTerminal$priceTableArgs<ExtArgs>
   sessions?: boolean | Prisma.PosTerminal$sessionsArgs<ExtArgs>
   offlineQueue?: boolean | Prisma.PosTerminal$offlineQueueArgs<ExtArgs>
   _count?: boolean | Prisma.PosTerminalCountOutputTypeDefaultArgs<ExtArgs>
@@ -1417,7 +1417,7 @@ export type PosTerminalSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   warehouse?: boolean | Prisma.WarehouseDefaultArgs<ExtArgs>
-  defaultPriceTable?: boolean | Prisma.PosTerminal$defaultPriceTableArgs<ExtArgs>
+  priceTable?: boolean | Prisma.PosTerminal$priceTableArgs<ExtArgs>
 }, ExtArgs["result"]["posTerminal"]>
 
 export type PosTerminalSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1438,7 +1438,7 @@ export type PosTerminalSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   warehouse?: boolean | Prisma.WarehouseDefaultArgs<ExtArgs>
-  defaultPriceTable?: boolean | Prisma.PosTerminal$defaultPriceTableArgs<ExtArgs>
+  priceTable?: boolean | Prisma.PosTerminal$priceTableArgs<ExtArgs>
 }, ExtArgs["result"]["posTerminal"]>
 
 export type PosTerminalSelectScalar = {
@@ -1463,7 +1463,7 @@ export type PosTerminalOmit<ExtArgs extends runtime.Types.Extensions.InternalArg
 export type PosTerminalInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   warehouse?: boolean | Prisma.WarehouseDefaultArgs<ExtArgs>
-  defaultPriceTable?: boolean | Prisma.PosTerminal$defaultPriceTableArgs<ExtArgs>
+  priceTable?: boolean | Prisma.PosTerminal$priceTableArgs<ExtArgs>
   sessions?: boolean | Prisma.PosTerminal$sessionsArgs<ExtArgs>
   offlineQueue?: boolean | Prisma.PosTerminal$offlineQueueArgs<ExtArgs>
   _count?: boolean | Prisma.PosTerminalCountOutputTypeDefaultArgs<ExtArgs>
@@ -1471,12 +1471,12 @@ export type PosTerminalInclude<ExtArgs extends runtime.Types.Extensions.Internal
 export type PosTerminalIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   warehouse?: boolean | Prisma.WarehouseDefaultArgs<ExtArgs>
-  defaultPriceTable?: boolean | Prisma.PosTerminal$defaultPriceTableArgs<ExtArgs>
+  priceTable?: boolean | Prisma.PosTerminal$priceTableArgs<ExtArgs>
 }
 export type PosTerminalIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   warehouse?: boolean | Prisma.WarehouseDefaultArgs<ExtArgs>
-  defaultPriceTable?: boolean | Prisma.PosTerminal$defaultPriceTableArgs<ExtArgs>
+  priceTable?: boolean | Prisma.PosTerminal$priceTableArgs<ExtArgs>
 }
 
 export type $PosTerminalPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1484,7 +1484,7 @@ export type $PosTerminalPayload<ExtArgs extends runtime.Types.Extensions.Interna
   objects: {
     tenant: Prisma.$TenantPayload<ExtArgs>
     warehouse: Prisma.$WarehousePayload<ExtArgs>
-    defaultPriceTable: Prisma.$PriceTablePayload<ExtArgs> | null
+    priceTable: Prisma.$PriceTablePayload<ExtArgs> | null
     sessions: Prisma.$PosSessionPayload<ExtArgs>[]
     offlineQueue: Prisma.$PosOfflineQueuePayload<ExtArgs>[]
   }
@@ -1900,7 +1900,7 @@ export interface Prisma__PosTerminalClient<T, Null = never, ExtArgs extends runt
   readonly [Symbol.toStringTag]: "PrismaPromise"
   tenant<T extends Prisma.TenantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   warehouse<T extends Prisma.WarehouseDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.WarehouseDefaultArgs<ExtArgs>>): Prisma.Prisma__WarehouseClient<runtime.Types.Result.GetResult<Prisma.$WarehousePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  defaultPriceTable<T extends Prisma.PosTerminal$defaultPriceTableArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PosTerminal$defaultPriceTableArgs<ExtArgs>>): Prisma.Prisma__PriceTableClient<runtime.Types.Result.GetResult<Prisma.$PriceTablePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  priceTable<T extends Prisma.PosTerminal$priceTableArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PosTerminal$priceTableArgs<ExtArgs>>): Prisma.Prisma__PriceTableClient<runtime.Types.Result.GetResult<Prisma.$PriceTablePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   sessions<T extends Prisma.PosTerminal$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PosTerminal$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PosSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   offlineQueue<T extends Prisma.PosTerminal$offlineQueueArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PosTerminal$offlineQueueArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PosOfflineQueuePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -2343,9 +2343,9 @@ export type PosTerminalDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.I
 }
 
 /**
- * PosTerminal.defaultPriceTable
+ * PosTerminal.priceTable
  */
-export type PosTerminal$defaultPriceTableArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type PosTerminal$priceTableArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the PriceTable
    */

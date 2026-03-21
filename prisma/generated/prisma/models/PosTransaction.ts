@@ -281,7 +281,7 @@ export type PosTransactionGroupByOutputType = {
   id: string
   tenantId: string
   sessionId: string
-  orderId: string | null
+  orderId: string
   transactionNumber: number
   status: $Enums.PosTransactionStatus
   subtotal: runtime.Decimal
@@ -325,7 +325,7 @@ export type PosTransactionWhereInput = {
   id?: Prisma.StringFilter<"PosTransaction"> | string
   tenantId?: Prisma.StringFilter<"PosTransaction"> | string
   sessionId?: Prisma.StringFilter<"PosTransaction"> | string
-  orderId?: Prisma.StringNullableFilter<"PosTransaction"> | string | null
+  orderId?: Prisma.StringFilter<"PosTransaction"> | string
   transactionNumber?: Prisma.IntFilter<"PosTransaction"> | number
   status?: Prisma.EnumPosTransactionStatusFilter<"PosTransaction"> | $Enums.PosTransactionStatus
   subtotal?: Prisma.DecimalFilter<"PosTransaction"> | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -342,9 +342,8 @@ export type PosTransactionWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"PosTransaction"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   session?: Prisma.XOR<Prisma.PosSessionScalarRelationFilter, Prisma.PosSessionWhereInput>
-  order?: Prisma.XOR<Prisma.OrderNullableScalarRelationFilter, Prisma.OrderWhereInput> | null
+  order?: Prisma.XOR<Prisma.OrderScalarRelationFilter, Prisma.OrderWhereInput>
   customer?: Prisma.XOR<Prisma.CustomerNullableScalarRelationFilter, Prisma.CustomerWhereInput> | null
-  overrideBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   payments?: Prisma.PosTransactionPaymentListRelationFilter
 }
 
@@ -352,7 +351,7 @@ export type PosTransactionOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
   sessionId?: Prisma.SortOrder
-  orderId?: Prisma.SortOrderInput | Prisma.SortOrder
+  orderId?: Prisma.SortOrder
   transactionNumber?: Prisma.SortOrder
   status?: Prisma.SortOrder
   subtotal?: Prisma.SortOrder
@@ -371,7 +370,6 @@ export type PosTransactionOrderByWithRelationInput = {
   session?: Prisma.PosSessionOrderByWithRelationInput
   order?: Prisma.OrderOrderByWithRelationInput
   customer?: Prisma.CustomerOrderByWithRelationInput
-  overrideBy?: Prisma.UserOrderByWithRelationInput
   payments?: Prisma.PosTransactionPaymentOrderByRelationAggregateInput
 }
 
@@ -383,7 +381,7 @@ export type PosTransactionWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.PosTransactionWhereInput | Prisma.PosTransactionWhereInput[]
   tenantId?: Prisma.StringFilter<"PosTransaction"> | string
   sessionId?: Prisma.StringFilter<"PosTransaction"> | string
-  orderId?: Prisma.StringNullableFilter<"PosTransaction"> | string | null
+  orderId?: Prisma.StringFilter<"PosTransaction"> | string
   transactionNumber?: Prisma.IntFilter<"PosTransaction"> | number
   status?: Prisma.EnumPosTransactionStatusFilter<"PosTransaction"> | $Enums.PosTransactionStatus
   subtotal?: Prisma.DecimalFilter<"PosTransaction"> | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -400,9 +398,8 @@ export type PosTransactionWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"PosTransaction"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   session?: Prisma.XOR<Prisma.PosSessionScalarRelationFilter, Prisma.PosSessionWhereInput>
-  order?: Prisma.XOR<Prisma.OrderNullableScalarRelationFilter, Prisma.OrderWhereInput> | null
+  order?: Prisma.XOR<Prisma.OrderScalarRelationFilter, Prisma.OrderWhereInput>
   customer?: Prisma.XOR<Prisma.CustomerNullableScalarRelationFilter, Prisma.CustomerWhereInput> | null
-  overrideBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   payments?: Prisma.PosTransactionPaymentListRelationFilter
 }, "id" | "sessionId_transactionNumber">
 
@@ -410,7 +407,7 @@ export type PosTransactionOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
   sessionId?: Prisma.SortOrder
-  orderId?: Prisma.SortOrderInput | Prisma.SortOrder
+  orderId?: Prisma.SortOrder
   transactionNumber?: Prisma.SortOrder
   status?: Prisma.SortOrder
   subtotal?: Prisma.SortOrder
@@ -439,7 +436,7 @@ export type PosTransactionScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"PosTransaction"> | string
   tenantId?: Prisma.StringWithAggregatesFilter<"PosTransaction"> | string
   sessionId?: Prisma.StringWithAggregatesFilter<"PosTransaction"> | string
-  orderId?: Prisma.StringNullableWithAggregatesFilter<"PosTransaction"> | string | null
+  orderId?: Prisma.StringWithAggregatesFilter<"PosTransaction"> | string
   transactionNumber?: Prisma.IntWithAggregatesFilter<"PosTransaction"> | number
   status?: Prisma.EnumPosTransactionStatusWithAggregatesFilter<"PosTransaction"> | $Enums.PosTransactionStatus
   subtotal?: Prisma.DecimalWithAggregatesFilter<"PosTransaction"> | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -467,14 +464,14 @@ export type PosTransactionCreateInput = {
   changeAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   customerName?: string | null
   customerDocument?: string | null
+  overrideByUserId?: string | null
   overrideReason?: string | null
   syncedAt?: Date | string | null
   createdAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutPosTransactionsInput
   session: Prisma.PosSessionCreateNestedOneWithoutTransactionsInput
-  order?: Prisma.OrderCreateNestedOneWithoutPosTransactionsInput
+  order: Prisma.OrderCreateNestedOneWithoutPosTransactionsInput
   customer?: Prisma.CustomerCreateNestedOneWithoutPosTransactionsInput
-  overrideBy?: Prisma.UserCreateNestedOneWithoutPosTransactionOverridesInput
   payments?: Prisma.PosTransactionPaymentCreateNestedManyWithoutTransactionInput
 }
 
@@ -482,7 +479,7 @@ export type PosTransactionUncheckedCreateInput = {
   id?: string
   tenantId: string
   sessionId: string
-  orderId?: string | null
+  orderId: string
   transactionNumber: number
   status?: $Enums.PosTransactionStatus
   subtotal: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -511,14 +508,14 @@ export type PosTransactionUpdateInput = {
   changeAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerDocument?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  overrideByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   overrideReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   syncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutPosTransactionsNestedInput
   session?: Prisma.PosSessionUpdateOneRequiredWithoutTransactionsNestedInput
-  order?: Prisma.OrderUpdateOneWithoutPosTransactionsNestedInput
+  order?: Prisma.OrderUpdateOneRequiredWithoutPosTransactionsNestedInput
   customer?: Prisma.CustomerUpdateOneWithoutPosTransactionsNestedInput
-  overrideBy?: Prisma.UserUpdateOneWithoutPosTransactionOverridesNestedInput
   payments?: Prisma.PosTransactionPaymentUpdateManyWithoutTransactionNestedInput
 }
 
@@ -526,7 +523,7 @@ export type PosTransactionUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   sessionId?: Prisma.StringFieldUpdateOperationsInput | string
-  orderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  orderId?: Prisma.StringFieldUpdateOperationsInput | string
   transactionNumber?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumPosTransactionStatusFieldUpdateOperationsInput | $Enums.PosTransactionStatus
   subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -548,7 +545,7 @@ export type PosTransactionCreateManyInput = {
   id?: string
   tenantId: string
   sessionId: string
-  orderId?: string | null
+  orderId: string
   transactionNumber: number
   status?: $Enums.PosTransactionStatus
   subtotal: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -576,6 +573,7 @@ export type PosTransactionUpdateManyMutationInput = {
   changeAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerDocument?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  overrideByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   overrideReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   syncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -585,7 +583,7 @@ export type PosTransactionUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   sessionId?: Prisma.StringFieldUpdateOperationsInput | string
-  orderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  orderId?: Prisma.StringFieldUpdateOperationsInput | string
   transactionNumber?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumPosTransactionStatusFieldUpdateOperationsInput | $Enums.PosTransactionStatus
   subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -701,48 +699,6 @@ export type PosTransactionSumOrderByAggregateInput = {
 export type PosTransactionScalarRelationFilter = {
   is?: Prisma.PosTransactionWhereInput
   isNot?: Prisma.PosTransactionWhereInput
-}
-
-export type PosTransactionCreateNestedManyWithoutOverrideByInput = {
-  create?: Prisma.XOR<Prisma.PosTransactionCreateWithoutOverrideByInput, Prisma.PosTransactionUncheckedCreateWithoutOverrideByInput> | Prisma.PosTransactionCreateWithoutOverrideByInput[] | Prisma.PosTransactionUncheckedCreateWithoutOverrideByInput[]
-  connectOrCreate?: Prisma.PosTransactionCreateOrConnectWithoutOverrideByInput | Prisma.PosTransactionCreateOrConnectWithoutOverrideByInput[]
-  createMany?: Prisma.PosTransactionCreateManyOverrideByInputEnvelope
-  connect?: Prisma.PosTransactionWhereUniqueInput | Prisma.PosTransactionWhereUniqueInput[]
-}
-
-export type PosTransactionUncheckedCreateNestedManyWithoutOverrideByInput = {
-  create?: Prisma.XOR<Prisma.PosTransactionCreateWithoutOverrideByInput, Prisma.PosTransactionUncheckedCreateWithoutOverrideByInput> | Prisma.PosTransactionCreateWithoutOverrideByInput[] | Prisma.PosTransactionUncheckedCreateWithoutOverrideByInput[]
-  connectOrCreate?: Prisma.PosTransactionCreateOrConnectWithoutOverrideByInput | Prisma.PosTransactionCreateOrConnectWithoutOverrideByInput[]
-  createMany?: Prisma.PosTransactionCreateManyOverrideByInputEnvelope
-  connect?: Prisma.PosTransactionWhereUniqueInput | Prisma.PosTransactionWhereUniqueInput[]
-}
-
-export type PosTransactionUpdateManyWithoutOverrideByNestedInput = {
-  create?: Prisma.XOR<Prisma.PosTransactionCreateWithoutOverrideByInput, Prisma.PosTransactionUncheckedCreateWithoutOverrideByInput> | Prisma.PosTransactionCreateWithoutOverrideByInput[] | Prisma.PosTransactionUncheckedCreateWithoutOverrideByInput[]
-  connectOrCreate?: Prisma.PosTransactionCreateOrConnectWithoutOverrideByInput | Prisma.PosTransactionCreateOrConnectWithoutOverrideByInput[]
-  upsert?: Prisma.PosTransactionUpsertWithWhereUniqueWithoutOverrideByInput | Prisma.PosTransactionUpsertWithWhereUniqueWithoutOverrideByInput[]
-  createMany?: Prisma.PosTransactionCreateManyOverrideByInputEnvelope
-  set?: Prisma.PosTransactionWhereUniqueInput | Prisma.PosTransactionWhereUniqueInput[]
-  disconnect?: Prisma.PosTransactionWhereUniqueInput | Prisma.PosTransactionWhereUniqueInput[]
-  delete?: Prisma.PosTransactionWhereUniqueInput | Prisma.PosTransactionWhereUniqueInput[]
-  connect?: Prisma.PosTransactionWhereUniqueInput | Prisma.PosTransactionWhereUniqueInput[]
-  update?: Prisma.PosTransactionUpdateWithWhereUniqueWithoutOverrideByInput | Prisma.PosTransactionUpdateWithWhereUniqueWithoutOverrideByInput[]
-  updateMany?: Prisma.PosTransactionUpdateManyWithWhereWithoutOverrideByInput | Prisma.PosTransactionUpdateManyWithWhereWithoutOverrideByInput[]
-  deleteMany?: Prisma.PosTransactionScalarWhereInput | Prisma.PosTransactionScalarWhereInput[]
-}
-
-export type PosTransactionUncheckedUpdateManyWithoutOverrideByNestedInput = {
-  create?: Prisma.XOR<Prisma.PosTransactionCreateWithoutOverrideByInput, Prisma.PosTransactionUncheckedCreateWithoutOverrideByInput> | Prisma.PosTransactionCreateWithoutOverrideByInput[] | Prisma.PosTransactionUncheckedCreateWithoutOverrideByInput[]
-  connectOrCreate?: Prisma.PosTransactionCreateOrConnectWithoutOverrideByInput | Prisma.PosTransactionCreateOrConnectWithoutOverrideByInput[]
-  upsert?: Prisma.PosTransactionUpsertWithWhereUniqueWithoutOverrideByInput | Prisma.PosTransactionUpsertWithWhereUniqueWithoutOverrideByInput[]
-  createMany?: Prisma.PosTransactionCreateManyOverrideByInputEnvelope
-  set?: Prisma.PosTransactionWhereUniqueInput | Prisma.PosTransactionWhereUniqueInput[]
-  disconnect?: Prisma.PosTransactionWhereUniqueInput | Prisma.PosTransactionWhereUniqueInput[]
-  delete?: Prisma.PosTransactionWhereUniqueInput | Prisma.PosTransactionWhereUniqueInput[]
-  connect?: Prisma.PosTransactionWhereUniqueInput | Prisma.PosTransactionWhereUniqueInput[]
-  update?: Prisma.PosTransactionUpdateWithWhereUniqueWithoutOverrideByInput | Prisma.PosTransactionUpdateWithWhereUniqueWithoutOverrideByInput[]
-  updateMany?: Prisma.PosTransactionUpdateManyWithWhereWithoutOverrideByInput | Prisma.PosTransactionUpdateManyWithWhereWithoutOverrideByInput[]
-  deleteMany?: Prisma.PosTransactionScalarWhereInput | Prisma.PosTransactionScalarWhereInput[]
 }
 
 export type PosTransactionCreateNestedManyWithoutCustomerInput = {
@@ -931,98 +887,6 @@ export type PosTransactionUpdateOneRequiredWithoutPaymentsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.PosTransactionUpdateToOneWithWhereWithoutPaymentsInput, Prisma.PosTransactionUpdateWithoutPaymentsInput>, Prisma.PosTransactionUncheckedUpdateWithoutPaymentsInput>
 }
 
-export type PosTransactionCreateWithoutOverrideByInput = {
-  id?: string
-  transactionNumber: number
-  status?: $Enums.PosTransactionStatus
-  subtotal: runtime.Decimal | runtime.DecimalJsLike | number | string
-  discountTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  taxTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  grandTotal: runtime.Decimal | runtime.DecimalJsLike | number | string
-  changeAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  customerName?: string | null
-  customerDocument?: string | null
-  overrideReason?: string | null
-  syncedAt?: Date | string | null
-  createdAt?: Date | string
-  tenant: Prisma.TenantCreateNestedOneWithoutPosTransactionsInput
-  session: Prisma.PosSessionCreateNestedOneWithoutTransactionsInput
-  order?: Prisma.OrderCreateNestedOneWithoutPosTransactionsInput
-  customer?: Prisma.CustomerCreateNestedOneWithoutPosTransactionsInput
-  payments?: Prisma.PosTransactionPaymentCreateNestedManyWithoutTransactionInput
-}
-
-export type PosTransactionUncheckedCreateWithoutOverrideByInput = {
-  id?: string
-  tenantId: string
-  sessionId: string
-  orderId?: string | null
-  transactionNumber: number
-  status?: $Enums.PosTransactionStatus
-  subtotal: runtime.Decimal | runtime.DecimalJsLike | number | string
-  discountTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  taxTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  grandTotal: runtime.Decimal | runtime.DecimalJsLike | number | string
-  changeAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  customerId?: string | null
-  customerName?: string | null
-  customerDocument?: string | null
-  overrideReason?: string | null
-  syncedAt?: Date | string | null
-  createdAt?: Date | string
-  payments?: Prisma.PosTransactionPaymentUncheckedCreateNestedManyWithoutTransactionInput
-}
-
-export type PosTransactionCreateOrConnectWithoutOverrideByInput = {
-  where: Prisma.PosTransactionWhereUniqueInput
-  create: Prisma.XOR<Prisma.PosTransactionCreateWithoutOverrideByInput, Prisma.PosTransactionUncheckedCreateWithoutOverrideByInput>
-}
-
-export type PosTransactionCreateManyOverrideByInputEnvelope = {
-  data: Prisma.PosTransactionCreateManyOverrideByInput | Prisma.PosTransactionCreateManyOverrideByInput[]
-  skipDuplicates?: boolean
-}
-
-export type PosTransactionUpsertWithWhereUniqueWithoutOverrideByInput = {
-  where: Prisma.PosTransactionWhereUniqueInput
-  update: Prisma.XOR<Prisma.PosTransactionUpdateWithoutOverrideByInput, Prisma.PosTransactionUncheckedUpdateWithoutOverrideByInput>
-  create: Prisma.XOR<Prisma.PosTransactionCreateWithoutOverrideByInput, Prisma.PosTransactionUncheckedCreateWithoutOverrideByInput>
-}
-
-export type PosTransactionUpdateWithWhereUniqueWithoutOverrideByInput = {
-  where: Prisma.PosTransactionWhereUniqueInput
-  data: Prisma.XOR<Prisma.PosTransactionUpdateWithoutOverrideByInput, Prisma.PosTransactionUncheckedUpdateWithoutOverrideByInput>
-}
-
-export type PosTransactionUpdateManyWithWhereWithoutOverrideByInput = {
-  where: Prisma.PosTransactionScalarWhereInput
-  data: Prisma.XOR<Prisma.PosTransactionUpdateManyMutationInput, Prisma.PosTransactionUncheckedUpdateManyWithoutOverrideByInput>
-}
-
-export type PosTransactionScalarWhereInput = {
-  AND?: Prisma.PosTransactionScalarWhereInput | Prisma.PosTransactionScalarWhereInput[]
-  OR?: Prisma.PosTransactionScalarWhereInput[]
-  NOT?: Prisma.PosTransactionScalarWhereInput | Prisma.PosTransactionScalarWhereInput[]
-  id?: Prisma.StringFilter<"PosTransaction"> | string
-  tenantId?: Prisma.StringFilter<"PosTransaction"> | string
-  sessionId?: Prisma.StringFilter<"PosTransaction"> | string
-  orderId?: Prisma.StringNullableFilter<"PosTransaction"> | string | null
-  transactionNumber?: Prisma.IntFilter<"PosTransaction"> | number
-  status?: Prisma.EnumPosTransactionStatusFilter<"PosTransaction"> | $Enums.PosTransactionStatus
-  subtotal?: Prisma.DecimalFilter<"PosTransaction"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  discountTotal?: Prisma.DecimalFilter<"PosTransaction"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  taxTotal?: Prisma.DecimalFilter<"PosTransaction"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  grandTotal?: Prisma.DecimalFilter<"PosTransaction"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  changeAmount?: Prisma.DecimalFilter<"PosTransaction"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  customerId?: Prisma.StringNullableFilter<"PosTransaction"> | string | null
-  customerName?: Prisma.StringNullableFilter<"PosTransaction"> | string | null
-  customerDocument?: Prisma.StringNullableFilter<"PosTransaction"> | string | null
-  overrideByUserId?: Prisma.StringNullableFilter<"PosTransaction"> | string | null
-  overrideReason?: Prisma.StringNullableFilter<"PosTransaction"> | string | null
-  syncedAt?: Prisma.DateTimeNullableFilter<"PosTransaction"> | Date | string | null
-  createdAt?: Prisma.DateTimeFilter<"PosTransaction"> | Date | string
-}
-
 export type PosTransactionCreateWithoutCustomerInput = {
   id?: string
   transactionNumber: number
@@ -1034,13 +898,13 @@ export type PosTransactionCreateWithoutCustomerInput = {
   changeAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   customerName?: string | null
   customerDocument?: string | null
+  overrideByUserId?: string | null
   overrideReason?: string | null
   syncedAt?: Date | string | null
   createdAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutPosTransactionsInput
   session: Prisma.PosSessionCreateNestedOneWithoutTransactionsInput
-  order?: Prisma.OrderCreateNestedOneWithoutPosTransactionsInput
-  overrideBy?: Prisma.UserCreateNestedOneWithoutPosTransactionOverridesInput
+  order: Prisma.OrderCreateNestedOneWithoutPosTransactionsInput
   payments?: Prisma.PosTransactionPaymentCreateNestedManyWithoutTransactionInput
 }
 
@@ -1048,7 +912,7 @@ export type PosTransactionUncheckedCreateWithoutCustomerInput = {
   id?: string
   tenantId: string
   sessionId: string
-  orderId?: string | null
+  orderId: string
   transactionNumber: number
   status?: $Enums.PosTransactionStatus
   subtotal: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1091,6 +955,30 @@ export type PosTransactionUpdateManyWithWhereWithoutCustomerInput = {
   data: Prisma.XOR<Prisma.PosTransactionUpdateManyMutationInput, Prisma.PosTransactionUncheckedUpdateManyWithoutCustomerInput>
 }
 
+export type PosTransactionScalarWhereInput = {
+  AND?: Prisma.PosTransactionScalarWhereInput | Prisma.PosTransactionScalarWhereInput[]
+  OR?: Prisma.PosTransactionScalarWhereInput[]
+  NOT?: Prisma.PosTransactionScalarWhereInput | Prisma.PosTransactionScalarWhereInput[]
+  id?: Prisma.StringFilter<"PosTransaction"> | string
+  tenantId?: Prisma.StringFilter<"PosTransaction"> | string
+  sessionId?: Prisma.StringFilter<"PosTransaction"> | string
+  orderId?: Prisma.StringFilter<"PosTransaction"> | string
+  transactionNumber?: Prisma.IntFilter<"PosTransaction"> | number
+  status?: Prisma.EnumPosTransactionStatusFilter<"PosTransaction"> | $Enums.PosTransactionStatus
+  subtotal?: Prisma.DecimalFilter<"PosTransaction"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountTotal?: Prisma.DecimalFilter<"PosTransaction"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  taxTotal?: Prisma.DecimalFilter<"PosTransaction"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  grandTotal?: Prisma.DecimalFilter<"PosTransaction"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  changeAmount?: Prisma.DecimalFilter<"PosTransaction"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  customerId?: Prisma.StringNullableFilter<"PosTransaction"> | string | null
+  customerName?: Prisma.StringNullableFilter<"PosTransaction"> | string | null
+  customerDocument?: Prisma.StringNullableFilter<"PosTransaction"> | string | null
+  overrideByUserId?: Prisma.StringNullableFilter<"PosTransaction"> | string | null
+  overrideReason?: Prisma.StringNullableFilter<"PosTransaction"> | string | null
+  syncedAt?: Prisma.DateTimeNullableFilter<"PosTransaction"> | Date | string | null
+  createdAt?: Prisma.DateTimeFilter<"PosTransaction"> | Date | string
+}
+
 export type PosTransactionCreateWithoutTenantInput = {
   id?: string
   transactionNumber: number
@@ -1102,20 +990,20 @@ export type PosTransactionCreateWithoutTenantInput = {
   changeAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   customerName?: string | null
   customerDocument?: string | null
+  overrideByUserId?: string | null
   overrideReason?: string | null
   syncedAt?: Date | string | null
   createdAt?: Date | string
   session: Prisma.PosSessionCreateNestedOneWithoutTransactionsInput
-  order?: Prisma.OrderCreateNestedOneWithoutPosTransactionsInput
+  order: Prisma.OrderCreateNestedOneWithoutPosTransactionsInput
   customer?: Prisma.CustomerCreateNestedOneWithoutPosTransactionsInput
-  overrideBy?: Prisma.UserCreateNestedOneWithoutPosTransactionOverridesInput
   payments?: Prisma.PosTransactionPaymentCreateNestedManyWithoutTransactionInput
 }
 
 export type PosTransactionUncheckedCreateWithoutTenantInput = {
   id?: string
   sessionId: string
-  orderId?: string | null
+  orderId: string
   transactionNumber: number
   status?: $Enums.PosTransactionStatus
   subtotal: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1170,13 +1058,13 @@ export type PosTransactionCreateWithoutOrderInput = {
   changeAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   customerName?: string | null
   customerDocument?: string | null
+  overrideByUserId?: string | null
   overrideReason?: string | null
   syncedAt?: Date | string | null
   createdAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutPosTransactionsInput
   session: Prisma.PosSessionCreateNestedOneWithoutTransactionsInput
   customer?: Prisma.CustomerCreateNestedOneWithoutPosTransactionsInput
-  overrideBy?: Prisma.UserCreateNestedOneWithoutPosTransactionOverridesInput
   payments?: Prisma.PosTransactionPaymentCreateNestedManyWithoutTransactionInput
 }
 
@@ -1238,20 +1126,20 @@ export type PosTransactionCreateWithoutSessionInput = {
   changeAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   customerName?: string | null
   customerDocument?: string | null
+  overrideByUserId?: string | null
   overrideReason?: string | null
   syncedAt?: Date | string | null
   createdAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutPosTransactionsInput
-  order?: Prisma.OrderCreateNestedOneWithoutPosTransactionsInput
+  order: Prisma.OrderCreateNestedOneWithoutPosTransactionsInput
   customer?: Prisma.CustomerCreateNestedOneWithoutPosTransactionsInput
-  overrideBy?: Prisma.UserCreateNestedOneWithoutPosTransactionOverridesInput
   payments?: Prisma.PosTransactionPaymentCreateNestedManyWithoutTransactionInput
 }
 
 export type PosTransactionUncheckedCreateWithoutSessionInput = {
   id?: string
   tenantId: string
-  orderId?: string | null
+  orderId: string
   transactionNumber: number
   status?: $Enums.PosTransactionStatus
   subtotal: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1306,21 +1194,21 @@ export type PosTransactionCreateWithoutPaymentsInput = {
   changeAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   customerName?: string | null
   customerDocument?: string | null
+  overrideByUserId?: string | null
   overrideReason?: string | null
   syncedAt?: Date | string | null
   createdAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutPosTransactionsInput
   session: Prisma.PosSessionCreateNestedOneWithoutTransactionsInput
-  order?: Prisma.OrderCreateNestedOneWithoutPosTransactionsInput
+  order: Prisma.OrderCreateNestedOneWithoutPosTransactionsInput
   customer?: Prisma.CustomerCreateNestedOneWithoutPosTransactionsInput
-  overrideBy?: Prisma.UserCreateNestedOneWithoutPosTransactionOverridesInput
 }
 
 export type PosTransactionUncheckedCreateWithoutPaymentsInput = {
   id?: string
   tenantId: string
   sessionId: string
-  orderId?: string | null
+  orderId: string
   transactionNumber: number
   status?: $Enums.PosTransactionStatus
   subtotal: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1364,21 +1252,21 @@ export type PosTransactionUpdateWithoutPaymentsInput = {
   changeAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerDocument?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  overrideByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   overrideReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   syncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutPosTransactionsNestedInput
   session?: Prisma.PosSessionUpdateOneRequiredWithoutTransactionsNestedInput
-  order?: Prisma.OrderUpdateOneWithoutPosTransactionsNestedInput
+  order?: Prisma.OrderUpdateOneRequiredWithoutPosTransactionsNestedInput
   customer?: Prisma.CustomerUpdateOneWithoutPosTransactionsNestedInput
-  overrideBy?: Prisma.UserUpdateOneWithoutPosTransactionOverridesNestedInput
 }
 
 export type PosTransactionUncheckedUpdateWithoutPaymentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   sessionId?: Prisma.StringFieldUpdateOperationsInput | string
-  orderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  orderId?: Prisma.StringFieldUpdateOperationsInput | string
   transactionNumber?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumPosTransactionStatusFieldUpdateOperationsInput | $Enums.PosTransactionStatus
   subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1395,93 +1283,11 @@ export type PosTransactionUncheckedUpdateWithoutPaymentsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type PosTransactionCreateManyOverrideByInput = {
-  id?: string
-  tenantId: string
-  sessionId: string
-  orderId?: string | null
-  transactionNumber: number
-  status?: $Enums.PosTransactionStatus
-  subtotal: runtime.Decimal | runtime.DecimalJsLike | number | string
-  discountTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  taxTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  grandTotal: runtime.Decimal | runtime.DecimalJsLike | number | string
-  changeAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  customerId?: string | null
-  customerName?: string | null
-  customerDocument?: string | null
-  overrideReason?: string | null
-  syncedAt?: Date | string | null
-  createdAt?: Date | string
-}
-
-export type PosTransactionUpdateWithoutOverrideByInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  transactionNumber?: Prisma.IntFieldUpdateOperationsInput | number
-  status?: Prisma.EnumPosTransactionStatusFieldUpdateOperationsInput | $Enums.PosTransactionStatus
-  subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  discountTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  taxTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  grandTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  changeAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  customerDocument?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  overrideReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  syncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  tenant?: Prisma.TenantUpdateOneRequiredWithoutPosTransactionsNestedInput
-  session?: Prisma.PosSessionUpdateOneRequiredWithoutTransactionsNestedInput
-  order?: Prisma.OrderUpdateOneWithoutPosTransactionsNestedInput
-  customer?: Prisma.CustomerUpdateOneWithoutPosTransactionsNestedInput
-  payments?: Prisma.PosTransactionPaymentUpdateManyWithoutTransactionNestedInput
-}
-
-export type PosTransactionUncheckedUpdateWithoutOverrideByInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  sessionId?: Prisma.StringFieldUpdateOperationsInput | string
-  orderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  transactionNumber?: Prisma.IntFieldUpdateOperationsInput | number
-  status?: Prisma.EnumPosTransactionStatusFieldUpdateOperationsInput | $Enums.PosTransactionStatus
-  subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  discountTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  taxTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  grandTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  changeAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  customerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  customerDocument?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  overrideReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  syncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  payments?: Prisma.PosTransactionPaymentUncheckedUpdateManyWithoutTransactionNestedInput
-}
-
-export type PosTransactionUncheckedUpdateManyWithoutOverrideByInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  sessionId?: Prisma.StringFieldUpdateOperationsInput | string
-  orderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  transactionNumber?: Prisma.IntFieldUpdateOperationsInput | number
-  status?: Prisma.EnumPosTransactionStatusFieldUpdateOperationsInput | $Enums.PosTransactionStatus
-  subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  discountTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  taxTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  grandTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  changeAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  customerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  customerDocument?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  overrideReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  syncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
 export type PosTransactionCreateManyCustomerInput = {
   id?: string
   tenantId: string
   sessionId: string
-  orderId?: string | null
+  orderId: string
   transactionNumber: number
   status?: $Enums.PosTransactionStatus
   subtotal: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1508,13 +1314,13 @@ export type PosTransactionUpdateWithoutCustomerInput = {
   changeAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerDocument?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  overrideByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   overrideReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   syncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutPosTransactionsNestedInput
   session?: Prisma.PosSessionUpdateOneRequiredWithoutTransactionsNestedInput
-  order?: Prisma.OrderUpdateOneWithoutPosTransactionsNestedInput
-  overrideBy?: Prisma.UserUpdateOneWithoutPosTransactionOverridesNestedInput
+  order?: Prisma.OrderUpdateOneRequiredWithoutPosTransactionsNestedInput
   payments?: Prisma.PosTransactionPaymentUpdateManyWithoutTransactionNestedInput
 }
 
@@ -1522,7 +1328,7 @@ export type PosTransactionUncheckedUpdateWithoutCustomerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   sessionId?: Prisma.StringFieldUpdateOperationsInput | string
-  orderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  orderId?: Prisma.StringFieldUpdateOperationsInput | string
   transactionNumber?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumPosTransactionStatusFieldUpdateOperationsInput | $Enums.PosTransactionStatus
   subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1543,7 +1349,7 @@ export type PosTransactionUncheckedUpdateManyWithoutCustomerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   sessionId?: Prisma.StringFieldUpdateOperationsInput | string
-  orderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  orderId?: Prisma.StringFieldUpdateOperationsInput | string
   transactionNumber?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumPosTransactionStatusFieldUpdateOperationsInput | $Enums.PosTransactionStatus
   subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1562,7 +1368,7 @@ export type PosTransactionUncheckedUpdateManyWithoutCustomerInput = {
 export type PosTransactionCreateManyTenantInput = {
   id?: string
   sessionId: string
-  orderId?: string | null
+  orderId: string
   transactionNumber: number
   status?: $Enums.PosTransactionStatus
   subtotal: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1590,20 +1396,20 @@ export type PosTransactionUpdateWithoutTenantInput = {
   changeAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerDocument?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  overrideByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   overrideReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   syncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   session?: Prisma.PosSessionUpdateOneRequiredWithoutTransactionsNestedInput
-  order?: Prisma.OrderUpdateOneWithoutPosTransactionsNestedInput
+  order?: Prisma.OrderUpdateOneRequiredWithoutPosTransactionsNestedInput
   customer?: Prisma.CustomerUpdateOneWithoutPosTransactionsNestedInput
-  overrideBy?: Prisma.UserUpdateOneWithoutPosTransactionOverridesNestedInput
   payments?: Prisma.PosTransactionPaymentUpdateManyWithoutTransactionNestedInput
 }
 
 export type PosTransactionUncheckedUpdateWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   sessionId?: Prisma.StringFieldUpdateOperationsInput | string
-  orderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  orderId?: Prisma.StringFieldUpdateOperationsInput | string
   transactionNumber?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumPosTransactionStatusFieldUpdateOperationsInput | $Enums.PosTransactionStatus
   subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1624,7 +1430,7 @@ export type PosTransactionUncheckedUpdateWithoutTenantInput = {
 export type PosTransactionUncheckedUpdateManyWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   sessionId?: Prisma.StringFieldUpdateOperationsInput | string
-  orderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  orderId?: Prisma.StringFieldUpdateOperationsInput | string
   transactionNumber?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumPosTransactionStatusFieldUpdateOperationsInput | $Enums.PosTransactionStatus
   subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1672,13 +1478,13 @@ export type PosTransactionUpdateWithoutOrderInput = {
   changeAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerDocument?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  overrideByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   overrideReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   syncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutPosTransactionsNestedInput
   session?: Prisma.PosSessionUpdateOneRequiredWithoutTransactionsNestedInput
   customer?: Prisma.CustomerUpdateOneWithoutPosTransactionsNestedInput
-  overrideBy?: Prisma.UserUpdateOneWithoutPosTransactionOverridesNestedInput
   payments?: Prisma.PosTransactionPaymentUpdateManyWithoutTransactionNestedInput
 }
 
@@ -1726,7 +1532,7 @@ export type PosTransactionUncheckedUpdateManyWithoutOrderInput = {
 export type PosTransactionCreateManySessionInput = {
   id?: string
   tenantId: string
-  orderId?: string | null
+  orderId: string
   transactionNumber: number
   status?: $Enums.PosTransactionStatus
   subtotal: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1754,20 +1560,20 @@ export type PosTransactionUpdateWithoutSessionInput = {
   changeAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerDocument?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  overrideByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   overrideReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   syncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutPosTransactionsNestedInput
-  order?: Prisma.OrderUpdateOneWithoutPosTransactionsNestedInput
+  order?: Prisma.OrderUpdateOneRequiredWithoutPosTransactionsNestedInput
   customer?: Prisma.CustomerUpdateOneWithoutPosTransactionsNestedInput
-  overrideBy?: Prisma.UserUpdateOneWithoutPosTransactionOverridesNestedInput
   payments?: Prisma.PosTransactionPaymentUpdateManyWithoutTransactionNestedInput
 }
 
 export type PosTransactionUncheckedUpdateWithoutSessionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  orderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  orderId?: Prisma.StringFieldUpdateOperationsInput | string
   transactionNumber?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumPosTransactionStatusFieldUpdateOperationsInput | $Enums.PosTransactionStatus
   subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1788,7 +1594,7 @@ export type PosTransactionUncheckedUpdateWithoutSessionInput = {
 export type PosTransactionUncheckedUpdateManyWithoutSessionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  orderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  orderId?: Prisma.StringFieldUpdateOperationsInput | string
   transactionNumber?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumPosTransactionStatusFieldUpdateOperationsInput | $Enums.PosTransactionStatus
   subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1857,9 +1663,8 @@ export type PosTransactionSelect<ExtArgs extends runtime.Types.Extensions.Intern
   createdAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   session?: boolean | Prisma.PosSessionDefaultArgs<ExtArgs>
-  order?: boolean | Prisma.PosTransaction$orderArgs<ExtArgs>
+  order?: boolean | Prisma.OrderDefaultArgs<ExtArgs>
   customer?: boolean | Prisma.PosTransaction$customerArgs<ExtArgs>
-  overrideBy?: boolean | Prisma.PosTransaction$overrideByArgs<ExtArgs>
   payments?: boolean | Prisma.PosTransaction$paymentsArgs<ExtArgs>
   _count?: boolean | Prisma.PosTransactionCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["posTransaction"]>
@@ -1885,9 +1690,8 @@ export type PosTransactionSelectCreateManyAndReturn<ExtArgs extends runtime.Type
   createdAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   session?: boolean | Prisma.PosSessionDefaultArgs<ExtArgs>
-  order?: boolean | Prisma.PosTransaction$orderArgs<ExtArgs>
+  order?: boolean | Prisma.OrderDefaultArgs<ExtArgs>
   customer?: boolean | Prisma.PosTransaction$customerArgs<ExtArgs>
-  overrideBy?: boolean | Prisma.PosTransaction$overrideByArgs<ExtArgs>
 }, ExtArgs["result"]["posTransaction"]>
 
 export type PosTransactionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1911,9 +1715,8 @@ export type PosTransactionSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   createdAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   session?: boolean | Prisma.PosSessionDefaultArgs<ExtArgs>
-  order?: boolean | Prisma.PosTransaction$orderArgs<ExtArgs>
+  order?: boolean | Prisma.OrderDefaultArgs<ExtArgs>
   customer?: boolean | Prisma.PosTransaction$customerArgs<ExtArgs>
-  overrideBy?: boolean | Prisma.PosTransaction$overrideByArgs<ExtArgs>
 }, ExtArgs["result"]["posTransaction"]>
 
 export type PosTransactionSelectScalar = {
@@ -1941,25 +1744,22 @@ export type PosTransactionOmit<ExtArgs extends runtime.Types.Extensions.Internal
 export type PosTransactionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   session?: boolean | Prisma.PosSessionDefaultArgs<ExtArgs>
-  order?: boolean | Prisma.PosTransaction$orderArgs<ExtArgs>
+  order?: boolean | Prisma.OrderDefaultArgs<ExtArgs>
   customer?: boolean | Prisma.PosTransaction$customerArgs<ExtArgs>
-  overrideBy?: boolean | Prisma.PosTransaction$overrideByArgs<ExtArgs>
   payments?: boolean | Prisma.PosTransaction$paymentsArgs<ExtArgs>
   _count?: boolean | Prisma.PosTransactionCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type PosTransactionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   session?: boolean | Prisma.PosSessionDefaultArgs<ExtArgs>
-  order?: boolean | Prisma.PosTransaction$orderArgs<ExtArgs>
+  order?: boolean | Prisma.OrderDefaultArgs<ExtArgs>
   customer?: boolean | Prisma.PosTransaction$customerArgs<ExtArgs>
-  overrideBy?: boolean | Prisma.PosTransaction$overrideByArgs<ExtArgs>
 }
 export type PosTransactionIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   session?: boolean | Prisma.PosSessionDefaultArgs<ExtArgs>
-  order?: boolean | Prisma.PosTransaction$orderArgs<ExtArgs>
+  order?: boolean | Prisma.OrderDefaultArgs<ExtArgs>
   customer?: boolean | Prisma.PosTransaction$customerArgs<ExtArgs>
-  overrideBy?: boolean | Prisma.PosTransaction$overrideByArgs<ExtArgs>
 }
 
 export type $PosTransactionPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1967,16 +1767,15 @@ export type $PosTransactionPayload<ExtArgs extends runtime.Types.Extensions.Inte
   objects: {
     tenant: Prisma.$TenantPayload<ExtArgs>
     session: Prisma.$PosSessionPayload<ExtArgs>
-    order: Prisma.$OrderPayload<ExtArgs> | null
+    order: Prisma.$OrderPayload<ExtArgs>
     customer: Prisma.$CustomerPayload<ExtArgs> | null
-    overrideBy: Prisma.$UserPayload<ExtArgs> | null
     payments: Prisma.$PosTransactionPaymentPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     tenantId: string
     sessionId: string
-    orderId: string | null
+    orderId: string
     transactionNumber: number
     status: $Enums.PosTransactionStatus
     subtotal: runtime.Decimal
@@ -2387,9 +2186,8 @@ export interface Prisma__PosTransactionClient<T, Null = never, ExtArgs extends r
   readonly [Symbol.toStringTag]: "PrismaPromise"
   tenant<T extends Prisma.TenantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   session<T extends Prisma.PosSessionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PosSessionDefaultArgs<ExtArgs>>): Prisma.Prisma__PosSessionClient<runtime.Types.Result.GetResult<Prisma.$PosSessionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  order<T extends Prisma.PosTransaction$orderArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PosTransaction$orderArgs<ExtArgs>>): Prisma.Prisma__OrderClient<runtime.Types.Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  order<T extends Prisma.OrderDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.OrderDefaultArgs<ExtArgs>>): Prisma.Prisma__OrderClient<runtime.Types.Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   customer<T extends Prisma.PosTransaction$customerArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PosTransaction$customerArgs<ExtArgs>>): Prisma.Prisma__CustomerClient<runtime.Types.Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  overrideBy<T extends Prisma.PosTransaction$overrideByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PosTransaction$overrideByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   payments<T extends Prisma.PosTransaction$paymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PosTransaction$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PosTransactionPaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -2834,25 +2632,6 @@ export type PosTransactionDeleteManyArgs<ExtArgs extends runtime.Types.Extension
 }
 
 /**
- * PosTransaction.order
- */
-export type PosTransaction$orderArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Order
-   */
-  select?: Prisma.OrderSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Order
-   */
-  omit?: Prisma.OrderOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.OrderInclude<ExtArgs> | null
-  where?: Prisma.OrderWhereInput
-}
-
-/**
  * PosTransaction.customer
  */
 export type PosTransaction$customerArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2869,25 +2648,6 @@ export type PosTransaction$customerArgs<ExtArgs extends runtime.Types.Extensions
    */
   include?: Prisma.CustomerInclude<ExtArgs> | null
   where?: Prisma.CustomerWhereInput
-}
-
-/**
- * PosTransaction.overrideBy
- */
-export type PosTransaction$overrideByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the User
-   */
-  select?: Prisma.UserSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the User
-   */
-  omit?: Prisma.UserOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.UserInclude<ExtArgs> | null
-  where?: Prisma.UserWhereInput
 }
 
 /**

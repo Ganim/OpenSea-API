@@ -252,7 +252,6 @@ export type PosOfflineQueueWhereInput = {
   lastError?: Prisma.StringNullableFilter<"PosOfflineQueue"> | string | null
   createdAt?: Prisma.DateTimeFilter<"PosOfflineQueue"> | Date | string
   syncedAt?: Prisma.DateTimeNullableFilter<"PosOfflineQueue"> | Date | string | null
-  tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   terminal?: Prisma.XOR<Prisma.PosTerminalScalarRelationFilter, Prisma.PosTerminalWhereInput>
 }
 
@@ -267,7 +266,6 @@ export type PosOfflineQueueOrderByWithRelationInput = {
   lastError?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   syncedAt?: Prisma.SortOrderInput | Prisma.SortOrder
-  tenant?: Prisma.TenantOrderByWithRelationInput
   terminal?: Prisma.PosTerminalOrderByWithRelationInput
 }
 
@@ -285,7 +283,6 @@ export type PosOfflineQueueWhereUniqueInput = Prisma.AtLeast<{
   lastError?: Prisma.StringNullableFilter<"PosOfflineQueue"> | string | null
   createdAt?: Prisma.DateTimeFilter<"PosOfflineQueue"> | Date | string
   syncedAt?: Prisma.DateTimeNullableFilter<"PosOfflineQueue"> | Date | string | null
-  tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   terminal?: Prisma.XOR<Prisma.PosTerminalScalarRelationFilter, Prisma.PosTerminalWhereInput>
 }, "id">
 
@@ -325,6 +322,7 @@ export type PosOfflineQueueScalarWhereWithAggregatesInput = {
 
 export type PosOfflineQueueCreateInput = {
   id?: string
+  tenantId: string
   operationType: $Enums.PosOfflineOperationType
   payload: Prisma.JsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.PosOfflineStatus
@@ -332,7 +330,6 @@ export type PosOfflineQueueCreateInput = {
   lastError?: string | null
   createdAt?: Date | string
   syncedAt?: Date | string | null
-  tenant: Prisma.TenantCreateNestedOneWithoutPosOfflineQueueInput
   terminal: Prisma.PosTerminalCreateNestedOneWithoutOfflineQueueInput
 }
 
@@ -351,6 +348,7 @@ export type PosOfflineQueueUncheckedCreateInput = {
 
 export type PosOfflineQueueUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   operationType?: Prisma.EnumPosOfflineOperationTypeFieldUpdateOperationsInput | $Enums.PosOfflineOperationType
   payload?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumPosOfflineStatusFieldUpdateOperationsInput | $Enums.PosOfflineStatus
@@ -358,7 +356,6 @@ export type PosOfflineQueueUpdateInput = {
   lastError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   syncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  tenant?: Prisma.TenantUpdateOneRequiredWithoutPosOfflineQueueNestedInput
   terminal?: Prisma.PosTerminalUpdateOneRequiredWithoutOfflineQueueNestedInput
 }
 
@@ -390,6 +387,7 @@ export type PosOfflineQueueCreateManyInput = {
 
 export type PosOfflineQueueUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   operationType?: Prisma.EnumPosOfflineOperationTypeFieldUpdateOperationsInput | $Enums.PosOfflineOperationType
   payload?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumPosOfflineStatusFieldUpdateOperationsInput | $Enums.PosOfflineStatus
@@ -467,48 +465,6 @@ export type PosOfflineQueueSumOrderByAggregateInput = {
   attempts?: Prisma.SortOrder
 }
 
-export type PosOfflineQueueCreateNestedManyWithoutTenantInput = {
-  create?: Prisma.XOR<Prisma.PosOfflineQueueCreateWithoutTenantInput, Prisma.PosOfflineQueueUncheckedCreateWithoutTenantInput> | Prisma.PosOfflineQueueCreateWithoutTenantInput[] | Prisma.PosOfflineQueueUncheckedCreateWithoutTenantInput[]
-  connectOrCreate?: Prisma.PosOfflineQueueCreateOrConnectWithoutTenantInput | Prisma.PosOfflineQueueCreateOrConnectWithoutTenantInput[]
-  createMany?: Prisma.PosOfflineQueueCreateManyTenantInputEnvelope
-  connect?: Prisma.PosOfflineQueueWhereUniqueInput | Prisma.PosOfflineQueueWhereUniqueInput[]
-}
-
-export type PosOfflineQueueUncheckedCreateNestedManyWithoutTenantInput = {
-  create?: Prisma.XOR<Prisma.PosOfflineQueueCreateWithoutTenantInput, Prisma.PosOfflineQueueUncheckedCreateWithoutTenantInput> | Prisma.PosOfflineQueueCreateWithoutTenantInput[] | Prisma.PosOfflineQueueUncheckedCreateWithoutTenantInput[]
-  connectOrCreate?: Prisma.PosOfflineQueueCreateOrConnectWithoutTenantInput | Prisma.PosOfflineQueueCreateOrConnectWithoutTenantInput[]
-  createMany?: Prisma.PosOfflineQueueCreateManyTenantInputEnvelope
-  connect?: Prisma.PosOfflineQueueWhereUniqueInput | Prisma.PosOfflineQueueWhereUniqueInput[]
-}
-
-export type PosOfflineQueueUpdateManyWithoutTenantNestedInput = {
-  create?: Prisma.XOR<Prisma.PosOfflineQueueCreateWithoutTenantInput, Prisma.PosOfflineQueueUncheckedCreateWithoutTenantInput> | Prisma.PosOfflineQueueCreateWithoutTenantInput[] | Prisma.PosOfflineQueueUncheckedCreateWithoutTenantInput[]
-  connectOrCreate?: Prisma.PosOfflineQueueCreateOrConnectWithoutTenantInput | Prisma.PosOfflineQueueCreateOrConnectWithoutTenantInput[]
-  upsert?: Prisma.PosOfflineQueueUpsertWithWhereUniqueWithoutTenantInput | Prisma.PosOfflineQueueUpsertWithWhereUniqueWithoutTenantInput[]
-  createMany?: Prisma.PosOfflineQueueCreateManyTenantInputEnvelope
-  set?: Prisma.PosOfflineQueueWhereUniqueInput | Prisma.PosOfflineQueueWhereUniqueInput[]
-  disconnect?: Prisma.PosOfflineQueueWhereUniqueInput | Prisma.PosOfflineQueueWhereUniqueInput[]
-  delete?: Prisma.PosOfflineQueueWhereUniqueInput | Prisma.PosOfflineQueueWhereUniqueInput[]
-  connect?: Prisma.PosOfflineQueueWhereUniqueInput | Prisma.PosOfflineQueueWhereUniqueInput[]
-  update?: Prisma.PosOfflineQueueUpdateWithWhereUniqueWithoutTenantInput | Prisma.PosOfflineQueueUpdateWithWhereUniqueWithoutTenantInput[]
-  updateMany?: Prisma.PosOfflineQueueUpdateManyWithWhereWithoutTenantInput | Prisma.PosOfflineQueueUpdateManyWithWhereWithoutTenantInput[]
-  deleteMany?: Prisma.PosOfflineQueueScalarWhereInput | Prisma.PosOfflineQueueScalarWhereInput[]
-}
-
-export type PosOfflineQueueUncheckedUpdateManyWithoutTenantNestedInput = {
-  create?: Prisma.XOR<Prisma.PosOfflineQueueCreateWithoutTenantInput, Prisma.PosOfflineQueueUncheckedCreateWithoutTenantInput> | Prisma.PosOfflineQueueCreateWithoutTenantInput[] | Prisma.PosOfflineQueueUncheckedCreateWithoutTenantInput[]
-  connectOrCreate?: Prisma.PosOfflineQueueCreateOrConnectWithoutTenantInput | Prisma.PosOfflineQueueCreateOrConnectWithoutTenantInput[]
-  upsert?: Prisma.PosOfflineQueueUpsertWithWhereUniqueWithoutTenantInput | Prisma.PosOfflineQueueUpsertWithWhereUniqueWithoutTenantInput[]
-  createMany?: Prisma.PosOfflineQueueCreateManyTenantInputEnvelope
-  set?: Prisma.PosOfflineQueueWhereUniqueInput | Prisma.PosOfflineQueueWhereUniqueInput[]
-  disconnect?: Prisma.PosOfflineQueueWhereUniqueInput | Prisma.PosOfflineQueueWhereUniqueInput[]
-  delete?: Prisma.PosOfflineQueueWhereUniqueInput | Prisma.PosOfflineQueueWhereUniqueInput[]
-  connect?: Prisma.PosOfflineQueueWhereUniqueInput | Prisma.PosOfflineQueueWhereUniqueInput[]
-  update?: Prisma.PosOfflineQueueUpdateWithWhereUniqueWithoutTenantInput | Prisma.PosOfflineQueueUpdateWithWhereUniqueWithoutTenantInput[]
-  updateMany?: Prisma.PosOfflineQueueUpdateManyWithWhereWithoutTenantInput | Prisma.PosOfflineQueueUpdateManyWithWhereWithoutTenantInput[]
-  deleteMany?: Prisma.PosOfflineQueueScalarWhereInput | Prisma.PosOfflineQueueScalarWhereInput[]
-}
-
 export type PosOfflineQueueCreateNestedManyWithoutTerminalInput = {
   create?: Prisma.XOR<Prisma.PosOfflineQueueCreateWithoutTerminalInput, Prisma.PosOfflineQueueUncheckedCreateWithoutTerminalInput> | Prisma.PosOfflineQueueCreateWithoutTerminalInput[] | Prisma.PosOfflineQueueUncheckedCreateWithoutTerminalInput[]
   connectOrCreate?: Prisma.PosOfflineQueueCreateOrConnectWithoutTerminalInput | Prisma.PosOfflineQueueCreateOrConnectWithoutTerminalInput[]
@@ -559,74 +515,9 @@ export type EnumPosOfflineStatusFieldUpdateOperationsInput = {
   set?: $Enums.PosOfflineStatus
 }
 
-export type PosOfflineQueueCreateWithoutTenantInput = {
-  id?: string
-  operationType: $Enums.PosOfflineOperationType
-  payload: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  status?: $Enums.PosOfflineStatus
-  attempts?: number
-  lastError?: string | null
-  createdAt?: Date | string
-  syncedAt?: Date | string | null
-  terminal: Prisma.PosTerminalCreateNestedOneWithoutOfflineQueueInput
-}
-
-export type PosOfflineQueueUncheckedCreateWithoutTenantInput = {
-  id?: string
-  terminalId: string
-  operationType: $Enums.PosOfflineOperationType
-  payload: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  status?: $Enums.PosOfflineStatus
-  attempts?: number
-  lastError?: string | null
-  createdAt?: Date | string
-  syncedAt?: Date | string | null
-}
-
-export type PosOfflineQueueCreateOrConnectWithoutTenantInput = {
-  where: Prisma.PosOfflineQueueWhereUniqueInput
-  create: Prisma.XOR<Prisma.PosOfflineQueueCreateWithoutTenantInput, Prisma.PosOfflineQueueUncheckedCreateWithoutTenantInput>
-}
-
-export type PosOfflineQueueCreateManyTenantInputEnvelope = {
-  data: Prisma.PosOfflineQueueCreateManyTenantInput | Prisma.PosOfflineQueueCreateManyTenantInput[]
-  skipDuplicates?: boolean
-}
-
-export type PosOfflineQueueUpsertWithWhereUniqueWithoutTenantInput = {
-  where: Prisma.PosOfflineQueueWhereUniqueInput
-  update: Prisma.XOR<Prisma.PosOfflineQueueUpdateWithoutTenantInput, Prisma.PosOfflineQueueUncheckedUpdateWithoutTenantInput>
-  create: Prisma.XOR<Prisma.PosOfflineQueueCreateWithoutTenantInput, Prisma.PosOfflineQueueUncheckedCreateWithoutTenantInput>
-}
-
-export type PosOfflineQueueUpdateWithWhereUniqueWithoutTenantInput = {
-  where: Prisma.PosOfflineQueueWhereUniqueInput
-  data: Prisma.XOR<Prisma.PosOfflineQueueUpdateWithoutTenantInput, Prisma.PosOfflineQueueUncheckedUpdateWithoutTenantInput>
-}
-
-export type PosOfflineQueueUpdateManyWithWhereWithoutTenantInput = {
-  where: Prisma.PosOfflineQueueScalarWhereInput
-  data: Prisma.XOR<Prisma.PosOfflineQueueUpdateManyMutationInput, Prisma.PosOfflineQueueUncheckedUpdateManyWithoutTenantInput>
-}
-
-export type PosOfflineQueueScalarWhereInput = {
-  AND?: Prisma.PosOfflineQueueScalarWhereInput | Prisma.PosOfflineQueueScalarWhereInput[]
-  OR?: Prisma.PosOfflineQueueScalarWhereInput[]
-  NOT?: Prisma.PosOfflineQueueScalarWhereInput | Prisma.PosOfflineQueueScalarWhereInput[]
-  id?: Prisma.StringFilter<"PosOfflineQueue"> | string
-  tenantId?: Prisma.StringFilter<"PosOfflineQueue"> | string
-  terminalId?: Prisma.StringFilter<"PosOfflineQueue"> | string
-  operationType?: Prisma.EnumPosOfflineOperationTypeFilter<"PosOfflineQueue"> | $Enums.PosOfflineOperationType
-  payload?: Prisma.JsonFilter<"PosOfflineQueue">
-  status?: Prisma.EnumPosOfflineStatusFilter<"PosOfflineQueue"> | $Enums.PosOfflineStatus
-  attempts?: Prisma.IntFilter<"PosOfflineQueue"> | number
-  lastError?: Prisma.StringNullableFilter<"PosOfflineQueue"> | string | null
-  createdAt?: Prisma.DateTimeFilter<"PosOfflineQueue"> | Date | string
-  syncedAt?: Prisma.DateTimeNullableFilter<"PosOfflineQueue"> | Date | string | null
-}
-
 export type PosOfflineQueueCreateWithoutTerminalInput = {
   id?: string
+  tenantId: string
   operationType: $Enums.PosOfflineOperationType
   payload: Prisma.JsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.PosOfflineStatus
@@ -634,7 +525,6 @@ export type PosOfflineQueueCreateWithoutTerminalInput = {
   lastError?: string | null
   createdAt?: Date | string
   syncedAt?: Date | string | null
-  tenant: Prisma.TenantCreateNestedOneWithoutPosOfflineQueueInput
 }
 
 export type PosOfflineQueueUncheckedCreateWithoutTerminalInput = {
@@ -675,52 +565,20 @@ export type PosOfflineQueueUpdateManyWithWhereWithoutTerminalInput = {
   data: Prisma.XOR<Prisma.PosOfflineQueueUpdateManyMutationInput, Prisma.PosOfflineQueueUncheckedUpdateManyWithoutTerminalInput>
 }
 
-export type PosOfflineQueueCreateManyTenantInput = {
-  id?: string
-  terminalId: string
-  operationType: $Enums.PosOfflineOperationType
-  payload: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  status?: $Enums.PosOfflineStatus
-  attempts?: number
-  lastError?: string | null
-  createdAt?: Date | string
-  syncedAt?: Date | string | null
-}
-
-export type PosOfflineQueueUpdateWithoutTenantInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  operationType?: Prisma.EnumPosOfflineOperationTypeFieldUpdateOperationsInput | $Enums.PosOfflineOperationType
-  payload?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  status?: Prisma.EnumPosOfflineStatusFieldUpdateOperationsInput | $Enums.PosOfflineStatus
-  attempts?: Prisma.IntFieldUpdateOperationsInput | number
-  lastError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  syncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  terminal?: Prisma.PosTerminalUpdateOneRequiredWithoutOfflineQueueNestedInput
-}
-
-export type PosOfflineQueueUncheckedUpdateWithoutTenantInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  terminalId?: Prisma.StringFieldUpdateOperationsInput | string
-  operationType?: Prisma.EnumPosOfflineOperationTypeFieldUpdateOperationsInput | $Enums.PosOfflineOperationType
-  payload?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  status?: Prisma.EnumPosOfflineStatusFieldUpdateOperationsInput | $Enums.PosOfflineStatus
-  attempts?: Prisma.IntFieldUpdateOperationsInput | number
-  lastError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  syncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-}
-
-export type PosOfflineQueueUncheckedUpdateManyWithoutTenantInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  terminalId?: Prisma.StringFieldUpdateOperationsInput | string
-  operationType?: Prisma.EnumPosOfflineOperationTypeFieldUpdateOperationsInput | $Enums.PosOfflineOperationType
-  payload?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  status?: Prisma.EnumPosOfflineStatusFieldUpdateOperationsInput | $Enums.PosOfflineStatus
-  attempts?: Prisma.IntFieldUpdateOperationsInput | number
-  lastError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  syncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+export type PosOfflineQueueScalarWhereInput = {
+  AND?: Prisma.PosOfflineQueueScalarWhereInput | Prisma.PosOfflineQueueScalarWhereInput[]
+  OR?: Prisma.PosOfflineQueueScalarWhereInput[]
+  NOT?: Prisma.PosOfflineQueueScalarWhereInput | Prisma.PosOfflineQueueScalarWhereInput[]
+  id?: Prisma.StringFilter<"PosOfflineQueue"> | string
+  tenantId?: Prisma.StringFilter<"PosOfflineQueue"> | string
+  terminalId?: Prisma.StringFilter<"PosOfflineQueue"> | string
+  operationType?: Prisma.EnumPosOfflineOperationTypeFilter<"PosOfflineQueue"> | $Enums.PosOfflineOperationType
+  payload?: Prisma.JsonFilter<"PosOfflineQueue">
+  status?: Prisma.EnumPosOfflineStatusFilter<"PosOfflineQueue"> | $Enums.PosOfflineStatus
+  attempts?: Prisma.IntFilter<"PosOfflineQueue"> | number
+  lastError?: Prisma.StringNullableFilter<"PosOfflineQueue"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"PosOfflineQueue"> | Date | string
+  syncedAt?: Prisma.DateTimeNullableFilter<"PosOfflineQueue"> | Date | string | null
 }
 
 export type PosOfflineQueueCreateManyTerminalInput = {
@@ -737,6 +595,7 @@ export type PosOfflineQueueCreateManyTerminalInput = {
 
 export type PosOfflineQueueUpdateWithoutTerminalInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   operationType?: Prisma.EnumPosOfflineOperationTypeFieldUpdateOperationsInput | $Enums.PosOfflineOperationType
   payload?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumPosOfflineStatusFieldUpdateOperationsInput | $Enums.PosOfflineStatus
@@ -744,7 +603,6 @@ export type PosOfflineQueueUpdateWithoutTerminalInput = {
   lastError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   syncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  tenant?: Prisma.TenantUpdateOneRequiredWithoutPosOfflineQueueNestedInput
 }
 
 export type PosOfflineQueueUncheckedUpdateWithoutTerminalInput = {
@@ -784,7 +642,6 @@ export type PosOfflineQueueSelect<ExtArgs extends runtime.Types.Extensions.Inter
   lastError?: boolean
   createdAt?: boolean
   syncedAt?: boolean
-  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   terminal?: boolean | Prisma.PosTerminalDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["posOfflineQueue"]>
 
@@ -799,7 +656,6 @@ export type PosOfflineQueueSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   lastError?: boolean
   createdAt?: boolean
   syncedAt?: boolean
-  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   terminal?: boolean | Prisma.PosTerminalDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["posOfflineQueue"]>
 
@@ -814,7 +670,6 @@ export type PosOfflineQueueSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   lastError?: boolean
   createdAt?: boolean
   syncedAt?: boolean
-  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   terminal?: boolean | Prisma.PosTerminalDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["posOfflineQueue"]>
 
@@ -833,22 +688,18 @@ export type PosOfflineQueueSelectScalar = {
 
 export type PosOfflineQueueOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "terminalId" | "operationType" | "payload" | "status" | "attempts" | "lastError" | "createdAt" | "syncedAt", ExtArgs["result"]["posOfflineQueue"]>
 export type PosOfflineQueueInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   terminal?: boolean | Prisma.PosTerminalDefaultArgs<ExtArgs>
 }
 export type PosOfflineQueueIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   terminal?: boolean | Prisma.PosTerminalDefaultArgs<ExtArgs>
 }
 export type PosOfflineQueueIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   terminal?: boolean | Prisma.PosTerminalDefaultArgs<ExtArgs>
 }
 
 export type $PosOfflineQueuePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "PosOfflineQueue"
   objects: {
-    tenant: Prisma.$TenantPayload<ExtArgs>
     terminal: Prisma.$PosTerminalPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1256,7 +1107,6 @@ readonly fields: PosOfflineQueueFieldRefs;
  */
 export interface Prisma__PosOfflineQueueClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  tenant<T extends Prisma.TenantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   terminal<T extends Prisma.PosTerminalDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PosTerminalDefaultArgs<ExtArgs>>): Prisma.Prisma__PosTerminalClient<runtime.Types.Result.GetResult<Prisma.$PosTerminalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.

@@ -2229,3 +2229,106 @@ export const AiInsightStatus = {
 } as const
 
 export type AiInsightStatus = (typeof AiInsightStatus)[keyof typeof AiInsightStatus]
+
+
+export const PosTerminalMode = {
+  FAST_CHECKOUT: 'FAST_CHECKOUT',
+  CONSULTIVE: 'CONSULTIVE',
+  SELF_SERVICE: 'SELF_SERVICE',
+  EXTERNAL: 'EXTERNAL'
+} as const
+
+export type PosTerminalMode = (typeof PosTerminalMode)[keyof typeof PosTerminalMode]
+
+
+export const PosCashierMode = {
+  INTEGRATED: 'INTEGRATED',
+  SEPARATED: 'SEPARATED'
+} as const
+
+export type PosCashierMode = (typeof PosCashierMode)[keyof typeof PosCashierMode]
+
+
+export const PosSessionStatus = {
+  OPEN: 'OPEN',
+  CLOSED: 'CLOSED',
+  SUSPENDED: 'SUSPENDED'
+} as const
+
+export type PosSessionStatus = (typeof PosSessionStatus)[keyof typeof PosSessionStatus]
+
+
+export const PosTransactionStatus = {
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED',
+  SUSPENDED: 'SUSPENDED',
+  PENDING_SYNC: 'PENDING_SYNC'
+} as const
+
+export type PosTransactionStatus = (typeof PosTransactionStatus)[keyof typeof PosTransactionStatus]
+
+
+export const PosPaymentMethod = {
+  CASH: 'CASH',
+  CREDIT_CARD: 'CREDIT_CARD',
+  DEBIT_CARD: 'DEBIT_CARD',
+  PIX: 'PIX',
+  BOLETO: 'BOLETO',
+  STORE_CREDIT: 'STORE_CREDIT',
+  VOUCHER: 'VOUCHER',
+  PAYMENT_LINK: 'PAYMENT_LINK',
+  NFC: 'NFC',
+  CHECK: 'CHECK',
+  OTHER: 'OTHER'
+} as const
+
+export type PosPaymentMethod = (typeof PosPaymentMethod)[keyof typeof PosPaymentMethod]
+
+
+export const PosCashMovementType = {
+  OPENING: 'OPENING',
+  WITHDRAWAL: 'WITHDRAWAL',
+  SUPPLY: 'SUPPLY',
+  CLOSING: 'CLOSING'
+} as const
+
+export type PosCashMovementType = (typeof PosCashMovementType)[keyof typeof PosCashMovementType]
+
+
+export const PosOfflineStatus = {
+  PENDING: 'PENDING',
+  SYNCING: 'SYNCING',
+  SYNCED: 'SYNCED',
+  FAILED: 'FAILED'
+} as const
+
+export type PosOfflineStatus = (typeof PosOfflineStatus)[keyof typeof PosOfflineStatus]
+
+
+export const PosOfflineOperationType = {
+  TRANSACTION: 'TRANSACTION',
+  CASH_MOVEMENT: 'CASH_MOVEMENT',
+  CUSTOMER_CREATE: 'CUSTOMER_CREATE',
+  SESSION_CLOSE: 'SESSION_CLOSE'
+} as const
+
+export type PosOfflineOperationType = (typeof PosOfflineOperationType)[keyof typeof PosOfflineOperationType]
+
+
+export const PosVisitOutcome = {
+  SALE: 'SALE',
+  QUOTE: 'QUOTE',
+  NO_SALE: 'NO_SALE',
+  FOLLOW_UP: 'FOLLOW_UP'
+} as const
+
+export type PosVisitOutcome = (typeof PosVisitOutcome)[keyof typeof PosVisitOutcome]
+
+
+export const PosPaymentLinkStatus = {
+  PENDING: 'PENDING',
+  PAID: 'PAID',
+  EXPIRED: 'EXPIRED'
+} as const
+
+export type PosPaymentLinkStatus = (typeof PosPaymentLinkStatus)[keyof typeof PosPaymentLinkStatus]

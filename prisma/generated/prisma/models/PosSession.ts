@@ -308,7 +308,7 @@ export type PosSessionWhereInput = {
   terminal?: Prisma.XOR<Prisma.PosTerminalScalarRelationFilter, Prisma.PosTerminalWhereInput>
   operator?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   transactions?: Prisma.PosTransactionListRelationFilter
-  cashMovements?: Prisma.PosCashMovementListRelationFilter
+  movements?: Prisma.PosCashMovementListRelationFilter
 }
 
 export type PosSessionOrderByWithRelationInput = {
@@ -331,7 +331,7 @@ export type PosSessionOrderByWithRelationInput = {
   terminal?: Prisma.PosTerminalOrderByWithRelationInput
   operator?: Prisma.UserOrderByWithRelationInput
   transactions?: Prisma.PosTransactionOrderByRelationAggregateInput
-  cashMovements?: Prisma.PosCashMovementOrderByRelationAggregateInput
+  movements?: Prisma.PosCashMovementOrderByRelationAggregateInput
 }
 
 export type PosSessionWhereUniqueInput = Prisma.AtLeast<{
@@ -357,7 +357,7 @@ export type PosSessionWhereUniqueInput = Prisma.AtLeast<{
   terminal?: Prisma.XOR<Prisma.PosTerminalScalarRelationFilter, Prisma.PosTerminalWhereInput>
   operator?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   transactions?: Prisma.PosTransactionListRelationFilter
-  cashMovements?: Prisma.PosCashMovementListRelationFilter
+  movements?: Prisma.PosCashMovementListRelationFilter
 }, "id">
 
 export type PosSessionOrderByWithAggregationInput = {
@@ -421,7 +421,7 @@ export type PosSessionCreateInput = {
   terminal: Prisma.PosTerminalCreateNestedOneWithoutSessionsInput
   operator: Prisma.UserCreateNestedOneWithoutPosSessionsInput
   transactions?: Prisma.PosTransactionCreateNestedManyWithoutSessionInput
-  cashMovements?: Prisma.PosCashMovementCreateNestedManyWithoutSessionInput
+  movements?: Prisma.PosCashMovementCreateNestedManyWithoutSessionInput
 }
 
 export type PosSessionUncheckedCreateInput = {
@@ -441,7 +441,7 @@ export type PosSessionUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   transactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutSessionInput
-  cashMovements?: Prisma.PosCashMovementUncheckedCreateNestedManyWithoutSessionInput
+  movements?: Prisma.PosCashMovementUncheckedCreateNestedManyWithoutSessionInput
 }
 
 export type PosSessionUpdateInput = {
@@ -461,7 +461,7 @@ export type PosSessionUpdateInput = {
   terminal?: Prisma.PosTerminalUpdateOneRequiredWithoutSessionsNestedInput
   operator?: Prisma.UserUpdateOneRequiredWithoutPosSessionsNestedInput
   transactions?: Prisma.PosTransactionUpdateManyWithoutSessionNestedInput
-  cashMovements?: Prisma.PosCashMovementUpdateManyWithoutSessionNestedInput
+  movements?: Prisma.PosCashMovementUpdateManyWithoutSessionNestedInput
 }
 
 export type PosSessionUncheckedUpdateInput = {
@@ -481,7 +481,7 @@ export type PosSessionUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   transactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutSessionNestedInput
-  cashMovements?: Prisma.PosCashMovementUncheckedUpdateManyWithoutSessionNestedInput
+  movements?: Prisma.PosCashMovementUncheckedUpdateManyWithoutSessionNestedInput
 }
 
 export type PosSessionCreateManyInput = {
@@ -760,18 +760,18 @@ export type PosSessionUpdateOneRequiredWithoutTransactionsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.PosSessionUpdateToOneWithWhereWithoutTransactionsInput, Prisma.PosSessionUpdateWithoutTransactionsInput>, Prisma.PosSessionUncheckedUpdateWithoutTransactionsInput>
 }
 
-export type PosSessionCreateNestedOneWithoutCashMovementsInput = {
-  create?: Prisma.XOR<Prisma.PosSessionCreateWithoutCashMovementsInput, Prisma.PosSessionUncheckedCreateWithoutCashMovementsInput>
-  connectOrCreate?: Prisma.PosSessionCreateOrConnectWithoutCashMovementsInput
+export type PosSessionCreateNestedOneWithoutMovementsInput = {
+  create?: Prisma.XOR<Prisma.PosSessionCreateWithoutMovementsInput, Prisma.PosSessionUncheckedCreateWithoutMovementsInput>
+  connectOrCreate?: Prisma.PosSessionCreateOrConnectWithoutMovementsInput
   connect?: Prisma.PosSessionWhereUniqueInput
 }
 
-export type PosSessionUpdateOneRequiredWithoutCashMovementsNestedInput = {
-  create?: Prisma.XOR<Prisma.PosSessionCreateWithoutCashMovementsInput, Prisma.PosSessionUncheckedCreateWithoutCashMovementsInput>
-  connectOrCreate?: Prisma.PosSessionCreateOrConnectWithoutCashMovementsInput
-  upsert?: Prisma.PosSessionUpsertWithoutCashMovementsInput
+export type PosSessionUpdateOneRequiredWithoutMovementsNestedInput = {
+  create?: Prisma.XOR<Prisma.PosSessionCreateWithoutMovementsInput, Prisma.PosSessionUncheckedCreateWithoutMovementsInput>
+  connectOrCreate?: Prisma.PosSessionCreateOrConnectWithoutMovementsInput
+  upsert?: Prisma.PosSessionUpsertWithoutMovementsInput
   connect?: Prisma.PosSessionWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.PosSessionUpdateToOneWithWhereWithoutCashMovementsInput, Prisma.PosSessionUpdateWithoutCashMovementsInput>, Prisma.PosSessionUncheckedUpdateWithoutCashMovementsInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PosSessionUpdateToOneWithWhereWithoutMovementsInput, Prisma.PosSessionUpdateWithoutMovementsInput>, Prisma.PosSessionUncheckedUpdateWithoutMovementsInput>
 }
 
 export type PosSessionCreateWithoutOperatorInput = {
@@ -790,7 +790,7 @@ export type PosSessionCreateWithoutOperatorInput = {
   tenant: Prisma.TenantCreateNestedOneWithoutPosSessionsInput
   terminal: Prisma.PosTerminalCreateNestedOneWithoutSessionsInput
   transactions?: Prisma.PosTransactionCreateNestedManyWithoutSessionInput
-  cashMovements?: Prisma.PosCashMovementCreateNestedManyWithoutSessionInput
+  movements?: Prisma.PosCashMovementCreateNestedManyWithoutSessionInput
 }
 
 export type PosSessionUncheckedCreateWithoutOperatorInput = {
@@ -809,7 +809,7 @@ export type PosSessionUncheckedCreateWithoutOperatorInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   transactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutSessionInput
-  cashMovements?: Prisma.PosCashMovementUncheckedCreateNestedManyWithoutSessionInput
+  movements?: Prisma.PosCashMovementUncheckedCreateNestedManyWithoutSessionInput
 }
 
 export type PosSessionCreateOrConnectWithoutOperatorInput = {
@@ -875,7 +875,7 @@ export type PosSessionCreateWithoutTenantInput = {
   terminal: Prisma.PosTerminalCreateNestedOneWithoutSessionsInput
   operator: Prisma.UserCreateNestedOneWithoutPosSessionsInput
   transactions?: Prisma.PosTransactionCreateNestedManyWithoutSessionInput
-  cashMovements?: Prisma.PosCashMovementCreateNestedManyWithoutSessionInput
+  movements?: Prisma.PosCashMovementCreateNestedManyWithoutSessionInput
 }
 
 export type PosSessionUncheckedCreateWithoutTenantInput = {
@@ -894,7 +894,7 @@ export type PosSessionUncheckedCreateWithoutTenantInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   transactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutSessionInput
-  cashMovements?: Prisma.PosCashMovementUncheckedCreateNestedManyWithoutSessionInput
+  movements?: Prisma.PosCashMovementUncheckedCreateNestedManyWithoutSessionInput
 }
 
 export type PosSessionCreateOrConnectWithoutTenantInput = {
@@ -939,7 +939,7 @@ export type PosSessionCreateWithoutTerminalInput = {
   tenant: Prisma.TenantCreateNestedOneWithoutPosSessionsInput
   operator: Prisma.UserCreateNestedOneWithoutPosSessionsInput
   transactions?: Prisma.PosTransactionCreateNestedManyWithoutSessionInput
-  cashMovements?: Prisma.PosCashMovementCreateNestedManyWithoutSessionInput
+  movements?: Prisma.PosCashMovementCreateNestedManyWithoutSessionInput
 }
 
 export type PosSessionUncheckedCreateWithoutTerminalInput = {
@@ -958,7 +958,7 @@ export type PosSessionUncheckedCreateWithoutTerminalInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   transactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutSessionInput
-  cashMovements?: Prisma.PosCashMovementUncheckedCreateNestedManyWithoutSessionInput
+  movements?: Prisma.PosCashMovementUncheckedCreateNestedManyWithoutSessionInput
 }
 
 export type PosSessionCreateOrConnectWithoutTerminalInput = {
@@ -1003,7 +1003,7 @@ export type PosSessionCreateWithoutTransactionsInput = {
   tenant: Prisma.TenantCreateNestedOneWithoutPosSessionsInput
   terminal: Prisma.PosTerminalCreateNestedOneWithoutSessionsInput
   operator: Prisma.UserCreateNestedOneWithoutPosSessionsInput
-  cashMovements?: Prisma.PosCashMovementCreateNestedManyWithoutSessionInput
+  movements?: Prisma.PosCashMovementCreateNestedManyWithoutSessionInput
 }
 
 export type PosSessionUncheckedCreateWithoutTransactionsInput = {
@@ -1022,7 +1022,7 @@ export type PosSessionUncheckedCreateWithoutTransactionsInput = {
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  cashMovements?: Prisma.PosCashMovementUncheckedCreateNestedManyWithoutSessionInput
+  movements?: Prisma.PosCashMovementUncheckedCreateNestedManyWithoutSessionInput
 }
 
 export type PosSessionCreateOrConnectWithoutTransactionsInput = {
@@ -1057,7 +1057,7 @@ export type PosSessionUpdateWithoutTransactionsInput = {
   tenant?: Prisma.TenantUpdateOneRequiredWithoutPosSessionsNestedInput
   terminal?: Prisma.PosTerminalUpdateOneRequiredWithoutSessionsNestedInput
   operator?: Prisma.UserUpdateOneRequiredWithoutPosSessionsNestedInput
-  cashMovements?: Prisma.PosCashMovementUpdateManyWithoutSessionNestedInput
+  movements?: Prisma.PosCashMovementUpdateManyWithoutSessionNestedInput
 }
 
 export type PosSessionUncheckedUpdateWithoutTransactionsInput = {
@@ -1076,10 +1076,10 @@ export type PosSessionUncheckedUpdateWithoutTransactionsInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  cashMovements?: Prisma.PosCashMovementUncheckedUpdateManyWithoutSessionNestedInput
+  movements?: Prisma.PosCashMovementUncheckedUpdateManyWithoutSessionNestedInput
 }
 
-export type PosSessionCreateWithoutCashMovementsInput = {
+export type PosSessionCreateWithoutMovementsInput = {
   id?: string
   status?: $Enums.PosSessionStatus
   openedAt?: Date | string
@@ -1098,7 +1098,7 @@ export type PosSessionCreateWithoutCashMovementsInput = {
   transactions?: Prisma.PosTransactionCreateNestedManyWithoutSessionInput
 }
 
-export type PosSessionUncheckedCreateWithoutCashMovementsInput = {
+export type PosSessionUncheckedCreateWithoutMovementsInput = {
   id?: string
   tenantId: string
   terminalId: string
@@ -1117,23 +1117,23 @@ export type PosSessionUncheckedCreateWithoutCashMovementsInput = {
   transactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutSessionInput
 }
 
-export type PosSessionCreateOrConnectWithoutCashMovementsInput = {
+export type PosSessionCreateOrConnectWithoutMovementsInput = {
   where: Prisma.PosSessionWhereUniqueInput
-  create: Prisma.XOR<Prisma.PosSessionCreateWithoutCashMovementsInput, Prisma.PosSessionUncheckedCreateWithoutCashMovementsInput>
+  create: Prisma.XOR<Prisma.PosSessionCreateWithoutMovementsInput, Prisma.PosSessionUncheckedCreateWithoutMovementsInput>
 }
 
-export type PosSessionUpsertWithoutCashMovementsInput = {
-  update: Prisma.XOR<Prisma.PosSessionUpdateWithoutCashMovementsInput, Prisma.PosSessionUncheckedUpdateWithoutCashMovementsInput>
-  create: Prisma.XOR<Prisma.PosSessionCreateWithoutCashMovementsInput, Prisma.PosSessionUncheckedCreateWithoutCashMovementsInput>
+export type PosSessionUpsertWithoutMovementsInput = {
+  update: Prisma.XOR<Prisma.PosSessionUpdateWithoutMovementsInput, Prisma.PosSessionUncheckedUpdateWithoutMovementsInput>
+  create: Prisma.XOR<Prisma.PosSessionCreateWithoutMovementsInput, Prisma.PosSessionUncheckedCreateWithoutMovementsInput>
   where?: Prisma.PosSessionWhereInput
 }
 
-export type PosSessionUpdateToOneWithWhereWithoutCashMovementsInput = {
+export type PosSessionUpdateToOneWithWhereWithoutMovementsInput = {
   where?: Prisma.PosSessionWhereInput
-  data: Prisma.XOR<Prisma.PosSessionUpdateWithoutCashMovementsInput, Prisma.PosSessionUncheckedUpdateWithoutCashMovementsInput>
+  data: Prisma.XOR<Prisma.PosSessionUpdateWithoutMovementsInput, Prisma.PosSessionUncheckedUpdateWithoutMovementsInput>
 }
 
-export type PosSessionUpdateWithoutCashMovementsInput = {
+export type PosSessionUpdateWithoutMovementsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumPosSessionStatusFieldUpdateOperationsInput | $Enums.PosSessionStatus
   openedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1152,7 +1152,7 @@ export type PosSessionUpdateWithoutCashMovementsInput = {
   transactions?: Prisma.PosTransactionUpdateManyWithoutSessionNestedInput
 }
 
-export type PosSessionUncheckedUpdateWithoutCashMovementsInput = {
+export type PosSessionUncheckedUpdateWithoutMovementsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   terminalId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1204,7 +1204,7 @@ export type PosSessionUpdateWithoutOperatorInput = {
   tenant?: Prisma.TenantUpdateOneRequiredWithoutPosSessionsNestedInput
   terminal?: Prisma.PosTerminalUpdateOneRequiredWithoutSessionsNestedInput
   transactions?: Prisma.PosTransactionUpdateManyWithoutSessionNestedInput
-  cashMovements?: Prisma.PosCashMovementUpdateManyWithoutSessionNestedInput
+  movements?: Prisma.PosCashMovementUpdateManyWithoutSessionNestedInput
 }
 
 export type PosSessionUncheckedUpdateWithoutOperatorInput = {
@@ -1223,7 +1223,7 @@ export type PosSessionUncheckedUpdateWithoutOperatorInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   transactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutSessionNestedInput
-  cashMovements?: Prisma.PosCashMovementUncheckedUpdateManyWithoutSessionNestedInput
+  movements?: Prisma.PosCashMovementUncheckedUpdateManyWithoutSessionNestedInput
 }
 
 export type PosSessionUncheckedUpdateManyWithoutOperatorInput = {
@@ -1276,7 +1276,7 @@ export type PosSessionUpdateWithoutTenantInput = {
   terminal?: Prisma.PosTerminalUpdateOneRequiredWithoutSessionsNestedInput
   operator?: Prisma.UserUpdateOneRequiredWithoutPosSessionsNestedInput
   transactions?: Prisma.PosTransactionUpdateManyWithoutSessionNestedInput
-  cashMovements?: Prisma.PosCashMovementUpdateManyWithoutSessionNestedInput
+  movements?: Prisma.PosCashMovementUpdateManyWithoutSessionNestedInput
 }
 
 export type PosSessionUncheckedUpdateWithoutTenantInput = {
@@ -1295,7 +1295,7 @@ export type PosSessionUncheckedUpdateWithoutTenantInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   transactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutSessionNestedInput
-  cashMovements?: Prisma.PosCashMovementUncheckedUpdateManyWithoutSessionNestedInput
+  movements?: Prisma.PosCashMovementUncheckedUpdateManyWithoutSessionNestedInput
 }
 
 export type PosSessionUncheckedUpdateManyWithoutTenantInput = {
@@ -1348,7 +1348,7 @@ export type PosSessionUpdateWithoutTerminalInput = {
   tenant?: Prisma.TenantUpdateOneRequiredWithoutPosSessionsNestedInput
   operator?: Prisma.UserUpdateOneRequiredWithoutPosSessionsNestedInput
   transactions?: Prisma.PosTransactionUpdateManyWithoutSessionNestedInput
-  cashMovements?: Prisma.PosCashMovementUpdateManyWithoutSessionNestedInput
+  movements?: Prisma.PosCashMovementUpdateManyWithoutSessionNestedInput
 }
 
 export type PosSessionUncheckedUpdateWithoutTerminalInput = {
@@ -1367,7 +1367,7 @@ export type PosSessionUncheckedUpdateWithoutTerminalInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   transactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutSessionNestedInput
-  cashMovements?: Prisma.PosCashMovementUncheckedUpdateManyWithoutSessionNestedInput
+  movements?: Prisma.PosCashMovementUncheckedUpdateManyWithoutSessionNestedInput
 }
 
 export type PosSessionUncheckedUpdateManyWithoutTerminalInput = {
@@ -1394,12 +1394,12 @@ export type PosSessionUncheckedUpdateManyWithoutTerminalInput = {
 
 export type PosSessionCountOutputType = {
   transactions: number
-  cashMovements: number
+  movements: number
 }
 
 export type PosSessionCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   transactions?: boolean | PosSessionCountOutputTypeCountTransactionsArgs
-  cashMovements?: boolean | PosSessionCountOutputTypeCountCashMovementsArgs
+  movements?: boolean | PosSessionCountOutputTypeCountMovementsArgs
 }
 
 /**
@@ -1422,7 +1422,7 @@ export type PosSessionCountOutputTypeCountTransactionsArgs<ExtArgs extends runti
 /**
  * PosSessionCountOutputType without action
  */
-export type PosSessionCountOutputTypeCountCashMovementsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type PosSessionCountOutputTypeCountMovementsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.PosCashMovementWhereInput
 }
 
@@ -1447,7 +1447,7 @@ export type PosSessionSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   terminal?: boolean | Prisma.PosTerminalDefaultArgs<ExtArgs>
   operator?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   transactions?: boolean | Prisma.PosSession$transactionsArgs<ExtArgs>
-  cashMovements?: boolean | Prisma.PosSession$cashMovementsArgs<ExtArgs>
+  movements?: boolean | Prisma.PosSession$movementsArgs<ExtArgs>
   _count?: boolean | Prisma.PosSessionCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["posSession"]>
 
@@ -1517,7 +1517,7 @@ export type PosSessionInclude<ExtArgs extends runtime.Types.Extensions.InternalA
   terminal?: boolean | Prisma.PosTerminalDefaultArgs<ExtArgs>
   operator?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   transactions?: boolean | Prisma.PosSession$transactionsArgs<ExtArgs>
-  cashMovements?: boolean | Prisma.PosSession$cashMovementsArgs<ExtArgs>
+  movements?: boolean | Prisma.PosSession$movementsArgs<ExtArgs>
   _count?: boolean | Prisma.PosSessionCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type PosSessionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1538,7 +1538,7 @@ export type $PosSessionPayload<ExtArgs extends runtime.Types.Extensions.Internal
     terminal: Prisma.$PosTerminalPayload<ExtArgs>
     operator: Prisma.$UserPayload<ExtArgs>
     transactions: Prisma.$PosTransactionPayload<ExtArgs>[]
-    cashMovements: Prisma.$PosCashMovementPayload<ExtArgs>[]
+    movements: Prisma.$PosCashMovementPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1954,7 +1954,7 @@ export interface Prisma__PosSessionClient<T, Null = never, ExtArgs extends runti
   terminal<T extends Prisma.PosTerminalDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PosTerminalDefaultArgs<ExtArgs>>): Prisma.Prisma__PosTerminalClient<runtime.Types.Result.GetResult<Prisma.$PosTerminalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   operator<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   transactions<T extends Prisma.PosSession$transactionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PosSession$transactionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PosTransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  cashMovements<T extends Prisma.PosSession$cashMovementsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PosSession$cashMovementsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PosCashMovementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  movements<T extends Prisma.PosSession$movementsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PosSession$movementsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PosCashMovementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2419,9 +2419,9 @@ export type PosSession$transactionsArgs<ExtArgs extends runtime.Types.Extensions
 }
 
 /**
- * PosSession.cashMovements
+ * PosSession.movements
  */
-export type PosSession$cashMovementsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type PosSession$movementsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the PosCashMovement
    */

@@ -248,7 +248,6 @@ export type PosCashMovementWhereInput = {
   performedByUserId?: Prisma.StringFilter<"PosCashMovement"> | string
   authorizedByUserId?: Prisma.StringNullableFilter<"PosCashMovement"> | string | null
   createdAt?: Prisma.DateTimeFilter<"PosCashMovement"> | Date | string
-  tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   session?: Prisma.XOR<Prisma.PosSessionScalarRelationFilter, Prisma.PosSessionWhereInput>
   performedBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   authorizedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
@@ -264,7 +263,6 @@ export type PosCashMovementOrderByWithRelationInput = {
   performedByUserId?: Prisma.SortOrder
   authorizedByUserId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  tenant?: Prisma.TenantOrderByWithRelationInput
   session?: Prisma.PosSessionOrderByWithRelationInput
   performedBy?: Prisma.UserOrderByWithRelationInput
   authorizedBy?: Prisma.UserOrderByWithRelationInput
@@ -283,7 +281,6 @@ export type PosCashMovementWhereUniqueInput = Prisma.AtLeast<{
   performedByUserId?: Prisma.StringFilter<"PosCashMovement"> | string
   authorizedByUserId?: Prisma.StringNullableFilter<"PosCashMovement"> | string | null
   createdAt?: Prisma.DateTimeFilter<"PosCashMovement"> | Date | string
-  tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   session?: Prisma.XOR<Prisma.PosSessionScalarRelationFilter, Prisma.PosSessionWhereInput>
   performedBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   authorizedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
@@ -323,12 +320,12 @@ export type PosCashMovementScalarWhereWithAggregatesInput = {
 
 export type PosCashMovementCreateInput = {
   id?: string
+  tenantId: string
   type: $Enums.PosCashMovementType
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   reason?: string | null
   createdAt?: Date | string
-  tenant: Prisma.TenantCreateNestedOneWithoutPosCashMovementsInput
-  session: Prisma.PosSessionCreateNestedOneWithoutCashMovementsInput
+  session: Prisma.PosSessionCreateNestedOneWithoutMovementsInput
   performedBy: Prisma.UserCreateNestedOneWithoutPosCashMovementsPerformedInput
   authorizedBy?: Prisma.UserCreateNestedOneWithoutPosCashMovementsAuthorizedInput
 }
@@ -347,12 +344,12 @@ export type PosCashMovementUncheckedCreateInput = {
 
 export type PosCashMovementUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumPosCashMovementTypeFieldUpdateOperationsInput | $Enums.PosCashMovementType
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  tenant?: Prisma.TenantUpdateOneRequiredWithoutPosCashMovementsNestedInput
-  session?: Prisma.PosSessionUpdateOneRequiredWithoutCashMovementsNestedInput
+  session?: Prisma.PosSessionUpdateOneRequiredWithoutMovementsNestedInput
   performedBy?: Prisma.UserUpdateOneRequiredWithoutPosCashMovementsPerformedNestedInput
   authorizedBy?: Prisma.UserUpdateOneWithoutPosCashMovementsAuthorizedNestedInput
 }
@@ -383,6 +380,7 @@ export type PosCashMovementCreateManyInput = {
 
 export type PosCashMovementUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumPosCashMovementTypeFieldUpdateOperationsInput | $Enums.PosCashMovementType
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -539,48 +537,6 @@ export type PosCashMovementUncheckedUpdateManyWithoutAuthorizedByNestedInput = {
   deleteMany?: Prisma.PosCashMovementScalarWhereInput | Prisma.PosCashMovementScalarWhereInput[]
 }
 
-export type PosCashMovementCreateNestedManyWithoutTenantInput = {
-  create?: Prisma.XOR<Prisma.PosCashMovementCreateWithoutTenantInput, Prisma.PosCashMovementUncheckedCreateWithoutTenantInput> | Prisma.PosCashMovementCreateWithoutTenantInput[] | Prisma.PosCashMovementUncheckedCreateWithoutTenantInput[]
-  connectOrCreate?: Prisma.PosCashMovementCreateOrConnectWithoutTenantInput | Prisma.PosCashMovementCreateOrConnectWithoutTenantInput[]
-  createMany?: Prisma.PosCashMovementCreateManyTenantInputEnvelope
-  connect?: Prisma.PosCashMovementWhereUniqueInput | Prisma.PosCashMovementWhereUniqueInput[]
-}
-
-export type PosCashMovementUncheckedCreateNestedManyWithoutTenantInput = {
-  create?: Prisma.XOR<Prisma.PosCashMovementCreateWithoutTenantInput, Prisma.PosCashMovementUncheckedCreateWithoutTenantInput> | Prisma.PosCashMovementCreateWithoutTenantInput[] | Prisma.PosCashMovementUncheckedCreateWithoutTenantInput[]
-  connectOrCreate?: Prisma.PosCashMovementCreateOrConnectWithoutTenantInput | Prisma.PosCashMovementCreateOrConnectWithoutTenantInput[]
-  createMany?: Prisma.PosCashMovementCreateManyTenantInputEnvelope
-  connect?: Prisma.PosCashMovementWhereUniqueInput | Prisma.PosCashMovementWhereUniqueInput[]
-}
-
-export type PosCashMovementUpdateManyWithoutTenantNestedInput = {
-  create?: Prisma.XOR<Prisma.PosCashMovementCreateWithoutTenantInput, Prisma.PosCashMovementUncheckedCreateWithoutTenantInput> | Prisma.PosCashMovementCreateWithoutTenantInput[] | Prisma.PosCashMovementUncheckedCreateWithoutTenantInput[]
-  connectOrCreate?: Prisma.PosCashMovementCreateOrConnectWithoutTenantInput | Prisma.PosCashMovementCreateOrConnectWithoutTenantInput[]
-  upsert?: Prisma.PosCashMovementUpsertWithWhereUniqueWithoutTenantInput | Prisma.PosCashMovementUpsertWithWhereUniqueWithoutTenantInput[]
-  createMany?: Prisma.PosCashMovementCreateManyTenantInputEnvelope
-  set?: Prisma.PosCashMovementWhereUniqueInput | Prisma.PosCashMovementWhereUniqueInput[]
-  disconnect?: Prisma.PosCashMovementWhereUniqueInput | Prisma.PosCashMovementWhereUniqueInput[]
-  delete?: Prisma.PosCashMovementWhereUniqueInput | Prisma.PosCashMovementWhereUniqueInput[]
-  connect?: Prisma.PosCashMovementWhereUniqueInput | Prisma.PosCashMovementWhereUniqueInput[]
-  update?: Prisma.PosCashMovementUpdateWithWhereUniqueWithoutTenantInput | Prisma.PosCashMovementUpdateWithWhereUniqueWithoutTenantInput[]
-  updateMany?: Prisma.PosCashMovementUpdateManyWithWhereWithoutTenantInput | Prisma.PosCashMovementUpdateManyWithWhereWithoutTenantInput[]
-  deleteMany?: Prisma.PosCashMovementScalarWhereInput | Prisma.PosCashMovementScalarWhereInput[]
-}
-
-export type PosCashMovementUncheckedUpdateManyWithoutTenantNestedInput = {
-  create?: Prisma.XOR<Prisma.PosCashMovementCreateWithoutTenantInput, Prisma.PosCashMovementUncheckedCreateWithoutTenantInput> | Prisma.PosCashMovementCreateWithoutTenantInput[] | Prisma.PosCashMovementUncheckedCreateWithoutTenantInput[]
-  connectOrCreate?: Prisma.PosCashMovementCreateOrConnectWithoutTenantInput | Prisma.PosCashMovementCreateOrConnectWithoutTenantInput[]
-  upsert?: Prisma.PosCashMovementUpsertWithWhereUniqueWithoutTenantInput | Prisma.PosCashMovementUpsertWithWhereUniqueWithoutTenantInput[]
-  createMany?: Prisma.PosCashMovementCreateManyTenantInputEnvelope
-  set?: Prisma.PosCashMovementWhereUniqueInput | Prisma.PosCashMovementWhereUniqueInput[]
-  disconnect?: Prisma.PosCashMovementWhereUniqueInput | Prisma.PosCashMovementWhereUniqueInput[]
-  delete?: Prisma.PosCashMovementWhereUniqueInput | Prisma.PosCashMovementWhereUniqueInput[]
-  connect?: Prisma.PosCashMovementWhereUniqueInput | Prisma.PosCashMovementWhereUniqueInput[]
-  update?: Prisma.PosCashMovementUpdateWithWhereUniqueWithoutTenantInput | Prisma.PosCashMovementUpdateWithWhereUniqueWithoutTenantInput[]
-  updateMany?: Prisma.PosCashMovementUpdateManyWithWhereWithoutTenantInput | Prisma.PosCashMovementUpdateManyWithWhereWithoutTenantInput[]
-  deleteMany?: Prisma.PosCashMovementScalarWhereInput | Prisma.PosCashMovementScalarWhereInput[]
-}
-
 export type PosCashMovementCreateNestedManyWithoutSessionInput = {
   create?: Prisma.XOR<Prisma.PosCashMovementCreateWithoutSessionInput, Prisma.PosCashMovementUncheckedCreateWithoutSessionInput> | Prisma.PosCashMovementCreateWithoutSessionInput[] | Prisma.PosCashMovementUncheckedCreateWithoutSessionInput[]
   connectOrCreate?: Prisma.PosCashMovementCreateOrConnectWithoutSessionInput | Prisma.PosCashMovementCreateOrConnectWithoutSessionInput[]
@@ -629,12 +585,12 @@ export type EnumPosCashMovementTypeFieldUpdateOperationsInput = {
 
 export type PosCashMovementCreateWithoutPerformedByInput = {
   id?: string
+  tenantId: string
   type: $Enums.PosCashMovementType
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   reason?: string | null
   createdAt?: Date | string
-  tenant: Prisma.TenantCreateNestedOneWithoutPosCashMovementsInput
-  session: Prisma.PosSessionCreateNestedOneWithoutCashMovementsInput
+  session: Prisma.PosSessionCreateNestedOneWithoutMovementsInput
   authorizedBy?: Prisma.UserCreateNestedOneWithoutPosCashMovementsAuthorizedInput
 }
 
@@ -661,12 +617,12 @@ export type PosCashMovementCreateManyPerformedByInputEnvelope = {
 
 export type PosCashMovementCreateWithoutAuthorizedByInput = {
   id?: string
+  tenantId: string
   type: $Enums.PosCashMovementType
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   reason?: string | null
   createdAt?: Date | string
-  tenant: Prisma.TenantCreateNestedOneWithoutPosCashMovementsInput
-  session: Prisma.PosSessionCreateNestedOneWithoutCashMovementsInput
+  session: Prisma.PosSessionCreateNestedOneWithoutMovementsInput
   performedBy: Prisma.UserCreateNestedOneWithoutPosCashMovementsPerformedInput
 }
 
@@ -738,61 +694,13 @@ export type PosCashMovementUpdateManyWithWhereWithoutAuthorizedByInput = {
   data: Prisma.XOR<Prisma.PosCashMovementUpdateManyMutationInput, Prisma.PosCashMovementUncheckedUpdateManyWithoutAuthorizedByInput>
 }
 
-export type PosCashMovementCreateWithoutTenantInput = {
-  id?: string
-  type: $Enums.PosCashMovementType
-  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
-  reason?: string | null
-  createdAt?: Date | string
-  session: Prisma.PosSessionCreateNestedOneWithoutCashMovementsInput
-  performedBy: Prisma.UserCreateNestedOneWithoutPosCashMovementsPerformedInput
-  authorizedBy?: Prisma.UserCreateNestedOneWithoutPosCashMovementsAuthorizedInput
-}
-
-export type PosCashMovementUncheckedCreateWithoutTenantInput = {
-  id?: string
-  sessionId: string
-  type: $Enums.PosCashMovementType
-  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
-  reason?: string | null
-  performedByUserId: string
-  authorizedByUserId?: string | null
-  createdAt?: Date | string
-}
-
-export type PosCashMovementCreateOrConnectWithoutTenantInput = {
-  where: Prisma.PosCashMovementWhereUniqueInput
-  create: Prisma.XOR<Prisma.PosCashMovementCreateWithoutTenantInput, Prisma.PosCashMovementUncheckedCreateWithoutTenantInput>
-}
-
-export type PosCashMovementCreateManyTenantInputEnvelope = {
-  data: Prisma.PosCashMovementCreateManyTenantInput | Prisma.PosCashMovementCreateManyTenantInput[]
-  skipDuplicates?: boolean
-}
-
-export type PosCashMovementUpsertWithWhereUniqueWithoutTenantInput = {
-  where: Prisma.PosCashMovementWhereUniqueInput
-  update: Prisma.XOR<Prisma.PosCashMovementUpdateWithoutTenantInput, Prisma.PosCashMovementUncheckedUpdateWithoutTenantInput>
-  create: Prisma.XOR<Prisma.PosCashMovementCreateWithoutTenantInput, Prisma.PosCashMovementUncheckedCreateWithoutTenantInput>
-}
-
-export type PosCashMovementUpdateWithWhereUniqueWithoutTenantInput = {
-  where: Prisma.PosCashMovementWhereUniqueInput
-  data: Prisma.XOR<Prisma.PosCashMovementUpdateWithoutTenantInput, Prisma.PosCashMovementUncheckedUpdateWithoutTenantInput>
-}
-
-export type PosCashMovementUpdateManyWithWhereWithoutTenantInput = {
-  where: Prisma.PosCashMovementScalarWhereInput
-  data: Prisma.XOR<Prisma.PosCashMovementUpdateManyMutationInput, Prisma.PosCashMovementUncheckedUpdateManyWithoutTenantInput>
-}
-
 export type PosCashMovementCreateWithoutSessionInput = {
   id?: string
+  tenantId: string
   type: $Enums.PosCashMovementType
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   reason?: string | null
   createdAt?: Date | string
-  tenant: Prisma.TenantCreateNestedOneWithoutPosCashMovementsInput
   performedBy: Prisma.UserCreateNestedOneWithoutPosCashMovementsPerformedInput
   authorizedBy?: Prisma.UserCreateNestedOneWithoutPosCashMovementsAuthorizedInput
 }
@@ -858,12 +766,12 @@ export type PosCashMovementCreateManyAuthorizedByInput = {
 
 export type PosCashMovementUpdateWithoutPerformedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumPosCashMovementTypeFieldUpdateOperationsInput | $Enums.PosCashMovementType
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  tenant?: Prisma.TenantUpdateOneRequiredWithoutPosCashMovementsNestedInput
-  session?: Prisma.PosSessionUpdateOneRequiredWithoutCashMovementsNestedInput
+  session?: Prisma.PosSessionUpdateOneRequiredWithoutMovementsNestedInput
   authorizedBy?: Prisma.UserUpdateOneWithoutPosCashMovementsAuthorizedNestedInput
 }
 
@@ -891,12 +799,12 @@ export type PosCashMovementUncheckedUpdateManyWithoutPerformedByInput = {
 
 export type PosCashMovementUpdateWithoutAuthorizedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumPosCashMovementTypeFieldUpdateOperationsInput | $Enums.PosCashMovementType
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  tenant?: Prisma.TenantUpdateOneRequiredWithoutPosCashMovementsNestedInput
-  session?: Prisma.PosSessionUpdateOneRequiredWithoutCashMovementsNestedInput
+  session?: Prisma.PosSessionUpdateOneRequiredWithoutMovementsNestedInput
   performedBy?: Prisma.UserUpdateOneRequiredWithoutPosCashMovementsPerformedNestedInput
 }
 
@@ -922,50 +830,6 @@ export type PosCashMovementUncheckedUpdateManyWithoutAuthorizedByInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type PosCashMovementCreateManyTenantInput = {
-  id?: string
-  sessionId: string
-  type: $Enums.PosCashMovementType
-  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
-  reason?: string | null
-  performedByUserId: string
-  authorizedByUserId?: string | null
-  createdAt?: Date | string
-}
-
-export type PosCashMovementUpdateWithoutTenantInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumPosCashMovementTypeFieldUpdateOperationsInput | $Enums.PosCashMovementType
-  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  session?: Prisma.PosSessionUpdateOneRequiredWithoutCashMovementsNestedInput
-  performedBy?: Prisma.UserUpdateOneRequiredWithoutPosCashMovementsPerformedNestedInput
-  authorizedBy?: Prisma.UserUpdateOneWithoutPosCashMovementsAuthorizedNestedInput
-}
-
-export type PosCashMovementUncheckedUpdateWithoutTenantInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  sessionId?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumPosCashMovementTypeFieldUpdateOperationsInput | $Enums.PosCashMovementType
-  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  performedByUserId?: Prisma.StringFieldUpdateOperationsInput | string
-  authorizedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type PosCashMovementUncheckedUpdateManyWithoutTenantInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  sessionId?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumPosCashMovementTypeFieldUpdateOperationsInput | $Enums.PosCashMovementType
-  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  performedByUserId?: Prisma.StringFieldUpdateOperationsInput | string
-  authorizedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
 export type PosCashMovementCreateManySessionInput = {
   id?: string
   tenantId: string
@@ -979,11 +843,11 @@ export type PosCashMovementCreateManySessionInput = {
 
 export type PosCashMovementUpdateWithoutSessionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumPosCashMovementTypeFieldUpdateOperationsInput | $Enums.PosCashMovementType
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  tenant?: Prisma.TenantUpdateOneRequiredWithoutPosCashMovementsNestedInput
   performedBy?: Prisma.UserUpdateOneRequiredWithoutPosCashMovementsPerformedNestedInput
   authorizedBy?: Prisma.UserUpdateOneWithoutPosCashMovementsAuthorizedNestedInput
 }
@@ -1022,7 +886,6 @@ export type PosCashMovementSelect<ExtArgs extends runtime.Types.Extensions.Inter
   performedByUserId?: boolean
   authorizedByUserId?: boolean
   createdAt?: boolean
-  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   session?: boolean | Prisma.PosSessionDefaultArgs<ExtArgs>
   performedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   authorizedBy?: boolean | Prisma.PosCashMovement$authorizedByArgs<ExtArgs>
@@ -1038,7 +901,6 @@ export type PosCashMovementSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   performedByUserId?: boolean
   authorizedByUserId?: boolean
   createdAt?: boolean
-  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   session?: boolean | Prisma.PosSessionDefaultArgs<ExtArgs>
   performedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   authorizedBy?: boolean | Prisma.PosCashMovement$authorizedByArgs<ExtArgs>
@@ -1054,7 +916,6 @@ export type PosCashMovementSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   performedByUserId?: boolean
   authorizedByUserId?: boolean
   createdAt?: boolean
-  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   session?: boolean | Prisma.PosSessionDefaultArgs<ExtArgs>
   performedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   authorizedBy?: boolean | Prisma.PosCashMovement$authorizedByArgs<ExtArgs>
@@ -1074,19 +935,16 @@ export type PosCashMovementSelectScalar = {
 
 export type PosCashMovementOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "sessionId" | "type" | "amount" | "reason" | "performedByUserId" | "authorizedByUserId" | "createdAt", ExtArgs["result"]["posCashMovement"]>
 export type PosCashMovementInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   session?: boolean | Prisma.PosSessionDefaultArgs<ExtArgs>
   performedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   authorizedBy?: boolean | Prisma.PosCashMovement$authorizedByArgs<ExtArgs>
 }
 export type PosCashMovementIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   session?: boolean | Prisma.PosSessionDefaultArgs<ExtArgs>
   performedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   authorizedBy?: boolean | Prisma.PosCashMovement$authorizedByArgs<ExtArgs>
 }
 export type PosCashMovementIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   session?: boolean | Prisma.PosSessionDefaultArgs<ExtArgs>
   performedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   authorizedBy?: boolean | Prisma.PosCashMovement$authorizedByArgs<ExtArgs>
@@ -1095,7 +953,6 @@ export type PosCashMovementIncludeUpdateManyAndReturn<ExtArgs extends runtime.Ty
 export type $PosCashMovementPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "PosCashMovement"
   objects: {
-    tenant: Prisma.$TenantPayload<ExtArgs>
     session: Prisma.$PosSessionPayload<ExtArgs>
     performedBy: Prisma.$UserPayload<ExtArgs>
     authorizedBy: Prisma.$UserPayload<ExtArgs> | null
@@ -1504,7 +1361,6 @@ readonly fields: PosCashMovementFieldRefs;
  */
 export interface Prisma__PosCashMovementClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  tenant<T extends Prisma.TenantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   session<T extends Prisma.PosSessionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PosSessionDefaultArgs<ExtArgs>>): Prisma.Prisma__PosSessionClient<runtime.Types.Result.GetResult<Prisma.$PosSessionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   performedBy<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   authorizedBy<T extends Prisma.PosCashMovement$authorizedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PosCashMovement$authorizedByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>

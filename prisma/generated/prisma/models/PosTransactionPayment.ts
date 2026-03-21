@@ -316,7 +316,6 @@ export type PosTransactionPaymentWhereInput = {
   tefTransactionId?: Prisma.StringNullableFilter<"PosTransactionPayment"> | string | null
   notes?: Prisma.StringNullableFilter<"PosTransactionPayment"> | string | null
   createdAt?: Prisma.DateTimeFilter<"PosTransactionPayment"> | Date | string
-  tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   transaction?: Prisma.XOR<Prisma.PosTransactionScalarRelationFilter, Prisma.PosTransactionWhereInput>
 }
 
@@ -337,7 +336,6 @@ export type PosTransactionPaymentOrderByWithRelationInput = {
   tefTransactionId?: Prisma.SortOrderInput | Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  tenant?: Prisma.TenantOrderByWithRelationInput
   transaction?: Prisma.PosTransactionOrderByWithRelationInput
 }
 
@@ -361,7 +359,6 @@ export type PosTransactionPaymentWhereUniqueInput = Prisma.AtLeast<{
   tefTransactionId?: Prisma.StringNullableFilter<"PosTransactionPayment"> | string | null
   notes?: Prisma.StringNullableFilter<"PosTransactionPayment"> | string | null
   createdAt?: Prisma.DateTimeFilter<"PosTransactionPayment"> | Date | string
-  tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   transaction?: Prisma.XOR<Prisma.PosTransactionScalarRelationFilter, Prisma.PosTransactionWhereInput>
 }, "id">
 
@@ -413,6 +410,7 @@ export type PosTransactionPaymentScalarWhereWithAggregatesInput = {
 
 export type PosTransactionPaymentCreateInput = {
   id?: string
+  tenantId: string
   method: $Enums.PosPaymentMethod
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   receivedAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -426,7 +424,6 @@ export type PosTransactionPaymentCreateInput = {
   tefTransactionId?: string | null
   notes?: string | null
   createdAt?: Date | string
-  tenant: Prisma.TenantCreateNestedOneWithoutPosTransactionPaymentsInput
   transaction: Prisma.PosTransactionCreateNestedOneWithoutPaymentsInput
 }
 
@@ -451,6 +448,7 @@ export type PosTransactionPaymentUncheckedCreateInput = {
 
 export type PosTransactionPaymentUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   method?: Prisma.EnumPosPaymentMethodFieldUpdateOperationsInput | $Enums.PosPaymentMethod
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   receivedAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -464,7 +462,6 @@ export type PosTransactionPaymentUpdateInput = {
   tefTransactionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  tenant?: Prisma.TenantUpdateOneRequiredWithoutPosTransactionPaymentsNestedInput
   transaction?: Prisma.PosTransactionUpdateOneRequiredWithoutPaymentsNestedInput
 }
 
@@ -508,6 +505,7 @@ export type PosTransactionPaymentCreateManyInput = {
 
 export type PosTransactionPaymentUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   method?: Prisma.EnumPosPaymentMethodFieldUpdateOperationsInput | $Enums.PosPaymentMethod
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   receivedAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -623,48 +621,6 @@ export type PosTransactionPaymentSumOrderByAggregateInput = {
   installments?: Prisma.SortOrder
 }
 
-export type PosTransactionPaymentCreateNestedManyWithoutTenantInput = {
-  create?: Prisma.XOR<Prisma.PosTransactionPaymentCreateWithoutTenantInput, Prisma.PosTransactionPaymentUncheckedCreateWithoutTenantInput> | Prisma.PosTransactionPaymentCreateWithoutTenantInput[] | Prisma.PosTransactionPaymentUncheckedCreateWithoutTenantInput[]
-  connectOrCreate?: Prisma.PosTransactionPaymentCreateOrConnectWithoutTenantInput | Prisma.PosTransactionPaymentCreateOrConnectWithoutTenantInput[]
-  createMany?: Prisma.PosTransactionPaymentCreateManyTenantInputEnvelope
-  connect?: Prisma.PosTransactionPaymentWhereUniqueInput | Prisma.PosTransactionPaymentWhereUniqueInput[]
-}
-
-export type PosTransactionPaymentUncheckedCreateNestedManyWithoutTenantInput = {
-  create?: Prisma.XOR<Prisma.PosTransactionPaymentCreateWithoutTenantInput, Prisma.PosTransactionPaymentUncheckedCreateWithoutTenantInput> | Prisma.PosTransactionPaymentCreateWithoutTenantInput[] | Prisma.PosTransactionPaymentUncheckedCreateWithoutTenantInput[]
-  connectOrCreate?: Prisma.PosTransactionPaymentCreateOrConnectWithoutTenantInput | Prisma.PosTransactionPaymentCreateOrConnectWithoutTenantInput[]
-  createMany?: Prisma.PosTransactionPaymentCreateManyTenantInputEnvelope
-  connect?: Prisma.PosTransactionPaymentWhereUniqueInput | Prisma.PosTransactionPaymentWhereUniqueInput[]
-}
-
-export type PosTransactionPaymentUpdateManyWithoutTenantNestedInput = {
-  create?: Prisma.XOR<Prisma.PosTransactionPaymentCreateWithoutTenantInput, Prisma.PosTransactionPaymentUncheckedCreateWithoutTenantInput> | Prisma.PosTransactionPaymentCreateWithoutTenantInput[] | Prisma.PosTransactionPaymentUncheckedCreateWithoutTenantInput[]
-  connectOrCreate?: Prisma.PosTransactionPaymentCreateOrConnectWithoutTenantInput | Prisma.PosTransactionPaymentCreateOrConnectWithoutTenantInput[]
-  upsert?: Prisma.PosTransactionPaymentUpsertWithWhereUniqueWithoutTenantInput | Prisma.PosTransactionPaymentUpsertWithWhereUniqueWithoutTenantInput[]
-  createMany?: Prisma.PosTransactionPaymentCreateManyTenantInputEnvelope
-  set?: Prisma.PosTransactionPaymentWhereUniqueInput | Prisma.PosTransactionPaymentWhereUniqueInput[]
-  disconnect?: Prisma.PosTransactionPaymentWhereUniqueInput | Prisma.PosTransactionPaymentWhereUniqueInput[]
-  delete?: Prisma.PosTransactionPaymentWhereUniqueInput | Prisma.PosTransactionPaymentWhereUniqueInput[]
-  connect?: Prisma.PosTransactionPaymentWhereUniqueInput | Prisma.PosTransactionPaymentWhereUniqueInput[]
-  update?: Prisma.PosTransactionPaymentUpdateWithWhereUniqueWithoutTenantInput | Prisma.PosTransactionPaymentUpdateWithWhereUniqueWithoutTenantInput[]
-  updateMany?: Prisma.PosTransactionPaymentUpdateManyWithWhereWithoutTenantInput | Prisma.PosTransactionPaymentUpdateManyWithWhereWithoutTenantInput[]
-  deleteMany?: Prisma.PosTransactionPaymentScalarWhereInput | Prisma.PosTransactionPaymentScalarWhereInput[]
-}
-
-export type PosTransactionPaymentUncheckedUpdateManyWithoutTenantNestedInput = {
-  create?: Prisma.XOR<Prisma.PosTransactionPaymentCreateWithoutTenantInput, Prisma.PosTransactionPaymentUncheckedCreateWithoutTenantInput> | Prisma.PosTransactionPaymentCreateWithoutTenantInput[] | Prisma.PosTransactionPaymentUncheckedCreateWithoutTenantInput[]
-  connectOrCreate?: Prisma.PosTransactionPaymentCreateOrConnectWithoutTenantInput | Prisma.PosTransactionPaymentCreateOrConnectWithoutTenantInput[]
-  upsert?: Prisma.PosTransactionPaymentUpsertWithWhereUniqueWithoutTenantInput | Prisma.PosTransactionPaymentUpsertWithWhereUniqueWithoutTenantInput[]
-  createMany?: Prisma.PosTransactionPaymentCreateManyTenantInputEnvelope
-  set?: Prisma.PosTransactionPaymentWhereUniqueInput | Prisma.PosTransactionPaymentWhereUniqueInput[]
-  disconnect?: Prisma.PosTransactionPaymentWhereUniqueInput | Prisma.PosTransactionPaymentWhereUniqueInput[]
-  delete?: Prisma.PosTransactionPaymentWhereUniqueInput | Prisma.PosTransactionPaymentWhereUniqueInput[]
-  connect?: Prisma.PosTransactionPaymentWhereUniqueInput | Prisma.PosTransactionPaymentWhereUniqueInput[]
-  update?: Prisma.PosTransactionPaymentUpdateWithWhereUniqueWithoutTenantInput | Prisma.PosTransactionPaymentUpdateWithWhereUniqueWithoutTenantInput[]
-  updateMany?: Prisma.PosTransactionPaymentUpdateManyWithWhereWithoutTenantInput | Prisma.PosTransactionPaymentUpdateManyWithWhereWithoutTenantInput[]
-  deleteMany?: Prisma.PosTransactionPaymentScalarWhereInput | Prisma.PosTransactionPaymentScalarWhereInput[]
-}
-
 export type PosTransactionPaymentCreateNestedManyWithoutTransactionInput = {
   create?: Prisma.XOR<Prisma.PosTransactionPaymentCreateWithoutTransactionInput, Prisma.PosTransactionPaymentUncheckedCreateWithoutTransactionInput> | Prisma.PosTransactionPaymentCreateWithoutTransactionInput[] | Prisma.PosTransactionPaymentUncheckedCreateWithoutTransactionInput[]
   connectOrCreate?: Prisma.PosTransactionPaymentCreateOrConnectWithoutTransactionInput | Prisma.PosTransactionPaymentCreateOrConnectWithoutTransactionInput[]
@@ -715,92 +671,9 @@ export type NullableEnumPosPaymentLinkStatusFieldUpdateOperationsInput = {
   set?: $Enums.PosPaymentLinkStatus | null
 }
 
-export type PosTransactionPaymentCreateWithoutTenantInput = {
-  id?: string
-  method: $Enums.PosPaymentMethod
-  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
-  receivedAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  changeAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  installments?: number
-  authCode?: string | null
-  nsu?: string | null
-  pixTxId?: string | null
-  paymentLinkUrl?: string | null
-  paymentLinkStatus?: $Enums.PosPaymentLinkStatus | null
-  tefTransactionId?: string | null
-  notes?: string | null
-  createdAt?: Date | string
-  transaction: Prisma.PosTransactionCreateNestedOneWithoutPaymentsInput
-}
-
-export type PosTransactionPaymentUncheckedCreateWithoutTenantInput = {
-  id?: string
-  transactionId: string
-  method: $Enums.PosPaymentMethod
-  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
-  receivedAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  changeAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  installments?: number
-  authCode?: string | null
-  nsu?: string | null
-  pixTxId?: string | null
-  paymentLinkUrl?: string | null
-  paymentLinkStatus?: $Enums.PosPaymentLinkStatus | null
-  tefTransactionId?: string | null
-  notes?: string | null
-  createdAt?: Date | string
-}
-
-export type PosTransactionPaymentCreateOrConnectWithoutTenantInput = {
-  where: Prisma.PosTransactionPaymentWhereUniqueInput
-  create: Prisma.XOR<Prisma.PosTransactionPaymentCreateWithoutTenantInput, Prisma.PosTransactionPaymentUncheckedCreateWithoutTenantInput>
-}
-
-export type PosTransactionPaymentCreateManyTenantInputEnvelope = {
-  data: Prisma.PosTransactionPaymentCreateManyTenantInput | Prisma.PosTransactionPaymentCreateManyTenantInput[]
-  skipDuplicates?: boolean
-}
-
-export type PosTransactionPaymentUpsertWithWhereUniqueWithoutTenantInput = {
-  where: Prisma.PosTransactionPaymentWhereUniqueInput
-  update: Prisma.XOR<Prisma.PosTransactionPaymentUpdateWithoutTenantInput, Prisma.PosTransactionPaymentUncheckedUpdateWithoutTenantInput>
-  create: Prisma.XOR<Prisma.PosTransactionPaymentCreateWithoutTenantInput, Prisma.PosTransactionPaymentUncheckedCreateWithoutTenantInput>
-}
-
-export type PosTransactionPaymentUpdateWithWhereUniqueWithoutTenantInput = {
-  where: Prisma.PosTransactionPaymentWhereUniqueInput
-  data: Prisma.XOR<Prisma.PosTransactionPaymentUpdateWithoutTenantInput, Prisma.PosTransactionPaymentUncheckedUpdateWithoutTenantInput>
-}
-
-export type PosTransactionPaymentUpdateManyWithWhereWithoutTenantInput = {
-  where: Prisma.PosTransactionPaymentScalarWhereInput
-  data: Prisma.XOR<Prisma.PosTransactionPaymentUpdateManyMutationInput, Prisma.PosTransactionPaymentUncheckedUpdateManyWithoutTenantInput>
-}
-
-export type PosTransactionPaymentScalarWhereInput = {
-  AND?: Prisma.PosTransactionPaymentScalarWhereInput | Prisma.PosTransactionPaymentScalarWhereInput[]
-  OR?: Prisma.PosTransactionPaymentScalarWhereInput[]
-  NOT?: Prisma.PosTransactionPaymentScalarWhereInput | Prisma.PosTransactionPaymentScalarWhereInput[]
-  id?: Prisma.StringFilter<"PosTransactionPayment"> | string
-  tenantId?: Prisma.StringFilter<"PosTransactionPayment"> | string
-  transactionId?: Prisma.StringFilter<"PosTransactionPayment"> | string
-  method?: Prisma.EnumPosPaymentMethodFilter<"PosTransactionPayment"> | $Enums.PosPaymentMethod
-  amount?: Prisma.DecimalFilter<"PosTransactionPayment"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  receivedAmount?: Prisma.DecimalNullableFilter<"PosTransactionPayment"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  changeAmount?: Prisma.DecimalNullableFilter<"PosTransactionPayment"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  installments?: Prisma.IntFilter<"PosTransactionPayment"> | number
-  authCode?: Prisma.StringNullableFilter<"PosTransactionPayment"> | string | null
-  nsu?: Prisma.StringNullableFilter<"PosTransactionPayment"> | string | null
-  pixTxId?: Prisma.StringNullableFilter<"PosTransactionPayment"> | string | null
-  paymentLinkUrl?: Prisma.StringNullableFilter<"PosTransactionPayment"> | string | null
-  paymentLinkStatus?: Prisma.EnumPosPaymentLinkStatusNullableFilter<"PosTransactionPayment"> | $Enums.PosPaymentLinkStatus | null
-  tefTransactionId?: Prisma.StringNullableFilter<"PosTransactionPayment"> | string | null
-  notes?: Prisma.StringNullableFilter<"PosTransactionPayment"> | string | null
-  createdAt?: Prisma.DateTimeFilter<"PosTransactionPayment"> | Date | string
-}
-
 export type PosTransactionPaymentCreateWithoutTransactionInput = {
   id?: string
+  tenantId: string
   method: $Enums.PosPaymentMethod
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   receivedAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -814,7 +687,6 @@ export type PosTransactionPaymentCreateWithoutTransactionInput = {
   tefTransactionId?: string | null
   notes?: string | null
   createdAt?: Date | string
-  tenant: Prisma.TenantCreateNestedOneWithoutPosTransactionPaymentsInput
 }
 
 export type PosTransactionPaymentUncheckedCreateWithoutTransactionInput = {
@@ -861,76 +733,26 @@ export type PosTransactionPaymentUpdateManyWithWhereWithoutTransactionInput = {
   data: Prisma.XOR<Prisma.PosTransactionPaymentUpdateManyMutationInput, Prisma.PosTransactionPaymentUncheckedUpdateManyWithoutTransactionInput>
 }
 
-export type PosTransactionPaymentCreateManyTenantInput = {
-  id?: string
-  transactionId: string
-  method: $Enums.PosPaymentMethod
-  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
-  receivedAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  changeAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  installments?: number
-  authCode?: string | null
-  nsu?: string | null
-  pixTxId?: string | null
-  paymentLinkUrl?: string | null
-  paymentLinkStatus?: $Enums.PosPaymentLinkStatus | null
-  tefTransactionId?: string | null
-  notes?: string | null
-  createdAt?: Date | string
-}
-
-export type PosTransactionPaymentUpdateWithoutTenantInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  method?: Prisma.EnumPosPaymentMethodFieldUpdateOperationsInput | $Enums.PosPaymentMethod
-  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  receivedAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  changeAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  installments?: Prisma.IntFieldUpdateOperationsInput | number
-  authCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nsu?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pixTxId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  paymentLinkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  paymentLinkStatus?: Prisma.NullableEnumPosPaymentLinkStatusFieldUpdateOperationsInput | $Enums.PosPaymentLinkStatus | null
-  tefTransactionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  transaction?: Prisma.PosTransactionUpdateOneRequiredWithoutPaymentsNestedInput
-}
-
-export type PosTransactionPaymentUncheckedUpdateWithoutTenantInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  transactionId?: Prisma.StringFieldUpdateOperationsInput | string
-  method?: Prisma.EnumPosPaymentMethodFieldUpdateOperationsInput | $Enums.PosPaymentMethod
-  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  receivedAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  changeAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  installments?: Prisma.IntFieldUpdateOperationsInput | number
-  authCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nsu?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pixTxId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  paymentLinkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  paymentLinkStatus?: Prisma.NullableEnumPosPaymentLinkStatusFieldUpdateOperationsInput | $Enums.PosPaymentLinkStatus | null
-  tefTransactionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type PosTransactionPaymentUncheckedUpdateManyWithoutTenantInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  transactionId?: Prisma.StringFieldUpdateOperationsInput | string
-  method?: Prisma.EnumPosPaymentMethodFieldUpdateOperationsInput | $Enums.PosPaymentMethod
-  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  receivedAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  changeAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  installments?: Prisma.IntFieldUpdateOperationsInput | number
-  authCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nsu?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pixTxId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  paymentLinkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  paymentLinkStatus?: Prisma.NullableEnumPosPaymentLinkStatusFieldUpdateOperationsInput | $Enums.PosPaymentLinkStatus | null
-  tefTransactionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+export type PosTransactionPaymentScalarWhereInput = {
+  AND?: Prisma.PosTransactionPaymentScalarWhereInput | Prisma.PosTransactionPaymentScalarWhereInput[]
+  OR?: Prisma.PosTransactionPaymentScalarWhereInput[]
+  NOT?: Prisma.PosTransactionPaymentScalarWhereInput | Prisma.PosTransactionPaymentScalarWhereInput[]
+  id?: Prisma.StringFilter<"PosTransactionPayment"> | string
+  tenantId?: Prisma.StringFilter<"PosTransactionPayment"> | string
+  transactionId?: Prisma.StringFilter<"PosTransactionPayment"> | string
+  method?: Prisma.EnumPosPaymentMethodFilter<"PosTransactionPayment"> | $Enums.PosPaymentMethod
+  amount?: Prisma.DecimalFilter<"PosTransactionPayment"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  receivedAmount?: Prisma.DecimalNullableFilter<"PosTransactionPayment"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  changeAmount?: Prisma.DecimalNullableFilter<"PosTransactionPayment"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  installments?: Prisma.IntFilter<"PosTransactionPayment"> | number
+  authCode?: Prisma.StringNullableFilter<"PosTransactionPayment"> | string | null
+  nsu?: Prisma.StringNullableFilter<"PosTransactionPayment"> | string | null
+  pixTxId?: Prisma.StringNullableFilter<"PosTransactionPayment"> | string | null
+  paymentLinkUrl?: Prisma.StringNullableFilter<"PosTransactionPayment"> | string | null
+  paymentLinkStatus?: Prisma.EnumPosPaymentLinkStatusNullableFilter<"PosTransactionPayment"> | $Enums.PosPaymentLinkStatus | null
+  tefTransactionId?: Prisma.StringNullableFilter<"PosTransactionPayment"> | string | null
+  notes?: Prisma.StringNullableFilter<"PosTransactionPayment"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"PosTransactionPayment"> | Date | string
 }
 
 export type PosTransactionPaymentCreateManyTransactionInput = {
@@ -953,6 +775,7 @@ export type PosTransactionPaymentCreateManyTransactionInput = {
 
 export type PosTransactionPaymentUpdateWithoutTransactionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   method?: Prisma.EnumPosPaymentMethodFieldUpdateOperationsInput | $Enums.PosPaymentMethod
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   receivedAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -966,7 +789,6 @@ export type PosTransactionPaymentUpdateWithoutTransactionInput = {
   tefTransactionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  tenant?: Prisma.TenantUpdateOneRequiredWithoutPosTransactionPaymentsNestedInput
 }
 
 export type PosTransactionPaymentUncheckedUpdateWithoutTransactionInput = {
@@ -1024,7 +846,6 @@ export type PosTransactionPaymentSelect<ExtArgs extends runtime.Types.Extensions
   tefTransactionId?: boolean
   notes?: boolean
   createdAt?: boolean
-  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   transaction?: boolean | Prisma.PosTransactionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["posTransactionPayment"]>
 
@@ -1045,7 +866,6 @@ export type PosTransactionPaymentSelectCreateManyAndReturn<ExtArgs extends runti
   tefTransactionId?: boolean
   notes?: boolean
   createdAt?: boolean
-  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   transaction?: boolean | Prisma.PosTransactionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["posTransactionPayment"]>
 
@@ -1066,7 +886,6 @@ export type PosTransactionPaymentSelectUpdateManyAndReturn<ExtArgs extends runti
   tefTransactionId?: boolean
   notes?: boolean
   createdAt?: boolean
-  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   transaction?: boolean | Prisma.PosTransactionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["posTransactionPayment"]>
 
@@ -1091,22 +910,18 @@ export type PosTransactionPaymentSelectScalar = {
 
 export type PosTransactionPaymentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "transactionId" | "method" | "amount" | "receivedAmount" | "changeAmount" | "installments" | "authCode" | "nsu" | "pixTxId" | "paymentLinkUrl" | "paymentLinkStatus" | "tefTransactionId" | "notes" | "createdAt", ExtArgs["result"]["posTransactionPayment"]>
 export type PosTransactionPaymentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   transaction?: boolean | Prisma.PosTransactionDefaultArgs<ExtArgs>
 }
 export type PosTransactionPaymentIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   transaction?: boolean | Prisma.PosTransactionDefaultArgs<ExtArgs>
 }
 export type PosTransactionPaymentIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   transaction?: boolean | Prisma.PosTransactionDefaultArgs<ExtArgs>
 }
 
 export type $PosTransactionPaymentPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "PosTransactionPayment"
   objects: {
-    tenant: Prisma.$TenantPayload<ExtArgs>
     transaction: Prisma.$PosTransactionPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1520,7 +1335,6 @@ readonly fields: PosTransactionPaymentFieldRefs;
  */
 export interface Prisma__PosTransactionPaymentClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  tenant<T extends Prisma.TenantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   transaction<T extends Prisma.PosTransactionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PosTransactionDefaultArgs<ExtArgs>>): Prisma.Prisma__PosTransactionClient<runtime.Types.Result.GetResult<Prisma.$PosTransactionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
