@@ -354,6 +354,49 @@ export const PermissionCodes = {
       REGISTER: 'sales.customer-portal.register' as const,
       REMOVE: 'sales.customer-portal.remove' as const,
     },
+    BIDS: {
+      ACCESS: 'sales.bids.access' as const,
+      REGISTER: 'sales.bids.register' as const,
+      MODIFY: 'sales.bids.modify' as const,
+      REMOVE: 'sales.bids.remove' as const,
+      ADMIN: 'sales.bids.admin' as const,
+    },
+    BID_DOCUMENTS: {
+      ACCESS: 'sales.bid-documents.access' as const,
+      REGISTER: 'sales.bid-documents.register' as const,
+      MODIFY: 'sales.bid-documents.modify' as const,
+      REMOVE: 'sales.bid-documents.remove' as const,
+    },
+    BID_CONTRACTS: {
+      ACCESS: 'sales.bid-contracts.access' as const,
+      REGISTER: 'sales.bid-contracts.register' as const,
+      MODIFY: 'sales.bid-contracts.modify' as const,
+      REMOVE: 'sales.bid-contracts.remove' as const,
+    },
+    BID_EMPENHOS: {
+      ACCESS: 'sales.bid-empenhos.access' as const,
+      REGISTER: 'sales.bid-empenhos.register' as const,
+      MODIFY: 'sales.bid-empenhos.modify' as const,
+    },
+    MARKETPLACE_CONNECTIONS: {
+      ACCESS: 'sales.marketplace-connections.access' as const,
+      REGISTER: 'sales.marketplace-connections.register' as const,
+      MODIFY: 'sales.marketplace-connections.modify' as const,
+      REMOVE: 'sales.marketplace-connections.remove' as const,
+    },
+    MARKETPLACE_LISTINGS: {
+      ACCESS: 'sales.marketplace-listings.access' as const,
+      REGISTER: 'sales.marketplace-listings.register' as const,
+      MODIFY: 'sales.marketplace-listings.modify' as const,
+      REMOVE: 'sales.marketplace-listings.remove' as const,
+    },
+    MARKETPLACE_ORDERS: {
+      ACCESS: 'sales.marketplace-orders.access' as const,
+      MODIFY: 'sales.marketplace-orders.modify' as const,
+    },
+    MARKETPLACE_PAYMENTS: {
+      ACCESS: 'sales.marketplace-payments.access' as const,
+    },
   },
 
   // ============================================================================
