@@ -65,6 +65,19 @@ export class InMemoryProductsRepository implements ProductsRepository {
     return product ?? null;
   }
 
+  async findByFullCode(
+    fullCode: string,
+    tenantId: string,
+  ): Promise<Product | null> {
+    const product = this.items.find(
+      (item) =>
+        !item.deletedAt &&
+        item.fullCode === fullCode &&
+        item.tenantId.toString() === tenantId,
+    );
+    return product ?? null;
+  }
+
   async findByName(name: string, tenantId: string): Promise<Product | null> {
     const product = this.items.find(
       (item) =>

@@ -30,6 +30,7 @@ import { pipelineStagesRoutes } from './controllers/sales/pipeline-stages/routes
 import { pipelinesRoutes } from './controllers/sales/pipelines/routes';
 import { salesOrdersRoutes } from './controllers/sales/sales-orders/routes';
 import { variantPromotionsRoutes } from './controllers/sales/variant-promotions/routes';
+import { marketplacesRoutes } from './controllers/sales/marketplaces/routes';
 // Notifications (Workflow)
 import { notificationsRoutes } from './controllers/notifications/routes';
 
@@ -59,6 +60,8 @@ import { tagsRoutes } from './controllers/stock/tags/routes';
 import { templatesRoutes } from './controllers/stock/templates/routes';
 import { variantsRoutes } from './controllers/stock/variants/routes';
 import { volumesRoutes } from './controllers/stock/volumes/routes';
+import { inventorySessionsRoutes } from './controllers/stock/inventory-sessions/routes';
+import { lookupRoutes } from './controllers/stock/lookup/routes';
 import { locationsRoutes } from './controllers/stock/locations/routes';
 import { warehousesRoutes } from './controllers/stock/warehouses/routes';
 import { zonesRoutes } from './controllers/stock/zones/routes';
@@ -159,6 +162,8 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(zonesRoutes);
   await app.register(binsRoutes);
   await app.register(volumesRoutes);
+  await app.register(inventorySessionsRoutes);
+  await app.register(lookupRoutes);
   await app.register(labelsRoutes);
   await app.register(addressRoutes);
   await app.register(tagsRoutes);
@@ -181,6 +186,7 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(variantPromotionsRoutes);
   await app.register(itemReservationsRoutes);
   await app.register(notificationPreferencesRoutes);
+  await app.register(marketplacesRoutes);
   await app.register(notificationsRoutes);
 
   // Requests routes (Workflow)
