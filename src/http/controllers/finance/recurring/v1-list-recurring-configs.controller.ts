@@ -43,7 +43,7 @@ export async function listRecurringConfigsController(app: FastifyInstance) {
 
       reply.header('Cache-Control', 'private, max-age=60');
       return reply.status(200).send({
-        data: result.configs,
+        configs: result.configs,
         meta: {
           total: result.total,
           page: query.page,
