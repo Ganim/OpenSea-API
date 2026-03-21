@@ -667,3 +667,58 @@ export type BoardAutomation = Prisma.BoardAutomationModel
  * 
  */
 export type CardWatcher = Prisma.CardWatcherModel
+/**
+ * Model SystemSkillDefinition
+ * 
+ */
+export type SystemSkillDefinition = Prisma.SystemSkillDefinitionModel
+/**
+ * Model SkillPricing
+ * 
+ */
+export type SkillPricing = Prisma.SkillPricingModel
+/**
+ * Model TenantSubscription
+ * 
+ */
+export type TenantSubscription = Prisma.TenantSubscriptionModel
+/**
+ * Model TenantConsumption
+ * 
+ */
+export type TenantConsumption = Prisma.TenantConsumptionModel
+/**
+ * Model TenantBilling
+ * 
+ */
+export type TenantBilling = Prisma.TenantBillingModel
+/**
+ * Model TenantIntegrationStatus
+ * 
+ */
+export type TenantIntegrationStatus = Prisma.TenantIntegrationStatusModel
+/**
+ * Model CentralUser
+ * 
+ */
+export type CentralUser = Prisma.CentralUserModel
+/**
+ * Model SupportTicket
+ * 
+ */
+export type SupportTicket = Prisma.SupportTicketModel
+/**
+ * Model SupportTicketMessage
+ * 
+ */
+export type SupportTicketMessage = Prisma.SupportTicketMessageModel
+/**
+ * Model SupportTicketAttachment
+ * 
+ */
+export type SupportTicketAttachment = Prisma.SupportTicketAttachmentModel
+/**
+ * Model SupportSlaConfig
+ * 
+ */
+export type SupportSlaConfig = Prisma.SupportSlaConfigModel

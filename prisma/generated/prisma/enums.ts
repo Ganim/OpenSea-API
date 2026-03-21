@@ -891,6 +891,138 @@ export const SystemModuleEnum = {
 export type SystemModuleEnum = (typeof SystemModuleEnum)[keyof typeof SystemModuleEnum]
 
 
+export const SkillCategory = {
+  MODULE: 'MODULE',
+  CHANNEL: 'CHANNEL',
+  AI: 'AI',
+  INTEGRATION: 'INTEGRATION',
+  FEATURE: 'FEATURE'
+} as const
+
+export type SkillCategory = (typeof SkillCategory)[keyof typeof SkillCategory]
+
+
+export const PricingType = {
+  FLAT: 'FLAT',
+  PER_UNIT: 'PER_UNIT',
+  USAGE: 'USAGE'
+} as const
+
+export type PricingType = (typeof PricingType)[keyof typeof PricingType]
+
+
+export const SubscriptionStatus = {
+  ACTIVE: 'ACTIVE',
+  CANCELLED: 'CANCELLED',
+  TRIAL: 'TRIAL',
+  SUSPENDED: 'SUSPENDED'
+} as const
+
+export type SubscriptionStatus = (typeof SubscriptionStatus)[keyof typeof SubscriptionStatus]
+
+
+export const BillingStatus = {
+  PENDING: 'PENDING',
+  PAID: 'PAID',
+  OVERDUE: 'OVERDUE',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type BillingStatus = (typeof BillingStatus)[keyof typeof BillingStatus]
+
+
+export const IntegrationType = {
+  WHATSAPP: 'WHATSAPP',
+  INSTAGRAM: 'INSTAGRAM',
+  TELEGRAM: 'TELEGRAM',
+  SMS: 'SMS',
+  MARKETPLACE_ML: 'MARKETPLACE_ML',
+  MARKETPLACE_SHOPEE: 'MARKETPLACE_SHOPEE',
+  MARKETPLACE_AMAZON: 'MARKETPLACE_AMAZON',
+  BID_PORTAL: 'BID_PORTAL',
+  EMAIL_IMAP: 'EMAIL_IMAP',
+  CERTIFICATE_A1: 'CERTIFICATE_A1',
+  CERTIFICATE_CLOUD: 'CERTIFICATE_CLOUD',
+  TEF: 'TEF',
+  OLLAMA: 'OLLAMA',
+  SEFAZ: 'SEFAZ'
+} as const
+
+export type IntegrationType = (typeof IntegrationType)[keyof typeof IntegrationType]
+
+
+export const IntegrationConnectionStatus = {
+  CONNECTED: 'CONNECTED',
+  DISCONNECTED: 'DISCONNECTED',
+  ERROR: 'ERROR',
+  NOT_CONFIGURED: 'NOT_CONFIGURED'
+} as const
+
+export type IntegrationConnectionStatus = (typeof IntegrationConnectionStatus)[keyof typeof IntegrationConnectionStatus]
+
+
+export const CentralUserRole = {
+  OWNER: 'OWNER',
+  ADMIN: 'ADMIN',
+  SUPPORT: 'SUPPORT',
+  FINANCE: 'FINANCE',
+  VIEWER: 'VIEWER'
+} as const
+
+export type CentralUserRole = (typeof CentralUserRole)[keyof typeof CentralUserRole]
+
+
+export const FeatureFlagCategory = {
+  BETA: 'BETA',
+  EXPERIMENT: 'EXPERIMENT',
+  ROLLOUT: 'ROLLOUT',
+  INTERNAL: 'INTERNAL'
+} as const
+
+export type FeatureFlagCategory = (typeof FeatureFlagCategory)[keyof typeof FeatureFlagCategory]
+
+
+export const TicketCategory = {
+  BUG: 'BUG',
+  QUESTION: 'QUESTION',
+  REQUEST: 'REQUEST',
+  FINANCIAL: 'FINANCIAL',
+  OTHER: 'OTHER'
+} as const
+
+export type TicketCategory = (typeof TicketCategory)[keyof typeof TicketCategory]
+
+
+export const TicketPriority = {
+  CRITICAL: 'CRITICAL',
+  HIGH: 'HIGH',
+  MEDIUM: 'MEDIUM',
+  LOW: 'LOW'
+} as const
+
+export type TicketPriority = (typeof TicketPriority)[keyof typeof TicketPriority]
+
+
+export const TicketStatus = {
+  OPEN: 'OPEN',
+  IN_PROGRESS: 'IN_PROGRESS',
+  WAITING_CLIENT: 'WAITING_CLIENT',
+  RESOLVED: 'RESOLVED',
+  CLOSED: 'CLOSED'
+} as const
+
+export type TicketStatus = (typeof TicketStatus)[keyof typeof TicketStatus]
+
+
+export const TicketAuthorType = {
+  TENANT_USER: 'TENANT_USER',
+  CENTRAL_TEAM: 'CENTRAL_TEAM',
+  AI_ASSISTANT: 'AI_ASSISTANT'
+} as const
+
+export type TicketAuthorType = (typeof TicketAuthorType)[keyof typeof TicketAuthorType]
+
+
 export const TeamMemberRole = {
   OWNER: 'OWNER',
   ADMIN: 'ADMIN',

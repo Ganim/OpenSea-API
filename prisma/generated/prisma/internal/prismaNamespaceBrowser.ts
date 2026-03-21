@@ -180,7 +180,18 @@ export const ModelName = {
   ChecklistItem: 'ChecklistItem',
   CardActivity: 'CardActivity',
   BoardAutomation: 'BoardAutomation',
-  CardWatcher: 'CardWatcher'
+  CardWatcher: 'CardWatcher',
+  SystemSkillDefinition: 'SystemSkillDefinition',
+  SkillPricing: 'SkillPricing',
+  TenantSubscription: 'TenantSubscription',
+  TenantConsumption: 'TenantConsumption',
+  TenantBilling: 'TenantBilling',
+  TenantIntegrationStatus: 'TenantIntegrationStatus',
+  CentralUser: 'CentralUser',
+  SupportTicket: 'SupportTicket',
+  SupportTicketMessage: 'SupportTicketMessage',
+  SupportTicketAttachment: 'SupportTicketAttachment',
+  SupportSlaConfig: 'SupportSlaConfig'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1812,6 +1823,10 @@ export const TenantFeatureFlagScalarFieldEnum = {
   tenantId: 'tenantId',
   flag: 'flag',
   enabled: 'enabled',
+  category: 'category',
+  expiresAt: 'expiresAt',
+  enabledByUserId: 'enabledByUserId',
+  notes: 'notes',
   metadata: 'metadata',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -2759,6 +2774,171 @@ export const CardWatcherScalarFieldEnum = {
 } as const
 
 export type CardWatcherScalarFieldEnum = (typeof CardWatcherScalarFieldEnum)[keyof typeof CardWatcherScalarFieldEnum]
+
+
+export const SystemSkillDefinitionScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  name: 'name',
+  description: 'description',
+  module: 'module',
+  parentSkillCode: 'parentSkillCode',
+  category: 'category',
+  isCore: 'isCore',
+  isVisible: 'isVisible',
+  iconUrl: 'iconUrl',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SystemSkillDefinitionScalarFieldEnum = (typeof SystemSkillDefinitionScalarFieldEnum)[keyof typeof SystemSkillDefinitionScalarFieldEnum]
+
+
+export const SkillPricingScalarFieldEnum = {
+  id: 'id',
+  skillCode: 'skillCode',
+  pricingType: 'pricingType',
+  flatPrice: 'flatPrice',
+  unitPrice: 'unitPrice',
+  freeQuota: 'freeQuota',
+  usageMetric: 'usageMetric',
+  tiers: 'tiers',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SkillPricingScalarFieldEnum = (typeof SkillPricingScalarFieldEnum)[keyof typeof SkillPricingScalarFieldEnum]
+
+
+export const TenantSubscriptionScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  skillCode: 'skillCode',
+  status: 'status',
+  quantity: 'quantity',
+  startsAt: 'startsAt',
+  expiresAt: 'expiresAt',
+  cancelledAt: 'cancelledAt',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TenantSubscriptionScalarFieldEnum = (typeof TenantSubscriptionScalarFieldEnum)[keyof typeof TenantSubscriptionScalarFieldEnum]
+
+
+export const TenantConsumptionScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  period: 'period',
+  metric: 'metric',
+  quantity: 'quantity',
+  limit: 'limit',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TenantConsumptionScalarFieldEnum = (typeof TenantConsumptionScalarFieldEnum)[keyof typeof TenantConsumptionScalarFieldEnum]
+
+
+export const TenantBillingScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  referenceMonth: 'referenceMonth',
+  totalAmount: 'totalAmount',
+  status: 'status',
+  dueDate: 'dueDate',
+  paidAt: 'paidAt',
+  lineItems: 'lineItems',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TenantBillingScalarFieldEnum = (typeof TenantBillingScalarFieldEnum)[keyof typeof TenantBillingScalarFieldEnum]
+
+
+export const TenantIntegrationStatusScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  integrationType: 'integrationType',
+  connectionStatus: 'connectionStatus',
+  lastSyncAt: 'lastSyncAt',
+  errorMessage: 'errorMessage',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TenantIntegrationStatusScalarFieldEnum = (typeof TenantIntegrationStatusScalarFieldEnum)[keyof typeof TenantIntegrationStatusScalarFieldEnum]
+
+
+export const CentralUserScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  role: 'role',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CentralUserScalarFieldEnum = (typeof CentralUserScalarFieldEnum)[keyof typeof CentralUserScalarFieldEnum]
+
+
+export const SupportTicketScalarFieldEnum = {
+  id: 'id',
+  ticketNumber: 'ticketNumber',
+  tenantId: 'tenantId',
+  creatorId: 'creatorId',
+  assigneeId: 'assigneeId',
+  title: 'title',
+  category: 'category',
+  priority: 'priority',
+  status: 'status',
+  resolvedAt: 'resolvedAt',
+  closedAt: 'closedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SupportTicketScalarFieldEnum = (typeof SupportTicketScalarFieldEnum)[keyof typeof SupportTicketScalarFieldEnum]
+
+
+export const SupportTicketMessageScalarFieldEnum = {
+  id: 'id',
+  ticketId: 'ticketId',
+  authorId: 'authorId',
+  authorType: 'authorType',
+  body: 'body',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SupportTicketMessageScalarFieldEnum = (typeof SupportTicketMessageScalarFieldEnum)[keyof typeof SupportTicketMessageScalarFieldEnum]
+
+
+export const SupportTicketAttachmentScalarFieldEnum = {
+  id: 'id',
+  ticketId: 'ticketId',
+  fileName: 'fileName',
+  fileUrl: 'fileUrl',
+  fileSize: 'fileSize',
+  mimeType: 'mimeType',
+  createdAt: 'createdAt'
+} as const
+
+export type SupportTicketAttachmentScalarFieldEnum = (typeof SupportTicketAttachmentScalarFieldEnum)[keyof typeof SupportTicketAttachmentScalarFieldEnum]
+
+
+export const SupportSlaConfigScalarFieldEnum = {
+  id: 'id',
+  priority: 'priority',
+  firstResponseMinutes: 'firstResponseMinutes',
+  resolutionMinutes: 'resolutionMinutes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SupportSlaConfigScalarFieldEnum = (typeof SupportSlaConfigScalarFieldEnum)[keyof typeof SupportSlaConfigScalarFieldEnum]
 
 
 export const SortOrder = {
