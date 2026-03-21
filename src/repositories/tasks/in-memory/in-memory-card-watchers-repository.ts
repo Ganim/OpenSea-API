@@ -1,5 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import type {
+  AddMemberSchema,
   CardWatcherRecord,
   CardWatchersRepository,
   CreateCardWatcherSchema,
@@ -14,6 +15,7 @@ export class InMemoryCardWatchersRepository implements CardWatchersRepository {
       cardId: data.cardId,
       userId: data.userId,
       boardId: data.boardId,
+      role: 'WATCHER',
       createdAt: new Date(),
     };
 
@@ -37,6 +39,41 @@ export class InMemoryCardWatchersRepository implements CardWatchersRepository {
   }
 
   async delete(cardId: string, userId: string): Promise<void> {
+    this.items = this.items.filter(
+      (w) => !(w.cardId === cardId && w.userId === userId),
+    );
+  }
+
+  async findMembersByCardId(cardId: string): Promise<CardWatcherRecord[]> {
+    return this.items
+      .filter((w) => w.cardId === cardId && w.role === 'MEMBER')
+      .sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime());
+  }
+
+  async addMember(data: AddMemberSchema): Promise<CardWatcherRecord> {
+    const existing = this.items.find(
+      (w) => w.cardId === data.cardId && w.userId === data.userId,
+    );
+
+    if (existing) {
+      existing.role = 'MEMBER';
+      return existing;
+    }
+
+    const watcher: CardWatcherRecord = {
+      id: randomUUID(),
+      cardId: data.cardId,
+      userId: data.userId,
+      boardId: 'board-id',
+      role: 'MEMBER',
+      createdAt: new Date(),
+    };
+
+    this.items.push(watcher);
+    return watcher;
+  }
+
+  async removeMember(cardId: string, userId: string): Promise<void> {
     this.items = this.items.filter(
       (w) => !(w.cardId === cardId && w.userId === userId),
     );
