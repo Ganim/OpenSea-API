@@ -72,9 +72,9 @@ export class PrismaContactsRepository implements ContactsRepository {
         source: data.source ?? 'MANUAL',
         lastInteractionAt: data.lastInteractionAt,
         lastChannelUsed: data.lastChannelUsed,
-        socialProfiles: data.socialProfiles ?? undefined,
+        socialProfiles: (data.socialProfiles ?? undefined) as any,
         tags: data.tags ?? [],
-        customFields: data.customFields ?? undefined,
+        customFields: (data.customFields ?? undefined) as any,
         avatarUrl: data.avatarUrl,
         assignedToUserId: data.assignedToUserId,
         isMainContact: data.isMainContact ?? false,
@@ -130,7 +130,7 @@ export class PrismaContactsRepository implements ContactsRepository {
 
     const [contactsData, total] = await Promise.all([
       prisma.crmContact.findMany({
-        where: where as Parameters<typeof prisma.crmContact.findMany>[0]['where'],
+        where: where as any,
         skip: (params.page - 1) * params.limit,
         take: params.limit,
         orderBy: {
@@ -138,7 +138,7 @@ export class PrismaContactsRepository implements ContactsRepository {
         },
       }),
       prisma.crmContact.count({
-        where: where as Parameters<typeof prisma.crmContact.count>[0]['where'],
+        where: where as any,
       }),
     ]);
 

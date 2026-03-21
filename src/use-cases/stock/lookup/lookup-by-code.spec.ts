@@ -85,7 +85,7 @@ describe('LookupByCodeUseCase', () => {
     });
 
     expect(result.entityType).toBe('VARIANT');
-    expect(result.entity.fullCode).toBe(variantFullCode);
+    expect((result.entity as any).fullCode).toBe(variantFullCode);
   });
 
   it('should find a product by fullCode pattern', async () => {
@@ -108,7 +108,7 @@ describe('LookupByCodeUseCase', () => {
     });
 
     expect(result.entityType).toBe('PRODUCT');
-    expect(result.entity.fullCode).toBe(productFullCode);
+    expect((result.entity as any).fullCode).toBe(productFullCode);
   });
 
   it('should find a bin by address pattern', async () => {

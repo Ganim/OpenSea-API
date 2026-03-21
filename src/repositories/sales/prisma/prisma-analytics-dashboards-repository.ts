@@ -39,7 +39,7 @@ export class PrismaAnalyticsDashboardsRepository implements AnalyticsDashboardsR
         isSystem: data.isSystem ?? false,
         role: data.role as DashboardRole | undefined,
         visibility: (data.visibility as DashboardVisibility) ?? 'PRIVATE',
-        layout: data.layout ?? undefined,
+        layout: (data.layout ?? undefined) as any,
         createdByUserId: data.createdByUserId,
       },
     });

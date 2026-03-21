@@ -63,35 +63,46 @@ export async function getProductRankingController(app: FastifyInstance) {
             deletedAt: null,
           },
         },
-        _sum: { totalPrice: true, quantity: true },
-        _count: { id: true },
-        orderBy: { _sum: { totalPrice: 'desc' } },
+        _sum: { subtotal: true, quantity: true },
+        _count: { _all: true },
+        orderBy: { _sum: { subtotal: 'desc' } },
         take: limit,
       });
 
       // Enrich with variant/product names
-      const variantIds = rankings.map((r) => r.variantId);
+      const variantIds = rankings
+        .map((r) => r.variantId)
+        .filter((id): id is string => id !== null);
 
       const variants = variantIds.length > 0
         ? await prisma.variant.findMany({
             where: { id: { in: variantIds } },
-            include: { product: { select: { name: true } } },
+            select: { id: true, sku: true, productId: true },
           })
         : [];
 
+      const productIds = [...new Set(variants.map((v) => v.productId))];
+      const products = productIds.length > 0
+        ? await prisma.product.findMany({
+            where: { id: { in: productIds } },
+            select: { id: true, name: true },
+          })
+        : [];
+
+      const productMap = new Map(products.map((p) => [p.id, p.name]));
       const variantMap = new Map(variants.map((v) => [
         v.id,
-        { name: v.product.name, sku: v.sku },
+        { name: productMap.get(v.productId) ?? 'Desconhecido', sku: v.sku },
       ]));
 
       const enrichedRankings = rankings.map((r, index) => ({
         rank: index + 1,
         variantId: r.variantId,
-        productName: variantMap.get(r.variantId)?.name ?? 'Desconhecido',
-        sku: variantMap.get(r.variantId)?.sku ?? '',
-        totalRevenue: Number(r._sum.totalPrice ?? 0),
-        totalQuantity: Number(r._sum.quantity ?? 0),
-        orderCount: r._count.id,
+        productName: r.variantId ? (variantMap.get(r.variantId)?.name ?? 'Desconhecido') : 'Desconhecido',
+        sku: r.variantId ? (variantMap.get(r.variantId)?.sku ?? '') : '',
+        totalRevenue: Number(r._sum?.subtotal ?? 0),
+        totalQuantity: Number(r._sum?.quantity ?? 0),
+        orderCount: r._count?._all ?? 0,
       }));
 
       return reply.status(200).send({

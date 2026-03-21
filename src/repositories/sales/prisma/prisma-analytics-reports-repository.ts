@@ -49,7 +49,7 @@ export class PrismaAnalyticsReportsRepository implements AnalyticsReportsReposit
         tenantId: data.tenantId,
         name: data.name,
         type: data.type as ReportType,
-        config: data.config ?? {},
+        config: (data.config ?? {}) as any,
         format: data.format as ReportFormat,
         dashboardId: data.dashboardId,
         isScheduled: data.isScheduled ?? false,

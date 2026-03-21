@@ -37,4 +37,4 @@ export const paymentStatusEnum = z.enum([
   'REFUNDED',
 ]);
 
-export const deliveryMethodEnum = z.enum(['PICKUP', 'DELIVERY', 'SHIPPING']);
+// deliveryMethodEnum is defined in orders/order.schema.ts with the full enum values

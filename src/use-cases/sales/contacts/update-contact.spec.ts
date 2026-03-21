@@ -2,6 +2,8 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Contact } from '@/entities/sales/contact';
+import { ContactRole } from '@/entities/sales/value-objects/contact-role';
+import { LifecycleStage } from '@/entities/sales/value-objects/lifecycle-stage';
 import { InMemoryContactsRepository } from '@/repositories/sales/in-memory/in-memory-contacts-repository';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { UpdateContactUseCase } from './update-contact';
@@ -22,6 +24,9 @@ describe('Update Contact Use Case', () => {
       tenantId: new UniqueEntityID(TENANT_ID),
       customerId: new UniqueEntityID('cust-1'),
       firstName: 'Maria',
+      role: ContactRole.create('DECISION_MAKER'),
+      source: 'MANUAL',
+      lifecycleStage: LifecycleStage.create('LEAD'),
     });
     contactsRepository.items.push(contact);
 
@@ -49,6 +54,9 @@ describe('Update Contact Use Case', () => {
       tenantId: new UniqueEntityID(TENANT_ID),
       customerId: new UniqueEntityID('cust-1'),
       firstName: 'Maria',
+      role: ContactRole.create('DECISION_MAKER'),
+      source: 'MANUAL',
+      lifecycleStage: LifecycleStage.create('LEAD'),
     });
     contactsRepository.items.push(contact);
 

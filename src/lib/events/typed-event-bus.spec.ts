@@ -36,7 +36,7 @@ function makeConsumer(
     subscribesTo: ['test.entity.created'],
     handle: vi.fn().mockResolvedValue(undefined),
     ...overrides,
-  };
+  } as EventConsumer & { handle: ReturnType<typeof vi.fn> };
 }
 
 describe('TypedEventBus', () => {

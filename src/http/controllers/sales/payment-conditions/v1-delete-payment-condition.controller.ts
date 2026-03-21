@@ -39,7 +39,7 @@ export async function v1DeletePaymentConditionController(
         const useCase = makeDeletePaymentConditionUseCase();
         await useCase.execute({ id, tenantId });
 
-        return reply.status(204).send();
+        return reply.status(204).send(null);
       } catch (err) {
         if (err instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: err.message });

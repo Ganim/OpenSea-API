@@ -229,9 +229,10 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(contactsRoutes);
   await app.register(pipelinesRoutes);
   await app.register(pipelineStagesRoutes);
-  await app.register(dealsRoutes);
-  await app.register(activitiesRoutes);
-  await app.register(timelineRoutes);
+  // TODO: CRM routes not yet implemented (deals, activities, timeline)
+  // await app.register(dealsRoutes);
+  // await app.register(activitiesRoutes);
+  // await app.register(timelineRoutes);
   await app.register(salesOrdersRoutes);
   await app.register(ordersRoutes);
   await app.register(paymentConditionsRoutes);

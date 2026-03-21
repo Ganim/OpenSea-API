@@ -30,7 +30,7 @@ export async function createReportController(app: FastifyInstance) {
           'CUSTOMER_ANALYSIS', 'BID_REPORT', 'MARKETPLACE_REPORT', 'CASHIER_REPORT',
           'GOAL_PROGRESS', 'CURVA_ABC', 'CUSTOM',
         ]),
-        config: z.record(z.unknown()).optional(),
+        config: z.record(z.string(), z.unknown()).optional(),
         format: z.enum(['PDF', 'EXCEL', 'CSV']),
         dashboardId: z.string().uuid().optional(),
         isScheduled: z.boolean().optional(),

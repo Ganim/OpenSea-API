@@ -38,7 +38,7 @@ export async function deleteGoalController(app: FastifyInstance) {
       try {
         const useCase = makeDeleteGoalUseCase();
         await useCase.execute({ id, tenantId });
-        return reply.status(204).send();
+        return reply.status(204).send(null);
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: 'Goal not found.' });

@@ -48,7 +48,7 @@ export async function removeCatalogItemController(app: FastifyInstance) {
         placeholders: { userName: userId, catalogName: id },
       });
 
-      return reply.status(204).send();
+      return reply.status(204).send(null);
     },
   });
 }

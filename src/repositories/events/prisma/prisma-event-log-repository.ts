@@ -1,4 +1,5 @@
-import type { PrismaClient } from '@prisma/generated';
+// EventLog model not yet in Prisma schema — using `any` for prisma client
+type PrismaClient = any;
 
 import type {
   EventLogCreateInput,

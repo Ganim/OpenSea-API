@@ -41,11 +41,15 @@ export async function updateCatalogController(app: FastifyInstance) {
       const body = request.body;
 
       const useCase = makeUpdateCatalogUseCase();
+      // Convert null values from Zod nullable() to undefined for the use case
+      const sanitized = Object.fromEntries(
+        Object.entries(body).map(([k, v]) => [k, v === null ? undefined : v]),
+      );
       const { catalog } = await useCase.execute({
         catalogId: id,
         tenantId,
-        ...body,
-      });
+        ...sanitized,
+      } as Parameters<typeof useCase.execute>[0]);
 
       await logAudit(request, {
         message: AUDIT_MESSAGES.SALES.CATALOG_UPDATE,

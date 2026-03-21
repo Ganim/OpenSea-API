@@ -38,7 +38,7 @@ export class PrismaPipelineStagesRepository
         position: stage.position,
         type: stage.type as PrismaStageType,
         probability: stage.probability,
-        autoActions: stage.autoActions ?? undefined,
+        autoActions: (stage.autoActions ?? undefined) as any,
         rottenAfterDays: stage.rottenAfterDays,
         createdAt: stage.createdAt,
       },
@@ -77,7 +77,7 @@ export class PrismaPipelineStagesRepository
         position: stage.position,
         type: stage.type as PrismaStageType,
         probability: stage.probability,
-        autoActions: stage.autoActions ?? undefined,
+        autoActions: (stage.autoActions ?? undefined) as any,
         rottenAfterDays: stage.rottenAfterDays,
       },
     });

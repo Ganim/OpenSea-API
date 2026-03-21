@@ -38,8 +38,8 @@ export class InMemoryGeneratedContentsRepository implements GeneratedContentsRep
       const s = params.search.toLowerCase();
       filtered = filtered.filter(
         (c) =>
-          c.title.toLowerCase().includes(s) ||
-          c.content.toLowerCase().includes(s),
+          (c.title?.toLowerCase().includes(s) ?? false) ||
+          (c.caption?.toLowerCase().includes(s) ?? false),
       );
     }
 
@@ -53,7 +53,7 @@ export class InMemoryGeneratedContentsRepository implements GeneratedContentsRep
 
     if (params.productId) {
       filtered = filtered.filter(
-        (c) => c.productId?.toString() === params.productId,
+        (c) => c.variantIds?.includes(params.productId!),
       );
     }
 

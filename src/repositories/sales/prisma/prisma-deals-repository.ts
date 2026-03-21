@@ -7,14 +7,13 @@ import type {
   DealsRepository,
   FindManyDealsPaginatedParams,
 } from '../deals-repository';
-import type {
-  DealStatus as PrismaDealStatus,
-  DealPriority as PrismaDealPriority,
-} from '@prisma/generated/client.js';
+// TODO: CrmDeal model not yet in Prisma schema — using `any` casts until migration is added
+type PrismaDealStatus = string;
+type PrismaDealPriority = string;
 
 export class PrismaDealsRepository implements DealsRepository {
   async create(deal: Deal): Promise<void> {
-    await prisma.crmDeal.create({
+    await (prisma as any).crmDeal.create({
       data: {
         id: deal.id.toString(),
         tenantId: deal.tenantId.toString(),
@@ -44,7 +43,7 @@ export class PrismaDealsRepository implements DealsRepository {
     id: UniqueEntityID,
     tenantId: string,
   ): Promise<Deal | null> {
-    const data = await prisma.crmDeal.findFirst({
+    const data = await (prisma as any).crmDeal.findFirst({
       where: {
         id: id.toString(),
         tenantId,
@@ -87,7 +86,7 @@ export class PrismaDealsRepository implements DealsRepository {
     }
 
     const [dealsData, total] = await Promise.all([
-      prisma.crmDeal.findMany({
+      (prisma as any).crmDeal.findMany({
         where: where as never,
         skip: (params.page - 1) * params.limit,
         take: params.limit,
@@ -95,13 +94,13 @@ export class PrismaDealsRepository implements DealsRepository {
           [params.sortBy ?? 'createdAt']: params.sortOrder ?? 'desc',
         },
       }),
-      prisma.crmDeal.count({
+      (prisma as any).crmDeal.count({
         where: where as never,
       }),
     ]);
 
     return {
-      data: dealsData.map((d) =>
+      data: dealsData.map((d: any) =>
         dealPrismaToDomain(d as unknown as Record<string, unknown>),
       ),
       total,
@@ -115,7 +114,7 @@ export class PrismaDealsRepository implements DealsRepository {
     stageId: string,
     tenantId: string,
   ): Promise<Deal[]> {
-    const items = await prisma.crmDeal.findMany({
+    const items = await (prisma as any).crmDeal.findMany({
       where: {
         stageId,
         tenantId,
@@ -124,13 +123,13 @@ export class PrismaDealsRepository implements DealsRepository {
       orderBy: { position: 'asc' },
     });
 
-    return items.map((d) =>
+    return items.map((d: any) =>
       dealPrismaToDomain(d as unknown as Record<string, unknown>),
     );
   }
 
   async save(deal: Deal): Promise<void> {
-    await prisma.crmDeal.update({
+    await (prisma as any).crmDeal.update({
       where: { id: deal.id.toString() },
       data: {
         title: deal.title,
@@ -152,7 +151,7 @@ export class PrismaDealsRepository implements DealsRepository {
   }
 
   async delete(id: UniqueEntityID, _tenantId: string): Promise<void> {
-    await prisma.crmDeal.update({
+    await (prisma as any).crmDeal.update({
       where: { id: id.toString() },
       data: { deletedAt: new Date() },
     });

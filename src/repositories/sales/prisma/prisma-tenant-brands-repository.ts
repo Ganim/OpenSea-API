@@ -46,8 +46,8 @@ export class PrismaTenantBrandsRepository implements TenantBrandsRepository {
         fontFamily: brand.fontFamily,
         fontHeading: brand.fontHeading,
         tagline: brand.tagline,
-        socialLinks: brand.socialLinks ?? undefined,
-        contactInfo: brand.contactInfo ?? undefined,
+        socialLinks: (brand.socialLinks ?? undefined) as any,
+        contactInfo: (brand.contactInfo ?? undefined) as any,
         isDefault: brand.isDefault,
         createdAt: brand.createdAt,
       },
@@ -96,8 +96,8 @@ export class PrismaTenantBrandsRepository implements TenantBrandsRepository {
         fontFamily: brand.fontFamily,
         fontHeading: brand.fontHeading,
         tagline: brand.tagline,
-        socialLinks: brand.socialLinks ?? undefined,
-        contactInfo: brand.contactInfo ?? undefined,
+        socialLinks: (brand.socialLinks ?? undefined) as any,
+        contactInfo: (brand.contactInfo ?? undefined) as any,
       },
     });
   }

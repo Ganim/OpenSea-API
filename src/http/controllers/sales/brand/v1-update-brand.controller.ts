@@ -39,10 +39,14 @@ export async function updateBrandController(app: FastifyInstance) {
       const body = request.body;
 
       const useCase = makeUpdateTenantBrandUseCase();
+      // Convert null values from Zod nullable() to undefined for the use case
+      const sanitized = Object.fromEntries(
+        Object.entries(body).map(([k, v]) => [k, v === null ? undefined : v]),
+      );
       const { brand } = await useCase.execute({
         tenantId,
-        ...body,
-      });
+        ...sanitized,
+      } as Parameters<typeof useCase.execute>[0]);
 
       await logAudit(request, {
         message: AUDIT_MESSAGES.SALES.BRAND_UPDATE,

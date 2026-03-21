@@ -58,12 +58,11 @@ export async function getCustomerRankingController(app: FastifyInstance) {
         where: {
           tenantId,
           createdAt: { gte: startDate },
-          customerId: { not: null },
           deletedAt: null,
         },
-        _sum: { totalPrice: true },
-        _count: { id: true },
-        orderBy: { _sum: { totalPrice: 'desc' } },
+        _sum: { grandTotal: true },
+        _count: { _all: true },
+        orderBy: { _sum: { grandTotal: 'desc' } },
         take: limit,
       });
 
@@ -83,9 +82,9 @@ export async function getCustomerRankingController(app: FastifyInstance) {
       const enrichedRankings = rankings.map((r, index) => ({
         rank: index + 1,
         customerId: r.customerId,
-        name: customerMap.get(r.customerId!) ?? 'Desconhecido',
-        totalRevenue: Number(r._sum.totalPrice ?? 0),
-        orderCount: r._count.id,
+        name: customerMap.get(r.customerId) ?? 'Desconhecido',
+        totalRevenue: Number(r._sum?.grandTotal ?? 0),
+        orderCount: r._count?._all ?? 0,
       }));
 
       return reply.status(200).send({

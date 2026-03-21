@@ -1,4 +1,5 @@
-import type { EventLogStatus } from '@prisma/generated';
+// EventLog model not yet in Prisma schema — defining status type locally
+type EventLogStatus = 'PUBLISHED' | 'PROCESSING' | 'PROCESSED' | 'FAILED' | 'DEAD_LETTER';
 
 export interface EventLogCreateInput {
   id: string;

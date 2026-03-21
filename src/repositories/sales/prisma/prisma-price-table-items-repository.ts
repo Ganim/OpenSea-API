@@ -75,7 +75,7 @@ export class PrismaPriceTableItemsRepository implements PriceTableItemsRepositor
     }
 
     const result = await prisma.priceTableItem.findFirst({
-      where: where as Parameters<typeof prisma.priceTableItem.findFirst>[0]['where'],
+      where: where as any,
     });
 
     if (!result) return null;
@@ -114,7 +114,7 @@ export class PrismaPriceTableItemsRepository implements PriceTableItemsRepositor
 
     const [results, total] = await Promise.all([
       prisma.priceTableItem.findMany({
-        where: where as Parameters<typeof prisma.priceTableItem.findMany>[0]['where'],
+        where: where as any,
         skip: (params.page - 1) * params.limit,
         take: params.limit,
         orderBy: {
@@ -122,7 +122,7 @@ export class PrismaPriceTableItemsRepository implements PriceTableItemsRepositor
         },
       }),
       prisma.priceTableItem.count({
-        where: where as Parameters<typeof prisma.priceTableItem.count>[0]['where'],
+        where: where as any,
       }),
     ]);
 

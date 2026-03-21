@@ -37,7 +37,7 @@ export async function v1DeleteOrderController(app: FastifyInstance) {
         const useCase = makeDeleteOrderUseCase();
         await useCase.execute({ orderId: id, tenantId });
 
-        return reply.status(204).send();
+        return reply.status(204).send(null);
       } catch (err) {
         if (err instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: err.message });

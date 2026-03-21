@@ -26,7 +26,7 @@ export async function createPortalAccessController(app: FastifyInstance) {
       body: z.object({
         customerId: z.string().uuid(),
         contactId: z.string().uuid().optional(),
-        permissions: z.record(z.boolean()).optional(),
+        permissions: z.record(z.string(), z.boolean()).optional(),
         expiresAt: z.string().optional(),
       }),
       response: {

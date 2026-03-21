@@ -54,24 +54,24 @@ export async function getSellerRankingController(app: FastifyInstance) {
           startDate = new Date(now.getFullYear(), now.getMonth(), 1);
       }
 
-      // Query orders grouped by assignee (seller)
+      // Query orders grouped by assigned user (seller)
       const rankings = await prisma.order.groupBy({
-        by: ['assigneeId'],
+        by: ['assignedToUserId'],
         where: {
           tenantId,
           createdAt: { gte: startDate },
-          assigneeId: { not: null },
+          assignedToUserId: { not: null },
           deletedAt: null,
         },
-        _sum: { totalPrice: true },
-        _count: { id: true },
-        orderBy: { _sum: { totalPrice: 'desc' } },
+        _sum: { grandTotal: true },
+        _count: { _all: true },
+        orderBy: { _sum: { grandTotal: 'desc' } },
         take: limit,
       });
 
       // Enrich with user names
       const userIds = rankings
-        .map((r) => r.assigneeId)
+        .map((r) => r.assignedToUserId)
         .filter((id): id is string => id !== null);
 
       const users = userIds.length > 0
@@ -88,10 +88,10 @@ export async function getSellerRankingController(app: FastifyInstance) {
 
       const enrichedRankings = rankings.map((r, index) => ({
         rank: index + 1,
-        userId: r.assigneeId,
-        name: userMap.get(r.assigneeId!) ?? 'Desconhecido',
-        totalRevenue: Number(r._sum.totalPrice ?? 0),
-        orderCount: r._count.id,
+        userId: r.assignedToUserId,
+        name: r.assignedToUserId ? (userMap.get(r.assignedToUserId) ?? 'Desconhecido') : 'Desconhecido',
+        totalRevenue: Number(r._sum?.grandTotal ?? 0),
+        orderCount: r._count?._all ?? 0,
       }));
 
       return reply.status(200).send({
