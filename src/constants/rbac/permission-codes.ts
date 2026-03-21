@@ -308,6 +308,30 @@ export const PermissionCodes = {
       REGISTER: 'sales.bid-empenhos.register' as const,
       MODIFY: 'sales.bid-empenhos.modify' as const,
     },
+    MARKETPLACE_CONNECTIONS: {
+      ACCESS: 'sales.marketplace-connections.access' as const,
+      REGISTER: 'sales.marketplace-connections.register' as const,
+      MODIFY: 'sales.marketplace-connections.modify' as const,
+      REMOVE: 'sales.marketplace-connections.remove' as const,
+    },
+    MARKETPLACE_LISTINGS: {
+      ACCESS: 'sales.marketplace-listings.access' as const,
+      REGISTER: 'sales.marketplace-listings.register' as const,
+      MODIFY: 'sales.marketplace-listings.modify' as const,
+      REMOVE: 'sales.marketplace-listings.remove' as const,
+    },
+    MARKETPLACE_ORDERS: {
+      ACCESS: 'sales.marketplace-orders.access' as const,
+      REGISTER: 'sales.marketplace-orders.register' as const,
+      MODIFY: 'sales.marketplace-orders.modify' as const,
+      REMOVE: 'sales.marketplace-orders.remove' as const,
+    },
+    MARKETPLACE_PAYMENTS: {
+      ACCESS: 'sales.marketplace-payments.access' as const,
+      REGISTER: 'sales.marketplace-payments.register' as const,
+      MODIFY: 'sales.marketplace-payments.modify' as const,
+      REMOVE: 'sales.marketplace-payments.remove' as const,
+    },
     POS: {
       TERMINALS: {
         ACCESS: 'sales.pos.terminals.access' as const,
