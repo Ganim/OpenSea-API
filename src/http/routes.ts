@@ -46,6 +46,12 @@ import { ordersRoutes } from './controllers/sales/orders/routes';
 import { paymentConditionsRoutes } from './controllers/sales/payment-conditions/routes';
 import { orderReturnsRoutes } from './controllers/sales/order-returns/routes';
 import { storeCreditsRoutes } from './controllers/sales/store-credits/routes';
+// Sales - Analytics
+import { analyticsGoalsRoutes } from './controllers/sales/analytics/goals/routes';
+import { analyticsDashboardsRoutes } from './controllers/sales/analytics/dashboards/routes';
+import { analyticsReportsRoutes } from './controllers/sales/analytics/reports/routes';
+import { analyticsRankingsRoutes } from './controllers/sales/analytics/rankings/routes';
+import { analyticsCustomerPortalRoutes } from './controllers/sales/analytics/customer-portal/routes';
 // Notifications (Workflow)
 import { notificationsRoutes } from './controllers/notifications/routes';
 
@@ -133,6 +139,13 @@ import { signatureCertificatesRoutes } from './controllers/tools/signature/certi
 import { signatureEnvelopesRoutes } from './controllers/tools/signature/envelopes/routes';
 import { signatureSigningRoutes } from './controllers/tools/signature/signing/routes';
 import { signatureTemplatesRoutes } from './controllers/tools/signature/templates/routes';
+
+// AI Assistant routes
+import { aiChatRoutes } from './controllers/ai/chat/routes';
+import { aiInsightsRoutes } from './controllers/ai/insights/routes';
+import { aiConfigRoutes } from './controllers/ai/config/routes';
+import { aiFavoritesRoutes } from './controllers/ai/favorites/routes';
+import { aiActionLogsRoutes } from './controllers/ai/actions/routes';
 
 // HR routes
 import { absencesRoutes } from './controllers/hr/absences/routes';
@@ -225,6 +238,13 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(contentRoutes);
   await app.register(notificationsRoutes);
 
+  // Sales - Analytics routes
+  await app.register(analyticsGoalsRoutes);
+  await app.register(analyticsDashboardsRoutes);
+  await app.register(analyticsReportsRoutes);
+  await app.register(analyticsRankingsRoutes);
+  await app.register(analyticsCustomerPortalRoutes);
+
   // Requests routes (Workflow)
   await app.register(requestsRoutes);
 
@@ -296,6 +316,13 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(signatureEnvelopesRoutes);
   await app.register(signatureSigningRoutes);
   await app.register(signatureTemplatesRoutes);
+
+  // AI Assistant routes
+  await app.register(aiChatRoutes);
+  await app.register(aiInsightsRoutes);
+  await app.register(aiConfigRoutes);
+  await app.register(aiFavoritesRoutes);
+  await app.register(aiActionLogsRoutes);
 
   // Audit routes
   await app.register(auditRoutes);

@@ -483,6 +483,26 @@ export const PermissionCodes = {
         REMOVE: 'tools.signature.templates.remove' as const,
       },
     },
+    AI: {
+      CHAT: {
+        ACCESS: 'tools.ai.chat.access' as const,
+      },
+      INSIGHTS: {
+        ACCESS: 'tools.ai.insights.access' as const,
+      },
+      CONFIG: {
+        ACCESS: 'tools.ai.config.access' as const,
+        MODIFY: 'tools.ai.config.modify' as const,
+      },
+      FAVORITES: {
+        ACCESS: 'tools.ai.favorites.access' as const,
+        REGISTER: 'tools.ai.favorites.register' as const,
+        REMOVE: 'tools.ai.favorites.remove' as const,
+      },
+      ACTIONS: {
+        ACCESS: 'tools.ai.actions.access' as const,
+      },
+    },
   },
 
   // ============================================================================
@@ -554,6 +574,14 @@ export const DEFAULT_USER_PERMISSIONS: string[] = [
   PermissionCodes.TOOLS.STORAGE.FILES.MODIFY,
   PermissionCodes.TOOLS.STORAGE.FILES.REMOVE,
   PermissionCodes.TOOLS.STORAGE.FILES.ONLYSELF,
+
+  // tools.ai — acesso ao assistente IA
+  PermissionCodes.TOOLS.AI.CHAT.ACCESS,
+  PermissionCodes.TOOLS.AI.INSIGHTS.ACCESS,
+  PermissionCodes.TOOLS.AI.FAVORITES.ACCESS,
+  PermissionCodes.TOOLS.AI.FAVORITES.REGISTER,
+  PermissionCodes.TOOLS.AI.FAVORITES.REMOVE,
+  PermissionCodes.TOOLS.AI.ACTIONS.ACCESS,
 ];
 
 // =============================================================================
