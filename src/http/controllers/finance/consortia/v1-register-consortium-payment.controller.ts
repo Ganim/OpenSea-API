@@ -23,7 +23,7 @@ export async function registerConsortiumPaymentController(
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/finance/consortia/:id/payments',
-    onRequest: [
+    preHandler: [
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
