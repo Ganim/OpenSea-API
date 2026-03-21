@@ -1,7 +1,7 @@
-import { InMemoryPipelineStagesRepository } from '@/repositories/sales/in-memory/in-memory-pipeline-stages-repository';
+import { PrismaPipelineStagesRepository } from '@/repositories/sales/prisma/prisma-pipeline-stages-repository';
 import { ListPipelineStagesUseCase } from '../list-pipeline-stages';
 
 export function makeListPipelineStagesUseCase() {
-  const pipelineStagesRepository = new InMemoryPipelineStagesRepository();
+  const pipelineStagesRepository = new PrismaPipelineStagesRepository();
   return new ListPipelineStagesUseCase(pipelineStagesRepository);
 }

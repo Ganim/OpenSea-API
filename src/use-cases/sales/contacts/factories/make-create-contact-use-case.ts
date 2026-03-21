@@ -1,11 +1,10 @@
-// TODO: Replace with Prisma repositories when created
-import { InMemoryContactsRepository } from '@/repositories/sales/in-memory/in-memory-contacts-repository';
-import { InMemoryCustomersRepository } from '@/repositories/sales/in-memory/in-memory-customers-repository';
+import { PrismaContactsRepository } from '@/repositories/sales/prisma/prisma-contacts-repository';
+import { PrismaCustomersRepository } from '@/repositories/sales/prisma/prisma-customers-repository';
 import { CreateContactUseCase } from '@/use-cases/sales/contacts/create-contact';
 
 export function makeCreateContactUseCase() {
-  const contactsRepository = new InMemoryContactsRepository();
-  const customersRepository = new InMemoryCustomersRepository();
+  const contactsRepository = new PrismaContactsRepository();
+  const customersRepository = new PrismaCustomersRepository();
 
   return new CreateContactUseCase(contactsRepository, customersRepository);
 }

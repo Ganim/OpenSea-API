@@ -141,6 +141,8 @@ const ALL_PERMISSIONS = {
   // SALES module
   sales: {
     customers: ['create', 'read', 'update', 'delete', 'list', 'manage'],
+    contacts: ['access', 'register', 'modify', 'remove', 'admin', 'onlyself'],
+    pipelines: ['access', 'admin'],
     orders: [
       'create',
       'read',
@@ -529,6 +531,9 @@ function generatePermissionName(
     upload: 'Enviar',
     import: 'Importar',
     register: 'Registrar',
+    access: 'Acessar',
+    admin: 'Administrar',
+    onlyself: 'Apenas Próprio',
   };
 
   const resourceNames: Record<string, string> = {
@@ -551,6 +556,8 @@ function generatePermissionName(
     'product-care-instructions': 'Instruções de Cuidado de Produto',
     'variant-attachments': 'Anexos de Variante',
     customers: 'Clientes',
+    contacts: 'Contatos',
+    pipelines: 'Pipelines',
     orders: 'Pedidos',
     promotions: 'Promoções',
     reservations: 'Reservas',

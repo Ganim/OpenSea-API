@@ -1,7 +1,7 @@
-import { InMemoryPipelinesRepository } from '@/repositories/sales/in-memory/in-memory-pipelines-repository';
+import { PrismaPipelinesRepository } from '@/repositories/sales/prisma/prisma-pipelines-repository';
 import { DeletePipelineUseCase } from '../delete-pipeline';
 
 export function makeDeletePipelineUseCase() {
-  const pipelinesRepository = new InMemoryPipelinesRepository();
+  const pipelinesRepository = new PrismaPipelinesRepository();
   return new DeletePipelineUseCase(pipelinesRepository);
 }
