@@ -8,7 +8,7 @@ import { listFinanceCategoriesController } from './v1-list-finance-categories.co
 import { updateFinanceCategoryController } from './v1-update-finance-category.controller';
 
 export async function financeCategoriesRoutes(app: FastifyInstance) {
-  app.addHook('onRequest', createModuleMiddleware('FINANCE'));
+  app.addHook('preHandler', createModuleMiddleware('FINANCE'));
 
   app.register(getFinanceCategoryByIdController);
   app.register(listFinanceCategoriesController);

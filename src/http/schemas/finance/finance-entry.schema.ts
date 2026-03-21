@@ -308,18 +308,20 @@ export const listFinanceEntriesQuerySchema = z.object({
       'CANCELLED',
       'SCHEDULED',
     ])
-    .optional(),
-  categoryId: z.string().uuid().optional(),
-  costCenterId: z.string().uuid().optional(),
-  bankAccountId: z.string().uuid().optional(),
-  dueDateFrom: z.coerce.date().optional(),
-  dueDateTo: z.coerce.date().optional(),
+    .optional()
+    .describe('Status do lançamento'),
+  categoryId: z.string().uuid().optional().describe('Filtrar por categoria'),
+  costCenterId: z.string().uuid().optional().describe('Filtrar por centro de custo'),
+  bankAccountId: z.string().uuid().optional().describe('Filtrar por conta bancária'),
+  dueDateFrom: z.coerce.date().optional().describe('Vencimento a partir de (YYYY-MM-DD)'),
+  dueDateTo: z.coerce.date().optional().describe('Vencimento até (YYYY-MM-DD)'),
   isOverdue: z
     .enum(['true', 'false'])
     .transform((v) => v === 'true')
-    .optional(),
-  customerName: z.string().optional(),
-  supplierName: z.string().optional(),
-  overdueRange: z.enum(['1-7', '8-30', '31-60', '60+']).optional(),
-  search: z.string().optional(),
+    .optional()
+    .describe('Apenas lançamentos vencidos'),
+  customerName: z.string().optional().describe('Filtrar por nome do cliente'),
+  supplierName: z.string().optional().describe('Filtrar por nome do fornecedor'),
+  overdueRange: z.enum(['1-7', '8-30', '31-60', '60+']).optional().describe('Faixa de atraso em dias'),
+  search: z.string().optional().describe('Busca textual por descrição ou código'),
 });

@@ -103,14 +103,16 @@ export const listConsortiaQuerySchema = z.object({
   sortOrder: z.enum(['asc', 'desc']).optional().default('desc'),
   status: z
     .enum(['ACTIVE', 'CONTEMPLATED', 'WITHDRAWN', 'COMPLETED', 'CANCELLED'])
-    .optional(),
+    .optional()
+    .describe('Status do consórcio'),
   isContemplated: z
     .enum(['true', 'false'])
     .transform((v) => v === 'true')
-    .optional(),
-  bankAccountId: z.string().uuid().optional(),
-  costCenterId: z.string().uuid().optional(),
-  search: z.string().optional(),
+    .optional()
+    .describe('Filtrar apenas contemplados'),
+  bankAccountId: z.string().uuid().optional().describe('Filtrar por conta bancária'),
+  costCenterId: z.string().uuid().optional().describe('Filtrar por centro de custo'),
+  search: z.string().optional().describe('Busca textual por descrição ou administradora'),
 });
 
 export const registerConsortiumPaymentSchema = z.object({

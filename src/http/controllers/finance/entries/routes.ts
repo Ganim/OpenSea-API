@@ -15,7 +15,7 @@ import { ocrExtractDataController } from './v1-ocr-extract-data.controller';
 import { getLastSupplierEntryController } from './v1-get-last-supplier-entry.controller';
 
 export async function financeEntriesRoutes(app: FastifyInstance) {
-  app.addHook('onRequest', createModuleMiddleware('FINANCE'));
+  app.addHook('preHandler', createModuleMiddleware('FINANCE'));
 
   app.register(getFinanceEntryByIdController);
   app.register(listFinanceEntriesController);

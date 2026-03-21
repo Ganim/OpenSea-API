@@ -185,6 +185,157 @@ export const StorageFileStatus = {
 export type StorageFileStatus = (typeof StorageFileStatus)[keyof typeof StorageFileStatus]
 
 
+export const ContactRole = {
+  DECISION_MAKER: 'DECISION_MAKER',
+  INFLUENCER: 'INFLUENCER',
+  CHAMPION: 'CHAMPION',
+  GATEKEEPER: 'GATEKEEPER',
+  END_USER: 'END_USER',
+  OTHER: 'OTHER'
+} as const
+
+export type ContactRole = (typeof ContactRole)[keyof typeof ContactRole]
+
+
+export const LifecycleStage = {
+  SUBSCRIBER: 'SUBSCRIBER',
+  LEAD: 'LEAD',
+  QUALIFIED: 'QUALIFIED',
+  OPPORTUNITY: 'OPPORTUNITY',
+  CUSTOMER: 'CUSTOMER',
+  EVANGELIST: 'EVANGELIST'
+} as const
+
+export type LifecycleStage = (typeof LifecycleStage)[keyof typeof LifecycleStage]
+
+
+export const LeadTemperature = {
+  HOT: 'HOT',
+  WARM: 'WARM',
+  COLD: 'COLD'
+} as const
+
+export type LeadTemperature = (typeof LeadTemperature)[keyof typeof LeadTemperature]
+
+
+export const ContactSource = {
+  MANUAL: 'MANUAL',
+  IMPORT: 'IMPORT',
+  FORM: 'FORM',
+  WHATSAPP: 'WHATSAPP',
+  INSTAGRAM: 'INSTAGRAM',
+  TELEGRAM: 'TELEGRAM',
+  SMS: 'SMS',
+  WEBCHAT: 'WEBCHAT',
+  EMAIL: 'EMAIL',
+  PDV: 'PDV',
+  MARKETPLACE: 'MARKETPLACE',
+  BID: 'BID',
+  API: 'API'
+} as const
+
+export type ContactSource = (typeof ContactSource)[keyof typeof ContactSource]
+
+
+export const PipelineType = {
+  SALES: 'SALES',
+  ONBOARDING: 'ONBOARDING',
+  SUPPORT: 'SUPPORT',
+  CUSTOM: 'CUSTOM',
+  ORDER_B2C: 'ORDER_B2C',
+  ORDER_B2B: 'ORDER_B2B',
+  ORDER_BID: 'ORDER_BID',
+  ORDER_ECOMMERCE: 'ORDER_ECOMMERCE'
+} as const
+
+export type PipelineType = (typeof PipelineType)[keyof typeof PipelineType]
+
+
+export const PipelineStageType = {
+  OPEN: 'OPEN',
+  WON: 'WON',
+  LOST: 'LOST',
+  DRAFT: 'DRAFT',
+  PENDING_APPROVAL: 'PENDING_APPROVAL',
+  APPROVED: 'APPROVED',
+  PROCESSING: 'PROCESSING',
+  INVOICED: 'INVOICED',
+  SHIPPED: 'SHIPPED',
+  DELIVERED: 'DELIVERED',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type PipelineStageType = (typeof PipelineStageType)[keyof typeof PipelineStageType]
+
+
+export const DealStatus = {
+  OPEN: 'OPEN',
+  WON: 'WON',
+  LOST: 'LOST',
+  ABANDONED: 'ABANDONED'
+} as const
+
+export type DealStatus = (typeof DealStatus)[keyof typeof DealStatus]
+
+
+export const ActivityType = {
+  NOTE: 'NOTE',
+  CALL: 'CALL',
+  MEETING: 'MEETING',
+  TASK: 'TASK',
+  EMAIL_SENT: 'EMAIL_SENT',
+  EMAIL_RECEIVED: 'EMAIL_RECEIVED'
+} as const
+
+export type ActivityType = (typeof ActivityType)[keyof typeof ActivityType]
+
+
+export const ActivityOutcome = {
+  ANSWERED: 'ANSWERED',
+  NO_ANSWER: 'NO_ANSWER',
+  VOICEMAIL: 'VOICEMAIL',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type ActivityOutcome = (typeof ActivityOutcome)[keyof typeof ActivityOutcome]
+
+
+export const TimelineEventType = {
+  STAGE_CHANGE: 'STAGE_CHANGE',
+  LIFECYCLE_CHANGE: 'LIFECYCLE_CHANGE',
+  DEAL_CREATED: 'DEAL_CREATED',
+  DEAL_UPDATED: 'DEAL_UPDATED',
+  DEAL_WON: 'DEAL_WON',
+  DEAL_LOST: 'DEAL_LOST',
+  SCORE_CHANGE: 'SCORE_CHANGE',
+  ASSIGNMENT_CHANGE: 'ASSIGNMENT_CHANGE',
+  AI_INSIGHT: 'AI_INSIGHT',
+  SYSTEM_EVENT: 'SYSTEM_EVENT',
+  EXTERNAL_EVENT: 'EXTERNAL_EVENT',
+  STAGE_CHANGED: 'STAGE_CHANGED',
+  ACTIVITY_CREATED: 'ACTIVITY_CREATED',
+  ACTIVITY_COMPLETED: 'ACTIVITY_COMPLETED',
+  NOTE_ADDED: 'NOTE_ADDED',
+  EMAIL_SENT: 'EMAIL_SENT',
+  CONTACT_ADDED: 'CONTACT_ADDED',
+  VALUE_CHANGED: 'VALUE_CHANGED',
+  OWNER_CHANGED: 'OWNER_CHANGED'
+} as const
+
+export type TimelineEventType = (typeof TimelineEventType)[keyof typeof TimelineEventType]
+
+
+export const TimelineEventSource = {
+  SYSTEM: 'SYSTEM',
+  AI: 'AI',
+  EXTERNAL_MODULE: 'EXTERNAL_MODULE'
+} as const
+
+export type TimelineEventSource = (typeof TimelineEventSource)[keyof typeof TimelineEventSource]
+
+
 export const UnitOfMeasure = {
   UNITS: 'UNITS',
   METERS: 'METERS',
@@ -522,18 +673,6 @@ export const OrderStatus = {
 export type OrderStatus = (typeof OrderStatus)[keyof typeof OrderStatus]
 
 
-export const ContactRole = {
-  DECISION_MAKER: 'DECISION_MAKER',
-  INFLUENCER: 'INFLUENCER',
-  CHAMPION: 'CHAMPION',
-  GATEKEEPER: 'GATEKEEPER',
-  END_USER: 'END_USER',
-  OTHER: 'OTHER'
-} as const
-
-export type ContactRole = (typeof ContactRole)[keyof typeof ContactRole]
-
-
 export const ContactLifecycleStage = {
   SUBSCRIBER: 'SUBSCRIBER',
   LEAD: 'LEAD',
@@ -546,36 +685,40 @@ export const ContactLifecycleStage = {
 export type ContactLifecycleStage = (typeof ContactLifecycleStage)[keyof typeof ContactLifecycleStage]
 
 
-export const PipelineType = {
-  SALES: 'SALES',
-  ONBOARDING: 'ONBOARDING',
-  SUPPORT: 'SUPPORT',
-  CUSTOM: 'CUSTOM',
-  ORDER_B2C: 'ORDER_B2C',
-  ORDER_B2B: 'ORDER_B2B',
-  ORDER_BID: 'ORDER_BID',
-  ORDER_ECOMMERCE: 'ORDER_ECOMMERCE'
+export const DealPriority = {
+  LOW: 'LOW',
+  MEDIUM: 'MEDIUM',
+  HIGH: 'HIGH',
+  URGENT: 'URGENT'
 } as const
 
-export type PipelineType = (typeof PipelineType)[keyof typeof PipelineType]
+export type DealPriority = (typeof DealPriority)[keyof typeof DealPriority]
 
 
-export const PipelineStageType = {
-  OPEN: 'OPEN',
-  WON: 'WON',
-  LOST: 'LOST',
-  DRAFT: 'DRAFT',
-  PENDING_APPROVAL: 'PENDING_APPROVAL',
-  APPROVED: 'APPROVED',
-  PROCESSING: 'PROCESSING',
-  INVOICED: 'INVOICED',
-  SHIPPED: 'SHIPPED',
-  DELIVERED: 'DELIVERED',
+export const CrmActivityType = {
+  CALL: 'CALL',
+  EMAIL: 'EMAIL',
+  MEETING: 'MEETING',
+  TASK: 'TASK',
+  NOTE: 'NOTE',
+  WHATSAPP: 'WHATSAPP',
+  VISIT: 'VISIT',
+  PROPOSAL: 'PROPOSAL',
+  FOLLOW_UP: 'FOLLOW_UP'
+} as const
+
+export type CrmActivityType = (typeof CrmActivityType)[keyof typeof CrmActivityType]
+
+
+export const CrmActivityStatus = {
+  PLANNED: 'PLANNED',
+  IN_PROGRESS: 'IN_PROGRESS',
   COMPLETED: 'COMPLETED',
-  CANCELLED: 'CANCELLED'
+  CANCELLED: 'CANCELLED',
+  OVERDUE: 'OVERDUE'
 } as const
 
-export type PipelineStageType = (typeof PipelineStageType)[keyof typeof PipelineStageType]
+export type CrmActivityStatus = (typeof CrmActivityStatus)[keyof typeof CrmActivityStatus]
 
 
 export const LocationType = {
@@ -1533,6 +1676,18 @@ export const BoardMemberRole = {
 export type BoardMemberRole = (typeof BoardMemberRole)[keyof typeof BoardMemberRole]
 
 
+export const CardIntegrationType = {
+  CUSTOMER: 'CUSTOMER',
+  PRODUCT: 'PRODUCT',
+  FINANCE_ENTRY: 'FINANCE_ENTRY',
+  EMAIL: 'EMAIL',
+  DEPARTMENT: 'DEPARTMENT',
+  CALENDAR_EVENT: 'CALENDAR_EVENT'
+} as const
+
+export type CardIntegrationType = (typeof CardIntegrationType)[keyof typeof CardIntegrationType]
+
+
 export const CardStatus = {
   OPEN: 'OPEN',
   IN_PROGRESS: 'IN_PROGRESS',
@@ -2332,3 +2487,14 @@ export const PosPaymentLinkStatus = {
 } as const
 
 export type PosPaymentLinkStatus = (typeof PosPaymentLinkStatus)[keyof typeof PosPaymentLinkStatus]
+
+
+export const EventLogStatus = {
+  PUBLISHED: 'PUBLISHED',
+  PROCESSING: 'PROCESSING',
+  PROCESSED: 'PROCESSED',
+  FAILED: 'FAILED',
+  DEAD_LETTER: 'DEAD_LETTER'
+} as const
+
+export type EventLogStatus = (typeof EventLogStatus)[keyof typeof EventLogStatus]

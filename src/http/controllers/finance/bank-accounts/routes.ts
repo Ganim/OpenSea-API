@@ -8,7 +8,7 @@ import { listBankAccountsController } from './v1-list-bank-accounts.controller';
 import { updateBankAccountController } from './v1-update-bank-account.controller';
 
 export async function bankAccountsRoutes(app: FastifyInstance) {
-  app.addHook('onRequest', createModuleMiddleware('FINANCE'));
+  app.addHook('preHandler', createModuleMiddleware('FINANCE'));
 
   app.register(getBankAccountByIdController);
   app.register(listBankAccountsController);

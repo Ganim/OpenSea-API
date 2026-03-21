@@ -2,6 +2,13 @@ import { PrismaPg } from '@prisma/adapter-pg';
 import { hash } from 'bcryptjs';
 import { PrismaClient } from './generated/prisma/client.js';
 
+// Load environment variables from .env file
+try {
+  process.loadEnvFile();
+} catch {
+  // .env file not found; environment variables are expected to be set externally
+}
+
 import {
   DEFAULT_USER_PERMISSIONS,
   PermissionCodes,
@@ -1136,9 +1143,7 @@ async function main() {
   // Sales pipelines for demo tenant
   if (demoTenant) {
     try {
-      const { seedSalesPipelines } = await import(
-        './seeds/sales-pipelines.js'
-      );
+      const { seedSalesPipelines } = await import('./seeds/sales-pipelines.js');
       await seedSalesPipelines(prisma, demoTenant.id);
     } catch (pipelineError) {
       console.log(

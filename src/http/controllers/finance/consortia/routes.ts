@@ -10,7 +10,7 @@ import { registerConsortiumPaymentController } from './v1-register-consortium-pa
 import { markContemplatedController } from './v1-mark-contemplated.controller';
 
 export async function consortiaRoutes(app: FastifyInstance) {
-  app.addHook('onRequest', createModuleMiddleware('FINANCE'));
+  app.addHook('preHandler', createModuleMiddleware('FINANCE'));
 
   app.register(getConsortiumByIdController);
   app.register(listConsortiaController);

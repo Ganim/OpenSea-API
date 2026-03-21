@@ -29,6 +29,7 @@ export type CardWatcherMinAggregateOutputType = {
   cardId: string | null
   userId: string | null
   boardId: string | null
+  role: string | null
   createdAt: Date | null
 }
 
@@ -37,6 +38,7 @@ export type CardWatcherMaxAggregateOutputType = {
   cardId: string | null
   userId: string | null
   boardId: string | null
+  role: string | null
   createdAt: Date | null
 }
 
@@ -45,6 +47,7 @@ export type CardWatcherCountAggregateOutputType = {
   cardId: number
   userId: number
   boardId: number
+  role: number
   createdAt: number
   _all: number
 }
@@ -55,6 +58,7 @@ export type CardWatcherMinAggregateInputType = {
   cardId?: true
   userId?: true
   boardId?: true
+  role?: true
   createdAt?: true
 }
 
@@ -63,6 +67,7 @@ export type CardWatcherMaxAggregateInputType = {
   cardId?: true
   userId?: true
   boardId?: true
+  role?: true
   createdAt?: true
 }
 
@@ -71,6 +76,7 @@ export type CardWatcherCountAggregateInputType = {
   cardId?: true
   userId?: true
   boardId?: true
+  role?: true
   createdAt?: true
   _all?: true
 }
@@ -152,6 +158,7 @@ export type CardWatcherGroupByOutputType = {
   cardId: string
   userId: string
   boardId: string
+  role: string
   createdAt: Date
   _count: CardWatcherCountAggregateOutputType | null
   _min: CardWatcherMinAggregateOutputType | null
@@ -181,6 +188,7 @@ export type CardWatcherWhereInput = {
   cardId?: Prisma.StringFilter<"CardWatcher"> | string
   userId?: Prisma.StringFilter<"CardWatcher"> | string
   boardId?: Prisma.StringFilter<"CardWatcher"> | string
+  role?: Prisma.StringFilter<"CardWatcher"> | string
   createdAt?: Prisma.DateTimeFilter<"CardWatcher"> | Date | string
   card?: Prisma.XOR<Prisma.CardScalarRelationFilter, Prisma.CardWhereInput>
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -192,6 +200,7 @@ export type CardWatcherOrderByWithRelationInput = {
   cardId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   boardId?: Prisma.SortOrder
+  role?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   card?: Prisma.CardOrderByWithRelationInput
   user?: Prisma.UserOrderByWithRelationInput
@@ -207,6 +216,7 @@ export type CardWatcherWhereUniqueInput = Prisma.AtLeast<{
   cardId?: Prisma.StringFilter<"CardWatcher"> | string
   userId?: Prisma.StringFilter<"CardWatcher"> | string
   boardId?: Prisma.StringFilter<"CardWatcher"> | string
+  role?: Prisma.StringFilter<"CardWatcher"> | string
   createdAt?: Prisma.DateTimeFilter<"CardWatcher"> | Date | string
   card?: Prisma.XOR<Prisma.CardScalarRelationFilter, Prisma.CardWhereInput>
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -218,6 +228,7 @@ export type CardWatcherOrderByWithAggregationInput = {
   cardId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   boardId?: Prisma.SortOrder
+  role?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.CardWatcherCountOrderByAggregateInput
   _max?: Prisma.CardWatcherMaxOrderByAggregateInput
@@ -232,11 +243,13 @@ export type CardWatcherScalarWhereWithAggregatesInput = {
   cardId?: Prisma.StringWithAggregatesFilter<"CardWatcher"> | string
   userId?: Prisma.StringWithAggregatesFilter<"CardWatcher"> | string
   boardId?: Prisma.StringWithAggregatesFilter<"CardWatcher"> | string
+  role?: Prisma.StringWithAggregatesFilter<"CardWatcher"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"CardWatcher"> | Date | string
 }
 
 export type CardWatcherCreateInput = {
   id?: string
+  role?: string
   createdAt?: Date | string
   card: Prisma.CardCreateNestedOneWithoutWatchersInput
   user: Prisma.UserCreateNestedOneWithoutCardWatchersInput
@@ -248,11 +261,13 @@ export type CardWatcherUncheckedCreateInput = {
   cardId: string
   userId: string
   boardId: string
+  role?: string
   createdAt?: Date | string
 }
 
 export type CardWatcherUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   card?: Prisma.CardUpdateOneRequiredWithoutWatchersNestedInput
   user?: Prisma.UserUpdateOneRequiredWithoutCardWatchersNestedInput
@@ -264,6 +279,7 @@ export type CardWatcherUncheckedUpdateInput = {
   cardId?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   boardId?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -272,11 +288,13 @@ export type CardWatcherCreateManyInput = {
   cardId: string
   userId: string
   boardId: string
+  role?: string
   createdAt?: Date | string
 }
 
 export type CardWatcherUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -285,6 +303,7 @@ export type CardWatcherUncheckedUpdateManyInput = {
   cardId?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   boardId?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -308,6 +327,7 @@ export type CardWatcherCountOrderByAggregateInput = {
   cardId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   boardId?: Prisma.SortOrder
+  role?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -316,6 +336,7 @@ export type CardWatcherMaxOrderByAggregateInput = {
   cardId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   boardId?: Prisma.SortOrder
+  role?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -324,6 +345,7 @@ export type CardWatcherMinOrderByAggregateInput = {
   cardId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   boardId?: Prisma.SortOrder
+  role?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -455,6 +477,7 @@ export type CardWatcherUncheckedUpdateManyWithoutCardNestedInput = {
 
 export type CardWatcherCreateWithoutUserInput = {
   id?: string
+  role?: string
   createdAt?: Date | string
   card: Prisma.CardCreateNestedOneWithoutWatchersInput
   board: Prisma.BoardCreateNestedOneWithoutWatchersInput
@@ -464,6 +487,7 @@ export type CardWatcherUncheckedCreateWithoutUserInput = {
   id?: string
   cardId: string
   boardId: string
+  role?: string
   createdAt?: Date | string
 }
 
@@ -501,11 +525,13 @@ export type CardWatcherScalarWhereInput = {
   cardId?: Prisma.StringFilter<"CardWatcher"> | string
   userId?: Prisma.StringFilter<"CardWatcher"> | string
   boardId?: Prisma.StringFilter<"CardWatcher"> | string
+  role?: Prisma.StringFilter<"CardWatcher"> | string
   createdAt?: Prisma.DateTimeFilter<"CardWatcher"> | Date | string
 }
 
 export type CardWatcherCreateWithoutBoardInput = {
   id?: string
+  role?: string
   createdAt?: Date | string
   card: Prisma.CardCreateNestedOneWithoutWatchersInput
   user: Prisma.UserCreateNestedOneWithoutCardWatchersInput
@@ -515,6 +541,7 @@ export type CardWatcherUncheckedCreateWithoutBoardInput = {
   id?: string
   cardId: string
   userId: string
+  role?: string
   createdAt?: Date | string
 }
 
@@ -546,6 +573,7 @@ export type CardWatcherUpdateManyWithWhereWithoutBoardInput = {
 
 export type CardWatcherCreateWithoutCardInput = {
   id?: string
+  role?: string
   createdAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutCardWatchersInput
   board: Prisma.BoardCreateNestedOneWithoutWatchersInput
@@ -555,6 +583,7 @@ export type CardWatcherUncheckedCreateWithoutCardInput = {
   id?: string
   userId: string
   boardId: string
+  role?: string
   createdAt?: Date | string
 }
 
@@ -588,11 +617,13 @@ export type CardWatcherCreateManyUserInput = {
   id?: string
   cardId: string
   boardId: string
+  role?: string
   createdAt?: Date | string
 }
 
 export type CardWatcherUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   card?: Prisma.CardUpdateOneRequiredWithoutWatchersNestedInput
   board?: Prisma.BoardUpdateOneRequiredWithoutWatchersNestedInput
@@ -602,6 +633,7 @@ export type CardWatcherUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   cardId?: Prisma.StringFieldUpdateOperationsInput | string
   boardId?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -609,6 +641,7 @@ export type CardWatcherUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   cardId?: Prisma.StringFieldUpdateOperationsInput | string
   boardId?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -616,11 +649,13 @@ export type CardWatcherCreateManyBoardInput = {
   id?: string
   cardId: string
   userId: string
+  role?: string
   createdAt?: Date | string
 }
 
 export type CardWatcherUpdateWithoutBoardInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   card?: Prisma.CardUpdateOneRequiredWithoutWatchersNestedInput
   user?: Prisma.UserUpdateOneRequiredWithoutCardWatchersNestedInput
@@ -630,6 +665,7 @@ export type CardWatcherUncheckedUpdateWithoutBoardInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   cardId?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -637,6 +673,7 @@ export type CardWatcherUncheckedUpdateManyWithoutBoardInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   cardId?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -644,11 +681,13 @@ export type CardWatcherCreateManyCardInput = {
   id?: string
   userId: string
   boardId: string
+  role?: string
   createdAt?: Date | string
 }
 
 export type CardWatcherUpdateWithoutCardInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutCardWatchersNestedInput
   board?: Prisma.BoardUpdateOneRequiredWithoutWatchersNestedInput
@@ -658,6 +697,7 @@ export type CardWatcherUncheckedUpdateWithoutCardInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   boardId?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -665,6 +705,7 @@ export type CardWatcherUncheckedUpdateManyWithoutCardInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   boardId?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -675,6 +716,7 @@ export type CardWatcherSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   cardId?: boolean
   userId?: boolean
   boardId?: boolean
+  role?: boolean
   createdAt?: boolean
   card?: boolean | Prisma.CardDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -686,6 +728,7 @@ export type CardWatcherSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   cardId?: boolean
   userId?: boolean
   boardId?: boolean
+  role?: boolean
   createdAt?: boolean
   card?: boolean | Prisma.CardDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -697,6 +740,7 @@ export type CardWatcherSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   cardId?: boolean
   userId?: boolean
   boardId?: boolean
+  role?: boolean
   createdAt?: boolean
   card?: boolean | Prisma.CardDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -708,10 +752,11 @@ export type CardWatcherSelectScalar = {
   cardId?: boolean
   userId?: boolean
   boardId?: boolean
+  role?: boolean
   createdAt?: boolean
 }
 
-export type CardWatcherOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "cardId" | "userId" | "boardId" | "createdAt", ExtArgs["result"]["cardWatcher"]>
+export type CardWatcherOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "cardId" | "userId" | "boardId" | "role" | "createdAt", ExtArgs["result"]["cardWatcher"]>
 export type CardWatcherInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   card?: boolean | Prisma.CardDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -740,6 +785,7 @@ export type $CardWatcherPayload<ExtArgs extends runtime.Types.Extensions.Interna
     cardId: string
     userId: string
     boardId: string
+    role: string
     createdAt: Date
   }, ExtArgs["result"]["cardWatcher"]>
   composites: {}
@@ -1171,6 +1217,7 @@ export interface CardWatcherFieldRefs {
   readonly cardId: Prisma.FieldRef<"CardWatcher", 'String'>
   readonly userId: Prisma.FieldRef<"CardWatcher", 'String'>
   readonly boardId: Prisma.FieldRef<"CardWatcher", 'String'>
+  readonly role: Prisma.FieldRef<"CardWatcher", 'String'>
   readonly createdAt: Prisma.FieldRef<"CardWatcher", 'DateTime'>
 }
     

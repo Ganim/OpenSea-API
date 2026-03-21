@@ -101,6 +101,16 @@ export const ModelName = {
   CrmContact: 'CrmContact',
   CrmPipeline: 'CrmPipeline',
   CrmPipelineStage: 'CrmPipelineStage',
+  CrmDeal: 'CrmDeal',
+  CrmActivity: 'CrmActivity',
+  CrmTimelineEvent: 'CrmTimelineEvent',
+  Pipeline: 'Pipeline',
+  PipelineStage: 'PipelineStage',
+  Contact: 'Contact',
+  Deal: 'Deal',
+  ContactDeal: 'ContactDeal',
+  Activity: 'Activity',
+  TimelineEvent: 'TimelineEvent',
   ItemReservation: 'ItemReservation',
   VariantSupplierCode: 'VariantSupplierCode',
   VariantPromotion: 'VariantPromotion',
@@ -257,7 +267,9 @@ export const ModelName = {
   PosTransactionPayment: 'PosTransactionPayment',
   PosCashMovement: 'PosCashMovement',
   PosOfflineQueue: 'PosOfflineQueue',
-  PosVisitLog: 'PosVisitLog'
+  PosVisitLog: 'PosVisitLog',
+  CardIntegration: 'CardIntegration',
+  EventLog: 'EventLog'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1155,6 +1167,16 @@ export const CustomerScalarFieldEnum = {
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   deletedAt: 'deletedAt',
+  tradeName: 'tradeName',
+  stateRegistration: 'stateRegistration',
+  website: 'website',
+  addressNumber: 'addressNumber',
+  addressComplement: 'addressComplement',
+  addressNeighborhood: 'addressNeighborhood',
+  tags: 'tags',
+  customFields: 'customFields',
+  source: 'source',
+  assignedToUserId: 'assignedToUserId',
   tenantId: 'tenantId'
 } as const
 
@@ -1265,6 +1287,220 @@ export const CrmPipelineStageScalarFieldEnum = {
 } as const
 
 export type CrmPipelineStageScalarFieldEnum = (typeof CrmPipelineStageScalarFieldEnum)[keyof typeof CrmPipelineStageScalarFieldEnum]
+
+
+export const CrmDealScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  title: 'title',
+  customerId: 'customerId',
+  contactId: 'contactId',
+  pipelineId: 'pipelineId',
+  stageId: 'stageId',
+  status: 'status',
+  priority: 'priority',
+  value: 'value',
+  currency: 'currency',
+  expectedCloseDate: 'expectedCloseDate',
+  closedAt: 'closedAt',
+  lostReason: 'lostReason',
+  source: 'source',
+  tags: 'tags',
+  customFields: 'customFields',
+  position: 'position',
+  assignedToUserId: 'assignedToUserId',
+  deletedAt: 'deletedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CrmDealScalarFieldEnum = (typeof CrmDealScalarFieldEnum)[keyof typeof CrmDealScalarFieldEnum]
+
+
+export const CrmActivityScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  dealId: 'dealId',
+  contactId: 'contactId',
+  type: 'type',
+  title: 'title',
+  description: 'description',
+  status: 'status',
+  dueDate: 'dueDate',
+  completedAt: 'completedAt',
+  duration: 'duration',
+  userId: 'userId',
+  deletedAt: 'deletedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CrmActivityScalarFieldEnum = (typeof CrmActivityScalarFieldEnum)[keyof typeof CrmActivityScalarFieldEnum]
+
+
+export const CrmTimelineEventScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  dealId: 'dealId',
+  type: 'type',
+  title: 'title',
+  metadata: 'metadata',
+  userId: 'userId',
+  createdAt: 'createdAt'
+} as const
+
+export type CrmTimelineEventScalarFieldEnum = (typeof CrmTimelineEventScalarFieldEnum)[keyof typeof CrmTimelineEventScalarFieldEnum]
+
+
+export const PipelineScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  name: 'name',
+  description: 'description',
+  icon: 'icon',
+  color: 'color',
+  type: 'type',
+  isDefault: 'isDefault',
+  position: 'position',
+  nextPipelineId: 'nextPipelineId',
+  isActive: 'isActive',
+  deletedAt: 'deletedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PipelineScalarFieldEnum = (typeof PipelineScalarFieldEnum)[keyof typeof PipelineScalarFieldEnum]
+
+
+export const PipelineStageScalarFieldEnum = {
+  id: 'id',
+  pipelineId: 'pipelineId',
+  name: 'name',
+  color: 'color',
+  icon: 'icon',
+  position: 'position',
+  type: 'type',
+  probability: 'probability',
+  autoActions: 'autoActions',
+  rottenAfterDays: 'rottenAfterDays',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PipelineStageScalarFieldEnum = (typeof PipelineStageScalarFieldEnum)[keyof typeof PipelineStageScalarFieldEnum]
+
+
+export const ContactScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  customerId: 'customerId',
+  firstName: 'firstName',
+  lastName: 'lastName',
+  email: 'email',
+  phone: 'phone',
+  whatsapp: 'whatsapp',
+  role: 'role',
+  jobTitle: 'jobTitle',
+  department: 'department',
+  lifecycleStage: 'lifecycleStage',
+  leadScore: 'leadScore',
+  leadTemperature: 'leadTemperature',
+  source: 'source',
+  lastInteractionAt: 'lastInteractionAt',
+  lastChannelUsed: 'lastChannelUsed',
+  socialProfiles: 'socialProfiles',
+  tags: 'tags',
+  customFields: 'customFields',
+  avatarUrl: 'avatarUrl',
+  assignedToUserId: 'assignedToUserId',
+  isMainContact: 'isMainContact',
+  deletedAt: 'deletedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ContactScalarFieldEnum = (typeof ContactScalarFieldEnum)[keyof typeof ContactScalarFieldEnum]
+
+
+export const DealScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  title: 'title',
+  customerId: 'customerId',
+  pipelineId: 'pipelineId',
+  stageId: 'stageId',
+  value: 'value',
+  currency: 'currency',
+  expectedCloseDate: 'expectedCloseDate',
+  probability: 'probability',
+  status: 'status',
+  lostReason: 'lostReason',
+  wonAt: 'wonAt',
+  lostAt: 'lostAt',
+  closedAt: 'closedAt',
+  assignedToUserId: 'assignedToUserId',
+  tags: 'tags',
+  customFields: 'customFields',
+  aiInsights: 'aiInsights',
+  stageEnteredAt: 'stageEnteredAt',
+  previousDealId: 'previousDealId',
+  deletedAt: 'deletedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type DealScalarFieldEnum = (typeof DealScalarFieldEnum)[keyof typeof DealScalarFieldEnum]
+
+
+export const ContactDealScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  contactId: 'contactId',
+  dealId: 'dealId',
+  role: 'role'
+} as const
+
+export type ContactDealScalarFieldEnum = (typeof ContactDealScalarFieldEnum)[keyof typeof ContactDealScalarFieldEnum]
+
+
+export const ActivityScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  type: 'type',
+  contactId: 'contactId',
+  customerId: 'customerId',
+  dealId: 'dealId',
+  title: 'title',
+  description: 'description',
+  performedByUserId: 'performedByUserId',
+  performedAt: 'performedAt',
+  dueAt: 'dueAt',
+  completedAt: 'completedAt',
+  duration: 'duration',
+  outcome: 'outcome',
+  metadata: 'metadata',
+  deletedAt: 'deletedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type ActivityScalarFieldEnum = (typeof ActivityScalarFieldEnum)[keyof typeof ActivityScalarFieldEnum]
+
+
+export const TimelineEventScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  type: 'type',
+  contactId: 'contactId',
+  customerId: 'customerId',
+  dealId: 'dealId',
+  title: 'title',
+  metadata: 'metadata',
+  source: 'source',
+  sourceModule: 'sourceModule',
+  createdAt: 'createdAt'
+} as const
+
+export type TimelineEventScalarFieldEnum = (typeof TimelineEventScalarFieldEnum)[keyof typeof TimelineEventScalarFieldEnum]
 
 
 export const ItemReservationScalarFieldEnum = {
@@ -2950,6 +3186,7 @@ export const CardWatcherScalarFieldEnum = {
   cardId: 'cardId',
   userId: 'userId',
   boardId: 'boardId',
+  role: 'role',
   createdAt: 'createdAt'
 } as const
 
@@ -4477,6 +4714,44 @@ export const PosVisitLogScalarFieldEnum = {
 } as const
 
 export type PosVisitLogScalarFieldEnum = (typeof PosVisitLogScalarFieldEnum)[keyof typeof PosVisitLogScalarFieldEnum]
+
+
+export const CardIntegrationScalarFieldEnum = {
+  id: 'id',
+  cardId: 'cardId',
+  type: 'type',
+  entityId: 'entityId',
+  entityLabel: 'entityLabel',
+  createdAt: 'createdAt',
+  createdBy: 'createdBy'
+} as const
+
+export type CardIntegrationScalarFieldEnum = (typeof CardIntegrationScalarFieldEnum)[keyof typeof CardIntegrationScalarFieldEnum]
+
+
+export const EventLogScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  type: 'type',
+  version: 'version',
+  source: 'source',
+  sourceEntityType: 'sourceEntityType',
+  sourceEntityId: 'sourceEntityId',
+  data: 'data',
+  metadata: 'metadata',
+  correlationId: 'correlationId',
+  causationId: 'causationId',
+  status: 'status',
+  processedBy: 'processedBy',
+  failedConsumers: 'failedConsumers',
+  retryCount: 'retryCount',
+  maxRetries: 'maxRetries',
+  nextRetryAt: 'nextRetryAt',
+  processedAt: 'processedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type EventLogScalarFieldEnum = (typeof EventLogScalarFieldEnum)[keyof typeof EventLogScalarFieldEnum]
 
 
 export const SortOrder = {

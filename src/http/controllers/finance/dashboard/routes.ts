@@ -8,7 +8,7 @@ import { getDREInteractiveController } from './v1-get-dre-interactive.controller
 import { getFinanceOverviewController } from './v1-get-finance-overview.controller';
 
 export async function financeDashboardRoutes(app: FastifyInstance) {
-  app.addHook('onRequest', createModuleMiddleware('FINANCE'));
+  app.addHook('preHandler', createModuleMiddleware('FINANCE'));
 
   app.register(getFinanceDashboardController);
   app.register(getForecastController);

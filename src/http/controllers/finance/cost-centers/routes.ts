@@ -8,7 +8,7 @@ import { listCostCentersController } from './v1-list-cost-centers.controller';
 import { updateCostCenterController } from './v1-update-cost-center.controller';
 
 export async function costCentersRoutes(app: FastifyInstance) {
-  app.addHook('onRequest', createModuleMiddleware('FINANCE'));
+  app.addHook('preHandler', createModuleMiddleware('FINANCE'));
 
   app.register(getCostCenterByIdController);
   app.register(listCostCentersController);

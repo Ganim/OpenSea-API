@@ -43,10 +43,11 @@ Complete redesign from scratch:
 | tools | Email (accounts/messages), Tasks (boards/cards), Calendar, Storage (folders/files) |
 | system | Label Templates, Notifications, Self (profile) |
 
-### 4. Support 4-level codes for tools module
+### 4. Support 4-level codes for tools module (see also ADR 024)
 - `tools.email.accounts.access` instead of `tools.email-accounts.access`
 - Enables wildcard grouping: `tools.email.*` matches all email permissions
 - Only tools uses 4 levels; other modules stay at 3
+- `parsePermissionCode()` helper decomposes codes into `{ module, resource, action }` — sub-resource absorbed into `resource` field
 
 ### 5. Default groups
 - **Admin**: All 243 permissions

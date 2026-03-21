@@ -1,5 +1,7 @@
 import { prisma } from '@/lib/prisma';
 import type {
+  AddMemberSchema,
+  CardMemberRecord,
   CardWatcherRecord,
   CardWatchersRepository,
   CreateCardWatcherSchema,
@@ -12,6 +14,7 @@ function toRecord(raw: any): CardWatcherRecord {
     cardId: raw.cardId,
     userId: raw.userId,
     boardId: raw.boardId,
+    role: raw.role,
     createdAt: raw.createdAt,
   };
 }
@@ -52,6 +55,59 @@ export class PrismaCardWatchersRepository implements CardWatchersRepository {
   }
 
   async delete(cardId: string, userId: string): Promise<void> {
+    await prisma.cardWatcher.delete({
+      where: {
+        cardId_userId: { cardId, userId },
+      },
+    });
+  }
+
+  async findMembersByCardId(cardId: string): Promise<CardMemberRecord[]> {
+    const rows = await prisma.cardWatcher.findMany({
+      where: { cardId, role: 'MEMBER' },
+      orderBy: { createdAt: 'asc' },
+      include: {
+        user: {
+          select: { name: true, email: true },
+        },
+      },
+    });
+
+    return rows.map(row => ({
+      id: row.id,
+      cardId: row.cardId,
+      userId: row.userId,
+      userName: row.user?.name ?? null,
+      userEmail: row.user?.email ?? null,
+      addedAt: row.createdAt,
+    }));
+  }
+
+  async addMember(data: AddMemberSchema): Promise<CardWatcherRecord> {
+    const card = await prisma.card.findUniqueOrThrow({
+      where: { id: data.cardId },
+      select: { boardId: true },
+    });
+
+    const raw = await prisma.cardWatcher.upsert({
+      where: {
+        cardId_userId: { cardId: data.cardId, userId: data.userId },
+      },
+      update: {
+        role: 'MEMBER',
+      },
+      create: {
+        cardId: data.cardId,
+        userId: data.userId,
+        boardId: card.boardId,
+        role: 'MEMBER',
+      },
+    });
+
+    return toRecord(raw);
+  }
+
+  async removeMember(cardId: string, userId: string): Promise<void> {
     await prisma.cardWatcher.delete({
       where: {
         cardId_userId: { cardId, userId },

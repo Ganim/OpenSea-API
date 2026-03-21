@@ -290,6 +290,56 @@ export type CrmPipeline = Prisma.CrmPipelineModel
  */
 export type CrmPipelineStage = Prisma.CrmPipelineStageModel
 /**
+ * Model CrmDeal
+ * 
+ */
+export type CrmDeal = Prisma.CrmDealModel
+/**
+ * Model CrmActivity
+ * 
+ */
+export type CrmActivity = Prisma.CrmActivityModel
+/**
+ * Model CrmTimelineEvent
+ * 
+ */
+export type CrmTimelineEvent = Prisma.CrmTimelineEventModel
+/**
+ * Model Pipeline
+ * 
+ */
+export type Pipeline = Prisma.PipelineModel
+/**
+ * Model PipelineStage
+ * 
+ */
+export type PipelineStage = Prisma.PipelineStageModel
+/**
+ * Model Contact
+ * 
+ */
+export type Contact = Prisma.ContactModel
+/**
+ * Model Deal
+ * 
+ */
+export type Deal = Prisma.DealModel
+/**
+ * Model ContactDeal
+ * 
+ */
+export type ContactDeal = Prisma.ContactDealModel
+/**
+ * Model Activity
+ * 
+ */
+export type Activity = Prisma.ActivityModel
+/**
+ * Model TimelineEvent
+ * 
+ */
+export type TimelineEvent = Prisma.TimelineEventModel
+/**
  * Model ItemReservation
  * 
  */
@@ -1074,3 +1124,13 @@ export type PosOfflineQueue = Prisma.PosOfflineQueueModel
  * 
  */
 export type PosVisitLog = Prisma.PosVisitLogModel
+/**
+ * Model CardIntegration
+ * 
+ */
+export type CardIntegration = Prisma.CardIntegrationModel
+/**
+ * Model EventLog
+ * 
+ */
+export type EventLog = Prisma.EventLogModel

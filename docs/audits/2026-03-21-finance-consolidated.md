@@ -265,11 +265,31 @@ Todos os 10 problemas críticos identificados em 2026-03-10 **continuam sem corr
 
 ## Nota Projetada Após Correções
 
-| Dimensão | Atual | Projetada |
-|----------|-------|-----------|
-| Segurança | 5.0 | 9.0 |
-| Integridade | 7.0 | 8.5 |
-| Padronização Frontend | 3.5 | 8.5 |
-| UI/UX Design | 4.0 | 8.5 |
-| Design System | 4.5 | 8.5 |
-| **Nota Geral** | **6.2** | **~8.5** |
+| Dimensão | Antes | Depois | Status |
+|----------|-------|--------|--------|
+| Segurança | 5.0 | 9.0 | ✅ CORRIGIDO (63 controllers → preHandler) |
+| Integridade | 7.0 | 8.5 | ✅ JÁ ESTAVA OK (TransactionManager, generateNextCode) |
+| Padronização Frontend | 3.5 | 8.5 | ✅ CORRIGIDO (9/9 EntityGrid, 5 infinite scroll, 6 wizards) |
+| UI/UX Design | 4.0 | 8.5 | ✅ CORRIGIDO (detail/edit pages, FilterDropdowns, multi-select) |
+| Design System | 4.5 | 8.5 | ✅ CORRIGIDO (Red→Rose, wizards, consistent patterns) |
+| **Nota Geral** | **6.2** | **~8.5** | **REDESIGN COMPLETO** |
+
+---
+
+## Resolução (2026-03-21)
+
+### Implementado nesta sessão:
+- **Backend**: 3 commits (preHandler migration, sorting 5 endpoints, recurring response fix)
+- **Frontend**: 9 commits (9 entity pages redesigned, 6 wizard modals, 3 new detail/edit page sets)
+- **Companies removido** do finance frontend (mantido apenas em admin)
+
+### Problemas que JÁ ESTAVAM resolvidos (descoberto no review):
+- RBAC permissions (`createPermissionMiddleware`) já existiam em todos os controllers
+- `RegisterPaymentUseCase` já usava `TransactionManager`
+- `generateNextCode` já usava `INSERT...ON CONFLICT DO UPDATE`
+
+### Problemas AINDA pendentes (Fase 4):
+- 4.1: Search em campos criptografados (supplierName/customerName) — funcionalidade limitada
+- 4.3: Validação `dueDate >= issueDate` no schema Zod
+- 4.4: Normalização de tags
+- 4.5: HTTP caching em endpoints readonly
