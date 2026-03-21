@@ -417,6 +417,10 @@ export type UserWhereInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageListRelationFilter
   inventorySessions?: Prisma.InventorySessionListRelationFilter
   inventoryResolutions?: Prisma.InventorySessionItemListRelationFilter
+  assignedBids?: Prisma.BidListRelationFilter
+  bidProposalsSent?: Prisma.BidProposalListRelationFilter
+  bidEventActions?: Prisma.BidMonitorEventListRelationFilter
+  bidHistoryActions?: Prisma.BidHistoryListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -507,6 +511,10 @@ export type UserOrderByWithRelationInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageOrderByRelationAggregateInput
   inventorySessions?: Prisma.InventorySessionOrderByRelationAggregateInput
   inventoryResolutions?: Prisma.InventorySessionItemOrderByRelationAggregateInput
+  assignedBids?: Prisma.BidOrderByRelationAggregateInput
+  bidProposalsSent?: Prisma.BidProposalOrderByRelationAggregateInput
+  bidEventActions?: Prisma.BidMonitorEventOrderByRelationAggregateInput
+  bidHistoryActions?: Prisma.BidHistoryOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -602,6 +610,10 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   supportTicketMessages?: Prisma.SupportTicketMessageListRelationFilter
   inventorySessions?: Prisma.InventorySessionListRelationFilter
   inventoryResolutions?: Prisma.InventorySessionItemListRelationFilter
+  assignedBids?: Prisma.BidListRelationFilter
+  bidProposalsSent?: Prisma.BidProposalListRelationFilter
+  bidEventActions?: Prisma.BidMonitorEventListRelationFilter
+  bidHistoryActions?: Prisma.BidHistoryListRelationFilter
 }, "id" | "users_email_unique_active" | "users_username_unique_active">
 
 export type UserOrderByWithAggregationInput = {
@@ -750,6 +762,10 @@ export type UserCreateInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -840,6 +856,10 @@ export type UserUncheckedCreateInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUpdateInput = {
@@ -930,6 +950,10 @@ export type UserUpdateInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -1020,6 +1044,10 @@ export type UserUncheckedUpdateInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -2188,6 +2216,70 @@ export type UserUpdateOneWithoutSupportTicketMessagesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSupportTicketMessagesInput, Prisma.UserUpdateWithoutSupportTicketMessagesInput>, Prisma.UserUncheckedUpdateWithoutSupportTicketMessagesInput>
 }
 
+export type UserCreateNestedOneWithoutAssignedBidsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAssignedBidsInput, Prisma.UserUncheckedCreateWithoutAssignedBidsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAssignedBidsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutAssignedBidsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAssignedBidsInput, Prisma.UserUncheckedCreateWithoutAssignedBidsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAssignedBidsInput
+  upsert?: Prisma.UserUpsertWithoutAssignedBidsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAssignedBidsInput, Prisma.UserUpdateWithoutAssignedBidsInput>, Prisma.UserUncheckedUpdateWithoutAssignedBidsInput>
+}
+
+export type UserCreateNestedOneWithoutBidProposalsSentInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBidProposalsSentInput, Prisma.UserUncheckedCreateWithoutBidProposalsSentInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBidProposalsSentInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutBidProposalsSentNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBidProposalsSentInput, Prisma.UserUncheckedCreateWithoutBidProposalsSentInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBidProposalsSentInput
+  upsert?: Prisma.UserUpsertWithoutBidProposalsSentInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutBidProposalsSentInput, Prisma.UserUpdateWithoutBidProposalsSentInput>, Prisma.UserUncheckedUpdateWithoutBidProposalsSentInput>
+}
+
+export type UserCreateNestedOneWithoutBidEventActionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBidEventActionsInput, Prisma.UserUncheckedCreateWithoutBidEventActionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBidEventActionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutBidEventActionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBidEventActionsInput, Prisma.UserUncheckedCreateWithoutBidEventActionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBidEventActionsInput
+  upsert?: Prisma.UserUpsertWithoutBidEventActionsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutBidEventActionsInput, Prisma.UserUpdateWithoutBidEventActionsInput>, Prisma.UserUncheckedUpdateWithoutBidEventActionsInput>
+}
+
+export type UserCreateNestedOneWithoutBidHistoryActionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBidHistoryActionsInput, Prisma.UserUncheckedCreateWithoutBidHistoryActionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBidHistoryActionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutBidHistoryActionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBidHistoryActionsInput, Prisma.UserUncheckedCreateWithoutBidHistoryActionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBidHistoryActionsInput
+  upsert?: Prisma.UserUpsertWithoutBidHistoryActionsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutBidHistoryActionsInput, Prisma.UserUpdateWithoutBidHistoryActionsInput>, Prisma.UserUncheckedUpdateWithoutBidHistoryActionsInput>
+}
+
 export type UserCreateWithoutProfileInput = {
   id?: string
   username?: string | null
@@ -2275,6 +2367,10 @@ export type UserCreateWithoutProfileInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutProfileInput = {
@@ -2364,6 +2460,10 @@ export type UserUncheckedCreateWithoutProfileInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutProfileInput = {
@@ -2469,6 +2569,10 @@ export type UserUpdateWithoutProfileInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProfileInput = {
@@ -2558,6 +2662,10 @@ export type UserUncheckedUpdateWithoutProfileInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserCreateWithoutSessionsInput = {
@@ -2647,6 +2755,10 @@ export type UserCreateWithoutSessionsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -2736,6 +2848,10 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -2841,6 +2957,10 @@ export type UserUpdateWithoutSessionsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -2930,6 +3050,10 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserCreateWithoutRefreshTokenInput = {
@@ -3019,6 +3143,10 @@ export type UserCreateWithoutRefreshTokenInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutRefreshTokenInput = {
@@ -3108,6 +3236,10 @@ export type UserUncheckedCreateWithoutRefreshTokenInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutRefreshTokenInput = {
@@ -3213,6 +3345,10 @@ export type UserUpdateWithoutRefreshTokenInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRefreshTokenInput = {
@@ -3302,6 +3438,10 @@ export type UserUncheckedUpdateWithoutRefreshTokenInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserCreateWithoutPermissionGroupsInput = {
@@ -3391,6 +3531,10 @@ export type UserCreateWithoutPermissionGroupsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutPermissionGroupsInput = {
@@ -3480,6 +3624,10 @@ export type UserUncheckedCreateWithoutPermissionGroupsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutPermissionGroupsInput = {
@@ -3574,6 +3722,10 @@ export type UserCreateWithoutGrantedPermissionsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutGrantedPermissionsInput = {
@@ -3663,6 +3815,10 @@ export type UserUncheckedCreateWithoutGrantedPermissionsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutGrantedPermissionsInput = {
@@ -3768,6 +3924,10 @@ export type UserUpdateWithoutPermissionGroupsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPermissionGroupsInput = {
@@ -3857,6 +4017,10 @@ export type UserUncheckedUpdateWithoutPermissionGroupsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUpsertWithoutGrantedPermissionsInput = {
@@ -3957,6 +4121,10 @@ export type UserUpdateWithoutGrantedPermissionsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGrantedPermissionsInput = {
@@ -4046,6 +4214,10 @@ export type UserUncheckedUpdateWithoutGrantedPermissionsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserCreateWithoutDirectPermissionsInput = {
@@ -4135,6 +4307,10 @@ export type UserCreateWithoutDirectPermissionsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutDirectPermissionsInput = {
@@ -4224,6 +4400,10 @@ export type UserUncheckedCreateWithoutDirectPermissionsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutDirectPermissionsInput = {
@@ -4318,6 +4498,10 @@ export type UserCreateWithoutGrantedDirectPermissionsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutGrantedDirectPermissionsInput = {
@@ -4407,6 +4591,10 @@ export type UserUncheckedCreateWithoutGrantedDirectPermissionsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutGrantedDirectPermissionsInput = {
@@ -4512,6 +4700,10 @@ export type UserUpdateWithoutDirectPermissionsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDirectPermissionsInput = {
@@ -4601,6 +4793,10 @@ export type UserUncheckedUpdateWithoutDirectPermissionsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUpsertWithoutGrantedDirectPermissionsInput = {
@@ -4701,6 +4897,10 @@ export type UserUpdateWithoutGrantedDirectPermissionsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGrantedDirectPermissionsInput = {
@@ -4790,6 +4990,10 @@ export type UserUncheckedUpdateWithoutGrantedDirectPermissionsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserCreateWithoutPermissionAuditLogsInput = {
@@ -4879,6 +5083,10 @@ export type UserCreateWithoutPermissionAuditLogsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutPermissionAuditLogsInput = {
@@ -4968,6 +5176,10 @@ export type UserUncheckedCreateWithoutPermissionAuditLogsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutPermissionAuditLogsInput = {
@@ -5073,6 +5285,10 @@ export type UserUpdateWithoutPermissionAuditLogsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPermissionAuditLogsInput = {
@@ -5162,6 +5378,10 @@ export type UserUncheckedUpdateWithoutPermissionAuditLogsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserCreateWithoutVolumesCreatedInput = {
@@ -5251,6 +5471,10 @@ export type UserCreateWithoutVolumesCreatedInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutVolumesCreatedInput = {
@@ -5340,6 +5564,10 @@ export type UserUncheckedCreateWithoutVolumesCreatedInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutVolumesCreatedInput = {
@@ -5434,6 +5662,10 @@ export type UserCreateWithoutVolumesClosedInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutVolumesClosedInput = {
@@ -5523,6 +5755,10 @@ export type UserUncheckedCreateWithoutVolumesClosedInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutVolumesClosedInput = {
@@ -5617,6 +5853,10 @@ export type UserCreateWithoutVolumesDeliveredInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutVolumesDeliveredInput = {
@@ -5706,6 +5946,10 @@ export type UserUncheckedCreateWithoutVolumesDeliveredInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutVolumesDeliveredInput = {
@@ -5811,6 +6055,10 @@ export type UserUpdateWithoutVolumesCreatedInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutVolumesCreatedInput = {
@@ -5900,6 +6148,10 @@ export type UserUncheckedUpdateWithoutVolumesCreatedInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUpsertWithoutVolumesClosedInput = {
@@ -6000,6 +6252,10 @@ export type UserUpdateWithoutVolumesClosedInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutVolumesClosedInput = {
@@ -6089,6 +6345,10 @@ export type UserUncheckedUpdateWithoutVolumesClosedInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUpsertWithoutVolumesDeliveredInput = {
@@ -6189,6 +6449,10 @@ export type UserUpdateWithoutVolumesDeliveredInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutVolumesDeliveredInput = {
@@ -6278,6 +6542,10 @@ export type UserUncheckedUpdateWithoutVolumesDeliveredInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserCreateWithoutItemMovementInput = {
@@ -6367,6 +6635,10 @@ export type UserCreateWithoutItemMovementInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutItemMovementInput = {
@@ -6456,6 +6728,10 @@ export type UserUncheckedCreateWithoutItemMovementInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutItemMovementInput = {
@@ -6550,6 +6826,10 @@ export type UserCreateWithoutApprovedMovementsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutApprovedMovementsInput = {
@@ -6639,6 +6919,10 @@ export type UserUncheckedCreateWithoutApprovedMovementsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutApprovedMovementsInput = {
@@ -6744,6 +7028,10 @@ export type UserUpdateWithoutItemMovementInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutItemMovementInput = {
@@ -6833,6 +7121,10 @@ export type UserUncheckedUpdateWithoutItemMovementInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUpsertWithoutApprovedMovementsInput = {
@@ -6933,6 +7225,10 @@ export type UserUpdateWithoutApprovedMovementsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutApprovedMovementsInput = {
@@ -7022,6 +7318,10 @@ export type UserUncheckedUpdateWithoutApprovedMovementsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserCreateWithoutVariantPriceHistoryInput = {
@@ -7111,6 +7411,10 @@ export type UserCreateWithoutVariantPriceHistoryInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutVariantPriceHistoryInput = {
@@ -7200,6 +7504,10 @@ export type UserUncheckedCreateWithoutVariantPriceHistoryInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutVariantPriceHistoryInput = {
@@ -7305,6 +7613,10 @@ export type UserUpdateWithoutVariantPriceHistoryInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutVariantPriceHistoryInput = {
@@ -7394,6 +7706,10 @@ export type UserUncheckedUpdateWithoutVariantPriceHistoryInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserCreateWithoutAuditLogsInput = {
@@ -7483,6 +7799,10 @@ export type UserCreateWithoutAuditLogsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutAuditLogsInput = {
@@ -7572,6 +7892,10 @@ export type UserUncheckedCreateWithoutAuditLogsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutAuditLogsInput = {
@@ -7677,6 +8001,10 @@ export type UserUpdateWithoutAuditLogsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAuditLogsInput = {
@@ -7766,6 +8094,10 @@ export type UserUncheckedUpdateWithoutAuditLogsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserCreateWithoutAlertsInput = {
@@ -7855,6 +8187,10 @@ export type UserCreateWithoutAlertsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutAlertsInput = {
@@ -7944,6 +8280,10 @@ export type UserUncheckedCreateWithoutAlertsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutAlertsInput = {
@@ -8049,6 +8389,10 @@ export type UserUpdateWithoutAlertsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAlertsInput = {
@@ -8138,6 +8482,10 @@ export type UserUncheckedUpdateWithoutAlertsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserCreateWithoutCreatedPurchaseOrdersInput = {
@@ -8227,6 +8575,10 @@ export type UserCreateWithoutCreatedPurchaseOrdersInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedPurchaseOrdersInput = {
@@ -8316,6 +8668,10 @@ export type UserUncheckedCreateWithoutCreatedPurchaseOrdersInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedPurchaseOrdersInput = {
@@ -8421,6 +8777,10 @@ export type UserUpdateWithoutCreatedPurchaseOrdersInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedPurchaseOrdersInput = {
@@ -8510,6 +8870,10 @@ export type UserUncheckedUpdateWithoutCreatedPurchaseOrdersInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserCreateWithoutInventorySessionsInput = {
@@ -8599,6 +8963,10 @@ export type UserCreateWithoutInventorySessionsInput = {
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutInventorySessionsInput = {
@@ -8688,6 +9056,10 @@ export type UserUncheckedCreateWithoutInventorySessionsInput = {
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutInventorySessionsInput = {
@@ -8793,6 +9165,10 @@ export type UserUpdateWithoutInventorySessionsInput = {
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutInventorySessionsInput = {
@@ -8882,6 +9258,10 @@ export type UserUncheckedUpdateWithoutInventorySessionsInput = {
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserCreateWithoutInventoryResolutionsInput = {
@@ -8971,6 +9351,10 @@ export type UserCreateWithoutInventoryResolutionsInput = {
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutInventoryResolutionsInput = {
@@ -9060,6 +9444,10 @@ export type UserUncheckedCreateWithoutInventoryResolutionsInput = {
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutInventoryResolutionsInput = {
@@ -9165,6 +9553,10 @@ export type UserUpdateWithoutInventoryResolutionsInput = {
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutInventoryResolutionsInput = {
@@ -9254,6 +9646,10 @@ export type UserUncheckedUpdateWithoutInventoryResolutionsInput = {
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserCreateWithoutCreatedSalesOrdersInput = {
@@ -9343,6 +9739,10 @@ export type UserCreateWithoutCreatedSalesOrdersInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedSalesOrdersInput = {
@@ -9432,6 +9832,10 @@ export type UserUncheckedCreateWithoutCreatedSalesOrdersInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedSalesOrdersInput = {
@@ -9537,6 +9941,10 @@ export type UserUpdateWithoutCreatedSalesOrdersInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedSalesOrdersInput = {
@@ -9626,6 +10034,10 @@ export type UserUncheckedUpdateWithoutCreatedSalesOrdersInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserCreateWithoutAssignedContactsInput = {
@@ -9715,6 +10127,10 @@ export type UserCreateWithoutAssignedContactsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutAssignedContactsInput = {
@@ -9804,6 +10220,10 @@ export type UserUncheckedCreateWithoutAssignedContactsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutAssignedContactsInput = {
@@ -9909,6 +10329,10 @@ export type UserUpdateWithoutAssignedContactsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAssignedContactsInput = {
@@ -9998,6 +10422,10 @@ export type UserUncheckedUpdateWithoutAssignedContactsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserCreateWithoutAssignedDealsInput = {
@@ -10087,6 +10515,10 @@ export type UserCreateWithoutAssignedDealsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutAssignedDealsInput = {
@@ -10176,6 +10608,10 @@ export type UserUncheckedCreateWithoutAssignedDealsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutAssignedDealsInput = {
@@ -10281,6 +10717,10 @@ export type UserUpdateWithoutAssignedDealsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAssignedDealsInput = {
@@ -10370,6 +10810,10 @@ export type UserUncheckedUpdateWithoutAssignedDealsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserCreateWithoutCrmActivitiesInput = {
@@ -10459,6 +10903,10 @@ export type UserCreateWithoutCrmActivitiesInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutCrmActivitiesInput = {
@@ -10548,6 +10996,10 @@ export type UserUncheckedCreateWithoutCrmActivitiesInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutCrmActivitiesInput = {
@@ -10653,6 +11105,10 @@ export type UserUpdateWithoutCrmActivitiesInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCrmActivitiesInput = {
@@ -10742,6 +11198,10 @@ export type UserUncheckedUpdateWithoutCrmActivitiesInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserCreateWithoutCrmTimelineInput = {
@@ -10831,6 +11291,10 @@ export type UserCreateWithoutCrmTimelineInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutCrmTimelineInput = {
@@ -10920,6 +11384,10 @@ export type UserUncheckedCreateWithoutCrmTimelineInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutCrmTimelineInput = {
@@ -11025,6 +11493,10 @@ export type UserUpdateWithoutCrmTimelineInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCrmTimelineInput = {
@@ -11114,6 +11586,10 @@ export type UserUncheckedUpdateWithoutCrmTimelineInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserCreateWithoutItemReservationsInput = {
@@ -11203,6 +11679,10 @@ export type UserCreateWithoutItemReservationsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutItemReservationsInput = {
@@ -11292,6 +11772,10 @@ export type UserUncheckedCreateWithoutItemReservationsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutItemReservationsInput = {
@@ -11397,6 +11881,10 @@ export type UserUpdateWithoutItemReservationsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutItemReservationsInput = {
@@ -11486,6 +11974,10 @@ export type UserUncheckedUpdateWithoutItemReservationsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserCreateWithoutCommentsInput = {
@@ -11575,6 +12067,10 @@ export type UserCreateWithoutCommentsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutCommentsInput = {
@@ -11664,6 +12160,10 @@ export type UserUncheckedCreateWithoutCommentsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutCommentsInput = {
@@ -11769,6 +12269,10 @@ export type UserUpdateWithoutCommentsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCommentsInput = {
@@ -11858,6 +12362,10 @@ export type UserUncheckedUpdateWithoutCommentsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserCreateWithoutNotificationPreferencesInput = {
@@ -11947,6 +12455,10 @@ export type UserCreateWithoutNotificationPreferencesInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutNotificationPreferencesInput = {
@@ -12036,6 +12548,10 @@ export type UserUncheckedCreateWithoutNotificationPreferencesInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutNotificationPreferencesInput = {
@@ -12141,6 +12657,10 @@ export type UserUpdateWithoutNotificationPreferencesInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationPreferencesInput = {
@@ -12230,6 +12750,10 @@ export type UserUncheckedUpdateWithoutNotificationPreferencesInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
@@ -12319,6 +12843,10 @@ export type UserCreateWithoutNotificationsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -12408,6 +12936,10 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -12513,6 +13045,10 @@ export type UserUpdateWithoutNotificationsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -12602,6 +13138,10 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserCreateWithoutRequestsCreatedInput = {
@@ -12691,6 +13231,10 @@ export type UserCreateWithoutRequestsCreatedInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutRequestsCreatedInput = {
@@ -12780,6 +13324,10 @@ export type UserUncheckedCreateWithoutRequestsCreatedInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutRequestsCreatedInput = {
@@ -12874,6 +13422,10 @@ export type UserCreateWithoutRequestsAssignedInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutRequestsAssignedInput = {
@@ -12963,6 +13515,10 @@ export type UserUncheckedCreateWithoutRequestsAssignedInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutRequestsAssignedInput = {
@@ -13068,6 +13624,10 @@ export type UserUpdateWithoutRequestsCreatedInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRequestsCreatedInput = {
@@ -13157,6 +13717,10 @@ export type UserUncheckedUpdateWithoutRequestsCreatedInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUpsertWithoutRequestsAssignedInput = {
@@ -13257,6 +13821,10 @@ export type UserUpdateWithoutRequestsAssignedInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRequestsAssignedInput = {
@@ -13346,6 +13914,10 @@ export type UserUncheckedUpdateWithoutRequestsAssignedInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserCreateWithoutUploadedAttachmentsInput = {
@@ -13435,6 +14007,10 @@ export type UserCreateWithoutUploadedAttachmentsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutUploadedAttachmentsInput = {
@@ -13524,6 +14100,10 @@ export type UserUncheckedCreateWithoutUploadedAttachmentsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutUploadedAttachmentsInput = {
@@ -13629,6 +14209,10 @@ export type UserUpdateWithoutUploadedAttachmentsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUploadedAttachmentsInput = {
@@ -13718,6 +14302,10 @@ export type UserUncheckedUpdateWithoutUploadedAttachmentsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserCreateWithoutRequestCommentsInput = {
@@ -13807,6 +14395,10 @@ export type UserCreateWithoutRequestCommentsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutRequestCommentsInput = {
@@ -13896,6 +14488,10 @@ export type UserUncheckedCreateWithoutRequestCommentsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutRequestCommentsInput = {
@@ -14001,6 +14597,10 @@ export type UserUpdateWithoutRequestCommentsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRequestCommentsInput = {
@@ -14090,6 +14690,10 @@ export type UserUncheckedUpdateWithoutRequestCommentsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserCreateWithoutRequestHistoryActionsInput = {
@@ -14179,6 +14783,10 @@ export type UserCreateWithoutRequestHistoryActionsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutRequestHistoryActionsInput = {
@@ -14268,6 +14876,10 @@ export type UserUncheckedCreateWithoutRequestHistoryActionsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutRequestHistoryActionsInput = {
@@ -14373,6 +14985,10 @@ export type UserUpdateWithoutRequestHistoryActionsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRequestHistoryActionsInput = {
@@ -14462,6 +15078,10 @@ export type UserUncheckedUpdateWithoutRequestHistoryActionsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserCreateWithoutEmployeeInput = {
@@ -14551,6 +15171,10 @@ export type UserCreateWithoutEmployeeInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutEmployeeInput = {
@@ -14640,6 +15264,10 @@ export type UserUncheckedCreateWithoutEmployeeInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutEmployeeInput = {
@@ -14745,6 +15373,10 @@ export type UserUpdateWithoutEmployeeInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEmployeeInput = {
@@ -14834,6 +15466,10 @@ export type UserUncheckedUpdateWithoutEmployeeInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserCreateWithoutApprovedOvertimeInput = {
@@ -14923,6 +15559,10 @@ export type UserCreateWithoutApprovedOvertimeInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutApprovedOvertimeInput = {
@@ -15012,6 +15652,10 @@ export type UserUncheckedCreateWithoutApprovedOvertimeInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutApprovedOvertimeInput = {
@@ -15117,6 +15761,10 @@ export type UserUpdateWithoutApprovedOvertimeInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutApprovedOvertimeInput = {
@@ -15206,6 +15854,10 @@ export type UserUncheckedUpdateWithoutApprovedOvertimeInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserCreateWithoutApprovedAbsencesInput = {
@@ -15295,6 +15947,10 @@ export type UserCreateWithoutApprovedAbsencesInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutApprovedAbsencesInput = {
@@ -15384,6 +16040,10 @@ export type UserUncheckedCreateWithoutApprovedAbsencesInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutApprovedAbsencesInput = {
@@ -15489,6 +16149,10 @@ export type UserUpdateWithoutApprovedAbsencesInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutApprovedAbsencesInput = {
@@ -15578,6 +16242,10 @@ export type UserUncheckedUpdateWithoutApprovedAbsencesInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserCreateWithoutProcessedPayrollsInput = {
@@ -15667,6 +16335,10 @@ export type UserCreateWithoutProcessedPayrollsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutProcessedPayrollsInput = {
@@ -15756,6 +16428,10 @@ export type UserUncheckedCreateWithoutProcessedPayrollsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutProcessedPayrollsInput = {
@@ -15850,6 +16526,10 @@ export type UserCreateWithoutApprovedPayrollsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutApprovedPayrollsInput = {
@@ -15939,6 +16619,10 @@ export type UserUncheckedCreateWithoutApprovedPayrollsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutApprovedPayrollsInput = {
@@ -16033,6 +16717,10 @@ export type UserCreateWithoutPaidPayrollsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutPaidPayrollsInput = {
@@ -16122,6 +16810,10 @@ export type UserUncheckedCreateWithoutPaidPayrollsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutPaidPayrollsInput = {
@@ -16227,6 +16919,10 @@ export type UserUpdateWithoutProcessedPayrollsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProcessedPayrollsInput = {
@@ -16316,6 +17012,10 @@ export type UserUncheckedUpdateWithoutProcessedPayrollsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUpsertWithoutApprovedPayrollsInput = {
@@ -16416,6 +17116,10 @@ export type UserUpdateWithoutApprovedPayrollsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutApprovedPayrollsInput = {
@@ -16505,6 +17209,10 @@ export type UserUncheckedUpdateWithoutApprovedPayrollsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUpsertWithoutPaidPayrollsInput = {
@@ -16605,6 +17313,10 @@ export type UserUpdateWithoutPaidPayrollsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPaidPayrollsInput = {
@@ -16694,6 +17406,10 @@ export type UserUncheckedUpdateWithoutPaidPayrollsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserCreateWithoutLabelTemplatesCreatedInput = {
@@ -16783,6 +17499,10 @@ export type UserCreateWithoutLabelTemplatesCreatedInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutLabelTemplatesCreatedInput = {
@@ -16872,6 +17592,10 @@ export type UserUncheckedCreateWithoutLabelTemplatesCreatedInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutLabelTemplatesCreatedInput = {
@@ -16977,6 +17701,10 @@ export type UserUpdateWithoutLabelTemplatesCreatedInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutLabelTemplatesCreatedInput = {
@@ -17066,6 +17794,10 @@ export type UserUncheckedUpdateWithoutLabelTemplatesCreatedInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserCreateWithoutTenantUsersInput = {
@@ -17155,6 +17887,10 @@ export type UserCreateWithoutTenantUsersInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutTenantUsersInput = {
@@ -17244,6 +17980,10 @@ export type UserUncheckedCreateWithoutTenantUsersInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutTenantUsersInput = {
@@ -17349,6 +18089,10 @@ export type UserUpdateWithoutTenantUsersInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTenantUsersInput = {
@@ -17438,6 +18182,10 @@ export type UserUncheckedUpdateWithoutTenantUsersInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserCreateWithoutStorageFoldersInput = {
@@ -17527,6 +18275,10 @@ export type UserCreateWithoutStorageFoldersInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutStorageFoldersInput = {
@@ -17616,6 +18368,10 @@ export type UserUncheckedCreateWithoutStorageFoldersInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutStorageFoldersInput = {
@@ -17721,6 +18477,10 @@ export type UserUpdateWithoutStorageFoldersInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutStorageFoldersInput = {
@@ -17810,6 +18570,10 @@ export type UserUncheckedUpdateWithoutStorageFoldersInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserCreateWithoutFolderAccessRulesInput = {
@@ -17899,6 +18663,10 @@ export type UserCreateWithoutFolderAccessRulesInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutFolderAccessRulesInput = {
@@ -17988,6 +18756,10 @@ export type UserUncheckedCreateWithoutFolderAccessRulesInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutFolderAccessRulesInput = {
@@ -18093,6 +18865,10 @@ export type UserUpdateWithoutFolderAccessRulesInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFolderAccessRulesInput = {
@@ -18182,6 +18958,10 @@ export type UserUncheckedUpdateWithoutFolderAccessRulesInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserCreateWithoutCalendarsCreatedInput = {
@@ -18271,6 +19051,10 @@ export type UserCreateWithoutCalendarsCreatedInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutCalendarsCreatedInput = {
@@ -18360,6 +19144,10 @@ export type UserUncheckedCreateWithoutCalendarsCreatedInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutCalendarsCreatedInput = {
@@ -18465,6 +19253,10 @@ export type UserUpdateWithoutCalendarsCreatedInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCalendarsCreatedInput = {
@@ -18554,6 +19346,10 @@ export type UserUncheckedUpdateWithoutCalendarsCreatedInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserCreateWithoutCalendarEventsCreatedInput = {
@@ -18643,6 +19439,10 @@ export type UserCreateWithoutCalendarEventsCreatedInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutCalendarEventsCreatedInput = {
@@ -18732,6 +19532,10 @@ export type UserUncheckedCreateWithoutCalendarEventsCreatedInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutCalendarEventsCreatedInput = {
@@ -18837,6 +19641,10 @@ export type UserUpdateWithoutCalendarEventsCreatedInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCalendarEventsCreatedInput = {
@@ -18926,6 +19734,10 @@ export type UserUncheckedUpdateWithoutCalendarEventsCreatedInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserCreateWithoutEventParticipantsInput = {
@@ -19015,6 +19827,10 @@ export type UserCreateWithoutEventParticipantsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutEventParticipantsInput = {
@@ -19104,6 +19920,10 @@ export type UserUncheckedCreateWithoutEventParticipantsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutEventParticipantsInput = {
@@ -19209,6 +20029,10 @@ export type UserUpdateWithoutEventParticipantsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEventParticipantsInput = {
@@ -19298,6 +20122,10 @@ export type UserUncheckedUpdateWithoutEventParticipantsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserCreateWithoutEventRemindersInput = {
@@ -19387,6 +20215,10 @@ export type UserCreateWithoutEventRemindersInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutEventRemindersInput = {
@@ -19476,6 +20308,10 @@ export type UserUncheckedCreateWithoutEventRemindersInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutEventRemindersInput = {
@@ -19581,6 +20417,10 @@ export type UserUpdateWithoutEventRemindersInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEventRemindersInput = {
@@ -19670,6 +20510,10 @@ export type UserUncheckedUpdateWithoutEventRemindersInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserCreateWithoutEmailAccountsInput = {
@@ -19759,6 +20603,10 @@ export type UserCreateWithoutEmailAccountsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutEmailAccountsInput = {
@@ -19848,6 +20696,10 @@ export type UserUncheckedCreateWithoutEmailAccountsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutEmailAccountsInput = {
@@ -19953,6 +20805,10 @@ export type UserUpdateWithoutEmailAccountsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEmailAccountsInput = {
@@ -20042,6 +20898,10 @@ export type UserUncheckedUpdateWithoutEmailAccountsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserCreateWithoutEmailAccountsAccessInput = {
@@ -20131,6 +20991,10 @@ export type UserCreateWithoutEmailAccountsAccessInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutEmailAccountsAccessInput = {
@@ -20220,6 +21084,10 @@ export type UserUncheckedCreateWithoutEmailAccountsAccessInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutEmailAccountsAccessInput = {
@@ -20325,6 +21193,10 @@ export type UserUpdateWithoutEmailAccountsAccessInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEmailAccountsAccessInput = {
@@ -20414,6 +21286,10 @@ export type UserUncheckedUpdateWithoutEmailAccountsAccessInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserCreateWithoutTeamsCreatedInput = {
@@ -20503,6 +21379,10 @@ export type UserCreateWithoutTeamsCreatedInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutTeamsCreatedInput = {
@@ -20592,6 +21472,10 @@ export type UserUncheckedCreateWithoutTeamsCreatedInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutTeamsCreatedInput = {
@@ -20697,6 +21581,10 @@ export type UserUpdateWithoutTeamsCreatedInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTeamsCreatedInput = {
@@ -20786,6 +21674,10 @@ export type UserUncheckedUpdateWithoutTeamsCreatedInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserCreateWithoutTeamMembersInput = {
@@ -20875,6 +21767,10 @@ export type UserCreateWithoutTeamMembersInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutTeamMembersInput = {
@@ -20964,6 +21860,10 @@ export type UserUncheckedCreateWithoutTeamMembersInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutTeamMembersInput = {
@@ -21069,6 +21969,10 @@ export type UserUpdateWithoutTeamMembersInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTeamMembersInput = {
@@ -21158,6 +22062,10 @@ export type UserUncheckedUpdateWithoutTeamMembersInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserCreateWithoutTeamEmailLinksInput = {
@@ -21247,6 +22155,10 @@ export type UserCreateWithoutTeamEmailLinksInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutTeamEmailLinksInput = {
@@ -21336,6 +22248,10 @@ export type UserUncheckedCreateWithoutTeamEmailLinksInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutTeamEmailLinksInput = {
@@ -21441,6 +22357,10 @@ export type UserUpdateWithoutTeamEmailLinksInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTeamEmailLinksInput = {
@@ -21530,6 +22450,10 @@ export type UserUncheckedUpdateWithoutTeamEmailLinksInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserCreateWithoutOwnedBoardsInput = {
@@ -21619,6 +22543,10 @@ export type UserCreateWithoutOwnedBoardsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutOwnedBoardsInput = {
@@ -21708,6 +22636,10 @@ export type UserUncheckedCreateWithoutOwnedBoardsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutOwnedBoardsInput = {
@@ -21813,6 +22745,10 @@ export type UserUpdateWithoutOwnedBoardsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOwnedBoardsInput = {
@@ -21902,6 +22838,10 @@ export type UserUncheckedUpdateWithoutOwnedBoardsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserCreateWithoutAssignedCardsInput = {
@@ -21991,6 +22931,10 @@ export type UserCreateWithoutAssignedCardsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutAssignedCardsInput = {
@@ -22080,6 +23024,10 @@ export type UserUncheckedCreateWithoutAssignedCardsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutAssignedCardsInput = {
@@ -22174,6 +23122,10 @@ export type UserCreateWithoutReportedCardsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutReportedCardsInput = {
@@ -22263,6 +23215,10 @@ export type UserUncheckedCreateWithoutReportedCardsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutReportedCardsInput = {
@@ -22368,6 +23324,10 @@ export type UserUpdateWithoutAssignedCardsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAssignedCardsInput = {
@@ -22457,6 +23417,10 @@ export type UserUncheckedUpdateWithoutAssignedCardsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUpsertWithoutReportedCardsInput = {
@@ -22557,6 +23521,10 @@ export type UserUpdateWithoutReportedCardsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReportedCardsInput = {
@@ -22646,6 +23614,10 @@ export type UserUncheckedUpdateWithoutReportedCardsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserCreateWithoutBoardMembershipsInput = {
@@ -22735,6 +23707,10 @@ export type UserCreateWithoutBoardMembershipsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutBoardMembershipsInput = {
@@ -22824,6 +23800,10 @@ export type UserUncheckedCreateWithoutBoardMembershipsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutBoardMembershipsInput = {
@@ -22929,6 +23909,10 @@ export type UserUpdateWithoutBoardMembershipsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBoardMembershipsInput = {
@@ -23018,6 +24002,10 @@ export type UserUncheckedUpdateWithoutBoardMembershipsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserCreateWithoutCardCommentsInput = {
@@ -23107,6 +24095,10 @@ export type UserCreateWithoutCardCommentsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutCardCommentsInput = {
@@ -23196,6 +24188,10 @@ export type UserUncheckedCreateWithoutCardCommentsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutCardCommentsInput = {
@@ -23301,6 +24297,10 @@ export type UserUpdateWithoutCardCommentsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCardCommentsInput = {
@@ -23390,6 +24390,10 @@ export type UserUncheckedUpdateWithoutCardCommentsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserCreateWithoutCommentReactionsInput = {
@@ -23479,6 +24483,10 @@ export type UserCreateWithoutCommentReactionsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutCommentReactionsInput = {
@@ -23568,6 +24576,10 @@ export type UserUncheckedCreateWithoutCommentReactionsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutCommentReactionsInput = {
@@ -23673,6 +24685,10 @@ export type UserUpdateWithoutCommentReactionsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCommentReactionsInput = {
@@ -23762,6 +24778,10 @@ export type UserUncheckedUpdateWithoutCommentReactionsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserCreateWithoutChecklistAssigneesInput = {
@@ -23851,6 +24871,10 @@ export type UserCreateWithoutChecklistAssigneesInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutChecklistAssigneesInput = {
@@ -23940,6 +24964,10 @@ export type UserUncheckedCreateWithoutChecklistAssigneesInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutChecklistAssigneesInput = {
@@ -24045,6 +25073,10 @@ export type UserUpdateWithoutChecklistAssigneesInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutChecklistAssigneesInput = {
@@ -24134,6 +25166,10 @@ export type UserUncheckedUpdateWithoutChecklistAssigneesInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserCreateWithoutCardActivitiesInput = {
@@ -24223,6 +25259,10 @@ export type UserCreateWithoutCardActivitiesInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutCardActivitiesInput = {
@@ -24312,6 +25352,10 @@ export type UserUncheckedCreateWithoutCardActivitiesInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutCardActivitiesInput = {
@@ -24417,6 +25461,10 @@ export type UserUpdateWithoutCardActivitiesInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCardActivitiesInput = {
@@ -24506,6 +25554,10 @@ export type UserUncheckedUpdateWithoutCardActivitiesInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserCreateWithoutCardWatchersInput = {
@@ -24595,6 +25647,10 @@ export type UserCreateWithoutCardWatchersInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutCardWatchersInput = {
@@ -24684,6 +25740,10 @@ export type UserUncheckedCreateWithoutCardWatchersInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutCardWatchersInput = {
@@ -24789,6 +25849,10 @@ export type UserUpdateWithoutCardWatchersInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCardWatchersInput = {
@@ -24878,6 +25942,10 @@ export type UserUncheckedUpdateWithoutCardWatchersInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserCreateWithoutCentralUserInput = {
@@ -24967,6 +26035,10 @@ export type UserCreateWithoutCentralUserInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutCentralUserInput = {
@@ -25056,6 +26128,10 @@ export type UserUncheckedCreateWithoutCentralUserInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutCentralUserInput = {
@@ -25161,6 +26237,10 @@ export type UserUpdateWithoutCentralUserInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCentralUserInput = {
@@ -25250,6 +26330,10 @@ export type UserUncheckedUpdateWithoutCentralUserInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserCreateWithoutCreatedSupportTicketsInput = {
@@ -25339,6 +26423,10 @@ export type UserCreateWithoutCreatedSupportTicketsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedSupportTicketsInput = {
@@ -25428,6 +26516,10 @@ export type UserUncheckedCreateWithoutCreatedSupportTicketsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedSupportTicketsInput = {
@@ -25522,6 +26614,10 @@ export type UserCreateWithoutAssignedSupportTicketsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutAssignedSupportTicketsInput = {
@@ -25611,6 +26707,10 @@ export type UserUncheckedCreateWithoutAssignedSupportTicketsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutAssignedSupportTicketsInput = {
@@ -25716,6 +26816,10 @@ export type UserUpdateWithoutCreatedSupportTicketsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedSupportTicketsInput = {
@@ -25805,6 +26909,10 @@ export type UserUncheckedUpdateWithoutCreatedSupportTicketsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUpsertWithoutAssignedSupportTicketsInput = {
@@ -25905,6 +27013,10 @@ export type UserUpdateWithoutAssignedSupportTicketsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAssignedSupportTicketsInput = {
@@ -25994,6 +27106,10 @@ export type UserUncheckedUpdateWithoutAssignedSupportTicketsInput = {
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserCreateWithoutSupportTicketMessagesInput = {
@@ -26083,6 +27199,10 @@ export type UserCreateWithoutSupportTicketMessagesInput = {
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserUncheckedCreateWithoutSupportTicketMessagesInput = {
@@ -26172,6 +27292,10 @@ export type UserUncheckedCreateWithoutSupportTicketMessagesInput = {
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
 }
 
 export type UserCreateOrConnectWithoutSupportTicketMessagesInput = {
@@ -26277,6 +27401,10 @@ export type UserUpdateWithoutSupportTicketMessagesInput = {
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSupportTicketMessagesInput = {
@@ -26366,6 +27494,1562 @@ export type UserUncheckedUpdateWithoutSupportTicketMessagesInput = {
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
   inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+}
+
+export type UserCreateWithoutAssignedBidsInput = {
+  id?: string
+  username?: string | null
+  email: string
+  password_hash: string
+  lastLoginIp?: string | null
+  failedLoginAttempts?: number
+  blockedUntil?: Date | string | null
+  passwordResetToken?: string | null
+  passwordResetExpires?: Date | string | null
+  forcePasswordReset?: boolean
+  forcePasswordResetReason?: string | null
+  forcePasswordResetRequestedBy?: string | null
+  forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
+  isSuperAdmin?: boolean
+  deletedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
+  RefreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutUserInput
+  ItemMovement?: Prisma.ItemMovementCreateNestedManyWithoutUserInput
+  ApprovedMovements?: Prisma.ItemMovementCreateNestedManyWithoutApproverInput
+  AuditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryCreateNestedManyWithoutUserInput
+  Alerts?: Prisma.AlertCreateNestedManyWithoutUserInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutCreatorInput
+  CreatedSalesOrders?: Prisma.SalesOrderCreateNestedManyWithoutCreatorInput
+  ItemReservations?: Prisma.ItemReservationCreateNestedManyWithoutUserInput
+  Comments?: Prisma.CommentCreateNestedManyWithoutUserInput
+  NotificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
+  Notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  permissionGroups?: Prisma.UserPermissionGroupCreateNestedManyWithoutUserInput
+  grantedPermissions?: Prisma.UserPermissionGroupCreateNestedManyWithoutGranterInput
+  directPermissions?: Prisma.UserDirectPermissionCreateNestedManyWithoutUserInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionCreateNestedManyWithoutGranterInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogCreateNestedManyWithoutUserInput
+  RequestsCreated?: Prisma.RequestCreateNestedManyWithoutRequesterInput
+  RequestsAssigned?: Prisma.RequestCreateNestedManyWithoutAssignedToInput
+  UploadedAttachments?: Prisma.RequestAttachmentCreateNestedManyWithoutUploadedByInput
+  RequestComments?: Prisma.RequestCommentCreateNestedManyWithoutAuthorInput
+  RequestHistoryActions?: Prisma.RequestHistoryCreateNestedManyWithoutPerformedByInput
+  employee?: Prisma.EmployeeCreateNestedOneWithoutUserInput
+  processedPayrolls?: Prisma.PayrollCreateNestedManyWithoutProcessorInput
+  approvedPayrolls?: Prisma.PayrollCreateNestedManyWithoutApproverInput
+  paidPayrolls?: Prisma.PayrollCreateNestedManyWithoutPayerInput
+  approvedOvertime?: Prisma.OvertimeCreateNestedManyWithoutApproverInput
+  approvedAbsences?: Prisma.AbsenceCreateNestedManyWithoutApproverInput
+  VolumesCreated?: Prisma.VolumeCreateNestedManyWithoutCreatedByUserInput
+  VolumesClosed?: Prisma.VolumeCreateNestedManyWithoutClosedByUserInput
+  VolumesDelivered?: Prisma.VolumeCreateNestedManyWithoutDeliveredByUserInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
+  folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
+  storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
+  calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
+  eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
+  eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
+  emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
+  ownedBoards?: Prisma.BoardCreateNestedManyWithoutOwnerInput
+  assignedCards?: Prisma.CardCreateNestedManyWithoutAssigneeInput
+  reportedCards?: Prisma.CardCreateNestedManyWithoutReporterInput
+  boardMemberships?: Prisma.BoardMemberCreateNestedManyWithoutUserInput
+  cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
+  commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
+  cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
+  checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  assignedDeals?: Prisma.CrmDealCreateNestedManyWithoutAssignedToInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutUserInput
+  crmTimeline?: Prisma.CrmTimelineEventCreateNestedManyWithoutUserInput
+  centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
+  createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
+  assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
+  supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
+  inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
+}
+
+export type UserUncheckedCreateWithoutAssignedBidsInput = {
+  id?: string
+  username?: string | null
+  email: string
+  password_hash: string
+  lastLoginIp?: string | null
+  failedLoginAttempts?: number
+  blockedUntil?: Date | string | null
+  passwordResetToken?: string | null
+  passwordResetExpires?: Date | string | null
+  forcePasswordReset?: boolean
+  forcePasswordResetReason?: string | null
+  forcePasswordResetRequestedBy?: string | null
+  forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
+  isSuperAdmin?: boolean
+  deletedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
+  RefreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutUserInput
+  ItemMovement?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutUserInput
+  ApprovedMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutApproverInput
+  AuditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUncheckedCreateNestedManyWithoutUserInput
+  Alerts?: Prisma.AlertUncheckedCreateNestedManyWithoutUserInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutCreatorInput
+  CreatedSalesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutCreatorInput
+  ItemReservations?: Prisma.ItemReservationUncheckedCreateNestedManyWithoutUserInput
+  Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
+  Notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  permissionGroups?: Prisma.UserPermissionGroupUncheckedCreateNestedManyWithoutUserInput
+  grantedPermissions?: Prisma.UserPermissionGroupUncheckedCreateNestedManyWithoutGranterInput
+  directPermissions?: Prisma.UserDirectPermissionUncheckedCreateNestedManyWithoutUserInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUncheckedCreateNestedManyWithoutGranterInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUncheckedCreateNestedManyWithoutUserInput
+  RequestsCreated?: Prisma.RequestUncheckedCreateNestedManyWithoutRequesterInput
+  RequestsAssigned?: Prisma.RequestUncheckedCreateNestedManyWithoutAssignedToInput
+  UploadedAttachments?: Prisma.RequestAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  RequestComments?: Prisma.RequestCommentUncheckedCreateNestedManyWithoutAuthorInput
+  RequestHistoryActions?: Prisma.RequestHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  employee?: Prisma.EmployeeUncheckedCreateNestedOneWithoutUserInput
+  processedPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutProcessorInput
+  approvedPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutApproverInput
+  paidPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutPayerInput
+  approvedOvertime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutApproverInput
+  approvedAbsences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutApproverInput
+  VolumesCreated?: Prisma.VolumeUncheckedCreateNestedManyWithoutCreatedByUserInput
+  VolumesClosed?: Prisma.VolumeUncheckedCreateNestedManyWithoutClosedByUserInput
+  VolumesDelivered?: Prisma.VolumeUncheckedCreateNestedManyWithoutDeliveredByUserInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
+  storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
+  calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
+  eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
+  eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
+  emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
+  ownedBoards?: Prisma.BoardUncheckedCreateNestedManyWithoutOwnerInput
+  assignedCards?: Prisma.CardUncheckedCreateNestedManyWithoutAssigneeInput
+  reportedCards?: Prisma.CardUncheckedCreateNestedManyWithoutReporterInput
+  boardMemberships?: Prisma.BoardMemberUncheckedCreateNestedManyWithoutUserInput
+  cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
+  commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
+  cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
+  checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  assignedDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutAssignedToInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutUserInput
+  crmTimeline?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutUserInput
+  centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
+  createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
+  inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+}
+
+export type UserCreateOrConnectWithoutAssignedBidsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAssignedBidsInput, Prisma.UserUncheckedCreateWithoutAssignedBidsInput>
+}
+
+export type UserUpsertWithoutAssignedBidsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAssignedBidsInput, Prisma.UserUncheckedUpdateWithoutAssignedBidsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAssignedBidsInput, Prisma.UserUncheckedCreateWithoutAssignedBidsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAssignedBidsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAssignedBidsInput, Prisma.UserUncheckedUpdateWithoutAssignedBidsInput>
+}
+
+export type UserUpdateWithoutAssignedBidsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  lastLoginIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  blockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  forcePasswordReset?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
+  RefreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutUserNestedInput
+  ItemMovement?: Prisma.ItemMovementUpdateManyWithoutUserNestedInput
+  ApprovedMovements?: Prisma.ItemMovementUpdateManyWithoutApproverNestedInput
+  AuditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUpdateManyWithoutUserNestedInput
+  Alerts?: Prisma.AlertUpdateManyWithoutUserNestedInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutCreatorNestedInput
+  CreatedSalesOrders?: Prisma.SalesOrderUpdateManyWithoutCreatorNestedInput
+  ItemReservations?: Prisma.ItemReservationUpdateManyWithoutUserNestedInput
+  Comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
+  Notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  permissionGroups?: Prisma.UserPermissionGroupUpdateManyWithoutUserNestedInput
+  grantedPermissions?: Prisma.UserPermissionGroupUpdateManyWithoutGranterNestedInput
+  directPermissions?: Prisma.UserDirectPermissionUpdateManyWithoutUserNestedInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUpdateManyWithoutGranterNestedInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUpdateManyWithoutUserNestedInput
+  RequestsCreated?: Prisma.RequestUpdateManyWithoutRequesterNestedInput
+  RequestsAssigned?: Prisma.RequestUpdateManyWithoutAssignedToNestedInput
+  UploadedAttachments?: Prisma.RequestAttachmentUpdateManyWithoutUploadedByNestedInput
+  RequestComments?: Prisma.RequestCommentUpdateManyWithoutAuthorNestedInput
+  RequestHistoryActions?: Prisma.RequestHistoryUpdateManyWithoutPerformedByNestedInput
+  employee?: Prisma.EmployeeUpdateOneWithoutUserNestedInput
+  processedPayrolls?: Prisma.PayrollUpdateManyWithoutProcessorNestedInput
+  approvedPayrolls?: Prisma.PayrollUpdateManyWithoutApproverNestedInput
+  paidPayrolls?: Prisma.PayrollUpdateManyWithoutPayerNestedInput
+  approvedOvertime?: Prisma.OvertimeUpdateManyWithoutApproverNestedInput
+  approvedAbsences?: Prisma.AbsenceUpdateManyWithoutApproverNestedInput
+  VolumesCreated?: Prisma.VolumeUpdateManyWithoutCreatedByUserNestedInput
+  VolumesClosed?: Prisma.VolumeUpdateManyWithoutClosedByUserNestedInput
+  VolumesDelivered?: Prisma.VolumeUpdateManyWithoutDeliveredByUserNestedInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
+  storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
+  calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
+  eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
+  eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
+  emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
+  ownedBoards?: Prisma.BoardUpdateManyWithoutOwnerNestedInput
+  assignedCards?: Prisma.CardUpdateManyWithoutAssigneeNestedInput
+  reportedCards?: Prisma.CardUpdateManyWithoutReporterNestedInput
+  boardMemberships?: Prisma.BoardMemberUpdateManyWithoutUserNestedInput
+  cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
+  commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
+  cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
+  checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  assignedDeals?: Prisma.CrmDealUpdateManyWithoutAssignedToNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutUserNestedInput
+  crmTimeline?: Prisma.CrmTimelineEventUpdateManyWithoutUserNestedInput
+  centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
+  createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
+  inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAssignedBidsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  lastLoginIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  blockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  forcePasswordReset?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
+  RefreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutUserNestedInput
+  ItemMovement?: Prisma.ItemMovementUncheckedUpdateManyWithoutUserNestedInput
+  ApprovedMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutApproverNestedInput
+  AuditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUncheckedUpdateManyWithoutUserNestedInput
+  Alerts?: Prisma.AlertUncheckedUpdateManyWithoutUserNestedInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutCreatorNestedInput
+  CreatedSalesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutCreatorNestedInput
+  ItemReservations?: Prisma.ItemReservationUncheckedUpdateManyWithoutUserNestedInput
+  Comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
+  Notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  permissionGroups?: Prisma.UserPermissionGroupUncheckedUpdateManyWithoutUserNestedInput
+  grantedPermissions?: Prisma.UserPermissionGroupUncheckedUpdateManyWithoutGranterNestedInput
+  directPermissions?: Prisma.UserDirectPermissionUncheckedUpdateManyWithoutUserNestedInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUncheckedUpdateManyWithoutGranterNestedInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUncheckedUpdateManyWithoutUserNestedInput
+  RequestsCreated?: Prisma.RequestUncheckedUpdateManyWithoutRequesterNestedInput
+  RequestsAssigned?: Prisma.RequestUncheckedUpdateManyWithoutAssignedToNestedInput
+  UploadedAttachments?: Prisma.RequestAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  RequestComments?: Prisma.RequestCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  RequestHistoryActions?: Prisma.RequestHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  employee?: Prisma.EmployeeUncheckedUpdateOneWithoutUserNestedInput
+  processedPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutProcessorNestedInput
+  approvedPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutApproverNestedInput
+  paidPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutPayerNestedInput
+  approvedOvertime?: Prisma.OvertimeUncheckedUpdateManyWithoutApproverNestedInput
+  approvedAbsences?: Prisma.AbsenceUncheckedUpdateManyWithoutApproverNestedInput
+  VolumesCreated?: Prisma.VolumeUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  VolumesClosed?: Prisma.VolumeUncheckedUpdateManyWithoutClosedByUserNestedInput
+  VolumesDelivered?: Prisma.VolumeUncheckedUpdateManyWithoutDeliveredByUserNestedInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
+  storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
+  calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
+  eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
+  eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
+  emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
+  ownedBoards?: Prisma.BoardUncheckedUpdateManyWithoutOwnerNestedInput
+  assignedCards?: Prisma.CardUncheckedUpdateManyWithoutAssigneeNestedInput
+  reportedCards?: Prisma.CardUncheckedUpdateManyWithoutReporterNestedInput
+  boardMemberships?: Prisma.BoardMemberUncheckedUpdateManyWithoutUserNestedInput
+  cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
+  cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
+  checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  assignedDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutAssignedToNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutUserNestedInput
+  crmTimeline?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutUserNestedInput
+  centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
+  createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
+  inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+}
+
+export type UserCreateWithoutBidProposalsSentInput = {
+  id?: string
+  username?: string | null
+  email: string
+  password_hash: string
+  lastLoginIp?: string | null
+  failedLoginAttempts?: number
+  blockedUntil?: Date | string | null
+  passwordResetToken?: string | null
+  passwordResetExpires?: Date | string | null
+  forcePasswordReset?: boolean
+  forcePasswordResetReason?: string | null
+  forcePasswordResetRequestedBy?: string | null
+  forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
+  isSuperAdmin?: boolean
+  deletedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
+  RefreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutUserInput
+  ItemMovement?: Prisma.ItemMovementCreateNestedManyWithoutUserInput
+  ApprovedMovements?: Prisma.ItemMovementCreateNestedManyWithoutApproverInput
+  AuditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryCreateNestedManyWithoutUserInput
+  Alerts?: Prisma.AlertCreateNestedManyWithoutUserInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutCreatorInput
+  CreatedSalesOrders?: Prisma.SalesOrderCreateNestedManyWithoutCreatorInput
+  ItemReservations?: Prisma.ItemReservationCreateNestedManyWithoutUserInput
+  Comments?: Prisma.CommentCreateNestedManyWithoutUserInput
+  NotificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
+  Notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  permissionGroups?: Prisma.UserPermissionGroupCreateNestedManyWithoutUserInput
+  grantedPermissions?: Prisma.UserPermissionGroupCreateNestedManyWithoutGranterInput
+  directPermissions?: Prisma.UserDirectPermissionCreateNestedManyWithoutUserInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionCreateNestedManyWithoutGranterInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogCreateNestedManyWithoutUserInput
+  RequestsCreated?: Prisma.RequestCreateNestedManyWithoutRequesterInput
+  RequestsAssigned?: Prisma.RequestCreateNestedManyWithoutAssignedToInput
+  UploadedAttachments?: Prisma.RequestAttachmentCreateNestedManyWithoutUploadedByInput
+  RequestComments?: Prisma.RequestCommentCreateNestedManyWithoutAuthorInput
+  RequestHistoryActions?: Prisma.RequestHistoryCreateNestedManyWithoutPerformedByInput
+  employee?: Prisma.EmployeeCreateNestedOneWithoutUserInput
+  processedPayrolls?: Prisma.PayrollCreateNestedManyWithoutProcessorInput
+  approvedPayrolls?: Prisma.PayrollCreateNestedManyWithoutApproverInput
+  paidPayrolls?: Prisma.PayrollCreateNestedManyWithoutPayerInput
+  approvedOvertime?: Prisma.OvertimeCreateNestedManyWithoutApproverInput
+  approvedAbsences?: Prisma.AbsenceCreateNestedManyWithoutApproverInput
+  VolumesCreated?: Prisma.VolumeCreateNestedManyWithoutCreatedByUserInput
+  VolumesClosed?: Prisma.VolumeCreateNestedManyWithoutClosedByUserInput
+  VolumesDelivered?: Prisma.VolumeCreateNestedManyWithoutDeliveredByUserInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
+  folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
+  storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
+  calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
+  eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
+  eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
+  emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
+  ownedBoards?: Prisma.BoardCreateNestedManyWithoutOwnerInput
+  assignedCards?: Prisma.CardCreateNestedManyWithoutAssigneeInput
+  reportedCards?: Prisma.CardCreateNestedManyWithoutReporterInput
+  boardMemberships?: Prisma.BoardMemberCreateNestedManyWithoutUserInput
+  cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
+  commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
+  cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
+  checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  assignedDeals?: Prisma.CrmDealCreateNestedManyWithoutAssignedToInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutUserInput
+  crmTimeline?: Prisma.CrmTimelineEventCreateNestedManyWithoutUserInput
+  centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
+  createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
+  assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
+  supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
+  inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
+}
+
+export type UserUncheckedCreateWithoutBidProposalsSentInput = {
+  id?: string
+  username?: string | null
+  email: string
+  password_hash: string
+  lastLoginIp?: string | null
+  failedLoginAttempts?: number
+  blockedUntil?: Date | string | null
+  passwordResetToken?: string | null
+  passwordResetExpires?: Date | string | null
+  forcePasswordReset?: boolean
+  forcePasswordResetReason?: string | null
+  forcePasswordResetRequestedBy?: string | null
+  forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
+  isSuperAdmin?: boolean
+  deletedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
+  RefreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutUserInput
+  ItemMovement?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutUserInput
+  ApprovedMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutApproverInput
+  AuditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUncheckedCreateNestedManyWithoutUserInput
+  Alerts?: Prisma.AlertUncheckedCreateNestedManyWithoutUserInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutCreatorInput
+  CreatedSalesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutCreatorInput
+  ItemReservations?: Prisma.ItemReservationUncheckedCreateNestedManyWithoutUserInput
+  Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
+  Notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  permissionGroups?: Prisma.UserPermissionGroupUncheckedCreateNestedManyWithoutUserInput
+  grantedPermissions?: Prisma.UserPermissionGroupUncheckedCreateNestedManyWithoutGranterInput
+  directPermissions?: Prisma.UserDirectPermissionUncheckedCreateNestedManyWithoutUserInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUncheckedCreateNestedManyWithoutGranterInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUncheckedCreateNestedManyWithoutUserInput
+  RequestsCreated?: Prisma.RequestUncheckedCreateNestedManyWithoutRequesterInput
+  RequestsAssigned?: Prisma.RequestUncheckedCreateNestedManyWithoutAssignedToInput
+  UploadedAttachments?: Prisma.RequestAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  RequestComments?: Prisma.RequestCommentUncheckedCreateNestedManyWithoutAuthorInput
+  RequestHistoryActions?: Prisma.RequestHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  employee?: Prisma.EmployeeUncheckedCreateNestedOneWithoutUserInput
+  processedPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutProcessorInput
+  approvedPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutApproverInput
+  paidPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutPayerInput
+  approvedOvertime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutApproverInput
+  approvedAbsences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutApproverInput
+  VolumesCreated?: Prisma.VolumeUncheckedCreateNestedManyWithoutCreatedByUserInput
+  VolumesClosed?: Prisma.VolumeUncheckedCreateNestedManyWithoutClosedByUserInput
+  VolumesDelivered?: Prisma.VolumeUncheckedCreateNestedManyWithoutDeliveredByUserInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
+  storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
+  calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
+  eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
+  eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
+  emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
+  ownedBoards?: Prisma.BoardUncheckedCreateNestedManyWithoutOwnerInput
+  assignedCards?: Prisma.CardUncheckedCreateNestedManyWithoutAssigneeInput
+  reportedCards?: Prisma.CardUncheckedCreateNestedManyWithoutReporterInput
+  boardMemberships?: Prisma.BoardMemberUncheckedCreateNestedManyWithoutUserInput
+  cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
+  commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
+  cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
+  checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  assignedDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutAssignedToInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutUserInput
+  crmTimeline?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutUserInput
+  centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
+  createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
+  inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+}
+
+export type UserCreateOrConnectWithoutBidProposalsSentInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutBidProposalsSentInput, Prisma.UserUncheckedCreateWithoutBidProposalsSentInput>
+}
+
+export type UserUpsertWithoutBidProposalsSentInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutBidProposalsSentInput, Prisma.UserUncheckedUpdateWithoutBidProposalsSentInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutBidProposalsSentInput, Prisma.UserUncheckedCreateWithoutBidProposalsSentInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutBidProposalsSentInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutBidProposalsSentInput, Prisma.UserUncheckedUpdateWithoutBidProposalsSentInput>
+}
+
+export type UserUpdateWithoutBidProposalsSentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  lastLoginIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  blockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  forcePasswordReset?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
+  RefreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutUserNestedInput
+  ItemMovement?: Prisma.ItemMovementUpdateManyWithoutUserNestedInput
+  ApprovedMovements?: Prisma.ItemMovementUpdateManyWithoutApproverNestedInput
+  AuditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUpdateManyWithoutUserNestedInput
+  Alerts?: Prisma.AlertUpdateManyWithoutUserNestedInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutCreatorNestedInput
+  CreatedSalesOrders?: Prisma.SalesOrderUpdateManyWithoutCreatorNestedInput
+  ItemReservations?: Prisma.ItemReservationUpdateManyWithoutUserNestedInput
+  Comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
+  Notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  permissionGroups?: Prisma.UserPermissionGroupUpdateManyWithoutUserNestedInput
+  grantedPermissions?: Prisma.UserPermissionGroupUpdateManyWithoutGranterNestedInput
+  directPermissions?: Prisma.UserDirectPermissionUpdateManyWithoutUserNestedInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUpdateManyWithoutGranterNestedInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUpdateManyWithoutUserNestedInput
+  RequestsCreated?: Prisma.RequestUpdateManyWithoutRequesterNestedInput
+  RequestsAssigned?: Prisma.RequestUpdateManyWithoutAssignedToNestedInput
+  UploadedAttachments?: Prisma.RequestAttachmentUpdateManyWithoutUploadedByNestedInput
+  RequestComments?: Prisma.RequestCommentUpdateManyWithoutAuthorNestedInput
+  RequestHistoryActions?: Prisma.RequestHistoryUpdateManyWithoutPerformedByNestedInput
+  employee?: Prisma.EmployeeUpdateOneWithoutUserNestedInput
+  processedPayrolls?: Prisma.PayrollUpdateManyWithoutProcessorNestedInput
+  approvedPayrolls?: Prisma.PayrollUpdateManyWithoutApproverNestedInput
+  paidPayrolls?: Prisma.PayrollUpdateManyWithoutPayerNestedInput
+  approvedOvertime?: Prisma.OvertimeUpdateManyWithoutApproverNestedInput
+  approvedAbsences?: Prisma.AbsenceUpdateManyWithoutApproverNestedInput
+  VolumesCreated?: Prisma.VolumeUpdateManyWithoutCreatedByUserNestedInput
+  VolumesClosed?: Prisma.VolumeUpdateManyWithoutClosedByUserNestedInput
+  VolumesDelivered?: Prisma.VolumeUpdateManyWithoutDeliveredByUserNestedInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
+  storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
+  calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
+  eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
+  eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
+  emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
+  ownedBoards?: Prisma.BoardUpdateManyWithoutOwnerNestedInput
+  assignedCards?: Prisma.CardUpdateManyWithoutAssigneeNestedInput
+  reportedCards?: Prisma.CardUpdateManyWithoutReporterNestedInput
+  boardMemberships?: Prisma.BoardMemberUpdateManyWithoutUserNestedInput
+  cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
+  commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
+  cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
+  checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  assignedDeals?: Prisma.CrmDealUpdateManyWithoutAssignedToNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutUserNestedInput
+  crmTimeline?: Prisma.CrmTimelineEventUpdateManyWithoutUserNestedInput
+  centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
+  createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
+  inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutBidProposalsSentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  lastLoginIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  blockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  forcePasswordReset?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
+  RefreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutUserNestedInput
+  ItemMovement?: Prisma.ItemMovementUncheckedUpdateManyWithoutUserNestedInput
+  ApprovedMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutApproverNestedInput
+  AuditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUncheckedUpdateManyWithoutUserNestedInput
+  Alerts?: Prisma.AlertUncheckedUpdateManyWithoutUserNestedInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutCreatorNestedInput
+  CreatedSalesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutCreatorNestedInput
+  ItemReservations?: Prisma.ItemReservationUncheckedUpdateManyWithoutUserNestedInput
+  Comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
+  Notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  permissionGroups?: Prisma.UserPermissionGroupUncheckedUpdateManyWithoutUserNestedInput
+  grantedPermissions?: Prisma.UserPermissionGroupUncheckedUpdateManyWithoutGranterNestedInput
+  directPermissions?: Prisma.UserDirectPermissionUncheckedUpdateManyWithoutUserNestedInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUncheckedUpdateManyWithoutGranterNestedInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUncheckedUpdateManyWithoutUserNestedInput
+  RequestsCreated?: Prisma.RequestUncheckedUpdateManyWithoutRequesterNestedInput
+  RequestsAssigned?: Prisma.RequestUncheckedUpdateManyWithoutAssignedToNestedInput
+  UploadedAttachments?: Prisma.RequestAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  RequestComments?: Prisma.RequestCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  RequestHistoryActions?: Prisma.RequestHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  employee?: Prisma.EmployeeUncheckedUpdateOneWithoutUserNestedInput
+  processedPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutProcessorNestedInput
+  approvedPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutApproverNestedInput
+  paidPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutPayerNestedInput
+  approvedOvertime?: Prisma.OvertimeUncheckedUpdateManyWithoutApproverNestedInput
+  approvedAbsences?: Prisma.AbsenceUncheckedUpdateManyWithoutApproverNestedInput
+  VolumesCreated?: Prisma.VolumeUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  VolumesClosed?: Prisma.VolumeUncheckedUpdateManyWithoutClosedByUserNestedInput
+  VolumesDelivered?: Prisma.VolumeUncheckedUpdateManyWithoutDeliveredByUserNestedInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
+  storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
+  calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
+  eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
+  eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
+  emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
+  ownedBoards?: Prisma.BoardUncheckedUpdateManyWithoutOwnerNestedInput
+  assignedCards?: Prisma.CardUncheckedUpdateManyWithoutAssigneeNestedInput
+  reportedCards?: Prisma.CardUncheckedUpdateManyWithoutReporterNestedInput
+  boardMemberships?: Prisma.BoardMemberUncheckedUpdateManyWithoutUserNestedInput
+  cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
+  cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
+  checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  assignedDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutAssignedToNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutUserNestedInput
+  crmTimeline?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutUserNestedInput
+  centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
+  createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
+  inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+}
+
+export type UserCreateWithoutBidEventActionsInput = {
+  id?: string
+  username?: string | null
+  email: string
+  password_hash: string
+  lastLoginIp?: string | null
+  failedLoginAttempts?: number
+  blockedUntil?: Date | string | null
+  passwordResetToken?: string | null
+  passwordResetExpires?: Date | string | null
+  forcePasswordReset?: boolean
+  forcePasswordResetReason?: string | null
+  forcePasswordResetRequestedBy?: string | null
+  forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
+  isSuperAdmin?: boolean
+  deletedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
+  RefreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutUserInput
+  ItemMovement?: Prisma.ItemMovementCreateNestedManyWithoutUserInput
+  ApprovedMovements?: Prisma.ItemMovementCreateNestedManyWithoutApproverInput
+  AuditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryCreateNestedManyWithoutUserInput
+  Alerts?: Prisma.AlertCreateNestedManyWithoutUserInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutCreatorInput
+  CreatedSalesOrders?: Prisma.SalesOrderCreateNestedManyWithoutCreatorInput
+  ItemReservations?: Prisma.ItemReservationCreateNestedManyWithoutUserInput
+  Comments?: Prisma.CommentCreateNestedManyWithoutUserInput
+  NotificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
+  Notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  permissionGroups?: Prisma.UserPermissionGroupCreateNestedManyWithoutUserInput
+  grantedPermissions?: Prisma.UserPermissionGroupCreateNestedManyWithoutGranterInput
+  directPermissions?: Prisma.UserDirectPermissionCreateNestedManyWithoutUserInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionCreateNestedManyWithoutGranterInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogCreateNestedManyWithoutUserInput
+  RequestsCreated?: Prisma.RequestCreateNestedManyWithoutRequesterInput
+  RequestsAssigned?: Prisma.RequestCreateNestedManyWithoutAssignedToInput
+  UploadedAttachments?: Prisma.RequestAttachmentCreateNestedManyWithoutUploadedByInput
+  RequestComments?: Prisma.RequestCommentCreateNestedManyWithoutAuthorInput
+  RequestHistoryActions?: Prisma.RequestHistoryCreateNestedManyWithoutPerformedByInput
+  employee?: Prisma.EmployeeCreateNestedOneWithoutUserInput
+  processedPayrolls?: Prisma.PayrollCreateNestedManyWithoutProcessorInput
+  approvedPayrolls?: Prisma.PayrollCreateNestedManyWithoutApproverInput
+  paidPayrolls?: Prisma.PayrollCreateNestedManyWithoutPayerInput
+  approvedOvertime?: Prisma.OvertimeCreateNestedManyWithoutApproverInput
+  approvedAbsences?: Prisma.AbsenceCreateNestedManyWithoutApproverInput
+  VolumesCreated?: Prisma.VolumeCreateNestedManyWithoutCreatedByUserInput
+  VolumesClosed?: Prisma.VolumeCreateNestedManyWithoutClosedByUserInput
+  VolumesDelivered?: Prisma.VolumeCreateNestedManyWithoutDeliveredByUserInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
+  folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
+  storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
+  calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
+  eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
+  eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
+  emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
+  ownedBoards?: Prisma.BoardCreateNestedManyWithoutOwnerInput
+  assignedCards?: Prisma.CardCreateNestedManyWithoutAssigneeInput
+  reportedCards?: Prisma.CardCreateNestedManyWithoutReporterInput
+  boardMemberships?: Prisma.BoardMemberCreateNestedManyWithoutUserInput
+  cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
+  commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
+  cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
+  checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  assignedDeals?: Prisma.CrmDealCreateNestedManyWithoutAssignedToInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutUserInput
+  crmTimeline?: Prisma.CrmTimelineEventCreateNestedManyWithoutUserInput
+  centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
+  createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
+  assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
+  supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
+  inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidHistoryActions?: Prisma.BidHistoryCreateNestedManyWithoutPerformedByInput
+}
+
+export type UserUncheckedCreateWithoutBidEventActionsInput = {
+  id?: string
+  username?: string | null
+  email: string
+  password_hash: string
+  lastLoginIp?: string | null
+  failedLoginAttempts?: number
+  blockedUntil?: Date | string | null
+  passwordResetToken?: string | null
+  passwordResetExpires?: Date | string | null
+  forcePasswordReset?: boolean
+  forcePasswordResetReason?: string | null
+  forcePasswordResetRequestedBy?: string | null
+  forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
+  isSuperAdmin?: boolean
+  deletedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
+  RefreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutUserInput
+  ItemMovement?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutUserInput
+  ApprovedMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutApproverInput
+  AuditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUncheckedCreateNestedManyWithoutUserInput
+  Alerts?: Prisma.AlertUncheckedCreateNestedManyWithoutUserInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutCreatorInput
+  CreatedSalesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutCreatorInput
+  ItemReservations?: Prisma.ItemReservationUncheckedCreateNestedManyWithoutUserInput
+  Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
+  Notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  permissionGroups?: Prisma.UserPermissionGroupUncheckedCreateNestedManyWithoutUserInput
+  grantedPermissions?: Prisma.UserPermissionGroupUncheckedCreateNestedManyWithoutGranterInput
+  directPermissions?: Prisma.UserDirectPermissionUncheckedCreateNestedManyWithoutUserInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUncheckedCreateNestedManyWithoutGranterInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUncheckedCreateNestedManyWithoutUserInput
+  RequestsCreated?: Prisma.RequestUncheckedCreateNestedManyWithoutRequesterInput
+  RequestsAssigned?: Prisma.RequestUncheckedCreateNestedManyWithoutAssignedToInput
+  UploadedAttachments?: Prisma.RequestAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  RequestComments?: Prisma.RequestCommentUncheckedCreateNestedManyWithoutAuthorInput
+  RequestHistoryActions?: Prisma.RequestHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  employee?: Prisma.EmployeeUncheckedCreateNestedOneWithoutUserInput
+  processedPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutProcessorInput
+  approvedPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutApproverInput
+  paidPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutPayerInput
+  approvedOvertime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutApproverInput
+  approvedAbsences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutApproverInput
+  VolumesCreated?: Prisma.VolumeUncheckedCreateNestedManyWithoutCreatedByUserInput
+  VolumesClosed?: Prisma.VolumeUncheckedCreateNestedManyWithoutClosedByUserInput
+  VolumesDelivered?: Prisma.VolumeUncheckedCreateNestedManyWithoutDeliveredByUserInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
+  storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
+  calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
+  eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
+  eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
+  emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
+  ownedBoards?: Prisma.BoardUncheckedCreateNestedManyWithoutOwnerInput
+  assignedCards?: Prisma.CardUncheckedCreateNestedManyWithoutAssigneeInput
+  reportedCards?: Prisma.CardUncheckedCreateNestedManyWithoutReporterInput
+  boardMemberships?: Prisma.BoardMemberUncheckedCreateNestedManyWithoutUserInput
+  cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
+  commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
+  cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
+  checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  assignedDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutAssignedToInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutUserInput
+  crmTimeline?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutUserInput
+  centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
+  createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
+  inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+}
+
+export type UserCreateOrConnectWithoutBidEventActionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutBidEventActionsInput, Prisma.UserUncheckedCreateWithoutBidEventActionsInput>
+}
+
+export type UserUpsertWithoutBidEventActionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutBidEventActionsInput, Prisma.UserUncheckedUpdateWithoutBidEventActionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutBidEventActionsInput, Prisma.UserUncheckedCreateWithoutBidEventActionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutBidEventActionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutBidEventActionsInput, Prisma.UserUncheckedUpdateWithoutBidEventActionsInput>
+}
+
+export type UserUpdateWithoutBidEventActionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  lastLoginIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  blockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  forcePasswordReset?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
+  RefreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutUserNestedInput
+  ItemMovement?: Prisma.ItemMovementUpdateManyWithoutUserNestedInput
+  ApprovedMovements?: Prisma.ItemMovementUpdateManyWithoutApproverNestedInput
+  AuditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUpdateManyWithoutUserNestedInput
+  Alerts?: Prisma.AlertUpdateManyWithoutUserNestedInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutCreatorNestedInput
+  CreatedSalesOrders?: Prisma.SalesOrderUpdateManyWithoutCreatorNestedInput
+  ItemReservations?: Prisma.ItemReservationUpdateManyWithoutUserNestedInput
+  Comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
+  Notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  permissionGroups?: Prisma.UserPermissionGroupUpdateManyWithoutUserNestedInput
+  grantedPermissions?: Prisma.UserPermissionGroupUpdateManyWithoutGranterNestedInput
+  directPermissions?: Prisma.UserDirectPermissionUpdateManyWithoutUserNestedInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUpdateManyWithoutGranterNestedInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUpdateManyWithoutUserNestedInput
+  RequestsCreated?: Prisma.RequestUpdateManyWithoutRequesterNestedInput
+  RequestsAssigned?: Prisma.RequestUpdateManyWithoutAssignedToNestedInput
+  UploadedAttachments?: Prisma.RequestAttachmentUpdateManyWithoutUploadedByNestedInput
+  RequestComments?: Prisma.RequestCommentUpdateManyWithoutAuthorNestedInput
+  RequestHistoryActions?: Prisma.RequestHistoryUpdateManyWithoutPerformedByNestedInput
+  employee?: Prisma.EmployeeUpdateOneWithoutUserNestedInput
+  processedPayrolls?: Prisma.PayrollUpdateManyWithoutProcessorNestedInput
+  approvedPayrolls?: Prisma.PayrollUpdateManyWithoutApproverNestedInput
+  paidPayrolls?: Prisma.PayrollUpdateManyWithoutPayerNestedInput
+  approvedOvertime?: Prisma.OvertimeUpdateManyWithoutApproverNestedInput
+  approvedAbsences?: Prisma.AbsenceUpdateManyWithoutApproverNestedInput
+  VolumesCreated?: Prisma.VolumeUpdateManyWithoutCreatedByUserNestedInput
+  VolumesClosed?: Prisma.VolumeUpdateManyWithoutClosedByUserNestedInput
+  VolumesDelivered?: Prisma.VolumeUpdateManyWithoutDeliveredByUserNestedInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
+  storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
+  calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
+  eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
+  eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
+  emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
+  ownedBoards?: Prisma.BoardUpdateManyWithoutOwnerNestedInput
+  assignedCards?: Prisma.CardUpdateManyWithoutAssigneeNestedInput
+  reportedCards?: Prisma.CardUpdateManyWithoutReporterNestedInput
+  boardMemberships?: Prisma.BoardMemberUpdateManyWithoutUserNestedInput
+  cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
+  commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
+  cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
+  checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  assignedDeals?: Prisma.CrmDealUpdateManyWithoutAssignedToNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutUserNestedInput
+  crmTimeline?: Prisma.CrmTimelineEventUpdateManyWithoutUserNestedInput
+  centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
+  createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
+  inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUpdateManyWithoutPerformedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutBidEventActionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  lastLoginIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  blockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  forcePasswordReset?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
+  RefreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutUserNestedInput
+  ItemMovement?: Prisma.ItemMovementUncheckedUpdateManyWithoutUserNestedInput
+  ApprovedMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutApproverNestedInput
+  AuditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUncheckedUpdateManyWithoutUserNestedInput
+  Alerts?: Prisma.AlertUncheckedUpdateManyWithoutUserNestedInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutCreatorNestedInput
+  CreatedSalesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutCreatorNestedInput
+  ItemReservations?: Prisma.ItemReservationUncheckedUpdateManyWithoutUserNestedInput
+  Comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
+  Notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  permissionGroups?: Prisma.UserPermissionGroupUncheckedUpdateManyWithoutUserNestedInput
+  grantedPermissions?: Prisma.UserPermissionGroupUncheckedUpdateManyWithoutGranterNestedInput
+  directPermissions?: Prisma.UserDirectPermissionUncheckedUpdateManyWithoutUserNestedInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUncheckedUpdateManyWithoutGranterNestedInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUncheckedUpdateManyWithoutUserNestedInput
+  RequestsCreated?: Prisma.RequestUncheckedUpdateManyWithoutRequesterNestedInput
+  RequestsAssigned?: Prisma.RequestUncheckedUpdateManyWithoutAssignedToNestedInput
+  UploadedAttachments?: Prisma.RequestAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  RequestComments?: Prisma.RequestCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  RequestHistoryActions?: Prisma.RequestHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  employee?: Prisma.EmployeeUncheckedUpdateOneWithoutUserNestedInput
+  processedPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutProcessorNestedInput
+  approvedPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutApproverNestedInput
+  paidPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutPayerNestedInput
+  approvedOvertime?: Prisma.OvertimeUncheckedUpdateManyWithoutApproverNestedInput
+  approvedAbsences?: Prisma.AbsenceUncheckedUpdateManyWithoutApproverNestedInput
+  VolumesCreated?: Prisma.VolumeUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  VolumesClosed?: Prisma.VolumeUncheckedUpdateManyWithoutClosedByUserNestedInput
+  VolumesDelivered?: Prisma.VolumeUncheckedUpdateManyWithoutDeliveredByUserNestedInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
+  storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
+  calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
+  eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
+  eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
+  emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
+  ownedBoards?: Prisma.BoardUncheckedUpdateManyWithoutOwnerNestedInput
+  assignedCards?: Prisma.CardUncheckedUpdateManyWithoutAssigneeNestedInput
+  reportedCards?: Prisma.CardUncheckedUpdateManyWithoutReporterNestedInput
+  boardMemberships?: Prisma.BoardMemberUncheckedUpdateManyWithoutUserNestedInput
+  cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
+  cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
+  checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  assignedDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutAssignedToNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutUserNestedInput
+  crmTimeline?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutUserNestedInput
+  centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
+  createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
+  inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidHistoryActions?: Prisma.BidHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+}
+
+export type UserCreateWithoutBidHistoryActionsInput = {
+  id?: string
+  username?: string | null
+  email: string
+  password_hash: string
+  lastLoginIp?: string | null
+  failedLoginAttempts?: number
+  blockedUntil?: Date | string | null
+  passwordResetToken?: string | null
+  passwordResetExpires?: Date | string | null
+  forcePasswordReset?: boolean
+  forcePasswordResetReason?: string | null
+  forcePasswordResetRequestedBy?: string | null
+  forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
+  isSuperAdmin?: boolean
+  deletedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
+  RefreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutUserInput
+  ItemMovement?: Prisma.ItemMovementCreateNestedManyWithoutUserInput
+  ApprovedMovements?: Prisma.ItemMovementCreateNestedManyWithoutApproverInput
+  AuditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryCreateNestedManyWithoutUserInput
+  Alerts?: Prisma.AlertCreateNestedManyWithoutUserInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutCreatorInput
+  CreatedSalesOrders?: Prisma.SalesOrderCreateNestedManyWithoutCreatorInput
+  ItemReservations?: Prisma.ItemReservationCreateNestedManyWithoutUserInput
+  Comments?: Prisma.CommentCreateNestedManyWithoutUserInput
+  NotificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
+  Notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  permissionGroups?: Prisma.UserPermissionGroupCreateNestedManyWithoutUserInput
+  grantedPermissions?: Prisma.UserPermissionGroupCreateNestedManyWithoutGranterInput
+  directPermissions?: Prisma.UserDirectPermissionCreateNestedManyWithoutUserInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionCreateNestedManyWithoutGranterInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogCreateNestedManyWithoutUserInput
+  RequestsCreated?: Prisma.RequestCreateNestedManyWithoutRequesterInput
+  RequestsAssigned?: Prisma.RequestCreateNestedManyWithoutAssignedToInput
+  UploadedAttachments?: Prisma.RequestAttachmentCreateNestedManyWithoutUploadedByInput
+  RequestComments?: Prisma.RequestCommentCreateNestedManyWithoutAuthorInput
+  RequestHistoryActions?: Prisma.RequestHistoryCreateNestedManyWithoutPerformedByInput
+  employee?: Prisma.EmployeeCreateNestedOneWithoutUserInput
+  processedPayrolls?: Prisma.PayrollCreateNestedManyWithoutProcessorInput
+  approvedPayrolls?: Prisma.PayrollCreateNestedManyWithoutApproverInput
+  paidPayrolls?: Prisma.PayrollCreateNestedManyWithoutPayerInput
+  approvedOvertime?: Prisma.OvertimeCreateNestedManyWithoutApproverInput
+  approvedAbsences?: Prisma.AbsenceCreateNestedManyWithoutApproverInput
+  VolumesCreated?: Prisma.VolumeCreateNestedManyWithoutCreatedByUserInput
+  VolumesClosed?: Prisma.VolumeCreateNestedManyWithoutClosedByUserInput
+  VolumesDelivered?: Prisma.VolumeCreateNestedManyWithoutDeliveredByUserInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
+  folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
+  storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
+  calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
+  eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
+  eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
+  emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
+  ownedBoards?: Prisma.BoardCreateNestedManyWithoutOwnerInput
+  assignedCards?: Prisma.CardCreateNestedManyWithoutAssigneeInput
+  reportedCards?: Prisma.CardCreateNestedManyWithoutReporterInput
+  boardMemberships?: Prisma.BoardMemberCreateNestedManyWithoutUserInput
+  cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
+  commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
+  cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
+  checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactCreateNestedManyWithoutAssignedToInput
+  assignedDeals?: Prisma.CrmDealCreateNestedManyWithoutAssignedToInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutUserInput
+  crmTimeline?: Prisma.CrmTimelineEventCreateNestedManyWithoutUserInput
+  centralUser?: Prisma.CentralUserCreateNestedOneWithoutUserInput
+  createdSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutCreatorInput
+  assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
+  supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutAuthorInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutUserInput
+  inventoryResolutions?: Prisma.InventorySessionItemCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventCreateNestedManyWithoutActionTakenByInput
+}
+
+export type UserUncheckedCreateWithoutBidHistoryActionsInput = {
+  id?: string
+  username?: string | null
+  email: string
+  password_hash: string
+  lastLoginIp?: string | null
+  failedLoginAttempts?: number
+  blockedUntil?: Date | string | null
+  passwordResetToken?: string | null
+  passwordResetExpires?: Date | string | null
+  forcePasswordReset?: boolean
+  forcePasswordResetReason?: string | null
+  forcePasswordResetRequestedBy?: string | null
+  forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
+  isSuperAdmin?: boolean
+  deletedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
+  RefreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutUserInput
+  ItemMovement?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutUserInput
+  ApprovedMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutApproverInput
+  AuditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUncheckedCreateNestedManyWithoutUserInput
+  Alerts?: Prisma.AlertUncheckedCreateNestedManyWithoutUserInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutCreatorInput
+  CreatedSalesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutCreatorInput
+  ItemReservations?: Prisma.ItemReservationUncheckedCreateNestedManyWithoutUserInput
+  Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
+  Notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  permissionGroups?: Prisma.UserPermissionGroupUncheckedCreateNestedManyWithoutUserInput
+  grantedPermissions?: Prisma.UserPermissionGroupUncheckedCreateNestedManyWithoutGranterInput
+  directPermissions?: Prisma.UserDirectPermissionUncheckedCreateNestedManyWithoutUserInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUncheckedCreateNestedManyWithoutGranterInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUncheckedCreateNestedManyWithoutUserInput
+  RequestsCreated?: Prisma.RequestUncheckedCreateNestedManyWithoutRequesterInput
+  RequestsAssigned?: Prisma.RequestUncheckedCreateNestedManyWithoutAssignedToInput
+  UploadedAttachments?: Prisma.RequestAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  RequestComments?: Prisma.RequestCommentUncheckedCreateNestedManyWithoutAuthorInput
+  RequestHistoryActions?: Prisma.RequestHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  employee?: Prisma.EmployeeUncheckedCreateNestedOneWithoutUserInput
+  processedPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutProcessorInput
+  approvedPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutApproverInput
+  paidPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutPayerInput
+  approvedOvertime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutApproverInput
+  approvedAbsences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutApproverInput
+  VolumesCreated?: Prisma.VolumeUncheckedCreateNestedManyWithoutCreatedByUserInput
+  VolumesClosed?: Prisma.VolumeUncheckedCreateNestedManyWithoutClosedByUserInput
+  VolumesDelivered?: Prisma.VolumeUncheckedCreateNestedManyWithoutDeliveredByUserInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
+  storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
+  calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
+  eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
+  eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
+  emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
+  ownedBoards?: Prisma.BoardUncheckedCreateNestedManyWithoutOwnerInput
+  assignedCards?: Prisma.CardUncheckedCreateNestedManyWithoutAssigneeInput
+  reportedCards?: Prisma.CardUncheckedCreateNestedManyWithoutReporterInput
+  boardMemberships?: Prisma.BoardMemberUncheckedCreateNestedManyWithoutUserInput
+  cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
+  commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
+  cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
+  checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+  assignedContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutAssignedToInput
+  assignedDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutAssignedToInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutUserInput
+  crmTimeline?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutUserInput
+  centralUser?: Prisma.CentralUserUncheckedCreateNestedOneWithoutUserInput
+  createdSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutCreatorInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutAuthorInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutUserInput
+  inventoryResolutions?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutResolverInput
+  assignedBids?: Prisma.BidUncheckedCreateNestedManyWithoutAssignedToInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedCreateNestedManyWithoutSentByUserInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutActionTakenByInput
+}
+
+export type UserCreateOrConnectWithoutBidHistoryActionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutBidHistoryActionsInput, Prisma.UserUncheckedCreateWithoutBidHistoryActionsInput>
+}
+
+export type UserUpsertWithoutBidHistoryActionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutBidHistoryActionsInput, Prisma.UserUncheckedUpdateWithoutBidHistoryActionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutBidHistoryActionsInput, Prisma.UserUncheckedCreateWithoutBidHistoryActionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutBidHistoryActionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutBidHistoryActionsInput, Prisma.UserUncheckedUpdateWithoutBidHistoryActionsInput>
+}
+
+export type UserUpdateWithoutBidHistoryActionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  lastLoginIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  blockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  forcePasswordReset?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
+  RefreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutUserNestedInput
+  ItemMovement?: Prisma.ItemMovementUpdateManyWithoutUserNestedInput
+  ApprovedMovements?: Prisma.ItemMovementUpdateManyWithoutApproverNestedInput
+  AuditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUpdateManyWithoutUserNestedInput
+  Alerts?: Prisma.AlertUpdateManyWithoutUserNestedInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutCreatorNestedInput
+  CreatedSalesOrders?: Prisma.SalesOrderUpdateManyWithoutCreatorNestedInput
+  ItemReservations?: Prisma.ItemReservationUpdateManyWithoutUserNestedInput
+  Comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
+  Notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  permissionGroups?: Prisma.UserPermissionGroupUpdateManyWithoutUserNestedInput
+  grantedPermissions?: Prisma.UserPermissionGroupUpdateManyWithoutGranterNestedInput
+  directPermissions?: Prisma.UserDirectPermissionUpdateManyWithoutUserNestedInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUpdateManyWithoutGranterNestedInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUpdateManyWithoutUserNestedInput
+  RequestsCreated?: Prisma.RequestUpdateManyWithoutRequesterNestedInput
+  RequestsAssigned?: Prisma.RequestUpdateManyWithoutAssignedToNestedInput
+  UploadedAttachments?: Prisma.RequestAttachmentUpdateManyWithoutUploadedByNestedInput
+  RequestComments?: Prisma.RequestCommentUpdateManyWithoutAuthorNestedInput
+  RequestHistoryActions?: Prisma.RequestHistoryUpdateManyWithoutPerformedByNestedInput
+  employee?: Prisma.EmployeeUpdateOneWithoutUserNestedInput
+  processedPayrolls?: Prisma.PayrollUpdateManyWithoutProcessorNestedInput
+  approvedPayrolls?: Prisma.PayrollUpdateManyWithoutApproverNestedInput
+  paidPayrolls?: Prisma.PayrollUpdateManyWithoutPayerNestedInput
+  approvedOvertime?: Prisma.OvertimeUpdateManyWithoutApproverNestedInput
+  approvedAbsences?: Prisma.AbsenceUpdateManyWithoutApproverNestedInput
+  VolumesCreated?: Prisma.VolumeUpdateManyWithoutCreatedByUserNestedInput
+  VolumesClosed?: Prisma.VolumeUpdateManyWithoutClosedByUserNestedInput
+  VolumesDelivered?: Prisma.VolumeUpdateManyWithoutDeliveredByUserNestedInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
+  storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
+  calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
+  eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
+  eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
+  emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
+  ownedBoards?: Prisma.BoardUpdateManyWithoutOwnerNestedInput
+  assignedCards?: Prisma.CardUpdateManyWithoutAssigneeNestedInput
+  reportedCards?: Prisma.CardUpdateManyWithoutReporterNestedInput
+  boardMemberships?: Prisma.BoardMemberUpdateManyWithoutUserNestedInput
+  cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
+  commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
+  cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
+  checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUpdateManyWithoutAssignedToNestedInput
+  assignedDeals?: Prisma.CrmDealUpdateManyWithoutAssignedToNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutUserNestedInput
+  crmTimeline?: Prisma.CrmTimelineEventUpdateManyWithoutUserNestedInput
+  centralUser?: Prisma.CentralUserUpdateOneWithoutUserNestedInput
+  createdSupportTickets?: Prisma.SupportTicketUpdateManyWithoutCreatorNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutAuthorNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutUserNestedInput
+  inventoryResolutions?: Prisma.InventorySessionItemUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUpdateManyWithoutActionTakenByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutBidHistoryActionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  lastLoginIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  blockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  forcePasswordReset?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
+  RefreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutUserNestedInput
+  ItemMovement?: Prisma.ItemMovementUncheckedUpdateManyWithoutUserNestedInput
+  ApprovedMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutApproverNestedInput
+  AuditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUncheckedUpdateManyWithoutUserNestedInput
+  Alerts?: Prisma.AlertUncheckedUpdateManyWithoutUserNestedInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutCreatorNestedInput
+  CreatedSalesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutCreatorNestedInput
+  ItemReservations?: Prisma.ItemReservationUncheckedUpdateManyWithoutUserNestedInput
+  Comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
+  Notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  permissionGroups?: Prisma.UserPermissionGroupUncheckedUpdateManyWithoutUserNestedInput
+  grantedPermissions?: Prisma.UserPermissionGroupUncheckedUpdateManyWithoutGranterNestedInput
+  directPermissions?: Prisma.UserDirectPermissionUncheckedUpdateManyWithoutUserNestedInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUncheckedUpdateManyWithoutGranterNestedInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUncheckedUpdateManyWithoutUserNestedInput
+  RequestsCreated?: Prisma.RequestUncheckedUpdateManyWithoutRequesterNestedInput
+  RequestsAssigned?: Prisma.RequestUncheckedUpdateManyWithoutAssignedToNestedInput
+  UploadedAttachments?: Prisma.RequestAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  RequestComments?: Prisma.RequestCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  RequestHistoryActions?: Prisma.RequestHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  employee?: Prisma.EmployeeUncheckedUpdateOneWithoutUserNestedInput
+  processedPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutProcessorNestedInput
+  approvedPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutApproverNestedInput
+  paidPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutPayerNestedInput
+  approvedOvertime?: Prisma.OvertimeUncheckedUpdateManyWithoutApproverNestedInput
+  approvedAbsences?: Prisma.AbsenceUncheckedUpdateManyWithoutApproverNestedInput
+  VolumesCreated?: Prisma.VolumeUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  VolumesClosed?: Prisma.VolumeUncheckedUpdateManyWithoutClosedByUserNestedInput
+  VolumesDelivered?: Prisma.VolumeUncheckedUpdateManyWithoutDeliveredByUserNestedInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
+  storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
+  calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
+  eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
+  eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
+  emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
+  ownedBoards?: Prisma.BoardUncheckedUpdateManyWithoutOwnerNestedInput
+  assignedCards?: Prisma.CardUncheckedUpdateManyWithoutAssigneeNestedInput
+  reportedCards?: Prisma.CardUncheckedUpdateManyWithoutReporterNestedInput
+  boardMemberships?: Prisma.BoardMemberUncheckedUpdateManyWithoutUserNestedInput
+  cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
+  cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
+  checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  assignedContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutAssignedToNestedInput
+  assignedDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutAssignedToNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutUserNestedInput
+  crmTimeline?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutUserNestedInput
+  centralUser?: Prisma.CentralUserUncheckedUpdateOneWithoutUserNestedInput
+  createdSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutCreatorNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutAuthorNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutUserNestedInput
+  inventoryResolutions?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput
+  assignedBids?: Prisma.BidUncheckedUpdateManyWithoutAssignedToNestedInput
+  bidProposalsSent?: Prisma.BidProposalUncheckedUpdateManyWithoutSentByUserNestedInput
+  bidEventActions?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutActionTakenByNestedInput
 }
 
 
@@ -26436,6 +29120,10 @@ export type UserCountOutputType = {
   supportTicketMessages: number
   inventorySessions: number
   inventoryResolutions: number
+  assignedBids: number
+  bidProposalsSent: number
+  bidEventActions: number
+  bidHistoryActions: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -26501,6 +29189,10 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   supportTicketMessages?: boolean | UserCountOutputTypeCountSupportTicketMessagesArgs
   inventorySessions?: boolean | UserCountOutputTypeCountInventorySessionsArgs
   inventoryResolutions?: boolean | UserCountOutputTypeCountInventoryResolutionsArgs
+  assignedBids?: boolean | UserCountOutputTypeCountAssignedBidsArgs
+  bidProposalsSent?: boolean | UserCountOutputTypeCountBidProposalsSentArgs
+  bidEventActions?: boolean | UserCountOutputTypeCountBidEventActionsArgs
+  bidHistoryActions?: boolean | UserCountOutputTypeCountBidHistoryActionsArgs
 }
 
 /**
@@ -26947,6 +29639,34 @@ export type UserCountOutputTypeCountInventoryResolutionsArgs<ExtArgs extends run
   where?: Prisma.InventorySessionItemWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAssignedBidsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BidWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountBidProposalsSentArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BidProposalWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountBidEventActionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BidMonitorEventWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountBidHistoryActionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BidHistoryWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -27036,6 +29756,10 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   supportTicketMessages?: boolean | Prisma.User$supportTicketMessagesArgs<ExtArgs>
   inventorySessions?: boolean | Prisma.User$inventorySessionsArgs<ExtArgs>
   inventoryResolutions?: boolean | Prisma.User$inventoryResolutionsArgs<ExtArgs>
+  assignedBids?: boolean | Prisma.User$assignedBidsArgs<ExtArgs>
+  bidProposalsSent?: boolean | Prisma.User$bidProposalsSentArgs<ExtArgs>
+  bidEventActions?: boolean | Prisma.User$bidEventActionsArgs<ExtArgs>
+  bidHistoryActions?: boolean | Prisma.User$bidHistoryActionsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -27181,6 +29905,10 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   supportTicketMessages?: boolean | Prisma.User$supportTicketMessagesArgs<ExtArgs>
   inventorySessions?: boolean | Prisma.User$inventorySessionsArgs<ExtArgs>
   inventoryResolutions?: boolean | Prisma.User$inventoryResolutionsArgs<ExtArgs>
+  assignedBids?: boolean | Prisma.User$assignedBidsArgs<ExtArgs>
+  bidProposalsSent?: boolean | Prisma.User$bidProposalsSentArgs<ExtArgs>
+  bidEventActions?: boolean | Prisma.User$bidEventActionsArgs<ExtArgs>
+  bidHistoryActions?: boolean | Prisma.User$bidHistoryActionsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -27254,6 +29982,10 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     supportTicketMessages: Prisma.$SupportTicketMessagePayload<ExtArgs>[]
     inventorySessions: Prisma.$InventorySessionPayload<ExtArgs>[]
     inventoryResolutions: Prisma.$InventorySessionItemPayload<ExtArgs>[]
+    assignedBids: Prisma.$BidPayload<ExtArgs>[]
+    bidProposalsSent: Prisma.$BidProposalPayload<ExtArgs>[]
+    bidEventActions: Prisma.$BidMonitorEventPayload<ExtArgs>[]
+    bidHistoryActions: Prisma.$BidHistoryPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -27737,6 +30469,10 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   supportTicketMessages<T extends Prisma.User$supportTicketMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$supportTicketMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SupportTicketMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   inventorySessions<T extends Prisma.User$inventorySessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$inventorySessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InventorySessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   inventoryResolutions<T extends Prisma.User$inventoryResolutionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$inventoryResolutionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InventorySessionItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  assignedBids<T extends Prisma.User$assignedBidsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$assignedBidsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BidPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  bidProposalsSent<T extends Prisma.User$bidProposalsSentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$bidProposalsSentArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BidProposalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  bidEventActions<T extends Prisma.User$bidEventActionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$bidEventActionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BidMonitorEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  bidHistoryActions<T extends Prisma.User$bidHistoryActionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$bidHistoryActionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BidHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -29718,6 +32454,102 @@ export type User$inventoryResolutionsArgs<ExtArgs extends runtime.Types.Extensio
   take?: number
   skip?: number
   distinct?: Prisma.InventorySessionItemScalarFieldEnum | Prisma.InventorySessionItemScalarFieldEnum[]
+}
+
+/**
+ * User.assignedBids
+ */
+export type User$assignedBidsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Bid
+   */
+  select?: Prisma.BidSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Bid
+   */
+  omit?: Prisma.BidOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BidInclude<ExtArgs> | null
+  where?: Prisma.BidWhereInput
+  orderBy?: Prisma.BidOrderByWithRelationInput | Prisma.BidOrderByWithRelationInput[]
+  cursor?: Prisma.BidWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BidScalarFieldEnum | Prisma.BidScalarFieldEnum[]
+}
+
+/**
+ * User.bidProposalsSent
+ */
+export type User$bidProposalsSentArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BidProposal
+   */
+  select?: Prisma.BidProposalSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the BidProposal
+   */
+  omit?: Prisma.BidProposalOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BidProposalInclude<ExtArgs> | null
+  where?: Prisma.BidProposalWhereInput
+  orderBy?: Prisma.BidProposalOrderByWithRelationInput | Prisma.BidProposalOrderByWithRelationInput[]
+  cursor?: Prisma.BidProposalWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BidProposalScalarFieldEnum | Prisma.BidProposalScalarFieldEnum[]
+}
+
+/**
+ * User.bidEventActions
+ */
+export type User$bidEventActionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BidMonitorEvent
+   */
+  select?: Prisma.BidMonitorEventSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the BidMonitorEvent
+   */
+  omit?: Prisma.BidMonitorEventOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BidMonitorEventInclude<ExtArgs> | null
+  where?: Prisma.BidMonitorEventWhereInput
+  orderBy?: Prisma.BidMonitorEventOrderByWithRelationInput | Prisma.BidMonitorEventOrderByWithRelationInput[]
+  cursor?: Prisma.BidMonitorEventWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BidMonitorEventScalarFieldEnum | Prisma.BidMonitorEventScalarFieldEnum[]
+}
+
+/**
+ * User.bidHistoryActions
+ */
+export type User$bidHistoryActionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BidHistory
+   */
+  select?: Prisma.BidHistorySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the BidHistory
+   */
+  omit?: Prisma.BidHistoryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BidHistoryInclude<ExtArgs> | null
+  where?: Prisma.BidHistoryWhereInput
+  orderBy?: Prisma.BidHistoryOrderByWithRelationInput | Prisma.BidHistoryOrderByWithRelationInput[]
+  cursor?: Prisma.BidHistoryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BidHistoryScalarFieldEnum | Prisma.BidHistoryScalarFieldEnum[]
 }
 
 /**

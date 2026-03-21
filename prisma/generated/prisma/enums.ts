@@ -1393,3 +1393,221 @@ export const AutomationAction = {
 } as const
 
 export type AutomationAction = (typeof AutomationAction)[keyof typeof AutomationAction]
+
+
+export const BidModality = {
+  PREGAO_ELETRONICO: 'PREGAO_ELETRONICO',
+  PREGAO_PRESENCIAL: 'PREGAO_PRESENCIAL',
+  CONCORRENCIA: 'CONCORRENCIA',
+  TOMADA_PRECOS: 'TOMADA_PRECOS',
+  CONVITE: 'CONVITE',
+  LEILAO: 'LEILAO',
+  DIALOGO_COMPETITIVO: 'DIALOGO_COMPETITIVO',
+  CONCURSO: 'CONCURSO',
+  DISPENSA: 'DISPENSA',
+  INEXIGIBILIDADE: 'INEXIGIBILIDADE'
+} as const
+
+export type BidModality = (typeof BidModality)[keyof typeof BidModality]
+
+
+export const BidCriterion = {
+  MENOR_PRECO: 'MENOR_PRECO',
+  MAIOR_DESCONTO: 'MAIOR_DESCONTO',
+  MELHOR_TECNICA: 'MELHOR_TECNICA',
+  TECNICA_PRECO: 'TECNICA_PRECO',
+  MAIOR_LANCE: 'MAIOR_LANCE',
+  MAIOR_RETORNO: 'MAIOR_RETORNO'
+} as const
+
+export type BidCriterion = (typeof BidCriterion)[keyof typeof BidCriterion]
+
+
+export const BidLegalFramework = {
+  LEI_14133_2021: 'LEI_14133_2021',
+  LEI_8666_1993: 'LEI_8666_1993',
+  LEI_10520_2002: 'LEI_10520_2002',
+  LEI_12462_2011: 'LEI_12462_2011',
+  DECRETO_10024_2019: 'DECRETO_10024_2019'
+} as const
+
+export type BidLegalFramework = (typeof BidLegalFramework)[keyof typeof BidLegalFramework]
+
+
+export const BidExecutionRegime = {
+  EMPREITADA_PRECO_GLOBAL: 'EMPREITADA_PRECO_GLOBAL',
+  EMPREITADA_PRECO_UNITARIO: 'EMPREITADA_PRECO_UNITARIO',
+  TAREFA: 'TAREFA',
+  INTEGRAL: 'INTEGRAL',
+  FORNECIMENTO_REGIME_PRECO: 'FORNECIMENTO_REGIME_PRECO'
+} as const
+
+export type BidExecutionRegime = (typeof BidExecutionRegime)[keyof typeof BidExecutionRegime]
+
+
+export const BidStatus = {
+  DISCOVERED: 'DISCOVERED',
+  ANALYZING: 'ANALYZING',
+  VIABLE: 'VIABLE',
+  NOT_VIABLE: 'NOT_VIABLE',
+  PREPARING: 'PREPARING',
+  PROPOSAL_SENT: 'PROPOSAL_SENT',
+  AWAITING_DISPUTE: 'AWAITING_DISPUTE',
+  IN_DISPUTE: 'IN_DISPUTE',
+  WON: 'WON',
+  LOST: 'LOST',
+  DESERTED: 'DESERTED',
+  REVOKED: 'REVOKED',
+  SUSPENDED: 'SUSPENDED',
+  MONITORING: 'MONITORING',
+  CONTRACTED: 'CONTRACTED',
+  COMPLETED: 'COMPLETED',
+  ARCHIVED: 'ARCHIVED'
+} as const
+
+export type BidStatus = (typeof BidStatus)[keyof typeof BidStatus]
+
+
+export const BidItemStatus = {
+  PENDING_BID_ITEM: 'PENDING_BID_ITEM',
+  QUOTED: 'QUOTED',
+  WON_BID_ITEM: 'WON_BID_ITEM',
+  LOST_BID_ITEM: 'LOST_BID_ITEM',
+  DESERTED_BID_ITEM: 'DESERTED_BID_ITEM',
+  CANCELLED_BID_ITEM: 'CANCELLED_BID_ITEM'
+} as const
+
+export type BidItemStatus = (typeof BidItemStatus)[keyof typeof BidItemStatus]
+
+
+export const BidProposalStatus = {
+  DRAFT_PROPOSAL: 'DRAFT_PROPOSAL',
+  REVIEW_PROPOSAL: 'REVIEW_PROPOSAL',
+  APPROVED_PROPOSAL: 'APPROVED_PROPOSAL',
+  SENT_PROPOSAL: 'SENT_PROPOSAL',
+  ACCEPTED_PROPOSAL: 'ACCEPTED_PROPOSAL',
+  REJECTED_PROPOSAL: 'REJECTED_PROPOSAL',
+  SUPERSEDED_PROPOSAL: 'SUPERSEDED_PROPOSAL'
+} as const
+
+export type BidProposalStatus = (typeof BidProposalStatus)[keyof typeof BidProposalStatus]
+
+
+export const BidDocumentType = {
+  CERTIDAO_FEDERAL: 'CERTIDAO_FEDERAL',
+  CERTIDAO_ESTADUAL: 'CERTIDAO_ESTADUAL',
+  CERTIDAO_MUNICIPAL: 'CERTIDAO_MUNICIPAL',
+  CERTIDAO_TRABALHISTA: 'CERTIDAO_TRABALHISTA',
+  CERTIDAO_FGTS: 'CERTIDAO_FGTS',
+  CERTIDAO_FALENCIA: 'CERTIDAO_FALENCIA',
+  BALANCO_PATRIMONIAL: 'BALANCO_PATRIMONIAL',
+  CONTRATO_SOCIAL: 'CONTRATO_SOCIAL',
+  ALVARA: 'ALVARA',
+  ATESTADO_CAPACIDADE: 'ATESTADO_CAPACIDADE',
+  PROPOSTA_TECNICA: 'PROPOSTA_TECNICA',
+  PROPOSTA_COMERCIAL: 'PROPOSTA_COMERCIAL',
+  EDITAL: 'EDITAL',
+  ATA_REGISTRO: 'ATA_REGISTRO',
+  OUTROS: 'OUTROS'
+} as const
+
+export type BidDocumentType = (typeof BidDocumentType)[keyof typeof BidDocumentType]
+
+
+export const BidDocRenewalMethod = {
+  AUTOMATIC_API: 'AUTOMATIC_API',
+  AUTOMATIC_SCRAPING: 'AUTOMATIC_SCRAPING',
+  MANUAL: 'MANUAL'
+} as const
+
+export type BidDocRenewalMethod = (typeof BidDocRenewalMethod)[keyof typeof BidDocRenewalMethod]
+
+
+export const BidDocRenewalStatus = {
+  SUCCESS: 'SUCCESS',
+  FAILED: 'FAILED',
+  PENDING_RENEWAL: 'PENDING_RENEWAL',
+  NOT_APPLICABLE: 'NOT_APPLICABLE'
+} as const
+
+export type BidDocRenewalStatus = (typeof BidDocRenewalStatus)[keyof typeof BidDocRenewalStatus]
+
+
+export const BidContractStatus = {
+  DRAFT_CONTRACT: 'DRAFT_CONTRACT',
+  ACTIVE_CONTRACT: 'ACTIVE_CONTRACT',
+  SUSPENDED_CONTRACT: 'SUSPENDED_CONTRACT',
+  COMPLETED_CONTRACT: 'COMPLETED_CONTRACT',
+  TERMINATED_CONTRACT: 'TERMINATED_CONTRACT',
+  RENEWED_CONTRACT: 'RENEWED_CONTRACT'
+} as const
+
+export type BidContractStatus = (typeof BidContractStatus)[keyof typeof BidContractStatus]
+
+
+export const BidEmpenhoType = {
+  ORDINARIO: 'ORDINARIO',
+  ESTIMATIVO: 'ESTIMATIVO',
+  GLOBAL_EMPENHO: 'GLOBAL_EMPENHO'
+} as const
+
+export type BidEmpenhoType = (typeof BidEmpenhoType)[keyof typeof BidEmpenhoType]
+
+
+export const BidEmpenhoStatus = {
+  EMITIDO: 'EMITIDO',
+  PARCIALMENTE_LIQUIDADO: 'PARCIALMENTE_LIQUIDADO',
+  LIQUIDADO: 'LIQUIDADO',
+  ANULADO: 'ANULADO'
+} as const
+
+export type BidEmpenhoStatus = (typeof BidEmpenhoStatus)[keyof typeof BidEmpenhoStatus]
+
+
+export const BidMonitorEventType = {
+  STATUS_CHANGE: 'STATUS_CHANGE',
+  CONVOCATION: 'CONVOCATION',
+  DISQUALIFICATION: 'DISQUALIFICATION',
+  APPEAL: 'APPEAL',
+  IMPUGNATION: 'IMPUGNATION',
+  DEADLINE_APPROACHING: 'DEADLINE_APPROACHING',
+  DOCUMENT_EXPIRING: 'DOCUMENT_EXPIRING',
+  PRICE_REGISTRATION_CALL: 'PRICE_REGISTRATION_CALL',
+  CONTRACT_RENEWAL: 'CONTRACT_RENEWAL',
+  ADDENDUM: 'ADDENDUM',
+  AI_SUGGESTION: 'AI_SUGGESTION',
+  PORTAL_UPDATE: 'PORTAL_UPDATE'
+} as const
+
+export type BidMonitorEventType = (typeof BidMonitorEventType)[keyof typeof BidMonitorEventType]
+
+
+export const BidHistoryAction = {
+  BID_CREATED: 'BID_CREATED',
+  BID_UPDATED: 'BID_UPDATED',
+  BID_STATUS_CHANGED: 'BID_STATUS_CHANGED',
+  BID_PROPOSAL_CREATED: 'BID_PROPOSAL_CREATED',
+  BID_PROPOSAL_SENT: 'BID_PROPOSAL_SENT',
+  BID_DOCUMENT_UPLOADED: 'BID_DOCUMENT_UPLOADED',
+  BID_DISPUTE_ENTERED: 'BID_DISPUTE_ENTERED',
+  BID_PLACED: 'BID_PLACED',
+  BID_WON: 'BID_WON',
+  BID_LOST: 'BID_LOST',
+  BID_CONTRACT_CREATED: 'BID_CONTRACT_CREATED',
+  BID_EMPENHO_RECEIVED: 'BID_EMPENHO_RECEIVED',
+  BID_ORDER_CREATED: 'BID_ORDER_CREATED',
+  BID_AI_ANALYSIS: 'BID_AI_ANALYSIS',
+  BID_AI_DECISION: 'BID_AI_DECISION',
+  BID_MANUAL_OVERRIDE: 'BID_MANUAL_OVERRIDE'
+} as const
+
+export type BidHistoryAction = (typeof BidHistoryAction)[keyof typeof BidHistoryAction]
+
+
+export const BidQuotaType = {
+  PRINCIPAL: 'PRINCIPAL',
+  COTA_RESERVADA: 'COTA_RESERVADA',
+  EXCLUSIVO_ME_EPP: 'EXCLUSIVO_ME_EPP'
+} as const
+
+export type BidQuotaType = (typeof BidQuotaType)[keyof typeof BidQuotaType]

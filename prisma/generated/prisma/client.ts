@@ -784,3 +784,53 @@ export type SupportTicketAttachment = Prisma.SupportTicketAttachmentModel
  * 
  */
 export type SupportSlaConfig = Prisma.SupportSlaConfigModel
+/**
+ * Model Bid
+ * 
+ */
+export type Bid = Prisma.BidModel
+/**
+ * Model BidItem
+ * 
+ */
+export type BidItem = Prisma.BidItemModel
+/**
+ * Model BidProposal
+ * 
+ */
+export type BidProposal = Prisma.BidProposalModel
+/**
+ * Model BidDocument
+ * 
+ */
+export type BidDocument = Prisma.BidDocumentModel
+/**
+ * Model BidContract
+ * 
+ */
+export type BidContract = Prisma.BidContractModel
+/**
+ * Model BidEmpenho
+ * 
+ */
+export type BidEmpenho = Prisma.BidEmpenhoModel
+/**
+ * Model BidMonitorEvent
+ * 
+ */
+export type BidMonitorEvent = Prisma.BidMonitorEventModel
+/**
+ * Model BidHistory
+ * 
+ */
+export type BidHistory = Prisma.BidHistoryModel
+/**
+ * Model BidAiConfig
+ * 
+ */
+export type BidAiConfig = Prisma.BidAiConfigModel
+/**
+ * Model CertidaoSchedule
+ * 
+ */
+export type CertidaoSchedule = Prisma.CertidaoScheduleModel

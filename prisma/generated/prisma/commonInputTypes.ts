@@ -2210,6 +2210,278 @@ export type EnumTicketAuthorTypeWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumTicketAuthorTypeFilter<$PrismaModel>
 }
 
+export type EnumBidModalityFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidModality | Prisma.EnumBidModalityFieldRefInput<$PrismaModel>
+  in?: $Enums.BidModality[] | Prisma.ListEnumBidModalityFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BidModality[] | Prisma.ListEnumBidModalityFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBidModalityFilter<$PrismaModel> | $Enums.BidModality
+}
+
+export type EnumBidCriterionFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidCriterion | Prisma.EnumBidCriterionFieldRefInput<$PrismaModel>
+  in?: $Enums.BidCriterion[] | Prisma.ListEnumBidCriterionFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BidCriterion[] | Prisma.ListEnumBidCriterionFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBidCriterionFilter<$PrismaModel> | $Enums.BidCriterion
+}
+
+export type EnumBidLegalFrameworkFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidLegalFramework | Prisma.EnumBidLegalFrameworkFieldRefInput<$PrismaModel>
+  in?: $Enums.BidLegalFramework[] | Prisma.ListEnumBidLegalFrameworkFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BidLegalFramework[] | Prisma.ListEnumBidLegalFrameworkFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBidLegalFrameworkFilter<$PrismaModel> | $Enums.BidLegalFramework
+}
+
+export type EnumBidExecutionRegimeNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidExecutionRegime | Prisma.EnumBidExecutionRegimeFieldRefInput<$PrismaModel> | null
+  in?: $Enums.BidExecutionRegime[] | Prisma.ListEnumBidExecutionRegimeFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.BidExecutionRegime[] | Prisma.ListEnumBidExecutionRegimeFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumBidExecutionRegimeNullableFilter<$PrismaModel> | $Enums.BidExecutionRegime | null
+}
+
+export type EnumBidStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidStatus | Prisma.EnumBidStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.BidStatus[] | Prisma.ListEnumBidStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BidStatus[] | Prisma.ListEnumBidStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBidStatusFilter<$PrismaModel> | $Enums.BidStatus
+}
+
+export type EnumBidModalityWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidModality | Prisma.EnumBidModalityFieldRefInput<$PrismaModel>
+  in?: $Enums.BidModality[] | Prisma.ListEnumBidModalityFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BidModality[] | Prisma.ListEnumBidModalityFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBidModalityWithAggregatesFilter<$PrismaModel> | $Enums.BidModality
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumBidModalityFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumBidModalityFilter<$PrismaModel>
+}
+
+export type EnumBidCriterionWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidCriterion | Prisma.EnumBidCriterionFieldRefInput<$PrismaModel>
+  in?: $Enums.BidCriterion[] | Prisma.ListEnumBidCriterionFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BidCriterion[] | Prisma.ListEnumBidCriterionFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBidCriterionWithAggregatesFilter<$PrismaModel> | $Enums.BidCriterion
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumBidCriterionFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumBidCriterionFilter<$PrismaModel>
+}
+
+export type EnumBidLegalFrameworkWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidLegalFramework | Prisma.EnumBidLegalFrameworkFieldRefInput<$PrismaModel>
+  in?: $Enums.BidLegalFramework[] | Prisma.ListEnumBidLegalFrameworkFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BidLegalFramework[] | Prisma.ListEnumBidLegalFrameworkFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBidLegalFrameworkWithAggregatesFilter<$PrismaModel> | $Enums.BidLegalFramework
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumBidLegalFrameworkFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumBidLegalFrameworkFilter<$PrismaModel>
+}
+
+export type EnumBidExecutionRegimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidExecutionRegime | Prisma.EnumBidExecutionRegimeFieldRefInput<$PrismaModel> | null
+  in?: $Enums.BidExecutionRegime[] | Prisma.ListEnumBidExecutionRegimeFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.BidExecutionRegime[] | Prisma.ListEnumBidExecutionRegimeFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumBidExecutionRegimeNullableWithAggregatesFilter<$PrismaModel> | $Enums.BidExecutionRegime | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumBidExecutionRegimeNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumBidExecutionRegimeNullableFilter<$PrismaModel>
+}
+
+export type EnumBidStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidStatus | Prisma.EnumBidStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.BidStatus[] | Prisma.ListEnumBidStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BidStatus[] | Prisma.ListEnumBidStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBidStatusWithAggregatesFilter<$PrismaModel> | $Enums.BidStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumBidStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumBidStatusFilter<$PrismaModel>
+}
+
+export type EnumBidItemStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidItemStatus | Prisma.EnumBidItemStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.BidItemStatus[] | Prisma.ListEnumBidItemStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BidItemStatus[] | Prisma.ListEnumBidItemStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBidItemStatusFilter<$PrismaModel> | $Enums.BidItemStatus
+}
+
+export type EnumBidQuotaTypeNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidQuotaType | Prisma.EnumBidQuotaTypeFieldRefInput<$PrismaModel> | null
+  in?: $Enums.BidQuotaType[] | Prisma.ListEnumBidQuotaTypeFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.BidQuotaType[] | Prisma.ListEnumBidQuotaTypeFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumBidQuotaTypeNullableFilter<$PrismaModel> | $Enums.BidQuotaType | null
+}
+
+export type EnumBidItemStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidItemStatus | Prisma.EnumBidItemStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.BidItemStatus[] | Prisma.ListEnumBidItemStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BidItemStatus[] | Prisma.ListEnumBidItemStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBidItemStatusWithAggregatesFilter<$PrismaModel> | $Enums.BidItemStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumBidItemStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumBidItemStatusFilter<$PrismaModel>
+}
+
+export type EnumBidQuotaTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidQuotaType | Prisma.EnumBidQuotaTypeFieldRefInput<$PrismaModel> | null
+  in?: $Enums.BidQuotaType[] | Prisma.ListEnumBidQuotaTypeFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.BidQuotaType[] | Prisma.ListEnumBidQuotaTypeFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumBidQuotaTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.BidQuotaType | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumBidQuotaTypeNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumBidQuotaTypeNullableFilter<$PrismaModel>
+}
+
+export type EnumBidProposalStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidProposalStatus | Prisma.EnumBidProposalStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.BidProposalStatus[] | Prisma.ListEnumBidProposalStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BidProposalStatus[] | Prisma.ListEnumBidProposalStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBidProposalStatusFilter<$PrismaModel> | $Enums.BidProposalStatus
+}
+
+export type EnumBidProposalStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidProposalStatus | Prisma.EnumBidProposalStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.BidProposalStatus[] | Prisma.ListEnumBidProposalStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BidProposalStatus[] | Prisma.ListEnumBidProposalStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBidProposalStatusWithAggregatesFilter<$PrismaModel> | $Enums.BidProposalStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumBidProposalStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumBidProposalStatusFilter<$PrismaModel>
+}
+
+export type EnumBidDocumentTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidDocumentType | Prisma.EnumBidDocumentTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.BidDocumentType[] | Prisma.ListEnumBidDocumentTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BidDocumentType[] | Prisma.ListEnumBidDocumentTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBidDocumentTypeFilter<$PrismaModel> | $Enums.BidDocumentType
+}
+
+export type EnumBidDocRenewalStatusNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidDocRenewalStatus | Prisma.EnumBidDocRenewalStatusFieldRefInput<$PrismaModel> | null
+  in?: $Enums.BidDocRenewalStatus[] | Prisma.ListEnumBidDocRenewalStatusFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.BidDocRenewalStatus[] | Prisma.ListEnumBidDocRenewalStatusFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumBidDocRenewalStatusNullableFilter<$PrismaModel> | $Enums.BidDocRenewalStatus | null
+}
+
+export type EnumBidDocumentTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidDocumentType | Prisma.EnumBidDocumentTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.BidDocumentType[] | Prisma.ListEnumBidDocumentTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BidDocumentType[] | Prisma.ListEnumBidDocumentTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBidDocumentTypeWithAggregatesFilter<$PrismaModel> | $Enums.BidDocumentType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumBidDocumentTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumBidDocumentTypeFilter<$PrismaModel>
+}
+
+export type EnumBidDocRenewalStatusNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidDocRenewalStatus | Prisma.EnumBidDocRenewalStatusFieldRefInput<$PrismaModel> | null
+  in?: $Enums.BidDocRenewalStatus[] | Prisma.ListEnumBidDocRenewalStatusFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.BidDocRenewalStatus[] | Prisma.ListEnumBidDocRenewalStatusFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumBidDocRenewalStatusNullableWithAggregatesFilter<$PrismaModel> | $Enums.BidDocRenewalStatus | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumBidDocRenewalStatusNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumBidDocRenewalStatusNullableFilter<$PrismaModel>
+}
+
+export type EnumBidContractStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidContractStatus | Prisma.EnumBidContractStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.BidContractStatus[] | Prisma.ListEnumBidContractStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BidContractStatus[] | Prisma.ListEnumBidContractStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBidContractStatusFilter<$PrismaModel> | $Enums.BidContractStatus
+}
+
+export type EnumBidContractStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidContractStatus | Prisma.EnumBidContractStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.BidContractStatus[] | Prisma.ListEnumBidContractStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BidContractStatus[] | Prisma.ListEnumBidContractStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBidContractStatusWithAggregatesFilter<$PrismaModel> | $Enums.BidContractStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumBidContractStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumBidContractStatusFilter<$PrismaModel>
+}
+
+export type EnumBidEmpenhoTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidEmpenhoType | Prisma.EnumBidEmpenhoTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.BidEmpenhoType[] | Prisma.ListEnumBidEmpenhoTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BidEmpenhoType[] | Prisma.ListEnumBidEmpenhoTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBidEmpenhoTypeFilter<$PrismaModel> | $Enums.BidEmpenhoType
+}
+
+export type EnumBidEmpenhoStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidEmpenhoStatus | Prisma.EnumBidEmpenhoStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.BidEmpenhoStatus[] | Prisma.ListEnumBidEmpenhoStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BidEmpenhoStatus[] | Prisma.ListEnumBidEmpenhoStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBidEmpenhoStatusFilter<$PrismaModel> | $Enums.BidEmpenhoStatus
+}
+
+export type EnumBidEmpenhoTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidEmpenhoType | Prisma.EnumBidEmpenhoTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.BidEmpenhoType[] | Prisma.ListEnumBidEmpenhoTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BidEmpenhoType[] | Prisma.ListEnumBidEmpenhoTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBidEmpenhoTypeWithAggregatesFilter<$PrismaModel> | $Enums.BidEmpenhoType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumBidEmpenhoTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumBidEmpenhoTypeFilter<$PrismaModel>
+}
+
+export type EnumBidEmpenhoStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidEmpenhoStatus | Prisma.EnumBidEmpenhoStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.BidEmpenhoStatus[] | Prisma.ListEnumBidEmpenhoStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BidEmpenhoStatus[] | Prisma.ListEnumBidEmpenhoStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBidEmpenhoStatusWithAggregatesFilter<$PrismaModel> | $Enums.BidEmpenhoStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumBidEmpenhoStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumBidEmpenhoStatusFilter<$PrismaModel>
+}
+
+export type EnumBidMonitorEventTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidMonitorEventType | Prisma.EnumBidMonitorEventTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.BidMonitorEventType[] | Prisma.ListEnumBidMonitorEventTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BidMonitorEventType[] | Prisma.ListEnumBidMonitorEventTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBidMonitorEventTypeFilter<$PrismaModel> | $Enums.BidMonitorEventType
+}
+
+export type EnumBidMonitorEventTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidMonitorEventType | Prisma.EnumBidMonitorEventTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.BidMonitorEventType[] | Prisma.ListEnumBidMonitorEventTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BidMonitorEventType[] | Prisma.ListEnumBidMonitorEventTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBidMonitorEventTypeWithAggregatesFilter<$PrismaModel> | $Enums.BidMonitorEventType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumBidMonitorEventTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumBidMonitorEventTypeFilter<$PrismaModel>
+}
+
+export type EnumBidHistoryActionFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidHistoryAction | Prisma.EnumBidHistoryActionFieldRefInput<$PrismaModel>
+  in?: $Enums.BidHistoryAction[] | Prisma.ListEnumBidHistoryActionFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BidHistoryAction[] | Prisma.ListEnumBidHistoryActionFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBidHistoryActionFilter<$PrismaModel> | $Enums.BidHistoryAction
+}
+
+export type EnumBidHistoryActionWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidHistoryAction | Prisma.EnumBidHistoryActionFieldRefInput<$PrismaModel>
+  in?: $Enums.BidHistoryAction[] | Prisma.ListEnumBidHistoryActionFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BidHistoryAction[] | Prisma.ListEnumBidHistoryActionFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBidHistoryActionWithAggregatesFilter<$PrismaModel> | $Enums.BidHistoryAction
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumBidHistoryActionFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumBidHistoryActionFilter<$PrismaModel>
+}
+
+export type EnumBidDocRenewalMethodFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidDocRenewalMethod | Prisma.EnumBidDocRenewalMethodFieldRefInput<$PrismaModel>
+  in?: $Enums.BidDocRenewalMethod[] | Prisma.ListEnumBidDocRenewalMethodFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BidDocRenewalMethod[] | Prisma.ListEnumBidDocRenewalMethodFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBidDocRenewalMethodFilter<$PrismaModel> | $Enums.BidDocRenewalMethod
+}
+
+export type EnumBidDocRenewalMethodWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidDocRenewalMethod | Prisma.EnumBidDocRenewalMethodFieldRefInput<$PrismaModel>
+  in?: $Enums.BidDocRenewalMethod[] | Prisma.ListEnumBidDocRenewalMethodFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BidDocRenewalMethod[] | Prisma.ListEnumBidDocRenewalMethodFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBidDocRenewalMethodWithAggregatesFilter<$PrismaModel> | $Enums.BidDocRenewalMethod
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumBidDocRenewalMethodFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumBidDocRenewalMethodFilter<$PrismaModel>
+}
+
 export type NestedStringFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel>
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
@@ -4341,6 +4613,278 @@ export type NestedEnumTicketAuthorTypeWithAggregatesFilter<$PrismaModel = never>
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumTicketAuthorTypeFilter<$PrismaModel>
   _max?: Prisma.NestedEnumTicketAuthorTypeFilter<$PrismaModel>
+}
+
+export type NestedEnumBidModalityFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidModality | Prisma.EnumBidModalityFieldRefInput<$PrismaModel>
+  in?: $Enums.BidModality[] | Prisma.ListEnumBidModalityFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BidModality[] | Prisma.ListEnumBidModalityFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBidModalityFilter<$PrismaModel> | $Enums.BidModality
+}
+
+export type NestedEnumBidCriterionFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidCriterion | Prisma.EnumBidCriterionFieldRefInput<$PrismaModel>
+  in?: $Enums.BidCriterion[] | Prisma.ListEnumBidCriterionFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BidCriterion[] | Prisma.ListEnumBidCriterionFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBidCriterionFilter<$PrismaModel> | $Enums.BidCriterion
+}
+
+export type NestedEnumBidLegalFrameworkFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidLegalFramework | Prisma.EnumBidLegalFrameworkFieldRefInput<$PrismaModel>
+  in?: $Enums.BidLegalFramework[] | Prisma.ListEnumBidLegalFrameworkFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BidLegalFramework[] | Prisma.ListEnumBidLegalFrameworkFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBidLegalFrameworkFilter<$PrismaModel> | $Enums.BidLegalFramework
+}
+
+export type NestedEnumBidExecutionRegimeNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidExecutionRegime | Prisma.EnumBidExecutionRegimeFieldRefInput<$PrismaModel> | null
+  in?: $Enums.BidExecutionRegime[] | Prisma.ListEnumBidExecutionRegimeFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.BidExecutionRegime[] | Prisma.ListEnumBidExecutionRegimeFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumBidExecutionRegimeNullableFilter<$PrismaModel> | $Enums.BidExecutionRegime | null
+}
+
+export type NestedEnumBidStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidStatus | Prisma.EnumBidStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.BidStatus[] | Prisma.ListEnumBidStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BidStatus[] | Prisma.ListEnumBidStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBidStatusFilter<$PrismaModel> | $Enums.BidStatus
+}
+
+export type NestedEnumBidModalityWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidModality | Prisma.EnumBidModalityFieldRefInput<$PrismaModel>
+  in?: $Enums.BidModality[] | Prisma.ListEnumBidModalityFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BidModality[] | Prisma.ListEnumBidModalityFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBidModalityWithAggregatesFilter<$PrismaModel> | $Enums.BidModality
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumBidModalityFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumBidModalityFilter<$PrismaModel>
+}
+
+export type NestedEnumBidCriterionWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidCriterion | Prisma.EnumBidCriterionFieldRefInput<$PrismaModel>
+  in?: $Enums.BidCriterion[] | Prisma.ListEnumBidCriterionFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BidCriterion[] | Prisma.ListEnumBidCriterionFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBidCriterionWithAggregatesFilter<$PrismaModel> | $Enums.BidCriterion
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumBidCriterionFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumBidCriterionFilter<$PrismaModel>
+}
+
+export type NestedEnumBidLegalFrameworkWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidLegalFramework | Prisma.EnumBidLegalFrameworkFieldRefInput<$PrismaModel>
+  in?: $Enums.BidLegalFramework[] | Prisma.ListEnumBidLegalFrameworkFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BidLegalFramework[] | Prisma.ListEnumBidLegalFrameworkFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBidLegalFrameworkWithAggregatesFilter<$PrismaModel> | $Enums.BidLegalFramework
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumBidLegalFrameworkFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumBidLegalFrameworkFilter<$PrismaModel>
+}
+
+export type NestedEnumBidExecutionRegimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidExecutionRegime | Prisma.EnumBidExecutionRegimeFieldRefInput<$PrismaModel> | null
+  in?: $Enums.BidExecutionRegime[] | Prisma.ListEnumBidExecutionRegimeFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.BidExecutionRegime[] | Prisma.ListEnumBidExecutionRegimeFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumBidExecutionRegimeNullableWithAggregatesFilter<$PrismaModel> | $Enums.BidExecutionRegime | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumBidExecutionRegimeNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumBidExecutionRegimeNullableFilter<$PrismaModel>
+}
+
+export type NestedEnumBidStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidStatus | Prisma.EnumBidStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.BidStatus[] | Prisma.ListEnumBidStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BidStatus[] | Prisma.ListEnumBidStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBidStatusWithAggregatesFilter<$PrismaModel> | $Enums.BidStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumBidStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumBidStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumBidItemStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidItemStatus | Prisma.EnumBidItemStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.BidItemStatus[] | Prisma.ListEnumBidItemStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BidItemStatus[] | Prisma.ListEnumBidItemStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBidItemStatusFilter<$PrismaModel> | $Enums.BidItemStatus
+}
+
+export type NestedEnumBidQuotaTypeNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidQuotaType | Prisma.EnumBidQuotaTypeFieldRefInput<$PrismaModel> | null
+  in?: $Enums.BidQuotaType[] | Prisma.ListEnumBidQuotaTypeFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.BidQuotaType[] | Prisma.ListEnumBidQuotaTypeFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumBidQuotaTypeNullableFilter<$PrismaModel> | $Enums.BidQuotaType | null
+}
+
+export type NestedEnumBidItemStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidItemStatus | Prisma.EnumBidItemStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.BidItemStatus[] | Prisma.ListEnumBidItemStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BidItemStatus[] | Prisma.ListEnumBidItemStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBidItemStatusWithAggregatesFilter<$PrismaModel> | $Enums.BidItemStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumBidItemStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumBidItemStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumBidQuotaTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidQuotaType | Prisma.EnumBidQuotaTypeFieldRefInput<$PrismaModel> | null
+  in?: $Enums.BidQuotaType[] | Prisma.ListEnumBidQuotaTypeFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.BidQuotaType[] | Prisma.ListEnumBidQuotaTypeFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumBidQuotaTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.BidQuotaType | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumBidQuotaTypeNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumBidQuotaTypeNullableFilter<$PrismaModel>
+}
+
+export type NestedEnumBidProposalStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidProposalStatus | Prisma.EnumBidProposalStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.BidProposalStatus[] | Prisma.ListEnumBidProposalStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BidProposalStatus[] | Prisma.ListEnumBidProposalStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBidProposalStatusFilter<$PrismaModel> | $Enums.BidProposalStatus
+}
+
+export type NestedEnumBidProposalStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidProposalStatus | Prisma.EnumBidProposalStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.BidProposalStatus[] | Prisma.ListEnumBidProposalStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BidProposalStatus[] | Prisma.ListEnumBidProposalStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBidProposalStatusWithAggregatesFilter<$PrismaModel> | $Enums.BidProposalStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumBidProposalStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumBidProposalStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumBidDocumentTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidDocumentType | Prisma.EnumBidDocumentTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.BidDocumentType[] | Prisma.ListEnumBidDocumentTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BidDocumentType[] | Prisma.ListEnumBidDocumentTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBidDocumentTypeFilter<$PrismaModel> | $Enums.BidDocumentType
+}
+
+export type NestedEnumBidDocRenewalStatusNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidDocRenewalStatus | Prisma.EnumBidDocRenewalStatusFieldRefInput<$PrismaModel> | null
+  in?: $Enums.BidDocRenewalStatus[] | Prisma.ListEnumBidDocRenewalStatusFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.BidDocRenewalStatus[] | Prisma.ListEnumBidDocRenewalStatusFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumBidDocRenewalStatusNullableFilter<$PrismaModel> | $Enums.BidDocRenewalStatus | null
+}
+
+export type NestedEnumBidDocumentTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidDocumentType | Prisma.EnumBidDocumentTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.BidDocumentType[] | Prisma.ListEnumBidDocumentTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BidDocumentType[] | Prisma.ListEnumBidDocumentTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBidDocumentTypeWithAggregatesFilter<$PrismaModel> | $Enums.BidDocumentType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumBidDocumentTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumBidDocumentTypeFilter<$PrismaModel>
+}
+
+export type NestedEnumBidDocRenewalStatusNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidDocRenewalStatus | Prisma.EnumBidDocRenewalStatusFieldRefInput<$PrismaModel> | null
+  in?: $Enums.BidDocRenewalStatus[] | Prisma.ListEnumBidDocRenewalStatusFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.BidDocRenewalStatus[] | Prisma.ListEnumBidDocRenewalStatusFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumBidDocRenewalStatusNullableWithAggregatesFilter<$PrismaModel> | $Enums.BidDocRenewalStatus | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumBidDocRenewalStatusNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumBidDocRenewalStatusNullableFilter<$PrismaModel>
+}
+
+export type NestedEnumBidContractStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidContractStatus | Prisma.EnumBidContractStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.BidContractStatus[] | Prisma.ListEnumBidContractStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BidContractStatus[] | Prisma.ListEnumBidContractStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBidContractStatusFilter<$PrismaModel> | $Enums.BidContractStatus
+}
+
+export type NestedEnumBidContractStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidContractStatus | Prisma.EnumBidContractStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.BidContractStatus[] | Prisma.ListEnumBidContractStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BidContractStatus[] | Prisma.ListEnumBidContractStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBidContractStatusWithAggregatesFilter<$PrismaModel> | $Enums.BidContractStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumBidContractStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumBidContractStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumBidEmpenhoTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidEmpenhoType | Prisma.EnumBidEmpenhoTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.BidEmpenhoType[] | Prisma.ListEnumBidEmpenhoTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BidEmpenhoType[] | Prisma.ListEnumBidEmpenhoTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBidEmpenhoTypeFilter<$PrismaModel> | $Enums.BidEmpenhoType
+}
+
+export type NestedEnumBidEmpenhoStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidEmpenhoStatus | Prisma.EnumBidEmpenhoStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.BidEmpenhoStatus[] | Prisma.ListEnumBidEmpenhoStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BidEmpenhoStatus[] | Prisma.ListEnumBidEmpenhoStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBidEmpenhoStatusFilter<$PrismaModel> | $Enums.BidEmpenhoStatus
+}
+
+export type NestedEnumBidEmpenhoTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidEmpenhoType | Prisma.EnumBidEmpenhoTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.BidEmpenhoType[] | Prisma.ListEnumBidEmpenhoTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BidEmpenhoType[] | Prisma.ListEnumBidEmpenhoTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBidEmpenhoTypeWithAggregatesFilter<$PrismaModel> | $Enums.BidEmpenhoType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumBidEmpenhoTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumBidEmpenhoTypeFilter<$PrismaModel>
+}
+
+export type NestedEnumBidEmpenhoStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidEmpenhoStatus | Prisma.EnumBidEmpenhoStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.BidEmpenhoStatus[] | Prisma.ListEnumBidEmpenhoStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BidEmpenhoStatus[] | Prisma.ListEnumBidEmpenhoStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBidEmpenhoStatusWithAggregatesFilter<$PrismaModel> | $Enums.BidEmpenhoStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumBidEmpenhoStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumBidEmpenhoStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumBidMonitorEventTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidMonitorEventType | Prisma.EnumBidMonitorEventTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.BidMonitorEventType[] | Prisma.ListEnumBidMonitorEventTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BidMonitorEventType[] | Prisma.ListEnumBidMonitorEventTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBidMonitorEventTypeFilter<$PrismaModel> | $Enums.BidMonitorEventType
+}
+
+export type NestedEnumBidMonitorEventTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidMonitorEventType | Prisma.EnumBidMonitorEventTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.BidMonitorEventType[] | Prisma.ListEnumBidMonitorEventTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BidMonitorEventType[] | Prisma.ListEnumBidMonitorEventTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBidMonitorEventTypeWithAggregatesFilter<$PrismaModel> | $Enums.BidMonitorEventType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumBidMonitorEventTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumBidMonitorEventTypeFilter<$PrismaModel>
+}
+
+export type NestedEnumBidHistoryActionFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidHistoryAction | Prisma.EnumBidHistoryActionFieldRefInput<$PrismaModel>
+  in?: $Enums.BidHistoryAction[] | Prisma.ListEnumBidHistoryActionFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BidHistoryAction[] | Prisma.ListEnumBidHistoryActionFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBidHistoryActionFilter<$PrismaModel> | $Enums.BidHistoryAction
+}
+
+export type NestedEnumBidHistoryActionWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidHistoryAction | Prisma.EnumBidHistoryActionFieldRefInput<$PrismaModel>
+  in?: $Enums.BidHistoryAction[] | Prisma.ListEnumBidHistoryActionFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BidHistoryAction[] | Prisma.ListEnumBidHistoryActionFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBidHistoryActionWithAggregatesFilter<$PrismaModel> | $Enums.BidHistoryAction
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumBidHistoryActionFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumBidHistoryActionFilter<$PrismaModel>
+}
+
+export type NestedEnumBidDocRenewalMethodFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidDocRenewalMethod | Prisma.EnumBidDocRenewalMethodFieldRefInput<$PrismaModel>
+  in?: $Enums.BidDocRenewalMethod[] | Prisma.ListEnumBidDocRenewalMethodFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BidDocRenewalMethod[] | Prisma.ListEnumBidDocRenewalMethodFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBidDocRenewalMethodFilter<$PrismaModel> | $Enums.BidDocRenewalMethod
+}
+
+export type NestedEnumBidDocRenewalMethodWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.BidDocRenewalMethod | Prisma.EnumBidDocRenewalMethodFieldRefInput<$PrismaModel>
+  in?: $Enums.BidDocRenewalMethod[] | Prisma.ListEnumBidDocRenewalMethodFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BidDocRenewalMethod[] | Prisma.ListEnumBidDocRenewalMethodFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBidDocRenewalMethodWithAggregatesFilter<$PrismaModel> | $Enums.BidDocRenewalMethod
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumBidDocRenewalMethodFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumBidDocRenewalMethodFilter<$PrismaModel>
 }
 
 

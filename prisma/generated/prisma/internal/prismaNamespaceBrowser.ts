@@ -199,7 +199,17 @@ export const ModelName = {
   SupportTicket: 'SupportTicket',
   SupportTicketMessage: 'SupportTicketMessage',
   SupportTicketAttachment: 'SupportTicketAttachment',
-  SupportSlaConfig: 'SupportSlaConfig'
+  SupportSlaConfig: 'SupportSlaConfig',
+  Bid: 'Bid',
+  BidItem: 'BidItem',
+  BidProposal: 'BidProposal',
+  BidDocument: 'BidDocument',
+  BidContract: 'BidContract',
+  BidEmpenho: 'BidEmpenho',
+  BidMonitorEvent: 'BidMonitorEvent',
+  BidHistory: 'BidHistory',
+  BidAiConfig: 'BidAiConfig',
+  CertidaoSchedule: 'CertidaoSchedule'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -3139,6 +3149,250 @@ export const SupportSlaConfigScalarFieldEnum = {
 } as const
 
 export type SupportSlaConfigScalarFieldEnum = (typeof SupportSlaConfigScalarFieldEnum)[keyof typeof SupportSlaConfigScalarFieldEnum]
+
+
+export const BidScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  portalName: 'portalName',
+  portalEditalId: 'portalEditalId',
+  editalNumber: 'editalNumber',
+  modality: 'modality',
+  criterionType: 'criterionType',
+  legalFramework: 'legalFramework',
+  executionRegime: 'executionRegime',
+  object: 'object',
+  objectSummary: 'objectSummary',
+  organName: 'organName',
+  organCnpj: 'organCnpj',
+  organState: 'organState',
+  organCity: 'organCity',
+  estimatedValue: 'estimatedValue',
+  ourProposalValue: 'ourProposalValue',
+  finalValue: 'finalValue',
+  margin: 'margin',
+  publicationDate: 'publicationDate',
+  openingDate: 'openingDate',
+  closingDate: 'closingDate',
+  disputeDate: 'disputeDate',
+  status: 'status',
+  viabilityScore: 'viabilityScore',
+  viabilityReason: 'viabilityReason',
+  customerId: 'customerId',
+  assignedToUserId: 'assignedToUserId',
+  exclusiveMeEpp: 'exclusiveMeEpp',
+  deliveryStates: 'deliveryStates',
+  tags: 'tags',
+  notes: 'notes',
+  editalUrl: 'editalUrl',
+  editalFileId: 'editalFileId',
+  etpFileId: 'etpFileId',
+  trFileId: 'trFileId',
+  deletedAt: 'deletedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BidScalarFieldEnum = (typeof BidScalarFieldEnum)[keyof typeof BidScalarFieldEnum]
+
+
+export const BidItemScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  bidId: 'bidId',
+  itemNumber: 'itemNumber',
+  lotNumber: 'lotNumber',
+  lotDescription: 'lotDescription',
+  description: 'description',
+  quantity: 'quantity',
+  unit: 'unit',
+  estimatedUnitPrice: 'estimatedUnitPrice',
+  ourUnitPrice: 'ourUnitPrice',
+  finalUnitPrice: 'finalUnitPrice',
+  status: 'status',
+  variantId: 'variantId',
+  matchConfidence: 'matchConfidence',
+  quotaType: 'quotaType',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BidItemScalarFieldEnum = (typeof BidItemScalarFieldEnum)[keyof typeof BidItemScalarFieldEnum]
+
+
+export const BidProposalScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  bidId: 'bidId',
+  version: 'version',
+  status: 'status',
+  totalValue: 'totalValue',
+  validUntil: 'validUntil',
+  proposalFileId: 'proposalFileId',
+  sentAt: 'sentAt',
+  sentByUserId: 'sentByUserId',
+  sentByAi: 'sentByAi',
+  portalConfirmation: 'portalConfirmation',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BidProposalScalarFieldEnum = (typeof BidProposalScalarFieldEnum)[keyof typeof BidProposalScalarFieldEnum]
+
+
+export const BidDocumentScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  bidId: 'bidId',
+  type: 'type',
+  name: 'name',
+  description: 'description',
+  fileId: 'fileId',
+  issueDate: 'issueDate',
+  expirationDate: 'expirationDate',
+  isValid: 'isValid',
+  autoRenewable: 'autoRenewable',
+  lastRenewAttempt: 'lastRenewAttempt',
+  renewStatus: 'renewStatus',
+  portalUploaded: 'portalUploaded',
+  portalUploadedAt: 'portalUploadedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BidDocumentScalarFieldEnum = (typeof BidDocumentScalarFieldEnum)[keyof typeof BidDocumentScalarFieldEnum]
+
+
+export const BidContractScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  bidId: 'bidId',
+  contractNumber: 'contractNumber',
+  status: 'status',
+  signedDate: 'signedDate',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  totalValue: 'totalValue',
+  remainingValue: 'remainingValue',
+  customerId: 'customerId',
+  renewalCount: 'renewalCount',
+  maxRenewals: 'maxRenewals',
+  renewalDeadline: 'renewalDeadline',
+  deliveryAddresses: 'deliveryAddresses',
+  contractFileId: 'contractFileId',
+  notes: 'notes',
+  deletedAt: 'deletedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BidContractScalarFieldEnum = (typeof BidContractScalarFieldEnum)[keyof typeof BidContractScalarFieldEnum]
+
+
+export const BidEmpenhoScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  contractId: 'contractId',
+  empenhoNumber: 'empenhoNumber',
+  type: 'type',
+  value: 'value',
+  issueDate: 'issueDate',
+  status: 'status',
+  orderId: 'orderId',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BidEmpenhoScalarFieldEnum = (typeof BidEmpenhoScalarFieldEnum)[keyof typeof BidEmpenhoScalarFieldEnum]
+
+
+export const BidMonitorEventScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  bidId: 'bidId',
+  type: 'type',
+  description: 'description',
+  detectedAt: 'detectedAt',
+  detectedByAi: 'detectedByAi',
+  portalData: 'portalData',
+  actionRequired: 'actionRequired',
+  actionTaken: 'actionTaken',
+  actionTakenAt: 'actionTakenAt',
+  actionTakenByUserId: 'actionTakenByUserId',
+  responseDeadline: 'responseDeadline',
+  responseStatus: 'responseStatus',
+  createdAt: 'createdAt'
+} as const
+
+export type BidMonitorEventScalarFieldEnum = (typeof BidMonitorEventScalarFieldEnum)[keyof typeof BidMonitorEventScalarFieldEnum]
+
+
+export const BidHistoryScalarFieldEnum = {
+  id: 'id',
+  bidId: 'bidId',
+  tenantId: 'tenantId',
+  action: 'action',
+  description: 'description',
+  metadata: 'metadata',
+  performedByUserId: 'performedByUserId',
+  performedByAi: 'performedByAi',
+  isReversible: 'isReversible',
+  createdAt: 'createdAt'
+} as const
+
+export type BidHistoryScalarFieldEnum = (typeof BidHistoryScalarFieldEnum)[keyof typeof BidHistoryScalarFieldEnum]
+
+
+export const BidAiConfigScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  autonomyLevel: 'autonomyLevel',
+  maxEditalValue: 'maxEditalValue',
+  minMarginPercent: 'minMarginPercent',
+  allowedModalities: 'allowedModalities',
+  allowedCategories: 'allowedCategories',
+  blockedOrgans: 'blockedOrgans',
+  maxSimultaneous: 'maxSimultaneous',
+  maxAggregateExposure: 'maxAggregateExposure',
+  coolingOffMinutes: 'coolingOffMinutes',
+  emergencyStop: 'emergencyStop',
+  firstTimeApproval: 'firstTimeApproval',
+  companySize: 'companySize',
+  monitoringTimeoutDays: 'monitoringTimeoutDays',
+  autoProspect: 'autoProspect',
+  autoPropose: 'autoPropose',
+  autoDispute: 'autoDispute',
+  autoRespond: 'autoRespond',
+  autoCreateOrder: 'autoCreateOrder',
+  notifyOnActions: 'notifyOnActions',
+  chatResponseWhitelist: 'chatResponseWhitelist',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BidAiConfigScalarFieldEnum = (typeof BidAiConfigScalarFieldEnum)[keyof typeof BidAiConfigScalarFieldEnum]
+
+
+export const CertidaoScheduleScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  type: 'type',
+  renewalUrl: 'renewalUrl',
+  renewalMethod: 'renewalMethod',
+  lastCheck: 'lastCheck',
+  lastRenewal: 'lastRenewal',
+  nextExpiration: 'nextExpiration',
+  checkIntervalDays: 'checkIntervalDays',
+  alertDaysBefore: 'alertDaysBefore',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CertidaoScheduleScalarFieldEnum = (typeof CertidaoScheduleScalarFieldEnum)[keyof typeof CertidaoScheduleScalarFieldEnum]
 
 
 export const SortOrder = {

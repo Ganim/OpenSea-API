@@ -291,6 +291,16 @@ export type TenantWhereInput = {
   tenantBillings?: Prisma.TenantBillingListRelationFilter
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusListRelationFilter
   supportTickets?: Prisma.SupportTicketListRelationFilter
+  bids?: Prisma.BidListRelationFilter
+  bidItems?: Prisma.BidItemListRelationFilter
+  bidProposals?: Prisma.BidProposalListRelationFilter
+  bidDocuments?: Prisma.BidDocumentListRelationFilter
+  bidContracts?: Prisma.BidContractListRelationFilter
+  bidEmpenhos?: Prisma.BidEmpenhoListRelationFilter
+  bidMonitorEvents?: Prisma.BidMonitorEventListRelationFilter
+  bidHistory?: Prisma.BidHistoryListRelationFilter
+  bidAiConfig?: Prisma.XOR<Prisma.BidAiConfigNullableScalarRelationFilter, Prisma.BidAiConfigWhereInput> | null
+  certidaoSchedules?: Prisma.CertidaoScheduleListRelationFilter
 }
 
 export type TenantOrderByWithRelationInput = {
@@ -381,6 +391,16 @@ export type TenantOrderByWithRelationInput = {
   tenantBillings?: Prisma.TenantBillingOrderByRelationAggregateInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusOrderByRelationAggregateInput
   supportTickets?: Prisma.SupportTicketOrderByRelationAggregateInput
+  bids?: Prisma.BidOrderByRelationAggregateInput
+  bidItems?: Prisma.BidItemOrderByRelationAggregateInput
+  bidProposals?: Prisma.BidProposalOrderByRelationAggregateInput
+  bidDocuments?: Prisma.BidDocumentOrderByRelationAggregateInput
+  bidContracts?: Prisma.BidContractOrderByRelationAggregateInput
+  bidEmpenhos?: Prisma.BidEmpenhoOrderByRelationAggregateInput
+  bidMonitorEvents?: Prisma.BidMonitorEventOrderByRelationAggregateInput
+  bidHistory?: Prisma.BidHistoryOrderByRelationAggregateInput
+  bidAiConfig?: Prisma.BidAiConfigOrderByWithRelationInput
+  certidaoSchedules?: Prisma.CertidaoScheduleOrderByRelationAggregateInput
 }
 
 export type TenantWhereUniqueInput = Prisma.AtLeast<{
@@ -474,6 +494,16 @@ export type TenantWhereUniqueInput = Prisma.AtLeast<{
   tenantBillings?: Prisma.TenantBillingListRelationFilter
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusListRelationFilter
   supportTickets?: Prisma.SupportTicketListRelationFilter
+  bids?: Prisma.BidListRelationFilter
+  bidItems?: Prisma.BidItemListRelationFilter
+  bidProposals?: Prisma.BidProposalListRelationFilter
+  bidDocuments?: Prisma.BidDocumentListRelationFilter
+  bidContracts?: Prisma.BidContractListRelationFilter
+  bidEmpenhos?: Prisma.BidEmpenhoListRelationFilter
+  bidMonitorEvents?: Prisma.BidMonitorEventListRelationFilter
+  bidHistory?: Prisma.BidHistoryListRelationFilter
+  bidAiConfig?: Prisma.XOR<Prisma.BidAiConfigNullableScalarRelationFilter, Prisma.BidAiConfigWhereInput> | null
+  certidaoSchedules?: Prisma.CertidaoScheduleListRelationFilter
 }, "id" | "slug">
 
 export type TenantOrderByWithAggregationInput = {
@@ -596,6 +626,16 @@ export type TenantCreateInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateInput = {
@@ -686,6 +726,16 @@ export type TenantUncheckedCreateInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUpdateInput = {
@@ -776,6 +826,16 @@ export type TenantUpdateInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateInput = {
@@ -866,6 +926,16 @@ export type TenantUncheckedUpdateInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateManyInput = {
@@ -2042,6 +2112,146 @@ export type TenantUpdateOneRequiredWithoutSupportTicketsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutSupportTicketsInput, Prisma.TenantUpdateWithoutSupportTicketsInput>, Prisma.TenantUncheckedUpdateWithoutSupportTicketsInput>
 }
 
+export type TenantCreateNestedOneWithoutBidsInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutBidsInput, Prisma.TenantUncheckedCreateWithoutBidsInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutBidsInput
+  connect?: Prisma.TenantWhereUniqueInput
+}
+
+export type TenantUpdateOneRequiredWithoutBidsNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutBidsInput, Prisma.TenantUncheckedCreateWithoutBidsInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutBidsInput
+  upsert?: Prisma.TenantUpsertWithoutBidsInput
+  connect?: Prisma.TenantWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutBidsInput, Prisma.TenantUpdateWithoutBidsInput>, Prisma.TenantUncheckedUpdateWithoutBidsInput>
+}
+
+export type TenantCreateNestedOneWithoutBidItemsInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutBidItemsInput, Prisma.TenantUncheckedCreateWithoutBidItemsInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutBidItemsInput
+  connect?: Prisma.TenantWhereUniqueInput
+}
+
+export type TenantUpdateOneRequiredWithoutBidItemsNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutBidItemsInput, Prisma.TenantUncheckedCreateWithoutBidItemsInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutBidItemsInput
+  upsert?: Prisma.TenantUpsertWithoutBidItemsInput
+  connect?: Prisma.TenantWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutBidItemsInput, Prisma.TenantUpdateWithoutBidItemsInput>, Prisma.TenantUncheckedUpdateWithoutBidItemsInput>
+}
+
+export type TenantCreateNestedOneWithoutBidProposalsInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutBidProposalsInput, Prisma.TenantUncheckedCreateWithoutBidProposalsInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutBidProposalsInput
+  connect?: Prisma.TenantWhereUniqueInput
+}
+
+export type TenantUpdateOneRequiredWithoutBidProposalsNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutBidProposalsInput, Prisma.TenantUncheckedCreateWithoutBidProposalsInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutBidProposalsInput
+  upsert?: Prisma.TenantUpsertWithoutBidProposalsInput
+  connect?: Prisma.TenantWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutBidProposalsInput, Prisma.TenantUpdateWithoutBidProposalsInput>, Prisma.TenantUncheckedUpdateWithoutBidProposalsInput>
+}
+
+export type TenantCreateNestedOneWithoutBidDocumentsInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutBidDocumentsInput, Prisma.TenantUncheckedCreateWithoutBidDocumentsInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutBidDocumentsInput
+  connect?: Prisma.TenantWhereUniqueInput
+}
+
+export type TenantUpdateOneRequiredWithoutBidDocumentsNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutBidDocumentsInput, Prisma.TenantUncheckedCreateWithoutBidDocumentsInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutBidDocumentsInput
+  upsert?: Prisma.TenantUpsertWithoutBidDocumentsInput
+  connect?: Prisma.TenantWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutBidDocumentsInput, Prisma.TenantUpdateWithoutBidDocumentsInput>, Prisma.TenantUncheckedUpdateWithoutBidDocumentsInput>
+}
+
+export type TenantCreateNestedOneWithoutBidContractsInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutBidContractsInput, Prisma.TenantUncheckedCreateWithoutBidContractsInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutBidContractsInput
+  connect?: Prisma.TenantWhereUniqueInput
+}
+
+export type TenantUpdateOneRequiredWithoutBidContractsNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutBidContractsInput, Prisma.TenantUncheckedCreateWithoutBidContractsInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutBidContractsInput
+  upsert?: Prisma.TenantUpsertWithoutBidContractsInput
+  connect?: Prisma.TenantWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutBidContractsInput, Prisma.TenantUpdateWithoutBidContractsInput>, Prisma.TenantUncheckedUpdateWithoutBidContractsInput>
+}
+
+export type TenantCreateNestedOneWithoutBidEmpenhosInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutBidEmpenhosInput, Prisma.TenantUncheckedCreateWithoutBidEmpenhosInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutBidEmpenhosInput
+  connect?: Prisma.TenantWhereUniqueInput
+}
+
+export type TenantUpdateOneRequiredWithoutBidEmpenhosNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutBidEmpenhosInput, Prisma.TenantUncheckedCreateWithoutBidEmpenhosInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutBidEmpenhosInput
+  upsert?: Prisma.TenantUpsertWithoutBidEmpenhosInput
+  connect?: Prisma.TenantWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutBidEmpenhosInput, Prisma.TenantUpdateWithoutBidEmpenhosInput>, Prisma.TenantUncheckedUpdateWithoutBidEmpenhosInput>
+}
+
+export type TenantCreateNestedOneWithoutBidMonitorEventsInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutBidMonitorEventsInput, Prisma.TenantUncheckedCreateWithoutBidMonitorEventsInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutBidMonitorEventsInput
+  connect?: Prisma.TenantWhereUniqueInput
+}
+
+export type TenantUpdateOneRequiredWithoutBidMonitorEventsNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutBidMonitorEventsInput, Prisma.TenantUncheckedCreateWithoutBidMonitorEventsInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutBidMonitorEventsInput
+  upsert?: Prisma.TenantUpsertWithoutBidMonitorEventsInput
+  connect?: Prisma.TenantWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutBidMonitorEventsInput, Prisma.TenantUpdateWithoutBidMonitorEventsInput>, Prisma.TenantUncheckedUpdateWithoutBidMonitorEventsInput>
+}
+
+export type TenantCreateNestedOneWithoutBidHistoryInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutBidHistoryInput, Prisma.TenantUncheckedCreateWithoutBidHistoryInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutBidHistoryInput
+  connect?: Prisma.TenantWhereUniqueInput
+}
+
+export type TenantUpdateOneRequiredWithoutBidHistoryNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutBidHistoryInput, Prisma.TenantUncheckedCreateWithoutBidHistoryInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutBidHistoryInput
+  upsert?: Prisma.TenantUpsertWithoutBidHistoryInput
+  connect?: Prisma.TenantWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutBidHistoryInput, Prisma.TenantUpdateWithoutBidHistoryInput>, Prisma.TenantUncheckedUpdateWithoutBidHistoryInput>
+}
+
+export type TenantCreateNestedOneWithoutBidAiConfigInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutBidAiConfigInput, Prisma.TenantUncheckedCreateWithoutBidAiConfigInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutBidAiConfigInput
+  connect?: Prisma.TenantWhereUniqueInput
+}
+
+export type TenantUpdateOneRequiredWithoutBidAiConfigNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutBidAiConfigInput, Prisma.TenantUncheckedCreateWithoutBidAiConfigInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutBidAiConfigInput
+  upsert?: Prisma.TenantUpsertWithoutBidAiConfigInput
+  connect?: Prisma.TenantWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutBidAiConfigInput, Prisma.TenantUpdateWithoutBidAiConfigInput>, Prisma.TenantUncheckedUpdateWithoutBidAiConfigInput>
+}
+
+export type TenantCreateNestedOneWithoutCertidaoSchedulesInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutCertidaoSchedulesInput, Prisma.TenantUncheckedCreateWithoutCertidaoSchedulesInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutCertidaoSchedulesInput
+  connect?: Prisma.TenantWhereUniqueInput
+}
+
+export type TenantUpdateOneRequiredWithoutCertidaoSchedulesNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutCertidaoSchedulesInput, Prisma.TenantUncheckedCreateWithoutCertidaoSchedulesInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutCertidaoSchedulesInput
+  upsert?: Prisma.TenantUpsertWithoutCertidaoSchedulesInput
+  connect?: Prisma.TenantWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutCertidaoSchedulesInput, Prisma.TenantUpdateWithoutCertidaoSchedulesInput>, Prisma.TenantUncheckedUpdateWithoutCertidaoSchedulesInput>
+}
+
 export type TenantCreateWithoutSessionsInput = {
   id?: string
   name: string
@@ -2129,6 +2339,16 @@ export type TenantCreateWithoutSessionsInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutSessionsInput = {
@@ -2218,6 +2438,16 @@ export type TenantUncheckedCreateWithoutSessionsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutSessionsInput = {
@@ -2323,6 +2553,16 @@ export type TenantUpdateWithoutSessionsInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutSessionsInput = {
@@ -2412,6 +2652,16 @@ export type TenantUncheckedUpdateWithoutSessionsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutRefreshTokensInput = {
@@ -2501,6 +2751,16 @@ export type TenantCreateWithoutRefreshTokensInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutRefreshTokensInput = {
@@ -2590,6 +2850,16 @@ export type TenantUncheckedCreateWithoutRefreshTokensInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutRefreshTokensInput = {
@@ -2695,6 +2965,16 @@ export type TenantUpdateWithoutRefreshTokensInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutRefreshTokensInput = {
@@ -2784,6 +3064,16 @@ export type TenantUncheckedUpdateWithoutRefreshTokensInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutPermissionGroupsInput = {
@@ -2873,6 +3163,16 @@ export type TenantCreateWithoutPermissionGroupsInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutPermissionGroupsInput = {
@@ -2962,6 +3262,16 @@ export type TenantUncheckedCreateWithoutPermissionGroupsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutPermissionGroupsInput = {
@@ -3067,6 +3377,16 @@ export type TenantUpdateWithoutPermissionGroupsInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutPermissionGroupsInput = {
@@ -3156,6 +3476,16 @@ export type TenantUncheckedUpdateWithoutPermissionGroupsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutOrganizationsInput = {
@@ -3245,6 +3575,16 @@ export type TenantCreateWithoutOrganizationsInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutOrganizationsInput = {
@@ -3334,6 +3674,16 @@ export type TenantUncheckedCreateWithoutOrganizationsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutOrganizationsInput = {
@@ -3439,6 +3789,16 @@ export type TenantUpdateWithoutOrganizationsInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutOrganizationsInput = {
@@ -3528,6 +3888,16 @@ export type TenantUncheckedUpdateWithoutOrganizationsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutSuppliersInput = {
@@ -3617,6 +3987,16 @@ export type TenantCreateWithoutSuppliersInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutSuppliersInput = {
@@ -3706,6 +4086,16 @@ export type TenantUncheckedCreateWithoutSuppliersInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutSuppliersInput = {
@@ -3811,6 +4201,16 @@ export type TenantUpdateWithoutSuppliersInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutSuppliersInput = {
@@ -3900,6 +4300,16 @@ export type TenantUncheckedUpdateWithoutSuppliersInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutManufacturersInput = {
@@ -3989,6 +4399,16 @@ export type TenantCreateWithoutManufacturersInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutManufacturersInput = {
@@ -4078,6 +4498,16 @@ export type TenantUncheckedCreateWithoutManufacturersInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutManufacturersInput = {
@@ -4183,6 +4613,16 @@ export type TenantUpdateWithoutManufacturersInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutManufacturersInput = {
@@ -4272,6 +4712,16 @@ export type TenantUncheckedUpdateWithoutManufacturersInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutCategoriesInput = {
@@ -4361,6 +4811,16 @@ export type TenantCreateWithoutCategoriesInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutCategoriesInput = {
@@ -4450,6 +4910,16 @@ export type TenantUncheckedCreateWithoutCategoriesInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutCategoriesInput = {
@@ -4555,6 +5025,16 @@ export type TenantUpdateWithoutCategoriesInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutCategoriesInput = {
@@ -4644,6 +5124,16 @@ export type TenantUncheckedUpdateWithoutCategoriesInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutWarehousesInput = {
@@ -4733,6 +5223,16 @@ export type TenantCreateWithoutWarehousesInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutWarehousesInput = {
@@ -4822,6 +5322,16 @@ export type TenantUncheckedCreateWithoutWarehousesInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutWarehousesInput = {
@@ -4927,6 +5437,16 @@ export type TenantUpdateWithoutWarehousesInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutWarehousesInput = {
@@ -5016,6 +5536,16 @@ export type TenantUncheckedUpdateWithoutWarehousesInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutZonesInput = {
@@ -5105,6 +5635,16 @@ export type TenantCreateWithoutZonesInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutZonesInput = {
@@ -5194,6 +5734,16 @@ export type TenantUncheckedCreateWithoutZonesInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutZonesInput = {
@@ -5299,6 +5849,16 @@ export type TenantUpdateWithoutZonesInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutZonesInput = {
@@ -5388,6 +5948,16 @@ export type TenantUncheckedUpdateWithoutZonesInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutBinsInput = {
@@ -5477,6 +6047,16 @@ export type TenantCreateWithoutBinsInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutBinsInput = {
@@ -5566,6 +6146,16 @@ export type TenantUncheckedCreateWithoutBinsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutBinsInput = {
@@ -5671,6 +6261,16 @@ export type TenantUpdateWithoutBinsInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutBinsInput = {
@@ -5760,6 +6360,16 @@ export type TenantUncheckedUpdateWithoutBinsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutVolumesInput = {
@@ -5849,6 +6459,16 @@ export type TenantCreateWithoutVolumesInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutVolumesInput = {
@@ -5938,6 +6558,16 @@ export type TenantUncheckedCreateWithoutVolumesInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutVolumesInput = {
@@ -6043,6 +6673,16 @@ export type TenantUpdateWithoutVolumesInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutVolumesInput = {
@@ -6132,6 +6772,16 @@ export type TenantUncheckedUpdateWithoutVolumesInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutTemplatesInput = {
@@ -6221,6 +6871,16 @@ export type TenantCreateWithoutTemplatesInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutTemplatesInput = {
@@ -6310,6 +6970,16 @@ export type TenantUncheckedCreateWithoutTemplatesInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutTemplatesInput = {
@@ -6415,6 +7085,16 @@ export type TenantUpdateWithoutTemplatesInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutTemplatesInput = {
@@ -6504,6 +7184,16 @@ export type TenantUncheckedUpdateWithoutTemplatesInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutProductsInput = {
@@ -6593,6 +7283,16 @@ export type TenantCreateWithoutProductsInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutProductsInput = {
@@ -6682,6 +7382,16 @@ export type TenantUncheckedCreateWithoutProductsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutProductsInput = {
@@ -6787,6 +7497,16 @@ export type TenantUpdateWithoutProductsInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutProductsInput = {
@@ -6876,6 +7596,16 @@ export type TenantUncheckedUpdateWithoutProductsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutVariantsInput = {
@@ -6965,6 +7695,16 @@ export type TenantCreateWithoutVariantsInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutVariantsInput = {
@@ -7054,6 +7794,16 @@ export type TenantUncheckedCreateWithoutVariantsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutVariantsInput = {
@@ -7159,6 +7909,16 @@ export type TenantUpdateWithoutVariantsInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutVariantsInput = {
@@ -7248,6 +8008,16 @@ export type TenantUncheckedUpdateWithoutVariantsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutItemsInput = {
@@ -7337,6 +8107,16 @@ export type TenantCreateWithoutItemsInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutItemsInput = {
@@ -7426,6 +8206,16 @@ export type TenantUncheckedCreateWithoutItemsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutItemsInput = {
@@ -7531,6 +8321,16 @@ export type TenantUpdateWithoutItemsInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutItemsInput = {
@@ -7620,6 +8420,16 @@ export type TenantUncheckedUpdateWithoutItemsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutItemMovementsInput = {
@@ -7709,6 +8519,16 @@ export type TenantCreateWithoutItemMovementsInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutItemMovementsInput = {
@@ -7798,6 +8618,16 @@ export type TenantUncheckedCreateWithoutItemMovementsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutItemMovementsInput = {
@@ -7903,6 +8733,16 @@ export type TenantUpdateWithoutItemMovementsInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutItemMovementsInput = {
@@ -7992,6 +8832,16 @@ export type TenantUncheckedUpdateWithoutItemMovementsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutAuditLogsInput = {
@@ -8081,6 +8931,16 @@ export type TenantCreateWithoutAuditLogsInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutAuditLogsInput = {
@@ -8170,6 +9030,16 @@ export type TenantUncheckedCreateWithoutAuditLogsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutAuditLogsInput = {
@@ -8275,6 +9145,16 @@ export type TenantUpdateWithoutAuditLogsInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutAuditLogsInput = {
@@ -8364,6 +9244,16 @@ export type TenantUncheckedUpdateWithoutAuditLogsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutTagsInput = {
@@ -8453,6 +9343,16 @@ export type TenantCreateWithoutTagsInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutTagsInput = {
@@ -8542,6 +9442,16 @@ export type TenantUncheckedCreateWithoutTagsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutTagsInput = {
@@ -8647,6 +9557,16 @@ export type TenantUpdateWithoutTagsInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutTagsInput = {
@@ -8736,6 +9656,16 @@ export type TenantUncheckedUpdateWithoutTagsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutProductCareInstructionsInput = {
@@ -8825,6 +9755,16 @@ export type TenantCreateWithoutProductCareInstructionsInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutProductCareInstructionsInput = {
@@ -8914,6 +9854,16 @@ export type TenantUncheckedCreateWithoutProductCareInstructionsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutProductCareInstructionsInput = {
@@ -9019,6 +9969,16 @@ export type TenantUpdateWithoutProductCareInstructionsInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutProductCareInstructionsInput = {
@@ -9108,6 +10068,16 @@ export type TenantUncheckedUpdateWithoutProductCareInstructionsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutProductAttachmentsInput = {
@@ -9197,6 +10167,16 @@ export type TenantCreateWithoutProductAttachmentsInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutProductAttachmentsInput = {
@@ -9286,6 +10266,16 @@ export type TenantUncheckedCreateWithoutProductAttachmentsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutProductAttachmentsInput = {
@@ -9391,6 +10381,16 @@ export type TenantUpdateWithoutProductAttachmentsInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutProductAttachmentsInput = {
@@ -9480,6 +10480,16 @@ export type TenantUncheckedUpdateWithoutProductAttachmentsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutVariantAttachmentsInput = {
@@ -9569,6 +10579,16 @@ export type TenantCreateWithoutVariantAttachmentsInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutVariantAttachmentsInput = {
@@ -9658,6 +10678,16 @@ export type TenantUncheckedCreateWithoutVariantAttachmentsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutVariantAttachmentsInput = {
@@ -9763,6 +10793,16 @@ export type TenantUpdateWithoutVariantAttachmentsInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutVariantAttachmentsInput = {
@@ -9852,6 +10892,16 @@ export type TenantUncheckedUpdateWithoutVariantAttachmentsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutPurchaseOrdersInput = {
@@ -9941,6 +10991,16 @@ export type TenantCreateWithoutPurchaseOrdersInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutPurchaseOrdersInput = {
@@ -10030,6 +11090,16 @@ export type TenantUncheckedCreateWithoutPurchaseOrdersInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutPurchaseOrdersInput = {
@@ -10135,6 +11205,16 @@ export type TenantUpdateWithoutPurchaseOrdersInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutPurchaseOrdersInput = {
@@ -10224,6 +11304,16 @@ export type TenantUncheckedUpdateWithoutPurchaseOrdersInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutCustomersInput = {
@@ -10313,6 +11403,16 @@ export type TenantCreateWithoutCustomersInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutCustomersInput = {
@@ -10402,6 +11502,16 @@ export type TenantUncheckedCreateWithoutCustomersInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutCustomersInput = {
@@ -10507,6 +11617,16 @@ export type TenantUpdateWithoutCustomersInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutCustomersInput = {
@@ -10596,6 +11716,16 @@ export type TenantUncheckedUpdateWithoutCustomersInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutSalesOrdersInput = {
@@ -10685,6 +11815,16 @@ export type TenantCreateWithoutSalesOrdersInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutSalesOrdersInput = {
@@ -10774,6 +11914,16 @@ export type TenantUncheckedCreateWithoutSalesOrdersInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutSalesOrdersInput = {
@@ -10879,6 +12029,16 @@ export type TenantUpdateWithoutSalesOrdersInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutSalesOrdersInput = {
@@ -10968,6 +12128,16 @@ export type TenantUncheckedUpdateWithoutSalesOrdersInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutCrmContactsInput = {
@@ -11057,6 +12227,16 @@ export type TenantCreateWithoutCrmContactsInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutCrmContactsInput = {
@@ -11146,6 +12326,16 @@ export type TenantUncheckedCreateWithoutCrmContactsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutCrmContactsInput = {
@@ -11251,6 +12441,16 @@ export type TenantUpdateWithoutCrmContactsInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutCrmContactsInput = {
@@ -11340,6 +12540,16 @@ export type TenantUncheckedUpdateWithoutCrmContactsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutCrmPipelinesInput = {
@@ -11429,6 +12639,16 @@ export type TenantCreateWithoutCrmPipelinesInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutCrmPipelinesInput = {
@@ -11518,6 +12738,16 @@ export type TenantUncheckedCreateWithoutCrmPipelinesInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutCrmPipelinesInput = {
@@ -11623,6 +12853,16 @@ export type TenantUpdateWithoutCrmPipelinesInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutCrmPipelinesInput = {
@@ -11712,6 +12952,16 @@ export type TenantUncheckedUpdateWithoutCrmPipelinesInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutCrmDealsInput = {
@@ -11801,6 +13051,16 @@ export type TenantCreateWithoutCrmDealsInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutCrmDealsInput = {
@@ -11890,6 +13150,16 @@ export type TenantUncheckedCreateWithoutCrmDealsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutCrmDealsInput = {
@@ -11995,6 +13265,16 @@ export type TenantUpdateWithoutCrmDealsInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutCrmDealsInput = {
@@ -12084,6 +13364,16 @@ export type TenantUncheckedUpdateWithoutCrmDealsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutCrmActivitiesInput = {
@@ -12173,6 +13463,16 @@ export type TenantCreateWithoutCrmActivitiesInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutCrmActivitiesInput = {
@@ -12262,6 +13562,16 @@ export type TenantUncheckedCreateWithoutCrmActivitiesInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutCrmActivitiesInput = {
@@ -12367,6 +13677,16 @@ export type TenantUpdateWithoutCrmActivitiesInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutCrmActivitiesInput = {
@@ -12456,6 +13776,16 @@ export type TenantUncheckedUpdateWithoutCrmActivitiesInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutCrmTimelineEventsInput = {
@@ -12545,6 +13875,16 @@ export type TenantCreateWithoutCrmTimelineEventsInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutCrmTimelineEventsInput = {
@@ -12634,6 +13974,16 @@ export type TenantUncheckedCreateWithoutCrmTimelineEventsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutCrmTimelineEventsInput = {
@@ -12739,6 +14089,16 @@ export type TenantUpdateWithoutCrmTimelineEventsInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutCrmTimelineEventsInput = {
@@ -12828,6 +14188,16 @@ export type TenantUncheckedUpdateWithoutCrmTimelineEventsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutEmployeesInput = {
@@ -12917,6 +14287,16 @@ export type TenantCreateWithoutEmployeesInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutEmployeesInput = {
@@ -13006,6 +14386,16 @@ export type TenantUncheckedCreateWithoutEmployeesInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutEmployeesInput = {
@@ -13111,6 +14501,16 @@ export type TenantUpdateWithoutEmployeesInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutEmployeesInput = {
@@ -13200,6 +14600,16 @@ export type TenantUncheckedUpdateWithoutEmployeesInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutDepartmentsInput = {
@@ -13289,6 +14699,16 @@ export type TenantCreateWithoutDepartmentsInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutDepartmentsInput = {
@@ -13378,6 +14798,16 @@ export type TenantUncheckedCreateWithoutDepartmentsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutDepartmentsInput = {
@@ -13483,6 +14913,16 @@ export type TenantUpdateWithoutDepartmentsInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutDepartmentsInput = {
@@ -13572,6 +15012,16 @@ export type TenantUncheckedUpdateWithoutDepartmentsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutPositionsInput = {
@@ -13661,6 +15111,16 @@ export type TenantCreateWithoutPositionsInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutPositionsInput = {
@@ -13750,6 +15210,16 @@ export type TenantUncheckedCreateWithoutPositionsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutPositionsInput = {
@@ -13855,6 +15325,16 @@ export type TenantUpdateWithoutPositionsInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutPositionsInput = {
@@ -13944,6 +15424,16 @@ export type TenantUncheckedUpdateWithoutPositionsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutTimeEntriesInput = {
@@ -14033,6 +15523,16 @@ export type TenantCreateWithoutTimeEntriesInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutTimeEntriesInput = {
@@ -14122,6 +15622,16 @@ export type TenantUncheckedCreateWithoutTimeEntriesInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutTimeEntriesInput = {
@@ -14227,6 +15737,16 @@ export type TenantUpdateWithoutTimeEntriesInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutTimeEntriesInput = {
@@ -14316,6 +15836,16 @@ export type TenantUncheckedUpdateWithoutTimeEntriesInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutWorkSchedulesInput = {
@@ -14405,6 +15935,16 @@ export type TenantCreateWithoutWorkSchedulesInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutWorkSchedulesInput = {
@@ -14494,6 +16034,16 @@ export type TenantUncheckedCreateWithoutWorkSchedulesInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutWorkSchedulesInput = {
@@ -14599,6 +16149,16 @@ export type TenantUpdateWithoutWorkSchedulesInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutWorkSchedulesInput = {
@@ -14688,6 +16248,16 @@ export type TenantUncheckedUpdateWithoutWorkSchedulesInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutOvertimeInput = {
@@ -14777,6 +16347,16 @@ export type TenantCreateWithoutOvertimeInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutOvertimeInput = {
@@ -14866,6 +16446,16 @@ export type TenantUncheckedCreateWithoutOvertimeInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutOvertimeInput = {
@@ -14971,6 +16561,16 @@ export type TenantUpdateWithoutOvertimeInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutOvertimeInput = {
@@ -15060,6 +16660,16 @@ export type TenantUncheckedUpdateWithoutOvertimeInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutTimeBanksInput = {
@@ -15149,6 +16759,16 @@ export type TenantCreateWithoutTimeBanksInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutTimeBanksInput = {
@@ -15238,6 +16858,16 @@ export type TenantUncheckedCreateWithoutTimeBanksInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutTimeBanksInput = {
@@ -15343,6 +16973,16 @@ export type TenantUpdateWithoutTimeBanksInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutTimeBanksInput = {
@@ -15432,6 +17072,16 @@ export type TenantUncheckedUpdateWithoutTimeBanksInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutAbsencesInput = {
@@ -15521,6 +17171,16 @@ export type TenantCreateWithoutAbsencesInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutAbsencesInput = {
@@ -15610,6 +17270,16 @@ export type TenantUncheckedCreateWithoutAbsencesInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutAbsencesInput = {
@@ -15715,6 +17385,16 @@ export type TenantUpdateWithoutAbsencesInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutAbsencesInput = {
@@ -15804,6 +17484,16 @@ export type TenantUncheckedUpdateWithoutAbsencesInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutVacationPeriodsInput = {
@@ -15893,6 +17583,16 @@ export type TenantCreateWithoutVacationPeriodsInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutVacationPeriodsInput = {
@@ -15982,6 +17682,16 @@ export type TenantUncheckedCreateWithoutVacationPeriodsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutVacationPeriodsInput = {
@@ -16087,6 +17797,16 @@ export type TenantUpdateWithoutVacationPeriodsInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutVacationPeriodsInput = {
@@ -16176,6 +17896,16 @@ export type TenantUncheckedUpdateWithoutVacationPeriodsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutPayrollsInput = {
@@ -16265,6 +17995,16 @@ export type TenantCreateWithoutPayrollsInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutPayrollsInput = {
@@ -16354,6 +18094,16 @@ export type TenantUncheckedCreateWithoutPayrollsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutPayrollsInput = {
@@ -16459,6 +18209,16 @@ export type TenantUpdateWithoutPayrollsInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutPayrollsInput = {
@@ -16548,6 +18308,16 @@ export type TenantUncheckedUpdateWithoutPayrollsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutBonusesInput = {
@@ -16637,6 +18407,16 @@ export type TenantCreateWithoutBonusesInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutBonusesInput = {
@@ -16726,6 +18506,16 @@ export type TenantUncheckedCreateWithoutBonusesInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutBonusesInput = {
@@ -16831,6 +18621,16 @@ export type TenantUpdateWithoutBonusesInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutBonusesInput = {
@@ -16920,6 +18720,16 @@ export type TenantUncheckedUpdateWithoutBonusesInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutDeductionsInput = {
@@ -17009,6 +18819,16 @@ export type TenantCreateWithoutDeductionsInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutDeductionsInput = {
@@ -17098,6 +18918,16 @@ export type TenantUncheckedCreateWithoutDeductionsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutDeductionsInput = {
@@ -17203,6 +19033,16 @@ export type TenantUpdateWithoutDeductionsInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutDeductionsInput = {
@@ -17292,6 +19132,16 @@ export type TenantUncheckedUpdateWithoutDeductionsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutCompaniesInput = {
@@ -17381,6 +19231,16 @@ export type TenantCreateWithoutCompaniesInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutCompaniesInput = {
@@ -17470,6 +19330,16 @@ export type TenantUncheckedCreateWithoutCompaniesInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutCompaniesInput = {
@@ -17575,6 +19445,16 @@ export type TenantUpdateWithoutCompaniesInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutCompaniesInput = {
@@ -17664,6 +19544,16 @@ export type TenantUncheckedUpdateWithoutCompaniesInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutCompanyDocumentsInput = {
@@ -17753,6 +19643,16 @@ export type TenantCreateWithoutCompanyDocumentsInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutCompanyDocumentsInput = {
@@ -17842,6 +19742,16 @@ export type TenantUncheckedCreateWithoutCompanyDocumentsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutCompanyDocumentsInput = {
@@ -17947,6 +19857,16 @@ export type TenantUpdateWithoutCompanyDocumentsInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutCompanyDocumentsInput = {
@@ -18036,6 +19956,16 @@ export type TenantUncheckedUpdateWithoutCompanyDocumentsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutLabelTemplatesInput = {
@@ -18125,6 +20055,16 @@ export type TenantCreateWithoutLabelTemplatesInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutLabelTemplatesInput = {
@@ -18214,6 +20154,16 @@ export type TenantUncheckedCreateWithoutLabelTemplatesInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutLabelTemplatesInput = {
@@ -18319,6 +20269,16 @@ export type TenantUpdateWithoutLabelTemplatesInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutLabelTemplatesInput = {
@@ -18408,6 +20368,16 @@ export type TenantUncheckedUpdateWithoutLabelTemplatesInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutTenantPlansInput = {
@@ -18497,6 +20467,16 @@ export type TenantCreateWithoutTenantPlansInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutTenantPlansInput = {
@@ -18586,6 +20566,16 @@ export type TenantUncheckedCreateWithoutTenantPlansInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutTenantPlansInput = {
@@ -18691,6 +20681,16 @@ export type TenantUpdateWithoutTenantPlansInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutTenantPlansInput = {
@@ -18780,6 +20780,16 @@ export type TenantUncheckedUpdateWithoutTenantPlansInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutTenantUsersInput = {
@@ -18869,6 +20879,16 @@ export type TenantCreateWithoutTenantUsersInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutTenantUsersInput = {
@@ -18958,6 +20978,16 @@ export type TenantUncheckedCreateWithoutTenantUsersInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutTenantUsersInput = {
@@ -19063,6 +21093,16 @@ export type TenantUpdateWithoutTenantUsersInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutTenantUsersInput = {
@@ -19152,6 +21192,16 @@ export type TenantUncheckedUpdateWithoutTenantUsersInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutTenantFeatureFlagsInput = {
@@ -19241,6 +21291,16 @@ export type TenantCreateWithoutTenantFeatureFlagsInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutTenantFeatureFlagsInput = {
@@ -19330,6 +21390,16 @@ export type TenantUncheckedCreateWithoutTenantFeatureFlagsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutTenantFeatureFlagsInput = {
@@ -19435,6 +21505,16 @@ export type TenantUpdateWithoutTenantFeatureFlagsInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutTenantFeatureFlagsInput = {
@@ -19524,6 +21604,16 @@ export type TenantUncheckedUpdateWithoutTenantFeatureFlagsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutCostCentersInput = {
@@ -19613,6 +21703,16 @@ export type TenantCreateWithoutCostCentersInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutCostCentersInput = {
@@ -19702,6 +21802,16 @@ export type TenantUncheckedCreateWithoutCostCentersInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutCostCentersInput = {
@@ -19807,6 +21917,16 @@ export type TenantUpdateWithoutCostCentersInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutCostCentersInput = {
@@ -19896,6 +22016,16 @@ export type TenantUncheckedUpdateWithoutCostCentersInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutBankAccountsInput = {
@@ -19985,6 +22115,16 @@ export type TenantCreateWithoutBankAccountsInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutBankAccountsInput = {
@@ -20074,6 +22214,16 @@ export type TenantUncheckedCreateWithoutBankAccountsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutBankAccountsInput = {
@@ -20179,6 +22329,16 @@ export type TenantUpdateWithoutBankAccountsInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutBankAccountsInput = {
@@ -20268,6 +22428,16 @@ export type TenantUncheckedUpdateWithoutBankAccountsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutFinanceCategoriesInput = {
@@ -20357,6 +22527,16 @@ export type TenantCreateWithoutFinanceCategoriesInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutFinanceCategoriesInput = {
@@ -20446,6 +22626,16 @@ export type TenantUncheckedCreateWithoutFinanceCategoriesInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutFinanceCategoriesInput = {
@@ -20551,6 +22741,16 @@ export type TenantUpdateWithoutFinanceCategoriesInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutFinanceCategoriesInput = {
@@ -20640,6 +22840,16 @@ export type TenantUncheckedUpdateWithoutFinanceCategoriesInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutFinanceEntriesInput = {
@@ -20729,6 +22939,16 @@ export type TenantCreateWithoutFinanceEntriesInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutFinanceEntriesInput = {
@@ -20818,6 +23038,16 @@ export type TenantUncheckedCreateWithoutFinanceEntriesInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutFinanceEntriesInput = {
@@ -20923,6 +23153,16 @@ export type TenantUpdateWithoutFinanceEntriesInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutFinanceEntriesInput = {
@@ -21012,6 +23252,16 @@ export type TenantUncheckedUpdateWithoutFinanceEntriesInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutRecurringConfigsInput = {
@@ -21101,6 +23351,16 @@ export type TenantCreateWithoutRecurringConfigsInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutRecurringConfigsInput = {
@@ -21190,6 +23450,16 @@ export type TenantUncheckedCreateWithoutRecurringConfigsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutRecurringConfigsInput = {
@@ -21295,6 +23565,16 @@ export type TenantUpdateWithoutRecurringConfigsInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutRecurringConfigsInput = {
@@ -21384,6 +23664,16 @@ export type TenantUncheckedUpdateWithoutRecurringConfigsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutFinanceAttachmentsInput = {
@@ -21473,6 +23763,16 @@ export type TenantCreateWithoutFinanceAttachmentsInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutFinanceAttachmentsInput = {
@@ -21562,6 +23862,16 @@ export type TenantUncheckedCreateWithoutFinanceAttachmentsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutFinanceAttachmentsInput = {
@@ -21667,6 +23977,16 @@ export type TenantUpdateWithoutFinanceAttachmentsInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutFinanceAttachmentsInput = {
@@ -21756,6 +24076,16 @@ export type TenantUncheckedUpdateWithoutFinanceAttachmentsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutLoansInput = {
@@ -21845,6 +24175,16 @@ export type TenantCreateWithoutLoansInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutLoansInput = {
@@ -21934,6 +24274,16 @@ export type TenantUncheckedCreateWithoutLoansInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutLoansInput = {
@@ -22039,6 +24389,16 @@ export type TenantUpdateWithoutLoansInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutLoansInput = {
@@ -22128,6 +24488,16 @@ export type TenantUncheckedUpdateWithoutLoansInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutConsortiaInput = {
@@ -22217,6 +24587,16 @@ export type TenantCreateWithoutConsortiaInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutConsortiaInput = {
@@ -22306,6 +24686,16 @@ export type TenantUncheckedCreateWithoutConsortiaInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutConsortiaInput = {
@@ -22411,6 +24801,16 @@ export type TenantUpdateWithoutConsortiaInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutConsortiaInput = {
@@ -22500,6 +24900,16 @@ export type TenantUncheckedUpdateWithoutConsortiaInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutContractsInput = {
@@ -22589,6 +24999,16 @@ export type TenantCreateWithoutContractsInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutContractsInput = {
@@ -22678,6 +25098,16 @@ export type TenantUncheckedCreateWithoutContractsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutContractsInput = {
@@ -22783,6 +25213,16 @@ export type TenantUpdateWithoutContractsInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutContractsInput = {
@@ -22872,6 +25312,16 @@ export type TenantUncheckedUpdateWithoutContractsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutStorageFoldersInput = {
@@ -22961,6 +25411,16 @@ export type TenantCreateWithoutStorageFoldersInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutStorageFoldersInput = {
@@ -23050,6 +25510,16 @@ export type TenantUncheckedCreateWithoutStorageFoldersInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutStorageFoldersInput = {
@@ -23155,6 +25625,16 @@ export type TenantUpdateWithoutStorageFoldersInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutStorageFoldersInput = {
@@ -23244,6 +25724,16 @@ export type TenantUncheckedUpdateWithoutStorageFoldersInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutStorageFilesInput = {
@@ -23333,6 +25823,16 @@ export type TenantCreateWithoutStorageFilesInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutStorageFilesInput = {
@@ -23422,6 +25922,16 @@ export type TenantUncheckedCreateWithoutStorageFilesInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutStorageFilesInput = {
@@ -23527,6 +26037,16 @@ export type TenantUpdateWithoutStorageFilesInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutStorageFilesInput = {
@@ -23616,6 +26136,16 @@ export type TenantUncheckedUpdateWithoutStorageFilesInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutFolderAccessRulesInput = {
@@ -23705,6 +26235,16 @@ export type TenantCreateWithoutFolderAccessRulesInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutFolderAccessRulesInput = {
@@ -23794,6 +26334,16 @@ export type TenantUncheckedCreateWithoutFolderAccessRulesInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutFolderAccessRulesInput = {
@@ -23899,6 +26449,16 @@ export type TenantUpdateWithoutFolderAccessRulesInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutFolderAccessRulesInput = {
@@ -23988,6 +26548,16 @@ export type TenantUncheckedUpdateWithoutFolderAccessRulesInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutStorageShareLinksInput = {
@@ -24077,6 +26647,16 @@ export type TenantCreateWithoutStorageShareLinksInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutStorageShareLinksInput = {
@@ -24166,6 +26746,16 @@ export type TenantUncheckedCreateWithoutStorageShareLinksInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutStorageShareLinksInput = {
@@ -24271,6 +26861,16 @@ export type TenantUpdateWithoutStorageShareLinksInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutStorageShareLinksInput = {
@@ -24360,6 +26960,16 @@ export type TenantUncheckedUpdateWithoutStorageShareLinksInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutCalendarsInput = {
@@ -24449,6 +27059,16 @@ export type TenantCreateWithoutCalendarsInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutCalendarsInput = {
@@ -24538,6 +27158,16 @@ export type TenantUncheckedCreateWithoutCalendarsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutCalendarsInput = {
@@ -24643,6 +27273,16 @@ export type TenantUpdateWithoutCalendarsInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutCalendarsInput = {
@@ -24732,6 +27372,16 @@ export type TenantUncheckedUpdateWithoutCalendarsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutTeamCalendarConfigsInput = {
@@ -24821,6 +27471,16 @@ export type TenantCreateWithoutTeamCalendarConfigsInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutTeamCalendarConfigsInput = {
@@ -24910,6 +27570,16 @@ export type TenantUncheckedCreateWithoutTeamCalendarConfigsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutTeamCalendarConfigsInput = {
@@ -25015,6 +27685,16 @@ export type TenantUpdateWithoutTeamCalendarConfigsInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutTeamCalendarConfigsInput = {
@@ -25104,6 +27784,16 @@ export type TenantUncheckedUpdateWithoutTeamCalendarConfigsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutCalendarEventsInput = {
@@ -25193,6 +27883,16 @@ export type TenantCreateWithoutCalendarEventsInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutCalendarEventsInput = {
@@ -25282,6 +27982,16 @@ export type TenantUncheckedCreateWithoutCalendarEventsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutCalendarEventsInput = {
@@ -25387,6 +28097,16 @@ export type TenantUpdateWithoutCalendarEventsInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutCalendarEventsInput = {
@@ -25476,6 +28196,16 @@ export type TenantUncheckedUpdateWithoutCalendarEventsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutEventParticipantsInput = {
@@ -25565,6 +28295,16 @@ export type TenantCreateWithoutEventParticipantsInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutEventParticipantsInput = {
@@ -25654,6 +28394,16 @@ export type TenantUncheckedCreateWithoutEventParticipantsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutEventParticipantsInput = {
@@ -25759,6 +28509,16 @@ export type TenantUpdateWithoutEventParticipantsInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutEventParticipantsInput = {
@@ -25848,6 +28608,16 @@ export type TenantUncheckedUpdateWithoutEventParticipantsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutEventRemindersInput = {
@@ -25937,6 +28707,16 @@ export type TenantCreateWithoutEventRemindersInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutEventRemindersInput = {
@@ -26026,6 +28806,16 @@ export type TenantUncheckedCreateWithoutEventRemindersInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutEventRemindersInput = {
@@ -26131,6 +28921,16 @@ export type TenantUpdateWithoutEventRemindersInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutEventRemindersInput = {
@@ -26220,6 +29020,16 @@ export type TenantUncheckedUpdateWithoutEventRemindersInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutEmailAccountsInput = {
@@ -26309,6 +29119,16 @@ export type TenantCreateWithoutEmailAccountsInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutEmailAccountsInput = {
@@ -26398,6 +29218,16 @@ export type TenantUncheckedCreateWithoutEmailAccountsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutEmailAccountsInput = {
@@ -26503,6 +29333,16 @@ export type TenantUpdateWithoutEmailAccountsInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutEmailAccountsInput = {
@@ -26592,6 +29432,16 @@ export type TenantUncheckedUpdateWithoutEmailAccountsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutEmailAccountAccessesInput = {
@@ -26681,6 +29531,16 @@ export type TenantCreateWithoutEmailAccountAccessesInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutEmailAccountAccessesInput = {
@@ -26770,6 +29630,16 @@ export type TenantUncheckedCreateWithoutEmailAccountAccessesInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutEmailAccountAccessesInput = {
@@ -26875,6 +29745,16 @@ export type TenantUpdateWithoutEmailAccountAccessesInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutEmailAccountAccessesInput = {
@@ -26964,6 +29844,16 @@ export type TenantUncheckedUpdateWithoutEmailAccountAccessesInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutEmailMessagesInput = {
@@ -27053,6 +29943,16 @@ export type TenantCreateWithoutEmailMessagesInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutEmailMessagesInput = {
@@ -27142,6 +30042,16 @@ export type TenantUncheckedCreateWithoutEmailMessagesInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutEmailMessagesInput = {
@@ -27247,6 +30157,16 @@ export type TenantUpdateWithoutEmailMessagesInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutEmailMessagesInput = {
@@ -27336,6 +30256,16 @@ export type TenantUncheckedUpdateWithoutEmailMessagesInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutTeamsInput = {
@@ -27425,6 +30355,16 @@ export type TenantCreateWithoutTeamsInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutTeamsInput = {
@@ -27514,6 +30454,16 @@ export type TenantUncheckedCreateWithoutTeamsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutTeamsInput = {
@@ -27619,6 +30569,16 @@ export type TenantUpdateWithoutTeamsInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutTeamsInput = {
@@ -27708,6 +30668,16 @@ export type TenantUncheckedUpdateWithoutTeamsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutTeamMembersInput = {
@@ -27797,6 +30767,16 @@ export type TenantCreateWithoutTeamMembersInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutTeamMembersInput = {
@@ -27886,6 +30866,16 @@ export type TenantUncheckedCreateWithoutTeamMembersInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutTeamMembersInput = {
@@ -27991,6 +30981,16 @@ export type TenantUpdateWithoutTeamMembersInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutTeamMembersInput = {
@@ -28080,6 +31080,16 @@ export type TenantUncheckedUpdateWithoutTeamMembersInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutTeamEmailAccountsInput = {
@@ -28169,6 +31179,16 @@ export type TenantCreateWithoutTeamEmailAccountsInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutTeamEmailAccountsInput = {
@@ -28258,6 +31278,16 @@ export type TenantUncheckedCreateWithoutTeamEmailAccountsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutTeamEmailAccountsInput = {
@@ -28363,6 +31393,16 @@ export type TenantUpdateWithoutTeamEmailAccountsInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutTeamEmailAccountsInput = {
@@ -28452,6 +31492,16 @@ export type TenantUncheckedUpdateWithoutTeamEmailAccountsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutBoardsInput = {
@@ -28541,6 +31591,16 @@ export type TenantCreateWithoutBoardsInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutBoardsInput = {
@@ -28630,6 +31690,16 @@ export type TenantUncheckedCreateWithoutBoardsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutBoardsInput = {
@@ -28735,6 +31805,16 @@ export type TenantUpdateWithoutBoardsInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutBoardsInput = {
@@ -28824,6 +31904,16 @@ export type TenantUncheckedUpdateWithoutBoardsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutTenantSubscriptionsInput = {
@@ -28913,6 +32003,16 @@ export type TenantCreateWithoutTenantSubscriptionsInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutTenantSubscriptionsInput = {
@@ -29002,6 +32102,16 @@ export type TenantUncheckedCreateWithoutTenantSubscriptionsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutTenantSubscriptionsInput = {
@@ -29107,6 +32217,16 @@ export type TenantUpdateWithoutTenantSubscriptionsInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutTenantSubscriptionsInput = {
@@ -29196,6 +32316,16 @@ export type TenantUncheckedUpdateWithoutTenantSubscriptionsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutTenantConsumptionsInput = {
@@ -29285,6 +32415,16 @@ export type TenantCreateWithoutTenantConsumptionsInput = {
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutTenantConsumptionsInput = {
@@ -29374,6 +32514,16 @@ export type TenantUncheckedCreateWithoutTenantConsumptionsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutTenantConsumptionsInput = {
@@ -29479,6 +32629,16 @@ export type TenantUpdateWithoutTenantConsumptionsInput = {
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutTenantConsumptionsInput = {
@@ -29568,6 +32728,16 @@ export type TenantUncheckedUpdateWithoutTenantConsumptionsInput = {
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutTenantBillingsInput = {
@@ -29657,6 +32827,16 @@ export type TenantCreateWithoutTenantBillingsInput = {
   tenantConsumptions?: Prisma.TenantConsumptionCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutTenantBillingsInput = {
@@ -29746,6 +32926,16 @@ export type TenantUncheckedCreateWithoutTenantBillingsInput = {
   tenantConsumptions?: Prisma.TenantConsumptionUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutTenantBillingsInput = {
@@ -29851,6 +33041,16 @@ export type TenantUpdateWithoutTenantBillingsInput = {
   tenantConsumptions?: Prisma.TenantConsumptionUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutTenantBillingsInput = {
@@ -29940,6 +33140,16 @@ export type TenantUncheckedUpdateWithoutTenantBillingsInput = {
   tenantConsumptions?: Prisma.TenantConsumptionUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutTenantIntegrationStatusesInput = {
@@ -30029,6 +33239,16 @@ export type TenantCreateWithoutTenantIntegrationStatusesInput = {
   tenantConsumptions?: Prisma.TenantConsumptionCreateNestedManyWithoutTenantInput
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutTenantIntegrationStatusesInput = {
@@ -30118,6 +33338,16 @@ export type TenantUncheckedCreateWithoutTenantIntegrationStatusesInput = {
   tenantConsumptions?: Prisma.TenantConsumptionUncheckedCreateNestedManyWithoutTenantInput
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutTenantIntegrationStatusesInput = {
@@ -30223,6 +33453,16 @@ export type TenantUpdateWithoutTenantIntegrationStatusesInput = {
   tenantConsumptions?: Prisma.TenantConsumptionUpdateManyWithoutTenantNestedInput
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutTenantIntegrationStatusesInput = {
@@ -30312,6 +33552,16 @@ export type TenantUncheckedUpdateWithoutTenantIntegrationStatusesInput = {
   tenantConsumptions?: Prisma.TenantConsumptionUncheckedUpdateManyWithoutTenantNestedInput
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutSupportTicketsInput = {
@@ -30401,6 +33651,16 @@ export type TenantCreateWithoutSupportTicketsInput = {
   tenantConsumptions?: Prisma.TenantConsumptionCreateNestedManyWithoutTenantInput
   tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutSupportTicketsInput = {
@@ -30490,6 +33750,16 @@ export type TenantUncheckedCreateWithoutSupportTicketsInput = {
   tenantConsumptions?: Prisma.TenantConsumptionUncheckedCreateNestedManyWithoutTenantInput
   tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutSupportTicketsInput = {
@@ -30595,6 +33865,16 @@ export type TenantUpdateWithoutSupportTicketsInput = {
   tenantConsumptions?: Prisma.TenantConsumptionUpdateManyWithoutTenantNestedInput
   tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutSupportTicketsInput = {
@@ -30684,6 +33964,4136 @@ export type TenantUncheckedUpdateWithoutSupportTicketsInput = {
   tenantConsumptions?: Prisma.TenantConsumptionUncheckedUpdateManyWithoutTenantNestedInput
   tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
   tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantCreateWithoutBidsInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutTenantInput
+  tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
+  permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
+  warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
+  zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
+  bins?: Prisma.BinCreateNestedManyWithoutTenantInput
+  templates?: Prisma.TemplateCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductCreateNestedManyWithoutTenantInput
+  variants?: Prisma.VariantCreateNestedManyWithoutTenantInput
+  items?: Prisma.ItemCreateNestedManyWithoutTenantInput
+  itemMovements?: Prisma.ItemMovementCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierCreateNestedManyWithoutTenantInput
+  manufacturers?: Prisma.ManufacturerCreateNestedManyWithoutTenantInput
+  volumes?: Prisma.VolumeCreateNestedManyWithoutTenantInput
+  purchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutTenantInput
+  productCareInstructions?: Prisma.ProductCareInstructionCreateNestedManyWithoutTenantInput
+  productAttachments?: Prisma.ProductAttachmentCreateNestedManyWithoutTenantInput
+  variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
+  salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
+  companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
+  companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
+  departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
+  positions?: Prisma.PositionCreateNestedManyWithoutTenantInput
+  employees?: Prisma.EmployeeCreateNestedManyWithoutTenantInput
+  timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutTenantInput
+  workSchedules?: Prisma.WorkScheduleCreateNestedManyWithoutTenantInput
+  overtime?: Prisma.OvertimeCreateNestedManyWithoutTenantInput
+  timeBanks?: Prisma.TimeBankCreateNestedManyWithoutTenantInput
+  absences?: Prisma.AbsenceCreateNestedManyWithoutTenantInput
+  vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutTenantInput
+  payrolls?: Prisma.PayrollCreateNestedManyWithoutTenantInput
+  bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
+  deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
+  organizations?: Prisma.OrganizationCreateNestedManyWithoutTenantInput
+  costCenters?: Prisma.CostCenterCreateNestedManyWithoutTenantInput
+  bankAccounts?: Prisma.BankAccountCreateNestedManyWithoutTenantInput
+  financeCategories?: Prisma.FinanceCategoryCreateNestedManyWithoutTenantInput
+  financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutTenantInput
+  financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
+  loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
+  consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
+  storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
+  storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
+  folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
+  calendars?: Prisma.CalendarCreateNestedManyWithoutTenantInput
+  calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
+  eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
+  eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigCreateNestedManyWithoutTenantInput
+  emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutTenantInput
+  emailMessages?: Prisma.EmailMessageCreateNestedManyWithoutTenantInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessCreateNestedManyWithoutTenantInput
+  teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionCreateNestedManyWithoutTenantInput
+  tenantConsumptions?: Prisma.TenantConsumptionCreateNestedManyWithoutTenantInput
+  tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
+}
+
+export type TenantUncheckedCreateWithoutBidsInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutTenantInput
+  tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
+  permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
+  warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
+  zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
+  bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
+  templates?: Prisma.TemplateUncheckedCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutTenantInput
+  variants?: Prisma.VariantUncheckedCreateNestedManyWithoutTenantInput
+  items?: Prisma.ItemUncheckedCreateNestedManyWithoutTenantInput
+  itemMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagUncheckedCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutTenantInput
+  manufacturers?: Prisma.ManufacturerUncheckedCreateNestedManyWithoutTenantInput
+  volumes?: Prisma.VolumeUncheckedCreateNestedManyWithoutTenantInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+  productCareInstructions?: Prisma.ProductCareInstructionUncheckedCreateNestedManyWithoutTenantInput
+  productAttachments?: Prisma.ProductAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
+  salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
+  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
+  companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
+  departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
+  positions?: Prisma.PositionUncheckedCreateNestedManyWithoutTenantInput
+  employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutTenantInput
+  timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutTenantInput
+  workSchedules?: Prisma.WorkScheduleUncheckedCreateNestedManyWithoutTenantInput
+  overtime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutTenantInput
+  timeBanks?: Prisma.TimeBankUncheckedCreateNestedManyWithoutTenantInput
+  absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutTenantInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutTenantInput
+  payrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutTenantInput
+  bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
+  deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
+  organizations?: Prisma.OrganizationUncheckedCreateNestedManyWithoutTenantInput
+  costCenters?: Prisma.CostCenterUncheckedCreateNestedManyWithoutTenantInput
+  bankAccounts?: Prisma.BankAccountUncheckedCreateNestedManyWithoutTenantInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedCreateNestedManyWithoutTenantInput
+  financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutTenantInput
+  financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
+  consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
+  storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
+  storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
+  calendars?: Prisma.CalendarUncheckedCreateNestedManyWithoutTenantInput
+  calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
+  eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
+  eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedCreateNestedManyWithoutTenantInput
+  emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  emailMessages?: Prisma.EmailMessageUncheckedCreateNestedManyWithoutTenantInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutTenantInput
+  teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUncheckedCreateNestedManyWithoutTenantInput
+  tenantConsumptions?: Prisma.TenantConsumptionUncheckedCreateNestedManyWithoutTenantInput
+  tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
+}
+
+export type TenantCreateOrConnectWithoutBidsInput = {
+  where: Prisma.TenantWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenantCreateWithoutBidsInput, Prisma.TenantUncheckedCreateWithoutBidsInput>
+}
+
+export type TenantUpsertWithoutBidsInput = {
+  update: Prisma.XOR<Prisma.TenantUpdateWithoutBidsInput, Prisma.TenantUncheckedUpdateWithoutBidsInput>
+  create: Prisma.XOR<Prisma.TenantCreateWithoutBidsInput, Prisma.TenantUncheckedCreateWithoutBidsInput>
+  where?: Prisma.TenantWhereInput
+}
+
+export type TenantUpdateToOneWithWhereWithoutBidsInput = {
+  where?: Prisma.TenantWhereInput
+  data: Prisma.XOR<Prisma.TenantUpdateWithoutBidsInput, Prisma.TenantUncheckedUpdateWithoutBidsInput>
+}
+
+export type TenantUpdateWithoutBidsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantStatusEnumFieldUpdateOperationsInput | $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutTenantNestedInput
+  tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
+  permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
+  warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
+  zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
+  bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
+  templates?: Prisma.TemplateUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUpdateManyWithoutTenantNestedInput
+  variants?: Prisma.VariantUpdateManyWithoutTenantNestedInput
+  items?: Prisma.ItemUpdateManyWithoutTenantNestedInput
+  itemMovements?: Prisma.ItemMovementUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUpdateManyWithoutTenantNestedInput
+  manufacturers?: Prisma.ManufacturerUpdateManyWithoutTenantNestedInput
+  volumes?: Prisma.VolumeUpdateManyWithoutTenantNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutTenantNestedInput
+  productCareInstructions?: Prisma.ProductCareInstructionUpdateManyWithoutTenantNestedInput
+  productAttachments?: Prisma.ProductAttachmentUpdateManyWithoutTenantNestedInput
+  variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
+  salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
+  companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
+  companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
+  departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
+  positions?: Prisma.PositionUpdateManyWithoutTenantNestedInput
+  employees?: Prisma.EmployeeUpdateManyWithoutTenantNestedInput
+  timeEntries?: Prisma.TimeEntryUpdateManyWithoutTenantNestedInput
+  workSchedules?: Prisma.WorkScheduleUpdateManyWithoutTenantNestedInput
+  overtime?: Prisma.OvertimeUpdateManyWithoutTenantNestedInput
+  timeBanks?: Prisma.TimeBankUpdateManyWithoutTenantNestedInput
+  absences?: Prisma.AbsenceUpdateManyWithoutTenantNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutTenantNestedInput
+  payrolls?: Prisma.PayrollUpdateManyWithoutTenantNestedInput
+  bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
+  deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
+  organizations?: Prisma.OrganizationUpdateManyWithoutTenantNestedInput
+  costCenters?: Prisma.CostCenterUpdateManyWithoutTenantNestedInput
+  bankAccounts?: Prisma.BankAccountUpdateManyWithoutTenantNestedInput
+  financeCategories?: Prisma.FinanceCategoryUpdateManyWithoutTenantNestedInput
+  financeEntries?: Prisma.FinanceEntryUpdateManyWithoutTenantNestedInput
+  financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
+  loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
+  consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
+  storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
+  storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
+  calendars?: Prisma.CalendarUpdateManyWithoutTenantNestedInput
+  calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
+  eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
+  eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUpdateManyWithoutTenantNestedInput
+  emailAccounts?: Prisma.EmailAccountUpdateManyWithoutTenantNestedInput
+  emailMessages?: Prisma.EmailMessageUpdateManyWithoutTenantNestedInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUpdateManyWithoutTenantNestedInput
+  teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUpdateManyWithoutTenantNestedInput
+  tenantConsumptions?: Prisma.TenantConsumptionUpdateManyWithoutTenantNestedInput
+  tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantUncheckedUpdateWithoutBidsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantStatusEnumFieldUpdateOperationsInput | $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutTenantNestedInput
+  tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
+  permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
+  warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
+  zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
+  bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
+  templates?: Prisma.TemplateUncheckedUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutTenantNestedInput
+  variants?: Prisma.VariantUncheckedUpdateManyWithoutTenantNestedInput
+  items?: Prisma.ItemUncheckedUpdateManyWithoutTenantNestedInput
+  itemMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUncheckedUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutTenantNestedInput
+  manufacturers?: Prisma.ManufacturerUncheckedUpdateManyWithoutTenantNestedInput
+  volumes?: Prisma.VolumeUncheckedUpdateManyWithoutTenantNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+  productCareInstructions?: Prisma.ProductCareInstructionUncheckedUpdateManyWithoutTenantNestedInput
+  productAttachments?: Prisma.ProductAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
+  salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
+  companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
+  companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
+  positions?: Prisma.PositionUncheckedUpdateManyWithoutTenantNestedInput
+  employees?: Prisma.EmployeeUncheckedUpdateManyWithoutTenantNestedInput
+  timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutTenantNestedInput
+  workSchedules?: Prisma.WorkScheduleUncheckedUpdateManyWithoutTenantNestedInput
+  overtime?: Prisma.OvertimeUncheckedUpdateManyWithoutTenantNestedInput
+  timeBanks?: Prisma.TimeBankUncheckedUpdateManyWithoutTenantNestedInput
+  absences?: Prisma.AbsenceUncheckedUpdateManyWithoutTenantNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutTenantNestedInput
+  payrolls?: Prisma.PayrollUncheckedUpdateManyWithoutTenantNestedInput
+  bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
+  deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  organizations?: Prisma.OrganizationUncheckedUpdateManyWithoutTenantNestedInput
+  costCenters?: Prisma.CostCenterUncheckedUpdateManyWithoutTenantNestedInput
+  bankAccounts?: Prisma.BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedUpdateManyWithoutTenantNestedInput
+  financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutTenantNestedInput
+  financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
+  consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
+  storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
+  storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
+  calendars?: Prisma.CalendarUncheckedUpdateManyWithoutTenantNestedInput
+  calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
+  eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
+  eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedUpdateManyWithoutTenantNestedInput
+  emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  emailMessages?: Prisma.EmailMessageUncheckedUpdateManyWithoutTenantNestedInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutTenantNestedInput
+  teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUncheckedUpdateManyWithoutTenantNestedInput
+  tenantConsumptions?: Prisma.TenantConsumptionUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantCreateWithoutBidItemsInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutTenantInput
+  tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
+  permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
+  warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
+  zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
+  bins?: Prisma.BinCreateNestedManyWithoutTenantInput
+  templates?: Prisma.TemplateCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductCreateNestedManyWithoutTenantInput
+  variants?: Prisma.VariantCreateNestedManyWithoutTenantInput
+  items?: Prisma.ItemCreateNestedManyWithoutTenantInput
+  itemMovements?: Prisma.ItemMovementCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierCreateNestedManyWithoutTenantInput
+  manufacturers?: Prisma.ManufacturerCreateNestedManyWithoutTenantInput
+  volumes?: Prisma.VolumeCreateNestedManyWithoutTenantInput
+  purchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutTenantInput
+  productCareInstructions?: Prisma.ProductCareInstructionCreateNestedManyWithoutTenantInput
+  productAttachments?: Prisma.ProductAttachmentCreateNestedManyWithoutTenantInput
+  variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
+  salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
+  companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
+  companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
+  departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
+  positions?: Prisma.PositionCreateNestedManyWithoutTenantInput
+  employees?: Prisma.EmployeeCreateNestedManyWithoutTenantInput
+  timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutTenantInput
+  workSchedules?: Prisma.WorkScheduleCreateNestedManyWithoutTenantInput
+  overtime?: Prisma.OvertimeCreateNestedManyWithoutTenantInput
+  timeBanks?: Prisma.TimeBankCreateNestedManyWithoutTenantInput
+  absences?: Prisma.AbsenceCreateNestedManyWithoutTenantInput
+  vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutTenantInput
+  payrolls?: Prisma.PayrollCreateNestedManyWithoutTenantInput
+  bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
+  deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
+  organizations?: Prisma.OrganizationCreateNestedManyWithoutTenantInput
+  costCenters?: Prisma.CostCenterCreateNestedManyWithoutTenantInput
+  bankAccounts?: Prisma.BankAccountCreateNestedManyWithoutTenantInput
+  financeCategories?: Prisma.FinanceCategoryCreateNestedManyWithoutTenantInput
+  financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutTenantInput
+  financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
+  loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
+  consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
+  storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
+  storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
+  folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
+  calendars?: Prisma.CalendarCreateNestedManyWithoutTenantInput
+  calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
+  eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
+  eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigCreateNestedManyWithoutTenantInput
+  emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutTenantInput
+  emailMessages?: Prisma.EmailMessageCreateNestedManyWithoutTenantInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessCreateNestedManyWithoutTenantInput
+  teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionCreateNestedManyWithoutTenantInput
+  tenantConsumptions?: Prisma.TenantConsumptionCreateNestedManyWithoutTenantInput
+  tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
+}
+
+export type TenantUncheckedCreateWithoutBidItemsInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutTenantInput
+  tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
+  permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
+  warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
+  zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
+  bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
+  templates?: Prisma.TemplateUncheckedCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutTenantInput
+  variants?: Prisma.VariantUncheckedCreateNestedManyWithoutTenantInput
+  items?: Prisma.ItemUncheckedCreateNestedManyWithoutTenantInput
+  itemMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagUncheckedCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutTenantInput
+  manufacturers?: Prisma.ManufacturerUncheckedCreateNestedManyWithoutTenantInput
+  volumes?: Prisma.VolumeUncheckedCreateNestedManyWithoutTenantInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+  productCareInstructions?: Prisma.ProductCareInstructionUncheckedCreateNestedManyWithoutTenantInput
+  productAttachments?: Prisma.ProductAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
+  salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
+  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
+  companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
+  departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
+  positions?: Prisma.PositionUncheckedCreateNestedManyWithoutTenantInput
+  employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutTenantInput
+  timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutTenantInput
+  workSchedules?: Prisma.WorkScheduleUncheckedCreateNestedManyWithoutTenantInput
+  overtime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutTenantInput
+  timeBanks?: Prisma.TimeBankUncheckedCreateNestedManyWithoutTenantInput
+  absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutTenantInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutTenantInput
+  payrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutTenantInput
+  bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
+  deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
+  organizations?: Prisma.OrganizationUncheckedCreateNestedManyWithoutTenantInput
+  costCenters?: Prisma.CostCenterUncheckedCreateNestedManyWithoutTenantInput
+  bankAccounts?: Prisma.BankAccountUncheckedCreateNestedManyWithoutTenantInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedCreateNestedManyWithoutTenantInput
+  financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutTenantInput
+  financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
+  consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
+  storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
+  storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
+  calendars?: Prisma.CalendarUncheckedCreateNestedManyWithoutTenantInput
+  calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
+  eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
+  eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedCreateNestedManyWithoutTenantInput
+  emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  emailMessages?: Prisma.EmailMessageUncheckedCreateNestedManyWithoutTenantInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutTenantInput
+  teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUncheckedCreateNestedManyWithoutTenantInput
+  tenantConsumptions?: Prisma.TenantConsumptionUncheckedCreateNestedManyWithoutTenantInput
+  tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
+}
+
+export type TenantCreateOrConnectWithoutBidItemsInput = {
+  where: Prisma.TenantWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenantCreateWithoutBidItemsInput, Prisma.TenantUncheckedCreateWithoutBidItemsInput>
+}
+
+export type TenantUpsertWithoutBidItemsInput = {
+  update: Prisma.XOR<Prisma.TenantUpdateWithoutBidItemsInput, Prisma.TenantUncheckedUpdateWithoutBidItemsInput>
+  create: Prisma.XOR<Prisma.TenantCreateWithoutBidItemsInput, Prisma.TenantUncheckedCreateWithoutBidItemsInput>
+  where?: Prisma.TenantWhereInput
+}
+
+export type TenantUpdateToOneWithWhereWithoutBidItemsInput = {
+  where?: Prisma.TenantWhereInput
+  data: Prisma.XOR<Prisma.TenantUpdateWithoutBidItemsInput, Prisma.TenantUncheckedUpdateWithoutBidItemsInput>
+}
+
+export type TenantUpdateWithoutBidItemsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantStatusEnumFieldUpdateOperationsInput | $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutTenantNestedInput
+  tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
+  permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
+  warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
+  zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
+  bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
+  templates?: Prisma.TemplateUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUpdateManyWithoutTenantNestedInput
+  variants?: Prisma.VariantUpdateManyWithoutTenantNestedInput
+  items?: Prisma.ItemUpdateManyWithoutTenantNestedInput
+  itemMovements?: Prisma.ItemMovementUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUpdateManyWithoutTenantNestedInput
+  manufacturers?: Prisma.ManufacturerUpdateManyWithoutTenantNestedInput
+  volumes?: Prisma.VolumeUpdateManyWithoutTenantNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutTenantNestedInput
+  productCareInstructions?: Prisma.ProductCareInstructionUpdateManyWithoutTenantNestedInput
+  productAttachments?: Prisma.ProductAttachmentUpdateManyWithoutTenantNestedInput
+  variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
+  salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
+  companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
+  companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
+  departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
+  positions?: Prisma.PositionUpdateManyWithoutTenantNestedInput
+  employees?: Prisma.EmployeeUpdateManyWithoutTenantNestedInput
+  timeEntries?: Prisma.TimeEntryUpdateManyWithoutTenantNestedInput
+  workSchedules?: Prisma.WorkScheduleUpdateManyWithoutTenantNestedInput
+  overtime?: Prisma.OvertimeUpdateManyWithoutTenantNestedInput
+  timeBanks?: Prisma.TimeBankUpdateManyWithoutTenantNestedInput
+  absences?: Prisma.AbsenceUpdateManyWithoutTenantNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutTenantNestedInput
+  payrolls?: Prisma.PayrollUpdateManyWithoutTenantNestedInput
+  bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
+  deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
+  organizations?: Prisma.OrganizationUpdateManyWithoutTenantNestedInput
+  costCenters?: Prisma.CostCenterUpdateManyWithoutTenantNestedInput
+  bankAccounts?: Prisma.BankAccountUpdateManyWithoutTenantNestedInput
+  financeCategories?: Prisma.FinanceCategoryUpdateManyWithoutTenantNestedInput
+  financeEntries?: Prisma.FinanceEntryUpdateManyWithoutTenantNestedInput
+  financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
+  loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
+  consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
+  storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
+  storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
+  calendars?: Prisma.CalendarUpdateManyWithoutTenantNestedInput
+  calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
+  eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
+  eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUpdateManyWithoutTenantNestedInput
+  emailAccounts?: Prisma.EmailAccountUpdateManyWithoutTenantNestedInput
+  emailMessages?: Prisma.EmailMessageUpdateManyWithoutTenantNestedInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUpdateManyWithoutTenantNestedInput
+  teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUpdateManyWithoutTenantNestedInput
+  tenantConsumptions?: Prisma.TenantConsumptionUpdateManyWithoutTenantNestedInput
+  tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantUncheckedUpdateWithoutBidItemsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantStatusEnumFieldUpdateOperationsInput | $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutTenantNestedInput
+  tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
+  permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
+  warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
+  zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
+  bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
+  templates?: Prisma.TemplateUncheckedUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutTenantNestedInput
+  variants?: Prisma.VariantUncheckedUpdateManyWithoutTenantNestedInput
+  items?: Prisma.ItemUncheckedUpdateManyWithoutTenantNestedInput
+  itemMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUncheckedUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutTenantNestedInput
+  manufacturers?: Prisma.ManufacturerUncheckedUpdateManyWithoutTenantNestedInput
+  volumes?: Prisma.VolumeUncheckedUpdateManyWithoutTenantNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+  productCareInstructions?: Prisma.ProductCareInstructionUncheckedUpdateManyWithoutTenantNestedInput
+  productAttachments?: Prisma.ProductAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
+  salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
+  companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
+  companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
+  positions?: Prisma.PositionUncheckedUpdateManyWithoutTenantNestedInput
+  employees?: Prisma.EmployeeUncheckedUpdateManyWithoutTenantNestedInput
+  timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutTenantNestedInput
+  workSchedules?: Prisma.WorkScheduleUncheckedUpdateManyWithoutTenantNestedInput
+  overtime?: Prisma.OvertimeUncheckedUpdateManyWithoutTenantNestedInput
+  timeBanks?: Prisma.TimeBankUncheckedUpdateManyWithoutTenantNestedInput
+  absences?: Prisma.AbsenceUncheckedUpdateManyWithoutTenantNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutTenantNestedInput
+  payrolls?: Prisma.PayrollUncheckedUpdateManyWithoutTenantNestedInput
+  bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
+  deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  organizations?: Prisma.OrganizationUncheckedUpdateManyWithoutTenantNestedInput
+  costCenters?: Prisma.CostCenterUncheckedUpdateManyWithoutTenantNestedInput
+  bankAccounts?: Prisma.BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedUpdateManyWithoutTenantNestedInput
+  financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutTenantNestedInput
+  financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
+  consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
+  storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
+  storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
+  calendars?: Prisma.CalendarUncheckedUpdateManyWithoutTenantNestedInput
+  calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
+  eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
+  eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedUpdateManyWithoutTenantNestedInput
+  emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  emailMessages?: Prisma.EmailMessageUncheckedUpdateManyWithoutTenantNestedInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutTenantNestedInput
+  teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUncheckedUpdateManyWithoutTenantNestedInput
+  tenantConsumptions?: Prisma.TenantConsumptionUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantCreateWithoutBidProposalsInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutTenantInput
+  tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
+  permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
+  warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
+  zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
+  bins?: Prisma.BinCreateNestedManyWithoutTenantInput
+  templates?: Prisma.TemplateCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductCreateNestedManyWithoutTenantInput
+  variants?: Prisma.VariantCreateNestedManyWithoutTenantInput
+  items?: Prisma.ItemCreateNestedManyWithoutTenantInput
+  itemMovements?: Prisma.ItemMovementCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierCreateNestedManyWithoutTenantInput
+  manufacturers?: Prisma.ManufacturerCreateNestedManyWithoutTenantInput
+  volumes?: Prisma.VolumeCreateNestedManyWithoutTenantInput
+  purchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutTenantInput
+  productCareInstructions?: Prisma.ProductCareInstructionCreateNestedManyWithoutTenantInput
+  productAttachments?: Prisma.ProductAttachmentCreateNestedManyWithoutTenantInput
+  variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
+  salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
+  companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
+  companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
+  departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
+  positions?: Prisma.PositionCreateNestedManyWithoutTenantInput
+  employees?: Prisma.EmployeeCreateNestedManyWithoutTenantInput
+  timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutTenantInput
+  workSchedules?: Prisma.WorkScheduleCreateNestedManyWithoutTenantInput
+  overtime?: Prisma.OvertimeCreateNestedManyWithoutTenantInput
+  timeBanks?: Prisma.TimeBankCreateNestedManyWithoutTenantInput
+  absences?: Prisma.AbsenceCreateNestedManyWithoutTenantInput
+  vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutTenantInput
+  payrolls?: Prisma.PayrollCreateNestedManyWithoutTenantInput
+  bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
+  deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
+  organizations?: Prisma.OrganizationCreateNestedManyWithoutTenantInput
+  costCenters?: Prisma.CostCenterCreateNestedManyWithoutTenantInput
+  bankAccounts?: Prisma.BankAccountCreateNestedManyWithoutTenantInput
+  financeCategories?: Prisma.FinanceCategoryCreateNestedManyWithoutTenantInput
+  financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutTenantInput
+  financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
+  loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
+  consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
+  storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
+  storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
+  folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
+  calendars?: Prisma.CalendarCreateNestedManyWithoutTenantInput
+  calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
+  eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
+  eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigCreateNestedManyWithoutTenantInput
+  emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutTenantInput
+  emailMessages?: Prisma.EmailMessageCreateNestedManyWithoutTenantInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessCreateNestedManyWithoutTenantInput
+  teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionCreateNestedManyWithoutTenantInput
+  tenantConsumptions?: Prisma.TenantConsumptionCreateNestedManyWithoutTenantInput
+  tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
+}
+
+export type TenantUncheckedCreateWithoutBidProposalsInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutTenantInput
+  tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
+  permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
+  warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
+  zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
+  bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
+  templates?: Prisma.TemplateUncheckedCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutTenantInput
+  variants?: Prisma.VariantUncheckedCreateNestedManyWithoutTenantInput
+  items?: Prisma.ItemUncheckedCreateNestedManyWithoutTenantInput
+  itemMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagUncheckedCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutTenantInput
+  manufacturers?: Prisma.ManufacturerUncheckedCreateNestedManyWithoutTenantInput
+  volumes?: Prisma.VolumeUncheckedCreateNestedManyWithoutTenantInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+  productCareInstructions?: Prisma.ProductCareInstructionUncheckedCreateNestedManyWithoutTenantInput
+  productAttachments?: Prisma.ProductAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
+  salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
+  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
+  companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
+  departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
+  positions?: Prisma.PositionUncheckedCreateNestedManyWithoutTenantInput
+  employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutTenantInput
+  timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutTenantInput
+  workSchedules?: Prisma.WorkScheduleUncheckedCreateNestedManyWithoutTenantInput
+  overtime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutTenantInput
+  timeBanks?: Prisma.TimeBankUncheckedCreateNestedManyWithoutTenantInput
+  absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutTenantInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutTenantInput
+  payrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutTenantInput
+  bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
+  deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
+  organizations?: Prisma.OrganizationUncheckedCreateNestedManyWithoutTenantInput
+  costCenters?: Prisma.CostCenterUncheckedCreateNestedManyWithoutTenantInput
+  bankAccounts?: Prisma.BankAccountUncheckedCreateNestedManyWithoutTenantInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedCreateNestedManyWithoutTenantInput
+  financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutTenantInput
+  financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
+  consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
+  storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
+  storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
+  calendars?: Prisma.CalendarUncheckedCreateNestedManyWithoutTenantInput
+  calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
+  eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
+  eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedCreateNestedManyWithoutTenantInput
+  emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  emailMessages?: Prisma.EmailMessageUncheckedCreateNestedManyWithoutTenantInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutTenantInput
+  teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUncheckedCreateNestedManyWithoutTenantInput
+  tenantConsumptions?: Prisma.TenantConsumptionUncheckedCreateNestedManyWithoutTenantInput
+  tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
+}
+
+export type TenantCreateOrConnectWithoutBidProposalsInput = {
+  where: Prisma.TenantWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenantCreateWithoutBidProposalsInput, Prisma.TenantUncheckedCreateWithoutBidProposalsInput>
+}
+
+export type TenantUpsertWithoutBidProposalsInput = {
+  update: Prisma.XOR<Prisma.TenantUpdateWithoutBidProposalsInput, Prisma.TenantUncheckedUpdateWithoutBidProposalsInput>
+  create: Prisma.XOR<Prisma.TenantCreateWithoutBidProposalsInput, Prisma.TenantUncheckedCreateWithoutBidProposalsInput>
+  where?: Prisma.TenantWhereInput
+}
+
+export type TenantUpdateToOneWithWhereWithoutBidProposalsInput = {
+  where?: Prisma.TenantWhereInput
+  data: Prisma.XOR<Prisma.TenantUpdateWithoutBidProposalsInput, Prisma.TenantUncheckedUpdateWithoutBidProposalsInput>
+}
+
+export type TenantUpdateWithoutBidProposalsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantStatusEnumFieldUpdateOperationsInput | $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutTenantNestedInput
+  tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
+  permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
+  warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
+  zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
+  bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
+  templates?: Prisma.TemplateUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUpdateManyWithoutTenantNestedInput
+  variants?: Prisma.VariantUpdateManyWithoutTenantNestedInput
+  items?: Prisma.ItemUpdateManyWithoutTenantNestedInput
+  itemMovements?: Prisma.ItemMovementUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUpdateManyWithoutTenantNestedInput
+  manufacturers?: Prisma.ManufacturerUpdateManyWithoutTenantNestedInput
+  volumes?: Prisma.VolumeUpdateManyWithoutTenantNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutTenantNestedInput
+  productCareInstructions?: Prisma.ProductCareInstructionUpdateManyWithoutTenantNestedInput
+  productAttachments?: Prisma.ProductAttachmentUpdateManyWithoutTenantNestedInput
+  variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
+  salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
+  companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
+  companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
+  departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
+  positions?: Prisma.PositionUpdateManyWithoutTenantNestedInput
+  employees?: Prisma.EmployeeUpdateManyWithoutTenantNestedInput
+  timeEntries?: Prisma.TimeEntryUpdateManyWithoutTenantNestedInput
+  workSchedules?: Prisma.WorkScheduleUpdateManyWithoutTenantNestedInput
+  overtime?: Prisma.OvertimeUpdateManyWithoutTenantNestedInput
+  timeBanks?: Prisma.TimeBankUpdateManyWithoutTenantNestedInput
+  absences?: Prisma.AbsenceUpdateManyWithoutTenantNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutTenantNestedInput
+  payrolls?: Prisma.PayrollUpdateManyWithoutTenantNestedInput
+  bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
+  deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
+  organizations?: Prisma.OrganizationUpdateManyWithoutTenantNestedInput
+  costCenters?: Prisma.CostCenterUpdateManyWithoutTenantNestedInput
+  bankAccounts?: Prisma.BankAccountUpdateManyWithoutTenantNestedInput
+  financeCategories?: Prisma.FinanceCategoryUpdateManyWithoutTenantNestedInput
+  financeEntries?: Prisma.FinanceEntryUpdateManyWithoutTenantNestedInput
+  financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
+  loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
+  consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
+  storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
+  storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
+  calendars?: Prisma.CalendarUpdateManyWithoutTenantNestedInput
+  calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
+  eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
+  eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUpdateManyWithoutTenantNestedInput
+  emailAccounts?: Prisma.EmailAccountUpdateManyWithoutTenantNestedInput
+  emailMessages?: Prisma.EmailMessageUpdateManyWithoutTenantNestedInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUpdateManyWithoutTenantNestedInput
+  teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUpdateManyWithoutTenantNestedInput
+  tenantConsumptions?: Prisma.TenantConsumptionUpdateManyWithoutTenantNestedInput
+  tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantUncheckedUpdateWithoutBidProposalsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantStatusEnumFieldUpdateOperationsInput | $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutTenantNestedInput
+  tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
+  permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
+  warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
+  zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
+  bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
+  templates?: Prisma.TemplateUncheckedUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutTenantNestedInput
+  variants?: Prisma.VariantUncheckedUpdateManyWithoutTenantNestedInput
+  items?: Prisma.ItemUncheckedUpdateManyWithoutTenantNestedInput
+  itemMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUncheckedUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutTenantNestedInput
+  manufacturers?: Prisma.ManufacturerUncheckedUpdateManyWithoutTenantNestedInput
+  volumes?: Prisma.VolumeUncheckedUpdateManyWithoutTenantNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+  productCareInstructions?: Prisma.ProductCareInstructionUncheckedUpdateManyWithoutTenantNestedInput
+  productAttachments?: Prisma.ProductAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
+  salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
+  companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
+  companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
+  positions?: Prisma.PositionUncheckedUpdateManyWithoutTenantNestedInput
+  employees?: Prisma.EmployeeUncheckedUpdateManyWithoutTenantNestedInput
+  timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutTenantNestedInput
+  workSchedules?: Prisma.WorkScheduleUncheckedUpdateManyWithoutTenantNestedInput
+  overtime?: Prisma.OvertimeUncheckedUpdateManyWithoutTenantNestedInput
+  timeBanks?: Prisma.TimeBankUncheckedUpdateManyWithoutTenantNestedInput
+  absences?: Prisma.AbsenceUncheckedUpdateManyWithoutTenantNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutTenantNestedInput
+  payrolls?: Prisma.PayrollUncheckedUpdateManyWithoutTenantNestedInput
+  bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
+  deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  organizations?: Prisma.OrganizationUncheckedUpdateManyWithoutTenantNestedInput
+  costCenters?: Prisma.CostCenterUncheckedUpdateManyWithoutTenantNestedInput
+  bankAccounts?: Prisma.BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedUpdateManyWithoutTenantNestedInput
+  financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutTenantNestedInput
+  financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
+  consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
+  storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
+  storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
+  calendars?: Prisma.CalendarUncheckedUpdateManyWithoutTenantNestedInput
+  calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
+  eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
+  eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedUpdateManyWithoutTenantNestedInput
+  emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  emailMessages?: Prisma.EmailMessageUncheckedUpdateManyWithoutTenantNestedInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutTenantNestedInput
+  teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUncheckedUpdateManyWithoutTenantNestedInput
+  tenantConsumptions?: Prisma.TenantConsumptionUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantCreateWithoutBidDocumentsInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutTenantInput
+  tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
+  permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
+  warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
+  zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
+  bins?: Prisma.BinCreateNestedManyWithoutTenantInput
+  templates?: Prisma.TemplateCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductCreateNestedManyWithoutTenantInput
+  variants?: Prisma.VariantCreateNestedManyWithoutTenantInput
+  items?: Prisma.ItemCreateNestedManyWithoutTenantInput
+  itemMovements?: Prisma.ItemMovementCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierCreateNestedManyWithoutTenantInput
+  manufacturers?: Prisma.ManufacturerCreateNestedManyWithoutTenantInput
+  volumes?: Prisma.VolumeCreateNestedManyWithoutTenantInput
+  purchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutTenantInput
+  productCareInstructions?: Prisma.ProductCareInstructionCreateNestedManyWithoutTenantInput
+  productAttachments?: Prisma.ProductAttachmentCreateNestedManyWithoutTenantInput
+  variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
+  salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
+  companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
+  companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
+  departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
+  positions?: Prisma.PositionCreateNestedManyWithoutTenantInput
+  employees?: Prisma.EmployeeCreateNestedManyWithoutTenantInput
+  timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutTenantInput
+  workSchedules?: Prisma.WorkScheduleCreateNestedManyWithoutTenantInput
+  overtime?: Prisma.OvertimeCreateNestedManyWithoutTenantInput
+  timeBanks?: Prisma.TimeBankCreateNestedManyWithoutTenantInput
+  absences?: Prisma.AbsenceCreateNestedManyWithoutTenantInput
+  vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutTenantInput
+  payrolls?: Prisma.PayrollCreateNestedManyWithoutTenantInput
+  bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
+  deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
+  organizations?: Prisma.OrganizationCreateNestedManyWithoutTenantInput
+  costCenters?: Prisma.CostCenterCreateNestedManyWithoutTenantInput
+  bankAccounts?: Prisma.BankAccountCreateNestedManyWithoutTenantInput
+  financeCategories?: Prisma.FinanceCategoryCreateNestedManyWithoutTenantInput
+  financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutTenantInput
+  financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
+  loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
+  consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
+  storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
+  storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
+  folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
+  calendars?: Prisma.CalendarCreateNestedManyWithoutTenantInput
+  calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
+  eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
+  eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigCreateNestedManyWithoutTenantInput
+  emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutTenantInput
+  emailMessages?: Prisma.EmailMessageCreateNestedManyWithoutTenantInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessCreateNestedManyWithoutTenantInput
+  teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionCreateNestedManyWithoutTenantInput
+  tenantConsumptions?: Prisma.TenantConsumptionCreateNestedManyWithoutTenantInput
+  tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
+}
+
+export type TenantUncheckedCreateWithoutBidDocumentsInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutTenantInput
+  tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
+  permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
+  warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
+  zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
+  bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
+  templates?: Prisma.TemplateUncheckedCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutTenantInput
+  variants?: Prisma.VariantUncheckedCreateNestedManyWithoutTenantInput
+  items?: Prisma.ItemUncheckedCreateNestedManyWithoutTenantInput
+  itemMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagUncheckedCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutTenantInput
+  manufacturers?: Prisma.ManufacturerUncheckedCreateNestedManyWithoutTenantInput
+  volumes?: Prisma.VolumeUncheckedCreateNestedManyWithoutTenantInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+  productCareInstructions?: Prisma.ProductCareInstructionUncheckedCreateNestedManyWithoutTenantInput
+  productAttachments?: Prisma.ProductAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
+  salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
+  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
+  companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
+  departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
+  positions?: Prisma.PositionUncheckedCreateNestedManyWithoutTenantInput
+  employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutTenantInput
+  timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutTenantInput
+  workSchedules?: Prisma.WorkScheduleUncheckedCreateNestedManyWithoutTenantInput
+  overtime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutTenantInput
+  timeBanks?: Prisma.TimeBankUncheckedCreateNestedManyWithoutTenantInput
+  absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutTenantInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutTenantInput
+  payrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutTenantInput
+  bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
+  deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
+  organizations?: Prisma.OrganizationUncheckedCreateNestedManyWithoutTenantInput
+  costCenters?: Prisma.CostCenterUncheckedCreateNestedManyWithoutTenantInput
+  bankAccounts?: Prisma.BankAccountUncheckedCreateNestedManyWithoutTenantInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedCreateNestedManyWithoutTenantInput
+  financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutTenantInput
+  financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
+  consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
+  storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
+  storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
+  calendars?: Prisma.CalendarUncheckedCreateNestedManyWithoutTenantInput
+  calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
+  eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
+  eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedCreateNestedManyWithoutTenantInput
+  emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  emailMessages?: Prisma.EmailMessageUncheckedCreateNestedManyWithoutTenantInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutTenantInput
+  teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUncheckedCreateNestedManyWithoutTenantInput
+  tenantConsumptions?: Prisma.TenantConsumptionUncheckedCreateNestedManyWithoutTenantInput
+  tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
+}
+
+export type TenantCreateOrConnectWithoutBidDocumentsInput = {
+  where: Prisma.TenantWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenantCreateWithoutBidDocumentsInput, Prisma.TenantUncheckedCreateWithoutBidDocumentsInput>
+}
+
+export type TenantUpsertWithoutBidDocumentsInput = {
+  update: Prisma.XOR<Prisma.TenantUpdateWithoutBidDocumentsInput, Prisma.TenantUncheckedUpdateWithoutBidDocumentsInput>
+  create: Prisma.XOR<Prisma.TenantCreateWithoutBidDocumentsInput, Prisma.TenantUncheckedCreateWithoutBidDocumentsInput>
+  where?: Prisma.TenantWhereInput
+}
+
+export type TenantUpdateToOneWithWhereWithoutBidDocumentsInput = {
+  where?: Prisma.TenantWhereInput
+  data: Prisma.XOR<Prisma.TenantUpdateWithoutBidDocumentsInput, Prisma.TenantUncheckedUpdateWithoutBidDocumentsInput>
+}
+
+export type TenantUpdateWithoutBidDocumentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantStatusEnumFieldUpdateOperationsInput | $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutTenantNestedInput
+  tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
+  permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
+  warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
+  zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
+  bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
+  templates?: Prisma.TemplateUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUpdateManyWithoutTenantNestedInput
+  variants?: Prisma.VariantUpdateManyWithoutTenantNestedInput
+  items?: Prisma.ItemUpdateManyWithoutTenantNestedInput
+  itemMovements?: Prisma.ItemMovementUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUpdateManyWithoutTenantNestedInput
+  manufacturers?: Prisma.ManufacturerUpdateManyWithoutTenantNestedInput
+  volumes?: Prisma.VolumeUpdateManyWithoutTenantNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutTenantNestedInput
+  productCareInstructions?: Prisma.ProductCareInstructionUpdateManyWithoutTenantNestedInput
+  productAttachments?: Prisma.ProductAttachmentUpdateManyWithoutTenantNestedInput
+  variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
+  salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
+  companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
+  companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
+  departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
+  positions?: Prisma.PositionUpdateManyWithoutTenantNestedInput
+  employees?: Prisma.EmployeeUpdateManyWithoutTenantNestedInput
+  timeEntries?: Prisma.TimeEntryUpdateManyWithoutTenantNestedInput
+  workSchedules?: Prisma.WorkScheduleUpdateManyWithoutTenantNestedInput
+  overtime?: Prisma.OvertimeUpdateManyWithoutTenantNestedInput
+  timeBanks?: Prisma.TimeBankUpdateManyWithoutTenantNestedInput
+  absences?: Prisma.AbsenceUpdateManyWithoutTenantNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutTenantNestedInput
+  payrolls?: Prisma.PayrollUpdateManyWithoutTenantNestedInput
+  bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
+  deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
+  organizations?: Prisma.OrganizationUpdateManyWithoutTenantNestedInput
+  costCenters?: Prisma.CostCenterUpdateManyWithoutTenantNestedInput
+  bankAccounts?: Prisma.BankAccountUpdateManyWithoutTenantNestedInput
+  financeCategories?: Prisma.FinanceCategoryUpdateManyWithoutTenantNestedInput
+  financeEntries?: Prisma.FinanceEntryUpdateManyWithoutTenantNestedInput
+  financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
+  loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
+  consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
+  storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
+  storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
+  calendars?: Prisma.CalendarUpdateManyWithoutTenantNestedInput
+  calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
+  eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
+  eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUpdateManyWithoutTenantNestedInput
+  emailAccounts?: Prisma.EmailAccountUpdateManyWithoutTenantNestedInput
+  emailMessages?: Prisma.EmailMessageUpdateManyWithoutTenantNestedInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUpdateManyWithoutTenantNestedInput
+  teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUpdateManyWithoutTenantNestedInput
+  tenantConsumptions?: Prisma.TenantConsumptionUpdateManyWithoutTenantNestedInput
+  tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantUncheckedUpdateWithoutBidDocumentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantStatusEnumFieldUpdateOperationsInput | $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutTenantNestedInput
+  tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
+  permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
+  warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
+  zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
+  bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
+  templates?: Prisma.TemplateUncheckedUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutTenantNestedInput
+  variants?: Prisma.VariantUncheckedUpdateManyWithoutTenantNestedInput
+  items?: Prisma.ItemUncheckedUpdateManyWithoutTenantNestedInput
+  itemMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUncheckedUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutTenantNestedInput
+  manufacturers?: Prisma.ManufacturerUncheckedUpdateManyWithoutTenantNestedInput
+  volumes?: Prisma.VolumeUncheckedUpdateManyWithoutTenantNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+  productCareInstructions?: Prisma.ProductCareInstructionUncheckedUpdateManyWithoutTenantNestedInput
+  productAttachments?: Prisma.ProductAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
+  salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
+  companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
+  companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
+  positions?: Prisma.PositionUncheckedUpdateManyWithoutTenantNestedInput
+  employees?: Prisma.EmployeeUncheckedUpdateManyWithoutTenantNestedInput
+  timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutTenantNestedInput
+  workSchedules?: Prisma.WorkScheduleUncheckedUpdateManyWithoutTenantNestedInput
+  overtime?: Prisma.OvertimeUncheckedUpdateManyWithoutTenantNestedInput
+  timeBanks?: Prisma.TimeBankUncheckedUpdateManyWithoutTenantNestedInput
+  absences?: Prisma.AbsenceUncheckedUpdateManyWithoutTenantNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutTenantNestedInput
+  payrolls?: Prisma.PayrollUncheckedUpdateManyWithoutTenantNestedInput
+  bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
+  deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  organizations?: Prisma.OrganizationUncheckedUpdateManyWithoutTenantNestedInput
+  costCenters?: Prisma.CostCenterUncheckedUpdateManyWithoutTenantNestedInput
+  bankAccounts?: Prisma.BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedUpdateManyWithoutTenantNestedInput
+  financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutTenantNestedInput
+  financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
+  consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
+  storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
+  storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
+  calendars?: Prisma.CalendarUncheckedUpdateManyWithoutTenantNestedInput
+  calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
+  eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
+  eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedUpdateManyWithoutTenantNestedInput
+  emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  emailMessages?: Prisma.EmailMessageUncheckedUpdateManyWithoutTenantNestedInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutTenantNestedInput
+  teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUncheckedUpdateManyWithoutTenantNestedInput
+  tenantConsumptions?: Prisma.TenantConsumptionUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantCreateWithoutBidContractsInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutTenantInput
+  tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
+  permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
+  warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
+  zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
+  bins?: Prisma.BinCreateNestedManyWithoutTenantInput
+  templates?: Prisma.TemplateCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductCreateNestedManyWithoutTenantInput
+  variants?: Prisma.VariantCreateNestedManyWithoutTenantInput
+  items?: Prisma.ItemCreateNestedManyWithoutTenantInput
+  itemMovements?: Prisma.ItemMovementCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierCreateNestedManyWithoutTenantInput
+  manufacturers?: Prisma.ManufacturerCreateNestedManyWithoutTenantInput
+  volumes?: Prisma.VolumeCreateNestedManyWithoutTenantInput
+  purchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutTenantInput
+  productCareInstructions?: Prisma.ProductCareInstructionCreateNestedManyWithoutTenantInput
+  productAttachments?: Prisma.ProductAttachmentCreateNestedManyWithoutTenantInput
+  variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
+  salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
+  companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
+  companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
+  departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
+  positions?: Prisma.PositionCreateNestedManyWithoutTenantInput
+  employees?: Prisma.EmployeeCreateNestedManyWithoutTenantInput
+  timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutTenantInput
+  workSchedules?: Prisma.WorkScheduleCreateNestedManyWithoutTenantInput
+  overtime?: Prisma.OvertimeCreateNestedManyWithoutTenantInput
+  timeBanks?: Prisma.TimeBankCreateNestedManyWithoutTenantInput
+  absences?: Prisma.AbsenceCreateNestedManyWithoutTenantInput
+  vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutTenantInput
+  payrolls?: Prisma.PayrollCreateNestedManyWithoutTenantInput
+  bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
+  deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
+  organizations?: Prisma.OrganizationCreateNestedManyWithoutTenantInput
+  costCenters?: Prisma.CostCenterCreateNestedManyWithoutTenantInput
+  bankAccounts?: Prisma.BankAccountCreateNestedManyWithoutTenantInput
+  financeCategories?: Prisma.FinanceCategoryCreateNestedManyWithoutTenantInput
+  financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutTenantInput
+  financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
+  loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
+  consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
+  storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
+  storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
+  folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
+  calendars?: Prisma.CalendarCreateNestedManyWithoutTenantInput
+  calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
+  eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
+  eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigCreateNestedManyWithoutTenantInput
+  emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutTenantInput
+  emailMessages?: Prisma.EmailMessageCreateNestedManyWithoutTenantInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessCreateNestedManyWithoutTenantInput
+  teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionCreateNestedManyWithoutTenantInput
+  tenantConsumptions?: Prisma.TenantConsumptionCreateNestedManyWithoutTenantInput
+  tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
+}
+
+export type TenantUncheckedCreateWithoutBidContractsInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutTenantInput
+  tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
+  permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
+  warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
+  zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
+  bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
+  templates?: Prisma.TemplateUncheckedCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutTenantInput
+  variants?: Prisma.VariantUncheckedCreateNestedManyWithoutTenantInput
+  items?: Prisma.ItemUncheckedCreateNestedManyWithoutTenantInput
+  itemMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagUncheckedCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutTenantInput
+  manufacturers?: Prisma.ManufacturerUncheckedCreateNestedManyWithoutTenantInput
+  volumes?: Prisma.VolumeUncheckedCreateNestedManyWithoutTenantInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+  productCareInstructions?: Prisma.ProductCareInstructionUncheckedCreateNestedManyWithoutTenantInput
+  productAttachments?: Prisma.ProductAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
+  salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
+  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
+  companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
+  departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
+  positions?: Prisma.PositionUncheckedCreateNestedManyWithoutTenantInput
+  employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutTenantInput
+  timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutTenantInput
+  workSchedules?: Prisma.WorkScheduleUncheckedCreateNestedManyWithoutTenantInput
+  overtime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutTenantInput
+  timeBanks?: Prisma.TimeBankUncheckedCreateNestedManyWithoutTenantInput
+  absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutTenantInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutTenantInput
+  payrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutTenantInput
+  bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
+  deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
+  organizations?: Prisma.OrganizationUncheckedCreateNestedManyWithoutTenantInput
+  costCenters?: Prisma.CostCenterUncheckedCreateNestedManyWithoutTenantInput
+  bankAccounts?: Prisma.BankAccountUncheckedCreateNestedManyWithoutTenantInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedCreateNestedManyWithoutTenantInput
+  financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutTenantInput
+  financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
+  consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
+  storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
+  storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
+  calendars?: Prisma.CalendarUncheckedCreateNestedManyWithoutTenantInput
+  calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
+  eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
+  eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedCreateNestedManyWithoutTenantInput
+  emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  emailMessages?: Prisma.EmailMessageUncheckedCreateNestedManyWithoutTenantInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutTenantInput
+  teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUncheckedCreateNestedManyWithoutTenantInput
+  tenantConsumptions?: Prisma.TenantConsumptionUncheckedCreateNestedManyWithoutTenantInput
+  tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
+}
+
+export type TenantCreateOrConnectWithoutBidContractsInput = {
+  where: Prisma.TenantWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenantCreateWithoutBidContractsInput, Prisma.TenantUncheckedCreateWithoutBidContractsInput>
+}
+
+export type TenantUpsertWithoutBidContractsInput = {
+  update: Prisma.XOR<Prisma.TenantUpdateWithoutBidContractsInput, Prisma.TenantUncheckedUpdateWithoutBidContractsInput>
+  create: Prisma.XOR<Prisma.TenantCreateWithoutBidContractsInput, Prisma.TenantUncheckedCreateWithoutBidContractsInput>
+  where?: Prisma.TenantWhereInput
+}
+
+export type TenantUpdateToOneWithWhereWithoutBidContractsInput = {
+  where?: Prisma.TenantWhereInput
+  data: Prisma.XOR<Prisma.TenantUpdateWithoutBidContractsInput, Prisma.TenantUncheckedUpdateWithoutBidContractsInput>
+}
+
+export type TenantUpdateWithoutBidContractsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantStatusEnumFieldUpdateOperationsInput | $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutTenantNestedInput
+  tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
+  permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
+  warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
+  zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
+  bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
+  templates?: Prisma.TemplateUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUpdateManyWithoutTenantNestedInput
+  variants?: Prisma.VariantUpdateManyWithoutTenantNestedInput
+  items?: Prisma.ItemUpdateManyWithoutTenantNestedInput
+  itemMovements?: Prisma.ItemMovementUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUpdateManyWithoutTenantNestedInput
+  manufacturers?: Prisma.ManufacturerUpdateManyWithoutTenantNestedInput
+  volumes?: Prisma.VolumeUpdateManyWithoutTenantNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutTenantNestedInput
+  productCareInstructions?: Prisma.ProductCareInstructionUpdateManyWithoutTenantNestedInput
+  productAttachments?: Prisma.ProductAttachmentUpdateManyWithoutTenantNestedInput
+  variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
+  salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
+  companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
+  companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
+  departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
+  positions?: Prisma.PositionUpdateManyWithoutTenantNestedInput
+  employees?: Prisma.EmployeeUpdateManyWithoutTenantNestedInput
+  timeEntries?: Prisma.TimeEntryUpdateManyWithoutTenantNestedInput
+  workSchedules?: Prisma.WorkScheduleUpdateManyWithoutTenantNestedInput
+  overtime?: Prisma.OvertimeUpdateManyWithoutTenantNestedInput
+  timeBanks?: Prisma.TimeBankUpdateManyWithoutTenantNestedInput
+  absences?: Prisma.AbsenceUpdateManyWithoutTenantNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutTenantNestedInput
+  payrolls?: Prisma.PayrollUpdateManyWithoutTenantNestedInput
+  bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
+  deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
+  organizations?: Prisma.OrganizationUpdateManyWithoutTenantNestedInput
+  costCenters?: Prisma.CostCenterUpdateManyWithoutTenantNestedInput
+  bankAccounts?: Prisma.BankAccountUpdateManyWithoutTenantNestedInput
+  financeCategories?: Prisma.FinanceCategoryUpdateManyWithoutTenantNestedInput
+  financeEntries?: Prisma.FinanceEntryUpdateManyWithoutTenantNestedInput
+  financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
+  loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
+  consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
+  storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
+  storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
+  calendars?: Prisma.CalendarUpdateManyWithoutTenantNestedInput
+  calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
+  eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
+  eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUpdateManyWithoutTenantNestedInput
+  emailAccounts?: Prisma.EmailAccountUpdateManyWithoutTenantNestedInput
+  emailMessages?: Prisma.EmailMessageUpdateManyWithoutTenantNestedInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUpdateManyWithoutTenantNestedInput
+  teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUpdateManyWithoutTenantNestedInput
+  tenantConsumptions?: Prisma.TenantConsumptionUpdateManyWithoutTenantNestedInput
+  tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantUncheckedUpdateWithoutBidContractsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantStatusEnumFieldUpdateOperationsInput | $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutTenantNestedInput
+  tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
+  permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
+  warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
+  zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
+  bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
+  templates?: Prisma.TemplateUncheckedUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutTenantNestedInput
+  variants?: Prisma.VariantUncheckedUpdateManyWithoutTenantNestedInput
+  items?: Prisma.ItemUncheckedUpdateManyWithoutTenantNestedInput
+  itemMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUncheckedUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutTenantNestedInput
+  manufacturers?: Prisma.ManufacturerUncheckedUpdateManyWithoutTenantNestedInput
+  volumes?: Prisma.VolumeUncheckedUpdateManyWithoutTenantNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+  productCareInstructions?: Prisma.ProductCareInstructionUncheckedUpdateManyWithoutTenantNestedInput
+  productAttachments?: Prisma.ProductAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
+  salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
+  companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
+  companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
+  positions?: Prisma.PositionUncheckedUpdateManyWithoutTenantNestedInput
+  employees?: Prisma.EmployeeUncheckedUpdateManyWithoutTenantNestedInput
+  timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutTenantNestedInput
+  workSchedules?: Prisma.WorkScheduleUncheckedUpdateManyWithoutTenantNestedInput
+  overtime?: Prisma.OvertimeUncheckedUpdateManyWithoutTenantNestedInput
+  timeBanks?: Prisma.TimeBankUncheckedUpdateManyWithoutTenantNestedInput
+  absences?: Prisma.AbsenceUncheckedUpdateManyWithoutTenantNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutTenantNestedInput
+  payrolls?: Prisma.PayrollUncheckedUpdateManyWithoutTenantNestedInput
+  bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
+  deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  organizations?: Prisma.OrganizationUncheckedUpdateManyWithoutTenantNestedInput
+  costCenters?: Prisma.CostCenterUncheckedUpdateManyWithoutTenantNestedInput
+  bankAccounts?: Prisma.BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedUpdateManyWithoutTenantNestedInput
+  financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutTenantNestedInput
+  financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
+  consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
+  storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
+  storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
+  calendars?: Prisma.CalendarUncheckedUpdateManyWithoutTenantNestedInput
+  calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
+  eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
+  eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedUpdateManyWithoutTenantNestedInput
+  emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  emailMessages?: Prisma.EmailMessageUncheckedUpdateManyWithoutTenantNestedInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutTenantNestedInput
+  teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUncheckedUpdateManyWithoutTenantNestedInput
+  tenantConsumptions?: Prisma.TenantConsumptionUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantCreateWithoutBidEmpenhosInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutTenantInput
+  tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
+  permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
+  warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
+  zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
+  bins?: Prisma.BinCreateNestedManyWithoutTenantInput
+  templates?: Prisma.TemplateCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductCreateNestedManyWithoutTenantInput
+  variants?: Prisma.VariantCreateNestedManyWithoutTenantInput
+  items?: Prisma.ItemCreateNestedManyWithoutTenantInput
+  itemMovements?: Prisma.ItemMovementCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierCreateNestedManyWithoutTenantInput
+  manufacturers?: Prisma.ManufacturerCreateNestedManyWithoutTenantInput
+  volumes?: Prisma.VolumeCreateNestedManyWithoutTenantInput
+  purchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutTenantInput
+  productCareInstructions?: Prisma.ProductCareInstructionCreateNestedManyWithoutTenantInput
+  productAttachments?: Prisma.ProductAttachmentCreateNestedManyWithoutTenantInput
+  variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
+  salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
+  companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
+  companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
+  departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
+  positions?: Prisma.PositionCreateNestedManyWithoutTenantInput
+  employees?: Prisma.EmployeeCreateNestedManyWithoutTenantInput
+  timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutTenantInput
+  workSchedules?: Prisma.WorkScheduleCreateNestedManyWithoutTenantInput
+  overtime?: Prisma.OvertimeCreateNestedManyWithoutTenantInput
+  timeBanks?: Prisma.TimeBankCreateNestedManyWithoutTenantInput
+  absences?: Prisma.AbsenceCreateNestedManyWithoutTenantInput
+  vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutTenantInput
+  payrolls?: Prisma.PayrollCreateNestedManyWithoutTenantInput
+  bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
+  deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
+  organizations?: Prisma.OrganizationCreateNestedManyWithoutTenantInput
+  costCenters?: Prisma.CostCenterCreateNestedManyWithoutTenantInput
+  bankAccounts?: Prisma.BankAccountCreateNestedManyWithoutTenantInput
+  financeCategories?: Prisma.FinanceCategoryCreateNestedManyWithoutTenantInput
+  financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutTenantInput
+  financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
+  loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
+  consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
+  storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
+  storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
+  folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
+  calendars?: Prisma.CalendarCreateNestedManyWithoutTenantInput
+  calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
+  eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
+  eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigCreateNestedManyWithoutTenantInput
+  emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutTenantInput
+  emailMessages?: Prisma.EmailMessageCreateNestedManyWithoutTenantInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessCreateNestedManyWithoutTenantInput
+  teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionCreateNestedManyWithoutTenantInput
+  tenantConsumptions?: Prisma.TenantConsumptionCreateNestedManyWithoutTenantInput
+  tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
+}
+
+export type TenantUncheckedCreateWithoutBidEmpenhosInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutTenantInput
+  tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
+  permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
+  warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
+  zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
+  bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
+  templates?: Prisma.TemplateUncheckedCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutTenantInput
+  variants?: Prisma.VariantUncheckedCreateNestedManyWithoutTenantInput
+  items?: Prisma.ItemUncheckedCreateNestedManyWithoutTenantInput
+  itemMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagUncheckedCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutTenantInput
+  manufacturers?: Prisma.ManufacturerUncheckedCreateNestedManyWithoutTenantInput
+  volumes?: Prisma.VolumeUncheckedCreateNestedManyWithoutTenantInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+  productCareInstructions?: Prisma.ProductCareInstructionUncheckedCreateNestedManyWithoutTenantInput
+  productAttachments?: Prisma.ProductAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
+  salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
+  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
+  companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
+  departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
+  positions?: Prisma.PositionUncheckedCreateNestedManyWithoutTenantInput
+  employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutTenantInput
+  timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutTenantInput
+  workSchedules?: Prisma.WorkScheduleUncheckedCreateNestedManyWithoutTenantInput
+  overtime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutTenantInput
+  timeBanks?: Prisma.TimeBankUncheckedCreateNestedManyWithoutTenantInput
+  absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutTenantInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutTenantInput
+  payrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutTenantInput
+  bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
+  deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
+  organizations?: Prisma.OrganizationUncheckedCreateNestedManyWithoutTenantInput
+  costCenters?: Prisma.CostCenterUncheckedCreateNestedManyWithoutTenantInput
+  bankAccounts?: Prisma.BankAccountUncheckedCreateNestedManyWithoutTenantInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedCreateNestedManyWithoutTenantInput
+  financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutTenantInput
+  financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
+  consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
+  storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
+  storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
+  calendars?: Prisma.CalendarUncheckedCreateNestedManyWithoutTenantInput
+  calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
+  eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
+  eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedCreateNestedManyWithoutTenantInput
+  emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  emailMessages?: Prisma.EmailMessageUncheckedCreateNestedManyWithoutTenantInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutTenantInput
+  teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUncheckedCreateNestedManyWithoutTenantInput
+  tenantConsumptions?: Prisma.TenantConsumptionUncheckedCreateNestedManyWithoutTenantInput
+  tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
+}
+
+export type TenantCreateOrConnectWithoutBidEmpenhosInput = {
+  where: Prisma.TenantWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenantCreateWithoutBidEmpenhosInput, Prisma.TenantUncheckedCreateWithoutBidEmpenhosInput>
+}
+
+export type TenantUpsertWithoutBidEmpenhosInput = {
+  update: Prisma.XOR<Prisma.TenantUpdateWithoutBidEmpenhosInput, Prisma.TenantUncheckedUpdateWithoutBidEmpenhosInput>
+  create: Prisma.XOR<Prisma.TenantCreateWithoutBidEmpenhosInput, Prisma.TenantUncheckedCreateWithoutBidEmpenhosInput>
+  where?: Prisma.TenantWhereInput
+}
+
+export type TenantUpdateToOneWithWhereWithoutBidEmpenhosInput = {
+  where?: Prisma.TenantWhereInput
+  data: Prisma.XOR<Prisma.TenantUpdateWithoutBidEmpenhosInput, Prisma.TenantUncheckedUpdateWithoutBidEmpenhosInput>
+}
+
+export type TenantUpdateWithoutBidEmpenhosInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantStatusEnumFieldUpdateOperationsInput | $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutTenantNestedInput
+  tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
+  permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
+  warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
+  zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
+  bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
+  templates?: Prisma.TemplateUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUpdateManyWithoutTenantNestedInput
+  variants?: Prisma.VariantUpdateManyWithoutTenantNestedInput
+  items?: Prisma.ItemUpdateManyWithoutTenantNestedInput
+  itemMovements?: Prisma.ItemMovementUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUpdateManyWithoutTenantNestedInput
+  manufacturers?: Prisma.ManufacturerUpdateManyWithoutTenantNestedInput
+  volumes?: Prisma.VolumeUpdateManyWithoutTenantNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutTenantNestedInput
+  productCareInstructions?: Prisma.ProductCareInstructionUpdateManyWithoutTenantNestedInput
+  productAttachments?: Prisma.ProductAttachmentUpdateManyWithoutTenantNestedInput
+  variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
+  salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
+  companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
+  companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
+  departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
+  positions?: Prisma.PositionUpdateManyWithoutTenantNestedInput
+  employees?: Prisma.EmployeeUpdateManyWithoutTenantNestedInput
+  timeEntries?: Prisma.TimeEntryUpdateManyWithoutTenantNestedInput
+  workSchedules?: Prisma.WorkScheduleUpdateManyWithoutTenantNestedInput
+  overtime?: Prisma.OvertimeUpdateManyWithoutTenantNestedInput
+  timeBanks?: Prisma.TimeBankUpdateManyWithoutTenantNestedInput
+  absences?: Prisma.AbsenceUpdateManyWithoutTenantNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutTenantNestedInput
+  payrolls?: Prisma.PayrollUpdateManyWithoutTenantNestedInput
+  bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
+  deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
+  organizations?: Prisma.OrganizationUpdateManyWithoutTenantNestedInput
+  costCenters?: Prisma.CostCenterUpdateManyWithoutTenantNestedInput
+  bankAccounts?: Prisma.BankAccountUpdateManyWithoutTenantNestedInput
+  financeCategories?: Prisma.FinanceCategoryUpdateManyWithoutTenantNestedInput
+  financeEntries?: Prisma.FinanceEntryUpdateManyWithoutTenantNestedInput
+  financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
+  loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
+  consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
+  storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
+  storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
+  calendars?: Prisma.CalendarUpdateManyWithoutTenantNestedInput
+  calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
+  eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
+  eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUpdateManyWithoutTenantNestedInput
+  emailAccounts?: Prisma.EmailAccountUpdateManyWithoutTenantNestedInput
+  emailMessages?: Prisma.EmailMessageUpdateManyWithoutTenantNestedInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUpdateManyWithoutTenantNestedInput
+  teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUpdateManyWithoutTenantNestedInput
+  tenantConsumptions?: Prisma.TenantConsumptionUpdateManyWithoutTenantNestedInput
+  tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantUncheckedUpdateWithoutBidEmpenhosInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantStatusEnumFieldUpdateOperationsInput | $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutTenantNestedInput
+  tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
+  permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
+  warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
+  zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
+  bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
+  templates?: Prisma.TemplateUncheckedUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutTenantNestedInput
+  variants?: Prisma.VariantUncheckedUpdateManyWithoutTenantNestedInput
+  items?: Prisma.ItemUncheckedUpdateManyWithoutTenantNestedInput
+  itemMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUncheckedUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutTenantNestedInput
+  manufacturers?: Prisma.ManufacturerUncheckedUpdateManyWithoutTenantNestedInput
+  volumes?: Prisma.VolumeUncheckedUpdateManyWithoutTenantNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+  productCareInstructions?: Prisma.ProductCareInstructionUncheckedUpdateManyWithoutTenantNestedInput
+  productAttachments?: Prisma.ProductAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
+  salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
+  companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
+  companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
+  positions?: Prisma.PositionUncheckedUpdateManyWithoutTenantNestedInput
+  employees?: Prisma.EmployeeUncheckedUpdateManyWithoutTenantNestedInput
+  timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutTenantNestedInput
+  workSchedules?: Prisma.WorkScheduleUncheckedUpdateManyWithoutTenantNestedInput
+  overtime?: Prisma.OvertimeUncheckedUpdateManyWithoutTenantNestedInput
+  timeBanks?: Prisma.TimeBankUncheckedUpdateManyWithoutTenantNestedInput
+  absences?: Prisma.AbsenceUncheckedUpdateManyWithoutTenantNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutTenantNestedInput
+  payrolls?: Prisma.PayrollUncheckedUpdateManyWithoutTenantNestedInput
+  bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
+  deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  organizations?: Prisma.OrganizationUncheckedUpdateManyWithoutTenantNestedInput
+  costCenters?: Prisma.CostCenterUncheckedUpdateManyWithoutTenantNestedInput
+  bankAccounts?: Prisma.BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedUpdateManyWithoutTenantNestedInput
+  financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutTenantNestedInput
+  financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
+  consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
+  storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
+  storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
+  calendars?: Prisma.CalendarUncheckedUpdateManyWithoutTenantNestedInput
+  calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
+  eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
+  eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedUpdateManyWithoutTenantNestedInput
+  emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  emailMessages?: Prisma.EmailMessageUncheckedUpdateManyWithoutTenantNestedInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutTenantNestedInput
+  teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUncheckedUpdateManyWithoutTenantNestedInput
+  tenantConsumptions?: Prisma.TenantConsumptionUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantCreateWithoutBidMonitorEventsInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutTenantInput
+  tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
+  permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
+  warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
+  zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
+  bins?: Prisma.BinCreateNestedManyWithoutTenantInput
+  templates?: Prisma.TemplateCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductCreateNestedManyWithoutTenantInput
+  variants?: Prisma.VariantCreateNestedManyWithoutTenantInput
+  items?: Prisma.ItemCreateNestedManyWithoutTenantInput
+  itemMovements?: Prisma.ItemMovementCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierCreateNestedManyWithoutTenantInput
+  manufacturers?: Prisma.ManufacturerCreateNestedManyWithoutTenantInput
+  volumes?: Prisma.VolumeCreateNestedManyWithoutTenantInput
+  purchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutTenantInput
+  productCareInstructions?: Prisma.ProductCareInstructionCreateNestedManyWithoutTenantInput
+  productAttachments?: Prisma.ProductAttachmentCreateNestedManyWithoutTenantInput
+  variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
+  salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
+  companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
+  companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
+  departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
+  positions?: Prisma.PositionCreateNestedManyWithoutTenantInput
+  employees?: Prisma.EmployeeCreateNestedManyWithoutTenantInput
+  timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutTenantInput
+  workSchedules?: Prisma.WorkScheduleCreateNestedManyWithoutTenantInput
+  overtime?: Prisma.OvertimeCreateNestedManyWithoutTenantInput
+  timeBanks?: Prisma.TimeBankCreateNestedManyWithoutTenantInput
+  absences?: Prisma.AbsenceCreateNestedManyWithoutTenantInput
+  vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutTenantInput
+  payrolls?: Prisma.PayrollCreateNestedManyWithoutTenantInput
+  bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
+  deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
+  organizations?: Prisma.OrganizationCreateNestedManyWithoutTenantInput
+  costCenters?: Prisma.CostCenterCreateNestedManyWithoutTenantInput
+  bankAccounts?: Prisma.BankAccountCreateNestedManyWithoutTenantInput
+  financeCategories?: Prisma.FinanceCategoryCreateNestedManyWithoutTenantInput
+  financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutTenantInput
+  financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
+  loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
+  consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
+  storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
+  storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
+  folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
+  calendars?: Prisma.CalendarCreateNestedManyWithoutTenantInput
+  calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
+  eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
+  eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigCreateNestedManyWithoutTenantInput
+  emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutTenantInput
+  emailMessages?: Prisma.EmailMessageCreateNestedManyWithoutTenantInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessCreateNestedManyWithoutTenantInput
+  teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionCreateNestedManyWithoutTenantInput
+  tenantConsumptions?: Prisma.TenantConsumptionCreateNestedManyWithoutTenantInput
+  tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
+}
+
+export type TenantUncheckedCreateWithoutBidMonitorEventsInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutTenantInput
+  tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
+  permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
+  warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
+  zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
+  bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
+  templates?: Prisma.TemplateUncheckedCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutTenantInput
+  variants?: Prisma.VariantUncheckedCreateNestedManyWithoutTenantInput
+  items?: Prisma.ItemUncheckedCreateNestedManyWithoutTenantInput
+  itemMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagUncheckedCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutTenantInput
+  manufacturers?: Prisma.ManufacturerUncheckedCreateNestedManyWithoutTenantInput
+  volumes?: Prisma.VolumeUncheckedCreateNestedManyWithoutTenantInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+  productCareInstructions?: Prisma.ProductCareInstructionUncheckedCreateNestedManyWithoutTenantInput
+  productAttachments?: Prisma.ProductAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
+  salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
+  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
+  companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
+  departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
+  positions?: Prisma.PositionUncheckedCreateNestedManyWithoutTenantInput
+  employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutTenantInput
+  timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutTenantInput
+  workSchedules?: Prisma.WorkScheduleUncheckedCreateNestedManyWithoutTenantInput
+  overtime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutTenantInput
+  timeBanks?: Prisma.TimeBankUncheckedCreateNestedManyWithoutTenantInput
+  absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutTenantInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutTenantInput
+  payrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutTenantInput
+  bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
+  deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
+  organizations?: Prisma.OrganizationUncheckedCreateNestedManyWithoutTenantInput
+  costCenters?: Prisma.CostCenterUncheckedCreateNestedManyWithoutTenantInput
+  bankAccounts?: Prisma.BankAccountUncheckedCreateNestedManyWithoutTenantInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedCreateNestedManyWithoutTenantInput
+  financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutTenantInput
+  financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
+  consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
+  storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
+  storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
+  calendars?: Prisma.CalendarUncheckedCreateNestedManyWithoutTenantInput
+  calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
+  eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
+  eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedCreateNestedManyWithoutTenantInput
+  emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  emailMessages?: Prisma.EmailMessageUncheckedCreateNestedManyWithoutTenantInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutTenantInput
+  teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUncheckedCreateNestedManyWithoutTenantInput
+  tenantConsumptions?: Prisma.TenantConsumptionUncheckedCreateNestedManyWithoutTenantInput
+  tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
+}
+
+export type TenantCreateOrConnectWithoutBidMonitorEventsInput = {
+  where: Prisma.TenantWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenantCreateWithoutBidMonitorEventsInput, Prisma.TenantUncheckedCreateWithoutBidMonitorEventsInput>
+}
+
+export type TenantUpsertWithoutBidMonitorEventsInput = {
+  update: Prisma.XOR<Prisma.TenantUpdateWithoutBidMonitorEventsInput, Prisma.TenantUncheckedUpdateWithoutBidMonitorEventsInput>
+  create: Prisma.XOR<Prisma.TenantCreateWithoutBidMonitorEventsInput, Prisma.TenantUncheckedCreateWithoutBidMonitorEventsInput>
+  where?: Prisma.TenantWhereInput
+}
+
+export type TenantUpdateToOneWithWhereWithoutBidMonitorEventsInput = {
+  where?: Prisma.TenantWhereInput
+  data: Prisma.XOR<Prisma.TenantUpdateWithoutBidMonitorEventsInput, Prisma.TenantUncheckedUpdateWithoutBidMonitorEventsInput>
+}
+
+export type TenantUpdateWithoutBidMonitorEventsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantStatusEnumFieldUpdateOperationsInput | $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutTenantNestedInput
+  tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
+  permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
+  warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
+  zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
+  bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
+  templates?: Prisma.TemplateUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUpdateManyWithoutTenantNestedInput
+  variants?: Prisma.VariantUpdateManyWithoutTenantNestedInput
+  items?: Prisma.ItemUpdateManyWithoutTenantNestedInput
+  itemMovements?: Prisma.ItemMovementUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUpdateManyWithoutTenantNestedInput
+  manufacturers?: Prisma.ManufacturerUpdateManyWithoutTenantNestedInput
+  volumes?: Prisma.VolumeUpdateManyWithoutTenantNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutTenantNestedInput
+  productCareInstructions?: Prisma.ProductCareInstructionUpdateManyWithoutTenantNestedInput
+  productAttachments?: Prisma.ProductAttachmentUpdateManyWithoutTenantNestedInput
+  variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
+  salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
+  companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
+  companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
+  departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
+  positions?: Prisma.PositionUpdateManyWithoutTenantNestedInput
+  employees?: Prisma.EmployeeUpdateManyWithoutTenantNestedInput
+  timeEntries?: Prisma.TimeEntryUpdateManyWithoutTenantNestedInput
+  workSchedules?: Prisma.WorkScheduleUpdateManyWithoutTenantNestedInput
+  overtime?: Prisma.OvertimeUpdateManyWithoutTenantNestedInput
+  timeBanks?: Prisma.TimeBankUpdateManyWithoutTenantNestedInput
+  absences?: Prisma.AbsenceUpdateManyWithoutTenantNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutTenantNestedInput
+  payrolls?: Prisma.PayrollUpdateManyWithoutTenantNestedInput
+  bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
+  deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
+  organizations?: Prisma.OrganizationUpdateManyWithoutTenantNestedInput
+  costCenters?: Prisma.CostCenterUpdateManyWithoutTenantNestedInput
+  bankAccounts?: Prisma.BankAccountUpdateManyWithoutTenantNestedInput
+  financeCategories?: Prisma.FinanceCategoryUpdateManyWithoutTenantNestedInput
+  financeEntries?: Prisma.FinanceEntryUpdateManyWithoutTenantNestedInput
+  financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
+  loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
+  consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
+  storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
+  storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
+  calendars?: Prisma.CalendarUpdateManyWithoutTenantNestedInput
+  calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
+  eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
+  eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUpdateManyWithoutTenantNestedInput
+  emailAccounts?: Prisma.EmailAccountUpdateManyWithoutTenantNestedInput
+  emailMessages?: Prisma.EmailMessageUpdateManyWithoutTenantNestedInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUpdateManyWithoutTenantNestedInput
+  teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUpdateManyWithoutTenantNestedInput
+  tenantConsumptions?: Prisma.TenantConsumptionUpdateManyWithoutTenantNestedInput
+  tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantUncheckedUpdateWithoutBidMonitorEventsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantStatusEnumFieldUpdateOperationsInput | $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutTenantNestedInput
+  tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
+  permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
+  warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
+  zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
+  bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
+  templates?: Prisma.TemplateUncheckedUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutTenantNestedInput
+  variants?: Prisma.VariantUncheckedUpdateManyWithoutTenantNestedInput
+  items?: Prisma.ItemUncheckedUpdateManyWithoutTenantNestedInput
+  itemMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUncheckedUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutTenantNestedInput
+  manufacturers?: Prisma.ManufacturerUncheckedUpdateManyWithoutTenantNestedInput
+  volumes?: Prisma.VolumeUncheckedUpdateManyWithoutTenantNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+  productCareInstructions?: Prisma.ProductCareInstructionUncheckedUpdateManyWithoutTenantNestedInput
+  productAttachments?: Prisma.ProductAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
+  salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
+  companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
+  companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
+  positions?: Prisma.PositionUncheckedUpdateManyWithoutTenantNestedInput
+  employees?: Prisma.EmployeeUncheckedUpdateManyWithoutTenantNestedInput
+  timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutTenantNestedInput
+  workSchedules?: Prisma.WorkScheduleUncheckedUpdateManyWithoutTenantNestedInput
+  overtime?: Prisma.OvertimeUncheckedUpdateManyWithoutTenantNestedInput
+  timeBanks?: Prisma.TimeBankUncheckedUpdateManyWithoutTenantNestedInput
+  absences?: Prisma.AbsenceUncheckedUpdateManyWithoutTenantNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutTenantNestedInput
+  payrolls?: Prisma.PayrollUncheckedUpdateManyWithoutTenantNestedInput
+  bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
+  deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  organizations?: Prisma.OrganizationUncheckedUpdateManyWithoutTenantNestedInput
+  costCenters?: Prisma.CostCenterUncheckedUpdateManyWithoutTenantNestedInput
+  bankAccounts?: Prisma.BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedUpdateManyWithoutTenantNestedInput
+  financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutTenantNestedInput
+  financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
+  consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
+  storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
+  storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
+  calendars?: Prisma.CalendarUncheckedUpdateManyWithoutTenantNestedInput
+  calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
+  eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
+  eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedUpdateManyWithoutTenantNestedInput
+  emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  emailMessages?: Prisma.EmailMessageUncheckedUpdateManyWithoutTenantNestedInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutTenantNestedInput
+  teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUncheckedUpdateManyWithoutTenantNestedInput
+  tenantConsumptions?: Prisma.TenantConsumptionUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantCreateWithoutBidHistoryInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutTenantInput
+  tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
+  permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
+  warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
+  zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
+  bins?: Prisma.BinCreateNestedManyWithoutTenantInput
+  templates?: Prisma.TemplateCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductCreateNestedManyWithoutTenantInput
+  variants?: Prisma.VariantCreateNestedManyWithoutTenantInput
+  items?: Prisma.ItemCreateNestedManyWithoutTenantInput
+  itemMovements?: Prisma.ItemMovementCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierCreateNestedManyWithoutTenantInput
+  manufacturers?: Prisma.ManufacturerCreateNestedManyWithoutTenantInput
+  volumes?: Prisma.VolumeCreateNestedManyWithoutTenantInput
+  purchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutTenantInput
+  productCareInstructions?: Prisma.ProductCareInstructionCreateNestedManyWithoutTenantInput
+  productAttachments?: Prisma.ProductAttachmentCreateNestedManyWithoutTenantInput
+  variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
+  salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
+  companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
+  companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
+  departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
+  positions?: Prisma.PositionCreateNestedManyWithoutTenantInput
+  employees?: Prisma.EmployeeCreateNestedManyWithoutTenantInput
+  timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutTenantInput
+  workSchedules?: Prisma.WorkScheduleCreateNestedManyWithoutTenantInput
+  overtime?: Prisma.OvertimeCreateNestedManyWithoutTenantInput
+  timeBanks?: Prisma.TimeBankCreateNestedManyWithoutTenantInput
+  absences?: Prisma.AbsenceCreateNestedManyWithoutTenantInput
+  vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutTenantInput
+  payrolls?: Prisma.PayrollCreateNestedManyWithoutTenantInput
+  bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
+  deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
+  organizations?: Prisma.OrganizationCreateNestedManyWithoutTenantInput
+  costCenters?: Prisma.CostCenterCreateNestedManyWithoutTenantInput
+  bankAccounts?: Prisma.BankAccountCreateNestedManyWithoutTenantInput
+  financeCategories?: Prisma.FinanceCategoryCreateNestedManyWithoutTenantInput
+  financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutTenantInput
+  financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
+  loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
+  consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
+  storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
+  storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
+  folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
+  calendars?: Prisma.CalendarCreateNestedManyWithoutTenantInput
+  calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
+  eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
+  eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigCreateNestedManyWithoutTenantInput
+  emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutTenantInput
+  emailMessages?: Prisma.EmailMessageCreateNestedManyWithoutTenantInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessCreateNestedManyWithoutTenantInput
+  teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionCreateNestedManyWithoutTenantInput
+  tenantConsumptions?: Prisma.TenantConsumptionCreateNestedManyWithoutTenantInput
+  tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
+}
+
+export type TenantUncheckedCreateWithoutBidHistoryInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutTenantInput
+  tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
+  permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
+  warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
+  zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
+  bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
+  templates?: Prisma.TemplateUncheckedCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutTenantInput
+  variants?: Prisma.VariantUncheckedCreateNestedManyWithoutTenantInput
+  items?: Prisma.ItemUncheckedCreateNestedManyWithoutTenantInput
+  itemMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagUncheckedCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutTenantInput
+  manufacturers?: Prisma.ManufacturerUncheckedCreateNestedManyWithoutTenantInput
+  volumes?: Prisma.VolumeUncheckedCreateNestedManyWithoutTenantInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+  productCareInstructions?: Prisma.ProductCareInstructionUncheckedCreateNestedManyWithoutTenantInput
+  productAttachments?: Prisma.ProductAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
+  salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
+  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
+  companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
+  departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
+  positions?: Prisma.PositionUncheckedCreateNestedManyWithoutTenantInput
+  employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutTenantInput
+  timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutTenantInput
+  workSchedules?: Prisma.WorkScheduleUncheckedCreateNestedManyWithoutTenantInput
+  overtime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutTenantInput
+  timeBanks?: Prisma.TimeBankUncheckedCreateNestedManyWithoutTenantInput
+  absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutTenantInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutTenantInput
+  payrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutTenantInput
+  bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
+  deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
+  organizations?: Prisma.OrganizationUncheckedCreateNestedManyWithoutTenantInput
+  costCenters?: Prisma.CostCenterUncheckedCreateNestedManyWithoutTenantInput
+  bankAccounts?: Prisma.BankAccountUncheckedCreateNestedManyWithoutTenantInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedCreateNestedManyWithoutTenantInput
+  financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutTenantInput
+  financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
+  consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
+  storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
+  storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
+  calendars?: Prisma.CalendarUncheckedCreateNestedManyWithoutTenantInput
+  calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
+  eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
+  eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedCreateNestedManyWithoutTenantInput
+  emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  emailMessages?: Prisma.EmailMessageUncheckedCreateNestedManyWithoutTenantInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutTenantInput
+  teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUncheckedCreateNestedManyWithoutTenantInput
+  tenantConsumptions?: Prisma.TenantConsumptionUncheckedCreateNestedManyWithoutTenantInput
+  tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
+}
+
+export type TenantCreateOrConnectWithoutBidHistoryInput = {
+  where: Prisma.TenantWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenantCreateWithoutBidHistoryInput, Prisma.TenantUncheckedCreateWithoutBidHistoryInput>
+}
+
+export type TenantUpsertWithoutBidHistoryInput = {
+  update: Prisma.XOR<Prisma.TenantUpdateWithoutBidHistoryInput, Prisma.TenantUncheckedUpdateWithoutBidHistoryInput>
+  create: Prisma.XOR<Prisma.TenantCreateWithoutBidHistoryInput, Prisma.TenantUncheckedCreateWithoutBidHistoryInput>
+  where?: Prisma.TenantWhereInput
+}
+
+export type TenantUpdateToOneWithWhereWithoutBidHistoryInput = {
+  where?: Prisma.TenantWhereInput
+  data: Prisma.XOR<Prisma.TenantUpdateWithoutBidHistoryInput, Prisma.TenantUncheckedUpdateWithoutBidHistoryInput>
+}
+
+export type TenantUpdateWithoutBidHistoryInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantStatusEnumFieldUpdateOperationsInput | $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutTenantNestedInput
+  tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
+  permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
+  warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
+  zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
+  bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
+  templates?: Prisma.TemplateUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUpdateManyWithoutTenantNestedInput
+  variants?: Prisma.VariantUpdateManyWithoutTenantNestedInput
+  items?: Prisma.ItemUpdateManyWithoutTenantNestedInput
+  itemMovements?: Prisma.ItemMovementUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUpdateManyWithoutTenantNestedInput
+  manufacturers?: Prisma.ManufacturerUpdateManyWithoutTenantNestedInput
+  volumes?: Prisma.VolumeUpdateManyWithoutTenantNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutTenantNestedInput
+  productCareInstructions?: Prisma.ProductCareInstructionUpdateManyWithoutTenantNestedInput
+  productAttachments?: Prisma.ProductAttachmentUpdateManyWithoutTenantNestedInput
+  variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
+  salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
+  companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
+  companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
+  departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
+  positions?: Prisma.PositionUpdateManyWithoutTenantNestedInput
+  employees?: Prisma.EmployeeUpdateManyWithoutTenantNestedInput
+  timeEntries?: Prisma.TimeEntryUpdateManyWithoutTenantNestedInput
+  workSchedules?: Prisma.WorkScheduleUpdateManyWithoutTenantNestedInput
+  overtime?: Prisma.OvertimeUpdateManyWithoutTenantNestedInput
+  timeBanks?: Prisma.TimeBankUpdateManyWithoutTenantNestedInput
+  absences?: Prisma.AbsenceUpdateManyWithoutTenantNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutTenantNestedInput
+  payrolls?: Prisma.PayrollUpdateManyWithoutTenantNestedInput
+  bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
+  deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
+  organizations?: Prisma.OrganizationUpdateManyWithoutTenantNestedInput
+  costCenters?: Prisma.CostCenterUpdateManyWithoutTenantNestedInput
+  bankAccounts?: Prisma.BankAccountUpdateManyWithoutTenantNestedInput
+  financeCategories?: Prisma.FinanceCategoryUpdateManyWithoutTenantNestedInput
+  financeEntries?: Prisma.FinanceEntryUpdateManyWithoutTenantNestedInput
+  financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
+  loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
+  consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
+  storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
+  storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
+  calendars?: Prisma.CalendarUpdateManyWithoutTenantNestedInput
+  calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
+  eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
+  eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUpdateManyWithoutTenantNestedInput
+  emailAccounts?: Prisma.EmailAccountUpdateManyWithoutTenantNestedInput
+  emailMessages?: Prisma.EmailMessageUpdateManyWithoutTenantNestedInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUpdateManyWithoutTenantNestedInput
+  teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUpdateManyWithoutTenantNestedInput
+  tenantConsumptions?: Prisma.TenantConsumptionUpdateManyWithoutTenantNestedInput
+  tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantUncheckedUpdateWithoutBidHistoryInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantStatusEnumFieldUpdateOperationsInput | $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutTenantNestedInput
+  tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
+  permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
+  warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
+  zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
+  bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
+  templates?: Prisma.TemplateUncheckedUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutTenantNestedInput
+  variants?: Prisma.VariantUncheckedUpdateManyWithoutTenantNestedInput
+  items?: Prisma.ItemUncheckedUpdateManyWithoutTenantNestedInput
+  itemMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUncheckedUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutTenantNestedInput
+  manufacturers?: Prisma.ManufacturerUncheckedUpdateManyWithoutTenantNestedInput
+  volumes?: Prisma.VolumeUncheckedUpdateManyWithoutTenantNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+  productCareInstructions?: Prisma.ProductCareInstructionUncheckedUpdateManyWithoutTenantNestedInput
+  productAttachments?: Prisma.ProductAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
+  salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
+  companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
+  companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
+  positions?: Prisma.PositionUncheckedUpdateManyWithoutTenantNestedInput
+  employees?: Prisma.EmployeeUncheckedUpdateManyWithoutTenantNestedInput
+  timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutTenantNestedInput
+  workSchedules?: Prisma.WorkScheduleUncheckedUpdateManyWithoutTenantNestedInput
+  overtime?: Prisma.OvertimeUncheckedUpdateManyWithoutTenantNestedInput
+  timeBanks?: Prisma.TimeBankUncheckedUpdateManyWithoutTenantNestedInput
+  absences?: Prisma.AbsenceUncheckedUpdateManyWithoutTenantNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutTenantNestedInput
+  payrolls?: Prisma.PayrollUncheckedUpdateManyWithoutTenantNestedInput
+  bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
+  deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  organizations?: Prisma.OrganizationUncheckedUpdateManyWithoutTenantNestedInput
+  costCenters?: Prisma.CostCenterUncheckedUpdateManyWithoutTenantNestedInput
+  bankAccounts?: Prisma.BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedUpdateManyWithoutTenantNestedInput
+  financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutTenantNestedInput
+  financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
+  consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
+  storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
+  storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
+  calendars?: Prisma.CalendarUncheckedUpdateManyWithoutTenantNestedInput
+  calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
+  eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
+  eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedUpdateManyWithoutTenantNestedInput
+  emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  emailMessages?: Prisma.EmailMessageUncheckedUpdateManyWithoutTenantNestedInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutTenantNestedInput
+  teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUncheckedUpdateManyWithoutTenantNestedInput
+  tenantConsumptions?: Prisma.TenantConsumptionUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantCreateWithoutBidAiConfigInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutTenantInput
+  tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
+  permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
+  warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
+  zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
+  bins?: Prisma.BinCreateNestedManyWithoutTenantInput
+  templates?: Prisma.TemplateCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductCreateNestedManyWithoutTenantInput
+  variants?: Prisma.VariantCreateNestedManyWithoutTenantInput
+  items?: Prisma.ItemCreateNestedManyWithoutTenantInput
+  itemMovements?: Prisma.ItemMovementCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierCreateNestedManyWithoutTenantInput
+  manufacturers?: Prisma.ManufacturerCreateNestedManyWithoutTenantInput
+  volumes?: Prisma.VolumeCreateNestedManyWithoutTenantInput
+  purchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutTenantInput
+  productCareInstructions?: Prisma.ProductCareInstructionCreateNestedManyWithoutTenantInput
+  productAttachments?: Prisma.ProductAttachmentCreateNestedManyWithoutTenantInput
+  variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
+  salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
+  companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
+  companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
+  departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
+  positions?: Prisma.PositionCreateNestedManyWithoutTenantInput
+  employees?: Prisma.EmployeeCreateNestedManyWithoutTenantInput
+  timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutTenantInput
+  workSchedules?: Prisma.WorkScheduleCreateNestedManyWithoutTenantInput
+  overtime?: Prisma.OvertimeCreateNestedManyWithoutTenantInput
+  timeBanks?: Prisma.TimeBankCreateNestedManyWithoutTenantInput
+  absences?: Prisma.AbsenceCreateNestedManyWithoutTenantInput
+  vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutTenantInput
+  payrolls?: Prisma.PayrollCreateNestedManyWithoutTenantInput
+  bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
+  deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
+  organizations?: Prisma.OrganizationCreateNestedManyWithoutTenantInput
+  costCenters?: Prisma.CostCenterCreateNestedManyWithoutTenantInput
+  bankAccounts?: Prisma.BankAccountCreateNestedManyWithoutTenantInput
+  financeCategories?: Prisma.FinanceCategoryCreateNestedManyWithoutTenantInput
+  financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutTenantInput
+  financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
+  loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
+  consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
+  storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
+  storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
+  folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
+  calendars?: Prisma.CalendarCreateNestedManyWithoutTenantInput
+  calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
+  eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
+  eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigCreateNestedManyWithoutTenantInput
+  emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutTenantInput
+  emailMessages?: Prisma.EmailMessageCreateNestedManyWithoutTenantInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessCreateNestedManyWithoutTenantInput
+  teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionCreateNestedManyWithoutTenantInput
+  tenantConsumptions?: Prisma.TenantConsumptionCreateNestedManyWithoutTenantInput
+  tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleCreateNestedManyWithoutTenantInput
+}
+
+export type TenantUncheckedCreateWithoutBidAiConfigInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutTenantInput
+  tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
+  permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
+  warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
+  zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
+  bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
+  templates?: Prisma.TemplateUncheckedCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutTenantInput
+  variants?: Prisma.VariantUncheckedCreateNestedManyWithoutTenantInput
+  items?: Prisma.ItemUncheckedCreateNestedManyWithoutTenantInput
+  itemMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagUncheckedCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutTenantInput
+  manufacturers?: Prisma.ManufacturerUncheckedCreateNestedManyWithoutTenantInput
+  volumes?: Prisma.VolumeUncheckedCreateNestedManyWithoutTenantInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+  productCareInstructions?: Prisma.ProductCareInstructionUncheckedCreateNestedManyWithoutTenantInput
+  productAttachments?: Prisma.ProductAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
+  salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
+  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
+  companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
+  departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
+  positions?: Prisma.PositionUncheckedCreateNestedManyWithoutTenantInput
+  employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutTenantInput
+  timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutTenantInput
+  workSchedules?: Prisma.WorkScheduleUncheckedCreateNestedManyWithoutTenantInput
+  overtime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutTenantInput
+  timeBanks?: Prisma.TimeBankUncheckedCreateNestedManyWithoutTenantInput
+  absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutTenantInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutTenantInput
+  payrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutTenantInput
+  bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
+  deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
+  organizations?: Prisma.OrganizationUncheckedCreateNestedManyWithoutTenantInput
+  costCenters?: Prisma.CostCenterUncheckedCreateNestedManyWithoutTenantInput
+  bankAccounts?: Prisma.BankAccountUncheckedCreateNestedManyWithoutTenantInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedCreateNestedManyWithoutTenantInput
+  financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutTenantInput
+  financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
+  consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
+  storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
+  storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
+  calendars?: Prisma.CalendarUncheckedCreateNestedManyWithoutTenantInput
+  calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
+  eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
+  eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedCreateNestedManyWithoutTenantInput
+  emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  emailMessages?: Prisma.EmailMessageUncheckedCreateNestedManyWithoutTenantInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutTenantInput
+  teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUncheckedCreateNestedManyWithoutTenantInput
+  tenantConsumptions?: Prisma.TenantConsumptionUncheckedCreateNestedManyWithoutTenantInput
+  tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedCreateNestedManyWithoutTenantInput
+}
+
+export type TenantCreateOrConnectWithoutBidAiConfigInput = {
+  where: Prisma.TenantWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenantCreateWithoutBidAiConfigInput, Prisma.TenantUncheckedCreateWithoutBidAiConfigInput>
+}
+
+export type TenantUpsertWithoutBidAiConfigInput = {
+  update: Prisma.XOR<Prisma.TenantUpdateWithoutBidAiConfigInput, Prisma.TenantUncheckedUpdateWithoutBidAiConfigInput>
+  create: Prisma.XOR<Prisma.TenantCreateWithoutBidAiConfigInput, Prisma.TenantUncheckedCreateWithoutBidAiConfigInput>
+  where?: Prisma.TenantWhereInput
+}
+
+export type TenantUpdateToOneWithWhereWithoutBidAiConfigInput = {
+  where?: Prisma.TenantWhereInput
+  data: Prisma.XOR<Prisma.TenantUpdateWithoutBidAiConfigInput, Prisma.TenantUncheckedUpdateWithoutBidAiConfigInput>
+}
+
+export type TenantUpdateWithoutBidAiConfigInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantStatusEnumFieldUpdateOperationsInput | $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutTenantNestedInput
+  tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
+  permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
+  warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
+  zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
+  bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
+  templates?: Prisma.TemplateUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUpdateManyWithoutTenantNestedInput
+  variants?: Prisma.VariantUpdateManyWithoutTenantNestedInput
+  items?: Prisma.ItemUpdateManyWithoutTenantNestedInput
+  itemMovements?: Prisma.ItemMovementUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUpdateManyWithoutTenantNestedInput
+  manufacturers?: Prisma.ManufacturerUpdateManyWithoutTenantNestedInput
+  volumes?: Prisma.VolumeUpdateManyWithoutTenantNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutTenantNestedInput
+  productCareInstructions?: Prisma.ProductCareInstructionUpdateManyWithoutTenantNestedInput
+  productAttachments?: Prisma.ProductAttachmentUpdateManyWithoutTenantNestedInput
+  variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
+  salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
+  companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
+  companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
+  departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
+  positions?: Prisma.PositionUpdateManyWithoutTenantNestedInput
+  employees?: Prisma.EmployeeUpdateManyWithoutTenantNestedInput
+  timeEntries?: Prisma.TimeEntryUpdateManyWithoutTenantNestedInput
+  workSchedules?: Prisma.WorkScheduleUpdateManyWithoutTenantNestedInput
+  overtime?: Prisma.OvertimeUpdateManyWithoutTenantNestedInput
+  timeBanks?: Prisma.TimeBankUpdateManyWithoutTenantNestedInput
+  absences?: Prisma.AbsenceUpdateManyWithoutTenantNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutTenantNestedInput
+  payrolls?: Prisma.PayrollUpdateManyWithoutTenantNestedInput
+  bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
+  deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
+  organizations?: Prisma.OrganizationUpdateManyWithoutTenantNestedInput
+  costCenters?: Prisma.CostCenterUpdateManyWithoutTenantNestedInput
+  bankAccounts?: Prisma.BankAccountUpdateManyWithoutTenantNestedInput
+  financeCategories?: Prisma.FinanceCategoryUpdateManyWithoutTenantNestedInput
+  financeEntries?: Prisma.FinanceEntryUpdateManyWithoutTenantNestedInput
+  financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
+  loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
+  consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
+  storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
+  storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
+  calendars?: Prisma.CalendarUpdateManyWithoutTenantNestedInput
+  calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
+  eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
+  eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUpdateManyWithoutTenantNestedInput
+  emailAccounts?: Prisma.EmailAccountUpdateManyWithoutTenantNestedInput
+  emailMessages?: Prisma.EmailMessageUpdateManyWithoutTenantNestedInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUpdateManyWithoutTenantNestedInput
+  teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUpdateManyWithoutTenantNestedInput
+  tenantConsumptions?: Prisma.TenantConsumptionUpdateManyWithoutTenantNestedInput
+  tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantUncheckedUpdateWithoutBidAiConfigInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantStatusEnumFieldUpdateOperationsInput | $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutTenantNestedInput
+  tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
+  permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
+  warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
+  zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
+  bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
+  templates?: Prisma.TemplateUncheckedUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutTenantNestedInput
+  variants?: Prisma.VariantUncheckedUpdateManyWithoutTenantNestedInput
+  items?: Prisma.ItemUncheckedUpdateManyWithoutTenantNestedInput
+  itemMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUncheckedUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutTenantNestedInput
+  manufacturers?: Prisma.ManufacturerUncheckedUpdateManyWithoutTenantNestedInput
+  volumes?: Prisma.VolumeUncheckedUpdateManyWithoutTenantNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+  productCareInstructions?: Prisma.ProductCareInstructionUncheckedUpdateManyWithoutTenantNestedInput
+  productAttachments?: Prisma.ProductAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
+  salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
+  companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
+  companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
+  positions?: Prisma.PositionUncheckedUpdateManyWithoutTenantNestedInput
+  employees?: Prisma.EmployeeUncheckedUpdateManyWithoutTenantNestedInput
+  timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutTenantNestedInput
+  workSchedules?: Prisma.WorkScheduleUncheckedUpdateManyWithoutTenantNestedInput
+  overtime?: Prisma.OvertimeUncheckedUpdateManyWithoutTenantNestedInput
+  timeBanks?: Prisma.TimeBankUncheckedUpdateManyWithoutTenantNestedInput
+  absences?: Prisma.AbsenceUncheckedUpdateManyWithoutTenantNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutTenantNestedInput
+  payrolls?: Prisma.PayrollUncheckedUpdateManyWithoutTenantNestedInput
+  bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
+  deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  organizations?: Prisma.OrganizationUncheckedUpdateManyWithoutTenantNestedInput
+  costCenters?: Prisma.CostCenterUncheckedUpdateManyWithoutTenantNestedInput
+  bankAccounts?: Prisma.BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedUpdateManyWithoutTenantNestedInput
+  financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutTenantNestedInput
+  financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
+  consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
+  storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
+  storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
+  calendars?: Prisma.CalendarUncheckedUpdateManyWithoutTenantNestedInput
+  calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
+  eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
+  eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedUpdateManyWithoutTenantNestedInput
+  emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  emailMessages?: Prisma.EmailMessageUncheckedUpdateManyWithoutTenantNestedInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutTenantNestedInput
+  teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUncheckedUpdateManyWithoutTenantNestedInput
+  tenantConsumptions?: Prisma.TenantConsumptionUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  certidaoSchedules?: Prisma.CertidaoScheduleUncheckedUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantCreateWithoutCertidaoSchedulesInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutTenantInput
+  tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
+  permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
+  warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
+  zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
+  bins?: Prisma.BinCreateNestedManyWithoutTenantInput
+  templates?: Prisma.TemplateCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductCreateNestedManyWithoutTenantInput
+  variants?: Prisma.VariantCreateNestedManyWithoutTenantInput
+  items?: Prisma.ItemCreateNestedManyWithoutTenantInput
+  itemMovements?: Prisma.ItemMovementCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierCreateNestedManyWithoutTenantInput
+  manufacturers?: Prisma.ManufacturerCreateNestedManyWithoutTenantInput
+  volumes?: Prisma.VolumeCreateNestedManyWithoutTenantInput
+  purchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutTenantInput
+  productCareInstructions?: Prisma.ProductCareInstructionCreateNestedManyWithoutTenantInput
+  productAttachments?: Prisma.ProductAttachmentCreateNestedManyWithoutTenantInput
+  variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
+  salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
+  companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
+  companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
+  departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
+  positions?: Prisma.PositionCreateNestedManyWithoutTenantInput
+  employees?: Prisma.EmployeeCreateNestedManyWithoutTenantInput
+  timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutTenantInput
+  workSchedules?: Prisma.WorkScheduleCreateNestedManyWithoutTenantInput
+  overtime?: Prisma.OvertimeCreateNestedManyWithoutTenantInput
+  timeBanks?: Prisma.TimeBankCreateNestedManyWithoutTenantInput
+  absences?: Prisma.AbsenceCreateNestedManyWithoutTenantInput
+  vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutTenantInput
+  payrolls?: Prisma.PayrollCreateNestedManyWithoutTenantInput
+  bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
+  deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
+  organizations?: Prisma.OrganizationCreateNestedManyWithoutTenantInput
+  costCenters?: Prisma.CostCenterCreateNestedManyWithoutTenantInput
+  bankAccounts?: Prisma.BankAccountCreateNestedManyWithoutTenantInput
+  financeCategories?: Prisma.FinanceCategoryCreateNestedManyWithoutTenantInput
+  financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutTenantInput
+  financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
+  loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
+  consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
+  storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
+  storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
+  folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
+  calendars?: Prisma.CalendarCreateNestedManyWithoutTenantInput
+  calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
+  eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
+  eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigCreateNestedManyWithoutTenantInput
+  emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutTenantInput
+  emailMessages?: Prisma.EmailMessageCreateNestedManyWithoutTenantInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessCreateNestedManyWithoutTenantInput
+  teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionCreateNestedManyWithoutTenantInput
+  tenantConsumptions?: Prisma.TenantConsumptionCreateNestedManyWithoutTenantInput
+  tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigCreateNestedOneWithoutTenantInput
+}
+
+export type TenantUncheckedCreateWithoutCertidaoSchedulesInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutTenantInput
+  tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
+  permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
+  warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
+  zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
+  bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
+  templates?: Prisma.TemplateUncheckedCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutTenantInput
+  variants?: Prisma.VariantUncheckedCreateNestedManyWithoutTenantInput
+  items?: Prisma.ItemUncheckedCreateNestedManyWithoutTenantInput
+  itemMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagUncheckedCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutTenantInput
+  manufacturers?: Prisma.ManufacturerUncheckedCreateNestedManyWithoutTenantInput
+  volumes?: Prisma.VolumeUncheckedCreateNestedManyWithoutTenantInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+  productCareInstructions?: Prisma.ProductCareInstructionUncheckedCreateNestedManyWithoutTenantInput
+  productAttachments?: Prisma.ProductAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
+  salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
+  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
+  companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
+  departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
+  positions?: Prisma.PositionUncheckedCreateNestedManyWithoutTenantInput
+  employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutTenantInput
+  timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutTenantInput
+  workSchedules?: Prisma.WorkScheduleUncheckedCreateNestedManyWithoutTenantInput
+  overtime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutTenantInput
+  timeBanks?: Prisma.TimeBankUncheckedCreateNestedManyWithoutTenantInput
+  absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutTenantInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutTenantInput
+  payrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutTenantInput
+  bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
+  deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
+  organizations?: Prisma.OrganizationUncheckedCreateNestedManyWithoutTenantInput
+  costCenters?: Prisma.CostCenterUncheckedCreateNestedManyWithoutTenantInput
+  bankAccounts?: Prisma.BankAccountUncheckedCreateNestedManyWithoutTenantInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedCreateNestedManyWithoutTenantInput
+  financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutTenantInput
+  financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
+  consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
+  storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
+  storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
+  calendars?: Prisma.CalendarUncheckedCreateNestedManyWithoutTenantInput
+  calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
+  eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
+  eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedCreateNestedManyWithoutTenantInput
+  emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  emailMessages?: Prisma.EmailMessageUncheckedCreateNestedManyWithoutTenantInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutTenantInput
+  teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUncheckedCreateNestedManyWithoutTenantInput
+  tenantConsumptions?: Prisma.TenantConsumptionUncheckedCreateNestedManyWithoutTenantInput
+  tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutTenantInput
+  bidItems?: Prisma.BidItemUncheckedCreateNestedManyWithoutTenantInput
+  bidProposals?: Prisma.BidProposalUncheckedCreateNestedManyWithoutTenantInput
+  bidDocuments?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutTenantInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutTenantInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedCreateNestedManyWithoutTenantInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedCreateNestedManyWithoutTenantInput
+  bidHistory?: Prisma.BidHistoryUncheckedCreateNestedManyWithoutTenantInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedCreateNestedOneWithoutTenantInput
+}
+
+export type TenantCreateOrConnectWithoutCertidaoSchedulesInput = {
+  where: Prisma.TenantWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenantCreateWithoutCertidaoSchedulesInput, Prisma.TenantUncheckedCreateWithoutCertidaoSchedulesInput>
+}
+
+export type TenantUpsertWithoutCertidaoSchedulesInput = {
+  update: Prisma.XOR<Prisma.TenantUpdateWithoutCertidaoSchedulesInput, Prisma.TenantUncheckedUpdateWithoutCertidaoSchedulesInput>
+  create: Prisma.XOR<Prisma.TenantCreateWithoutCertidaoSchedulesInput, Prisma.TenantUncheckedCreateWithoutCertidaoSchedulesInput>
+  where?: Prisma.TenantWhereInput
+}
+
+export type TenantUpdateToOneWithWhereWithoutCertidaoSchedulesInput = {
+  where?: Prisma.TenantWhereInput
+  data: Prisma.XOR<Prisma.TenantUpdateWithoutCertidaoSchedulesInput, Prisma.TenantUncheckedUpdateWithoutCertidaoSchedulesInput>
+}
+
+export type TenantUpdateWithoutCertidaoSchedulesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantStatusEnumFieldUpdateOperationsInput | $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutTenantNestedInput
+  tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
+  permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
+  warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
+  zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
+  bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
+  templates?: Prisma.TemplateUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUpdateManyWithoutTenantNestedInput
+  variants?: Prisma.VariantUpdateManyWithoutTenantNestedInput
+  items?: Prisma.ItemUpdateManyWithoutTenantNestedInput
+  itemMovements?: Prisma.ItemMovementUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUpdateManyWithoutTenantNestedInput
+  manufacturers?: Prisma.ManufacturerUpdateManyWithoutTenantNestedInput
+  volumes?: Prisma.VolumeUpdateManyWithoutTenantNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutTenantNestedInput
+  productCareInstructions?: Prisma.ProductCareInstructionUpdateManyWithoutTenantNestedInput
+  productAttachments?: Prisma.ProductAttachmentUpdateManyWithoutTenantNestedInput
+  variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
+  salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
+  companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
+  companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
+  departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
+  positions?: Prisma.PositionUpdateManyWithoutTenantNestedInput
+  employees?: Prisma.EmployeeUpdateManyWithoutTenantNestedInput
+  timeEntries?: Prisma.TimeEntryUpdateManyWithoutTenantNestedInput
+  workSchedules?: Prisma.WorkScheduleUpdateManyWithoutTenantNestedInput
+  overtime?: Prisma.OvertimeUpdateManyWithoutTenantNestedInput
+  timeBanks?: Prisma.TimeBankUpdateManyWithoutTenantNestedInput
+  absences?: Prisma.AbsenceUpdateManyWithoutTenantNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutTenantNestedInput
+  payrolls?: Prisma.PayrollUpdateManyWithoutTenantNestedInput
+  bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
+  deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
+  organizations?: Prisma.OrganizationUpdateManyWithoutTenantNestedInput
+  costCenters?: Prisma.CostCenterUpdateManyWithoutTenantNestedInput
+  bankAccounts?: Prisma.BankAccountUpdateManyWithoutTenantNestedInput
+  financeCategories?: Prisma.FinanceCategoryUpdateManyWithoutTenantNestedInput
+  financeEntries?: Prisma.FinanceEntryUpdateManyWithoutTenantNestedInput
+  financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
+  loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
+  consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
+  storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
+  storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
+  calendars?: Prisma.CalendarUpdateManyWithoutTenantNestedInput
+  calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
+  eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
+  eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUpdateManyWithoutTenantNestedInput
+  emailAccounts?: Prisma.EmailAccountUpdateManyWithoutTenantNestedInput
+  emailMessages?: Prisma.EmailMessageUpdateManyWithoutTenantNestedInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUpdateManyWithoutTenantNestedInput
+  teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUpdateManyWithoutTenantNestedInput
+  tenantConsumptions?: Prisma.TenantConsumptionUpdateManyWithoutTenantNestedInput
+  tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUpdateOneWithoutTenantNestedInput
+}
+
+export type TenantUncheckedUpdateWithoutCertidaoSchedulesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantStatusEnumFieldUpdateOperationsInput | $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutTenantNestedInput
+  tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
+  permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
+  warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
+  zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
+  bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
+  templates?: Prisma.TemplateUncheckedUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutTenantNestedInput
+  variants?: Prisma.VariantUncheckedUpdateManyWithoutTenantNestedInput
+  items?: Prisma.ItemUncheckedUpdateManyWithoutTenantNestedInput
+  itemMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUncheckedUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutTenantNestedInput
+  manufacturers?: Prisma.ManufacturerUncheckedUpdateManyWithoutTenantNestedInput
+  volumes?: Prisma.VolumeUncheckedUpdateManyWithoutTenantNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+  productCareInstructions?: Prisma.ProductCareInstructionUncheckedUpdateManyWithoutTenantNestedInput
+  productAttachments?: Prisma.ProductAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
+  salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
+  companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
+  companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
+  positions?: Prisma.PositionUncheckedUpdateManyWithoutTenantNestedInput
+  employees?: Prisma.EmployeeUncheckedUpdateManyWithoutTenantNestedInput
+  timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutTenantNestedInput
+  workSchedules?: Prisma.WorkScheduleUncheckedUpdateManyWithoutTenantNestedInput
+  overtime?: Prisma.OvertimeUncheckedUpdateManyWithoutTenantNestedInput
+  timeBanks?: Prisma.TimeBankUncheckedUpdateManyWithoutTenantNestedInput
+  absences?: Prisma.AbsenceUncheckedUpdateManyWithoutTenantNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutTenantNestedInput
+  payrolls?: Prisma.PayrollUncheckedUpdateManyWithoutTenantNestedInput
+  bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
+  deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  organizations?: Prisma.OrganizationUncheckedUpdateManyWithoutTenantNestedInput
+  costCenters?: Prisma.CostCenterUncheckedUpdateManyWithoutTenantNestedInput
+  bankAccounts?: Prisma.BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedUpdateManyWithoutTenantNestedInput
+  financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutTenantNestedInput
+  financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
+  consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
+  storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
+  storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
+  calendars?: Prisma.CalendarUncheckedUpdateManyWithoutTenantNestedInput
+  calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
+  eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
+  eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedUpdateManyWithoutTenantNestedInput
+  emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  emailMessages?: Prisma.EmailMessageUncheckedUpdateManyWithoutTenantNestedInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutTenantNestedInput
+  teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUncheckedUpdateManyWithoutTenantNestedInput
+  tenantConsumptions?: Prisma.TenantConsumptionUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutTenantNestedInput
+  bidItems?: Prisma.BidItemUncheckedUpdateManyWithoutTenantNestedInput
+  bidProposals?: Prisma.BidProposalUncheckedUpdateManyWithoutTenantNestedInput
+  bidDocuments?: Prisma.BidDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutTenantNestedInput
+  bidEmpenhos?: Prisma.BidEmpenhoUncheckedUpdateManyWithoutTenantNestedInput
+  bidMonitorEvents?: Prisma.BidMonitorEventUncheckedUpdateManyWithoutTenantNestedInput
+  bidHistory?: Prisma.BidHistoryUncheckedUpdateManyWithoutTenantNestedInput
+  bidAiConfig?: Prisma.BidAiConfigUncheckedUpdateOneWithoutTenantNestedInput
 }
 
 
@@ -30769,6 +38179,15 @@ export type TenantCountOutputType = {
   tenantBillings: number
   tenantIntegrationStatuses: number
   supportTickets: number
+  bids: number
+  bidItems: number
+  bidProposals: number
+  bidDocuments: number
+  bidContracts: number
+  bidEmpenhos: number
+  bidMonitorEvents: number
+  bidHistory: number
+  certidaoSchedules: number
 }
 
 export type TenantCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -30849,6 +38268,15 @@ export type TenantCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions
   tenantBillings?: boolean | TenantCountOutputTypeCountTenantBillingsArgs
   tenantIntegrationStatuses?: boolean | TenantCountOutputTypeCountTenantIntegrationStatusesArgs
   supportTickets?: boolean | TenantCountOutputTypeCountSupportTicketsArgs
+  bids?: boolean | TenantCountOutputTypeCountBidsArgs
+  bidItems?: boolean | TenantCountOutputTypeCountBidItemsArgs
+  bidProposals?: boolean | TenantCountOutputTypeCountBidProposalsArgs
+  bidDocuments?: boolean | TenantCountOutputTypeCountBidDocumentsArgs
+  bidContracts?: boolean | TenantCountOutputTypeCountBidContractsArgs
+  bidEmpenhos?: boolean | TenantCountOutputTypeCountBidEmpenhosArgs
+  bidMonitorEvents?: boolean | TenantCountOutputTypeCountBidMonitorEventsArgs
+  bidHistory?: boolean | TenantCountOutputTypeCountBidHistoryArgs
+  certidaoSchedules?: boolean | TenantCountOutputTypeCountCertidaoSchedulesArgs
 }
 
 /**
@@ -31400,6 +38828,69 @@ export type TenantCountOutputTypeCountSupportTicketsArgs<ExtArgs extends runtime
   where?: Prisma.SupportTicketWhereInput
 }
 
+/**
+ * TenantCountOutputType without action
+ */
+export type TenantCountOutputTypeCountBidsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BidWhereInput
+}
+
+/**
+ * TenantCountOutputType without action
+ */
+export type TenantCountOutputTypeCountBidItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BidItemWhereInput
+}
+
+/**
+ * TenantCountOutputType without action
+ */
+export type TenantCountOutputTypeCountBidProposalsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BidProposalWhereInput
+}
+
+/**
+ * TenantCountOutputType without action
+ */
+export type TenantCountOutputTypeCountBidDocumentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BidDocumentWhereInput
+}
+
+/**
+ * TenantCountOutputType without action
+ */
+export type TenantCountOutputTypeCountBidContractsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BidContractWhereInput
+}
+
+/**
+ * TenantCountOutputType without action
+ */
+export type TenantCountOutputTypeCountBidEmpenhosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BidEmpenhoWhereInput
+}
+
+/**
+ * TenantCountOutputType without action
+ */
+export type TenantCountOutputTypeCountBidMonitorEventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BidMonitorEventWhereInput
+}
+
+/**
+ * TenantCountOutputType without action
+ */
+export type TenantCountOutputTypeCountBidHistoryArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BidHistoryWhereInput
+}
+
+/**
+ * TenantCountOutputType without action
+ */
+export type TenantCountOutputTypeCountCertidaoSchedulesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CertidaoScheduleWhereInput
+}
+
 
 export type TenantSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -31489,6 +38980,16 @@ export type TenantSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   tenantBillings?: boolean | Prisma.Tenant$tenantBillingsArgs<ExtArgs>
   tenantIntegrationStatuses?: boolean | Prisma.Tenant$tenantIntegrationStatusesArgs<ExtArgs>
   supportTickets?: boolean | Prisma.Tenant$supportTicketsArgs<ExtArgs>
+  bids?: boolean | Prisma.Tenant$bidsArgs<ExtArgs>
+  bidItems?: boolean | Prisma.Tenant$bidItemsArgs<ExtArgs>
+  bidProposals?: boolean | Prisma.Tenant$bidProposalsArgs<ExtArgs>
+  bidDocuments?: boolean | Prisma.Tenant$bidDocumentsArgs<ExtArgs>
+  bidContracts?: boolean | Prisma.Tenant$bidContractsArgs<ExtArgs>
+  bidEmpenhos?: boolean | Prisma.Tenant$bidEmpenhosArgs<ExtArgs>
+  bidMonitorEvents?: boolean | Prisma.Tenant$bidMonitorEventsArgs<ExtArgs>
+  bidHistory?: boolean | Prisma.Tenant$bidHistoryArgs<ExtArgs>
+  bidAiConfig?: boolean | Prisma.Tenant$bidAiConfigArgs<ExtArgs>
+  certidaoSchedules?: boolean | Prisma.Tenant$certidaoSchedulesArgs<ExtArgs>
   _count?: boolean | Prisma.TenantCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["tenant"]>
 
@@ -31610,6 +39111,16 @@ export type TenantInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   tenantBillings?: boolean | Prisma.Tenant$tenantBillingsArgs<ExtArgs>
   tenantIntegrationStatuses?: boolean | Prisma.Tenant$tenantIntegrationStatusesArgs<ExtArgs>
   supportTickets?: boolean | Prisma.Tenant$supportTicketsArgs<ExtArgs>
+  bids?: boolean | Prisma.Tenant$bidsArgs<ExtArgs>
+  bidItems?: boolean | Prisma.Tenant$bidItemsArgs<ExtArgs>
+  bidProposals?: boolean | Prisma.Tenant$bidProposalsArgs<ExtArgs>
+  bidDocuments?: boolean | Prisma.Tenant$bidDocumentsArgs<ExtArgs>
+  bidContracts?: boolean | Prisma.Tenant$bidContractsArgs<ExtArgs>
+  bidEmpenhos?: boolean | Prisma.Tenant$bidEmpenhosArgs<ExtArgs>
+  bidMonitorEvents?: boolean | Prisma.Tenant$bidMonitorEventsArgs<ExtArgs>
+  bidHistory?: boolean | Prisma.Tenant$bidHistoryArgs<ExtArgs>
+  bidAiConfig?: boolean | Prisma.Tenant$bidAiConfigArgs<ExtArgs>
+  certidaoSchedules?: boolean | Prisma.Tenant$certidaoSchedulesArgs<ExtArgs>
   _count?: boolean | Prisma.TenantCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type TenantIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -31695,6 +39206,16 @@ export type $TenantPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     tenantBillings: Prisma.$TenantBillingPayload<ExtArgs>[]
     tenantIntegrationStatuses: Prisma.$TenantIntegrationStatusPayload<ExtArgs>[]
     supportTickets: Prisma.$SupportTicketPayload<ExtArgs>[]
+    bids: Prisma.$BidPayload<ExtArgs>[]
+    bidItems: Prisma.$BidItemPayload<ExtArgs>[]
+    bidProposals: Prisma.$BidProposalPayload<ExtArgs>[]
+    bidDocuments: Prisma.$BidDocumentPayload<ExtArgs>[]
+    bidContracts: Prisma.$BidContractPayload<ExtArgs>[]
+    bidEmpenhos: Prisma.$BidEmpenhoPayload<ExtArgs>[]
+    bidMonitorEvents: Prisma.$BidMonitorEventPayload<ExtArgs>[]
+    bidHistory: Prisma.$BidHistoryPayload<ExtArgs>[]
+    bidAiConfig: Prisma.$BidAiConfigPayload<ExtArgs> | null
+    certidaoSchedules: Prisma.$CertidaoSchedulePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -32178,6 +39699,16 @@ export interface Prisma__TenantClient<T, Null = never, ExtArgs extends runtime.T
   tenantBillings<T extends Prisma.Tenant$tenantBillingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$tenantBillingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TenantBillingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   tenantIntegrationStatuses<T extends Prisma.Tenant$tenantIntegrationStatusesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$tenantIntegrationStatusesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TenantIntegrationStatusPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   supportTickets<T extends Prisma.Tenant$supportTicketsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$supportTicketsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SupportTicketPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  bids<T extends Prisma.Tenant$bidsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$bidsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BidPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  bidItems<T extends Prisma.Tenant$bidItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$bidItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BidItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  bidProposals<T extends Prisma.Tenant$bidProposalsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$bidProposalsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BidProposalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  bidDocuments<T extends Prisma.Tenant$bidDocumentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$bidDocumentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BidDocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  bidContracts<T extends Prisma.Tenant$bidContractsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$bidContractsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BidContractPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  bidEmpenhos<T extends Prisma.Tenant$bidEmpenhosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$bidEmpenhosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BidEmpenhoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  bidMonitorEvents<T extends Prisma.Tenant$bidMonitorEventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$bidMonitorEventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BidMonitorEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  bidHistory<T extends Prisma.Tenant$bidHistoryArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$bidHistoryArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BidHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  bidAiConfig<T extends Prisma.Tenant$bidAiConfigArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$bidAiConfigArgs<ExtArgs>>): Prisma.Prisma__BidAiConfigClient<runtime.Types.Result.GetResult<Prisma.$BidAiConfigPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  certidaoSchedules<T extends Prisma.Tenant$certidaoSchedulesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$certidaoSchedulesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CertidaoSchedulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -34450,6 +41981,241 @@ export type Tenant$supportTicketsArgs<ExtArgs extends runtime.Types.Extensions.I
   take?: number
   skip?: number
   distinct?: Prisma.SupportTicketScalarFieldEnum | Prisma.SupportTicketScalarFieldEnum[]
+}
+
+/**
+ * Tenant.bids
+ */
+export type Tenant$bidsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Bid
+   */
+  select?: Prisma.BidSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Bid
+   */
+  omit?: Prisma.BidOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BidInclude<ExtArgs> | null
+  where?: Prisma.BidWhereInput
+  orderBy?: Prisma.BidOrderByWithRelationInput | Prisma.BidOrderByWithRelationInput[]
+  cursor?: Prisma.BidWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BidScalarFieldEnum | Prisma.BidScalarFieldEnum[]
+}
+
+/**
+ * Tenant.bidItems
+ */
+export type Tenant$bidItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BidItem
+   */
+  select?: Prisma.BidItemSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the BidItem
+   */
+  omit?: Prisma.BidItemOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BidItemInclude<ExtArgs> | null
+  where?: Prisma.BidItemWhereInput
+  orderBy?: Prisma.BidItemOrderByWithRelationInput | Prisma.BidItemOrderByWithRelationInput[]
+  cursor?: Prisma.BidItemWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BidItemScalarFieldEnum | Prisma.BidItemScalarFieldEnum[]
+}
+
+/**
+ * Tenant.bidProposals
+ */
+export type Tenant$bidProposalsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BidProposal
+   */
+  select?: Prisma.BidProposalSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the BidProposal
+   */
+  omit?: Prisma.BidProposalOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BidProposalInclude<ExtArgs> | null
+  where?: Prisma.BidProposalWhereInput
+  orderBy?: Prisma.BidProposalOrderByWithRelationInput | Prisma.BidProposalOrderByWithRelationInput[]
+  cursor?: Prisma.BidProposalWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BidProposalScalarFieldEnum | Prisma.BidProposalScalarFieldEnum[]
+}
+
+/**
+ * Tenant.bidDocuments
+ */
+export type Tenant$bidDocumentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BidDocument
+   */
+  select?: Prisma.BidDocumentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the BidDocument
+   */
+  omit?: Prisma.BidDocumentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BidDocumentInclude<ExtArgs> | null
+  where?: Prisma.BidDocumentWhereInput
+  orderBy?: Prisma.BidDocumentOrderByWithRelationInput | Prisma.BidDocumentOrderByWithRelationInput[]
+  cursor?: Prisma.BidDocumentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BidDocumentScalarFieldEnum | Prisma.BidDocumentScalarFieldEnum[]
+}
+
+/**
+ * Tenant.bidContracts
+ */
+export type Tenant$bidContractsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BidContract
+   */
+  select?: Prisma.BidContractSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the BidContract
+   */
+  omit?: Prisma.BidContractOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BidContractInclude<ExtArgs> | null
+  where?: Prisma.BidContractWhereInput
+  orderBy?: Prisma.BidContractOrderByWithRelationInput | Prisma.BidContractOrderByWithRelationInput[]
+  cursor?: Prisma.BidContractWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BidContractScalarFieldEnum | Prisma.BidContractScalarFieldEnum[]
+}
+
+/**
+ * Tenant.bidEmpenhos
+ */
+export type Tenant$bidEmpenhosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BidEmpenho
+   */
+  select?: Prisma.BidEmpenhoSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the BidEmpenho
+   */
+  omit?: Prisma.BidEmpenhoOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BidEmpenhoInclude<ExtArgs> | null
+  where?: Prisma.BidEmpenhoWhereInput
+  orderBy?: Prisma.BidEmpenhoOrderByWithRelationInput | Prisma.BidEmpenhoOrderByWithRelationInput[]
+  cursor?: Prisma.BidEmpenhoWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BidEmpenhoScalarFieldEnum | Prisma.BidEmpenhoScalarFieldEnum[]
+}
+
+/**
+ * Tenant.bidMonitorEvents
+ */
+export type Tenant$bidMonitorEventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BidMonitorEvent
+   */
+  select?: Prisma.BidMonitorEventSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the BidMonitorEvent
+   */
+  omit?: Prisma.BidMonitorEventOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BidMonitorEventInclude<ExtArgs> | null
+  where?: Prisma.BidMonitorEventWhereInput
+  orderBy?: Prisma.BidMonitorEventOrderByWithRelationInput | Prisma.BidMonitorEventOrderByWithRelationInput[]
+  cursor?: Prisma.BidMonitorEventWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BidMonitorEventScalarFieldEnum | Prisma.BidMonitorEventScalarFieldEnum[]
+}
+
+/**
+ * Tenant.bidHistory
+ */
+export type Tenant$bidHistoryArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BidHistory
+   */
+  select?: Prisma.BidHistorySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the BidHistory
+   */
+  omit?: Prisma.BidHistoryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BidHistoryInclude<ExtArgs> | null
+  where?: Prisma.BidHistoryWhereInput
+  orderBy?: Prisma.BidHistoryOrderByWithRelationInput | Prisma.BidHistoryOrderByWithRelationInput[]
+  cursor?: Prisma.BidHistoryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BidHistoryScalarFieldEnum | Prisma.BidHistoryScalarFieldEnum[]
+}
+
+/**
+ * Tenant.bidAiConfig
+ */
+export type Tenant$bidAiConfigArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BidAiConfig
+   */
+  select?: Prisma.BidAiConfigSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the BidAiConfig
+   */
+  omit?: Prisma.BidAiConfigOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BidAiConfigInclude<ExtArgs> | null
+  where?: Prisma.BidAiConfigWhereInput
+}
+
+/**
+ * Tenant.certidaoSchedules
+ */
+export type Tenant$certidaoSchedulesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CertidaoSchedule
+   */
+  select?: Prisma.CertidaoScheduleSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CertidaoSchedule
+   */
+  omit?: Prisma.CertidaoScheduleOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CertidaoScheduleInclude<ExtArgs> | null
+  where?: Prisma.CertidaoScheduleWhereInput
+  orderBy?: Prisma.CertidaoScheduleOrderByWithRelationInput | Prisma.CertidaoScheduleOrderByWithRelationInput[]
+  cursor?: Prisma.CertidaoScheduleWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CertidaoScheduleScalarFieldEnum | Prisma.CertidaoScheduleScalarFieldEnum[]
 }
 
 /**

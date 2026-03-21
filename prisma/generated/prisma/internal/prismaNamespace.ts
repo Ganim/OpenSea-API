@@ -532,7 +532,17 @@ export const ModelName = {
   SupportTicket: 'SupportTicket',
   SupportTicketMessage: 'SupportTicketMessage',
   SupportTicketAttachment: 'SupportTicketAttachment',
-  SupportSlaConfig: 'SupportSlaConfig'
+  SupportSlaConfig: 'SupportSlaConfig',
+  Bid: 'Bid',
+  BidItem: 'BidItem',
+  BidProposal: 'BidProposal',
+  BidDocument: 'BidDocument',
+  BidContract: 'BidContract',
+  BidEmpenho: 'BidEmpenho',
+  BidMonitorEvent: 'BidMonitorEvent',
+  BidHistory: 'BidHistory',
+  BidAiConfig: 'BidAiConfig',
+  CertidaoSchedule: 'CertidaoSchedule'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -548,7 +558,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "userProfile" | "session" | "refreshToken" | "permission" | "permissionGroup" | "permissionGroupPermission" | "userPermissionGroup" | "userDirectPermission" | "permissionAuditLog" | "organization" | "organizationAddress" | "organizationCnae" | "organizationFiscalSettings" | "organizationStakeholder" | "supplier" | "manufacturer" | "category" | "warehouse" | "zone" | "bin" | "volume" | "volumeItem" | "template" | "product" | "variant" | "item" | "itemMovement" | "productCategory" | "variantPriceHistory" | "auditLog" | "tag" | "productTag" | "variantImage" | "productCareInstruction" | "productAttachment" | "variantAttachment" | "alert" | "purchaseOrder" | "purchaseOrderItem" | "unitConversion" | "stockSnapshot" | "inventorySession" | "inventorySessionItem" | "customer" | "salesOrder" | "salesOrderItem" | "crmContact" | "crmPipeline" | "crmPipelineStage" | "crmDeal" | "crmActivity" | "crmTimelineEvent" | "itemReservation" | "variantSupplierCode" | "variantPromotion" | "comment" | "notificationPreference" | "notificationTemplate" | "notification" | "request" | "requestAttachment" | "requestComment" | "requestHistory" | "employee" | "department" | "position" | "timeEntry" | "workSchedule" | "overtime" | "timeBank" | "absence" | "vacationPeriod" | "payroll" | "payrollItem" | "bonus" | "deduction" | "company" | "companyDocument" | "companyAddress" | "companyCnae" | "companyFiscalSettings" | "companyStakeholder" | "labelTemplate" | "tenant" | "plan" | "planModule" | "tenantPlan" | "tenantUser" | "tenantFeatureFlag" | "costCenter" | "bankAccount" | "financeCategory" | "financeEntry" | "financeCodeSequence" | "financeEntryPayment" | "financeEntryCostCenter" | "recurringConfig" | "financeAttachment" | "loan" | "loanInstallment" | "consortium" | "consortiumPayment" | "contract" | "storageFolder" | "storageFile" | "storageFileVersion" | "folderAccessRule" | "storageShareLink" | "calendar" | "teamCalendarConfig" | "calendarEvent" | "eventParticipant" | "eventReminder" | "emailAccount" | "emailAccountAccess" | "emailFolder" | "emailMessage" | "emailAttachment" | "team" | "teamMember" | "teamEmailAccount" | "board" | "boardColumn" | "card" | "boardLabel" | "cardLabel" | "boardMember" | "boardCustomField" | "cardCustomFieldValue" | "cardComment" | "commentReaction" | "cardAttachment" | "cardChecklist" | "checklistItem" | "cardActivity" | "boardAutomation" | "cardWatcher" | "systemSkillDefinition" | "skillPricing" | "tenantSubscription" | "tenantConsumption" | "tenantBilling" | "tenantIntegrationStatus" | "centralUser" | "supportTicket" | "supportTicketMessage" | "supportTicketAttachment" | "supportSlaConfig"
+    modelProps: "user" | "userProfile" | "session" | "refreshToken" | "permission" | "permissionGroup" | "permissionGroupPermission" | "userPermissionGroup" | "userDirectPermission" | "permissionAuditLog" | "organization" | "organizationAddress" | "organizationCnae" | "organizationFiscalSettings" | "organizationStakeholder" | "supplier" | "manufacturer" | "category" | "warehouse" | "zone" | "bin" | "volume" | "volumeItem" | "template" | "product" | "variant" | "item" | "itemMovement" | "productCategory" | "variantPriceHistory" | "auditLog" | "tag" | "productTag" | "variantImage" | "productCareInstruction" | "productAttachment" | "variantAttachment" | "alert" | "purchaseOrder" | "purchaseOrderItem" | "unitConversion" | "stockSnapshot" | "inventorySession" | "inventorySessionItem" | "customer" | "salesOrder" | "salesOrderItem" | "crmContact" | "crmPipeline" | "crmPipelineStage" | "crmDeal" | "crmActivity" | "crmTimelineEvent" | "itemReservation" | "variantSupplierCode" | "variantPromotion" | "comment" | "notificationPreference" | "notificationTemplate" | "notification" | "request" | "requestAttachment" | "requestComment" | "requestHistory" | "employee" | "department" | "position" | "timeEntry" | "workSchedule" | "overtime" | "timeBank" | "absence" | "vacationPeriod" | "payroll" | "payrollItem" | "bonus" | "deduction" | "company" | "companyDocument" | "companyAddress" | "companyCnae" | "companyFiscalSettings" | "companyStakeholder" | "labelTemplate" | "tenant" | "plan" | "planModule" | "tenantPlan" | "tenantUser" | "tenantFeatureFlag" | "costCenter" | "bankAccount" | "financeCategory" | "financeEntry" | "financeCodeSequence" | "financeEntryPayment" | "financeEntryCostCenter" | "recurringConfig" | "financeAttachment" | "loan" | "loanInstallment" | "consortium" | "consortiumPayment" | "contract" | "storageFolder" | "storageFile" | "storageFileVersion" | "folderAccessRule" | "storageShareLink" | "calendar" | "teamCalendarConfig" | "calendarEvent" | "eventParticipant" | "eventReminder" | "emailAccount" | "emailAccountAccess" | "emailFolder" | "emailMessage" | "emailAttachment" | "team" | "teamMember" | "teamEmailAccount" | "board" | "boardColumn" | "card" | "boardLabel" | "cardLabel" | "boardMember" | "boardCustomField" | "cardCustomFieldValue" | "cardComment" | "commentReaction" | "cardAttachment" | "cardChecklist" | "checklistItem" | "cardActivity" | "boardAutomation" | "cardWatcher" | "systemSkillDefinition" | "skillPricing" | "tenantSubscription" | "tenantConsumption" | "tenantBilling" | "tenantIntegrationStatus" | "centralUser" | "supportTicket" | "supportTicketMessage" | "supportTicketAttachment" | "supportSlaConfig" | "bid" | "bidItem" | "bidProposal" | "bidDocument" | "bidContract" | "bidEmpenho" | "bidMonitorEvent" | "bidHistory" | "bidAiConfig" | "certidaoSchedule"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -11578,6 +11588,746 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Bid: {
+      payload: Prisma.$BidPayload<ExtArgs>
+      fields: Prisma.BidFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.BidFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.BidFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidPayload>
+        }
+        findFirst: {
+          args: Prisma.BidFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.BidFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidPayload>
+        }
+        findMany: {
+          args: Prisma.BidFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidPayload>[]
+        }
+        create: {
+          args: Prisma.BidCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidPayload>
+        }
+        createMany: {
+          args: Prisma.BidCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.BidCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidPayload>[]
+        }
+        delete: {
+          args: Prisma.BidDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidPayload>
+        }
+        update: {
+          args: Prisma.BidUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidPayload>
+        }
+        deleteMany: {
+          args: Prisma.BidDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.BidUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.BidUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidPayload>[]
+        }
+        upsert: {
+          args: Prisma.BidUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidPayload>
+        }
+        aggregate: {
+          args: Prisma.BidAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateBid>
+        }
+        groupBy: {
+          args: Prisma.BidGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.BidGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.BidCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.BidCountAggregateOutputType> | number
+        }
+      }
+    }
+    BidItem: {
+      payload: Prisma.$BidItemPayload<ExtArgs>
+      fields: Prisma.BidItemFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.BidItemFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidItemPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.BidItemFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidItemPayload>
+        }
+        findFirst: {
+          args: Prisma.BidItemFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidItemPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.BidItemFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidItemPayload>
+        }
+        findMany: {
+          args: Prisma.BidItemFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidItemPayload>[]
+        }
+        create: {
+          args: Prisma.BidItemCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidItemPayload>
+        }
+        createMany: {
+          args: Prisma.BidItemCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.BidItemCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidItemPayload>[]
+        }
+        delete: {
+          args: Prisma.BidItemDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidItemPayload>
+        }
+        update: {
+          args: Prisma.BidItemUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidItemPayload>
+        }
+        deleteMany: {
+          args: Prisma.BidItemDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.BidItemUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.BidItemUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidItemPayload>[]
+        }
+        upsert: {
+          args: Prisma.BidItemUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidItemPayload>
+        }
+        aggregate: {
+          args: Prisma.BidItemAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateBidItem>
+        }
+        groupBy: {
+          args: Prisma.BidItemGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.BidItemGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.BidItemCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.BidItemCountAggregateOutputType> | number
+        }
+      }
+    }
+    BidProposal: {
+      payload: Prisma.$BidProposalPayload<ExtArgs>
+      fields: Prisma.BidProposalFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.BidProposalFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidProposalPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.BidProposalFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidProposalPayload>
+        }
+        findFirst: {
+          args: Prisma.BidProposalFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidProposalPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.BidProposalFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidProposalPayload>
+        }
+        findMany: {
+          args: Prisma.BidProposalFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidProposalPayload>[]
+        }
+        create: {
+          args: Prisma.BidProposalCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidProposalPayload>
+        }
+        createMany: {
+          args: Prisma.BidProposalCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.BidProposalCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidProposalPayload>[]
+        }
+        delete: {
+          args: Prisma.BidProposalDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidProposalPayload>
+        }
+        update: {
+          args: Prisma.BidProposalUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidProposalPayload>
+        }
+        deleteMany: {
+          args: Prisma.BidProposalDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.BidProposalUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.BidProposalUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidProposalPayload>[]
+        }
+        upsert: {
+          args: Prisma.BidProposalUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidProposalPayload>
+        }
+        aggregate: {
+          args: Prisma.BidProposalAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateBidProposal>
+        }
+        groupBy: {
+          args: Prisma.BidProposalGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.BidProposalGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.BidProposalCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.BidProposalCountAggregateOutputType> | number
+        }
+      }
+    }
+    BidDocument: {
+      payload: Prisma.$BidDocumentPayload<ExtArgs>
+      fields: Prisma.BidDocumentFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.BidDocumentFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidDocumentPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.BidDocumentFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidDocumentPayload>
+        }
+        findFirst: {
+          args: Prisma.BidDocumentFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidDocumentPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.BidDocumentFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidDocumentPayload>
+        }
+        findMany: {
+          args: Prisma.BidDocumentFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidDocumentPayload>[]
+        }
+        create: {
+          args: Prisma.BidDocumentCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidDocumentPayload>
+        }
+        createMany: {
+          args: Prisma.BidDocumentCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.BidDocumentCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidDocumentPayload>[]
+        }
+        delete: {
+          args: Prisma.BidDocumentDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidDocumentPayload>
+        }
+        update: {
+          args: Prisma.BidDocumentUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidDocumentPayload>
+        }
+        deleteMany: {
+          args: Prisma.BidDocumentDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.BidDocumentUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.BidDocumentUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidDocumentPayload>[]
+        }
+        upsert: {
+          args: Prisma.BidDocumentUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidDocumentPayload>
+        }
+        aggregate: {
+          args: Prisma.BidDocumentAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateBidDocument>
+        }
+        groupBy: {
+          args: Prisma.BidDocumentGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.BidDocumentGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.BidDocumentCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.BidDocumentCountAggregateOutputType> | number
+        }
+      }
+    }
+    BidContract: {
+      payload: Prisma.$BidContractPayload<ExtArgs>
+      fields: Prisma.BidContractFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.BidContractFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidContractPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.BidContractFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidContractPayload>
+        }
+        findFirst: {
+          args: Prisma.BidContractFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidContractPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.BidContractFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidContractPayload>
+        }
+        findMany: {
+          args: Prisma.BidContractFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidContractPayload>[]
+        }
+        create: {
+          args: Prisma.BidContractCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidContractPayload>
+        }
+        createMany: {
+          args: Prisma.BidContractCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.BidContractCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidContractPayload>[]
+        }
+        delete: {
+          args: Prisma.BidContractDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidContractPayload>
+        }
+        update: {
+          args: Prisma.BidContractUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidContractPayload>
+        }
+        deleteMany: {
+          args: Prisma.BidContractDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.BidContractUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.BidContractUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidContractPayload>[]
+        }
+        upsert: {
+          args: Prisma.BidContractUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidContractPayload>
+        }
+        aggregate: {
+          args: Prisma.BidContractAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateBidContract>
+        }
+        groupBy: {
+          args: Prisma.BidContractGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.BidContractGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.BidContractCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.BidContractCountAggregateOutputType> | number
+        }
+      }
+    }
+    BidEmpenho: {
+      payload: Prisma.$BidEmpenhoPayload<ExtArgs>
+      fields: Prisma.BidEmpenhoFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.BidEmpenhoFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidEmpenhoPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.BidEmpenhoFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidEmpenhoPayload>
+        }
+        findFirst: {
+          args: Prisma.BidEmpenhoFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidEmpenhoPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.BidEmpenhoFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidEmpenhoPayload>
+        }
+        findMany: {
+          args: Prisma.BidEmpenhoFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidEmpenhoPayload>[]
+        }
+        create: {
+          args: Prisma.BidEmpenhoCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidEmpenhoPayload>
+        }
+        createMany: {
+          args: Prisma.BidEmpenhoCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.BidEmpenhoCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidEmpenhoPayload>[]
+        }
+        delete: {
+          args: Prisma.BidEmpenhoDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidEmpenhoPayload>
+        }
+        update: {
+          args: Prisma.BidEmpenhoUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidEmpenhoPayload>
+        }
+        deleteMany: {
+          args: Prisma.BidEmpenhoDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.BidEmpenhoUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.BidEmpenhoUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidEmpenhoPayload>[]
+        }
+        upsert: {
+          args: Prisma.BidEmpenhoUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidEmpenhoPayload>
+        }
+        aggregate: {
+          args: Prisma.BidEmpenhoAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateBidEmpenho>
+        }
+        groupBy: {
+          args: Prisma.BidEmpenhoGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.BidEmpenhoGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.BidEmpenhoCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.BidEmpenhoCountAggregateOutputType> | number
+        }
+      }
+    }
+    BidMonitorEvent: {
+      payload: Prisma.$BidMonitorEventPayload<ExtArgs>
+      fields: Prisma.BidMonitorEventFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.BidMonitorEventFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidMonitorEventPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.BidMonitorEventFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidMonitorEventPayload>
+        }
+        findFirst: {
+          args: Prisma.BidMonitorEventFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidMonitorEventPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.BidMonitorEventFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidMonitorEventPayload>
+        }
+        findMany: {
+          args: Prisma.BidMonitorEventFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidMonitorEventPayload>[]
+        }
+        create: {
+          args: Prisma.BidMonitorEventCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidMonitorEventPayload>
+        }
+        createMany: {
+          args: Prisma.BidMonitorEventCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.BidMonitorEventCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidMonitorEventPayload>[]
+        }
+        delete: {
+          args: Prisma.BidMonitorEventDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidMonitorEventPayload>
+        }
+        update: {
+          args: Prisma.BidMonitorEventUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidMonitorEventPayload>
+        }
+        deleteMany: {
+          args: Prisma.BidMonitorEventDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.BidMonitorEventUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.BidMonitorEventUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidMonitorEventPayload>[]
+        }
+        upsert: {
+          args: Prisma.BidMonitorEventUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidMonitorEventPayload>
+        }
+        aggregate: {
+          args: Prisma.BidMonitorEventAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateBidMonitorEvent>
+        }
+        groupBy: {
+          args: Prisma.BidMonitorEventGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.BidMonitorEventGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.BidMonitorEventCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.BidMonitorEventCountAggregateOutputType> | number
+        }
+      }
+    }
+    BidHistory: {
+      payload: Prisma.$BidHistoryPayload<ExtArgs>
+      fields: Prisma.BidHistoryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.BidHistoryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidHistoryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.BidHistoryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidHistoryPayload>
+        }
+        findFirst: {
+          args: Prisma.BidHistoryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidHistoryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.BidHistoryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidHistoryPayload>
+        }
+        findMany: {
+          args: Prisma.BidHistoryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidHistoryPayload>[]
+        }
+        create: {
+          args: Prisma.BidHistoryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidHistoryPayload>
+        }
+        createMany: {
+          args: Prisma.BidHistoryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.BidHistoryCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidHistoryPayload>[]
+        }
+        delete: {
+          args: Prisma.BidHistoryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidHistoryPayload>
+        }
+        update: {
+          args: Prisma.BidHistoryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidHistoryPayload>
+        }
+        deleteMany: {
+          args: Prisma.BidHistoryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.BidHistoryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.BidHistoryUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidHistoryPayload>[]
+        }
+        upsert: {
+          args: Prisma.BidHistoryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidHistoryPayload>
+        }
+        aggregate: {
+          args: Prisma.BidHistoryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateBidHistory>
+        }
+        groupBy: {
+          args: Prisma.BidHistoryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.BidHistoryGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.BidHistoryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.BidHistoryCountAggregateOutputType> | number
+        }
+      }
+    }
+    BidAiConfig: {
+      payload: Prisma.$BidAiConfigPayload<ExtArgs>
+      fields: Prisma.BidAiConfigFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.BidAiConfigFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidAiConfigPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.BidAiConfigFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidAiConfigPayload>
+        }
+        findFirst: {
+          args: Prisma.BidAiConfigFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidAiConfigPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.BidAiConfigFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidAiConfigPayload>
+        }
+        findMany: {
+          args: Prisma.BidAiConfigFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidAiConfigPayload>[]
+        }
+        create: {
+          args: Prisma.BidAiConfigCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidAiConfigPayload>
+        }
+        createMany: {
+          args: Prisma.BidAiConfigCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.BidAiConfigCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidAiConfigPayload>[]
+        }
+        delete: {
+          args: Prisma.BidAiConfigDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidAiConfigPayload>
+        }
+        update: {
+          args: Prisma.BidAiConfigUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidAiConfigPayload>
+        }
+        deleteMany: {
+          args: Prisma.BidAiConfigDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.BidAiConfigUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.BidAiConfigUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidAiConfigPayload>[]
+        }
+        upsert: {
+          args: Prisma.BidAiConfigUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BidAiConfigPayload>
+        }
+        aggregate: {
+          args: Prisma.BidAiConfigAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateBidAiConfig>
+        }
+        groupBy: {
+          args: Prisma.BidAiConfigGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.BidAiConfigGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.BidAiConfigCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.BidAiConfigCountAggregateOutputType> | number
+        }
+      }
+    }
+    CertidaoSchedule: {
+      payload: Prisma.$CertidaoSchedulePayload<ExtArgs>
+      fields: Prisma.CertidaoScheduleFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CertidaoScheduleFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CertidaoSchedulePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CertidaoScheduleFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CertidaoSchedulePayload>
+        }
+        findFirst: {
+          args: Prisma.CertidaoScheduleFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CertidaoSchedulePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CertidaoScheduleFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CertidaoSchedulePayload>
+        }
+        findMany: {
+          args: Prisma.CertidaoScheduleFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CertidaoSchedulePayload>[]
+        }
+        create: {
+          args: Prisma.CertidaoScheduleCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CertidaoSchedulePayload>
+        }
+        createMany: {
+          args: Prisma.CertidaoScheduleCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CertidaoScheduleCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CertidaoSchedulePayload>[]
+        }
+        delete: {
+          args: Prisma.CertidaoScheduleDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CertidaoSchedulePayload>
+        }
+        update: {
+          args: Prisma.CertidaoScheduleUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CertidaoSchedulePayload>
+        }
+        deleteMany: {
+          args: Prisma.CertidaoScheduleDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CertidaoScheduleUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CertidaoScheduleUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CertidaoSchedulePayload>[]
+        }
+        upsert: {
+          args: Prisma.CertidaoScheduleUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CertidaoSchedulePayload>
+        }
+        aggregate: {
+          args: Prisma.CertidaoScheduleAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCertidaoSchedule>
+        }
+        groupBy: {
+          args: Prisma.CertidaoScheduleGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CertidaoScheduleGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CertidaoScheduleCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CertidaoScheduleCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -14540,6 +15290,250 @@ export const SupportSlaConfigScalarFieldEnum = {
 export type SupportSlaConfigScalarFieldEnum = (typeof SupportSlaConfigScalarFieldEnum)[keyof typeof SupportSlaConfigScalarFieldEnum]
 
 
+export const BidScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  portalName: 'portalName',
+  portalEditalId: 'portalEditalId',
+  editalNumber: 'editalNumber',
+  modality: 'modality',
+  criterionType: 'criterionType',
+  legalFramework: 'legalFramework',
+  executionRegime: 'executionRegime',
+  object: 'object',
+  objectSummary: 'objectSummary',
+  organName: 'organName',
+  organCnpj: 'organCnpj',
+  organState: 'organState',
+  organCity: 'organCity',
+  estimatedValue: 'estimatedValue',
+  ourProposalValue: 'ourProposalValue',
+  finalValue: 'finalValue',
+  margin: 'margin',
+  publicationDate: 'publicationDate',
+  openingDate: 'openingDate',
+  closingDate: 'closingDate',
+  disputeDate: 'disputeDate',
+  status: 'status',
+  viabilityScore: 'viabilityScore',
+  viabilityReason: 'viabilityReason',
+  customerId: 'customerId',
+  assignedToUserId: 'assignedToUserId',
+  exclusiveMeEpp: 'exclusiveMeEpp',
+  deliveryStates: 'deliveryStates',
+  tags: 'tags',
+  notes: 'notes',
+  editalUrl: 'editalUrl',
+  editalFileId: 'editalFileId',
+  etpFileId: 'etpFileId',
+  trFileId: 'trFileId',
+  deletedAt: 'deletedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BidScalarFieldEnum = (typeof BidScalarFieldEnum)[keyof typeof BidScalarFieldEnum]
+
+
+export const BidItemScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  bidId: 'bidId',
+  itemNumber: 'itemNumber',
+  lotNumber: 'lotNumber',
+  lotDescription: 'lotDescription',
+  description: 'description',
+  quantity: 'quantity',
+  unit: 'unit',
+  estimatedUnitPrice: 'estimatedUnitPrice',
+  ourUnitPrice: 'ourUnitPrice',
+  finalUnitPrice: 'finalUnitPrice',
+  status: 'status',
+  variantId: 'variantId',
+  matchConfidence: 'matchConfidence',
+  quotaType: 'quotaType',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BidItemScalarFieldEnum = (typeof BidItemScalarFieldEnum)[keyof typeof BidItemScalarFieldEnum]
+
+
+export const BidProposalScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  bidId: 'bidId',
+  version: 'version',
+  status: 'status',
+  totalValue: 'totalValue',
+  validUntil: 'validUntil',
+  proposalFileId: 'proposalFileId',
+  sentAt: 'sentAt',
+  sentByUserId: 'sentByUserId',
+  sentByAi: 'sentByAi',
+  portalConfirmation: 'portalConfirmation',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BidProposalScalarFieldEnum = (typeof BidProposalScalarFieldEnum)[keyof typeof BidProposalScalarFieldEnum]
+
+
+export const BidDocumentScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  bidId: 'bidId',
+  type: 'type',
+  name: 'name',
+  description: 'description',
+  fileId: 'fileId',
+  issueDate: 'issueDate',
+  expirationDate: 'expirationDate',
+  isValid: 'isValid',
+  autoRenewable: 'autoRenewable',
+  lastRenewAttempt: 'lastRenewAttempt',
+  renewStatus: 'renewStatus',
+  portalUploaded: 'portalUploaded',
+  portalUploadedAt: 'portalUploadedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BidDocumentScalarFieldEnum = (typeof BidDocumentScalarFieldEnum)[keyof typeof BidDocumentScalarFieldEnum]
+
+
+export const BidContractScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  bidId: 'bidId',
+  contractNumber: 'contractNumber',
+  status: 'status',
+  signedDate: 'signedDate',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  totalValue: 'totalValue',
+  remainingValue: 'remainingValue',
+  customerId: 'customerId',
+  renewalCount: 'renewalCount',
+  maxRenewals: 'maxRenewals',
+  renewalDeadline: 'renewalDeadline',
+  deliveryAddresses: 'deliveryAddresses',
+  contractFileId: 'contractFileId',
+  notes: 'notes',
+  deletedAt: 'deletedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BidContractScalarFieldEnum = (typeof BidContractScalarFieldEnum)[keyof typeof BidContractScalarFieldEnum]
+
+
+export const BidEmpenhoScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  contractId: 'contractId',
+  empenhoNumber: 'empenhoNumber',
+  type: 'type',
+  value: 'value',
+  issueDate: 'issueDate',
+  status: 'status',
+  orderId: 'orderId',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BidEmpenhoScalarFieldEnum = (typeof BidEmpenhoScalarFieldEnum)[keyof typeof BidEmpenhoScalarFieldEnum]
+
+
+export const BidMonitorEventScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  bidId: 'bidId',
+  type: 'type',
+  description: 'description',
+  detectedAt: 'detectedAt',
+  detectedByAi: 'detectedByAi',
+  portalData: 'portalData',
+  actionRequired: 'actionRequired',
+  actionTaken: 'actionTaken',
+  actionTakenAt: 'actionTakenAt',
+  actionTakenByUserId: 'actionTakenByUserId',
+  responseDeadline: 'responseDeadline',
+  responseStatus: 'responseStatus',
+  createdAt: 'createdAt'
+} as const
+
+export type BidMonitorEventScalarFieldEnum = (typeof BidMonitorEventScalarFieldEnum)[keyof typeof BidMonitorEventScalarFieldEnum]
+
+
+export const BidHistoryScalarFieldEnum = {
+  id: 'id',
+  bidId: 'bidId',
+  tenantId: 'tenantId',
+  action: 'action',
+  description: 'description',
+  metadata: 'metadata',
+  performedByUserId: 'performedByUserId',
+  performedByAi: 'performedByAi',
+  isReversible: 'isReversible',
+  createdAt: 'createdAt'
+} as const
+
+export type BidHistoryScalarFieldEnum = (typeof BidHistoryScalarFieldEnum)[keyof typeof BidHistoryScalarFieldEnum]
+
+
+export const BidAiConfigScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  autonomyLevel: 'autonomyLevel',
+  maxEditalValue: 'maxEditalValue',
+  minMarginPercent: 'minMarginPercent',
+  allowedModalities: 'allowedModalities',
+  allowedCategories: 'allowedCategories',
+  blockedOrgans: 'blockedOrgans',
+  maxSimultaneous: 'maxSimultaneous',
+  maxAggregateExposure: 'maxAggregateExposure',
+  coolingOffMinutes: 'coolingOffMinutes',
+  emergencyStop: 'emergencyStop',
+  firstTimeApproval: 'firstTimeApproval',
+  companySize: 'companySize',
+  monitoringTimeoutDays: 'monitoringTimeoutDays',
+  autoProspect: 'autoProspect',
+  autoPropose: 'autoPropose',
+  autoDispute: 'autoDispute',
+  autoRespond: 'autoRespond',
+  autoCreateOrder: 'autoCreateOrder',
+  notifyOnActions: 'notifyOnActions',
+  chatResponseWhitelist: 'chatResponseWhitelist',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BidAiConfigScalarFieldEnum = (typeof BidAiConfigScalarFieldEnum)[keyof typeof BidAiConfigScalarFieldEnum]
+
+
+export const CertidaoScheduleScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  type: 'type',
+  renewalUrl: 'renewalUrl',
+  renewalMethod: 'renewalMethod',
+  lastCheck: 'lastCheck',
+  lastRenewal: 'lastRenewal',
+  nextExpiration: 'nextExpiration',
+  checkIntervalDays: 'checkIntervalDays',
+  alertDaysBefore: 'alertDaysBefore',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CertidaoScheduleScalarFieldEnum = (typeof CertidaoScheduleScalarFieldEnum)[keyof typeof CertidaoScheduleScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -16098,6 +17092,230 @@ export type EnumTicketAuthorTypeFieldRefInput<$PrismaModel> = FieldRefInputType<
 export type ListEnumTicketAuthorTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TicketAuthorType[]'>
     
 
+
+/**
+ * Reference to a field of type 'BidModality'
+ */
+export type EnumBidModalityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BidModality'>
+    
+
+
+/**
+ * Reference to a field of type 'BidModality[]'
+ */
+export type ListEnumBidModalityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BidModality[]'>
+    
+
+
+/**
+ * Reference to a field of type 'BidCriterion'
+ */
+export type EnumBidCriterionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BidCriterion'>
+    
+
+
+/**
+ * Reference to a field of type 'BidCriterion[]'
+ */
+export type ListEnumBidCriterionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BidCriterion[]'>
+    
+
+
+/**
+ * Reference to a field of type 'BidLegalFramework'
+ */
+export type EnumBidLegalFrameworkFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BidLegalFramework'>
+    
+
+
+/**
+ * Reference to a field of type 'BidLegalFramework[]'
+ */
+export type ListEnumBidLegalFrameworkFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BidLegalFramework[]'>
+    
+
+
+/**
+ * Reference to a field of type 'BidExecutionRegime'
+ */
+export type EnumBidExecutionRegimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BidExecutionRegime'>
+    
+
+
+/**
+ * Reference to a field of type 'BidExecutionRegime[]'
+ */
+export type ListEnumBidExecutionRegimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BidExecutionRegime[]'>
+    
+
+
+/**
+ * Reference to a field of type 'BidStatus'
+ */
+export type EnumBidStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BidStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'BidStatus[]'
+ */
+export type ListEnumBidStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BidStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'BidItemStatus'
+ */
+export type EnumBidItemStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BidItemStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'BidItemStatus[]'
+ */
+export type ListEnumBidItemStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BidItemStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'BidQuotaType'
+ */
+export type EnumBidQuotaTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BidQuotaType'>
+    
+
+
+/**
+ * Reference to a field of type 'BidQuotaType[]'
+ */
+export type ListEnumBidQuotaTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BidQuotaType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'BidProposalStatus'
+ */
+export type EnumBidProposalStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BidProposalStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'BidProposalStatus[]'
+ */
+export type ListEnumBidProposalStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BidProposalStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'BidDocumentType'
+ */
+export type EnumBidDocumentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BidDocumentType'>
+    
+
+
+/**
+ * Reference to a field of type 'BidDocumentType[]'
+ */
+export type ListEnumBidDocumentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BidDocumentType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'BidDocRenewalStatus'
+ */
+export type EnumBidDocRenewalStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BidDocRenewalStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'BidDocRenewalStatus[]'
+ */
+export type ListEnumBidDocRenewalStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BidDocRenewalStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'BidContractStatus'
+ */
+export type EnumBidContractStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BidContractStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'BidContractStatus[]'
+ */
+export type ListEnumBidContractStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BidContractStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'BidEmpenhoType'
+ */
+export type EnumBidEmpenhoTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BidEmpenhoType'>
+    
+
+
+/**
+ * Reference to a field of type 'BidEmpenhoType[]'
+ */
+export type ListEnumBidEmpenhoTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BidEmpenhoType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'BidEmpenhoStatus'
+ */
+export type EnumBidEmpenhoStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BidEmpenhoStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'BidEmpenhoStatus[]'
+ */
+export type ListEnumBidEmpenhoStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BidEmpenhoStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'BidMonitorEventType'
+ */
+export type EnumBidMonitorEventTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BidMonitorEventType'>
+    
+
+
+/**
+ * Reference to a field of type 'BidMonitorEventType[]'
+ */
+export type ListEnumBidMonitorEventTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BidMonitorEventType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'BidHistoryAction'
+ */
+export type EnumBidHistoryActionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BidHistoryAction'>
+    
+
+
+/**
+ * Reference to a field of type 'BidHistoryAction[]'
+ */
+export type ListEnumBidHistoryActionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BidHistoryAction[]'>
+    
+
+
+/**
+ * Reference to a field of type 'BidDocRenewalMethod'
+ */
+export type EnumBidDocRenewalMethodFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BidDocRenewalMethod'>
+    
+
+
+/**
+ * Reference to a field of type 'BidDocRenewalMethod[]'
+ */
+export type ListEnumBidDocRenewalMethodFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BidDocRenewalMethod[]'>
+    
+
 /**
  * Batch Payload for updateMany & deleteMany & createMany
  */
@@ -16342,6 +17560,16 @@ export type GlobalOmitConfig = {
   supportTicketMessage?: Prisma.SupportTicketMessageOmit
   supportTicketAttachment?: Prisma.SupportTicketAttachmentOmit
   supportSlaConfig?: Prisma.SupportSlaConfigOmit
+  bid?: Prisma.BidOmit
+  bidItem?: Prisma.BidItemOmit
+  bidProposal?: Prisma.BidProposalOmit
+  bidDocument?: Prisma.BidDocumentOmit
+  bidContract?: Prisma.BidContractOmit
+  bidEmpenho?: Prisma.BidEmpenhoOmit
+  bidMonitorEvent?: Prisma.BidMonitorEventOmit
+  bidHistory?: Prisma.BidHistoryOmit
+  bidAiConfig?: Prisma.BidAiConfigOmit
+  certidaoSchedule?: Prisma.CertidaoScheduleOmit
 }
 
 /* Types for Logging */

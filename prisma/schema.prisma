@@ -266,9 +266,9 @@ model User {
   checklistAssignees ChecklistItem[]   @relation("ChecklistItemAssignee")
 
   // CRM Relations
-  assignedContacts CrmContact[] @relation("AssignedContacts")
-  assignedDeals    CrmDeal[]    @relation("AssignedDeals")
-  crmActivities    CrmActivity[] @relation("CrmActivityUser")
+  assignedContacts CrmContact[]       @relation("AssignedContacts")
+  assignedDeals    CrmDeal[]          @relation("AssignedDeals")
+  crmActivities    CrmActivity[]      @relation("CrmActivityUser")
   crmTimeline      CrmTimelineEvent[] @relation("CrmTimelineUser")
 
   // Central Redesign Relations
@@ -280,6 +280,12 @@ model User {
   // Inventory Relations
   inventorySessions    InventorySession[]
   inventoryResolutions InventorySessionItem[] @relation("InventoryItemResolver")
+
+  // Licitacoes Relations
+  assignedBids      Bid[]             @relation("BidAssignee")
+  bidProposalsSent  BidProposal[]     @relation("BidProposalSender")
+  bidEventActions   BidMonitorEvent[] @relation("BidEventActionTaker")
+  bidHistoryActions BidHistory[]      @relation("BidHistoryPerformer")
 
   @@unique([email, deletedAt], name: "users_email_unique_active")
   @@unique([username, deletedAt], name: "users_username_unique_active")
@@ -1588,7 +1594,7 @@ model Bin {
   tenantId String @map("tenant_id")
   tenant   Tenant @relation(fields: [tenantId], references: [id])
 
-  zone           Zone            @relation(fields: [zoneId], references: [id], onDelete: Cascade)
+  zone           Zone                   @relation(fields: [zoneId], references: [id], onDelete: Cascade)
   items          Item[]
   stockSnapshots StockSnapshot[]
   inventoryItems InventorySessionItem[]
@@ -1874,11 +1880,11 @@ model Item {
   tenantId         String  @map("tenant_id")
   tenant           Tenant  @relation(fields: [tenantId], references: [id])
 
-  variant        Variant              @relation(fields: [variantId], references: [id])
-  bin            Bin?                 @relation(fields: [binId], references: [id])
+  variant        Variant                @relation(fields: [variantId], references: [id])
+  bin            Bin?                   @relation(fields: [binId], references: [id])
   movements      ItemMovement[]
   reservations   ItemReservation[]
-  volumeItems    VolumeItem[]         @relation("VolumeItems")
+  volumeItems    VolumeItem[]           @relation("VolumeItems")
   inventoryItems InventorySessionItem[]
 
   @@unique([uniqueCode, tenantId, deletedAt], name: "items_uniqueCode_unique_active")
@@ -2206,12 +2212,12 @@ model PurchaseOrder {
 }
 
 model PurchaseOrderItem {
-  id        String   @id @default(uuid())
-  orderId   String   @map("order_id")
-  variantId String   @map("variant_id")
-  quantity  Decimal  @db.Decimal(10, 3)
-  unitCost  Decimal  @map("unit_cost") @db.Decimal(10, 2)
-  totalCost Decimal  @map("total_cost") @db.Decimal(10, 2)
+  id               String   @id @default(uuid())
+  orderId          String   @map("order_id")
+  variantId        String   @map("variant_id")
+  quantity         Decimal  @db.Decimal(10, 3)
+  unitCost         Decimal  @map("unit_cost") @db.Decimal(10, 2)
+  totalCost        Decimal  @map("total_cost") @db.Decimal(10, 2)
   notes            String?  @db.Text
   receivedQuantity Decimal  @default(0) @map("received_quantity") @db.Decimal(10, 3)
   createdAt        DateTime @default(now()) @map("created_at")
@@ -2381,9 +2387,11 @@ model Customer {
   tenantId String @map("tenant_id")
   tenant   Tenant @relation(fields: [tenantId], references: [id])
 
-  salesOrders SalesOrder[]
-  crmContacts CrmContact[]
-  crmDeals    CrmDeal[]
+  salesOrders  SalesOrder[]
+  crmContacts  CrmContact[]
+  crmDeals     CrmDeal[]
+  bids         Bid[]
+  bidContracts BidContract[]
 
   @@unique([documentHash, tenantId, deletedAt], name: "customers_document_unique_active")
   @@index([documentHash])
@@ -2477,10 +2485,10 @@ model CrmContact {
   updatedAt         DateTime              @updatedAt @map("updated_at")
   deletedAt         DateTime?             @map("deleted_at")
 
-  tenant     Tenant   @relation(fields: [tenantId], references: [id])
-  customer   Customer @relation(fields: [customerId], references: [id])
-  assignedTo User?    @relation("AssignedContacts", fields: [assignedToUserId], references: [id])
-  crmDeals   CrmDeal[]
+  tenant        Tenant        @relation(fields: [tenantId], references: [id])
+  customer      Customer      @relation(fields: [customerId], references: [id])
+  assignedTo    User?         @relation("AssignedContacts", fields: [assignedToUserId], references: [id])
+  crmDeals      CrmDeal[]
   crmActivities CrmActivity[]
 
   @@index([tenantId])
@@ -2563,12 +2571,12 @@ model CrmDeal {
   updatedAt         DateTime     @updatedAt @map("updated_at")
   deletedAt         DateTime?    @map("deleted_at")
 
-  tenant     Tenant           @relation(fields: [tenantId], references: [id])
-  customer   Customer         @relation(fields: [customerId], references: [id])
-  contact    CrmContact?      @relation(fields: [contactId], references: [id])
-  pipeline   CrmPipeline      @relation(fields: [pipelineId], references: [id])
-  stage      CrmPipelineStage @relation(fields: [stageId], references: [id])
-  assignedTo User?            @relation("AssignedDeals", fields: [assignedToUserId], references: [id])
+  tenant     Tenant             @relation(fields: [tenantId], references: [id])
+  customer   Customer           @relation(fields: [customerId], references: [id])
+  contact    CrmContact?        @relation(fields: [contactId], references: [id])
+  pipeline   CrmPipeline        @relation(fields: [pipelineId], references: [id])
+  stage      CrmPipelineStage   @relation(fields: [stageId], references: [id])
+  assignedTo User?              @relation("AssignedDeals", fields: [assignedToUserId], references: [id])
   activities CrmActivity[]
   timeline   CrmTimelineEvent[]
 
@@ -2593,7 +2601,7 @@ model CrmActivity {
   status      CrmActivityStatus @default(PLANNED)
   dueDate     DateTime?         @map("due_date")
   completedAt DateTime?         @map("completed_at")
-  duration    Int?              // duration in minutes
+  duration    Int? // duration in minutes
   userId      String            @map("user_id")
   createdAt   DateTime          @default(now()) @map("created_at")
   updatedAt   DateTime          @updatedAt @map("updated_at")
@@ -2615,18 +2623,18 @@ model CrmActivity {
 }
 
 model CrmTimelineEvent {
-  id         String            @id @default(uuid())
-  tenantId   String            @map("tenant_id")
-  dealId     String            @map("deal_id")
-  type       TimelineEventType
-  title      String            @db.VarChar(255)
-  metadata   Json?
-  userId     String?           @map("user_id")
-  createdAt  DateTime          @default(now()) @map("created_at")
+  id        String            @id @default(uuid())
+  tenantId  String            @map("tenant_id")
+  dealId    String            @map("deal_id")
+  type      TimelineEventType
+  title     String            @db.VarChar(255)
+  metadata  Json?
+  userId    String?           @map("user_id")
+  createdAt DateTime          @default(now()) @map("created_at")
 
-  tenant Tenant   @relation(fields: [tenantId], references: [id])
-  deal   CrmDeal  @relation(fields: [dealId], references: [id], onDelete: Cascade)
-  user   User?    @relation("CrmTimelineUser", fields: [userId], references: [id])
+  tenant Tenant  @relation(fields: [tenantId], references: [id])
+  deal   CrmDeal @relation(fields: [dealId], references: [id], onDelete: Cascade)
+  user   User?   @relation("CrmTimelineUser", fields: [userId], references: [id])
 
   @@index([tenantId])
   @@index([dealId])
@@ -4302,6 +4310,18 @@ model Tenant {
   tenantIntegrationStatuses TenantIntegrationStatus[]
   supportTickets            SupportTicket[]
 
+  // Licitacoes domain
+  bids              Bid[]
+  bidItems          BidItem[]
+  bidProposals      BidProposal[]
+  bidDocuments      BidDocument[]
+  bidContracts      BidContract[]
+  bidEmpenhos       BidEmpenho[]
+  bidMonitorEvents  BidMonitorEvent[]
+  bidHistory        BidHistory[]
+  bidAiConfig       BidAiConfig?
+  certidaoSchedules CertidaoSchedule[]
+
   @@index([status])
   @@index([deletedAt])
   @@index([createdAt])
@@ -5083,6 +5103,14 @@ model StorageFile {
   versions        StorageFileVersion[]
   shareLinks      StorageShareLink[]
   cardAttachments CardAttachment[]
+
+  // Licitacoes file relations
+  bidEditalFiles   Bid[]         @relation("BidEditalFile")
+  bidEtpFiles      Bid[]         @relation("BidEtpFile")
+  bidTrFiles       Bid[]         @relation("BidTrFile")
+  bidProposalFiles BidProposal[] @relation("BidProposalFile")
+  bidDocumentFiles BidDocument[] @relation("BidDocumentFile")
+  bidContractFiles BidContract[] @relation("BidContractFile")
 
   @@unique([tenantId, path, deletedAt], name: "storage_files_path_tenant_unique")
   @@index([tenantId])
@@ -6329,4 +6357,576 @@ model SupportSlaConfig {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("support_sla_configs")
+}
+
+// ===============================================
+// LICITACOES (Government Bidding) MODULE
+// ===============================================
+
+// --- Enums ---
+
+enum BidModality {
+  PREGAO_ELETRONICO
+  PREGAO_PRESENCIAL
+  CONCORRENCIA
+  TOMADA_PRECOS
+  CONVITE
+  LEILAO
+  DIALOGO_COMPETITIVO
+  CONCURSO
+  DISPENSA
+  INEXIGIBILIDADE
+}
+
+enum BidCriterion {
+  MENOR_PRECO
+  MAIOR_DESCONTO
+  MELHOR_TECNICA
+  TECNICA_PRECO
+  MAIOR_LANCE
+  MAIOR_RETORNO
+}
+
+enum BidLegalFramework {
+  LEI_14133_2021
+  LEI_8666_1993
+  LEI_10520_2002
+  LEI_12462_2011
+  DECRETO_10024_2019
+}
+
+enum BidExecutionRegime {
+  EMPREITADA_PRECO_GLOBAL
+  EMPREITADA_PRECO_UNITARIO
+  TAREFA
+  INTEGRAL
+  FORNECIMENTO_REGIME_PRECO
+}
+
+enum BidStatus {
+  DISCOVERED
+  ANALYZING
+  VIABLE
+  NOT_VIABLE
+  PREPARING
+  PROPOSAL_SENT
+  AWAITING_DISPUTE
+  IN_DISPUTE
+  WON
+  LOST
+  DESERTED
+  REVOKED
+  SUSPENDED
+  MONITORING
+  CONTRACTED
+  COMPLETED
+  ARCHIVED
+}
+
+enum BidItemStatus {
+  PENDING_BID_ITEM
+  QUOTED
+  WON_BID_ITEM
+  LOST_BID_ITEM
+  DESERTED_BID_ITEM
+  CANCELLED_BID_ITEM
+}
+
+enum BidProposalStatus {
+  DRAFT_PROPOSAL
+  REVIEW_PROPOSAL
+  APPROVED_PROPOSAL
+  SENT_PROPOSAL
+  ACCEPTED_PROPOSAL
+  REJECTED_PROPOSAL
+  SUPERSEDED_PROPOSAL
+}
+
+enum BidDocumentType {
+  CERTIDAO_FEDERAL
+  CERTIDAO_ESTADUAL
+  CERTIDAO_MUNICIPAL
+  CERTIDAO_TRABALHISTA
+  CERTIDAO_FGTS
+  CERTIDAO_FALENCIA
+  BALANCO_PATRIMONIAL
+  CONTRATO_SOCIAL
+  ALVARA
+  ATESTADO_CAPACIDADE
+  PROPOSTA_TECNICA
+  PROPOSTA_COMERCIAL
+  EDITAL
+  ATA_REGISTRO
+  OUTROS
+}
+
+enum BidDocRenewalMethod {
+  AUTOMATIC_API
+  AUTOMATIC_SCRAPING
+  MANUAL
+}
+
+enum BidDocRenewalStatus {
+  SUCCESS
+  FAILED
+  PENDING_RENEWAL
+  NOT_APPLICABLE
+}
+
+enum BidContractStatus {
+  DRAFT_CONTRACT
+  ACTIVE_CONTRACT
+  SUSPENDED_CONTRACT
+  COMPLETED_CONTRACT
+  TERMINATED_CONTRACT
+  RENEWED_CONTRACT
+}
+
+enum BidEmpenhoType {
+  ORDINARIO
+  ESTIMATIVO
+  GLOBAL_EMPENHO
+}
+
+enum BidEmpenhoStatus {
+  EMITIDO
+  PARCIALMENTE_LIQUIDADO
+  LIQUIDADO
+  ANULADO
+}
+
+enum BidMonitorEventType {
+  STATUS_CHANGE
+  CONVOCATION
+  DISQUALIFICATION
+  APPEAL
+  IMPUGNATION
+  DEADLINE_APPROACHING
+  DOCUMENT_EXPIRING
+  PRICE_REGISTRATION_CALL
+  CONTRACT_RENEWAL
+  ADDENDUM
+  AI_SUGGESTION
+  PORTAL_UPDATE
+}
+
+enum BidHistoryAction {
+  BID_CREATED
+  BID_UPDATED
+  BID_STATUS_CHANGED
+  BID_PROPOSAL_CREATED
+  BID_PROPOSAL_SENT
+  BID_DOCUMENT_UPLOADED
+  BID_DISPUTE_ENTERED
+  BID_PLACED
+  BID_WON
+  BID_LOST
+  BID_CONTRACT_CREATED
+  BID_EMPENHO_RECEIVED
+  BID_ORDER_CREATED
+  BID_AI_ANALYSIS
+  BID_AI_DECISION
+  BID_MANUAL_OVERRIDE
+}
+
+enum BidQuotaType {
+  PRINCIPAL
+  COTA_RESERVADA
+  EXCLUSIVO_ME_EPP
+}
+
+// --- Models ---
+
+model Bid {
+  id       String @id @default(uuid())
+  tenantId String @map("tenant_id")
+
+  // Edital info
+  portalName     String  @map("portal_name") @db.VarChar(64)
+  portalEditalId String? @map("portal_edital_id") @db.VarChar(128)
+  editalNumber   String  @map("edital_number") @db.VarChar(128)
+
+  // Classification
+  modality        BidModality
+  criterionType   BidCriterion        @map("criterion_type")
+  legalFramework  BidLegalFramework   @map("legal_framework")
+  executionRegime BidExecutionRegime? @map("execution_regime")
+
+  // Object
+  object        String  @db.Text
+  objectSummary String? @map("object_summary") @db.VarChar(512)
+
+  // Organ (buyer)
+  organName  String  @map("organ_name") @db.VarChar(256)
+  organCnpj  String? @map("organ_cnpj") @db.VarChar(18)
+  organState String? @map("organ_state") @db.VarChar(2)
+  organCity  String? @map("organ_city") @db.VarChar(128)
+
+  // Values
+  estimatedValue   Decimal? @map("estimated_value") @db.Decimal(14, 2)
+  ourProposalValue Decimal? @map("our_proposal_value") @db.Decimal(14, 2)
+  finalValue       Decimal? @map("final_value") @db.Decimal(14, 2)
+  margin           Decimal? @db.Decimal(6, 2)
+
+  // Dates
+  publicationDate DateTime? @map("publication_date")
+  openingDate     DateTime  @map("opening_date")
+  closingDate     DateTime? @map("closing_date")
+  disputeDate     DateTime? @map("dispute_date")
+
+  // Status
+  status          BidStatus @default(DISCOVERED)
+  viabilityScore  Int?      @map("viability_score")
+  viabilityReason String?   @map("viability_reason") @db.VarChar(512)
+
+  // Relations FKs
+  customerId       String? @map("customer_id")
+  assignedToUserId String? @map("assigned_to_user_id")
+
+  // Preferences
+  exclusiveMeEpp Boolean  @default(false) @map("exclusive_me_epp")
+  deliveryStates String[] @default([]) @map("delivery_states")
+  tags           String[] @default([])
+  notes          String?  @db.Text
+
+  // Files
+  editalUrl    String? @map("edital_url") @db.VarChar(1024)
+  editalFileId String? @map("edital_file_id")
+  etpFileId    String? @map("etp_file_id")
+  trFileId     String? @map("tr_file_id")
+
+  // Soft Delete
+  deletedAt DateTime? @map("deleted_at")
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  tenant     Tenant       @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  customer   Customer?    @relation(fields: [customerId], references: [id])
+  assignedTo User?        @relation("BidAssignee", fields: [assignedToUserId], references: [id])
+  editalFile StorageFile? @relation("BidEditalFile", fields: [editalFileId], references: [id])
+  etpFile    StorageFile? @relation("BidEtpFile", fields: [etpFileId], references: [id])
+  trFile     StorageFile? @relation("BidTrFile", fields: [trFileId], references: [id])
+
+  items         BidItem[]
+  proposals     BidProposal[]
+  documents     BidDocument[]
+  contracts     BidContract[]
+  monitorEvents BidMonitorEvent[]
+  history       BidHistory[]
+
+  @@unique([tenantId, portalName, portalEditalId])
+  @@index([tenantId])
+  @@index([tenantId, status])
+  @@index([tenantId, openingDate])
+  @@index([tenantId, deletedAt])
+  @@map("bids")
+}
+
+model BidItem {
+  id       String @id @default(uuid())
+  tenantId String @map("tenant_id")
+  bidId    String @map("bid_id")
+
+  itemNumber     Int     @map("item_number")
+  lotNumber      Int?    @map("lot_number")
+  lotDescription String? @map("lot_description") @db.VarChar(512)
+  description    String  @db.Text
+
+  quantity           Decimal  @db.Decimal(12, 4)
+  unit               String   @db.VarChar(16)
+  estimatedUnitPrice Decimal? @map("estimated_unit_price") @db.Decimal(14, 4)
+  ourUnitPrice       Decimal? @map("our_unit_price") @db.Decimal(14, 4)
+  finalUnitPrice     Decimal? @map("final_unit_price") @db.Decimal(14, 4)
+
+  status          BidItemStatus @default(PENDING_BID_ITEM)
+  variantId       String?       @map("variant_id")
+  matchConfidence Decimal?      @map("match_confidence") @db.Decimal(5, 2)
+  quotaType       BidQuotaType? @map("quota_type")
+  notes           String?       @db.Text
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  bid    Bid    @relation(fields: [bidId], references: [id], onDelete: Cascade)
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([bidId])
+  @@index([tenantId])
+  @@map("bid_items")
+}
+
+model BidProposal {
+  id       String @id @default(uuid())
+  tenantId String @map("tenant_id")
+  bidId    String @map("bid_id")
+
+  version    Int               @default(1)
+  status     BidProposalStatus @default(DRAFT_PROPOSAL)
+  totalValue Decimal           @map("total_value") @db.Decimal(14, 2)
+  validUntil DateTime?         @map("valid_until")
+
+  proposalFileId     String?   @map("proposal_file_id")
+  sentAt             DateTime? @map("sent_at")
+  sentByUserId       String?   @map("sent_by_user_id")
+  sentByAi           Boolean   @default(false) @map("sent_by_ai")
+  portalConfirmation String?   @map("portal_confirmation") @db.VarChar(256)
+  notes              String?   @db.Text
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  bid          Bid          @relation(fields: [bidId], references: [id], onDelete: Cascade)
+  tenant       Tenant       @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  proposalFile StorageFile? @relation("BidProposalFile", fields: [proposalFileId], references: [id])
+  sentByUser   User?        @relation("BidProposalSender", fields: [sentByUserId], references: [id])
+
+  @@index([bidId])
+  @@index([tenantId])
+  @@map("bid_proposals")
+}
+
+model BidDocument {
+  id       String  @id @default(uuid())
+  tenantId String  @map("tenant_id")
+  bidId    String? @map("bid_id")
+
+  type        BidDocumentType
+  name        String          @db.VarChar(256)
+  description String?         @db.VarChar(512)
+  fileId      String          @map("file_id")
+
+  issueDate      DateTime? @map("issue_date")
+  expirationDate DateTime? @map("expiration_date")
+  isValid        Boolean   @default(true) @map("is_valid")
+
+  autoRenewable    Boolean              @default(false) @map("auto_renewable")
+  lastRenewAttempt DateTime?            @map("last_renew_attempt")
+  renewStatus      BidDocRenewalStatus? @map("renew_status")
+
+  portalUploaded   Boolean   @default(false) @map("portal_uploaded")
+  portalUploadedAt DateTime? @map("portal_uploaded_at")
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  tenant Tenant      @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  bid    Bid?        @relation(fields: [bidId], references: [id], onDelete: Cascade)
+  file   StorageFile @relation("BidDocumentFile", fields: [fileId], references: [id])
+
+  @@index([tenantId])
+  @@index([bidId])
+  @@index([tenantId, type])
+  @@index([expirationDate])
+  @@map("bid_documents")
+}
+
+model BidContract {
+  id       String @id @default(uuid())
+  tenantId String @map("tenant_id")
+  bidId    String @map("bid_id")
+
+  contractNumber String            @map("contract_number") @db.VarChar(128)
+  status         BidContractStatus @default(DRAFT_CONTRACT)
+
+  signedDate DateTime? @map("signed_date")
+  startDate  DateTime  @map("start_date")
+  endDate    DateTime  @map("end_date")
+
+  totalValue     Decimal @map("total_value") @db.Decimal(14, 2)
+  remainingValue Decimal @map("remaining_value") @db.Decimal(14, 2)
+
+  customerId        String    @map("customer_id")
+  renewalCount      Int       @default(0) @map("renewal_count")
+  maxRenewals       Int?      @map("max_renewals")
+  renewalDeadline   DateTime? @map("renewal_deadline")
+  deliveryAddresses Json?     @map("delivery_addresses")
+  contractFileId    String?   @map("contract_file_id")
+  notes             String?   @db.Text
+
+  // Soft Delete
+  deletedAt DateTime? @map("deleted_at")
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  tenant       Tenant       @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  bid          Bid          @relation(fields: [bidId], references: [id], onDelete: Cascade)
+  customer     Customer     @relation(fields: [customerId], references: [id])
+  contractFile StorageFile? @relation("BidContractFile", fields: [contractFileId], references: [id])
+
+  empenhos BidEmpenho[]
+
+  @@unique([tenantId, contractNumber])
+  @@index([tenantId])
+  @@index([tenantId, status])
+  @@index([bidId])
+  @@map("bid_contracts")
+}
+
+model BidEmpenho {
+  id         String @id @default(uuid())
+  tenantId   String @map("tenant_id")
+  contractId String @map("contract_id")
+
+  empenhoNumber String           @map("empenho_number") @db.VarChar(128)
+  type          BidEmpenhoType
+  value         Decimal          @db.Decimal(14, 2)
+  issueDate     DateTime         @map("issue_date")
+  status        BidEmpenhoStatus @default(EMITIDO)
+
+  orderId String? @map("order_id")
+  notes   String? @db.Text
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  tenant   Tenant      @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  contract BidContract @relation(fields: [contractId], references: [id], onDelete: Cascade)
+
+  @@unique([tenantId, empenhoNumber])
+  @@index([tenantId])
+  @@index([contractId])
+  @@map("bid_empenhos")
+}
+
+model BidMonitorEvent {
+  id       String @id @default(uuid())
+  tenantId String @map("tenant_id")
+  bidId    String @map("bid_id")
+
+  type         BidMonitorEventType
+  description  String              @db.Text
+  detectedAt   DateTime            @default(now()) @map("detected_at")
+  detectedByAi Boolean             @default(false) @map("detected_by_ai")
+  portalData   Json?               @map("portal_data")
+
+  actionRequired      Boolean   @default(false) @map("action_required")
+  actionTaken         String?   @map("action_taken") @db.Text
+  actionTakenAt       DateTime? @map("action_taken_at")
+  actionTakenByUserId String?   @map("action_taken_by_user_id")
+
+  responseDeadline DateTime? @map("response_deadline")
+  responseStatus   String?   @map("response_status") @db.VarChar(64)
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+
+  // Relations
+  tenant        Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  bid           Bid    @relation(fields: [bidId], references: [id], onDelete: Cascade)
+  actionTakenBy User?  @relation("BidEventActionTaker", fields: [actionTakenByUserId], references: [id])
+
+  @@index([tenantId])
+  @@index([bidId])
+  @@index([tenantId, type])
+  @@map("bid_monitor_events")
+}
+
+model BidHistory {
+  id       String @id @default(uuid())
+  bidId    String @map("bid_id")
+  tenantId String @map("tenant_id")
+
+  action      BidHistoryAction
+  description String           @db.VarChar(512)
+  metadata    Json?
+
+  performedByUserId String? @map("performed_by_user_id")
+  performedByAi     Boolean @default(false) @map("performed_by_ai")
+  isReversible      Boolean @default(false) @map("is_reversible")
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+
+  // Relations
+  bid         Bid    @relation(fields: [bidId], references: [id], onDelete: Cascade)
+  tenant      Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  performedBy User?  @relation("BidHistoryPerformer", fields: [performedByUserId], references: [id])
+
+  @@index([bidId])
+  @@index([tenantId])
+  @@index([bidId, createdAt])
+  @@map("bid_history")
+}
+
+model BidAiConfig {
+  id       String @id @default(uuid())
+  tenantId String @unique @map("tenant_id")
+
+  autonomyLevel    Int      @default(1) @map("autonomy_level")
+  maxEditalValue   Decimal? @map("max_edital_value") @db.Decimal(14, 2)
+  minMarginPercent Decimal  @default(10) @map("min_margin_percent") @db.Decimal(6, 2)
+
+  allowedModalities String[] @default([]) @map("allowed_modalities")
+  allowedCategories String[] @default([]) @map("allowed_categories")
+  blockedOrgans     String[] @default([]) @map("blocked_organs")
+
+  maxSimultaneous      Int      @default(10) @map("max_simultaneous")
+  maxAggregateExposure Decimal? @map("max_aggregate_exposure") @db.Decimal(14, 2)
+  coolingOffMinutes    Int      @default(30) @map("cooling_off_minutes")
+
+  emergencyStop         Boolean @default(false) @map("emergency_stop")
+  firstTimeApproval     Boolean @default(true) @map("first_time_approval")
+  companySize           String? @map("company_size") @db.VarChar(16)
+  monitoringTimeoutDays Int     @default(180) @map("monitoring_timeout_days")
+
+  // Auto-action flags
+  autoProspect    Boolean @default(false) @map("auto_prospect")
+  autoPropose     Boolean @default(false) @map("auto_propose")
+  autoDispute     Boolean @default(false) @map("auto_dispute")
+  autoRespond     Boolean @default(false) @map("auto_respond")
+  autoCreateOrder Boolean @default(false) @map("auto_create_order")
+
+  notifyOnActions       Boolean  @default(true) @map("notify_on_actions")
+  chatResponseWhitelist String[] @default([]) @map("chat_response_whitelist")
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@map("bid_ai_configs")
+}
+
+model CertidaoSchedule {
+  id       String @id @default(uuid())
+  tenantId String @map("tenant_id")
+
+  type          BidDocumentType
+  renewalUrl    String?             @map("renewal_url") @db.VarChar(1024)
+  renewalMethod BidDocRenewalMethod @map("renewal_method")
+
+  lastCheck      DateTime? @map("last_check")
+  lastRenewal    DateTime? @map("last_renewal")
+  nextExpiration DateTime? @map("next_expiration")
+
+  checkIntervalDays Int     @default(7) @map("check_interval_days")
+  alertDaysBefore   Int     @default(15) @map("alert_days_before")
+  isActive          Boolean @default(true) @map("is_active")
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@index([tenantId, isActive])
+  @@map("certidao_schedules")
 }

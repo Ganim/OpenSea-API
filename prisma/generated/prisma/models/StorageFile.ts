@@ -377,6 +377,12 @@ export type StorageFileWhereInput = {
   versions?: Prisma.StorageFileVersionListRelationFilter
   shareLinks?: Prisma.StorageShareLinkListRelationFilter
   cardAttachments?: Prisma.CardAttachmentListRelationFilter
+  bidEditalFiles?: Prisma.BidListRelationFilter
+  bidEtpFiles?: Prisma.BidListRelationFilter
+  bidTrFiles?: Prisma.BidListRelationFilter
+  bidProposalFiles?: Prisma.BidProposalListRelationFilter
+  bidDocumentFiles?: Prisma.BidDocumentListRelationFilter
+  bidContractFiles?: Prisma.BidContractListRelationFilter
 }
 
 export type StorageFileOrderByWithRelationInput = {
@@ -409,6 +415,12 @@ export type StorageFileOrderByWithRelationInput = {
   versions?: Prisma.StorageFileVersionOrderByRelationAggregateInput
   shareLinks?: Prisma.StorageShareLinkOrderByRelationAggregateInput
   cardAttachments?: Prisma.CardAttachmentOrderByRelationAggregateInput
+  bidEditalFiles?: Prisma.BidOrderByRelationAggregateInput
+  bidEtpFiles?: Prisma.BidOrderByRelationAggregateInput
+  bidTrFiles?: Prisma.BidOrderByRelationAggregateInput
+  bidProposalFiles?: Prisma.BidProposalOrderByRelationAggregateInput
+  bidDocumentFiles?: Prisma.BidDocumentOrderByRelationAggregateInput
+  bidContractFiles?: Prisma.BidContractOrderByRelationAggregateInput
 }
 
 export type StorageFileWhereUniqueInput = Prisma.AtLeast<{
@@ -445,6 +457,12 @@ export type StorageFileWhereUniqueInput = Prisma.AtLeast<{
   versions?: Prisma.StorageFileVersionListRelationFilter
   shareLinks?: Prisma.StorageShareLinkListRelationFilter
   cardAttachments?: Prisma.CardAttachmentListRelationFilter
+  bidEditalFiles?: Prisma.BidListRelationFilter
+  bidEtpFiles?: Prisma.BidListRelationFilter
+  bidTrFiles?: Prisma.BidListRelationFilter
+  bidProposalFiles?: Prisma.BidProposalListRelationFilter
+  bidDocumentFiles?: Prisma.BidDocumentListRelationFilter
+  bidContractFiles?: Prisma.BidContractListRelationFilter
 }, "id" | "storage_files_path_tenant_unique">
 
 export type StorageFileOrderByWithAggregationInput = {
@@ -537,6 +555,12 @@ export type StorageFileCreateInput = {
   versions?: Prisma.StorageFileVersionCreateNestedManyWithoutFileInput
   shareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutFileInput
   cardAttachments?: Prisma.CardAttachmentCreateNestedManyWithoutFileInput
+  bidEditalFiles?: Prisma.BidCreateNestedManyWithoutEditalFileInput
+  bidEtpFiles?: Prisma.BidCreateNestedManyWithoutEtpFileInput
+  bidTrFiles?: Prisma.BidCreateNestedManyWithoutTrFileInput
+  bidProposalFiles?: Prisma.BidProposalCreateNestedManyWithoutProposalFileInput
+  bidDocumentFiles?: Prisma.BidDocumentCreateNestedManyWithoutFileInput
+  bidContractFiles?: Prisma.BidContractCreateNestedManyWithoutContractFileInput
 }
 
 export type StorageFileUncheckedCreateInput = {
@@ -567,6 +591,12 @@ export type StorageFileUncheckedCreateInput = {
   versions?: Prisma.StorageFileVersionUncheckedCreateNestedManyWithoutFileInput
   shareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutFileInput
   cardAttachments?: Prisma.CardAttachmentUncheckedCreateNestedManyWithoutFileInput
+  bidEditalFiles?: Prisma.BidUncheckedCreateNestedManyWithoutEditalFileInput
+  bidEtpFiles?: Prisma.BidUncheckedCreateNestedManyWithoutEtpFileInput
+  bidTrFiles?: Prisma.BidUncheckedCreateNestedManyWithoutTrFileInput
+  bidProposalFiles?: Prisma.BidProposalUncheckedCreateNestedManyWithoutProposalFileInput
+  bidDocumentFiles?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutFileInput
+  bidContractFiles?: Prisma.BidContractUncheckedCreateNestedManyWithoutContractFileInput
 }
 
 export type StorageFileUpdateInput = {
@@ -597,6 +627,12 @@ export type StorageFileUpdateInput = {
   versions?: Prisma.StorageFileVersionUpdateManyWithoutFileNestedInput
   shareLinks?: Prisma.StorageShareLinkUpdateManyWithoutFileNestedInput
   cardAttachments?: Prisma.CardAttachmentUpdateManyWithoutFileNestedInput
+  bidEditalFiles?: Prisma.BidUpdateManyWithoutEditalFileNestedInput
+  bidEtpFiles?: Prisma.BidUpdateManyWithoutEtpFileNestedInput
+  bidTrFiles?: Prisma.BidUpdateManyWithoutTrFileNestedInput
+  bidProposalFiles?: Prisma.BidProposalUpdateManyWithoutProposalFileNestedInput
+  bidDocumentFiles?: Prisma.BidDocumentUpdateManyWithoutFileNestedInput
+  bidContractFiles?: Prisma.BidContractUpdateManyWithoutContractFileNestedInput
 }
 
 export type StorageFileUncheckedUpdateInput = {
@@ -627,6 +663,12 @@ export type StorageFileUncheckedUpdateInput = {
   versions?: Prisma.StorageFileVersionUncheckedUpdateManyWithoutFileNestedInput
   shareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutFileNestedInput
   cardAttachments?: Prisma.CardAttachmentUncheckedUpdateManyWithoutFileNestedInput
+  bidEditalFiles?: Prisma.BidUncheckedUpdateManyWithoutEditalFileNestedInput
+  bidEtpFiles?: Prisma.BidUncheckedUpdateManyWithoutEtpFileNestedInput
+  bidTrFiles?: Prisma.BidUncheckedUpdateManyWithoutTrFileNestedInput
+  bidProposalFiles?: Prisma.BidProposalUncheckedUpdateManyWithoutProposalFileNestedInput
+  bidDocumentFiles?: Prisma.BidDocumentUncheckedUpdateManyWithoutFileNestedInput
+  bidContractFiles?: Prisma.BidContractUncheckedUpdateManyWithoutContractFileNestedInput
 }
 
 export type StorageFileCreateManyInput = {
@@ -820,6 +862,11 @@ export type StorageFileScalarRelationFilter = {
   isNot?: Prisma.StorageFileWhereInput
 }
 
+export type StorageFileNullableScalarRelationFilter = {
+  is?: Prisma.StorageFileWhereInput | null
+  isNot?: Prisma.StorageFileWhereInput | null
+}
+
 export type StorageFileCreateNestedManyWithoutTenantInput = {
   create?: Prisma.XOR<Prisma.StorageFileCreateWithoutTenantInput, Prisma.StorageFileUncheckedCreateWithoutTenantInput> | Prisma.StorageFileCreateWithoutTenantInput[] | Prisma.StorageFileUncheckedCreateWithoutTenantInput[]
   connectOrCreate?: Prisma.StorageFileCreateOrConnectWithoutTenantInput | Prisma.StorageFileCreateOrConnectWithoutTenantInput[]
@@ -950,6 +997,100 @@ export type StorageFileUpdateOneRequiredWithoutCardAttachmentsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.StorageFileUpdateToOneWithWhereWithoutCardAttachmentsInput, Prisma.StorageFileUpdateWithoutCardAttachmentsInput>, Prisma.StorageFileUncheckedUpdateWithoutCardAttachmentsInput>
 }
 
+export type StorageFileCreateNestedOneWithoutBidEditalFilesInput = {
+  create?: Prisma.XOR<Prisma.StorageFileCreateWithoutBidEditalFilesInput, Prisma.StorageFileUncheckedCreateWithoutBidEditalFilesInput>
+  connectOrCreate?: Prisma.StorageFileCreateOrConnectWithoutBidEditalFilesInput
+  connect?: Prisma.StorageFileWhereUniqueInput
+}
+
+export type StorageFileCreateNestedOneWithoutBidEtpFilesInput = {
+  create?: Prisma.XOR<Prisma.StorageFileCreateWithoutBidEtpFilesInput, Prisma.StorageFileUncheckedCreateWithoutBidEtpFilesInput>
+  connectOrCreate?: Prisma.StorageFileCreateOrConnectWithoutBidEtpFilesInput
+  connect?: Prisma.StorageFileWhereUniqueInput
+}
+
+export type StorageFileCreateNestedOneWithoutBidTrFilesInput = {
+  create?: Prisma.XOR<Prisma.StorageFileCreateWithoutBidTrFilesInput, Prisma.StorageFileUncheckedCreateWithoutBidTrFilesInput>
+  connectOrCreate?: Prisma.StorageFileCreateOrConnectWithoutBidTrFilesInput
+  connect?: Prisma.StorageFileWhereUniqueInput
+}
+
+export type StorageFileUpdateOneWithoutBidEditalFilesNestedInput = {
+  create?: Prisma.XOR<Prisma.StorageFileCreateWithoutBidEditalFilesInput, Prisma.StorageFileUncheckedCreateWithoutBidEditalFilesInput>
+  connectOrCreate?: Prisma.StorageFileCreateOrConnectWithoutBidEditalFilesInput
+  upsert?: Prisma.StorageFileUpsertWithoutBidEditalFilesInput
+  disconnect?: Prisma.StorageFileWhereInput | boolean
+  delete?: Prisma.StorageFileWhereInput | boolean
+  connect?: Prisma.StorageFileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.StorageFileUpdateToOneWithWhereWithoutBidEditalFilesInput, Prisma.StorageFileUpdateWithoutBidEditalFilesInput>, Prisma.StorageFileUncheckedUpdateWithoutBidEditalFilesInput>
+}
+
+export type StorageFileUpdateOneWithoutBidEtpFilesNestedInput = {
+  create?: Prisma.XOR<Prisma.StorageFileCreateWithoutBidEtpFilesInput, Prisma.StorageFileUncheckedCreateWithoutBidEtpFilesInput>
+  connectOrCreate?: Prisma.StorageFileCreateOrConnectWithoutBidEtpFilesInput
+  upsert?: Prisma.StorageFileUpsertWithoutBidEtpFilesInput
+  disconnect?: Prisma.StorageFileWhereInput | boolean
+  delete?: Prisma.StorageFileWhereInput | boolean
+  connect?: Prisma.StorageFileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.StorageFileUpdateToOneWithWhereWithoutBidEtpFilesInput, Prisma.StorageFileUpdateWithoutBidEtpFilesInput>, Prisma.StorageFileUncheckedUpdateWithoutBidEtpFilesInput>
+}
+
+export type StorageFileUpdateOneWithoutBidTrFilesNestedInput = {
+  create?: Prisma.XOR<Prisma.StorageFileCreateWithoutBidTrFilesInput, Prisma.StorageFileUncheckedCreateWithoutBidTrFilesInput>
+  connectOrCreate?: Prisma.StorageFileCreateOrConnectWithoutBidTrFilesInput
+  upsert?: Prisma.StorageFileUpsertWithoutBidTrFilesInput
+  disconnect?: Prisma.StorageFileWhereInput | boolean
+  delete?: Prisma.StorageFileWhereInput | boolean
+  connect?: Prisma.StorageFileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.StorageFileUpdateToOneWithWhereWithoutBidTrFilesInput, Prisma.StorageFileUpdateWithoutBidTrFilesInput>, Prisma.StorageFileUncheckedUpdateWithoutBidTrFilesInput>
+}
+
+export type StorageFileCreateNestedOneWithoutBidProposalFilesInput = {
+  create?: Prisma.XOR<Prisma.StorageFileCreateWithoutBidProposalFilesInput, Prisma.StorageFileUncheckedCreateWithoutBidProposalFilesInput>
+  connectOrCreate?: Prisma.StorageFileCreateOrConnectWithoutBidProposalFilesInput
+  connect?: Prisma.StorageFileWhereUniqueInput
+}
+
+export type StorageFileUpdateOneWithoutBidProposalFilesNestedInput = {
+  create?: Prisma.XOR<Prisma.StorageFileCreateWithoutBidProposalFilesInput, Prisma.StorageFileUncheckedCreateWithoutBidProposalFilesInput>
+  connectOrCreate?: Prisma.StorageFileCreateOrConnectWithoutBidProposalFilesInput
+  upsert?: Prisma.StorageFileUpsertWithoutBidProposalFilesInput
+  disconnect?: Prisma.StorageFileWhereInput | boolean
+  delete?: Prisma.StorageFileWhereInput | boolean
+  connect?: Prisma.StorageFileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.StorageFileUpdateToOneWithWhereWithoutBidProposalFilesInput, Prisma.StorageFileUpdateWithoutBidProposalFilesInput>, Prisma.StorageFileUncheckedUpdateWithoutBidProposalFilesInput>
+}
+
+export type StorageFileCreateNestedOneWithoutBidDocumentFilesInput = {
+  create?: Prisma.XOR<Prisma.StorageFileCreateWithoutBidDocumentFilesInput, Prisma.StorageFileUncheckedCreateWithoutBidDocumentFilesInput>
+  connectOrCreate?: Prisma.StorageFileCreateOrConnectWithoutBidDocumentFilesInput
+  connect?: Prisma.StorageFileWhereUniqueInput
+}
+
+export type StorageFileUpdateOneRequiredWithoutBidDocumentFilesNestedInput = {
+  create?: Prisma.XOR<Prisma.StorageFileCreateWithoutBidDocumentFilesInput, Prisma.StorageFileUncheckedCreateWithoutBidDocumentFilesInput>
+  connectOrCreate?: Prisma.StorageFileCreateOrConnectWithoutBidDocumentFilesInput
+  upsert?: Prisma.StorageFileUpsertWithoutBidDocumentFilesInput
+  connect?: Prisma.StorageFileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.StorageFileUpdateToOneWithWhereWithoutBidDocumentFilesInput, Prisma.StorageFileUpdateWithoutBidDocumentFilesInput>, Prisma.StorageFileUncheckedUpdateWithoutBidDocumentFilesInput>
+}
+
+export type StorageFileCreateNestedOneWithoutBidContractFilesInput = {
+  create?: Prisma.XOR<Prisma.StorageFileCreateWithoutBidContractFilesInput, Prisma.StorageFileUncheckedCreateWithoutBidContractFilesInput>
+  connectOrCreate?: Prisma.StorageFileCreateOrConnectWithoutBidContractFilesInput
+  connect?: Prisma.StorageFileWhereUniqueInput
+}
+
+export type StorageFileUpdateOneWithoutBidContractFilesNestedInput = {
+  create?: Prisma.XOR<Prisma.StorageFileCreateWithoutBidContractFilesInput, Prisma.StorageFileUncheckedCreateWithoutBidContractFilesInput>
+  connectOrCreate?: Prisma.StorageFileCreateOrConnectWithoutBidContractFilesInput
+  upsert?: Prisma.StorageFileUpsertWithoutBidContractFilesInput
+  disconnect?: Prisma.StorageFileWhereInput | boolean
+  delete?: Prisma.StorageFileWhereInput | boolean
+  connect?: Prisma.StorageFileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.StorageFileUpdateToOneWithWhereWithoutBidContractFilesInput, Prisma.StorageFileUpdateWithoutBidContractFilesInput>, Prisma.StorageFileUncheckedUpdateWithoutBidContractFilesInput>
+}
+
 export type StorageFileCreateWithoutTenantInput = {
   id?: string
   name: string
@@ -977,6 +1118,12 @@ export type StorageFileCreateWithoutTenantInput = {
   versions?: Prisma.StorageFileVersionCreateNestedManyWithoutFileInput
   shareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutFileInput
   cardAttachments?: Prisma.CardAttachmentCreateNestedManyWithoutFileInput
+  bidEditalFiles?: Prisma.BidCreateNestedManyWithoutEditalFileInput
+  bidEtpFiles?: Prisma.BidCreateNestedManyWithoutEtpFileInput
+  bidTrFiles?: Prisma.BidCreateNestedManyWithoutTrFileInput
+  bidProposalFiles?: Prisma.BidProposalCreateNestedManyWithoutProposalFileInput
+  bidDocumentFiles?: Prisma.BidDocumentCreateNestedManyWithoutFileInput
+  bidContractFiles?: Prisma.BidContractCreateNestedManyWithoutContractFileInput
 }
 
 export type StorageFileUncheckedCreateWithoutTenantInput = {
@@ -1006,6 +1153,12 @@ export type StorageFileUncheckedCreateWithoutTenantInput = {
   versions?: Prisma.StorageFileVersionUncheckedCreateNestedManyWithoutFileInput
   shareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutFileInput
   cardAttachments?: Prisma.CardAttachmentUncheckedCreateNestedManyWithoutFileInput
+  bidEditalFiles?: Prisma.BidUncheckedCreateNestedManyWithoutEditalFileInput
+  bidEtpFiles?: Prisma.BidUncheckedCreateNestedManyWithoutEtpFileInput
+  bidTrFiles?: Prisma.BidUncheckedCreateNestedManyWithoutTrFileInput
+  bidProposalFiles?: Prisma.BidProposalUncheckedCreateNestedManyWithoutProposalFileInput
+  bidDocumentFiles?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutFileInput
+  bidContractFiles?: Prisma.BidContractUncheckedCreateNestedManyWithoutContractFileInput
 }
 
 export type StorageFileCreateOrConnectWithoutTenantInput = {
@@ -1091,6 +1244,12 @@ export type StorageFileCreateWithoutFolderInput = {
   versions?: Prisma.StorageFileVersionCreateNestedManyWithoutFileInput
   shareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutFileInput
   cardAttachments?: Prisma.CardAttachmentCreateNestedManyWithoutFileInput
+  bidEditalFiles?: Prisma.BidCreateNestedManyWithoutEditalFileInput
+  bidEtpFiles?: Prisma.BidCreateNestedManyWithoutEtpFileInput
+  bidTrFiles?: Prisma.BidCreateNestedManyWithoutTrFileInput
+  bidProposalFiles?: Prisma.BidProposalCreateNestedManyWithoutProposalFileInput
+  bidDocumentFiles?: Prisma.BidDocumentCreateNestedManyWithoutFileInput
+  bidContractFiles?: Prisma.BidContractCreateNestedManyWithoutContractFileInput
 }
 
 export type StorageFileUncheckedCreateWithoutFolderInput = {
@@ -1120,6 +1279,12 @@ export type StorageFileUncheckedCreateWithoutFolderInput = {
   versions?: Prisma.StorageFileVersionUncheckedCreateNestedManyWithoutFileInput
   shareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutFileInput
   cardAttachments?: Prisma.CardAttachmentUncheckedCreateNestedManyWithoutFileInput
+  bidEditalFiles?: Prisma.BidUncheckedCreateNestedManyWithoutEditalFileInput
+  bidEtpFiles?: Prisma.BidUncheckedCreateNestedManyWithoutEtpFileInput
+  bidTrFiles?: Prisma.BidUncheckedCreateNestedManyWithoutTrFileInput
+  bidProposalFiles?: Prisma.BidProposalUncheckedCreateNestedManyWithoutProposalFileInput
+  bidDocumentFiles?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutFileInput
+  bidContractFiles?: Prisma.BidContractUncheckedCreateNestedManyWithoutContractFileInput
 }
 
 export type StorageFileCreateOrConnectWithoutFolderInput = {
@@ -1175,6 +1340,12 @@ export type StorageFileCreateWithoutVersionsInput = {
   folder?: Prisma.StorageFolderCreateNestedOneWithoutFilesInput
   shareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutFileInput
   cardAttachments?: Prisma.CardAttachmentCreateNestedManyWithoutFileInput
+  bidEditalFiles?: Prisma.BidCreateNestedManyWithoutEditalFileInput
+  bidEtpFiles?: Prisma.BidCreateNestedManyWithoutEtpFileInput
+  bidTrFiles?: Prisma.BidCreateNestedManyWithoutTrFileInput
+  bidProposalFiles?: Prisma.BidProposalCreateNestedManyWithoutProposalFileInput
+  bidDocumentFiles?: Prisma.BidDocumentCreateNestedManyWithoutFileInput
+  bidContractFiles?: Prisma.BidContractCreateNestedManyWithoutContractFileInput
 }
 
 export type StorageFileUncheckedCreateWithoutVersionsInput = {
@@ -1204,6 +1375,12 @@ export type StorageFileUncheckedCreateWithoutVersionsInput = {
   deletedAt?: Date | string | null
   shareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutFileInput
   cardAttachments?: Prisma.CardAttachmentUncheckedCreateNestedManyWithoutFileInput
+  bidEditalFiles?: Prisma.BidUncheckedCreateNestedManyWithoutEditalFileInput
+  bidEtpFiles?: Prisma.BidUncheckedCreateNestedManyWithoutEtpFileInput
+  bidTrFiles?: Prisma.BidUncheckedCreateNestedManyWithoutTrFileInput
+  bidProposalFiles?: Prisma.BidProposalUncheckedCreateNestedManyWithoutProposalFileInput
+  bidDocumentFiles?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutFileInput
+  bidContractFiles?: Prisma.BidContractUncheckedCreateNestedManyWithoutContractFileInput
 }
 
 export type StorageFileCreateOrConnectWithoutVersionsInput = {
@@ -1249,6 +1426,12 @@ export type StorageFileUpdateWithoutVersionsInput = {
   folder?: Prisma.StorageFolderUpdateOneWithoutFilesNestedInput
   shareLinks?: Prisma.StorageShareLinkUpdateManyWithoutFileNestedInput
   cardAttachments?: Prisma.CardAttachmentUpdateManyWithoutFileNestedInput
+  bidEditalFiles?: Prisma.BidUpdateManyWithoutEditalFileNestedInput
+  bidEtpFiles?: Prisma.BidUpdateManyWithoutEtpFileNestedInput
+  bidTrFiles?: Prisma.BidUpdateManyWithoutTrFileNestedInput
+  bidProposalFiles?: Prisma.BidProposalUpdateManyWithoutProposalFileNestedInput
+  bidDocumentFiles?: Prisma.BidDocumentUpdateManyWithoutFileNestedInput
+  bidContractFiles?: Prisma.BidContractUpdateManyWithoutContractFileNestedInput
 }
 
 export type StorageFileUncheckedUpdateWithoutVersionsInput = {
@@ -1278,6 +1461,12 @@ export type StorageFileUncheckedUpdateWithoutVersionsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   shareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutFileNestedInput
   cardAttachments?: Prisma.CardAttachmentUncheckedUpdateManyWithoutFileNestedInput
+  bidEditalFiles?: Prisma.BidUncheckedUpdateManyWithoutEditalFileNestedInput
+  bidEtpFiles?: Prisma.BidUncheckedUpdateManyWithoutEtpFileNestedInput
+  bidTrFiles?: Prisma.BidUncheckedUpdateManyWithoutTrFileNestedInput
+  bidProposalFiles?: Prisma.BidProposalUncheckedUpdateManyWithoutProposalFileNestedInput
+  bidDocumentFiles?: Prisma.BidDocumentUncheckedUpdateManyWithoutFileNestedInput
+  bidContractFiles?: Prisma.BidContractUncheckedUpdateManyWithoutContractFileNestedInput
 }
 
 export type StorageFileCreateWithoutShareLinksInput = {
@@ -1307,6 +1496,12 @@ export type StorageFileCreateWithoutShareLinksInput = {
   folder?: Prisma.StorageFolderCreateNestedOneWithoutFilesInput
   versions?: Prisma.StorageFileVersionCreateNestedManyWithoutFileInput
   cardAttachments?: Prisma.CardAttachmentCreateNestedManyWithoutFileInput
+  bidEditalFiles?: Prisma.BidCreateNestedManyWithoutEditalFileInput
+  bidEtpFiles?: Prisma.BidCreateNestedManyWithoutEtpFileInput
+  bidTrFiles?: Prisma.BidCreateNestedManyWithoutTrFileInput
+  bidProposalFiles?: Prisma.BidProposalCreateNestedManyWithoutProposalFileInput
+  bidDocumentFiles?: Prisma.BidDocumentCreateNestedManyWithoutFileInput
+  bidContractFiles?: Prisma.BidContractCreateNestedManyWithoutContractFileInput
 }
 
 export type StorageFileUncheckedCreateWithoutShareLinksInput = {
@@ -1336,6 +1531,12 @@ export type StorageFileUncheckedCreateWithoutShareLinksInput = {
   deletedAt?: Date | string | null
   versions?: Prisma.StorageFileVersionUncheckedCreateNestedManyWithoutFileInput
   cardAttachments?: Prisma.CardAttachmentUncheckedCreateNestedManyWithoutFileInput
+  bidEditalFiles?: Prisma.BidUncheckedCreateNestedManyWithoutEditalFileInput
+  bidEtpFiles?: Prisma.BidUncheckedCreateNestedManyWithoutEtpFileInput
+  bidTrFiles?: Prisma.BidUncheckedCreateNestedManyWithoutTrFileInput
+  bidProposalFiles?: Prisma.BidProposalUncheckedCreateNestedManyWithoutProposalFileInput
+  bidDocumentFiles?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutFileInput
+  bidContractFiles?: Prisma.BidContractUncheckedCreateNestedManyWithoutContractFileInput
 }
 
 export type StorageFileCreateOrConnectWithoutShareLinksInput = {
@@ -1381,6 +1582,12 @@ export type StorageFileUpdateWithoutShareLinksInput = {
   folder?: Prisma.StorageFolderUpdateOneWithoutFilesNestedInput
   versions?: Prisma.StorageFileVersionUpdateManyWithoutFileNestedInput
   cardAttachments?: Prisma.CardAttachmentUpdateManyWithoutFileNestedInput
+  bidEditalFiles?: Prisma.BidUpdateManyWithoutEditalFileNestedInput
+  bidEtpFiles?: Prisma.BidUpdateManyWithoutEtpFileNestedInput
+  bidTrFiles?: Prisma.BidUpdateManyWithoutTrFileNestedInput
+  bidProposalFiles?: Prisma.BidProposalUpdateManyWithoutProposalFileNestedInput
+  bidDocumentFiles?: Prisma.BidDocumentUpdateManyWithoutFileNestedInput
+  bidContractFiles?: Prisma.BidContractUpdateManyWithoutContractFileNestedInput
 }
 
 export type StorageFileUncheckedUpdateWithoutShareLinksInput = {
@@ -1410,6 +1617,12 @@ export type StorageFileUncheckedUpdateWithoutShareLinksInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   versions?: Prisma.StorageFileVersionUncheckedUpdateManyWithoutFileNestedInput
   cardAttachments?: Prisma.CardAttachmentUncheckedUpdateManyWithoutFileNestedInput
+  bidEditalFiles?: Prisma.BidUncheckedUpdateManyWithoutEditalFileNestedInput
+  bidEtpFiles?: Prisma.BidUncheckedUpdateManyWithoutEtpFileNestedInput
+  bidTrFiles?: Prisma.BidUncheckedUpdateManyWithoutTrFileNestedInput
+  bidProposalFiles?: Prisma.BidProposalUncheckedUpdateManyWithoutProposalFileNestedInput
+  bidDocumentFiles?: Prisma.BidDocumentUncheckedUpdateManyWithoutFileNestedInput
+  bidContractFiles?: Prisma.BidContractUncheckedUpdateManyWithoutContractFileNestedInput
 }
 
 export type StorageFileCreateWithoutCardAttachmentsInput = {
@@ -1439,6 +1652,12 @@ export type StorageFileCreateWithoutCardAttachmentsInput = {
   folder?: Prisma.StorageFolderCreateNestedOneWithoutFilesInput
   versions?: Prisma.StorageFileVersionCreateNestedManyWithoutFileInput
   shareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutFileInput
+  bidEditalFiles?: Prisma.BidCreateNestedManyWithoutEditalFileInput
+  bidEtpFiles?: Prisma.BidCreateNestedManyWithoutEtpFileInput
+  bidTrFiles?: Prisma.BidCreateNestedManyWithoutTrFileInput
+  bidProposalFiles?: Prisma.BidProposalCreateNestedManyWithoutProposalFileInput
+  bidDocumentFiles?: Prisma.BidDocumentCreateNestedManyWithoutFileInput
+  bidContractFiles?: Prisma.BidContractCreateNestedManyWithoutContractFileInput
 }
 
 export type StorageFileUncheckedCreateWithoutCardAttachmentsInput = {
@@ -1468,6 +1687,12 @@ export type StorageFileUncheckedCreateWithoutCardAttachmentsInput = {
   deletedAt?: Date | string | null
   versions?: Prisma.StorageFileVersionUncheckedCreateNestedManyWithoutFileInput
   shareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutFileInput
+  bidEditalFiles?: Prisma.BidUncheckedCreateNestedManyWithoutEditalFileInput
+  bidEtpFiles?: Prisma.BidUncheckedCreateNestedManyWithoutEtpFileInput
+  bidTrFiles?: Prisma.BidUncheckedCreateNestedManyWithoutTrFileInput
+  bidProposalFiles?: Prisma.BidProposalUncheckedCreateNestedManyWithoutProposalFileInput
+  bidDocumentFiles?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutFileInput
+  bidContractFiles?: Prisma.BidContractUncheckedCreateNestedManyWithoutContractFileInput
 }
 
 export type StorageFileCreateOrConnectWithoutCardAttachmentsInput = {
@@ -1513,6 +1738,12 @@ export type StorageFileUpdateWithoutCardAttachmentsInput = {
   folder?: Prisma.StorageFolderUpdateOneWithoutFilesNestedInput
   versions?: Prisma.StorageFileVersionUpdateManyWithoutFileNestedInput
   shareLinks?: Prisma.StorageShareLinkUpdateManyWithoutFileNestedInput
+  bidEditalFiles?: Prisma.BidUpdateManyWithoutEditalFileNestedInput
+  bidEtpFiles?: Prisma.BidUpdateManyWithoutEtpFileNestedInput
+  bidTrFiles?: Prisma.BidUpdateManyWithoutTrFileNestedInput
+  bidProposalFiles?: Prisma.BidProposalUpdateManyWithoutProposalFileNestedInput
+  bidDocumentFiles?: Prisma.BidDocumentUpdateManyWithoutFileNestedInput
+  bidContractFiles?: Prisma.BidContractUpdateManyWithoutContractFileNestedInput
 }
 
 export type StorageFileUncheckedUpdateWithoutCardAttachmentsInput = {
@@ -1542,6 +1773,948 @@ export type StorageFileUncheckedUpdateWithoutCardAttachmentsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   versions?: Prisma.StorageFileVersionUncheckedUpdateManyWithoutFileNestedInput
   shareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutFileNestedInput
+  bidEditalFiles?: Prisma.BidUncheckedUpdateManyWithoutEditalFileNestedInput
+  bidEtpFiles?: Prisma.BidUncheckedUpdateManyWithoutEtpFileNestedInput
+  bidTrFiles?: Prisma.BidUncheckedUpdateManyWithoutTrFileNestedInput
+  bidProposalFiles?: Prisma.BidProposalUncheckedUpdateManyWithoutProposalFileNestedInput
+  bidDocumentFiles?: Prisma.BidDocumentUncheckedUpdateManyWithoutFileNestedInput
+  bidContractFiles?: Prisma.BidContractUncheckedUpdateManyWithoutContractFileNestedInput
+}
+
+export type StorageFileCreateWithoutBidEditalFilesInput = {
+  id?: string
+  name: string
+  originalName: string
+  fileKey: string
+  path: string
+  size: number
+  mimeType: string
+  fileType: string
+  thumbnailKey?: string | null
+  status?: $Enums.StorageFileStatus
+  currentVersion?: number
+  entityType?: string | null
+  entityId?: string | null
+  expiresAt?: Date | string | null
+  uploadedBy: string
+  isEncrypted?: boolean
+  isProtected?: boolean
+  protectionHash?: string | null
+  isHidden?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  tenant: Prisma.TenantCreateNestedOneWithoutStorageFilesInput
+  folder?: Prisma.StorageFolderCreateNestedOneWithoutFilesInput
+  versions?: Prisma.StorageFileVersionCreateNestedManyWithoutFileInput
+  shareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutFileInput
+  cardAttachments?: Prisma.CardAttachmentCreateNestedManyWithoutFileInput
+  bidEtpFiles?: Prisma.BidCreateNestedManyWithoutEtpFileInput
+  bidTrFiles?: Prisma.BidCreateNestedManyWithoutTrFileInput
+  bidProposalFiles?: Prisma.BidProposalCreateNestedManyWithoutProposalFileInput
+  bidDocumentFiles?: Prisma.BidDocumentCreateNestedManyWithoutFileInput
+  bidContractFiles?: Prisma.BidContractCreateNestedManyWithoutContractFileInput
+}
+
+export type StorageFileUncheckedCreateWithoutBidEditalFilesInput = {
+  id?: string
+  tenantId: string
+  folderId?: string | null
+  name: string
+  originalName: string
+  fileKey: string
+  path: string
+  size: number
+  mimeType: string
+  fileType: string
+  thumbnailKey?: string | null
+  status?: $Enums.StorageFileStatus
+  currentVersion?: number
+  entityType?: string | null
+  entityId?: string | null
+  expiresAt?: Date | string | null
+  uploadedBy: string
+  isEncrypted?: boolean
+  isProtected?: boolean
+  protectionHash?: string | null
+  isHidden?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  versions?: Prisma.StorageFileVersionUncheckedCreateNestedManyWithoutFileInput
+  shareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutFileInput
+  cardAttachments?: Prisma.CardAttachmentUncheckedCreateNestedManyWithoutFileInput
+  bidEtpFiles?: Prisma.BidUncheckedCreateNestedManyWithoutEtpFileInput
+  bidTrFiles?: Prisma.BidUncheckedCreateNestedManyWithoutTrFileInput
+  bidProposalFiles?: Prisma.BidProposalUncheckedCreateNestedManyWithoutProposalFileInput
+  bidDocumentFiles?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutFileInput
+  bidContractFiles?: Prisma.BidContractUncheckedCreateNestedManyWithoutContractFileInput
+}
+
+export type StorageFileCreateOrConnectWithoutBidEditalFilesInput = {
+  where: Prisma.StorageFileWhereUniqueInput
+  create: Prisma.XOR<Prisma.StorageFileCreateWithoutBidEditalFilesInput, Prisma.StorageFileUncheckedCreateWithoutBidEditalFilesInput>
+}
+
+export type StorageFileCreateWithoutBidEtpFilesInput = {
+  id?: string
+  name: string
+  originalName: string
+  fileKey: string
+  path: string
+  size: number
+  mimeType: string
+  fileType: string
+  thumbnailKey?: string | null
+  status?: $Enums.StorageFileStatus
+  currentVersion?: number
+  entityType?: string | null
+  entityId?: string | null
+  expiresAt?: Date | string | null
+  uploadedBy: string
+  isEncrypted?: boolean
+  isProtected?: boolean
+  protectionHash?: string | null
+  isHidden?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  tenant: Prisma.TenantCreateNestedOneWithoutStorageFilesInput
+  folder?: Prisma.StorageFolderCreateNestedOneWithoutFilesInput
+  versions?: Prisma.StorageFileVersionCreateNestedManyWithoutFileInput
+  shareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutFileInput
+  cardAttachments?: Prisma.CardAttachmentCreateNestedManyWithoutFileInput
+  bidEditalFiles?: Prisma.BidCreateNestedManyWithoutEditalFileInput
+  bidTrFiles?: Prisma.BidCreateNestedManyWithoutTrFileInput
+  bidProposalFiles?: Prisma.BidProposalCreateNestedManyWithoutProposalFileInput
+  bidDocumentFiles?: Prisma.BidDocumentCreateNestedManyWithoutFileInput
+  bidContractFiles?: Prisma.BidContractCreateNestedManyWithoutContractFileInput
+}
+
+export type StorageFileUncheckedCreateWithoutBidEtpFilesInput = {
+  id?: string
+  tenantId: string
+  folderId?: string | null
+  name: string
+  originalName: string
+  fileKey: string
+  path: string
+  size: number
+  mimeType: string
+  fileType: string
+  thumbnailKey?: string | null
+  status?: $Enums.StorageFileStatus
+  currentVersion?: number
+  entityType?: string | null
+  entityId?: string | null
+  expiresAt?: Date | string | null
+  uploadedBy: string
+  isEncrypted?: boolean
+  isProtected?: boolean
+  protectionHash?: string | null
+  isHidden?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  versions?: Prisma.StorageFileVersionUncheckedCreateNestedManyWithoutFileInput
+  shareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutFileInput
+  cardAttachments?: Prisma.CardAttachmentUncheckedCreateNestedManyWithoutFileInput
+  bidEditalFiles?: Prisma.BidUncheckedCreateNestedManyWithoutEditalFileInput
+  bidTrFiles?: Prisma.BidUncheckedCreateNestedManyWithoutTrFileInput
+  bidProposalFiles?: Prisma.BidProposalUncheckedCreateNestedManyWithoutProposalFileInput
+  bidDocumentFiles?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutFileInput
+  bidContractFiles?: Prisma.BidContractUncheckedCreateNestedManyWithoutContractFileInput
+}
+
+export type StorageFileCreateOrConnectWithoutBidEtpFilesInput = {
+  where: Prisma.StorageFileWhereUniqueInput
+  create: Prisma.XOR<Prisma.StorageFileCreateWithoutBidEtpFilesInput, Prisma.StorageFileUncheckedCreateWithoutBidEtpFilesInput>
+}
+
+export type StorageFileCreateWithoutBidTrFilesInput = {
+  id?: string
+  name: string
+  originalName: string
+  fileKey: string
+  path: string
+  size: number
+  mimeType: string
+  fileType: string
+  thumbnailKey?: string | null
+  status?: $Enums.StorageFileStatus
+  currentVersion?: number
+  entityType?: string | null
+  entityId?: string | null
+  expiresAt?: Date | string | null
+  uploadedBy: string
+  isEncrypted?: boolean
+  isProtected?: boolean
+  protectionHash?: string | null
+  isHidden?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  tenant: Prisma.TenantCreateNestedOneWithoutStorageFilesInput
+  folder?: Prisma.StorageFolderCreateNestedOneWithoutFilesInput
+  versions?: Prisma.StorageFileVersionCreateNestedManyWithoutFileInput
+  shareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutFileInput
+  cardAttachments?: Prisma.CardAttachmentCreateNestedManyWithoutFileInput
+  bidEditalFiles?: Prisma.BidCreateNestedManyWithoutEditalFileInput
+  bidEtpFiles?: Prisma.BidCreateNestedManyWithoutEtpFileInput
+  bidProposalFiles?: Prisma.BidProposalCreateNestedManyWithoutProposalFileInput
+  bidDocumentFiles?: Prisma.BidDocumentCreateNestedManyWithoutFileInput
+  bidContractFiles?: Prisma.BidContractCreateNestedManyWithoutContractFileInput
+}
+
+export type StorageFileUncheckedCreateWithoutBidTrFilesInput = {
+  id?: string
+  tenantId: string
+  folderId?: string | null
+  name: string
+  originalName: string
+  fileKey: string
+  path: string
+  size: number
+  mimeType: string
+  fileType: string
+  thumbnailKey?: string | null
+  status?: $Enums.StorageFileStatus
+  currentVersion?: number
+  entityType?: string | null
+  entityId?: string | null
+  expiresAt?: Date | string | null
+  uploadedBy: string
+  isEncrypted?: boolean
+  isProtected?: boolean
+  protectionHash?: string | null
+  isHidden?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  versions?: Prisma.StorageFileVersionUncheckedCreateNestedManyWithoutFileInput
+  shareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutFileInput
+  cardAttachments?: Prisma.CardAttachmentUncheckedCreateNestedManyWithoutFileInput
+  bidEditalFiles?: Prisma.BidUncheckedCreateNestedManyWithoutEditalFileInput
+  bidEtpFiles?: Prisma.BidUncheckedCreateNestedManyWithoutEtpFileInput
+  bidProposalFiles?: Prisma.BidProposalUncheckedCreateNestedManyWithoutProposalFileInput
+  bidDocumentFiles?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutFileInput
+  bidContractFiles?: Prisma.BidContractUncheckedCreateNestedManyWithoutContractFileInput
+}
+
+export type StorageFileCreateOrConnectWithoutBidTrFilesInput = {
+  where: Prisma.StorageFileWhereUniqueInput
+  create: Prisma.XOR<Prisma.StorageFileCreateWithoutBidTrFilesInput, Prisma.StorageFileUncheckedCreateWithoutBidTrFilesInput>
+}
+
+export type StorageFileUpsertWithoutBidEditalFilesInput = {
+  update: Prisma.XOR<Prisma.StorageFileUpdateWithoutBidEditalFilesInput, Prisma.StorageFileUncheckedUpdateWithoutBidEditalFilesInput>
+  create: Prisma.XOR<Prisma.StorageFileCreateWithoutBidEditalFilesInput, Prisma.StorageFileUncheckedCreateWithoutBidEditalFilesInput>
+  where?: Prisma.StorageFileWhereInput
+}
+
+export type StorageFileUpdateToOneWithWhereWithoutBidEditalFilesInput = {
+  where?: Prisma.StorageFileWhereInput
+  data: Prisma.XOR<Prisma.StorageFileUpdateWithoutBidEditalFilesInput, Prisma.StorageFileUncheckedUpdateWithoutBidEditalFilesInput>
+}
+
+export type StorageFileUpdateWithoutBidEditalFilesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  originalName?: Prisma.StringFieldUpdateOperationsInput | string
+  fileKey?: Prisma.StringFieldUpdateOperationsInput | string
+  path?: Prisma.StringFieldUpdateOperationsInput | string
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  fileType?: Prisma.StringFieldUpdateOperationsInput | string
+  thumbnailKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumStorageFileStatusFieldUpdateOperationsInput | $Enums.StorageFileStatus
+  currentVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
+  isEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutStorageFilesNestedInput
+  folder?: Prisma.StorageFolderUpdateOneWithoutFilesNestedInput
+  versions?: Prisma.StorageFileVersionUpdateManyWithoutFileNestedInput
+  shareLinks?: Prisma.StorageShareLinkUpdateManyWithoutFileNestedInput
+  cardAttachments?: Prisma.CardAttachmentUpdateManyWithoutFileNestedInput
+  bidEtpFiles?: Prisma.BidUpdateManyWithoutEtpFileNestedInput
+  bidTrFiles?: Prisma.BidUpdateManyWithoutTrFileNestedInput
+  bidProposalFiles?: Prisma.BidProposalUpdateManyWithoutProposalFileNestedInput
+  bidDocumentFiles?: Prisma.BidDocumentUpdateManyWithoutFileNestedInput
+  bidContractFiles?: Prisma.BidContractUpdateManyWithoutContractFileNestedInput
+}
+
+export type StorageFileUncheckedUpdateWithoutBidEditalFilesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  folderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  originalName?: Prisma.StringFieldUpdateOperationsInput | string
+  fileKey?: Prisma.StringFieldUpdateOperationsInput | string
+  path?: Prisma.StringFieldUpdateOperationsInput | string
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  fileType?: Prisma.StringFieldUpdateOperationsInput | string
+  thumbnailKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumStorageFileStatusFieldUpdateOperationsInput | $Enums.StorageFileStatus
+  currentVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
+  isEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  versions?: Prisma.StorageFileVersionUncheckedUpdateManyWithoutFileNestedInput
+  shareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutFileNestedInput
+  cardAttachments?: Prisma.CardAttachmentUncheckedUpdateManyWithoutFileNestedInput
+  bidEtpFiles?: Prisma.BidUncheckedUpdateManyWithoutEtpFileNestedInput
+  bidTrFiles?: Prisma.BidUncheckedUpdateManyWithoutTrFileNestedInput
+  bidProposalFiles?: Prisma.BidProposalUncheckedUpdateManyWithoutProposalFileNestedInput
+  bidDocumentFiles?: Prisma.BidDocumentUncheckedUpdateManyWithoutFileNestedInput
+  bidContractFiles?: Prisma.BidContractUncheckedUpdateManyWithoutContractFileNestedInput
+}
+
+export type StorageFileUpsertWithoutBidEtpFilesInput = {
+  update: Prisma.XOR<Prisma.StorageFileUpdateWithoutBidEtpFilesInput, Prisma.StorageFileUncheckedUpdateWithoutBidEtpFilesInput>
+  create: Prisma.XOR<Prisma.StorageFileCreateWithoutBidEtpFilesInput, Prisma.StorageFileUncheckedCreateWithoutBidEtpFilesInput>
+  where?: Prisma.StorageFileWhereInput
+}
+
+export type StorageFileUpdateToOneWithWhereWithoutBidEtpFilesInput = {
+  where?: Prisma.StorageFileWhereInput
+  data: Prisma.XOR<Prisma.StorageFileUpdateWithoutBidEtpFilesInput, Prisma.StorageFileUncheckedUpdateWithoutBidEtpFilesInput>
+}
+
+export type StorageFileUpdateWithoutBidEtpFilesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  originalName?: Prisma.StringFieldUpdateOperationsInput | string
+  fileKey?: Prisma.StringFieldUpdateOperationsInput | string
+  path?: Prisma.StringFieldUpdateOperationsInput | string
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  fileType?: Prisma.StringFieldUpdateOperationsInput | string
+  thumbnailKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumStorageFileStatusFieldUpdateOperationsInput | $Enums.StorageFileStatus
+  currentVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
+  isEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutStorageFilesNestedInput
+  folder?: Prisma.StorageFolderUpdateOneWithoutFilesNestedInput
+  versions?: Prisma.StorageFileVersionUpdateManyWithoutFileNestedInput
+  shareLinks?: Prisma.StorageShareLinkUpdateManyWithoutFileNestedInput
+  cardAttachments?: Prisma.CardAttachmentUpdateManyWithoutFileNestedInput
+  bidEditalFiles?: Prisma.BidUpdateManyWithoutEditalFileNestedInput
+  bidTrFiles?: Prisma.BidUpdateManyWithoutTrFileNestedInput
+  bidProposalFiles?: Prisma.BidProposalUpdateManyWithoutProposalFileNestedInput
+  bidDocumentFiles?: Prisma.BidDocumentUpdateManyWithoutFileNestedInput
+  bidContractFiles?: Prisma.BidContractUpdateManyWithoutContractFileNestedInput
+}
+
+export type StorageFileUncheckedUpdateWithoutBidEtpFilesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  folderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  originalName?: Prisma.StringFieldUpdateOperationsInput | string
+  fileKey?: Prisma.StringFieldUpdateOperationsInput | string
+  path?: Prisma.StringFieldUpdateOperationsInput | string
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  fileType?: Prisma.StringFieldUpdateOperationsInput | string
+  thumbnailKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumStorageFileStatusFieldUpdateOperationsInput | $Enums.StorageFileStatus
+  currentVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
+  isEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  versions?: Prisma.StorageFileVersionUncheckedUpdateManyWithoutFileNestedInput
+  shareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutFileNestedInput
+  cardAttachments?: Prisma.CardAttachmentUncheckedUpdateManyWithoutFileNestedInput
+  bidEditalFiles?: Prisma.BidUncheckedUpdateManyWithoutEditalFileNestedInput
+  bidTrFiles?: Prisma.BidUncheckedUpdateManyWithoutTrFileNestedInput
+  bidProposalFiles?: Prisma.BidProposalUncheckedUpdateManyWithoutProposalFileNestedInput
+  bidDocumentFiles?: Prisma.BidDocumentUncheckedUpdateManyWithoutFileNestedInput
+  bidContractFiles?: Prisma.BidContractUncheckedUpdateManyWithoutContractFileNestedInput
+}
+
+export type StorageFileUpsertWithoutBidTrFilesInput = {
+  update: Prisma.XOR<Prisma.StorageFileUpdateWithoutBidTrFilesInput, Prisma.StorageFileUncheckedUpdateWithoutBidTrFilesInput>
+  create: Prisma.XOR<Prisma.StorageFileCreateWithoutBidTrFilesInput, Prisma.StorageFileUncheckedCreateWithoutBidTrFilesInput>
+  where?: Prisma.StorageFileWhereInput
+}
+
+export type StorageFileUpdateToOneWithWhereWithoutBidTrFilesInput = {
+  where?: Prisma.StorageFileWhereInput
+  data: Prisma.XOR<Prisma.StorageFileUpdateWithoutBidTrFilesInput, Prisma.StorageFileUncheckedUpdateWithoutBidTrFilesInput>
+}
+
+export type StorageFileUpdateWithoutBidTrFilesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  originalName?: Prisma.StringFieldUpdateOperationsInput | string
+  fileKey?: Prisma.StringFieldUpdateOperationsInput | string
+  path?: Prisma.StringFieldUpdateOperationsInput | string
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  fileType?: Prisma.StringFieldUpdateOperationsInput | string
+  thumbnailKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumStorageFileStatusFieldUpdateOperationsInput | $Enums.StorageFileStatus
+  currentVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
+  isEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutStorageFilesNestedInput
+  folder?: Prisma.StorageFolderUpdateOneWithoutFilesNestedInput
+  versions?: Prisma.StorageFileVersionUpdateManyWithoutFileNestedInput
+  shareLinks?: Prisma.StorageShareLinkUpdateManyWithoutFileNestedInput
+  cardAttachments?: Prisma.CardAttachmentUpdateManyWithoutFileNestedInput
+  bidEditalFiles?: Prisma.BidUpdateManyWithoutEditalFileNestedInput
+  bidEtpFiles?: Prisma.BidUpdateManyWithoutEtpFileNestedInput
+  bidProposalFiles?: Prisma.BidProposalUpdateManyWithoutProposalFileNestedInput
+  bidDocumentFiles?: Prisma.BidDocumentUpdateManyWithoutFileNestedInput
+  bidContractFiles?: Prisma.BidContractUpdateManyWithoutContractFileNestedInput
+}
+
+export type StorageFileUncheckedUpdateWithoutBidTrFilesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  folderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  originalName?: Prisma.StringFieldUpdateOperationsInput | string
+  fileKey?: Prisma.StringFieldUpdateOperationsInput | string
+  path?: Prisma.StringFieldUpdateOperationsInput | string
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  fileType?: Prisma.StringFieldUpdateOperationsInput | string
+  thumbnailKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumStorageFileStatusFieldUpdateOperationsInput | $Enums.StorageFileStatus
+  currentVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
+  isEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  versions?: Prisma.StorageFileVersionUncheckedUpdateManyWithoutFileNestedInput
+  shareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutFileNestedInput
+  cardAttachments?: Prisma.CardAttachmentUncheckedUpdateManyWithoutFileNestedInput
+  bidEditalFiles?: Prisma.BidUncheckedUpdateManyWithoutEditalFileNestedInput
+  bidEtpFiles?: Prisma.BidUncheckedUpdateManyWithoutEtpFileNestedInput
+  bidProposalFiles?: Prisma.BidProposalUncheckedUpdateManyWithoutProposalFileNestedInput
+  bidDocumentFiles?: Prisma.BidDocumentUncheckedUpdateManyWithoutFileNestedInput
+  bidContractFiles?: Prisma.BidContractUncheckedUpdateManyWithoutContractFileNestedInput
+}
+
+export type StorageFileCreateWithoutBidProposalFilesInput = {
+  id?: string
+  name: string
+  originalName: string
+  fileKey: string
+  path: string
+  size: number
+  mimeType: string
+  fileType: string
+  thumbnailKey?: string | null
+  status?: $Enums.StorageFileStatus
+  currentVersion?: number
+  entityType?: string | null
+  entityId?: string | null
+  expiresAt?: Date | string | null
+  uploadedBy: string
+  isEncrypted?: boolean
+  isProtected?: boolean
+  protectionHash?: string | null
+  isHidden?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  tenant: Prisma.TenantCreateNestedOneWithoutStorageFilesInput
+  folder?: Prisma.StorageFolderCreateNestedOneWithoutFilesInput
+  versions?: Prisma.StorageFileVersionCreateNestedManyWithoutFileInput
+  shareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutFileInput
+  cardAttachments?: Prisma.CardAttachmentCreateNestedManyWithoutFileInput
+  bidEditalFiles?: Prisma.BidCreateNestedManyWithoutEditalFileInput
+  bidEtpFiles?: Prisma.BidCreateNestedManyWithoutEtpFileInput
+  bidTrFiles?: Prisma.BidCreateNestedManyWithoutTrFileInput
+  bidDocumentFiles?: Prisma.BidDocumentCreateNestedManyWithoutFileInput
+  bidContractFiles?: Prisma.BidContractCreateNestedManyWithoutContractFileInput
+}
+
+export type StorageFileUncheckedCreateWithoutBidProposalFilesInput = {
+  id?: string
+  tenantId: string
+  folderId?: string | null
+  name: string
+  originalName: string
+  fileKey: string
+  path: string
+  size: number
+  mimeType: string
+  fileType: string
+  thumbnailKey?: string | null
+  status?: $Enums.StorageFileStatus
+  currentVersion?: number
+  entityType?: string | null
+  entityId?: string | null
+  expiresAt?: Date | string | null
+  uploadedBy: string
+  isEncrypted?: boolean
+  isProtected?: boolean
+  protectionHash?: string | null
+  isHidden?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  versions?: Prisma.StorageFileVersionUncheckedCreateNestedManyWithoutFileInput
+  shareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutFileInput
+  cardAttachments?: Prisma.CardAttachmentUncheckedCreateNestedManyWithoutFileInput
+  bidEditalFiles?: Prisma.BidUncheckedCreateNestedManyWithoutEditalFileInput
+  bidEtpFiles?: Prisma.BidUncheckedCreateNestedManyWithoutEtpFileInput
+  bidTrFiles?: Prisma.BidUncheckedCreateNestedManyWithoutTrFileInput
+  bidDocumentFiles?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutFileInput
+  bidContractFiles?: Prisma.BidContractUncheckedCreateNestedManyWithoutContractFileInput
+}
+
+export type StorageFileCreateOrConnectWithoutBidProposalFilesInput = {
+  where: Prisma.StorageFileWhereUniqueInput
+  create: Prisma.XOR<Prisma.StorageFileCreateWithoutBidProposalFilesInput, Prisma.StorageFileUncheckedCreateWithoutBidProposalFilesInput>
+}
+
+export type StorageFileUpsertWithoutBidProposalFilesInput = {
+  update: Prisma.XOR<Prisma.StorageFileUpdateWithoutBidProposalFilesInput, Prisma.StorageFileUncheckedUpdateWithoutBidProposalFilesInput>
+  create: Prisma.XOR<Prisma.StorageFileCreateWithoutBidProposalFilesInput, Prisma.StorageFileUncheckedCreateWithoutBidProposalFilesInput>
+  where?: Prisma.StorageFileWhereInput
+}
+
+export type StorageFileUpdateToOneWithWhereWithoutBidProposalFilesInput = {
+  where?: Prisma.StorageFileWhereInput
+  data: Prisma.XOR<Prisma.StorageFileUpdateWithoutBidProposalFilesInput, Prisma.StorageFileUncheckedUpdateWithoutBidProposalFilesInput>
+}
+
+export type StorageFileUpdateWithoutBidProposalFilesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  originalName?: Prisma.StringFieldUpdateOperationsInput | string
+  fileKey?: Prisma.StringFieldUpdateOperationsInput | string
+  path?: Prisma.StringFieldUpdateOperationsInput | string
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  fileType?: Prisma.StringFieldUpdateOperationsInput | string
+  thumbnailKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumStorageFileStatusFieldUpdateOperationsInput | $Enums.StorageFileStatus
+  currentVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
+  isEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutStorageFilesNestedInput
+  folder?: Prisma.StorageFolderUpdateOneWithoutFilesNestedInput
+  versions?: Prisma.StorageFileVersionUpdateManyWithoutFileNestedInput
+  shareLinks?: Prisma.StorageShareLinkUpdateManyWithoutFileNestedInput
+  cardAttachments?: Prisma.CardAttachmentUpdateManyWithoutFileNestedInput
+  bidEditalFiles?: Prisma.BidUpdateManyWithoutEditalFileNestedInput
+  bidEtpFiles?: Prisma.BidUpdateManyWithoutEtpFileNestedInput
+  bidTrFiles?: Prisma.BidUpdateManyWithoutTrFileNestedInput
+  bidDocumentFiles?: Prisma.BidDocumentUpdateManyWithoutFileNestedInput
+  bidContractFiles?: Prisma.BidContractUpdateManyWithoutContractFileNestedInput
+}
+
+export type StorageFileUncheckedUpdateWithoutBidProposalFilesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  folderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  originalName?: Prisma.StringFieldUpdateOperationsInput | string
+  fileKey?: Prisma.StringFieldUpdateOperationsInput | string
+  path?: Prisma.StringFieldUpdateOperationsInput | string
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  fileType?: Prisma.StringFieldUpdateOperationsInput | string
+  thumbnailKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumStorageFileStatusFieldUpdateOperationsInput | $Enums.StorageFileStatus
+  currentVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
+  isEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  versions?: Prisma.StorageFileVersionUncheckedUpdateManyWithoutFileNestedInput
+  shareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutFileNestedInput
+  cardAttachments?: Prisma.CardAttachmentUncheckedUpdateManyWithoutFileNestedInput
+  bidEditalFiles?: Prisma.BidUncheckedUpdateManyWithoutEditalFileNestedInput
+  bidEtpFiles?: Prisma.BidUncheckedUpdateManyWithoutEtpFileNestedInput
+  bidTrFiles?: Prisma.BidUncheckedUpdateManyWithoutTrFileNestedInput
+  bidDocumentFiles?: Prisma.BidDocumentUncheckedUpdateManyWithoutFileNestedInput
+  bidContractFiles?: Prisma.BidContractUncheckedUpdateManyWithoutContractFileNestedInput
+}
+
+export type StorageFileCreateWithoutBidDocumentFilesInput = {
+  id?: string
+  name: string
+  originalName: string
+  fileKey: string
+  path: string
+  size: number
+  mimeType: string
+  fileType: string
+  thumbnailKey?: string | null
+  status?: $Enums.StorageFileStatus
+  currentVersion?: number
+  entityType?: string | null
+  entityId?: string | null
+  expiresAt?: Date | string | null
+  uploadedBy: string
+  isEncrypted?: boolean
+  isProtected?: boolean
+  protectionHash?: string | null
+  isHidden?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  tenant: Prisma.TenantCreateNestedOneWithoutStorageFilesInput
+  folder?: Prisma.StorageFolderCreateNestedOneWithoutFilesInput
+  versions?: Prisma.StorageFileVersionCreateNestedManyWithoutFileInput
+  shareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutFileInput
+  cardAttachments?: Prisma.CardAttachmentCreateNestedManyWithoutFileInput
+  bidEditalFiles?: Prisma.BidCreateNestedManyWithoutEditalFileInput
+  bidEtpFiles?: Prisma.BidCreateNestedManyWithoutEtpFileInput
+  bidTrFiles?: Prisma.BidCreateNestedManyWithoutTrFileInput
+  bidProposalFiles?: Prisma.BidProposalCreateNestedManyWithoutProposalFileInput
+  bidContractFiles?: Prisma.BidContractCreateNestedManyWithoutContractFileInput
+}
+
+export type StorageFileUncheckedCreateWithoutBidDocumentFilesInput = {
+  id?: string
+  tenantId: string
+  folderId?: string | null
+  name: string
+  originalName: string
+  fileKey: string
+  path: string
+  size: number
+  mimeType: string
+  fileType: string
+  thumbnailKey?: string | null
+  status?: $Enums.StorageFileStatus
+  currentVersion?: number
+  entityType?: string | null
+  entityId?: string | null
+  expiresAt?: Date | string | null
+  uploadedBy: string
+  isEncrypted?: boolean
+  isProtected?: boolean
+  protectionHash?: string | null
+  isHidden?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  versions?: Prisma.StorageFileVersionUncheckedCreateNestedManyWithoutFileInput
+  shareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutFileInput
+  cardAttachments?: Prisma.CardAttachmentUncheckedCreateNestedManyWithoutFileInput
+  bidEditalFiles?: Prisma.BidUncheckedCreateNestedManyWithoutEditalFileInput
+  bidEtpFiles?: Prisma.BidUncheckedCreateNestedManyWithoutEtpFileInput
+  bidTrFiles?: Prisma.BidUncheckedCreateNestedManyWithoutTrFileInput
+  bidProposalFiles?: Prisma.BidProposalUncheckedCreateNestedManyWithoutProposalFileInput
+  bidContractFiles?: Prisma.BidContractUncheckedCreateNestedManyWithoutContractFileInput
+}
+
+export type StorageFileCreateOrConnectWithoutBidDocumentFilesInput = {
+  where: Prisma.StorageFileWhereUniqueInput
+  create: Prisma.XOR<Prisma.StorageFileCreateWithoutBidDocumentFilesInput, Prisma.StorageFileUncheckedCreateWithoutBidDocumentFilesInput>
+}
+
+export type StorageFileUpsertWithoutBidDocumentFilesInput = {
+  update: Prisma.XOR<Prisma.StorageFileUpdateWithoutBidDocumentFilesInput, Prisma.StorageFileUncheckedUpdateWithoutBidDocumentFilesInput>
+  create: Prisma.XOR<Prisma.StorageFileCreateWithoutBidDocumentFilesInput, Prisma.StorageFileUncheckedCreateWithoutBidDocumentFilesInput>
+  where?: Prisma.StorageFileWhereInput
+}
+
+export type StorageFileUpdateToOneWithWhereWithoutBidDocumentFilesInput = {
+  where?: Prisma.StorageFileWhereInput
+  data: Prisma.XOR<Prisma.StorageFileUpdateWithoutBidDocumentFilesInput, Prisma.StorageFileUncheckedUpdateWithoutBidDocumentFilesInput>
+}
+
+export type StorageFileUpdateWithoutBidDocumentFilesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  originalName?: Prisma.StringFieldUpdateOperationsInput | string
+  fileKey?: Prisma.StringFieldUpdateOperationsInput | string
+  path?: Prisma.StringFieldUpdateOperationsInput | string
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  fileType?: Prisma.StringFieldUpdateOperationsInput | string
+  thumbnailKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumStorageFileStatusFieldUpdateOperationsInput | $Enums.StorageFileStatus
+  currentVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
+  isEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutStorageFilesNestedInput
+  folder?: Prisma.StorageFolderUpdateOneWithoutFilesNestedInput
+  versions?: Prisma.StorageFileVersionUpdateManyWithoutFileNestedInput
+  shareLinks?: Prisma.StorageShareLinkUpdateManyWithoutFileNestedInput
+  cardAttachments?: Prisma.CardAttachmentUpdateManyWithoutFileNestedInput
+  bidEditalFiles?: Prisma.BidUpdateManyWithoutEditalFileNestedInput
+  bidEtpFiles?: Prisma.BidUpdateManyWithoutEtpFileNestedInput
+  bidTrFiles?: Prisma.BidUpdateManyWithoutTrFileNestedInput
+  bidProposalFiles?: Prisma.BidProposalUpdateManyWithoutProposalFileNestedInput
+  bidContractFiles?: Prisma.BidContractUpdateManyWithoutContractFileNestedInput
+}
+
+export type StorageFileUncheckedUpdateWithoutBidDocumentFilesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  folderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  originalName?: Prisma.StringFieldUpdateOperationsInput | string
+  fileKey?: Prisma.StringFieldUpdateOperationsInput | string
+  path?: Prisma.StringFieldUpdateOperationsInput | string
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  fileType?: Prisma.StringFieldUpdateOperationsInput | string
+  thumbnailKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumStorageFileStatusFieldUpdateOperationsInput | $Enums.StorageFileStatus
+  currentVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
+  isEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  versions?: Prisma.StorageFileVersionUncheckedUpdateManyWithoutFileNestedInput
+  shareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutFileNestedInput
+  cardAttachments?: Prisma.CardAttachmentUncheckedUpdateManyWithoutFileNestedInput
+  bidEditalFiles?: Prisma.BidUncheckedUpdateManyWithoutEditalFileNestedInput
+  bidEtpFiles?: Prisma.BidUncheckedUpdateManyWithoutEtpFileNestedInput
+  bidTrFiles?: Prisma.BidUncheckedUpdateManyWithoutTrFileNestedInput
+  bidProposalFiles?: Prisma.BidProposalUncheckedUpdateManyWithoutProposalFileNestedInput
+  bidContractFiles?: Prisma.BidContractUncheckedUpdateManyWithoutContractFileNestedInput
+}
+
+export type StorageFileCreateWithoutBidContractFilesInput = {
+  id?: string
+  name: string
+  originalName: string
+  fileKey: string
+  path: string
+  size: number
+  mimeType: string
+  fileType: string
+  thumbnailKey?: string | null
+  status?: $Enums.StorageFileStatus
+  currentVersion?: number
+  entityType?: string | null
+  entityId?: string | null
+  expiresAt?: Date | string | null
+  uploadedBy: string
+  isEncrypted?: boolean
+  isProtected?: boolean
+  protectionHash?: string | null
+  isHidden?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  tenant: Prisma.TenantCreateNestedOneWithoutStorageFilesInput
+  folder?: Prisma.StorageFolderCreateNestedOneWithoutFilesInput
+  versions?: Prisma.StorageFileVersionCreateNestedManyWithoutFileInput
+  shareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutFileInput
+  cardAttachments?: Prisma.CardAttachmentCreateNestedManyWithoutFileInput
+  bidEditalFiles?: Prisma.BidCreateNestedManyWithoutEditalFileInput
+  bidEtpFiles?: Prisma.BidCreateNestedManyWithoutEtpFileInput
+  bidTrFiles?: Prisma.BidCreateNestedManyWithoutTrFileInput
+  bidProposalFiles?: Prisma.BidProposalCreateNestedManyWithoutProposalFileInput
+  bidDocumentFiles?: Prisma.BidDocumentCreateNestedManyWithoutFileInput
+}
+
+export type StorageFileUncheckedCreateWithoutBidContractFilesInput = {
+  id?: string
+  tenantId: string
+  folderId?: string | null
+  name: string
+  originalName: string
+  fileKey: string
+  path: string
+  size: number
+  mimeType: string
+  fileType: string
+  thumbnailKey?: string | null
+  status?: $Enums.StorageFileStatus
+  currentVersion?: number
+  entityType?: string | null
+  entityId?: string | null
+  expiresAt?: Date | string | null
+  uploadedBy: string
+  isEncrypted?: boolean
+  isProtected?: boolean
+  protectionHash?: string | null
+  isHidden?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  versions?: Prisma.StorageFileVersionUncheckedCreateNestedManyWithoutFileInput
+  shareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutFileInput
+  cardAttachments?: Prisma.CardAttachmentUncheckedCreateNestedManyWithoutFileInput
+  bidEditalFiles?: Prisma.BidUncheckedCreateNestedManyWithoutEditalFileInput
+  bidEtpFiles?: Prisma.BidUncheckedCreateNestedManyWithoutEtpFileInput
+  bidTrFiles?: Prisma.BidUncheckedCreateNestedManyWithoutTrFileInput
+  bidProposalFiles?: Prisma.BidProposalUncheckedCreateNestedManyWithoutProposalFileInput
+  bidDocumentFiles?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutFileInput
+}
+
+export type StorageFileCreateOrConnectWithoutBidContractFilesInput = {
+  where: Prisma.StorageFileWhereUniqueInput
+  create: Prisma.XOR<Prisma.StorageFileCreateWithoutBidContractFilesInput, Prisma.StorageFileUncheckedCreateWithoutBidContractFilesInput>
+}
+
+export type StorageFileUpsertWithoutBidContractFilesInput = {
+  update: Prisma.XOR<Prisma.StorageFileUpdateWithoutBidContractFilesInput, Prisma.StorageFileUncheckedUpdateWithoutBidContractFilesInput>
+  create: Prisma.XOR<Prisma.StorageFileCreateWithoutBidContractFilesInput, Prisma.StorageFileUncheckedCreateWithoutBidContractFilesInput>
+  where?: Prisma.StorageFileWhereInput
+}
+
+export type StorageFileUpdateToOneWithWhereWithoutBidContractFilesInput = {
+  where?: Prisma.StorageFileWhereInput
+  data: Prisma.XOR<Prisma.StorageFileUpdateWithoutBidContractFilesInput, Prisma.StorageFileUncheckedUpdateWithoutBidContractFilesInput>
+}
+
+export type StorageFileUpdateWithoutBidContractFilesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  originalName?: Prisma.StringFieldUpdateOperationsInput | string
+  fileKey?: Prisma.StringFieldUpdateOperationsInput | string
+  path?: Prisma.StringFieldUpdateOperationsInput | string
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  fileType?: Prisma.StringFieldUpdateOperationsInput | string
+  thumbnailKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumStorageFileStatusFieldUpdateOperationsInput | $Enums.StorageFileStatus
+  currentVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
+  isEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutStorageFilesNestedInput
+  folder?: Prisma.StorageFolderUpdateOneWithoutFilesNestedInput
+  versions?: Prisma.StorageFileVersionUpdateManyWithoutFileNestedInput
+  shareLinks?: Prisma.StorageShareLinkUpdateManyWithoutFileNestedInput
+  cardAttachments?: Prisma.CardAttachmentUpdateManyWithoutFileNestedInput
+  bidEditalFiles?: Prisma.BidUpdateManyWithoutEditalFileNestedInput
+  bidEtpFiles?: Prisma.BidUpdateManyWithoutEtpFileNestedInput
+  bidTrFiles?: Prisma.BidUpdateManyWithoutTrFileNestedInput
+  bidProposalFiles?: Prisma.BidProposalUpdateManyWithoutProposalFileNestedInput
+  bidDocumentFiles?: Prisma.BidDocumentUpdateManyWithoutFileNestedInput
+}
+
+export type StorageFileUncheckedUpdateWithoutBidContractFilesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  folderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  originalName?: Prisma.StringFieldUpdateOperationsInput | string
+  fileKey?: Prisma.StringFieldUpdateOperationsInput | string
+  path?: Prisma.StringFieldUpdateOperationsInput | string
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  fileType?: Prisma.StringFieldUpdateOperationsInput | string
+  thumbnailKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumStorageFileStatusFieldUpdateOperationsInput | $Enums.StorageFileStatus
+  currentVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
+  isEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  versions?: Prisma.StorageFileVersionUncheckedUpdateManyWithoutFileNestedInput
+  shareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutFileNestedInput
+  cardAttachments?: Prisma.CardAttachmentUncheckedUpdateManyWithoutFileNestedInput
+  bidEditalFiles?: Prisma.BidUncheckedUpdateManyWithoutEditalFileNestedInput
+  bidEtpFiles?: Prisma.BidUncheckedUpdateManyWithoutEtpFileNestedInput
+  bidTrFiles?: Prisma.BidUncheckedUpdateManyWithoutTrFileNestedInput
+  bidProposalFiles?: Prisma.BidProposalUncheckedUpdateManyWithoutProposalFileNestedInput
+  bidDocumentFiles?: Prisma.BidDocumentUncheckedUpdateManyWithoutFileNestedInput
 }
 
 export type StorageFileCreateManyTenantInput = {
@@ -1597,6 +2770,12 @@ export type StorageFileUpdateWithoutTenantInput = {
   versions?: Prisma.StorageFileVersionUpdateManyWithoutFileNestedInput
   shareLinks?: Prisma.StorageShareLinkUpdateManyWithoutFileNestedInput
   cardAttachments?: Prisma.CardAttachmentUpdateManyWithoutFileNestedInput
+  bidEditalFiles?: Prisma.BidUpdateManyWithoutEditalFileNestedInput
+  bidEtpFiles?: Prisma.BidUpdateManyWithoutEtpFileNestedInput
+  bidTrFiles?: Prisma.BidUpdateManyWithoutTrFileNestedInput
+  bidProposalFiles?: Prisma.BidProposalUpdateManyWithoutProposalFileNestedInput
+  bidDocumentFiles?: Prisma.BidDocumentUpdateManyWithoutFileNestedInput
+  bidContractFiles?: Prisma.BidContractUpdateManyWithoutContractFileNestedInput
 }
 
 export type StorageFileUncheckedUpdateWithoutTenantInput = {
@@ -1626,6 +2805,12 @@ export type StorageFileUncheckedUpdateWithoutTenantInput = {
   versions?: Prisma.StorageFileVersionUncheckedUpdateManyWithoutFileNestedInput
   shareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutFileNestedInput
   cardAttachments?: Prisma.CardAttachmentUncheckedUpdateManyWithoutFileNestedInput
+  bidEditalFiles?: Prisma.BidUncheckedUpdateManyWithoutEditalFileNestedInput
+  bidEtpFiles?: Prisma.BidUncheckedUpdateManyWithoutEtpFileNestedInput
+  bidTrFiles?: Prisma.BidUncheckedUpdateManyWithoutTrFileNestedInput
+  bidProposalFiles?: Prisma.BidProposalUncheckedUpdateManyWithoutProposalFileNestedInput
+  bidDocumentFiles?: Prisma.BidDocumentUncheckedUpdateManyWithoutFileNestedInput
+  bidContractFiles?: Prisma.BidContractUncheckedUpdateManyWithoutContractFileNestedInput
 }
 
 export type StorageFileUncheckedUpdateManyWithoutTenantInput = {
@@ -1707,6 +2892,12 @@ export type StorageFileUpdateWithoutFolderInput = {
   versions?: Prisma.StorageFileVersionUpdateManyWithoutFileNestedInput
   shareLinks?: Prisma.StorageShareLinkUpdateManyWithoutFileNestedInput
   cardAttachments?: Prisma.CardAttachmentUpdateManyWithoutFileNestedInput
+  bidEditalFiles?: Prisma.BidUpdateManyWithoutEditalFileNestedInput
+  bidEtpFiles?: Prisma.BidUpdateManyWithoutEtpFileNestedInput
+  bidTrFiles?: Prisma.BidUpdateManyWithoutTrFileNestedInput
+  bidProposalFiles?: Prisma.BidProposalUpdateManyWithoutProposalFileNestedInput
+  bidDocumentFiles?: Prisma.BidDocumentUpdateManyWithoutFileNestedInput
+  bidContractFiles?: Prisma.BidContractUpdateManyWithoutContractFileNestedInput
 }
 
 export type StorageFileUncheckedUpdateWithoutFolderInput = {
@@ -1736,6 +2927,12 @@ export type StorageFileUncheckedUpdateWithoutFolderInput = {
   versions?: Prisma.StorageFileVersionUncheckedUpdateManyWithoutFileNestedInput
   shareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutFileNestedInput
   cardAttachments?: Prisma.CardAttachmentUncheckedUpdateManyWithoutFileNestedInput
+  bidEditalFiles?: Prisma.BidUncheckedUpdateManyWithoutEditalFileNestedInput
+  bidEtpFiles?: Prisma.BidUncheckedUpdateManyWithoutEtpFileNestedInput
+  bidTrFiles?: Prisma.BidUncheckedUpdateManyWithoutTrFileNestedInput
+  bidProposalFiles?: Prisma.BidProposalUncheckedUpdateManyWithoutProposalFileNestedInput
+  bidDocumentFiles?: Prisma.BidDocumentUncheckedUpdateManyWithoutFileNestedInput
+  bidContractFiles?: Prisma.BidContractUncheckedUpdateManyWithoutContractFileNestedInput
 }
 
 export type StorageFileUncheckedUpdateManyWithoutFolderInput = {
@@ -1773,12 +2970,24 @@ export type StorageFileCountOutputType = {
   versions: number
   shareLinks: number
   cardAttachments: number
+  bidEditalFiles: number
+  bidEtpFiles: number
+  bidTrFiles: number
+  bidProposalFiles: number
+  bidDocumentFiles: number
+  bidContractFiles: number
 }
 
 export type StorageFileCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   versions?: boolean | StorageFileCountOutputTypeCountVersionsArgs
   shareLinks?: boolean | StorageFileCountOutputTypeCountShareLinksArgs
   cardAttachments?: boolean | StorageFileCountOutputTypeCountCardAttachmentsArgs
+  bidEditalFiles?: boolean | StorageFileCountOutputTypeCountBidEditalFilesArgs
+  bidEtpFiles?: boolean | StorageFileCountOutputTypeCountBidEtpFilesArgs
+  bidTrFiles?: boolean | StorageFileCountOutputTypeCountBidTrFilesArgs
+  bidProposalFiles?: boolean | StorageFileCountOutputTypeCountBidProposalFilesArgs
+  bidDocumentFiles?: boolean | StorageFileCountOutputTypeCountBidDocumentFilesArgs
+  bidContractFiles?: boolean | StorageFileCountOutputTypeCountBidContractFilesArgs
 }
 
 /**
@@ -1812,6 +3021,48 @@ export type StorageFileCountOutputTypeCountCardAttachmentsArgs<ExtArgs extends r
   where?: Prisma.CardAttachmentWhereInput
 }
 
+/**
+ * StorageFileCountOutputType without action
+ */
+export type StorageFileCountOutputTypeCountBidEditalFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BidWhereInput
+}
+
+/**
+ * StorageFileCountOutputType without action
+ */
+export type StorageFileCountOutputTypeCountBidEtpFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BidWhereInput
+}
+
+/**
+ * StorageFileCountOutputType without action
+ */
+export type StorageFileCountOutputTypeCountBidTrFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BidWhereInput
+}
+
+/**
+ * StorageFileCountOutputType without action
+ */
+export type StorageFileCountOutputTypeCountBidProposalFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BidProposalWhereInput
+}
+
+/**
+ * StorageFileCountOutputType without action
+ */
+export type StorageFileCountOutputTypeCountBidDocumentFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BidDocumentWhereInput
+}
+
+/**
+ * StorageFileCountOutputType without action
+ */
+export type StorageFileCountOutputTypeCountBidContractFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BidContractWhereInput
+}
+
 
 export type StorageFileSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1843,6 +3094,12 @@ export type StorageFileSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   versions?: boolean | Prisma.StorageFile$versionsArgs<ExtArgs>
   shareLinks?: boolean | Prisma.StorageFile$shareLinksArgs<ExtArgs>
   cardAttachments?: boolean | Prisma.StorageFile$cardAttachmentsArgs<ExtArgs>
+  bidEditalFiles?: boolean | Prisma.StorageFile$bidEditalFilesArgs<ExtArgs>
+  bidEtpFiles?: boolean | Prisma.StorageFile$bidEtpFilesArgs<ExtArgs>
+  bidTrFiles?: boolean | Prisma.StorageFile$bidTrFilesArgs<ExtArgs>
+  bidProposalFiles?: boolean | Prisma.StorageFile$bidProposalFilesArgs<ExtArgs>
+  bidDocumentFiles?: boolean | Prisma.StorageFile$bidDocumentFilesArgs<ExtArgs>
+  bidContractFiles?: boolean | Prisma.StorageFile$bidContractFilesArgs<ExtArgs>
   _count?: boolean | Prisma.StorageFileCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["storageFile"]>
 
@@ -1938,6 +3195,12 @@ export type StorageFileInclude<ExtArgs extends runtime.Types.Extensions.Internal
   versions?: boolean | Prisma.StorageFile$versionsArgs<ExtArgs>
   shareLinks?: boolean | Prisma.StorageFile$shareLinksArgs<ExtArgs>
   cardAttachments?: boolean | Prisma.StorageFile$cardAttachmentsArgs<ExtArgs>
+  bidEditalFiles?: boolean | Prisma.StorageFile$bidEditalFilesArgs<ExtArgs>
+  bidEtpFiles?: boolean | Prisma.StorageFile$bidEtpFilesArgs<ExtArgs>
+  bidTrFiles?: boolean | Prisma.StorageFile$bidTrFilesArgs<ExtArgs>
+  bidProposalFiles?: boolean | Prisma.StorageFile$bidProposalFilesArgs<ExtArgs>
+  bidDocumentFiles?: boolean | Prisma.StorageFile$bidDocumentFilesArgs<ExtArgs>
+  bidContractFiles?: boolean | Prisma.StorageFile$bidContractFilesArgs<ExtArgs>
   _count?: boolean | Prisma.StorageFileCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type StorageFileIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1957,6 +3220,12 @@ export type $StorageFilePayload<ExtArgs extends runtime.Types.Extensions.Interna
     versions: Prisma.$StorageFileVersionPayload<ExtArgs>[]
     shareLinks: Prisma.$StorageShareLinkPayload<ExtArgs>[]
     cardAttachments: Prisma.$CardAttachmentPayload<ExtArgs>[]
+    bidEditalFiles: Prisma.$BidPayload<ExtArgs>[]
+    bidEtpFiles: Prisma.$BidPayload<ExtArgs>[]
+    bidTrFiles: Prisma.$BidPayload<ExtArgs>[]
+    bidProposalFiles: Prisma.$BidProposalPayload<ExtArgs>[]
+    bidDocumentFiles: Prisma.$BidDocumentPayload<ExtArgs>[]
+    bidContractFiles: Prisma.$BidContractPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2382,6 +3651,12 @@ export interface Prisma__StorageFileClient<T, Null = never, ExtArgs extends runt
   versions<T extends Prisma.StorageFile$versionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StorageFile$versionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StorageFileVersionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   shareLinks<T extends Prisma.StorageFile$shareLinksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StorageFile$shareLinksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StorageShareLinkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   cardAttachments<T extends Prisma.StorageFile$cardAttachmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StorageFile$cardAttachmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CardAttachmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  bidEditalFiles<T extends Prisma.StorageFile$bidEditalFilesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StorageFile$bidEditalFilesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BidPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  bidEtpFiles<T extends Prisma.StorageFile$bidEtpFilesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StorageFile$bidEtpFilesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BidPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  bidTrFiles<T extends Prisma.StorageFile$bidTrFilesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StorageFile$bidTrFilesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BidPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  bidProposalFiles<T extends Prisma.StorageFile$bidProposalFilesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StorageFile$bidProposalFilesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BidProposalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  bidDocumentFiles<T extends Prisma.StorageFile$bidDocumentFilesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StorageFile$bidDocumentFilesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BidDocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  bidContractFiles<T extends Prisma.StorageFile$bidContractFilesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StorageFile$bidContractFilesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BidContractPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2919,6 +4194,150 @@ export type StorageFile$cardAttachmentsArgs<ExtArgs extends runtime.Types.Extens
   take?: number
   skip?: number
   distinct?: Prisma.CardAttachmentScalarFieldEnum | Prisma.CardAttachmentScalarFieldEnum[]
+}
+
+/**
+ * StorageFile.bidEditalFiles
+ */
+export type StorageFile$bidEditalFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Bid
+   */
+  select?: Prisma.BidSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Bid
+   */
+  omit?: Prisma.BidOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BidInclude<ExtArgs> | null
+  where?: Prisma.BidWhereInput
+  orderBy?: Prisma.BidOrderByWithRelationInput | Prisma.BidOrderByWithRelationInput[]
+  cursor?: Prisma.BidWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BidScalarFieldEnum | Prisma.BidScalarFieldEnum[]
+}
+
+/**
+ * StorageFile.bidEtpFiles
+ */
+export type StorageFile$bidEtpFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Bid
+   */
+  select?: Prisma.BidSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Bid
+   */
+  omit?: Prisma.BidOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BidInclude<ExtArgs> | null
+  where?: Prisma.BidWhereInput
+  orderBy?: Prisma.BidOrderByWithRelationInput | Prisma.BidOrderByWithRelationInput[]
+  cursor?: Prisma.BidWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BidScalarFieldEnum | Prisma.BidScalarFieldEnum[]
+}
+
+/**
+ * StorageFile.bidTrFiles
+ */
+export type StorageFile$bidTrFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Bid
+   */
+  select?: Prisma.BidSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Bid
+   */
+  omit?: Prisma.BidOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BidInclude<ExtArgs> | null
+  where?: Prisma.BidWhereInput
+  orderBy?: Prisma.BidOrderByWithRelationInput | Prisma.BidOrderByWithRelationInput[]
+  cursor?: Prisma.BidWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BidScalarFieldEnum | Prisma.BidScalarFieldEnum[]
+}
+
+/**
+ * StorageFile.bidProposalFiles
+ */
+export type StorageFile$bidProposalFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BidProposal
+   */
+  select?: Prisma.BidProposalSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the BidProposal
+   */
+  omit?: Prisma.BidProposalOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BidProposalInclude<ExtArgs> | null
+  where?: Prisma.BidProposalWhereInput
+  orderBy?: Prisma.BidProposalOrderByWithRelationInput | Prisma.BidProposalOrderByWithRelationInput[]
+  cursor?: Prisma.BidProposalWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BidProposalScalarFieldEnum | Prisma.BidProposalScalarFieldEnum[]
+}
+
+/**
+ * StorageFile.bidDocumentFiles
+ */
+export type StorageFile$bidDocumentFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BidDocument
+   */
+  select?: Prisma.BidDocumentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the BidDocument
+   */
+  omit?: Prisma.BidDocumentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BidDocumentInclude<ExtArgs> | null
+  where?: Prisma.BidDocumentWhereInput
+  orderBy?: Prisma.BidDocumentOrderByWithRelationInput | Prisma.BidDocumentOrderByWithRelationInput[]
+  cursor?: Prisma.BidDocumentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BidDocumentScalarFieldEnum | Prisma.BidDocumentScalarFieldEnum[]
+}
+
+/**
+ * StorageFile.bidContractFiles
+ */
+export type StorageFile$bidContractFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BidContract
+   */
+  select?: Prisma.BidContractSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the BidContract
+   */
+  omit?: Prisma.BidContractOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BidContractInclude<ExtArgs> | null
+  where?: Prisma.BidContractWhereInput
+  orderBy?: Prisma.BidContractOrderByWithRelationInput | Prisma.BidContractOrderByWithRelationInput[]
+  cursor?: Prisma.BidContractWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BidContractScalarFieldEnum | Prisma.BidContractScalarFieldEnum[]
 }
 
 /**
