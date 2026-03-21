@@ -8,6 +8,7 @@ export const sendMessageBodySchema = z.object({
   contextEntityType: z.string().max(64).optional(),
   contextEntityId: z.string().uuid().optional(),
   attachments: z.record(z.string(), z.unknown()).optional(),
+  tier: z.union([z.literal(1), z.literal(2), z.literal(3)]).optional(),
 });
 
 export const listConversationsQuerySchema = z.object({
@@ -54,7 +55,11 @@ export const messageResponseSchema = z.object({
   renderData: z.any().nullable().optional(),
   attachments: z.any().nullable().optional(),
   aiModel: z.string().nullable().optional(),
+  aiTier: z.number().nullable().optional(),
+  aiTokensInput: z.number().nullable().optional(),
+  aiTokensOutput: z.number().nullable().optional(),
   aiLatencyMs: z.number().nullable().optional(),
+  aiCost: z.number().nullable().optional(),
   toolCalls: z.any().nullable().optional(),
   actionsTaken: z.any().nullable().optional(),
   audioUrl: z.string().nullable().optional(),
