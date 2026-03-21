@@ -37,6 +37,28 @@ export class Document {
     return new Document(cleanedValue);
   }
 
+  /**
+   * Reconstruct a Document from persisted data without re-validating checksums.
+   * Data already in the database was validated on creation; re-validating on
+   * every read causes failures when seed/legacy data has formatting or
+   * checksum mismatches.
+   */
+  static fromPersistence(value: string): Document {
+    if (!value || value.trim().length === 0) {
+      throw new Error('Document cannot be empty');
+    }
+
+    const cleanedValue = value.replace(/\D/g, '');
+
+    if (cleanedValue.length !== 11 && cleanedValue.length !== 14) {
+      throw new Error(
+        'Document must be a valid CPF (11 digits) or CNPJ (14 digits)',
+      );
+    }
+
+    return new Document(cleanedValue);
+  }
+
   private static isValidCPF(cpf: string): boolean {
     // Verifica se todos os dígitos são iguais
     if (/^(\d)\1{10}$/.test(cpf)) {

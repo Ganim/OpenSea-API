@@ -11,7 +11,7 @@ export function mapCustomerPrismaToDomain(customerDb: PrismaCustomer) {
     name: customerDb.name,
     type: CustomerType.create(customerDb.type),
     document: customerDb.document
-      ? Document.create(customerDb.document)
+      ? Document.fromPersistence(customerDb.document)
       : undefined,
     email: customerDb.email ?? undefined,
     phone: customerDb.phone ?? undefined,
