@@ -30,12 +30,18 @@ export type SkillPricingAvgAggregateOutputType = {
   flatPrice: runtime.Decimal | null
   unitPrice: runtime.Decimal | null
   freeQuota: number | null
+  usageIncluded: number | null
+  usagePrice: runtime.Decimal | null
+  annualDiscount: runtime.Decimal | null
 }
 
 export type SkillPricingSumAggregateOutputType = {
   flatPrice: runtime.Decimal | null
   unitPrice: runtime.Decimal | null
   freeQuota: number | null
+  usageIncluded: number | null
+  usagePrice: runtime.Decimal | null
+  annualDiscount: runtime.Decimal | null
 }
 
 export type SkillPricingMinAggregateOutputType = {
@@ -46,6 +52,13 @@ export type SkillPricingMinAggregateOutputType = {
   unitPrice: runtime.Decimal | null
   freeQuota: number | null
   usageMetric: string | null
+  unitMetric: string | null
+  unitMetricLabel: string | null
+  usageIncluded: number | null
+  usagePrice: runtime.Decimal | null
+  usageMetricLabel: string | null
+  annualDiscount: runtime.Decimal | null
+  isActive: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -58,6 +71,13 @@ export type SkillPricingMaxAggregateOutputType = {
   unitPrice: runtime.Decimal | null
   freeQuota: number | null
   usageMetric: string | null
+  unitMetric: string | null
+  unitMetricLabel: string | null
+  usageIncluded: number | null
+  usagePrice: runtime.Decimal | null
+  usageMetricLabel: string | null
+  annualDiscount: runtime.Decimal | null
+  isActive: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -70,6 +90,13 @@ export type SkillPricingCountAggregateOutputType = {
   unitPrice: number
   freeQuota: number
   usageMetric: number
+  unitMetric: number
+  unitMetricLabel: number
+  usageIncluded: number
+  usagePrice: number
+  usageMetricLabel: number
+  annualDiscount: number
+  isActive: number
   tiers: number
   createdAt: number
   updatedAt: number
@@ -81,12 +108,18 @@ export type SkillPricingAvgAggregateInputType = {
   flatPrice?: true
   unitPrice?: true
   freeQuota?: true
+  usageIncluded?: true
+  usagePrice?: true
+  annualDiscount?: true
 }
 
 export type SkillPricingSumAggregateInputType = {
   flatPrice?: true
   unitPrice?: true
   freeQuota?: true
+  usageIncluded?: true
+  usagePrice?: true
+  annualDiscount?: true
 }
 
 export type SkillPricingMinAggregateInputType = {
@@ -97,6 +130,13 @@ export type SkillPricingMinAggregateInputType = {
   unitPrice?: true
   freeQuota?: true
   usageMetric?: true
+  unitMetric?: true
+  unitMetricLabel?: true
+  usageIncluded?: true
+  usagePrice?: true
+  usageMetricLabel?: true
+  annualDiscount?: true
+  isActive?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -109,6 +149,13 @@ export type SkillPricingMaxAggregateInputType = {
   unitPrice?: true
   freeQuota?: true
   usageMetric?: true
+  unitMetric?: true
+  unitMetricLabel?: true
+  usageIncluded?: true
+  usagePrice?: true
+  usageMetricLabel?: true
+  annualDiscount?: true
+  isActive?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -121,6 +168,13 @@ export type SkillPricingCountAggregateInputType = {
   unitPrice?: true
   freeQuota?: true
   usageMetric?: true
+  unitMetric?: true
+  unitMetricLabel?: true
+  usageIncluded?: true
+  usagePrice?: true
+  usageMetricLabel?: true
+  annualDiscount?: true
+  isActive?: true
   tiers?: true
   createdAt?: true
   updatedAt?: true
@@ -221,6 +275,13 @@ export type SkillPricingGroupByOutputType = {
   unitPrice: runtime.Decimal | null
   freeQuota: number | null
   usageMetric: string | null
+  unitMetric: string | null
+  unitMetricLabel: string | null
+  usageIncluded: number | null
+  usagePrice: runtime.Decimal | null
+  usageMetricLabel: string | null
+  annualDiscount: runtime.Decimal | null
+  isActive: boolean
   tiers: runtime.JsonValue
   createdAt: Date
   updatedAt: Date
@@ -257,6 +318,13 @@ export type SkillPricingWhereInput = {
   unitPrice?: Prisma.DecimalNullableFilter<"SkillPricing"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   freeQuota?: Prisma.IntNullableFilter<"SkillPricing"> | number | null
   usageMetric?: Prisma.StringNullableFilter<"SkillPricing"> | string | null
+  unitMetric?: Prisma.StringNullableFilter<"SkillPricing"> | string | null
+  unitMetricLabel?: Prisma.StringNullableFilter<"SkillPricing"> | string | null
+  usageIncluded?: Prisma.IntNullableFilter<"SkillPricing"> | number | null
+  usagePrice?: Prisma.DecimalNullableFilter<"SkillPricing"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  usageMetricLabel?: Prisma.StringNullableFilter<"SkillPricing"> | string | null
+  annualDiscount?: Prisma.DecimalNullableFilter<"SkillPricing"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isActive?: Prisma.BoolFilter<"SkillPricing"> | boolean
   tiers?: Prisma.JsonFilter<"SkillPricing">
   createdAt?: Prisma.DateTimeFilter<"SkillPricing"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"SkillPricing"> | Date | string
@@ -271,6 +339,13 @@ export type SkillPricingOrderByWithRelationInput = {
   unitPrice?: Prisma.SortOrderInput | Prisma.SortOrder
   freeQuota?: Prisma.SortOrderInput | Prisma.SortOrder
   usageMetric?: Prisma.SortOrderInput | Prisma.SortOrder
+  unitMetric?: Prisma.SortOrderInput | Prisma.SortOrder
+  unitMetricLabel?: Prisma.SortOrderInput | Prisma.SortOrder
+  usageIncluded?: Prisma.SortOrderInput | Prisma.SortOrder
+  usagePrice?: Prisma.SortOrderInput | Prisma.SortOrder
+  usageMetricLabel?: Prisma.SortOrderInput | Prisma.SortOrder
+  annualDiscount?: Prisma.SortOrderInput | Prisma.SortOrder
+  isActive?: Prisma.SortOrder
   tiers?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -288,6 +363,13 @@ export type SkillPricingWhereUniqueInput = Prisma.AtLeast<{
   unitPrice?: Prisma.DecimalNullableFilter<"SkillPricing"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   freeQuota?: Prisma.IntNullableFilter<"SkillPricing"> | number | null
   usageMetric?: Prisma.StringNullableFilter<"SkillPricing"> | string | null
+  unitMetric?: Prisma.StringNullableFilter<"SkillPricing"> | string | null
+  unitMetricLabel?: Prisma.StringNullableFilter<"SkillPricing"> | string | null
+  usageIncluded?: Prisma.IntNullableFilter<"SkillPricing"> | number | null
+  usagePrice?: Prisma.DecimalNullableFilter<"SkillPricing"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  usageMetricLabel?: Prisma.StringNullableFilter<"SkillPricing"> | string | null
+  annualDiscount?: Prisma.DecimalNullableFilter<"SkillPricing"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isActive?: Prisma.BoolFilter<"SkillPricing"> | boolean
   tiers?: Prisma.JsonFilter<"SkillPricing">
   createdAt?: Prisma.DateTimeFilter<"SkillPricing"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"SkillPricing"> | Date | string
@@ -302,6 +384,13 @@ export type SkillPricingOrderByWithAggregationInput = {
   unitPrice?: Prisma.SortOrderInput | Prisma.SortOrder
   freeQuota?: Prisma.SortOrderInput | Prisma.SortOrder
   usageMetric?: Prisma.SortOrderInput | Prisma.SortOrder
+  unitMetric?: Prisma.SortOrderInput | Prisma.SortOrder
+  unitMetricLabel?: Prisma.SortOrderInput | Prisma.SortOrder
+  usageIncluded?: Prisma.SortOrderInput | Prisma.SortOrder
+  usagePrice?: Prisma.SortOrderInput | Prisma.SortOrder
+  usageMetricLabel?: Prisma.SortOrderInput | Prisma.SortOrder
+  annualDiscount?: Prisma.SortOrderInput | Prisma.SortOrder
+  isActive?: Prisma.SortOrder
   tiers?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -323,6 +412,13 @@ export type SkillPricingScalarWhereWithAggregatesInput = {
   unitPrice?: Prisma.DecimalNullableWithAggregatesFilter<"SkillPricing"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   freeQuota?: Prisma.IntNullableWithAggregatesFilter<"SkillPricing"> | number | null
   usageMetric?: Prisma.StringNullableWithAggregatesFilter<"SkillPricing"> | string | null
+  unitMetric?: Prisma.StringNullableWithAggregatesFilter<"SkillPricing"> | string | null
+  unitMetricLabel?: Prisma.StringNullableWithAggregatesFilter<"SkillPricing"> | string | null
+  usageIncluded?: Prisma.IntNullableWithAggregatesFilter<"SkillPricing"> | number | null
+  usagePrice?: Prisma.DecimalNullableWithAggregatesFilter<"SkillPricing"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  usageMetricLabel?: Prisma.StringNullableWithAggregatesFilter<"SkillPricing"> | string | null
+  annualDiscount?: Prisma.DecimalNullableWithAggregatesFilter<"SkillPricing"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isActive?: Prisma.BoolWithAggregatesFilter<"SkillPricing"> | boolean
   tiers?: Prisma.JsonWithAggregatesFilter<"SkillPricing">
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"SkillPricing"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"SkillPricing"> | Date | string
@@ -335,6 +431,13 @@ export type SkillPricingCreateInput = {
   unitPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   freeQuota?: number | null
   usageMetric?: string | null
+  unitMetric?: string | null
+  unitMetricLabel?: string | null
+  usageIncluded?: number | null
+  usagePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  usageMetricLabel?: string | null
+  annualDiscount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isActive?: boolean
   tiers?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -349,6 +452,13 @@ export type SkillPricingUncheckedCreateInput = {
   unitPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   freeQuota?: number | null
   usageMetric?: string | null
+  unitMetric?: string | null
+  unitMetricLabel?: string | null
+  usageIncluded?: number | null
+  usagePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  usageMetricLabel?: string | null
+  annualDiscount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isActive?: boolean
   tiers?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -361,6 +471,13 @@ export type SkillPricingUpdateInput = {
   unitPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   freeQuota?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   usageMetric?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unitMetric?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unitMetricLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  usageIncluded?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  usagePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  usageMetricLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  annualDiscount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tiers?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -375,6 +492,13 @@ export type SkillPricingUncheckedUpdateInput = {
   unitPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   freeQuota?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   usageMetric?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unitMetric?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unitMetricLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  usageIncluded?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  usagePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  usageMetricLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  annualDiscount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tiers?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -388,6 +512,13 @@ export type SkillPricingCreateManyInput = {
   unitPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   freeQuota?: number | null
   usageMetric?: string | null
+  unitMetric?: string | null
+  unitMetricLabel?: string | null
+  usageIncluded?: number | null
+  usagePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  usageMetricLabel?: string | null
+  annualDiscount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isActive?: boolean
   tiers?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -400,6 +531,13 @@ export type SkillPricingUpdateManyMutationInput = {
   unitPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   freeQuota?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   usageMetric?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unitMetric?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unitMetricLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  usageIncluded?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  usagePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  usageMetricLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  annualDiscount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tiers?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -413,6 +551,13 @@ export type SkillPricingUncheckedUpdateManyInput = {
   unitPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   freeQuota?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   usageMetric?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unitMetric?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unitMetricLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  usageIncluded?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  usagePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  usageMetricLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  annualDiscount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tiers?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -431,6 +576,13 @@ export type SkillPricingCountOrderByAggregateInput = {
   unitPrice?: Prisma.SortOrder
   freeQuota?: Prisma.SortOrder
   usageMetric?: Prisma.SortOrder
+  unitMetric?: Prisma.SortOrder
+  unitMetricLabel?: Prisma.SortOrder
+  usageIncluded?: Prisma.SortOrder
+  usagePrice?: Prisma.SortOrder
+  usageMetricLabel?: Prisma.SortOrder
+  annualDiscount?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
   tiers?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -440,6 +592,9 @@ export type SkillPricingAvgOrderByAggregateInput = {
   flatPrice?: Prisma.SortOrder
   unitPrice?: Prisma.SortOrder
   freeQuota?: Prisma.SortOrder
+  usageIncluded?: Prisma.SortOrder
+  usagePrice?: Prisma.SortOrder
+  annualDiscount?: Prisma.SortOrder
 }
 
 export type SkillPricingMaxOrderByAggregateInput = {
@@ -450,6 +605,13 @@ export type SkillPricingMaxOrderByAggregateInput = {
   unitPrice?: Prisma.SortOrder
   freeQuota?: Prisma.SortOrder
   usageMetric?: Prisma.SortOrder
+  unitMetric?: Prisma.SortOrder
+  unitMetricLabel?: Prisma.SortOrder
+  usageIncluded?: Prisma.SortOrder
+  usagePrice?: Prisma.SortOrder
+  usageMetricLabel?: Prisma.SortOrder
+  annualDiscount?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -462,6 +624,13 @@ export type SkillPricingMinOrderByAggregateInput = {
   unitPrice?: Prisma.SortOrder
   freeQuota?: Prisma.SortOrder
   usageMetric?: Prisma.SortOrder
+  unitMetric?: Prisma.SortOrder
+  unitMetricLabel?: Prisma.SortOrder
+  usageIncluded?: Prisma.SortOrder
+  usagePrice?: Prisma.SortOrder
+  usageMetricLabel?: Prisma.SortOrder
+  annualDiscount?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -470,6 +639,9 @@ export type SkillPricingSumOrderByAggregateInput = {
   flatPrice?: Prisma.SortOrder
   unitPrice?: Prisma.SortOrder
   freeQuota?: Prisma.SortOrder
+  usageIncluded?: Prisma.SortOrder
+  usagePrice?: Prisma.SortOrder
+  annualDiscount?: Prisma.SortOrder
 }
 
 export type SkillPricingCreateNestedOneWithoutSkillInput = {
@@ -515,6 +687,13 @@ export type SkillPricingCreateWithoutSkillInput = {
   unitPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   freeQuota?: number | null
   usageMetric?: string | null
+  unitMetric?: string | null
+  unitMetricLabel?: string | null
+  usageIncluded?: number | null
+  usagePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  usageMetricLabel?: string | null
+  annualDiscount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isActive?: boolean
   tiers?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -527,6 +706,13 @@ export type SkillPricingUncheckedCreateWithoutSkillInput = {
   unitPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   freeQuota?: number | null
   usageMetric?: string | null
+  unitMetric?: string | null
+  unitMetricLabel?: string | null
+  usageIncluded?: number | null
+  usagePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  usageMetricLabel?: string | null
+  annualDiscount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isActive?: boolean
   tiers?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -555,6 +741,13 @@ export type SkillPricingUpdateWithoutSkillInput = {
   unitPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   freeQuota?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   usageMetric?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unitMetric?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unitMetricLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  usageIncluded?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  usagePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  usageMetricLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  annualDiscount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tiers?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -567,6 +760,13 @@ export type SkillPricingUncheckedUpdateWithoutSkillInput = {
   unitPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   freeQuota?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   usageMetric?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unitMetric?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unitMetricLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  usageIncluded?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  usagePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  usageMetricLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  annualDiscount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tiers?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -582,6 +782,13 @@ export type SkillPricingSelect<ExtArgs extends runtime.Types.Extensions.Internal
   unitPrice?: boolean
   freeQuota?: boolean
   usageMetric?: boolean
+  unitMetric?: boolean
+  unitMetricLabel?: boolean
+  usageIncluded?: boolean
+  usagePrice?: boolean
+  usageMetricLabel?: boolean
+  annualDiscount?: boolean
+  isActive?: boolean
   tiers?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -596,6 +803,13 @@ export type SkillPricingSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   unitPrice?: boolean
   freeQuota?: boolean
   usageMetric?: boolean
+  unitMetric?: boolean
+  unitMetricLabel?: boolean
+  usageIncluded?: boolean
+  usagePrice?: boolean
+  usageMetricLabel?: boolean
+  annualDiscount?: boolean
+  isActive?: boolean
   tiers?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -610,6 +824,13 @@ export type SkillPricingSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   unitPrice?: boolean
   freeQuota?: boolean
   usageMetric?: boolean
+  unitMetric?: boolean
+  unitMetricLabel?: boolean
+  usageIncluded?: boolean
+  usagePrice?: boolean
+  usageMetricLabel?: boolean
+  annualDiscount?: boolean
+  isActive?: boolean
   tiers?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -624,12 +845,19 @@ export type SkillPricingSelectScalar = {
   unitPrice?: boolean
   freeQuota?: boolean
   usageMetric?: boolean
+  unitMetric?: boolean
+  unitMetricLabel?: boolean
+  usageIncluded?: boolean
+  usagePrice?: boolean
+  usageMetricLabel?: boolean
+  annualDiscount?: boolean
+  isActive?: boolean
   tiers?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type SkillPricingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "skillCode" | "pricingType" | "flatPrice" | "unitPrice" | "freeQuota" | "usageMetric" | "tiers" | "createdAt" | "updatedAt", ExtArgs["result"]["skillPricing"]>
+export type SkillPricingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "skillCode" | "pricingType" | "flatPrice" | "unitPrice" | "freeQuota" | "usageMetric" | "unitMetric" | "unitMetricLabel" | "usageIncluded" | "usagePrice" | "usageMetricLabel" | "annualDiscount" | "isActive" | "tiers" | "createdAt" | "updatedAt", ExtArgs["result"]["skillPricing"]>
 export type SkillPricingInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   skill?: boolean | Prisma.SystemSkillDefinitionDefaultArgs<ExtArgs>
 }
@@ -653,6 +881,13 @@ export type $SkillPricingPayload<ExtArgs extends runtime.Types.Extensions.Intern
     unitPrice: runtime.Decimal | null
     freeQuota: number | null
     usageMetric: string | null
+    unitMetric: string | null
+    unitMetricLabel: string | null
+    usageIncluded: number | null
+    usagePrice: runtime.Decimal | null
+    usageMetricLabel: string | null
+    annualDiscount: runtime.Decimal | null
+    isActive: boolean
     tiers: runtime.JsonValue
     createdAt: Date
     updatedAt: Date
@@ -1087,6 +1322,13 @@ export interface SkillPricingFieldRefs {
   readonly unitPrice: Prisma.FieldRef<"SkillPricing", 'Decimal'>
   readonly freeQuota: Prisma.FieldRef<"SkillPricing", 'Int'>
   readonly usageMetric: Prisma.FieldRef<"SkillPricing", 'String'>
+  readonly unitMetric: Prisma.FieldRef<"SkillPricing", 'String'>
+  readonly unitMetricLabel: Prisma.FieldRef<"SkillPricing", 'String'>
+  readonly usageIncluded: Prisma.FieldRef<"SkillPricing", 'Int'>
+  readonly usagePrice: Prisma.FieldRef<"SkillPricing", 'Decimal'>
+  readonly usageMetricLabel: Prisma.FieldRef<"SkillPricing", 'String'>
+  readonly annualDiscount: Prisma.FieldRef<"SkillPricing", 'Decimal'>
+  readonly isActive: Prisma.FieldRef<"SkillPricing", 'Boolean'>
   readonly tiers: Prisma.FieldRef<"SkillPricing", 'Json'>
   readonly createdAt: Prisma.FieldRef<"SkillPricing", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"SkillPricing", 'DateTime'>

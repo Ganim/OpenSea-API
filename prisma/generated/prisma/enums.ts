@@ -522,6 +522,126 @@ export const OrderStatus = {
 export type OrderStatus = (typeof OrderStatus)[keyof typeof OrderStatus]
 
 
+export const ContactRole = {
+  DECISION_MAKER: 'DECISION_MAKER',
+  INFLUENCER: 'INFLUENCER',
+  CHAMPION: 'CHAMPION',
+  GATEKEEPER: 'GATEKEEPER',
+  END_USER: 'END_USER',
+  OTHER: 'OTHER'
+} as const
+
+export type ContactRole = (typeof ContactRole)[keyof typeof ContactRole]
+
+
+export const ContactLifecycleStage = {
+  SUBSCRIBER: 'SUBSCRIBER',
+  LEAD: 'LEAD',
+  QUALIFIED: 'QUALIFIED',
+  OPPORTUNITY: 'OPPORTUNITY',
+  CUSTOMER: 'CUSTOMER',
+  EVANGELIST: 'EVANGELIST'
+} as const
+
+export type ContactLifecycleStage = (typeof ContactLifecycleStage)[keyof typeof ContactLifecycleStage]
+
+
+export const PipelineType = {
+  SALES: 'SALES',
+  ONBOARDING: 'ONBOARDING',
+  SUPPORT: 'SUPPORT',
+  CUSTOM: 'CUSTOM',
+  ORDER_B2C: 'ORDER_B2C',
+  ORDER_B2B: 'ORDER_B2B',
+  ORDER_BID: 'ORDER_BID',
+  ORDER_ECOMMERCE: 'ORDER_ECOMMERCE'
+} as const
+
+export type PipelineType = (typeof PipelineType)[keyof typeof PipelineType]
+
+
+export const PipelineStageType = {
+  OPEN: 'OPEN',
+  WON: 'WON',
+  LOST: 'LOST',
+  DRAFT: 'DRAFT',
+  PENDING_APPROVAL: 'PENDING_APPROVAL',
+  APPROVED: 'APPROVED',
+  PROCESSING: 'PROCESSING',
+  INVOICED: 'INVOICED',
+  SHIPPED: 'SHIPPED',
+  DELIVERED: 'DELIVERED',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type PipelineStageType = (typeof PipelineStageType)[keyof typeof PipelineStageType]
+
+
+export const DealStatus = {
+  OPEN: 'OPEN',
+  WON: 'WON',
+  LOST: 'LOST',
+  ABANDONED: 'ABANDONED'
+} as const
+
+export type DealStatus = (typeof DealStatus)[keyof typeof DealStatus]
+
+
+export const DealPriority = {
+  LOW: 'LOW',
+  MEDIUM: 'MEDIUM',
+  HIGH: 'HIGH',
+  URGENT: 'URGENT'
+} as const
+
+export type DealPriority = (typeof DealPriority)[keyof typeof DealPriority]
+
+
+export const CrmActivityType = {
+  CALL: 'CALL',
+  EMAIL: 'EMAIL',
+  MEETING: 'MEETING',
+  TASK: 'TASK',
+  NOTE: 'NOTE',
+  WHATSAPP: 'WHATSAPP',
+  VISIT: 'VISIT',
+  PROPOSAL: 'PROPOSAL',
+  FOLLOW_UP: 'FOLLOW_UP'
+} as const
+
+export type CrmActivityType = (typeof CrmActivityType)[keyof typeof CrmActivityType]
+
+
+export const CrmActivityStatus = {
+  PLANNED: 'PLANNED',
+  IN_PROGRESS: 'IN_PROGRESS',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED',
+  OVERDUE: 'OVERDUE'
+} as const
+
+export type CrmActivityStatus = (typeof CrmActivityStatus)[keyof typeof CrmActivityStatus]
+
+
+export const TimelineEventType = {
+  DEAL_CREATED: 'DEAL_CREATED',
+  DEAL_UPDATED: 'DEAL_UPDATED',
+  DEAL_WON: 'DEAL_WON',
+  DEAL_LOST: 'DEAL_LOST',
+  STAGE_CHANGED: 'STAGE_CHANGED',
+  ACTIVITY_CREATED: 'ACTIVITY_CREATED',
+  ACTIVITY_COMPLETED: 'ACTIVITY_COMPLETED',
+  NOTE_ADDED: 'NOTE_ADDED',
+  EMAIL_SENT: 'EMAIL_SENT',
+  CONTACT_ADDED: 'CONTACT_ADDED',
+  VALUE_CHANGED: 'VALUE_CHANGED',
+  OWNER_CHANGED: 'OWNER_CHANGED'
+} as const
+
+export type TimelineEventType = (typeof TimelineEventType)[keyof typeof TimelineEventType]
+
+
 export const LocationType = {
   WAREHOUSE: 'WAREHOUSE',
   ZONE: 'ZONE',
@@ -629,6 +749,46 @@ export const VolumeStatus = {
 } as const
 
 export type VolumeStatus = (typeof VolumeStatus)[keyof typeof VolumeStatus]
+
+
+export const InventorySessionMode = {
+  BIN: 'BIN',
+  ZONE: 'ZONE',
+  PRODUCT: 'PRODUCT'
+} as const
+
+export type InventorySessionMode = (typeof InventorySessionMode)[keyof typeof InventorySessionMode]
+
+
+export const InventorySessionStatus = {
+  OPEN: 'OPEN',
+  PAUSED: 'PAUSED',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type InventorySessionStatus = (typeof InventorySessionStatus)[keyof typeof InventorySessionStatus]
+
+
+export const InventoryItemStatus = {
+  PENDING: 'PENDING',
+  CONFIRMED: 'CONFIRMED',
+  MISSING: 'MISSING',
+  EXTRA: 'EXTRA',
+  WRONG_BIN: 'WRONG_BIN'
+} as const
+
+export type InventoryItemStatus = (typeof InventoryItemStatus)[keyof typeof InventoryItemStatus]
+
+
+export const InventoryItemResolution = {
+  LOSS_REGISTERED: 'LOSS_REGISTERED',
+  TRANSFERRED: 'TRANSFERRED',
+  ENTRY_CREATED: 'ENTRY_CREATED',
+  PENDING_REVIEW: 'PENDING_REVIEW'
+} as const
+
+export type InventoryItemResolution = (typeof InventoryItemResolution)[keyof typeof InventoryItemResolution]
 
 
 export const RequestType = {

@@ -239,6 +239,11 @@ export type TenantWhereInput = {
   variantAttachments?: Prisma.VariantAttachmentListRelationFilter
   customers?: Prisma.CustomerListRelationFilter
   salesOrders?: Prisma.SalesOrderListRelationFilter
+  crmContacts?: Prisma.CrmContactListRelationFilter
+  crmPipelines?: Prisma.CrmPipelineListRelationFilter
+  crmDeals?: Prisma.CrmDealListRelationFilter
+  crmActivities?: Prisma.CrmActivityListRelationFilter
+  crmTimelineEvents?: Prisma.CrmTimelineEventListRelationFilter
   companies?: Prisma.CompanyListRelationFilter
   companyDocuments?: Prisma.CompanyDocumentListRelationFilter
   departments?: Prisma.DepartmentListRelationFilter
@@ -324,6 +329,11 @@ export type TenantOrderByWithRelationInput = {
   variantAttachments?: Prisma.VariantAttachmentOrderByRelationAggregateInput
   customers?: Prisma.CustomerOrderByRelationAggregateInput
   salesOrders?: Prisma.SalesOrderOrderByRelationAggregateInput
+  crmContacts?: Prisma.CrmContactOrderByRelationAggregateInput
+  crmPipelines?: Prisma.CrmPipelineOrderByRelationAggregateInput
+  crmDeals?: Prisma.CrmDealOrderByRelationAggregateInput
+  crmActivities?: Prisma.CrmActivityOrderByRelationAggregateInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventOrderByRelationAggregateInput
   companies?: Prisma.CompanyOrderByRelationAggregateInput
   companyDocuments?: Prisma.CompanyDocumentOrderByRelationAggregateInput
   departments?: Prisma.DepartmentOrderByRelationAggregateInput
@@ -412,6 +422,11 @@ export type TenantWhereUniqueInput = Prisma.AtLeast<{
   variantAttachments?: Prisma.VariantAttachmentListRelationFilter
   customers?: Prisma.CustomerListRelationFilter
   salesOrders?: Prisma.SalesOrderListRelationFilter
+  crmContacts?: Prisma.CrmContactListRelationFilter
+  crmPipelines?: Prisma.CrmPipelineListRelationFilter
+  crmDeals?: Prisma.CrmDealListRelationFilter
+  crmActivities?: Prisma.CrmActivityListRelationFilter
+  crmTimelineEvents?: Prisma.CrmTimelineEventListRelationFilter
   companies?: Prisma.CompanyListRelationFilter
   companyDocuments?: Prisma.CompanyDocumentListRelationFilter
   departments?: Prisma.DepartmentListRelationFilter
@@ -529,6 +544,11 @@ export type TenantCreateInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -614,6 +634,11 @@ export type TenantUncheckedCreateInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -699,6 +724,11 @@ export type TenantUpdateInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -784,6 +814,11 @@ export type TenantUncheckedUpdateInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -1259,6 +1294,76 @@ export type TenantUpdateOneRequiredWithoutSalesOrdersNestedInput = {
   upsert?: Prisma.TenantUpsertWithoutSalesOrdersInput
   connect?: Prisma.TenantWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutSalesOrdersInput, Prisma.TenantUpdateWithoutSalesOrdersInput>, Prisma.TenantUncheckedUpdateWithoutSalesOrdersInput>
+}
+
+export type TenantCreateNestedOneWithoutCrmContactsInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutCrmContactsInput, Prisma.TenantUncheckedCreateWithoutCrmContactsInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutCrmContactsInput
+  connect?: Prisma.TenantWhereUniqueInput
+}
+
+export type TenantUpdateOneRequiredWithoutCrmContactsNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutCrmContactsInput, Prisma.TenantUncheckedCreateWithoutCrmContactsInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutCrmContactsInput
+  upsert?: Prisma.TenantUpsertWithoutCrmContactsInput
+  connect?: Prisma.TenantWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutCrmContactsInput, Prisma.TenantUpdateWithoutCrmContactsInput>, Prisma.TenantUncheckedUpdateWithoutCrmContactsInput>
+}
+
+export type TenantCreateNestedOneWithoutCrmPipelinesInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutCrmPipelinesInput, Prisma.TenantUncheckedCreateWithoutCrmPipelinesInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutCrmPipelinesInput
+  connect?: Prisma.TenantWhereUniqueInput
+}
+
+export type TenantUpdateOneRequiredWithoutCrmPipelinesNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutCrmPipelinesInput, Prisma.TenantUncheckedCreateWithoutCrmPipelinesInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutCrmPipelinesInput
+  upsert?: Prisma.TenantUpsertWithoutCrmPipelinesInput
+  connect?: Prisma.TenantWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutCrmPipelinesInput, Prisma.TenantUpdateWithoutCrmPipelinesInput>, Prisma.TenantUncheckedUpdateWithoutCrmPipelinesInput>
+}
+
+export type TenantCreateNestedOneWithoutCrmDealsInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutCrmDealsInput, Prisma.TenantUncheckedCreateWithoutCrmDealsInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutCrmDealsInput
+  connect?: Prisma.TenantWhereUniqueInput
+}
+
+export type TenantUpdateOneRequiredWithoutCrmDealsNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutCrmDealsInput, Prisma.TenantUncheckedCreateWithoutCrmDealsInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutCrmDealsInput
+  upsert?: Prisma.TenantUpsertWithoutCrmDealsInput
+  connect?: Prisma.TenantWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutCrmDealsInput, Prisma.TenantUpdateWithoutCrmDealsInput>, Prisma.TenantUncheckedUpdateWithoutCrmDealsInput>
+}
+
+export type TenantCreateNestedOneWithoutCrmActivitiesInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutCrmActivitiesInput, Prisma.TenantUncheckedCreateWithoutCrmActivitiesInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutCrmActivitiesInput
+  connect?: Prisma.TenantWhereUniqueInput
+}
+
+export type TenantUpdateOneRequiredWithoutCrmActivitiesNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutCrmActivitiesInput, Prisma.TenantUncheckedCreateWithoutCrmActivitiesInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutCrmActivitiesInput
+  upsert?: Prisma.TenantUpsertWithoutCrmActivitiesInput
+  connect?: Prisma.TenantWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutCrmActivitiesInput, Prisma.TenantUpdateWithoutCrmActivitiesInput>, Prisma.TenantUncheckedUpdateWithoutCrmActivitiesInput>
+}
+
+export type TenantCreateNestedOneWithoutCrmTimelineEventsInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutCrmTimelineEventsInput, Prisma.TenantUncheckedCreateWithoutCrmTimelineEventsInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutCrmTimelineEventsInput
+  connect?: Prisma.TenantWhereUniqueInput
+}
+
+export type TenantUpdateOneRequiredWithoutCrmTimelineEventsNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutCrmTimelineEventsInput, Prisma.TenantUncheckedCreateWithoutCrmTimelineEventsInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutCrmTimelineEventsInput
+  upsert?: Prisma.TenantUpsertWithoutCrmTimelineEventsInput
+  connect?: Prisma.TenantWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutCrmTimelineEventsInput, Prisma.TenantUpdateWithoutCrmTimelineEventsInput>, Prisma.TenantUncheckedUpdateWithoutCrmTimelineEventsInput>
 }
 
 export type TenantCreateNestedOneWithoutEmployeesInput = {
@@ -1972,6 +2077,11 @@ export type TenantCreateWithoutSessionsInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -2056,6 +2166,11 @@ export type TenantUncheckedCreateWithoutSessionsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -2156,6 +2271,11 @@ export type TenantUpdateWithoutSessionsInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -2240,6 +2360,11 @@ export type TenantUncheckedUpdateWithoutSessionsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -2324,6 +2449,11 @@ export type TenantCreateWithoutRefreshTokensInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -2408,6 +2538,11 @@ export type TenantUncheckedCreateWithoutRefreshTokensInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -2508,6 +2643,11 @@ export type TenantUpdateWithoutRefreshTokensInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -2592,6 +2732,11 @@ export type TenantUncheckedUpdateWithoutRefreshTokensInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -2676,6 +2821,11 @@ export type TenantCreateWithoutPermissionGroupsInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -2760,6 +2910,11 @@ export type TenantUncheckedCreateWithoutPermissionGroupsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -2860,6 +3015,11 @@ export type TenantUpdateWithoutPermissionGroupsInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -2944,6 +3104,11 @@ export type TenantUncheckedUpdateWithoutPermissionGroupsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -3029,6 +3194,11 @@ export type TenantCreateWithoutOrganizationsInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -3113,6 +3283,11 @@ export type TenantUncheckedCreateWithoutOrganizationsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -3213,6 +3388,11 @@ export type TenantUpdateWithoutOrganizationsInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -3297,6 +3477,11 @@ export type TenantUncheckedUpdateWithoutOrganizationsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -3380,6 +3565,11 @@ export type TenantCreateWithoutSuppliersInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -3464,6 +3654,11 @@ export type TenantUncheckedCreateWithoutSuppliersInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -3564,6 +3759,11 @@ export type TenantUpdateWithoutSuppliersInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -3648,6 +3848,11 @@ export type TenantUncheckedUpdateWithoutSuppliersInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -3732,6 +3937,11 @@ export type TenantCreateWithoutManufacturersInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -3816,6 +4026,11 @@ export type TenantUncheckedCreateWithoutManufacturersInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -3916,6 +4131,11 @@ export type TenantUpdateWithoutManufacturersInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -4000,6 +4220,11 @@ export type TenantUncheckedUpdateWithoutManufacturersInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -4084,6 +4309,11 @@ export type TenantCreateWithoutCategoriesInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -4168,6 +4398,11 @@ export type TenantUncheckedCreateWithoutCategoriesInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -4268,6 +4503,11 @@ export type TenantUpdateWithoutCategoriesInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -4352,6 +4592,11 @@ export type TenantUncheckedUpdateWithoutCategoriesInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -4436,6 +4681,11 @@ export type TenantCreateWithoutWarehousesInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -4520,6 +4770,11 @@ export type TenantUncheckedCreateWithoutWarehousesInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -4620,6 +4875,11 @@ export type TenantUpdateWithoutWarehousesInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -4704,6 +4964,11 @@ export type TenantUncheckedUpdateWithoutWarehousesInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -4788,6 +5053,11 @@ export type TenantCreateWithoutZonesInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -4872,6 +5142,11 @@ export type TenantUncheckedCreateWithoutZonesInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -4972,6 +5247,11 @@ export type TenantUpdateWithoutZonesInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -5056,6 +5336,11 @@ export type TenantUncheckedUpdateWithoutZonesInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -5140,6 +5425,11 @@ export type TenantCreateWithoutBinsInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -5224,6 +5514,11 @@ export type TenantUncheckedCreateWithoutBinsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -5324,6 +5619,11 @@ export type TenantUpdateWithoutBinsInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -5408,6 +5708,11 @@ export type TenantUncheckedUpdateWithoutBinsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -5492,6 +5797,11 @@ export type TenantCreateWithoutVolumesInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -5576,6 +5886,11 @@ export type TenantUncheckedCreateWithoutVolumesInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -5676,6 +5991,11 @@ export type TenantUpdateWithoutVolumesInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -5760,6 +6080,11 @@ export type TenantUncheckedUpdateWithoutVolumesInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -5844,6 +6169,11 @@ export type TenantCreateWithoutTemplatesInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -5928,6 +6258,11 @@ export type TenantUncheckedCreateWithoutTemplatesInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -6028,6 +6363,11 @@ export type TenantUpdateWithoutTemplatesInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -6112,6 +6452,11 @@ export type TenantUncheckedUpdateWithoutTemplatesInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -6196,6 +6541,11 @@ export type TenantCreateWithoutProductsInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -6280,6 +6630,11 @@ export type TenantUncheckedCreateWithoutProductsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -6380,6 +6735,11 @@ export type TenantUpdateWithoutProductsInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -6464,6 +6824,11 @@ export type TenantUncheckedUpdateWithoutProductsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -6548,6 +6913,11 @@ export type TenantCreateWithoutVariantsInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -6632,6 +7002,11 @@ export type TenantUncheckedCreateWithoutVariantsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -6732,6 +7107,11 @@ export type TenantUpdateWithoutVariantsInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -6816,6 +7196,11 @@ export type TenantUncheckedUpdateWithoutVariantsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -6900,6 +7285,11 @@ export type TenantCreateWithoutItemsInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -6984,6 +7374,11 @@ export type TenantUncheckedCreateWithoutItemsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -7084,6 +7479,11 @@ export type TenantUpdateWithoutItemsInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -7168,6 +7568,11 @@ export type TenantUncheckedUpdateWithoutItemsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -7252,6 +7657,11 @@ export type TenantCreateWithoutItemMovementsInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -7336,6 +7746,11 @@ export type TenantUncheckedCreateWithoutItemMovementsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -7436,6 +7851,11 @@ export type TenantUpdateWithoutItemMovementsInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -7520,6 +7940,11 @@ export type TenantUncheckedUpdateWithoutItemMovementsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -7605,6 +8030,11 @@ export type TenantCreateWithoutAuditLogsInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -7689,6 +8119,11 @@ export type TenantUncheckedCreateWithoutAuditLogsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -7789,6 +8224,11 @@ export type TenantUpdateWithoutAuditLogsInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -7873,6 +8313,11 @@ export type TenantUncheckedUpdateWithoutAuditLogsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -7956,6 +8401,11 @@ export type TenantCreateWithoutTagsInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -8040,6 +8490,11 @@ export type TenantUncheckedCreateWithoutTagsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -8140,6 +8595,11 @@ export type TenantUpdateWithoutTagsInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -8224,6 +8684,11 @@ export type TenantUncheckedUpdateWithoutTagsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -8308,6 +8773,11 @@ export type TenantCreateWithoutProductCareInstructionsInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -8392,6 +8862,11 @@ export type TenantUncheckedCreateWithoutProductCareInstructionsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -8492,6 +8967,11 @@ export type TenantUpdateWithoutProductCareInstructionsInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -8576,6 +9056,11 @@ export type TenantUncheckedUpdateWithoutProductCareInstructionsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -8660,6 +9145,11 @@ export type TenantCreateWithoutProductAttachmentsInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -8744,6 +9234,11 @@ export type TenantUncheckedCreateWithoutProductAttachmentsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -8844,6 +9339,11 @@ export type TenantUpdateWithoutProductAttachmentsInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -8928,6 +9428,11 @@ export type TenantUncheckedUpdateWithoutProductAttachmentsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -9012,6 +9517,11 @@ export type TenantCreateWithoutVariantAttachmentsInput = {
   productAttachments?: Prisma.ProductAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -9096,6 +9606,11 @@ export type TenantUncheckedCreateWithoutVariantAttachmentsInput = {
   productAttachments?: Prisma.ProductAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -9196,6 +9711,11 @@ export type TenantUpdateWithoutVariantAttachmentsInput = {
   productAttachments?: Prisma.ProductAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -9280,6 +9800,11 @@ export type TenantUncheckedUpdateWithoutVariantAttachmentsInput = {
   productAttachments?: Prisma.ProductAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -9364,6 +9889,11 @@ export type TenantCreateWithoutPurchaseOrdersInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -9448,6 +9978,11 @@ export type TenantUncheckedCreateWithoutPurchaseOrdersInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -9548,6 +10083,11 @@ export type TenantUpdateWithoutPurchaseOrdersInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -9632,6 +10172,11 @@ export type TenantUncheckedUpdateWithoutPurchaseOrdersInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -9716,6 +10261,11 @@ export type TenantCreateWithoutCustomersInput = {
   productAttachments?: Prisma.ProductAttachmentCreateNestedManyWithoutTenantInput
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -9800,6 +10350,11 @@ export type TenantUncheckedCreateWithoutCustomersInput = {
   productAttachments?: Prisma.ProductAttachmentUncheckedCreateNestedManyWithoutTenantInput
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -9900,6 +10455,11 @@ export type TenantUpdateWithoutCustomersInput = {
   productAttachments?: Prisma.ProductAttachmentUpdateManyWithoutTenantNestedInput
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -9984,6 +10544,11 @@ export type TenantUncheckedUpdateWithoutCustomersInput = {
   productAttachments?: Prisma.ProductAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -10068,6 +10633,11 @@ export type TenantCreateWithoutSalesOrdersInput = {
   productAttachments?: Prisma.ProductAttachmentCreateNestedManyWithoutTenantInput
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -10152,6 +10722,11 @@ export type TenantUncheckedCreateWithoutSalesOrdersInput = {
   productAttachments?: Prisma.ProductAttachmentUncheckedCreateNestedManyWithoutTenantInput
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -10252,6 +10827,11 @@ export type TenantUpdateWithoutSalesOrdersInput = {
   productAttachments?: Prisma.ProductAttachmentUpdateManyWithoutTenantNestedInput
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -10336,6 +10916,1871 @@ export type TenantUncheckedUpdateWithoutSalesOrdersInput = {
   productAttachments?: Prisma.ProductAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
+  companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
+  companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
+  positions?: Prisma.PositionUncheckedUpdateManyWithoutTenantNestedInput
+  employees?: Prisma.EmployeeUncheckedUpdateManyWithoutTenantNestedInput
+  timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutTenantNestedInput
+  workSchedules?: Prisma.WorkScheduleUncheckedUpdateManyWithoutTenantNestedInput
+  overtime?: Prisma.OvertimeUncheckedUpdateManyWithoutTenantNestedInput
+  timeBanks?: Prisma.TimeBankUncheckedUpdateManyWithoutTenantNestedInput
+  absences?: Prisma.AbsenceUncheckedUpdateManyWithoutTenantNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutTenantNestedInput
+  payrolls?: Prisma.PayrollUncheckedUpdateManyWithoutTenantNestedInput
+  bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
+  deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  organizations?: Prisma.OrganizationUncheckedUpdateManyWithoutTenantNestedInput
+  costCenters?: Prisma.CostCenterUncheckedUpdateManyWithoutTenantNestedInput
+  bankAccounts?: Prisma.BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedUpdateManyWithoutTenantNestedInput
+  financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutTenantNestedInput
+  financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
+  consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
+  storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
+  storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
+  calendars?: Prisma.CalendarUncheckedUpdateManyWithoutTenantNestedInput
+  calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
+  eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
+  eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedUpdateManyWithoutTenantNestedInput
+  emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  emailMessages?: Prisma.EmailMessageUncheckedUpdateManyWithoutTenantNestedInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutTenantNestedInput
+  teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUncheckedUpdateManyWithoutTenantNestedInput
+  tenantConsumptions?: Prisma.TenantConsumptionUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantCreateWithoutCrmContactsInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutTenantInput
+  tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
+  permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
+  warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
+  zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
+  bins?: Prisma.BinCreateNestedManyWithoutTenantInput
+  templates?: Prisma.TemplateCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductCreateNestedManyWithoutTenantInput
+  variants?: Prisma.VariantCreateNestedManyWithoutTenantInput
+  items?: Prisma.ItemCreateNestedManyWithoutTenantInput
+  itemMovements?: Prisma.ItemMovementCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierCreateNestedManyWithoutTenantInput
+  manufacturers?: Prisma.ManufacturerCreateNestedManyWithoutTenantInput
+  volumes?: Prisma.VolumeCreateNestedManyWithoutTenantInput
+  purchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutTenantInput
+  productCareInstructions?: Prisma.ProductCareInstructionCreateNestedManyWithoutTenantInput
+  productAttachments?: Prisma.ProductAttachmentCreateNestedManyWithoutTenantInput
+  variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
+  salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
+  companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
+  companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
+  departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
+  positions?: Prisma.PositionCreateNestedManyWithoutTenantInput
+  employees?: Prisma.EmployeeCreateNestedManyWithoutTenantInput
+  timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutTenantInput
+  workSchedules?: Prisma.WorkScheduleCreateNestedManyWithoutTenantInput
+  overtime?: Prisma.OvertimeCreateNestedManyWithoutTenantInput
+  timeBanks?: Prisma.TimeBankCreateNestedManyWithoutTenantInput
+  absences?: Prisma.AbsenceCreateNestedManyWithoutTenantInput
+  vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutTenantInput
+  payrolls?: Prisma.PayrollCreateNestedManyWithoutTenantInput
+  bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
+  deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
+  organizations?: Prisma.OrganizationCreateNestedManyWithoutTenantInput
+  costCenters?: Prisma.CostCenterCreateNestedManyWithoutTenantInput
+  bankAccounts?: Prisma.BankAccountCreateNestedManyWithoutTenantInput
+  financeCategories?: Prisma.FinanceCategoryCreateNestedManyWithoutTenantInput
+  financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutTenantInput
+  financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
+  loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
+  consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
+  storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
+  storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
+  folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
+  calendars?: Prisma.CalendarCreateNestedManyWithoutTenantInput
+  calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
+  eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
+  eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigCreateNestedManyWithoutTenantInput
+  emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutTenantInput
+  emailMessages?: Prisma.EmailMessageCreateNestedManyWithoutTenantInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessCreateNestedManyWithoutTenantInput
+  teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionCreateNestedManyWithoutTenantInput
+  tenantConsumptions?: Prisma.TenantConsumptionCreateNestedManyWithoutTenantInput
+  tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+}
+
+export type TenantUncheckedCreateWithoutCrmContactsInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutTenantInput
+  tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
+  permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
+  warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
+  zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
+  bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
+  templates?: Prisma.TemplateUncheckedCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutTenantInput
+  variants?: Prisma.VariantUncheckedCreateNestedManyWithoutTenantInput
+  items?: Prisma.ItemUncheckedCreateNestedManyWithoutTenantInput
+  itemMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagUncheckedCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutTenantInput
+  manufacturers?: Prisma.ManufacturerUncheckedCreateNestedManyWithoutTenantInput
+  volumes?: Prisma.VolumeUncheckedCreateNestedManyWithoutTenantInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+  productCareInstructions?: Prisma.ProductCareInstructionUncheckedCreateNestedManyWithoutTenantInput
+  productAttachments?: Prisma.ProductAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
+  salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
+  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
+  companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
+  departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
+  positions?: Prisma.PositionUncheckedCreateNestedManyWithoutTenantInput
+  employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutTenantInput
+  timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutTenantInput
+  workSchedules?: Prisma.WorkScheduleUncheckedCreateNestedManyWithoutTenantInput
+  overtime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutTenantInput
+  timeBanks?: Prisma.TimeBankUncheckedCreateNestedManyWithoutTenantInput
+  absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutTenantInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutTenantInput
+  payrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutTenantInput
+  bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
+  deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
+  organizations?: Prisma.OrganizationUncheckedCreateNestedManyWithoutTenantInput
+  costCenters?: Prisma.CostCenterUncheckedCreateNestedManyWithoutTenantInput
+  bankAccounts?: Prisma.BankAccountUncheckedCreateNestedManyWithoutTenantInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedCreateNestedManyWithoutTenantInput
+  financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutTenantInput
+  financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
+  consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
+  storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
+  storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
+  calendars?: Prisma.CalendarUncheckedCreateNestedManyWithoutTenantInput
+  calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
+  eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
+  eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedCreateNestedManyWithoutTenantInput
+  emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  emailMessages?: Prisma.EmailMessageUncheckedCreateNestedManyWithoutTenantInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutTenantInput
+  teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUncheckedCreateNestedManyWithoutTenantInput
+  tenantConsumptions?: Prisma.TenantConsumptionUncheckedCreateNestedManyWithoutTenantInput
+  tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+}
+
+export type TenantCreateOrConnectWithoutCrmContactsInput = {
+  where: Prisma.TenantWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenantCreateWithoutCrmContactsInput, Prisma.TenantUncheckedCreateWithoutCrmContactsInput>
+}
+
+export type TenantUpsertWithoutCrmContactsInput = {
+  update: Prisma.XOR<Prisma.TenantUpdateWithoutCrmContactsInput, Prisma.TenantUncheckedUpdateWithoutCrmContactsInput>
+  create: Prisma.XOR<Prisma.TenantCreateWithoutCrmContactsInput, Prisma.TenantUncheckedCreateWithoutCrmContactsInput>
+  where?: Prisma.TenantWhereInput
+}
+
+export type TenantUpdateToOneWithWhereWithoutCrmContactsInput = {
+  where?: Prisma.TenantWhereInput
+  data: Prisma.XOR<Prisma.TenantUpdateWithoutCrmContactsInput, Prisma.TenantUncheckedUpdateWithoutCrmContactsInput>
+}
+
+export type TenantUpdateWithoutCrmContactsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantStatusEnumFieldUpdateOperationsInput | $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutTenantNestedInput
+  tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
+  permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
+  warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
+  zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
+  bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
+  templates?: Prisma.TemplateUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUpdateManyWithoutTenantNestedInput
+  variants?: Prisma.VariantUpdateManyWithoutTenantNestedInput
+  items?: Prisma.ItemUpdateManyWithoutTenantNestedInput
+  itemMovements?: Prisma.ItemMovementUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUpdateManyWithoutTenantNestedInput
+  manufacturers?: Prisma.ManufacturerUpdateManyWithoutTenantNestedInput
+  volumes?: Prisma.VolumeUpdateManyWithoutTenantNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutTenantNestedInput
+  productCareInstructions?: Prisma.ProductCareInstructionUpdateManyWithoutTenantNestedInput
+  productAttachments?: Prisma.ProductAttachmentUpdateManyWithoutTenantNestedInput
+  variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
+  salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
+  companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
+  companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
+  departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
+  positions?: Prisma.PositionUpdateManyWithoutTenantNestedInput
+  employees?: Prisma.EmployeeUpdateManyWithoutTenantNestedInput
+  timeEntries?: Prisma.TimeEntryUpdateManyWithoutTenantNestedInput
+  workSchedules?: Prisma.WorkScheduleUpdateManyWithoutTenantNestedInput
+  overtime?: Prisma.OvertimeUpdateManyWithoutTenantNestedInput
+  timeBanks?: Prisma.TimeBankUpdateManyWithoutTenantNestedInput
+  absences?: Prisma.AbsenceUpdateManyWithoutTenantNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutTenantNestedInput
+  payrolls?: Prisma.PayrollUpdateManyWithoutTenantNestedInput
+  bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
+  deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
+  organizations?: Prisma.OrganizationUpdateManyWithoutTenantNestedInput
+  costCenters?: Prisma.CostCenterUpdateManyWithoutTenantNestedInput
+  bankAccounts?: Prisma.BankAccountUpdateManyWithoutTenantNestedInput
+  financeCategories?: Prisma.FinanceCategoryUpdateManyWithoutTenantNestedInput
+  financeEntries?: Prisma.FinanceEntryUpdateManyWithoutTenantNestedInput
+  financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
+  loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
+  consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
+  storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
+  storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
+  calendars?: Prisma.CalendarUpdateManyWithoutTenantNestedInput
+  calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
+  eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
+  eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUpdateManyWithoutTenantNestedInput
+  emailAccounts?: Prisma.EmailAccountUpdateManyWithoutTenantNestedInput
+  emailMessages?: Prisma.EmailMessageUpdateManyWithoutTenantNestedInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUpdateManyWithoutTenantNestedInput
+  teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUpdateManyWithoutTenantNestedInput
+  tenantConsumptions?: Prisma.TenantConsumptionUpdateManyWithoutTenantNestedInput
+  tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantUncheckedUpdateWithoutCrmContactsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantStatusEnumFieldUpdateOperationsInput | $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutTenantNestedInput
+  tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
+  permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
+  warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
+  zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
+  bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
+  templates?: Prisma.TemplateUncheckedUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutTenantNestedInput
+  variants?: Prisma.VariantUncheckedUpdateManyWithoutTenantNestedInput
+  items?: Prisma.ItemUncheckedUpdateManyWithoutTenantNestedInput
+  itemMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUncheckedUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutTenantNestedInput
+  manufacturers?: Prisma.ManufacturerUncheckedUpdateManyWithoutTenantNestedInput
+  volumes?: Prisma.VolumeUncheckedUpdateManyWithoutTenantNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+  productCareInstructions?: Prisma.ProductCareInstructionUncheckedUpdateManyWithoutTenantNestedInput
+  productAttachments?: Prisma.ProductAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
+  salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
+  companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
+  companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
+  positions?: Prisma.PositionUncheckedUpdateManyWithoutTenantNestedInput
+  employees?: Prisma.EmployeeUncheckedUpdateManyWithoutTenantNestedInput
+  timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutTenantNestedInput
+  workSchedules?: Prisma.WorkScheduleUncheckedUpdateManyWithoutTenantNestedInput
+  overtime?: Prisma.OvertimeUncheckedUpdateManyWithoutTenantNestedInput
+  timeBanks?: Prisma.TimeBankUncheckedUpdateManyWithoutTenantNestedInput
+  absences?: Prisma.AbsenceUncheckedUpdateManyWithoutTenantNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutTenantNestedInput
+  payrolls?: Prisma.PayrollUncheckedUpdateManyWithoutTenantNestedInput
+  bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
+  deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  organizations?: Prisma.OrganizationUncheckedUpdateManyWithoutTenantNestedInput
+  costCenters?: Prisma.CostCenterUncheckedUpdateManyWithoutTenantNestedInput
+  bankAccounts?: Prisma.BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedUpdateManyWithoutTenantNestedInput
+  financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutTenantNestedInput
+  financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
+  consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
+  storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
+  storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
+  calendars?: Prisma.CalendarUncheckedUpdateManyWithoutTenantNestedInput
+  calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
+  eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
+  eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedUpdateManyWithoutTenantNestedInput
+  emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  emailMessages?: Prisma.EmailMessageUncheckedUpdateManyWithoutTenantNestedInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutTenantNestedInput
+  teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUncheckedUpdateManyWithoutTenantNestedInput
+  tenantConsumptions?: Prisma.TenantConsumptionUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantCreateWithoutCrmPipelinesInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutTenantInput
+  tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
+  permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
+  warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
+  zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
+  bins?: Prisma.BinCreateNestedManyWithoutTenantInput
+  templates?: Prisma.TemplateCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductCreateNestedManyWithoutTenantInput
+  variants?: Prisma.VariantCreateNestedManyWithoutTenantInput
+  items?: Prisma.ItemCreateNestedManyWithoutTenantInput
+  itemMovements?: Prisma.ItemMovementCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierCreateNestedManyWithoutTenantInput
+  manufacturers?: Prisma.ManufacturerCreateNestedManyWithoutTenantInput
+  volumes?: Prisma.VolumeCreateNestedManyWithoutTenantInput
+  purchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutTenantInput
+  productCareInstructions?: Prisma.ProductCareInstructionCreateNestedManyWithoutTenantInput
+  productAttachments?: Prisma.ProductAttachmentCreateNestedManyWithoutTenantInput
+  variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
+  salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
+  companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
+  companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
+  departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
+  positions?: Prisma.PositionCreateNestedManyWithoutTenantInput
+  employees?: Prisma.EmployeeCreateNestedManyWithoutTenantInput
+  timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutTenantInput
+  workSchedules?: Prisma.WorkScheduleCreateNestedManyWithoutTenantInput
+  overtime?: Prisma.OvertimeCreateNestedManyWithoutTenantInput
+  timeBanks?: Prisma.TimeBankCreateNestedManyWithoutTenantInput
+  absences?: Prisma.AbsenceCreateNestedManyWithoutTenantInput
+  vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutTenantInput
+  payrolls?: Prisma.PayrollCreateNestedManyWithoutTenantInput
+  bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
+  deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
+  organizations?: Prisma.OrganizationCreateNestedManyWithoutTenantInput
+  costCenters?: Prisma.CostCenterCreateNestedManyWithoutTenantInput
+  bankAccounts?: Prisma.BankAccountCreateNestedManyWithoutTenantInput
+  financeCategories?: Prisma.FinanceCategoryCreateNestedManyWithoutTenantInput
+  financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutTenantInput
+  financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
+  loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
+  consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
+  storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
+  storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
+  folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
+  calendars?: Prisma.CalendarCreateNestedManyWithoutTenantInput
+  calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
+  eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
+  eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigCreateNestedManyWithoutTenantInput
+  emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutTenantInput
+  emailMessages?: Prisma.EmailMessageCreateNestedManyWithoutTenantInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessCreateNestedManyWithoutTenantInput
+  teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionCreateNestedManyWithoutTenantInput
+  tenantConsumptions?: Prisma.TenantConsumptionCreateNestedManyWithoutTenantInput
+  tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+}
+
+export type TenantUncheckedCreateWithoutCrmPipelinesInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutTenantInput
+  tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
+  permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
+  warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
+  zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
+  bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
+  templates?: Prisma.TemplateUncheckedCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutTenantInput
+  variants?: Prisma.VariantUncheckedCreateNestedManyWithoutTenantInput
+  items?: Prisma.ItemUncheckedCreateNestedManyWithoutTenantInput
+  itemMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagUncheckedCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutTenantInput
+  manufacturers?: Prisma.ManufacturerUncheckedCreateNestedManyWithoutTenantInput
+  volumes?: Prisma.VolumeUncheckedCreateNestedManyWithoutTenantInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+  productCareInstructions?: Prisma.ProductCareInstructionUncheckedCreateNestedManyWithoutTenantInput
+  productAttachments?: Prisma.ProductAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
+  salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
+  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
+  companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
+  departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
+  positions?: Prisma.PositionUncheckedCreateNestedManyWithoutTenantInput
+  employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutTenantInput
+  timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutTenantInput
+  workSchedules?: Prisma.WorkScheduleUncheckedCreateNestedManyWithoutTenantInput
+  overtime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutTenantInput
+  timeBanks?: Prisma.TimeBankUncheckedCreateNestedManyWithoutTenantInput
+  absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutTenantInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutTenantInput
+  payrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutTenantInput
+  bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
+  deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
+  organizations?: Prisma.OrganizationUncheckedCreateNestedManyWithoutTenantInput
+  costCenters?: Prisma.CostCenterUncheckedCreateNestedManyWithoutTenantInput
+  bankAccounts?: Prisma.BankAccountUncheckedCreateNestedManyWithoutTenantInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedCreateNestedManyWithoutTenantInput
+  financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutTenantInput
+  financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
+  consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
+  storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
+  storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
+  calendars?: Prisma.CalendarUncheckedCreateNestedManyWithoutTenantInput
+  calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
+  eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
+  eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedCreateNestedManyWithoutTenantInput
+  emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  emailMessages?: Prisma.EmailMessageUncheckedCreateNestedManyWithoutTenantInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutTenantInput
+  teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUncheckedCreateNestedManyWithoutTenantInput
+  tenantConsumptions?: Prisma.TenantConsumptionUncheckedCreateNestedManyWithoutTenantInput
+  tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+}
+
+export type TenantCreateOrConnectWithoutCrmPipelinesInput = {
+  where: Prisma.TenantWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenantCreateWithoutCrmPipelinesInput, Prisma.TenantUncheckedCreateWithoutCrmPipelinesInput>
+}
+
+export type TenantUpsertWithoutCrmPipelinesInput = {
+  update: Prisma.XOR<Prisma.TenantUpdateWithoutCrmPipelinesInput, Prisma.TenantUncheckedUpdateWithoutCrmPipelinesInput>
+  create: Prisma.XOR<Prisma.TenantCreateWithoutCrmPipelinesInput, Prisma.TenantUncheckedCreateWithoutCrmPipelinesInput>
+  where?: Prisma.TenantWhereInput
+}
+
+export type TenantUpdateToOneWithWhereWithoutCrmPipelinesInput = {
+  where?: Prisma.TenantWhereInput
+  data: Prisma.XOR<Prisma.TenantUpdateWithoutCrmPipelinesInput, Prisma.TenantUncheckedUpdateWithoutCrmPipelinesInput>
+}
+
+export type TenantUpdateWithoutCrmPipelinesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantStatusEnumFieldUpdateOperationsInput | $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutTenantNestedInput
+  tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
+  permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
+  warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
+  zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
+  bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
+  templates?: Prisma.TemplateUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUpdateManyWithoutTenantNestedInput
+  variants?: Prisma.VariantUpdateManyWithoutTenantNestedInput
+  items?: Prisma.ItemUpdateManyWithoutTenantNestedInput
+  itemMovements?: Prisma.ItemMovementUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUpdateManyWithoutTenantNestedInput
+  manufacturers?: Prisma.ManufacturerUpdateManyWithoutTenantNestedInput
+  volumes?: Prisma.VolumeUpdateManyWithoutTenantNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutTenantNestedInput
+  productCareInstructions?: Prisma.ProductCareInstructionUpdateManyWithoutTenantNestedInput
+  productAttachments?: Prisma.ProductAttachmentUpdateManyWithoutTenantNestedInput
+  variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
+  salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
+  companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
+  companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
+  departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
+  positions?: Prisma.PositionUpdateManyWithoutTenantNestedInput
+  employees?: Prisma.EmployeeUpdateManyWithoutTenantNestedInput
+  timeEntries?: Prisma.TimeEntryUpdateManyWithoutTenantNestedInput
+  workSchedules?: Prisma.WorkScheduleUpdateManyWithoutTenantNestedInput
+  overtime?: Prisma.OvertimeUpdateManyWithoutTenantNestedInput
+  timeBanks?: Prisma.TimeBankUpdateManyWithoutTenantNestedInput
+  absences?: Prisma.AbsenceUpdateManyWithoutTenantNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutTenantNestedInput
+  payrolls?: Prisma.PayrollUpdateManyWithoutTenantNestedInput
+  bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
+  deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
+  organizations?: Prisma.OrganizationUpdateManyWithoutTenantNestedInput
+  costCenters?: Prisma.CostCenterUpdateManyWithoutTenantNestedInput
+  bankAccounts?: Prisma.BankAccountUpdateManyWithoutTenantNestedInput
+  financeCategories?: Prisma.FinanceCategoryUpdateManyWithoutTenantNestedInput
+  financeEntries?: Prisma.FinanceEntryUpdateManyWithoutTenantNestedInput
+  financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
+  loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
+  consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
+  storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
+  storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
+  calendars?: Prisma.CalendarUpdateManyWithoutTenantNestedInput
+  calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
+  eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
+  eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUpdateManyWithoutTenantNestedInput
+  emailAccounts?: Prisma.EmailAccountUpdateManyWithoutTenantNestedInput
+  emailMessages?: Prisma.EmailMessageUpdateManyWithoutTenantNestedInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUpdateManyWithoutTenantNestedInput
+  teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUpdateManyWithoutTenantNestedInput
+  tenantConsumptions?: Prisma.TenantConsumptionUpdateManyWithoutTenantNestedInput
+  tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantUncheckedUpdateWithoutCrmPipelinesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantStatusEnumFieldUpdateOperationsInput | $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutTenantNestedInput
+  tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
+  permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
+  warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
+  zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
+  bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
+  templates?: Prisma.TemplateUncheckedUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutTenantNestedInput
+  variants?: Prisma.VariantUncheckedUpdateManyWithoutTenantNestedInput
+  items?: Prisma.ItemUncheckedUpdateManyWithoutTenantNestedInput
+  itemMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUncheckedUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutTenantNestedInput
+  manufacturers?: Prisma.ManufacturerUncheckedUpdateManyWithoutTenantNestedInput
+  volumes?: Prisma.VolumeUncheckedUpdateManyWithoutTenantNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+  productCareInstructions?: Prisma.ProductCareInstructionUncheckedUpdateManyWithoutTenantNestedInput
+  productAttachments?: Prisma.ProductAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
+  salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
+  companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
+  companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
+  positions?: Prisma.PositionUncheckedUpdateManyWithoutTenantNestedInput
+  employees?: Prisma.EmployeeUncheckedUpdateManyWithoutTenantNestedInput
+  timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutTenantNestedInput
+  workSchedules?: Prisma.WorkScheduleUncheckedUpdateManyWithoutTenantNestedInput
+  overtime?: Prisma.OvertimeUncheckedUpdateManyWithoutTenantNestedInput
+  timeBanks?: Prisma.TimeBankUncheckedUpdateManyWithoutTenantNestedInput
+  absences?: Prisma.AbsenceUncheckedUpdateManyWithoutTenantNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutTenantNestedInput
+  payrolls?: Prisma.PayrollUncheckedUpdateManyWithoutTenantNestedInput
+  bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
+  deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  organizations?: Prisma.OrganizationUncheckedUpdateManyWithoutTenantNestedInput
+  costCenters?: Prisma.CostCenterUncheckedUpdateManyWithoutTenantNestedInput
+  bankAccounts?: Prisma.BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedUpdateManyWithoutTenantNestedInput
+  financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutTenantNestedInput
+  financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
+  consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
+  storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
+  storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
+  calendars?: Prisma.CalendarUncheckedUpdateManyWithoutTenantNestedInput
+  calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
+  eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
+  eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedUpdateManyWithoutTenantNestedInput
+  emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  emailMessages?: Prisma.EmailMessageUncheckedUpdateManyWithoutTenantNestedInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutTenantNestedInput
+  teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUncheckedUpdateManyWithoutTenantNestedInput
+  tenantConsumptions?: Prisma.TenantConsumptionUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantCreateWithoutCrmDealsInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutTenantInput
+  tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
+  permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
+  warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
+  zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
+  bins?: Prisma.BinCreateNestedManyWithoutTenantInput
+  templates?: Prisma.TemplateCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductCreateNestedManyWithoutTenantInput
+  variants?: Prisma.VariantCreateNestedManyWithoutTenantInput
+  items?: Prisma.ItemCreateNestedManyWithoutTenantInput
+  itemMovements?: Prisma.ItemMovementCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierCreateNestedManyWithoutTenantInput
+  manufacturers?: Prisma.ManufacturerCreateNestedManyWithoutTenantInput
+  volumes?: Prisma.VolumeCreateNestedManyWithoutTenantInput
+  purchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutTenantInput
+  productCareInstructions?: Prisma.ProductCareInstructionCreateNestedManyWithoutTenantInput
+  productAttachments?: Prisma.ProductAttachmentCreateNestedManyWithoutTenantInput
+  variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
+  salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
+  companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
+  companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
+  departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
+  positions?: Prisma.PositionCreateNestedManyWithoutTenantInput
+  employees?: Prisma.EmployeeCreateNestedManyWithoutTenantInput
+  timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutTenantInput
+  workSchedules?: Prisma.WorkScheduleCreateNestedManyWithoutTenantInput
+  overtime?: Prisma.OvertimeCreateNestedManyWithoutTenantInput
+  timeBanks?: Prisma.TimeBankCreateNestedManyWithoutTenantInput
+  absences?: Prisma.AbsenceCreateNestedManyWithoutTenantInput
+  vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutTenantInput
+  payrolls?: Prisma.PayrollCreateNestedManyWithoutTenantInput
+  bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
+  deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
+  organizations?: Prisma.OrganizationCreateNestedManyWithoutTenantInput
+  costCenters?: Prisma.CostCenterCreateNestedManyWithoutTenantInput
+  bankAccounts?: Prisma.BankAccountCreateNestedManyWithoutTenantInput
+  financeCategories?: Prisma.FinanceCategoryCreateNestedManyWithoutTenantInput
+  financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutTenantInput
+  financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
+  loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
+  consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
+  storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
+  storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
+  folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
+  calendars?: Prisma.CalendarCreateNestedManyWithoutTenantInput
+  calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
+  eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
+  eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigCreateNestedManyWithoutTenantInput
+  emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutTenantInput
+  emailMessages?: Prisma.EmailMessageCreateNestedManyWithoutTenantInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessCreateNestedManyWithoutTenantInput
+  teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionCreateNestedManyWithoutTenantInput
+  tenantConsumptions?: Prisma.TenantConsumptionCreateNestedManyWithoutTenantInput
+  tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+}
+
+export type TenantUncheckedCreateWithoutCrmDealsInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutTenantInput
+  tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
+  permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
+  warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
+  zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
+  bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
+  templates?: Prisma.TemplateUncheckedCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutTenantInput
+  variants?: Prisma.VariantUncheckedCreateNestedManyWithoutTenantInput
+  items?: Prisma.ItemUncheckedCreateNestedManyWithoutTenantInput
+  itemMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagUncheckedCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutTenantInput
+  manufacturers?: Prisma.ManufacturerUncheckedCreateNestedManyWithoutTenantInput
+  volumes?: Prisma.VolumeUncheckedCreateNestedManyWithoutTenantInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+  productCareInstructions?: Prisma.ProductCareInstructionUncheckedCreateNestedManyWithoutTenantInput
+  productAttachments?: Prisma.ProductAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
+  salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
+  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
+  companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
+  departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
+  positions?: Prisma.PositionUncheckedCreateNestedManyWithoutTenantInput
+  employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutTenantInput
+  timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutTenantInput
+  workSchedules?: Prisma.WorkScheduleUncheckedCreateNestedManyWithoutTenantInput
+  overtime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutTenantInput
+  timeBanks?: Prisma.TimeBankUncheckedCreateNestedManyWithoutTenantInput
+  absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutTenantInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutTenantInput
+  payrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutTenantInput
+  bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
+  deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
+  organizations?: Prisma.OrganizationUncheckedCreateNestedManyWithoutTenantInput
+  costCenters?: Prisma.CostCenterUncheckedCreateNestedManyWithoutTenantInput
+  bankAccounts?: Prisma.BankAccountUncheckedCreateNestedManyWithoutTenantInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedCreateNestedManyWithoutTenantInput
+  financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutTenantInput
+  financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
+  consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
+  storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
+  storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
+  calendars?: Prisma.CalendarUncheckedCreateNestedManyWithoutTenantInput
+  calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
+  eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
+  eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedCreateNestedManyWithoutTenantInput
+  emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  emailMessages?: Prisma.EmailMessageUncheckedCreateNestedManyWithoutTenantInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutTenantInput
+  teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUncheckedCreateNestedManyWithoutTenantInput
+  tenantConsumptions?: Prisma.TenantConsumptionUncheckedCreateNestedManyWithoutTenantInput
+  tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+}
+
+export type TenantCreateOrConnectWithoutCrmDealsInput = {
+  where: Prisma.TenantWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenantCreateWithoutCrmDealsInput, Prisma.TenantUncheckedCreateWithoutCrmDealsInput>
+}
+
+export type TenantUpsertWithoutCrmDealsInput = {
+  update: Prisma.XOR<Prisma.TenantUpdateWithoutCrmDealsInput, Prisma.TenantUncheckedUpdateWithoutCrmDealsInput>
+  create: Prisma.XOR<Prisma.TenantCreateWithoutCrmDealsInput, Prisma.TenantUncheckedCreateWithoutCrmDealsInput>
+  where?: Prisma.TenantWhereInput
+}
+
+export type TenantUpdateToOneWithWhereWithoutCrmDealsInput = {
+  where?: Prisma.TenantWhereInput
+  data: Prisma.XOR<Prisma.TenantUpdateWithoutCrmDealsInput, Prisma.TenantUncheckedUpdateWithoutCrmDealsInput>
+}
+
+export type TenantUpdateWithoutCrmDealsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantStatusEnumFieldUpdateOperationsInput | $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutTenantNestedInput
+  tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
+  permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
+  warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
+  zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
+  bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
+  templates?: Prisma.TemplateUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUpdateManyWithoutTenantNestedInput
+  variants?: Prisma.VariantUpdateManyWithoutTenantNestedInput
+  items?: Prisma.ItemUpdateManyWithoutTenantNestedInput
+  itemMovements?: Prisma.ItemMovementUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUpdateManyWithoutTenantNestedInput
+  manufacturers?: Prisma.ManufacturerUpdateManyWithoutTenantNestedInput
+  volumes?: Prisma.VolumeUpdateManyWithoutTenantNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutTenantNestedInput
+  productCareInstructions?: Prisma.ProductCareInstructionUpdateManyWithoutTenantNestedInput
+  productAttachments?: Prisma.ProductAttachmentUpdateManyWithoutTenantNestedInput
+  variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
+  salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
+  companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
+  companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
+  departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
+  positions?: Prisma.PositionUpdateManyWithoutTenantNestedInput
+  employees?: Prisma.EmployeeUpdateManyWithoutTenantNestedInput
+  timeEntries?: Prisma.TimeEntryUpdateManyWithoutTenantNestedInput
+  workSchedules?: Prisma.WorkScheduleUpdateManyWithoutTenantNestedInput
+  overtime?: Prisma.OvertimeUpdateManyWithoutTenantNestedInput
+  timeBanks?: Prisma.TimeBankUpdateManyWithoutTenantNestedInput
+  absences?: Prisma.AbsenceUpdateManyWithoutTenantNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutTenantNestedInput
+  payrolls?: Prisma.PayrollUpdateManyWithoutTenantNestedInput
+  bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
+  deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
+  organizations?: Prisma.OrganizationUpdateManyWithoutTenantNestedInput
+  costCenters?: Prisma.CostCenterUpdateManyWithoutTenantNestedInput
+  bankAccounts?: Prisma.BankAccountUpdateManyWithoutTenantNestedInput
+  financeCategories?: Prisma.FinanceCategoryUpdateManyWithoutTenantNestedInput
+  financeEntries?: Prisma.FinanceEntryUpdateManyWithoutTenantNestedInput
+  financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
+  loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
+  consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
+  storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
+  storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
+  calendars?: Prisma.CalendarUpdateManyWithoutTenantNestedInput
+  calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
+  eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
+  eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUpdateManyWithoutTenantNestedInput
+  emailAccounts?: Prisma.EmailAccountUpdateManyWithoutTenantNestedInput
+  emailMessages?: Prisma.EmailMessageUpdateManyWithoutTenantNestedInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUpdateManyWithoutTenantNestedInput
+  teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUpdateManyWithoutTenantNestedInput
+  tenantConsumptions?: Prisma.TenantConsumptionUpdateManyWithoutTenantNestedInput
+  tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantUncheckedUpdateWithoutCrmDealsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantStatusEnumFieldUpdateOperationsInput | $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutTenantNestedInput
+  tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
+  permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
+  warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
+  zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
+  bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
+  templates?: Prisma.TemplateUncheckedUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutTenantNestedInput
+  variants?: Prisma.VariantUncheckedUpdateManyWithoutTenantNestedInput
+  items?: Prisma.ItemUncheckedUpdateManyWithoutTenantNestedInput
+  itemMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUncheckedUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutTenantNestedInput
+  manufacturers?: Prisma.ManufacturerUncheckedUpdateManyWithoutTenantNestedInput
+  volumes?: Prisma.VolumeUncheckedUpdateManyWithoutTenantNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+  productCareInstructions?: Prisma.ProductCareInstructionUncheckedUpdateManyWithoutTenantNestedInput
+  productAttachments?: Prisma.ProductAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
+  salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
+  companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
+  companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
+  positions?: Prisma.PositionUncheckedUpdateManyWithoutTenantNestedInput
+  employees?: Prisma.EmployeeUncheckedUpdateManyWithoutTenantNestedInput
+  timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutTenantNestedInput
+  workSchedules?: Prisma.WorkScheduleUncheckedUpdateManyWithoutTenantNestedInput
+  overtime?: Prisma.OvertimeUncheckedUpdateManyWithoutTenantNestedInput
+  timeBanks?: Prisma.TimeBankUncheckedUpdateManyWithoutTenantNestedInput
+  absences?: Prisma.AbsenceUncheckedUpdateManyWithoutTenantNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutTenantNestedInput
+  payrolls?: Prisma.PayrollUncheckedUpdateManyWithoutTenantNestedInput
+  bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
+  deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  organizations?: Prisma.OrganizationUncheckedUpdateManyWithoutTenantNestedInput
+  costCenters?: Prisma.CostCenterUncheckedUpdateManyWithoutTenantNestedInput
+  bankAccounts?: Prisma.BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedUpdateManyWithoutTenantNestedInput
+  financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutTenantNestedInput
+  financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
+  consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
+  storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
+  storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
+  calendars?: Prisma.CalendarUncheckedUpdateManyWithoutTenantNestedInput
+  calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
+  eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
+  eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedUpdateManyWithoutTenantNestedInput
+  emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  emailMessages?: Prisma.EmailMessageUncheckedUpdateManyWithoutTenantNestedInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutTenantNestedInput
+  teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUncheckedUpdateManyWithoutTenantNestedInput
+  tenantConsumptions?: Prisma.TenantConsumptionUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantCreateWithoutCrmActivitiesInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutTenantInput
+  tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
+  permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
+  warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
+  zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
+  bins?: Prisma.BinCreateNestedManyWithoutTenantInput
+  templates?: Prisma.TemplateCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductCreateNestedManyWithoutTenantInput
+  variants?: Prisma.VariantCreateNestedManyWithoutTenantInput
+  items?: Prisma.ItemCreateNestedManyWithoutTenantInput
+  itemMovements?: Prisma.ItemMovementCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierCreateNestedManyWithoutTenantInput
+  manufacturers?: Prisma.ManufacturerCreateNestedManyWithoutTenantInput
+  volumes?: Prisma.VolumeCreateNestedManyWithoutTenantInput
+  purchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutTenantInput
+  productCareInstructions?: Prisma.ProductCareInstructionCreateNestedManyWithoutTenantInput
+  productAttachments?: Prisma.ProductAttachmentCreateNestedManyWithoutTenantInput
+  variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
+  salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
+  companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
+  companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
+  departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
+  positions?: Prisma.PositionCreateNestedManyWithoutTenantInput
+  employees?: Prisma.EmployeeCreateNestedManyWithoutTenantInput
+  timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutTenantInput
+  workSchedules?: Prisma.WorkScheduleCreateNestedManyWithoutTenantInput
+  overtime?: Prisma.OvertimeCreateNestedManyWithoutTenantInput
+  timeBanks?: Prisma.TimeBankCreateNestedManyWithoutTenantInput
+  absences?: Prisma.AbsenceCreateNestedManyWithoutTenantInput
+  vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutTenantInput
+  payrolls?: Prisma.PayrollCreateNestedManyWithoutTenantInput
+  bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
+  deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
+  organizations?: Prisma.OrganizationCreateNestedManyWithoutTenantInput
+  costCenters?: Prisma.CostCenterCreateNestedManyWithoutTenantInput
+  bankAccounts?: Prisma.BankAccountCreateNestedManyWithoutTenantInput
+  financeCategories?: Prisma.FinanceCategoryCreateNestedManyWithoutTenantInput
+  financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutTenantInput
+  financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
+  loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
+  consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
+  storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
+  storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
+  folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
+  calendars?: Prisma.CalendarCreateNestedManyWithoutTenantInput
+  calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
+  eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
+  eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigCreateNestedManyWithoutTenantInput
+  emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutTenantInput
+  emailMessages?: Prisma.EmailMessageCreateNestedManyWithoutTenantInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessCreateNestedManyWithoutTenantInput
+  teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionCreateNestedManyWithoutTenantInput
+  tenantConsumptions?: Prisma.TenantConsumptionCreateNestedManyWithoutTenantInput
+  tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+}
+
+export type TenantUncheckedCreateWithoutCrmActivitiesInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutTenantInput
+  tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
+  permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
+  warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
+  zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
+  bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
+  templates?: Prisma.TemplateUncheckedCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutTenantInput
+  variants?: Prisma.VariantUncheckedCreateNestedManyWithoutTenantInput
+  items?: Prisma.ItemUncheckedCreateNestedManyWithoutTenantInput
+  itemMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagUncheckedCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutTenantInput
+  manufacturers?: Prisma.ManufacturerUncheckedCreateNestedManyWithoutTenantInput
+  volumes?: Prisma.VolumeUncheckedCreateNestedManyWithoutTenantInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+  productCareInstructions?: Prisma.ProductCareInstructionUncheckedCreateNestedManyWithoutTenantInput
+  productAttachments?: Prisma.ProductAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
+  salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
+  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
+  companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
+  departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
+  positions?: Prisma.PositionUncheckedCreateNestedManyWithoutTenantInput
+  employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutTenantInput
+  timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutTenantInput
+  workSchedules?: Prisma.WorkScheduleUncheckedCreateNestedManyWithoutTenantInput
+  overtime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutTenantInput
+  timeBanks?: Prisma.TimeBankUncheckedCreateNestedManyWithoutTenantInput
+  absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutTenantInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutTenantInput
+  payrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutTenantInput
+  bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
+  deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
+  organizations?: Prisma.OrganizationUncheckedCreateNestedManyWithoutTenantInput
+  costCenters?: Prisma.CostCenterUncheckedCreateNestedManyWithoutTenantInput
+  bankAccounts?: Prisma.BankAccountUncheckedCreateNestedManyWithoutTenantInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedCreateNestedManyWithoutTenantInput
+  financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutTenantInput
+  financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
+  consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
+  storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
+  storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
+  calendars?: Prisma.CalendarUncheckedCreateNestedManyWithoutTenantInput
+  calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
+  eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
+  eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedCreateNestedManyWithoutTenantInput
+  emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  emailMessages?: Prisma.EmailMessageUncheckedCreateNestedManyWithoutTenantInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutTenantInput
+  teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUncheckedCreateNestedManyWithoutTenantInput
+  tenantConsumptions?: Prisma.TenantConsumptionUncheckedCreateNestedManyWithoutTenantInput
+  tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+}
+
+export type TenantCreateOrConnectWithoutCrmActivitiesInput = {
+  where: Prisma.TenantWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenantCreateWithoutCrmActivitiesInput, Prisma.TenantUncheckedCreateWithoutCrmActivitiesInput>
+}
+
+export type TenantUpsertWithoutCrmActivitiesInput = {
+  update: Prisma.XOR<Prisma.TenantUpdateWithoutCrmActivitiesInput, Prisma.TenantUncheckedUpdateWithoutCrmActivitiesInput>
+  create: Prisma.XOR<Prisma.TenantCreateWithoutCrmActivitiesInput, Prisma.TenantUncheckedCreateWithoutCrmActivitiesInput>
+  where?: Prisma.TenantWhereInput
+}
+
+export type TenantUpdateToOneWithWhereWithoutCrmActivitiesInput = {
+  where?: Prisma.TenantWhereInput
+  data: Prisma.XOR<Prisma.TenantUpdateWithoutCrmActivitiesInput, Prisma.TenantUncheckedUpdateWithoutCrmActivitiesInput>
+}
+
+export type TenantUpdateWithoutCrmActivitiesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantStatusEnumFieldUpdateOperationsInput | $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutTenantNestedInput
+  tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
+  permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
+  warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
+  zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
+  bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
+  templates?: Prisma.TemplateUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUpdateManyWithoutTenantNestedInput
+  variants?: Prisma.VariantUpdateManyWithoutTenantNestedInput
+  items?: Prisma.ItemUpdateManyWithoutTenantNestedInput
+  itemMovements?: Prisma.ItemMovementUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUpdateManyWithoutTenantNestedInput
+  manufacturers?: Prisma.ManufacturerUpdateManyWithoutTenantNestedInput
+  volumes?: Prisma.VolumeUpdateManyWithoutTenantNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutTenantNestedInput
+  productCareInstructions?: Prisma.ProductCareInstructionUpdateManyWithoutTenantNestedInput
+  productAttachments?: Prisma.ProductAttachmentUpdateManyWithoutTenantNestedInput
+  variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
+  salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
+  companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
+  companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
+  departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
+  positions?: Prisma.PositionUpdateManyWithoutTenantNestedInput
+  employees?: Prisma.EmployeeUpdateManyWithoutTenantNestedInput
+  timeEntries?: Prisma.TimeEntryUpdateManyWithoutTenantNestedInput
+  workSchedules?: Prisma.WorkScheduleUpdateManyWithoutTenantNestedInput
+  overtime?: Prisma.OvertimeUpdateManyWithoutTenantNestedInput
+  timeBanks?: Prisma.TimeBankUpdateManyWithoutTenantNestedInput
+  absences?: Prisma.AbsenceUpdateManyWithoutTenantNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutTenantNestedInput
+  payrolls?: Prisma.PayrollUpdateManyWithoutTenantNestedInput
+  bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
+  deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
+  organizations?: Prisma.OrganizationUpdateManyWithoutTenantNestedInput
+  costCenters?: Prisma.CostCenterUpdateManyWithoutTenantNestedInput
+  bankAccounts?: Prisma.BankAccountUpdateManyWithoutTenantNestedInput
+  financeCategories?: Prisma.FinanceCategoryUpdateManyWithoutTenantNestedInput
+  financeEntries?: Prisma.FinanceEntryUpdateManyWithoutTenantNestedInput
+  financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
+  loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
+  consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
+  storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
+  storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
+  calendars?: Prisma.CalendarUpdateManyWithoutTenantNestedInput
+  calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
+  eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
+  eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUpdateManyWithoutTenantNestedInput
+  emailAccounts?: Prisma.EmailAccountUpdateManyWithoutTenantNestedInput
+  emailMessages?: Prisma.EmailMessageUpdateManyWithoutTenantNestedInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUpdateManyWithoutTenantNestedInput
+  teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUpdateManyWithoutTenantNestedInput
+  tenantConsumptions?: Prisma.TenantConsumptionUpdateManyWithoutTenantNestedInput
+  tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantUncheckedUpdateWithoutCrmActivitiesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantStatusEnumFieldUpdateOperationsInput | $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutTenantNestedInput
+  tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
+  permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
+  warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
+  zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
+  bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
+  templates?: Prisma.TemplateUncheckedUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutTenantNestedInput
+  variants?: Prisma.VariantUncheckedUpdateManyWithoutTenantNestedInput
+  items?: Prisma.ItemUncheckedUpdateManyWithoutTenantNestedInput
+  itemMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUncheckedUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutTenantNestedInput
+  manufacturers?: Prisma.ManufacturerUncheckedUpdateManyWithoutTenantNestedInput
+  volumes?: Prisma.VolumeUncheckedUpdateManyWithoutTenantNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+  productCareInstructions?: Prisma.ProductCareInstructionUncheckedUpdateManyWithoutTenantNestedInput
+  productAttachments?: Prisma.ProductAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
+  salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
+  companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
+  companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
+  departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
+  positions?: Prisma.PositionUncheckedUpdateManyWithoutTenantNestedInput
+  employees?: Prisma.EmployeeUncheckedUpdateManyWithoutTenantNestedInput
+  timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutTenantNestedInput
+  workSchedules?: Prisma.WorkScheduleUncheckedUpdateManyWithoutTenantNestedInput
+  overtime?: Prisma.OvertimeUncheckedUpdateManyWithoutTenantNestedInput
+  timeBanks?: Prisma.TimeBankUncheckedUpdateManyWithoutTenantNestedInput
+  absences?: Prisma.AbsenceUncheckedUpdateManyWithoutTenantNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutTenantNestedInput
+  payrolls?: Prisma.PayrollUncheckedUpdateManyWithoutTenantNestedInput
+  bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
+  deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  organizations?: Prisma.OrganizationUncheckedUpdateManyWithoutTenantNestedInput
+  costCenters?: Prisma.CostCenterUncheckedUpdateManyWithoutTenantNestedInput
+  bankAccounts?: Prisma.BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedUpdateManyWithoutTenantNestedInput
+  financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutTenantNestedInput
+  financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
+  consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
+  storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
+  storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
+  calendars?: Prisma.CalendarUncheckedUpdateManyWithoutTenantNestedInput
+  calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
+  eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
+  eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedUpdateManyWithoutTenantNestedInput
+  emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  emailMessages?: Prisma.EmailMessageUncheckedUpdateManyWithoutTenantNestedInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutTenantNestedInput
+  teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUncheckedUpdateManyWithoutTenantNestedInput
+  tenantConsumptions?: Prisma.TenantConsumptionUncheckedUpdateManyWithoutTenantNestedInput
+  tenantBillings?: Prisma.TenantBillingUncheckedUpdateManyWithoutTenantNestedInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedUpdateManyWithoutTenantNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantCreateWithoutCrmTimelineEventsInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutTenantInput
+  tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
+  permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
+  warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
+  zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
+  bins?: Prisma.BinCreateNestedManyWithoutTenantInput
+  templates?: Prisma.TemplateCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductCreateNestedManyWithoutTenantInput
+  variants?: Prisma.VariantCreateNestedManyWithoutTenantInput
+  items?: Prisma.ItemCreateNestedManyWithoutTenantInput
+  itemMovements?: Prisma.ItemMovementCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierCreateNestedManyWithoutTenantInput
+  manufacturers?: Prisma.ManufacturerCreateNestedManyWithoutTenantInput
+  volumes?: Prisma.VolumeCreateNestedManyWithoutTenantInput
+  purchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutTenantInput
+  productCareInstructions?: Prisma.ProductCareInstructionCreateNestedManyWithoutTenantInput
+  productAttachments?: Prisma.ProductAttachmentCreateNestedManyWithoutTenantInput
+  variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
+  salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
+  companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
+  departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
+  positions?: Prisma.PositionCreateNestedManyWithoutTenantInput
+  employees?: Prisma.EmployeeCreateNestedManyWithoutTenantInput
+  timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutTenantInput
+  workSchedules?: Prisma.WorkScheduleCreateNestedManyWithoutTenantInput
+  overtime?: Prisma.OvertimeCreateNestedManyWithoutTenantInput
+  timeBanks?: Prisma.TimeBankCreateNestedManyWithoutTenantInput
+  absences?: Prisma.AbsenceCreateNestedManyWithoutTenantInput
+  vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutTenantInput
+  payrolls?: Prisma.PayrollCreateNestedManyWithoutTenantInput
+  bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
+  deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
+  organizations?: Prisma.OrganizationCreateNestedManyWithoutTenantInput
+  costCenters?: Prisma.CostCenterCreateNestedManyWithoutTenantInput
+  bankAccounts?: Prisma.BankAccountCreateNestedManyWithoutTenantInput
+  financeCategories?: Prisma.FinanceCategoryCreateNestedManyWithoutTenantInput
+  financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutTenantInput
+  financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
+  loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
+  consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
+  storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
+  storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
+  folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
+  calendars?: Prisma.CalendarCreateNestedManyWithoutTenantInput
+  calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
+  eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
+  eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigCreateNestedManyWithoutTenantInput
+  emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutTenantInput
+  emailMessages?: Prisma.EmailMessageCreateNestedManyWithoutTenantInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessCreateNestedManyWithoutTenantInput
+  teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionCreateNestedManyWithoutTenantInput
+  tenantConsumptions?: Prisma.TenantConsumptionCreateNestedManyWithoutTenantInput
+  tenantBillings?: Prisma.TenantBillingCreateNestedManyWithoutTenantInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusCreateNestedManyWithoutTenantInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutTenantInput
+}
+
+export type TenantUncheckedCreateWithoutCrmTimelineEventsInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutTenantInput
+  tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
+  permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
+  warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
+  zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
+  bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
+  templates?: Prisma.TemplateUncheckedCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutTenantInput
+  variants?: Prisma.VariantUncheckedCreateNestedManyWithoutTenantInput
+  items?: Prisma.ItemUncheckedCreateNestedManyWithoutTenantInput
+  itemMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagUncheckedCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutTenantInput
+  manufacturers?: Prisma.ManufacturerUncheckedCreateNestedManyWithoutTenantInput
+  volumes?: Prisma.VolumeUncheckedCreateNestedManyWithoutTenantInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+  productCareInstructions?: Prisma.ProductCareInstructionUncheckedCreateNestedManyWithoutTenantInput
+  productAttachments?: Prisma.ProductAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
+  salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
+  companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
+  departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
+  positions?: Prisma.PositionUncheckedCreateNestedManyWithoutTenantInput
+  employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutTenantInput
+  timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutTenantInput
+  workSchedules?: Prisma.WorkScheduleUncheckedCreateNestedManyWithoutTenantInput
+  overtime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutTenantInput
+  timeBanks?: Prisma.TimeBankUncheckedCreateNestedManyWithoutTenantInput
+  absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutTenantInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutTenantInput
+  payrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutTenantInput
+  bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
+  deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
+  organizations?: Prisma.OrganizationUncheckedCreateNestedManyWithoutTenantInput
+  costCenters?: Prisma.CostCenterUncheckedCreateNestedManyWithoutTenantInput
+  bankAccounts?: Prisma.BankAccountUncheckedCreateNestedManyWithoutTenantInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedCreateNestedManyWithoutTenantInput
+  financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutTenantInput
+  financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
+  consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
+  storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
+  storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
+  calendars?: Prisma.CalendarUncheckedCreateNestedManyWithoutTenantInput
+  calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
+  eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
+  eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedCreateNestedManyWithoutTenantInput
+  emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  emailMessages?: Prisma.EmailMessageUncheckedCreateNestedManyWithoutTenantInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutTenantInput
+  teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUncheckedCreateNestedManyWithoutTenantInput
+  tenantConsumptions?: Prisma.TenantConsumptionUncheckedCreateNestedManyWithoutTenantInput
+  tenantBillings?: Prisma.TenantBillingUncheckedCreateNestedManyWithoutTenantInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUncheckedCreateNestedManyWithoutTenantInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutTenantInput
+}
+
+export type TenantCreateOrConnectWithoutCrmTimelineEventsInput = {
+  where: Prisma.TenantWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenantCreateWithoutCrmTimelineEventsInput, Prisma.TenantUncheckedCreateWithoutCrmTimelineEventsInput>
+}
+
+export type TenantUpsertWithoutCrmTimelineEventsInput = {
+  update: Prisma.XOR<Prisma.TenantUpdateWithoutCrmTimelineEventsInput, Prisma.TenantUncheckedUpdateWithoutCrmTimelineEventsInput>
+  create: Prisma.XOR<Prisma.TenantCreateWithoutCrmTimelineEventsInput, Prisma.TenantUncheckedCreateWithoutCrmTimelineEventsInput>
+  where?: Prisma.TenantWhereInput
+}
+
+export type TenantUpdateToOneWithWhereWithoutCrmTimelineEventsInput = {
+  where?: Prisma.TenantWhereInput
+  data: Prisma.XOR<Prisma.TenantUpdateWithoutCrmTimelineEventsInput, Prisma.TenantUncheckedUpdateWithoutCrmTimelineEventsInput>
+}
+
+export type TenantUpdateWithoutCrmTimelineEventsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantStatusEnumFieldUpdateOperationsInput | $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutTenantNestedInput
+  tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
+  permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
+  warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
+  zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
+  bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
+  templates?: Prisma.TemplateUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUpdateManyWithoutTenantNestedInput
+  variants?: Prisma.VariantUpdateManyWithoutTenantNestedInput
+  items?: Prisma.ItemUpdateManyWithoutTenantNestedInput
+  itemMovements?: Prisma.ItemMovementUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUpdateManyWithoutTenantNestedInput
+  manufacturers?: Prisma.ManufacturerUpdateManyWithoutTenantNestedInput
+  volumes?: Prisma.VolumeUpdateManyWithoutTenantNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutTenantNestedInput
+  productCareInstructions?: Prisma.ProductCareInstructionUpdateManyWithoutTenantNestedInput
+  productAttachments?: Prisma.ProductAttachmentUpdateManyWithoutTenantNestedInput
+  variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
+  salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
+  companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
+  departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
+  positions?: Prisma.PositionUpdateManyWithoutTenantNestedInput
+  employees?: Prisma.EmployeeUpdateManyWithoutTenantNestedInput
+  timeEntries?: Prisma.TimeEntryUpdateManyWithoutTenantNestedInput
+  workSchedules?: Prisma.WorkScheduleUpdateManyWithoutTenantNestedInput
+  overtime?: Prisma.OvertimeUpdateManyWithoutTenantNestedInput
+  timeBanks?: Prisma.TimeBankUpdateManyWithoutTenantNestedInput
+  absences?: Prisma.AbsenceUpdateManyWithoutTenantNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutTenantNestedInput
+  payrolls?: Prisma.PayrollUpdateManyWithoutTenantNestedInput
+  bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
+  deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
+  organizations?: Prisma.OrganizationUpdateManyWithoutTenantNestedInput
+  costCenters?: Prisma.CostCenterUpdateManyWithoutTenantNestedInput
+  bankAccounts?: Prisma.BankAccountUpdateManyWithoutTenantNestedInput
+  financeCategories?: Prisma.FinanceCategoryUpdateManyWithoutTenantNestedInput
+  financeEntries?: Prisma.FinanceEntryUpdateManyWithoutTenantNestedInput
+  financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
+  loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
+  consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
+  storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
+  storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
+  calendars?: Prisma.CalendarUpdateManyWithoutTenantNestedInput
+  calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
+  eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
+  eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUpdateManyWithoutTenantNestedInput
+  emailAccounts?: Prisma.EmailAccountUpdateManyWithoutTenantNestedInput
+  emailMessages?: Prisma.EmailMessageUpdateManyWithoutTenantNestedInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUpdateManyWithoutTenantNestedInput
+  teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
+  tenantSubscriptions?: Prisma.TenantSubscriptionUpdateManyWithoutTenantNestedInput
+  tenantConsumptions?: Prisma.TenantConsumptionUpdateManyWithoutTenantNestedInput
+  tenantBillings?: Prisma.TenantBillingUpdateManyWithoutTenantNestedInput
+  tenantIntegrationStatuses?: Prisma.TenantIntegrationStatusUpdateManyWithoutTenantNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantUncheckedUpdateWithoutCrmTimelineEventsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantStatusEnumFieldUpdateOperationsInput | $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutTenantNestedInput
+  tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
+  permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
+  warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
+  zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
+  bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
+  templates?: Prisma.TemplateUncheckedUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutTenantNestedInput
+  variants?: Prisma.VariantUncheckedUpdateManyWithoutTenantNestedInput
+  items?: Prisma.ItemUncheckedUpdateManyWithoutTenantNestedInput
+  itemMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUncheckedUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutTenantNestedInput
+  manufacturers?: Prisma.ManufacturerUncheckedUpdateManyWithoutTenantNestedInput
+  volumes?: Prisma.VolumeUncheckedUpdateManyWithoutTenantNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+  productCareInstructions?: Prisma.ProductCareInstructionUncheckedUpdateManyWithoutTenantNestedInput
+  productAttachments?: Prisma.ProductAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
+  salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -10421,6 +12866,11 @@ export type TenantCreateWithoutEmployeesInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -10505,6 +12955,11 @@ export type TenantUncheckedCreateWithoutEmployeesInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -10605,6 +13060,11 @@ export type TenantUpdateWithoutEmployeesInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -10689,6 +13149,11 @@ export type TenantUncheckedUpdateWithoutEmployeesInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -10773,6 +13238,11 @@ export type TenantCreateWithoutDepartmentsInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   positions?: Prisma.PositionCreateNestedManyWithoutTenantInput
@@ -10857,6 +13327,11 @@ export type TenantUncheckedCreateWithoutDepartmentsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   positions?: Prisma.PositionUncheckedCreateNestedManyWithoutTenantInput
@@ -10957,6 +13432,11 @@ export type TenantUpdateWithoutDepartmentsInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   positions?: Prisma.PositionUpdateManyWithoutTenantNestedInput
@@ -11041,6 +13521,11 @@ export type TenantUncheckedUpdateWithoutDepartmentsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   positions?: Prisma.PositionUncheckedUpdateManyWithoutTenantNestedInput
@@ -11125,6 +13610,11 @@ export type TenantCreateWithoutPositionsInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -11209,6 +13699,11 @@ export type TenantUncheckedCreateWithoutPositionsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -11309,6 +13804,11 @@ export type TenantUpdateWithoutPositionsInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -11393,6 +13893,11 @@ export type TenantUncheckedUpdateWithoutPositionsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -11477,6 +13982,11 @@ export type TenantCreateWithoutTimeEntriesInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -11561,6 +14071,11 @@ export type TenantUncheckedCreateWithoutTimeEntriesInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -11661,6 +14176,11 @@ export type TenantUpdateWithoutTimeEntriesInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -11745,6 +14265,11 @@ export type TenantUncheckedUpdateWithoutTimeEntriesInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -11829,6 +14354,11 @@ export type TenantCreateWithoutWorkSchedulesInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -11913,6 +14443,11 @@ export type TenantUncheckedCreateWithoutWorkSchedulesInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -12013,6 +14548,11 @@ export type TenantUpdateWithoutWorkSchedulesInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -12097,6 +14637,11 @@ export type TenantUncheckedUpdateWithoutWorkSchedulesInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -12181,6 +14726,11 @@ export type TenantCreateWithoutOvertimeInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -12265,6 +14815,11 @@ export type TenantUncheckedCreateWithoutOvertimeInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -12365,6 +14920,11 @@ export type TenantUpdateWithoutOvertimeInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -12449,6 +15009,11 @@ export type TenantUncheckedUpdateWithoutOvertimeInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -12533,6 +15098,11 @@ export type TenantCreateWithoutTimeBanksInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -12617,6 +15187,11 @@ export type TenantUncheckedCreateWithoutTimeBanksInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -12717,6 +15292,11 @@ export type TenantUpdateWithoutTimeBanksInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -12801,6 +15381,11 @@ export type TenantUncheckedUpdateWithoutTimeBanksInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -12885,6 +15470,11 @@ export type TenantCreateWithoutAbsencesInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -12969,6 +15559,11 @@ export type TenantUncheckedCreateWithoutAbsencesInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -13069,6 +15664,11 @@ export type TenantUpdateWithoutAbsencesInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -13153,6 +15753,11 @@ export type TenantUncheckedUpdateWithoutAbsencesInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -13237,6 +15842,11 @@ export type TenantCreateWithoutVacationPeriodsInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -13321,6 +15931,11 @@ export type TenantUncheckedCreateWithoutVacationPeriodsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -13421,6 +16036,11 @@ export type TenantUpdateWithoutVacationPeriodsInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -13505,6 +16125,11 @@ export type TenantUncheckedUpdateWithoutVacationPeriodsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -13589,6 +16214,11 @@ export type TenantCreateWithoutPayrollsInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -13673,6 +16303,11 @@ export type TenantUncheckedCreateWithoutPayrollsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -13773,6 +16408,11 @@ export type TenantUpdateWithoutPayrollsInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -13857,6 +16497,11 @@ export type TenantUncheckedUpdateWithoutPayrollsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -13941,6 +16586,11 @@ export type TenantCreateWithoutBonusesInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -14025,6 +16675,11 @@ export type TenantUncheckedCreateWithoutBonusesInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -14125,6 +16780,11 @@ export type TenantUpdateWithoutBonusesInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -14209,6 +16869,11 @@ export type TenantUncheckedUpdateWithoutBonusesInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -14293,6 +16958,11 @@ export type TenantCreateWithoutDeductionsInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -14377,6 +17047,11 @@ export type TenantUncheckedCreateWithoutDeductionsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -14477,6 +17152,11 @@ export type TenantUpdateWithoutDeductionsInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -14561,6 +17241,11 @@ export type TenantUncheckedUpdateWithoutDeductionsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -14645,6 +17330,11 @@ export type TenantCreateWithoutCompaniesInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
   positions?: Prisma.PositionCreateNestedManyWithoutTenantInput
@@ -14729,6 +17419,11 @@ export type TenantUncheckedCreateWithoutCompaniesInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
   positions?: Prisma.PositionUncheckedCreateNestedManyWithoutTenantInput
@@ -14829,6 +17524,11 @@ export type TenantUpdateWithoutCompaniesInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
   positions?: Prisma.PositionUpdateManyWithoutTenantNestedInput
@@ -14913,6 +17613,11 @@ export type TenantUncheckedUpdateWithoutCompaniesInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
   positions?: Prisma.PositionUncheckedUpdateManyWithoutTenantNestedInput
@@ -14997,6 +17702,11 @@ export type TenantCreateWithoutCompanyDocumentsInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
   positions?: Prisma.PositionCreateNestedManyWithoutTenantInput
@@ -15081,6 +17791,11 @@ export type TenantUncheckedCreateWithoutCompanyDocumentsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
   positions?: Prisma.PositionUncheckedCreateNestedManyWithoutTenantInput
@@ -15181,6 +17896,11 @@ export type TenantUpdateWithoutCompanyDocumentsInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
   positions?: Prisma.PositionUpdateManyWithoutTenantNestedInput
@@ -15265,6 +17985,11 @@ export type TenantUncheckedUpdateWithoutCompanyDocumentsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
   positions?: Prisma.PositionUncheckedUpdateManyWithoutTenantNestedInput
@@ -15349,6 +18074,11 @@ export type TenantCreateWithoutLabelTemplatesInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -15433,6 +18163,11 @@ export type TenantUncheckedCreateWithoutLabelTemplatesInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -15533,6 +18268,11 @@ export type TenantUpdateWithoutLabelTemplatesInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -15617,6 +18357,11 @@ export type TenantUncheckedUpdateWithoutLabelTemplatesInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -15700,6 +18445,11 @@ export type TenantCreateWithoutTenantPlansInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -15784,6 +18534,11 @@ export type TenantUncheckedCreateWithoutTenantPlansInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -15884,6 +18639,11 @@ export type TenantUpdateWithoutTenantPlansInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -15968,6 +18728,11 @@ export type TenantUncheckedUpdateWithoutTenantPlansInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -16052,6 +18817,11 @@ export type TenantCreateWithoutTenantUsersInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -16136,6 +18906,11 @@ export type TenantUncheckedCreateWithoutTenantUsersInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -16236,6 +19011,11 @@ export type TenantUpdateWithoutTenantUsersInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -16320,6 +19100,11 @@ export type TenantUncheckedUpdateWithoutTenantUsersInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -16404,6 +19189,11 @@ export type TenantCreateWithoutTenantFeatureFlagsInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -16488,6 +19278,11 @@ export type TenantUncheckedCreateWithoutTenantFeatureFlagsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -16588,6 +19383,11 @@ export type TenantUpdateWithoutTenantFeatureFlagsInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -16672,6 +19472,11 @@ export type TenantUncheckedUpdateWithoutTenantFeatureFlagsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -16757,6 +19562,11 @@ export type TenantCreateWithoutCostCentersInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -16841,6 +19651,11 @@ export type TenantUncheckedCreateWithoutCostCentersInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -16941,6 +19756,11 @@ export type TenantUpdateWithoutCostCentersInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -17025,6 +19845,11 @@ export type TenantUncheckedUpdateWithoutCostCentersInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -17109,6 +19934,11 @@ export type TenantCreateWithoutBankAccountsInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -17193,6 +20023,11 @@ export type TenantUncheckedCreateWithoutBankAccountsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -17293,6 +20128,11 @@ export type TenantUpdateWithoutBankAccountsInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -17377,6 +20217,11 @@ export type TenantUncheckedUpdateWithoutBankAccountsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -17461,6 +20306,11 @@ export type TenantCreateWithoutFinanceCategoriesInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -17545,6 +20395,11 @@ export type TenantUncheckedCreateWithoutFinanceCategoriesInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -17645,6 +20500,11 @@ export type TenantUpdateWithoutFinanceCategoriesInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -17729,6 +20589,11 @@ export type TenantUncheckedUpdateWithoutFinanceCategoriesInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -17813,6 +20678,11 @@ export type TenantCreateWithoutFinanceEntriesInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -17897,6 +20767,11 @@ export type TenantUncheckedCreateWithoutFinanceEntriesInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -17997,6 +20872,11 @@ export type TenantUpdateWithoutFinanceEntriesInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -18081,6 +20961,11 @@ export type TenantUncheckedUpdateWithoutFinanceEntriesInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -18165,6 +21050,11 @@ export type TenantCreateWithoutRecurringConfigsInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -18249,6 +21139,11 @@ export type TenantUncheckedCreateWithoutRecurringConfigsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -18349,6 +21244,11 @@ export type TenantUpdateWithoutRecurringConfigsInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -18433,6 +21333,11 @@ export type TenantUncheckedUpdateWithoutRecurringConfigsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -18517,6 +21422,11 @@ export type TenantCreateWithoutFinanceAttachmentsInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -18601,6 +21511,11 @@ export type TenantUncheckedCreateWithoutFinanceAttachmentsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -18701,6 +21616,11 @@ export type TenantUpdateWithoutFinanceAttachmentsInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -18785,6 +21705,11 @@ export type TenantUncheckedUpdateWithoutFinanceAttachmentsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -18869,6 +21794,11 @@ export type TenantCreateWithoutLoansInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -18953,6 +21883,11 @@ export type TenantUncheckedCreateWithoutLoansInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -19053,6 +21988,11 @@ export type TenantUpdateWithoutLoansInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -19137,6 +22077,11 @@ export type TenantUncheckedUpdateWithoutLoansInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -19221,6 +22166,11 @@ export type TenantCreateWithoutConsortiaInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -19305,6 +22255,11 @@ export type TenantUncheckedCreateWithoutConsortiaInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -19405,6 +22360,11 @@ export type TenantUpdateWithoutConsortiaInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -19489,6 +22449,11 @@ export type TenantUncheckedUpdateWithoutConsortiaInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -19573,6 +22538,11 @@ export type TenantCreateWithoutContractsInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -19657,6 +22627,11 @@ export type TenantUncheckedCreateWithoutContractsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -19757,6 +22732,11 @@ export type TenantUpdateWithoutContractsInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -19841,6 +22821,11 @@ export type TenantUncheckedUpdateWithoutContractsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -19925,6 +22910,11 @@ export type TenantCreateWithoutStorageFoldersInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -20009,6 +22999,11 @@ export type TenantUncheckedCreateWithoutStorageFoldersInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -20109,6 +23104,11 @@ export type TenantUpdateWithoutStorageFoldersInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -20193,6 +23193,11 @@ export type TenantUncheckedUpdateWithoutStorageFoldersInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -20277,6 +23282,11 @@ export type TenantCreateWithoutStorageFilesInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -20361,6 +23371,11 @@ export type TenantUncheckedCreateWithoutStorageFilesInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -20461,6 +23476,11 @@ export type TenantUpdateWithoutStorageFilesInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -20545,6 +23565,11 @@ export type TenantUncheckedUpdateWithoutStorageFilesInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -20629,6 +23654,11 @@ export type TenantCreateWithoutFolderAccessRulesInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -20713,6 +23743,11 @@ export type TenantUncheckedCreateWithoutFolderAccessRulesInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -20813,6 +23848,11 @@ export type TenantUpdateWithoutFolderAccessRulesInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -20897,6 +23937,11 @@ export type TenantUncheckedUpdateWithoutFolderAccessRulesInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -20981,6 +24026,11 @@ export type TenantCreateWithoutStorageShareLinksInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -21065,6 +24115,11 @@ export type TenantUncheckedCreateWithoutStorageShareLinksInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -21165,6 +24220,11 @@ export type TenantUpdateWithoutStorageShareLinksInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -21249,6 +24309,11 @@ export type TenantUncheckedUpdateWithoutStorageShareLinksInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -21333,6 +24398,11 @@ export type TenantCreateWithoutCalendarsInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -21417,6 +24487,11 @@ export type TenantUncheckedCreateWithoutCalendarsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -21517,6 +24592,11 @@ export type TenantUpdateWithoutCalendarsInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -21601,6 +24681,11 @@ export type TenantUncheckedUpdateWithoutCalendarsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -21685,6 +24770,11 @@ export type TenantCreateWithoutTeamCalendarConfigsInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -21769,6 +24859,11 @@ export type TenantUncheckedCreateWithoutTeamCalendarConfigsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -21869,6 +24964,11 @@ export type TenantUpdateWithoutTeamCalendarConfigsInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -21953,6 +25053,11 @@ export type TenantUncheckedUpdateWithoutTeamCalendarConfigsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -22037,6 +25142,11 @@ export type TenantCreateWithoutCalendarEventsInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -22121,6 +25231,11 @@ export type TenantUncheckedCreateWithoutCalendarEventsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -22221,6 +25336,11 @@ export type TenantUpdateWithoutCalendarEventsInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -22305,6 +25425,11 @@ export type TenantUncheckedUpdateWithoutCalendarEventsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -22389,6 +25514,11 @@ export type TenantCreateWithoutEventParticipantsInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -22473,6 +25603,11 @@ export type TenantUncheckedCreateWithoutEventParticipantsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -22573,6 +25708,11 @@ export type TenantUpdateWithoutEventParticipantsInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -22657,6 +25797,11 @@ export type TenantUncheckedUpdateWithoutEventParticipantsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -22741,6 +25886,11 @@ export type TenantCreateWithoutEventRemindersInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -22825,6 +25975,11 @@ export type TenantUncheckedCreateWithoutEventRemindersInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -22925,6 +26080,11 @@ export type TenantUpdateWithoutEventRemindersInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -23009,6 +26169,11 @@ export type TenantUncheckedUpdateWithoutEventRemindersInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -23093,6 +26258,11 @@ export type TenantCreateWithoutEmailAccountsInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -23177,6 +26347,11 @@ export type TenantUncheckedCreateWithoutEmailAccountsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -23277,6 +26452,11 @@ export type TenantUpdateWithoutEmailAccountsInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -23361,6 +26541,11 @@ export type TenantUncheckedUpdateWithoutEmailAccountsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -23445,6 +26630,11 @@ export type TenantCreateWithoutEmailAccountAccessesInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -23529,6 +26719,11 @@ export type TenantUncheckedCreateWithoutEmailAccountAccessesInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -23629,6 +26824,11 @@ export type TenantUpdateWithoutEmailAccountAccessesInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -23713,6 +26913,11 @@ export type TenantUncheckedUpdateWithoutEmailAccountAccessesInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -23797,6 +27002,11 @@ export type TenantCreateWithoutEmailMessagesInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -23881,6 +27091,11 @@ export type TenantUncheckedCreateWithoutEmailMessagesInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -23981,6 +27196,11 @@ export type TenantUpdateWithoutEmailMessagesInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -24065,6 +27285,11 @@ export type TenantUncheckedUpdateWithoutEmailMessagesInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -24149,6 +27374,11 @@ export type TenantCreateWithoutTeamsInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -24233,6 +27463,11 @@ export type TenantUncheckedCreateWithoutTeamsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -24333,6 +27568,11 @@ export type TenantUpdateWithoutTeamsInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -24417,6 +27657,11 @@ export type TenantUncheckedUpdateWithoutTeamsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -24501,6 +27746,11 @@ export type TenantCreateWithoutTeamMembersInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -24585,6 +27835,11 @@ export type TenantUncheckedCreateWithoutTeamMembersInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -24685,6 +27940,11 @@ export type TenantUpdateWithoutTeamMembersInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -24769,6 +28029,11 @@ export type TenantUncheckedUpdateWithoutTeamMembersInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -24853,6 +28118,11 @@ export type TenantCreateWithoutTeamEmailAccountsInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -24937,6 +28207,11 @@ export type TenantUncheckedCreateWithoutTeamEmailAccountsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -25037,6 +28312,11 @@ export type TenantUpdateWithoutTeamEmailAccountsInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -25121,6 +28401,11 @@ export type TenantUncheckedUpdateWithoutTeamEmailAccountsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -25205,6 +28490,11 @@ export type TenantCreateWithoutBoardsInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -25289,6 +28579,11 @@ export type TenantUncheckedCreateWithoutBoardsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -25389,6 +28684,11 @@ export type TenantUpdateWithoutBoardsInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -25473,6 +28773,11 @@ export type TenantUncheckedUpdateWithoutBoardsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -25557,6 +28862,11 @@ export type TenantCreateWithoutTenantSubscriptionsInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -25641,6 +28951,11 @@ export type TenantUncheckedCreateWithoutTenantSubscriptionsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -25741,6 +29056,11 @@ export type TenantUpdateWithoutTenantSubscriptionsInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -25825,6 +29145,11 @@ export type TenantUncheckedUpdateWithoutTenantSubscriptionsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -25909,6 +29234,11 @@ export type TenantCreateWithoutTenantConsumptionsInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -25993,6 +29323,11 @@ export type TenantUncheckedCreateWithoutTenantConsumptionsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -26093,6 +29428,11 @@ export type TenantUpdateWithoutTenantConsumptionsInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -26177,6 +29517,11 @@ export type TenantUncheckedUpdateWithoutTenantConsumptionsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -26261,6 +29606,11 @@ export type TenantCreateWithoutTenantBillingsInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -26345,6 +29695,11 @@ export type TenantUncheckedCreateWithoutTenantBillingsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -26445,6 +29800,11 @@ export type TenantUpdateWithoutTenantBillingsInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -26529,6 +29889,11 @@ export type TenantUncheckedUpdateWithoutTenantBillingsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -26613,6 +29978,11 @@ export type TenantCreateWithoutTenantIntegrationStatusesInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -26697,6 +30067,11 @@ export type TenantUncheckedCreateWithoutTenantIntegrationStatusesInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -26797,6 +30172,11 @@ export type TenantUpdateWithoutTenantIntegrationStatusesInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -26881,6 +30261,11 @@ export type TenantUncheckedUpdateWithoutTenantIntegrationStatusesInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -26965,6 +30350,11 @@ export type TenantCreateWithoutSupportTicketsInput = {
   variantAttachments?: Prisma.VariantAttachmentCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
@@ -27049,6 +30439,11 @@ export type TenantUncheckedCreateWithoutSupportTicketsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutTenantInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutTenantInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedCreateNestedManyWithoutTenantInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutTenantInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutTenantInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutTenantInput
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -27149,6 +30544,11 @@ export type TenantUpdateWithoutSupportTicketsInput = {
   variantAttachments?: Prisma.VariantAttachmentUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
@@ -27233,6 +30633,11 @@ export type TenantUncheckedUpdateWithoutSupportTicketsInput = {
   variantAttachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutTenantNestedInput
+  crmPipelines?: Prisma.CrmPipelineUncheckedUpdateManyWithoutTenantNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutTenantNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  crmTimelineEvents?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutTenantNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   companyDocuments?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -27312,6 +30717,11 @@ export type TenantCountOutputType = {
   variantAttachments: number
   customers: number
   salesOrders: number
+  crmContacts: number
+  crmPipelines: number
+  crmDeals: number
+  crmActivities: number
+  crmTimelineEvents: number
   companies: number
   companyDocuments: number
   departments: number
@@ -27387,6 +30797,11 @@ export type TenantCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions
   variantAttachments?: boolean | TenantCountOutputTypeCountVariantAttachmentsArgs
   customers?: boolean | TenantCountOutputTypeCountCustomersArgs
   salesOrders?: boolean | TenantCountOutputTypeCountSalesOrdersArgs
+  crmContacts?: boolean | TenantCountOutputTypeCountCrmContactsArgs
+  crmPipelines?: boolean | TenantCountOutputTypeCountCrmPipelinesArgs
+  crmDeals?: boolean | TenantCountOutputTypeCountCrmDealsArgs
+  crmActivities?: boolean | TenantCountOutputTypeCountCrmActivitiesArgs
+  crmTimelineEvents?: boolean | TenantCountOutputTypeCountCrmTimelineEventsArgs
   companies?: boolean | TenantCountOutputTypeCountCompaniesArgs
   companyDocuments?: boolean | TenantCountOutputTypeCountCompanyDocumentsArgs
   departments?: boolean | TenantCountOutputTypeCountDepartmentsArgs
@@ -27619,6 +31034,41 @@ export type TenantCountOutputTypeCountCustomersArgs<ExtArgs extends runtime.Type
  */
 export type TenantCountOutputTypeCountSalesOrdersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.SalesOrderWhereInput
+}
+
+/**
+ * TenantCountOutputType without action
+ */
+export type TenantCountOutputTypeCountCrmContactsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CrmContactWhereInput
+}
+
+/**
+ * TenantCountOutputType without action
+ */
+export type TenantCountOutputTypeCountCrmPipelinesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CrmPipelineWhereInput
+}
+
+/**
+ * TenantCountOutputType without action
+ */
+export type TenantCountOutputTypeCountCrmDealsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CrmDealWhereInput
+}
+
+/**
+ * TenantCountOutputType without action
+ */
+export type TenantCountOutputTypeCountCrmActivitiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CrmActivityWhereInput
+}
+
+/**
+ * TenantCountOutputType without action
+ */
+export type TenantCountOutputTypeCountCrmTimelineEventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CrmTimelineEventWhereInput
 }
 
 /**
@@ -27987,6 +31437,11 @@ export type TenantSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   variantAttachments?: boolean | Prisma.Tenant$variantAttachmentsArgs<ExtArgs>
   customers?: boolean | Prisma.Tenant$customersArgs<ExtArgs>
   salesOrders?: boolean | Prisma.Tenant$salesOrdersArgs<ExtArgs>
+  crmContacts?: boolean | Prisma.Tenant$crmContactsArgs<ExtArgs>
+  crmPipelines?: boolean | Prisma.Tenant$crmPipelinesArgs<ExtArgs>
+  crmDeals?: boolean | Prisma.Tenant$crmDealsArgs<ExtArgs>
+  crmActivities?: boolean | Prisma.Tenant$crmActivitiesArgs<ExtArgs>
+  crmTimelineEvents?: boolean | Prisma.Tenant$crmTimelineEventsArgs<ExtArgs>
   companies?: boolean | Prisma.Tenant$companiesArgs<ExtArgs>
   companyDocuments?: boolean | Prisma.Tenant$companyDocumentsArgs<ExtArgs>
   departments?: boolean | Prisma.Tenant$departmentsArgs<ExtArgs>
@@ -28103,6 +31558,11 @@ export type TenantInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   variantAttachments?: boolean | Prisma.Tenant$variantAttachmentsArgs<ExtArgs>
   customers?: boolean | Prisma.Tenant$customersArgs<ExtArgs>
   salesOrders?: boolean | Prisma.Tenant$salesOrdersArgs<ExtArgs>
+  crmContacts?: boolean | Prisma.Tenant$crmContactsArgs<ExtArgs>
+  crmPipelines?: boolean | Prisma.Tenant$crmPipelinesArgs<ExtArgs>
+  crmDeals?: boolean | Prisma.Tenant$crmDealsArgs<ExtArgs>
+  crmActivities?: boolean | Prisma.Tenant$crmActivitiesArgs<ExtArgs>
+  crmTimelineEvents?: boolean | Prisma.Tenant$crmTimelineEventsArgs<ExtArgs>
   companies?: boolean | Prisma.Tenant$companiesArgs<ExtArgs>
   companyDocuments?: boolean | Prisma.Tenant$companyDocumentsArgs<ExtArgs>
   departments?: boolean | Prisma.Tenant$departmentsArgs<ExtArgs>
@@ -28183,6 +31643,11 @@ export type $TenantPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     variantAttachments: Prisma.$VariantAttachmentPayload<ExtArgs>[]
     customers: Prisma.$CustomerPayload<ExtArgs>[]
     salesOrders: Prisma.$SalesOrderPayload<ExtArgs>[]
+    crmContacts: Prisma.$CrmContactPayload<ExtArgs>[]
+    crmPipelines: Prisma.$CrmPipelinePayload<ExtArgs>[]
+    crmDeals: Prisma.$CrmDealPayload<ExtArgs>[]
+    crmActivities: Prisma.$CrmActivityPayload<ExtArgs>[]
+    crmTimelineEvents: Prisma.$CrmTimelineEventPayload<ExtArgs>[]
     companies: Prisma.$CompanyPayload<ExtArgs>[]
     companyDocuments: Prisma.$CompanyDocumentPayload<ExtArgs>[]
     departments: Prisma.$DepartmentPayload<ExtArgs>[]
@@ -28661,6 +32126,11 @@ export interface Prisma__TenantClient<T, Null = never, ExtArgs extends runtime.T
   variantAttachments<T extends Prisma.Tenant$variantAttachmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$variantAttachmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$VariantAttachmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   customers<T extends Prisma.Tenant$customersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$customersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   salesOrders<T extends Prisma.Tenant$salesOrdersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$salesOrdersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SalesOrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  crmContacts<T extends Prisma.Tenant$crmContactsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$crmContactsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CrmContactPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  crmPipelines<T extends Prisma.Tenant$crmPipelinesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$crmPipelinesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CrmPipelinePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  crmDeals<T extends Prisma.Tenant$crmDealsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$crmDealsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CrmDealPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  crmActivities<T extends Prisma.Tenant$crmActivitiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$crmActivitiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CrmActivityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  crmTimelineEvents<T extends Prisma.Tenant$crmTimelineEventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$crmTimelineEventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CrmTimelineEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   companies<T extends Prisma.Tenant$companiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$companiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   companyDocuments<T extends Prisma.Tenant$companyDocumentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$companyDocumentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CompanyDocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   departments<T extends Prisma.Tenant$departmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$departmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -29732,6 +33202,126 @@ export type Tenant$salesOrdersArgs<ExtArgs extends runtime.Types.Extensions.Inte
   take?: number
   skip?: number
   distinct?: Prisma.SalesOrderScalarFieldEnum | Prisma.SalesOrderScalarFieldEnum[]
+}
+
+/**
+ * Tenant.crmContacts
+ */
+export type Tenant$crmContactsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CrmContact
+   */
+  select?: Prisma.CrmContactSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CrmContact
+   */
+  omit?: Prisma.CrmContactOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CrmContactInclude<ExtArgs> | null
+  where?: Prisma.CrmContactWhereInput
+  orderBy?: Prisma.CrmContactOrderByWithRelationInput | Prisma.CrmContactOrderByWithRelationInput[]
+  cursor?: Prisma.CrmContactWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CrmContactScalarFieldEnum | Prisma.CrmContactScalarFieldEnum[]
+}
+
+/**
+ * Tenant.crmPipelines
+ */
+export type Tenant$crmPipelinesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CrmPipeline
+   */
+  select?: Prisma.CrmPipelineSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CrmPipeline
+   */
+  omit?: Prisma.CrmPipelineOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CrmPipelineInclude<ExtArgs> | null
+  where?: Prisma.CrmPipelineWhereInput
+  orderBy?: Prisma.CrmPipelineOrderByWithRelationInput | Prisma.CrmPipelineOrderByWithRelationInput[]
+  cursor?: Prisma.CrmPipelineWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CrmPipelineScalarFieldEnum | Prisma.CrmPipelineScalarFieldEnum[]
+}
+
+/**
+ * Tenant.crmDeals
+ */
+export type Tenant$crmDealsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CrmDeal
+   */
+  select?: Prisma.CrmDealSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CrmDeal
+   */
+  omit?: Prisma.CrmDealOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CrmDealInclude<ExtArgs> | null
+  where?: Prisma.CrmDealWhereInput
+  orderBy?: Prisma.CrmDealOrderByWithRelationInput | Prisma.CrmDealOrderByWithRelationInput[]
+  cursor?: Prisma.CrmDealWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CrmDealScalarFieldEnum | Prisma.CrmDealScalarFieldEnum[]
+}
+
+/**
+ * Tenant.crmActivities
+ */
+export type Tenant$crmActivitiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CrmActivity
+   */
+  select?: Prisma.CrmActivitySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CrmActivity
+   */
+  omit?: Prisma.CrmActivityOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CrmActivityInclude<ExtArgs> | null
+  where?: Prisma.CrmActivityWhereInput
+  orderBy?: Prisma.CrmActivityOrderByWithRelationInput | Prisma.CrmActivityOrderByWithRelationInput[]
+  cursor?: Prisma.CrmActivityWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CrmActivityScalarFieldEnum | Prisma.CrmActivityScalarFieldEnum[]
+}
+
+/**
+ * Tenant.crmTimelineEvents
+ */
+export type Tenant$crmTimelineEventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CrmTimelineEvent
+   */
+  select?: Prisma.CrmTimelineEventSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CrmTimelineEvent
+   */
+  omit?: Prisma.CrmTimelineEventOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CrmTimelineEventInclude<ExtArgs> | null
+  where?: Prisma.CrmTimelineEventWhereInput
+  orderBy?: Prisma.CrmTimelineEventOrderByWithRelationInput | Prisma.CrmTimelineEventOrderByWithRelationInput[]
+  cursor?: Prisma.CrmTimelineEventWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CrmTimelineEventScalarFieldEnum | Prisma.CrmTimelineEventScalarFieldEnum[]
 }
 
 /**

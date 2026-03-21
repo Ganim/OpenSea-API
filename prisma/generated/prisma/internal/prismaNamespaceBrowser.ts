@@ -93,9 +93,17 @@ export const ModelName = {
   PurchaseOrderItem: 'PurchaseOrderItem',
   UnitConversion: 'UnitConversion',
   StockSnapshot: 'StockSnapshot',
+  InventorySession: 'InventorySession',
+  InventorySessionItem: 'InventorySessionItem',
   Customer: 'Customer',
   SalesOrder: 'SalesOrder',
   SalesOrderItem: 'SalesOrderItem',
+  CrmContact: 'CrmContact',
+  CrmPipeline: 'CrmPipeline',
+  CrmPipelineStage: 'CrmPipelineStage',
+  CrmDeal: 'CrmDeal',
+  CrmActivity: 'CrmActivity',
+  CrmTimelineEvent: 'CrmTimelineEvent',
   ItemReservation: 'ItemReservation',
   VariantSupplierCode: 'VariantSupplierCode',
   VariantPromotion: 'VariantPromotion',
@@ -993,6 +1001,7 @@ export const PurchaseOrderItemScalarFieldEnum = {
   unitCost: 'unitCost',
   totalCost: 'totalCost',
   notes: 'notes',
+  receivedQuantity: 'receivedQuantity',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -1025,6 +1034,44 @@ export const StockSnapshotScalarFieldEnum = {
 } as const
 
 export type StockSnapshotScalarFieldEnum = (typeof StockSnapshotScalarFieldEnum)[keyof typeof StockSnapshotScalarFieldEnum]
+
+
+export const InventorySessionScalarFieldEnum = {
+  id: 'id',
+  mode: 'mode',
+  status: 'status',
+  scope: 'scope',
+  totalItems: 'totalItems',
+  confirmedItems: 'confirmedItems',
+  divergences: 'divergences',
+  notes: 'notes',
+  startedAt: 'startedAt',
+  pausedAt: 'pausedAt',
+  completedAt: 'completedAt',
+  createdAt: 'createdAt',
+  deletedAt: 'deletedAt',
+  startedBy: 'startedBy',
+  tenantId: 'tenantId'
+} as const
+
+export type InventorySessionScalarFieldEnum = (typeof InventorySessionScalarFieldEnum)[keyof typeof InventorySessionScalarFieldEnum]
+
+
+export const InventorySessionItemScalarFieldEnum = {
+  id: 'id',
+  status: 'status',
+  resolution: 'resolution',
+  notes: 'notes',
+  scannedAt: 'scannedAt',
+  resolvedAt: 'resolvedAt',
+  createdAt: 'createdAt',
+  sessionId: 'sessionId',
+  itemId: 'itemId',
+  binId: 'binId',
+  resolvedBy: 'resolvedBy'
+} as const
+
+export type InventorySessionItemScalarFieldEnum = (typeof InventorySessionItemScalarFieldEnum)[keyof typeof InventorySessionItemScalarFieldEnum]
 
 
 export const CustomerScalarFieldEnum = {
@@ -1085,6 +1132,140 @@ export const SalesOrderItemScalarFieldEnum = {
 } as const
 
 export type SalesOrderItemScalarFieldEnum = (typeof SalesOrderItemScalarFieldEnum)[keyof typeof SalesOrderItemScalarFieldEnum]
+
+
+export const CrmContactScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  customerId: 'customerId',
+  firstName: 'firstName',
+  lastName: 'lastName',
+  fullName: 'fullName',
+  email: 'email',
+  phone: 'phone',
+  whatsapp: 'whatsapp',
+  role: 'role',
+  jobTitle: 'jobTitle',
+  department: 'department',
+  lifecycleStage: 'lifecycleStage',
+  leadScore: 'leadScore',
+  leadTemperature: 'leadTemperature',
+  source: 'source',
+  lastInteractionAt: 'lastInteractionAt',
+  lastChannelUsed: 'lastChannelUsed',
+  socialProfiles: 'socialProfiles',
+  tags: 'tags',
+  customFields: 'customFields',
+  avatarUrl: 'avatarUrl',
+  assignedToUserId: 'assignedToUserId',
+  isMainContact: 'isMainContact',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type CrmContactScalarFieldEnum = (typeof CrmContactScalarFieldEnum)[keyof typeof CrmContactScalarFieldEnum]
+
+
+export const CrmPipelineScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  name: 'name',
+  description: 'description',
+  icon: 'icon',
+  color: 'color',
+  type: 'type',
+  isDefault: 'isDefault',
+  position: 'position',
+  nextPipelineId: 'nextPipelineId',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type CrmPipelineScalarFieldEnum = (typeof CrmPipelineScalarFieldEnum)[keyof typeof CrmPipelineScalarFieldEnum]
+
+
+export const CrmPipelineStageScalarFieldEnum = {
+  id: 'id',
+  pipelineId: 'pipelineId',
+  name: 'name',
+  color: 'color',
+  icon: 'icon',
+  position: 'position',
+  type: 'type',
+  probability: 'probability',
+  autoActions: 'autoActions',
+  rottenAfterDays: 'rottenAfterDays',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CrmPipelineStageScalarFieldEnum = (typeof CrmPipelineStageScalarFieldEnum)[keyof typeof CrmPipelineStageScalarFieldEnum]
+
+
+export const CrmDealScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  title: 'title',
+  customerId: 'customerId',
+  contactId: 'contactId',
+  pipelineId: 'pipelineId',
+  stageId: 'stageId',
+  status: 'status',
+  priority: 'priority',
+  value: 'value',
+  currency: 'currency',
+  expectedCloseDate: 'expectedCloseDate',
+  closedAt: 'closedAt',
+  lostReason: 'lostReason',
+  source: 'source',
+  tags: 'tags',
+  customFields: 'customFields',
+  position: 'position',
+  assignedToUserId: 'assignedToUserId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type CrmDealScalarFieldEnum = (typeof CrmDealScalarFieldEnum)[keyof typeof CrmDealScalarFieldEnum]
+
+
+export const CrmActivityScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  dealId: 'dealId',
+  contactId: 'contactId',
+  type: 'type',
+  title: 'title',
+  description: 'description',
+  status: 'status',
+  dueDate: 'dueDate',
+  completedAt: 'completedAt',
+  duration: 'duration',
+  userId: 'userId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type CrmActivityScalarFieldEnum = (typeof CrmActivityScalarFieldEnum)[keyof typeof CrmActivityScalarFieldEnum]
+
+
+export const CrmTimelineEventScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  dealId: 'dealId',
+  type: 'type',
+  title: 'title',
+  metadata: 'metadata',
+  userId: 'userId',
+  createdAt: 'createdAt'
+} as const
+
+export type CrmTimelineEventScalarFieldEnum = (typeof CrmTimelineEventScalarFieldEnum)[keyof typeof CrmTimelineEventScalarFieldEnum]
 
 
 export const ItemReservationScalarFieldEnum = {
@@ -2787,6 +2968,9 @@ export const SystemSkillDefinitionScalarFieldEnum = {
   isCore: 'isCore',
   isVisible: 'isVisible',
   iconUrl: 'iconUrl',
+  requiresSetup: 'requiresSetup',
+  setupUrl: 'setupUrl',
+  sortOrder: 'sortOrder',
   metadata: 'metadata',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -2803,6 +2987,13 @@ export const SkillPricingScalarFieldEnum = {
   unitPrice: 'unitPrice',
   freeQuota: 'freeQuota',
   usageMetric: 'usageMetric',
+  unitMetric: 'unitMetric',
+  unitMetricLabel: 'unitMetricLabel',
+  usageIncluded: 'usageIncluded',
+  usagePrice: 'usagePrice',
+  usageMetricLabel: 'usageMetricLabel',
+  annualDiscount: 'annualDiscount',
+  isActive: 'isActive',
   tiers: 'tiers',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -2820,6 +3011,10 @@ export const TenantSubscriptionScalarFieldEnum = {
   startsAt: 'startsAt',
   expiresAt: 'expiresAt',
   cancelledAt: 'cancelledAt',
+  customPrice: 'customPrice',
+  discountPercent: 'discountPercent',
+  notes: 'notes',
+  grantedBy: 'grantedBy',
   metadata: 'metadata',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -2835,6 +3030,10 @@ export const TenantConsumptionScalarFieldEnum = {
   metric: 'metric',
   quantity: 'quantity',
   limit: 'limit',
+  used: 'used',
+  included: 'included',
+  overage: 'overage',
+  overageCost: 'overageCost',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -2909,6 +3108,7 @@ export const SupportTicketMessageScalarFieldEnum = {
   authorId: 'authorId',
   authorType: 'authorType',
   body: 'body',
+  isInternal: 'isInternal',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

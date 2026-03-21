@@ -20,8 +20,18 @@ export type SystemSkillDefinitionModel = runtime.Types.Result.DefaultSelection<P
 
 export type AggregateSystemSkillDefinition = {
   _count: SystemSkillDefinitionCountAggregateOutputType | null
+  _avg: SystemSkillDefinitionAvgAggregateOutputType | null
+  _sum: SystemSkillDefinitionSumAggregateOutputType | null
   _min: SystemSkillDefinitionMinAggregateOutputType | null
   _max: SystemSkillDefinitionMaxAggregateOutputType | null
+}
+
+export type SystemSkillDefinitionAvgAggregateOutputType = {
+  sortOrder: number | null
+}
+
+export type SystemSkillDefinitionSumAggregateOutputType = {
+  sortOrder: number | null
 }
 
 export type SystemSkillDefinitionMinAggregateOutputType = {
@@ -35,6 +45,9 @@ export type SystemSkillDefinitionMinAggregateOutputType = {
   isCore: boolean | null
   isVisible: boolean | null
   iconUrl: string | null
+  requiresSetup: boolean | null
+  setupUrl: string | null
+  sortOrder: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -50,6 +63,9 @@ export type SystemSkillDefinitionMaxAggregateOutputType = {
   isCore: boolean | null
   isVisible: boolean | null
   iconUrl: string | null
+  requiresSetup: boolean | null
+  setupUrl: string | null
+  sortOrder: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -65,12 +81,23 @@ export type SystemSkillDefinitionCountAggregateOutputType = {
   isCore: number
   isVisible: number
   iconUrl: number
+  requiresSetup: number
+  setupUrl: number
+  sortOrder: number
   metadata: number
   createdAt: number
   updatedAt: number
   _all: number
 }
 
+
+export type SystemSkillDefinitionAvgAggregateInputType = {
+  sortOrder?: true
+}
+
+export type SystemSkillDefinitionSumAggregateInputType = {
+  sortOrder?: true
+}
 
 export type SystemSkillDefinitionMinAggregateInputType = {
   id?: true
@@ -83,6 +110,9 @@ export type SystemSkillDefinitionMinAggregateInputType = {
   isCore?: true
   isVisible?: true
   iconUrl?: true
+  requiresSetup?: true
+  setupUrl?: true
+  sortOrder?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -98,6 +128,9 @@ export type SystemSkillDefinitionMaxAggregateInputType = {
   isCore?: true
   isVisible?: true
   iconUrl?: true
+  requiresSetup?: true
+  setupUrl?: true
+  sortOrder?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -113,6 +146,9 @@ export type SystemSkillDefinitionCountAggregateInputType = {
   isCore?: true
   isVisible?: true
   iconUrl?: true
+  requiresSetup?: true
+  setupUrl?: true
+  sortOrder?: true
   metadata?: true
   createdAt?: true
   updatedAt?: true
@@ -157,6 +193,18 @@ export type SystemSkillDefinitionAggregateArgs<ExtArgs extends runtime.Types.Ext
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: SystemSkillDefinitionAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: SystemSkillDefinitionSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: SystemSkillDefinitionMinAggregateInputType
@@ -187,6 +235,8 @@ export type SystemSkillDefinitionGroupByArgs<ExtArgs extends runtime.Types.Exten
   take?: number
   skip?: number
   _count?: SystemSkillDefinitionCountAggregateInputType | true
+  _avg?: SystemSkillDefinitionAvgAggregateInputType
+  _sum?: SystemSkillDefinitionSumAggregateInputType
   _min?: SystemSkillDefinitionMinAggregateInputType
   _max?: SystemSkillDefinitionMaxAggregateInputType
 }
@@ -202,10 +252,15 @@ export type SystemSkillDefinitionGroupByOutputType = {
   isCore: boolean
   isVisible: boolean
   iconUrl: string | null
+  requiresSetup: boolean
+  setupUrl: string | null
+  sortOrder: number
   metadata: runtime.JsonValue
   createdAt: Date
   updatedAt: Date
   _count: SystemSkillDefinitionCountAggregateOutputType | null
+  _avg: SystemSkillDefinitionAvgAggregateOutputType | null
+  _sum: SystemSkillDefinitionSumAggregateOutputType | null
   _min: SystemSkillDefinitionMinAggregateOutputType | null
   _max: SystemSkillDefinitionMaxAggregateOutputType | null
 }
@@ -239,6 +294,9 @@ export type SystemSkillDefinitionWhereInput = {
   isCore?: Prisma.BoolFilter<"SystemSkillDefinition"> | boolean
   isVisible?: Prisma.BoolFilter<"SystemSkillDefinition"> | boolean
   iconUrl?: Prisma.StringNullableFilter<"SystemSkillDefinition"> | string | null
+  requiresSetup?: Prisma.BoolFilter<"SystemSkillDefinition"> | boolean
+  setupUrl?: Prisma.StringNullableFilter<"SystemSkillDefinition"> | string | null
+  sortOrder?: Prisma.IntFilter<"SystemSkillDefinition"> | number
   metadata?: Prisma.JsonFilter<"SystemSkillDefinition">
   createdAt?: Prisma.DateTimeFilter<"SystemSkillDefinition"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"SystemSkillDefinition"> | Date | string
@@ -259,6 +317,9 @@ export type SystemSkillDefinitionOrderByWithRelationInput = {
   isCore?: Prisma.SortOrder
   isVisible?: Prisma.SortOrder
   iconUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  requiresSetup?: Prisma.SortOrder
+  setupUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  sortOrder?: Prisma.SortOrder
   metadata?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -282,6 +343,9 @@ export type SystemSkillDefinitionWhereUniqueInput = Prisma.AtLeast<{
   isCore?: Prisma.BoolFilter<"SystemSkillDefinition"> | boolean
   isVisible?: Prisma.BoolFilter<"SystemSkillDefinition"> | boolean
   iconUrl?: Prisma.StringNullableFilter<"SystemSkillDefinition"> | string | null
+  requiresSetup?: Prisma.BoolFilter<"SystemSkillDefinition"> | boolean
+  setupUrl?: Prisma.StringNullableFilter<"SystemSkillDefinition"> | string | null
+  sortOrder?: Prisma.IntFilter<"SystemSkillDefinition"> | number
   metadata?: Prisma.JsonFilter<"SystemSkillDefinition">
   createdAt?: Prisma.DateTimeFilter<"SystemSkillDefinition"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"SystemSkillDefinition"> | Date | string
@@ -302,12 +366,17 @@ export type SystemSkillDefinitionOrderByWithAggregationInput = {
   isCore?: Prisma.SortOrder
   isVisible?: Prisma.SortOrder
   iconUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  requiresSetup?: Prisma.SortOrder
+  setupUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  sortOrder?: Prisma.SortOrder
   metadata?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.SystemSkillDefinitionCountOrderByAggregateInput
+  _avg?: Prisma.SystemSkillDefinitionAvgOrderByAggregateInput
   _max?: Prisma.SystemSkillDefinitionMaxOrderByAggregateInput
   _min?: Prisma.SystemSkillDefinitionMinOrderByAggregateInput
+  _sum?: Prisma.SystemSkillDefinitionSumOrderByAggregateInput
 }
 
 export type SystemSkillDefinitionScalarWhereWithAggregatesInput = {
@@ -324,6 +393,9 @@ export type SystemSkillDefinitionScalarWhereWithAggregatesInput = {
   isCore?: Prisma.BoolWithAggregatesFilter<"SystemSkillDefinition"> | boolean
   isVisible?: Prisma.BoolWithAggregatesFilter<"SystemSkillDefinition"> | boolean
   iconUrl?: Prisma.StringNullableWithAggregatesFilter<"SystemSkillDefinition"> | string | null
+  requiresSetup?: Prisma.BoolWithAggregatesFilter<"SystemSkillDefinition"> | boolean
+  setupUrl?: Prisma.StringNullableWithAggregatesFilter<"SystemSkillDefinition"> | string | null
+  sortOrder?: Prisma.IntWithAggregatesFilter<"SystemSkillDefinition"> | number
   metadata?: Prisma.JsonWithAggregatesFilter<"SystemSkillDefinition">
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"SystemSkillDefinition"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"SystemSkillDefinition"> | Date | string
@@ -339,6 +411,9 @@ export type SystemSkillDefinitionCreateInput = {
   isCore?: boolean
   isVisible?: boolean
   iconUrl?: string | null
+  requiresSetup?: boolean
+  setupUrl?: string | null
+  sortOrder?: number
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -359,6 +434,9 @@ export type SystemSkillDefinitionUncheckedCreateInput = {
   isCore?: boolean
   isVisible?: boolean
   iconUrl?: string | null
+  requiresSetup?: boolean
+  setupUrl?: string | null
+  sortOrder?: number
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -377,6 +455,9 @@ export type SystemSkillDefinitionUpdateInput = {
   isCore?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isVisible?: Prisma.BoolFieldUpdateOperationsInput | boolean
   iconUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requiresSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  setupUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -397,6 +478,9 @@ export type SystemSkillDefinitionUncheckedUpdateInput = {
   isCore?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isVisible?: Prisma.BoolFieldUpdateOperationsInput | boolean
   iconUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requiresSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  setupUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -416,6 +500,9 @@ export type SystemSkillDefinitionCreateManyInput = {
   isCore?: boolean
   isVisible?: boolean
   iconUrl?: string | null
+  requiresSetup?: boolean
+  setupUrl?: string | null
+  sortOrder?: number
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -431,6 +518,9 @@ export type SystemSkillDefinitionUpdateManyMutationInput = {
   isCore?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isVisible?: Prisma.BoolFieldUpdateOperationsInput | boolean
   iconUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requiresSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  setupUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -447,6 +537,9 @@ export type SystemSkillDefinitionUncheckedUpdateManyInput = {
   isCore?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isVisible?: Prisma.BoolFieldUpdateOperationsInput | boolean
   iconUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requiresSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  setupUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -478,9 +571,16 @@ export type SystemSkillDefinitionCountOrderByAggregateInput = {
   isCore?: Prisma.SortOrder
   isVisible?: Prisma.SortOrder
   iconUrl?: Prisma.SortOrder
+  requiresSetup?: Prisma.SortOrder
+  setupUrl?: Prisma.SortOrder
+  sortOrder?: Prisma.SortOrder
   metadata?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+}
+
+export type SystemSkillDefinitionAvgOrderByAggregateInput = {
+  sortOrder?: Prisma.SortOrder
 }
 
 export type SystemSkillDefinitionMaxOrderByAggregateInput = {
@@ -494,6 +594,9 @@ export type SystemSkillDefinitionMaxOrderByAggregateInput = {
   isCore?: Prisma.SortOrder
   isVisible?: Prisma.SortOrder
   iconUrl?: Prisma.SortOrder
+  requiresSetup?: Prisma.SortOrder
+  setupUrl?: Prisma.SortOrder
+  sortOrder?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -509,8 +612,15 @@ export type SystemSkillDefinitionMinOrderByAggregateInput = {
   isCore?: Prisma.SortOrder
   isVisible?: Prisma.SortOrder
   iconUrl?: Prisma.SortOrder
+  requiresSetup?: Prisma.SortOrder
+  setupUrl?: Prisma.SortOrder
+  sortOrder?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+}
+
+export type SystemSkillDefinitionSumOrderByAggregateInput = {
+  sortOrder?: Prisma.SortOrder
 }
 
 export type SystemSkillDefinitionScalarRelationFilter = {
@@ -622,6 +732,9 @@ export type SystemSkillDefinitionCreateWithoutChildSkillsInput = {
   isCore?: boolean
   isVisible?: boolean
   iconUrl?: string | null
+  requiresSetup?: boolean
+  setupUrl?: string | null
+  sortOrder?: number
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -641,6 +754,9 @@ export type SystemSkillDefinitionUncheckedCreateWithoutChildSkillsInput = {
   isCore?: boolean
   isVisible?: boolean
   iconUrl?: string | null
+  requiresSetup?: boolean
+  setupUrl?: string | null
+  sortOrder?: number
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -663,6 +779,9 @@ export type SystemSkillDefinitionCreateWithoutParentSkillInput = {
   isCore?: boolean
   isVisible?: boolean
   iconUrl?: string | null
+  requiresSetup?: boolean
+  setupUrl?: string | null
+  sortOrder?: number
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -681,6 +800,9 @@ export type SystemSkillDefinitionUncheckedCreateWithoutParentSkillInput = {
   isCore?: boolean
   isVisible?: boolean
   iconUrl?: string | null
+  requiresSetup?: boolean
+  setupUrl?: string | null
+  sortOrder?: number
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -720,6 +842,9 @@ export type SystemSkillDefinitionUpdateWithoutChildSkillsInput = {
   isCore?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isVisible?: Prisma.BoolFieldUpdateOperationsInput | boolean
   iconUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requiresSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  setupUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -739,6 +864,9 @@ export type SystemSkillDefinitionUncheckedUpdateWithoutChildSkillsInput = {
   isCore?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isVisible?: Prisma.BoolFieldUpdateOperationsInput | boolean
   iconUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requiresSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  setupUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -776,6 +904,9 @@ export type SystemSkillDefinitionScalarWhereInput = {
   isCore?: Prisma.BoolFilter<"SystemSkillDefinition"> | boolean
   isVisible?: Prisma.BoolFilter<"SystemSkillDefinition"> | boolean
   iconUrl?: Prisma.StringNullableFilter<"SystemSkillDefinition"> | string | null
+  requiresSetup?: Prisma.BoolFilter<"SystemSkillDefinition"> | boolean
+  setupUrl?: Prisma.StringNullableFilter<"SystemSkillDefinition"> | string | null
+  sortOrder?: Prisma.IntFilter<"SystemSkillDefinition"> | number
   metadata?: Prisma.JsonFilter<"SystemSkillDefinition">
   createdAt?: Prisma.DateTimeFilter<"SystemSkillDefinition"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"SystemSkillDefinition"> | Date | string
@@ -791,6 +922,9 @@ export type SystemSkillDefinitionCreateWithoutSkillPricingInput = {
   isCore?: boolean
   isVisible?: boolean
   iconUrl?: string | null
+  requiresSetup?: boolean
+  setupUrl?: string | null
+  sortOrder?: number
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -810,6 +944,9 @@ export type SystemSkillDefinitionUncheckedCreateWithoutSkillPricingInput = {
   isCore?: boolean
   isVisible?: boolean
   iconUrl?: string | null
+  requiresSetup?: boolean
+  setupUrl?: string | null
+  sortOrder?: number
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -843,6 +980,9 @@ export type SystemSkillDefinitionUpdateWithoutSkillPricingInput = {
   isCore?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isVisible?: Prisma.BoolFieldUpdateOperationsInput | boolean
   iconUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requiresSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  setupUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -862,6 +1002,9 @@ export type SystemSkillDefinitionUncheckedUpdateWithoutSkillPricingInput = {
   isCore?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isVisible?: Prisma.BoolFieldUpdateOperationsInput | boolean
   iconUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requiresSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  setupUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -879,6 +1022,9 @@ export type SystemSkillDefinitionCreateWithoutTenantSubscriptionsInput = {
   isCore?: boolean
   isVisible?: boolean
   iconUrl?: string | null
+  requiresSetup?: boolean
+  setupUrl?: string | null
+  sortOrder?: number
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -898,6 +1044,9 @@ export type SystemSkillDefinitionUncheckedCreateWithoutTenantSubscriptionsInput 
   isCore?: boolean
   isVisible?: boolean
   iconUrl?: string | null
+  requiresSetup?: boolean
+  setupUrl?: string | null
+  sortOrder?: number
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -931,6 +1080,9 @@ export type SystemSkillDefinitionUpdateWithoutTenantSubscriptionsInput = {
   isCore?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isVisible?: Prisma.BoolFieldUpdateOperationsInput | boolean
   iconUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requiresSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  setupUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -950,6 +1102,9 @@ export type SystemSkillDefinitionUncheckedUpdateWithoutTenantSubscriptionsInput 
   isCore?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isVisible?: Prisma.BoolFieldUpdateOperationsInput | boolean
   iconUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requiresSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  setupUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -967,6 +1122,9 @@ export type SystemSkillDefinitionCreateManyParentSkillInput = {
   isCore?: boolean
   isVisible?: boolean
   iconUrl?: string | null
+  requiresSetup?: boolean
+  setupUrl?: string | null
+  sortOrder?: number
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -982,6 +1140,9 @@ export type SystemSkillDefinitionUpdateWithoutParentSkillInput = {
   isCore?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isVisible?: Prisma.BoolFieldUpdateOperationsInput | boolean
   iconUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requiresSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  setupUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1000,6 +1161,9 @@ export type SystemSkillDefinitionUncheckedUpdateWithoutParentSkillInput = {
   isCore?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isVisible?: Prisma.BoolFieldUpdateOperationsInput | boolean
   iconUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requiresSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  setupUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1018,6 +1182,9 @@ export type SystemSkillDefinitionUncheckedUpdateManyWithoutParentSkillInput = {
   isCore?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isVisible?: Prisma.BoolFieldUpdateOperationsInput | boolean
   iconUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requiresSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  setupUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1074,6 +1241,9 @@ export type SystemSkillDefinitionSelect<ExtArgs extends runtime.Types.Extensions
   isCore?: boolean
   isVisible?: boolean
   iconUrl?: boolean
+  requiresSetup?: boolean
+  setupUrl?: boolean
+  sortOrder?: boolean
   metadata?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1095,6 +1265,9 @@ export type SystemSkillDefinitionSelectCreateManyAndReturn<ExtArgs extends runti
   isCore?: boolean
   isVisible?: boolean
   iconUrl?: boolean
+  requiresSetup?: boolean
+  setupUrl?: boolean
+  sortOrder?: boolean
   metadata?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1112,6 +1285,9 @@ export type SystemSkillDefinitionSelectUpdateManyAndReturn<ExtArgs extends runti
   isCore?: boolean
   isVisible?: boolean
   iconUrl?: boolean
+  requiresSetup?: boolean
+  setupUrl?: boolean
+  sortOrder?: boolean
   metadata?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1129,12 +1305,15 @@ export type SystemSkillDefinitionSelectScalar = {
   isCore?: boolean
   isVisible?: boolean
   iconUrl?: boolean
+  requiresSetup?: boolean
+  setupUrl?: boolean
+  sortOrder?: boolean
   metadata?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type SystemSkillDefinitionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "code" | "name" | "description" | "module" | "parentSkillCode" | "category" | "isCore" | "isVisible" | "iconUrl" | "metadata" | "createdAt" | "updatedAt", ExtArgs["result"]["systemSkillDefinition"]>
+export type SystemSkillDefinitionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "code" | "name" | "description" | "module" | "parentSkillCode" | "category" | "isCore" | "isVisible" | "iconUrl" | "requiresSetup" | "setupUrl" | "sortOrder" | "metadata" | "createdAt" | "updatedAt", ExtArgs["result"]["systemSkillDefinition"]>
 export type SystemSkillDefinitionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   parentSkill?: boolean | Prisma.SystemSkillDefinition$parentSkillArgs<ExtArgs>
   childSkills?: boolean | Prisma.SystemSkillDefinition$childSkillsArgs<ExtArgs>
@@ -1168,6 +1347,9 @@ export type $SystemSkillDefinitionPayload<ExtArgs extends runtime.Types.Extensio
     isCore: boolean
     isVisible: boolean
     iconUrl: string | null
+    requiresSetup: boolean
+    setupUrl: string | null
+    sortOrder: number
     metadata: runtime.JsonValue
     createdAt: Date
     updatedAt: Date
@@ -1608,6 +1790,9 @@ export interface SystemSkillDefinitionFieldRefs {
   readonly isCore: Prisma.FieldRef<"SystemSkillDefinition", 'Boolean'>
   readonly isVisible: Prisma.FieldRef<"SystemSkillDefinition", 'Boolean'>
   readonly iconUrl: Prisma.FieldRef<"SystemSkillDefinition", 'String'>
+  readonly requiresSetup: Prisma.FieldRef<"SystemSkillDefinition", 'Boolean'>
+  readonly setupUrl: Prisma.FieldRef<"SystemSkillDefinition", 'String'>
+  readonly sortOrder: Prisma.FieldRef<"SystemSkillDefinition", 'Int'>
   readonly metadata: Prisma.FieldRef<"SystemSkillDefinition", 'Json'>
   readonly createdAt: Prisma.FieldRef<"SystemSkillDefinition", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"SystemSkillDefinition", 'DateTime'>

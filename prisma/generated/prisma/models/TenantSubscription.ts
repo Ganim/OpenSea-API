@@ -28,10 +28,14 @@ export type AggregateTenantSubscription = {
 
 export type TenantSubscriptionAvgAggregateOutputType = {
   quantity: number | null
+  customPrice: runtime.Decimal | null
+  discountPercent: runtime.Decimal | null
 }
 
 export type TenantSubscriptionSumAggregateOutputType = {
   quantity: number | null
+  customPrice: runtime.Decimal | null
+  discountPercent: runtime.Decimal | null
 }
 
 export type TenantSubscriptionMinAggregateOutputType = {
@@ -43,6 +47,10 @@ export type TenantSubscriptionMinAggregateOutputType = {
   startsAt: Date | null
   expiresAt: Date | null
   cancelledAt: Date | null
+  customPrice: runtime.Decimal | null
+  discountPercent: runtime.Decimal | null
+  notes: string | null
+  grantedBy: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -56,6 +64,10 @@ export type TenantSubscriptionMaxAggregateOutputType = {
   startsAt: Date | null
   expiresAt: Date | null
   cancelledAt: Date | null
+  customPrice: runtime.Decimal | null
+  discountPercent: runtime.Decimal | null
+  notes: string | null
+  grantedBy: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -69,6 +81,10 @@ export type TenantSubscriptionCountAggregateOutputType = {
   startsAt: number
   expiresAt: number
   cancelledAt: number
+  customPrice: number
+  discountPercent: number
+  notes: number
+  grantedBy: number
   metadata: number
   createdAt: number
   updatedAt: number
@@ -78,10 +94,14 @@ export type TenantSubscriptionCountAggregateOutputType = {
 
 export type TenantSubscriptionAvgAggregateInputType = {
   quantity?: true
+  customPrice?: true
+  discountPercent?: true
 }
 
 export type TenantSubscriptionSumAggregateInputType = {
   quantity?: true
+  customPrice?: true
+  discountPercent?: true
 }
 
 export type TenantSubscriptionMinAggregateInputType = {
@@ -93,6 +113,10 @@ export type TenantSubscriptionMinAggregateInputType = {
   startsAt?: true
   expiresAt?: true
   cancelledAt?: true
+  customPrice?: true
+  discountPercent?: true
+  notes?: true
+  grantedBy?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -106,6 +130,10 @@ export type TenantSubscriptionMaxAggregateInputType = {
   startsAt?: true
   expiresAt?: true
   cancelledAt?: true
+  customPrice?: true
+  discountPercent?: true
+  notes?: true
+  grantedBy?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -119,6 +147,10 @@ export type TenantSubscriptionCountAggregateInputType = {
   startsAt?: true
   expiresAt?: true
   cancelledAt?: true
+  customPrice?: true
+  discountPercent?: true
+  notes?: true
+  grantedBy?: true
   metadata?: true
   createdAt?: true
   updatedAt?: true
@@ -220,6 +252,10 @@ export type TenantSubscriptionGroupByOutputType = {
   startsAt: Date
   expiresAt: Date | null
   cancelledAt: Date | null
+  customPrice: runtime.Decimal | null
+  discountPercent: runtime.Decimal | null
+  notes: string | null
+  grantedBy: string | null
   metadata: runtime.JsonValue
   createdAt: Date
   updatedAt: Date
@@ -257,6 +293,10 @@ export type TenantSubscriptionWhereInput = {
   startsAt?: Prisma.DateTimeFilter<"TenantSubscription"> | Date | string
   expiresAt?: Prisma.DateTimeNullableFilter<"TenantSubscription"> | Date | string | null
   cancelledAt?: Prisma.DateTimeNullableFilter<"TenantSubscription"> | Date | string | null
+  customPrice?: Prisma.DecimalNullableFilter<"TenantSubscription"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  discountPercent?: Prisma.DecimalNullableFilter<"TenantSubscription"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: Prisma.StringNullableFilter<"TenantSubscription"> | string | null
+  grantedBy?: Prisma.StringNullableFilter<"TenantSubscription"> | string | null
   metadata?: Prisma.JsonFilter<"TenantSubscription">
   createdAt?: Prisma.DateTimeFilter<"TenantSubscription"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"TenantSubscription"> | Date | string
@@ -273,6 +313,10 @@ export type TenantSubscriptionOrderByWithRelationInput = {
   startsAt?: Prisma.SortOrder
   expiresAt?: Prisma.SortOrderInput | Prisma.SortOrder
   cancelledAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  customPrice?: Prisma.SortOrderInput | Prisma.SortOrder
+  discountPercent?: Prisma.SortOrderInput | Prisma.SortOrder
+  notes?: Prisma.SortOrderInput | Prisma.SortOrder
+  grantedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   metadata?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -293,6 +337,10 @@ export type TenantSubscriptionWhereUniqueInput = Prisma.AtLeast<{
   startsAt?: Prisma.DateTimeFilter<"TenantSubscription"> | Date | string
   expiresAt?: Prisma.DateTimeNullableFilter<"TenantSubscription"> | Date | string | null
   cancelledAt?: Prisma.DateTimeNullableFilter<"TenantSubscription"> | Date | string | null
+  customPrice?: Prisma.DecimalNullableFilter<"TenantSubscription"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  discountPercent?: Prisma.DecimalNullableFilter<"TenantSubscription"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: Prisma.StringNullableFilter<"TenantSubscription"> | string | null
+  grantedBy?: Prisma.StringNullableFilter<"TenantSubscription"> | string | null
   metadata?: Prisma.JsonFilter<"TenantSubscription">
   createdAt?: Prisma.DateTimeFilter<"TenantSubscription"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"TenantSubscription"> | Date | string
@@ -309,6 +357,10 @@ export type TenantSubscriptionOrderByWithAggregationInput = {
   startsAt?: Prisma.SortOrder
   expiresAt?: Prisma.SortOrderInput | Prisma.SortOrder
   cancelledAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  customPrice?: Prisma.SortOrderInput | Prisma.SortOrder
+  discountPercent?: Prisma.SortOrderInput | Prisma.SortOrder
+  notes?: Prisma.SortOrderInput | Prisma.SortOrder
+  grantedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   metadata?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -331,6 +383,10 @@ export type TenantSubscriptionScalarWhereWithAggregatesInput = {
   startsAt?: Prisma.DateTimeWithAggregatesFilter<"TenantSubscription"> | Date | string
   expiresAt?: Prisma.DateTimeNullableWithAggregatesFilter<"TenantSubscription"> | Date | string | null
   cancelledAt?: Prisma.DateTimeNullableWithAggregatesFilter<"TenantSubscription"> | Date | string | null
+  customPrice?: Prisma.DecimalNullableWithAggregatesFilter<"TenantSubscription"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  discountPercent?: Prisma.DecimalNullableWithAggregatesFilter<"TenantSubscription"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: Prisma.StringNullableWithAggregatesFilter<"TenantSubscription"> | string | null
+  grantedBy?: Prisma.StringNullableWithAggregatesFilter<"TenantSubscription"> | string | null
   metadata?: Prisma.JsonWithAggregatesFilter<"TenantSubscription">
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"TenantSubscription"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"TenantSubscription"> | Date | string
@@ -343,6 +399,10 @@ export type TenantSubscriptionCreateInput = {
   startsAt?: Date | string
   expiresAt?: Date | string | null
   cancelledAt?: Date | string | null
+  customPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  discountPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: string | null
+  grantedBy?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -359,6 +419,10 @@ export type TenantSubscriptionUncheckedCreateInput = {
   startsAt?: Date | string
   expiresAt?: Date | string | null
   cancelledAt?: Date | string | null
+  customPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  discountPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: string | null
+  grantedBy?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -371,6 +435,10 @@ export type TenantSubscriptionUpdateInput = {
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  customPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  discountPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  grantedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -387,6 +455,10 @@ export type TenantSubscriptionUncheckedUpdateInput = {
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  customPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  discountPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  grantedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -401,6 +473,10 @@ export type TenantSubscriptionCreateManyInput = {
   startsAt?: Date | string
   expiresAt?: Date | string | null
   cancelledAt?: Date | string | null
+  customPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  discountPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: string | null
+  grantedBy?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -413,6 +489,10 @@ export type TenantSubscriptionUpdateManyMutationInput = {
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  customPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  discountPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  grantedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -427,6 +507,10 @@ export type TenantSubscriptionUncheckedUpdateManyInput = {
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  customPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  discountPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  grantedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -456,6 +540,10 @@ export type TenantSubscriptionCountOrderByAggregateInput = {
   startsAt?: Prisma.SortOrder
   expiresAt?: Prisma.SortOrder
   cancelledAt?: Prisma.SortOrder
+  customPrice?: Prisma.SortOrder
+  discountPercent?: Prisma.SortOrder
+  notes?: Prisma.SortOrder
+  grantedBy?: Prisma.SortOrder
   metadata?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -463,6 +551,8 @@ export type TenantSubscriptionCountOrderByAggregateInput = {
 
 export type TenantSubscriptionAvgOrderByAggregateInput = {
   quantity?: Prisma.SortOrder
+  customPrice?: Prisma.SortOrder
+  discountPercent?: Prisma.SortOrder
 }
 
 export type TenantSubscriptionMaxOrderByAggregateInput = {
@@ -474,6 +564,10 @@ export type TenantSubscriptionMaxOrderByAggregateInput = {
   startsAt?: Prisma.SortOrder
   expiresAt?: Prisma.SortOrder
   cancelledAt?: Prisma.SortOrder
+  customPrice?: Prisma.SortOrder
+  discountPercent?: Prisma.SortOrder
+  notes?: Prisma.SortOrder
+  grantedBy?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -487,12 +581,18 @@ export type TenantSubscriptionMinOrderByAggregateInput = {
   startsAt?: Prisma.SortOrder
   expiresAt?: Prisma.SortOrder
   cancelledAt?: Prisma.SortOrder
+  customPrice?: Prisma.SortOrder
+  discountPercent?: Prisma.SortOrder
+  notes?: Prisma.SortOrder
+  grantedBy?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type TenantSubscriptionSumOrderByAggregateInput = {
   quantity?: Prisma.SortOrder
+  customPrice?: Prisma.SortOrder
+  discountPercent?: Prisma.SortOrder
 }
 
 export type TenantSubscriptionCreateNestedManyWithoutTenantInput = {
@@ -590,6 +690,10 @@ export type TenantSubscriptionCreateWithoutTenantInput = {
   startsAt?: Date | string
   expiresAt?: Date | string | null
   cancelledAt?: Date | string | null
+  customPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  discountPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: string | null
+  grantedBy?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -604,6 +708,10 @@ export type TenantSubscriptionUncheckedCreateWithoutTenantInput = {
   startsAt?: Date | string
   expiresAt?: Date | string | null
   cancelledAt?: Date | string | null
+  customPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  discountPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: string | null
+  grantedBy?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -647,6 +755,10 @@ export type TenantSubscriptionScalarWhereInput = {
   startsAt?: Prisma.DateTimeFilter<"TenantSubscription"> | Date | string
   expiresAt?: Prisma.DateTimeNullableFilter<"TenantSubscription"> | Date | string | null
   cancelledAt?: Prisma.DateTimeNullableFilter<"TenantSubscription"> | Date | string | null
+  customPrice?: Prisma.DecimalNullableFilter<"TenantSubscription"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  discountPercent?: Prisma.DecimalNullableFilter<"TenantSubscription"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: Prisma.StringNullableFilter<"TenantSubscription"> | string | null
+  grantedBy?: Prisma.StringNullableFilter<"TenantSubscription"> | string | null
   metadata?: Prisma.JsonFilter<"TenantSubscription">
   createdAt?: Prisma.DateTimeFilter<"TenantSubscription"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"TenantSubscription"> | Date | string
@@ -659,6 +771,10 @@ export type TenantSubscriptionCreateWithoutSkillInput = {
   startsAt?: Date | string
   expiresAt?: Date | string | null
   cancelledAt?: Date | string | null
+  customPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  discountPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: string | null
+  grantedBy?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -673,6 +789,10 @@ export type TenantSubscriptionUncheckedCreateWithoutSkillInput = {
   startsAt?: Date | string
   expiresAt?: Date | string | null
   cancelledAt?: Date | string | null
+  customPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  discountPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: string | null
+  grantedBy?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -712,6 +832,10 @@ export type TenantSubscriptionCreateManyTenantInput = {
   startsAt?: Date | string
   expiresAt?: Date | string | null
   cancelledAt?: Date | string | null
+  customPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  discountPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: string | null
+  grantedBy?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -724,6 +848,10 @@ export type TenantSubscriptionUpdateWithoutTenantInput = {
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  customPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  discountPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  grantedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -738,6 +866,10 @@ export type TenantSubscriptionUncheckedUpdateWithoutTenantInput = {
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  customPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  discountPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  grantedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -751,6 +883,10 @@ export type TenantSubscriptionUncheckedUpdateManyWithoutTenantInput = {
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  customPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  discountPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  grantedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -764,6 +900,10 @@ export type TenantSubscriptionCreateManySkillInput = {
   startsAt?: Date | string
   expiresAt?: Date | string | null
   cancelledAt?: Date | string | null
+  customPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  discountPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: string | null
+  grantedBy?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -776,6 +916,10 @@ export type TenantSubscriptionUpdateWithoutSkillInput = {
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  customPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  discountPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  grantedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -790,6 +934,10 @@ export type TenantSubscriptionUncheckedUpdateWithoutSkillInput = {
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  customPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  discountPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  grantedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -803,6 +951,10 @@ export type TenantSubscriptionUncheckedUpdateManyWithoutSkillInput = {
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  customPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  discountPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  grantedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -819,6 +971,10 @@ export type TenantSubscriptionSelect<ExtArgs extends runtime.Types.Extensions.In
   startsAt?: boolean
   expiresAt?: boolean
   cancelledAt?: boolean
+  customPrice?: boolean
+  discountPercent?: boolean
+  notes?: boolean
+  grantedBy?: boolean
   metadata?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -835,6 +991,10 @@ export type TenantSubscriptionSelectCreateManyAndReturn<ExtArgs extends runtime.
   startsAt?: boolean
   expiresAt?: boolean
   cancelledAt?: boolean
+  customPrice?: boolean
+  discountPercent?: boolean
+  notes?: boolean
+  grantedBy?: boolean
   metadata?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -851,6 +1011,10 @@ export type TenantSubscriptionSelectUpdateManyAndReturn<ExtArgs extends runtime.
   startsAt?: boolean
   expiresAt?: boolean
   cancelledAt?: boolean
+  customPrice?: boolean
+  discountPercent?: boolean
+  notes?: boolean
+  grantedBy?: boolean
   metadata?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -867,12 +1031,16 @@ export type TenantSubscriptionSelectScalar = {
   startsAt?: boolean
   expiresAt?: boolean
   cancelledAt?: boolean
+  customPrice?: boolean
+  discountPercent?: boolean
+  notes?: boolean
+  grantedBy?: boolean
   metadata?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type TenantSubscriptionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "skillCode" | "status" | "quantity" | "startsAt" | "expiresAt" | "cancelledAt" | "metadata" | "createdAt" | "updatedAt", ExtArgs["result"]["tenantSubscription"]>
+export type TenantSubscriptionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "skillCode" | "status" | "quantity" | "startsAt" | "expiresAt" | "cancelledAt" | "customPrice" | "discountPercent" | "notes" | "grantedBy" | "metadata" | "createdAt" | "updatedAt", ExtArgs["result"]["tenantSubscription"]>
 export type TenantSubscriptionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   skill?: boolean | Prisma.SystemSkillDefinitionDefaultArgs<ExtArgs>
@@ -901,6 +1069,10 @@ export type $TenantSubscriptionPayload<ExtArgs extends runtime.Types.Extensions.
     startsAt: Date
     expiresAt: Date | null
     cancelledAt: Date | null
+    customPrice: runtime.Decimal | null
+    discountPercent: runtime.Decimal | null
+    notes: string | null
+    grantedBy: string | null
     metadata: runtime.JsonValue
     createdAt: Date
     updatedAt: Date
@@ -1337,6 +1509,10 @@ export interface TenantSubscriptionFieldRefs {
   readonly startsAt: Prisma.FieldRef<"TenantSubscription", 'DateTime'>
   readonly expiresAt: Prisma.FieldRef<"TenantSubscription", 'DateTime'>
   readonly cancelledAt: Prisma.FieldRef<"TenantSubscription", 'DateTime'>
+  readonly customPrice: Prisma.FieldRef<"TenantSubscription", 'Decimal'>
+  readonly discountPercent: Prisma.FieldRef<"TenantSubscription", 'Decimal'>
+  readonly notes: Prisma.FieldRef<"TenantSubscription", 'String'>
+  readonly grantedBy: Prisma.FieldRef<"TenantSubscription", 'String'>
   readonly metadata: Prisma.FieldRef<"TenantSubscription", 'Json'>
   readonly createdAt: Prisma.FieldRef<"TenantSubscription", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"TenantSubscription", 'DateTime'>

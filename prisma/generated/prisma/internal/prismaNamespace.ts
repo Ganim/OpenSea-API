@@ -426,9 +426,17 @@ export const ModelName = {
   PurchaseOrderItem: 'PurchaseOrderItem',
   UnitConversion: 'UnitConversion',
   StockSnapshot: 'StockSnapshot',
+  InventorySession: 'InventorySession',
+  InventorySessionItem: 'InventorySessionItem',
   Customer: 'Customer',
   SalesOrder: 'SalesOrder',
   SalesOrderItem: 'SalesOrderItem',
+  CrmContact: 'CrmContact',
+  CrmPipeline: 'CrmPipeline',
+  CrmPipelineStage: 'CrmPipelineStage',
+  CrmDeal: 'CrmDeal',
+  CrmActivity: 'CrmActivity',
+  CrmTimelineEvent: 'CrmTimelineEvent',
   ItemReservation: 'ItemReservation',
   VariantSupplierCode: 'VariantSupplierCode',
   VariantPromotion: 'VariantPromotion',
@@ -540,7 +548,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "userProfile" | "session" | "refreshToken" | "permission" | "permissionGroup" | "permissionGroupPermission" | "userPermissionGroup" | "userDirectPermission" | "permissionAuditLog" | "organization" | "organizationAddress" | "organizationCnae" | "organizationFiscalSettings" | "organizationStakeholder" | "supplier" | "manufacturer" | "category" | "warehouse" | "zone" | "bin" | "volume" | "volumeItem" | "template" | "product" | "variant" | "item" | "itemMovement" | "productCategory" | "variantPriceHistory" | "auditLog" | "tag" | "productTag" | "variantImage" | "productCareInstruction" | "productAttachment" | "variantAttachment" | "alert" | "purchaseOrder" | "purchaseOrderItem" | "unitConversion" | "stockSnapshot" | "customer" | "salesOrder" | "salesOrderItem" | "itemReservation" | "variantSupplierCode" | "variantPromotion" | "comment" | "notificationPreference" | "notificationTemplate" | "notification" | "request" | "requestAttachment" | "requestComment" | "requestHistory" | "employee" | "department" | "position" | "timeEntry" | "workSchedule" | "overtime" | "timeBank" | "absence" | "vacationPeriod" | "payroll" | "payrollItem" | "bonus" | "deduction" | "company" | "companyDocument" | "companyAddress" | "companyCnae" | "companyFiscalSettings" | "companyStakeholder" | "labelTemplate" | "tenant" | "plan" | "planModule" | "tenantPlan" | "tenantUser" | "tenantFeatureFlag" | "costCenter" | "bankAccount" | "financeCategory" | "financeEntry" | "financeCodeSequence" | "financeEntryPayment" | "financeEntryCostCenter" | "recurringConfig" | "financeAttachment" | "loan" | "loanInstallment" | "consortium" | "consortiumPayment" | "contract" | "storageFolder" | "storageFile" | "storageFileVersion" | "folderAccessRule" | "storageShareLink" | "calendar" | "teamCalendarConfig" | "calendarEvent" | "eventParticipant" | "eventReminder" | "emailAccount" | "emailAccountAccess" | "emailFolder" | "emailMessage" | "emailAttachment" | "team" | "teamMember" | "teamEmailAccount" | "board" | "boardColumn" | "card" | "boardLabel" | "cardLabel" | "boardMember" | "boardCustomField" | "cardCustomFieldValue" | "cardComment" | "commentReaction" | "cardAttachment" | "cardChecklist" | "checklistItem" | "cardActivity" | "boardAutomation" | "cardWatcher" | "systemSkillDefinition" | "skillPricing" | "tenantSubscription" | "tenantConsumption" | "tenantBilling" | "tenantIntegrationStatus" | "centralUser" | "supportTicket" | "supportTicketMessage" | "supportTicketAttachment" | "supportSlaConfig"
+    modelProps: "user" | "userProfile" | "session" | "refreshToken" | "permission" | "permissionGroup" | "permissionGroupPermission" | "userPermissionGroup" | "userDirectPermission" | "permissionAuditLog" | "organization" | "organizationAddress" | "organizationCnae" | "organizationFiscalSettings" | "organizationStakeholder" | "supplier" | "manufacturer" | "category" | "warehouse" | "zone" | "bin" | "volume" | "volumeItem" | "template" | "product" | "variant" | "item" | "itemMovement" | "productCategory" | "variantPriceHistory" | "auditLog" | "tag" | "productTag" | "variantImage" | "productCareInstruction" | "productAttachment" | "variantAttachment" | "alert" | "purchaseOrder" | "purchaseOrderItem" | "unitConversion" | "stockSnapshot" | "inventorySession" | "inventorySessionItem" | "customer" | "salesOrder" | "salesOrderItem" | "crmContact" | "crmPipeline" | "crmPipelineStage" | "crmDeal" | "crmActivity" | "crmTimelineEvent" | "itemReservation" | "variantSupplierCode" | "variantPromotion" | "comment" | "notificationPreference" | "notificationTemplate" | "notification" | "request" | "requestAttachment" | "requestComment" | "requestHistory" | "employee" | "department" | "position" | "timeEntry" | "workSchedule" | "overtime" | "timeBank" | "absence" | "vacationPeriod" | "payroll" | "payrollItem" | "bonus" | "deduction" | "company" | "companyDocument" | "companyAddress" | "companyCnae" | "companyFiscalSettings" | "companyStakeholder" | "labelTemplate" | "tenant" | "plan" | "planModule" | "tenantPlan" | "tenantUser" | "tenantFeatureFlag" | "costCenter" | "bankAccount" | "financeCategory" | "financeEntry" | "financeCodeSequence" | "financeEntryPayment" | "financeEntryCostCenter" | "recurringConfig" | "financeAttachment" | "loan" | "loanInstallment" | "consortium" | "consortiumPayment" | "contract" | "storageFolder" | "storageFile" | "storageFileVersion" | "folderAccessRule" | "storageShareLink" | "calendar" | "teamCalendarConfig" | "calendarEvent" | "eventParticipant" | "eventReminder" | "emailAccount" | "emailAccountAccess" | "emailFolder" | "emailMessage" | "emailAttachment" | "team" | "teamMember" | "teamEmailAccount" | "board" | "boardColumn" | "card" | "boardLabel" | "cardLabel" | "boardMember" | "boardCustomField" | "cardCustomFieldValue" | "cardComment" | "commentReaction" | "cardAttachment" | "cardChecklist" | "checklistItem" | "cardActivity" | "boardAutomation" | "cardWatcher" | "systemSkillDefinition" | "skillPricing" | "tenantSubscription" | "tenantConsumption" | "tenantBilling" | "tenantIntegrationStatus" | "centralUser" | "supportTicket" | "supportTicketMessage" | "supportTicketAttachment" | "supportSlaConfig"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -3652,6 +3660,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    InventorySession: {
+      payload: Prisma.$InventorySessionPayload<ExtArgs>
+      fields: Prisma.InventorySessionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.InventorySessionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InventorySessionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.InventorySessionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InventorySessionPayload>
+        }
+        findFirst: {
+          args: Prisma.InventorySessionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InventorySessionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.InventorySessionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InventorySessionPayload>
+        }
+        findMany: {
+          args: Prisma.InventorySessionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InventorySessionPayload>[]
+        }
+        create: {
+          args: Prisma.InventorySessionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InventorySessionPayload>
+        }
+        createMany: {
+          args: Prisma.InventorySessionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.InventorySessionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InventorySessionPayload>[]
+        }
+        delete: {
+          args: Prisma.InventorySessionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InventorySessionPayload>
+        }
+        update: {
+          args: Prisma.InventorySessionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InventorySessionPayload>
+        }
+        deleteMany: {
+          args: Prisma.InventorySessionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.InventorySessionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.InventorySessionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InventorySessionPayload>[]
+        }
+        upsert: {
+          args: Prisma.InventorySessionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InventorySessionPayload>
+        }
+        aggregate: {
+          args: Prisma.InventorySessionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateInventorySession>
+        }
+        groupBy: {
+          args: Prisma.InventorySessionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.InventorySessionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.InventorySessionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.InventorySessionCountAggregateOutputType> | number
+        }
+      }
+    }
+    InventorySessionItem: {
+      payload: Prisma.$InventorySessionItemPayload<ExtArgs>
+      fields: Prisma.InventorySessionItemFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.InventorySessionItemFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InventorySessionItemPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.InventorySessionItemFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InventorySessionItemPayload>
+        }
+        findFirst: {
+          args: Prisma.InventorySessionItemFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InventorySessionItemPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.InventorySessionItemFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InventorySessionItemPayload>
+        }
+        findMany: {
+          args: Prisma.InventorySessionItemFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InventorySessionItemPayload>[]
+        }
+        create: {
+          args: Prisma.InventorySessionItemCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InventorySessionItemPayload>
+        }
+        createMany: {
+          args: Prisma.InventorySessionItemCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.InventorySessionItemCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InventorySessionItemPayload>[]
+        }
+        delete: {
+          args: Prisma.InventorySessionItemDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InventorySessionItemPayload>
+        }
+        update: {
+          args: Prisma.InventorySessionItemUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InventorySessionItemPayload>
+        }
+        deleteMany: {
+          args: Prisma.InventorySessionItemDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.InventorySessionItemUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.InventorySessionItemUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InventorySessionItemPayload>[]
+        }
+        upsert: {
+          args: Prisma.InventorySessionItemUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InventorySessionItemPayload>
+        }
+        aggregate: {
+          args: Prisma.InventorySessionItemAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateInventorySessionItem>
+        }
+        groupBy: {
+          args: Prisma.InventorySessionItemGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.InventorySessionItemGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.InventorySessionItemCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.InventorySessionItemCountAggregateOutputType> | number
+        }
+      }
+    }
     Customer: {
       payload: Prisma.$CustomerPayload<ExtArgs>
       fields: Prisma.CustomerFieldRefs
@@ -3871,6 +4027,450 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.SalesOrderItemCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.SalesOrderItemCountAggregateOutputType> | number
+        }
+      }
+    }
+    CrmContact: {
+      payload: Prisma.$CrmContactPayload<ExtArgs>
+      fields: Prisma.CrmContactFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CrmContactFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmContactPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CrmContactFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmContactPayload>
+        }
+        findFirst: {
+          args: Prisma.CrmContactFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmContactPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CrmContactFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmContactPayload>
+        }
+        findMany: {
+          args: Prisma.CrmContactFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmContactPayload>[]
+        }
+        create: {
+          args: Prisma.CrmContactCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmContactPayload>
+        }
+        createMany: {
+          args: Prisma.CrmContactCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CrmContactCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmContactPayload>[]
+        }
+        delete: {
+          args: Prisma.CrmContactDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmContactPayload>
+        }
+        update: {
+          args: Prisma.CrmContactUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmContactPayload>
+        }
+        deleteMany: {
+          args: Prisma.CrmContactDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CrmContactUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CrmContactUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmContactPayload>[]
+        }
+        upsert: {
+          args: Prisma.CrmContactUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmContactPayload>
+        }
+        aggregate: {
+          args: Prisma.CrmContactAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCrmContact>
+        }
+        groupBy: {
+          args: Prisma.CrmContactGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CrmContactGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CrmContactCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CrmContactCountAggregateOutputType> | number
+        }
+      }
+    }
+    CrmPipeline: {
+      payload: Prisma.$CrmPipelinePayload<ExtArgs>
+      fields: Prisma.CrmPipelineFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CrmPipelineFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmPipelinePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CrmPipelineFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmPipelinePayload>
+        }
+        findFirst: {
+          args: Prisma.CrmPipelineFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmPipelinePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CrmPipelineFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmPipelinePayload>
+        }
+        findMany: {
+          args: Prisma.CrmPipelineFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmPipelinePayload>[]
+        }
+        create: {
+          args: Prisma.CrmPipelineCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmPipelinePayload>
+        }
+        createMany: {
+          args: Prisma.CrmPipelineCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CrmPipelineCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmPipelinePayload>[]
+        }
+        delete: {
+          args: Prisma.CrmPipelineDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmPipelinePayload>
+        }
+        update: {
+          args: Prisma.CrmPipelineUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmPipelinePayload>
+        }
+        deleteMany: {
+          args: Prisma.CrmPipelineDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CrmPipelineUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CrmPipelineUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmPipelinePayload>[]
+        }
+        upsert: {
+          args: Prisma.CrmPipelineUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmPipelinePayload>
+        }
+        aggregate: {
+          args: Prisma.CrmPipelineAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCrmPipeline>
+        }
+        groupBy: {
+          args: Prisma.CrmPipelineGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CrmPipelineGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CrmPipelineCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CrmPipelineCountAggregateOutputType> | number
+        }
+      }
+    }
+    CrmPipelineStage: {
+      payload: Prisma.$CrmPipelineStagePayload<ExtArgs>
+      fields: Prisma.CrmPipelineStageFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CrmPipelineStageFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmPipelineStagePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CrmPipelineStageFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmPipelineStagePayload>
+        }
+        findFirst: {
+          args: Prisma.CrmPipelineStageFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmPipelineStagePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CrmPipelineStageFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmPipelineStagePayload>
+        }
+        findMany: {
+          args: Prisma.CrmPipelineStageFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmPipelineStagePayload>[]
+        }
+        create: {
+          args: Prisma.CrmPipelineStageCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmPipelineStagePayload>
+        }
+        createMany: {
+          args: Prisma.CrmPipelineStageCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CrmPipelineStageCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmPipelineStagePayload>[]
+        }
+        delete: {
+          args: Prisma.CrmPipelineStageDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmPipelineStagePayload>
+        }
+        update: {
+          args: Prisma.CrmPipelineStageUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmPipelineStagePayload>
+        }
+        deleteMany: {
+          args: Prisma.CrmPipelineStageDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CrmPipelineStageUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CrmPipelineStageUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmPipelineStagePayload>[]
+        }
+        upsert: {
+          args: Prisma.CrmPipelineStageUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmPipelineStagePayload>
+        }
+        aggregate: {
+          args: Prisma.CrmPipelineStageAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCrmPipelineStage>
+        }
+        groupBy: {
+          args: Prisma.CrmPipelineStageGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CrmPipelineStageGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CrmPipelineStageCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CrmPipelineStageCountAggregateOutputType> | number
+        }
+      }
+    }
+    CrmDeal: {
+      payload: Prisma.$CrmDealPayload<ExtArgs>
+      fields: Prisma.CrmDealFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CrmDealFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmDealPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CrmDealFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmDealPayload>
+        }
+        findFirst: {
+          args: Prisma.CrmDealFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmDealPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CrmDealFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmDealPayload>
+        }
+        findMany: {
+          args: Prisma.CrmDealFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmDealPayload>[]
+        }
+        create: {
+          args: Prisma.CrmDealCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmDealPayload>
+        }
+        createMany: {
+          args: Prisma.CrmDealCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CrmDealCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmDealPayload>[]
+        }
+        delete: {
+          args: Prisma.CrmDealDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmDealPayload>
+        }
+        update: {
+          args: Prisma.CrmDealUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmDealPayload>
+        }
+        deleteMany: {
+          args: Prisma.CrmDealDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CrmDealUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CrmDealUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmDealPayload>[]
+        }
+        upsert: {
+          args: Prisma.CrmDealUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmDealPayload>
+        }
+        aggregate: {
+          args: Prisma.CrmDealAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCrmDeal>
+        }
+        groupBy: {
+          args: Prisma.CrmDealGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CrmDealGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CrmDealCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CrmDealCountAggregateOutputType> | number
+        }
+      }
+    }
+    CrmActivity: {
+      payload: Prisma.$CrmActivityPayload<ExtArgs>
+      fields: Prisma.CrmActivityFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CrmActivityFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmActivityPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CrmActivityFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmActivityPayload>
+        }
+        findFirst: {
+          args: Prisma.CrmActivityFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmActivityPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CrmActivityFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmActivityPayload>
+        }
+        findMany: {
+          args: Prisma.CrmActivityFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmActivityPayload>[]
+        }
+        create: {
+          args: Prisma.CrmActivityCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmActivityPayload>
+        }
+        createMany: {
+          args: Prisma.CrmActivityCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CrmActivityCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmActivityPayload>[]
+        }
+        delete: {
+          args: Prisma.CrmActivityDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmActivityPayload>
+        }
+        update: {
+          args: Prisma.CrmActivityUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmActivityPayload>
+        }
+        deleteMany: {
+          args: Prisma.CrmActivityDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CrmActivityUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CrmActivityUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmActivityPayload>[]
+        }
+        upsert: {
+          args: Prisma.CrmActivityUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmActivityPayload>
+        }
+        aggregate: {
+          args: Prisma.CrmActivityAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCrmActivity>
+        }
+        groupBy: {
+          args: Prisma.CrmActivityGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CrmActivityGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CrmActivityCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CrmActivityCountAggregateOutputType> | number
+        }
+      }
+    }
+    CrmTimelineEvent: {
+      payload: Prisma.$CrmTimelineEventPayload<ExtArgs>
+      fields: Prisma.CrmTimelineEventFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CrmTimelineEventFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmTimelineEventPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CrmTimelineEventFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmTimelineEventPayload>
+        }
+        findFirst: {
+          args: Prisma.CrmTimelineEventFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmTimelineEventPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CrmTimelineEventFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmTimelineEventPayload>
+        }
+        findMany: {
+          args: Prisma.CrmTimelineEventFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmTimelineEventPayload>[]
+        }
+        create: {
+          args: Prisma.CrmTimelineEventCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmTimelineEventPayload>
+        }
+        createMany: {
+          args: Prisma.CrmTimelineEventCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CrmTimelineEventCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmTimelineEventPayload>[]
+        }
+        delete: {
+          args: Prisma.CrmTimelineEventDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmTimelineEventPayload>
+        }
+        update: {
+          args: Prisma.CrmTimelineEventUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmTimelineEventPayload>
+        }
+        deleteMany: {
+          args: Prisma.CrmTimelineEventDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CrmTimelineEventUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CrmTimelineEventUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmTimelineEventPayload>[]
+        }
+        upsert: {
+          args: Prisma.CrmTimelineEventUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmTimelineEventPayload>
+        }
+        aggregate: {
+          args: Prisma.CrmTimelineEventAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCrmTimelineEvent>
+        }
+        groupBy: {
+          args: Prisma.CrmTimelineEventGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CrmTimelineEventGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CrmTimelineEventCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CrmTimelineEventCountAggregateOutputType> | number
         }
       }
     }
@@ -11800,6 +12400,7 @@ export const PurchaseOrderItemScalarFieldEnum = {
   unitCost: 'unitCost',
   totalCost: 'totalCost',
   notes: 'notes',
+  receivedQuantity: 'receivedQuantity',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -11832,6 +12433,44 @@ export const StockSnapshotScalarFieldEnum = {
 } as const
 
 export type StockSnapshotScalarFieldEnum = (typeof StockSnapshotScalarFieldEnum)[keyof typeof StockSnapshotScalarFieldEnum]
+
+
+export const InventorySessionScalarFieldEnum = {
+  id: 'id',
+  mode: 'mode',
+  status: 'status',
+  scope: 'scope',
+  totalItems: 'totalItems',
+  confirmedItems: 'confirmedItems',
+  divergences: 'divergences',
+  notes: 'notes',
+  startedAt: 'startedAt',
+  pausedAt: 'pausedAt',
+  completedAt: 'completedAt',
+  createdAt: 'createdAt',
+  deletedAt: 'deletedAt',
+  startedBy: 'startedBy',
+  tenantId: 'tenantId'
+} as const
+
+export type InventorySessionScalarFieldEnum = (typeof InventorySessionScalarFieldEnum)[keyof typeof InventorySessionScalarFieldEnum]
+
+
+export const InventorySessionItemScalarFieldEnum = {
+  id: 'id',
+  status: 'status',
+  resolution: 'resolution',
+  notes: 'notes',
+  scannedAt: 'scannedAt',
+  resolvedAt: 'resolvedAt',
+  createdAt: 'createdAt',
+  sessionId: 'sessionId',
+  itemId: 'itemId',
+  binId: 'binId',
+  resolvedBy: 'resolvedBy'
+} as const
+
+export type InventorySessionItemScalarFieldEnum = (typeof InventorySessionItemScalarFieldEnum)[keyof typeof InventorySessionItemScalarFieldEnum]
 
 
 export const CustomerScalarFieldEnum = {
@@ -11892,6 +12531,140 @@ export const SalesOrderItemScalarFieldEnum = {
 } as const
 
 export type SalesOrderItemScalarFieldEnum = (typeof SalesOrderItemScalarFieldEnum)[keyof typeof SalesOrderItemScalarFieldEnum]
+
+
+export const CrmContactScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  customerId: 'customerId',
+  firstName: 'firstName',
+  lastName: 'lastName',
+  fullName: 'fullName',
+  email: 'email',
+  phone: 'phone',
+  whatsapp: 'whatsapp',
+  role: 'role',
+  jobTitle: 'jobTitle',
+  department: 'department',
+  lifecycleStage: 'lifecycleStage',
+  leadScore: 'leadScore',
+  leadTemperature: 'leadTemperature',
+  source: 'source',
+  lastInteractionAt: 'lastInteractionAt',
+  lastChannelUsed: 'lastChannelUsed',
+  socialProfiles: 'socialProfiles',
+  tags: 'tags',
+  customFields: 'customFields',
+  avatarUrl: 'avatarUrl',
+  assignedToUserId: 'assignedToUserId',
+  isMainContact: 'isMainContact',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type CrmContactScalarFieldEnum = (typeof CrmContactScalarFieldEnum)[keyof typeof CrmContactScalarFieldEnum]
+
+
+export const CrmPipelineScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  name: 'name',
+  description: 'description',
+  icon: 'icon',
+  color: 'color',
+  type: 'type',
+  isDefault: 'isDefault',
+  position: 'position',
+  nextPipelineId: 'nextPipelineId',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type CrmPipelineScalarFieldEnum = (typeof CrmPipelineScalarFieldEnum)[keyof typeof CrmPipelineScalarFieldEnum]
+
+
+export const CrmPipelineStageScalarFieldEnum = {
+  id: 'id',
+  pipelineId: 'pipelineId',
+  name: 'name',
+  color: 'color',
+  icon: 'icon',
+  position: 'position',
+  type: 'type',
+  probability: 'probability',
+  autoActions: 'autoActions',
+  rottenAfterDays: 'rottenAfterDays',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CrmPipelineStageScalarFieldEnum = (typeof CrmPipelineStageScalarFieldEnum)[keyof typeof CrmPipelineStageScalarFieldEnum]
+
+
+export const CrmDealScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  title: 'title',
+  customerId: 'customerId',
+  contactId: 'contactId',
+  pipelineId: 'pipelineId',
+  stageId: 'stageId',
+  status: 'status',
+  priority: 'priority',
+  value: 'value',
+  currency: 'currency',
+  expectedCloseDate: 'expectedCloseDate',
+  closedAt: 'closedAt',
+  lostReason: 'lostReason',
+  source: 'source',
+  tags: 'tags',
+  customFields: 'customFields',
+  position: 'position',
+  assignedToUserId: 'assignedToUserId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type CrmDealScalarFieldEnum = (typeof CrmDealScalarFieldEnum)[keyof typeof CrmDealScalarFieldEnum]
+
+
+export const CrmActivityScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  dealId: 'dealId',
+  contactId: 'contactId',
+  type: 'type',
+  title: 'title',
+  description: 'description',
+  status: 'status',
+  dueDate: 'dueDate',
+  completedAt: 'completedAt',
+  duration: 'duration',
+  userId: 'userId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type CrmActivityScalarFieldEnum = (typeof CrmActivityScalarFieldEnum)[keyof typeof CrmActivityScalarFieldEnum]
+
+
+export const CrmTimelineEventScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  dealId: 'dealId',
+  type: 'type',
+  title: 'title',
+  metadata: 'metadata',
+  userId: 'userId',
+  createdAt: 'createdAt'
+} as const
+
+export type CrmTimelineEventScalarFieldEnum = (typeof CrmTimelineEventScalarFieldEnum)[keyof typeof CrmTimelineEventScalarFieldEnum]
 
 
 export const ItemReservationScalarFieldEnum = {
@@ -13594,6 +14367,9 @@ export const SystemSkillDefinitionScalarFieldEnum = {
   isCore: 'isCore',
   isVisible: 'isVisible',
   iconUrl: 'iconUrl',
+  requiresSetup: 'requiresSetup',
+  setupUrl: 'setupUrl',
+  sortOrder: 'sortOrder',
   metadata: 'metadata',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -13610,6 +14386,13 @@ export const SkillPricingScalarFieldEnum = {
   unitPrice: 'unitPrice',
   freeQuota: 'freeQuota',
   usageMetric: 'usageMetric',
+  unitMetric: 'unitMetric',
+  unitMetricLabel: 'unitMetricLabel',
+  usageIncluded: 'usageIncluded',
+  usagePrice: 'usagePrice',
+  usageMetricLabel: 'usageMetricLabel',
+  annualDiscount: 'annualDiscount',
+  isActive: 'isActive',
   tiers: 'tiers',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -13627,6 +14410,10 @@ export const TenantSubscriptionScalarFieldEnum = {
   startsAt: 'startsAt',
   expiresAt: 'expiresAt',
   cancelledAt: 'cancelledAt',
+  customPrice: 'customPrice',
+  discountPercent: 'discountPercent',
+  notes: 'notes',
+  grantedBy: 'grantedBy',
   metadata: 'metadata',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -13642,6 +14429,10 @@ export const TenantConsumptionScalarFieldEnum = {
   metric: 'metric',
   quantity: 'quantity',
   limit: 'limit',
+  used: 'used',
+  included: 'included',
+  overage: 'overage',
+  overageCost: 'overageCost',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -13716,6 +14507,7 @@ export const SupportTicketMessageScalarFieldEnum = {
   authorId: 'authorId',
   authorType: 'authorType',
   body: 'body',
+  isInternal: 'isInternal',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -14202,6 +14994,62 @@ export type ListEnumOrderStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$
 
 
 /**
+ * Reference to a field of type 'InventorySessionMode'
+ */
+export type EnumInventorySessionModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'InventorySessionMode'>
+    
+
+
+/**
+ * Reference to a field of type 'InventorySessionMode[]'
+ */
+export type ListEnumInventorySessionModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'InventorySessionMode[]'>
+    
+
+
+/**
+ * Reference to a field of type 'InventorySessionStatus'
+ */
+export type EnumInventorySessionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'InventorySessionStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'InventorySessionStatus[]'
+ */
+export type ListEnumInventorySessionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'InventorySessionStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'InventoryItemStatus'
+ */
+export type EnumInventoryItemStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'InventoryItemStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'InventoryItemStatus[]'
+ */
+export type ListEnumInventoryItemStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'InventoryItemStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'InventoryItemResolution'
+ */
+export type EnumInventoryItemResolutionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'InventoryItemResolution'>
+    
+
+
+/**
+ * Reference to a field of type 'InventoryItemResolution[]'
+ */
+export type ListEnumInventoryItemResolutionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'InventoryItemResolution[]'>
+    
+
+
+/**
  * Reference to a field of type 'CustomerType'
  */
 export type EnumCustomerTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CustomerType'>
@@ -14212,6 +15060,132 @@ export type EnumCustomerTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$Pri
  * Reference to a field of type 'CustomerType[]'
  */
 export type ListEnumCustomerTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CustomerType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'ContactRole'
+ */
+export type EnumContactRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ContactRole'>
+    
+
+
+/**
+ * Reference to a field of type 'ContactRole[]'
+ */
+export type ListEnumContactRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ContactRole[]'>
+    
+
+
+/**
+ * Reference to a field of type 'ContactLifecycleStage'
+ */
+export type EnumContactLifecycleStageFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ContactLifecycleStage'>
+    
+
+
+/**
+ * Reference to a field of type 'ContactLifecycleStage[]'
+ */
+export type ListEnumContactLifecycleStageFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ContactLifecycleStage[]'>
+    
+
+
+/**
+ * Reference to a field of type 'PipelineType'
+ */
+export type EnumPipelineTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PipelineType'>
+    
+
+
+/**
+ * Reference to a field of type 'PipelineType[]'
+ */
+export type ListEnumPipelineTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PipelineType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'PipelineStageType'
+ */
+export type EnumPipelineStageTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PipelineStageType'>
+    
+
+
+/**
+ * Reference to a field of type 'PipelineStageType[]'
+ */
+export type ListEnumPipelineStageTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PipelineStageType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'DealStatus'
+ */
+export type EnumDealStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DealStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'DealStatus[]'
+ */
+export type ListEnumDealStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DealStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'DealPriority'
+ */
+export type EnumDealPriorityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DealPriority'>
+    
+
+
+/**
+ * Reference to a field of type 'DealPriority[]'
+ */
+export type ListEnumDealPriorityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DealPriority[]'>
+    
+
+
+/**
+ * Reference to a field of type 'CrmActivityType'
+ */
+export type EnumCrmActivityTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CrmActivityType'>
+    
+
+
+/**
+ * Reference to a field of type 'CrmActivityType[]'
+ */
+export type ListEnumCrmActivityTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CrmActivityType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'CrmActivityStatus'
+ */
+export type EnumCrmActivityStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CrmActivityStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'CrmActivityStatus[]'
+ */
+export type ListEnumCrmActivityStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CrmActivityStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'TimelineEventType'
+ */
+export type EnumTimelineEventTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TimelineEventType'>
+    
+
+
+/**
+ * Reference to a field of type 'TimelineEventType[]'
+ */
+export type ListEnumTimelineEventTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TimelineEventType[]'>
     
 
 
@@ -15261,9 +16235,17 @@ export type GlobalOmitConfig = {
   purchaseOrderItem?: Prisma.PurchaseOrderItemOmit
   unitConversion?: Prisma.UnitConversionOmit
   stockSnapshot?: Prisma.StockSnapshotOmit
+  inventorySession?: Prisma.InventorySessionOmit
+  inventorySessionItem?: Prisma.InventorySessionItemOmit
   customer?: Prisma.CustomerOmit
   salesOrder?: Prisma.SalesOrderOmit
   salesOrderItem?: Prisma.SalesOrderItemOmit
+  crmContact?: Prisma.CrmContactOmit
+  crmPipeline?: Prisma.CrmPipelineOmit
+  crmPipelineStage?: Prisma.CrmPipelineStageOmit
+  crmDeal?: Prisma.CrmDealOmit
+  crmActivity?: Prisma.CrmActivityOmit
+  crmTimelineEvent?: Prisma.CrmTimelineEventOmit
   itemReservation?: Prisma.ItemReservationOmit
   variantSupplierCode?: Prisma.VariantSupplierCodeOmit
   variantPromotion?: Prisma.VariantPromotionOmit

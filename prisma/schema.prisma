@@ -267,12 +267,19 @@ model User {
 
   // CRM Relations
   assignedContacts CrmContact[] @relation("AssignedContacts")
+  assignedDeals    CrmDeal[]    @relation("AssignedDeals")
+  crmActivities    CrmActivity[] @relation("CrmActivityUser")
+  crmTimeline      CrmTimelineEvent[] @relation("CrmTimelineUser")
 
   // Central Redesign Relations
   centralUser            CentralUser?
   createdSupportTickets  SupportTicket[]        @relation("TicketCreator")
   assignedSupportTickets SupportTicket[]        @relation("TicketAssignee")
   supportTicketMessages  SupportTicketMessage[]
+
+  // Inventory Relations
+  inventorySessions    InventorySession[]
+  inventoryResolutions InventorySessionItem[] @relation("InventoryItemResolver")
 
   @@unique([email, deletedAt], name: "users_email_unique_active")
   @@unique([username, deletedAt], name: "users_username_unique_active")
@@ -1044,6 +1051,55 @@ enum PipelineStageType {
   CANCELLED
 }
 
+enum DealStatus {
+  OPEN
+  WON
+  LOST
+  ABANDONED
+}
+
+enum DealPriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+enum CrmActivityType {
+  CALL
+  EMAIL
+  MEETING
+  TASK
+  NOTE
+  WHATSAPP
+  VISIT
+  PROPOSAL
+  FOLLOW_UP
+}
+
+enum CrmActivityStatus {
+  PLANNED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+  OVERDUE
+}
+
+enum TimelineEventType {
+  DEAL_CREATED
+  DEAL_UPDATED
+  DEAL_WON
+  DEAL_LOST
+  STAGE_CHANGED
+  ACTIVITY_CREATED
+  ACTIVITY_COMPLETED
+  NOTE_ADDED
+  EMAIL_SENT
+  CONTACT_ADDED
+  VALUE_CHANGED
+  OWNER_CHANGED
+}
+
 // --- Location System v2 Enums ---
 
 enum LocationType {
@@ -1535,6 +1591,7 @@ model Bin {
   zone           Zone            @relation(fields: [zoneId], references: [id], onDelete: Cascade)
   items          Item[]
   stockSnapshots StockSnapshot[]
+  inventoryItems InventorySessionItem[]
 
   @@unique([address, tenantId, deletedAt], name: "bins_address_unique_active")
   @@unique([zoneId, aisle, shelf, position, deletedAt], name: "bins_position_unique_active")
@@ -1817,11 +1874,12 @@ model Item {
   tenantId         String  @map("tenant_id")
   tenant           Tenant  @relation(fields: [tenantId], references: [id])
 
-  variant      Variant           @relation(fields: [variantId], references: [id])
-  bin          Bin?              @relation(fields: [binId], references: [id])
-  movements    ItemMovement[]
-  reservations ItemReservation[]
-  volumeItems  VolumeItem[]      @relation("VolumeItems")
+  variant        Variant              @relation(fields: [variantId], references: [id])
+  bin            Bin?                 @relation(fields: [binId], references: [id])
+  movements      ItemMovement[]
+  reservations   ItemReservation[]
+  volumeItems    VolumeItem[]         @relation("VolumeItems")
+  inventoryItems InventorySessionItem[]
 
   @@unique([uniqueCode, tenantId, deletedAt], name: "items_uniqueCode_unique_active")
   @@unique([slug, tenantId, deletedAt], name: "items_slug_unique_active")
@@ -2154,9 +2212,10 @@ model PurchaseOrderItem {
   quantity  Decimal  @db.Decimal(10, 3)
   unitCost  Decimal  @map("unit_cost") @db.Decimal(10, 2)
   totalCost Decimal  @map("total_cost") @db.Decimal(10, 2)
-  notes     String?  @db.Text
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  notes            String?  @db.Text
+  receivedQuantity Decimal  @default(0) @map("received_quantity") @db.Decimal(10, 3)
+  createdAt        DateTime @default(now()) @map("created_at")
+  updatedAt        DateTime @updatedAt @map("updated_at")
 
   order   PurchaseOrder @relation(fields: [orderId], references: [id], onDelete: Cascade)
   variant Variant       @relation(fields: [variantId], references: [id])
@@ -2206,6 +2265,94 @@ model StockSnapshot {
   @@map("stock_snapshots")
 }
 
+// --- Sistema de Inventário ---
+
+enum InventorySessionMode {
+  BIN
+  ZONE
+  PRODUCT
+
+  @@map("inventory_session_mode")
+}
+
+enum InventorySessionStatus {
+  OPEN
+  PAUSED
+  COMPLETED
+  CANCELLED
+
+  @@map("inventory_session_status")
+}
+
+enum InventoryItemStatus {
+  PENDING
+  CONFIRMED
+  MISSING
+  EXTRA
+  WRONG_BIN
+
+  @@map("inventory_item_status")
+}
+
+enum InventoryItemResolution {
+  LOSS_REGISTERED
+  TRANSFERRED
+  ENTRY_CREATED
+  PENDING_REVIEW
+
+  @@map("inventory_item_resolution")
+}
+
+model InventorySession {
+  id             String                 @id @default(uuid())
+  mode           InventorySessionMode
+  status         InventorySessionStatus @default(OPEN)
+  scope          Json
+  totalItems     Int                    @default(0) @map("total_items")
+  confirmedItems Int                    @default(0) @map("confirmed_items")
+  divergences    Int                    @default(0)
+  notes          String?                @db.Text
+  startedAt      DateTime               @default(now()) @map("started_at")
+  pausedAt       DateTime?              @map("paused_at")
+  completedAt    DateTime?              @map("completed_at")
+  createdAt      DateTime               @default(now()) @map("created_at")
+  deletedAt      DateTime?              @map("deleted_at")
+
+  startedBy String @map("started_by")
+  tenantId  String @map("tenant_id")
+
+  user  User                   @relation(fields: [startedBy], references: [id])
+  items InventorySessionItem[]
+
+  @@index([tenantId, status])
+  @@index([startedBy])
+  @@map("inventory_sessions")
+}
+
+model InventorySessionItem {
+  id         String                   @id @default(uuid())
+  status     InventoryItemStatus      @default(PENDING)
+  resolution InventoryItemResolution?
+  notes      String?                  @db.Text
+  scannedAt  DateTime?                @map("scanned_at")
+  resolvedAt DateTime?                @map("resolved_at")
+  createdAt  DateTime                 @default(now()) @map("created_at")
+
+  sessionId  String  @map("session_id")
+  itemId     String? @map("item_id")
+  binId      String  @map("bin_id")
+  resolvedBy String? @map("resolved_by")
+
+  session  InventorySession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  item     Item?            @relation(fields: [itemId], references: [id])
+  bin      Bin              @relation(fields: [binId], references: [id])
+  resolver User?            @relation("InventoryItemResolver", fields: [resolvedBy], references: [id])
+
+  @@index([sessionId, status])
+  @@index([itemId])
+  @@map("inventory_session_items")
+}
+
 // --- Sistema de Clientes e Vendas ---
 
 model Customer {
@@ -2236,6 +2383,7 @@ model Customer {
 
   salesOrders SalesOrder[]
   crmContacts CrmContact[]
+  crmDeals    CrmDeal[]
 
   @@unique([documentHash, tenantId, deletedAt], name: "customers_document_unique_active")
   @@index([documentHash])
@@ -2332,6 +2480,8 @@ model CrmContact {
   tenant     Tenant   @relation(fields: [tenantId], references: [id])
   customer   Customer @relation(fields: [customerId], references: [id])
   assignedTo User?    @relation("AssignedContacts", fields: [assignedToUserId], references: [id])
+  crmDeals   CrmDeal[]
+  crmActivities CrmActivity[]
 
   @@index([tenantId])
   @@index([customerId])
@@ -2359,6 +2509,7 @@ model CrmPipeline {
 
   tenant Tenant             @relation(fields: [tenantId], references: [id])
   stages CrmPipelineStage[]
+  deals  CrmDeal[]
 
   @@index([tenantId])
   @@index([tenantId, deletedAt])
@@ -2381,10 +2532,106 @@ model CrmPipelineStage {
   updatedAt       DateTime          @updatedAt @map("updated_at")
 
   pipeline CrmPipeline @relation(fields: [pipelineId], references: [id], onDelete: Cascade)
+  deals    CrmDeal[]
 
   @@index([pipelineId])
   @@index([pipelineId, position])
   @@map("crm_pipeline_stages")
+}
+
+model CrmDeal {
+  id                String       @id @default(uuid())
+  tenantId          String       @map("tenant_id")
+  title             String       @db.VarChar(255)
+  customerId        String       @map("customer_id")
+  contactId         String?      @map("contact_id")
+  pipelineId        String       @map("pipeline_id")
+  stageId           String       @map("stage_id")
+  status            DealStatus   @default(OPEN)
+  priority          DealPriority @default(MEDIUM)
+  value             Decimal?     @db.Decimal(15, 2)
+  currency          String       @default("BRL") @db.VarChar(3)
+  expectedCloseDate DateTime?    @map("expected_close_date")
+  closedAt          DateTime?    @map("closed_at")
+  lostReason        String?      @map("lost_reason") @db.VarChar(500)
+  source            String?      @db.VarChar(100)
+  tags              Json         @default("[]")
+  customFields      Json?        @map("custom_fields")
+  position          Int          @default(0)
+  assignedToUserId  String?      @map("assigned_to_user_id")
+  createdAt         DateTime     @default(now()) @map("created_at")
+  updatedAt         DateTime     @updatedAt @map("updated_at")
+  deletedAt         DateTime?    @map("deleted_at")
+
+  tenant     Tenant           @relation(fields: [tenantId], references: [id])
+  customer   Customer         @relation(fields: [customerId], references: [id])
+  contact    CrmContact?      @relation(fields: [contactId], references: [id])
+  pipeline   CrmPipeline      @relation(fields: [pipelineId], references: [id])
+  stage      CrmPipelineStage @relation(fields: [stageId], references: [id])
+  assignedTo User?            @relation("AssignedDeals", fields: [assignedToUserId], references: [id])
+  activities CrmActivity[]
+  timeline   CrmTimelineEvent[]
+
+  @@index([tenantId])
+  @@index([tenantId, deletedAt])
+  @@index([customerId])
+  @@index([pipelineId])
+  @@index([stageId])
+  @@index([assignedToUserId])
+  @@index([status])
+  @@map("crm_deals")
+}
+
+model CrmActivity {
+  id          String            @id @default(uuid())
+  tenantId    String            @map("tenant_id")
+  dealId      String?           @map("deal_id")
+  contactId   String?           @map("contact_id")
+  type        CrmActivityType
+  title       String            @db.VarChar(255)
+  description String?           @db.Text
+  status      CrmActivityStatus @default(PLANNED)
+  dueDate     DateTime?         @map("due_date")
+  completedAt DateTime?         @map("completed_at")
+  duration    Int?              // duration in minutes
+  userId      String            @map("user_id")
+  createdAt   DateTime          @default(now()) @map("created_at")
+  updatedAt   DateTime          @updatedAt @map("updated_at")
+  deletedAt   DateTime?         @map("deleted_at")
+
+  tenant  Tenant      @relation(fields: [tenantId], references: [id])
+  deal    CrmDeal?    @relation(fields: [dealId], references: [id])
+  contact CrmContact? @relation(fields: [contactId], references: [id])
+  user    User        @relation("CrmActivityUser", fields: [userId], references: [id])
+
+  @@index([tenantId])
+  @@index([tenantId, deletedAt])
+  @@index([dealId])
+  @@index([contactId])
+  @@index([userId])
+  @@index([status])
+  @@index([dueDate])
+  @@map("crm_activities")
+}
+
+model CrmTimelineEvent {
+  id         String            @id @default(uuid())
+  tenantId   String            @map("tenant_id")
+  dealId     String            @map("deal_id")
+  type       TimelineEventType
+  title      String            @db.VarChar(255)
+  metadata   Json?
+  userId     String?           @map("user_id")
+  createdAt  DateTime          @default(now()) @map("created_at")
+
+  tenant Tenant   @relation(fields: [tenantId], references: [id])
+  deal   CrmDeal  @relation(fields: [dealId], references: [id], onDelete: Cascade)
+  user   User?    @relation("CrmTimelineUser", fields: [userId], references: [id])
+
+  @@index([tenantId])
+  @@index([dealId])
+  @@index([dealId, createdAt])
+  @@map("crm_timeline_events")
 }
 
 // --- Sistema de Reservas ---
@@ -3990,6 +4237,9 @@ model Tenant {
   // CRM domain
   crmContacts             CrmContact[]
   crmPipelines            CrmPipeline[]
+  crmDeals                CrmDeal[]
+  crmActivities           CrmActivity[]
+  crmTimelineEvents       CrmTimelineEvent[]
   // HR domain
   companies               Company[]
   companyDocuments        CompanyDocument[]

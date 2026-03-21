@@ -228,6 +228,16 @@ export type UnitConversion = Prisma.UnitConversionModel
  */
 export type StockSnapshot = Prisma.StockSnapshotModel
 /**
+ * Model InventorySession
+ * 
+ */
+export type InventorySession = Prisma.InventorySessionModel
+/**
+ * Model InventorySessionItem
+ * 
+ */
+export type InventorySessionItem = Prisma.InventorySessionItemModel
+/**
  * Model Customer
  * 
  */
@@ -242,6 +252,36 @@ export type SalesOrder = Prisma.SalesOrderModel
  * 
  */
 export type SalesOrderItem = Prisma.SalesOrderItemModel
+/**
+ * Model CrmContact
+ * 
+ */
+export type CrmContact = Prisma.CrmContactModel
+/**
+ * Model CrmPipeline
+ * 
+ */
+export type CrmPipeline = Prisma.CrmPipelineModel
+/**
+ * Model CrmPipelineStage
+ * 
+ */
+export type CrmPipelineStage = Prisma.CrmPipelineStageModel
+/**
+ * Model CrmDeal
+ * 
+ */
+export type CrmDeal = Prisma.CrmDealModel
+/**
+ * Model CrmActivity
+ * 
+ */
+export type CrmActivity = Prisma.CrmActivityModel
+/**
+ * Model CrmTimelineEvent
+ * 
+ */
+export type CrmTimelineEvent = Prisma.CrmTimelineEventModel
 /**
  * Model ItemReservation
  * 
