@@ -285,6 +285,17 @@ model User {
   orderCommissions     OrderCommission[]     @relation("UserCommissions")
   orderHistoryActions  OrderHistory[]        @relation("OrderHistoryPerformer")
 
+  // Digital Signature Relations
+  createdEnvelopes     SignatureEnvelope[]    @relation("EnvelopeCreator")
+  signerAssignments    SignatureEnvelopeSigner[] @relation("SignerUser")
+
+  // Analytics Relations
+  analyticsWidgetsCreated    AnalyticsWidget[]    @relation("AnalyticsWidgetCreator")
+  analyticsDashboardsCreated AnalyticsDashboard[] @relation("AnalyticsDashboardCreator")
+  analyticsGoalsAssigned     AnalyticsGoal[]      @relation("AnalyticsGoalUser")
+  analyticsGoalsCreated      AnalyticsGoal[]      @relation("AnalyticsGoalCreator")
+  analyticsReportsCreated    AnalyticsReport[]    @relation("AnalyticsReportCreator")
+
   // Central Redesign Relations
   centralUser            CentralUser?
   createdSupportTickets  SupportTicket[]        @relation("TicketCreator")
@@ -294,6 +305,12 @@ model User {
   // Inventory Session Relations
   inventorySessions      InventorySession[]     @relation("InventorySessionUser")
   resolvedInventoryItems InventorySessionItem[] @relation("InventoryItemResolver")
+
+  // AI Assistant Relations
+  aiConversations    AiConversation[]
+  aiFavoriteQueries  AiFavoriteQuery[]
+  aiActionLogs       AiActionLog[]
+  aiActionsConfirmed AiActionLog[] @relation("AiActionConfirmer")
 
   @@unique([email, deletedAt], name: "users_email_unique_active")
   @@unique([username, deletedAt], name: "users_username_unique_active")
@@ -2619,6 +2636,9 @@ model Customer {
   storeCredits         StoreCredit[]
   customerCreditLimits CustomerCreditLimit[]
 
+  // Analytics Relations
+  portalAccesses CustomerPortalAccess[]
+
   @@unique([documentHash, tenantId, deletedAt], name: "customers_document_unique_active")
   @@index([documentHash])
   @@index([emailHash])
@@ -2717,6 +2737,12 @@ model CrmContact {
 
   // Orders Relations
   orders Order[]
+
+  // Digital Signature Relations
+  signerAssignments SignatureEnvelopeSigner[] @relation("SignerContact")
+
+  // Analytics Relations
+  portalAccesses CustomerPortalAccess[]
 
   @@index([tenantId])
   @@index([customerId])
@@ -4471,6 +4497,26 @@ model Tenant {
   approvalRules        ApprovalRule[]
   commissionRules      CommissionRule[]
 
+  // Digital Signature domain
+  digitalCertificates  DigitalCertificate[]
+  signatureEnvelopes   SignatureEnvelope[]
+  signatureTemplates   SignatureTemplate[]
+
+  // Analytics domain
+  analyticsWidgets              AnalyticsWidget[]
+  analyticsDashboards           AnalyticsDashboard[]
+  analyticsGoals                AnalyticsGoal[]
+  analyticsReports              AnalyticsReport[]
+  analyticsReportGenerations    AnalyticsReportGeneration[]
+  customerPortalAccesses        CustomerPortalAccess[]
+
+  // AI Assistant domain
+  aiTenantConfig    AiTenantConfig?
+  aiConversations   AiConversation[]
+  aiFavoriteQueries AiFavoriteQuery[]
+  aiActionLogs      AiActionLog[]
+  aiInsights        AiInsight[]
+
   @@index([status])
   @@index([deletedAt])
   @@index([createdAt])
@@ -5264,6 +5310,16 @@ model StorageFile {
   mockupClientLogos       ProductMockup[]    @relation("MockupClientLogo")
   mockupResultFiles       ProductMockup[]    @relation("MockupResultFile")
 
+  // Digital Signature Relations
+  certificatePfxFiles       DigitalCertificate[]      @relation("CertificatePfxFile")
+  envelopeDocumentFiles     SignatureEnvelope[]        @relation("EnvelopeDocumentFile")
+  envelopeSignedFiles       SignatureEnvelope[]        @relation("EnvelopeSignedFile")
+  signerSignatureImages     SignatureEnvelopeSigner[]  @relation("SignerSignatureImage")
+
+  // Analytics Relations
+  analyticsReportLastFiles       AnalyticsReport[]           @relation("AnalyticsReportLastFile")
+  analyticsReportGenerationFiles AnalyticsReportGeneration[] @relation("AnalyticsReportGenerationFile")
+
   @@unique([tenantId, path, deletedAt], name: "storage_files_path_tenant_unique")
   @@index([tenantId])
   @@index([folderId])
@@ -5696,6 +5752,7 @@ model Team {
   teamCalendarConfigs TeamCalendarConfig[]
   folderAccessRules   FolderAccessRule[]
   boards              Board[]
+  analyticsGoals      AnalyticsGoal[]
 
   @@unique([tenantId, slug, deletedAt], name: "teams_slug_tenant_unique_active")
   @@index([tenantId])
@@ -7986,4 +8043,960 @@ model OrderHistory {
   @@index([tenantId])
   @@index([orderId, createdAt])
   @@map("order_history")
+}
+
+// ===============================================
+// DIGITAL SIGNATURE TOOL
+// ===============================================
+
+// --- Enums ---
+
+enum CertificateType {
+  A1
+  A3
+  CLOUD_NEOID
+  CLOUD_BIRDID
+  CLOUD_OTHER
+}
+
+enum CertificateStatus {
+  ACTIVE
+  EXPIRED
+  REVOKED
+  PENDING_ACTIVATION
+}
+
+enum SignatureLevel {
+  SIMPLE
+  ADVANCED
+  QUALIFIED
+}
+
+enum EnvelopeStatus {
+  DRAFT
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+  EXPIRED
+  REJECTED
+}
+
+enum EnvelopeRoutingType {
+  SEQUENTIAL
+  PARALLEL
+  HYBRID
+}
+
+enum SignerRole {
+  SIGNER
+  APPROVER
+  WITNESS
+  REVIEWER
+}
+
+enum SignerStatus {
+  PENDING
+  NOTIFIED
+  VIEWED
+  SIGNED
+  REJECTED
+  EXPIRED
+}
+
+enum SignatureAuditType {
+  CREATED
+  SENT
+  VIEWED
+  SIGNED
+  REJECTED
+  REMINDED
+  EXPIRED
+  CANCELLED
+  DOWNLOADED
+  DOCUMENT_VERIFIED
+  CERTIFICATE_VALIDATED
+  OTP_SENT
+  OTP_VERIFIED
+  LINK_ACCESSED
+}
+
+// --- Models ---
+
+model DigitalCertificate {
+  id       String @id @default(uuid())
+  tenantId String @map("tenant_id")
+
+  name   String          @db.VarChar(128)
+  type   CertificateType
+  status CertificateStatus @default(ACTIVE)
+
+  // Certificate info (extracted from PFX or cloud API)
+  subjectName  String? @map("subject_name")
+  subjectCnpj  String? @map("subject_cnpj")
+  subjectCpf   String? @map("subject_cpf")
+  issuerName   String? @map("issuer_name")
+  serialNumber String? @map("serial_number")
+  validFrom    DateTime? @map("valid_from")
+  validUntil   DateTime? @map("valid_until")
+  thumbprint   String?
+
+  // Storage
+  pfxFileId       String? @map("pfx_file_id")
+  pfxPassword     String? @map("pfx_password") // encrypted
+  cloudProviderId String? @map("cloud_provider_id")
+
+  // Alert
+  alertDaysBefore Int @default(30) @map("alert_days_before")
+
+  // Usage
+  isDefault      Boolean  @default(false) @map("is_default")
+  allowedModules String[] @default([]) @map("allowed_modules")
+  lastUsedAt     DateTime? @map("last_used_at")
+
+  // Audit
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  tenant  Tenant       @relation(fields: [tenantId], references: [id])
+  pfxFile StorageFile? @relation("CertificatePfxFile", fields: [pfxFileId], references: [id])
+  signers SignatureEnvelopeSigner[]
+
+  @@index([tenantId])
+  @@index([tenantId, status])
+  @@index([tenantId, validUntil])
+  @@map("digital_certificates")
+}
+
+model SignatureEnvelope {
+  id       String @id @default(uuid())
+  tenantId String @map("tenant_id")
+
+  title             String         @db.VarChar(256)
+  description       String?
+  status            EnvelopeStatus @default(DRAFT)
+  signatureLevel    SignatureLevel @map("signature_level")
+  minSignatureLevel SignatureLevel? @map("min_signature_level")
+
+  // Document
+  documentFileId String @map("document_file_id")
+  documentHash   String @map("document_hash") @db.VarChar(64)
+  signedFileId   String? @map("signed_file_id")
+  documentType   String @default("PDF") @map("document_type") @db.VarChar(16)
+
+  // Source (which module requested)
+  sourceModule     String @map("source_module") @db.VarChar(32)
+  sourceEntityType String @map("source_entity_type") @db.VarChar(64)
+  sourceEntityId   String @map("source_entity_id")
+
+  // Workflow
+  routingType    EnvelopeRoutingType @map("routing_type")
+  expiresAt      DateTime?           @map("expires_at")
+  reminderDays   Int                 @default(3) @map("reminder_days")
+  autoExpireDays Int?                @map("auto_expire_days")
+
+  // Completion
+  completedAt  DateTime? @map("completed_at")
+  cancelledAt  DateTime? @map("cancelled_at")
+  cancelReason String?   @map("cancel_reason")
+
+  // Metadata
+  createdByUserId String   @map("created_by_user_id")
+  tags            String[] @default([])
+  metadata        Json?
+
+  // Soft Delete
+  deletedAt DateTime? @map("deleted_at")
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  tenant       Tenant       @relation(fields: [tenantId], references: [id])
+  documentFile StorageFile  @relation("EnvelopeDocumentFile", fields: [documentFileId], references: [id])
+  signedFile   StorageFile? @relation("EnvelopeSignedFile", fields: [signedFileId], references: [id])
+  createdBy    User         @relation("EnvelopeCreator", fields: [createdByUserId], references: [id])
+  signers      SignatureEnvelopeSigner[]
+  auditTrail   SignatureAuditEvent[]
+
+  @@index([tenantId])
+  @@index([tenantId, status])
+  @@index([tenantId, sourceModule, sourceEntityId])
+  @@index([tenantId, createdByUserId])
+  @@map("signature_envelopes")
+}
+
+model SignatureEnvelopeSigner {
+  id         String @id @default(uuid())
+  tenantId   String @map("tenant_id")
+  envelopeId String @map("envelope_id")
+
+  order  Int       @default(1)
+  group  Int       @default(1)
+  role   SignerRole @default(SIGNER)
+  status SignerStatus @default(PENDING)
+
+  // Signer identity (internal user OR external person)
+  userId           String? @map("user_id")
+  contactId        String? @map("contact_id")
+  externalName     String? @map("external_name")
+  externalEmail    String? @map("external_email")
+  externalPhone    String? @map("external_phone")
+  externalDocument String? @map("external_document")
+
+  // Signing method
+  signatureLevel SignatureLevel @map("signature_level")
+  certificateId  String?        @map("certificate_id")
+
+  // Signing token (for external signers)
+  accessToken          String?   @map("access_token") @db.VarChar(128)
+  accessTokenExpiresAt DateTime? @map("access_token_expires_at")
+
+  // Signature data
+  signedAt             DateTime? @map("signed_at")
+  signatureImageFileId String?   @map("signature_image_file_id")
+  signatureData        Json?     @map("signature_data")
+
+  // Evidence (for ADVANCED/QUALIFIED)
+  ipAddress    String?  @map("ip_address")
+  userAgent    String?  @map("user_agent")
+  geoLatitude  Decimal? @map("geo_latitude") @db.Decimal(8, 6)
+  geoLongitude Decimal? @map("geo_longitude") @db.Decimal(8, 6)
+  otpVerified  Boolean  @default(false) @map("otp_verified")
+
+  // Rejection
+  rejectedAt     DateTime? @map("rejected_at")
+  rejectedReason String?   @map("rejected_reason")
+
+  // Notifications
+  lastNotifiedAt    DateTime? @map("last_notified_at")
+  notificationCount Int       @default(0) @map("notification_count")
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  envelope       SignatureEnvelope     @relation(fields: [envelopeId], references: [id], onDelete: Cascade)
+  user           User?                 @relation("SignerUser", fields: [userId], references: [id])
+  contact        CrmContact?           @relation("SignerContact", fields: [contactId], references: [id])
+  certificate    DigitalCertificate?   @relation(fields: [certificateId], references: [id])
+  signatureImage StorageFile?          @relation("SignerSignatureImage", fields: [signatureImageFileId], references: [id])
+
+  @@index([envelopeId])
+  @@index([tenantId])
+  @@index([envelopeId, order, group])
+  @@index([accessToken])
+  @@index([userId])
+  @@index([tenantId, status])
+  @@map("signature_envelope_signers")
+}
+
+model SignatureAuditEvent {
+  id         String @id @default(uuid())
+  envelopeId String @map("envelope_id")
+  tenantId   String @map("tenant_id")
+
+  type        SignatureAuditType
+  signerId    String?  @map("signer_id")
+  description String   @db.VarChar(512)
+  ipAddress   String?  @map("ip_address")
+  userAgent   String?  @map("user_agent")
+  geoLatitude  Decimal? @map("geo_latitude") @db.Decimal(8, 6)
+  geoLongitude Decimal? @map("geo_longitude") @db.Decimal(8, 6)
+  metadata    Json?
+
+  timestamp DateTime @default(now())
+
+  // Relations
+  envelope SignatureEnvelope @relation(fields: [envelopeId], references: [id], onDelete: Cascade)
+
+  @@index([envelopeId])
+  @@index([tenantId])
+  @@index([envelopeId, timestamp])
+  @@map("signature_audit_events")
+}
+
+model SignatureTemplate {
+  id       String @id @default(uuid())
+  tenantId String @map("tenant_id")
+
+  name           String              @db.VarChar(128)
+  description    String?
+  signatureLevel SignatureLevel      @map("signature_level")
+  routingType    EnvelopeRoutingType @map("routing_type")
+  signerSlots    Json                @map("signer_slots")
+  expirationDays Int?                @map("expiration_days")
+  reminderDays   Int                 @default(3) @map("reminder_days")
+  isActive       Boolean             @default(true) @map("is_active")
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@map("signature_templates")
+}
+
+// ===============================================
+// ANALYTICS & INTELLIGENCE MODULE
+// ===============================================
+
+// --- Analytics Enums ---
+
+enum WidgetType {
+  KPI_CARD
+  BAR_CHART
+  LINE_CHART
+  PIE_CHART
+  FUNNEL
+  TABLE
+  HEATMAP
+  SCATTER
+  GAUGE
+  RANKING
+  COMPARISON
+  TREND
+}
+
+enum WidgetDataSource {
+  ORDERS
+  DEALS
+  CONTACTS
+  CUSTOMERS
+  PRODUCTS
+  COMMISSIONS
+  CAMPAIGNS
+  BIDS
+  MARKETPLACE
+  CASHIER
+  CUSTOM_QUERY
+}
+
+enum DashboardRole {
+  SELLER
+  MANAGER
+  DIRECTOR
+  BID_SPECIALIST
+  MARKETPLACE_OPS
+  CASHIER
+}
+
+enum DashboardVisibility {
+  PRIVATE
+  TEAM
+  TENANT
+}
+
+enum GoalType {
+  REVENUE
+  QUANTITY
+  DEALS_WON
+  NEW_CUSTOMERS
+  TICKET_AVERAGE
+  CONVERSION_RATE
+  COMMISSION
+  BID_WIN_RATE
+  CUSTOM
+}
+
+enum GoalPeriod {
+  DAILY
+  WEEKLY
+  MONTHLY
+  QUARTERLY
+  YEARLY
+  CUSTOM
+}
+
+enum GoalScope {
+  INDIVIDUAL
+  TEAM
+  TENANT
+}
+
+enum GoalStatus {
+  ACTIVE
+  ACHIEVED
+  MISSED
+  ARCHIVED
+}
+
+enum ReportType {
+  SALES_SUMMARY
+  COMMISSION_REPORT
+  PIPELINE_REPORT
+  PRODUCT_PERFORMANCE
+  CUSTOMER_ANALYSIS
+  BID_REPORT
+  MARKETPLACE_REPORT
+  CASHIER_REPORT
+  GOAL_PROGRESS
+  CURVA_ABC
+  CUSTOM
+}
+
+enum ReportFormat {
+  PDF
+  EXCEL
+  CSV
+}
+
+enum ReportFrequency {
+  DAILY
+  WEEKLY
+  MONTHLY
+}
+
+enum ReportDeliveryMethod {
+  EMAIL
+  WHATSAPP
+  BOTH
+  DOWNLOAD_ONLY
+}
+
+enum ReportGenerationStatus {
+  GENERATING
+  SUCCESS
+  FAILED
+}
+
+// --- Analytics Models ---
+
+model AnalyticsWidget {
+  id       String @id @default(uuid())
+  tenantId String @map("tenant_id")
+
+  name            String           @db.VarChar(128)
+  type            WidgetType
+  dataSource      WidgetDataSource @map("data_source")
+  config          Json             @default("{}")
+  position        Json             @default("{}")
+  refreshInterval Int              @default(300) @map("refresh_interval")
+  isSystem        Boolean          @default(false) @map("is_system")
+
+  createdByUserId String? @map("created_by_user_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  tenant    Tenant @relation(fields: [tenantId], references: [id])
+  createdBy User?  @relation("AnalyticsWidgetCreator", fields: [createdByUserId], references: [id])
+
+  dashboards AnalyticsDashboardWidget[]
+
+  @@index([tenantId])
+  @@map("analytics_widgets")
+}
+
+model AnalyticsDashboard {
+  id       String @id @default(uuid())
+  tenantId String @map("tenant_id")
+
+  name        String              @db.VarChar(128)
+  description String?             @db.Text
+  isDefault   Boolean             @default(false) @map("is_default")
+  isSystem    Boolean             @default(false) @map("is_system")
+  role        DashboardRole?
+  visibility  DashboardVisibility @default(PRIVATE)
+  layout      Json?
+
+  createdByUserId String @map("created_by_user_id")
+
+  deletedAt DateTime? @map("deleted_at")
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  tenant    Tenant @relation(fields: [tenantId], references: [id])
+  createdBy User   @relation("AnalyticsDashboardCreator", fields: [createdByUserId], references: [id])
+
+  widgets AnalyticsDashboardWidget[]
+  reports AnalyticsReport[]
+
+  @@index([tenantId])
+  @@index([tenantId, role])
+  @@index([tenantId, createdByUserId])
+  @@map("analytics_dashboards")
+}
+
+model AnalyticsDashboardWidget {
+  id          String @id @default(uuid())
+  dashboardId String @map("dashboard_id")
+  widgetId    String @map("widget_id")
+
+  position Json @default("{}")
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  // Relations
+  dashboard AnalyticsDashboard @relation(fields: [dashboardId], references: [id], onDelete: Cascade)
+  widget    AnalyticsWidget    @relation(fields: [widgetId], references: [id], onDelete: Cascade)
+
+  @@unique([dashboardId, widgetId])
+  @@index([dashboardId])
+  @@map("analytics_dashboard_widgets")
+}
+
+model AnalyticsGoal {
+  id       String @id @default(uuid())
+  tenantId String @map("tenant_id")
+
+  name         String     @db.VarChar(128)
+  type         GoalType
+  targetValue  Decimal    @map("target_value") @db.Decimal(14, 2)
+  currentValue Decimal    @default(0) @map("current_value") @db.Decimal(14, 2)
+  unit         String     @default("BRL") @db.VarChar(16)
+  period       GoalPeriod
+  startDate    DateTime   @map("start_date")
+  endDate      DateTime   @map("end_date")
+  scope        GoalScope
+  userId       String?    @map("user_id")
+  teamId       String?    @map("team_id")
+  status       GoalStatus @default(ACTIVE)
+  achievedAt   DateTime?  @map("achieved_at")
+
+  createdByUserId String @map("created_by_user_id")
+
+  deletedAt DateTime? @map("deleted_at")
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  tenant    Tenant @relation(fields: [tenantId], references: [id])
+  user      User?  @relation("AnalyticsGoalUser", fields: [userId], references: [id])
+  team      Team?  @relation(fields: [teamId], references: [id])
+  createdBy User   @relation("AnalyticsGoalCreator", fields: [createdByUserId], references: [id])
+
+  @@index([tenantId])
+  @@index([tenantId, status])
+  @@index([tenantId, userId])
+  @@index([tenantId, period, startDate])
+  @@map("analytics_goals")
+}
+
+model AnalyticsReport {
+  id       String @id @default(uuid())
+  tenantId String @map("tenant_id")
+
+  name        String       @db.VarChar(128)
+  type        ReportType
+  config      Json         @default("{}")
+  format      ReportFormat
+  dashboardId String?      @map("dashboard_id")
+
+  // Schedule
+  isScheduled       Boolean          @default(false) @map("is_scheduled")
+  scheduleFrequency ReportFrequency? @map("schedule_frequency")
+  scheduleDayOfWeek Int?             @map("schedule_day_of_week")
+  scheduleDayOfMonth Int?            @map("schedule_day_of_month")
+  scheduleHour      Int?             @map("schedule_hour")
+  scheduleTimezone  String           @default("America/Sao_Paulo") @map("schedule_timezone") @db.VarChar(64)
+
+  // Delivery
+  deliveryMethod  ReportDeliveryMethod? @map("delivery_method")
+  recipientUserIds String[]             @default([]) @map("recipient_user_ids")
+  recipientEmails  String[]             @default([]) @map("recipient_emails")
+  recipientPhones  String[]             @default([]) @map("recipient_phones")
+
+  // Last generation
+  lastGeneratedAt DateTime?              @map("last_generated_at")
+  lastFileId      String?                @map("last_file_id")
+  lastStatus      ReportGenerationStatus? @map("last_status")
+  lastError       String?                @map("last_error") @db.Text
+
+  isActive Boolean @default(true) @map("is_active")
+
+  createdByUserId String @map("created_by_user_id")
+
+  deletedAt DateTime? @map("deleted_at")
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  tenant      Tenant              @relation(fields: [tenantId], references: [id])
+  createdBy   User                @relation("AnalyticsReportCreator", fields: [createdByUserId], references: [id])
+  dashboard   AnalyticsDashboard? @relation(fields: [dashboardId], references: [id])
+  lastFile    StorageFile?        @relation("AnalyticsReportLastFile", fields: [lastFileId], references: [id])
+  generations AnalyticsReportGeneration[]
+
+  @@index([tenantId])
+  @@index([tenantId, isScheduled, isActive])
+  @@map("analytics_reports")
+}
+
+model AnalyticsReportGeneration {
+  id       String @id @default(uuid())
+  reportId String @map("report_id")
+  tenantId String @map("tenant_id")
+
+  status      ReportGenerationStatus
+  fileId      String?                @map("file_id")
+  format      ReportFormat
+  periodStart DateTime               @map("period_start")
+  periodEnd   DateTime               @map("period_end")
+  deliveredTo String[]               @default([]) @map("delivered_to")
+  deliveredVia String?               @map("delivered_via")
+  error       String?                @db.Text
+
+  generatedAt DateTime @default(now()) @map("generated_at")
+
+  // Relations
+  report AnalyticsReport @relation(fields: [reportId], references: [id], onDelete: Cascade)
+  tenant Tenant          @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  file   StorageFile?    @relation("AnalyticsReportGenerationFile", fields: [fileId], references: [id])
+
+  @@index([reportId])
+  @@index([tenantId])
+  @@index([reportId, generatedAt])
+  @@map("analytics_report_generations")
+}
+
+model CustomerPortalAccess {
+  id       String @id @default(uuid())
+  tenantId String @map("tenant_id")
+
+  customerId  String  @map("customer_id")
+  accessToken String  @unique @map("access_token")
+  contactId   String? @map("contact_id")
+  isActive    Boolean @default(true) @map("is_active")
+  permissions Json    @default("{}")
+
+  lastAccessAt DateTime? @map("last_access_at")
+  expiresAt    DateTime? @map("expires_at")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  tenant   Tenant      @relation(fields: [tenantId], references: [id])
+  customer Customer    @relation(fields: [customerId], references: [id])
+  contact  CrmContact? @relation(fields: [contactId], references: [id])
+
+  @@index([tenantId])
+  @@index([tenantId, customerId])
+  @@index([accessToken])
+  @@map("customer_portal_accesses")
+}
+
+// ===============================================
+// AI ASSISTANT MODULE
+// ===============================================
+
+// --- Enums ---
+
+enum AiPersonality {
+  PROFESSIONAL
+  FRIENDLY
+  CASUAL
+  FORMAL
+  CUSTOM
+}
+
+enum AiToneOfVoice {
+  NEUTRAL
+  WARM
+  DIRECT
+  ENTHUSIASTIC
+}
+
+enum AiConversationContext {
+  DEDICATED
+  INLINE
+  COMMAND_BAR
+  VOICE
+}
+
+enum AiConversationStatus {
+  ACTIVE
+  ARCHIVED
+}
+
+enum AiMessageRole {
+  USER
+  ASSISTANT
+  SYSTEM
+  TOOL_CALL
+  TOOL_RESULT
+}
+
+enum AiMessageContentType {
+  TEXT
+  CHART
+  TABLE
+  KPI_CARD
+  ACTION_CARD
+  IMAGE
+  ERROR
+  LOADING
+}
+
+enum AiFavoriteCategory {
+  SALES
+  STOCK
+  FINANCE
+  HR
+  CRM
+  GENERAL
+}
+
+enum AiActionStatus {
+  PROPOSED
+  CONFIRMED
+  EXECUTED
+  FAILED
+  CANCELLED
+}
+
+enum AiInsightType {
+  TREND
+  ANOMALY
+  OPPORTUNITY
+  RISK
+  PREDICTION
+  RECOMMENDATION
+  ALERT
+  CELEBRATION
+}
+
+enum AiInsightPriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+enum AiInsightStatus {
+  NEW
+  VIEWED
+  ACTED_ON
+  DISMISSED
+  EXPIRED
+}
+
+// --- Models ---
+
+model AiTenantConfig {
+  id       String @id @default(uuid())
+  tenantId String @unique @map("tenant_id")
+
+  // Identity
+  assistantName     String        @default("Atlas") @map("assistant_name") @db.VarChar(64)
+  assistantAvatar   String?       @map("assistant_avatar")
+  personality       AiPersonality @default(PROFESSIONAL)
+  customPersonality String?       @map("custom_personality") @db.Text
+  toneOfVoice       AiToneOfVoice @default(NEUTRAL) @map("tone_of_voice")
+  language          String        @default("pt-BR") @db.VarChar(8)
+  greeting          String?       @db.Text
+
+  // Access Modes
+  enableDedicatedChat Boolean @default(true) @map("enable_dedicated_chat")
+  enableInlineContext Boolean @default(true) @map("enable_inline_context")
+  enableCommandBar   Boolean @default(true) @map("enable_command_bar")
+  enableVoice        Boolean @default(false) @map("enable_voice")
+  wakeWord           String? @map("wake_word")
+
+  // AI Providers (3-tier)
+  tier1Provider      String  @default("GROQ_SMALL") @map("tier1_provider") @db.VarChar(32)
+  tier2Provider      String  @default("GROQ") @map("tier2_provider") @db.VarChar(32)
+  tier3Provider      String  @default("CLAUDE") @map("tier3_provider") @db.VarChar(32)
+  selfHostedEndpoint String? @map("self_hosted_endpoint")
+  tier1ApiKey        String? @map("tier1_api_key")
+  tier2ApiKey        String? @map("tier2_api_key")
+  tier3ApiKey        String? @map("tier3_api_key")
+
+  // Autonomy
+  canExecuteActions    Boolean @default(false) @map("can_execute_actions")
+  requireConfirmation  Boolean @default(true) @map("require_confirmation")
+  maxActionsPerMinute  Int     @default(5) @map("max_actions_per_minute")
+
+  // Proactive Insights
+  enableProactiveInsights Boolean @default(true) @map("enable_proactive_insights")
+  insightFrequency       String  @default("DAILY") @map("insight_frequency") @db.VarChar(16)
+  enableScheduledReports Boolean @default(false) @map("enable_scheduled_reports")
+
+  // Module Access
+  accessibleModules String[] @map("accessible_modules")
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@map("ai_tenant_configs")
+}
+
+model AiConversation {
+  id       String @id @default(uuid())
+  tenantId String @map("tenant_id")
+  userId   String @map("user_id")
+
+  title             String?               @db.VarChar(256)
+  status            AiConversationStatus  @default(ACTIVE)
+  context           AiConversationContext @default(DEDICATED)
+  contextModule     String?               @map("context_module") @db.VarChar(32)
+  contextEntityType String?               @map("context_entity_type") @db.VarChar(64)
+  contextEntityId   String?               @map("context_entity_id")
+  messageCount      Int                   @default(0) @map("message_count")
+  lastMessageAt     DateTime?             @map("last_message_at")
+  isPinned          Boolean               @default(false) @map("is_pinned")
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  tenant   Tenant      @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  user     User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  messages AiMessage[]
+
+  @@index([tenantId])
+  @@index([userId])
+  @@index([tenantId, userId, status])
+  @@index([tenantId, updatedAt])
+  @@map("ai_conversations")
+}
+
+model AiMessage {
+  id             String @id @default(uuid())
+  conversationId String @map("conversation_id")
+
+  role        AiMessageRole
+  content     String?              @db.Text
+  contentType AiMessageContentType @default(TEXT) @map("content_type")
+  renderData  Json?                @map("render_data")
+  attachments Json?
+
+  // AI Metadata
+  aiTier         Int?     @map("ai_tier")
+  aiModel        String?  @map("ai_model") @db.VarChar(64)
+  aiTokensInput  Int?     @map("ai_tokens_input")
+  aiTokensOutput Int?     @map("ai_tokens_output")
+  aiLatencyMs    Int?     @map("ai_latency_ms")
+  aiCost         Decimal? @map("ai_cost") @db.Decimal(8, 6)
+
+  // Tool Use
+  toolCalls    Json? @map("tool_calls")
+  actionsTaken Json? @map("actions_taken")
+
+  // Voice
+  audioUrl      String? @map("audio_url")
+  transcription String? @db.Text
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+
+  // Relations
+  conversation AiConversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+  @@index([conversationId])
+  @@index([conversationId, createdAt])
+  @@map("ai_messages")
+}
+
+model AiFavoriteQuery {
+  id       String @id @default(uuid())
+  tenantId String @map("tenant_id")
+  userId   String @map("user_id")
+
+  query      String             @db.VarChar(512)
+  shortcut   String?            @db.VarChar(64)
+  category   AiFavoriteCategory @default(GENERAL)
+  usageCount Int                @default(0) @map("usage_count")
+  lastUsedAt DateTime?          @map("last_used_at")
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+
+  // Relations
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, userId])
+  @@map("ai_favorite_queries")
+}
+
+model AiActionLog {
+  id       String @id @default(uuid())
+  tenantId String @map("tenant_id")
+  userId   String @map("user_id")
+
+  conversationId String? @map("conversation_id")
+  messageId      String? @map("message_id")
+
+  actionType       String         @map("action_type") @db.VarChar(128)
+  targetModule     String         @map("target_module") @db.VarChar(32)
+  targetEntityType String         @map("target_entity_type") @db.VarChar(64)
+  targetEntityId   String?        @map("target_entity_id")
+  input            Json
+  output           Json?
+  status           AiActionStatus @default(PROPOSED)
+
+  confirmedByUserId String?   @map("confirmed_by_user_id")
+  confirmedAt       DateTime? @map("confirmed_at")
+  executedAt        DateTime? @map("executed_at")
+  error             String?
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+
+  // Relations
+  tenant      Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  user        User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  confirmedBy User?  @relation("AiActionConfirmer", fields: [confirmedByUserId], references: [id])
+
+  @@index([tenantId])
+  @@index([tenantId, userId])
+  @@index([tenantId, status])
+  @@map("ai_action_logs")
+}
+
+model AiInsight {
+  id       String @id @default(uuid())
+  tenantId String @map("tenant_id")
+
+  type     AiInsightType
+  priority AiInsightPriority @default(MEDIUM)
+
+  title   String @db.VarChar(256)
+  content String @db.Text
+
+  renderData Json? @map("render_data")
+
+  module            String  @db.VarChar(32)
+  relatedEntityType String? @map("related_entity_type") @db.VarChar(64)
+  relatedEntityId   String? @map("related_entity_id")
+
+  targetUserIds String[] @map("target_user_ids")
+
+  status          AiInsightStatus @default(NEW)
+  actionUrl       String?         @map("action_url")
+  suggestedAction String?         @map("suggested_action")
+
+  expiresAt   DateTime? @map("expires_at")
+  viewedAt    DateTime? @map("viewed_at")
+  actedOnAt   DateTime? @map("acted_on_at")
+  dismissedAt DateTime? @map("dismissed_at")
+
+  aiModel String? @map("ai_model")
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+
+  // Relations
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@index([tenantId, status])
+  @@index([tenantId, type])
+  @@index([tenantId, priority, status])
+  @@map("ai_insights")
 }
