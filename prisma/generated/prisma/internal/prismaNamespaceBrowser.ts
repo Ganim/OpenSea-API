@@ -188,7 +188,8 @@ export const ModelName = {
   CardActivity: 'CardActivity',
   BoardAutomation: 'BoardAutomation',
   CardWatcher: 'CardWatcher',
-  CardIntegration: 'CardIntegration'
+  CardIntegration: 'CardIntegration',
+  EventLog: 'EventLog'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -2942,6 +2943,31 @@ export const CardIntegrationScalarFieldEnum = {
 } as const
 
 export type CardIntegrationScalarFieldEnum = (typeof CardIntegrationScalarFieldEnum)[keyof typeof CardIntegrationScalarFieldEnum]
+
+
+export const EventLogScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  type: 'type',
+  version: 'version',
+  source: 'source',
+  sourceEntityType: 'sourceEntityType',
+  sourceEntityId: 'sourceEntityId',
+  data: 'data',
+  metadata: 'metadata',
+  correlationId: 'correlationId',
+  causationId: 'causationId',
+  status: 'status',
+  processedBy: 'processedBy',
+  failedConsumers: 'failedConsumers',
+  retryCount: 'retryCount',
+  maxRetries: 'maxRetries',
+  nextRetryAt: 'nextRetryAt',
+  processedAt: 'processedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type EventLogScalarFieldEnum = (typeof EventLogScalarFieldEnum)[keyof typeof EventLogScalarFieldEnum]
 
 
 export const SortOrder = {

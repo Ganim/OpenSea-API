@@ -1254,3 +1254,14 @@ export const AutomationAction = {
 } as const
 
 export type AutomationAction = (typeof AutomationAction)[keyof typeof AutomationAction]
+
+
+export const EventLogStatus = {
+  PUBLISHED: 'PUBLISHED',
+  PROCESSING: 'PROCESSING',
+  PROCESSED: 'PROCESSED',
+  FAILED: 'FAILED',
+  DEAD_LETTER: 'DEAD_LETTER'
+} as const
+
+export type EventLogStatus = (typeof EventLogStatus)[keyof typeof EventLogStatus]

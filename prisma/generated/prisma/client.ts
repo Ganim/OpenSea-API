@@ -729,3 +729,8 @@ export type CardWatcher = Prisma.CardWatcherModel
  * 
  */
 export type CardIntegration = Prisma.CardIntegrationModel
+/**
+ * Model EventLog
+ * 
+ */
+export type EventLog = Prisma.EventLogModel

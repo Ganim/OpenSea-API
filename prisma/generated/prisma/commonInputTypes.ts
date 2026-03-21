@@ -1972,6 +1972,23 @@ export type EnumCardIntegrationTypeWithAggregatesFilter<$PrismaModel = never> = 
   _max?: Prisma.NestedEnumCardIntegrationTypeFilter<$PrismaModel>
 }
 
+export type EnumEventLogStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.EventLogStatus | Prisma.EnumEventLogStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.EventLogStatus[] | Prisma.ListEnumEventLogStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.EventLogStatus[] | Prisma.ListEnumEventLogStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumEventLogStatusFilter<$PrismaModel> | $Enums.EventLogStatus
+}
+
+export type EnumEventLogStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.EventLogStatus | Prisma.EnumEventLogStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.EventLogStatus[] | Prisma.ListEnumEventLogStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.EventLogStatus[] | Prisma.ListEnumEventLogStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumEventLogStatusWithAggregatesFilter<$PrismaModel> | $Enums.EventLogStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumEventLogStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumEventLogStatusFilter<$PrismaModel>
+}
+
 export type NestedStringFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel>
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
@@ -3865,6 +3882,23 @@ export type NestedEnumCardIntegrationTypeWithAggregatesFilter<$PrismaModel = nev
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumCardIntegrationTypeFilter<$PrismaModel>
   _max?: Prisma.NestedEnumCardIntegrationTypeFilter<$PrismaModel>
+}
+
+export type NestedEnumEventLogStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.EventLogStatus | Prisma.EnumEventLogStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.EventLogStatus[] | Prisma.ListEnumEventLogStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.EventLogStatus[] | Prisma.ListEnumEventLogStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumEventLogStatusFilter<$PrismaModel> | $Enums.EventLogStatus
+}
+
+export type NestedEnumEventLogStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.EventLogStatus | Prisma.EnumEventLogStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.EventLogStatus[] | Prisma.ListEnumEventLogStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.EventLogStatus[] | Prisma.ListEnumEventLogStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumEventLogStatusWithAggregatesFilter<$PrismaModel> | $Enums.EventLogStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumEventLogStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumEventLogStatusFilter<$PrismaModel>
 }
 
 

@@ -171,6 +171,17 @@ async function start() {
   }
   console.log('[startup] Database connected.');
 
+  // Register domain event subscribers (side-effect handlers + EventLog persistence)
+  try {
+    const { registerDomainEventSubscribers } = await import(
+      '@/lib/domain-event-subscribers'
+    );
+    registerDomainEventSubscribers();
+    console.log('[startup] Domain event subscribers registered.');
+  } catch (err) {
+    console.warn('[startup] Failed to register domain event subscribers:', err);
+  }
+
   try {
     console.log('[startup] Initializing plugins and routes...');
     await app.listen({

@@ -116,7 +116,22 @@ export function registerDomainEventSubscribers(): void {
     },
   );
 
+  // ─── Enable EventLog Persistence ──────────────────────────────────────
+
+  domainEventBus.enablePersistence();
+
+  // ─── Summary ─────────────────────────────────────────────────────────
+
+  const totalHandlers = [
+    DOMAIN_EVENTS.HR_ABSENCE_APPROVED,
+    DOMAIN_EVENTS.HR_ABSENCE_REQUESTED,
+    DOMAIN_EVENTS.HR_EMPLOYEE_CREATED,
+    DOMAIN_EVENTS.HR_EMPLOYEE_UPDATED,
+    DOMAIN_EVENTS.FINANCE_ENTRY_CREATED,
+    DOMAIN_EVENTS.STOCK_PO_CREATED,
+  ].reduce((sum, eventType) => sum + domainEventBus.handlerCount(eventType), 0);
+
   logger.info(
-    `[DomainEvents] Registered ${domainEventBus.handlerCount(DOMAIN_EVENTS.HR_ABSENCE_APPROVED) + domainEventBus.handlerCount(DOMAIN_EVENTS.HR_ABSENCE_REQUESTED) + domainEventBus.handlerCount(DOMAIN_EVENTS.HR_EMPLOYEE_CREATED) + domainEventBus.handlerCount(DOMAIN_EVENTS.HR_EMPLOYEE_UPDATED) + domainEventBus.handlerCount(DOMAIN_EVENTS.FINANCE_ENTRY_CREATED) + domainEventBus.handlerCount(DOMAIN_EVENTS.STOCK_PO_CREATED)} event subscribers`,
+    `[DomainEvents] Registered ${totalHandlers} event subscribers, persistence enabled`,
   );
 }

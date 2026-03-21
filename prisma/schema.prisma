@@ -4190,6 +4190,9 @@ model Tenant {
   activities     Activity[]
   timelineEvents TimelineEvent[]
 
+  // Event domain
+  eventLogs EventLog[]
+
   @@index([status])
   @@index([deletedAt])
   @@index([createdAt])
@@ -5942,4 +5945,51 @@ model CardIntegration {
   @@unique([cardId, type, entityId])
   @@index([cardId])
   @@map("card_integrations")
+}
+
+// ===============================================
+// EVENT LOG
+// ===============================================
+
+enum EventLogStatus {
+  PUBLISHED
+  PROCESSING
+  PROCESSED
+  FAILED
+  DEAD_LETTER
+
+  @@map("event_log_status")
+}
+
+model EventLog {
+  id               String         @id @default(uuid())
+  tenantId         String         @map("tenant_id")
+  type             String         @db.VarChar(128)
+  version          Int            @default(1)
+  source           String         @db.VarChar(64)
+  sourceEntityType String         @map("source_entity_type") @db.VarChar(64)
+  sourceEntityId   String         @map("source_entity_id") @db.VarChar(64)
+  data             Json
+  metadata         Json?
+  correlationId    String?        @map("correlation_id") @db.VarChar(64)
+  causationId      String?        @map("causation_id") @db.VarChar(64)
+  status           EventLogStatus @default(PUBLISHED)
+  processedBy      String[]       @default([]) @map("processed_by")
+  failedConsumers  Json?          @map("failed_consumers")
+  retryCount       Int            @default(0) @map("retry_count")
+  maxRetries       Int            @default(3) @map("max_retries")
+  nextRetryAt      DateTime?      @map("next_retry_at")
+  processedAt      DateTime?      @map("processed_at")
+  createdAt        DateTime       @default(now()) @map("created_at")
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@index([tenantId, type])
+  @@index([tenantId, createdAt])
+  @@index([status])
+  @@index([correlationId])
+  @@index([sourceEntityType, sourceEntityId])
+  @@index([status, nextRetryAt])
+  @@map("event_logs")
 }
