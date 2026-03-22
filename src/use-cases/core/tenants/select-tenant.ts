@@ -50,14 +50,16 @@ export class SelectTenantUseCase {
       throw new ForbiddenError('Tenant is not active');
     }
 
-    // Verify user is a member of the tenant
-    const membership = await this.tenantUsersRepository.findByTenantAndUser(
-      new UniqueEntityID(tenantId),
-      new UniqueEntityID(userId),
-    );
+    // Super admins can access any tenant without membership
+    if (!isSuperAdmin) {
+      const membership = await this.tenantUsersRepository.findByTenantAndUser(
+        new UniqueEntityID(tenantId),
+        new UniqueEntityID(userId),
+      );
 
-    if (!membership) {
-      throw new ForbiddenError('You are not a member of this tenant');
+      if (!membership) {
+        throw new ForbiddenError('You are not a member of this tenant');
+      }
     }
 
     const updatedSession = await this.sessionsRepository.setTenant({
