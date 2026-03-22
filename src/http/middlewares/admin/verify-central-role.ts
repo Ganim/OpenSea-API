@@ -1,51 +1,48 @@
 import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
 import { UnauthorizedError } from '@/@errors/use-cases/unauthorized-error';
 import { prisma } from '@/lib/prisma';
+import type { CentralUserRole } from '@prisma/generated/client.js';
 import type { FastifyRequest } from 'fastify';
 
 /**
- * Factory that creates a middleware to verify the user belongs to the
- * Central team with one of the allowed roles.
+ * Factory that creates a middleware to verify if the requesting user
+ * has the required Central role.
  *
- * Must be placed AFTER verifyJwt in the preHandler chain.
+ * Must be placed AFTER verifyJwt and verifySuperAdmin in the preHandler chain.
  *
- * On success, attaches `request.centralUser` for downstream handlers.
- *
- * @param allowedRoles - Array of CentralUserRole values that are permitted.
+ * @param allowedRoles - Array of CentralUserRole values that are allowed access
+ * @returns Fastify preHandler middleware
  *
  * @example
  * ```typescript
  * preHandler: [
  *   verifyJwt,
- *   verifyCentralRole(['ADMIN', 'OPERATOR']),
+ *   verifySuperAdmin,
+ *   verifyCentralRole(['ADMIN', 'OWNER']),
  * ]
  * ```
  */
-export function verifyCentralRole(allowedRoles: string[]) {
-  return async (request: FastifyRequest) => {
-    const userId = request.user?.sub;
+export function verifyCentralRole(allowedRoles: CentralUserRole[]) {
+  return async function verifyCentralRoleHandler(request: FastifyRequest) {
+    const user = request.user;
 
-    if (!userId) {
-      throw new UnauthorizedError('Não autenticado');
+    if (!user || !user.sub) {
+      throw new UnauthorizedError('User not authenticated');
     }
 
     const centralUser = await prisma.centralUser.findUnique({
-      where: { userId },
+      where: { userId: user.sub },
     });
 
     if (!centralUser) {
-      throw new ForbiddenError('Usuário não é membro da equipe Central');
-    }
-
-    if (!centralUser.isActive) {
-      throw new ForbiddenError('Acesso desativado');
+      throw new ForbiddenError('Usuário não é membro da equipe Central.');
     }
 
     if (!allowedRoles.includes(centralUser.role)) {
-      throw new ForbiddenError('Permissão insuficiente para esta ação');
+      throw new ForbiddenError('Permissão insuficiente para esta ação.');
     }
 
-    // Attach to request for downstream use
+    // Attach centralUser to request for downstream use
     (request as any).centralUser = centralUser;
   };
 }

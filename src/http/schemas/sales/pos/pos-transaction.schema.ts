@@ -1,0 +1,86 @@
+import { z } from 'zod';
+
+export const posPaymentMethodEnum = z.enum([
+  'CASH',
+  'CREDIT_CARD',
+  'DEBIT_CARD',
+  'PIX',
+  'BOLETO',
+  'STORE_CREDIT',
+  'VOUCHER',
+  'PAYMENT_LINK',
+  'NFC',
+  'CHECK',
+  'OTHER',
+]);
+
+const paymentInputSchema = z.object({
+  method: posPaymentMethodEnum,
+  amount: z.number().positive(),
+  receivedAmount: z.number().optional(),
+  changeAmount: z.number().optional(),
+  installments: z.number().int().min(1).optional(),
+  authCode: z.string().optional(),
+  nsu: z.string().optional(),
+  pixTxId: z.string().optional(),
+  paymentLinkUrl: z.string().optional(),
+  paymentLinkStatus: z.enum(['PENDING', 'PAID', 'EXPIRED']).optional(),
+  tefTransactionId: z.string().optional(),
+  notes: z.string().optional(),
+});
+
+export const createPosTransactionSchema = z.object({
+  sessionId: z.string().uuid(),
+  orderId: z.string().uuid(),
+  subtotal: z.number().min(0),
+  discountTotal: z.number().min(0).optional(),
+  taxTotal: z.number().min(0).optional(),
+  grandTotal: z.number().min(0),
+  changeAmount: z.number().min(0).optional(),
+  customerId: z.string().uuid().optional(),
+  customerName: z.string().max(128).optional(),
+  customerDocument: z.string().max(20).optional(),
+  overrideByUserId: z.string().uuid().optional(),
+  overrideReason: z.string().max(256).optional(),
+  payments: z.array(paymentInputSchema).min(1),
+});
+
+export const posTransactionResponseSchema = z.object({
+  id: z.string(),
+  tenantId: z.string(),
+  sessionId: z.string(),
+  orderId: z.string(),
+  transactionNumber: z.number(),
+  status: z.string(),
+  subtotal: z.number(),
+  discountTotal: z.number(),
+  taxTotal: z.number(),
+  grandTotal: z.number(),
+  changeAmount: z.number(),
+  customerId: z.string().nullable(),
+  customerName: z.string().nullable(),
+  customerDocument: z.string().nullable(),
+  overrideByUserId: z.string().nullable(),
+  overrideReason: z.string().nullable(),
+  syncedAt: z.date().nullable(),
+  createdAt: z.date(),
+});
+
+export const posTransactionPaymentResponseSchema = z.object({
+  id: z.string(),
+  tenantId: z.string(),
+  transactionId: z.string(),
+  method: z.string(),
+  amount: z.number(),
+  receivedAmount: z.number().nullable(),
+  changeAmount: z.number().nullable(),
+  installments: z.number(),
+  authCode: z.string().nullable(),
+  nsu: z.string().nullable(),
+  pixTxId: z.string().nullable(),
+  paymentLinkUrl: z.string().nullable(),
+  paymentLinkStatus: z.string().nullable(),
+  tefTransactionId: z.string().nullable(),
+  notes: z.string().nullable(),
+  createdAt: z.date(),
+});

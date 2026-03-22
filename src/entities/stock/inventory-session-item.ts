@@ -1,81 +1,53 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { Entity } from '../domain/entities';
-import { Optional } from '../domain/optional';
+import type { Optional } from '../domain/optional';
 import { UniqueEntityID } from '../domain/unique-entity-id';
 
-export type InventorySessionItemStatus =
+export type InventoryItemStatus =
   | 'PENDING'
   | 'CONFIRMED'
   | 'MISSING'
-  | 'WRONG_BIN'
-  | 'EXTRA';
+  | 'EXTRA'
+  | 'WRONG_BIN';
 
-export type DivergenceResolution =
+export type InventoryItemResolution =
   | 'LOSS_REGISTERED'
   | 'TRANSFERRED'
   | 'ENTRY_CREATED'
   | 'PENDING_REVIEW';
 
 export interface InventorySessionItemProps {
-  id: UniqueEntityID;
-  sessionId: UniqueEntityID;
-  itemId: UniqueEntityID;
-  expectedBinId?: UniqueEntityID;
-  actualBinId?: UniqueEntityID;
-  status: InventorySessionItemStatus;
-  scannedAt?: Date;
-  resolution?: DivergenceResolution;
-  resolvedBy?: UniqueEntityID;
-  resolvedAt?: Date;
+  sessionId: string;
+  itemId?: string;
+  binId: string;
+  status: InventoryItemStatus;
+  resolution?: InventoryItemResolution;
   notes?: string;
+  scannedAt?: Date;
+  resolvedAt?: Date;
+  resolvedBy?: string;
   createdAt: Date;
-  updatedAt?: Date;
 }
 
 export class InventorySessionItem extends Entity<InventorySessionItemProps> {
-  get id(): UniqueEntityID {
-    return this.props.id;
-  }
-
-  get sessionId(): UniqueEntityID {
+  get sessionId(): string {
     return this.props.sessionId;
   }
 
-  get itemId(): UniqueEntityID {
+  get itemId(): string | undefined {
     return this.props.itemId;
   }
 
-  get expectedBinId(): UniqueEntityID | undefined {
-    return this.props.expectedBinId;
+  get binId(): string {
+    return this.props.binId;
   }
 
-  get actualBinId(): UniqueEntityID | undefined {
-    return this.props.actualBinId;
-  }
-
-  set actualBinId(value: UniqueEntityID | undefined) {
-    this.props.actualBinId = value;
-    this.touch();
-  }
-
-  get status(): InventorySessionItemStatus {
+  get status(): InventoryItemStatus {
     return this.props.status;
   }
 
-  get scannedAt(): Date | undefined {
-    return this.props.scannedAt;
-  }
-
-  get resolution(): DivergenceResolution | undefined {
+  get resolution(): InventoryItemResolution | undefined {
     return this.props.resolution;
-  }
-
-  get resolvedBy(): UniqueEntityID | undefined {
-    return this.props.resolvedBy;
-  }
-
-  get resolvedAt(): Date | undefined {
-    return this.props.resolvedAt;
   }
 
   get notes(): string | undefined {
@@ -84,73 +56,92 @@ export class InventorySessionItem extends Entity<InventorySessionItemProps> {
 
   set notes(value: string | undefined) {
     this.props.notes = value;
-    this.touch();
+  }
+
+  get scannedAt(): Date | undefined {
+    return this.props.scannedAt;
+  }
+
+  get resolvedAt(): Date | undefined {
+    return this.props.resolvedAt;
+  }
+
+  get resolvedBy(): string | undefined {
+    return this.props.resolvedBy;
   }
 
   get createdAt(): Date {
     return this.props.createdAt;
   }
 
-  get updatedAt(): Date | undefined {
-    return this.props.updatedAt;
-  }
-
-  // Computed
+  // Computed properties
   get isDivergent(): boolean {
     return (
       this.props.status === 'MISSING' ||
-      this.props.status === 'WRONG_BIN' ||
-      this.props.status === 'EXTRA'
+      this.props.status === 'EXTRA' ||
+      this.props.status === 'WRONG_BIN'
     );
   }
 
   get isResolved(): boolean {
-    return !!this.props.resolution;
+    return this.props.resolution !== undefined;
   }
 
-  // Business methods
+  // Status methods
+  private guardNotResolved(): void {
+    if (this.props.status !== 'PENDING') {
+      throw new BadRequestError(
+        `Transição de status inválida: item já está com status "${this.props.status}".`,
+      );
+    }
+  }
+
   confirm(): void {
+    this.guardNotResolved();
     this.props.status = 'CONFIRMED';
     this.props.scannedAt = new Date();
-    this.touch();
   }
 
   markMissing(): void {
+    this.guardNotResolved();
     this.props.status = 'MISSING';
-    this.touch();
   }
 
-  resolve(resolution: DivergenceResolution, resolvedBy: UniqueEntityID): void {
+  markExtra(): void {
+    this.guardNotResolved();
+    this.props.status = 'EXTRA';
+    this.props.scannedAt = new Date();
+  }
+
+  markWrongBin(): void {
+    this.guardNotResolved();
+    this.props.status = 'WRONG_BIN';
+    this.props.scannedAt = new Date();
+  }
+
+  resolve(resolution: InventoryItemResolution, userId: string): void {
     if (!this.isDivergent) {
-      throw new BadRequestError('Only divergent items can be resolved.');
+      throw new BadRequestError(
+        `Não é possível resolver um item com status "${this.props.status}". Apenas itens divergentes podem ser resolvidos.`,
+      );
     }
     if (this.isResolved) {
-      throw new BadRequestError('Item already resolved.');
+      throw new BadRequestError('Este item já foi resolvido.');
     }
     this.props.resolution = resolution;
-    this.props.resolvedBy = resolvedBy;
     this.props.resolvedAt = new Date();
-    this.touch();
-  }
-
-  private touch(): void {
-    this.props.updatedAt = new Date();
+    this.props.resolvedBy = userId;
   }
 
   static create(
-    props: Optional<
-      InventorySessionItemProps,
-      'id' | 'createdAt' | 'updatedAt' | 'status'
-    >,
+    props: Optional<InventorySessionItemProps, 'status' | 'createdAt'>,
     id?: UniqueEntityID,
   ): InventorySessionItem {
     return new InventorySessionItem(
       {
         ...props,
-        id: id ?? props.id ?? new UniqueEntityID(),
         status: props.status ?? 'PENDING',
         createdAt: props.createdAt ?? new Date(),
-        updatedAt: props.updatedAt,
       },
       id,
     );

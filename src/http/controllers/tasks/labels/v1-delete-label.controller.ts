@@ -16,8 +16,8 @@ export async function deleteLabelController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.TOOLS.TASKS.BOARDS.MODIFY,
-        resource: 'task-boards',
+        permissionCode: PermissionCodes.TOOLS.TASKS.LABELS.REMOVE,
+        resource: 'task-labels',
       }),
     ],
     schema: {

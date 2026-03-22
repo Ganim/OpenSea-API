@@ -16,8 +16,8 @@ export async function deleteChecklistController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.TOOLS.TASKS.CARDS.MODIFY,
-        resource: 'task-cards',
+        permissionCode: PermissionCodes.TOOLS.TASKS.CHECKLISTS.REMOVE,
+        resource: 'task-checklists',
       }),
     ],
     schema: {

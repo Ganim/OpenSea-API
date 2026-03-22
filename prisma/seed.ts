@@ -24,6 +24,11 @@ import {
   slugify,
 } from '../src/constants/storage/folder-templates.js';
 
+import { seedSkillDefinitions } from './seeds/skill-definitions.js';
+import { seedSkillPricing } from './seeds/skill-pricing.js';
+import { seedCentralUsers } from './seeds/central-users.js';
+import { seedSupportSlaConfig } from './seeds/support-sla-config.js';
+
 const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL! });
 const prisma = new PrismaClient({ adapter });
 
@@ -1164,7 +1169,6 @@ async function main() {
   const { seedSupportSlaConfig } = await import(
     './seeds/support-sla-config.js'
   );
-
   await seedSkillDefinitions(prisma);
   await seedSkillPricing(prisma);
   await seedCentralUsers(prisma);

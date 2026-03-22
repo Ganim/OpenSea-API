@@ -21,8 +21,8 @@ export async function updateLabelController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.TOOLS.TASKS.BOARDS.MODIFY,
-        resource: 'task-boards',
+        permissionCode: PermissionCodes.TOOLS.TASKS.LABELS.MODIFY,
+        resource: 'task-labels',
       }),
     ],
     schema: {

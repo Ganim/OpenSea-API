@@ -1,72 +1,43 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { Entity } from '../domain/entities';
-import { Optional } from '../domain/optional';
+import type { Optional } from '../domain/optional';
 import { UniqueEntityID } from '../domain/unique-entity-id';
 
-export type InventorySessionStatus =
-  | 'OPEN'
-  | 'PAUSED'
-  | 'COMPLETED'
-  | 'CANCELLED';
-
 export type InventorySessionMode = 'BIN' | 'ZONE' | 'PRODUCT';
+export type InventorySessionStatus = 'OPEN' | 'PAUSED' | 'COMPLETED' | 'CANCELLED';
 
 export interface InventorySessionProps {
-  id: UniqueEntityID;
   tenantId: UniqueEntityID;
-  userId: UniqueEntityID;
-  status: InventorySessionStatus;
   mode: InventorySessionMode;
-  binId?: UniqueEntityID;
-  zoneId?: UniqueEntityID;
-  productId?: UniqueEntityID;
-  variantId?: UniqueEntityID;
+  status: InventorySessionStatus;
+  scope: Record<string, unknown>;
   totalItems: number;
-  scannedItems: number;
   confirmedItems: number;
-  divergentItems: number;
+  divergences: number;
   notes?: string;
   startedAt: Date;
+  pausedAt?: Date;
   completedAt?: Date;
   createdAt: Date;
-  updatedAt?: Date;
+  deletedAt?: Date;
+  startedBy: string;
 }
 
 export class InventorySession extends Entity<InventorySessionProps> {
-  get id(): UniqueEntityID {
-    return this.props.id;
-  }
-
   get tenantId(): UniqueEntityID {
     return this.props.tenantId;
-  }
-
-  get userId(): UniqueEntityID {
-    return this.props.userId;
-  }
-
-  get status(): InventorySessionStatus {
-    return this.props.status;
   }
 
   get mode(): InventorySessionMode {
     return this.props.mode;
   }
 
-  get binId(): UniqueEntityID | undefined {
-    return this.props.binId;
+  get status(): InventorySessionStatus {
+    return this.props.status;
   }
 
-  get zoneId(): UniqueEntityID | undefined {
-    return this.props.zoneId;
-  }
-
-  get productId(): UniqueEntityID | undefined {
-    return this.props.productId;
-  }
-
-  get variantId(): UniqueEntityID | undefined {
-    return this.props.variantId;
+  get scope(): Record<string, unknown> {
+    return this.props.scope;
   }
 
   get totalItems(): number {
@@ -75,16 +46,6 @@ export class InventorySession extends Entity<InventorySessionProps> {
 
   set totalItems(value: number) {
     this.props.totalItems = value;
-    this.touch();
-  }
-
-  get scannedItems(): number {
-    return this.props.scannedItems;
-  }
-
-  set scannedItems(value: number) {
-    this.props.scannedItems = value;
-    this.touch();
   }
 
   get confirmedItems(): number {
@@ -93,16 +54,14 @@ export class InventorySession extends Entity<InventorySessionProps> {
 
   set confirmedItems(value: number) {
     this.props.confirmedItems = value;
-    this.touch();
   }
 
-  get divergentItems(): number {
-    return this.props.divergentItems;
+  get divergences(): number {
+    return this.props.divergences;
   }
 
-  set divergentItems(value: number) {
-    this.props.divergentItems = value;
-    this.touch();
+  set divergences(value: number) {
+    this.props.divergences = value;
   }
 
   get notes(): string | undefined {
@@ -111,11 +70,14 @@ export class InventorySession extends Entity<InventorySessionProps> {
 
   set notes(value: string | undefined) {
     this.props.notes = value;
-    this.touch();
   }
 
   get startedAt(): Date {
     return this.props.startedAt;
+  }
+
+  get pausedAt(): Date | undefined {
+    return this.props.pausedAt;
   }
 
   get completedAt(): Date | undefined {
@@ -126,105 +88,92 @@ export class InventorySession extends Entity<InventorySessionProps> {
     return this.props.createdAt;
   }
 
-  get updatedAt(): Date | undefined {
-    return this.props.updatedAt;
+  get deletedAt(): Date | undefined {
+    return this.props.deletedAt;
   }
 
-  // Computed
-  get isOpen(): boolean {
-    return this.props.status === 'OPEN';
+  get startedBy(): string {
+    return this.props.startedBy;
   }
 
-  get isPaused(): boolean {
-    return this.props.status === 'PAUSED';
-  }
-
-  get isCompleted(): boolean {
-    return this.props.status === 'COMPLETED';
-  }
-
-  get isCancelled(): boolean {
-    return this.props.status === 'CANCELLED';
-  }
-
+  // Computed properties
   get isActive(): boolean {
-    return this.isOpen || this.isPaused;
+    return this.props.status === 'OPEN' || this.props.status === 'PAUSED';
   }
 
   get progress(): number {
     if (this.props.totalItems === 0) return 0;
-    return Math.round((this.props.scannedItems / this.props.totalItems) * 100);
+    return (this.props.confirmedItems / this.props.totalItems) * 100;
   }
 
-  // State transitions
+  // State transition methods
   pause(): void {
     if (this.props.status !== 'OPEN') {
-      throw new BadRequestError('Only OPEN sessions can be paused.');
+      throw new BadRequestError(
+        `Transição de status inválida: não é possível pausar uma sessão com status "${this.props.status}". Apenas sessões abertas podem ser pausadas.`,
+      );
     }
     this.props.status = 'PAUSED';
-    this.touch();
+    this.props.pausedAt = new Date();
   }
 
   resume(): void {
     if (this.props.status !== 'PAUSED') {
-      throw new BadRequestError('Only PAUSED sessions can be resumed.');
+      throw new BadRequestError(
+        `Transição de status inválida: não é possível retomar uma sessão com status "${this.props.status}". Apenas sessões pausadas podem ser retomadas.`,
+      );
     }
     this.props.status = 'OPEN';
-    this.touch();
+    this.props.pausedAt = undefined;
   }
 
   complete(): void {
-    if (this.props.status !== 'OPEN' && this.props.status !== 'PAUSED') {
+    if (this.props.status !== 'OPEN') {
       throw new BadRequestError(
-        'Only OPEN or PAUSED sessions can be completed.',
+        `Transição de status inválida: não é possível completar uma sessão com status "${this.props.status}". Apenas sessões abertas podem ser completadas.`,
       );
     }
     this.props.status = 'COMPLETED';
     this.props.completedAt = new Date();
-    this.touch();
   }
 
   cancel(): void {
     if (this.props.status !== 'OPEN' && this.props.status !== 'PAUSED') {
       throw new BadRequestError(
-        'Only OPEN or PAUSED sessions can be cancelled.',
+        `Transição de status inválida: não é possível cancelar uma sessão com status "${this.props.status}". Apenas sessões abertas ou pausadas podem ser canceladas.`,
       );
     }
     this.props.status = 'CANCELLED';
-    this.touch();
+    this.props.completedAt = new Date();
   }
 
-  private touch(): void {
-    this.props.updatedAt = new Date();
+  delete(): void {
+    this.props.deletedAt = new Date();
   }
 
   static create(
     props: Optional<
       InventorySessionProps,
-      | 'id'
-      | 'createdAt'
-      | 'updatedAt'
       | 'status'
-      | 'scannedItems'
-      | 'confirmedItems'
-      | 'divergentItems'
       | 'totalItems'
+      | 'confirmedItems'
+      | 'divergences'
       | 'startedAt'
+      | 'createdAt'
+      | 'deletedAt'
     >,
     id?: UniqueEntityID,
   ): InventorySession {
     return new InventorySession(
       {
         ...props,
-        id: id ?? props.id ?? new UniqueEntityID(),
         status: props.status ?? 'OPEN',
         totalItems: props.totalItems ?? 0,
-        scannedItems: props.scannedItems ?? 0,
         confirmedItems: props.confirmedItems ?? 0,
-        divergentItems: props.divergentItems ?? 0,
+        divergences: props.divergences ?? 0,
         startedAt: props.startedAt ?? new Date(),
         createdAt: props.createdAt ?? new Date(),
-        updatedAt: props.updatedAt,
+        deletedAt: props.deletedAt,
       },
       id,
     );

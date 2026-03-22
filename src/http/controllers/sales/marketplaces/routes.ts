@@ -1,64 +1,31 @@
 import type { FastifyInstance } from 'fastify';
 import { createModuleMiddleware } from '@/http/middlewares/tenant/verify-module';
-import rateLimit from '@fastify/rate-limit';
-import { rateLimitConfig } from '@/config/rate-limits';
-
-// Connections
-import { createConnectionController } from './connections/v1-create-connection.controller';
-import { listConnectionsController } from './connections/v1-list-connections.controller';
-import { getConnectionByIdController } from './connections/v1-get-connection-by-id.controller';
-import { updateConnectionController } from './connections/v1-update-connection.controller';
-import { deleteConnectionController } from './connections/v1-delete-connection.controller';
-
-// Listings
-import { publishListingController } from './listings/v1-publish-listing.controller';
-import { listListingsController } from './listings/v1-list-listings.controller';
-import { deactivateListingController } from './listings/v1-deactivate-listing.controller';
-
-// Orders
-import { listMarketplaceOrdersController } from './orders/v1-list-marketplace-orders.controller';
-import { acknowledgeOrderController } from './orders/v1-acknowledge-order.controller';
-
-// Payments
-import { listPaymentsController } from './payments/v1-list-payments.controller';
-import { getReconciliationController } from './payments/v1-get-reconciliation.controller';
+import { v1CreateConnectionController } from './connections/v1-create-connection.controller';
+import { v1ListConnectionsController } from './connections/v1-list-connections.controller';
+import { v1GetConnectionByIdController } from './connections/v1-get-connection-by-id.controller';
+import { v1UpdateConnectionController } from './connections/v1-update-connection.controller';
+import { v1DeleteConnectionController } from './connections/v1-delete-connection.controller';
+import { v1ListListingsController } from './listings/v1-list-listings.controller';
+import { v1PublishListingController } from './listings/v1-publish-listing.controller';
+import { v1DeactivateListingController } from './listings/v1-deactivate-listing.controller';
+import { v1ListMarketplaceOrdersController } from './orders/v1-list-marketplace-orders.controller';
+import { v1AcknowledgeOrderController } from './orders/v1-acknowledge-order.controller';
+import { v1ListMarketplacePaymentsController } from './payments/v1-list-marketplace-payments.controller';
+import { v1GetReconciliationController } from './payments/v1-get-reconciliation.controller';
 
 export async function marketplacesRoutes(app: FastifyInstance) {
   app.addHook('onRequest', createModuleMiddleware('SALES'));
 
-  // Admin routes with elevated rate limit
-  app.register(
-    async (adminApp) => {
-      adminApp.register(rateLimit, rateLimitConfig.admin);
-      adminApp.register(deleteConnectionController);
-    },
-    { prefix: '' },
-  );
-
-  // Mutation routes
-  app.register(
-    async (mutationApp) => {
-      mutationApp.register(rateLimit, rateLimitConfig.mutation);
-      mutationApp.register(createConnectionController);
-      mutationApp.register(updateConnectionController);
-      mutationApp.register(publishListingController);
-      mutationApp.register(deactivateListingController);
-      mutationApp.register(acknowledgeOrderController);
-    },
-    { prefix: '' },
-  );
-
-  // Query routes
-  app.register(
-    async (queryApp) => {
-      queryApp.register(rateLimit, rateLimitConfig.query);
-      queryApp.register(listConnectionsController);
-      queryApp.register(getConnectionByIdController);
-      queryApp.register(listListingsController);
-      queryApp.register(listMarketplaceOrdersController);
-      queryApp.register(listPaymentsController);
-      queryApp.register(getReconciliationController);
-    },
-    { prefix: '' },
-  );
+  await app.register(v1CreateConnectionController);
+  await app.register(v1ListConnectionsController);
+  await app.register(v1GetConnectionByIdController);
+  await app.register(v1UpdateConnectionController);
+  await app.register(v1DeleteConnectionController);
+  await app.register(v1ListListingsController);
+  await app.register(v1PublishListingController);
+  await app.register(v1DeactivateListingController);
+  await app.register(v1ListMarketplaceOrdersController);
+  await app.register(v1AcknowledgeOrderController);
+  await app.register(v1ListMarketplacePaymentsController);
+  await app.register(v1GetReconciliationController);
 }

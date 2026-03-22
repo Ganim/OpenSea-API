@@ -50,11 +50,10 @@ import { combosRoutes } from './controllers/sales/combos/routes';
 import { catalogsRoutes } from './controllers/sales/catalogs/routes';
 import { brandRoutes } from './controllers/sales/brand/routes';
 import { contentRoutes } from './controllers/sales/content/routes';
-// TODO: Enable when use-case factories are created
-// import { bidsRoutes } from './controllers/sales/bids/routes';
-// import { marketplacesRoutes } from './controllers/sales/marketplaces/routes';
+import { bidsRoutes } from './controllers/sales/bids/routes';
+import { marketplacesRoutes } from './controllers/sales/marketplaces/routes';
 import { ordersRoutes } from './controllers/sales/orders/routes';
-// import { posRoutes } from './controllers/sales/pos/routes';
+import { posRoutes } from './controllers/sales/pos/routes';
 import { paymentConditionsRoutes } from './controllers/sales/payment-conditions/routes';
 import { orderReturnsRoutes } from './controllers/sales/order-returns/routes';
 import { storeCreditsRoutes } from './controllers/sales/store-credits/routes';
@@ -95,6 +94,8 @@ import { tagsRoutes } from './controllers/stock/tags/routes';
 import { templatesRoutes } from './controllers/stock/templates/routes';
 import { variantsRoutes } from './controllers/stock/variants/routes';
 import { volumesRoutes } from './controllers/stock/volumes/routes';
+import { inventorySessionsRoutes } from './controllers/stock/inventory-sessions/routes';
+import { lookupRoutes } from './controllers/stock/lookup/routes';
 import { locationsRoutes } from './controllers/stock/locations/routes';
 import { warehousesRoutes } from './controllers/stock/warehouses/routes';
 import { zonesRoutes } from './controllers/stock/zones/routes';
@@ -219,6 +220,8 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(zonesRoutes);
   await app.register(binsRoutes);
   await app.register(volumesRoutes);
+  await app.register(inventorySessionsRoutes);
+  await app.register(lookupRoutes);
   await app.register(labelsRoutes);
   await app.register(addressRoutes);
   await app.register(tagsRoutes);
@@ -259,13 +262,10 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(catalogsRoutes);
   await app.register(brandRoutes);
   await app.register(contentRoutes);
-  // TODO: Enable when use-case factories are created
-  // await app.register(bidsRoutes);
-  // await app.register(marketplacesRoutes);
+  await app.register(bidsRoutes);
+  await app.register(marketplacesRoutes);
+  await app.register(posRoutes);
   await app.register(notificationsRoutes);
-
-  // Sales - POS routes
-  // await app.register(posRoutes); // TODO: Enable when factories exist
 
   // Sales - Analytics routes
   await app.register(analyticsGoalsRoutes);

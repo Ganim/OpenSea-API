@@ -22,7 +22,7 @@ export async function createCommentController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.TOOLS.TASKS.CARDS.MODIFY,
+        permissionCode: PermissionCodes.TOOLS.TASKS.COMMENTS.REGISTER,
         resource: 'task-comments',
       }),
     ],

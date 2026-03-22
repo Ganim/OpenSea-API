@@ -1,51 +1,62 @@
+import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
 import { prisma } from '@/lib/prisma';
-import type { FastifyReply, FastifyRequest } from 'fastify';
+import type { FastifyRequest } from 'fastify';
 
 /**
- * Factory that creates a middleware to check consumption-based limits
- * for a given metric (e.g. "api_requests", "storage_bytes", "emails_sent").
- *
- * Unlike `createPlanLimitsMiddleware` (which checks static plan caps like
- * maxUsers / maxProducts), this middleware checks dynamic, period-based
- * consumption tracked in `TenantConsumption`.
+ * Factory that creates a middleware to check if a tenant has reached
+ * their usage limit for a specific consumption metric before allowing the action.
  *
  * Must be placed AFTER verifyJwt and verifyTenant in the preHandler chain.
  *
- * @param metric - The consumption metric identifier to check.
+ * Note: This middleware only CHECKS the limit. The actual usage increment
+ * should happen in the use case after the action succeeds.
+ *
+ * @param metric - The consumption metric to check (e.g., 'deals', 'invoices', 'api_calls')
+ * @returns Fastify preHandler middleware
  *
  * @example
  * ```typescript
  * preHandler: [
  *   verifyJwt,
  *   verifyTenant,
- *   verifyLimit('emails_sent'),
+ *   verifyLimit('deals'),
  * ]
  * ```
  */
 export function verifyLimit(metric: string) {
-  return async (request: FastifyRequest, reply: FastifyReply) => {
-    const tenantId = (request as any).tenantId ?? request.user?.tenantId;
-    if (!tenantId) return; // No tenant context, skip
+  return async function verifyLimitHandler(request: FastifyRequest) {
+    if (!request.user) return;
+
+    const tenantId = request.user.tenantId;
+
+    if (!tenantId) {
+      throw new ForbiddenError('Nenhum tenant selecionado.');
+    }
 
     const now = new Date();
-    const period = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+    const currentPeriod = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
 
     const consumption = await prisma.tenantConsumption.findUnique({
       where: {
-        tenantId_period_metric: { tenantId, period, metric },
+        tenantId_period_metric: {
+          tenantId,
+          period: currentPeriod,
+          metric,
+        },
       },
     });
 
-    if (!consumption) return; // No consumption record, no limit
-    if (consumption.limit === null) return; // Unlimited
+    // No consumption record exists — no limit configured, allow
+    if (!consumption) return;
 
-    if (consumption.quantity >= consumption.limit) {
-      return reply.status(429).send({
-        message: `Limite atingido para ${metric}. Upgrade seu plano para continuar.`,
-        metric,
-        used: consumption.quantity,
-        limit: consumption.limit,
-      });
+    // No limit set — unlimited, allow
+    if (consumption.limit === null) return;
+
+    // Check if usage has reached the limit
+    if (consumption.used >= consumption.limit) {
+      throw new ForbiddenError(
+        `Limite atingido para ${metric}. Upgrade seu plano.`,
+      );
     }
   };
 }

@@ -1,54 +1,46 @@
 import type { FastifyInstance } from 'fastify';
 import { createModuleMiddleware } from '@/http/middlewares/tenant/verify-module';
-import { rateLimitConfig } from '@/config/rate-limits';
-import rateLimit from '@fastify/rate-limit';
-import { createTerminalController } from './v1-create-terminal.controller';
-import { listTerminalsController } from './v1-list-terminals.controller';
-import { updateTerminalController } from './v1-update-terminal.controller';
-import { deleteTerminalController } from './v1-delete-terminal.controller';
-import { openSessionController } from './v1-open-session.controller';
-import { closeSessionController } from './v1-close-session.controller';
-import { listSessionsController } from './v1-list-sessions.controller';
-import { createTransactionController } from './v1-create-transaction.controller';
-import { cancelTransactionController } from './v1-cancel-transaction.controller';
-import { listTransactionsController } from './v1-list-transactions.controller';
-import { cashMovementController } from './v1-cash-movement.controller';
+
+// Terminals
+import { v1CreateTerminalController } from './terminals/v1-create-terminal.controller';
+import { v1ListTerminalsController } from './terminals/v1-list-terminals.controller';
+import { v1UpdateTerminalController } from './terminals/v1-update-terminal.controller';
+import { v1DeleteTerminalController } from './terminals/v1-delete-terminal.controller';
+
+// Sessions
+import { v1OpenSessionController } from './sessions/v1-open-session.controller';
+import { v1CloseSessionController } from './sessions/v1-close-session.controller';
+import { v1GetActiveSessionController } from './sessions/v1-get-active-session.controller';
+import { v1ListSessionsController } from './sessions/v1-list-sessions.controller';
+
+// Transactions
+import { v1CreateTransactionController } from './transactions/v1-create-transaction.controller';
+import { v1CancelTransactionController } from './transactions/v1-cancel-transaction.controller';
+import { v1ListTransactionsController } from './transactions/v1-list-transactions.controller';
+
+// Cash
+import { v1CashMovementController } from './cash/v1-cash-movement.controller';
 
 export async function posRoutes(app: FastifyInstance) {
   app.addHook('onRequest', createModuleMiddleware('SALES'));
 
-  // Admin routes with elevated rate limit (delete)
-  app.register(
-    async (adminApp) => {
-      adminApp.register(rateLimit, rateLimitConfig.admin);
-      adminApp.register(deleteTerminalController);
-    },
-    { prefix: '' },
-  );
+  // Terminals
+  await app.register(v1ListTerminalsController);
+  await app.register(v1CreateTerminalController);
+  await app.register(v1UpdateTerminalController);
+  await app.register(v1DeleteTerminalController);
 
-  // Mutation routes
-  app.register(
-    async (mutationApp) => {
-      mutationApp.register(rateLimit, rateLimitConfig.mutation);
-      mutationApp.register(createTerminalController);
-      mutationApp.register(updateTerminalController);
-      mutationApp.register(openSessionController);
-      mutationApp.register(closeSessionController);
-      mutationApp.register(createTransactionController);
-      mutationApp.register(cancelTransactionController);
-      mutationApp.register(cashMovementController);
-    },
-    { prefix: '' },
-  );
+  // Sessions
+  await app.register(v1OpenSessionController);
+  await app.register(v1CloseSessionController);
+  await app.register(v1GetActiveSessionController);
+  await app.register(v1ListSessionsController);
 
-  // Query routes
-  app.register(
-    async (queryApp) => {
-      queryApp.register(rateLimit, rateLimitConfig.query);
-      queryApp.register(listTerminalsController);
-      queryApp.register(listSessionsController);
-      queryApp.register(listTransactionsController);
-    },
-    { prefix: '' },
-  );
+  // Transactions
+  await app.register(v1CreateTransactionController);
+  await app.register(v1CancelTransactionController);
+  await app.register(v1ListTransactionsController);
+
+  // Cash
+  await app.register(v1CashMovementController);
 }

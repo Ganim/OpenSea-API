@@ -1,4 +1,6 @@
-import { ListBidsUseCase } from '../list-bids';
+import { PrismaBidsRepository } from '@/repositories/sales/prisma/prisma-bids-repository';
+import { ListBidsUseCase } from '@/use-cases/sales/bids/list-bids';
+
 export function makeListBidsUseCase() {
-  return new ListBidsUseCase();
+  return new ListBidsUseCase(new PrismaBidsRepository());
 }

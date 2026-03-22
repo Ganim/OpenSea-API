@@ -47,9 +47,9 @@ export type CrmActivityMinAggregateOutputType = {
   completedAt: Date | null
   duration: number | null
   userId: string | null
-  deletedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
+  deletedAt: Date | null
 }
 
 export type CrmActivityMaxAggregateOutputType = {
@@ -65,9 +65,9 @@ export type CrmActivityMaxAggregateOutputType = {
   completedAt: Date | null
   duration: number | null
   userId: string | null
-  deletedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
+  deletedAt: Date | null
 }
 
 export type CrmActivityCountAggregateOutputType = {
@@ -83,9 +83,9 @@ export type CrmActivityCountAggregateOutputType = {
   completedAt: number
   duration: number
   userId: number
-  deletedAt: number
   createdAt: number
   updatedAt: number
+  deletedAt: number
   _all: number
 }
 
@@ -111,9 +111,9 @@ export type CrmActivityMinAggregateInputType = {
   completedAt?: true
   duration?: true
   userId?: true
-  deletedAt?: true
   createdAt?: true
   updatedAt?: true
+  deletedAt?: true
 }
 
 export type CrmActivityMaxAggregateInputType = {
@@ -129,9 +129,9 @@ export type CrmActivityMaxAggregateInputType = {
   completedAt?: true
   duration?: true
   userId?: true
-  deletedAt?: true
   createdAt?: true
   updatedAt?: true
+  deletedAt?: true
 }
 
 export type CrmActivityCountAggregateInputType = {
@@ -147,9 +147,9 @@ export type CrmActivityCountAggregateInputType = {
   completedAt?: true
   duration?: true
   userId?: true
-  deletedAt?: true
   createdAt?: true
   updatedAt?: true
+  deletedAt?: true
   _all?: true
 }
 
@@ -252,9 +252,9 @@ export type CrmActivityGroupByOutputType = {
   completedAt: Date | null
   duration: number | null
   userId: string
-  deletedAt: Date | null
   createdAt: Date
   updatedAt: Date
+  deletedAt: Date | null
   _count: CrmActivityCountAggregateOutputType | null
   _avg: CrmActivityAvgAggregateOutputType | null
   _sum: CrmActivitySumAggregateOutputType | null
@@ -293,9 +293,9 @@ export type CrmActivityWhereInput = {
   completedAt?: Prisma.DateTimeNullableFilter<"CrmActivity"> | Date | string | null
   duration?: Prisma.IntNullableFilter<"CrmActivity"> | number | null
   userId?: Prisma.StringFilter<"CrmActivity"> | string
-  deletedAt?: Prisma.DateTimeNullableFilter<"CrmActivity"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"CrmActivity"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"CrmActivity"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"CrmActivity"> | Date | string | null
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   deal?: Prisma.XOR<Prisma.CrmDealNullableScalarRelationFilter, Prisma.CrmDealWhereInput> | null
   contact?: Prisma.XOR<Prisma.CrmContactNullableScalarRelationFilter, Prisma.CrmContactWhereInput> | null
@@ -315,9 +315,9 @@ export type CrmActivityOrderByWithRelationInput = {
   completedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   duration?: Prisma.SortOrderInput | Prisma.SortOrder
   userId?: Prisma.SortOrder
-  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   tenant?: Prisma.TenantOrderByWithRelationInput
   deal?: Prisma.CrmDealOrderByWithRelationInput
   contact?: Prisma.CrmContactOrderByWithRelationInput
@@ -340,9 +340,9 @@ export type CrmActivityWhereUniqueInput = Prisma.AtLeast<{
   completedAt?: Prisma.DateTimeNullableFilter<"CrmActivity"> | Date | string | null
   duration?: Prisma.IntNullableFilter<"CrmActivity"> | number | null
   userId?: Prisma.StringFilter<"CrmActivity"> | string
-  deletedAt?: Prisma.DateTimeNullableFilter<"CrmActivity"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"CrmActivity"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"CrmActivity"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"CrmActivity"> | Date | string | null
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   deal?: Prisma.XOR<Prisma.CrmDealNullableScalarRelationFilter, Prisma.CrmDealWhereInput> | null
   contact?: Prisma.XOR<Prisma.CrmContactNullableScalarRelationFilter, Prisma.CrmContactWhereInput> | null
@@ -362,9 +362,9 @@ export type CrmActivityOrderByWithAggregationInput = {
   completedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   duration?: Prisma.SortOrderInput | Prisma.SortOrder
   userId?: Prisma.SortOrder
-  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.CrmActivityCountOrderByAggregateInput
   _avg?: Prisma.CrmActivityAvgOrderByAggregateInput
   _max?: Prisma.CrmActivityMaxOrderByAggregateInput
@@ -388,9 +388,9 @@ export type CrmActivityScalarWhereWithAggregatesInput = {
   completedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"CrmActivity"> | Date | string | null
   duration?: Prisma.IntNullableWithAggregatesFilter<"CrmActivity"> | number | null
   userId?: Prisma.StringWithAggregatesFilter<"CrmActivity"> | string
-  deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"CrmActivity"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"CrmActivity"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"CrmActivity"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"CrmActivity"> | Date | string | null
 }
 
 export type CrmActivityCreateInput = {
@@ -402,9 +402,9 @@ export type CrmActivityCreateInput = {
   dueDate?: Date | string | null
   completedAt?: Date | string | null
   duration?: number | null
-  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutCrmActivitiesInput
   deal?: Prisma.CrmDealCreateNestedOneWithoutActivitiesInput
   contact?: Prisma.CrmContactCreateNestedOneWithoutCrmActivitiesInput
@@ -424,9 +424,9 @@ export type CrmActivityUncheckedCreateInput = {
   completedAt?: Date | string | null
   duration?: number | null
   userId: string
-  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
 }
 
 export type CrmActivityUpdateInput = {
@@ -438,9 +438,9 @@ export type CrmActivityUpdateInput = {
   dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutCrmActivitiesNestedInput
   deal?: Prisma.CrmDealUpdateOneWithoutActivitiesNestedInput
   contact?: Prisma.CrmContactUpdateOneWithoutCrmActivitiesNestedInput
@@ -460,9 +460,9 @@ export type CrmActivityUncheckedUpdateInput = {
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type CrmActivityCreateManyInput = {
@@ -478,9 +478,9 @@ export type CrmActivityCreateManyInput = {
   completedAt?: Date | string | null
   duration?: number | null
   userId: string
-  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
 }
 
 export type CrmActivityUpdateManyMutationInput = {
@@ -492,9 +492,9 @@ export type CrmActivityUpdateManyMutationInput = {
   dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type CrmActivityUncheckedUpdateManyInput = {
@@ -510,9 +510,9 @@ export type CrmActivityUncheckedUpdateManyInput = {
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type CrmActivityListRelationFilter = {
@@ -538,9 +538,9 @@ export type CrmActivityCountOrderByAggregateInput = {
   completedAt?: Prisma.SortOrder
   duration?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
 }
 
 export type CrmActivityAvgOrderByAggregateInput = {
@@ -560,9 +560,9 @@ export type CrmActivityMaxOrderByAggregateInput = {
   completedAt?: Prisma.SortOrder
   duration?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
 }
 
 export type CrmActivityMinOrderByAggregateInput = {
@@ -578,9 +578,9 @@ export type CrmActivityMinOrderByAggregateInput = {
   completedAt?: Prisma.SortOrder
   duration?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
 }
 
 export type CrmActivitySumOrderByAggregateInput = {
@@ -772,9 +772,9 @@ export type CrmActivityCreateWithoutUserInput = {
   dueDate?: Date | string | null
   completedAt?: Date | string | null
   duration?: number | null
-  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutCrmActivitiesInput
   deal?: Prisma.CrmDealCreateNestedOneWithoutActivitiesInput
   contact?: Prisma.CrmContactCreateNestedOneWithoutCrmActivitiesInput
@@ -792,9 +792,9 @@ export type CrmActivityUncheckedCreateWithoutUserInput = {
   dueDate?: Date | string | null
   completedAt?: Date | string | null
   duration?: number | null
-  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
 }
 
 export type CrmActivityCreateOrConnectWithoutUserInput = {
@@ -839,9 +839,9 @@ export type CrmActivityScalarWhereInput = {
   completedAt?: Prisma.DateTimeNullableFilter<"CrmActivity"> | Date | string | null
   duration?: Prisma.IntNullableFilter<"CrmActivity"> | number | null
   userId?: Prisma.StringFilter<"CrmActivity"> | string
-  deletedAt?: Prisma.DateTimeNullableFilter<"CrmActivity"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"CrmActivity"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"CrmActivity"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"CrmActivity"> | Date | string | null
 }
 
 export type CrmActivityCreateWithoutContactInput = {
@@ -853,9 +853,9 @@ export type CrmActivityCreateWithoutContactInput = {
   dueDate?: Date | string | null
   completedAt?: Date | string | null
   duration?: number | null
-  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutCrmActivitiesInput
   deal?: Prisma.CrmDealCreateNestedOneWithoutActivitiesInput
   user: Prisma.UserCreateNestedOneWithoutCrmActivitiesInput
@@ -873,9 +873,9 @@ export type CrmActivityUncheckedCreateWithoutContactInput = {
   completedAt?: Date | string | null
   duration?: number | null
   userId: string
-  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
 }
 
 export type CrmActivityCreateOrConnectWithoutContactInput = {
@@ -913,9 +913,9 @@ export type CrmActivityCreateWithoutDealInput = {
   dueDate?: Date | string | null
   completedAt?: Date | string | null
   duration?: number | null
-  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutCrmActivitiesInput
   contact?: Prisma.CrmContactCreateNestedOneWithoutCrmActivitiesInput
   user: Prisma.UserCreateNestedOneWithoutCrmActivitiesInput
@@ -933,9 +933,9 @@ export type CrmActivityUncheckedCreateWithoutDealInput = {
   completedAt?: Date | string | null
   duration?: number | null
   userId: string
-  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
 }
 
 export type CrmActivityCreateOrConnectWithoutDealInput = {
@@ -973,9 +973,9 @@ export type CrmActivityCreateWithoutTenantInput = {
   dueDate?: Date | string | null
   completedAt?: Date | string | null
   duration?: number | null
-  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   deal?: Prisma.CrmDealCreateNestedOneWithoutActivitiesInput
   contact?: Prisma.CrmContactCreateNestedOneWithoutCrmActivitiesInput
   user: Prisma.UserCreateNestedOneWithoutCrmActivitiesInput
@@ -993,9 +993,9 @@ export type CrmActivityUncheckedCreateWithoutTenantInput = {
   completedAt?: Date | string | null
   duration?: number | null
   userId: string
-  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
 }
 
 export type CrmActivityCreateOrConnectWithoutTenantInput = {
@@ -1036,9 +1036,9 @@ export type CrmActivityCreateManyUserInput = {
   dueDate?: Date | string | null
   completedAt?: Date | string | null
   duration?: number | null
-  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
 }
 
 export type CrmActivityUpdateWithoutUserInput = {
@@ -1050,9 +1050,9 @@ export type CrmActivityUpdateWithoutUserInput = {
   dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutCrmActivitiesNestedInput
   deal?: Prisma.CrmDealUpdateOneWithoutActivitiesNestedInput
   contact?: Prisma.CrmContactUpdateOneWithoutCrmActivitiesNestedInput
@@ -1070,9 +1070,9 @@ export type CrmActivityUncheckedUpdateWithoutUserInput = {
   dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type CrmActivityUncheckedUpdateManyWithoutUserInput = {
@@ -1087,9 +1087,9 @@ export type CrmActivityUncheckedUpdateManyWithoutUserInput = {
   dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type CrmActivityCreateManyContactInput = {
@@ -1104,9 +1104,9 @@ export type CrmActivityCreateManyContactInput = {
   completedAt?: Date | string | null
   duration?: number | null
   userId: string
-  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
 }
 
 export type CrmActivityUpdateWithoutContactInput = {
@@ -1118,9 +1118,9 @@ export type CrmActivityUpdateWithoutContactInput = {
   dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutCrmActivitiesNestedInput
   deal?: Prisma.CrmDealUpdateOneWithoutActivitiesNestedInput
   user?: Prisma.UserUpdateOneRequiredWithoutCrmActivitiesNestedInput
@@ -1138,9 +1138,9 @@ export type CrmActivityUncheckedUpdateWithoutContactInput = {
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type CrmActivityUncheckedUpdateManyWithoutContactInput = {
@@ -1155,9 +1155,9 @@ export type CrmActivityUncheckedUpdateManyWithoutContactInput = {
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type CrmActivityCreateManyDealInput = {
@@ -1172,9 +1172,9 @@ export type CrmActivityCreateManyDealInput = {
   completedAt?: Date | string | null
   duration?: number | null
   userId: string
-  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
 }
 
 export type CrmActivityUpdateWithoutDealInput = {
@@ -1186,9 +1186,9 @@ export type CrmActivityUpdateWithoutDealInput = {
   dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutCrmActivitiesNestedInput
   contact?: Prisma.CrmContactUpdateOneWithoutCrmActivitiesNestedInput
   user?: Prisma.UserUpdateOneRequiredWithoutCrmActivitiesNestedInput
@@ -1206,9 +1206,9 @@ export type CrmActivityUncheckedUpdateWithoutDealInput = {
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type CrmActivityUncheckedUpdateManyWithoutDealInput = {
@@ -1223,9 +1223,9 @@ export type CrmActivityUncheckedUpdateManyWithoutDealInput = {
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type CrmActivityCreateManyTenantInput = {
@@ -1240,9 +1240,9 @@ export type CrmActivityCreateManyTenantInput = {
   completedAt?: Date | string | null
   duration?: number | null
   userId: string
-  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
 }
 
 export type CrmActivityUpdateWithoutTenantInput = {
@@ -1254,9 +1254,9 @@ export type CrmActivityUpdateWithoutTenantInput = {
   dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deal?: Prisma.CrmDealUpdateOneWithoutActivitiesNestedInput
   contact?: Prisma.CrmContactUpdateOneWithoutCrmActivitiesNestedInput
   user?: Prisma.UserUpdateOneRequiredWithoutCrmActivitiesNestedInput
@@ -1274,9 +1274,9 @@ export type CrmActivityUncheckedUpdateWithoutTenantInput = {
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type CrmActivityUncheckedUpdateManyWithoutTenantInput = {
@@ -1291,9 +1291,9 @@ export type CrmActivityUncheckedUpdateManyWithoutTenantInput = {
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 
@@ -1311,9 +1311,9 @@ export type CrmActivitySelect<ExtArgs extends runtime.Types.Extensions.InternalA
   completedAt?: boolean
   duration?: boolean
   userId?: boolean
-  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  deletedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   deal?: boolean | Prisma.CrmActivity$dealArgs<ExtArgs>
   contact?: boolean | Prisma.CrmActivity$contactArgs<ExtArgs>
@@ -1333,9 +1333,9 @@ export type CrmActivitySelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   completedAt?: boolean
   duration?: boolean
   userId?: boolean
-  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  deletedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   deal?: boolean | Prisma.CrmActivity$dealArgs<ExtArgs>
   contact?: boolean | Prisma.CrmActivity$contactArgs<ExtArgs>
@@ -1355,9 +1355,9 @@ export type CrmActivitySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   completedAt?: boolean
   duration?: boolean
   userId?: boolean
-  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  deletedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   deal?: boolean | Prisma.CrmActivity$dealArgs<ExtArgs>
   contact?: boolean | Prisma.CrmActivity$contactArgs<ExtArgs>
@@ -1377,12 +1377,12 @@ export type CrmActivitySelectScalar = {
   completedAt?: boolean
   duration?: boolean
   userId?: boolean
-  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  deletedAt?: boolean
 }
 
-export type CrmActivityOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "dealId" | "contactId" | "type" | "title" | "description" | "status" | "dueDate" | "completedAt" | "duration" | "userId" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["crmActivity"]>
+export type CrmActivityOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "dealId" | "contactId" | "type" | "title" | "description" | "status" | "dueDate" | "completedAt" | "duration" | "userId" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["crmActivity"]>
 export type CrmActivityInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   deal?: boolean | Prisma.CrmActivity$dealArgs<ExtArgs>
@@ -1423,9 +1423,9 @@ export type $CrmActivityPayload<ExtArgs extends runtime.Types.Extensions.Interna
     completedAt: Date | null
     duration: number | null
     userId: string
-    deletedAt: Date | null
     createdAt: Date
     updatedAt: Date
+    deletedAt: Date | null
   }, ExtArgs["result"]["crmActivity"]>
   composites: {}
 }
@@ -1865,9 +1865,9 @@ export interface CrmActivityFieldRefs {
   readonly completedAt: Prisma.FieldRef<"CrmActivity", 'DateTime'>
   readonly duration: Prisma.FieldRef<"CrmActivity", 'Int'>
   readonly userId: Prisma.FieldRef<"CrmActivity", 'String'>
-  readonly deletedAt: Prisma.FieldRef<"CrmActivity", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"CrmActivity", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"CrmActivity", 'DateTime'>
+  readonly deletedAt: Prisma.FieldRef<"CrmActivity", 'DateTime'>
 }
     
 

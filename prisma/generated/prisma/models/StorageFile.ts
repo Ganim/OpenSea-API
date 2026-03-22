@@ -377,22 +377,12 @@ export type StorageFileWhereInput = {
   versions?: Prisma.StorageFileVersionListRelationFilter
   shareLinks?: Prisma.StorageShareLinkListRelationFilter
   cardAttachments?: Prisma.CardAttachmentListRelationFilter
-  catalogCoverImages?: Prisma.CatalogListRelationFilter
-  catalogExportFiles?: Prisma.CatalogExportListRelationFilter
-  tenantBrandLogos?: Prisma.TenantBrandListRelationFilter
-  tenantBrandLogoIcons?: Prisma.TenantBrandListRelationFilter
-  contentTemplatePreviews?: Prisma.ContentTemplateListRelationFilter
-  generatedContentFiles?: Prisma.GeneratedContentListRelationFilter
-  generatedContentThumbs?: Prisma.GeneratedContentListRelationFilter
-  mockupClientLogos?: Prisma.ProductMockupListRelationFilter
-  mockupResultFiles?: Prisma.ProductMockupListRelationFilter
-  certificatePfxFiles?: Prisma.DigitalCertificateListRelationFilter
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeListRelationFilter
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeListRelationFilter
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerListRelationFilter
-  analyticsReportLastFiles?: Prisma.AnalyticsReportListRelationFilter
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationListRelationFilter
-  posVisitSignatures?: Prisma.PosVisitLogListRelationFilter
+  bidEditalFiles?: Prisma.BidListRelationFilter
+  bidEtpFiles?: Prisma.BidListRelationFilter
+  bidTrFiles?: Prisma.BidListRelationFilter
+  bidProposalFiles?: Prisma.BidProposalListRelationFilter
+  bidDocumentFiles?: Prisma.BidDocumentListRelationFilter
+  bidContractFiles?: Prisma.BidContractListRelationFilter
 }
 
 export type StorageFileOrderByWithRelationInput = {
@@ -425,22 +415,12 @@ export type StorageFileOrderByWithRelationInput = {
   versions?: Prisma.StorageFileVersionOrderByRelationAggregateInput
   shareLinks?: Prisma.StorageShareLinkOrderByRelationAggregateInput
   cardAttachments?: Prisma.CardAttachmentOrderByRelationAggregateInput
-  catalogCoverImages?: Prisma.CatalogOrderByRelationAggregateInput
-  catalogExportFiles?: Prisma.CatalogExportOrderByRelationAggregateInput
-  tenantBrandLogos?: Prisma.TenantBrandOrderByRelationAggregateInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandOrderByRelationAggregateInput
-  contentTemplatePreviews?: Prisma.ContentTemplateOrderByRelationAggregateInput
-  generatedContentFiles?: Prisma.GeneratedContentOrderByRelationAggregateInput
-  generatedContentThumbs?: Prisma.GeneratedContentOrderByRelationAggregateInput
-  mockupClientLogos?: Prisma.ProductMockupOrderByRelationAggregateInput
-  mockupResultFiles?: Prisma.ProductMockupOrderByRelationAggregateInput
-  certificatePfxFiles?: Prisma.DigitalCertificateOrderByRelationAggregateInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeOrderByRelationAggregateInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeOrderByRelationAggregateInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerOrderByRelationAggregateInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportOrderByRelationAggregateInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationOrderByRelationAggregateInput
-  posVisitSignatures?: Prisma.PosVisitLogOrderByRelationAggregateInput
+  bidEditalFiles?: Prisma.BidOrderByRelationAggregateInput
+  bidEtpFiles?: Prisma.BidOrderByRelationAggregateInput
+  bidTrFiles?: Prisma.BidOrderByRelationAggregateInput
+  bidProposalFiles?: Prisma.BidProposalOrderByRelationAggregateInput
+  bidDocumentFiles?: Prisma.BidDocumentOrderByRelationAggregateInput
+  bidContractFiles?: Prisma.BidContractOrderByRelationAggregateInput
 }
 
 export type StorageFileWhereUniqueInput = Prisma.AtLeast<{
@@ -477,22 +457,12 @@ export type StorageFileWhereUniqueInput = Prisma.AtLeast<{
   versions?: Prisma.StorageFileVersionListRelationFilter
   shareLinks?: Prisma.StorageShareLinkListRelationFilter
   cardAttachments?: Prisma.CardAttachmentListRelationFilter
-  catalogCoverImages?: Prisma.CatalogListRelationFilter
-  catalogExportFiles?: Prisma.CatalogExportListRelationFilter
-  tenantBrandLogos?: Prisma.TenantBrandListRelationFilter
-  tenantBrandLogoIcons?: Prisma.TenantBrandListRelationFilter
-  contentTemplatePreviews?: Prisma.ContentTemplateListRelationFilter
-  generatedContentFiles?: Prisma.GeneratedContentListRelationFilter
-  generatedContentThumbs?: Prisma.GeneratedContentListRelationFilter
-  mockupClientLogos?: Prisma.ProductMockupListRelationFilter
-  mockupResultFiles?: Prisma.ProductMockupListRelationFilter
-  certificatePfxFiles?: Prisma.DigitalCertificateListRelationFilter
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeListRelationFilter
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeListRelationFilter
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerListRelationFilter
-  analyticsReportLastFiles?: Prisma.AnalyticsReportListRelationFilter
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationListRelationFilter
-  posVisitSignatures?: Prisma.PosVisitLogListRelationFilter
+  bidEditalFiles?: Prisma.BidListRelationFilter
+  bidEtpFiles?: Prisma.BidListRelationFilter
+  bidTrFiles?: Prisma.BidListRelationFilter
+  bidProposalFiles?: Prisma.BidProposalListRelationFilter
+  bidDocumentFiles?: Prisma.BidDocumentListRelationFilter
+  bidContractFiles?: Prisma.BidContractListRelationFilter
 }, "id" | "storage_files_path_tenant_unique">
 
 export type StorageFileOrderByWithAggregationInput = {
@@ -585,22 +555,12 @@ export type StorageFileCreateInput = {
   versions?: Prisma.StorageFileVersionCreateNestedManyWithoutFileInput
   shareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutFileInput
   cardAttachments?: Prisma.CardAttachmentCreateNestedManyWithoutFileInput
-  catalogCoverImages?: Prisma.CatalogCreateNestedManyWithoutCoverImageInput
-  catalogExportFiles?: Prisma.CatalogExportCreateNestedManyWithoutFileInput
-  tenantBrandLogos?: Prisma.TenantBrandCreateNestedManyWithoutLogoInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandCreateNestedManyWithoutLogoIconInput
-  contentTemplatePreviews?: Prisma.ContentTemplateCreateNestedManyWithoutPreviewFileInput
-  generatedContentFiles?: Prisma.GeneratedContentCreateNestedManyWithoutFileInput
-  generatedContentThumbs?: Prisma.GeneratedContentCreateNestedManyWithoutThumbnailInput
-  mockupClientLogos?: Prisma.ProductMockupCreateNestedManyWithoutClientLogoInput
-  mockupResultFiles?: Prisma.ProductMockupCreateNestedManyWithoutResultFileInput
-  certificatePfxFiles?: Prisma.DigitalCertificateCreateNestedManyWithoutPfxFileInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeCreateNestedManyWithoutDocumentFileInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeCreateNestedManyWithoutSignedFileInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutSignatureImageInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportCreateNestedManyWithoutLastFileInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationCreateNestedManyWithoutFileInput
-  posVisitSignatures?: Prisma.PosVisitLogCreateNestedManyWithoutSignatureFileInput
+  bidEditalFiles?: Prisma.BidCreateNestedManyWithoutEditalFileInput
+  bidEtpFiles?: Prisma.BidCreateNestedManyWithoutEtpFileInput
+  bidTrFiles?: Prisma.BidCreateNestedManyWithoutTrFileInput
+  bidProposalFiles?: Prisma.BidProposalCreateNestedManyWithoutProposalFileInput
+  bidDocumentFiles?: Prisma.BidDocumentCreateNestedManyWithoutFileInput
+  bidContractFiles?: Prisma.BidContractCreateNestedManyWithoutContractFileInput
 }
 
 export type StorageFileUncheckedCreateInput = {
@@ -631,22 +591,12 @@ export type StorageFileUncheckedCreateInput = {
   versions?: Prisma.StorageFileVersionUncheckedCreateNestedManyWithoutFileInput
   shareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutFileInput
   cardAttachments?: Prisma.CardAttachmentUncheckedCreateNestedManyWithoutFileInput
-  catalogCoverImages?: Prisma.CatalogUncheckedCreateNestedManyWithoutCoverImageInput
-  catalogExportFiles?: Prisma.CatalogExportUncheckedCreateNestedManyWithoutFileInput
-  tenantBrandLogos?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutLogoInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutLogoIconInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutPreviewFileInput
-  generatedContentFiles?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutFileInput
-  generatedContentThumbs?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutThumbnailInput
-  mockupClientLogos?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutClientLogoInput
-  mockupResultFiles?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutResultFileInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUncheckedCreateNestedManyWithoutPfxFileInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutDocumentFileInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutSignedFileInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutSignatureImageInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutLastFileInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedCreateNestedManyWithoutFileInput
-  posVisitSignatures?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutSignatureFileInput
+  bidEditalFiles?: Prisma.BidUncheckedCreateNestedManyWithoutEditalFileInput
+  bidEtpFiles?: Prisma.BidUncheckedCreateNestedManyWithoutEtpFileInput
+  bidTrFiles?: Prisma.BidUncheckedCreateNestedManyWithoutTrFileInput
+  bidProposalFiles?: Prisma.BidProposalUncheckedCreateNestedManyWithoutProposalFileInput
+  bidDocumentFiles?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutFileInput
+  bidContractFiles?: Prisma.BidContractUncheckedCreateNestedManyWithoutContractFileInput
 }
 
 export type StorageFileUpdateInput = {
@@ -677,22 +627,12 @@ export type StorageFileUpdateInput = {
   versions?: Prisma.StorageFileVersionUpdateManyWithoutFileNestedInput
   shareLinks?: Prisma.StorageShareLinkUpdateManyWithoutFileNestedInput
   cardAttachments?: Prisma.CardAttachmentUpdateManyWithoutFileNestedInput
-  catalogCoverImages?: Prisma.CatalogUpdateManyWithoutCoverImageNestedInput
-  catalogExportFiles?: Prisma.CatalogExportUpdateManyWithoutFileNestedInput
-  tenantBrandLogos?: Prisma.TenantBrandUpdateManyWithoutLogoNestedInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUpdateManyWithoutLogoIconNestedInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUpdateManyWithoutPreviewFileNestedInput
-  generatedContentFiles?: Prisma.GeneratedContentUpdateManyWithoutFileNestedInput
-  generatedContentThumbs?: Prisma.GeneratedContentUpdateManyWithoutThumbnailNestedInput
-  mockupClientLogos?: Prisma.ProductMockupUpdateManyWithoutClientLogoNestedInput
-  mockupResultFiles?: Prisma.ProductMockupUpdateManyWithoutResultFileNestedInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUpdateManyWithoutPfxFileNestedInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUpdateManyWithoutDocumentFileNestedInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUpdateManyWithoutSignedFileNestedInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutSignatureImageNestedInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUpdateManyWithoutLastFileNestedInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUpdateManyWithoutFileNestedInput
-  posVisitSignatures?: Prisma.PosVisitLogUpdateManyWithoutSignatureFileNestedInput
+  bidEditalFiles?: Prisma.BidUpdateManyWithoutEditalFileNestedInput
+  bidEtpFiles?: Prisma.BidUpdateManyWithoutEtpFileNestedInput
+  bidTrFiles?: Prisma.BidUpdateManyWithoutTrFileNestedInput
+  bidProposalFiles?: Prisma.BidProposalUpdateManyWithoutProposalFileNestedInput
+  bidDocumentFiles?: Prisma.BidDocumentUpdateManyWithoutFileNestedInput
+  bidContractFiles?: Prisma.BidContractUpdateManyWithoutContractFileNestedInput
 }
 
 export type StorageFileUncheckedUpdateInput = {
@@ -723,22 +663,12 @@ export type StorageFileUncheckedUpdateInput = {
   versions?: Prisma.StorageFileVersionUncheckedUpdateManyWithoutFileNestedInput
   shareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutFileNestedInput
   cardAttachments?: Prisma.CardAttachmentUncheckedUpdateManyWithoutFileNestedInput
-  catalogCoverImages?: Prisma.CatalogUncheckedUpdateManyWithoutCoverImageNestedInput
-  catalogExportFiles?: Prisma.CatalogExportUncheckedUpdateManyWithoutFileNestedInput
-  tenantBrandLogos?: Prisma.TenantBrandUncheckedUpdateManyWithoutLogoNestedInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUncheckedUpdateManyWithoutLogoIconNestedInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUncheckedUpdateManyWithoutPreviewFileNestedInput
-  generatedContentFiles?: Prisma.GeneratedContentUncheckedUpdateManyWithoutFileNestedInput
-  generatedContentThumbs?: Prisma.GeneratedContentUncheckedUpdateManyWithoutThumbnailNestedInput
-  mockupClientLogos?: Prisma.ProductMockupUncheckedUpdateManyWithoutClientLogoNestedInput
-  mockupResultFiles?: Prisma.ProductMockupUncheckedUpdateManyWithoutResultFileNestedInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUncheckedUpdateManyWithoutPfxFileNestedInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutDocumentFileNestedInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutSignedFileNestedInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutSignatureImageNestedInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutLastFileNestedInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedUpdateManyWithoutFileNestedInput
-  posVisitSignatures?: Prisma.PosVisitLogUncheckedUpdateManyWithoutSignatureFileNestedInput
+  bidEditalFiles?: Prisma.BidUncheckedUpdateManyWithoutEditalFileNestedInput
+  bidEtpFiles?: Prisma.BidUncheckedUpdateManyWithoutEtpFileNestedInput
+  bidTrFiles?: Prisma.BidUncheckedUpdateManyWithoutTrFileNestedInput
+  bidProposalFiles?: Prisma.BidProposalUncheckedUpdateManyWithoutProposalFileNestedInput
+  bidDocumentFiles?: Prisma.BidDocumentUncheckedUpdateManyWithoutFileNestedInput
+  bidContractFiles?: Prisma.BidContractUncheckedUpdateManyWithoutContractFileNestedInput
 }
 
 export type StorageFileCreateManyInput = {
@@ -1067,258 +997,98 @@ export type StorageFileUpdateOneRequiredWithoutCardAttachmentsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.StorageFileUpdateToOneWithWhereWithoutCardAttachmentsInput, Prisma.StorageFileUpdateWithoutCardAttachmentsInput>, Prisma.StorageFileUncheckedUpdateWithoutCardAttachmentsInput>
 }
 
-export type StorageFileCreateNestedOneWithoutCatalogCoverImagesInput = {
-  create?: Prisma.XOR<Prisma.StorageFileCreateWithoutCatalogCoverImagesInput, Prisma.StorageFileUncheckedCreateWithoutCatalogCoverImagesInput>
-  connectOrCreate?: Prisma.StorageFileCreateOrConnectWithoutCatalogCoverImagesInput
+export type StorageFileCreateNestedOneWithoutBidEditalFilesInput = {
+  create?: Prisma.XOR<Prisma.StorageFileCreateWithoutBidEditalFilesInput, Prisma.StorageFileUncheckedCreateWithoutBidEditalFilesInput>
+  connectOrCreate?: Prisma.StorageFileCreateOrConnectWithoutBidEditalFilesInput
   connect?: Prisma.StorageFileWhereUniqueInput
 }
 
-export type StorageFileUpdateOneWithoutCatalogCoverImagesNestedInput = {
-  create?: Prisma.XOR<Prisma.StorageFileCreateWithoutCatalogCoverImagesInput, Prisma.StorageFileUncheckedCreateWithoutCatalogCoverImagesInput>
-  connectOrCreate?: Prisma.StorageFileCreateOrConnectWithoutCatalogCoverImagesInput
-  upsert?: Prisma.StorageFileUpsertWithoutCatalogCoverImagesInput
+export type StorageFileCreateNestedOneWithoutBidEtpFilesInput = {
+  create?: Prisma.XOR<Prisma.StorageFileCreateWithoutBidEtpFilesInput, Prisma.StorageFileUncheckedCreateWithoutBidEtpFilesInput>
+  connectOrCreate?: Prisma.StorageFileCreateOrConnectWithoutBidEtpFilesInput
+  connect?: Prisma.StorageFileWhereUniqueInput
+}
+
+export type StorageFileCreateNestedOneWithoutBidTrFilesInput = {
+  create?: Prisma.XOR<Prisma.StorageFileCreateWithoutBidTrFilesInput, Prisma.StorageFileUncheckedCreateWithoutBidTrFilesInput>
+  connectOrCreate?: Prisma.StorageFileCreateOrConnectWithoutBidTrFilesInput
+  connect?: Prisma.StorageFileWhereUniqueInput
+}
+
+export type StorageFileUpdateOneWithoutBidEditalFilesNestedInput = {
+  create?: Prisma.XOR<Prisma.StorageFileCreateWithoutBidEditalFilesInput, Prisma.StorageFileUncheckedCreateWithoutBidEditalFilesInput>
+  connectOrCreate?: Prisma.StorageFileCreateOrConnectWithoutBidEditalFilesInput
+  upsert?: Prisma.StorageFileUpsertWithoutBidEditalFilesInput
   disconnect?: Prisma.StorageFileWhereInput | boolean
   delete?: Prisma.StorageFileWhereInput | boolean
   connect?: Prisma.StorageFileWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.StorageFileUpdateToOneWithWhereWithoutCatalogCoverImagesInput, Prisma.StorageFileUpdateWithoutCatalogCoverImagesInput>, Prisma.StorageFileUncheckedUpdateWithoutCatalogCoverImagesInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.StorageFileUpdateToOneWithWhereWithoutBidEditalFilesInput, Prisma.StorageFileUpdateWithoutBidEditalFilesInput>, Prisma.StorageFileUncheckedUpdateWithoutBidEditalFilesInput>
 }
 
-export type StorageFileCreateNestedOneWithoutCatalogExportFilesInput = {
-  create?: Prisma.XOR<Prisma.StorageFileCreateWithoutCatalogExportFilesInput, Prisma.StorageFileUncheckedCreateWithoutCatalogExportFilesInput>
-  connectOrCreate?: Prisma.StorageFileCreateOrConnectWithoutCatalogExportFilesInput
-  connect?: Prisma.StorageFileWhereUniqueInput
-}
-
-export type StorageFileUpdateOneWithoutCatalogExportFilesNestedInput = {
-  create?: Prisma.XOR<Prisma.StorageFileCreateWithoutCatalogExportFilesInput, Prisma.StorageFileUncheckedCreateWithoutCatalogExportFilesInput>
-  connectOrCreate?: Prisma.StorageFileCreateOrConnectWithoutCatalogExportFilesInput
-  upsert?: Prisma.StorageFileUpsertWithoutCatalogExportFilesInput
+export type StorageFileUpdateOneWithoutBidEtpFilesNestedInput = {
+  create?: Prisma.XOR<Prisma.StorageFileCreateWithoutBidEtpFilesInput, Prisma.StorageFileUncheckedCreateWithoutBidEtpFilesInput>
+  connectOrCreate?: Prisma.StorageFileCreateOrConnectWithoutBidEtpFilesInput
+  upsert?: Prisma.StorageFileUpsertWithoutBidEtpFilesInput
   disconnect?: Prisma.StorageFileWhereInput | boolean
   delete?: Prisma.StorageFileWhereInput | boolean
   connect?: Prisma.StorageFileWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.StorageFileUpdateToOneWithWhereWithoutCatalogExportFilesInput, Prisma.StorageFileUpdateWithoutCatalogExportFilesInput>, Prisma.StorageFileUncheckedUpdateWithoutCatalogExportFilesInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.StorageFileUpdateToOneWithWhereWithoutBidEtpFilesInput, Prisma.StorageFileUpdateWithoutBidEtpFilesInput>, Prisma.StorageFileUncheckedUpdateWithoutBidEtpFilesInput>
 }
 
-export type StorageFileCreateNestedOneWithoutTenantBrandLogosInput = {
-  create?: Prisma.XOR<Prisma.StorageFileCreateWithoutTenantBrandLogosInput, Prisma.StorageFileUncheckedCreateWithoutTenantBrandLogosInput>
-  connectOrCreate?: Prisma.StorageFileCreateOrConnectWithoutTenantBrandLogosInput
-  connect?: Prisma.StorageFileWhereUniqueInput
-}
-
-export type StorageFileCreateNestedOneWithoutTenantBrandLogoIconsInput = {
-  create?: Prisma.XOR<Prisma.StorageFileCreateWithoutTenantBrandLogoIconsInput, Prisma.StorageFileUncheckedCreateWithoutTenantBrandLogoIconsInput>
-  connectOrCreate?: Prisma.StorageFileCreateOrConnectWithoutTenantBrandLogoIconsInput
-  connect?: Prisma.StorageFileWhereUniqueInput
-}
-
-export type StorageFileUpdateOneWithoutTenantBrandLogosNestedInput = {
-  create?: Prisma.XOR<Prisma.StorageFileCreateWithoutTenantBrandLogosInput, Prisma.StorageFileUncheckedCreateWithoutTenantBrandLogosInput>
-  connectOrCreate?: Prisma.StorageFileCreateOrConnectWithoutTenantBrandLogosInput
-  upsert?: Prisma.StorageFileUpsertWithoutTenantBrandLogosInput
+export type StorageFileUpdateOneWithoutBidTrFilesNestedInput = {
+  create?: Prisma.XOR<Prisma.StorageFileCreateWithoutBidTrFilesInput, Prisma.StorageFileUncheckedCreateWithoutBidTrFilesInput>
+  connectOrCreate?: Prisma.StorageFileCreateOrConnectWithoutBidTrFilesInput
+  upsert?: Prisma.StorageFileUpsertWithoutBidTrFilesInput
   disconnect?: Prisma.StorageFileWhereInput | boolean
   delete?: Prisma.StorageFileWhereInput | boolean
   connect?: Prisma.StorageFileWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.StorageFileUpdateToOneWithWhereWithoutTenantBrandLogosInput, Prisma.StorageFileUpdateWithoutTenantBrandLogosInput>, Prisma.StorageFileUncheckedUpdateWithoutTenantBrandLogosInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.StorageFileUpdateToOneWithWhereWithoutBidTrFilesInput, Prisma.StorageFileUpdateWithoutBidTrFilesInput>, Prisma.StorageFileUncheckedUpdateWithoutBidTrFilesInput>
 }
 
-export type StorageFileUpdateOneWithoutTenantBrandLogoIconsNestedInput = {
-  create?: Prisma.XOR<Prisma.StorageFileCreateWithoutTenantBrandLogoIconsInput, Prisma.StorageFileUncheckedCreateWithoutTenantBrandLogoIconsInput>
-  connectOrCreate?: Prisma.StorageFileCreateOrConnectWithoutTenantBrandLogoIconsInput
-  upsert?: Prisma.StorageFileUpsertWithoutTenantBrandLogoIconsInput
+export type StorageFileCreateNestedOneWithoutBidProposalFilesInput = {
+  create?: Prisma.XOR<Prisma.StorageFileCreateWithoutBidProposalFilesInput, Prisma.StorageFileUncheckedCreateWithoutBidProposalFilesInput>
+  connectOrCreate?: Prisma.StorageFileCreateOrConnectWithoutBidProposalFilesInput
+  connect?: Prisma.StorageFileWhereUniqueInput
+}
+
+export type StorageFileUpdateOneWithoutBidProposalFilesNestedInput = {
+  create?: Prisma.XOR<Prisma.StorageFileCreateWithoutBidProposalFilesInput, Prisma.StorageFileUncheckedCreateWithoutBidProposalFilesInput>
+  connectOrCreate?: Prisma.StorageFileCreateOrConnectWithoutBidProposalFilesInput
+  upsert?: Prisma.StorageFileUpsertWithoutBidProposalFilesInput
   disconnect?: Prisma.StorageFileWhereInput | boolean
   delete?: Prisma.StorageFileWhereInput | boolean
   connect?: Prisma.StorageFileWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.StorageFileUpdateToOneWithWhereWithoutTenantBrandLogoIconsInput, Prisma.StorageFileUpdateWithoutTenantBrandLogoIconsInput>, Prisma.StorageFileUncheckedUpdateWithoutTenantBrandLogoIconsInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.StorageFileUpdateToOneWithWhereWithoutBidProposalFilesInput, Prisma.StorageFileUpdateWithoutBidProposalFilesInput>, Prisma.StorageFileUncheckedUpdateWithoutBidProposalFilesInput>
 }
 
-export type StorageFileCreateNestedOneWithoutContentTemplatePreviewsInput = {
-  create?: Prisma.XOR<Prisma.StorageFileCreateWithoutContentTemplatePreviewsInput, Prisma.StorageFileUncheckedCreateWithoutContentTemplatePreviewsInput>
-  connectOrCreate?: Prisma.StorageFileCreateOrConnectWithoutContentTemplatePreviewsInput
+export type StorageFileCreateNestedOneWithoutBidDocumentFilesInput = {
+  create?: Prisma.XOR<Prisma.StorageFileCreateWithoutBidDocumentFilesInput, Prisma.StorageFileUncheckedCreateWithoutBidDocumentFilesInput>
+  connectOrCreate?: Prisma.StorageFileCreateOrConnectWithoutBidDocumentFilesInput
   connect?: Prisma.StorageFileWhereUniqueInput
 }
 
-export type StorageFileUpdateOneWithoutContentTemplatePreviewsNestedInput = {
-  create?: Prisma.XOR<Prisma.StorageFileCreateWithoutContentTemplatePreviewsInput, Prisma.StorageFileUncheckedCreateWithoutContentTemplatePreviewsInput>
-  connectOrCreate?: Prisma.StorageFileCreateOrConnectWithoutContentTemplatePreviewsInput
-  upsert?: Prisma.StorageFileUpsertWithoutContentTemplatePreviewsInput
+export type StorageFileUpdateOneRequiredWithoutBidDocumentFilesNestedInput = {
+  create?: Prisma.XOR<Prisma.StorageFileCreateWithoutBidDocumentFilesInput, Prisma.StorageFileUncheckedCreateWithoutBidDocumentFilesInput>
+  connectOrCreate?: Prisma.StorageFileCreateOrConnectWithoutBidDocumentFilesInput
+  upsert?: Prisma.StorageFileUpsertWithoutBidDocumentFilesInput
+  connect?: Prisma.StorageFileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.StorageFileUpdateToOneWithWhereWithoutBidDocumentFilesInput, Prisma.StorageFileUpdateWithoutBidDocumentFilesInput>, Prisma.StorageFileUncheckedUpdateWithoutBidDocumentFilesInput>
+}
+
+export type StorageFileCreateNestedOneWithoutBidContractFilesInput = {
+  create?: Prisma.XOR<Prisma.StorageFileCreateWithoutBidContractFilesInput, Prisma.StorageFileUncheckedCreateWithoutBidContractFilesInput>
+  connectOrCreate?: Prisma.StorageFileCreateOrConnectWithoutBidContractFilesInput
+  connect?: Prisma.StorageFileWhereUniqueInput
+}
+
+export type StorageFileUpdateOneWithoutBidContractFilesNestedInput = {
+  create?: Prisma.XOR<Prisma.StorageFileCreateWithoutBidContractFilesInput, Prisma.StorageFileUncheckedCreateWithoutBidContractFilesInput>
+  connectOrCreate?: Prisma.StorageFileCreateOrConnectWithoutBidContractFilesInput
+  upsert?: Prisma.StorageFileUpsertWithoutBidContractFilesInput
   disconnect?: Prisma.StorageFileWhereInput | boolean
   delete?: Prisma.StorageFileWhereInput | boolean
   connect?: Prisma.StorageFileWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.StorageFileUpdateToOneWithWhereWithoutContentTemplatePreviewsInput, Prisma.StorageFileUpdateWithoutContentTemplatePreviewsInput>, Prisma.StorageFileUncheckedUpdateWithoutContentTemplatePreviewsInput>
-}
-
-export type StorageFileCreateNestedOneWithoutGeneratedContentFilesInput = {
-  create?: Prisma.XOR<Prisma.StorageFileCreateWithoutGeneratedContentFilesInput, Prisma.StorageFileUncheckedCreateWithoutGeneratedContentFilesInput>
-  connectOrCreate?: Prisma.StorageFileCreateOrConnectWithoutGeneratedContentFilesInput
-  connect?: Prisma.StorageFileWhereUniqueInput
-}
-
-export type StorageFileCreateNestedOneWithoutGeneratedContentThumbsInput = {
-  create?: Prisma.XOR<Prisma.StorageFileCreateWithoutGeneratedContentThumbsInput, Prisma.StorageFileUncheckedCreateWithoutGeneratedContentThumbsInput>
-  connectOrCreate?: Prisma.StorageFileCreateOrConnectWithoutGeneratedContentThumbsInput
-  connect?: Prisma.StorageFileWhereUniqueInput
-}
-
-export type StorageFileUpdateOneWithoutGeneratedContentFilesNestedInput = {
-  create?: Prisma.XOR<Prisma.StorageFileCreateWithoutGeneratedContentFilesInput, Prisma.StorageFileUncheckedCreateWithoutGeneratedContentFilesInput>
-  connectOrCreate?: Prisma.StorageFileCreateOrConnectWithoutGeneratedContentFilesInput
-  upsert?: Prisma.StorageFileUpsertWithoutGeneratedContentFilesInput
-  disconnect?: Prisma.StorageFileWhereInput | boolean
-  delete?: Prisma.StorageFileWhereInput | boolean
-  connect?: Prisma.StorageFileWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.StorageFileUpdateToOneWithWhereWithoutGeneratedContentFilesInput, Prisma.StorageFileUpdateWithoutGeneratedContentFilesInput>, Prisma.StorageFileUncheckedUpdateWithoutGeneratedContentFilesInput>
-}
-
-export type StorageFileUpdateOneWithoutGeneratedContentThumbsNestedInput = {
-  create?: Prisma.XOR<Prisma.StorageFileCreateWithoutGeneratedContentThumbsInput, Prisma.StorageFileUncheckedCreateWithoutGeneratedContentThumbsInput>
-  connectOrCreate?: Prisma.StorageFileCreateOrConnectWithoutGeneratedContentThumbsInput
-  upsert?: Prisma.StorageFileUpsertWithoutGeneratedContentThumbsInput
-  disconnect?: Prisma.StorageFileWhereInput | boolean
-  delete?: Prisma.StorageFileWhereInput | boolean
-  connect?: Prisma.StorageFileWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.StorageFileUpdateToOneWithWhereWithoutGeneratedContentThumbsInput, Prisma.StorageFileUpdateWithoutGeneratedContentThumbsInput>, Prisma.StorageFileUncheckedUpdateWithoutGeneratedContentThumbsInput>
-}
-
-export type StorageFileCreateNestedOneWithoutMockupClientLogosInput = {
-  create?: Prisma.XOR<Prisma.StorageFileCreateWithoutMockupClientLogosInput, Prisma.StorageFileUncheckedCreateWithoutMockupClientLogosInput>
-  connectOrCreate?: Prisma.StorageFileCreateOrConnectWithoutMockupClientLogosInput
-  connect?: Prisma.StorageFileWhereUniqueInput
-}
-
-export type StorageFileCreateNestedOneWithoutMockupResultFilesInput = {
-  create?: Prisma.XOR<Prisma.StorageFileCreateWithoutMockupResultFilesInput, Prisma.StorageFileUncheckedCreateWithoutMockupResultFilesInput>
-  connectOrCreate?: Prisma.StorageFileCreateOrConnectWithoutMockupResultFilesInput
-  connect?: Prisma.StorageFileWhereUniqueInput
-}
-
-export type StorageFileUpdateOneWithoutMockupClientLogosNestedInput = {
-  create?: Prisma.XOR<Prisma.StorageFileCreateWithoutMockupClientLogosInput, Prisma.StorageFileUncheckedCreateWithoutMockupClientLogosInput>
-  connectOrCreate?: Prisma.StorageFileCreateOrConnectWithoutMockupClientLogosInput
-  upsert?: Prisma.StorageFileUpsertWithoutMockupClientLogosInput
-  disconnect?: Prisma.StorageFileWhereInput | boolean
-  delete?: Prisma.StorageFileWhereInput | boolean
-  connect?: Prisma.StorageFileWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.StorageFileUpdateToOneWithWhereWithoutMockupClientLogosInput, Prisma.StorageFileUpdateWithoutMockupClientLogosInput>, Prisma.StorageFileUncheckedUpdateWithoutMockupClientLogosInput>
-}
-
-export type StorageFileUpdateOneWithoutMockupResultFilesNestedInput = {
-  create?: Prisma.XOR<Prisma.StorageFileCreateWithoutMockupResultFilesInput, Prisma.StorageFileUncheckedCreateWithoutMockupResultFilesInput>
-  connectOrCreate?: Prisma.StorageFileCreateOrConnectWithoutMockupResultFilesInput
-  upsert?: Prisma.StorageFileUpsertWithoutMockupResultFilesInput
-  disconnect?: Prisma.StorageFileWhereInput | boolean
-  delete?: Prisma.StorageFileWhereInput | boolean
-  connect?: Prisma.StorageFileWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.StorageFileUpdateToOneWithWhereWithoutMockupResultFilesInput, Prisma.StorageFileUpdateWithoutMockupResultFilesInput>, Prisma.StorageFileUncheckedUpdateWithoutMockupResultFilesInput>
-}
-
-export type StorageFileCreateNestedOneWithoutCertificatePfxFilesInput = {
-  create?: Prisma.XOR<Prisma.StorageFileCreateWithoutCertificatePfxFilesInput, Prisma.StorageFileUncheckedCreateWithoutCertificatePfxFilesInput>
-  connectOrCreate?: Prisma.StorageFileCreateOrConnectWithoutCertificatePfxFilesInput
-  connect?: Prisma.StorageFileWhereUniqueInput
-}
-
-export type StorageFileUpdateOneWithoutCertificatePfxFilesNestedInput = {
-  create?: Prisma.XOR<Prisma.StorageFileCreateWithoutCertificatePfxFilesInput, Prisma.StorageFileUncheckedCreateWithoutCertificatePfxFilesInput>
-  connectOrCreate?: Prisma.StorageFileCreateOrConnectWithoutCertificatePfxFilesInput
-  upsert?: Prisma.StorageFileUpsertWithoutCertificatePfxFilesInput
-  disconnect?: Prisma.StorageFileWhereInput | boolean
-  delete?: Prisma.StorageFileWhereInput | boolean
-  connect?: Prisma.StorageFileWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.StorageFileUpdateToOneWithWhereWithoutCertificatePfxFilesInput, Prisma.StorageFileUpdateWithoutCertificatePfxFilesInput>, Prisma.StorageFileUncheckedUpdateWithoutCertificatePfxFilesInput>
-}
-
-export type StorageFileCreateNestedOneWithoutEnvelopeDocumentFilesInput = {
-  create?: Prisma.XOR<Prisma.StorageFileCreateWithoutEnvelopeDocumentFilesInput, Prisma.StorageFileUncheckedCreateWithoutEnvelopeDocumentFilesInput>
-  connectOrCreate?: Prisma.StorageFileCreateOrConnectWithoutEnvelopeDocumentFilesInput
-  connect?: Prisma.StorageFileWhereUniqueInput
-}
-
-export type StorageFileCreateNestedOneWithoutEnvelopeSignedFilesInput = {
-  create?: Prisma.XOR<Prisma.StorageFileCreateWithoutEnvelopeSignedFilesInput, Prisma.StorageFileUncheckedCreateWithoutEnvelopeSignedFilesInput>
-  connectOrCreate?: Prisma.StorageFileCreateOrConnectWithoutEnvelopeSignedFilesInput
-  connect?: Prisma.StorageFileWhereUniqueInput
-}
-
-export type StorageFileUpdateOneRequiredWithoutEnvelopeDocumentFilesNestedInput = {
-  create?: Prisma.XOR<Prisma.StorageFileCreateWithoutEnvelopeDocumentFilesInput, Prisma.StorageFileUncheckedCreateWithoutEnvelopeDocumentFilesInput>
-  connectOrCreate?: Prisma.StorageFileCreateOrConnectWithoutEnvelopeDocumentFilesInput
-  upsert?: Prisma.StorageFileUpsertWithoutEnvelopeDocumentFilesInput
-  connect?: Prisma.StorageFileWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.StorageFileUpdateToOneWithWhereWithoutEnvelopeDocumentFilesInput, Prisma.StorageFileUpdateWithoutEnvelopeDocumentFilesInput>, Prisma.StorageFileUncheckedUpdateWithoutEnvelopeDocumentFilesInput>
-}
-
-export type StorageFileUpdateOneWithoutEnvelopeSignedFilesNestedInput = {
-  create?: Prisma.XOR<Prisma.StorageFileCreateWithoutEnvelopeSignedFilesInput, Prisma.StorageFileUncheckedCreateWithoutEnvelopeSignedFilesInput>
-  connectOrCreate?: Prisma.StorageFileCreateOrConnectWithoutEnvelopeSignedFilesInput
-  upsert?: Prisma.StorageFileUpsertWithoutEnvelopeSignedFilesInput
-  disconnect?: Prisma.StorageFileWhereInput | boolean
-  delete?: Prisma.StorageFileWhereInput | boolean
-  connect?: Prisma.StorageFileWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.StorageFileUpdateToOneWithWhereWithoutEnvelopeSignedFilesInput, Prisma.StorageFileUpdateWithoutEnvelopeSignedFilesInput>, Prisma.StorageFileUncheckedUpdateWithoutEnvelopeSignedFilesInput>
-}
-
-export type StorageFileCreateNestedOneWithoutSignerSignatureImagesInput = {
-  create?: Prisma.XOR<Prisma.StorageFileCreateWithoutSignerSignatureImagesInput, Prisma.StorageFileUncheckedCreateWithoutSignerSignatureImagesInput>
-  connectOrCreate?: Prisma.StorageFileCreateOrConnectWithoutSignerSignatureImagesInput
-  connect?: Prisma.StorageFileWhereUniqueInput
-}
-
-export type StorageFileUpdateOneWithoutSignerSignatureImagesNestedInput = {
-  create?: Prisma.XOR<Prisma.StorageFileCreateWithoutSignerSignatureImagesInput, Prisma.StorageFileUncheckedCreateWithoutSignerSignatureImagesInput>
-  connectOrCreate?: Prisma.StorageFileCreateOrConnectWithoutSignerSignatureImagesInput
-  upsert?: Prisma.StorageFileUpsertWithoutSignerSignatureImagesInput
-  disconnect?: Prisma.StorageFileWhereInput | boolean
-  delete?: Prisma.StorageFileWhereInput | boolean
-  connect?: Prisma.StorageFileWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.StorageFileUpdateToOneWithWhereWithoutSignerSignatureImagesInput, Prisma.StorageFileUpdateWithoutSignerSignatureImagesInput>, Prisma.StorageFileUncheckedUpdateWithoutSignerSignatureImagesInput>
-}
-
-export type StorageFileCreateNestedOneWithoutAnalyticsReportLastFilesInput = {
-  create?: Prisma.XOR<Prisma.StorageFileCreateWithoutAnalyticsReportLastFilesInput, Prisma.StorageFileUncheckedCreateWithoutAnalyticsReportLastFilesInput>
-  connectOrCreate?: Prisma.StorageFileCreateOrConnectWithoutAnalyticsReportLastFilesInput
-  connect?: Prisma.StorageFileWhereUniqueInput
-}
-
-export type StorageFileUpdateOneWithoutAnalyticsReportLastFilesNestedInput = {
-  create?: Prisma.XOR<Prisma.StorageFileCreateWithoutAnalyticsReportLastFilesInput, Prisma.StorageFileUncheckedCreateWithoutAnalyticsReportLastFilesInput>
-  connectOrCreate?: Prisma.StorageFileCreateOrConnectWithoutAnalyticsReportLastFilesInput
-  upsert?: Prisma.StorageFileUpsertWithoutAnalyticsReportLastFilesInput
-  disconnect?: Prisma.StorageFileWhereInput | boolean
-  delete?: Prisma.StorageFileWhereInput | boolean
-  connect?: Prisma.StorageFileWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.StorageFileUpdateToOneWithWhereWithoutAnalyticsReportLastFilesInput, Prisma.StorageFileUpdateWithoutAnalyticsReportLastFilesInput>, Prisma.StorageFileUncheckedUpdateWithoutAnalyticsReportLastFilesInput>
-}
-
-export type StorageFileCreateNestedOneWithoutAnalyticsReportGenerationFilesInput = {
-  create?: Prisma.XOR<Prisma.StorageFileCreateWithoutAnalyticsReportGenerationFilesInput, Prisma.StorageFileUncheckedCreateWithoutAnalyticsReportGenerationFilesInput>
-  connectOrCreate?: Prisma.StorageFileCreateOrConnectWithoutAnalyticsReportGenerationFilesInput
-  connect?: Prisma.StorageFileWhereUniqueInput
-}
-
-export type StorageFileUpdateOneWithoutAnalyticsReportGenerationFilesNestedInput = {
-  create?: Prisma.XOR<Prisma.StorageFileCreateWithoutAnalyticsReportGenerationFilesInput, Prisma.StorageFileUncheckedCreateWithoutAnalyticsReportGenerationFilesInput>
-  connectOrCreate?: Prisma.StorageFileCreateOrConnectWithoutAnalyticsReportGenerationFilesInput
-  upsert?: Prisma.StorageFileUpsertWithoutAnalyticsReportGenerationFilesInput
-  disconnect?: Prisma.StorageFileWhereInput | boolean
-  delete?: Prisma.StorageFileWhereInput | boolean
-  connect?: Prisma.StorageFileWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.StorageFileUpdateToOneWithWhereWithoutAnalyticsReportGenerationFilesInput, Prisma.StorageFileUpdateWithoutAnalyticsReportGenerationFilesInput>, Prisma.StorageFileUncheckedUpdateWithoutAnalyticsReportGenerationFilesInput>
-}
-
-export type StorageFileCreateNestedOneWithoutPosVisitSignaturesInput = {
-  create?: Prisma.XOR<Prisma.StorageFileCreateWithoutPosVisitSignaturesInput, Prisma.StorageFileUncheckedCreateWithoutPosVisitSignaturesInput>
-  connectOrCreate?: Prisma.StorageFileCreateOrConnectWithoutPosVisitSignaturesInput
-  connect?: Prisma.StorageFileWhereUniqueInput
-}
-
-export type StorageFileUpdateOneWithoutPosVisitSignaturesNestedInput = {
-  create?: Prisma.XOR<Prisma.StorageFileCreateWithoutPosVisitSignaturesInput, Prisma.StorageFileUncheckedCreateWithoutPosVisitSignaturesInput>
-  connectOrCreate?: Prisma.StorageFileCreateOrConnectWithoutPosVisitSignaturesInput
-  upsert?: Prisma.StorageFileUpsertWithoutPosVisitSignaturesInput
-  disconnect?: Prisma.StorageFileWhereInput | boolean
-  delete?: Prisma.StorageFileWhereInput | boolean
-  connect?: Prisma.StorageFileWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.StorageFileUpdateToOneWithWhereWithoutPosVisitSignaturesInput, Prisma.StorageFileUpdateWithoutPosVisitSignaturesInput>, Prisma.StorageFileUncheckedUpdateWithoutPosVisitSignaturesInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.StorageFileUpdateToOneWithWhereWithoutBidContractFilesInput, Prisma.StorageFileUpdateWithoutBidContractFilesInput>, Prisma.StorageFileUncheckedUpdateWithoutBidContractFilesInput>
 }
 
 export type StorageFileCreateWithoutTenantInput = {
@@ -1348,22 +1118,12 @@ export type StorageFileCreateWithoutTenantInput = {
   versions?: Prisma.StorageFileVersionCreateNestedManyWithoutFileInput
   shareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutFileInput
   cardAttachments?: Prisma.CardAttachmentCreateNestedManyWithoutFileInput
-  catalogCoverImages?: Prisma.CatalogCreateNestedManyWithoutCoverImageInput
-  catalogExportFiles?: Prisma.CatalogExportCreateNestedManyWithoutFileInput
-  tenantBrandLogos?: Prisma.TenantBrandCreateNestedManyWithoutLogoInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandCreateNestedManyWithoutLogoIconInput
-  contentTemplatePreviews?: Prisma.ContentTemplateCreateNestedManyWithoutPreviewFileInput
-  generatedContentFiles?: Prisma.GeneratedContentCreateNestedManyWithoutFileInput
-  generatedContentThumbs?: Prisma.GeneratedContentCreateNestedManyWithoutThumbnailInput
-  mockupClientLogos?: Prisma.ProductMockupCreateNestedManyWithoutClientLogoInput
-  mockupResultFiles?: Prisma.ProductMockupCreateNestedManyWithoutResultFileInput
-  certificatePfxFiles?: Prisma.DigitalCertificateCreateNestedManyWithoutPfxFileInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeCreateNestedManyWithoutDocumentFileInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeCreateNestedManyWithoutSignedFileInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutSignatureImageInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportCreateNestedManyWithoutLastFileInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationCreateNestedManyWithoutFileInput
-  posVisitSignatures?: Prisma.PosVisitLogCreateNestedManyWithoutSignatureFileInput
+  bidEditalFiles?: Prisma.BidCreateNestedManyWithoutEditalFileInput
+  bidEtpFiles?: Prisma.BidCreateNestedManyWithoutEtpFileInput
+  bidTrFiles?: Prisma.BidCreateNestedManyWithoutTrFileInput
+  bidProposalFiles?: Prisma.BidProposalCreateNestedManyWithoutProposalFileInput
+  bidDocumentFiles?: Prisma.BidDocumentCreateNestedManyWithoutFileInput
+  bidContractFiles?: Prisma.BidContractCreateNestedManyWithoutContractFileInput
 }
 
 export type StorageFileUncheckedCreateWithoutTenantInput = {
@@ -1393,22 +1153,12 @@ export type StorageFileUncheckedCreateWithoutTenantInput = {
   versions?: Prisma.StorageFileVersionUncheckedCreateNestedManyWithoutFileInput
   shareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutFileInput
   cardAttachments?: Prisma.CardAttachmentUncheckedCreateNestedManyWithoutFileInput
-  catalogCoverImages?: Prisma.CatalogUncheckedCreateNestedManyWithoutCoverImageInput
-  catalogExportFiles?: Prisma.CatalogExportUncheckedCreateNestedManyWithoutFileInput
-  tenantBrandLogos?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutLogoInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutLogoIconInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutPreviewFileInput
-  generatedContentFiles?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutFileInput
-  generatedContentThumbs?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutThumbnailInput
-  mockupClientLogos?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutClientLogoInput
-  mockupResultFiles?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutResultFileInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUncheckedCreateNestedManyWithoutPfxFileInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutDocumentFileInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutSignedFileInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutSignatureImageInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutLastFileInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedCreateNestedManyWithoutFileInput
-  posVisitSignatures?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutSignatureFileInput
+  bidEditalFiles?: Prisma.BidUncheckedCreateNestedManyWithoutEditalFileInput
+  bidEtpFiles?: Prisma.BidUncheckedCreateNestedManyWithoutEtpFileInput
+  bidTrFiles?: Prisma.BidUncheckedCreateNestedManyWithoutTrFileInput
+  bidProposalFiles?: Prisma.BidProposalUncheckedCreateNestedManyWithoutProposalFileInput
+  bidDocumentFiles?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutFileInput
+  bidContractFiles?: Prisma.BidContractUncheckedCreateNestedManyWithoutContractFileInput
 }
 
 export type StorageFileCreateOrConnectWithoutTenantInput = {
@@ -1494,22 +1244,12 @@ export type StorageFileCreateWithoutFolderInput = {
   versions?: Prisma.StorageFileVersionCreateNestedManyWithoutFileInput
   shareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutFileInput
   cardAttachments?: Prisma.CardAttachmentCreateNestedManyWithoutFileInput
-  catalogCoverImages?: Prisma.CatalogCreateNestedManyWithoutCoverImageInput
-  catalogExportFiles?: Prisma.CatalogExportCreateNestedManyWithoutFileInput
-  tenantBrandLogos?: Prisma.TenantBrandCreateNestedManyWithoutLogoInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandCreateNestedManyWithoutLogoIconInput
-  contentTemplatePreviews?: Prisma.ContentTemplateCreateNestedManyWithoutPreviewFileInput
-  generatedContentFiles?: Prisma.GeneratedContentCreateNestedManyWithoutFileInput
-  generatedContentThumbs?: Prisma.GeneratedContentCreateNestedManyWithoutThumbnailInput
-  mockupClientLogos?: Prisma.ProductMockupCreateNestedManyWithoutClientLogoInput
-  mockupResultFiles?: Prisma.ProductMockupCreateNestedManyWithoutResultFileInput
-  certificatePfxFiles?: Prisma.DigitalCertificateCreateNestedManyWithoutPfxFileInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeCreateNestedManyWithoutDocumentFileInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeCreateNestedManyWithoutSignedFileInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutSignatureImageInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportCreateNestedManyWithoutLastFileInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationCreateNestedManyWithoutFileInput
-  posVisitSignatures?: Prisma.PosVisitLogCreateNestedManyWithoutSignatureFileInput
+  bidEditalFiles?: Prisma.BidCreateNestedManyWithoutEditalFileInput
+  bidEtpFiles?: Prisma.BidCreateNestedManyWithoutEtpFileInput
+  bidTrFiles?: Prisma.BidCreateNestedManyWithoutTrFileInput
+  bidProposalFiles?: Prisma.BidProposalCreateNestedManyWithoutProposalFileInput
+  bidDocumentFiles?: Prisma.BidDocumentCreateNestedManyWithoutFileInput
+  bidContractFiles?: Prisma.BidContractCreateNestedManyWithoutContractFileInput
 }
 
 export type StorageFileUncheckedCreateWithoutFolderInput = {
@@ -1539,22 +1279,12 @@ export type StorageFileUncheckedCreateWithoutFolderInput = {
   versions?: Prisma.StorageFileVersionUncheckedCreateNestedManyWithoutFileInput
   shareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutFileInput
   cardAttachments?: Prisma.CardAttachmentUncheckedCreateNestedManyWithoutFileInput
-  catalogCoverImages?: Prisma.CatalogUncheckedCreateNestedManyWithoutCoverImageInput
-  catalogExportFiles?: Prisma.CatalogExportUncheckedCreateNestedManyWithoutFileInput
-  tenantBrandLogos?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutLogoInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutLogoIconInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutPreviewFileInput
-  generatedContentFiles?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutFileInput
-  generatedContentThumbs?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutThumbnailInput
-  mockupClientLogos?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutClientLogoInput
-  mockupResultFiles?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutResultFileInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUncheckedCreateNestedManyWithoutPfxFileInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutDocumentFileInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutSignedFileInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutSignatureImageInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutLastFileInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedCreateNestedManyWithoutFileInput
-  posVisitSignatures?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutSignatureFileInput
+  bidEditalFiles?: Prisma.BidUncheckedCreateNestedManyWithoutEditalFileInput
+  bidEtpFiles?: Prisma.BidUncheckedCreateNestedManyWithoutEtpFileInput
+  bidTrFiles?: Prisma.BidUncheckedCreateNestedManyWithoutTrFileInput
+  bidProposalFiles?: Prisma.BidProposalUncheckedCreateNestedManyWithoutProposalFileInput
+  bidDocumentFiles?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutFileInput
+  bidContractFiles?: Prisma.BidContractUncheckedCreateNestedManyWithoutContractFileInput
 }
 
 export type StorageFileCreateOrConnectWithoutFolderInput = {
@@ -1610,22 +1340,12 @@ export type StorageFileCreateWithoutVersionsInput = {
   folder?: Prisma.StorageFolderCreateNestedOneWithoutFilesInput
   shareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutFileInput
   cardAttachments?: Prisma.CardAttachmentCreateNestedManyWithoutFileInput
-  catalogCoverImages?: Prisma.CatalogCreateNestedManyWithoutCoverImageInput
-  catalogExportFiles?: Prisma.CatalogExportCreateNestedManyWithoutFileInput
-  tenantBrandLogos?: Prisma.TenantBrandCreateNestedManyWithoutLogoInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandCreateNestedManyWithoutLogoIconInput
-  contentTemplatePreviews?: Prisma.ContentTemplateCreateNestedManyWithoutPreviewFileInput
-  generatedContentFiles?: Prisma.GeneratedContentCreateNestedManyWithoutFileInput
-  generatedContentThumbs?: Prisma.GeneratedContentCreateNestedManyWithoutThumbnailInput
-  mockupClientLogos?: Prisma.ProductMockupCreateNestedManyWithoutClientLogoInput
-  mockupResultFiles?: Prisma.ProductMockupCreateNestedManyWithoutResultFileInput
-  certificatePfxFiles?: Prisma.DigitalCertificateCreateNestedManyWithoutPfxFileInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeCreateNestedManyWithoutDocumentFileInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeCreateNestedManyWithoutSignedFileInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutSignatureImageInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportCreateNestedManyWithoutLastFileInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationCreateNestedManyWithoutFileInput
-  posVisitSignatures?: Prisma.PosVisitLogCreateNestedManyWithoutSignatureFileInput
+  bidEditalFiles?: Prisma.BidCreateNestedManyWithoutEditalFileInput
+  bidEtpFiles?: Prisma.BidCreateNestedManyWithoutEtpFileInput
+  bidTrFiles?: Prisma.BidCreateNestedManyWithoutTrFileInput
+  bidProposalFiles?: Prisma.BidProposalCreateNestedManyWithoutProposalFileInput
+  bidDocumentFiles?: Prisma.BidDocumentCreateNestedManyWithoutFileInput
+  bidContractFiles?: Prisma.BidContractCreateNestedManyWithoutContractFileInput
 }
 
 export type StorageFileUncheckedCreateWithoutVersionsInput = {
@@ -1655,22 +1375,12 @@ export type StorageFileUncheckedCreateWithoutVersionsInput = {
   deletedAt?: Date | string | null
   shareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutFileInput
   cardAttachments?: Prisma.CardAttachmentUncheckedCreateNestedManyWithoutFileInput
-  catalogCoverImages?: Prisma.CatalogUncheckedCreateNestedManyWithoutCoverImageInput
-  catalogExportFiles?: Prisma.CatalogExportUncheckedCreateNestedManyWithoutFileInput
-  tenantBrandLogos?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutLogoInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutLogoIconInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutPreviewFileInput
-  generatedContentFiles?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutFileInput
-  generatedContentThumbs?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutThumbnailInput
-  mockupClientLogos?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutClientLogoInput
-  mockupResultFiles?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutResultFileInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUncheckedCreateNestedManyWithoutPfxFileInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutDocumentFileInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutSignedFileInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutSignatureImageInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutLastFileInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedCreateNestedManyWithoutFileInput
-  posVisitSignatures?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutSignatureFileInput
+  bidEditalFiles?: Prisma.BidUncheckedCreateNestedManyWithoutEditalFileInput
+  bidEtpFiles?: Prisma.BidUncheckedCreateNestedManyWithoutEtpFileInput
+  bidTrFiles?: Prisma.BidUncheckedCreateNestedManyWithoutTrFileInput
+  bidProposalFiles?: Prisma.BidProposalUncheckedCreateNestedManyWithoutProposalFileInput
+  bidDocumentFiles?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutFileInput
+  bidContractFiles?: Prisma.BidContractUncheckedCreateNestedManyWithoutContractFileInput
 }
 
 export type StorageFileCreateOrConnectWithoutVersionsInput = {
@@ -1716,22 +1426,12 @@ export type StorageFileUpdateWithoutVersionsInput = {
   folder?: Prisma.StorageFolderUpdateOneWithoutFilesNestedInput
   shareLinks?: Prisma.StorageShareLinkUpdateManyWithoutFileNestedInput
   cardAttachments?: Prisma.CardAttachmentUpdateManyWithoutFileNestedInput
-  catalogCoverImages?: Prisma.CatalogUpdateManyWithoutCoverImageNestedInput
-  catalogExportFiles?: Prisma.CatalogExportUpdateManyWithoutFileNestedInput
-  tenantBrandLogos?: Prisma.TenantBrandUpdateManyWithoutLogoNestedInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUpdateManyWithoutLogoIconNestedInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUpdateManyWithoutPreviewFileNestedInput
-  generatedContentFiles?: Prisma.GeneratedContentUpdateManyWithoutFileNestedInput
-  generatedContentThumbs?: Prisma.GeneratedContentUpdateManyWithoutThumbnailNestedInput
-  mockupClientLogos?: Prisma.ProductMockupUpdateManyWithoutClientLogoNestedInput
-  mockupResultFiles?: Prisma.ProductMockupUpdateManyWithoutResultFileNestedInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUpdateManyWithoutPfxFileNestedInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUpdateManyWithoutDocumentFileNestedInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUpdateManyWithoutSignedFileNestedInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutSignatureImageNestedInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUpdateManyWithoutLastFileNestedInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUpdateManyWithoutFileNestedInput
-  posVisitSignatures?: Prisma.PosVisitLogUpdateManyWithoutSignatureFileNestedInput
+  bidEditalFiles?: Prisma.BidUpdateManyWithoutEditalFileNestedInput
+  bidEtpFiles?: Prisma.BidUpdateManyWithoutEtpFileNestedInput
+  bidTrFiles?: Prisma.BidUpdateManyWithoutTrFileNestedInput
+  bidProposalFiles?: Prisma.BidProposalUpdateManyWithoutProposalFileNestedInput
+  bidDocumentFiles?: Prisma.BidDocumentUpdateManyWithoutFileNestedInput
+  bidContractFiles?: Prisma.BidContractUpdateManyWithoutContractFileNestedInput
 }
 
 export type StorageFileUncheckedUpdateWithoutVersionsInput = {
@@ -1761,22 +1461,12 @@ export type StorageFileUncheckedUpdateWithoutVersionsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   shareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutFileNestedInput
   cardAttachments?: Prisma.CardAttachmentUncheckedUpdateManyWithoutFileNestedInput
-  catalogCoverImages?: Prisma.CatalogUncheckedUpdateManyWithoutCoverImageNestedInput
-  catalogExportFiles?: Prisma.CatalogExportUncheckedUpdateManyWithoutFileNestedInput
-  tenantBrandLogos?: Prisma.TenantBrandUncheckedUpdateManyWithoutLogoNestedInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUncheckedUpdateManyWithoutLogoIconNestedInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUncheckedUpdateManyWithoutPreviewFileNestedInput
-  generatedContentFiles?: Prisma.GeneratedContentUncheckedUpdateManyWithoutFileNestedInput
-  generatedContentThumbs?: Prisma.GeneratedContentUncheckedUpdateManyWithoutThumbnailNestedInput
-  mockupClientLogos?: Prisma.ProductMockupUncheckedUpdateManyWithoutClientLogoNestedInput
-  mockupResultFiles?: Prisma.ProductMockupUncheckedUpdateManyWithoutResultFileNestedInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUncheckedUpdateManyWithoutPfxFileNestedInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutDocumentFileNestedInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutSignedFileNestedInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutSignatureImageNestedInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutLastFileNestedInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedUpdateManyWithoutFileNestedInput
-  posVisitSignatures?: Prisma.PosVisitLogUncheckedUpdateManyWithoutSignatureFileNestedInput
+  bidEditalFiles?: Prisma.BidUncheckedUpdateManyWithoutEditalFileNestedInput
+  bidEtpFiles?: Prisma.BidUncheckedUpdateManyWithoutEtpFileNestedInput
+  bidTrFiles?: Prisma.BidUncheckedUpdateManyWithoutTrFileNestedInput
+  bidProposalFiles?: Prisma.BidProposalUncheckedUpdateManyWithoutProposalFileNestedInput
+  bidDocumentFiles?: Prisma.BidDocumentUncheckedUpdateManyWithoutFileNestedInput
+  bidContractFiles?: Prisma.BidContractUncheckedUpdateManyWithoutContractFileNestedInput
 }
 
 export type StorageFileCreateWithoutShareLinksInput = {
@@ -1806,22 +1496,12 @@ export type StorageFileCreateWithoutShareLinksInput = {
   folder?: Prisma.StorageFolderCreateNestedOneWithoutFilesInput
   versions?: Prisma.StorageFileVersionCreateNestedManyWithoutFileInput
   cardAttachments?: Prisma.CardAttachmentCreateNestedManyWithoutFileInput
-  catalogCoverImages?: Prisma.CatalogCreateNestedManyWithoutCoverImageInput
-  catalogExportFiles?: Prisma.CatalogExportCreateNestedManyWithoutFileInput
-  tenantBrandLogos?: Prisma.TenantBrandCreateNestedManyWithoutLogoInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandCreateNestedManyWithoutLogoIconInput
-  contentTemplatePreviews?: Prisma.ContentTemplateCreateNestedManyWithoutPreviewFileInput
-  generatedContentFiles?: Prisma.GeneratedContentCreateNestedManyWithoutFileInput
-  generatedContentThumbs?: Prisma.GeneratedContentCreateNestedManyWithoutThumbnailInput
-  mockupClientLogos?: Prisma.ProductMockupCreateNestedManyWithoutClientLogoInput
-  mockupResultFiles?: Prisma.ProductMockupCreateNestedManyWithoutResultFileInput
-  certificatePfxFiles?: Prisma.DigitalCertificateCreateNestedManyWithoutPfxFileInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeCreateNestedManyWithoutDocumentFileInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeCreateNestedManyWithoutSignedFileInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutSignatureImageInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportCreateNestedManyWithoutLastFileInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationCreateNestedManyWithoutFileInput
-  posVisitSignatures?: Prisma.PosVisitLogCreateNestedManyWithoutSignatureFileInput
+  bidEditalFiles?: Prisma.BidCreateNestedManyWithoutEditalFileInput
+  bidEtpFiles?: Prisma.BidCreateNestedManyWithoutEtpFileInput
+  bidTrFiles?: Prisma.BidCreateNestedManyWithoutTrFileInput
+  bidProposalFiles?: Prisma.BidProposalCreateNestedManyWithoutProposalFileInput
+  bidDocumentFiles?: Prisma.BidDocumentCreateNestedManyWithoutFileInput
+  bidContractFiles?: Prisma.BidContractCreateNestedManyWithoutContractFileInput
 }
 
 export type StorageFileUncheckedCreateWithoutShareLinksInput = {
@@ -1851,22 +1531,12 @@ export type StorageFileUncheckedCreateWithoutShareLinksInput = {
   deletedAt?: Date | string | null
   versions?: Prisma.StorageFileVersionUncheckedCreateNestedManyWithoutFileInput
   cardAttachments?: Prisma.CardAttachmentUncheckedCreateNestedManyWithoutFileInput
-  catalogCoverImages?: Prisma.CatalogUncheckedCreateNestedManyWithoutCoverImageInput
-  catalogExportFiles?: Prisma.CatalogExportUncheckedCreateNestedManyWithoutFileInput
-  tenantBrandLogos?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutLogoInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutLogoIconInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutPreviewFileInput
-  generatedContentFiles?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutFileInput
-  generatedContentThumbs?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutThumbnailInput
-  mockupClientLogos?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutClientLogoInput
-  mockupResultFiles?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutResultFileInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUncheckedCreateNestedManyWithoutPfxFileInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutDocumentFileInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutSignedFileInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutSignatureImageInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutLastFileInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedCreateNestedManyWithoutFileInput
-  posVisitSignatures?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutSignatureFileInput
+  bidEditalFiles?: Prisma.BidUncheckedCreateNestedManyWithoutEditalFileInput
+  bidEtpFiles?: Prisma.BidUncheckedCreateNestedManyWithoutEtpFileInput
+  bidTrFiles?: Prisma.BidUncheckedCreateNestedManyWithoutTrFileInput
+  bidProposalFiles?: Prisma.BidProposalUncheckedCreateNestedManyWithoutProposalFileInput
+  bidDocumentFiles?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutFileInput
+  bidContractFiles?: Prisma.BidContractUncheckedCreateNestedManyWithoutContractFileInput
 }
 
 export type StorageFileCreateOrConnectWithoutShareLinksInput = {
@@ -1912,22 +1582,12 @@ export type StorageFileUpdateWithoutShareLinksInput = {
   folder?: Prisma.StorageFolderUpdateOneWithoutFilesNestedInput
   versions?: Prisma.StorageFileVersionUpdateManyWithoutFileNestedInput
   cardAttachments?: Prisma.CardAttachmentUpdateManyWithoutFileNestedInput
-  catalogCoverImages?: Prisma.CatalogUpdateManyWithoutCoverImageNestedInput
-  catalogExportFiles?: Prisma.CatalogExportUpdateManyWithoutFileNestedInput
-  tenantBrandLogos?: Prisma.TenantBrandUpdateManyWithoutLogoNestedInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUpdateManyWithoutLogoIconNestedInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUpdateManyWithoutPreviewFileNestedInput
-  generatedContentFiles?: Prisma.GeneratedContentUpdateManyWithoutFileNestedInput
-  generatedContentThumbs?: Prisma.GeneratedContentUpdateManyWithoutThumbnailNestedInput
-  mockupClientLogos?: Prisma.ProductMockupUpdateManyWithoutClientLogoNestedInput
-  mockupResultFiles?: Prisma.ProductMockupUpdateManyWithoutResultFileNestedInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUpdateManyWithoutPfxFileNestedInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUpdateManyWithoutDocumentFileNestedInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUpdateManyWithoutSignedFileNestedInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutSignatureImageNestedInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUpdateManyWithoutLastFileNestedInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUpdateManyWithoutFileNestedInput
-  posVisitSignatures?: Prisma.PosVisitLogUpdateManyWithoutSignatureFileNestedInput
+  bidEditalFiles?: Prisma.BidUpdateManyWithoutEditalFileNestedInput
+  bidEtpFiles?: Prisma.BidUpdateManyWithoutEtpFileNestedInput
+  bidTrFiles?: Prisma.BidUpdateManyWithoutTrFileNestedInput
+  bidProposalFiles?: Prisma.BidProposalUpdateManyWithoutProposalFileNestedInput
+  bidDocumentFiles?: Prisma.BidDocumentUpdateManyWithoutFileNestedInput
+  bidContractFiles?: Prisma.BidContractUpdateManyWithoutContractFileNestedInput
 }
 
 export type StorageFileUncheckedUpdateWithoutShareLinksInput = {
@@ -1957,22 +1617,12 @@ export type StorageFileUncheckedUpdateWithoutShareLinksInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   versions?: Prisma.StorageFileVersionUncheckedUpdateManyWithoutFileNestedInput
   cardAttachments?: Prisma.CardAttachmentUncheckedUpdateManyWithoutFileNestedInput
-  catalogCoverImages?: Prisma.CatalogUncheckedUpdateManyWithoutCoverImageNestedInput
-  catalogExportFiles?: Prisma.CatalogExportUncheckedUpdateManyWithoutFileNestedInput
-  tenantBrandLogos?: Prisma.TenantBrandUncheckedUpdateManyWithoutLogoNestedInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUncheckedUpdateManyWithoutLogoIconNestedInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUncheckedUpdateManyWithoutPreviewFileNestedInput
-  generatedContentFiles?: Prisma.GeneratedContentUncheckedUpdateManyWithoutFileNestedInput
-  generatedContentThumbs?: Prisma.GeneratedContentUncheckedUpdateManyWithoutThumbnailNestedInput
-  mockupClientLogos?: Prisma.ProductMockupUncheckedUpdateManyWithoutClientLogoNestedInput
-  mockupResultFiles?: Prisma.ProductMockupUncheckedUpdateManyWithoutResultFileNestedInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUncheckedUpdateManyWithoutPfxFileNestedInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutDocumentFileNestedInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutSignedFileNestedInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutSignatureImageNestedInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutLastFileNestedInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedUpdateManyWithoutFileNestedInput
-  posVisitSignatures?: Prisma.PosVisitLogUncheckedUpdateManyWithoutSignatureFileNestedInput
+  bidEditalFiles?: Prisma.BidUncheckedUpdateManyWithoutEditalFileNestedInput
+  bidEtpFiles?: Prisma.BidUncheckedUpdateManyWithoutEtpFileNestedInput
+  bidTrFiles?: Prisma.BidUncheckedUpdateManyWithoutTrFileNestedInput
+  bidProposalFiles?: Prisma.BidProposalUncheckedUpdateManyWithoutProposalFileNestedInput
+  bidDocumentFiles?: Prisma.BidDocumentUncheckedUpdateManyWithoutFileNestedInput
+  bidContractFiles?: Prisma.BidContractUncheckedUpdateManyWithoutContractFileNestedInput
 }
 
 export type StorageFileCreateWithoutCardAttachmentsInput = {
@@ -2002,22 +1652,12 @@ export type StorageFileCreateWithoutCardAttachmentsInput = {
   folder?: Prisma.StorageFolderCreateNestedOneWithoutFilesInput
   versions?: Prisma.StorageFileVersionCreateNestedManyWithoutFileInput
   shareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutFileInput
-  catalogCoverImages?: Prisma.CatalogCreateNestedManyWithoutCoverImageInput
-  catalogExportFiles?: Prisma.CatalogExportCreateNestedManyWithoutFileInput
-  tenantBrandLogos?: Prisma.TenantBrandCreateNestedManyWithoutLogoInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandCreateNestedManyWithoutLogoIconInput
-  contentTemplatePreviews?: Prisma.ContentTemplateCreateNestedManyWithoutPreviewFileInput
-  generatedContentFiles?: Prisma.GeneratedContentCreateNestedManyWithoutFileInput
-  generatedContentThumbs?: Prisma.GeneratedContentCreateNestedManyWithoutThumbnailInput
-  mockupClientLogos?: Prisma.ProductMockupCreateNestedManyWithoutClientLogoInput
-  mockupResultFiles?: Prisma.ProductMockupCreateNestedManyWithoutResultFileInput
-  certificatePfxFiles?: Prisma.DigitalCertificateCreateNestedManyWithoutPfxFileInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeCreateNestedManyWithoutDocumentFileInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeCreateNestedManyWithoutSignedFileInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutSignatureImageInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportCreateNestedManyWithoutLastFileInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationCreateNestedManyWithoutFileInput
-  posVisitSignatures?: Prisma.PosVisitLogCreateNestedManyWithoutSignatureFileInput
+  bidEditalFiles?: Prisma.BidCreateNestedManyWithoutEditalFileInput
+  bidEtpFiles?: Prisma.BidCreateNestedManyWithoutEtpFileInput
+  bidTrFiles?: Prisma.BidCreateNestedManyWithoutTrFileInput
+  bidProposalFiles?: Prisma.BidProposalCreateNestedManyWithoutProposalFileInput
+  bidDocumentFiles?: Prisma.BidDocumentCreateNestedManyWithoutFileInput
+  bidContractFiles?: Prisma.BidContractCreateNestedManyWithoutContractFileInput
 }
 
 export type StorageFileUncheckedCreateWithoutCardAttachmentsInput = {
@@ -2047,22 +1687,12 @@ export type StorageFileUncheckedCreateWithoutCardAttachmentsInput = {
   deletedAt?: Date | string | null
   versions?: Prisma.StorageFileVersionUncheckedCreateNestedManyWithoutFileInput
   shareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutFileInput
-  catalogCoverImages?: Prisma.CatalogUncheckedCreateNestedManyWithoutCoverImageInput
-  catalogExportFiles?: Prisma.CatalogExportUncheckedCreateNestedManyWithoutFileInput
-  tenantBrandLogos?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutLogoInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutLogoIconInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutPreviewFileInput
-  generatedContentFiles?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutFileInput
-  generatedContentThumbs?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutThumbnailInput
-  mockupClientLogos?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutClientLogoInput
-  mockupResultFiles?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutResultFileInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUncheckedCreateNestedManyWithoutPfxFileInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutDocumentFileInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutSignedFileInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutSignatureImageInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutLastFileInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedCreateNestedManyWithoutFileInput
-  posVisitSignatures?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutSignatureFileInput
+  bidEditalFiles?: Prisma.BidUncheckedCreateNestedManyWithoutEditalFileInput
+  bidEtpFiles?: Prisma.BidUncheckedCreateNestedManyWithoutEtpFileInput
+  bidTrFiles?: Prisma.BidUncheckedCreateNestedManyWithoutTrFileInput
+  bidProposalFiles?: Prisma.BidProposalUncheckedCreateNestedManyWithoutProposalFileInput
+  bidDocumentFiles?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutFileInput
+  bidContractFiles?: Prisma.BidContractUncheckedCreateNestedManyWithoutContractFileInput
 }
 
 export type StorageFileCreateOrConnectWithoutCardAttachmentsInput = {
@@ -2108,22 +1738,12 @@ export type StorageFileUpdateWithoutCardAttachmentsInput = {
   folder?: Prisma.StorageFolderUpdateOneWithoutFilesNestedInput
   versions?: Prisma.StorageFileVersionUpdateManyWithoutFileNestedInput
   shareLinks?: Prisma.StorageShareLinkUpdateManyWithoutFileNestedInput
-  catalogCoverImages?: Prisma.CatalogUpdateManyWithoutCoverImageNestedInput
-  catalogExportFiles?: Prisma.CatalogExportUpdateManyWithoutFileNestedInput
-  tenantBrandLogos?: Prisma.TenantBrandUpdateManyWithoutLogoNestedInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUpdateManyWithoutLogoIconNestedInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUpdateManyWithoutPreviewFileNestedInput
-  generatedContentFiles?: Prisma.GeneratedContentUpdateManyWithoutFileNestedInput
-  generatedContentThumbs?: Prisma.GeneratedContentUpdateManyWithoutThumbnailNestedInput
-  mockupClientLogos?: Prisma.ProductMockupUpdateManyWithoutClientLogoNestedInput
-  mockupResultFiles?: Prisma.ProductMockupUpdateManyWithoutResultFileNestedInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUpdateManyWithoutPfxFileNestedInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUpdateManyWithoutDocumentFileNestedInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUpdateManyWithoutSignedFileNestedInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutSignatureImageNestedInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUpdateManyWithoutLastFileNestedInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUpdateManyWithoutFileNestedInput
-  posVisitSignatures?: Prisma.PosVisitLogUpdateManyWithoutSignatureFileNestedInput
+  bidEditalFiles?: Prisma.BidUpdateManyWithoutEditalFileNestedInput
+  bidEtpFiles?: Prisma.BidUpdateManyWithoutEtpFileNestedInput
+  bidTrFiles?: Prisma.BidUpdateManyWithoutTrFileNestedInput
+  bidProposalFiles?: Prisma.BidProposalUpdateManyWithoutProposalFileNestedInput
+  bidDocumentFiles?: Prisma.BidDocumentUpdateManyWithoutFileNestedInput
+  bidContractFiles?: Prisma.BidContractUpdateManyWithoutContractFileNestedInput
 }
 
 export type StorageFileUncheckedUpdateWithoutCardAttachmentsInput = {
@@ -2153,25 +1773,15 @@ export type StorageFileUncheckedUpdateWithoutCardAttachmentsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   versions?: Prisma.StorageFileVersionUncheckedUpdateManyWithoutFileNestedInput
   shareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutFileNestedInput
-  catalogCoverImages?: Prisma.CatalogUncheckedUpdateManyWithoutCoverImageNestedInput
-  catalogExportFiles?: Prisma.CatalogExportUncheckedUpdateManyWithoutFileNestedInput
-  tenantBrandLogos?: Prisma.TenantBrandUncheckedUpdateManyWithoutLogoNestedInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUncheckedUpdateManyWithoutLogoIconNestedInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUncheckedUpdateManyWithoutPreviewFileNestedInput
-  generatedContentFiles?: Prisma.GeneratedContentUncheckedUpdateManyWithoutFileNestedInput
-  generatedContentThumbs?: Prisma.GeneratedContentUncheckedUpdateManyWithoutThumbnailNestedInput
-  mockupClientLogos?: Prisma.ProductMockupUncheckedUpdateManyWithoutClientLogoNestedInput
-  mockupResultFiles?: Prisma.ProductMockupUncheckedUpdateManyWithoutResultFileNestedInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUncheckedUpdateManyWithoutPfxFileNestedInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutDocumentFileNestedInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutSignedFileNestedInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutSignatureImageNestedInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutLastFileNestedInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedUpdateManyWithoutFileNestedInput
-  posVisitSignatures?: Prisma.PosVisitLogUncheckedUpdateManyWithoutSignatureFileNestedInput
+  bidEditalFiles?: Prisma.BidUncheckedUpdateManyWithoutEditalFileNestedInput
+  bidEtpFiles?: Prisma.BidUncheckedUpdateManyWithoutEtpFileNestedInput
+  bidTrFiles?: Prisma.BidUncheckedUpdateManyWithoutTrFileNestedInput
+  bidProposalFiles?: Prisma.BidProposalUncheckedUpdateManyWithoutProposalFileNestedInput
+  bidDocumentFiles?: Prisma.BidDocumentUncheckedUpdateManyWithoutFileNestedInput
+  bidContractFiles?: Prisma.BidContractUncheckedUpdateManyWithoutContractFileNestedInput
 }
 
-export type StorageFileCreateWithoutCatalogCoverImagesInput = {
+export type StorageFileCreateWithoutBidEditalFilesInput = {
   id?: string
   name: string
   originalName: string
@@ -2199,24 +1809,14 @@ export type StorageFileCreateWithoutCatalogCoverImagesInput = {
   versions?: Prisma.StorageFileVersionCreateNestedManyWithoutFileInput
   shareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutFileInput
   cardAttachments?: Prisma.CardAttachmentCreateNestedManyWithoutFileInput
-  catalogExportFiles?: Prisma.CatalogExportCreateNestedManyWithoutFileInput
-  tenantBrandLogos?: Prisma.TenantBrandCreateNestedManyWithoutLogoInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandCreateNestedManyWithoutLogoIconInput
-  contentTemplatePreviews?: Prisma.ContentTemplateCreateNestedManyWithoutPreviewFileInput
-  generatedContentFiles?: Prisma.GeneratedContentCreateNestedManyWithoutFileInput
-  generatedContentThumbs?: Prisma.GeneratedContentCreateNestedManyWithoutThumbnailInput
-  mockupClientLogos?: Prisma.ProductMockupCreateNestedManyWithoutClientLogoInput
-  mockupResultFiles?: Prisma.ProductMockupCreateNestedManyWithoutResultFileInput
-  certificatePfxFiles?: Prisma.DigitalCertificateCreateNestedManyWithoutPfxFileInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeCreateNestedManyWithoutDocumentFileInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeCreateNestedManyWithoutSignedFileInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutSignatureImageInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportCreateNestedManyWithoutLastFileInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationCreateNestedManyWithoutFileInput
-  posVisitSignatures?: Prisma.PosVisitLogCreateNestedManyWithoutSignatureFileInput
+  bidEtpFiles?: Prisma.BidCreateNestedManyWithoutEtpFileInput
+  bidTrFiles?: Prisma.BidCreateNestedManyWithoutTrFileInput
+  bidProposalFiles?: Prisma.BidProposalCreateNestedManyWithoutProposalFileInput
+  bidDocumentFiles?: Prisma.BidDocumentCreateNestedManyWithoutFileInput
+  bidContractFiles?: Prisma.BidContractCreateNestedManyWithoutContractFileInput
 }
 
-export type StorageFileUncheckedCreateWithoutCatalogCoverImagesInput = {
+export type StorageFileUncheckedCreateWithoutBidEditalFilesInput = {
   id?: string
   tenantId: string
   folderId?: string | null
@@ -2244,130 +1844,19 @@ export type StorageFileUncheckedCreateWithoutCatalogCoverImagesInput = {
   versions?: Prisma.StorageFileVersionUncheckedCreateNestedManyWithoutFileInput
   shareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutFileInput
   cardAttachments?: Prisma.CardAttachmentUncheckedCreateNestedManyWithoutFileInput
-  catalogExportFiles?: Prisma.CatalogExportUncheckedCreateNestedManyWithoutFileInput
-  tenantBrandLogos?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutLogoInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutLogoIconInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutPreviewFileInput
-  generatedContentFiles?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutFileInput
-  generatedContentThumbs?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutThumbnailInput
-  mockupClientLogos?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutClientLogoInput
-  mockupResultFiles?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutResultFileInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUncheckedCreateNestedManyWithoutPfxFileInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutDocumentFileInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutSignedFileInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutSignatureImageInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutLastFileInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedCreateNestedManyWithoutFileInput
-  posVisitSignatures?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutSignatureFileInput
+  bidEtpFiles?: Prisma.BidUncheckedCreateNestedManyWithoutEtpFileInput
+  bidTrFiles?: Prisma.BidUncheckedCreateNestedManyWithoutTrFileInput
+  bidProposalFiles?: Prisma.BidProposalUncheckedCreateNestedManyWithoutProposalFileInput
+  bidDocumentFiles?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutFileInput
+  bidContractFiles?: Prisma.BidContractUncheckedCreateNestedManyWithoutContractFileInput
 }
 
-export type StorageFileCreateOrConnectWithoutCatalogCoverImagesInput = {
+export type StorageFileCreateOrConnectWithoutBidEditalFilesInput = {
   where: Prisma.StorageFileWhereUniqueInput
-  create: Prisma.XOR<Prisma.StorageFileCreateWithoutCatalogCoverImagesInput, Prisma.StorageFileUncheckedCreateWithoutCatalogCoverImagesInput>
+  create: Prisma.XOR<Prisma.StorageFileCreateWithoutBidEditalFilesInput, Prisma.StorageFileUncheckedCreateWithoutBidEditalFilesInput>
 }
 
-export type StorageFileUpsertWithoutCatalogCoverImagesInput = {
-  update: Prisma.XOR<Prisma.StorageFileUpdateWithoutCatalogCoverImagesInput, Prisma.StorageFileUncheckedUpdateWithoutCatalogCoverImagesInput>
-  create: Prisma.XOR<Prisma.StorageFileCreateWithoutCatalogCoverImagesInput, Prisma.StorageFileUncheckedCreateWithoutCatalogCoverImagesInput>
-  where?: Prisma.StorageFileWhereInput
-}
-
-export type StorageFileUpdateToOneWithWhereWithoutCatalogCoverImagesInput = {
-  where?: Prisma.StorageFileWhereInput
-  data: Prisma.XOR<Prisma.StorageFileUpdateWithoutCatalogCoverImagesInput, Prisma.StorageFileUncheckedUpdateWithoutCatalogCoverImagesInput>
-}
-
-export type StorageFileUpdateWithoutCatalogCoverImagesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  originalName?: Prisma.StringFieldUpdateOperationsInput | string
-  fileKey?: Prisma.StringFieldUpdateOperationsInput | string
-  path?: Prisma.StringFieldUpdateOperationsInput | string
-  size?: Prisma.IntFieldUpdateOperationsInput | number
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  fileType?: Prisma.StringFieldUpdateOperationsInput | string
-  thumbnailKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumStorageFileStatusFieldUpdateOperationsInput | $Enums.StorageFileStatus
-  currentVersion?: Prisma.IntFieldUpdateOperationsInput | number
-  entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
-  isEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  tenant?: Prisma.TenantUpdateOneRequiredWithoutStorageFilesNestedInput
-  folder?: Prisma.StorageFolderUpdateOneWithoutFilesNestedInput
-  versions?: Prisma.StorageFileVersionUpdateManyWithoutFileNestedInput
-  shareLinks?: Prisma.StorageShareLinkUpdateManyWithoutFileNestedInput
-  cardAttachments?: Prisma.CardAttachmentUpdateManyWithoutFileNestedInput
-  catalogExportFiles?: Prisma.CatalogExportUpdateManyWithoutFileNestedInput
-  tenantBrandLogos?: Prisma.TenantBrandUpdateManyWithoutLogoNestedInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUpdateManyWithoutLogoIconNestedInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUpdateManyWithoutPreviewFileNestedInput
-  generatedContentFiles?: Prisma.GeneratedContentUpdateManyWithoutFileNestedInput
-  generatedContentThumbs?: Prisma.GeneratedContentUpdateManyWithoutThumbnailNestedInput
-  mockupClientLogos?: Prisma.ProductMockupUpdateManyWithoutClientLogoNestedInput
-  mockupResultFiles?: Prisma.ProductMockupUpdateManyWithoutResultFileNestedInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUpdateManyWithoutPfxFileNestedInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUpdateManyWithoutDocumentFileNestedInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUpdateManyWithoutSignedFileNestedInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutSignatureImageNestedInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUpdateManyWithoutLastFileNestedInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUpdateManyWithoutFileNestedInput
-  posVisitSignatures?: Prisma.PosVisitLogUpdateManyWithoutSignatureFileNestedInput
-}
-
-export type StorageFileUncheckedUpdateWithoutCatalogCoverImagesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  folderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  originalName?: Prisma.StringFieldUpdateOperationsInput | string
-  fileKey?: Prisma.StringFieldUpdateOperationsInput | string
-  path?: Prisma.StringFieldUpdateOperationsInput | string
-  size?: Prisma.IntFieldUpdateOperationsInput | number
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  fileType?: Prisma.StringFieldUpdateOperationsInput | string
-  thumbnailKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumStorageFileStatusFieldUpdateOperationsInput | $Enums.StorageFileStatus
-  currentVersion?: Prisma.IntFieldUpdateOperationsInput | number
-  entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
-  isEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  versions?: Prisma.StorageFileVersionUncheckedUpdateManyWithoutFileNestedInput
-  shareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutFileNestedInput
-  cardAttachments?: Prisma.CardAttachmentUncheckedUpdateManyWithoutFileNestedInput
-  catalogExportFiles?: Prisma.CatalogExportUncheckedUpdateManyWithoutFileNestedInput
-  tenantBrandLogos?: Prisma.TenantBrandUncheckedUpdateManyWithoutLogoNestedInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUncheckedUpdateManyWithoutLogoIconNestedInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUncheckedUpdateManyWithoutPreviewFileNestedInput
-  generatedContentFiles?: Prisma.GeneratedContentUncheckedUpdateManyWithoutFileNestedInput
-  generatedContentThumbs?: Prisma.GeneratedContentUncheckedUpdateManyWithoutThumbnailNestedInput
-  mockupClientLogos?: Prisma.ProductMockupUncheckedUpdateManyWithoutClientLogoNestedInput
-  mockupResultFiles?: Prisma.ProductMockupUncheckedUpdateManyWithoutResultFileNestedInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUncheckedUpdateManyWithoutPfxFileNestedInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutDocumentFileNestedInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutSignedFileNestedInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutSignatureImageNestedInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutLastFileNestedInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedUpdateManyWithoutFileNestedInput
-  posVisitSignatures?: Prisma.PosVisitLogUncheckedUpdateManyWithoutSignatureFileNestedInput
-}
-
-export type StorageFileCreateWithoutCatalogExportFilesInput = {
+export type StorageFileCreateWithoutBidEtpFilesInput = {
   id?: string
   name: string
   originalName: string
@@ -2395,24 +1884,14 @@ export type StorageFileCreateWithoutCatalogExportFilesInput = {
   versions?: Prisma.StorageFileVersionCreateNestedManyWithoutFileInput
   shareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutFileInput
   cardAttachments?: Prisma.CardAttachmentCreateNestedManyWithoutFileInput
-  catalogCoverImages?: Prisma.CatalogCreateNestedManyWithoutCoverImageInput
-  tenantBrandLogos?: Prisma.TenantBrandCreateNestedManyWithoutLogoInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandCreateNestedManyWithoutLogoIconInput
-  contentTemplatePreviews?: Prisma.ContentTemplateCreateNestedManyWithoutPreviewFileInput
-  generatedContentFiles?: Prisma.GeneratedContentCreateNestedManyWithoutFileInput
-  generatedContentThumbs?: Prisma.GeneratedContentCreateNestedManyWithoutThumbnailInput
-  mockupClientLogos?: Prisma.ProductMockupCreateNestedManyWithoutClientLogoInput
-  mockupResultFiles?: Prisma.ProductMockupCreateNestedManyWithoutResultFileInput
-  certificatePfxFiles?: Prisma.DigitalCertificateCreateNestedManyWithoutPfxFileInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeCreateNestedManyWithoutDocumentFileInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeCreateNestedManyWithoutSignedFileInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutSignatureImageInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportCreateNestedManyWithoutLastFileInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationCreateNestedManyWithoutFileInput
-  posVisitSignatures?: Prisma.PosVisitLogCreateNestedManyWithoutSignatureFileInput
+  bidEditalFiles?: Prisma.BidCreateNestedManyWithoutEditalFileInput
+  bidTrFiles?: Prisma.BidCreateNestedManyWithoutTrFileInput
+  bidProposalFiles?: Prisma.BidProposalCreateNestedManyWithoutProposalFileInput
+  bidDocumentFiles?: Prisma.BidDocumentCreateNestedManyWithoutFileInput
+  bidContractFiles?: Prisma.BidContractCreateNestedManyWithoutContractFileInput
 }
 
-export type StorageFileUncheckedCreateWithoutCatalogExportFilesInput = {
+export type StorageFileUncheckedCreateWithoutBidEtpFilesInput = {
   id?: string
   tenantId: string
   folderId?: string | null
@@ -2440,130 +1919,19 @@ export type StorageFileUncheckedCreateWithoutCatalogExportFilesInput = {
   versions?: Prisma.StorageFileVersionUncheckedCreateNestedManyWithoutFileInput
   shareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutFileInput
   cardAttachments?: Prisma.CardAttachmentUncheckedCreateNestedManyWithoutFileInput
-  catalogCoverImages?: Prisma.CatalogUncheckedCreateNestedManyWithoutCoverImageInput
-  tenantBrandLogos?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutLogoInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutLogoIconInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutPreviewFileInput
-  generatedContentFiles?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutFileInput
-  generatedContentThumbs?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutThumbnailInput
-  mockupClientLogos?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutClientLogoInput
-  mockupResultFiles?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutResultFileInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUncheckedCreateNestedManyWithoutPfxFileInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutDocumentFileInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutSignedFileInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutSignatureImageInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutLastFileInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedCreateNestedManyWithoutFileInput
-  posVisitSignatures?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutSignatureFileInput
+  bidEditalFiles?: Prisma.BidUncheckedCreateNestedManyWithoutEditalFileInput
+  bidTrFiles?: Prisma.BidUncheckedCreateNestedManyWithoutTrFileInput
+  bidProposalFiles?: Prisma.BidProposalUncheckedCreateNestedManyWithoutProposalFileInput
+  bidDocumentFiles?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutFileInput
+  bidContractFiles?: Prisma.BidContractUncheckedCreateNestedManyWithoutContractFileInput
 }
 
-export type StorageFileCreateOrConnectWithoutCatalogExportFilesInput = {
+export type StorageFileCreateOrConnectWithoutBidEtpFilesInput = {
   where: Prisma.StorageFileWhereUniqueInput
-  create: Prisma.XOR<Prisma.StorageFileCreateWithoutCatalogExportFilesInput, Prisma.StorageFileUncheckedCreateWithoutCatalogExportFilesInput>
+  create: Prisma.XOR<Prisma.StorageFileCreateWithoutBidEtpFilesInput, Prisma.StorageFileUncheckedCreateWithoutBidEtpFilesInput>
 }
 
-export type StorageFileUpsertWithoutCatalogExportFilesInput = {
-  update: Prisma.XOR<Prisma.StorageFileUpdateWithoutCatalogExportFilesInput, Prisma.StorageFileUncheckedUpdateWithoutCatalogExportFilesInput>
-  create: Prisma.XOR<Prisma.StorageFileCreateWithoutCatalogExportFilesInput, Prisma.StorageFileUncheckedCreateWithoutCatalogExportFilesInput>
-  where?: Prisma.StorageFileWhereInput
-}
-
-export type StorageFileUpdateToOneWithWhereWithoutCatalogExportFilesInput = {
-  where?: Prisma.StorageFileWhereInput
-  data: Prisma.XOR<Prisma.StorageFileUpdateWithoutCatalogExportFilesInput, Prisma.StorageFileUncheckedUpdateWithoutCatalogExportFilesInput>
-}
-
-export type StorageFileUpdateWithoutCatalogExportFilesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  originalName?: Prisma.StringFieldUpdateOperationsInput | string
-  fileKey?: Prisma.StringFieldUpdateOperationsInput | string
-  path?: Prisma.StringFieldUpdateOperationsInput | string
-  size?: Prisma.IntFieldUpdateOperationsInput | number
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  fileType?: Prisma.StringFieldUpdateOperationsInput | string
-  thumbnailKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumStorageFileStatusFieldUpdateOperationsInput | $Enums.StorageFileStatus
-  currentVersion?: Prisma.IntFieldUpdateOperationsInput | number
-  entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
-  isEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  tenant?: Prisma.TenantUpdateOneRequiredWithoutStorageFilesNestedInput
-  folder?: Prisma.StorageFolderUpdateOneWithoutFilesNestedInput
-  versions?: Prisma.StorageFileVersionUpdateManyWithoutFileNestedInput
-  shareLinks?: Prisma.StorageShareLinkUpdateManyWithoutFileNestedInput
-  cardAttachments?: Prisma.CardAttachmentUpdateManyWithoutFileNestedInput
-  catalogCoverImages?: Prisma.CatalogUpdateManyWithoutCoverImageNestedInput
-  tenantBrandLogos?: Prisma.TenantBrandUpdateManyWithoutLogoNestedInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUpdateManyWithoutLogoIconNestedInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUpdateManyWithoutPreviewFileNestedInput
-  generatedContentFiles?: Prisma.GeneratedContentUpdateManyWithoutFileNestedInput
-  generatedContentThumbs?: Prisma.GeneratedContentUpdateManyWithoutThumbnailNestedInput
-  mockupClientLogos?: Prisma.ProductMockupUpdateManyWithoutClientLogoNestedInput
-  mockupResultFiles?: Prisma.ProductMockupUpdateManyWithoutResultFileNestedInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUpdateManyWithoutPfxFileNestedInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUpdateManyWithoutDocumentFileNestedInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUpdateManyWithoutSignedFileNestedInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutSignatureImageNestedInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUpdateManyWithoutLastFileNestedInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUpdateManyWithoutFileNestedInput
-  posVisitSignatures?: Prisma.PosVisitLogUpdateManyWithoutSignatureFileNestedInput
-}
-
-export type StorageFileUncheckedUpdateWithoutCatalogExportFilesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  folderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  originalName?: Prisma.StringFieldUpdateOperationsInput | string
-  fileKey?: Prisma.StringFieldUpdateOperationsInput | string
-  path?: Prisma.StringFieldUpdateOperationsInput | string
-  size?: Prisma.IntFieldUpdateOperationsInput | number
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  fileType?: Prisma.StringFieldUpdateOperationsInput | string
-  thumbnailKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumStorageFileStatusFieldUpdateOperationsInput | $Enums.StorageFileStatus
-  currentVersion?: Prisma.IntFieldUpdateOperationsInput | number
-  entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
-  isEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  versions?: Prisma.StorageFileVersionUncheckedUpdateManyWithoutFileNestedInput
-  shareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutFileNestedInput
-  cardAttachments?: Prisma.CardAttachmentUncheckedUpdateManyWithoutFileNestedInput
-  catalogCoverImages?: Prisma.CatalogUncheckedUpdateManyWithoutCoverImageNestedInput
-  tenantBrandLogos?: Prisma.TenantBrandUncheckedUpdateManyWithoutLogoNestedInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUncheckedUpdateManyWithoutLogoIconNestedInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUncheckedUpdateManyWithoutPreviewFileNestedInput
-  generatedContentFiles?: Prisma.GeneratedContentUncheckedUpdateManyWithoutFileNestedInput
-  generatedContentThumbs?: Prisma.GeneratedContentUncheckedUpdateManyWithoutThumbnailNestedInput
-  mockupClientLogos?: Prisma.ProductMockupUncheckedUpdateManyWithoutClientLogoNestedInput
-  mockupResultFiles?: Prisma.ProductMockupUncheckedUpdateManyWithoutResultFileNestedInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUncheckedUpdateManyWithoutPfxFileNestedInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutDocumentFileNestedInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutSignedFileNestedInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutSignatureImageNestedInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutLastFileNestedInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedUpdateManyWithoutFileNestedInput
-  posVisitSignatures?: Prisma.PosVisitLogUncheckedUpdateManyWithoutSignatureFileNestedInput
-}
-
-export type StorageFileCreateWithoutTenantBrandLogosInput = {
+export type StorageFileCreateWithoutBidTrFilesInput = {
   id?: string
   name: string
   originalName: string
@@ -2591,24 +1959,14 @@ export type StorageFileCreateWithoutTenantBrandLogosInput = {
   versions?: Prisma.StorageFileVersionCreateNestedManyWithoutFileInput
   shareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutFileInput
   cardAttachments?: Prisma.CardAttachmentCreateNestedManyWithoutFileInput
-  catalogCoverImages?: Prisma.CatalogCreateNestedManyWithoutCoverImageInput
-  catalogExportFiles?: Prisma.CatalogExportCreateNestedManyWithoutFileInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandCreateNestedManyWithoutLogoIconInput
-  contentTemplatePreviews?: Prisma.ContentTemplateCreateNestedManyWithoutPreviewFileInput
-  generatedContentFiles?: Prisma.GeneratedContentCreateNestedManyWithoutFileInput
-  generatedContentThumbs?: Prisma.GeneratedContentCreateNestedManyWithoutThumbnailInput
-  mockupClientLogos?: Prisma.ProductMockupCreateNestedManyWithoutClientLogoInput
-  mockupResultFiles?: Prisma.ProductMockupCreateNestedManyWithoutResultFileInput
-  certificatePfxFiles?: Prisma.DigitalCertificateCreateNestedManyWithoutPfxFileInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeCreateNestedManyWithoutDocumentFileInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeCreateNestedManyWithoutSignedFileInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutSignatureImageInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportCreateNestedManyWithoutLastFileInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationCreateNestedManyWithoutFileInput
-  posVisitSignatures?: Prisma.PosVisitLogCreateNestedManyWithoutSignatureFileInput
+  bidEditalFiles?: Prisma.BidCreateNestedManyWithoutEditalFileInput
+  bidEtpFiles?: Prisma.BidCreateNestedManyWithoutEtpFileInput
+  bidProposalFiles?: Prisma.BidProposalCreateNestedManyWithoutProposalFileInput
+  bidDocumentFiles?: Prisma.BidDocumentCreateNestedManyWithoutFileInput
+  bidContractFiles?: Prisma.BidContractCreateNestedManyWithoutContractFileInput
 }
 
-export type StorageFileUncheckedCreateWithoutTenantBrandLogosInput = {
+export type StorageFileUncheckedCreateWithoutBidTrFilesInput = {
   id?: string
   tenantId: string
   folderId?: string | null
@@ -2636,29 +1994,262 @@ export type StorageFileUncheckedCreateWithoutTenantBrandLogosInput = {
   versions?: Prisma.StorageFileVersionUncheckedCreateNestedManyWithoutFileInput
   shareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutFileInput
   cardAttachments?: Prisma.CardAttachmentUncheckedCreateNestedManyWithoutFileInput
-  catalogCoverImages?: Prisma.CatalogUncheckedCreateNestedManyWithoutCoverImageInput
-  catalogExportFiles?: Prisma.CatalogExportUncheckedCreateNestedManyWithoutFileInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutLogoIconInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutPreviewFileInput
-  generatedContentFiles?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutFileInput
-  generatedContentThumbs?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutThumbnailInput
-  mockupClientLogos?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutClientLogoInput
-  mockupResultFiles?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutResultFileInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUncheckedCreateNestedManyWithoutPfxFileInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutDocumentFileInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutSignedFileInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutSignatureImageInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutLastFileInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedCreateNestedManyWithoutFileInput
-  posVisitSignatures?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutSignatureFileInput
+  bidEditalFiles?: Prisma.BidUncheckedCreateNestedManyWithoutEditalFileInput
+  bidEtpFiles?: Prisma.BidUncheckedCreateNestedManyWithoutEtpFileInput
+  bidProposalFiles?: Prisma.BidProposalUncheckedCreateNestedManyWithoutProposalFileInput
+  bidDocumentFiles?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutFileInput
+  bidContractFiles?: Prisma.BidContractUncheckedCreateNestedManyWithoutContractFileInput
 }
 
-export type StorageFileCreateOrConnectWithoutTenantBrandLogosInput = {
+export type StorageFileCreateOrConnectWithoutBidTrFilesInput = {
   where: Prisma.StorageFileWhereUniqueInput
-  create: Prisma.XOR<Prisma.StorageFileCreateWithoutTenantBrandLogosInput, Prisma.StorageFileUncheckedCreateWithoutTenantBrandLogosInput>
+  create: Prisma.XOR<Prisma.StorageFileCreateWithoutBidTrFilesInput, Prisma.StorageFileUncheckedCreateWithoutBidTrFilesInput>
 }
 
-export type StorageFileCreateWithoutTenantBrandLogoIconsInput = {
+export type StorageFileUpsertWithoutBidEditalFilesInput = {
+  update: Prisma.XOR<Prisma.StorageFileUpdateWithoutBidEditalFilesInput, Prisma.StorageFileUncheckedUpdateWithoutBidEditalFilesInput>
+  create: Prisma.XOR<Prisma.StorageFileCreateWithoutBidEditalFilesInput, Prisma.StorageFileUncheckedCreateWithoutBidEditalFilesInput>
+  where?: Prisma.StorageFileWhereInput
+}
+
+export type StorageFileUpdateToOneWithWhereWithoutBidEditalFilesInput = {
+  where?: Prisma.StorageFileWhereInput
+  data: Prisma.XOR<Prisma.StorageFileUpdateWithoutBidEditalFilesInput, Prisma.StorageFileUncheckedUpdateWithoutBidEditalFilesInput>
+}
+
+export type StorageFileUpdateWithoutBidEditalFilesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  originalName?: Prisma.StringFieldUpdateOperationsInput | string
+  fileKey?: Prisma.StringFieldUpdateOperationsInput | string
+  path?: Prisma.StringFieldUpdateOperationsInput | string
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  fileType?: Prisma.StringFieldUpdateOperationsInput | string
+  thumbnailKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumStorageFileStatusFieldUpdateOperationsInput | $Enums.StorageFileStatus
+  currentVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
+  isEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutStorageFilesNestedInput
+  folder?: Prisma.StorageFolderUpdateOneWithoutFilesNestedInput
+  versions?: Prisma.StorageFileVersionUpdateManyWithoutFileNestedInput
+  shareLinks?: Prisma.StorageShareLinkUpdateManyWithoutFileNestedInput
+  cardAttachments?: Prisma.CardAttachmentUpdateManyWithoutFileNestedInput
+  bidEtpFiles?: Prisma.BidUpdateManyWithoutEtpFileNestedInput
+  bidTrFiles?: Prisma.BidUpdateManyWithoutTrFileNestedInput
+  bidProposalFiles?: Prisma.BidProposalUpdateManyWithoutProposalFileNestedInput
+  bidDocumentFiles?: Prisma.BidDocumentUpdateManyWithoutFileNestedInput
+  bidContractFiles?: Prisma.BidContractUpdateManyWithoutContractFileNestedInput
+}
+
+export type StorageFileUncheckedUpdateWithoutBidEditalFilesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  folderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  originalName?: Prisma.StringFieldUpdateOperationsInput | string
+  fileKey?: Prisma.StringFieldUpdateOperationsInput | string
+  path?: Prisma.StringFieldUpdateOperationsInput | string
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  fileType?: Prisma.StringFieldUpdateOperationsInput | string
+  thumbnailKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumStorageFileStatusFieldUpdateOperationsInput | $Enums.StorageFileStatus
+  currentVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
+  isEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  versions?: Prisma.StorageFileVersionUncheckedUpdateManyWithoutFileNestedInput
+  shareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutFileNestedInput
+  cardAttachments?: Prisma.CardAttachmentUncheckedUpdateManyWithoutFileNestedInput
+  bidEtpFiles?: Prisma.BidUncheckedUpdateManyWithoutEtpFileNestedInput
+  bidTrFiles?: Prisma.BidUncheckedUpdateManyWithoutTrFileNestedInput
+  bidProposalFiles?: Prisma.BidProposalUncheckedUpdateManyWithoutProposalFileNestedInput
+  bidDocumentFiles?: Prisma.BidDocumentUncheckedUpdateManyWithoutFileNestedInput
+  bidContractFiles?: Prisma.BidContractUncheckedUpdateManyWithoutContractFileNestedInput
+}
+
+export type StorageFileUpsertWithoutBidEtpFilesInput = {
+  update: Prisma.XOR<Prisma.StorageFileUpdateWithoutBidEtpFilesInput, Prisma.StorageFileUncheckedUpdateWithoutBidEtpFilesInput>
+  create: Prisma.XOR<Prisma.StorageFileCreateWithoutBidEtpFilesInput, Prisma.StorageFileUncheckedCreateWithoutBidEtpFilesInput>
+  where?: Prisma.StorageFileWhereInput
+}
+
+export type StorageFileUpdateToOneWithWhereWithoutBidEtpFilesInput = {
+  where?: Prisma.StorageFileWhereInput
+  data: Prisma.XOR<Prisma.StorageFileUpdateWithoutBidEtpFilesInput, Prisma.StorageFileUncheckedUpdateWithoutBidEtpFilesInput>
+}
+
+export type StorageFileUpdateWithoutBidEtpFilesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  originalName?: Prisma.StringFieldUpdateOperationsInput | string
+  fileKey?: Prisma.StringFieldUpdateOperationsInput | string
+  path?: Prisma.StringFieldUpdateOperationsInput | string
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  fileType?: Prisma.StringFieldUpdateOperationsInput | string
+  thumbnailKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumStorageFileStatusFieldUpdateOperationsInput | $Enums.StorageFileStatus
+  currentVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
+  isEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutStorageFilesNestedInput
+  folder?: Prisma.StorageFolderUpdateOneWithoutFilesNestedInput
+  versions?: Prisma.StorageFileVersionUpdateManyWithoutFileNestedInput
+  shareLinks?: Prisma.StorageShareLinkUpdateManyWithoutFileNestedInput
+  cardAttachments?: Prisma.CardAttachmentUpdateManyWithoutFileNestedInput
+  bidEditalFiles?: Prisma.BidUpdateManyWithoutEditalFileNestedInput
+  bidTrFiles?: Prisma.BidUpdateManyWithoutTrFileNestedInput
+  bidProposalFiles?: Prisma.BidProposalUpdateManyWithoutProposalFileNestedInput
+  bidDocumentFiles?: Prisma.BidDocumentUpdateManyWithoutFileNestedInput
+  bidContractFiles?: Prisma.BidContractUpdateManyWithoutContractFileNestedInput
+}
+
+export type StorageFileUncheckedUpdateWithoutBidEtpFilesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  folderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  originalName?: Prisma.StringFieldUpdateOperationsInput | string
+  fileKey?: Prisma.StringFieldUpdateOperationsInput | string
+  path?: Prisma.StringFieldUpdateOperationsInput | string
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  fileType?: Prisma.StringFieldUpdateOperationsInput | string
+  thumbnailKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumStorageFileStatusFieldUpdateOperationsInput | $Enums.StorageFileStatus
+  currentVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
+  isEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  versions?: Prisma.StorageFileVersionUncheckedUpdateManyWithoutFileNestedInput
+  shareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutFileNestedInput
+  cardAttachments?: Prisma.CardAttachmentUncheckedUpdateManyWithoutFileNestedInput
+  bidEditalFiles?: Prisma.BidUncheckedUpdateManyWithoutEditalFileNestedInput
+  bidTrFiles?: Prisma.BidUncheckedUpdateManyWithoutTrFileNestedInput
+  bidProposalFiles?: Prisma.BidProposalUncheckedUpdateManyWithoutProposalFileNestedInput
+  bidDocumentFiles?: Prisma.BidDocumentUncheckedUpdateManyWithoutFileNestedInput
+  bidContractFiles?: Prisma.BidContractUncheckedUpdateManyWithoutContractFileNestedInput
+}
+
+export type StorageFileUpsertWithoutBidTrFilesInput = {
+  update: Prisma.XOR<Prisma.StorageFileUpdateWithoutBidTrFilesInput, Prisma.StorageFileUncheckedUpdateWithoutBidTrFilesInput>
+  create: Prisma.XOR<Prisma.StorageFileCreateWithoutBidTrFilesInput, Prisma.StorageFileUncheckedCreateWithoutBidTrFilesInput>
+  where?: Prisma.StorageFileWhereInput
+}
+
+export type StorageFileUpdateToOneWithWhereWithoutBidTrFilesInput = {
+  where?: Prisma.StorageFileWhereInput
+  data: Prisma.XOR<Prisma.StorageFileUpdateWithoutBidTrFilesInput, Prisma.StorageFileUncheckedUpdateWithoutBidTrFilesInput>
+}
+
+export type StorageFileUpdateWithoutBidTrFilesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  originalName?: Prisma.StringFieldUpdateOperationsInput | string
+  fileKey?: Prisma.StringFieldUpdateOperationsInput | string
+  path?: Prisma.StringFieldUpdateOperationsInput | string
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  fileType?: Prisma.StringFieldUpdateOperationsInput | string
+  thumbnailKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumStorageFileStatusFieldUpdateOperationsInput | $Enums.StorageFileStatus
+  currentVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
+  isEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutStorageFilesNestedInput
+  folder?: Prisma.StorageFolderUpdateOneWithoutFilesNestedInput
+  versions?: Prisma.StorageFileVersionUpdateManyWithoutFileNestedInput
+  shareLinks?: Prisma.StorageShareLinkUpdateManyWithoutFileNestedInput
+  cardAttachments?: Prisma.CardAttachmentUpdateManyWithoutFileNestedInput
+  bidEditalFiles?: Prisma.BidUpdateManyWithoutEditalFileNestedInput
+  bidEtpFiles?: Prisma.BidUpdateManyWithoutEtpFileNestedInput
+  bidProposalFiles?: Prisma.BidProposalUpdateManyWithoutProposalFileNestedInput
+  bidDocumentFiles?: Prisma.BidDocumentUpdateManyWithoutFileNestedInput
+  bidContractFiles?: Prisma.BidContractUpdateManyWithoutContractFileNestedInput
+}
+
+export type StorageFileUncheckedUpdateWithoutBidTrFilesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  folderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  originalName?: Prisma.StringFieldUpdateOperationsInput | string
+  fileKey?: Prisma.StringFieldUpdateOperationsInput | string
+  path?: Prisma.StringFieldUpdateOperationsInput | string
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  fileType?: Prisma.StringFieldUpdateOperationsInput | string
+  thumbnailKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumStorageFileStatusFieldUpdateOperationsInput | $Enums.StorageFileStatus
+  currentVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
+  isEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  versions?: Prisma.StorageFileVersionUncheckedUpdateManyWithoutFileNestedInput
+  shareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutFileNestedInput
+  cardAttachments?: Prisma.CardAttachmentUncheckedUpdateManyWithoutFileNestedInput
+  bidEditalFiles?: Prisma.BidUncheckedUpdateManyWithoutEditalFileNestedInput
+  bidEtpFiles?: Prisma.BidUncheckedUpdateManyWithoutEtpFileNestedInput
+  bidProposalFiles?: Prisma.BidProposalUncheckedUpdateManyWithoutProposalFileNestedInput
+  bidDocumentFiles?: Prisma.BidDocumentUncheckedUpdateManyWithoutFileNestedInput
+  bidContractFiles?: Prisma.BidContractUncheckedUpdateManyWithoutContractFileNestedInput
+}
+
+export type StorageFileCreateWithoutBidProposalFilesInput = {
   id?: string
   name: string
   originalName: string
@@ -2686,24 +2277,14 @@ export type StorageFileCreateWithoutTenantBrandLogoIconsInput = {
   versions?: Prisma.StorageFileVersionCreateNestedManyWithoutFileInput
   shareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutFileInput
   cardAttachments?: Prisma.CardAttachmentCreateNestedManyWithoutFileInput
-  catalogCoverImages?: Prisma.CatalogCreateNestedManyWithoutCoverImageInput
-  catalogExportFiles?: Prisma.CatalogExportCreateNestedManyWithoutFileInput
-  tenantBrandLogos?: Prisma.TenantBrandCreateNestedManyWithoutLogoInput
-  contentTemplatePreviews?: Prisma.ContentTemplateCreateNestedManyWithoutPreviewFileInput
-  generatedContentFiles?: Prisma.GeneratedContentCreateNestedManyWithoutFileInput
-  generatedContentThumbs?: Prisma.GeneratedContentCreateNestedManyWithoutThumbnailInput
-  mockupClientLogos?: Prisma.ProductMockupCreateNestedManyWithoutClientLogoInput
-  mockupResultFiles?: Prisma.ProductMockupCreateNestedManyWithoutResultFileInput
-  certificatePfxFiles?: Prisma.DigitalCertificateCreateNestedManyWithoutPfxFileInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeCreateNestedManyWithoutDocumentFileInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeCreateNestedManyWithoutSignedFileInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutSignatureImageInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportCreateNestedManyWithoutLastFileInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationCreateNestedManyWithoutFileInput
-  posVisitSignatures?: Prisma.PosVisitLogCreateNestedManyWithoutSignatureFileInput
+  bidEditalFiles?: Prisma.BidCreateNestedManyWithoutEditalFileInput
+  bidEtpFiles?: Prisma.BidCreateNestedManyWithoutEtpFileInput
+  bidTrFiles?: Prisma.BidCreateNestedManyWithoutTrFileInput
+  bidDocumentFiles?: Prisma.BidDocumentCreateNestedManyWithoutFileInput
+  bidContractFiles?: Prisma.BidContractCreateNestedManyWithoutContractFileInput
 }
 
-export type StorageFileUncheckedCreateWithoutTenantBrandLogoIconsInput = {
+export type StorageFileUncheckedCreateWithoutBidProposalFilesInput = {
   id?: string
   tenantId: string
   folderId?: string | null
@@ -2731,40 +2312,30 @@ export type StorageFileUncheckedCreateWithoutTenantBrandLogoIconsInput = {
   versions?: Prisma.StorageFileVersionUncheckedCreateNestedManyWithoutFileInput
   shareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutFileInput
   cardAttachments?: Prisma.CardAttachmentUncheckedCreateNestedManyWithoutFileInput
-  catalogCoverImages?: Prisma.CatalogUncheckedCreateNestedManyWithoutCoverImageInput
-  catalogExportFiles?: Prisma.CatalogExportUncheckedCreateNestedManyWithoutFileInput
-  tenantBrandLogos?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutLogoInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutPreviewFileInput
-  generatedContentFiles?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutFileInput
-  generatedContentThumbs?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutThumbnailInput
-  mockupClientLogos?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutClientLogoInput
-  mockupResultFiles?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutResultFileInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUncheckedCreateNestedManyWithoutPfxFileInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutDocumentFileInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutSignedFileInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutSignatureImageInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutLastFileInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedCreateNestedManyWithoutFileInput
-  posVisitSignatures?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutSignatureFileInput
+  bidEditalFiles?: Prisma.BidUncheckedCreateNestedManyWithoutEditalFileInput
+  bidEtpFiles?: Prisma.BidUncheckedCreateNestedManyWithoutEtpFileInput
+  bidTrFiles?: Prisma.BidUncheckedCreateNestedManyWithoutTrFileInput
+  bidDocumentFiles?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutFileInput
+  bidContractFiles?: Prisma.BidContractUncheckedCreateNestedManyWithoutContractFileInput
 }
 
-export type StorageFileCreateOrConnectWithoutTenantBrandLogoIconsInput = {
+export type StorageFileCreateOrConnectWithoutBidProposalFilesInput = {
   where: Prisma.StorageFileWhereUniqueInput
-  create: Prisma.XOR<Prisma.StorageFileCreateWithoutTenantBrandLogoIconsInput, Prisma.StorageFileUncheckedCreateWithoutTenantBrandLogoIconsInput>
+  create: Prisma.XOR<Prisma.StorageFileCreateWithoutBidProposalFilesInput, Prisma.StorageFileUncheckedCreateWithoutBidProposalFilesInput>
 }
 
-export type StorageFileUpsertWithoutTenantBrandLogosInput = {
-  update: Prisma.XOR<Prisma.StorageFileUpdateWithoutTenantBrandLogosInput, Prisma.StorageFileUncheckedUpdateWithoutTenantBrandLogosInput>
-  create: Prisma.XOR<Prisma.StorageFileCreateWithoutTenantBrandLogosInput, Prisma.StorageFileUncheckedCreateWithoutTenantBrandLogosInput>
+export type StorageFileUpsertWithoutBidProposalFilesInput = {
+  update: Prisma.XOR<Prisma.StorageFileUpdateWithoutBidProposalFilesInput, Prisma.StorageFileUncheckedUpdateWithoutBidProposalFilesInput>
+  create: Prisma.XOR<Prisma.StorageFileCreateWithoutBidProposalFilesInput, Prisma.StorageFileUncheckedCreateWithoutBidProposalFilesInput>
   where?: Prisma.StorageFileWhereInput
 }
 
-export type StorageFileUpdateToOneWithWhereWithoutTenantBrandLogosInput = {
+export type StorageFileUpdateToOneWithWhereWithoutBidProposalFilesInput = {
   where?: Prisma.StorageFileWhereInput
-  data: Prisma.XOR<Prisma.StorageFileUpdateWithoutTenantBrandLogosInput, Prisma.StorageFileUncheckedUpdateWithoutTenantBrandLogosInput>
+  data: Prisma.XOR<Prisma.StorageFileUpdateWithoutBidProposalFilesInput, Prisma.StorageFileUncheckedUpdateWithoutBidProposalFilesInput>
 }
 
-export type StorageFileUpdateWithoutTenantBrandLogosInput = {
+export type StorageFileUpdateWithoutBidProposalFilesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   originalName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2792,24 +2363,14 @@ export type StorageFileUpdateWithoutTenantBrandLogosInput = {
   versions?: Prisma.StorageFileVersionUpdateManyWithoutFileNestedInput
   shareLinks?: Prisma.StorageShareLinkUpdateManyWithoutFileNestedInput
   cardAttachments?: Prisma.CardAttachmentUpdateManyWithoutFileNestedInput
-  catalogCoverImages?: Prisma.CatalogUpdateManyWithoutCoverImageNestedInput
-  catalogExportFiles?: Prisma.CatalogExportUpdateManyWithoutFileNestedInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUpdateManyWithoutLogoIconNestedInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUpdateManyWithoutPreviewFileNestedInput
-  generatedContentFiles?: Prisma.GeneratedContentUpdateManyWithoutFileNestedInput
-  generatedContentThumbs?: Prisma.GeneratedContentUpdateManyWithoutThumbnailNestedInput
-  mockupClientLogos?: Prisma.ProductMockupUpdateManyWithoutClientLogoNestedInput
-  mockupResultFiles?: Prisma.ProductMockupUpdateManyWithoutResultFileNestedInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUpdateManyWithoutPfxFileNestedInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUpdateManyWithoutDocumentFileNestedInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUpdateManyWithoutSignedFileNestedInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutSignatureImageNestedInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUpdateManyWithoutLastFileNestedInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUpdateManyWithoutFileNestedInput
-  posVisitSignatures?: Prisma.PosVisitLogUpdateManyWithoutSignatureFileNestedInput
+  bidEditalFiles?: Prisma.BidUpdateManyWithoutEditalFileNestedInput
+  bidEtpFiles?: Prisma.BidUpdateManyWithoutEtpFileNestedInput
+  bidTrFiles?: Prisma.BidUpdateManyWithoutTrFileNestedInput
+  bidDocumentFiles?: Prisma.BidDocumentUpdateManyWithoutFileNestedInput
+  bidContractFiles?: Prisma.BidContractUpdateManyWithoutContractFileNestedInput
 }
 
-export type StorageFileUncheckedUpdateWithoutTenantBrandLogosInput = {
+export type StorageFileUncheckedUpdateWithoutBidProposalFilesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   folderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2837,125 +2398,14 @@ export type StorageFileUncheckedUpdateWithoutTenantBrandLogosInput = {
   versions?: Prisma.StorageFileVersionUncheckedUpdateManyWithoutFileNestedInput
   shareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutFileNestedInput
   cardAttachments?: Prisma.CardAttachmentUncheckedUpdateManyWithoutFileNestedInput
-  catalogCoverImages?: Prisma.CatalogUncheckedUpdateManyWithoutCoverImageNestedInput
-  catalogExportFiles?: Prisma.CatalogExportUncheckedUpdateManyWithoutFileNestedInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUncheckedUpdateManyWithoutLogoIconNestedInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUncheckedUpdateManyWithoutPreviewFileNestedInput
-  generatedContentFiles?: Prisma.GeneratedContentUncheckedUpdateManyWithoutFileNestedInput
-  generatedContentThumbs?: Prisma.GeneratedContentUncheckedUpdateManyWithoutThumbnailNestedInput
-  mockupClientLogos?: Prisma.ProductMockupUncheckedUpdateManyWithoutClientLogoNestedInput
-  mockupResultFiles?: Prisma.ProductMockupUncheckedUpdateManyWithoutResultFileNestedInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUncheckedUpdateManyWithoutPfxFileNestedInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutDocumentFileNestedInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutSignedFileNestedInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutSignatureImageNestedInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutLastFileNestedInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedUpdateManyWithoutFileNestedInput
-  posVisitSignatures?: Prisma.PosVisitLogUncheckedUpdateManyWithoutSignatureFileNestedInput
+  bidEditalFiles?: Prisma.BidUncheckedUpdateManyWithoutEditalFileNestedInput
+  bidEtpFiles?: Prisma.BidUncheckedUpdateManyWithoutEtpFileNestedInput
+  bidTrFiles?: Prisma.BidUncheckedUpdateManyWithoutTrFileNestedInput
+  bidDocumentFiles?: Prisma.BidDocumentUncheckedUpdateManyWithoutFileNestedInput
+  bidContractFiles?: Prisma.BidContractUncheckedUpdateManyWithoutContractFileNestedInput
 }
 
-export type StorageFileUpsertWithoutTenantBrandLogoIconsInput = {
-  update: Prisma.XOR<Prisma.StorageFileUpdateWithoutTenantBrandLogoIconsInput, Prisma.StorageFileUncheckedUpdateWithoutTenantBrandLogoIconsInput>
-  create: Prisma.XOR<Prisma.StorageFileCreateWithoutTenantBrandLogoIconsInput, Prisma.StorageFileUncheckedCreateWithoutTenantBrandLogoIconsInput>
-  where?: Prisma.StorageFileWhereInput
-}
-
-export type StorageFileUpdateToOneWithWhereWithoutTenantBrandLogoIconsInput = {
-  where?: Prisma.StorageFileWhereInput
-  data: Prisma.XOR<Prisma.StorageFileUpdateWithoutTenantBrandLogoIconsInput, Prisma.StorageFileUncheckedUpdateWithoutTenantBrandLogoIconsInput>
-}
-
-export type StorageFileUpdateWithoutTenantBrandLogoIconsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  originalName?: Prisma.StringFieldUpdateOperationsInput | string
-  fileKey?: Prisma.StringFieldUpdateOperationsInput | string
-  path?: Prisma.StringFieldUpdateOperationsInput | string
-  size?: Prisma.IntFieldUpdateOperationsInput | number
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  fileType?: Prisma.StringFieldUpdateOperationsInput | string
-  thumbnailKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumStorageFileStatusFieldUpdateOperationsInput | $Enums.StorageFileStatus
-  currentVersion?: Prisma.IntFieldUpdateOperationsInput | number
-  entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
-  isEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  tenant?: Prisma.TenantUpdateOneRequiredWithoutStorageFilesNestedInput
-  folder?: Prisma.StorageFolderUpdateOneWithoutFilesNestedInput
-  versions?: Prisma.StorageFileVersionUpdateManyWithoutFileNestedInput
-  shareLinks?: Prisma.StorageShareLinkUpdateManyWithoutFileNestedInput
-  cardAttachments?: Prisma.CardAttachmentUpdateManyWithoutFileNestedInput
-  catalogCoverImages?: Prisma.CatalogUpdateManyWithoutCoverImageNestedInput
-  catalogExportFiles?: Prisma.CatalogExportUpdateManyWithoutFileNestedInput
-  tenantBrandLogos?: Prisma.TenantBrandUpdateManyWithoutLogoNestedInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUpdateManyWithoutPreviewFileNestedInput
-  generatedContentFiles?: Prisma.GeneratedContentUpdateManyWithoutFileNestedInput
-  generatedContentThumbs?: Prisma.GeneratedContentUpdateManyWithoutThumbnailNestedInput
-  mockupClientLogos?: Prisma.ProductMockupUpdateManyWithoutClientLogoNestedInput
-  mockupResultFiles?: Prisma.ProductMockupUpdateManyWithoutResultFileNestedInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUpdateManyWithoutPfxFileNestedInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUpdateManyWithoutDocumentFileNestedInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUpdateManyWithoutSignedFileNestedInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutSignatureImageNestedInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUpdateManyWithoutLastFileNestedInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUpdateManyWithoutFileNestedInput
-  posVisitSignatures?: Prisma.PosVisitLogUpdateManyWithoutSignatureFileNestedInput
-}
-
-export type StorageFileUncheckedUpdateWithoutTenantBrandLogoIconsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  folderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  originalName?: Prisma.StringFieldUpdateOperationsInput | string
-  fileKey?: Prisma.StringFieldUpdateOperationsInput | string
-  path?: Prisma.StringFieldUpdateOperationsInput | string
-  size?: Prisma.IntFieldUpdateOperationsInput | number
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  fileType?: Prisma.StringFieldUpdateOperationsInput | string
-  thumbnailKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumStorageFileStatusFieldUpdateOperationsInput | $Enums.StorageFileStatus
-  currentVersion?: Prisma.IntFieldUpdateOperationsInput | number
-  entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
-  isEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  versions?: Prisma.StorageFileVersionUncheckedUpdateManyWithoutFileNestedInput
-  shareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutFileNestedInput
-  cardAttachments?: Prisma.CardAttachmentUncheckedUpdateManyWithoutFileNestedInput
-  catalogCoverImages?: Prisma.CatalogUncheckedUpdateManyWithoutCoverImageNestedInput
-  catalogExportFiles?: Prisma.CatalogExportUncheckedUpdateManyWithoutFileNestedInput
-  tenantBrandLogos?: Prisma.TenantBrandUncheckedUpdateManyWithoutLogoNestedInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUncheckedUpdateManyWithoutPreviewFileNestedInput
-  generatedContentFiles?: Prisma.GeneratedContentUncheckedUpdateManyWithoutFileNestedInput
-  generatedContentThumbs?: Prisma.GeneratedContentUncheckedUpdateManyWithoutThumbnailNestedInput
-  mockupClientLogos?: Prisma.ProductMockupUncheckedUpdateManyWithoutClientLogoNestedInput
-  mockupResultFiles?: Prisma.ProductMockupUncheckedUpdateManyWithoutResultFileNestedInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUncheckedUpdateManyWithoutPfxFileNestedInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutDocumentFileNestedInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutSignedFileNestedInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutSignatureImageNestedInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutLastFileNestedInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedUpdateManyWithoutFileNestedInput
-  posVisitSignatures?: Prisma.PosVisitLogUncheckedUpdateManyWithoutSignatureFileNestedInput
-}
-
-export type StorageFileCreateWithoutContentTemplatePreviewsInput = {
+export type StorageFileCreateWithoutBidDocumentFilesInput = {
   id?: string
   name: string
   originalName: string
@@ -2983,24 +2433,14 @@ export type StorageFileCreateWithoutContentTemplatePreviewsInput = {
   versions?: Prisma.StorageFileVersionCreateNestedManyWithoutFileInput
   shareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutFileInput
   cardAttachments?: Prisma.CardAttachmentCreateNestedManyWithoutFileInput
-  catalogCoverImages?: Prisma.CatalogCreateNestedManyWithoutCoverImageInput
-  catalogExportFiles?: Prisma.CatalogExportCreateNestedManyWithoutFileInput
-  tenantBrandLogos?: Prisma.TenantBrandCreateNestedManyWithoutLogoInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandCreateNestedManyWithoutLogoIconInput
-  generatedContentFiles?: Prisma.GeneratedContentCreateNestedManyWithoutFileInput
-  generatedContentThumbs?: Prisma.GeneratedContentCreateNestedManyWithoutThumbnailInput
-  mockupClientLogos?: Prisma.ProductMockupCreateNestedManyWithoutClientLogoInput
-  mockupResultFiles?: Prisma.ProductMockupCreateNestedManyWithoutResultFileInput
-  certificatePfxFiles?: Prisma.DigitalCertificateCreateNestedManyWithoutPfxFileInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeCreateNestedManyWithoutDocumentFileInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeCreateNestedManyWithoutSignedFileInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutSignatureImageInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportCreateNestedManyWithoutLastFileInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationCreateNestedManyWithoutFileInput
-  posVisitSignatures?: Prisma.PosVisitLogCreateNestedManyWithoutSignatureFileInput
+  bidEditalFiles?: Prisma.BidCreateNestedManyWithoutEditalFileInput
+  bidEtpFiles?: Prisma.BidCreateNestedManyWithoutEtpFileInput
+  bidTrFiles?: Prisma.BidCreateNestedManyWithoutTrFileInput
+  bidProposalFiles?: Prisma.BidProposalCreateNestedManyWithoutProposalFileInput
+  bidContractFiles?: Prisma.BidContractCreateNestedManyWithoutContractFileInput
 }
 
-export type StorageFileUncheckedCreateWithoutContentTemplatePreviewsInput = {
+export type StorageFileUncheckedCreateWithoutBidDocumentFilesInput = {
   id?: string
   tenantId: string
   folderId?: string | null
@@ -3028,40 +2468,30 @@ export type StorageFileUncheckedCreateWithoutContentTemplatePreviewsInput = {
   versions?: Prisma.StorageFileVersionUncheckedCreateNestedManyWithoutFileInput
   shareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutFileInput
   cardAttachments?: Prisma.CardAttachmentUncheckedCreateNestedManyWithoutFileInput
-  catalogCoverImages?: Prisma.CatalogUncheckedCreateNestedManyWithoutCoverImageInput
-  catalogExportFiles?: Prisma.CatalogExportUncheckedCreateNestedManyWithoutFileInput
-  tenantBrandLogos?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutLogoInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutLogoIconInput
-  generatedContentFiles?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutFileInput
-  generatedContentThumbs?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutThumbnailInput
-  mockupClientLogos?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutClientLogoInput
-  mockupResultFiles?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutResultFileInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUncheckedCreateNestedManyWithoutPfxFileInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutDocumentFileInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutSignedFileInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutSignatureImageInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutLastFileInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedCreateNestedManyWithoutFileInput
-  posVisitSignatures?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutSignatureFileInput
+  bidEditalFiles?: Prisma.BidUncheckedCreateNestedManyWithoutEditalFileInput
+  bidEtpFiles?: Prisma.BidUncheckedCreateNestedManyWithoutEtpFileInput
+  bidTrFiles?: Prisma.BidUncheckedCreateNestedManyWithoutTrFileInput
+  bidProposalFiles?: Prisma.BidProposalUncheckedCreateNestedManyWithoutProposalFileInput
+  bidContractFiles?: Prisma.BidContractUncheckedCreateNestedManyWithoutContractFileInput
 }
 
-export type StorageFileCreateOrConnectWithoutContentTemplatePreviewsInput = {
+export type StorageFileCreateOrConnectWithoutBidDocumentFilesInput = {
   where: Prisma.StorageFileWhereUniqueInput
-  create: Prisma.XOR<Prisma.StorageFileCreateWithoutContentTemplatePreviewsInput, Prisma.StorageFileUncheckedCreateWithoutContentTemplatePreviewsInput>
+  create: Prisma.XOR<Prisma.StorageFileCreateWithoutBidDocumentFilesInput, Prisma.StorageFileUncheckedCreateWithoutBidDocumentFilesInput>
 }
 
-export type StorageFileUpsertWithoutContentTemplatePreviewsInput = {
-  update: Prisma.XOR<Prisma.StorageFileUpdateWithoutContentTemplatePreviewsInput, Prisma.StorageFileUncheckedUpdateWithoutContentTemplatePreviewsInput>
-  create: Prisma.XOR<Prisma.StorageFileCreateWithoutContentTemplatePreviewsInput, Prisma.StorageFileUncheckedCreateWithoutContentTemplatePreviewsInput>
+export type StorageFileUpsertWithoutBidDocumentFilesInput = {
+  update: Prisma.XOR<Prisma.StorageFileUpdateWithoutBidDocumentFilesInput, Prisma.StorageFileUncheckedUpdateWithoutBidDocumentFilesInput>
+  create: Prisma.XOR<Prisma.StorageFileCreateWithoutBidDocumentFilesInput, Prisma.StorageFileUncheckedCreateWithoutBidDocumentFilesInput>
   where?: Prisma.StorageFileWhereInput
 }
 
-export type StorageFileUpdateToOneWithWhereWithoutContentTemplatePreviewsInput = {
+export type StorageFileUpdateToOneWithWhereWithoutBidDocumentFilesInput = {
   where?: Prisma.StorageFileWhereInput
-  data: Prisma.XOR<Prisma.StorageFileUpdateWithoutContentTemplatePreviewsInput, Prisma.StorageFileUncheckedUpdateWithoutContentTemplatePreviewsInput>
+  data: Prisma.XOR<Prisma.StorageFileUpdateWithoutBidDocumentFilesInput, Prisma.StorageFileUncheckedUpdateWithoutBidDocumentFilesInput>
 }
 
-export type StorageFileUpdateWithoutContentTemplatePreviewsInput = {
+export type StorageFileUpdateWithoutBidDocumentFilesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   originalName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -3089,24 +2519,14 @@ export type StorageFileUpdateWithoutContentTemplatePreviewsInput = {
   versions?: Prisma.StorageFileVersionUpdateManyWithoutFileNestedInput
   shareLinks?: Prisma.StorageShareLinkUpdateManyWithoutFileNestedInput
   cardAttachments?: Prisma.CardAttachmentUpdateManyWithoutFileNestedInput
-  catalogCoverImages?: Prisma.CatalogUpdateManyWithoutCoverImageNestedInput
-  catalogExportFiles?: Prisma.CatalogExportUpdateManyWithoutFileNestedInput
-  tenantBrandLogos?: Prisma.TenantBrandUpdateManyWithoutLogoNestedInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUpdateManyWithoutLogoIconNestedInput
-  generatedContentFiles?: Prisma.GeneratedContentUpdateManyWithoutFileNestedInput
-  generatedContentThumbs?: Prisma.GeneratedContentUpdateManyWithoutThumbnailNestedInput
-  mockupClientLogos?: Prisma.ProductMockupUpdateManyWithoutClientLogoNestedInput
-  mockupResultFiles?: Prisma.ProductMockupUpdateManyWithoutResultFileNestedInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUpdateManyWithoutPfxFileNestedInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUpdateManyWithoutDocumentFileNestedInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUpdateManyWithoutSignedFileNestedInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutSignatureImageNestedInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUpdateManyWithoutLastFileNestedInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUpdateManyWithoutFileNestedInput
-  posVisitSignatures?: Prisma.PosVisitLogUpdateManyWithoutSignatureFileNestedInput
+  bidEditalFiles?: Prisma.BidUpdateManyWithoutEditalFileNestedInput
+  bidEtpFiles?: Prisma.BidUpdateManyWithoutEtpFileNestedInput
+  bidTrFiles?: Prisma.BidUpdateManyWithoutTrFileNestedInput
+  bidProposalFiles?: Prisma.BidProposalUpdateManyWithoutProposalFileNestedInput
+  bidContractFiles?: Prisma.BidContractUpdateManyWithoutContractFileNestedInput
 }
 
-export type StorageFileUncheckedUpdateWithoutContentTemplatePreviewsInput = {
+export type StorageFileUncheckedUpdateWithoutBidDocumentFilesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   folderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3134,24 +2554,14 @@ export type StorageFileUncheckedUpdateWithoutContentTemplatePreviewsInput = {
   versions?: Prisma.StorageFileVersionUncheckedUpdateManyWithoutFileNestedInput
   shareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutFileNestedInput
   cardAttachments?: Prisma.CardAttachmentUncheckedUpdateManyWithoutFileNestedInput
-  catalogCoverImages?: Prisma.CatalogUncheckedUpdateManyWithoutCoverImageNestedInput
-  catalogExportFiles?: Prisma.CatalogExportUncheckedUpdateManyWithoutFileNestedInput
-  tenantBrandLogos?: Prisma.TenantBrandUncheckedUpdateManyWithoutLogoNestedInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUncheckedUpdateManyWithoutLogoIconNestedInput
-  generatedContentFiles?: Prisma.GeneratedContentUncheckedUpdateManyWithoutFileNestedInput
-  generatedContentThumbs?: Prisma.GeneratedContentUncheckedUpdateManyWithoutThumbnailNestedInput
-  mockupClientLogos?: Prisma.ProductMockupUncheckedUpdateManyWithoutClientLogoNestedInput
-  mockupResultFiles?: Prisma.ProductMockupUncheckedUpdateManyWithoutResultFileNestedInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUncheckedUpdateManyWithoutPfxFileNestedInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutDocumentFileNestedInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutSignedFileNestedInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutSignatureImageNestedInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutLastFileNestedInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedUpdateManyWithoutFileNestedInput
-  posVisitSignatures?: Prisma.PosVisitLogUncheckedUpdateManyWithoutSignatureFileNestedInput
+  bidEditalFiles?: Prisma.BidUncheckedUpdateManyWithoutEditalFileNestedInput
+  bidEtpFiles?: Prisma.BidUncheckedUpdateManyWithoutEtpFileNestedInput
+  bidTrFiles?: Prisma.BidUncheckedUpdateManyWithoutTrFileNestedInput
+  bidProposalFiles?: Prisma.BidProposalUncheckedUpdateManyWithoutProposalFileNestedInput
+  bidContractFiles?: Prisma.BidContractUncheckedUpdateManyWithoutContractFileNestedInput
 }
 
-export type StorageFileCreateWithoutGeneratedContentFilesInput = {
+export type StorageFileCreateWithoutBidContractFilesInput = {
   id?: string
   name: string
   originalName: string
@@ -3179,24 +2589,14 @@ export type StorageFileCreateWithoutGeneratedContentFilesInput = {
   versions?: Prisma.StorageFileVersionCreateNestedManyWithoutFileInput
   shareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutFileInput
   cardAttachments?: Prisma.CardAttachmentCreateNestedManyWithoutFileInput
-  catalogCoverImages?: Prisma.CatalogCreateNestedManyWithoutCoverImageInput
-  catalogExportFiles?: Prisma.CatalogExportCreateNestedManyWithoutFileInput
-  tenantBrandLogos?: Prisma.TenantBrandCreateNestedManyWithoutLogoInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandCreateNestedManyWithoutLogoIconInput
-  contentTemplatePreviews?: Prisma.ContentTemplateCreateNestedManyWithoutPreviewFileInput
-  generatedContentThumbs?: Prisma.GeneratedContentCreateNestedManyWithoutThumbnailInput
-  mockupClientLogos?: Prisma.ProductMockupCreateNestedManyWithoutClientLogoInput
-  mockupResultFiles?: Prisma.ProductMockupCreateNestedManyWithoutResultFileInput
-  certificatePfxFiles?: Prisma.DigitalCertificateCreateNestedManyWithoutPfxFileInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeCreateNestedManyWithoutDocumentFileInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeCreateNestedManyWithoutSignedFileInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutSignatureImageInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportCreateNestedManyWithoutLastFileInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationCreateNestedManyWithoutFileInput
-  posVisitSignatures?: Prisma.PosVisitLogCreateNestedManyWithoutSignatureFileInput
+  bidEditalFiles?: Prisma.BidCreateNestedManyWithoutEditalFileInput
+  bidEtpFiles?: Prisma.BidCreateNestedManyWithoutEtpFileInput
+  bidTrFiles?: Prisma.BidCreateNestedManyWithoutTrFileInput
+  bidProposalFiles?: Prisma.BidProposalCreateNestedManyWithoutProposalFileInput
+  bidDocumentFiles?: Prisma.BidDocumentCreateNestedManyWithoutFileInput
 }
 
-export type StorageFileUncheckedCreateWithoutGeneratedContentFilesInput = {
+export type StorageFileUncheckedCreateWithoutBidContractFilesInput = {
   id?: string
   tenantId: string
   folderId?: string | null
@@ -3224,135 +2624,30 @@ export type StorageFileUncheckedCreateWithoutGeneratedContentFilesInput = {
   versions?: Prisma.StorageFileVersionUncheckedCreateNestedManyWithoutFileInput
   shareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutFileInput
   cardAttachments?: Prisma.CardAttachmentUncheckedCreateNestedManyWithoutFileInput
-  catalogCoverImages?: Prisma.CatalogUncheckedCreateNestedManyWithoutCoverImageInput
-  catalogExportFiles?: Prisma.CatalogExportUncheckedCreateNestedManyWithoutFileInput
-  tenantBrandLogos?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutLogoInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutLogoIconInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutPreviewFileInput
-  generatedContentThumbs?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutThumbnailInput
-  mockupClientLogos?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutClientLogoInput
-  mockupResultFiles?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutResultFileInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUncheckedCreateNestedManyWithoutPfxFileInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutDocumentFileInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutSignedFileInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutSignatureImageInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutLastFileInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedCreateNestedManyWithoutFileInput
-  posVisitSignatures?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutSignatureFileInput
+  bidEditalFiles?: Prisma.BidUncheckedCreateNestedManyWithoutEditalFileInput
+  bidEtpFiles?: Prisma.BidUncheckedCreateNestedManyWithoutEtpFileInput
+  bidTrFiles?: Prisma.BidUncheckedCreateNestedManyWithoutTrFileInput
+  bidProposalFiles?: Prisma.BidProposalUncheckedCreateNestedManyWithoutProposalFileInput
+  bidDocumentFiles?: Prisma.BidDocumentUncheckedCreateNestedManyWithoutFileInput
 }
 
-export type StorageFileCreateOrConnectWithoutGeneratedContentFilesInput = {
+export type StorageFileCreateOrConnectWithoutBidContractFilesInput = {
   where: Prisma.StorageFileWhereUniqueInput
-  create: Prisma.XOR<Prisma.StorageFileCreateWithoutGeneratedContentFilesInput, Prisma.StorageFileUncheckedCreateWithoutGeneratedContentFilesInput>
+  create: Prisma.XOR<Prisma.StorageFileCreateWithoutBidContractFilesInput, Prisma.StorageFileUncheckedCreateWithoutBidContractFilesInput>
 }
 
-export type StorageFileCreateWithoutGeneratedContentThumbsInput = {
-  id?: string
-  name: string
-  originalName: string
-  fileKey: string
-  path: string
-  size: number
-  mimeType: string
-  fileType: string
-  thumbnailKey?: string | null
-  status?: $Enums.StorageFileStatus
-  currentVersion?: number
-  entityType?: string | null
-  entityId?: string | null
-  expiresAt?: Date | string | null
-  uploadedBy: string
-  isEncrypted?: boolean
-  isProtected?: boolean
-  protectionHash?: string | null
-  isHidden?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  tenant: Prisma.TenantCreateNestedOneWithoutStorageFilesInput
-  folder?: Prisma.StorageFolderCreateNestedOneWithoutFilesInput
-  versions?: Prisma.StorageFileVersionCreateNestedManyWithoutFileInput
-  shareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutFileInput
-  cardAttachments?: Prisma.CardAttachmentCreateNestedManyWithoutFileInput
-  catalogCoverImages?: Prisma.CatalogCreateNestedManyWithoutCoverImageInput
-  catalogExportFiles?: Prisma.CatalogExportCreateNestedManyWithoutFileInput
-  tenantBrandLogos?: Prisma.TenantBrandCreateNestedManyWithoutLogoInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandCreateNestedManyWithoutLogoIconInput
-  contentTemplatePreviews?: Prisma.ContentTemplateCreateNestedManyWithoutPreviewFileInput
-  generatedContentFiles?: Prisma.GeneratedContentCreateNestedManyWithoutFileInput
-  mockupClientLogos?: Prisma.ProductMockupCreateNestedManyWithoutClientLogoInput
-  mockupResultFiles?: Prisma.ProductMockupCreateNestedManyWithoutResultFileInput
-  certificatePfxFiles?: Prisma.DigitalCertificateCreateNestedManyWithoutPfxFileInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeCreateNestedManyWithoutDocumentFileInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeCreateNestedManyWithoutSignedFileInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutSignatureImageInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportCreateNestedManyWithoutLastFileInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationCreateNestedManyWithoutFileInput
-  posVisitSignatures?: Prisma.PosVisitLogCreateNestedManyWithoutSignatureFileInput
-}
-
-export type StorageFileUncheckedCreateWithoutGeneratedContentThumbsInput = {
-  id?: string
-  tenantId: string
-  folderId?: string | null
-  name: string
-  originalName: string
-  fileKey: string
-  path: string
-  size: number
-  mimeType: string
-  fileType: string
-  thumbnailKey?: string | null
-  status?: $Enums.StorageFileStatus
-  currentVersion?: number
-  entityType?: string | null
-  entityId?: string | null
-  expiresAt?: Date | string | null
-  uploadedBy: string
-  isEncrypted?: boolean
-  isProtected?: boolean
-  protectionHash?: string | null
-  isHidden?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  versions?: Prisma.StorageFileVersionUncheckedCreateNestedManyWithoutFileInput
-  shareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutFileInput
-  cardAttachments?: Prisma.CardAttachmentUncheckedCreateNestedManyWithoutFileInput
-  catalogCoverImages?: Prisma.CatalogUncheckedCreateNestedManyWithoutCoverImageInput
-  catalogExportFiles?: Prisma.CatalogExportUncheckedCreateNestedManyWithoutFileInput
-  tenantBrandLogos?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutLogoInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutLogoIconInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutPreviewFileInput
-  generatedContentFiles?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutFileInput
-  mockupClientLogos?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutClientLogoInput
-  mockupResultFiles?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutResultFileInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUncheckedCreateNestedManyWithoutPfxFileInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutDocumentFileInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutSignedFileInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutSignatureImageInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutLastFileInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedCreateNestedManyWithoutFileInput
-  posVisitSignatures?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutSignatureFileInput
-}
-
-export type StorageFileCreateOrConnectWithoutGeneratedContentThumbsInput = {
-  where: Prisma.StorageFileWhereUniqueInput
-  create: Prisma.XOR<Prisma.StorageFileCreateWithoutGeneratedContentThumbsInput, Prisma.StorageFileUncheckedCreateWithoutGeneratedContentThumbsInput>
-}
-
-export type StorageFileUpsertWithoutGeneratedContentFilesInput = {
-  update: Prisma.XOR<Prisma.StorageFileUpdateWithoutGeneratedContentFilesInput, Prisma.StorageFileUncheckedUpdateWithoutGeneratedContentFilesInput>
-  create: Prisma.XOR<Prisma.StorageFileCreateWithoutGeneratedContentFilesInput, Prisma.StorageFileUncheckedCreateWithoutGeneratedContentFilesInput>
+export type StorageFileUpsertWithoutBidContractFilesInput = {
+  update: Prisma.XOR<Prisma.StorageFileUpdateWithoutBidContractFilesInput, Prisma.StorageFileUncheckedUpdateWithoutBidContractFilesInput>
+  create: Prisma.XOR<Prisma.StorageFileCreateWithoutBidContractFilesInput, Prisma.StorageFileUncheckedCreateWithoutBidContractFilesInput>
   where?: Prisma.StorageFileWhereInput
 }
 
-export type StorageFileUpdateToOneWithWhereWithoutGeneratedContentFilesInput = {
+export type StorageFileUpdateToOneWithWhereWithoutBidContractFilesInput = {
   where?: Prisma.StorageFileWhereInput
-  data: Prisma.XOR<Prisma.StorageFileUpdateWithoutGeneratedContentFilesInput, Prisma.StorageFileUncheckedUpdateWithoutGeneratedContentFilesInput>
+  data: Prisma.XOR<Prisma.StorageFileUpdateWithoutBidContractFilesInput, Prisma.StorageFileUncheckedUpdateWithoutBidContractFilesInput>
 }
 
-export type StorageFileUpdateWithoutGeneratedContentFilesInput = {
+export type StorageFileUpdateWithoutBidContractFilesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   originalName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -3380,24 +2675,14 @@ export type StorageFileUpdateWithoutGeneratedContentFilesInput = {
   versions?: Prisma.StorageFileVersionUpdateManyWithoutFileNestedInput
   shareLinks?: Prisma.StorageShareLinkUpdateManyWithoutFileNestedInput
   cardAttachments?: Prisma.CardAttachmentUpdateManyWithoutFileNestedInput
-  catalogCoverImages?: Prisma.CatalogUpdateManyWithoutCoverImageNestedInput
-  catalogExportFiles?: Prisma.CatalogExportUpdateManyWithoutFileNestedInput
-  tenantBrandLogos?: Prisma.TenantBrandUpdateManyWithoutLogoNestedInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUpdateManyWithoutLogoIconNestedInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUpdateManyWithoutPreviewFileNestedInput
-  generatedContentThumbs?: Prisma.GeneratedContentUpdateManyWithoutThumbnailNestedInput
-  mockupClientLogos?: Prisma.ProductMockupUpdateManyWithoutClientLogoNestedInput
-  mockupResultFiles?: Prisma.ProductMockupUpdateManyWithoutResultFileNestedInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUpdateManyWithoutPfxFileNestedInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUpdateManyWithoutDocumentFileNestedInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUpdateManyWithoutSignedFileNestedInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutSignatureImageNestedInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUpdateManyWithoutLastFileNestedInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUpdateManyWithoutFileNestedInput
-  posVisitSignatures?: Prisma.PosVisitLogUpdateManyWithoutSignatureFileNestedInput
+  bidEditalFiles?: Prisma.BidUpdateManyWithoutEditalFileNestedInput
+  bidEtpFiles?: Prisma.BidUpdateManyWithoutEtpFileNestedInput
+  bidTrFiles?: Prisma.BidUpdateManyWithoutTrFileNestedInput
+  bidProposalFiles?: Prisma.BidProposalUpdateManyWithoutProposalFileNestedInput
+  bidDocumentFiles?: Prisma.BidDocumentUpdateManyWithoutFileNestedInput
 }
 
-export type StorageFileUncheckedUpdateWithoutGeneratedContentFilesInput = {
+export type StorageFileUncheckedUpdateWithoutBidContractFilesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   folderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3425,1886 +2710,11 @@ export type StorageFileUncheckedUpdateWithoutGeneratedContentFilesInput = {
   versions?: Prisma.StorageFileVersionUncheckedUpdateManyWithoutFileNestedInput
   shareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutFileNestedInput
   cardAttachments?: Prisma.CardAttachmentUncheckedUpdateManyWithoutFileNestedInput
-  catalogCoverImages?: Prisma.CatalogUncheckedUpdateManyWithoutCoverImageNestedInput
-  catalogExportFiles?: Prisma.CatalogExportUncheckedUpdateManyWithoutFileNestedInput
-  tenantBrandLogos?: Prisma.TenantBrandUncheckedUpdateManyWithoutLogoNestedInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUncheckedUpdateManyWithoutLogoIconNestedInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUncheckedUpdateManyWithoutPreviewFileNestedInput
-  generatedContentThumbs?: Prisma.GeneratedContentUncheckedUpdateManyWithoutThumbnailNestedInput
-  mockupClientLogos?: Prisma.ProductMockupUncheckedUpdateManyWithoutClientLogoNestedInput
-  mockupResultFiles?: Prisma.ProductMockupUncheckedUpdateManyWithoutResultFileNestedInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUncheckedUpdateManyWithoutPfxFileNestedInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutDocumentFileNestedInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutSignedFileNestedInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutSignatureImageNestedInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutLastFileNestedInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedUpdateManyWithoutFileNestedInput
-  posVisitSignatures?: Prisma.PosVisitLogUncheckedUpdateManyWithoutSignatureFileNestedInput
-}
-
-export type StorageFileUpsertWithoutGeneratedContentThumbsInput = {
-  update: Prisma.XOR<Prisma.StorageFileUpdateWithoutGeneratedContentThumbsInput, Prisma.StorageFileUncheckedUpdateWithoutGeneratedContentThumbsInput>
-  create: Prisma.XOR<Prisma.StorageFileCreateWithoutGeneratedContentThumbsInput, Prisma.StorageFileUncheckedCreateWithoutGeneratedContentThumbsInput>
-  where?: Prisma.StorageFileWhereInput
-}
-
-export type StorageFileUpdateToOneWithWhereWithoutGeneratedContentThumbsInput = {
-  where?: Prisma.StorageFileWhereInput
-  data: Prisma.XOR<Prisma.StorageFileUpdateWithoutGeneratedContentThumbsInput, Prisma.StorageFileUncheckedUpdateWithoutGeneratedContentThumbsInput>
-}
-
-export type StorageFileUpdateWithoutGeneratedContentThumbsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  originalName?: Prisma.StringFieldUpdateOperationsInput | string
-  fileKey?: Prisma.StringFieldUpdateOperationsInput | string
-  path?: Prisma.StringFieldUpdateOperationsInput | string
-  size?: Prisma.IntFieldUpdateOperationsInput | number
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  fileType?: Prisma.StringFieldUpdateOperationsInput | string
-  thumbnailKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumStorageFileStatusFieldUpdateOperationsInput | $Enums.StorageFileStatus
-  currentVersion?: Prisma.IntFieldUpdateOperationsInput | number
-  entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
-  isEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  tenant?: Prisma.TenantUpdateOneRequiredWithoutStorageFilesNestedInput
-  folder?: Prisma.StorageFolderUpdateOneWithoutFilesNestedInput
-  versions?: Prisma.StorageFileVersionUpdateManyWithoutFileNestedInput
-  shareLinks?: Prisma.StorageShareLinkUpdateManyWithoutFileNestedInput
-  cardAttachments?: Prisma.CardAttachmentUpdateManyWithoutFileNestedInput
-  catalogCoverImages?: Prisma.CatalogUpdateManyWithoutCoverImageNestedInput
-  catalogExportFiles?: Prisma.CatalogExportUpdateManyWithoutFileNestedInput
-  tenantBrandLogos?: Prisma.TenantBrandUpdateManyWithoutLogoNestedInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUpdateManyWithoutLogoIconNestedInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUpdateManyWithoutPreviewFileNestedInput
-  generatedContentFiles?: Prisma.GeneratedContentUpdateManyWithoutFileNestedInput
-  mockupClientLogos?: Prisma.ProductMockupUpdateManyWithoutClientLogoNestedInput
-  mockupResultFiles?: Prisma.ProductMockupUpdateManyWithoutResultFileNestedInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUpdateManyWithoutPfxFileNestedInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUpdateManyWithoutDocumentFileNestedInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUpdateManyWithoutSignedFileNestedInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutSignatureImageNestedInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUpdateManyWithoutLastFileNestedInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUpdateManyWithoutFileNestedInput
-  posVisitSignatures?: Prisma.PosVisitLogUpdateManyWithoutSignatureFileNestedInput
-}
-
-export type StorageFileUncheckedUpdateWithoutGeneratedContentThumbsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  folderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  originalName?: Prisma.StringFieldUpdateOperationsInput | string
-  fileKey?: Prisma.StringFieldUpdateOperationsInput | string
-  path?: Prisma.StringFieldUpdateOperationsInput | string
-  size?: Prisma.IntFieldUpdateOperationsInput | number
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  fileType?: Prisma.StringFieldUpdateOperationsInput | string
-  thumbnailKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumStorageFileStatusFieldUpdateOperationsInput | $Enums.StorageFileStatus
-  currentVersion?: Prisma.IntFieldUpdateOperationsInput | number
-  entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
-  isEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  versions?: Prisma.StorageFileVersionUncheckedUpdateManyWithoutFileNestedInput
-  shareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutFileNestedInput
-  cardAttachments?: Prisma.CardAttachmentUncheckedUpdateManyWithoutFileNestedInput
-  catalogCoverImages?: Prisma.CatalogUncheckedUpdateManyWithoutCoverImageNestedInput
-  catalogExportFiles?: Prisma.CatalogExportUncheckedUpdateManyWithoutFileNestedInput
-  tenantBrandLogos?: Prisma.TenantBrandUncheckedUpdateManyWithoutLogoNestedInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUncheckedUpdateManyWithoutLogoIconNestedInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUncheckedUpdateManyWithoutPreviewFileNestedInput
-  generatedContentFiles?: Prisma.GeneratedContentUncheckedUpdateManyWithoutFileNestedInput
-  mockupClientLogos?: Prisma.ProductMockupUncheckedUpdateManyWithoutClientLogoNestedInput
-  mockupResultFiles?: Prisma.ProductMockupUncheckedUpdateManyWithoutResultFileNestedInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUncheckedUpdateManyWithoutPfxFileNestedInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutDocumentFileNestedInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutSignedFileNestedInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutSignatureImageNestedInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutLastFileNestedInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedUpdateManyWithoutFileNestedInput
-  posVisitSignatures?: Prisma.PosVisitLogUncheckedUpdateManyWithoutSignatureFileNestedInput
-}
-
-export type StorageFileCreateWithoutMockupClientLogosInput = {
-  id?: string
-  name: string
-  originalName: string
-  fileKey: string
-  path: string
-  size: number
-  mimeType: string
-  fileType: string
-  thumbnailKey?: string | null
-  status?: $Enums.StorageFileStatus
-  currentVersion?: number
-  entityType?: string | null
-  entityId?: string | null
-  expiresAt?: Date | string | null
-  uploadedBy: string
-  isEncrypted?: boolean
-  isProtected?: boolean
-  protectionHash?: string | null
-  isHidden?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  tenant: Prisma.TenantCreateNestedOneWithoutStorageFilesInput
-  folder?: Prisma.StorageFolderCreateNestedOneWithoutFilesInput
-  versions?: Prisma.StorageFileVersionCreateNestedManyWithoutFileInput
-  shareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutFileInput
-  cardAttachments?: Prisma.CardAttachmentCreateNestedManyWithoutFileInput
-  catalogCoverImages?: Prisma.CatalogCreateNestedManyWithoutCoverImageInput
-  catalogExportFiles?: Prisma.CatalogExportCreateNestedManyWithoutFileInput
-  tenantBrandLogos?: Prisma.TenantBrandCreateNestedManyWithoutLogoInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandCreateNestedManyWithoutLogoIconInput
-  contentTemplatePreviews?: Prisma.ContentTemplateCreateNestedManyWithoutPreviewFileInput
-  generatedContentFiles?: Prisma.GeneratedContentCreateNestedManyWithoutFileInput
-  generatedContentThumbs?: Prisma.GeneratedContentCreateNestedManyWithoutThumbnailInput
-  mockupResultFiles?: Prisma.ProductMockupCreateNestedManyWithoutResultFileInput
-  certificatePfxFiles?: Prisma.DigitalCertificateCreateNestedManyWithoutPfxFileInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeCreateNestedManyWithoutDocumentFileInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeCreateNestedManyWithoutSignedFileInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutSignatureImageInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportCreateNestedManyWithoutLastFileInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationCreateNestedManyWithoutFileInput
-  posVisitSignatures?: Prisma.PosVisitLogCreateNestedManyWithoutSignatureFileInput
-}
-
-export type StorageFileUncheckedCreateWithoutMockupClientLogosInput = {
-  id?: string
-  tenantId: string
-  folderId?: string | null
-  name: string
-  originalName: string
-  fileKey: string
-  path: string
-  size: number
-  mimeType: string
-  fileType: string
-  thumbnailKey?: string | null
-  status?: $Enums.StorageFileStatus
-  currentVersion?: number
-  entityType?: string | null
-  entityId?: string | null
-  expiresAt?: Date | string | null
-  uploadedBy: string
-  isEncrypted?: boolean
-  isProtected?: boolean
-  protectionHash?: string | null
-  isHidden?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  versions?: Prisma.StorageFileVersionUncheckedCreateNestedManyWithoutFileInput
-  shareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutFileInput
-  cardAttachments?: Prisma.CardAttachmentUncheckedCreateNestedManyWithoutFileInput
-  catalogCoverImages?: Prisma.CatalogUncheckedCreateNestedManyWithoutCoverImageInput
-  catalogExportFiles?: Prisma.CatalogExportUncheckedCreateNestedManyWithoutFileInput
-  tenantBrandLogos?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutLogoInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutLogoIconInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutPreviewFileInput
-  generatedContentFiles?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutFileInput
-  generatedContentThumbs?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutThumbnailInput
-  mockupResultFiles?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutResultFileInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUncheckedCreateNestedManyWithoutPfxFileInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutDocumentFileInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutSignedFileInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutSignatureImageInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutLastFileInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedCreateNestedManyWithoutFileInput
-  posVisitSignatures?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutSignatureFileInput
-}
-
-export type StorageFileCreateOrConnectWithoutMockupClientLogosInput = {
-  where: Prisma.StorageFileWhereUniqueInput
-  create: Prisma.XOR<Prisma.StorageFileCreateWithoutMockupClientLogosInput, Prisma.StorageFileUncheckedCreateWithoutMockupClientLogosInput>
-}
-
-export type StorageFileCreateWithoutMockupResultFilesInput = {
-  id?: string
-  name: string
-  originalName: string
-  fileKey: string
-  path: string
-  size: number
-  mimeType: string
-  fileType: string
-  thumbnailKey?: string | null
-  status?: $Enums.StorageFileStatus
-  currentVersion?: number
-  entityType?: string | null
-  entityId?: string | null
-  expiresAt?: Date | string | null
-  uploadedBy: string
-  isEncrypted?: boolean
-  isProtected?: boolean
-  protectionHash?: string | null
-  isHidden?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  tenant: Prisma.TenantCreateNestedOneWithoutStorageFilesInput
-  folder?: Prisma.StorageFolderCreateNestedOneWithoutFilesInput
-  versions?: Prisma.StorageFileVersionCreateNestedManyWithoutFileInput
-  shareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutFileInput
-  cardAttachments?: Prisma.CardAttachmentCreateNestedManyWithoutFileInput
-  catalogCoverImages?: Prisma.CatalogCreateNestedManyWithoutCoverImageInput
-  catalogExportFiles?: Prisma.CatalogExportCreateNestedManyWithoutFileInput
-  tenantBrandLogos?: Prisma.TenantBrandCreateNestedManyWithoutLogoInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandCreateNestedManyWithoutLogoIconInput
-  contentTemplatePreviews?: Prisma.ContentTemplateCreateNestedManyWithoutPreviewFileInput
-  generatedContentFiles?: Prisma.GeneratedContentCreateNestedManyWithoutFileInput
-  generatedContentThumbs?: Prisma.GeneratedContentCreateNestedManyWithoutThumbnailInput
-  mockupClientLogos?: Prisma.ProductMockupCreateNestedManyWithoutClientLogoInput
-  certificatePfxFiles?: Prisma.DigitalCertificateCreateNestedManyWithoutPfxFileInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeCreateNestedManyWithoutDocumentFileInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeCreateNestedManyWithoutSignedFileInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutSignatureImageInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportCreateNestedManyWithoutLastFileInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationCreateNestedManyWithoutFileInput
-  posVisitSignatures?: Prisma.PosVisitLogCreateNestedManyWithoutSignatureFileInput
-}
-
-export type StorageFileUncheckedCreateWithoutMockupResultFilesInput = {
-  id?: string
-  tenantId: string
-  folderId?: string | null
-  name: string
-  originalName: string
-  fileKey: string
-  path: string
-  size: number
-  mimeType: string
-  fileType: string
-  thumbnailKey?: string | null
-  status?: $Enums.StorageFileStatus
-  currentVersion?: number
-  entityType?: string | null
-  entityId?: string | null
-  expiresAt?: Date | string | null
-  uploadedBy: string
-  isEncrypted?: boolean
-  isProtected?: boolean
-  protectionHash?: string | null
-  isHidden?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  versions?: Prisma.StorageFileVersionUncheckedCreateNestedManyWithoutFileInput
-  shareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutFileInput
-  cardAttachments?: Prisma.CardAttachmentUncheckedCreateNestedManyWithoutFileInput
-  catalogCoverImages?: Prisma.CatalogUncheckedCreateNestedManyWithoutCoverImageInput
-  catalogExportFiles?: Prisma.CatalogExportUncheckedCreateNestedManyWithoutFileInput
-  tenantBrandLogos?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutLogoInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutLogoIconInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutPreviewFileInput
-  generatedContentFiles?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutFileInput
-  generatedContentThumbs?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutThumbnailInput
-  mockupClientLogos?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutClientLogoInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUncheckedCreateNestedManyWithoutPfxFileInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutDocumentFileInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutSignedFileInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutSignatureImageInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutLastFileInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedCreateNestedManyWithoutFileInput
-  posVisitSignatures?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutSignatureFileInput
-}
-
-export type StorageFileCreateOrConnectWithoutMockupResultFilesInput = {
-  where: Prisma.StorageFileWhereUniqueInput
-  create: Prisma.XOR<Prisma.StorageFileCreateWithoutMockupResultFilesInput, Prisma.StorageFileUncheckedCreateWithoutMockupResultFilesInput>
-}
-
-export type StorageFileUpsertWithoutMockupClientLogosInput = {
-  update: Prisma.XOR<Prisma.StorageFileUpdateWithoutMockupClientLogosInput, Prisma.StorageFileUncheckedUpdateWithoutMockupClientLogosInput>
-  create: Prisma.XOR<Prisma.StorageFileCreateWithoutMockupClientLogosInput, Prisma.StorageFileUncheckedCreateWithoutMockupClientLogosInput>
-  where?: Prisma.StorageFileWhereInput
-}
-
-export type StorageFileUpdateToOneWithWhereWithoutMockupClientLogosInput = {
-  where?: Prisma.StorageFileWhereInput
-  data: Prisma.XOR<Prisma.StorageFileUpdateWithoutMockupClientLogosInput, Prisma.StorageFileUncheckedUpdateWithoutMockupClientLogosInput>
-}
-
-export type StorageFileUpdateWithoutMockupClientLogosInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  originalName?: Prisma.StringFieldUpdateOperationsInput | string
-  fileKey?: Prisma.StringFieldUpdateOperationsInput | string
-  path?: Prisma.StringFieldUpdateOperationsInput | string
-  size?: Prisma.IntFieldUpdateOperationsInput | number
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  fileType?: Prisma.StringFieldUpdateOperationsInput | string
-  thumbnailKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumStorageFileStatusFieldUpdateOperationsInput | $Enums.StorageFileStatus
-  currentVersion?: Prisma.IntFieldUpdateOperationsInput | number
-  entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
-  isEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  tenant?: Prisma.TenantUpdateOneRequiredWithoutStorageFilesNestedInput
-  folder?: Prisma.StorageFolderUpdateOneWithoutFilesNestedInput
-  versions?: Prisma.StorageFileVersionUpdateManyWithoutFileNestedInput
-  shareLinks?: Prisma.StorageShareLinkUpdateManyWithoutFileNestedInput
-  cardAttachments?: Prisma.CardAttachmentUpdateManyWithoutFileNestedInput
-  catalogCoverImages?: Prisma.CatalogUpdateManyWithoutCoverImageNestedInput
-  catalogExportFiles?: Prisma.CatalogExportUpdateManyWithoutFileNestedInput
-  tenantBrandLogos?: Prisma.TenantBrandUpdateManyWithoutLogoNestedInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUpdateManyWithoutLogoIconNestedInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUpdateManyWithoutPreviewFileNestedInput
-  generatedContentFiles?: Prisma.GeneratedContentUpdateManyWithoutFileNestedInput
-  generatedContentThumbs?: Prisma.GeneratedContentUpdateManyWithoutThumbnailNestedInput
-  mockupResultFiles?: Prisma.ProductMockupUpdateManyWithoutResultFileNestedInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUpdateManyWithoutPfxFileNestedInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUpdateManyWithoutDocumentFileNestedInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUpdateManyWithoutSignedFileNestedInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutSignatureImageNestedInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUpdateManyWithoutLastFileNestedInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUpdateManyWithoutFileNestedInput
-  posVisitSignatures?: Prisma.PosVisitLogUpdateManyWithoutSignatureFileNestedInput
-}
-
-export type StorageFileUncheckedUpdateWithoutMockupClientLogosInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  folderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  originalName?: Prisma.StringFieldUpdateOperationsInput | string
-  fileKey?: Prisma.StringFieldUpdateOperationsInput | string
-  path?: Prisma.StringFieldUpdateOperationsInput | string
-  size?: Prisma.IntFieldUpdateOperationsInput | number
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  fileType?: Prisma.StringFieldUpdateOperationsInput | string
-  thumbnailKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumStorageFileStatusFieldUpdateOperationsInput | $Enums.StorageFileStatus
-  currentVersion?: Prisma.IntFieldUpdateOperationsInput | number
-  entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
-  isEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  versions?: Prisma.StorageFileVersionUncheckedUpdateManyWithoutFileNestedInput
-  shareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutFileNestedInput
-  cardAttachments?: Prisma.CardAttachmentUncheckedUpdateManyWithoutFileNestedInput
-  catalogCoverImages?: Prisma.CatalogUncheckedUpdateManyWithoutCoverImageNestedInput
-  catalogExportFiles?: Prisma.CatalogExportUncheckedUpdateManyWithoutFileNestedInput
-  tenantBrandLogos?: Prisma.TenantBrandUncheckedUpdateManyWithoutLogoNestedInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUncheckedUpdateManyWithoutLogoIconNestedInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUncheckedUpdateManyWithoutPreviewFileNestedInput
-  generatedContentFiles?: Prisma.GeneratedContentUncheckedUpdateManyWithoutFileNestedInput
-  generatedContentThumbs?: Prisma.GeneratedContentUncheckedUpdateManyWithoutThumbnailNestedInput
-  mockupResultFiles?: Prisma.ProductMockupUncheckedUpdateManyWithoutResultFileNestedInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUncheckedUpdateManyWithoutPfxFileNestedInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutDocumentFileNestedInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutSignedFileNestedInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutSignatureImageNestedInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutLastFileNestedInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedUpdateManyWithoutFileNestedInput
-  posVisitSignatures?: Prisma.PosVisitLogUncheckedUpdateManyWithoutSignatureFileNestedInput
-}
-
-export type StorageFileUpsertWithoutMockupResultFilesInput = {
-  update: Prisma.XOR<Prisma.StorageFileUpdateWithoutMockupResultFilesInput, Prisma.StorageFileUncheckedUpdateWithoutMockupResultFilesInput>
-  create: Prisma.XOR<Prisma.StorageFileCreateWithoutMockupResultFilesInput, Prisma.StorageFileUncheckedCreateWithoutMockupResultFilesInput>
-  where?: Prisma.StorageFileWhereInput
-}
-
-export type StorageFileUpdateToOneWithWhereWithoutMockupResultFilesInput = {
-  where?: Prisma.StorageFileWhereInput
-  data: Prisma.XOR<Prisma.StorageFileUpdateWithoutMockupResultFilesInput, Prisma.StorageFileUncheckedUpdateWithoutMockupResultFilesInput>
-}
-
-export type StorageFileUpdateWithoutMockupResultFilesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  originalName?: Prisma.StringFieldUpdateOperationsInput | string
-  fileKey?: Prisma.StringFieldUpdateOperationsInput | string
-  path?: Prisma.StringFieldUpdateOperationsInput | string
-  size?: Prisma.IntFieldUpdateOperationsInput | number
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  fileType?: Prisma.StringFieldUpdateOperationsInput | string
-  thumbnailKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumStorageFileStatusFieldUpdateOperationsInput | $Enums.StorageFileStatus
-  currentVersion?: Prisma.IntFieldUpdateOperationsInput | number
-  entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
-  isEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  tenant?: Prisma.TenantUpdateOneRequiredWithoutStorageFilesNestedInput
-  folder?: Prisma.StorageFolderUpdateOneWithoutFilesNestedInput
-  versions?: Prisma.StorageFileVersionUpdateManyWithoutFileNestedInput
-  shareLinks?: Prisma.StorageShareLinkUpdateManyWithoutFileNestedInput
-  cardAttachments?: Prisma.CardAttachmentUpdateManyWithoutFileNestedInput
-  catalogCoverImages?: Prisma.CatalogUpdateManyWithoutCoverImageNestedInput
-  catalogExportFiles?: Prisma.CatalogExportUpdateManyWithoutFileNestedInput
-  tenantBrandLogos?: Prisma.TenantBrandUpdateManyWithoutLogoNestedInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUpdateManyWithoutLogoIconNestedInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUpdateManyWithoutPreviewFileNestedInput
-  generatedContentFiles?: Prisma.GeneratedContentUpdateManyWithoutFileNestedInput
-  generatedContentThumbs?: Prisma.GeneratedContentUpdateManyWithoutThumbnailNestedInput
-  mockupClientLogos?: Prisma.ProductMockupUpdateManyWithoutClientLogoNestedInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUpdateManyWithoutPfxFileNestedInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUpdateManyWithoutDocumentFileNestedInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUpdateManyWithoutSignedFileNestedInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutSignatureImageNestedInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUpdateManyWithoutLastFileNestedInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUpdateManyWithoutFileNestedInput
-  posVisitSignatures?: Prisma.PosVisitLogUpdateManyWithoutSignatureFileNestedInput
-}
-
-export type StorageFileUncheckedUpdateWithoutMockupResultFilesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  folderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  originalName?: Prisma.StringFieldUpdateOperationsInput | string
-  fileKey?: Prisma.StringFieldUpdateOperationsInput | string
-  path?: Prisma.StringFieldUpdateOperationsInput | string
-  size?: Prisma.IntFieldUpdateOperationsInput | number
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  fileType?: Prisma.StringFieldUpdateOperationsInput | string
-  thumbnailKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumStorageFileStatusFieldUpdateOperationsInput | $Enums.StorageFileStatus
-  currentVersion?: Prisma.IntFieldUpdateOperationsInput | number
-  entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
-  isEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  versions?: Prisma.StorageFileVersionUncheckedUpdateManyWithoutFileNestedInput
-  shareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutFileNestedInput
-  cardAttachments?: Prisma.CardAttachmentUncheckedUpdateManyWithoutFileNestedInput
-  catalogCoverImages?: Prisma.CatalogUncheckedUpdateManyWithoutCoverImageNestedInput
-  catalogExportFiles?: Prisma.CatalogExportUncheckedUpdateManyWithoutFileNestedInput
-  tenantBrandLogos?: Prisma.TenantBrandUncheckedUpdateManyWithoutLogoNestedInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUncheckedUpdateManyWithoutLogoIconNestedInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUncheckedUpdateManyWithoutPreviewFileNestedInput
-  generatedContentFiles?: Prisma.GeneratedContentUncheckedUpdateManyWithoutFileNestedInput
-  generatedContentThumbs?: Prisma.GeneratedContentUncheckedUpdateManyWithoutThumbnailNestedInput
-  mockupClientLogos?: Prisma.ProductMockupUncheckedUpdateManyWithoutClientLogoNestedInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUncheckedUpdateManyWithoutPfxFileNestedInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutDocumentFileNestedInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutSignedFileNestedInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutSignatureImageNestedInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutLastFileNestedInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedUpdateManyWithoutFileNestedInput
-  posVisitSignatures?: Prisma.PosVisitLogUncheckedUpdateManyWithoutSignatureFileNestedInput
-}
-
-export type StorageFileCreateWithoutCertificatePfxFilesInput = {
-  id?: string
-  name: string
-  originalName: string
-  fileKey: string
-  path: string
-  size: number
-  mimeType: string
-  fileType: string
-  thumbnailKey?: string | null
-  status?: $Enums.StorageFileStatus
-  currentVersion?: number
-  entityType?: string | null
-  entityId?: string | null
-  expiresAt?: Date | string | null
-  uploadedBy: string
-  isEncrypted?: boolean
-  isProtected?: boolean
-  protectionHash?: string | null
-  isHidden?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  tenant: Prisma.TenantCreateNestedOneWithoutStorageFilesInput
-  folder?: Prisma.StorageFolderCreateNestedOneWithoutFilesInput
-  versions?: Prisma.StorageFileVersionCreateNestedManyWithoutFileInput
-  shareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutFileInput
-  cardAttachments?: Prisma.CardAttachmentCreateNestedManyWithoutFileInput
-  catalogCoverImages?: Prisma.CatalogCreateNestedManyWithoutCoverImageInput
-  catalogExportFiles?: Prisma.CatalogExportCreateNestedManyWithoutFileInput
-  tenantBrandLogos?: Prisma.TenantBrandCreateNestedManyWithoutLogoInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandCreateNestedManyWithoutLogoIconInput
-  contentTemplatePreviews?: Prisma.ContentTemplateCreateNestedManyWithoutPreviewFileInput
-  generatedContentFiles?: Prisma.GeneratedContentCreateNestedManyWithoutFileInput
-  generatedContentThumbs?: Prisma.GeneratedContentCreateNestedManyWithoutThumbnailInput
-  mockupClientLogos?: Prisma.ProductMockupCreateNestedManyWithoutClientLogoInput
-  mockupResultFiles?: Prisma.ProductMockupCreateNestedManyWithoutResultFileInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeCreateNestedManyWithoutDocumentFileInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeCreateNestedManyWithoutSignedFileInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutSignatureImageInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportCreateNestedManyWithoutLastFileInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationCreateNestedManyWithoutFileInput
-  posVisitSignatures?: Prisma.PosVisitLogCreateNestedManyWithoutSignatureFileInput
-}
-
-export type StorageFileUncheckedCreateWithoutCertificatePfxFilesInput = {
-  id?: string
-  tenantId: string
-  folderId?: string | null
-  name: string
-  originalName: string
-  fileKey: string
-  path: string
-  size: number
-  mimeType: string
-  fileType: string
-  thumbnailKey?: string | null
-  status?: $Enums.StorageFileStatus
-  currentVersion?: number
-  entityType?: string | null
-  entityId?: string | null
-  expiresAt?: Date | string | null
-  uploadedBy: string
-  isEncrypted?: boolean
-  isProtected?: boolean
-  protectionHash?: string | null
-  isHidden?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  versions?: Prisma.StorageFileVersionUncheckedCreateNestedManyWithoutFileInput
-  shareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutFileInput
-  cardAttachments?: Prisma.CardAttachmentUncheckedCreateNestedManyWithoutFileInput
-  catalogCoverImages?: Prisma.CatalogUncheckedCreateNestedManyWithoutCoverImageInput
-  catalogExportFiles?: Prisma.CatalogExportUncheckedCreateNestedManyWithoutFileInput
-  tenantBrandLogos?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutLogoInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutLogoIconInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutPreviewFileInput
-  generatedContentFiles?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutFileInput
-  generatedContentThumbs?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutThumbnailInput
-  mockupClientLogos?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutClientLogoInput
-  mockupResultFiles?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutResultFileInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutDocumentFileInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutSignedFileInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutSignatureImageInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutLastFileInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedCreateNestedManyWithoutFileInput
-  posVisitSignatures?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutSignatureFileInput
-}
-
-export type StorageFileCreateOrConnectWithoutCertificatePfxFilesInput = {
-  where: Prisma.StorageFileWhereUniqueInput
-  create: Prisma.XOR<Prisma.StorageFileCreateWithoutCertificatePfxFilesInput, Prisma.StorageFileUncheckedCreateWithoutCertificatePfxFilesInput>
-}
-
-export type StorageFileUpsertWithoutCertificatePfxFilesInput = {
-  update: Prisma.XOR<Prisma.StorageFileUpdateWithoutCertificatePfxFilesInput, Prisma.StorageFileUncheckedUpdateWithoutCertificatePfxFilesInput>
-  create: Prisma.XOR<Prisma.StorageFileCreateWithoutCertificatePfxFilesInput, Prisma.StorageFileUncheckedCreateWithoutCertificatePfxFilesInput>
-  where?: Prisma.StorageFileWhereInput
-}
-
-export type StorageFileUpdateToOneWithWhereWithoutCertificatePfxFilesInput = {
-  where?: Prisma.StorageFileWhereInput
-  data: Prisma.XOR<Prisma.StorageFileUpdateWithoutCertificatePfxFilesInput, Prisma.StorageFileUncheckedUpdateWithoutCertificatePfxFilesInput>
-}
-
-export type StorageFileUpdateWithoutCertificatePfxFilesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  originalName?: Prisma.StringFieldUpdateOperationsInput | string
-  fileKey?: Prisma.StringFieldUpdateOperationsInput | string
-  path?: Prisma.StringFieldUpdateOperationsInput | string
-  size?: Prisma.IntFieldUpdateOperationsInput | number
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  fileType?: Prisma.StringFieldUpdateOperationsInput | string
-  thumbnailKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumStorageFileStatusFieldUpdateOperationsInput | $Enums.StorageFileStatus
-  currentVersion?: Prisma.IntFieldUpdateOperationsInput | number
-  entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
-  isEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  tenant?: Prisma.TenantUpdateOneRequiredWithoutStorageFilesNestedInput
-  folder?: Prisma.StorageFolderUpdateOneWithoutFilesNestedInput
-  versions?: Prisma.StorageFileVersionUpdateManyWithoutFileNestedInput
-  shareLinks?: Prisma.StorageShareLinkUpdateManyWithoutFileNestedInput
-  cardAttachments?: Prisma.CardAttachmentUpdateManyWithoutFileNestedInput
-  catalogCoverImages?: Prisma.CatalogUpdateManyWithoutCoverImageNestedInput
-  catalogExportFiles?: Prisma.CatalogExportUpdateManyWithoutFileNestedInput
-  tenantBrandLogos?: Prisma.TenantBrandUpdateManyWithoutLogoNestedInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUpdateManyWithoutLogoIconNestedInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUpdateManyWithoutPreviewFileNestedInput
-  generatedContentFiles?: Prisma.GeneratedContentUpdateManyWithoutFileNestedInput
-  generatedContentThumbs?: Prisma.GeneratedContentUpdateManyWithoutThumbnailNestedInput
-  mockupClientLogos?: Prisma.ProductMockupUpdateManyWithoutClientLogoNestedInput
-  mockupResultFiles?: Prisma.ProductMockupUpdateManyWithoutResultFileNestedInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUpdateManyWithoutDocumentFileNestedInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUpdateManyWithoutSignedFileNestedInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutSignatureImageNestedInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUpdateManyWithoutLastFileNestedInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUpdateManyWithoutFileNestedInput
-  posVisitSignatures?: Prisma.PosVisitLogUpdateManyWithoutSignatureFileNestedInput
-}
-
-export type StorageFileUncheckedUpdateWithoutCertificatePfxFilesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  folderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  originalName?: Prisma.StringFieldUpdateOperationsInput | string
-  fileKey?: Prisma.StringFieldUpdateOperationsInput | string
-  path?: Prisma.StringFieldUpdateOperationsInput | string
-  size?: Prisma.IntFieldUpdateOperationsInput | number
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  fileType?: Prisma.StringFieldUpdateOperationsInput | string
-  thumbnailKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumStorageFileStatusFieldUpdateOperationsInput | $Enums.StorageFileStatus
-  currentVersion?: Prisma.IntFieldUpdateOperationsInput | number
-  entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
-  isEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  versions?: Prisma.StorageFileVersionUncheckedUpdateManyWithoutFileNestedInput
-  shareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutFileNestedInput
-  cardAttachments?: Prisma.CardAttachmentUncheckedUpdateManyWithoutFileNestedInput
-  catalogCoverImages?: Prisma.CatalogUncheckedUpdateManyWithoutCoverImageNestedInput
-  catalogExportFiles?: Prisma.CatalogExportUncheckedUpdateManyWithoutFileNestedInput
-  tenantBrandLogos?: Prisma.TenantBrandUncheckedUpdateManyWithoutLogoNestedInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUncheckedUpdateManyWithoutLogoIconNestedInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUncheckedUpdateManyWithoutPreviewFileNestedInput
-  generatedContentFiles?: Prisma.GeneratedContentUncheckedUpdateManyWithoutFileNestedInput
-  generatedContentThumbs?: Prisma.GeneratedContentUncheckedUpdateManyWithoutThumbnailNestedInput
-  mockupClientLogos?: Prisma.ProductMockupUncheckedUpdateManyWithoutClientLogoNestedInput
-  mockupResultFiles?: Prisma.ProductMockupUncheckedUpdateManyWithoutResultFileNestedInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutDocumentFileNestedInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutSignedFileNestedInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutSignatureImageNestedInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutLastFileNestedInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedUpdateManyWithoutFileNestedInput
-  posVisitSignatures?: Prisma.PosVisitLogUncheckedUpdateManyWithoutSignatureFileNestedInput
-}
-
-export type StorageFileCreateWithoutEnvelopeDocumentFilesInput = {
-  id?: string
-  name: string
-  originalName: string
-  fileKey: string
-  path: string
-  size: number
-  mimeType: string
-  fileType: string
-  thumbnailKey?: string | null
-  status?: $Enums.StorageFileStatus
-  currentVersion?: number
-  entityType?: string | null
-  entityId?: string | null
-  expiresAt?: Date | string | null
-  uploadedBy: string
-  isEncrypted?: boolean
-  isProtected?: boolean
-  protectionHash?: string | null
-  isHidden?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  tenant: Prisma.TenantCreateNestedOneWithoutStorageFilesInput
-  folder?: Prisma.StorageFolderCreateNestedOneWithoutFilesInput
-  versions?: Prisma.StorageFileVersionCreateNestedManyWithoutFileInput
-  shareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutFileInput
-  cardAttachments?: Prisma.CardAttachmentCreateNestedManyWithoutFileInput
-  catalogCoverImages?: Prisma.CatalogCreateNestedManyWithoutCoverImageInput
-  catalogExportFiles?: Prisma.CatalogExportCreateNestedManyWithoutFileInput
-  tenantBrandLogos?: Prisma.TenantBrandCreateNestedManyWithoutLogoInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandCreateNestedManyWithoutLogoIconInput
-  contentTemplatePreviews?: Prisma.ContentTemplateCreateNestedManyWithoutPreviewFileInput
-  generatedContentFiles?: Prisma.GeneratedContentCreateNestedManyWithoutFileInput
-  generatedContentThumbs?: Prisma.GeneratedContentCreateNestedManyWithoutThumbnailInput
-  mockupClientLogos?: Prisma.ProductMockupCreateNestedManyWithoutClientLogoInput
-  mockupResultFiles?: Prisma.ProductMockupCreateNestedManyWithoutResultFileInput
-  certificatePfxFiles?: Prisma.DigitalCertificateCreateNestedManyWithoutPfxFileInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeCreateNestedManyWithoutSignedFileInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutSignatureImageInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportCreateNestedManyWithoutLastFileInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationCreateNestedManyWithoutFileInput
-  posVisitSignatures?: Prisma.PosVisitLogCreateNestedManyWithoutSignatureFileInput
-}
-
-export type StorageFileUncheckedCreateWithoutEnvelopeDocumentFilesInput = {
-  id?: string
-  tenantId: string
-  folderId?: string | null
-  name: string
-  originalName: string
-  fileKey: string
-  path: string
-  size: number
-  mimeType: string
-  fileType: string
-  thumbnailKey?: string | null
-  status?: $Enums.StorageFileStatus
-  currentVersion?: number
-  entityType?: string | null
-  entityId?: string | null
-  expiresAt?: Date | string | null
-  uploadedBy: string
-  isEncrypted?: boolean
-  isProtected?: boolean
-  protectionHash?: string | null
-  isHidden?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  versions?: Prisma.StorageFileVersionUncheckedCreateNestedManyWithoutFileInput
-  shareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutFileInput
-  cardAttachments?: Prisma.CardAttachmentUncheckedCreateNestedManyWithoutFileInput
-  catalogCoverImages?: Prisma.CatalogUncheckedCreateNestedManyWithoutCoverImageInput
-  catalogExportFiles?: Prisma.CatalogExportUncheckedCreateNestedManyWithoutFileInput
-  tenantBrandLogos?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutLogoInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutLogoIconInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutPreviewFileInput
-  generatedContentFiles?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutFileInput
-  generatedContentThumbs?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutThumbnailInput
-  mockupClientLogos?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutClientLogoInput
-  mockupResultFiles?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutResultFileInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUncheckedCreateNestedManyWithoutPfxFileInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutSignedFileInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutSignatureImageInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutLastFileInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedCreateNestedManyWithoutFileInput
-  posVisitSignatures?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutSignatureFileInput
-}
-
-export type StorageFileCreateOrConnectWithoutEnvelopeDocumentFilesInput = {
-  where: Prisma.StorageFileWhereUniqueInput
-  create: Prisma.XOR<Prisma.StorageFileCreateWithoutEnvelopeDocumentFilesInput, Prisma.StorageFileUncheckedCreateWithoutEnvelopeDocumentFilesInput>
-}
-
-export type StorageFileCreateWithoutEnvelopeSignedFilesInput = {
-  id?: string
-  name: string
-  originalName: string
-  fileKey: string
-  path: string
-  size: number
-  mimeType: string
-  fileType: string
-  thumbnailKey?: string | null
-  status?: $Enums.StorageFileStatus
-  currentVersion?: number
-  entityType?: string | null
-  entityId?: string | null
-  expiresAt?: Date | string | null
-  uploadedBy: string
-  isEncrypted?: boolean
-  isProtected?: boolean
-  protectionHash?: string | null
-  isHidden?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  tenant: Prisma.TenantCreateNestedOneWithoutStorageFilesInput
-  folder?: Prisma.StorageFolderCreateNestedOneWithoutFilesInput
-  versions?: Prisma.StorageFileVersionCreateNestedManyWithoutFileInput
-  shareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutFileInput
-  cardAttachments?: Prisma.CardAttachmentCreateNestedManyWithoutFileInput
-  catalogCoverImages?: Prisma.CatalogCreateNestedManyWithoutCoverImageInput
-  catalogExportFiles?: Prisma.CatalogExportCreateNestedManyWithoutFileInput
-  tenantBrandLogos?: Prisma.TenantBrandCreateNestedManyWithoutLogoInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandCreateNestedManyWithoutLogoIconInput
-  contentTemplatePreviews?: Prisma.ContentTemplateCreateNestedManyWithoutPreviewFileInput
-  generatedContentFiles?: Prisma.GeneratedContentCreateNestedManyWithoutFileInput
-  generatedContentThumbs?: Prisma.GeneratedContentCreateNestedManyWithoutThumbnailInput
-  mockupClientLogos?: Prisma.ProductMockupCreateNestedManyWithoutClientLogoInput
-  mockupResultFiles?: Prisma.ProductMockupCreateNestedManyWithoutResultFileInput
-  certificatePfxFiles?: Prisma.DigitalCertificateCreateNestedManyWithoutPfxFileInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeCreateNestedManyWithoutDocumentFileInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutSignatureImageInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportCreateNestedManyWithoutLastFileInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationCreateNestedManyWithoutFileInput
-  posVisitSignatures?: Prisma.PosVisitLogCreateNestedManyWithoutSignatureFileInput
-}
-
-export type StorageFileUncheckedCreateWithoutEnvelopeSignedFilesInput = {
-  id?: string
-  tenantId: string
-  folderId?: string | null
-  name: string
-  originalName: string
-  fileKey: string
-  path: string
-  size: number
-  mimeType: string
-  fileType: string
-  thumbnailKey?: string | null
-  status?: $Enums.StorageFileStatus
-  currentVersion?: number
-  entityType?: string | null
-  entityId?: string | null
-  expiresAt?: Date | string | null
-  uploadedBy: string
-  isEncrypted?: boolean
-  isProtected?: boolean
-  protectionHash?: string | null
-  isHidden?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  versions?: Prisma.StorageFileVersionUncheckedCreateNestedManyWithoutFileInput
-  shareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutFileInput
-  cardAttachments?: Prisma.CardAttachmentUncheckedCreateNestedManyWithoutFileInput
-  catalogCoverImages?: Prisma.CatalogUncheckedCreateNestedManyWithoutCoverImageInput
-  catalogExportFiles?: Prisma.CatalogExportUncheckedCreateNestedManyWithoutFileInput
-  tenantBrandLogos?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutLogoInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutLogoIconInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutPreviewFileInput
-  generatedContentFiles?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutFileInput
-  generatedContentThumbs?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutThumbnailInput
-  mockupClientLogos?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutClientLogoInput
-  mockupResultFiles?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutResultFileInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUncheckedCreateNestedManyWithoutPfxFileInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutDocumentFileInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutSignatureImageInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutLastFileInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedCreateNestedManyWithoutFileInput
-  posVisitSignatures?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutSignatureFileInput
-}
-
-export type StorageFileCreateOrConnectWithoutEnvelopeSignedFilesInput = {
-  where: Prisma.StorageFileWhereUniqueInput
-  create: Prisma.XOR<Prisma.StorageFileCreateWithoutEnvelopeSignedFilesInput, Prisma.StorageFileUncheckedCreateWithoutEnvelopeSignedFilesInput>
-}
-
-export type StorageFileUpsertWithoutEnvelopeDocumentFilesInput = {
-  update: Prisma.XOR<Prisma.StorageFileUpdateWithoutEnvelopeDocumentFilesInput, Prisma.StorageFileUncheckedUpdateWithoutEnvelopeDocumentFilesInput>
-  create: Prisma.XOR<Prisma.StorageFileCreateWithoutEnvelopeDocumentFilesInput, Prisma.StorageFileUncheckedCreateWithoutEnvelopeDocumentFilesInput>
-  where?: Prisma.StorageFileWhereInput
-}
-
-export type StorageFileUpdateToOneWithWhereWithoutEnvelopeDocumentFilesInput = {
-  where?: Prisma.StorageFileWhereInput
-  data: Prisma.XOR<Prisma.StorageFileUpdateWithoutEnvelopeDocumentFilesInput, Prisma.StorageFileUncheckedUpdateWithoutEnvelopeDocumentFilesInput>
-}
-
-export type StorageFileUpdateWithoutEnvelopeDocumentFilesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  originalName?: Prisma.StringFieldUpdateOperationsInput | string
-  fileKey?: Prisma.StringFieldUpdateOperationsInput | string
-  path?: Prisma.StringFieldUpdateOperationsInput | string
-  size?: Prisma.IntFieldUpdateOperationsInput | number
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  fileType?: Prisma.StringFieldUpdateOperationsInput | string
-  thumbnailKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumStorageFileStatusFieldUpdateOperationsInput | $Enums.StorageFileStatus
-  currentVersion?: Prisma.IntFieldUpdateOperationsInput | number
-  entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
-  isEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  tenant?: Prisma.TenantUpdateOneRequiredWithoutStorageFilesNestedInput
-  folder?: Prisma.StorageFolderUpdateOneWithoutFilesNestedInput
-  versions?: Prisma.StorageFileVersionUpdateManyWithoutFileNestedInput
-  shareLinks?: Prisma.StorageShareLinkUpdateManyWithoutFileNestedInput
-  cardAttachments?: Prisma.CardAttachmentUpdateManyWithoutFileNestedInput
-  catalogCoverImages?: Prisma.CatalogUpdateManyWithoutCoverImageNestedInput
-  catalogExportFiles?: Prisma.CatalogExportUpdateManyWithoutFileNestedInput
-  tenantBrandLogos?: Prisma.TenantBrandUpdateManyWithoutLogoNestedInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUpdateManyWithoutLogoIconNestedInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUpdateManyWithoutPreviewFileNestedInput
-  generatedContentFiles?: Prisma.GeneratedContentUpdateManyWithoutFileNestedInput
-  generatedContentThumbs?: Prisma.GeneratedContentUpdateManyWithoutThumbnailNestedInput
-  mockupClientLogos?: Prisma.ProductMockupUpdateManyWithoutClientLogoNestedInput
-  mockupResultFiles?: Prisma.ProductMockupUpdateManyWithoutResultFileNestedInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUpdateManyWithoutPfxFileNestedInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUpdateManyWithoutSignedFileNestedInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutSignatureImageNestedInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUpdateManyWithoutLastFileNestedInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUpdateManyWithoutFileNestedInput
-  posVisitSignatures?: Prisma.PosVisitLogUpdateManyWithoutSignatureFileNestedInput
-}
-
-export type StorageFileUncheckedUpdateWithoutEnvelopeDocumentFilesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  folderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  originalName?: Prisma.StringFieldUpdateOperationsInput | string
-  fileKey?: Prisma.StringFieldUpdateOperationsInput | string
-  path?: Prisma.StringFieldUpdateOperationsInput | string
-  size?: Prisma.IntFieldUpdateOperationsInput | number
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  fileType?: Prisma.StringFieldUpdateOperationsInput | string
-  thumbnailKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumStorageFileStatusFieldUpdateOperationsInput | $Enums.StorageFileStatus
-  currentVersion?: Prisma.IntFieldUpdateOperationsInput | number
-  entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
-  isEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  versions?: Prisma.StorageFileVersionUncheckedUpdateManyWithoutFileNestedInput
-  shareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutFileNestedInput
-  cardAttachments?: Prisma.CardAttachmentUncheckedUpdateManyWithoutFileNestedInput
-  catalogCoverImages?: Prisma.CatalogUncheckedUpdateManyWithoutCoverImageNestedInput
-  catalogExportFiles?: Prisma.CatalogExportUncheckedUpdateManyWithoutFileNestedInput
-  tenantBrandLogos?: Prisma.TenantBrandUncheckedUpdateManyWithoutLogoNestedInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUncheckedUpdateManyWithoutLogoIconNestedInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUncheckedUpdateManyWithoutPreviewFileNestedInput
-  generatedContentFiles?: Prisma.GeneratedContentUncheckedUpdateManyWithoutFileNestedInput
-  generatedContentThumbs?: Prisma.GeneratedContentUncheckedUpdateManyWithoutThumbnailNestedInput
-  mockupClientLogos?: Prisma.ProductMockupUncheckedUpdateManyWithoutClientLogoNestedInput
-  mockupResultFiles?: Prisma.ProductMockupUncheckedUpdateManyWithoutResultFileNestedInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUncheckedUpdateManyWithoutPfxFileNestedInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutSignedFileNestedInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutSignatureImageNestedInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutLastFileNestedInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedUpdateManyWithoutFileNestedInput
-  posVisitSignatures?: Prisma.PosVisitLogUncheckedUpdateManyWithoutSignatureFileNestedInput
-}
-
-export type StorageFileUpsertWithoutEnvelopeSignedFilesInput = {
-  update: Prisma.XOR<Prisma.StorageFileUpdateWithoutEnvelopeSignedFilesInput, Prisma.StorageFileUncheckedUpdateWithoutEnvelopeSignedFilesInput>
-  create: Prisma.XOR<Prisma.StorageFileCreateWithoutEnvelopeSignedFilesInput, Prisma.StorageFileUncheckedCreateWithoutEnvelopeSignedFilesInput>
-  where?: Prisma.StorageFileWhereInput
-}
-
-export type StorageFileUpdateToOneWithWhereWithoutEnvelopeSignedFilesInput = {
-  where?: Prisma.StorageFileWhereInput
-  data: Prisma.XOR<Prisma.StorageFileUpdateWithoutEnvelopeSignedFilesInput, Prisma.StorageFileUncheckedUpdateWithoutEnvelopeSignedFilesInput>
-}
-
-export type StorageFileUpdateWithoutEnvelopeSignedFilesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  originalName?: Prisma.StringFieldUpdateOperationsInput | string
-  fileKey?: Prisma.StringFieldUpdateOperationsInput | string
-  path?: Prisma.StringFieldUpdateOperationsInput | string
-  size?: Prisma.IntFieldUpdateOperationsInput | number
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  fileType?: Prisma.StringFieldUpdateOperationsInput | string
-  thumbnailKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumStorageFileStatusFieldUpdateOperationsInput | $Enums.StorageFileStatus
-  currentVersion?: Prisma.IntFieldUpdateOperationsInput | number
-  entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
-  isEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  tenant?: Prisma.TenantUpdateOneRequiredWithoutStorageFilesNestedInput
-  folder?: Prisma.StorageFolderUpdateOneWithoutFilesNestedInput
-  versions?: Prisma.StorageFileVersionUpdateManyWithoutFileNestedInput
-  shareLinks?: Prisma.StorageShareLinkUpdateManyWithoutFileNestedInput
-  cardAttachments?: Prisma.CardAttachmentUpdateManyWithoutFileNestedInput
-  catalogCoverImages?: Prisma.CatalogUpdateManyWithoutCoverImageNestedInput
-  catalogExportFiles?: Prisma.CatalogExportUpdateManyWithoutFileNestedInput
-  tenantBrandLogos?: Prisma.TenantBrandUpdateManyWithoutLogoNestedInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUpdateManyWithoutLogoIconNestedInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUpdateManyWithoutPreviewFileNestedInput
-  generatedContentFiles?: Prisma.GeneratedContentUpdateManyWithoutFileNestedInput
-  generatedContentThumbs?: Prisma.GeneratedContentUpdateManyWithoutThumbnailNestedInput
-  mockupClientLogos?: Prisma.ProductMockupUpdateManyWithoutClientLogoNestedInput
-  mockupResultFiles?: Prisma.ProductMockupUpdateManyWithoutResultFileNestedInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUpdateManyWithoutPfxFileNestedInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUpdateManyWithoutDocumentFileNestedInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutSignatureImageNestedInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUpdateManyWithoutLastFileNestedInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUpdateManyWithoutFileNestedInput
-  posVisitSignatures?: Prisma.PosVisitLogUpdateManyWithoutSignatureFileNestedInput
-}
-
-export type StorageFileUncheckedUpdateWithoutEnvelopeSignedFilesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  folderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  originalName?: Prisma.StringFieldUpdateOperationsInput | string
-  fileKey?: Prisma.StringFieldUpdateOperationsInput | string
-  path?: Prisma.StringFieldUpdateOperationsInput | string
-  size?: Prisma.IntFieldUpdateOperationsInput | number
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  fileType?: Prisma.StringFieldUpdateOperationsInput | string
-  thumbnailKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumStorageFileStatusFieldUpdateOperationsInput | $Enums.StorageFileStatus
-  currentVersion?: Prisma.IntFieldUpdateOperationsInput | number
-  entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
-  isEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  versions?: Prisma.StorageFileVersionUncheckedUpdateManyWithoutFileNestedInput
-  shareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutFileNestedInput
-  cardAttachments?: Prisma.CardAttachmentUncheckedUpdateManyWithoutFileNestedInput
-  catalogCoverImages?: Prisma.CatalogUncheckedUpdateManyWithoutCoverImageNestedInput
-  catalogExportFiles?: Prisma.CatalogExportUncheckedUpdateManyWithoutFileNestedInput
-  tenantBrandLogos?: Prisma.TenantBrandUncheckedUpdateManyWithoutLogoNestedInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUncheckedUpdateManyWithoutLogoIconNestedInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUncheckedUpdateManyWithoutPreviewFileNestedInput
-  generatedContentFiles?: Prisma.GeneratedContentUncheckedUpdateManyWithoutFileNestedInput
-  generatedContentThumbs?: Prisma.GeneratedContentUncheckedUpdateManyWithoutThumbnailNestedInput
-  mockupClientLogos?: Prisma.ProductMockupUncheckedUpdateManyWithoutClientLogoNestedInput
-  mockupResultFiles?: Prisma.ProductMockupUncheckedUpdateManyWithoutResultFileNestedInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUncheckedUpdateManyWithoutPfxFileNestedInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutDocumentFileNestedInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutSignatureImageNestedInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutLastFileNestedInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedUpdateManyWithoutFileNestedInput
-  posVisitSignatures?: Prisma.PosVisitLogUncheckedUpdateManyWithoutSignatureFileNestedInput
-}
-
-export type StorageFileCreateWithoutSignerSignatureImagesInput = {
-  id?: string
-  name: string
-  originalName: string
-  fileKey: string
-  path: string
-  size: number
-  mimeType: string
-  fileType: string
-  thumbnailKey?: string | null
-  status?: $Enums.StorageFileStatus
-  currentVersion?: number
-  entityType?: string | null
-  entityId?: string | null
-  expiresAt?: Date | string | null
-  uploadedBy: string
-  isEncrypted?: boolean
-  isProtected?: boolean
-  protectionHash?: string | null
-  isHidden?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  tenant: Prisma.TenantCreateNestedOneWithoutStorageFilesInput
-  folder?: Prisma.StorageFolderCreateNestedOneWithoutFilesInput
-  versions?: Prisma.StorageFileVersionCreateNestedManyWithoutFileInput
-  shareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutFileInput
-  cardAttachments?: Prisma.CardAttachmentCreateNestedManyWithoutFileInput
-  catalogCoverImages?: Prisma.CatalogCreateNestedManyWithoutCoverImageInput
-  catalogExportFiles?: Prisma.CatalogExportCreateNestedManyWithoutFileInput
-  tenantBrandLogos?: Prisma.TenantBrandCreateNestedManyWithoutLogoInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandCreateNestedManyWithoutLogoIconInput
-  contentTemplatePreviews?: Prisma.ContentTemplateCreateNestedManyWithoutPreviewFileInput
-  generatedContentFiles?: Prisma.GeneratedContentCreateNestedManyWithoutFileInput
-  generatedContentThumbs?: Prisma.GeneratedContentCreateNestedManyWithoutThumbnailInput
-  mockupClientLogos?: Prisma.ProductMockupCreateNestedManyWithoutClientLogoInput
-  mockupResultFiles?: Prisma.ProductMockupCreateNestedManyWithoutResultFileInput
-  certificatePfxFiles?: Prisma.DigitalCertificateCreateNestedManyWithoutPfxFileInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeCreateNestedManyWithoutDocumentFileInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeCreateNestedManyWithoutSignedFileInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportCreateNestedManyWithoutLastFileInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationCreateNestedManyWithoutFileInput
-  posVisitSignatures?: Prisma.PosVisitLogCreateNestedManyWithoutSignatureFileInput
-}
-
-export type StorageFileUncheckedCreateWithoutSignerSignatureImagesInput = {
-  id?: string
-  tenantId: string
-  folderId?: string | null
-  name: string
-  originalName: string
-  fileKey: string
-  path: string
-  size: number
-  mimeType: string
-  fileType: string
-  thumbnailKey?: string | null
-  status?: $Enums.StorageFileStatus
-  currentVersion?: number
-  entityType?: string | null
-  entityId?: string | null
-  expiresAt?: Date | string | null
-  uploadedBy: string
-  isEncrypted?: boolean
-  isProtected?: boolean
-  protectionHash?: string | null
-  isHidden?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  versions?: Prisma.StorageFileVersionUncheckedCreateNestedManyWithoutFileInput
-  shareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutFileInput
-  cardAttachments?: Prisma.CardAttachmentUncheckedCreateNestedManyWithoutFileInput
-  catalogCoverImages?: Prisma.CatalogUncheckedCreateNestedManyWithoutCoverImageInput
-  catalogExportFiles?: Prisma.CatalogExportUncheckedCreateNestedManyWithoutFileInput
-  tenantBrandLogos?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutLogoInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutLogoIconInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutPreviewFileInput
-  generatedContentFiles?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutFileInput
-  generatedContentThumbs?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutThumbnailInput
-  mockupClientLogos?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutClientLogoInput
-  mockupResultFiles?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutResultFileInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUncheckedCreateNestedManyWithoutPfxFileInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutDocumentFileInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutSignedFileInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutLastFileInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedCreateNestedManyWithoutFileInput
-  posVisitSignatures?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutSignatureFileInput
-}
-
-export type StorageFileCreateOrConnectWithoutSignerSignatureImagesInput = {
-  where: Prisma.StorageFileWhereUniqueInput
-  create: Prisma.XOR<Prisma.StorageFileCreateWithoutSignerSignatureImagesInput, Prisma.StorageFileUncheckedCreateWithoutSignerSignatureImagesInput>
-}
-
-export type StorageFileUpsertWithoutSignerSignatureImagesInput = {
-  update: Prisma.XOR<Prisma.StorageFileUpdateWithoutSignerSignatureImagesInput, Prisma.StorageFileUncheckedUpdateWithoutSignerSignatureImagesInput>
-  create: Prisma.XOR<Prisma.StorageFileCreateWithoutSignerSignatureImagesInput, Prisma.StorageFileUncheckedCreateWithoutSignerSignatureImagesInput>
-  where?: Prisma.StorageFileWhereInput
-}
-
-export type StorageFileUpdateToOneWithWhereWithoutSignerSignatureImagesInput = {
-  where?: Prisma.StorageFileWhereInput
-  data: Prisma.XOR<Prisma.StorageFileUpdateWithoutSignerSignatureImagesInput, Prisma.StorageFileUncheckedUpdateWithoutSignerSignatureImagesInput>
-}
-
-export type StorageFileUpdateWithoutSignerSignatureImagesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  originalName?: Prisma.StringFieldUpdateOperationsInput | string
-  fileKey?: Prisma.StringFieldUpdateOperationsInput | string
-  path?: Prisma.StringFieldUpdateOperationsInput | string
-  size?: Prisma.IntFieldUpdateOperationsInput | number
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  fileType?: Prisma.StringFieldUpdateOperationsInput | string
-  thumbnailKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumStorageFileStatusFieldUpdateOperationsInput | $Enums.StorageFileStatus
-  currentVersion?: Prisma.IntFieldUpdateOperationsInput | number
-  entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
-  isEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  tenant?: Prisma.TenantUpdateOneRequiredWithoutStorageFilesNestedInput
-  folder?: Prisma.StorageFolderUpdateOneWithoutFilesNestedInput
-  versions?: Prisma.StorageFileVersionUpdateManyWithoutFileNestedInput
-  shareLinks?: Prisma.StorageShareLinkUpdateManyWithoutFileNestedInput
-  cardAttachments?: Prisma.CardAttachmentUpdateManyWithoutFileNestedInput
-  catalogCoverImages?: Prisma.CatalogUpdateManyWithoutCoverImageNestedInput
-  catalogExportFiles?: Prisma.CatalogExportUpdateManyWithoutFileNestedInput
-  tenantBrandLogos?: Prisma.TenantBrandUpdateManyWithoutLogoNestedInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUpdateManyWithoutLogoIconNestedInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUpdateManyWithoutPreviewFileNestedInput
-  generatedContentFiles?: Prisma.GeneratedContentUpdateManyWithoutFileNestedInput
-  generatedContentThumbs?: Prisma.GeneratedContentUpdateManyWithoutThumbnailNestedInput
-  mockupClientLogos?: Prisma.ProductMockupUpdateManyWithoutClientLogoNestedInput
-  mockupResultFiles?: Prisma.ProductMockupUpdateManyWithoutResultFileNestedInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUpdateManyWithoutPfxFileNestedInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUpdateManyWithoutDocumentFileNestedInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUpdateManyWithoutSignedFileNestedInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUpdateManyWithoutLastFileNestedInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUpdateManyWithoutFileNestedInput
-  posVisitSignatures?: Prisma.PosVisitLogUpdateManyWithoutSignatureFileNestedInput
-}
-
-export type StorageFileUncheckedUpdateWithoutSignerSignatureImagesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  folderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  originalName?: Prisma.StringFieldUpdateOperationsInput | string
-  fileKey?: Prisma.StringFieldUpdateOperationsInput | string
-  path?: Prisma.StringFieldUpdateOperationsInput | string
-  size?: Prisma.IntFieldUpdateOperationsInput | number
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  fileType?: Prisma.StringFieldUpdateOperationsInput | string
-  thumbnailKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumStorageFileStatusFieldUpdateOperationsInput | $Enums.StorageFileStatus
-  currentVersion?: Prisma.IntFieldUpdateOperationsInput | number
-  entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
-  isEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  versions?: Prisma.StorageFileVersionUncheckedUpdateManyWithoutFileNestedInput
-  shareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutFileNestedInput
-  cardAttachments?: Prisma.CardAttachmentUncheckedUpdateManyWithoutFileNestedInput
-  catalogCoverImages?: Prisma.CatalogUncheckedUpdateManyWithoutCoverImageNestedInput
-  catalogExportFiles?: Prisma.CatalogExportUncheckedUpdateManyWithoutFileNestedInput
-  tenantBrandLogos?: Prisma.TenantBrandUncheckedUpdateManyWithoutLogoNestedInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUncheckedUpdateManyWithoutLogoIconNestedInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUncheckedUpdateManyWithoutPreviewFileNestedInput
-  generatedContentFiles?: Prisma.GeneratedContentUncheckedUpdateManyWithoutFileNestedInput
-  generatedContentThumbs?: Prisma.GeneratedContentUncheckedUpdateManyWithoutThumbnailNestedInput
-  mockupClientLogos?: Prisma.ProductMockupUncheckedUpdateManyWithoutClientLogoNestedInput
-  mockupResultFiles?: Prisma.ProductMockupUncheckedUpdateManyWithoutResultFileNestedInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUncheckedUpdateManyWithoutPfxFileNestedInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutDocumentFileNestedInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutSignedFileNestedInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutLastFileNestedInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedUpdateManyWithoutFileNestedInput
-  posVisitSignatures?: Prisma.PosVisitLogUncheckedUpdateManyWithoutSignatureFileNestedInput
-}
-
-export type StorageFileCreateWithoutAnalyticsReportLastFilesInput = {
-  id?: string
-  name: string
-  originalName: string
-  fileKey: string
-  path: string
-  size: number
-  mimeType: string
-  fileType: string
-  thumbnailKey?: string | null
-  status?: $Enums.StorageFileStatus
-  currentVersion?: number
-  entityType?: string | null
-  entityId?: string | null
-  expiresAt?: Date | string | null
-  uploadedBy: string
-  isEncrypted?: boolean
-  isProtected?: boolean
-  protectionHash?: string | null
-  isHidden?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  tenant: Prisma.TenantCreateNestedOneWithoutStorageFilesInput
-  folder?: Prisma.StorageFolderCreateNestedOneWithoutFilesInput
-  versions?: Prisma.StorageFileVersionCreateNestedManyWithoutFileInput
-  shareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutFileInput
-  cardAttachments?: Prisma.CardAttachmentCreateNestedManyWithoutFileInput
-  catalogCoverImages?: Prisma.CatalogCreateNestedManyWithoutCoverImageInput
-  catalogExportFiles?: Prisma.CatalogExportCreateNestedManyWithoutFileInput
-  tenantBrandLogos?: Prisma.TenantBrandCreateNestedManyWithoutLogoInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandCreateNestedManyWithoutLogoIconInput
-  contentTemplatePreviews?: Prisma.ContentTemplateCreateNestedManyWithoutPreviewFileInput
-  generatedContentFiles?: Prisma.GeneratedContentCreateNestedManyWithoutFileInput
-  generatedContentThumbs?: Prisma.GeneratedContentCreateNestedManyWithoutThumbnailInput
-  mockupClientLogos?: Prisma.ProductMockupCreateNestedManyWithoutClientLogoInput
-  mockupResultFiles?: Prisma.ProductMockupCreateNestedManyWithoutResultFileInput
-  certificatePfxFiles?: Prisma.DigitalCertificateCreateNestedManyWithoutPfxFileInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeCreateNestedManyWithoutDocumentFileInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeCreateNestedManyWithoutSignedFileInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutSignatureImageInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationCreateNestedManyWithoutFileInput
-  posVisitSignatures?: Prisma.PosVisitLogCreateNestedManyWithoutSignatureFileInput
-}
-
-export type StorageFileUncheckedCreateWithoutAnalyticsReportLastFilesInput = {
-  id?: string
-  tenantId: string
-  folderId?: string | null
-  name: string
-  originalName: string
-  fileKey: string
-  path: string
-  size: number
-  mimeType: string
-  fileType: string
-  thumbnailKey?: string | null
-  status?: $Enums.StorageFileStatus
-  currentVersion?: number
-  entityType?: string | null
-  entityId?: string | null
-  expiresAt?: Date | string | null
-  uploadedBy: string
-  isEncrypted?: boolean
-  isProtected?: boolean
-  protectionHash?: string | null
-  isHidden?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  versions?: Prisma.StorageFileVersionUncheckedCreateNestedManyWithoutFileInput
-  shareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutFileInput
-  cardAttachments?: Prisma.CardAttachmentUncheckedCreateNestedManyWithoutFileInput
-  catalogCoverImages?: Prisma.CatalogUncheckedCreateNestedManyWithoutCoverImageInput
-  catalogExportFiles?: Prisma.CatalogExportUncheckedCreateNestedManyWithoutFileInput
-  tenantBrandLogos?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutLogoInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutLogoIconInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutPreviewFileInput
-  generatedContentFiles?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutFileInput
-  generatedContentThumbs?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutThumbnailInput
-  mockupClientLogos?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutClientLogoInput
-  mockupResultFiles?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutResultFileInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUncheckedCreateNestedManyWithoutPfxFileInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutDocumentFileInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutSignedFileInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutSignatureImageInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedCreateNestedManyWithoutFileInput
-  posVisitSignatures?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutSignatureFileInput
-}
-
-export type StorageFileCreateOrConnectWithoutAnalyticsReportLastFilesInput = {
-  where: Prisma.StorageFileWhereUniqueInput
-  create: Prisma.XOR<Prisma.StorageFileCreateWithoutAnalyticsReportLastFilesInput, Prisma.StorageFileUncheckedCreateWithoutAnalyticsReportLastFilesInput>
-}
-
-export type StorageFileUpsertWithoutAnalyticsReportLastFilesInput = {
-  update: Prisma.XOR<Prisma.StorageFileUpdateWithoutAnalyticsReportLastFilesInput, Prisma.StorageFileUncheckedUpdateWithoutAnalyticsReportLastFilesInput>
-  create: Prisma.XOR<Prisma.StorageFileCreateWithoutAnalyticsReportLastFilesInput, Prisma.StorageFileUncheckedCreateWithoutAnalyticsReportLastFilesInput>
-  where?: Prisma.StorageFileWhereInput
-}
-
-export type StorageFileUpdateToOneWithWhereWithoutAnalyticsReportLastFilesInput = {
-  where?: Prisma.StorageFileWhereInput
-  data: Prisma.XOR<Prisma.StorageFileUpdateWithoutAnalyticsReportLastFilesInput, Prisma.StorageFileUncheckedUpdateWithoutAnalyticsReportLastFilesInput>
-}
-
-export type StorageFileUpdateWithoutAnalyticsReportLastFilesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  originalName?: Prisma.StringFieldUpdateOperationsInput | string
-  fileKey?: Prisma.StringFieldUpdateOperationsInput | string
-  path?: Prisma.StringFieldUpdateOperationsInput | string
-  size?: Prisma.IntFieldUpdateOperationsInput | number
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  fileType?: Prisma.StringFieldUpdateOperationsInput | string
-  thumbnailKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumStorageFileStatusFieldUpdateOperationsInput | $Enums.StorageFileStatus
-  currentVersion?: Prisma.IntFieldUpdateOperationsInput | number
-  entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
-  isEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  tenant?: Prisma.TenantUpdateOneRequiredWithoutStorageFilesNestedInput
-  folder?: Prisma.StorageFolderUpdateOneWithoutFilesNestedInput
-  versions?: Prisma.StorageFileVersionUpdateManyWithoutFileNestedInput
-  shareLinks?: Prisma.StorageShareLinkUpdateManyWithoutFileNestedInput
-  cardAttachments?: Prisma.CardAttachmentUpdateManyWithoutFileNestedInput
-  catalogCoverImages?: Prisma.CatalogUpdateManyWithoutCoverImageNestedInput
-  catalogExportFiles?: Prisma.CatalogExportUpdateManyWithoutFileNestedInput
-  tenantBrandLogos?: Prisma.TenantBrandUpdateManyWithoutLogoNestedInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUpdateManyWithoutLogoIconNestedInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUpdateManyWithoutPreviewFileNestedInput
-  generatedContentFiles?: Prisma.GeneratedContentUpdateManyWithoutFileNestedInput
-  generatedContentThumbs?: Prisma.GeneratedContentUpdateManyWithoutThumbnailNestedInput
-  mockupClientLogos?: Prisma.ProductMockupUpdateManyWithoutClientLogoNestedInput
-  mockupResultFiles?: Prisma.ProductMockupUpdateManyWithoutResultFileNestedInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUpdateManyWithoutPfxFileNestedInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUpdateManyWithoutDocumentFileNestedInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUpdateManyWithoutSignedFileNestedInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutSignatureImageNestedInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUpdateManyWithoutFileNestedInput
-  posVisitSignatures?: Prisma.PosVisitLogUpdateManyWithoutSignatureFileNestedInput
-}
-
-export type StorageFileUncheckedUpdateWithoutAnalyticsReportLastFilesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  folderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  originalName?: Prisma.StringFieldUpdateOperationsInput | string
-  fileKey?: Prisma.StringFieldUpdateOperationsInput | string
-  path?: Prisma.StringFieldUpdateOperationsInput | string
-  size?: Prisma.IntFieldUpdateOperationsInput | number
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  fileType?: Prisma.StringFieldUpdateOperationsInput | string
-  thumbnailKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumStorageFileStatusFieldUpdateOperationsInput | $Enums.StorageFileStatus
-  currentVersion?: Prisma.IntFieldUpdateOperationsInput | number
-  entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
-  isEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  versions?: Prisma.StorageFileVersionUncheckedUpdateManyWithoutFileNestedInput
-  shareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutFileNestedInput
-  cardAttachments?: Prisma.CardAttachmentUncheckedUpdateManyWithoutFileNestedInput
-  catalogCoverImages?: Prisma.CatalogUncheckedUpdateManyWithoutCoverImageNestedInput
-  catalogExportFiles?: Prisma.CatalogExportUncheckedUpdateManyWithoutFileNestedInput
-  tenantBrandLogos?: Prisma.TenantBrandUncheckedUpdateManyWithoutLogoNestedInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUncheckedUpdateManyWithoutLogoIconNestedInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUncheckedUpdateManyWithoutPreviewFileNestedInput
-  generatedContentFiles?: Prisma.GeneratedContentUncheckedUpdateManyWithoutFileNestedInput
-  generatedContentThumbs?: Prisma.GeneratedContentUncheckedUpdateManyWithoutThumbnailNestedInput
-  mockupClientLogos?: Prisma.ProductMockupUncheckedUpdateManyWithoutClientLogoNestedInput
-  mockupResultFiles?: Prisma.ProductMockupUncheckedUpdateManyWithoutResultFileNestedInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUncheckedUpdateManyWithoutPfxFileNestedInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutDocumentFileNestedInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutSignedFileNestedInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutSignatureImageNestedInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedUpdateManyWithoutFileNestedInput
-  posVisitSignatures?: Prisma.PosVisitLogUncheckedUpdateManyWithoutSignatureFileNestedInput
-}
-
-export type StorageFileCreateWithoutAnalyticsReportGenerationFilesInput = {
-  id?: string
-  name: string
-  originalName: string
-  fileKey: string
-  path: string
-  size: number
-  mimeType: string
-  fileType: string
-  thumbnailKey?: string | null
-  status?: $Enums.StorageFileStatus
-  currentVersion?: number
-  entityType?: string | null
-  entityId?: string | null
-  expiresAt?: Date | string | null
-  uploadedBy: string
-  isEncrypted?: boolean
-  isProtected?: boolean
-  protectionHash?: string | null
-  isHidden?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  tenant: Prisma.TenantCreateNestedOneWithoutStorageFilesInput
-  folder?: Prisma.StorageFolderCreateNestedOneWithoutFilesInput
-  versions?: Prisma.StorageFileVersionCreateNestedManyWithoutFileInput
-  shareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutFileInput
-  cardAttachments?: Prisma.CardAttachmentCreateNestedManyWithoutFileInput
-  catalogCoverImages?: Prisma.CatalogCreateNestedManyWithoutCoverImageInput
-  catalogExportFiles?: Prisma.CatalogExportCreateNestedManyWithoutFileInput
-  tenantBrandLogos?: Prisma.TenantBrandCreateNestedManyWithoutLogoInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandCreateNestedManyWithoutLogoIconInput
-  contentTemplatePreviews?: Prisma.ContentTemplateCreateNestedManyWithoutPreviewFileInput
-  generatedContentFiles?: Prisma.GeneratedContentCreateNestedManyWithoutFileInput
-  generatedContentThumbs?: Prisma.GeneratedContentCreateNestedManyWithoutThumbnailInput
-  mockupClientLogos?: Prisma.ProductMockupCreateNestedManyWithoutClientLogoInput
-  mockupResultFiles?: Prisma.ProductMockupCreateNestedManyWithoutResultFileInput
-  certificatePfxFiles?: Prisma.DigitalCertificateCreateNestedManyWithoutPfxFileInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeCreateNestedManyWithoutDocumentFileInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeCreateNestedManyWithoutSignedFileInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutSignatureImageInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportCreateNestedManyWithoutLastFileInput
-  posVisitSignatures?: Prisma.PosVisitLogCreateNestedManyWithoutSignatureFileInput
-}
-
-export type StorageFileUncheckedCreateWithoutAnalyticsReportGenerationFilesInput = {
-  id?: string
-  tenantId: string
-  folderId?: string | null
-  name: string
-  originalName: string
-  fileKey: string
-  path: string
-  size: number
-  mimeType: string
-  fileType: string
-  thumbnailKey?: string | null
-  status?: $Enums.StorageFileStatus
-  currentVersion?: number
-  entityType?: string | null
-  entityId?: string | null
-  expiresAt?: Date | string | null
-  uploadedBy: string
-  isEncrypted?: boolean
-  isProtected?: boolean
-  protectionHash?: string | null
-  isHidden?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  versions?: Prisma.StorageFileVersionUncheckedCreateNestedManyWithoutFileInput
-  shareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutFileInput
-  cardAttachments?: Prisma.CardAttachmentUncheckedCreateNestedManyWithoutFileInput
-  catalogCoverImages?: Prisma.CatalogUncheckedCreateNestedManyWithoutCoverImageInput
-  catalogExportFiles?: Prisma.CatalogExportUncheckedCreateNestedManyWithoutFileInput
-  tenantBrandLogos?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutLogoInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutLogoIconInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutPreviewFileInput
-  generatedContentFiles?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutFileInput
-  generatedContentThumbs?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutThumbnailInput
-  mockupClientLogos?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutClientLogoInput
-  mockupResultFiles?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutResultFileInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUncheckedCreateNestedManyWithoutPfxFileInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutDocumentFileInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutSignedFileInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutSignatureImageInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutLastFileInput
-  posVisitSignatures?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutSignatureFileInput
-}
-
-export type StorageFileCreateOrConnectWithoutAnalyticsReportGenerationFilesInput = {
-  where: Prisma.StorageFileWhereUniqueInput
-  create: Prisma.XOR<Prisma.StorageFileCreateWithoutAnalyticsReportGenerationFilesInput, Prisma.StorageFileUncheckedCreateWithoutAnalyticsReportGenerationFilesInput>
-}
-
-export type StorageFileUpsertWithoutAnalyticsReportGenerationFilesInput = {
-  update: Prisma.XOR<Prisma.StorageFileUpdateWithoutAnalyticsReportGenerationFilesInput, Prisma.StorageFileUncheckedUpdateWithoutAnalyticsReportGenerationFilesInput>
-  create: Prisma.XOR<Prisma.StorageFileCreateWithoutAnalyticsReportGenerationFilesInput, Prisma.StorageFileUncheckedCreateWithoutAnalyticsReportGenerationFilesInput>
-  where?: Prisma.StorageFileWhereInput
-}
-
-export type StorageFileUpdateToOneWithWhereWithoutAnalyticsReportGenerationFilesInput = {
-  where?: Prisma.StorageFileWhereInput
-  data: Prisma.XOR<Prisma.StorageFileUpdateWithoutAnalyticsReportGenerationFilesInput, Prisma.StorageFileUncheckedUpdateWithoutAnalyticsReportGenerationFilesInput>
-}
-
-export type StorageFileUpdateWithoutAnalyticsReportGenerationFilesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  originalName?: Prisma.StringFieldUpdateOperationsInput | string
-  fileKey?: Prisma.StringFieldUpdateOperationsInput | string
-  path?: Prisma.StringFieldUpdateOperationsInput | string
-  size?: Prisma.IntFieldUpdateOperationsInput | number
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  fileType?: Prisma.StringFieldUpdateOperationsInput | string
-  thumbnailKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumStorageFileStatusFieldUpdateOperationsInput | $Enums.StorageFileStatus
-  currentVersion?: Prisma.IntFieldUpdateOperationsInput | number
-  entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
-  isEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  tenant?: Prisma.TenantUpdateOneRequiredWithoutStorageFilesNestedInput
-  folder?: Prisma.StorageFolderUpdateOneWithoutFilesNestedInput
-  versions?: Prisma.StorageFileVersionUpdateManyWithoutFileNestedInput
-  shareLinks?: Prisma.StorageShareLinkUpdateManyWithoutFileNestedInput
-  cardAttachments?: Prisma.CardAttachmentUpdateManyWithoutFileNestedInput
-  catalogCoverImages?: Prisma.CatalogUpdateManyWithoutCoverImageNestedInput
-  catalogExportFiles?: Prisma.CatalogExportUpdateManyWithoutFileNestedInput
-  tenantBrandLogos?: Prisma.TenantBrandUpdateManyWithoutLogoNestedInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUpdateManyWithoutLogoIconNestedInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUpdateManyWithoutPreviewFileNestedInput
-  generatedContentFiles?: Prisma.GeneratedContentUpdateManyWithoutFileNestedInput
-  generatedContentThumbs?: Prisma.GeneratedContentUpdateManyWithoutThumbnailNestedInput
-  mockupClientLogos?: Prisma.ProductMockupUpdateManyWithoutClientLogoNestedInput
-  mockupResultFiles?: Prisma.ProductMockupUpdateManyWithoutResultFileNestedInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUpdateManyWithoutPfxFileNestedInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUpdateManyWithoutDocumentFileNestedInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUpdateManyWithoutSignedFileNestedInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutSignatureImageNestedInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUpdateManyWithoutLastFileNestedInput
-  posVisitSignatures?: Prisma.PosVisitLogUpdateManyWithoutSignatureFileNestedInput
-}
-
-export type StorageFileUncheckedUpdateWithoutAnalyticsReportGenerationFilesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  folderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  originalName?: Prisma.StringFieldUpdateOperationsInput | string
-  fileKey?: Prisma.StringFieldUpdateOperationsInput | string
-  path?: Prisma.StringFieldUpdateOperationsInput | string
-  size?: Prisma.IntFieldUpdateOperationsInput | number
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  fileType?: Prisma.StringFieldUpdateOperationsInput | string
-  thumbnailKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumStorageFileStatusFieldUpdateOperationsInput | $Enums.StorageFileStatus
-  currentVersion?: Prisma.IntFieldUpdateOperationsInput | number
-  entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
-  isEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  versions?: Prisma.StorageFileVersionUncheckedUpdateManyWithoutFileNestedInput
-  shareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutFileNestedInput
-  cardAttachments?: Prisma.CardAttachmentUncheckedUpdateManyWithoutFileNestedInput
-  catalogCoverImages?: Prisma.CatalogUncheckedUpdateManyWithoutCoverImageNestedInput
-  catalogExportFiles?: Prisma.CatalogExportUncheckedUpdateManyWithoutFileNestedInput
-  tenantBrandLogos?: Prisma.TenantBrandUncheckedUpdateManyWithoutLogoNestedInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUncheckedUpdateManyWithoutLogoIconNestedInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUncheckedUpdateManyWithoutPreviewFileNestedInput
-  generatedContentFiles?: Prisma.GeneratedContentUncheckedUpdateManyWithoutFileNestedInput
-  generatedContentThumbs?: Prisma.GeneratedContentUncheckedUpdateManyWithoutThumbnailNestedInput
-  mockupClientLogos?: Prisma.ProductMockupUncheckedUpdateManyWithoutClientLogoNestedInput
-  mockupResultFiles?: Prisma.ProductMockupUncheckedUpdateManyWithoutResultFileNestedInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUncheckedUpdateManyWithoutPfxFileNestedInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutDocumentFileNestedInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutSignedFileNestedInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutSignatureImageNestedInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutLastFileNestedInput
-  posVisitSignatures?: Prisma.PosVisitLogUncheckedUpdateManyWithoutSignatureFileNestedInput
-}
-
-export type StorageFileCreateWithoutPosVisitSignaturesInput = {
-  id?: string
-  name: string
-  originalName: string
-  fileKey: string
-  path: string
-  size: number
-  mimeType: string
-  fileType: string
-  thumbnailKey?: string | null
-  status?: $Enums.StorageFileStatus
-  currentVersion?: number
-  entityType?: string | null
-  entityId?: string | null
-  expiresAt?: Date | string | null
-  uploadedBy: string
-  isEncrypted?: boolean
-  isProtected?: boolean
-  protectionHash?: string | null
-  isHidden?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  tenant: Prisma.TenantCreateNestedOneWithoutStorageFilesInput
-  folder?: Prisma.StorageFolderCreateNestedOneWithoutFilesInput
-  versions?: Prisma.StorageFileVersionCreateNestedManyWithoutFileInput
-  shareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutFileInput
-  cardAttachments?: Prisma.CardAttachmentCreateNestedManyWithoutFileInput
-  catalogCoverImages?: Prisma.CatalogCreateNestedManyWithoutCoverImageInput
-  catalogExportFiles?: Prisma.CatalogExportCreateNestedManyWithoutFileInput
-  tenantBrandLogos?: Prisma.TenantBrandCreateNestedManyWithoutLogoInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandCreateNestedManyWithoutLogoIconInput
-  contentTemplatePreviews?: Prisma.ContentTemplateCreateNestedManyWithoutPreviewFileInput
-  generatedContentFiles?: Prisma.GeneratedContentCreateNestedManyWithoutFileInput
-  generatedContentThumbs?: Prisma.GeneratedContentCreateNestedManyWithoutThumbnailInput
-  mockupClientLogos?: Prisma.ProductMockupCreateNestedManyWithoutClientLogoInput
-  mockupResultFiles?: Prisma.ProductMockupCreateNestedManyWithoutResultFileInput
-  certificatePfxFiles?: Prisma.DigitalCertificateCreateNestedManyWithoutPfxFileInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeCreateNestedManyWithoutDocumentFileInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeCreateNestedManyWithoutSignedFileInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutSignatureImageInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportCreateNestedManyWithoutLastFileInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationCreateNestedManyWithoutFileInput
-}
-
-export type StorageFileUncheckedCreateWithoutPosVisitSignaturesInput = {
-  id?: string
-  tenantId: string
-  folderId?: string | null
-  name: string
-  originalName: string
-  fileKey: string
-  path: string
-  size: number
-  mimeType: string
-  fileType: string
-  thumbnailKey?: string | null
-  status?: $Enums.StorageFileStatus
-  currentVersion?: number
-  entityType?: string | null
-  entityId?: string | null
-  expiresAt?: Date | string | null
-  uploadedBy: string
-  isEncrypted?: boolean
-  isProtected?: boolean
-  protectionHash?: string | null
-  isHidden?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  versions?: Prisma.StorageFileVersionUncheckedCreateNestedManyWithoutFileInput
-  shareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutFileInput
-  cardAttachments?: Prisma.CardAttachmentUncheckedCreateNestedManyWithoutFileInput
-  catalogCoverImages?: Prisma.CatalogUncheckedCreateNestedManyWithoutCoverImageInput
-  catalogExportFiles?: Prisma.CatalogExportUncheckedCreateNestedManyWithoutFileInput
-  tenantBrandLogos?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutLogoInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUncheckedCreateNestedManyWithoutLogoIconInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUncheckedCreateNestedManyWithoutPreviewFileInput
-  generatedContentFiles?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutFileInput
-  generatedContentThumbs?: Prisma.GeneratedContentUncheckedCreateNestedManyWithoutThumbnailInput
-  mockupClientLogos?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutClientLogoInput
-  mockupResultFiles?: Prisma.ProductMockupUncheckedCreateNestedManyWithoutResultFileInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUncheckedCreateNestedManyWithoutPfxFileInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutDocumentFileInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUncheckedCreateNestedManyWithoutSignedFileInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutSignatureImageInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedCreateNestedManyWithoutLastFileInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedCreateNestedManyWithoutFileInput
-}
-
-export type StorageFileCreateOrConnectWithoutPosVisitSignaturesInput = {
-  where: Prisma.StorageFileWhereUniqueInput
-  create: Prisma.XOR<Prisma.StorageFileCreateWithoutPosVisitSignaturesInput, Prisma.StorageFileUncheckedCreateWithoutPosVisitSignaturesInput>
-}
-
-export type StorageFileUpsertWithoutPosVisitSignaturesInput = {
-  update: Prisma.XOR<Prisma.StorageFileUpdateWithoutPosVisitSignaturesInput, Prisma.StorageFileUncheckedUpdateWithoutPosVisitSignaturesInput>
-  create: Prisma.XOR<Prisma.StorageFileCreateWithoutPosVisitSignaturesInput, Prisma.StorageFileUncheckedCreateWithoutPosVisitSignaturesInput>
-  where?: Prisma.StorageFileWhereInput
-}
-
-export type StorageFileUpdateToOneWithWhereWithoutPosVisitSignaturesInput = {
-  where?: Prisma.StorageFileWhereInput
-  data: Prisma.XOR<Prisma.StorageFileUpdateWithoutPosVisitSignaturesInput, Prisma.StorageFileUncheckedUpdateWithoutPosVisitSignaturesInput>
-}
-
-export type StorageFileUpdateWithoutPosVisitSignaturesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  originalName?: Prisma.StringFieldUpdateOperationsInput | string
-  fileKey?: Prisma.StringFieldUpdateOperationsInput | string
-  path?: Prisma.StringFieldUpdateOperationsInput | string
-  size?: Prisma.IntFieldUpdateOperationsInput | number
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  fileType?: Prisma.StringFieldUpdateOperationsInput | string
-  thumbnailKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumStorageFileStatusFieldUpdateOperationsInput | $Enums.StorageFileStatus
-  currentVersion?: Prisma.IntFieldUpdateOperationsInput | number
-  entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
-  isEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  tenant?: Prisma.TenantUpdateOneRequiredWithoutStorageFilesNestedInput
-  folder?: Prisma.StorageFolderUpdateOneWithoutFilesNestedInput
-  versions?: Prisma.StorageFileVersionUpdateManyWithoutFileNestedInput
-  shareLinks?: Prisma.StorageShareLinkUpdateManyWithoutFileNestedInput
-  cardAttachments?: Prisma.CardAttachmentUpdateManyWithoutFileNestedInput
-  catalogCoverImages?: Prisma.CatalogUpdateManyWithoutCoverImageNestedInput
-  catalogExportFiles?: Prisma.CatalogExportUpdateManyWithoutFileNestedInput
-  tenantBrandLogos?: Prisma.TenantBrandUpdateManyWithoutLogoNestedInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUpdateManyWithoutLogoIconNestedInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUpdateManyWithoutPreviewFileNestedInput
-  generatedContentFiles?: Prisma.GeneratedContentUpdateManyWithoutFileNestedInput
-  generatedContentThumbs?: Prisma.GeneratedContentUpdateManyWithoutThumbnailNestedInput
-  mockupClientLogos?: Prisma.ProductMockupUpdateManyWithoutClientLogoNestedInput
-  mockupResultFiles?: Prisma.ProductMockupUpdateManyWithoutResultFileNestedInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUpdateManyWithoutPfxFileNestedInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUpdateManyWithoutDocumentFileNestedInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUpdateManyWithoutSignedFileNestedInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutSignatureImageNestedInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUpdateManyWithoutLastFileNestedInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUpdateManyWithoutFileNestedInput
-}
-
-export type StorageFileUncheckedUpdateWithoutPosVisitSignaturesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  folderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  originalName?: Prisma.StringFieldUpdateOperationsInput | string
-  fileKey?: Prisma.StringFieldUpdateOperationsInput | string
-  path?: Prisma.StringFieldUpdateOperationsInput | string
-  size?: Prisma.IntFieldUpdateOperationsInput | number
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  fileType?: Prisma.StringFieldUpdateOperationsInput | string
-  thumbnailKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumStorageFileStatusFieldUpdateOperationsInput | $Enums.StorageFileStatus
-  currentVersion?: Prisma.IntFieldUpdateOperationsInput | number
-  entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
-  isEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  versions?: Prisma.StorageFileVersionUncheckedUpdateManyWithoutFileNestedInput
-  shareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutFileNestedInput
-  cardAttachments?: Prisma.CardAttachmentUncheckedUpdateManyWithoutFileNestedInput
-  catalogCoverImages?: Prisma.CatalogUncheckedUpdateManyWithoutCoverImageNestedInput
-  catalogExportFiles?: Prisma.CatalogExportUncheckedUpdateManyWithoutFileNestedInput
-  tenantBrandLogos?: Prisma.TenantBrandUncheckedUpdateManyWithoutLogoNestedInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUncheckedUpdateManyWithoutLogoIconNestedInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUncheckedUpdateManyWithoutPreviewFileNestedInput
-  generatedContentFiles?: Prisma.GeneratedContentUncheckedUpdateManyWithoutFileNestedInput
-  generatedContentThumbs?: Prisma.GeneratedContentUncheckedUpdateManyWithoutThumbnailNestedInput
-  mockupClientLogos?: Prisma.ProductMockupUncheckedUpdateManyWithoutClientLogoNestedInput
-  mockupResultFiles?: Prisma.ProductMockupUncheckedUpdateManyWithoutResultFileNestedInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUncheckedUpdateManyWithoutPfxFileNestedInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutDocumentFileNestedInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutSignedFileNestedInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutSignatureImageNestedInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutLastFileNestedInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedUpdateManyWithoutFileNestedInput
+  bidEditalFiles?: Prisma.BidUncheckedUpdateManyWithoutEditalFileNestedInput
+  bidEtpFiles?: Prisma.BidUncheckedUpdateManyWithoutEtpFileNestedInput
+  bidTrFiles?: Prisma.BidUncheckedUpdateManyWithoutTrFileNestedInput
+  bidProposalFiles?: Prisma.BidProposalUncheckedUpdateManyWithoutProposalFileNestedInput
+  bidDocumentFiles?: Prisma.BidDocumentUncheckedUpdateManyWithoutFileNestedInput
 }
 
 export type StorageFileCreateManyTenantInput = {
@@ -5360,22 +2770,12 @@ export type StorageFileUpdateWithoutTenantInput = {
   versions?: Prisma.StorageFileVersionUpdateManyWithoutFileNestedInput
   shareLinks?: Prisma.StorageShareLinkUpdateManyWithoutFileNestedInput
   cardAttachments?: Prisma.CardAttachmentUpdateManyWithoutFileNestedInput
-  catalogCoverImages?: Prisma.CatalogUpdateManyWithoutCoverImageNestedInput
-  catalogExportFiles?: Prisma.CatalogExportUpdateManyWithoutFileNestedInput
-  tenantBrandLogos?: Prisma.TenantBrandUpdateManyWithoutLogoNestedInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUpdateManyWithoutLogoIconNestedInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUpdateManyWithoutPreviewFileNestedInput
-  generatedContentFiles?: Prisma.GeneratedContentUpdateManyWithoutFileNestedInput
-  generatedContentThumbs?: Prisma.GeneratedContentUpdateManyWithoutThumbnailNestedInput
-  mockupClientLogos?: Prisma.ProductMockupUpdateManyWithoutClientLogoNestedInput
-  mockupResultFiles?: Prisma.ProductMockupUpdateManyWithoutResultFileNestedInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUpdateManyWithoutPfxFileNestedInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUpdateManyWithoutDocumentFileNestedInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUpdateManyWithoutSignedFileNestedInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutSignatureImageNestedInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUpdateManyWithoutLastFileNestedInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUpdateManyWithoutFileNestedInput
-  posVisitSignatures?: Prisma.PosVisitLogUpdateManyWithoutSignatureFileNestedInput
+  bidEditalFiles?: Prisma.BidUpdateManyWithoutEditalFileNestedInput
+  bidEtpFiles?: Prisma.BidUpdateManyWithoutEtpFileNestedInput
+  bidTrFiles?: Prisma.BidUpdateManyWithoutTrFileNestedInput
+  bidProposalFiles?: Prisma.BidProposalUpdateManyWithoutProposalFileNestedInput
+  bidDocumentFiles?: Prisma.BidDocumentUpdateManyWithoutFileNestedInput
+  bidContractFiles?: Prisma.BidContractUpdateManyWithoutContractFileNestedInput
 }
 
 export type StorageFileUncheckedUpdateWithoutTenantInput = {
@@ -5405,22 +2805,12 @@ export type StorageFileUncheckedUpdateWithoutTenantInput = {
   versions?: Prisma.StorageFileVersionUncheckedUpdateManyWithoutFileNestedInput
   shareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutFileNestedInput
   cardAttachments?: Prisma.CardAttachmentUncheckedUpdateManyWithoutFileNestedInput
-  catalogCoverImages?: Prisma.CatalogUncheckedUpdateManyWithoutCoverImageNestedInput
-  catalogExportFiles?: Prisma.CatalogExportUncheckedUpdateManyWithoutFileNestedInput
-  tenantBrandLogos?: Prisma.TenantBrandUncheckedUpdateManyWithoutLogoNestedInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUncheckedUpdateManyWithoutLogoIconNestedInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUncheckedUpdateManyWithoutPreviewFileNestedInput
-  generatedContentFiles?: Prisma.GeneratedContentUncheckedUpdateManyWithoutFileNestedInput
-  generatedContentThumbs?: Prisma.GeneratedContentUncheckedUpdateManyWithoutThumbnailNestedInput
-  mockupClientLogos?: Prisma.ProductMockupUncheckedUpdateManyWithoutClientLogoNestedInput
-  mockupResultFiles?: Prisma.ProductMockupUncheckedUpdateManyWithoutResultFileNestedInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUncheckedUpdateManyWithoutPfxFileNestedInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutDocumentFileNestedInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutSignedFileNestedInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutSignatureImageNestedInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutLastFileNestedInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedUpdateManyWithoutFileNestedInput
-  posVisitSignatures?: Prisma.PosVisitLogUncheckedUpdateManyWithoutSignatureFileNestedInput
+  bidEditalFiles?: Prisma.BidUncheckedUpdateManyWithoutEditalFileNestedInput
+  bidEtpFiles?: Prisma.BidUncheckedUpdateManyWithoutEtpFileNestedInput
+  bidTrFiles?: Prisma.BidUncheckedUpdateManyWithoutTrFileNestedInput
+  bidProposalFiles?: Prisma.BidProposalUncheckedUpdateManyWithoutProposalFileNestedInput
+  bidDocumentFiles?: Prisma.BidDocumentUncheckedUpdateManyWithoutFileNestedInput
+  bidContractFiles?: Prisma.BidContractUncheckedUpdateManyWithoutContractFileNestedInput
 }
 
 export type StorageFileUncheckedUpdateManyWithoutTenantInput = {
@@ -5502,22 +2892,12 @@ export type StorageFileUpdateWithoutFolderInput = {
   versions?: Prisma.StorageFileVersionUpdateManyWithoutFileNestedInput
   shareLinks?: Prisma.StorageShareLinkUpdateManyWithoutFileNestedInput
   cardAttachments?: Prisma.CardAttachmentUpdateManyWithoutFileNestedInput
-  catalogCoverImages?: Prisma.CatalogUpdateManyWithoutCoverImageNestedInput
-  catalogExportFiles?: Prisma.CatalogExportUpdateManyWithoutFileNestedInput
-  tenantBrandLogos?: Prisma.TenantBrandUpdateManyWithoutLogoNestedInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUpdateManyWithoutLogoIconNestedInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUpdateManyWithoutPreviewFileNestedInput
-  generatedContentFiles?: Prisma.GeneratedContentUpdateManyWithoutFileNestedInput
-  generatedContentThumbs?: Prisma.GeneratedContentUpdateManyWithoutThumbnailNestedInput
-  mockupClientLogos?: Prisma.ProductMockupUpdateManyWithoutClientLogoNestedInput
-  mockupResultFiles?: Prisma.ProductMockupUpdateManyWithoutResultFileNestedInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUpdateManyWithoutPfxFileNestedInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUpdateManyWithoutDocumentFileNestedInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUpdateManyWithoutSignedFileNestedInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutSignatureImageNestedInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUpdateManyWithoutLastFileNestedInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUpdateManyWithoutFileNestedInput
-  posVisitSignatures?: Prisma.PosVisitLogUpdateManyWithoutSignatureFileNestedInput
+  bidEditalFiles?: Prisma.BidUpdateManyWithoutEditalFileNestedInput
+  bidEtpFiles?: Prisma.BidUpdateManyWithoutEtpFileNestedInput
+  bidTrFiles?: Prisma.BidUpdateManyWithoutTrFileNestedInput
+  bidProposalFiles?: Prisma.BidProposalUpdateManyWithoutProposalFileNestedInput
+  bidDocumentFiles?: Prisma.BidDocumentUpdateManyWithoutFileNestedInput
+  bidContractFiles?: Prisma.BidContractUpdateManyWithoutContractFileNestedInput
 }
 
 export type StorageFileUncheckedUpdateWithoutFolderInput = {
@@ -5547,22 +2927,12 @@ export type StorageFileUncheckedUpdateWithoutFolderInput = {
   versions?: Prisma.StorageFileVersionUncheckedUpdateManyWithoutFileNestedInput
   shareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutFileNestedInput
   cardAttachments?: Prisma.CardAttachmentUncheckedUpdateManyWithoutFileNestedInput
-  catalogCoverImages?: Prisma.CatalogUncheckedUpdateManyWithoutCoverImageNestedInput
-  catalogExportFiles?: Prisma.CatalogExportUncheckedUpdateManyWithoutFileNestedInput
-  tenantBrandLogos?: Prisma.TenantBrandUncheckedUpdateManyWithoutLogoNestedInput
-  tenantBrandLogoIcons?: Prisma.TenantBrandUncheckedUpdateManyWithoutLogoIconNestedInput
-  contentTemplatePreviews?: Prisma.ContentTemplateUncheckedUpdateManyWithoutPreviewFileNestedInput
-  generatedContentFiles?: Prisma.GeneratedContentUncheckedUpdateManyWithoutFileNestedInput
-  generatedContentThumbs?: Prisma.GeneratedContentUncheckedUpdateManyWithoutThumbnailNestedInput
-  mockupClientLogos?: Prisma.ProductMockupUncheckedUpdateManyWithoutClientLogoNestedInput
-  mockupResultFiles?: Prisma.ProductMockupUncheckedUpdateManyWithoutResultFileNestedInput
-  certificatePfxFiles?: Prisma.DigitalCertificateUncheckedUpdateManyWithoutPfxFileNestedInput
-  envelopeDocumentFiles?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutDocumentFileNestedInput
-  envelopeSignedFiles?: Prisma.SignatureEnvelopeUncheckedUpdateManyWithoutSignedFileNestedInput
-  signerSignatureImages?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutSignatureImageNestedInput
-  analyticsReportLastFiles?: Prisma.AnalyticsReportUncheckedUpdateManyWithoutLastFileNestedInput
-  analyticsReportGenerationFiles?: Prisma.AnalyticsReportGenerationUncheckedUpdateManyWithoutFileNestedInput
-  posVisitSignatures?: Prisma.PosVisitLogUncheckedUpdateManyWithoutSignatureFileNestedInput
+  bidEditalFiles?: Prisma.BidUncheckedUpdateManyWithoutEditalFileNestedInput
+  bidEtpFiles?: Prisma.BidUncheckedUpdateManyWithoutEtpFileNestedInput
+  bidTrFiles?: Prisma.BidUncheckedUpdateManyWithoutTrFileNestedInput
+  bidProposalFiles?: Prisma.BidProposalUncheckedUpdateManyWithoutProposalFileNestedInput
+  bidDocumentFiles?: Prisma.BidDocumentUncheckedUpdateManyWithoutFileNestedInput
+  bidContractFiles?: Prisma.BidContractUncheckedUpdateManyWithoutContractFileNestedInput
 }
 
 export type StorageFileUncheckedUpdateManyWithoutFolderInput = {
@@ -5600,44 +2970,24 @@ export type StorageFileCountOutputType = {
   versions: number
   shareLinks: number
   cardAttachments: number
-  catalogCoverImages: number
-  catalogExportFiles: number
-  tenantBrandLogos: number
-  tenantBrandLogoIcons: number
-  contentTemplatePreviews: number
-  generatedContentFiles: number
-  generatedContentThumbs: number
-  mockupClientLogos: number
-  mockupResultFiles: number
-  certificatePfxFiles: number
-  envelopeDocumentFiles: number
-  envelopeSignedFiles: number
-  signerSignatureImages: number
-  analyticsReportLastFiles: number
-  analyticsReportGenerationFiles: number
-  posVisitSignatures: number
+  bidEditalFiles: number
+  bidEtpFiles: number
+  bidTrFiles: number
+  bidProposalFiles: number
+  bidDocumentFiles: number
+  bidContractFiles: number
 }
 
 export type StorageFileCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   versions?: boolean | StorageFileCountOutputTypeCountVersionsArgs
   shareLinks?: boolean | StorageFileCountOutputTypeCountShareLinksArgs
   cardAttachments?: boolean | StorageFileCountOutputTypeCountCardAttachmentsArgs
-  catalogCoverImages?: boolean | StorageFileCountOutputTypeCountCatalogCoverImagesArgs
-  catalogExportFiles?: boolean | StorageFileCountOutputTypeCountCatalogExportFilesArgs
-  tenantBrandLogos?: boolean | StorageFileCountOutputTypeCountTenantBrandLogosArgs
-  tenantBrandLogoIcons?: boolean | StorageFileCountOutputTypeCountTenantBrandLogoIconsArgs
-  contentTemplatePreviews?: boolean | StorageFileCountOutputTypeCountContentTemplatePreviewsArgs
-  generatedContentFiles?: boolean | StorageFileCountOutputTypeCountGeneratedContentFilesArgs
-  generatedContentThumbs?: boolean | StorageFileCountOutputTypeCountGeneratedContentThumbsArgs
-  mockupClientLogos?: boolean | StorageFileCountOutputTypeCountMockupClientLogosArgs
-  mockupResultFiles?: boolean | StorageFileCountOutputTypeCountMockupResultFilesArgs
-  certificatePfxFiles?: boolean | StorageFileCountOutputTypeCountCertificatePfxFilesArgs
-  envelopeDocumentFiles?: boolean | StorageFileCountOutputTypeCountEnvelopeDocumentFilesArgs
-  envelopeSignedFiles?: boolean | StorageFileCountOutputTypeCountEnvelopeSignedFilesArgs
-  signerSignatureImages?: boolean | StorageFileCountOutputTypeCountSignerSignatureImagesArgs
-  analyticsReportLastFiles?: boolean | StorageFileCountOutputTypeCountAnalyticsReportLastFilesArgs
-  analyticsReportGenerationFiles?: boolean | StorageFileCountOutputTypeCountAnalyticsReportGenerationFilesArgs
-  posVisitSignatures?: boolean | StorageFileCountOutputTypeCountPosVisitSignaturesArgs
+  bidEditalFiles?: boolean | StorageFileCountOutputTypeCountBidEditalFilesArgs
+  bidEtpFiles?: boolean | StorageFileCountOutputTypeCountBidEtpFilesArgs
+  bidTrFiles?: boolean | StorageFileCountOutputTypeCountBidTrFilesArgs
+  bidProposalFiles?: boolean | StorageFileCountOutputTypeCountBidProposalFilesArgs
+  bidDocumentFiles?: boolean | StorageFileCountOutputTypeCountBidDocumentFilesArgs
+  bidContractFiles?: boolean | StorageFileCountOutputTypeCountBidContractFilesArgs
 }
 
 /**
@@ -5674,113 +3024,43 @@ export type StorageFileCountOutputTypeCountCardAttachmentsArgs<ExtArgs extends r
 /**
  * StorageFileCountOutputType without action
  */
-export type StorageFileCountOutputTypeCountCatalogCoverImagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.CatalogWhereInput
+export type StorageFileCountOutputTypeCountBidEditalFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BidWhereInput
 }
 
 /**
  * StorageFileCountOutputType without action
  */
-export type StorageFileCountOutputTypeCountCatalogExportFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.CatalogExportWhereInput
+export type StorageFileCountOutputTypeCountBidEtpFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BidWhereInput
 }
 
 /**
  * StorageFileCountOutputType without action
  */
-export type StorageFileCountOutputTypeCountTenantBrandLogosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.TenantBrandWhereInput
+export type StorageFileCountOutputTypeCountBidTrFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BidWhereInput
 }
 
 /**
  * StorageFileCountOutputType without action
  */
-export type StorageFileCountOutputTypeCountTenantBrandLogoIconsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.TenantBrandWhereInput
+export type StorageFileCountOutputTypeCountBidProposalFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BidProposalWhereInput
 }
 
 /**
  * StorageFileCountOutputType without action
  */
-export type StorageFileCountOutputTypeCountContentTemplatePreviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ContentTemplateWhereInput
+export type StorageFileCountOutputTypeCountBidDocumentFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BidDocumentWhereInput
 }
 
 /**
  * StorageFileCountOutputType without action
  */
-export type StorageFileCountOutputTypeCountGeneratedContentFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.GeneratedContentWhereInput
-}
-
-/**
- * StorageFileCountOutputType without action
- */
-export type StorageFileCountOutputTypeCountGeneratedContentThumbsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.GeneratedContentWhereInput
-}
-
-/**
- * StorageFileCountOutputType without action
- */
-export type StorageFileCountOutputTypeCountMockupClientLogosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ProductMockupWhereInput
-}
-
-/**
- * StorageFileCountOutputType without action
- */
-export type StorageFileCountOutputTypeCountMockupResultFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ProductMockupWhereInput
-}
-
-/**
- * StorageFileCountOutputType without action
- */
-export type StorageFileCountOutputTypeCountCertificatePfxFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.DigitalCertificateWhereInput
-}
-
-/**
- * StorageFileCountOutputType without action
- */
-export type StorageFileCountOutputTypeCountEnvelopeDocumentFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.SignatureEnvelopeWhereInput
-}
-
-/**
- * StorageFileCountOutputType without action
- */
-export type StorageFileCountOutputTypeCountEnvelopeSignedFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.SignatureEnvelopeWhereInput
-}
-
-/**
- * StorageFileCountOutputType without action
- */
-export type StorageFileCountOutputTypeCountSignerSignatureImagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.SignatureEnvelopeSignerWhereInput
-}
-
-/**
- * StorageFileCountOutputType without action
- */
-export type StorageFileCountOutputTypeCountAnalyticsReportLastFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.AnalyticsReportWhereInput
-}
-
-/**
- * StorageFileCountOutputType without action
- */
-export type StorageFileCountOutputTypeCountAnalyticsReportGenerationFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.AnalyticsReportGenerationWhereInput
-}
-
-/**
- * StorageFileCountOutputType without action
- */
-export type StorageFileCountOutputTypeCountPosVisitSignaturesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.PosVisitLogWhereInput
+export type StorageFileCountOutputTypeCountBidContractFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BidContractWhereInput
 }
 
 
@@ -5814,22 +3094,12 @@ export type StorageFileSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   versions?: boolean | Prisma.StorageFile$versionsArgs<ExtArgs>
   shareLinks?: boolean | Prisma.StorageFile$shareLinksArgs<ExtArgs>
   cardAttachments?: boolean | Prisma.StorageFile$cardAttachmentsArgs<ExtArgs>
-  catalogCoverImages?: boolean | Prisma.StorageFile$catalogCoverImagesArgs<ExtArgs>
-  catalogExportFiles?: boolean | Prisma.StorageFile$catalogExportFilesArgs<ExtArgs>
-  tenantBrandLogos?: boolean | Prisma.StorageFile$tenantBrandLogosArgs<ExtArgs>
-  tenantBrandLogoIcons?: boolean | Prisma.StorageFile$tenantBrandLogoIconsArgs<ExtArgs>
-  contentTemplatePreviews?: boolean | Prisma.StorageFile$contentTemplatePreviewsArgs<ExtArgs>
-  generatedContentFiles?: boolean | Prisma.StorageFile$generatedContentFilesArgs<ExtArgs>
-  generatedContentThumbs?: boolean | Prisma.StorageFile$generatedContentThumbsArgs<ExtArgs>
-  mockupClientLogos?: boolean | Prisma.StorageFile$mockupClientLogosArgs<ExtArgs>
-  mockupResultFiles?: boolean | Prisma.StorageFile$mockupResultFilesArgs<ExtArgs>
-  certificatePfxFiles?: boolean | Prisma.StorageFile$certificatePfxFilesArgs<ExtArgs>
-  envelopeDocumentFiles?: boolean | Prisma.StorageFile$envelopeDocumentFilesArgs<ExtArgs>
-  envelopeSignedFiles?: boolean | Prisma.StorageFile$envelopeSignedFilesArgs<ExtArgs>
-  signerSignatureImages?: boolean | Prisma.StorageFile$signerSignatureImagesArgs<ExtArgs>
-  analyticsReportLastFiles?: boolean | Prisma.StorageFile$analyticsReportLastFilesArgs<ExtArgs>
-  analyticsReportGenerationFiles?: boolean | Prisma.StorageFile$analyticsReportGenerationFilesArgs<ExtArgs>
-  posVisitSignatures?: boolean | Prisma.StorageFile$posVisitSignaturesArgs<ExtArgs>
+  bidEditalFiles?: boolean | Prisma.StorageFile$bidEditalFilesArgs<ExtArgs>
+  bidEtpFiles?: boolean | Prisma.StorageFile$bidEtpFilesArgs<ExtArgs>
+  bidTrFiles?: boolean | Prisma.StorageFile$bidTrFilesArgs<ExtArgs>
+  bidProposalFiles?: boolean | Prisma.StorageFile$bidProposalFilesArgs<ExtArgs>
+  bidDocumentFiles?: boolean | Prisma.StorageFile$bidDocumentFilesArgs<ExtArgs>
+  bidContractFiles?: boolean | Prisma.StorageFile$bidContractFilesArgs<ExtArgs>
   _count?: boolean | Prisma.StorageFileCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["storageFile"]>
 
@@ -5925,22 +3195,12 @@ export type StorageFileInclude<ExtArgs extends runtime.Types.Extensions.Internal
   versions?: boolean | Prisma.StorageFile$versionsArgs<ExtArgs>
   shareLinks?: boolean | Prisma.StorageFile$shareLinksArgs<ExtArgs>
   cardAttachments?: boolean | Prisma.StorageFile$cardAttachmentsArgs<ExtArgs>
-  catalogCoverImages?: boolean | Prisma.StorageFile$catalogCoverImagesArgs<ExtArgs>
-  catalogExportFiles?: boolean | Prisma.StorageFile$catalogExportFilesArgs<ExtArgs>
-  tenantBrandLogos?: boolean | Prisma.StorageFile$tenantBrandLogosArgs<ExtArgs>
-  tenantBrandLogoIcons?: boolean | Prisma.StorageFile$tenantBrandLogoIconsArgs<ExtArgs>
-  contentTemplatePreviews?: boolean | Prisma.StorageFile$contentTemplatePreviewsArgs<ExtArgs>
-  generatedContentFiles?: boolean | Prisma.StorageFile$generatedContentFilesArgs<ExtArgs>
-  generatedContentThumbs?: boolean | Prisma.StorageFile$generatedContentThumbsArgs<ExtArgs>
-  mockupClientLogos?: boolean | Prisma.StorageFile$mockupClientLogosArgs<ExtArgs>
-  mockupResultFiles?: boolean | Prisma.StorageFile$mockupResultFilesArgs<ExtArgs>
-  certificatePfxFiles?: boolean | Prisma.StorageFile$certificatePfxFilesArgs<ExtArgs>
-  envelopeDocumentFiles?: boolean | Prisma.StorageFile$envelopeDocumentFilesArgs<ExtArgs>
-  envelopeSignedFiles?: boolean | Prisma.StorageFile$envelopeSignedFilesArgs<ExtArgs>
-  signerSignatureImages?: boolean | Prisma.StorageFile$signerSignatureImagesArgs<ExtArgs>
-  analyticsReportLastFiles?: boolean | Prisma.StorageFile$analyticsReportLastFilesArgs<ExtArgs>
-  analyticsReportGenerationFiles?: boolean | Prisma.StorageFile$analyticsReportGenerationFilesArgs<ExtArgs>
-  posVisitSignatures?: boolean | Prisma.StorageFile$posVisitSignaturesArgs<ExtArgs>
+  bidEditalFiles?: boolean | Prisma.StorageFile$bidEditalFilesArgs<ExtArgs>
+  bidEtpFiles?: boolean | Prisma.StorageFile$bidEtpFilesArgs<ExtArgs>
+  bidTrFiles?: boolean | Prisma.StorageFile$bidTrFilesArgs<ExtArgs>
+  bidProposalFiles?: boolean | Prisma.StorageFile$bidProposalFilesArgs<ExtArgs>
+  bidDocumentFiles?: boolean | Prisma.StorageFile$bidDocumentFilesArgs<ExtArgs>
+  bidContractFiles?: boolean | Prisma.StorageFile$bidContractFilesArgs<ExtArgs>
   _count?: boolean | Prisma.StorageFileCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type StorageFileIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -5960,22 +3220,12 @@ export type $StorageFilePayload<ExtArgs extends runtime.Types.Extensions.Interna
     versions: Prisma.$StorageFileVersionPayload<ExtArgs>[]
     shareLinks: Prisma.$StorageShareLinkPayload<ExtArgs>[]
     cardAttachments: Prisma.$CardAttachmentPayload<ExtArgs>[]
-    catalogCoverImages: Prisma.$CatalogPayload<ExtArgs>[]
-    catalogExportFiles: Prisma.$CatalogExportPayload<ExtArgs>[]
-    tenantBrandLogos: Prisma.$TenantBrandPayload<ExtArgs>[]
-    tenantBrandLogoIcons: Prisma.$TenantBrandPayload<ExtArgs>[]
-    contentTemplatePreviews: Prisma.$ContentTemplatePayload<ExtArgs>[]
-    generatedContentFiles: Prisma.$GeneratedContentPayload<ExtArgs>[]
-    generatedContentThumbs: Prisma.$GeneratedContentPayload<ExtArgs>[]
-    mockupClientLogos: Prisma.$ProductMockupPayload<ExtArgs>[]
-    mockupResultFiles: Prisma.$ProductMockupPayload<ExtArgs>[]
-    certificatePfxFiles: Prisma.$DigitalCertificatePayload<ExtArgs>[]
-    envelopeDocumentFiles: Prisma.$SignatureEnvelopePayload<ExtArgs>[]
-    envelopeSignedFiles: Prisma.$SignatureEnvelopePayload<ExtArgs>[]
-    signerSignatureImages: Prisma.$SignatureEnvelopeSignerPayload<ExtArgs>[]
-    analyticsReportLastFiles: Prisma.$AnalyticsReportPayload<ExtArgs>[]
-    analyticsReportGenerationFiles: Prisma.$AnalyticsReportGenerationPayload<ExtArgs>[]
-    posVisitSignatures: Prisma.$PosVisitLogPayload<ExtArgs>[]
+    bidEditalFiles: Prisma.$BidPayload<ExtArgs>[]
+    bidEtpFiles: Prisma.$BidPayload<ExtArgs>[]
+    bidTrFiles: Prisma.$BidPayload<ExtArgs>[]
+    bidProposalFiles: Prisma.$BidProposalPayload<ExtArgs>[]
+    bidDocumentFiles: Prisma.$BidDocumentPayload<ExtArgs>[]
+    bidContractFiles: Prisma.$BidContractPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -6401,22 +3651,12 @@ export interface Prisma__StorageFileClient<T, Null = never, ExtArgs extends runt
   versions<T extends Prisma.StorageFile$versionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StorageFile$versionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StorageFileVersionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   shareLinks<T extends Prisma.StorageFile$shareLinksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StorageFile$shareLinksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StorageShareLinkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   cardAttachments<T extends Prisma.StorageFile$cardAttachmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StorageFile$cardAttachmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CardAttachmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  catalogCoverImages<T extends Prisma.StorageFile$catalogCoverImagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StorageFile$catalogCoverImagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CatalogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  catalogExportFiles<T extends Prisma.StorageFile$catalogExportFilesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StorageFile$catalogExportFilesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CatalogExportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  tenantBrandLogos<T extends Prisma.StorageFile$tenantBrandLogosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StorageFile$tenantBrandLogosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TenantBrandPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  tenantBrandLogoIcons<T extends Prisma.StorageFile$tenantBrandLogoIconsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StorageFile$tenantBrandLogoIconsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TenantBrandPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  contentTemplatePreviews<T extends Prisma.StorageFile$contentTemplatePreviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StorageFile$contentTemplatePreviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ContentTemplatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  generatedContentFiles<T extends Prisma.StorageFile$generatedContentFilesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StorageFile$generatedContentFilesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GeneratedContentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  generatedContentThumbs<T extends Prisma.StorageFile$generatedContentThumbsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StorageFile$generatedContentThumbsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GeneratedContentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  mockupClientLogos<T extends Prisma.StorageFile$mockupClientLogosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StorageFile$mockupClientLogosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductMockupPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  mockupResultFiles<T extends Prisma.StorageFile$mockupResultFilesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StorageFile$mockupResultFilesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductMockupPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  certificatePfxFiles<T extends Prisma.StorageFile$certificatePfxFilesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StorageFile$certificatePfxFilesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DigitalCertificatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  envelopeDocumentFiles<T extends Prisma.StorageFile$envelopeDocumentFilesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StorageFile$envelopeDocumentFilesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SignatureEnvelopePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  envelopeSignedFiles<T extends Prisma.StorageFile$envelopeSignedFilesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StorageFile$envelopeSignedFilesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SignatureEnvelopePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  signerSignatureImages<T extends Prisma.StorageFile$signerSignatureImagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StorageFile$signerSignatureImagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SignatureEnvelopeSignerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  analyticsReportLastFiles<T extends Prisma.StorageFile$analyticsReportLastFilesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StorageFile$analyticsReportLastFilesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AnalyticsReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  analyticsReportGenerationFiles<T extends Prisma.StorageFile$analyticsReportGenerationFilesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StorageFile$analyticsReportGenerationFilesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AnalyticsReportGenerationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  posVisitSignatures<T extends Prisma.StorageFile$posVisitSignaturesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StorageFile$posVisitSignaturesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PosVisitLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  bidEditalFiles<T extends Prisma.StorageFile$bidEditalFilesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StorageFile$bidEditalFilesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BidPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  bidEtpFiles<T extends Prisma.StorageFile$bidEtpFilesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StorageFile$bidEtpFilesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BidPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  bidTrFiles<T extends Prisma.StorageFile$bidTrFilesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StorageFile$bidTrFilesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BidPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  bidProposalFiles<T extends Prisma.StorageFile$bidProposalFilesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StorageFile$bidProposalFilesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BidProposalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  bidDocumentFiles<T extends Prisma.StorageFile$bidDocumentFilesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StorageFile$bidDocumentFilesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BidDocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  bidContractFiles<T extends Prisma.StorageFile$bidContractFilesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StorageFile$bidContractFilesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BidContractPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6957,387 +4197,147 @@ export type StorageFile$cardAttachmentsArgs<ExtArgs extends runtime.Types.Extens
 }
 
 /**
- * StorageFile.catalogCoverImages
+ * StorageFile.bidEditalFiles
  */
-export type StorageFile$catalogCoverImagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type StorageFile$bidEditalFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the Catalog
+   * Select specific fields to fetch from the Bid
    */
-  select?: Prisma.CatalogSelect<ExtArgs> | null
+  select?: Prisma.BidSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the Catalog
+   * Omit specific fields from the Bid
    */
-  omit?: Prisma.CatalogOmit<ExtArgs> | null
+  omit?: Prisma.BidOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.CatalogInclude<ExtArgs> | null
-  where?: Prisma.CatalogWhereInput
-  orderBy?: Prisma.CatalogOrderByWithRelationInput | Prisma.CatalogOrderByWithRelationInput[]
-  cursor?: Prisma.CatalogWhereUniqueInput
+  include?: Prisma.BidInclude<ExtArgs> | null
+  where?: Prisma.BidWhereInput
+  orderBy?: Prisma.BidOrderByWithRelationInput | Prisma.BidOrderByWithRelationInput[]
+  cursor?: Prisma.BidWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.CatalogScalarFieldEnum | Prisma.CatalogScalarFieldEnum[]
+  distinct?: Prisma.BidScalarFieldEnum | Prisma.BidScalarFieldEnum[]
 }
 
 /**
- * StorageFile.catalogExportFiles
+ * StorageFile.bidEtpFiles
  */
-export type StorageFile$catalogExportFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type StorageFile$bidEtpFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the CatalogExport
+   * Select specific fields to fetch from the Bid
    */
-  select?: Prisma.CatalogExportSelect<ExtArgs> | null
+  select?: Prisma.BidSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the CatalogExport
+   * Omit specific fields from the Bid
    */
-  omit?: Prisma.CatalogExportOmit<ExtArgs> | null
+  omit?: Prisma.BidOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.CatalogExportInclude<ExtArgs> | null
-  where?: Prisma.CatalogExportWhereInput
-  orderBy?: Prisma.CatalogExportOrderByWithRelationInput | Prisma.CatalogExportOrderByWithRelationInput[]
-  cursor?: Prisma.CatalogExportWhereUniqueInput
+  include?: Prisma.BidInclude<ExtArgs> | null
+  where?: Prisma.BidWhereInput
+  orderBy?: Prisma.BidOrderByWithRelationInput | Prisma.BidOrderByWithRelationInput[]
+  cursor?: Prisma.BidWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.CatalogExportScalarFieldEnum | Prisma.CatalogExportScalarFieldEnum[]
+  distinct?: Prisma.BidScalarFieldEnum | Prisma.BidScalarFieldEnum[]
 }
 
 /**
- * StorageFile.tenantBrandLogos
+ * StorageFile.bidTrFiles
  */
-export type StorageFile$tenantBrandLogosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type StorageFile$bidTrFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the TenantBrand
+   * Select specific fields to fetch from the Bid
    */
-  select?: Prisma.TenantBrandSelect<ExtArgs> | null
+  select?: Prisma.BidSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the TenantBrand
+   * Omit specific fields from the Bid
    */
-  omit?: Prisma.TenantBrandOmit<ExtArgs> | null
+  omit?: Prisma.BidOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.TenantBrandInclude<ExtArgs> | null
-  where?: Prisma.TenantBrandWhereInput
-  orderBy?: Prisma.TenantBrandOrderByWithRelationInput | Prisma.TenantBrandOrderByWithRelationInput[]
-  cursor?: Prisma.TenantBrandWhereUniqueInput
+  include?: Prisma.BidInclude<ExtArgs> | null
+  where?: Prisma.BidWhereInput
+  orderBy?: Prisma.BidOrderByWithRelationInput | Prisma.BidOrderByWithRelationInput[]
+  cursor?: Prisma.BidWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.TenantBrandScalarFieldEnum | Prisma.TenantBrandScalarFieldEnum[]
+  distinct?: Prisma.BidScalarFieldEnum | Prisma.BidScalarFieldEnum[]
 }
 
 /**
- * StorageFile.tenantBrandLogoIcons
+ * StorageFile.bidProposalFiles
  */
-export type StorageFile$tenantBrandLogoIconsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type StorageFile$bidProposalFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the TenantBrand
+   * Select specific fields to fetch from the BidProposal
    */
-  select?: Prisma.TenantBrandSelect<ExtArgs> | null
+  select?: Prisma.BidProposalSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the TenantBrand
+   * Omit specific fields from the BidProposal
    */
-  omit?: Prisma.TenantBrandOmit<ExtArgs> | null
+  omit?: Prisma.BidProposalOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.TenantBrandInclude<ExtArgs> | null
-  where?: Prisma.TenantBrandWhereInput
-  orderBy?: Prisma.TenantBrandOrderByWithRelationInput | Prisma.TenantBrandOrderByWithRelationInput[]
-  cursor?: Prisma.TenantBrandWhereUniqueInput
+  include?: Prisma.BidProposalInclude<ExtArgs> | null
+  where?: Prisma.BidProposalWhereInput
+  orderBy?: Prisma.BidProposalOrderByWithRelationInput | Prisma.BidProposalOrderByWithRelationInput[]
+  cursor?: Prisma.BidProposalWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.TenantBrandScalarFieldEnum | Prisma.TenantBrandScalarFieldEnum[]
+  distinct?: Prisma.BidProposalScalarFieldEnum | Prisma.BidProposalScalarFieldEnum[]
 }
 
 /**
- * StorageFile.contentTemplatePreviews
+ * StorageFile.bidDocumentFiles
  */
-export type StorageFile$contentTemplatePreviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type StorageFile$bidDocumentFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the ContentTemplate
+   * Select specific fields to fetch from the BidDocument
    */
-  select?: Prisma.ContentTemplateSelect<ExtArgs> | null
+  select?: Prisma.BidDocumentSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the ContentTemplate
+   * Omit specific fields from the BidDocument
    */
-  omit?: Prisma.ContentTemplateOmit<ExtArgs> | null
+  omit?: Prisma.BidDocumentOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.ContentTemplateInclude<ExtArgs> | null
-  where?: Prisma.ContentTemplateWhereInput
-  orderBy?: Prisma.ContentTemplateOrderByWithRelationInput | Prisma.ContentTemplateOrderByWithRelationInput[]
-  cursor?: Prisma.ContentTemplateWhereUniqueInput
+  include?: Prisma.BidDocumentInclude<ExtArgs> | null
+  where?: Prisma.BidDocumentWhereInput
+  orderBy?: Prisma.BidDocumentOrderByWithRelationInput | Prisma.BidDocumentOrderByWithRelationInput[]
+  cursor?: Prisma.BidDocumentWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.ContentTemplateScalarFieldEnum | Prisma.ContentTemplateScalarFieldEnum[]
+  distinct?: Prisma.BidDocumentScalarFieldEnum | Prisma.BidDocumentScalarFieldEnum[]
 }
 
 /**
- * StorageFile.generatedContentFiles
+ * StorageFile.bidContractFiles
  */
-export type StorageFile$generatedContentFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type StorageFile$bidContractFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the GeneratedContent
+   * Select specific fields to fetch from the BidContract
    */
-  select?: Prisma.GeneratedContentSelect<ExtArgs> | null
+  select?: Prisma.BidContractSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the GeneratedContent
+   * Omit specific fields from the BidContract
    */
-  omit?: Prisma.GeneratedContentOmit<ExtArgs> | null
+  omit?: Prisma.BidContractOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.GeneratedContentInclude<ExtArgs> | null
-  where?: Prisma.GeneratedContentWhereInput
-  orderBy?: Prisma.GeneratedContentOrderByWithRelationInput | Prisma.GeneratedContentOrderByWithRelationInput[]
-  cursor?: Prisma.GeneratedContentWhereUniqueInput
+  include?: Prisma.BidContractInclude<ExtArgs> | null
+  where?: Prisma.BidContractWhereInput
+  orderBy?: Prisma.BidContractOrderByWithRelationInput | Prisma.BidContractOrderByWithRelationInput[]
+  cursor?: Prisma.BidContractWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.GeneratedContentScalarFieldEnum | Prisma.GeneratedContentScalarFieldEnum[]
-}
-
-/**
- * StorageFile.generatedContentThumbs
- */
-export type StorageFile$generatedContentThumbsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the GeneratedContent
-   */
-  select?: Prisma.GeneratedContentSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the GeneratedContent
-   */
-  omit?: Prisma.GeneratedContentOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.GeneratedContentInclude<ExtArgs> | null
-  where?: Prisma.GeneratedContentWhereInput
-  orderBy?: Prisma.GeneratedContentOrderByWithRelationInput | Prisma.GeneratedContentOrderByWithRelationInput[]
-  cursor?: Prisma.GeneratedContentWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.GeneratedContentScalarFieldEnum | Prisma.GeneratedContentScalarFieldEnum[]
-}
-
-/**
- * StorageFile.mockupClientLogos
- */
-export type StorageFile$mockupClientLogosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ProductMockup
-   */
-  select?: Prisma.ProductMockupSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the ProductMockup
-   */
-  omit?: Prisma.ProductMockupOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ProductMockupInclude<ExtArgs> | null
-  where?: Prisma.ProductMockupWhereInput
-  orderBy?: Prisma.ProductMockupOrderByWithRelationInput | Prisma.ProductMockupOrderByWithRelationInput[]
-  cursor?: Prisma.ProductMockupWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ProductMockupScalarFieldEnum | Prisma.ProductMockupScalarFieldEnum[]
-}
-
-/**
- * StorageFile.mockupResultFiles
- */
-export type StorageFile$mockupResultFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ProductMockup
-   */
-  select?: Prisma.ProductMockupSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the ProductMockup
-   */
-  omit?: Prisma.ProductMockupOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ProductMockupInclude<ExtArgs> | null
-  where?: Prisma.ProductMockupWhereInput
-  orderBy?: Prisma.ProductMockupOrderByWithRelationInput | Prisma.ProductMockupOrderByWithRelationInput[]
-  cursor?: Prisma.ProductMockupWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ProductMockupScalarFieldEnum | Prisma.ProductMockupScalarFieldEnum[]
-}
-
-/**
- * StorageFile.certificatePfxFiles
- */
-export type StorageFile$certificatePfxFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the DigitalCertificate
-   */
-  select?: Prisma.DigitalCertificateSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the DigitalCertificate
-   */
-  omit?: Prisma.DigitalCertificateOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.DigitalCertificateInclude<ExtArgs> | null
-  where?: Prisma.DigitalCertificateWhereInput
-  orderBy?: Prisma.DigitalCertificateOrderByWithRelationInput | Prisma.DigitalCertificateOrderByWithRelationInput[]
-  cursor?: Prisma.DigitalCertificateWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.DigitalCertificateScalarFieldEnum | Prisma.DigitalCertificateScalarFieldEnum[]
-}
-
-/**
- * StorageFile.envelopeDocumentFiles
- */
-export type StorageFile$envelopeDocumentFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the SignatureEnvelope
-   */
-  select?: Prisma.SignatureEnvelopeSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the SignatureEnvelope
-   */
-  omit?: Prisma.SignatureEnvelopeOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.SignatureEnvelopeInclude<ExtArgs> | null
-  where?: Prisma.SignatureEnvelopeWhereInput
-  orderBy?: Prisma.SignatureEnvelopeOrderByWithRelationInput | Prisma.SignatureEnvelopeOrderByWithRelationInput[]
-  cursor?: Prisma.SignatureEnvelopeWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.SignatureEnvelopeScalarFieldEnum | Prisma.SignatureEnvelopeScalarFieldEnum[]
-}
-
-/**
- * StorageFile.envelopeSignedFiles
- */
-export type StorageFile$envelopeSignedFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the SignatureEnvelope
-   */
-  select?: Prisma.SignatureEnvelopeSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the SignatureEnvelope
-   */
-  omit?: Prisma.SignatureEnvelopeOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.SignatureEnvelopeInclude<ExtArgs> | null
-  where?: Prisma.SignatureEnvelopeWhereInput
-  orderBy?: Prisma.SignatureEnvelopeOrderByWithRelationInput | Prisma.SignatureEnvelopeOrderByWithRelationInput[]
-  cursor?: Prisma.SignatureEnvelopeWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.SignatureEnvelopeScalarFieldEnum | Prisma.SignatureEnvelopeScalarFieldEnum[]
-}
-
-/**
- * StorageFile.signerSignatureImages
- */
-export type StorageFile$signerSignatureImagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the SignatureEnvelopeSigner
-   */
-  select?: Prisma.SignatureEnvelopeSignerSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the SignatureEnvelopeSigner
-   */
-  omit?: Prisma.SignatureEnvelopeSignerOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.SignatureEnvelopeSignerInclude<ExtArgs> | null
-  where?: Prisma.SignatureEnvelopeSignerWhereInput
-  orderBy?: Prisma.SignatureEnvelopeSignerOrderByWithRelationInput | Prisma.SignatureEnvelopeSignerOrderByWithRelationInput[]
-  cursor?: Prisma.SignatureEnvelopeSignerWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.SignatureEnvelopeSignerScalarFieldEnum | Prisma.SignatureEnvelopeSignerScalarFieldEnum[]
-}
-
-/**
- * StorageFile.analyticsReportLastFiles
- */
-export type StorageFile$analyticsReportLastFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the AnalyticsReport
-   */
-  select?: Prisma.AnalyticsReportSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the AnalyticsReport
-   */
-  omit?: Prisma.AnalyticsReportOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.AnalyticsReportInclude<ExtArgs> | null
-  where?: Prisma.AnalyticsReportWhereInput
-  orderBy?: Prisma.AnalyticsReportOrderByWithRelationInput | Prisma.AnalyticsReportOrderByWithRelationInput[]
-  cursor?: Prisma.AnalyticsReportWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.AnalyticsReportScalarFieldEnum | Prisma.AnalyticsReportScalarFieldEnum[]
-}
-
-/**
- * StorageFile.analyticsReportGenerationFiles
- */
-export type StorageFile$analyticsReportGenerationFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the AnalyticsReportGeneration
-   */
-  select?: Prisma.AnalyticsReportGenerationSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the AnalyticsReportGeneration
-   */
-  omit?: Prisma.AnalyticsReportGenerationOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.AnalyticsReportGenerationInclude<ExtArgs> | null
-  where?: Prisma.AnalyticsReportGenerationWhereInput
-  orderBy?: Prisma.AnalyticsReportGenerationOrderByWithRelationInput | Prisma.AnalyticsReportGenerationOrderByWithRelationInput[]
-  cursor?: Prisma.AnalyticsReportGenerationWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.AnalyticsReportGenerationScalarFieldEnum | Prisma.AnalyticsReportGenerationScalarFieldEnum[]
-}
-
-/**
- * StorageFile.posVisitSignatures
- */
-export type StorageFile$posVisitSignaturesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the PosVisitLog
-   */
-  select?: Prisma.PosVisitLogSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the PosVisitLog
-   */
-  omit?: Prisma.PosVisitLogOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.PosVisitLogInclude<ExtArgs> | null
-  where?: Prisma.PosVisitLogWhereInput
-  orderBy?: Prisma.PosVisitLogOrderByWithRelationInput | Prisma.PosVisitLogOrderByWithRelationInput[]
-  cursor?: Prisma.PosVisitLogWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.PosVisitLogScalarFieldEnum | Prisma.PosVisitLogScalarFieldEnum[]
+  distinct?: Prisma.BidContractScalarFieldEnum | Prisma.BidContractScalarFieldEnum[]
 }
 
 /**

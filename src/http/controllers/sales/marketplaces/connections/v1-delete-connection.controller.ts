@@ -1,16 +1,17 @@
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { makeDeleteMarketplaceConnectionUseCase } from '@/use-cases/sales/marketplaces/factories/make-delete-marketplace-connection-use-case';
+import { makeDeleteMarketplaceConnectionUseCase } from '@/use-cases/sales/marketplace-connections/factories/make-delete-marketplace-connection-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
-import z from 'zod';
+import { z } from 'zod';
 
-export async function deleteConnectionController(app: FastifyInstance) {
+export async function v1DeleteConnectionController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'DELETE',
-    url: '/v1/marketplaces/connections/:id',
+    url: '/v1/marketplace-connections/:id',
     preHandler: [
       verifyJwt,
       verifyTenant,
@@ -20,28 +21,28 @@ export async function deleteConnectionController(app: FastifyInstance) {
       }),
     ],
     schema: {
-      tags: ['Sales - Marketplaces'],
-      summary: 'Delete a marketplace connection',
-      params: z.object({
-        id: z.string().uuid().describe('Connection UUID'),
-      }),
+      tags: ['Sales - Marketplace Connections'],
+      summary: 'Delete marketplace connection (soft delete)',
+      params: z.object({ id: z.string().uuid() }),
       response: {
-        204: z.null(),
-        404: z.object({
-          message: z.string(),
-        }),
+        200: z.object({ message: z.string() }),
+        404: z.object({ message: z.string() }),
       },
       security: [{ bearerAuth: [] }],
     },
-
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
       const { id } = request.params;
-
-      const useCase = makeDeleteMarketplaceConnectionUseCase();
-      await useCase.execute({ id, tenantId });
-
-      return reply.status(204).send(null);
+      try {
+        const useCase = makeDeleteMarketplaceConnectionUseCase();
+        const result = await useCase.execute({ tenantId, id });
+        return reply.status(200).send(result);
+      } catch (err) {
+        if (err instanceof ResourceNotFoundError) {
+          return reply.status(404).send({ message: err.message });
+        }
+        throw err;
+      }
     },
   });
 }

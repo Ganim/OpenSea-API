@@ -2,16 +2,17 @@ import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { connectionResponseSchema } from '@/http/schemas/sales/marketplaces';
-import { makeGetMarketplaceConnectionByIdUseCase } from '@/use-cases/sales/marketplaces/factories/make-get-marketplace-connection-by-id-use-case';
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import { marketplaceConnectionToDTO } from '@/mappers/sales/marketplace/marketplace-connection-to-dto';
+import { PrismaMarketplaceConnectionsRepository } from '@/repositories/sales/prisma/prisma-marketplace-connections-repository';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
-import z from 'zod';
+import { z } from 'zod';
 
-export async function getConnectionByIdController(app: FastifyInstance) {
+export async function v1GetConnectionByIdController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
-    url: '/v1/marketplaces/connections/:id',
+    url: '/v1/marketplace-connections/:id',
     preHandler: [
       verifyJwt,
       verifyTenant,
@@ -21,30 +22,24 @@ export async function getConnectionByIdController(app: FastifyInstance) {
       }),
     ],
     schema: {
-      tags: ['Sales - Marketplaces'],
-      summary: 'Get a marketplace connection by ID',
-      params: z.object({
-        id: z.string().uuid().describe('Connection UUID'),
-      }),
+      tags: ['Sales - Marketplace Connections'],
+      summary: 'Get marketplace connection by ID',
+      params: z.object({ id: z.string().uuid() }),
       response: {
-        200: z.object({
-          connection: connectionResponseSchema,
-        }),
-        404: z.object({
-          message: z.string(),
-        }),
+        200: z.object({ connection: z.any() }),
+        404: z.object({ message: z.string() }),
       },
       security: [{ bearerAuth: [] }],
     },
-
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
       const { id } = request.params;
-
-      const useCase = makeGetMarketplaceConnectionByIdUseCase();
-      const { connection } = await useCase.execute({ id, tenantId });
-
-      return reply.status(200).send({ connection });
+      const repository = new PrismaMarketplaceConnectionsRepository();
+      const connection = await repository.findById(new UniqueEntityID(id), tenantId);
+      if (!connection) {
+        return reply.status(404).send({ message: 'Connection not found.' });
+      }
+      return reply.status(200).send({ connection: marketplaceConnectionToDTO(connection) });
     },
   });
 }

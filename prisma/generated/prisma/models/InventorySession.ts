@@ -28,158 +28,132 @@ export type AggregateInventorySession = {
 
 export type InventorySessionAvgAggregateOutputType = {
   totalItems: number | null
-  scannedItems: number | null
   confirmedItems: number | null
-  divergentItems: number | null
+  divergences: number | null
 }
 
 export type InventorySessionSumAggregateOutputType = {
   totalItems: number | null
-  scannedItems: number | null
   confirmedItems: number | null
-  divergentItems: number | null
+  divergences: number | null
 }
 
 export type InventorySessionMinAggregateOutputType = {
   id: string | null
-  tenantId: string | null
-  userId: string | null
-  status: $Enums.InventorySessionStatus | null
   mode: $Enums.InventorySessionMode | null
-  binId: string | null
-  zoneId: string | null
-  productId: string | null
-  variantId: string | null
+  status: $Enums.InventorySessionStatus | null
   totalItems: number | null
-  scannedItems: number | null
   confirmedItems: number | null
-  divergentItems: number | null
+  divergences: number | null
   notes: string | null
   startedAt: Date | null
+  pausedAt: Date | null
   completedAt: Date | null
   createdAt: Date | null
-  updatedAt: Date | null
+  deletedAt: Date | null
+  startedBy: string | null
+  tenantId: string | null
 }
 
 export type InventorySessionMaxAggregateOutputType = {
   id: string | null
-  tenantId: string | null
-  userId: string | null
-  status: $Enums.InventorySessionStatus | null
   mode: $Enums.InventorySessionMode | null
-  binId: string | null
-  zoneId: string | null
-  productId: string | null
-  variantId: string | null
+  status: $Enums.InventorySessionStatus | null
   totalItems: number | null
-  scannedItems: number | null
   confirmedItems: number | null
-  divergentItems: number | null
+  divergences: number | null
   notes: string | null
   startedAt: Date | null
+  pausedAt: Date | null
   completedAt: Date | null
   createdAt: Date | null
-  updatedAt: Date | null
+  deletedAt: Date | null
+  startedBy: string | null
+  tenantId: string | null
 }
 
 export type InventorySessionCountAggregateOutputType = {
   id: number
-  tenantId: number
-  userId: number
-  status: number
   mode: number
-  binId: number
-  zoneId: number
-  productId: number
-  variantId: number
+  status: number
+  scope: number
   totalItems: number
-  scannedItems: number
   confirmedItems: number
-  divergentItems: number
+  divergences: number
   notes: number
   startedAt: number
+  pausedAt: number
   completedAt: number
   createdAt: number
-  updatedAt: number
+  deletedAt: number
+  startedBy: number
+  tenantId: number
   _all: number
 }
 
 
 export type InventorySessionAvgAggregateInputType = {
   totalItems?: true
-  scannedItems?: true
   confirmedItems?: true
-  divergentItems?: true
+  divergences?: true
 }
 
 export type InventorySessionSumAggregateInputType = {
   totalItems?: true
-  scannedItems?: true
   confirmedItems?: true
-  divergentItems?: true
+  divergences?: true
 }
 
 export type InventorySessionMinAggregateInputType = {
   id?: true
-  tenantId?: true
-  userId?: true
-  status?: true
   mode?: true
-  binId?: true
-  zoneId?: true
-  productId?: true
-  variantId?: true
+  status?: true
   totalItems?: true
-  scannedItems?: true
   confirmedItems?: true
-  divergentItems?: true
+  divergences?: true
   notes?: true
   startedAt?: true
+  pausedAt?: true
   completedAt?: true
   createdAt?: true
-  updatedAt?: true
+  deletedAt?: true
+  startedBy?: true
+  tenantId?: true
 }
 
 export type InventorySessionMaxAggregateInputType = {
   id?: true
-  tenantId?: true
-  userId?: true
-  status?: true
   mode?: true
-  binId?: true
-  zoneId?: true
-  productId?: true
-  variantId?: true
+  status?: true
   totalItems?: true
-  scannedItems?: true
   confirmedItems?: true
-  divergentItems?: true
+  divergences?: true
   notes?: true
   startedAt?: true
+  pausedAt?: true
   completedAt?: true
   createdAt?: true
-  updatedAt?: true
+  deletedAt?: true
+  startedBy?: true
+  tenantId?: true
 }
 
 export type InventorySessionCountAggregateInputType = {
   id?: true
-  tenantId?: true
-  userId?: true
-  status?: true
   mode?: true
-  binId?: true
-  zoneId?: true
-  productId?: true
-  variantId?: true
+  status?: true
+  scope?: true
   totalItems?: true
-  scannedItems?: true
   confirmedItems?: true
-  divergentItems?: true
+  divergences?: true
   notes?: true
   startedAt?: true
+  pausedAt?: true
   completedAt?: true
   createdAt?: true
-  updatedAt?: true
+  deletedAt?: true
+  startedBy?: true
+  tenantId?: true
   _all?: true
 }
 
@@ -271,23 +245,20 @@ export type InventorySessionGroupByArgs<ExtArgs extends runtime.Types.Extensions
 
 export type InventorySessionGroupByOutputType = {
   id: string
-  tenantId: string
-  userId: string
-  status: $Enums.InventorySessionStatus
   mode: $Enums.InventorySessionMode
-  binId: string | null
-  zoneId: string | null
-  productId: string | null
-  variantId: string | null
+  status: $Enums.InventorySessionStatus
+  scope: runtime.JsonValue
   totalItems: number
-  scannedItems: number
   confirmedItems: number
-  divergentItems: number
+  divergences: number
   notes: string | null
   startedAt: Date
+  pausedAt: Date | null
   completedAt: Date | null
   createdAt: Date
-  updatedAt: Date
+  deletedAt: Date | null
+  startedBy: string
+  tenantId: string
   _count: InventorySessionCountAggregateOutputType | null
   _avg: InventorySessionAvgAggregateOutputType | null
   _sum: InventorySessionSumAggregateOutputType | null
@@ -315,57 +286,41 @@ export type InventorySessionWhereInput = {
   OR?: Prisma.InventorySessionWhereInput[]
   NOT?: Prisma.InventorySessionWhereInput | Prisma.InventorySessionWhereInput[]
   id?: Prisma.StringFilter<"InventorySession"> | string
-  tenantId?: Prisma.StringFilter<"InventorySession"> | string
-  userId?: Prisma.StringFilter<"InventorySession"> | string
-  status?: Prisma.EnumInventorySessionStatusFilter<"InventorySession"> | $Enums.InventorySessionStatus
   mode?: Prisma.EnumInventorySessionModeFilter<"InventorySession"> | $Enums.InventorySessionMode
-  binId?: Prisma.StringNullableFilter<"InventorySession"> | string | null
-  zoneId?: Prisma.StringNullableFilter<"InventorySession"> | string | null
-  productId?: Prisma.StringNullableFilter<"InventorySession"> | string | null
-  variantId?: Prisma.StringNullableFilter<"InventorySession"> | string | null
+  status?: Prisma.EnumInventorySessionStatusFilter<"InventorySession"> | $Enums.InventorySessionStatus
+  scope?: Prisma.JsonFilter<"InventorySession">
   totalItems?: Prisma.IntFilter<"InventorySession"> | number
-  scannedItems?: Prisma.IntFilter<"InventorySession"> | number
   confirmedItems?: Prisma.IntFilter<"InventorySession"> | number
-  divergentItems?: Prisma.IntFilter<"InventorySession"> | number
+  divergences?: Prisma.IntFilter<"InventorySession"> | number
   notes?: Prisma.StringNullableFilter<"InventorySession"> | string | null
   startedAt?: Prisma.DateTimeFilter<"InventorySession"> | Date | string
+  pausedAt?: Prisma.DateTimeNullableFilter<"InventorySession"> | Date | string | null
   completedAt?: Prisma.DateTimeNullableFilter<"InventorySession"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"InventorySession"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"InventorySession"> | Date | string
-  tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
+  deletedAt?: Prisma.DateTimeNullableFilter<"InventorySession"> | Date | string | null
+  startedBy?: Prisma.StringFilter<"InventorySession"> | string
+  tenantId?: Prisma.StringFilter<"InventorySession"> | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  bin?: Prisma.XOR<Prisma.BinNullableScalarRelationFilter, Prisma.BinWhereInput> | null
-  zone?: Prisma.XOR<Prisma.ZoneNullableScalarRelationFilter, Prisma.ZoneWhereInput> | null
-  product?: Prisma.XOR<Prisma.ProductNullableScalarRelationFilter, Prisma.ProductWhereInput> | null
-  variant?: Prisma.XOR<Prisma.VariantNullableScalarRelationFilter, Prisma.VariantWhereInput> | null
   items?: Prisma.InventorySessionItemListRelationFilter
 }
 
 export type InventorySessionOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  tenantId?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
-  status?: Prisma.SortOrder
   mode?: Prisma.SortOrder
-  binId?: Prisma.SortOrderInput | Prisma.SortOrder
-  zoneId?: Prisma.SortOrderInput | Prisma.SortOrder
-  productId?: Prisma.SortOrderInput | Prisma.SortOrder
-  variantId?: Prisma.SortOrderInput | Prisma.SortOrder
+  status?: Prisma.SortOrder
+  scope?: Prisma.SortOrder
   totalItems?: Prisma.SortOrder
-  scannedItems?: Prisma.SortOrder
   confirmedItems?: Prisma.SortOrder
-  divergentItems?: Prisma.SortOrder
+  divergences?: Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   startedAt?: Prisma.SortOrder
+  pausedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   completedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
-  tenant?: Prisma.TenantOrderByWithRelationInput
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  startedBy?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
-  bin?: Prisma.BinOrderByWithRelationInput
-  zone?: Prisma.ZoneOrderByWithRelationInput
-  product?: Prisma.ProductOrderByWithRelationInput
-  variant?: Prisma.VariantOrderByWithRelationInput
   items?: Prisma.InventorySessionItemOrderByRelationAggregateInput
 }
 
@@ -374,51 +329,40 @@ export type InventorySessionWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.InventorySessionWhereInput | Prisma.InventorySessionWhereInput[]
   OR?: Prisma.InventorySessionWhereInput[]
   NOT?: Prisma.InventorySessionWhereInput | Prisma.InventorySessionWhereInput[]
-  tenantId?: Prisma.StringFilter<"InventorySession"> | string
-  userId?: Prisma.StringFilter<"InventorySession"> | string
-  status?: Prisma.EnumInventorySessionStatusFilter<"InventorySession"> | $Enums.InventorySessionStatus
   mode?: Prisma.EnumInventorySessionModeFilter<"InventorySession"> | $Enums.InventorySessionMode
-  binId?: Prisma.StringNullableFilter<"InventorySession"> | string | null
-  zoneId?: Prisma.StringNullableFilter<"InventorySession"> | string | null
-  productId?: Prisma.StringNullableFilter<"InventorySession"> | string | null
-  variantId?: Prisma.StringNullableFilter<"InventorySession"> | string | null
+  status?: Prisma.EnumInventorySessionStatusFilter<"InventorySession"> | $Enums.InventorySessionStatus
+  scope?: Prisma.JsonFilter<"InventorySession">
   totalItems?: Prisma.IntFilter<"InventorySession"> | number
-  scannedItems?: Prisma.IntFilter<"InventorySession"> | number
   confirmedItems?: Prisma.IntFilter<"InventorySession"> | number
-  divergentItems?: Prisma.IntFilter<"InventorySession"> | number
+  divergences?: Prisma.IntFilter<"InventorySession"> | number
   notes?: Prisma.StringNullableFilter<"InventorySession"> | string | null
   startedAt?: Prisma.DateTimeFilter<"InventorySession"> | Date | string
+  pausedAt?: Prisma.DateTimeNullableFilter<"InventorySession"> | Date | string | null
   completedAt?: Prisma.DateTimeNullableFilter<"InventorySession"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"InventorySession"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"InventorySession"> | Date | string
-  tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
+  deletedAt?: Prisma.DateTimeNullableFilter<"InventorySession"> | Date | string | null
+  startedBy?: Prisma.StringFilter<"InventorySession"> | string
+  tenantId?: Prisma.StringFilter<"InventorySession"> | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  bin?: Prisma.XOR<Prisma.BinNullableScalarRelationFilter, Prisma.BinWhereInput> | null
-  zone?: Prisma.XOR<Prisma.ZoneNullableScalarRelationFilter, Prisma.ZoneWhereInput> | null
-  product?: Prisma.XOR<Prisma.ProductNullableScalarRelationFilter, Prisma.ProductWhereInput> | null
-  variant?: Prisma.XOR<Prisma.VariantNullableScalarRelationFilter, Prisma.VariantWhereInput> | null
   items?: Prisma.InventorySessionItemListRelationFilter
 }, "id">
 
 export type InventorySessionOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  tenantId?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
-  status?: Prisma.SortOrder
   mode?: Prisma.SortOrder
-  binId?: Prisma.SortOrderInput | Prisma.SortOrder
-  zoneId?: Prisma.SortOrderInput | Prisma.SortOrder
-  productId?: Prisma.SortOrderInput | Prisma.SortOrder
-  variantId?: Prisma.SortOrderInput | Prisma.SortOrder
+  status?: Prisma.SortOrder
+  scope?: Prisma.SortOrder
   totalItems?: Prisma.SortOrder
-  scannedItems?: Prisma.SortOrder
   confirmedItems?: Prisma.SortOrder
-  divergentItems?: Prisma.SortOrder
+  divergences?: Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   startedAt?: Prisma.SortOrder
+  pausedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   completedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  startedBy?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   _count?: Prisma.InventorySessionCountOrderByAggregateInput
   _avg?: Prisma.InventorySessionAvgOrderByAggregateInput
   _max?: Prisma.InventorySessionMaxOrderByAggregateInput
@@ -431,168 +375,149 @@ export type InventorySessionScalarWhereWithAggregatesInput = {
   OR?: Prisma.InventorySessionScalarWhereWithAggregatesInput[]
   NOT?: Prisma.InventorySessionScalarWhereWithAggregatesInput | Prisma.InventorySessionScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"InventorySession"> | string
-  tenantId?: Prisma.StringWithAggregatesFilter<"InventorySession"> | string
-  userId?: Prisma.StringWithAggregatesFilter<"InventorySession"> | string
-  status?: Prisma.EnumInventorySessionStatusWithAggregatesFilter<"InventorySession"> | $Enums.InventorySessionStatus
   mode?: Prisma.EnumInventorySessionModeWithAggregatesFilter<"InventorySession"> | $Enums.InventorySessionMode
-  binId?: Prisma.StringNullableWithAggregatesFilter<"InventorySession"> | string | null
-  zoneId?: Prisma.StringNullableWithAggregatesFilter<"InventorySession"> | string | null
-  productId?: Prisma.StringNullableWithAggregatesFilter<"InventorySession"> | string | null
-  variantId?: Prisma.StringNullableWithAggregatesFilter<"InventorySession"> | string | null
+  status?: Prisma.EnumInventorySessionStatusWithAggregatesFilter<"InventorySession"> | $Enums.InventorySessionStatus
+  scope?: Prisma.JsonWithAggregatesFilter<"InventorySession">
   totalItems?: Prisma.IntWithAggregatesFilter<"InventorySession"> | number
-  scannedItems?: Prisma.IntWithAggregatesFilter<"InventorySession"> | number
   confirmedItems?: Prisma.IntWithAggregatesFilter<"InventorySession"> | number
-  divergentItems?: Prisma.IntWithAggregatesFilter<"InventorySession"> | number
+  divergences?: Prisma.IntWithAggregatesFilter<"InventorySession"> | number
   notes?: Prisma.StringNullableWithAggregatesFilter<"InventorySession"> | string | null
   startedAt?: Prisma.DateTimeWithAggregatesFilter<"InventorySession"> | Date | string
+  pausedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"InventorySession"> | Date | string | null
   completedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"InventorySession"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"InventorySession"> | Date | string
-  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"InventorySession"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"InventorySession"> | Date | string | null
+  startedBy?: Prisma.StringWithAggregatesFilter<"InventorySession"> | string
+  tenantId?: Prisma.StringWithAggregatesFilter<"InventorySession"> | string
 }
 
 export type InventorySessionCreateInput = {
   id?: string
-  status?: $Enums.InventorySessionStatus
   mode: $Enums.InventorySessionMode
+  status?: $Enums.InventorySessionStatus
+  scope: Prisma.JsonNullValueInput | runtime.InputJsonValue
   totalItems?: number
-  scannedItems?: number
   confirmedItems?: number
-  divergentItems?: number
+  divergences?: number
   notes?: string | null
   startedAt?: Date | string
+  pausedAt?: Date | string | null
   completedAt?: Date | string | null
   createdAt?: Date | string
-  updatedAt?: Date | string
-  tenant: Prisma.TenantCreateNestedOneWithoutInventorySessionsInput
+  deletedAt?: Date | string | null
+  tenantId: string
   user: Prisma.UserCreateNestedOneWithoutInventorySessionsInput
-  bin?: Prisma.BinCreateNestedOneWithoutInventorySessionsInput
-  zone?: Prisma.ZoneCreateNestedOneWithoutInventorySessionsInput
-  product?: Prisma.ProductCreateNestedOneWithoutInventorySessionsInput
-  variant?: Prisma.VariantCreateNestedOneWithoutInventorySessionsInput
   items?: Prisma.InventorySessionItemCreateNestedManyWithoutSessionInput
 }
 
 export type InventorySessionUncheckedCreateInput = {
   id?: string
-  tenantId: string
-  userId: string
-  status?: $Enums.InventorySessionStatus
   mode: $Enums.InventorySessionMode
-  binId?: string | null
-  zoneId?: string | null
-  productId?: string | null
-  variantId?: string | null
+  status?: $Enums.InventorySessionStatus
+  scope: Prisma.JsonNullValueInput | runtime.InputJsonValue
   totalItems?: number
-  scannedItems?: number
   confirmedItems?: number
-  divergentItems?: number
+  divergences?: number
   notes?: string | null
   startedAt?: Date | string
+  pausedAt?: Date | string | null
   completedAt?: Date | string | null
   createdAt?: Date | string
-  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  startedBy: string
+  tenantId: string
   items?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutSessionInput
 }
 
 export type InventorySessionUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumInventorySessionStatusFieldUpdateOperationsInput | $Enums.InventorySessionStatus
   mode?: Prisma.EnumInventorySessionModeFieldUpdateOperationsInput | $Enums.InventorySessionMode
+  status?: Prisma.EnumInventorySessionStatusFieldUpdateOperationsInput | $Enums.InventorySessionStatus
+  scope?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   totalItems?: Prisma.IntFieldUpdateOperationsInput | number
-  scannedItems?: Prisma.IntFieldUpdateOperationsInput | number
   confirmedItems?: Prisma.IntFieldUpdateOperationsInput | number
-  divergentItems?: Prisma.IntFieldUpdateOperationsInput | number
+  divergences?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  pausedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  tenant?: Prisma.TenantUpdateOneRequiredWithoutInventorySessionsNestedInput
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   user?: Prisma.UserUpdateOneRequiredWithoutInventorySessionsNestedInput
-  bin?: Prisma.BinUpdateOneWithoutInventorySessionsNestedInput
-  zone?: Prisma.ZoneUpdateOneWithoutInventorySessionsNestedInput
-  product?: Prisma.ProductUpdateOneWithoutInventorySessionsNestedInput
-  variant?: Prisma.VariantUpdateOneWithoutInventorySessionsNestedInput
   items?: Prisma.InventorySessionItemUpdateManyWithoutSessionNestedInput
 }
 
 export type InventorySessionUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumInventorySessionStatusFieldUpdateOperationsInput | $Enums.InventorySessionStatus
   mode?: Prisma.EnumInventorySessionModeFieldUpdateOperationsInput | $Enums.InventorySessionMode
-  binId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  zoneId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  productId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  variantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumInventorySessionStatusFieldUpdateOperationsInput | $Enums.InventorySessionStatus
+  scope?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   totalItems?: Prisma.IntFieldUpdateOperationsInput | number
-  scannedItems?: Prisma.IntFieldUpdateOperationsInput | number
   confirmedItems?: Prisma.IntFieldUpdateOperationsInput | number
-  divergentItems?: Prisma.IntFieldUpdateOperationsInput | number
+  divergences?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  pausedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  startedBy?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   items?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutSessionNestedInput
 }
 
 export type InventorySessionCreateManyInput = {
   id?: string
-  tenantId: string
-  userId: string
-  status?: $Enums.InventorySessionStatus
   mode: $Enums.InventorySessionMode
-  binId?: string | null
-  zoneId?: string | null
-  productId?: string | null
-  variantId?: string | null
+  status?: $Enums.InventorySessionStatus
+  scope: Prisma.JsonNullValueInput | runtime.InputJsonValue
   totalItems?: number
-  scannedItems?: number
   confirmedItems?: number
-  divergentItems?: number
+  divergences?: number
   notes?: string | null
   startedAt?: Date | string
+  pausedAt?: Date | string | null
   completedAt?: Date | string | null
   createdAt?: Date | string
-  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  startedBy: string
+  tenantId: string
 }
 
 export type InventorySessionUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumInventorySessionStatusFieldUpdateOperationsInput | $Enums.InventorySessionStatus
   mode?: Prisma.EnumInventorySessionModeFieldUpdateOperationsInput | $Enums.InventorySessionMode
+  status?: Prisma.EnumInventorySessionStatusFieldUpdateOperationsInput | $Enums.InventorySessionStatus
+  scope?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   totalItems?: Prisma.IntFieldUpdateOperationsInput | number
-  scannedItems?: Prisma.IntFieldUpdateOperationsInput | number
   confirmedItems?: Prisma.IntFieldUpdateOperationsInput | number
-  divergentItems?: Prisma.IntFieldUpdateOperationsInput | number
+  divergences?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  pausedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type InventorySessionUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumInventorySessionStatusFieldUpdateOperationsInput | $Enums.InventorySessionStatus
   mode?: Prisma.EnumInventorySessionModeFieldUpdateOperationsInput | $Enums.InventorySessionMode
-  binId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  zoneId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  productId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  variantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumInventorySessionStatusFieldUpdateOperationsInput | $Enums.InventorySessionStatus
+  scope?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   totalItems?: Prisma.IntFieldUpdateOperationsInput | number
-  scannedItems?: Prisma.IntFieldUpdateOperationsInput | number
   confirmedItems?: Prisma.IntFieldUpdateOperationsInput | number
-  divergentItems?: Prisma.IntFieldUpdateOperationsInput | number
+  divergences?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  pausedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  startedBy?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type InventorySessionListRelationFilter = {
@@ -607,79 +532,66 @@ export type InventorySessionOrderByRelationAggregateInput = {
 
 export type InventorySessionCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  tenantId?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
-  status?: Prisma.SortOrder
   mode?: Prisma.SortOrder
-  binId?: Prisma.SortOrder
-  zoneId?: Prisma.SortOrder
-  productId?: Prisma.SortOrder
-  variantId?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  scope?: Prisma.SortOrder
   totalItems?: Prisma.SortOrder
-  scannedItems?: Prisma.SortOrder
   confirmedItems?: Prisma.SortOrder
-  divergentItems?: Prisma.SortOrder
+  divergences?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   startedAt?: Prisma.SortOrder
+  pausedAt?: Prisma.SortOrder
   completedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
+  startedBy?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
 }
 
 export type InventorySessionAvgOrderByAggregateInput = {
   totalItems?: Prisma.SortOrder
-  scannedItems?: Prisma.SortOrder
   confirmedItems?: Prisma.SortOrder
-  divergentItems?: Prisma.SortOrder
+  divergences?: Prisma.SortOrder
 }
 
 export type InventorySessionMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  tenantId?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
-  status?: Prisma.SortOrder
   mode?: Prisma.SortOrder
-  binId?: Prisma.SortOrder
-  zoneId?: Prisma.SortOrder
-  productId?: Prisma.SortOrder
-  variantId?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   totalItems?: Prisma.SortOrder
-  scannedItems?: Prisma.SortOrder
   confirmedItems?: Prisma.SortOrder
-  divergentItems?: Prisma.SortOrder
+  divergences?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   startedAt?: Prisma.SortOrder
+  pausedAt?: Prisma.SortOrder
   completedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
+  startedBy?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
 }
 
 export type InventorySessionMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  tenantId?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
-  status?: Prisma.SortOrder
   mode?: Prisma.SortOrder
-  binId?: Prisma.SortOrder
-  zoneId?: Prisma.SortOrder
-  productId?: Prisma.SortOrder
-  variantId?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   totalItems?: Prisma.SortOrder
-  scannedItems?: Prisma.SortOrder
   confirmedItems?: Prisma.SortOrder
-  divergentItems?: Prisma.SortOrder
+  divergences?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   startedAt?: Prisma.SortOrder
+  pausedAt?: Prisma.SortOrder
   completedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
+  startedBy?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
 }
 
 export type InventorySessionSumOrderByAggregateInput = {
   totalItems?: Prisma.SortOrder
-  scannedItems?: Prisma.SortOrder
   confirmedItems?: Prisma.SortOrder
-  divergentItems?: Prisma.SortOrder
+  divergences?: Prisma.SortOrder
 }
 
 export type InventorySessionScalarRelationFilter = {
@@ -729,180 +641,12 @@ export type InventorySessionUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.InventorySessionScalarWhereInput | Prisma.InventorySessionScalarWhereInput[]
 }
 
-export type InventorySessionCreateNestedManyWithoutZoneInput = {
-  create?: Prisma.XOR<Prisma.InventorySessionCreateWithoutZoneInput, Prisma.InventorySessionUncheckedCreateWithoutZoneInput> | Prisma.InventorySessionCreateWithoutZoneInput[] | Prisma.InventorySessionUncheckedCreateWithoutZoneInput[]
-  connectOrCreate?: Prisma.InventorySessionCreateOrConnectWithoutZoneInput | Prisma.InventorySessionCreateOrConnectWithoutZoneInput[]
-  createMany?: Prisma.InventorySessionCreateManyZoneInputEnvelope
-  connect?: Prisma.InventorySessionWhereUniqueInput | Prisma.InventorySessionWhereUniqueInput[]
-}
-
-export type InventorySessionUncheckedCreateNestedManyWithoutZoneInput = {
-  create?: Prisma.XOR<Prisma.InventorySessionCreateWithoutZoneInput, Prisma.InventorySessionUncheckedCreateWithoutZoneInput> | Prisma.InventorySessionCreateWithoutZoneInput[] | Prisma.InventorySessionUncheckedCreateWithoutZoneInput[]
-  connectOrCreate?: Prisma.InventorySessionCreateOrConnectWithoutZoneInput | Prisma.InventorySessionCreateOrConnectWithoutZoneInput[]
-  createMany?: Prisma.InventorySessionCreateManyZoneInputEnvelope
-  connect?: Prisma.InventorySessionWhereUniqueInput | Prisma.InventorySessionWhereUniqueInput[]
-}
-
-export type InventorySessionUpdateManyWithoutZoneNestedInput = {
-  create?: Prisma.XOR<Prisma.InventorySessionCreateWithoutZoneInput, Prisma.InventorySessionUncheckedCreateWithoutZoneInput> | Prisma.InventorySessionCreateWithoutZoneInput[] | Prisma.InventorySessionUncheckedCreateWithoutZoneInput[]
-  connectOrCreate?: Prisma.InventorySessionCreateOrConnectWithoutZoneInput | Prisma.InventorySessionCreateOrConnectWithoutZoneInput[]
-  upsert?: Prisma.InventorySessionUpsertWithWhereUniqueWithoutZoneInput | Prisma.InventorySessionUpsertWithWhereUniqueWithoutZoneInput[]
-  createMany?: Prisma.InventorySessionCreateManyZoneInputEnvelope
-  set?: Prisma.InventorySessionWhereUniqueInput | Prisma.InventorySessionWhereUniqueInput[]
-  disconnect?: Prisma.InventorySessionWhereUniqueInput | Prisma.InventorySessionWhereUniqueInput[]
-  delete?: Prisma.InventorySessionWhereUniqueInput | Prisma.InventorySessionWhereUniqueInput[]
-  connect?: Prisma.InventorySessionWhereUniqueInput | Prisma.InventorySessionWhereUniqueInput[]
-  update?: Prisma.InventorySessionUpdateWithWhereUniqueWithoutZoneInput | Prisma.InventorySessionUpdateWithWhereUniqueWithoutZoneInput[]
-  updateMany?: Prisma.InventorySessionUpdateManyWithWhereWithoutZoneInput | Prisma.InventorySessionUpdateManyWithWhereWithoutZoneInput[]
-  deleteMany?: Prisma.InventorySessionScalarWhereInput | Prisma.InventorySessionScalarWhereInput[]
-}
-
-export type InventorySessionUncheckedUpdateManyWithoutZoneNestedInput = {
-  create?: Prisma.XOR<Prisma.InventorySessionCreateWithoutZoneInput, Prisma.InventorySessionUncheckedCreateWithoutZoneInput> | Prisma.InventorySessionCreateWithoutZoneInput[] | Prisma.InventorySessionUncheckedCreateWithoutZoneInput[]
-  connectOrCreate?: Prisma.InventorySessionCreateOrConnectWithoutZoneInput | Prisma.InventorySessionCreateOrConnectWithoutZoneInput[]
-  upsert?: Prisma.InventorySessionUpsertWithWhereUniqueWithoutZoneInput | Prisma.InventorySessionUpsertWithWhereUniqueWithoutZoneInput[]
-  createMany?: Prisma.InventorySessionCreateManyZoneInputEnvelope
-  set?: Prisma.InventorySessionWhereUniqueInput | Prisma.InventorySessionWhereUniqueInput[]
-  disconnect?: Prisma.InventorySessionWhereUniqueInput | Prisma.InventorySessionWhereUniqueInput[]
-  delete?: Prisma.InventorySessionWhereUniqueInput | Prisma.InventorySessionWhereUniqueInput[]
-  connect?: Prisma.InventorySessionWhereUniqueInput | Prisma.InventorySessionWhereUniqueInput[]
-  update?: Prisma.InventorySessionUpdateWithWhereUniqueWithoutZoneInput | Prisma.InventorySessionUpdateWithWhereUniqueWithoutZoneInput[]
-  updateMany?: Prisma.InventorySessionUpdateManyWithWhereWithoutZoneInput | Prisma.InventorySessionUpdateManyWithWhereWithoutZoneInput[]
-  deleteMany?: Prisma.InventorySessionScalarWhereInput | Prisma.InventorySessionScalarWhereInput[]
-}
-
-export type InventorySessionCreateNestedManyWithoutBinInput = {
-  create?: Prisma.XOR<Prisma.InventorySessionCreateWithoutBinInput, Prisma.InventorySessionUncheckedCreateWithoutBinInput> | Prisma.InventorySessionCreateWithoutBinInput[] | Prisma.InventorySessionUncheckedCreateWithoutBinInput[]
-  connectOrCreate?: Prisma.InventorySessionCreateOrConnectWithoutBinInput | Prisma.InventorySessionCreateOrConnectWithoutBinInput[]
-  createMany?: Prisma.InventorySessionCreateManyBinInputEnvelope
-  connect?: Prisma.InventorySessionWhereUniqueInput | Prisma.InventorySessionWhereUniqueInput[]
-}
-
-export type InventorySessionUncheckedCreateNestedManyWithoutBinInput = {
-  create?: Prisma.XOR<Prisma.InventorySessionCreateWithoutBinInput, Prisma.InventorySessionUncheckedCreateWithoutBinInput> | Prisma.InventorySessionCreateWithoutBinInput[] | Prisma.InventorySessionUncheckedCreateWithoutBinInput[]
-  connectOrCreate?: Prisma.InventorySessionCreateOrConnectWithoutBinInput | Prisma.InventorySessionCreateOrConnectWithoutBinInput[]
-  createMany?: Prisma.InventorySessionCreateManyBinInputEnvelope
-  connect?: Prisma.InventorySessionWhereUniqueInput | Prisma.InventorySessionWhereUniqueInput[]
-}
-
-export type InventorySessionUpdateManyWithoutBinNestedInput = {
-  create?: Prisma.XOR<Prisma.InventorySessionCreateWithoutBinInput, Prisma.InventorySessionUncheckedCreateWithoutBinInput> | Prisma.InventorySessionCreateWithoutBinInput[] | Prisma.InventorySessionUncheckedCreateWithoutBinInput[]
-  connectOrCreate?: Prisma.InventorySessionCreateOrConnectWithoutBinInput | Prisma.InventorySessionCreateOrConnectWithoutBinInput[]
-  upsert?: Prisma.InventorySessionUpsertWithWhereUniqueWithoutBinInput | Prisma.InventorySessionUpsertWithWhereUniqueWithoutBinInput[]
-  createMany?: Prisma.InventorySessionCreateManyBinInputEnvelope
-  set?: Prisma.InventorySessionWhereUniqueInput | Prisma.InventorySessionWhereUniqueInput[]
-  disconnect?: Prisma.InventorySessionWhereUniqueInput | Prisma.InventorySessionWhereUniqueInput[]
-  delete?: Prisma.InventorySessionWhereUniqueInput | Prisma.InventorySessionWhereUniqueInput[]
-  connect?: Prisma.InventorySessionWhereUniqueInput | Prisma.InventorySessionWhereUniqueInput[]
-  update?: Prisma.InventorySessionUpdateWithWhereUniqueWithoutBinInput | Prisma.InventorySessionUpdateWithWhereUniqueWithoutBinInput[]
-  updateMany?: Prisma.InventorySessionUpdateManyWithWhereWithoutBinInput | Prisma.InventorySessionUpdateManyWithWhereWithoutBinInput[]
-  deleteMany?: Prisma.InventorySessionScalarWhereInput | Prisma.InventorySessionScalarWhereInput[]
-}
-
-export type InventorySessionUncheckedUpdateManyWithoutBinNestedInput = {
-  create?: Prisma.XOR<Prisma.InventorySessionCreateWithoutBinInput, Prisma.InventorySessionUncheckedCreateWithoutBinInput> | Prisma.InventorySessionCreateWithoutBinInput[] | Prisma.InventorySessionUncheckedCreateWithoutBinInput[]
-  connectOrCreate?: Prisma.InventorySessionCreateOrConnectWithoutBinInput | Prisma.InventorySessionCreateOrConnectWithoutBinInput[]
-  upsert?: Prisma.InventorySessionUpsertWithWhereUniqueWithoutBinInput | Prisma.InventorySessionUpsertWithWhereUniqueWithoutBinInput[]
-  createMany?: Prisma.InventorySessionCreateManyBinInputEnvelope
-  set?: Prisma.InventorySessionWhereUniqueInput | Prisma.InventorySessionWhereUniqueInput[]
-  disconnect?: Prisma.InventorySessionWhereUniqueInput | Prisma.InventorySessionWhereUniqueInput[]
-  delete?: Prisma.InventorySessionWhereUniqueInput | Prisma.InventorySessionWhereUniqueInput[]
-  connect?: Prisma.InventorySessionWhereUniqueInput | Prisma.InventorySessionWhereUniqueInput[]
-  update?: Prisma.InventorySessionUpdateWithWhereUniqueWithoutBinInput | Prisma.InventorySessionUpdateWithWhereUniqueWithoutBinInput[]
-  updateMany?: Prisma.InventorySessionUpdateManyWithWhereWithoutBinInput | Prisma.InventorySessionUpdateManyWithWhereWithoutBinInput[]
-  deleteMany?: Prisma.InventorySessionScalarWhereInput | Prisma.InventorySessionScalarWhereInput[]
-}
-
-export type InventorySessionCreateNestedManyWithoutProductInput = {
-  create?: Prisma.XOR<Prisma.InventorySessionCreateWithoutProductInput, Prisma.InventorySessionUncheckedCreateWithoutProductInput> | Prisma.InventorySessionCreateWithoutProductInput[] | Prisma.InventorySessionUncheckedCreateWithoutProductInput[]
-  connectOrCreate?: Prisma.InventorySessionCreateOrConnectWithoutProductInput | Prisma.InventorySessionCreateOrConnectWithoutProductInput[]
-  createMany?: Prisma.InventorySessionCreateManyProductInputEnvelope
-  connect?: Prisma.InventorySessionWhereUniqueInput | Prisma.InventorySessionWhereUniqueInput[]
-}
-
-export type InventorySessionUncheckedCreateNestedManyWithoutProductInput = {
-  create?: Prisma.XOR<Prisma.InventorySessionCreateWithoutProductInput, Prisma.InventorySessionUncheckedCreateWithoutProductInput> | Prisma.InventorySessionCreateWithoutProductInput[] | Prisma.InventorySessionUncheckedCreateWithoutProductInput[]
-  connectOrCreate?: Prisma.InventorySessionCreateOrConnectWithoutProductInput | Prisma.InventorySessionCreateOrConnectWithoutProductInput[]
-  createMany?: Prisma.InventorySessionCreateManyProductInputEnvelope
-  connect?: Prisma.InventorySessionWhereUniqueInput | Prisma.InventorySessionWhereUniqueInput[]
-}
-
-export type InventorySessionUpdateManyWithoutProductNestedInput = {
-  create?: Prisma.XOR<Prisma.InventorySessionCreateWithoutProductInput, Prisma.InventorySessionUncheckedCreateWithoutProductInput> | Prisma.InventorySessionCreateWithoutProductInput[] | Prisma.InventorySessionUncheckedCreateWithoutProductInput[]
-  connectOrCreate?: Prisma.InventorySessionCreateOrConnectWithoutProductInput | Prisma.InventorySessionCreateOrConnectWithoutProductInput[]
-  upsert?: Prisma.InventorySessionUpsertWithWhereUniqueWithoutProductInput | Prisma.InventorySessionUpsertWithWhereUniqueWithoutProductInput[]
-  createMany?: Prisma.InventorySessionCreateManyProductInputEnvelope
-  set?: Prisma.InventorySessionWhereUniqueInput | Prisma.InventorySessionWhereUniqueInput[]
-  disconnect?: Prisma.InventorySessionWhereUniqueInput | Prisma.InventorySessionWhereUniqueInput[]
-  delete?: Prisma.InventorySessionWhereUniqueInput | Prisma.InventorySessionWhereUniqueInput[]
-  connect?: Prisma.InventorySessionWhereUniqueInput | Prisma.InventorySessionWhereUniqueInput[]
-  update?: Prisma.InventorySessionUpdateWithWhereUniqueWithoutProductInput | Prisma.InventorySessionUpdateWithWhereUniqueWithoutProductInput[]
-  updateMany?: Prisma.InventorySessionUpdateManyWithWhereWithoutProductInput | Prisma.InventorySessionUpdateManyWithWhereWithoutProductInput[]
-  deleteMany?: Prisma.InventorySessionScalarWhereInput | Prisma.InventorySessionScalarWhereInput[]
-}
-
-export type InventorySessionUncheckedUpdateManyWithoutProductNestedInput = {
-  create?: Prisma.XOR<Prisma.InventorySessionCreateWithoutProductInput, Prisma.InventorySessionUncheckedCreateWithoutProductInput> | Prisma.InventorySessionCreateWithoutProductInput[] | Prisma.InventorySessionUncheckedCreateWithoutProductInput[]
-  connectOrCreate?: Prisma.InventorySessionCreateOrConnectWithoutProductInput | Prisma.InventorySessionCreateOrConnectWithoutProductInput[]
-  upsert?: Prisma.InventorySessionUpsertWithWhereUniqueWithoutProductInput | Prisma.InventorySessionUpsertWithWhereUniqueWithoutProductInput[]
-  createMany?: Prisma.InventorySessionCreateManyProductInputEnvelope
-  set?: Prisma.InventorySessionWhereUniqueInput | Prisma.InventorySessionWhereUniqueInput[]
-  disconnect?: Prisma.InventorySessionWhereUniqueInput | Prisma.InventorySessionWhereUniqueInput[]
-  delete?: Prisma.InventorySessionWhereUniqueInput | Prisma.InventorySessionWhereUniqueInput[]
-  connect?: Prisma.InventorySessionWhereUniqueInput | Prisma.InventorySessionWhereUniqueInput[]
-  update?: Prisma.InventorySessionUpdateWithWhereUniqueWithoutProductInput | Prisma.InventorySessionUpdateWithWhereUniqueWithoutProductInput[]
-  updateMany?: Prisma.InventorySessionUpdateManyWithWhereWithoutProductInput | Prisma.InventorySessionUpdateManyWithWhereWithoutProductInput[]
-  deleteMany?: Prisma.InventorySessionScalarWhereInput | Prisma.InventorySessionScalarWhereInput[]
-}
-
-export type InventorySessionCreateNestedManyWithoutVariantInput = {
-  create?: Prisma.XOR<Prisma.InventorySessionCreateWithoutVariantInput, Prisma.InventorySessionUncheckedCreateWithoutVariantInput> | Prisma.InventorySessionCreateWithoutVariantInput[] | Prisma.InventorySessionUncheckedCreateWithoutVariantInput[]
-  connectOrCreate?: Prisma.InventorySessionCreateOrConnectWithoutVariantInput | Prisma.InventorySessionCreateOrConnectWithoutVariantInput[]
-  createMany?: Prisma.InventorySessionCreateManyVariantInputEnvelope
-  connect?: Prisma.InventorySessionWhereUniqueInput | Prisma.InventorySessionWhereUniqueInput[]
-}
-
-export type InventorySessionUncheckedCreateNestedManyWithoutVariantInput = {
-  create?: Prisma.XOR<Prisma.InventorySessionCreateWithoutVariantInput, Prisma.InventorySessionUncheckedCreateWithoutVariantInput> | Prisma.InventorySessionCreateWithoutVariantInput[] | Prisma.InventorySessionUncheckedCreateWithoutVariantInput[]
-  connectOrCreate?: Prisma.InventorySessionCreateOrConnectWithoutVariantInput | Prisma.InventorySessionCreateOrConnectWithoutVariantInput[]
-  createMany?: Prisma.InventorySessionCreateManyVariantInputEnvelope
-  connect?: Prisma.InventorySessionWhereUniqueInput | Prisma.InventorySessionWhereUniqueInput[]
-}
-
-export type InventorySessionUpdateManyWithoutVariantNestedInput = {
-  create?: Prisma.XOR<Prisma.InventorySessionCreateWithoutVariantInput, Prisma.InventorySessionUncheckedCreateWithoutVariantInput> | Prisma.InventorySessionCreateWithoutVariantInput[] | Prisma.InventorySessionUncheckedCreateWithoutVariantInput[]
-  connectOrCreate?: Prisma.InventorySessionCreateOrConnectWithoutVariantInput | Prisma.InventorySessionCreateOrConnectWithoutVariantInput[]
-  upsert?: Prisma.InventorySessionUpsertWithWhereUniqueWithoutVariantInput | Prisma.InventorySessionUpsertWithWhereUniqueWithoutVariantInput[]
-  createMany?: Prisma.InventorySessionCreateManyVariantInputEnvelope
-  set?: Prisma.InventorySessionWhereUniqueInput | Prisma.InventorySessionWhereUniqueInput[]
-  disconnect?: Prisma.InventorySessionWhereUniqueInput | Prisma.InventorySessionWhereUniqueInput[]
-  delete?: Prisma.InventorySessionWhereUniqueInput | Prisma.InventorySessionWhereUniqueInput[]
-  connect?: Prisma.InventorySessionWhereUniqueInput | Prisma.InventorySessionWhereUniqueInput[]
-  update?: Prisma.InventorySessionUpdateWithWhereUniqueWithoutVariantInput | Prisma.InventorySessionUpdateWithWhereUniqueWithoutVariantInput[]
-  updateMany?: Prisma.InventorySessionUpdateManyWithWhereWithoutVariantInput | Prisma.InventorySessionUpdateManyWithWhereWithoutVariantInput[]
-  deleteMany?: Prisma.InventorySessionScalarWhereInput | Prisma.InventorySessionScalarWhereInput[]
-}
-
-export type InventorySessionUncheckedUpdateManyWithoutVariantNestedInput = {
-  create?: Prisma.XOR<Prisma.InventorySessionCreateWithoutVariantInput, Prisma.InventorySessionUncheckedCreateWithoutVariantInput> | Prisma.InventorySessionCreateWithoutVariantInput[] | Prisma.InventorySessionUncheckedCreateWithoutVariantInput[]
-  connectOrCreate?: Prisma.InventorySessionCreateOrConnectWithoutVariantInput | Prisma.InventorySessionCreateOrConnectWithoutVariantInput[]
-  upsert?: Prisma.InventorySessionUpsertWithWhereUniqueWithoutVariantInput | Prisma.InventorySessionUpsertWithWhereUniqueWithoutVariantInput[]
-  createMany?: Prisma.InventorySessionCreateManyVariantInputEnvelope
-  set?: Prisma.InventorySessionWhereUniqueInput | Prisma.InventorySessionWhereUniqueInput[]
-  disconnect?: Prisma.InventorySessionWhereUniqueInput | Prisma.InventorySessionWhereUniqueInput[]
-  delete?: Prisma.InventorySessionWhereUniqueInput | Prisma.InventorySessionWhereUniqueInput[]
-  connect?: Prisma.InventorySessionWhereUniqueInput | Prisma.InventorySessionWhereUniqueInput[]
-  update?: Prisma.InventorySessionUpdateWithWhereUniqueWithoutVariantInput | Prisma.InventorySessionUpdateWithWhereUniqueWithoutVariantInput[]
-  updateMany?: Prisma.InventorySessionUpdateManyWithWhereWithoutVariantInput | Prisma.InventorySessionUpdateManyWithWhereWithoutVariantInput[]
-  deleteMany?: Prisma.InventorySessionScalarWhereInput | Prisma.InventorySessionScalarWhereInput[]
+export type EnumInventorySessionModeFieldUpdateOperationsInput = {
+  set?: $Enums.InventorySessionMode
 }
 
 export type EnumInventorySessionStatusFieldUpdateOperationsInput = {
   set?: $Enums.InventorySessionStatus
-}
-
-export type EnumInventorySessionModeFieldUpdateOperationsInput = {
-  set?: $Enums.InventorySessionMode
 }
 
 export type InventorySessionCreateNestedOneWithoutItemsInput = {
@@ -919,87 +663,39 @@ export type InventorySessionUpdateOneRequiredWithoutItemsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.InventorySessionUpdateToOneWithWhereWithoutItemsInput, Prisma.InventorySessionUpdateWithoutItemsInput>, Prisma.InventorySessionUncheckedUpdateWithoutItemsInput>
 }
 
-export type InventorySessionCreateNestedManyWithoutTenantInput = {
-  create?: Prisma.XOR<Prisma.InventorySessionCreateWithoutTenantInput, Prisma.InventorySessionUncheckedCreateWithoutTenantInput> | Prisma.InventorySessionCreateWithoutTenantInput[] | Prisma.InventorySessionUncheckedCreateWithoutTenantInput[]
-  connectOrCreate?: Prisma.InventorySessionCreateOrConnectWithoutTenantInput | Prisma.InventorySessionCreateOrConnectWithoutTenantInput[]
-  createMany?: Prisma.InventorySessionCreateManyTenantInputEnvelope
-  connect?: Prisma.InventorySessionWhereUniqueInput | Prisma.InventorySessionWhereUniqueInput[]
-}
-
-export type InventorySessionUncheckedCreateNestedManyWithoutTenantInput = {
-  create?: Prisma.XOR<Prisma.InventorySessionCreateWithoutTenantInput, Prisma.InventorySessionUncheckedCreateWithoutTenantInput> | Prisma.InventorySessionCreateWithoutTenantInput[] | Prisma.InventorySessionUncheckedCreateWithoutTenantInput[]
-  connectOrCreate?: Prisma.InventorySessionCreateOrConnectWithoutTenantInput | Prisma.InventorySessionCreateOrConnectWithoutTenantInput[]
-  createMany?: Prisma.InventorySessionCreateManyTenantInputEnvelope
-  connect?: Prisma.InventorySessionWhereUniqueInput | Prisma.InventorySessionWhereUniqueInput[]
-}
-
-export type InventorySessionUpdateManyWithoutTenantNestedInput = {
-  create?: Prisma.XOR<Prisma.InventorySessionCreateWithoutTenantInput, Prisma.InventorySessionUncheckedCreateWithoutTenantInput> | Prisma.InventorySessionCreateWithoutTenantInput[] | Prisma.InventorySessionUncheckedCreateWithoutTenantInput[]
-  connectOrCreate?: Prisma.InventorySessionCreateOrConnectWithoutTenantInput | Prisma.InventorySessionCreateOrConnectWithoutTenantInput[]
-  upsert?: Prisma.InventorySessionUpsertWithWhereUniqueWithoutTenantInput | Prisma.InventorySessionUpsertWithWhereUniqueWithoutTenantInput[]
-  createMany?: Prisma.InventorySessionCreateManyTenantInputEnvelope
-  set?: Prisma.InventorySessionWhereUniqueInput | Prisma.InventorySessionWhereUniqueInput[]
-  disconnect?: Prisma.InventorySessionWhereUniqueInput | Prisma.InventorySessionWhereUniqueInput[]
-  delete?: Prisma.InventorySessionWhereUniqueInput | Prisma.InventorySessionWhereUniqueInput[]
-  connect?: Prisma.InventorySessionWhereUniqueInput | Prisma.InventorySessionWhereUniqueInput[]
-  update?: Prisma.InventorySessionUpdateWithWhereUniqueWithoutTenantInput | Prisma.InventorySessionUpdateWithWhereUniqueWithoutTenantInput[]
-  updateMany?: Prisma.InventorySessionUpdateManyWithWhereWithoutTenantInput | Prisma.InventorySessionUpdateManyWithWhereWithoutTenantInput[]
-  deleteMany?: Prisma.InventorySessionScalarWhereInput | Prisma.InventorySessionScalarWhereInput[]
-}
-
-export type InventorySessionUncheckedUpdateManyWithoutTenantNestedInput = {
-  create?: Prisma.XOR<Prisma.InventorySessionCreateWithoutTenantInput, Prisma.InventorySessionUncheckedCreateWithoutTenantInput> | Prisma.InventorySessionCreateWithoutTenantInput[] | Prisma.InventorySessionUncheckedCreateWithoutTenantInput[]
-  connectOrCreate?: Prisma.InventorySessionCreateOrConnectWithoutTenantInput | Prisma.InventorySessionCreateOrConnectWithoutTenantInput[]
-  upsert?: Prisma.InventorySessionUpsertWithWhereUniqueWithoutTenantInput | Prisma.InventorySessionUpsertWithWhereUniqueWithoutTenantInput[]
-  createMany?: Prisma.InventorySessionCreateManyTenantInputEnvelope
-  set?: Prisma.InventorySessionWhereUniqueInput | Prisma.InventorySessionWhereUniqueInput[]
-  disconnect?: Prisma.InventorySessionWhereUniqueInput | Prisma.InventorySessionWhereUniqueInput[]
-  delete?: Prisma.InventorySessionWhereUniqueInput | Prisma.InventorySessionWhereUniqueInput[]
-  connect?: Prisma.InventorySessionWhereUniqueInput | Prisma.InventorySessionWhereUniqueInput[]
-  update?: Prisma.InventorySessionUpdateWithWhereUniqueWithoutTenantInput | Prisma.InventorySessionUpdateWithWhereUniqueWithoutTenantInput[]
-  updateMany?: Prisma.InventorySessionUpdateManyWithWhereWithoutTenantInput | Prisma.InventorySessionUpdateManyWithWhereWithoutTenantInput[]
-  deleteMany?: Prisma.InventorySessionScalarWhereInput | Prisma.InventorySessionScalarWhereInput[]
-}
-
 export type InventorySessionCreateWithoutUserInput = {
   id?: string
-  status?: $Enums.InventorySessionStatus
   mode: $Enums.InventorySessionMode
+  status?: $Enums.InventorySessionStatus
+  scope: Prisma.JsonNullValueInput | runtime.InputJsonValue
   totalItems?: number
-  scannedItems?: number
   confirmedItems?: number
-  divergentItems?: number
+  divergences?: number
   notes?: string | null
   startedAt?: Date | string
+  pausedAt?: Date | string | null
   completedAt?: Date | string | null
   createdAt?: Date | string
-  updatedAt?: Date | string
-  tenant: Prisma.TenantCreateNestedOneWithoutInventorySessionsInput
-  bin?: Prisma.BinCreateNestedOneWithoutInventorySessionsInput
-  zone?: Prisma.ZoneCreateNestedOneWithoutInventorySessionsInput
-  product?: Prisma.ProductCreateNestedOneWithoutInventorySessionsInput
-  variant?: Prisma.VariantCreateNestedOneWithoutInventorySessionsInput
+  deletedAt?: Date | string | null
+  tenantId: string
   items?: Prisma.InventorySessionItemCreateNestedManyWithoutSessionInput
 }
 
 export type InventorySessionUncheckedCreateWithoutUserInput = {
   id?: string
-  tenantId: string
-  status?: $Enums.InventorySessionStatus
   mode: $Enums.InventorySessionMode
-  binId?: string | null
-  zoneId?: string | null
-  productId?: string | null
-  variantId?: string | null
+  status?: $Enums.InventorySessionStatus
+  scope: Prisma.JsonNullValueInput | runtime.InputJsonValue
   totalItems?: number
-  scannedItems?: number
   confirmedItems?: number
-  divergentItems?: number
+  divergences?: number
   notes?: string | null
   startedAt?: Date | string
+  pausedAt?: Date | string | null
   completedAt?: Date | string | null
   createdAt?: Date | string
-  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  tenantId: string
   items?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutSessionInput
 }
 
@@ -1034,337 +730,56 @@ export type InventorySessionScalarWhereInput = {
   OR?: Prisma.InventorySessionScalarWhereInput[]
   NOT?: Prisma.InventorySessionScalarWhereInput | Prisma.InventorySessionScalarWhereInput[]
   id?: Prisma.StringFilter<"InventorySession"> | string
-  tenantId?: Prisma.StringFilter<"InventorySession"> | string
-  userId?: Prisma.StringFilter<"InventorySession"> | string
-  status?: Prisma.EnumInventorySessionStatusFilter<"InventorySession"> | $Enums.InventorySessionStatus
   mode?: Prisma.EnumInventorySessionModeFilter<"InventorySession"> | $Enums.InventorySessionMode
-  binId?: Prisma.StringNullableFilter<"InventorySession"> | string | null
-  zoneId?: Prisma.StringNullableFilter<"InventorySession"> | string | null
-  productId?: Prisma.StringNullableFilter<"InventorySession"> | string | null
-  variantId?: Prisma.StringNullableFilter<"InventorySession"> | string | null
+  status?: Prisma.EnumInventorySessionStatusFilter<"InventorySession"> | $Enums.InventorySessionStatus
+  scope?: Prisma.JsonFilter<"InventorySession">
   totalItems?: Prisma.IntFilter<"InventorySession"> | number
-  scannedItems?: Prisma.IntFilter<"InventorySession"> | number
   confirmedItems?: Prisma.IntFilter<"InventorySession"> | number
-  divergentItems?: Prisma.IntFilter<"InventorySession"> | number
+  divergences?: Prisma.IntFilter<"InventorySession"> | number
   notes?: Prisma.StringNullableFilter<"InventorySession"> | string | null
   startedAt?: Prisma.DateTimeFilter<"InventorySession"> | Date | string
+  pausedAt?: Prisma.DateTimeNullableFilter<"InventorySession"> | Date | string | null
   completedAt?: Prisma.DateTimeNullableFilter<"InventorySession"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"InventorySession"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"InventorySession"> | Date | string
-}
-
-export type InventorySessionCreateWithoutZoneInput = {
-  id?: string
-  status?: $Enums.InventorySessionStatus
-  mode: $Enums.InventorySessionMode
-  totalItems?: number
-  scannedItems?: number
-  confirmedItems?: number
-  divergentItems?: number
-  notes?: string | null
-  startedAt?: Date | string
-  completedAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  tenant: Prisma.TenantCreateNestedOneWithoutInventorySessionsInput
-  user: Prisma.UserCreateNestedOneWithoutInventorySessionsInput
-  bin?: Prisma.BinCreateNestedOneWithoutInventorySessionsInput
-  product?: Prisma.ProductCreateNestedOneWithoutInventorySessionsInput
-  variant?: Prisma.VariantCreateNestedOneWithoutInventorySessionsInput
-  items?: Prisma.InventorySessionItemCreateNestedManyWithoutSessionInput
-}
-
-export type InventorySessionUncheckedCreateWithoutZoneInput = {
-  id?: string
-  tenantId: string
-  userId: string
-  status?: $Enums.InventorySessionStatus
-  mode: $Enums.InventorySessionMode
-  binId?: string | null
-  productId?: string | null
-  variantId?: string | null
-  totalItems?: number
-  scannedItems?: number
-  confirmedItems?: number
-  divergentItems?: number
-  notes?: string | null
-  startedAt?: Date | string
-  completedAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  items?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutSessionInput
-}
-
-export type InventorySessionCreateOrConnectWithoutZoneInput = {
-  where: Prisma.InventorySessionWhereUniqueInput
-  create: Prisma.XOR<Prisma.InventorySessionCreateWithoutZoneInput, Prisma.InventorySessionUncheckedCreateWithoutZoneInput>
-}
-
-export type InventorySessionCreateManyZoneInputEnvelope = {
-  data: Prisma.InventorySessionCreateManyZoneInput | Prisma.InventorySessionCreateManyZoneInput[]
-  skipDuplicates?: boolean
-}
-
-export type InventorySessionUpsertWithWhereUniqueWithoutZoneInput = {
-  where: Prisma.InventorySessionWhereUniqueInput
-  update: Prisma.XOR<Prisma.InventorySessionUpdateWithoutZoneInput, Prisma.InventorySessionUncheckedUpdateWithoutZoneInput>
-  create: Prisma.XOR<Prisma.InventorySessionCreateWithoutZoneInput, Prisma.InventorySessionUncheckedCreateWithoutZoneInput>
-}
-
-export type InventorySessionUpdateWithWhereUniqueWithoutZoneInput = {
-  where: Prisma.InventorySessionWhereUniqueInput
-  data: Prisma.XOR<Prisma.InventorySessionUpdateWithoutZoneInput, Prisma.InventorySessionUncheckedUpdateWithoutZoneInput>
-}
-
-export type InventorySessionUpdateManyWithWhereWithoutZoneInput = {
-  where: Prisma.InventorySessionScalarWhereInput
-  data: Prisma.XOR<Prisma.InventorySessionUpdateManyMutationInput, Prisma.InventorySessionUncheckedUpdateManyWithoutZoneInput>
-}
-
-export type InventorySessionCreateWithoutBinInput = {
-  id?: string
-  status?: $Enums.InventorySessionStatus
-  mode: $Enums.InventorySessionMode
-  totalItems?: number
-  scannedItems?: number
-  confirmedItems?: number
-  divergentItems?: number
-  notes?: string | null
-  startedAt?: Date | string
-  completedAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  tenant: Prisma.TenantCreateNestedOneWithoutInventorySessionsInput
-  user: Prisma.UserCreateNestedOneWithoutInventorySessionsInput
-  zone?: Prisma.ZoneCreateNestedOneWithoutInventorySessionsInput
-  product?: Prisma.ProductCreateNestedOneWithoutInventorySessionsInput
-  variant?: Prisma.VariantCreateNestedOneWithoutInventorySessionsInput
-  items?: Prisma.InventorySessionItemCreateNestedManyWithoutSessionInput
-}
-
-export type InventorySessionUncheckedCreateWithoutBinInput = {
-  id?: string
-  tenantId: string
-  userId: string
-  status?: $Enums.InventorySessionStatus
-  mode: $Enums.InventorySessionMode
-  zoneId?: string | null
-  productId?: string | null
-  variantId?: string | null
-  totalItems?: number
-  scannedItems?: number
-  confirmedItems?: number
-  divergentItems?: number
-  notes?: string | null
-  startedAt?: Date | string
-  completedAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  items?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutSessionInput
-}
-
-export type InventorySessionCreateOrConnectWithoutBinInput = {
-  where: Prisma.InventorySessionWhereUniqueInput
-  create: Prisma.XOR<Prisma.InventorySessionCreateWithoutBinInput, Prisma.InventorySessionUncheckedCreateWithoutBinInput>
-}
-
-export type InventorySessionCreateManyBinInputEnvelope = {
-  data: Prisma.InventorySessionCreateManyBinInput | Prisma.InventorySessionCreateManyBinInput[]
-  skipDuplicates?: boolean
-}
-
-export type InventorySessionUpsertWithWhereUniqueWithoutBinInput = {
-  where: Prisma.InventorySessionWhereUniqueInput
-  update: Prisma.XOR<Prisma.InventorySessionUpdateWithoutBinInput, Prisma.InventorySessionUncheckedUpdateWithoutBinInput>
-  create: Prisma.XOR<Prisma.InventorySessionCreateWithoutBinInput, Prisma.InventorySessionUncheckedCreateWithoutBinInput>
-}
-
-export type InventorySessionUpdateWithWhereUniqueWithoutBinInput = {
-  where: Prisma.InventorySessionWhereUniqueInput
-  data: Prisma.XOR<Prisma.InventorySessionUpdateWithoutBinInput, Prisma.InventorySessionUncheckedUpdateWithoutBinInput>
-}
-
-export type InventorySessionUpdateManyWithWhereWithoutBinInput = {
-  where: Prisma.InventorySessionScalarWhereInput
-  data: Prisma.XOR<Prisma.InventorySessionUpdateManyMutationInput, Prisma.InventorySessionUncheckedUpdateManyWithoutBinInput>
-}
-
-export type InventorySessionCreateWithoutProductInput = {
-  id?: string
-  status?: $Enums.InventorySessionStatus
-  mode: $Enums.InventorySessionMode
-  totalItems?: number
-  scannedItems?: number
-  confirmedItems?: number
-  divergentItems?: number
-  notes?: string | null
-  startedAt?: Date | string
-  completedAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  tenant: Prisma.TenantCreateNestedOneWithoutInventorySessionsInput
-  user: Prisma.UserCreateNestedOneWithoutInventorySessionsInput
-  bin?: Prisma.BinCreateNestedOneWithoutInventorySessionsInput
-  zone?: Prisma.ZoneCreateNestedOneWithoutInventorySessionsInput
-  variant?: Prisma.VariantCreateNestedOneWithoutInventorySessionsInput
-  items?: Prisma.InventorySessionItemCreateNestedManyWithoutSessionInput
-}
-
-export type InventorySessionUncheckedCreateWithoutProductInput = {
-  id?: string
-  tenantId: string
-  userId: string
-  status?: $Enums.InventorySessionStatus
-  mode: $Enums.InventorySessionMode
-  binId?: string | null
-  zoneId?: string | null
-  variantId?: string | null
-  totalItems?: number
-  scannedItems?: number
-  confirmedItems?: number
-  divergentItems?: number
-  notes?: string | null
-  startedAt?: Date | string
-  completedAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  items?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutSessionInput
-}
-
-export type InventorySessionCreateOrConnectWithoutProductInput = {
-  where: Prisma.InventorySessionWhereUniqueInput
-  create: Prisma.XOR<Prisma.InventorySessionCreateWithoutProductInput, Prisma.InventorySessionUncheckedCreateWithoutProductInput>
-}
-
-export type InventorySessionCreateManyProductInputEnvelope = {
-  data: Prisma.InventorySessionCreateManyProductInput | Prisma.InventorySessionCreateManyProductInput[]
-  skipDuplicates?: boolean
-}
-
-export type InventorySessionUpsertWithWhereUniqueWithoutProductInput = {
-  where: Prisma.InventorySessionWhereUniqueInput
-  update: Prisma.XOR<Prisma.InventorySessionUpdateWithoutProductInput, Prisma.InventorySessionUncheckedUpdateWithoutProductInput>
-  create: Prisma.XOR<Prisma.InventorySessionCreateWithoutProductInput, Prisma.InventorySessionUncheckedCreateWithoutProductInput>
-}
-
-export type InventorySessionUpdateWithWhereUniqueWithoutProductInput = {
-  where: Prisma.InventorySessionWhereUniqueInput
-  data: Prisma.XOR<Prisma.InventorySessionUpdateWithoutProductInput, Prisma.InventorySessionUncheckedUpdateWithoutProductInput>
-}
-
-export type InventorySessionUpdateManyWithWhereWithoutProductInput = {
-  where: Prisma.InventorySessionScalarWhereInput
-  data: Prisma.XOR<Prisma.InventorySessionUpdateManyMutationInput, Prisma.InventorySessionUncheckedUpdateManyWithoutProductInput>
-}
-
-export type InventorySessionCreateWithoutVariantInput = {
-  id?: string
-  status?: $Enums.InventorySessionStatus
-  mode: $Enums.InventorySessionMode
-  totalItems?: number
-  scannedItems?: number
-  confirmedItems?: number
-  divergentItems?: number
-  notes?: string | null
-  startedAt?: Date | string
-  completedAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  tenant: Prisma.TenantCreateNestedOneWithoutInventorySessionsInput
-  user: Prisma.UserCreateNestedOneWithoutInventorySessionsInput
-  bin?: Prisma.BinCreateNestedOneWithoutInventorySessionsInput
-  zone?: Prisma.ZoneCreateNestedOneWithoutInventorySessionsInput
-  product?: Prisma.ProductCreateNestedOneWithoutInventorySessionsInput
-  items?: Prisma.InventorySessionItemCreateNestedManyWithoutSessionInput
-}
-
-export type InventorySessionUncheckedCreateWithoutVariantInput = {
-  id?: string
-  tenantId: string
-  userId: string
-  status?: $Enums.InventorySessionStatus
-  mode: $Enums.InventorySessionMode
-  binId?: string | null
-  zoneId?: string | null
-  productId?: string | null
-  totalItems?: number
-  scannedItems?: number
-  confirmedItems?: number
-  divergentItems?: number
-  notes?: string | null
-  startedAt?: Date | string
-  completedAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  items?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutSessionInput
-}
-
-export type InventorySessionCreateOrConnectWithoutVariantInput = {
-  where: Prisma.InventorySessionWhereUniqueInput
-  create: Prisma.XOR<Prisma.InventorySessionCreateWithoutVariantInput, Prisma.InventorySessionUncheckedCreateWithoutVariantInput>
-}
-
-export type InventorySessionCreateManyVariantInputEnvelope = {
-  data: Prisma.InventorySessionCreateManyVariantInput | Prisma.InventorySessionCreateManyVariantInput[]
-  skipDuplicates?: boolean
-}
-
-export type InventorySessionUpsertWithWhereUniqueWithoutVariantInput = {
-  where: Prisma.InventorySessionWhereUniqueInput
-  update: Prisma.XOR<Prisma.InventorySessionUpdateWithoutVariantInput, Prisma.InventorySessionUncheckedUpdateWithoutVariantInput>
-  create: Prisma.XOR<Prisma.InventorySessionCreateWithoutVariantInput, Prisma.InventorySessionUncheckedCreateWithoutVariantInput>
-}
-
-export type InventorySessionUpdateWithWhereUniqueWithoutVariantInput = {
-  where: Prisma.InventorySessionWhereUniqueInput
-  data: Prisma.XOR<Prisma.InventorySessionUpdateWithoutVariantInput, Prisma.InventorySessionUncheckedUpdateWithoutVariantInput>
-}
-
-export type InventorySessionUpdateManyWithWhereWithoutVariantInput = {
-  where: Prisma.InventorySessionScalarWhereInput
-  data: Prisma.XOR<Prisma.InventorySessionUpdateManyMutationInput, Prisma.InventorySessionUncheckedUpdateManyWithoutVariantInput>
+  deletedAt?: Prisma.DateTimeNullableFilter<"InventorySession"> | Date | string | null
+  startedBy?: Prisma.StringFilter<"InventorySession"> | string
+  tenantId?: Prisma.StringFilter<"InventorySession"> | string
 }
 
 export type InventorySessionCreateWithoutItemsInput = {
   id?: string
-  status?: $Enums.InventorySessionStatus
   mode: $Enums.InventorySessionMode
+  status?: $Enums.InventorySessionStatus
+  scope: Prisma.JsonNullValueInput | runtime.InputJsonValue
   totalItems?: number
-  scannedItems?: number
   confirmedItems?: number
-  divergentItems?: number
+  divergences?: number
   notes?: string | null
   startedAt?: Date | string
+  pausedAt?: Date | string | null
   completedAt?: Date | string | null
   createdAt?: Date | string
-  updatedAt?: Date | string
-  tenant: Prisma.TenantCreateNestedOneWithoutInventorySessionsInput
+  deletedAt?: Date | string | null
+  tenantId: string
   user: Prisma.UserCreateNestedOneWithoutInventorySessionsInput
-  bin?: Prisma.BinCreateNestedOneWithoutInventorySessionsInput
-  zone?: Prisma.ZoneCreateNestedOneWithoutInventorySessionsInput
-  product?: Prisma.ProductCreateNestedOneWithoutInventorySessionsInput
-  variant?: Prisma.VariantCreateNestedOneWithoutInventorySessionsInput
 }
 
 export type InventorySessionUncheckedCreateWithoutItemsInput = {
   id?: string
-  tenantId: string
-  userId: string
-  status?: $Enums.InventorySessionStatus
   mode: $Enums.InventorySessionMode
-  binId?: string | null
-  zoneId?: string | null
-  productId?: string | null
-  variantId?: string | null
+  status?: $Enums.InventorySessionStatus
+  scope: Prisma.JsonNullValueInput | runtime.InputJsonValue
   totalItems?: number
-  scannedItems?: number
   confirmedItems?: number
-  divergentItems?: number
+  divergences?: number
   notes?: string | null
   startedAt?: Date | string
+  pausedAt?: Date | string | null
   completedAt?: Date | string | null
   createdAt?: Date | string
-  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  startedBy: string
+  tenantId: string
 }
 
 export type InventorySessionCreateOrConnectWithoutItemsInput = {
@@ -1385,604 +800,108 @@ export type InventorySessionUpdateToOneWithWhereWithoutItemsInput = {
 
 export type InventorySessionUpdateWithoutItemsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumInventorySessionStatusFieldUpdateOperationsInput | $Enums.InventorySessionStatus
   mode?: Prisma.EnumInventorySessionModeFieldUpdateOperationsInput | $Enums.InventorySessionMode
+  status?: Prisma.EnumInventorySessionStatusFieldUpdateOperationsInput | $Enums.InventorySessionStatus
+  scope?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   totalItems?: Prisma.IntFieldUpdateOperationsInput | number
-  scannedItems?: Prisma.IntFieldUpdateOperationsInput | number
   confirmedItems?: Prisma.IntFieldUpdateOperationsInput | number
-  divergentItems?: Prisma.IntFieldUpdateOperationsInput | number
+  divergences?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  pausedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  tenant?: Prisma.TenantUpdateOneRequiredWithoutInventorySessionsNestedInput
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   user?: Prisma.UserUpdateOneRequiredWithoutInventorySessionsNestedInput
-  bin?: Prisma.BinUpdateOneWithoutInventorySessionsNestedInput
-  zone?: Prisma.ZoneUpdateOneWithoutInventorySessionsNestedInput
-  product?: Prisma.ProductUpdateOneWithoutInventorySessionsNestedInput
-  variant?: Prisma.VariantUpdateOneWithoutInventorySessionsNestedInput
 }
 
 export type InventorySessionUncheckedUpdateWithoutItemsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumInventorySessionStatusFieldUpdateOperationsInput | $Enums.InventorySessionStatus
   mode?: Prisma.EnumInventorySessionModeFieldUpdateOperationsInput | $Enums.InventorySessionMode
-  binId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  zoneId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  productId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  variantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumInventorySessionStatusFieldUpdateOperationsInput | $Enums.InventorySessionStatus
+  scope?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   totalItems?: Prisma.IntFieldUpdateOperationsInput | number
-  scannedItems?: Prisma.IntFieldUpdateOperationsInput | number
   confirmedItems?: Prisma.IntFieldUpdateOperationsInput | number
-  divergentItems?: Prisma.IntFieldUpdateOperationsInput | number
+  divergences?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  pausedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type InventorySessionCreateWithoutTenantInput = {
-  id?: string
-  status?: $Enums.InventorySessionStatus
-  mode: $Enums.InventorySessionMode
-  totalItems?: number
-  scannedItems?: number
-  confirmedItems?: number
-  divergentItems?: number
-  notes?: string | null
-  startedAt?: Date | string
-  completedAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  user: Prisma.UserCreateNestedOneWithoutInventorySessionsInput
-  bin?: Prisma.BinCreateNestedOneWithoutInventorySessionsInput
-  zone?: Prisma.ZoneCreateNestedOneWithoutInventorySessionsInput
-  product?: Prisma.ProductCreateNestedOneWithoutInventorySessionsInput
-  variant?: Prisma.VariantCreateNestedOneWithoutInventorySessionsInput
-  items?: Prisma.InventorySessionItemCreateNestedManyWithoutSessionInput
-}
-
-export type InventorySessionUncheckedCreateWithoutTenantInput = {
-  id?: string
-  userId: string
-  status?: $Enums.InventorySessionStatus
-  mode: $Enums.InventorySessionMode
-  binId?: string | null
-  zoneId?: string | null
-  productId?: string | null
-  variantId?: string | null
-  totalItems?: number
-  scannedItems?: number
-  confirmedItems?: number
-  divergentItems?: number
-  notes?: string | null
-  startedAt?: Date | string
-  completedAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  items?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutSessionInput
-}
-
-export type InventorySessionCreateOrConnectWithoutTenantInput = {
-  where: Prisma.InventorySessionWhereUniqueInput
-  create: Prisma.XOR<Prisma.InventorySessionCreateWithoutTenantInput, Prisma.InventorySessionUncheckedCreateWithoutTenantInput>
-}
-
-export type InventorySessionCreateManyTenantInputEnvelope = {
-  data: Prisma.InventorySessionCreateManyTenantInput | Prisma.InventorySessionCreateManyTenantInput[]
-  skipDuplicates?: boolean
-}
-
-export type InventorySessionUpsertWithWhereUniqueWithoutTenantInput = {
-  where: Prisma.InventorySessionWhereUniqueInput
-  update: Prisma.XOR<Prisma.InventorySessionUpdateWithoutTenantInput, Prisma.InventorySessionUncheckedUpdateWithoutTenantInput>
-  create: Prisma.XOR<Prisma.InventorySessionCreateWithoutTenantInput, Prisma.InventorySessionUncheckedCreateWithoutTenantInput>
-}
-
-export type InventorySessionUpdateWithWhereUniqueWithoutTenantInput = {
-  where: Prisma.InventorySessionWhereUniqueInput
-  data: Prisma.XOR<Prisma.InventorySessionUpdateWithoutTenantInput, Prisma.InventorySessionUncheckedUpdateWithoutTenantInput>
-}
-
-export type InventorySessionUpdateManyWithWhereWithoutTenantInput = {
-  where: Prisma.InventorySessionScalarWhereInput
-  data: Prisma.XOR<Prisma.InventorySessionUpdateManyMutationInput, Prisma.InventorySessionUncheckedUpdateManyWithoutTenantInput>
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  startedBy?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type InventorySessionCreateManyUserInput = {
   id?: string
-  tenantId: string
-  status?: $Enums.InventorySessionStatus
   mode: $Enums.InventorySessionMode
-  binId?: string | null
-  zoneId?: string | null
-  productId?: string | null
-  variantId?: string | null
+  status?: $Enums.InventorySessionStatus
+  scope: Prisma.JsonNullValueInput | runtime.InputJsonValue
   totalItems?: number
-  scannedItems?: number
   confirmedItems?: number
-  divergentItems?: number
+  divergences?: number
   notes?: string | null
   startedAt?: Date | string
+  pausedAt?: Date | string | null
   completedAt?: Date | string | null
   createdAt?: Date | string
-  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  tenantId: string
 }
 
 export type InventorySessionUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumInventorySessionStatusFieldUpdateOperationsInput | $Enums.InventorySessionStatus
   mode?: Prisma.EnumInventorySessionModeFieldUpdateOperationsInput | $Enums.InventorySessionMode
+  status?: Prisma.EnumInventorySessionStatusFieldUpdateOperationsInput | $Enums.InventorySessionStatus
+  scope?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   totalItems?: Prisma.IntFieldUpdateOperationsInput | number
-  scannedItems?: Prisma.IntFieldUpdateOperationsInput | number
   confirmedItems?: Prisma.IntFieldUpdateOperationsInput | number
-  divergentItems?: Prisma.IntFieldUpdateOperationsInput | number
+  divergences?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  pausedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  tenant?: Prisma.TenantUpdateOneRequiredWithoutInventorySessionsNestedInput
-  bin?: Prisma.BinUpdateOneWithoutInventorySessionsNestedInput
-  zone?: Prisma.ZoneUpdateOneWithoutInventorySessionsNestedInput
-  product?: Prisma.ProductUpdateOneWithoutInventorySessionsNestedInput
-  variant?: Prisma.VariantUpdateOneWithoutInventorySessionsNestedInput
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   items?: Prisma.InventorySessionItemUpdateManyWithoutSessionNestedInput
 }
 
 export type InventorySessionUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumInventorySessionStatusFieldUpdateOperationsInput | $Enums.InventorySessionStatus
   mode?: Prisma.EnumInventorySessionModeFieldUpdateOperationsInput | $Enums.InventorySessionMode
-  binId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  zoneId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  productId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  variantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumInventorySessionStatusFieldUpdateOperationsInput | $Enums.InventorySessionStatus
+  scope?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   totalItems?: Prisma.IntFieldUpdateOperationsInput | number
-  scannedItems?: Prisma.IntFieldUpdateOperationsInput | number
   confirmedItems?: Prisma.IntFieldUpdateOperationsInput | number
-  divergentItems?: Prisma.IntFieldUpdateOperationsInput | number
+  divergences?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  pausedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   items?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutSessionNestedInput
 }
 
 export type InventorySessionUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  mode?: Prisma.EnumInventorySessionModeFieldUpdateOperationsInput | $Enums.InventorySessionMode
+  status?: Prisma.EnumInventorySessionStatusFieldUpdateOperationsInput | $Enums.InventorySessionStatus
+  scope?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  totalItems?: Prisma.IntFieldUpdateOperationsInput | number
+  confirmedItems?: Prisma.IntFieldUpdateOperationsInput | number
+  divergences?: Prisma.IntFieldUpdateOperationsInput | number
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  pausedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumInventorySessionStatusFieldUpdateOperationsInput | $Enums.InventorySessionStatus
-  mode?: Prisma.EnumInventorySessionModeFieldUpdateOperationsInput | $Enums.InventorySessionMode
-  binId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  zoneId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  productId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  variantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  totalItems?: Prisma.IntFieldUpdateOperationsInput | number
-  scannedItems?: Prisma.IntFieldUpdateOperationsInput | number
-  confirmedItems?: Prisma.IntFieldUpdateOperationsInput | number
-  divergentItems?: Prisma.IntFieldUpdateOperationsInput | number
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type InventorySessionCreateManyZoneInput = {
-  id?: string
-  tenantId: string
-  userId: string
-  status?: $Enums.InventorySessionStatus
-  mode: $Enums.InventorySessionMode
-  binId?: string | null
-  productId?: string | null
-  variantId?: string | null
-  totalItems?: number
-  scannedItems?: number
-  confirmedItems?: number
-  divergentItems?: number
-  notes?: string | null
-  startedAt?: Date | string
-  completedAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-}
-
-export type InventorySessionUpdateWithoutZoneInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumInventorySessionStatusFieldUpdateOperationsInput | $Enums.InventorySessionStatus
-  mode?: Prisma.EnumInventorySessionModeFieldUpdateOperationsInput | $Enums.InventorySessionMode
-  totalItems?: Prisma.IntFieldUpdateOperationsInput | number
-  scannedItems?: Prisma.IntFieldUpdateOperationsInput | number
-  confirmedItems?: Prisma.IntFieldUpdateOperationsInput | number
-  divergentItems?: Prisma.IntFieldUpdateOperationsInput | number
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  tenant?: Prisma.TenantUpdateOneRequiredWithoutInventorySessionsNestedInput
-  user?: Prisma.UserUpdateOneRequiredWithoutInventorySessionsNestedInput
-  bin?: Prisma.BinUpdateOneWithoutInventorySessionsNestedInput
-  product?: Prisma.ProductUpdateOneWithoutInventorySessionsNestedInput
-  variant?: Prisma.VariantUpdateOneWithoutInventorySessionsNestedInput
-  items?: Prisma.InventorySessionItemUpdateManyWithoutSessionNestedInput
-}
-
-export type InventorySessionUncheckedUpdateWithoutZoneInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumInventorySessionStatusFieldUpdateOperationsInput | $Enums.InventorySessionStatus
-  mode?: Prisma.EnumInventorySessionModeFieldUpdateOperationsInput | $Enums.InventorySessionMode
-  binId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  productId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  variantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  totalItems?: Prisma.IntFieldUpdateOperationsInput | number
-  scannedItems?: Prisma.IntFieldUpdateOperationsInput | number
-  confirmedItems?: Prisma.IntFieldUpdateOperationsInput | number
-  divergentItems?: Prisma.IntFieldUpdateOperationsInput | number
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  items?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutSessionNestedInput
-}
-
-export type InventorySessionUncheckedUpdateManyWithoutZoneInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumInventorySessionStatusFieldUpdateOperationsInput | $Enums.InventorySessionStatus
-  mode?: Prisma.EnumInventorySessionModeFieldUpdateOperationsInput | $Enums.InventorySessionMode
-  binId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  productId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  variantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  totalItems?: Prisma.IntFieldUpdateOperationsInput | number
-  scannedItems?: Prisma.IntFieldUpdateOperationsInput | number
-  confirmedItems?: Prisma.IntFieldUpdateOperationsInput | number
-  divergentItems?: Prisma.IntFieldUpdateOperationsInput | number
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type InventorySessionCreateManyBinInput = {
-  id?: string
-  tenantId: string
-  userId: string
-  status?: $Enums.InventorySessionStatus
-  mode: $Enums.InventorySessionMode
-  zoneId?: string | null
-  productId?: string | null
-  variantId?: string | null
-  totalItems?: number
-  scannedItems?: number
-  confirmedItems?: number
-  divergentItems?: number
-  notes?: string | null
-  startedAt?: Date | string
-  completedAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-}
-
-export type InventorySessionUpdateWithoutBinInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumInventorySessionStatusFieldUpdateOperationsInput | $Enums.InventorySessionStatus
-  mode?: Prisma.EnumInventorySessionModeFieldUpdateOperationsInput | $Enums.InventorySessionMode
-  totalItems?: Prisma.IntFieldUpdateOperationsInput | number
-  scannedItems?: Prisma.IntFieldUpdateOperationsInput | number
-  confirmedItems?: Prisma.IntFieldUpdateOperationsInput | number
-  divergentItems?: Prisma.IntFieldUpdateOperationsInput | number
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  tenant?: Prisma.TenantUpdateOneRequiredWithoutInventorySessionsNestedInput
-  user?: Prisma.UserUpdateOneRequiredWithoutInventorySessionsNestedInput
-  zone?: Prisma.ZoneUpdateOneWithoutInventorySessionsNestedInput
-  product?: Prisma.ProductUpdateOneWithoutInventorySessionsNestedInput
-  variant?: Prisma.VariantUpdateOneWithoutInventorySessionsNestedInput
-  items?: Prisma.InventorySessionItemUpdateManyWithoutSessionNestedInput
-}
-
-export type InventorySessionUncheckedUpdateWithoutBinInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumInventorySessionStatusFieldUpdateOperationsInput | $Enums.InventorySessionStatus
-  mode?: Prisma.EnumInventorySessionModeFieldUpdateOperationsInput | $Enums.InventorySessionMode
-  zoneId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  productId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  variantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  totalItems?: Prisma.IntFieldUpdateOperationsInput | number
-  scannedItems?: Prisma.IntFieldUpdateOperationsInput | number
-  confirmedItems?: Prisma.IntFieldUpdateOperationsInput | number
-  divergentItems?: Prisma.IntFieldUpdateOperationsInput | number
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  items?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutSessionNestedInput
-}
-
-export type InventorySessionUncheckedUpdateManyWithoutBinInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumInventorySessionStatusFieldUpdateOperationsInput | $Enums.InventorySessionStatus
-  mode?: Prisma.EnumInventorySessionModeFieldUpdateOperationsInput | $Enums.InventorySessionMode
-  zoneId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  productId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  variantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  totalItems?: Prisma.IntFieldUpdateOperationsInput | number
-  scannedItems?: Prisma.IntFieldUpdateOperationsInput | number
-  confirmedItems?: Prisma.IntFieldUpdateOperationsInput | number
-  divergentItems?: Prisma.IntFieldUpdateOperationsInput | number
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type InventorySessionCreateManyProductInput = {
-  id?: string
-  tenantId: string
-  userId: string
-  status?: $Enums.InventorySessionStatus
-  mode: $Enums.InventorySessionMode
-  binId?: string | null
-  zoneId?: string | null
-  variantId?: string | null
-  totalItems?: number
-  scannedItems?: number
-  confirmedItems?: number
-  divergentItems?: number
-  notes?: string | null
-  startedAt?: Date | string
-  completedAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-}
-
-export type InventorySessionUpdateWithoutProductInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumInventorySessionStatusFieldUpdateOperationsInput | $Enums.InventorySessionStatus
-  mode?: Prisma.EnumInventorySessionModeFieldUpdateOperationsInput | $Enums.InventorySessionMode
-  totalItems?: Prisma.IntFieldUpdateOperationsInput | number
-  scannedItems?: Prisma.IntFieldUpdateOperationsInput | number
-  confirmedItems?: Prisma.IntFieldUpdateOperationsInput | number
-  divergentItems?: Prisma.IntFieldUpdateOperationsInput | number
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  tenant?: Prisma.TenantUpdateOneRequiredWithoutInventorySessionsNestedInput
-  user?: Prisma.UserUpdateOneRequiredWithoutInventorySessionsNestedInput
-  bin?: Prisma.BinUpdateOneWithoutInventorySessionsNestedInput
-  zone?: Prisma.ZoneUpdateOneWithoutInventorySessionsNestedInput
-  variant?: Prisma.VariantUpdateOneWithoutInventorySessionsNestedInput
-  items?: Prisma.InventorySessionItemUpdateManyWithoutSessionNestedInput
-}
-
-export type InventorySessionUncheckedUpdateWithoutProductInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumInventorySessionStatusFieldUpdateOperationsInput | $Enums.InventorySessionStatus
-  mode?: Prisma.EnumInventorySessionModeFieldUpdateOperationsInput | $Enums.InventorySessionMode
-  binId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  zoneId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  variantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  totalItems?: Prisma.IntFieldUpdateOperationsInput | number
-  scannedItems?: Prisma.IntFieldUpdateOperationsInput | number
-  confirmedItems?: Prisma.IntFieldUpdateOperationsInput | number
-  divergentItems?: Prisma.IntFieldUpdateOperationsInput | number
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  items?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutSessionNestedInput
-}
-
-export type InventorySessionUncheckedUpdateManyWithoutProductInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumInventorySessionStatusFieldUpdateOperationsInput | $Enums.InventorySessionStatus
-  mode?: Prisma.EnumInventorySessionModeFieldUpdateOperationsInput | $Enums.InventorySessionMode
-  binId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  zoneId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  variantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  totalItems?: Prisma.IntFieldUpdateOperationsInput | number
-  scannedItems?: Prisma.IntFieldUpdateOperationsInput | number
-  confirmedItems?: Prisma.IntFieldUpdateOperationsInput | number
-  divergentItems?: Prisma.IntFieldUpdateOperationsInput | number
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type InventorySessionCreateManyVariantInput = {
-  id?: string
-  tenantId: string
-  userId: string
-  status?: $Enums.InventorySessionStatus
-  mode: $Enums.InventorySessionMode
-  binId?: string | null
-  zoneId?: string | null
-  productId?: string | null
-  totalItems?: number
-  scannedItems?: number
-  confirmedItems?: number
-  divergentItems?: number
-  notes?: string | null
-  startedAt?: Date | string
-  completedAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-}
-
-export type InventorySessionUpdateWithoutVariantInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumInventorySessionStatusFieldUpdateOperationsInput | $Enums.InventorySessionStatus
-  mode?: Prisma.EnumInventorySessionModeFieldUpdateOperationsInput | $Enums.InventorySessionMode
-  totalItems?: Prisma.IntFieldUpdateOperationsInput | number
-  scannedItems?: Prisma.IntFieldUpdateOperationsInput | number
-  confirmedItems?: Prisma.IntFieldUpdateOperationsInput | number
-  divergentItems?: Prisma.IntFieldUpdateOperationsInput | number
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  tenant?: Prisma.TenantUpdateOneRequiredWithoutInventorySessionsNestedInput
-  user?: Prisma.UserUpdateOneRequiredWithoutInventorySessionsNestedInput
-  bin?: Prisma.BinUpdateOneWithoutInventorySessionsNestedInput
-  zone?: Prisma.ZoneUpdateOneWithoutInventorySessionsNestedInput
-  product?: Prisma.ProductUpdateOneWithoutInventorySessionsNestedInput
-  items?: Prisma.InventorySessionItemUpdateManyWithoutSessionNestedInput
-}
-
-export type InventorySessionUncheckedUpdateWithoutVariantInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumInventorySessionStatusFieldUpdateOperationsInput | $Enums.InventorySessionStatus
-  mode?: Prisma.EnumInventorySessionModeFieldUpdateOperationsInput | $Enums.InventorySessionMode
-  binId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  zoneId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  productId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  totalItems?: Prisma.IntFieldUpdateOperationsInput | number
-  scannedItems?: Prisma.IntFieldUpdateOperationsInput | number
-  confirmedItems?: Prisma.IntFieldUpdateOperationsInput | number
-  divergentItems?: Prisma.IntFieldUpdateOperationsInput | number
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  items?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutSessionNestedInput
-}
-
-export type InventorySessionUncheckedUpdateManyWithoutVariantInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumInventorySessionStatusFieldUpdateOperationsInput | $Enums.InventorySessionStatus
-  mode?: Prisma.EnumInventorySessionModeFieldUpdateOperationsInput | $Enums.InventorySessionMode
-  binId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  zoneId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  productId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  totalItems?: Prisma.IntFieldUpdateOperationsInput | number
-  scannedItems?: Prisma.IntFieldUpdateOperationsInput | number
-  confirmedItems?: Prisma.IntFieldUpdateOperationsInput | number
-  divergentItems?: Prisma.IntFieldUpdateOperationsInput | number
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type InventorySessionCreateManyTenantInput = {
-  id?: string
-  userId: string
-  status?: $Enums.InventorySessionStatus
-  mode: $Enums.InventorySessionMode
-  binId?: string | null
-  zoneId?: string | null
-  productId?: string | null
-  variantId?: string | null
-  totalItems?: number
-  scannedItems?: number
-  confirmedItems?: number
-  divergentItems?: number
-  notes?: string | null
-  startedAt?: Date | string
-  completedAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-}
-
-export type InventorySessionUpdateWithoutTenantInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumInventorySessionStatusFieldUpdateOperationsInput | $Enums.InventorySessionStatus
-  mode?: Prisma.EnumInventorySessionModeFieldUpdateOperationsInput | $Enums.InventorySessionMode
-  totalItems?: Prisma.IntFieldUpdateOperationsInput | number
-  scannedItems?: Prisma.IntFieldUpdateOperationsInput | number
-  confirmedItems?: Prisma.IntFieldUpdateOperationsInput | number
-  divergentItems?: Prisma.IntFieldUpdateOperationsInput | number
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  user?: Prisma.UserUpdateOneRequiredWithoutInventorySessionsNestedInput
-  bin?: Prisma.BinUpdateOneWithoutInventorySessionsNestedInput
-  zone?: Prisma.ZoneUpdateOneWithoutInventorySessionsNestedInput
-  product?: Prisma.ProductUpdateOneWithoutInventorySessionsNestedInput
-  variant?: Prisma.VariantUpdateOneWithoutInventorySessionsNestedInput
-  items?: Prisma.InventorySessionItemUpdateManyWithoutSessionNestedInput
-}
-
-export type InventorySessionUncheckedUpdateWithoutTenantInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumInventorySessionStatusFieldUpdateOperationsInput | $Enums.InventorySessionStatus
-  mode?: Prisma.EnumInventorySessionModeFieldUpdateOperationsInput | $Enums.InventorySessionMode
-  binId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  zoneId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  productId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  variantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  totalItems?: Prisma.IntFieldUpdateOperationsInput | number
-  scannedItems?: Prisma.IntFieldUpdateOperationsInput | number
-  confirmedItems?: Prisma.IntFieldUpdateOperationsInput | number
-  divergentItems?: Prisma.IntFieldUpdateOperationsInput | number
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  items?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutSessionNestedInput
-}
-
-export type InventorySessionUncheckedUpdateManyWithoutTenantInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumInventorySessionStatusFieldUpdateOperationsInput | $Enums.InventorySessionStatus
-  mode?: Prisma.EnumInventorySessionModeFieldUpdateOperationsInput | $Enums.InventorySessionMode
-  binId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  zoneId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  productId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  variantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  totalItems?: Prisma.IntFieldUpdateOperationsInput | number
-  scannedItems?: Prisma.IntFieldUpdateOperationsInput | number
-  confirmedItems?: Prisma.IntFieldUpdateOperationsInput | number
-  divergentItems?: Prisma.IntFieldUpdateOperationsInput | number
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -2018,166 +937,116 @@ export type InventorySessionCountOutputTypeCountItemsArgs<ExtArgs extends runtim
 
 export type InventorySessionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  tenantId?: boolean
-  userId?: boolean
-  status?: boolean
   mode?: boolean
-  binId?: boolean
-  zoneId?: boolean
-  productId?: boolean
-  variantId?: boolean
+  status?: boolean
+  scope?: boolean
   totalItems?: boolean
-  scannedItems?: boolean
   confirmedItems?: boolean
-  divergentItems?: boolean
+  divergences?: boolean
   notes?: boolean
   startedAt?: boolean
+  pausedAt?: boolean
   completedAt?: boolean
   createdAt?: boolean
-  updatedAt?: boolean
-  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
+  deletedAt?: boolean
+  startedBy?: boolean
+  tenantId?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  bin?: boolean | Prisma.InventorySession$binArgs<ExtArgs>
-  zone?: boolean | Prisma.InventorySession$zoneArgs<ExtArgs>
-  product?: boolean | Prisma.InventorySession$productArgs<ExtArgs>
-  variant?: boolean | Prisma.InventorySession$variantArgs<ExtArgs>
   items?: boolean | Prisma.InventorySession$itemsArgs<ExtArgs>
   _count?: boolean | Prisma.InventorySessionCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["inventorySession"]>
 
 export type InventorySessionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  tenantId?: boolean
-  userId?: boolean
-  status?: boolean
   mode?: boolean
-  binId?: boolean
-  zoneId?: boolean
-  productId?: boolean
-  variantId?: boolean
+  status?: boolean
+  scope?: boolean
   totalItems?: boolean
-  scannedItems?: boolean
   confirmedItems?: boolean
-  divergentItems?: boolean
+  divergences?: boolean
   notes?: boolean
   startedAt?: boolean
+  pausedAt?: boolean
   completedAt?: boolean
   createdAt?: boolean
-  updatedAt?: boolean
-  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
+  deletedAt?: boolean
+  startedBy?: boolean
+  tenantId?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  bin?: boolean | Prisma.InventorySession$binArgs<ExtArgs>
-  zone?: boolean | Prisma.InventorySession$zoneArgs<ExtArgs>
-  product?: boolean | Prisma.InventorySession$productArgs<ExtArgs>
-  variant?: boolean | Prisma.InventorySession$variantArgs<ExtArgs>
 }, ExtArgs["result"]["inventorySession"]>
 
 export type InventorySessionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  tenantId?: boolean
-  userId?: boolean
-  status?: boolean
   mode?: boolean
-  binId?: boolean
-  zoneId?: boolean
-  productId?: boolean
-  variantId?: boolean
+  status?: boolean
+  scope?: boolean
   totalItems?: boolean
-  scannedItems?: boolean
   confirmedItems?: boolean
-  divergentItems?: boolean
+  divergences?: boolean
   notes?: boolean
   startedAt?: boolean
+  pausedAt?: boolean
   completedAt?: boolean
   createdAt?: boolean
-  updatedAt?: boolean
-  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
+  deletedAt?: boolean
+  startedBy?: boolean
+  tenantId?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  bin?: boolean | Prisma.InventorySession$binArgs<ExtArgs>
-  zone?: boolean | Prisma.InventorySession$zoneArgs<ExtArgs>
-  product?: boolean | Prisma.InventorySession$productArgs<ExtArgs>
-  variant?: boolean | Prisma.InventorySession$variantArgs<ExtArgs>
 }, ExtArgs["result"]["inventorySession"]>
 
 export type InventorySessionSelectScalar = {
   id?: boolean
-  tenantId?: boolean
-  userId?: boolean
-  status?: boolean
   mode?: boolean
-  binId?: boolean
-  zoneId?: boolean
-  productId?: boolean
-  variantId?: boolean
+  status?: boolean
+  scope?: boolean
   totalItems?: boolean
-  scannedItems?: boolean
   confirmedItems?: boolean
-  divergentItems?: boolean
+  divergences?: boolean
   notes?: boolean
   startedAt?: boolean
+  pausedAt?: boolean
   completedAt?: boolean
   createdAt?: boolean
-  updatedAt?: boolean
+  deletedAt?: boolean
+  startedBy?: boolean
+  tenantId?: boolean
 }
 
-export type InventorySessionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "userId" | "status" | "mode" | "binId" | "zoneId" | "productId" | "variantId" | "totalItems" | "scannedItems" | "confirmedItems" | "divergentItems" | "notes" | "startedAt" | "completedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["inventorySession"]>
+export type InventorySessionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "mode" | "status" | "scope" | "totalItems" | "confirmedItems" | "divergences" | "notes" | "startedAt" | "pausedAt" | "completedAt" | "createdAt" | "deletedAt" | "startedBy" | "tenantId", ExtArgs["result"]["inventorySession"]>
 export type InventorySessionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  bin?: boolean | Prisma.InventorySession$binArgs<ExtArgs>
-  zone?: boolean | Prisma.InventorySession$zoneArgs<ExtArgs>
-  product?: boolean | Prisma.InventorySession$productArgs<ExtArgs>
-  variant?: boolean | Prisma.InventorySession$variantArgs<ExtArgs>
   items?: boolean | Prisma.InventorySession$itemsArgs<ExtArgs>
   _count?: boolean | Prisma.InventorySessionCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type InventorySessionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  bin?: boolean | Prisma.InventorySession$binArgs<ExtArgs>
-  zone?: boolean | Prisma.InventorySession$zoneArgs<ExtArgs>
-  product?: boolean | Prisma.InventorySession$productArgs<ExtArgs>
-  variant?: boolean | Prisma.InventorySession$variantArgs<ExtArgs>
 }
 export type InventorySessionIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  bin?: boolean | Prisma.InventorySession$binArgs<ExtArgs>
-  zone?: boolean | Prisma.InventorySession$zoneArgs<ExtArgs>
-  product?: boolean | Prisma.InventorySession$productArgs<ExtArgs>
-  variant?: boolean | Prisma.InventorySession$variantArgs<ExtArgs>
 }
 
 export type $InventorySessionPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "InventorySession"
   objects: {
-    tenant: Prisma.$TenantPayload<ExtArgs>
     user: Prisma.$UserPayload<ExtArgs>
-    bin: Prisma.$BinPayload<ExtArgs> | null
-    zone: Prisma.$ZonePayload<ExtArgs> | null
-    product: Prisma.$ProductPayload<ExtArgs> | null
-    variant: Prisma.$VariantPayload<ExtArgs> | null
     items: Prisma.$InventorySessionItemPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
-    tenantId: string
-    userId: string
-    status: $Enums.InventorySessionStatus
     mode: $Enums.InventorySessionMode
-    binId: string | null
-    zoneId: string | null
-    productId: string | null
-    variantId: string | null
+    status: $Enums.InventorySessionStatus
+    scope: runtime.JsonValue
     totalItems: number
-    scannedItems: number
     confirmedItems: number
-    divergentItems: number
+    divergences: number
     notes: string | null
     startedAt: Date
+    pausedAt: Date | null
     completedAt: Date | null
     createdAt: Date
-    updatedAt: Date
+    deletedAt: Date | null
+    startedBy: string
+    tenantId: string
   }, ExtArgs["result"]["inventorySession"]>
   composites: {}
 }
@@ -2572,12 +1441,7 @@ readonly fields: InventorySessionFieldRefs;
  */
 export interface Prisma__InventorySessionClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  tenant<T extends Prisma.TenantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  bin<T extends Prisma.InventorySession$binArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.InventorySession$binArgs<ExtArgs>>): Prisma.Prisma__BinClient<runtime.Types.Result.GetResult<Prisma.$BinPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  zone<T extends Prisma.InventorySession$zoneArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.InventorySession$zoneArgs<ExtArgs>>): Prisma.Prisma__ZoneClient<runtime.Types.Result.GetResult<Prisma.$ZonePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  product<T extends Prisma.InventorySession$productArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.InventorySession$productArgs<ExtArgs>>): Prisma.Prisma__ProductClient<runtime.Types.Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  variant<T extends Prisma.InventorySession$variantArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.InventorySession$variantArgs<ExtArgs>>): Prisma.Prisma__VariantClient<runtime.Types.Result.GetResult<Prisma.$VariantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   items<T extends Prisma.InventorySession$itemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.InventorySession$itemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InventorySessionItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -2609,23 +1473,20 @@ export interface Prisma__InventorySessionClient<T, Null = never, ExtArgs extends
  */
 export interface InventorySessionFieldRefs {
   readonly id: Prisma.FieldRef<"InventorySession", 'String'>
-  readonly tenantId: Prisma.FieldRef<"InventorySession", 'String'>
-  readonly userId: Prisma.FieldRef<"InventorySession", 'String'>
-  readonly status: Prisma.FieldRef<"InventorySession", 'InventorySessionStatus'>
   readonly mode: Prisma.FieldRef<"InventorySession", 'InventorySessionMode'>
-  readonly binId: Prisma.FieldRef<"InventorySession", 'String'>
-  readonly zoneId: Prisma.FieldRef<"InventorySession", 'String'>
-  readonly productId: Prisma.FieldRef<"InventorySession", 'String'>
-  readonly variantId: Prisma.FieldRef<"InventorySession", 'String'>
+  readonly status: Prisma.FieldRef<"InventorySession", 'InventorySessionStatus'>
+  readonly scope: Prisma.FieldRef<"InventorySession", 'Json'>
   readonly totalItems: Prisma.FieldRef<"InventorySession", 'Int'>
-  readonly scannedItems: Prisma.FieldRef<"InventorySession", 'Int'>
   readonly confirmedItems: Prisma.FieldRef<"InventorySession", 'Int'>
-  readonly divergentItems: Prisma.FieldRef<"InventorySession", 'Int'>
+  readonly divergences: Prisma.FieldRef<"InventorySession", 'Int'>
   readonly notes: Prisma.FieldRef<"InventorySession", 'String'>
   readonly startedAt: Prisma.FieldRef<"InventorySession", 'DateTime'>
+  readonly pausedAt: Prisma.FieldRef<"InventorySession", 'DateTime'>
   readonly completedAt: Prisma.FieldRef<"InventorySession", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"InventorySession", 'DateTime'>
-  readonly updatedAt: Prisma.FieldRef<"InventorySession", 'DateTime'>
+  readonly deletedAt: Prisma.FieldRef<"InventorySession", 'DateTime'>
+  readonly startedBy: Prisma.FieldRef<"InventorySession", 'String'>
+  readonly tenantId: Prisma.FieldRef<"InventorySession", 'String'>
 }
     
 
@@ -3019,82 +1880,6 @@ export type InventorySessionDeleteManyArgs<ExtArgs extends runtime.Types.Extensi
    * Limit how many InventorySessions to delete.
    */
   limit?: number
-}
-
-/**
- * InventorySession.bin
- */
-export type InventorySession$binArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Bin
-   */
-  select?: Prisma.BinSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Bin
-   */
-  omit?: Prisma.BinOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.BinInclude<ExtArgs> | null
-  where?: Prisma.BinWhereInput
-}
-
-/**
- * InventorySession.zone
- */
-export type InventorySession$zoneArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Zone
-   */
-  select?: Prisma.ZoneSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Zone
-   */
-  omit?: Prisma.ZoneOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ZoneInclude<ExtArgs> | null
-  where?: Prisma.ZoneWhereInput
-}
-
-/**
- * InventorySession.product
- */
-export type InventorySession$productArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Product
-   */
-  select?: Prisma.ProductSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Product
-   */
-  omit?: Prisma.ProductOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ProductInclude<ExtArgs> | null
-  where?: Prisma.ProductWhereInput
-}
-
-/**
- * InventorySession.variant
- */
-export type InventorySession$variantArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Variant
-   */
-  select?: Prisma.VariantSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Variant
-   */
-  omit?: Prisma.VariantOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.VariantInclude<ExtArgs> | null
-  where?: Prisma.VariantWhereInput
 }
 
 /**

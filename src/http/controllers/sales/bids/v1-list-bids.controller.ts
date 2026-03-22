@@ -2,10 +2,8 @@ import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import {
-  bidResponseSchema,
-  listBidsQuerySchema,
-} from '@/http/schemas/sales/bids';
+import { listBidsQuerySchema, bidResponseSchema } from '@/http/schemas/sales/bids/bid.schema';
+import { bidToDTO } from '@/mappers/sales/bid/bid-to-dto';
 import { makeListBidsUseCase } from '@/use-cases/sales/bids/factories/make-list-bids-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -24,8 +22,8 @@ export async function listBidsController(app: FastifyInstance) {
       }),
     ],
     schema: {
-      tags: ['Sales - Bids'],
-      summary: 'List all bids (licitacoes)',
+      tags: ['Sales - Bids (Licitacoes)'],
+      summary: 'List all bids/licitacoes',
       querystring: listBidsQuerySchema,
       response: {
         200: z.object({
@@ -40,25 +38,19 @@ export async function listBidsController(app: FastifyInstance) {
       },
       security: [{ bearerAuth: [] }],
     },
-
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
       const query = request.query;
 
       const useCase = makeListBidsUseCase();
-      const { bids, total, totalPages } = await useCase.execute({
+      const { bids, total, page, limit, totalPages } = await useCase.execute({
         tenantId,
         ...query,
       });
 
       return reply.status(200).send({
-        bids,
-        meta: {
-          total,
-          page: query.page,
-          limit: query.limit,
-          pages: totalPages,
-        },
+        bids: bids.map(bidToDTO),
+        meta: { total, page, limit, pages: totalPages },
       });
     },
   });

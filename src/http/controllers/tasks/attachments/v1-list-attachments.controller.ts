@@ -16,8 +16,8 @@ export async function listAttachmentsController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.TOOLS.TASKS.CARDS.ACCESS,
-        resource: 'task-cards',
+        permissionCode: PermissionCodes.TOOLS.TASKS.ATTACHMENTS.ACCESS,
+        resource: 'task-attachments',
       }),
     ],
     schema: {

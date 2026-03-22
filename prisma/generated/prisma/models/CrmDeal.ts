@@ -54,9 +54,9 @@ export type CrmDealMinAggregateOutputType = {
   source: string | null
   position: number | null
   assignedToUserId: string | null
-  deletedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
+  deletedAt: Date | null
 }
 
 export type CrmDealMaxAggregateOutputType = {
@@ -77,9 +77,9 @@ export type CrmDealMaxAggregateOutputType = {
   source: string | null
   position: number | null
   assignedToUserId: string | null
-  deletedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
+  deletedAt: Date | null
 }
 
 export type CrmDealCountAggregateOutputType = {
@@ -102,9 +102,9 @@ export type CrmDealCountAggregateOutputType = {
   customFields: number
   position: number
   assignedToUserId: number
-  deletedAt: number
   createdAt: number
   updatedAt: number
+  deletedAt: number
   _all: number
 }
 
@@ -137,9 +137,9 @@ export type CrmDealMinAggregateInputType = {
   source?: true
   position?: true
   assignedToUserId?: true
-  deletedAt?: true
   createdAt?: true
   updatedAt?: true
+  deletedAt?: true
 }
 
 export type CrmDealMaxAggregateInputType = {
@@ -160,9 +160,9 @@ export type CrmDealMaxAggregateInputType = {
   source?: true
   position?: true
   assignedToUserId?: true
-  deletedAt?: true
   createdAt?: true
   updatedAt?: true
+  deletedAt?: true
 }
 
 export type CrmDealCountAggregateInputType = {
@@ -185,9 +185,9 @@ export type CrmDealCountAggregateInputType = {
   customFields?: true
   position?: true
   assignedToUserId?: true
-  deletedAt?: true
   createdAt?: true
   updatedAt?: true
+  deletedAt?: true
   _all?: true
 }
 
@@ -293,13 +293,13 @@ export type CrmDealGroupByOutputType = {
   closedAt: Date | null
   lostReason: string | null
   source: string | null
-  tags: string[]
+  tags: runtime.JsonValue
   customFields: runtime.JsonValue | null
   position: number
   assignedToUserId: string | null
-  deletedAt: Date | null
   createdAt: Date
   updatedAt: Date
+  deletedAt: Date | null
   _count: CrmDealCountAggregateOutputType | null
   _avg: CrmDealAvgAggregateOutputType | null
   _sum: CrmDealSumAggregateOutputType | null
@@ -341,13 +341,13 @@ export type CrmDealWhereInput = {
   closedAt?: Prisma.DateTimeNullableFilter<"CrmDeal"> | Date | string | null
   lostReason?: Prisma.StringNullableFilter<"CrmDeal"> | string | null
   source?: Prisma.StringNullableFilter<"CrmDeal"> | string | null
-  tags?: Prisma.StringNullableListFilter<"CrmDeal">
+  tags?: Prisma.JsonFilter<"CrmDeal">
   customFields?: Prisma.JsonNullableFilter<"CrmDeal">
   position?: Prisma.IntFilter<"CrmDeal"> | number
   assignedToUserId?: Prisma.StringNullableFilter<"CrmDeal"> | string | null
-  deletedAt?: Prisma.DateTimeNullableFilter<"CrmDeal"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"CrmDeal"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"CrmDeal"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"CrmDeal"> | Date | string | null
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   customer?: Prisma.XOR<Prisma.CustomerScalarRelationFilter, Prisma.CustomerWhereInput>
   contact?: Prisma.XOR<Prisma.CrmContactNullableScalarRelationFilter, Prisma.CrmContactWhereInput> | null
@@ -378,9 +378,9 @@ export type CrmDealOrderByWithRelationInput = {
   customFields?: Prisma.SortOrderInput | Prisma.SortOrder
   position?: Prisma.SortOrder
   assignedToUserId?: Prisma.SortOrderInput | Prisma.SortOrder
-  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   tenant?: Prisma.TenantOrderByWithRelationInput
   customer?: Prisma.CustomerOrderByWithRelationInput
   contact?: Prisma.CrmContactOrderByWithRelationInput
@@ -410,13 +410,13 @@ export type CrmDealWhereUniqueInput = Prisma.AtLeast<{
   closedAt?: Prisma.DateTimeNullableFilter<"CrmDeal"> | Date | string | null
   lostReason?: Prisma.StringNullableFilter<"CrmDeal"> | string | null
   source?: Prisma.StringNullableFilter<"CrmDeal"> | string | null
-  tags?: Prisma.StringNullableListFilter<"CrmDeal">
+  tags?: Prisma.JsonFilter<"CrmDeal">
   customFields?: Prisma.JsonNullableFilter<"CrmDeal">
   position?: Prisma.IntFilter<"CrmDeal"> | number
   assignedToUserId?: Prisma.StringNullableFilter<"CrmDeal"> | string | null
-  deletedAt?: Prisma.DateTimeNullableFilter<"CrmDeal"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"CrmDeal"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"CrmDeal"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"CrmDeal"> | Date | string | null
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   customer?: Prisma.XOR<Prisma.CustomerScalarRelationFilter, Prisma.CustomerWhereInput>
   contact?: Prisma.XOR<Prisma.CrmContactNullableScalarRelationFilter, Prisma.CrmContactWhereInput> | null
@@ -447,9 +447,9 @@ export type CrmDealOrderByWithAggregationInput = {
   customFields?: Prisma.SortOrderInput | Prisma.SortOrder
   position?: Prisma.SortOrder
   assignedToUserId?: Prisma.SortOrderInput | Prisma.SortOrder
-  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.CrmDealCountOrderByAggregateInput
   _avg?: Prisma.CrmDealAvgOrderByAggregateInput
   _max?: Prisma.CrmDealMaxOrderByAggregateInput
@@ -476,13 +476,13 @@ export type CrmDealScalarWhereWithAggregatesInput = {
   closedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"CrmDeal"> | Date | string | null
   lostReason?: Prisma.StringNullableWithAggregatesFilter<"CrmDeal"> | string | null
   source?: Prisma.StringNullableWithAggregatesFilter<"CrmDeal"> | string | null
-  tags?: Prisma.StringNullableListFilter<"CrmDeal">
+  tags?: Prisma.JsonWithAggregatesFilter<"CrmDeal">
   customFields?: Prisma.JsonNullableWithAggregatesFilter<"CrmDeal">
   position?: Prisma.IntWithAggregatesFilter<"CrmDeal"> | number
   assignedToUserId?: Prisma.StringNullableWithAggregatesFilter<"CrmDeal"> | string | null
-  deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"CrmDeal"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"CrmDeal"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"CrmDeal"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"CrmDeal"> | Date | string | null
 }
 
 export type CrmDealCreateInput = {
@@ -496,12 +496,12 @@ export type CrmDealCreateInput = {
   closedAt?: Date | string | null
   lostReason?: string | null
   source?: string | null
-  tags?: Prisma.CrmDealCreatetagsInput | string[]
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: number
-  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutCrmDealsInput
   customer: Prisma.CustomerCreateNestedOneWithoutCrmDealsInput
   contact?: Prisma.CrmContactCreateNestedOneWithoutCrmDealsInput
@@ -528,13 +528,13 @@ export type CrmDealUncheckedCreateInput = {
   closedAt?: Date | string | null
   lostReason?: string | null
   source?: string | null
-  tags?: Prisma.CrmDealCreatetagsInput | string[]
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: number
   assignedToUserId?: string | null
-  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   activities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutDealInput
   timeline?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutDealInput
 }
@@ -550,12 +550,12 @@ export type CrmDealUpdateInput = {
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lostReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tags?: Prisma.CrmDealUpdatetagsInput | string[]
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: Prisma.IntFieldUpdateOperationsInput | number
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutCrmDealsNestedInput
   customer?: Prisma.CustomerUpdateOneRequiredWithoutCrmDealsNestedInput
   contact?: Prisma.CrmContactUpdateOneWithoutCrmDealsNestedInput
@@ -582,13 +582,13 @@ export type CrmDealUncheckedUpdateInput = {
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lostReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tags?: Prisma.CrmDealUpdatetagsInput | string[]
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: Prisma.IntFieldUpdateOperationsInput | number
   assignedToUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activities?: Prisma.CrmActivityUncheckedUpdateManyWithoutDealNestedInput
   timeline?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutDealNestedInput
 }
@@ -609,13 +609,13 @@ export type CrmDealCreateManyInput = {
   closedAt?: Date | string | null
   lostReason?: string | null
   source?: string | null
-  tags?: Prisma.CrmDealCreatetagsInput | string[]
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: number
   assignedToUserId?: string | null
-  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
 }
 
 export type CrmDealUpdateManyMutationInput = {
@@ -629,12 +629,12 @@ export type CrmDealUpdateManyMutationInput = {
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lostReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tags?: Prisma.CrmDealUpdatetagsInput | string[]
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: Prisma.IntFieldUpdateOperationsInput | number
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type CrmDealUncheckedUpdateManyInput = {
@@ -653,13 +653,13 @@ export type CrmDealUncheckedUpdateManyInput = {
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lostReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tags?: Prisma.CrmDealUpdatetagsInput | string[]
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: Prisma.IntFieldUpdateOperationsInput | number
   assignedToUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type CrmDealListRelationFilter = {
@@ -692,9 +692,9 @@ export type CrmDealCountOrderByAggregateInput = {
   customFields?: Prisma.SortOrder
   position?: Prisma.SortOrder
   assignedToUserId?: Prisma.SortOrder
-  deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
 }
 
 export type CrmDealAvgOrderByAggregateInput = {
@@ -720,9 +720,9 @@ export type CrmDealMaxOrderByAggregateInput = {
   source?: Prisma.SortOrder
   position?: Prisma.SortOrder
   assignedToUserId?: Prisma.SortOrder
-  deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
 }
 
 export type CrmDealMinOrderByAggregateInput = {
@@ -743,9 +743,9 @@ export type CrmDealMinOrderByAggregateInput = {
   source?: Prisma.SortOrder
   position?: Prisma.SortOrder
   assignedToUserId?: Prisma.SortOrder
-  deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
 }
 
 export type CrmDealSumOrderByAggregateInput = {
@@ -973,21 +973,12 @@ export type CrmDealUncheckedUpdateManyWithoutStageNestedInput = {
   deleteMany?: Prisma.CrmDealScalarWhereInput | Prisma.CrmDealScalarWhereInput[]
 }
 
-export type CrmDealCreatetagsInput = {
-  set: string[]
-}
-
 export type EnumDealStatusFieldUpdateOperationsInput = {
   set?: $Enums.DealStatus
 }
 
 export type EnumDealPriorityFieldUpdateOperationsInput = {
   set?: $Enums.DealPriority
-}
-
-export type CrmDealUpdatetagsInput = {
-  set?: string[]
-  push?: string | string[]
 }
 
 export type CrmDealCreateNestedOneWithoutActivitiesInput = {
@@ -1073,12 +1064,12 @@ export type CrmDealCreateWithoutAssignedToInput = {
   closedAt?: Date | string | null
   lostReason?: string | null
   source?: string | null
-  tags?: Prisma.CrmDealCreatetagsInput | string[]
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: number
-  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutCrmDealsInput
   customer: Prisma.CustomerCreateNestedOneWithoutCrmDealsInput
   contact?: Prisma.CrmContactCreateNestedOneWithoutCrmDealsInput
@@ -1104,12 +1095,12 @@ export type CrmDealUncheckedCreateWithoutAssignedToInput = {
   closedAt?: Date | string | null
   lostReason?: string | null
   source?: string | null
-  tags?: Prisma.CrmDealCreatetagsInput | string[]
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: number
-  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   activities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutDealInput
   timeline?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutDealInput
 }
@@ -1159,13 +1150,13 @@ export type CrmDealScalarWhereInput = {
   closedAt?: Prisma.DateTimeNullableFilter<"CrmDeal"> | Date | string | null
   lostReason?: Prisma.StringNullableFilter<"CrmDeal"> | string | null
   source?: Prisma.StringNullableFilter<"CrmDeal"> | string | null
-  tags?: Prisma.StringNullableListFilter<"CrmDeal">
+  tags?: Prisma.JsonFilter<"CrmDeal">
   customFields?: Prisma.JsonNullableFilter<"CrmDeal">
   position?: Prisma.IntFilter<"CrmDeal"> | number
   assignedToUserId?: Prisma.StringNullableFilter<"CrmDeal"> | string | null
-  deletedAt?: Prisma.DateTimeNullableFilter<"CrmDeal"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"CrmDeal"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"CrmDeal"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"CrmDeal"> | Date | string | null
 }
 
 export type CrmDealCreateWithoutCustomerInput = {
@@ -1179,12 +1170,12 @@ export type CrmDealCreateWithoutCustomerInput = {
   closedAt?: Date | string | null
   lostReason?: string | null
   source?: string | null
-  tags?: Prisma.CrmDealCreatetagsInput | string[]
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: number
-  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutCrmDealsInput
   contact?: Prisma.CrmContactCreateNestedOneWithoutCrmDealsInput
   pipeline: Prisma.CrmPipelineCreateNestedOneWithoutDealsInput
@@ -1209,13 +1200,13 @@ export type CrmDealUncheckedCreateWithoutCustomerInput = {
   closedAt?: Date | string | null
   lostReason?: string | null
   source?: string | null
-  tags?: Prisma.CrmDealCreatetagsInput | string[]
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: number
   assignedToUserId?: string | null
-  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   activities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutDealInput
   timeline?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutDealInput
 }
@@ -1257,12 +1248,12 @@ export type CrmDealCreateWithoutContactInput = {
   closedAt?: Date | string | null
   lostReason?: string | null
   source?: string | null
-  tags?: Prisma.CrmDealCreatetagsInput | string[]
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: number
-  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutCrmDealsInput
   customer: Prisma.CustomerCreateNestedOneWithoutCrmDealsInput
   pipeline: Prisma.CrmPipelineCreateNestedOneWithoutDealsInput
@@ -1287,13 +1278,13 @@ export type CrmDealUncheckedCreateWithoutContactInput = {
   closedAt?: Date | string | null
   lostReason?: string | null
   source?: string | null
-  tags?: Prisma.CrmDealCreatetagsInput | string[]
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: number
   assignedToUserId?: string | null
-  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   activities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutDealInput
   timeline?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutDealInput
 }
@@ -1335,12 +1326,12 @@ export type CrmDealCreateWithoutPipelineInput = {
   closedAt?: Date | string | null
   lostReason?: string | null
   source?: string | null
-  tags?: Prisma.CrmDealCreatetagsInput | string[]
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: number
-  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutCrmDealsInput
   customer: Prisma.CustomerCreateNestedOneWithoutCrmDealsInput
   contact?: Prisma.CrmContactCreateNestedOneWithoutCrmDealsInput
@@ -1365,13 +1356,13 @@ export type CrmDealUncheckedCreateWithoutPipelineInput = {
   closedAt?: Date | string | null
   lostReason?: string | null
   source?: string | null
-  tags?: Prisma.CrmDealCreatetagsInput | string[]
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: number
   assignedToUserId?: string | null
-  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   activities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutDealInput
   timeline?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutDealInput
 }
@@ -1413,12 +1404,12 @@ export type CrmDealCreateWithoutStageInput = {
   closedAt?: Date | string | null
   lostReason?: string | null
   source?: string | null
-  tags?: Prisma.CrmDealCreatetagsInput | string[]
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: number
-  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutCrmDealsInput
   customer: Prisma.CustomerCreateNestedOneWithoutCrmDealsInput
   contact?: Prisma.CrmContactCreateNestedOneWithoutCrmDealsInput
@@ -1443,13 +1434,13 @@ export type CrmDealUncheckedCreateWithoutStageInput = {
   closedAt?: Date | string | null
   lostReason?: string | null
   source?: string | null
-  tags?: Prisma.CrmDealCreatetagsInput | string[]
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: number
   assignedToUserId?: string | null
-  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   activities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutDealInput
   timeline?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutDealInput
 }
@@ -1491,12 +1482,12 @@ export type CrmDealCreateWithoutActivitiesInput = {
   closedAt?: Date | string | null
   lostReason?: string | null
   source?: string | null
-  tags?: Prisma.CrmDealCreatetagsInput | string[]
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: number
-  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutCrmDealsInput
   customer: Prisma.CustomerCreateNestedOneWithoutCrmDealsInput
   contact?: Prisma.CrmContactCreateNestedOneWithoutCrmDealsInput
@@ -1522,13 +1513,13 @@ export type CrmDealUncheckedCreateWithoutActivitiesInput = {
   closedAt?: Date | string | null
   lostReason?: string | null
   source?: string | null
-  tags?: Prisma.CrmDealCreatetagsInput | string[]
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: number
   assignedToUserId?: string | null
-  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   timeline?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutDealInput
 }
 
@@ -1559,12 +1550,12 @@ export type CrmDealUpdateWithoutActivitiesInput = {
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lostReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tags?: Prisma.CrmDealUpdatetagsInput | string[]
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: Prisma.IntFieldUpdateOperationsInput | number
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutCrmDealsNestedInput
   customer?: Prisma.CustomerUpdateOneRequiredWithoutCrmDealsNestedInput
   contact?: Prisma.CrmContactUpdateOneWithoutCrmDealsNestedInput
@@ -1590,13 +1581,13 @@ export type CrmDealUncheckedUpdateWithoutActivitiesInput = {
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lostReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tags?: Prisma.CrmDealUpdatetagsInput | string[]
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: Prisma.IntFieldUpdateOperationsInput | number
   assignedToUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   timeline?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutDealNestedInput
 }
 
@@ -1611,12 +1602,12 @@ export type CrmDealCreateWithoutTimelineInput = {
   closedAt?: Date | string | null
   lostReason?: string | null
   source?: string | null
-  tags?: Prisma.CrmDealCreatetagsInput | string[]
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: number
-  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutCrmDealsInput
   customer: Prisma.CustomerCreateNestedOneWithoutCrmDealsInput
   contact?: Prisma.CrmContactCreateNestedOneWithoutCrmDealsInput
@@ -1642,13 +1633,13 @@ export type CrmDealUncheckedCreateWithoutTimelineInput = {
   closedAt?: Date | string | null
   lostReason?: string | null
   source?: string | null
-  tags?: Prisma.CrmDealCreatetagsInput | string[]
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: number
   assignedToUserId?: string | null
-  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   activities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutDealInput
 }
 
@@ -1679,12 +1670,12 @@ export type CrmDealUpdateWithoutTimelineInput = {
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lostReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tags?: Prisma.CrmDealUpdatetagsInput | string[]
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: Prisma.IntFieldUpdateOperationsInput | number
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutCrmDealsNestedInput
   customer?: Prisma.CustomerUpdateOneRequiredWithoutCrmDealsNestedInput
   contact?: Prisma.CrmContactUpdateOneWithoutCrmDealsNestedInput
@@ -1710,13 +1701,13 @@ export type CrmDealUncheckedUpdateWithoutTimelineInput = {
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lostReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tags?: Prisma.CrmDealUpdatetagsInput | string[]
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: Prisma.IntFieldUpdateOperationsInput | number
   assignedToUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activities?: Prisma.CrmActivityUncheckedUpdateManyWithoutDealNestedInput
 }
 
@@ -1731,12 +1722,12 @@ export type CrmDealCreateWithoutTenantInput = {
   closedAt?: Date | string | null
   lostReason?: string | null
   source?: string | null
-  tags?: Prisma.CrmDealCreatetagsInput | string[]
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: number
-  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   customer: Prisma.CustomerCreateNestedOneWithoutCrmDealsInput
   contact?: Prisma.CrmContactCreateNestedOneWithoutCrmDealsInput
   pipeline: Prisma.CrmPipelineCreateNestedOneWithoutDealsInput
@@ -1761,13 +1752,13 @@ export type CrmDealUncheckedCreateWithoutTenantInput = {
   closedAt?: Date | string | null
   lostReason?: string | null
   source?: string | null
-  tags?: Prisma.CrmDealCreatetagsInput | string[]
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: number
   assignedToUserId?: string | null
-  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   activities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutDealInput
   timeline?: Prisma.CrmTimelineEventUncheckedCreateNestedManyWithoutDealInput
 }
@@ -1814,12 +1805,12 @@ export type CrmDealCreateManyAssignedToInput = {
   closedAt?: Date | string | null
   lostReason?: string | null
   source?: string | null
-  tags?: Prisma.CrmDealCreatetagsInput | string[]
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: number
-  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
 }
 
 export type CrmDealUpdateWithoutAssignedToInput = {
@@ -1833,12 +1824,12 @@ export type CrmDealUpdateWithoutAssignedToInput = {
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lostReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tags?: Prisma.CrmDealUpdatetagsInput | string[]
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: Prisma.IntFieldUpdateOperationsInput | number
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutCrmDealsNestedInput
   customer?: Prisma.CustomerUpdateOneRequiredWithoutCrmDealsNestedInput
   contact?: Prisma.CrmContactUpdateOneWithoutCrmDealsNestedInput
@@ -1864,12 +1855,12 @@ export type CrmDealUncheckedUpdateWithoutAssignedToInput = {
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lostReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tags?: Prisma.CrmDealUpdatetagsInput | string[]
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: Prisma.IntFieldUpdateOperationsInput | number
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activities?: Prisma.CrmActivityUncheckedUpdateManyWithoutDealNestedInput
   timeline?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutDealNestedInput
 }
@@ -1890,12 +1881,12 @@ export type CrmDealUncheckedUpdateManyWithoutAssignedToInput = {
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lostReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tags?: Prisma.CrmDealUpdatetagsInput | string[]
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: Prisma.IntFieldUpdateOperationsInput | number
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type CrmDealCreateManyCustomerInput = {
@@ -1913,13 +1904,13 @@ export type CrmDealCreateManyCustomerInput = {
   closedAt?: Date | string | null
   lostReason?: string | null
   source?: string | null
-  tags?: Prisma.CrmDealCreatetagsInput | string[]
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: number
   assignedToUserId?: string | null
-  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
 }
 
 export type CrmDealUpdateWithoutCustomerInput = {
@@ -1933,12 +1924,12 @@ export type CrmDealUpdateWithoutCustomerInput = {
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lostReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tags?: Prisma.CrmDealUpdatetagsInput | string[]
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: Prisma.IntFieldUpdateOperationsInput | number
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutCrmDealsNestedInput
   contact?: Prisma.CrmContactUpdateOneWithoutCrmDealsNestedInput
   pipeline?: Prisma.CrmPipelineUpdateOneRequiredWithoutDealsNestedInput
@@ -1963,13 +1954,13 @@ export type CrmDealUncheckedUpdateWithoutCustomerInput = {
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lostReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tags?: Prisma.CrmDealUpdatetagsInput | string[]
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: Prisma.IntFieldUpdateOperationsInput | number
   assignedToUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activities?: Prisma.CrmActivityUncheckedUpdateManyWithoutDealNestedInput
   timeline?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutDealNestedInput
 }
@@ -1989,13 +1980,13 @@ export type CrmDealUncheckedUpdateManyWithoutCustomerInput = {
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lostReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tags?: Prisma.CrmDealUpdatetagsInput | string[]
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: Prisma.IntFieldUpdateOperationsInput | number
   assignedToUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type CrmDealCreateManyContactInput = {
@@ -2013,13 +2004,13 @@ export type CrmDealCreateManyContactInput = {
   closedAt?: Date | string | null
   lostReason?: string | null
   source?: string | null
-  tags?: Prisma.CrmDealCreatetagsInput | string[]
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: number
   assignedToUserId?: string | null
-  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
 }
 
 export type CrmDealUpdateWithoutContactInput = {
@@ -2033,12 +2024,12 @@ export type CrmDealUpdateWithoutContactInput = {
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lostReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tags?: Prisma.CrmDealUpdatetagsInput | string[]
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: Prisma.IntFieldUpdateOperationsInput | number
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutCrmDealsNestedInput
   customer?: Prisma.CustomerUpdateOneRequiredWithoutCrmDealsNestedInput
   pipeline?: Prisma.CrmPipelineUpdateOneRequiredWithoutDealsNestedInput
@@ -2063,13 +2054,13 @@ export type CrmDealUncheckedUpdateWithoutContactInput = {
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lostReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tags?: Prisma.CrmDealUpdatetagsInput | string[]
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: Prisma.IntFieldUpdateOperationsInput | number
   assignedToUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activities?: Prisma.CrmActivityUncheckedUpdateManyWithoutDealNestedInput
   timeline?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutDealNestedInput
 }
@@ -2089,13 +2080,13 @@ export type CrmDealUncheckedUpdateManyWithoutContactInput = {
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lostReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tags?: Prisma.CrmDealUpdatetagsInput | string[]
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: Prisma.IntFieldUpdateOperationsInput | number
   assignedToUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type CrmDealCreateManyPipelineInput = {
@@ -2113,13 +2104,13 @@ export type CrmDealCreateManyPipelineInput = {
   closedAt?: Date | string | null
   lostReason?: string | null
   source?: string | null
-  tags?: Prisma.CrmDealCreatetagsInput | string[]
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: number
   assignedToUserId?: string | null
-  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
 }
 
 export type CrmDealUpdateWithoutPipelineInput = {
@@ -2133,12 +2124,12 @@ export type CrmDealUpdateWithoutPipelineInput = {
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lostReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tags?: Prisma.CrmDealUpdatetagsInput | string[]
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: Prisma.IntFieldUpdateOperationsInput | number
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutCrmDealsNestedInput
   customer?: Prisma.CustomerUpdateOneRequiredWithoutCrmDealsNestedInput
   contact?: Prisma.CrmContactUpdateOneWithoutCrmDealsNestedInput
@@ -2163,13 +2154,13 @@ export type CrmDealUncheckedUpdateWithoutPipelineInput = {
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lostReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tags?: Prisma.CrmDealUpdatetagsInput | string[]
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: Prisma.IntFieldUpdateOperationsInput | number
   assignedToUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activities?: Prisma.CrmActivityUncheckedUpdateManyWithoutDealNestedInput
   timeline?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutDealNestedInput
 }
@@ -2189,13 +2180,13 @@ export type CrmDealUncheckedUpdateManyWithoutPipelineInput = {
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lostReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tags?: Prisma.CrmDealUpdatetagsInput | string[]
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: Prisma.IntFieldUpdateOperationsInput | number
   assignedToUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type CrmDealCreateManyStageInput = {
@@ -2213,13 +2204,13 @@ export type CrmDealCreateManyStageInput = {
   closedAt?: Date | string | null
   lostReason?: string | null
   source?: string | null
-  tags?: Prisma.CrmDealCreatetagsInput | string[]
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: number
   assignedToUserId?: string | null
-  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
 }
 
 export type CrmDealUpdateWithoutStageInput = {
@@ -2233,12 +2224,12 @@ export type CrmDealUpdateWithoutStageInput = {
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lostReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tags?: Prisma.CrmDealUpdatetagsInput | string[]
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: Prisma.IntFieldUpdateOperationsInput | number
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutCrmDealsNestedInput
   customer?: Prisma.CustomerUpdateOneRequiredWithoutCrmDealsNestedInput
   contact?: Prisma.CrmContactUpdateOneWithoutCrmDealsNestedInput
@@ -2263,13 +2254,13 @@ export type CrmDealUncheckedUpdateWithoutStageInput = {
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lostReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tags?: Prisma.CrmDealUpdatetagsInput | string[]
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: Prisma.IntFieldUpdateOperationsInput | number
   assignedToUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activities?: Prisma.CrmActivityUncheckedUpdateManyWithoutDealNestedInput
   timeline?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutDealNestedInput
 }
@@ -2289,13 +2280,13 @@ export type CrmDealUncheckedUpdateManyWithoutStageInput = {
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lostReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tags?: Prisma.CrmDealUpdatetagsInput | string[]
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: Prisma.IntFieldUpdateOperationsInput | number
   assignedToUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type CrmDealCreateManyTenantInput = {
@@ -2313,13 +2304,13 @@ export type CrmDealCreateManyTenantInput = {
   closedAt?: Date | string | null
   lostReason?: string | null
   source?: string | null
-  tags?: Prisma.CrmDealCreatetagsInput | string[]
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: number
   assignedToUserId?: string | null
-  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
 }
 
 export type CrmDealUpdateWithoutTenantInput = {
@@ -2333,12 +2324,12 @@ export type CrmDealUpdateWithoutTenantInput = {
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lostReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tags?: Prisma.CrmDealUpdatetagsInput | string[]
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: Prisma.IntFieldUpdateOperationsInput | number
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   customer?: Prisma.CustomerUpdateOneRequiredWithoutCrmDealsNestedInput
   contact?: Prisma.CrmContactUpdateOneWithoutCrmDealsNestedInput
   pipeline?: Prisma.CrmPipelineUpdateOneRequiredWithoutDealsNestedInput
@@ -2363,13 +2354,13 @@ export type CrmDealUncheckedUpdateWithoutTenantInput = {
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lostReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tags?: Prisma.CrmDealUpdatetagsInput | string[]
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: Prisma.IntFieldUpdateOperationsInput | number
   assignedToUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activities?: Prisma.CrmActivityUncheckedUpdateManyWithoutDealNestedInput
   timeline?: Prisma.CrmTimelineEventUncheckedUpdateManyWithoutDealNestedInput
 }
@@ -2389,13 +2380,13 @@ export type CrmDealUncheckedUpdateManyWithoutTenantInput = {
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lostReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tags?: Prisma.CrmDealUpdatetagsInput | string[]
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: Prisma.IntFieldUpdateOperationsInput | number
   assignedToUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 
@@ -2458,9 +2449,9 @@ export type CrmDealSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   customFields?: boolean
   position?: boolean
   assignedToUserId?: boolean
-  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  deletedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
   contact?: boolean | Prisma.CrmDeal$contactArgs<ExtArgs>
@@ -2492,9 +2483,9 @@ export type CrmDealSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   customFields?: boolean
   position?: boolean
   assignedToUserId?: boolean
-  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  deletedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
   contact?: boolean | Prisma.CrmDeal$contactArgs<ExtArgs>
@@ -2523,9 +2514,9 @@ export type CrmDealSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   customFields?: boolean
   position?: boolean
   assignedToUserId?: boolean
-  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  deletedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
   contact?: boolean | Prisma.CrmDeal$contactArgs<ExtArgs>
@@ -2554,12 +2545,12 @@ export type CrmDealSelectScalar = {
   customFields?: boolean
   position?: boolean
   assignedToUserId?: boolean
-  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  deletedAt?: boolean
 }
 
-export type CrmDealOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "title" | "customerId" | "contactId" | "pipelineId" | "stageId" | "status" | "priority" | "value" | "currency" | "expectedCloseDate" | "closedAt" | "lostReason" | "source" | "tags" | "customFields" | "position" | "assignedToUserId" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["crmDeal"]>
+export type CrmDealOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "title" | "customerId" | "contactId" | "pipelineId" | "stageId" | "status" | "priority" | "value" | "currency" | "expectedCloseDate" | "closedAt" | "lostReason" | "source" | "tags" | "customFields" | "position" | "assignedToUserId" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["crmDeal"]>
 export type CrmDealInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
@@ -2616,13 +2607,13 @@ export type $CrmDealPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     closedAt: Date | null
     lostReason: string | null
     source: string | null
-    tags: string[]
+    tags: runtime.JsonValue
     customFields: runtime.JsonValue | null
     position: number
     assignedToUserId: string | null
-    deletedAt: Date | null
     createdAt: Date
     updatedAt: Date
+    deletedAt: Date | null
   }, ExtArgs["result"]["crmDeal"]>
   composites: {}
 }
@@ -3069,13 +3060,13 @@ export interface CrmDealFieldRefs {
   readonly closedAt: Prisma.FieldRef<"CrmDeal", 'DateTime'>
   readonly lostReason: Prisma.FieldRef<"CrmDeal", 'String'>
   readonly source: Prisma.FieldRef<"CrmDeal", 'String'>
-  readonly tags: Prisma.FieldRef<"CrmDeal", 'String[]'>
+  readonly tags: Prisma.FieldRef<"CrmDeal", 'Json'>
   readonly customFields: Prisma.FieldRef<"CrmDeal", 'Json'>
   readonly position: Prisma.FieldRef<"CrmDeal", 'Int'>
   readonly assignedToUserId: Prisma.FieldRef<"CrmDeal", 'String'>
-  readonly deletedAt: Prisma.FieldRef<"CrmDeal", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"CrmDeal", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"CrmDeal", 'DateTime'>
+  readonly deletedAt: Prisma.FieldRef<"CrmDeal", 'DateTime'>
 }
     
 

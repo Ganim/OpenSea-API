@@ -1,17 +1,18 @@
+import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { marketplaceOrderResponseSchema } from '@/http/schemas/sales/marketplaces';
-import { makeAcknowledgeMarketplaceOrderUseCase } from '@/use-cases/sales/marketplaces/factories/make-acknowledge-marketplace-order-use-case';
+import { makeAcknowledgeMarketplaceOrderUseCase } from '@/use-cases/sales/marketplace-orders/factories/make-acknowledge-marketplace-order-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
-import z from 'zod';
+import { z } from 'zod';
 
-export async function acknowledgeOrderController(app: FastifyInstance) {
+export async function v1AcknowledgeOrderController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'PATCH',
-    url: '/v1/marketplaces/orders/:id/acknowledge',
+    url: '/v1/marketplace-orders/:id/acknowledge',
     preHandler: [
       verifyJwt,
       verifyTenant,
@@ -21,30 +22,32 @@ export async function acknowledgeOrderController(app: FastifyInstance) {
       }),
     ],
     schema: {
-      tags: ['Sales - Marketplaces'],
+      tags: ['Sales - Marketplace Orders'],
       summary: 'Acknowledge a marketplace order',
-      params: z.object({
-        id: z.string().uuid().describe('Order UUID'),
-      }),
+      params: z.object({ id: z.string().uuid() }),
       response: {
-        200: z.object({
-          order: marketplaceOrderResponseSchema,
-        }),
-        404: z.object({
-          message: z.string(),
-        }),
+        200: z.object({ order: z.any() }),
+        400: z.object({ message: z.string() }),
+        404: z.object({ message: z.string() }),
       },
       security: [{ bearerAuth: [] }],
     },
-
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
       const { id } = request.params;
-
-      const useCase = makeAcknowledgeMarketplaceOrderUseCase();
-      const { order } = await useCase.execute({ id, tenantId });
-
-      return reply.status(200).send({ order });
+      try {
+        const useCase = makeAcknowledgeMarketplaceOrderUseCase();
+        const result = await useCase.execute({ tenantId, id });
+        return reply.status(200).send(result);
+      } catch (err) {
+        if (err instanceof BadRequestError) {
+          return reply.status(400).send({ message: err.message });
+        }
+        if (err instanceof ResourceNotFoundError) {
+          return reply.status(404).send({ message: err.message });
+        }
+        throw err;
+      }
     },
   });
 }

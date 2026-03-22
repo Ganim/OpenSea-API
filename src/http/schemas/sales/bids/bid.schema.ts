@@ -1,292 +1,291 @@
-/**
- * Bid (Licitacao) Zod Schemas
- * Validation schemas for Bids CRUD endpoints
- */
-
 import { z } from 'zod';
 
-// ─── Enums ──────────────────────────────────────────────────────────────────
-
-export const bidStatusEnum = z.enum([
-  'DRAFT',
-  'OPEN',
-  'IN_PROGRESS',
-  'AWARDED',
-  'LOST',
-  'CANCELLED',
-  'SUSPENDED',
-  'COMPLETED',
+const bidModalityEnum = z.enum([
+  'PREGAO_ELETRONICO', 'PREGAO_PRESENCIAL', 'CONCORRENCIA', 'TOMADA_PRECOS',
+  'CONVITE', 'LEILAO', 'DIALOGO_COMPETITIVO', 'CONCURSO', 'DISPENSA', 'INEXIGIBILIDADE',
 ]);
 
-export const bidModalityEnum = z.enum([
-  'PREGAO_ELETRONICO',
-  'PREGAO_PRESENCIAL',
-  'CONCORRENCIA',
-  'TOMADA_PRECOS',
-  'CONVITE',
-  'CONCURSO',
-  'LEILAO',
-  'DIALOGO_COMPETITIVO',
-  'RDC',
-  'DISPENSA',
-  'INEXIGIBILIDADE',
-  'OTHER',
+const bidCriterionEnum = z.enum([
+  'MENOR_PRECO', 'MAIOR_DESCONTO', 'MELHOR_TECNICA', 'TECNICA_PRECO', 'MAIOR_LANCE', 'MAIOR_RETORNO',
 ]);
 
-// ─── Create Bid ─────────────────────────────────────────────────────────────
+const bidLegalFrameworkEnum = z.enum([
+  'LEI_14133_2021', 'LEI_8666_1993', 'LEI_10520_2002', 'LEI_12462_2011', 'DECRETO_10024_2019',
+]);
 
+const bidExecutionRegimeEnum = z.enum([
+  'EMPREITADA_PRECO_GLOBAL', 'EMPREITADA_PRECO_UNITARIO', 'TAREFA', 'INTEGRAL', 'FORNECIMENTO_REGIME_PRECO',
+]);
+
+const bidStatusEnum = z.enum([
+  'DISCOVERED', 'ANALYZING', 'VIABLE', 'NOT_VIABLE', 'PREPARING', 'PROPOSAL_SENT',
+  'AWAITING_DISPUTE', 'IN_DISPUTE', 'WON', 'LOST', 'DESERTED', 'REVOKED',
+  'SUSPENDED', 'MONITORING', 'CONTRACTED', 'COMPLETED', 'ARCHIVED',
+]);
+
+const bidDocumentTypeEnum = z.enum([
+  'CERTIDAO_FEDERAL', 'CERTIDAO_ESTADUAL', 'CERTIDAO_MUNICIPAL', 'CERTIDAO_TRABALHISTA',
+  'CERTIDAO_FGTS', 'CERTIDAO_FALENCIA', 'BALANCO_PATRIMONIAL', 'CONTRATO_SOCIAL',
+  'ALVARA', 'ATESTADO_CAPACIDADE', 'PROPOSTA_TECNICA', 'PROPOSTA_COMERCIAL',
+  'EDITAL', 'ATA_REGISTRO', 'OUTROS',
+]);
+
+const bidContractStatusEnum = z.enum([
+  'DRAFT_CONTRACT', 'ACTIVE_CONTRACT', 'SUSPENDED_CONTRACT',
+  'COMPLETED_CONTRACT', 'TERMINATED_CONTRACT', 'RENEWED_CONTRACT',
+]);
+
+const bidEmpenhoTypeEnum = z.enum(['ORDINARIO', 'ESTIMATIVO', 'GLOBAL_EMPENHO']);
+
+// ─── Create Bid ────────────────────────────────────────────────────────────
 export const createBidSchema = z.object({
-  title: z.string().min(1).max(255).describe('Title of the bid'),
-  description: z.string().max(5000).optional().describe('Detailed description'),
+  portalName: z.string().min(1).max(64).describe('Portal name'),
+  portalEditalId: z.string().max(128).optional().describe('Portal edital ID'),
+  editalNumber: z.string().min(1).max(128).describe('Edital number'),
   modality: bidModalityEnum.describe('Bid modality'),
-  bidNumber: z
-    .string()
-    .max(100)
-    .optional()
-    .describe('Official bid number (e.g. Pregao 001/2026)'),
-  agency: z.string().min(1).max(255).describe('Government agency or entity'),
-  agencyCnpj: z.string().max(20).optional().describe('Agency CNPJ'),
-  portalUrl: z
-    .string()
-    .url()
-    .max(500)
-    .optional()
-    .describe('URL of the bid portal'),
-  editalUrl: z
-    .string()
-    .url()
-    .max(500)
-    .optional()
-    .describe('URL of the edital document'),
-  estimatedValue: z
-    .number()
-    .positive()
-    .optional()
-    .describe('Estimated total value'),
-  openingDate: z.coerce.date().optional().describe('Date/time the bid opens'),
-  closingDate: z.coerce.date().optional().describe('Date/time the bid closes'),
-  disputeDate: z.coerce
-    .date()
-    .optional()
-    .describe('Date/time of dispute session'),
-  notes: z.string().max(5000).optional().describe('Internal notes'),
-  customerId: z.string().uuid().optional().describe('Related customer UUID'),
-  assignedToUserId: z
-    .string()
-    .uuid()
-    .optional()
-    .describe('User assigned to this bid'),
-  tags: z
-    .array(z.string().max(50))
-    .max(20)
-    .optional()
-    .describe('Tags for categorization'),
+  criterionType: bidCriterionEnum.describe('Criterion type'),
+  legalFramework: bidLegalFrameworkEnum.describe('Legal framework'),
+  executionRegime: bidExecutionRegimeEnum.optional().describe('Execution regime'),
+  object: z.string().min(1).describe('Object description'),
+  objectSummary: z.string().max(512).optional().describe('Short summary'),
+  organName: z.string().min(1).max(256).describe('Organ name'),
+  organCnpj: z.string().max(18).optional().describe('Organ CNPJ'),
+  organState: z.string().max(2).optional().describe('Organ state (UF)'),
+  organCity: z.string().max(128).optional().describe('Organ city'),
+  estimatedValue: z.number().positive().optional().describe('Estimated value'),
+  publicationDate: z.coerce.date().optional().describe('Publication date'),
+  openingDate: z.coerce.date().describe('Opening date'),
+  closingDate: z.coerce.date().optional().describe('Closing date'),
+  disputeDate: z.coerce.date().optional().describe('Dispute date'),
+  customerId: z.string().uuid().optional().describe('Customer (organ) ID'),
+  assignedToUserId: z.string().uuid().optional().describe('Assigned user ID'),
+  exclusiveMeEpp: z.boolean().optional().default(false).describe('Exclusive ME/EPP'),
+  deliveryStates: z.array(z.string().max(2)).optional().describe('Delivery states'),
+  tags: z.array(z.string().max(50)).optional().describe('Tags'),
+  notes: z.string().optional().describe('Notes'),
+  editalUrl: z.string().url().max(1024).optional().describe('Edital URL'),
 });
 
-// ─── Update Bid ─────────────────────────────────────────────────────────────
-
-export const updateBidSchema = createBidSchema.partial();
-
-// ─── Change Bid Status ──────────────────────────────────────────────────────
-
-export const changeBidStatusSchema = z.object({
-  status: bidStatusEnum.describe('New bid status'),
-  reason: z.string().max(500).optional().describe('Reason for status change'),
+// ─── Update Bid ────────────────────────────────────────────────────────────
+export const updateBidSchema = z.object({
+  object: z.string().min(1).optional().describe('Object description'),
+  objectSummary: z.string().max(512).optional().describe('Short summary'),
+  status: bidStatusEnum.optional().describe('Bid status'),
+  viabilityScore: z.number().int().min(0).max(100).optional().describe('Viability score'),
+  viabilityReason: z.string().max(512).optional().describe('Viability reason'),
+  ourProposalValue: z.number().positive().optional().describe('Our proposal value'),
+  finalValue: z.number().positive().optional().describe('Final value'),
+  margin: z.number().optional().describe('Margin %'),
+  customerId: z.string().uuid().nullable().optional().describe('Customer ID'),
+  assignedToUserId: z.string().uuid().nullable().optional().describe('Assigned user ID'),
+  tags: z.array(z.string().max(50)).optional().describe('Tags'),
+  notes: z.string().optional().describe('Notes'),
 });
 
-// ─── List Bids Query ────────────────────────────────────────────────────────
+// ─── Bid Response ──────────────────────────────────────────────────────────
+export const bidResponseSchema = z.object({
+  id: z.string().uuid(),
+  tenantId: z.string().uuid(),
+  portalName: z.string(),
+  portalEditalId: z.string().nullable(),
+  editalNumber: z.string(),
+  modality: z.string(),
+  criterionType: z.string(),
+  legalFramework: z.string(),
+  executionRegime: z.string().nullable(),
+  object: z.string(),
+  objectSummary: z.string().nullable(),
+  organName: z.string(),
+  organCnpj: z.string().nullable(),
+  organState: z.string().nullable(),
+  organCity: z.string().nullable(),
+  estimatedValue: z.number().nullable(),
+  ourProposalValue: z.number().nullable(),
+  finalValue: z.number().nullable(),
+  margin: z.number().nullable(),
+  publicationDate: z.coerce.date().nullable(),
+  openingDate: z.coerce.date(),
+  closingDate: z.coerce.date().nullable(),
+  disputeDate: z.coerce.date().nullable(),
+  status: z.string(),
+  viabilityScore: z.number().nullable(),
+  viabilityReason: z.string().nullable(),
+  customerId: z.string().nullable(),
+  assignedToUserId: z.string().nullable(),
+  exclusiveMeEpp: z.boolean(),
+  deliveryStates: z.array(z.string()),
+  tags: z.array(z.string()),
+  notes: z.string().nullable(),
+  editalUrl: z.string().nullable(),
+  editalFileId: z.string().nullable(),
+  etpFileId: z.string().nullable(),
+  trFileId: z.string().nullable(),
+  deletedAt: z.coerce.date().nullable(),
+  createdAt: z.coerce.date(),
+  updatedAt: z.coerce.date().nullable(),
+});
 
+// ─── List Bids Query ───────────────────────────────────────────────────────
 export const listBidsQuerySchema = z.object({
   page: z.coerce.number().int().positive().default(1),
   limit: z.coerce.number().int().positive().max(100).default(20),
   search: z.string().max(200).optional(),
   status: bidStatusEnum.optional(),
   modality: bidModalityEnum.optional(),
+  organState: z.string().max(2).optional(),
   assignedToUserId: z.string().uuid().optional(),
-  customerId: z.string().uuid().optional(),
-  sortBy: z
-    .enum([
-      'title',
-      'openingDate',
-      'closingDate',
-      'estimatedValue',
-      'createdAt',
-    ])
-    .default('createdAt'),
-  sortOrder: z.enum(['asc', 'desc']).default('desc'),
+  sortBy: z.enum(['createdAt', 'openingDate', 'estimatedValue', 'editalNumber']).optional().default('createdAt'),
+  sortOrder: z.enum(['asc', 'desc']).optional().default('desc'),
 });
 
-// ─── Bid Response ───────────────────────────────────────────────────────────
-
-export const bidResponseSchema = z.object({
+// ─── Bid Item Response ─────────────────────────────────────────────────────
+export const bidItemResponseSchema = z.object({
   id: z.string().uuid(),
   tenantId: z.string().uuid(),
-  title: z.string(),
-  description: z.string().nullable(),
-  modality: z.string(),
-  bidNumber: z.string().nullable(),
+  bidId: z.string().uuid(),
+  itemNumber: z.number(),
+  lotNumber: z.number().nullable(),
+  lotDescription: z.string().nullable(),
+  description: z.string(),
+  quantity: z.number(),
+  unit: z.string(),
+  estimatedUnitPrice: z.number().nullable(),
+  ourUnitPrice: z.number().nullable(),
+  finalUnitPrice: z.number().nullable(),
   status: z.string(),
-  agency: z.string(),
-  agencyCnpj: z.string().nullable(),
-  portalUrl: z.string().nullable(),
-  editalUrl: z.string().nullable(),
-  estimatedValue: z.number().nullable(),
-  openingDate: z.coerce.date().nullable(),
-  closingDate: z.coerce.date().nullable(),
-  disputeDate: z.coerce.date().nullable(),
+  variantId: z.string().nullable(),
+  matchConfidence: z.number().nullable(),
+  quotaType: z.string().nullable(),
   notes: z.string().nullable(),
-  customerId: z.string().uuid().nullable(),
-  assignedToUserId: z.string().uuid().nullable(),
-  tags: z.array(z.string()).nullable(),
   createdAt: z.coerce.date(),
-  updatedAt: z.coerce.date(),
+  updatedAt: z.coerce.date().nullable(),
 });
 
-// ─── Bid Document Schemas ───────────────────────────────────────────────────
+// ─── Bid Document ──────────────────────────────────────────────────────────
+export const createBidDocumentSchema = z.object({
+  bidId: z.string().uuid().optional(),
+  type: bidDocumentTypeEnum,
+  name: z.string().min(1).max(256),
+  description: z.string().max(512).optional(),
+  fileId: z.string().uuid(),
+  issueDate: z.coerce.date().optional(),
+  expirationDate: z.coerce.date().optional(),
+  autoRenewable: z.boolean().optional().default(false),
+});
 
-export const uploadBidDocumentSchema = z.object({
-  bidId: z.string().uuid().describe('Bid UUID'),
-  name: z.string().min(1).max(255).describe('Document name'),
-  type: z.string().max(100).optional().describe('Document type/category'),
-  fileUrl: z.string().url().max(500).describe('URL of the uploaded file'),
-  fileSize: z
-    .number()
-    .int()
-    .positive()
-    .optional()
-    .describe('File size in bytes'),
-  mimeType: z.string().max(100).optional().describe('MIME type'),
-  notes: z.string().max(2000).optional(),
+export const bidDocumentResponseSchema = z.object({
+  id: z.string().uuid(),
+  tenantId: z.string().uuid(),
+  bidId: z.string().nullable(),
+  type: z.string(),
+  name: z.string(),
+  description: z.string().nullable(),
+  fileId: z.string(),
+  issueDate: z.coerce.date().nullable(),
+  expirationDate: z.coerce.date().nullable(),
+  isValid: z.boolean(),
+  autoRenewable: z.boolean(),
+  lastRenewAttempt: z.coerce.date().nullable(),
+  renewStatus: z.string().nullable(),
+  portalUploaded: z.boolean(),
+  portalUploadedAt: z.coerce.date().nullable(),
+  createdAt: z.coerce.date(),
+  updatedAt: z.coerce.date().nullable(),
 });
 
 export const listBidDocumentsQuerySchema = z.object({
   page: z.coerce.number().int().positive().default(1),
   limit: z.coerce.number().int().positive().max(100).default(20),
   bidId: z.string().uuid().optional(),
-  search: z.string().max(200).optional(),
+  type: bidDocumentTypeEnum.optional(),
 });
 
-export const bidDocumentResponseSchema = z.object({
-  id: z.string().uuid(),
-  bidId: z.string().uuid(),
-  tenantId: z.string().uuid(),
-  name: z.string(),
-  type: z.string().nullable(),
-  fileUrl: z.string(),
-  fileSize: z.number().nullable(),
-  mimeType: z.string().nullable(),
-  notes: z.string().nullable(),
-  createdAt: z.coerce.date(),
-  updatedAt: z.coerce.date(),
-});
-
-// ─── Bid Contract Schemas ───────────────────────────────────────────────────
-
+// ─── Bid Contract ──────────────────────────────────────────────────────────
 export const createBidContractSchema = z.object({
-  bidId: z.string().uuid().describe('Bid UUID'),
-  contractNumber: z
-    .string()
-    .min(1)
-    .max(100)
-    .describe('Official contract number'),
-  description: z.string().max(5000).optional(),
-  value: z.number().positive().describe('Contract value'),
-  startDate: z.coerce.date().describe('Contract start date'),
-  endDate: z.coerce.date().describe('Contract end date'),
-  signedAt: z.coerce.date().optional().describe('Date contract was signed'),
-  notes: z.string().max(5000).optional(),
+  bidId: z.string().uuid(),
+  contractNumber: z.string().min(1).max(128),
+  startDate: z.coerce.date(),
+  endDate: z.coerce.date(),
+  totalValue: z.number().positive(),
+  customerId: z.string().uuid(),
+  signedDate: z.coerce.date().optional(),
+  maxRenewals: z.number().int().min(0).optional(),
+  renewalDeadline: z.coerce.date().optional(),
+  deliveryAddresses: z.record(z.string(), z.unknown()).optional(),
+  notes: z.string().optional(),
+});
+
+export const bidContractResponseSchema = z.object({
+  id: z.string().uuid(),
+  tenantId: z.string().uuid(),
+  bidId: z.string().uuid(),
+  contractNumber: z.string(),
+  status: z.string(),
+  signedDate: z.coerce.date().nullable(),
+  startDate: z.coerce.date(),
+  endDate: z.coerce.date(),
+  totalValue: z.number(),
+  remainingValue: z.number(),
+  customerId: z.string(),
+  renewalCount: z.number(),
+  maxRenewals: z.number().nullable(),
+  renewalDeadline: z.coerce.date().nullable(),
+  deliveryAddresses: z.record(z.string(), z.unknown()).nullable(),
+  contractFileId: z.string().nullable(),
+  notes: z.string().nullable(),
+  deletedAt: z.coerce.date().nullable(),
+  createdAt: z.coerce.date(),
+  updatedAt: z.coerce.date().nullable(),
 });
 
 export const listBidContractsQuerySchema = z.object({
   page: z.coerce.number().int().positive().default(1),
   limit: z.coerce.number().int().positive().max(100).default(20),
+  status: bidContractStatusEnum.optional(),
   bidId: z.string().uuid().optional(),
-  search: z.string().max(200).optional(),
 });
 
-export const bidContractResponseSchema = z.object({
-  id: z.string().uuid(),
-  bidId: z.string().uuid(),
-  tenantId: z.string().uuid(),
-  contractNumber: z.string(),
-  description: z.string().nullable(),
-  value: z.number(),
-  startDate: z.coerce.date(),
-  endDate: z.coerce.date(),
-  signedAt: z.coerce.date().nullable(),
-  notes: z.string().nullable(),
-  createdAt: z.coerce.date(),
-  updatedAt: z.coerce.date(),
-});
-
-// ─── Bid Empenho Schemas ────────────────────────────────────────────────────
-
+// ─── Bid Empenho ───────────────────────────────────────────────────────────
 export const createBidEmpenhoSchema = z.object({
-  bidId: z.string().uuid().describe('Bid UUID'),
-  contractId: z.string().uuid().optional().describe('Related contract UUID'),
-  empenhoNumber: z.string().min(1).max(100).describe('Empenho number'),
-  description: z.string().max(5000).optional(),
-  value: z.number().positive().describe('Empenho value'),
-  empenhoDate: z.coerce.date().describe('Empenho date'),
-  notes: z.string().max(5000).optional(),
-});
-
-export const listBidEmpenhosQuerySchema = z.object({
-  page: z.coerce.number().int().positive().default(1),
-  limit: z.coerce.number().int().positive().max(100).default(20),
-  bidId: z.string().uuid().optional(),
-  contractId: z.string().uuid().optional(),
-  search: z.string().max(200).optional(),
+  contractId: z.string().uuid(),
+  empenhoNumber: z.string().min(1).max(128),
+  type: bidEmpenhoTypeEnum,
+  value: z.number().positive(),
+  issueDate: z.coerce.date(),
+  notes: z.string().optional(),
 });
 
 export const bidEmpenhoResponseSchema = z.object({
   id: z.string().uuid(),
-  bidId: z.string().uuid(),
-  contractId: z.string().uuid().nullable(),
   tenantId: z.string().uuid(),
+  contractId: z.string().uuid(),
   empenhoNumber: z.string(),
-  description: z.string().nullable(),
+  type: z.string(),
   value: z.number(),
-  empenhoDate: z.coerce.date(),
+  issueDate: z.coerce.date(),
+  status: z.string(),
+  orderId: z.string().nullable(),
   notes: z.string().nullable(),
   createdAt: z.coerce.date(),
-  updatedAt: z.coerce.date(),
+  updatedAt: z.coerce.date().nullable(),
 });
 
-// ─── AI Config Schemas ──────────────────────────────────────────────────────
-
-export const updateBidAiConfigSchema = z.object({
-  enabled: z.boolean().describe('Whether AI assistant is enabled for bids'),
-  autoAnalyzeEdital: z
-    .boolean()
-    .optional()
-    .describe('Auto-analyze edital documents'),
-  autoSuggestPricing: z.boolean().optional().describe('Auto-suggest pricing'),
-  autoMonitorPortals: z
-    .boolean()
-    .optional()
-    .describe('Auto-monitor bid portals'),
-  portalUrls: z
-    .array(z.string().url().max(500))
-    .max(20)
-    .optional()
-    .describe('Portal URLs to monitor'),
-  keywords: z
-    .array(z.string().max(100))
-    .max(50)
-    .optional()
-    .describe('Keywords to watch for'),
-});
-
-export const bidAiConfigResponseSchema = z.object({
+// ─── Bid History ───────────────────────────────────────────────────────────
+export const bidHistoryResponseSchema = z.object({
   id: z.string().uuid(),
+  bidId: z.string().uuid(),
   tenantId: z.string().uuid(),
-  enabled: z.boolean(),
-  autoAnalyzeEdital: z.boolean(),
-  autoSuggestPricing: z.boolean(),
-  autoMonitorPortals: z.boolean(),
-  portalUrls: z.array(z.string()).nullable(),
-  keywords: z.array(z.string()).nullable(),
+  action: z.string(),
+  description: z.string(),
+  metadata: z.record(z.string(), z.unknown()).nullable(),
+  performedByUserId: z.string().nullable(),
+  performedByAi: z.boolean(),
+  isReversible: z.boolean(),
   createdAt: z.coerce.date(),
-  updatedAt: z.coerce.date(),
+});
+
+// ─── Common pagination query ───────────────────────────────────────────────
+export const bidSubResourceQuerySchema = z.object({
+  page: z.coerce.number().int().positive().default(1),
+  limit: z.coerce.number().int().positive().max(100).default(20),
 });

@@ -98,6 +98,8 @@ export const PermissionCodes = {
       MODIFY: 'stock.inventory.modify' as const,
       REMOVE: 'stock.inventory.remove' as const,
       ADMIN: 'stock.inventory.admin' as const,
+      EXPORT: 'stock.inventory.export' as const,
+      PRINT: 'stock.inventory.print' as const,
     },
   },
 
@@ -540,6 +542,78 @@ export const PermissionCodes = {
     MARKETPLACE_PAYMENTS: {
       ACCESS: 'sales.marketplace-payments.access' as const,
     },
+    BIDS: {
+      ACCESS: 'sales.bids.access' as const,
+      REGISTER: 'sales.bids.register' as const,
+      MODIFY: 'sales.bids.modify' as const,
+      REMOVE: 'sales.bids.remove' as const,
+      ADMIN: 'sales.bids.admin' as const,
+    },
+    BID_DOCUMENTS: {
+      ACCESS: 'sales.bid-documents.access' as const,
+      REGISTER: 'sales.bid-documents.register' as const,
+      MODIFY: 'sales.bid-documents.modify' as const,
+      REMOVE: 'sales.bid-documents.remove' as const,
+    },
+    BID_CONTRACTS: {
+      ACCESS: 'sales.bid-contracts.access' as const,
+      REGISTER: 'sales.bid-contracts.register' as const,
+      MODIFY: 'sales.bid-contracts.modify' as const,
+      REMOVE: 'sales.bid-contracts.remove' as const,
+    },
+    BID_EMPENHOS: {
+      ACCESS: 'sales.bid-empenhos.access' as const,
+      REGISTER: 'sales.bid-empenhos.register' as const,
+      MODIFY: 'sales.bid-empenhos.modify' as const,
+    },
+    MARKETPLACE_CONNECTIONS: {
+      ACCESS: 'sales.marketplace-connections.access' as const,
+      REGISTER: 'sales.marketplace-connections.register' as const,
+      MODIFY: 'sales.marketplace-connections.modify' as const,
+      REMOVE: 'sales.marketplace-connections.remove' as const,
+    },
+    MARKETPLACE_LISTINGS: {
+      ACCESS: 'sales.marketplace-listings.access' as const,
+      REGISTER: 'sales.marketplace-listings.register' as const,
+      MODIFY: 'sales.marketplace-listings.modify' as const,
+      REMOVE: 'sales.marketplace-listings.remove' as const,
+    },
+    MARKETPLACE_ORDERS: {
+      ACCESS: 'sales.marketplace-orders.access' as const,
+      REGISTER: 'sales.marketplace-orders.register' as const,
+      MODIFY: 'sales.marketplace-orders.modify' as const,
+      REMOVE: 'sales.marketplace-orders.remove' as const,
+    },
+    MARKETPLACE_PAYMENTS: {
+      ACCESS: 'sales.marketplace-payments.access' as const,
+      REGISTER: 'sales.marketplace-payments.register' as const,
+      MODIFY: 'sales.marketplace-payments.modify' as const,
+      REMOVE: 'sales.marketplace-payments.remove' as const,
+    },
+    POS: {
+      TERMINALS: {
+        ACCESS: 'sales.pos.terminals.access' as const,
+        REGISTER: 'sales.pos.terminals.register' as const,
+        MODIFY: 'sales.pos.terminals.modify' as const,
+        REMOVE: 'sales.pos.terminals.remove' as const,
+      },
+      SESSIONS: {
+        ACCESS: 'sales.pos.sessions.access' as const,
+        OPEN: 'sales.pos.sessions.open' as const,
+        CLOSE: 'sales.pos.sessions.close' as const,
+      },
+      TRANSACTIONS: {
+        ACCESS: 'sales.pos.transactions.access' as const,
+        REGISTER: 'sales.pos.transactions.register' as const,
+        CANCEL: 'sales.pos.transactions.cancel' as const,
+      },
+      CASH: {
+        ACCESS: 'sales.pos.cash.access' as const,
+        WITHDRAWAL: 'sales.pos.cash.withdrawal' as const,
+        SUPPLY: 'sales.pos.cash.supply' as const,
+      },
+      RECEIVE: 'sales.pos.receive' as const,
+    },
   },
 
   // ============================================================================
@@ -617,6 +691,35 @@ export const PermissionCodes = {
         ADMIN: 'tools.tasks.cards.admin' as const,
         SHARE: 'tools.tasks.cards.share' as const,
         ONLYSELF: 'tools.tasks.cards.onlyself' as const,
+      },
+      COMMENTS: {
+        ACCESS: 'tools.tasks.comments.access' as const,
+        REGISTER: 'tools.tasks.comments.register' as const,
+        MODIFY: 'tools.tasks.comments.modify' as const,
+        REMOVE: 'tools.tasks.comments.remove' as const,
+      },
+      ATTACHMENTS: {
+        ACCESS: 'tools.tasks.attachments.access' as const,
+        REGISTER: 'tools.tasks.attachments.register' as const,
+        REMOVE: 'tools.tasks.attachments.remove' as const,
+      },
+      LABELS: {
+        ACCESS: 'tools.tasks.labels.access' as const,
+        REGISTER: 'tools.tasks.labels.register' as const,
+        MODIFY: 'tools.tasks.labels.modify' as const,
+        REMOVE: 'tools.tasks.labels.remove' as const,
+      },
+      CHECKLISTS: {
+        ACCESS: 'tools.tasks.checklists.access' as const,
+        REGISTER: 'tools.tasks.checklists.register' as const,
+        MODIFY: 'tools.tasks.checklists.modify' as const,
+        REMOVE: 'tools.tasks.checklists.remove' as const,
+      },
+      CUSTOM_FIELDS: {
+        ACCESS: 'tools.tasks.customfields.access' as const,
+        REGISTER: 'tools.tasks.customfields.register' as const,
+        MODIFY: 'tools.tasks.customfields.modify' as const,
+        REMOVE: 'tools.tasks.customfields.remove' as const,
       },
     },
     CALENDAR: {
@@ -743,6 +846,35 @@ export const DEFAULT_USER_PERMISSIONS: string[] = [
   PermissionCodes.TOOLS.TASKS.CARDS.MODIFY,
   PermissionCodes.TOOLS.TASKS.CARDS.REMOVE,
   PermissionCodes.TOOLS.TASKS.CARDS.ONLYSELF,
+
+  // tools.tasks.comments — gerenciar comentários em cards
+  PermissionCodes.TOOLS.TASKS.COMMENTS.ACCESS,
+  PermissionCodes.TOOLS.TASKS.COMMENTS.REGISTER,
+  PermissionCodes.TOOLS.TASKS.COMMENTS.MODIFY,
+  PermissionCodes.TOOLS.TASKS.COMMENTS.REMOVE,
+
+  // tools.tasks.attachments — gerenciar anexos em cards
+  PermissionCodes.TOOLS.TASKS.ATTACHMENTS.ACCESS,
+  PermissionCodes.TOOLS.TASKS.ATTACHMENTS.REGISTER,
+  PermissionCodes.TOOLS.TASKS.ATTACHMENTS.REMOVE,
+
+  // tools.tasks.labels — gerenciar etiquetas de quadros
+  PermissionCodes.TOOLS.TASKS.LABELS.ACCESS,
+  PermissionCodes.TOOLS.TASKS.LABELS.REGISTER,
+  PermissionCodes.TOOLS.TASKS.LABELS.MODIFY,
+  PermissionCodes.TOOLS.TASKS.LABELS.REMOVE,
+
+  // tools.tasks.checklists — gerenciar checklists em cards
+  PermissionCodes.TOOLS.TASKS.CHECKLISTS.ACCESS,
+  PermissionCodes.TOOLS.TASKS.CHECKLISTS.REGISTER,
+  PermissionCodes.TOOLS.TASKS.CHECKLISTS.MODIFY,
+  PermissionCodes.TOOLS.TASKS.CHECKLISTS.REMOVE,
+
+  // tools.tasks.customfields — gerenciar campos personalizados
+  PermissionCodes.TOOLS.TASKS.CUSTOM_FIELDS.ACCESS,
+  PermissionCodes.TOOLS.TASKS.CUSTOM_FIELDS.REGISTER,
+  PermissionCodes.TOOLS.TASKS.CUSTOM_FIELDS.MODIFY,
+  PermissionCodes.TOOLS.TASKS.CUSTOM_FIELDS.REMOVE,
 
   // tools.calendar — gerenciar próprios eventos
   PermissionCodes.TOOLS.CALENDAR.ACCESS,

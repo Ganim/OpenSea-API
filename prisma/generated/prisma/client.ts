@@ -305,41 +305,6 @@ export type CrmActivity = Prisma.CrmActivityModel
  */
 export type CrmTimelineEvent = Prisma.CrmTimelineEventModel
 /**
- * Model Pipeline
- * 
- */
-export type Pipeline = Prisma.PipelineModel
-/**
- * Model PipelineStage
- * 
- */
-export type PipelineStage = Prisma.PipelineStageModel
-/**
- * Model Contact
- * 
- */
-export type Contact = Prisma.ContactModel
-/**
- * Model Deal
- * 
- */
-export type Deal = Prisma.DealModel
-/**
- * Model ContactDeal
- * 
- */
-export type ContactDeal = Prisma.ContactDealModel
-/**
- * Model Activity
- * 
- */
-export type Activity = Prisma.ActivityModel
-/**
- * Model TimelineEvent
- * 
- */
-export type TimelineEvent = Prisma.TimelineEventModel
-/**
  * Model ItemReservation
  * 
  */
@@ -820,317 +785,52 @@ export type SupportTicketAttachment = Prisma.SupportTicketAttachmentModel
  */
 export type SupportSlaConfig = Prisma.SupportSlaConfigModel
 /**
- * Model PriceTable
+ * Model Bid
  * 
  */
-export type PriceTable = Prisma.PriceTableModel
+export type Bid = Prisma.BidModel
 /**
- * Model PriceTableRule
+ * Model BidItem
  * 
  */
-export type PriceTableRule = Prisma.PriceTableRuleModel
+export type BidItem = Prisma.BidItemModel
 /**
- * Model PriceTableItem
+ * Model BidProposal
  * 
  */
-export type PriceTableItem = Prisma.PriceTableItemModel
+export type BidProposal = Prisma.BidProposalModel
 /**
- * Model CustomerPrice
+ * Model BidDocument
  * 
  */
-export type CustomerPrice = Prisma.CustomerPriceModel
+export type BidDocument = Prisma.BidDocumentModel
 /**
- * Model TaxProfile
+ * Model BidContract
  * 
  */
-export type TaxProfile = Prisma.TaxProfileModel
+export type BidContract = Prisma.BidContractModel
 /**
- * Model TaxRule
+ * Model BidEmpenho
  * 
  */
-export type TaxRule = Prisma.TaxRuleModel
+export type BidEmpenho = Prisma.BidEmpenhoModel
 /**
- * Model Campaign
+ * Model BidMonitorEvent
  * 
  */
-export type Campaign = Prisma.CampaignModel
+export type BidMonitorEvent = Prisma.BidMonitorEventModel
 /**
- * Model CampaignRule
+ * Model BidHistory
  * 
  */
-export type CampaignRule = Prisma.CampaignRuleModel
+export type BidHistory = Prisma.BidHistoryModel
 /**
- * Model CampaignProduct
+ * Model BidAiConfig
  * 
  */
-export type CampaignProduct = Prisma.CampaignProductModel
+export type BidAiConfig = Prisma.BidAiConfigModel
 /**
- * Model Coupon
+ * Model CertidaoSchedule
  * 
  */
-export type Coupon = Prisma.CouponModel
-/**
- * Model CouponUsage
- * 
- */
-export type CouponUsage = Prisma.CouponUsageModel
-/**
- * Model Combo
- * 
- */
-export type Combo = Prisma.ComboModel
-/**
- * Model ComboItem
- * 
- */
-export type ComboItem = Prisma.ComboItemModel
-/**
- * Model Catalog
- * 
- */
-export type Catalog = Prisma.CatalogModel
-/**
- * Model CatalogItem
- * 
- */
-export type CatalogItem = Prisma.CatalogItemModel
-/**
- * Model CatalogExport
- * 
- */
-export type CatalogExport = Prisma.CatalogExportModel
-/**
- * Model TenantBrand
- * 
- */
-export type TenantBrand = Prisma.TenantBrandModel
-/**
- * Model ContentTemplate
- * 
- */
-export type ContentTemplate = Prisma.ContentTemplateModel
-/**
- * Model GeneratedContent
- * 
- */
-export type GeneratedContent = Prisma.GeneratedContentModel
-/**
- * Model ProductMockup
- * 
- */
-export type ProductMockup = Prisma.ProductMockupModel
-/**
- * Model EmailCampaign
- * 
- */
-export type EmailCampaign = Prisma.EmailCampaignModel
-/**
- * Model Order
- * 
- */
-export type Order = Prisma.OrderModel
-/**
- * Model OrderItem
- * 
- */
-export type OrderItem = Prisma.OrderItemModel
-/**
- * Model PaymentCondition
- * 
- */
-export type PaymentCondition = Prisma.PaymentConditionModel
-/**
- * Model OrderPayment
- * 
- */
-export type OrderPayment = Prisma.OrderPaymentModel
-/**
- * Model OrderDelivery
- * 
- */
-export type OrderDelivery = Prisma.OrderDeliveryModel
-/**
- * Model OrderDeliveryItem
- * 
- */
-export type OrderDeliveryItem = Prisma.OrderDeliveryItemModel
-/**
- * Model OrderReturn
- * 
- */
-export type OrderReturn = Prisma.OrderReturnModel
-/**
- * Model OrderReturnItem
- * 
- */
-export type OrderReturnItem = Prisma.OrderReturnItemModel
-/**
- * Model StoreCredit
- * 
- */
-export type StoreCredit = Prisma.StoreCreditModel
-/**
- * Model StoreCreditUsage
- * 
- */
-export type StoreCreditUsage = Prisma.StoreCreditUsageModel
-/**
- * Model CustomerCreditLimit
- * 
- */
-export type CustomerCreditLimit = Prisma.CustomerCreditLimitModel
-/**
- * Model ApprovalRule
- * 
- */
-export type ApprovalRule = Prisma.ApprovalRuleModel
-/**
- * Model OrderCommission
- * 
- */
-export type OrderCommission = Prisma.OrderCommissionModel
-/**
- * Model CommissionRule
- * 
- */
-export type CommissionRule = Prisma.CommissionRuleModel
-/**
- * Model OrderHistory
- * 
- */
-export type OrderHistory = Prisma.OrderHistoryModel
-/**
- * Model DigitalCertificate
- * 
- */
-export type DigitalCertificate = Prisma.DigitalCertificateModel
-/**
- * Model SignatureEnvelope
- * 
- */
-export type SignatureEnvelope = Prisma.SignatureEnvelopeModel
-/**
- * Model SignatureEnvelopeSigner
- * 
- */
-export type SignatureEnvelopeSigner = Prisma.SignatureEnvelopeSignerModel
-/**
- * Model SignatureAuditEvent
- * 
- */
-export type SignatureAuditEvent = Prisma.SignatureAuditEventModel
-/**
- * Model SignatureTemplate
- * 
- */
-export type SignatureTemplate = Prisma.SignatureTemplateModel
-/**
- * Model AnalyticsWidget
- * 
- */
-export type AnalyticsWidget = Prisma.AnalyticsWidgetModel
-/**
- * Model AnalyticsDashboard
- * 
- */
-export type AnalyticsDashboard = Prisma.AnalyticsDashboardModel
-/**
- * Model AnalyticsDashboardWidget
- * 
- */
-export type AnalyticsDashboardWidget = Prisma.AnalyticsDashboardWidgetModel
-/**
- * Model AnalyticsGoal
- * 
- */
-export type AnalyticsGoal = Prisma.AnalyticsGoalModel
-/**
- * Model AnalyticsReport
- * 
- */
-export type AnalyticsReport = Prisma.AnalyticsReportModel
-/**
- * Model AnalyticsReportGeneration
- * 
- */
-export type AnalyticsReportGeneration = Prisma.AnalyticsReportGenerationModel
-/**
- * Model CustomerPortalAccess
- * 
- */
-export type CustomerPortalAccess = Prisma.CustomerPortalAccessModel
-/**
- * Model AiTenantConfig
- * 
- */
-export type AiTenantConfig = Prisma.AiTenantConfigModel
-/**
- * Model AiConversation
- * 
- */
-export type AiConversation = Prisma.AiConversationModel
-/**
- * Model AiMessage
- * 
- */
-export type AiMessage = Prisma.AiMessageModel
-/**
- * Model AiFavoriteQuery
- * 
- */
-export type AiFavoriteQuery = Prisma.AiFavoriteQueryModel
-/**
- * Model AiActionLog
- * 
- */
-export type AiActionLog = Prisma.AiActionLogModel
-/**
- * Model AiInsight
- * 
- */
-export type AiInsight = Prisma.AiInsightModel
-/**
- * Model PosTerminal
- * 
- */
-export type PosTerminal = Prisma.PosTerminalModel
-/**
- * Model PosSession
- * 
- */
-export type PosSession = Prisma.PosSessionModel
-/**
- * Model PosTransaction
- * 
- */
-export type PosTransaction = Prisma.PosTransactionModel
-/**
- * Model PosTransactionPayment
- * 
- */
-export type PosTransactionPayment = Prisma.PosTransactionPaymentModel
-/**
- * Model PosCashMovement
- * 
- */
-export type PosCashMovement = Prisma.PosCashMovementModel
-/**
- * Model PosOfflineQueue
- * 
- */
-export type PosOfflineQueue = Prisma.PosOfflineQueueModel
-/**
- * Model PosVisitLog
- * 
- */
-export type PosVisitLog = Prisma.PosVisitLogModel
-/**
- * Model CardIntegration
- * 
- */
-export type CardIntegration = Prisma.CardIntegrationModel
-/**
- * Model EventLog
- * 
- */
-export type EventLog = Prisma.EventLogModel
+export type CertidaoSchedule = Prisma.CertidaoScheduleModel

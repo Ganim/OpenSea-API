@@ -16,8 +16,8 @@ export async function deleteCustomFieldController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.TOOLS.TASKS.BOARDS.MODIFY,
-        resource: 'task-boards',
+        permissionCode: PermissionCodes.TOOLS.TASKS.CUSTOM_FIELDS.REMOVE,
+        resource: 'task-custom-fields',
       }),
     ],
     schema: {

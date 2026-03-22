@@ -20,7 +20,7 @@ export async function listCommentsController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.TOOLS.TASKS.CARDS.ACCESS,
+        permissionCode: PermissionCodes.TOOLS.TASKS.COMMENTS.ACCESS,
         resource: 'task-comments',
       }),
     ],

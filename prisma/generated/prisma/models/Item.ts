@@ -390,7 +390,7 @@ export type ItemWhereInput = {
   movements?: Prisma.ItemMovementListRelationFilter
   reservations?: Prisma.ItemReservationListRelationFilter
   volumeItems?: Prisma.VolumeItemListRelationFilter
-  inventorySessionItems?: Prisma.InventorySessionItemListRelationFilter
+  inventoryItems?: Prisma.InventorySessionItemListRelationFilter
 }
 
 export type ItemOrderByWithRelationInput = {
@@ -425,7 +425,7 @@ export type ItemOrderByWithRelationInput = {
   movements?: Prisma.ItemMovementOrderByRelationAggregateInput
   reservations?: Prisma.ItemReservationOrderByRelationAggregateInput
   volumeItems?: Prisma.VolumeItemOrderByRelationAggregateInput
-  inventorySessionItems?: Prisma.InventorySessionItemOrderByRelationAggregateInput
+  inventoryItems?: Prisma.InventorySessionItemOrderByRelationAggregateInput
 }
 
 export type ItemWhereUniqueInput = Prisma.AtLeast<{
@@ -465,7 +465,7 @@ export type ItemWhereUniqueInput = Prisma.AtLeast<{
   movements?: Prisma.ItemMovementListRelationFilter
   reservations?: Prisma.ItemReservationListRelationFilter
   volumeItems?: Prisma.VolumeItemListRelationFilter
-  inventorySessionItems?: Prisma.InventorySessionItemListRelationFilter
+  inventoryItems?: Prisma.InventorySessionItemListRelationFilter
 }, "id" | "fullCode" | "barcode" | "eanCode" | "upcCode" | "items_uniqueCode_unique_active" | "items_slug_unique_active">
 
 export type ItemOrderByWithAggregationInput = {
@@ -561,7 +561,7 @@ export type ItemCreateInput = {
   movements?: Prisma.ItemMovementCreateNestedManyWithoutItemInput
   reservations?: Prisma.ItemReservationCreateNestedManyWithoutItemInput
   volumeItems?: Prisma.VolumeItemCreateNestedManyWithoutItemInput
-  inventorySessionItems?: Prisma.InventorySessionItemCreateNestedManyWithoutItemInput
+  inventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutItemInput
 }
 
 export type ItemUncheckedCreateInput = {
@@ -593,7 +593,7 @@ export type ItemUncheckedCreateInput = {
   movements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutItemInput
   reservations?: Prisma.ItemReservationUncheckedCreateNestedManyWithoutItemInput
   volumeItems?: Prisma.VolumeItemUncheckedCreateNestedManyWithoutItemInput
-  inventorySessionItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutItemInput
+  inventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutItemInput
 }
 
 export type ItemUpdateInput = {
@@ -625,7 +625,7 @@ export type ItemUpdateInput = {
   movements?: Prisma.ItemMovementUpdateManyWithoutItemNestedInput
   reservations?: Prisma.ItemReservationUpdateManyWithoutItemNestedInput
   volumeItems?: Prisma.VolumeItemUpdateManyWithoutItemNestedInput
-  inventorySessionItems?: Prisma.InventorySessionItemUpdateManyWithoutItemNestedInput
+  inventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutItemNestedInput
 }
 
 export type ItemUncheckedUpdateInput = {
@@ -657,7 +657,7 @@ export type ItemUncheckedUpdateInput = {
   movements?: Prisma.ItemMovementUncheckedUpdateManyWithoutItemNestedInput
   reservations?: Prisma.ItemReservationUncheckedUpdateManyWithoutItemNestedInput
   volumeItems?: Prisma.VolumeItemUncheckedUpdateManyWithoutItemNestedInput
-  inventorySessionItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutItemNestedInput
+  inventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutItemNestedInput
 }
 
 export type ItemCreateManyInput = {
@@ -864,6 +864,11 @@ export type ItemSumOrderByAggregateInput = {
   unitCost?: Prisma.SortOrder
 }
 
+export type ItemNullableScalarRelationFilter = {
+  is?: Prisma.ItemWhereInput | null
+  isNot?: Prisma.ItemWhereInput | null
+}
+
 export type ItemCreateNestedManyWithoutBinInput = {
   create?: Prisma.XOR<Prisma.ItemCreateWithoutBinInput, Prisma.ItemUncheckedCreateWithoutBinInput> | Prisma.ItemCreateWithoutBinInput[] | Prisma.ItemUncheckedCreateWithoutBinInput[]
   connectOrCreate?: Prisma.ItemCreateOrConnectWithoutBinInput | Prisma.ItemCreateOrConnectWithoutBinInput[]
@@ -980,18 +985,20 @@ export type ItemUpdateOneRequiredWithoutMovementsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ItemUpdateToOneWithWhereWithoutMovementsInput, Prisma.ItemUpdateWithoutMovementsInput>, Prisma.ItemUncheckedUpdateWithoutMovementsInput>
 }
 
-export type ItemCreateNestedOneWithoutInventorySessionItemsInput = {
-  create?: Prisma.XOR<Prisma.ItemCreateWithoutInventorySessionItemsInput, Prisma.ItemUncheckedCreateWithoutInventorySessionItemsInput>
-  connectOrCreate?: Prisma.ItemCreateOrConnectWithoutInventorySessionItemsInput
+export type ItemCreateNestedOneWithoutInventoryItemsInput = {
+  create?: Prisma.XOR<Prisma.ItemCreateWithoutInventoryItemsInput, Prisma.ItemUncheckedCreateWithoutInventoryItemsInput>
+  connectOrCreate?: Prisma.ItemCreateOrConnectWithoutInventoryItemsInput
   connect?: Prisma.ItemWhereUniqueInput
 }
 
-export type ItemUpdateOneRequiredWithoutInventorySessionItemsNestedInput = {
-  create?: Prisma.XOR<Prisma.ItemCreateWithoutInventorySessionItemsInput, Prisma.ItemUncheckedCreateWithoutInventorySessionItemsInput>
-  connectOrCreate?: Prisma.ItemCreateOrConnectWithoutInventorySessionItemsInput
-  upsert?: Prisma.ItemUpsertWithoutInventorySessionItemsInput
+export type ItemUpdateOneWithoutInventoryItemsNestedInput = {
+  create?: Prisma.XOR<Prisma.ItemCreateWithoutInventoryItemsInput, Prisma.ItemUncheckedCreateWithoutInventoryItemsInput>
+  connectOrCreate?: Prisma.ItemCreateOrConnectWithoutInventoryItemsInput
+  upsert?: Prisma.ItemUpsertWithoutInventoryItemsInput
+  disconnect?: Prisma.ItemWhereInput | boolean
+  delete?: Prisma.ItemWhereInput | boolean
   connect?: Prisma.ItemWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ItemUpdateToOneWithWhereWithoutInventorySessionItemsInput, Prisma.ItemUpdateWithoutInventorySessionItemsInput>, Prisma.ItemUncheckedUpdateWithoutInventorySessionItemsInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ItemUpdateToOneWithWhereWithoutInventoryItemsInput, Prisma.ItemUpdateWithoutInventoryItemsInput>, Prisma.ItemUncheckedUpdateWithoutInventoryItemsInput>
 }
 
 export type ItemCreateNestedOneWithoutReservationsInput = {
@@ -1078,7 +1085,7 @@ export type ItemCreateWithoutBinInput = {
   movements?: Prisma.ItemMovementCreateNestedManyWithoutItemInput
   reservations?: Prisma.ItemReservationCreateNestedManyWithoutItemInput
   volumeItems?: Prisma.VolumeItemCreateNestedManyWithoutItemInput
-  inventorySessionItems?: Prisma.InventorySessionItemCreateNestedManyWithoutItemInput
+  inventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutItemInput
 }
 
 export type ItemUncheckedCreateWithoutBinInput = {
@@ -1109,7 +1116,7 @@ export type ItemUncheckedCreateWithoutBinInput = {
   movements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutItemInput
   reservations?: Prisma.ItemReservationUncheckedCreateNestedManyWithoutItemInput
   volumeItems?: Prisma.VolumeItemUncheckedCreateNestedManyWithoutItemInput
-  inventorySessionItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutItemInput
+  inventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutItemInput
 }
 
 export type ItemCreateOrConnectWithoutBinInput = {
@@ -1197,7 +1204,7 @@ export type ItemCreateWithoutVolumeItemsInput = {
   bin?: Prisma.BinCreateNestedOneWithoutItemsInput
   movements?: Prisma.ItemMovementCreateNestedManyWithoutItemInput
   reservations?: Prisma.ItemReservationCreateNestedManyWithoutItemInput
-  inventorySessionItems?: Prisma.InventorySessionItemCreateNestedManyWithoutItemInput
+  inventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutItemInput
 }
 
 export type ItemUncheckedCreateWithoutVolumeItemsInput = {
@@ -1228,7 +1235,7 @@ export type ItemUncheckedCreateWithoutVolumeItemsInput = {
   tenantId: string
   movements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutItemInput
   reservations?: Prisma.ItemReservationUncheckedCreateNestedManyWithoutItemInput
-  inventorySessionItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutItemInput
+  inventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutItemInput
 }
 
 export type ItemCreateOrConnectWithoutVolumeItemsInput = {
@@ -1275,7 +1282,7 @@ export type ItemUpdateWithoutVolumeItemsInput = {
   bin?: Prisma.BinUpdateOneWithoutItemsNestedInput
   movements?: Prisma.ItemMovementUpdateManyWithoutItemNestedInput
   reservations?: Prisma.ItemReservationUpdateManyWithoutItemNestedInput
-  inventorySessionItems?: Prisma.InventorySessionItemUpdateManyWithoutItemNestedInput
+  inventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutItemNestedInput
 }
 
 export type ItemUncheckedUpdateWithoutVolumeItemsInput = {
@@ -1306,7 +1313,7 @@ export type ItemUncheckedUpdateWithoutVolumeItemsInput = {
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   movements?: Prisma.ItemMovementUncheckedUpdateManyWithoutItemNestedInput
   reservations?: Prisma.ItemReservationUncheckedUpdateManyWithoutItemNestedInput
-  inventorySessionItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutItemNestedInput
+  inventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutItemNestedInput
 }
 
 export type ItemCreateWithoutVariantInput = {
@@ -1337,7 +1344,7 @@ export type ItemCreateWithoutVariantInput = {
   movements?: Prisma.ItemMovementCreateNestedManyWithoutItemInput
   reservations?: Prisma.ItemReservationCreateNestedManyWithoutItemInput
   volumeItems?: Prisma.VolumeItemCreateNestedManyWithoutItemInput
-  inventorySessionItems?: Prisma.InventorySessionItemCreateNestedManyWithoutItemInput
+  inventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutItemInput
 }
 
 export type ItemUncheckedCreateWithoutVariantInput = {
@@ -1368,7 +1375,7 @@ export type ItemUncheckedCreateWithoutVariantInput = {
   movements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutItemInput
   reservations?: Prisma.ItemReservationUncheckedCreateNestedManyWithoutItemInput
   volumeItems?: Prisma.VolumeItemUncheckedCreateNestedManyWithoutItemInput
-  inventorySessionItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutItemInput
+  inventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutItemInput
 }
 
 export type ItemCreateOrConnectWithoutVariantInput = {
@@ -1425,7 +1432,7 @@ export type ItemCreateWithoutMovementsInput = {
   bin?: Prisma.BinCreateNestedOneWithoutItemsInput
   reservations?: Prisma.ItemReservationCreateNestedManyWithoutItemInput
   volumeItems?: Prisma.VolumeItemCreateNestedManyWithoutItemInput
-  inventorySessionItems?: Prisma.InventorySessionItemCreateNestedManyWithoutItemInput
+  inventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutItemInput
 }
 
 export type ItemUncheckedCreateWithoutMovementsInput = {
@@ -1456,7 +1463,7 @@ export type ItemUncheckedCreateWithoutMovementsInput = {
   tenantId: string
   reservations?: Prisma.ItemReservationUncheckedCreateNestedManyWithoutItemInput
   volumeItems?: Prisma.VolumeItemUncheckedCreateNestedManyWithoutItemInput
-  inventorySessionItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutItemInput
+  inventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutItemInput
 }
 
 export type ItemCreateOrConnectWithoutMovementsInput = {
@@ -1503,7 +1510,7 @@ export type ItemUpdateWithoutMovementsInput = {
   bin?: Prisma.BinUpdateOneWithoutItemsNestedInput
   reservations?: Prisma.ItemReservationUpdateManyWithoutItemNestedInput
   volumeItems?: Prisma.VolumeItemUpdateManyWithoutItemNestedInput
-  inventorySessionItems?: Prisma.InventorySessionItemUpdateManyWithoutItemNestedInput
+  inventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutItemNestedInput
 }
 
 export type ItemUncheckedUpdateWithoutMovementsInput = {
@@ -1534,10 +1541,10 @@ export type ItemUncheckedUpdateWithoutMovementsInput = {
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   reservations?: Prisma.ItemReservationUncheckedUpdateManyWithoutItemNestedInput
   volumeItems?: Prisma.VolumeItemUncheckedUpdateManyWithoutItemNestedInput
-  inventorySessionItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutItemNestedInput
+  inventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutItemNestedInput
 }
 
-export type ItemCreateWithoutInventorySessionItemsInput = {
+export type ItemCreateWithoutInventoryItemsInput = {
   id?: string
   uniqueCode?: string | null
   slug: string
@@ -1568,7 +1575,7 @@ export type ItemCreateWithoutInventorySessionItemsInput = {
   volumeItems?: Prisma.VolumeItemCreateNestedManyWithoutItemInput
 }
 
-export type ItemUncheckedCreateWithoutInventorySessionItemsInput = {
+export type ItemUncheckedCreateWithoutInventoryItemsInput = {
   id?: string
   uniqueCode?: string | null
   slug: string
@@ -1599,23 +1606,23 @@ export type ItemUncheckedCreateWithoutInventorySessionItemsInput = {
   volumeItems?: Prisma.VolumeItemUncheckedCreateNestedManyWithoutItemInput
 }
 
-export type ItemCreateOrConnectWithoutInventorySessionItemsInput = {
+export type ItemCreateOrConnectWithoutInventoryItemsInput = {
   where: Prisma.ItemWhereUniqueInput
-  create: Prisma.XOR<Prisma.ItemCreateWithoutInventorySessionItemsInput, Prisma.ItemUncheckedCreateWithoutInventorySessionItemsInput>
+  create: Prisma.XOR<Prisma.ItemCreateWithoutInventoryItemsInput, Prisma.ItemUncheckedCreateWithoutInventoryItemsInput>
 }
 
-export type ItemUpsertWithoutInventorySessionItemsInput = {
-  update: Prisma.XOR<Prisma.ItemUpdateWithoutInventorySessionItemsInput, Prisma.ItemUncheckedUpdateWithoutInventorySessionItemsInput>
-  create: Prisma.XOR<Prisma.ItemCreateWithoutInventorySessionItemsInput, Prisma.ItemUncheckedCreateWithoutInventorySessionItemsInput>
+export type ItemUpsertWithoutInventoryItemsInput = {
+  update: Prisma.XOR<Prisma.ItemUpdateWithoutInventoryItemsInput, Prisma.ItemUncheckedUpdateWithoutInventoryItemsInput>
+  create: Prisma.XOR<Prisma.ItemCreateWithoutInventoryItemsInput, Prisma.ItemUncheckedCreateWithoutInventoryItemsInput>
   where?: Prisma.ItemWhereInput
 }
 
-export type ItemUpdateToOneWithWhereWithoutInventorySessionItemsInput = {
+export type ItemUpdateToOneWithWhereWithoutInventoryItemsInput = {
   where?: Prisma.ItemWhereInput
-  data: Prisma.XOR<Prisma.ItemUpdateWithoutInventorySessionItemsInput, Prisma.ItemUncheckedUpdateWithoutInventorySessionItemsInput>
+  data: Prisma.XOR<Prisma.ItemUpdateWithoutInventoryItemsInput, Prisma.ItemUncheckedUpdateWithoutInventoryItemsInput>
 }
 
-export type ItemUpdateWithoutInventorySessionItemsInput = {
+export type ItemUpdateWithoutInventoryItemsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   uniqueCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slug?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1646,7 +1653,7 @@ export type ItemUpdateWithoutInventorySessionItemsInput = {
   volumeItems?: Prisma.VolumeItemUpdateManyWithoutItemNestedInput
 }
 
-export type ItemUncheckedUpdateWithoutInventorySessionItemsInput = {
+export type ItemUncheckedUpdateWithoutInventoryItemsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   uniqueCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slug?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1705,7 +1712,7 @@ export type ItemCreateWithoutReservationsInput = {
   bin?: Prisma.BinCreateNestedOneWithoutItemsInput
   movements?: Prisma.ItemMovementCreateNestedManyWithoutItemInput
   volumeItems?: Prisma.VolumeItemCreateNestedManyWithoutItemInput
-  inventorySessionItems?: Prisma.InventorySessionItemCreateNestedManyWithoutItemInput
+  inventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutItemInput
 }
 
 export type ItemUncheckedCreateWithoutReservationsInput = {
@@ -1736,7 +1743,7 @@ export type ItemUncheckedCreateWithoutReservationsInput = {
   tenantId: string
   movements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutItemInput
   volumeItems?: Prisma.VolumeItemUncheckedCreateNestedManyWithoutItemInput
-  inventorySessionItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutItemInput
+  inventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutItemInput
 }
 
 export type ItemCreateOrConnectWithoutReservationsInput = {
@@ -1783,7 +1790,7 @@ export type ItemUpdateWithoutReservationsInput = {
   bin?: Prisma.BinUpdateOneWithoutItemsNestedInput
   movements?: Prisma.ItemMovementUpdateManyWithoutItemNestedInput
   volumeItems?: Prisma.VolumeItemUpdateManyWithoutItemNestedInput
-  inventorySessionItems?: Prisma.InventorySessionItemUpdateManyWithoutItemNestedInput
+  inventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutItemNestedInput
 }
 
 export type ItemUncheckedUpdateWithoutReservationsInput = {
@@ -1814,7 +1821,7 @@ export type ItemUncheckedUpdateWithoutReservationsInput = {
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   movements?: Prisma.ItemMovementUncheckedUpdateManyWithoutItemNestedInput
   volumeItems?: Prisma.VolumeItemUncheckedUpdateManyWithoutItemNestedInput
-  inventorySessionItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutItemNestedInput
+  inventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutItemNestedInput
 }
 
 export type ItemCreateWithoutTenantInput = {
@@ -1845,7 +1852,7 @@ export type ItemCreateWithoutTenantInput = {
   movements?: Prisma.ItemMovementCreateNestedManyWithoutItemInput
   reservations?: Prisma.ItemReservationCreateNestedManyWithoutItemInput
   volumeItems?: Prisma.VolumeItemCreateNestedManyWithoutItemInput
-  inventorySessionItems?: Prisma.InventorySessionItemCreateNestedManyWithoutItemInput
+  inventoryItems?: Prisma.InventorySessionItemCreateNestedManyWithoutItemInput
 }
 
 export type ItemUncheckedCreateWithoutTenantInput = {
@@ -1876,7 +1883,7 @@ export type ItemUncheckedCreateWithoutTenantInput = {
   movements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutItemInput
   reservations?: Prisma.ItemReservationUncheckedCreateNestedManyWithoutItemInput
   volumeItems?: Prisma.VolumeItemUncheckedCreateNestedManyWithoutItemInput
-  inventorySessionItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutItemInput
+  inventoryItems?: Prisma.InventorySessionItemUncheckedCreateNestedManyWithoutItemInput
 }
 
 export type ItemCreateOrConnectWithoutTenantInput = {
@@ -1960,7 +1967,7 @@ export type ItemUpdateWithoutBinInput = {
   movements?: Prisma.ItemMovementUpdateManyWithoutItemNestedInput
   reservations?: Prisma.ItemReservationUpdateManyWithoutItemNestedInput
   volumeItems?: Prisma.VolumeItemUpdateManyWithoutItemNestedInput
-  inventorySessionItems?: Prisma.InventorySessionItemUpdateManyWithoutItemNestedInput
+  inventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutItemNestedInput
 }
 
 export type ItemUncheckedUpdateWithoutBinInput = {
@@ -1991,7 +1998,7 @@ export type ItemUncheckedUpdateWithoutBinInput = {
   movements?: Prisma.ItemMovementUncheckedUpdateManyWithoutItemNestedInput
   reservations?: Prisma.ItemReservationUncheckedUpdateManyWithoutItemNestedInput
   volumeItems?: Prisma.VolumeItemUncheckedUpdateManyWithoutItemNestedInput
-  inventorySessionItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutItemNestedInput
+  inventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutItemNestedInput
 }
 
 export type ItemUncheckedUpdateManyWithoutBinInput = {
@@ -2076,7 +2083,7 @@ export type ItemUpdateWithoutVariantInput = {
   movements?: Prisma.ItemMovementUpdateManyWithoutItemNestedInput
   reservations?: Prisma.ItemReservationUpdateManyWithoutItemNestedInput
   volumeItems?: Prisma.VolumeItemUpdateManyWithoutItemNestedInput
-  inventorySessionItems?: Prisma.InventorySessionItemUpdateManyWithoutItemNestedInput
+  inventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutItemNestedInput
 }
 
 export type ItemUncheckedUpdateWithoutVariantInput = {
@@ -2107,7 +2114,7 @@ export type ItemUncheckedUpdateWithoutVariantInput = {
   movements?: Prisma.ItemMovementUncheckedUpdateManyWithoutItemNestedInput
   reservations?: Prisma.ItemReservationUncheckedUpdateManyWithoutItemNestedInput
   volumeItems?: Prisma.VolumeItemUncheckedUpdateManyWithoutItemNestedInput
-  inventorySessionItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutItemNestedInput
+  inventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutItemNestedInput
 }
 
 export type ItemUncheckedUpdateManyWithoutVariantInput = {
@@ -2192,7 +2199,7 @@ export type ItemUpdateWithoutTenantInput = {
   movements?: Prisma.ItemMovementUpdateManyWithoutItemNestedInput
   reservations?: Prisma.ItemReservationUpdateManyWithoutItemNestedInput
   volumeItems?: Prisma.VolumeItemUpdateManyWithoutItemNestedInput
-  inventorySessionItems?: Prisma.InventorySessionItemUpdateManyWithoutItemNestedInput
+  inventoryItems?: Prisma.InventorySessionItemUpdateManyWithoutItemNestedInput
 }
 
 export type ItemUncheckedUpdateWithoutTenantInput = {
@@ -2223,7 +2230,7 @@ export type ItemUncheckedUpdateWithoutTenantInput = {
   movements?: Prisma.ItemMovementUncheckedUpdateManyWithoutItemNestedInput
   reservations?: Prisma.ItemReservationUncheckedUpdateManyWithoutItemNestedInput
   volumeItems?: Prisma.VolumeItemUncheckedUpdateManyWithoutItemNestedInput
-  inventorySessionItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutItemNestedInput
+  inventoryItems?: Prisma.InventorySessionItemUncheckedUpdateManyWithoutItemNestedInput
 }
 
 export type ItemUncheckedUpdateManyWithoutTenantInput = {
@@ -2262,14 +2269,14 @@ export type ItemCountOutputType = {
   movements: number
   reservations: number
   volumeItems: number
-  inventorySessionItems: number
+  inventoryItems: number
 }
 
 export type ItemCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   movements?: boolean | ItemCountOutputTypeCountMovementsArgs
   reservations?: boolean | ItemCountOutputTypeCountReservationsArgs
   volumeItems?: boolean | ItemCountOutputTypeCountVolumeItemsArgs
-  inventorySessionItems?: boolean | ItemCountOutputTypeCountInventorySessionItemsArgs
+  inventoryItems?: boolean | ItemCountOutputTypeCountInventoryItemsArgs
 }
 
 /**
@@ -2306,7 +2313,7 @@ export type ItemCountOutputTypeCountVolumeItemsArgs<ExtArgs extends runtime.Type
 /**
  * ItemCountOutputType without action
  */
-export type ItemCountOutputTypeCountInventorySessionItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type ItemCountOutputTypeCountInventoryItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.InventorySessionItemWhereInput
 }
 
@@ -2343,7 +2350,7 @@ export type ItemSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   movements?: boolean | Prisma.Item$movementsArgs<ExtArgs>
   reservations?: boolean | Prisma.Item$reservationsArgs<ExtArgs>
   volumeItems?: boolean | Prisma.Item$volumeItemsArgs<ExtArgs>
-  inventorySessionItems?: boolean | Prisma.Item$inventorySessionItemsArgs<ExtArgs>
+  inventoryItems?: boolean | Prisma.Item$inventoryItemsArgs<ExtArgs>
   _count?: boolean | Prisma.ItemCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["item"]>
 
@@ -2445,7 +2452,7 @@ export type ItemInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   movements?: boolean | Prisma.Item$movementsArgs<ExtArgs>
   reservations?: boolean | Prisma.Item$reservationsArgs<ExtArgs>
   volumeItems?: boolean | Prisma.Item$volumeItemsArgs<ExtArgs>
-  inventorySessionItems?: boolean | Prisma.Item$inventorySessionItemsArgs<ExtArgs>
+  inventoryItems?: boolean | Prisma.Item$inventoryItemsArgs<ExtArgs>
   _count?: boolean | Prisma.ItemCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ItemIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2468,7 +2475,7 @@ export type $ItemPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     movements: Prisma.$ItemMovementPayload<ExtArgs>[]
     reservations: Prisma.$ItemReservationPayload<ExtArgs>[]
     volumeItems: Prisma.$VolumeItemPayload<ExtArgs>[]
-    inventorySessionItems: Prisma.$InventorySessionItemPayload<ExtArgs>[]
+    inventoryItems: Prisma.$InventorySessionItemPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2896,7 +2903,7 @@ export interface Prisma__ItemClient<T, Null = never, ExtArgs extends runtime.Typ
   movements<T extends Prisma.Item$movementsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Item$movementsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ItemMovementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   reservations<T extends Prisma.Item$reservationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Item$reservationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ItemReservationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   volumeItems<T extends Prisma.Item$volumeItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Item$volumeItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$VolumeItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  inventorySessionItems<T extends Prisma.Item$inventorySessionItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Item$inventorySessionItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InventorySessionItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  inventoryItems<T extends Prisma.Item$inventoryItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Item$inventoryItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InventorySessionItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3438,9 +3445,9 @@ export type Item$volumeItemsArgs<ExtArgs extends runtime.Types.Extensions.Intern
 }
 
 /**
- * Item.inventorySessionItems
+ * Item.inventoryItems
  */
-export type Item$inventorySessionItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Item$inventoryItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the InventorySessionItem
    */

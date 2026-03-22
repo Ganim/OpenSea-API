@@ -1,20 +1,17 @@
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import {
-  reconciliationResponseSchema,
-  reconciliationQuerySchema,
-} from '@/http/schemas/sales/marketplaces';
-import { makeGetMarketplaceReconciliationUseCase } from '@/use-cases/sales/marketplaces/factories/make-get-marketplace-reconciliation-use-case';
+import { makeGetMarketplaceReconciliationUseCase } from '@/use-cases/sales/marketplace-payments/factories/make-get-marketplace-reconciliation-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
-import z from 'zod';
+import { z } from 'zod';
 
-export async function getReconciliationController(app: FastifyInstance) {
+export async function v1GetReconciliationController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
-    url: '/v1/marketplaces/connections/:connectionId/reconciliation',
+    url: '/v1/marketplace-connections/:connectionId/reconciliation',
     preHandler: [
       verifyJwt,
       verifyTenant,
@@ -24,37 +21,37 @@ export async function getReconciliationController(app: FastifyInstance) {
       }),
     ],
     schema: {
-      tags: ['Sales - Marketplaces'],
-      summary: 'Get payment reconciliation for a marketplace connection',
-      params: z.object({
-        connectionId: z.string().uuid().describe('Connection UUID'),
-      }),
-      querystring: reconciliationQuerySchema,
+      tags: ['Sales - Marketplace Payments'],
+      summary: 'Get reconciliation summary for a connection',
+      params: z.object({ connectionId: z.string().uuid() }),
       response: {
         200: z.object({
-          reconciliation: reconciliationResponseSchema,
+          connectionId: z.string(),
+          connectionName: z.string(),
+          marketplace: z.string(),
+          totalGross: z.number(),
+          totalFees: z.number(),
+          totalNet: z.number(),
+          pendingCount: z.number(),
+          settledCount: z.number(),
         }),
-        404: z.object({
-          message: z.string(),
-        }),
+        404: z.object({ message: z.string() }),
       },
       security: [{ bearerAuth: [] }],
     },
-
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
       const { connectionId } = request.params;
-      const query = request.query;
-
-      const useCase = makeGetMarketplaceReconciliationUseCase();
-      const { reconciliation } = await useCase.execute({
-        tenantId,
-        connectionId,
-        from: query.from,
-        to: query.to,
-      });
-
-      return reply.status(200).send({ reconciliation });
+      try {
+        const useCase = makeGetMarketplaceReconciliationUseCase();
+        const result = await useCase.execute({ tenantId, connectionId });
+        return reply.status(200).send(result);
+      } catch (err) {
+        if (err instanceof ResourceNotFoundError) {
+          return reply.status(404).send({ message: err.message });
+        }
+        throw err;
+      }
     },
   });
 }
