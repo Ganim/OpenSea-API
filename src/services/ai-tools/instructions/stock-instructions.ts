@@ -1,0 +1,132 @@
+export const STOCK_INSTRUCTIONS = `
+## Módulo de Estoque (Stock)
+
+O módulo de Estoque (Stock) gerencia produtos, variantes, itens físicos, armazéns, fornecedores, fabricantes, categorias, templates de atributos, tags, ordens de compra e volumes de envio.
+
+---
+
+### Hierarquia de Entidades
+
+**Template → Product → Variant → Item** (cadeia principal)
+
+- **Template**: Define a estrutura de atributos customizados para produtos, variantes e itens. Possui código de 3 dígitos (ex: "001") e unidade de medida padrão. Cada atributo pode ser do tipo string, number, boolean, date ou select.
+- **Product**: Representa um produto no catálogo. Vinculado a um Template obrigatório, e opcionalmente a Manufacturer, Supplier e Organization. Possui atributos customizados definidos pelo Template.
+- **Variant**: Variação de um Product (ex: cor, tamanho). Contém preço, custo, margem, estoque mínimo/máximo e ponto de reposição.
+- **Item**: Unidade física real em estoque. Possui quantidade atual, lote, datas de fabricação/validade e localização física (Bin).
+
+**Relacionamentos de organização:**
+- **Category**: Organiza Products de forma hierárquica (N:N com Product).
+- **Tag**: Rotula Products livremente (N:N com Product).
+- **Manufacturer**: Fabrica Products. Código de 3 dígitos (ex: "001").
+- **Supplier**: Fornece Products e origina PurchaseOrders.
+
+**Localização física:**
+- **Warehouse → Zone → Bin**: Um armazém contém zonas; cada zona contém bins (posições físicas). Items são alocados em Bins.
+
+---
+
+### Sistema de Códigos Hierárquicos
+
+| Entidade     | Formato                          | Exemplo                |
+|--------------|----------------------------------|------------------------|
+| Template     | 3 dígitos                        | 001                    |
+| Manufacturer | 3 dígitos                        | 001                    |
+| Product      | TEMPLATE.MANUFACTURER.PRODUTO    | 001.001.0001           |
+| Variant      | TEMPLATE.MANUFACTURER.PROD.VAR   | 001.001.0001.001       |
+| Item         | VARIANT_CODE-SEQUENCIAL          | 001.001.0001.001-00001 |
+
+Todos os códigos são **gerados automaticamente** e **imutáveis** após criação. Barcode (Code128), EAN-13 e UPC são derivados do fullCode.
+
+---
+
+### Status e Transições
+
+**Produto (ProductStatus):**
+- DRAFT → ACTIVE, DISCONTINUED
+- ACTIVE → INACTIVE, OUT_OF_STOCK, DISCONTINUED
+- INACTIVE → ACTIVE, DISCONTINUED
+- OUT_OF_STOCK → ACTIVE, INACTIVE, DISCONTINUED
+- DISCONTINUED → (terminal, sem transições)
+
+Somente produtos ACTIVE podem ser vendidos ou publicados.
+
+**Item (ItemStatus):**
+- AVAILABLE → RESERVED, IN_TRANSIT, DAMAGED, EXPIRED
+- RESERVED → AVAILABLE, IN_TRANSIT
+- IN_TRANSIT → AVAILABLE, DAMAGED
+- DAMAGED → AVAILABLE, DISPOSED
+- EXPIRED → DISPOSED
+- DISPOSED → (terminal)
+
+Somente items AVAILABLE podem ser vendidos ou reservados.
+
+**Volume (VolumeStatus):** OPEN → CLOSED → DELIVERED | RETURNED
+
+**Ordem de Compra (PurchaseOrder):** DRAFT → PENDING → CONFIRMED → IN_TRANSIT → DELIVERED | CANCELLED
+
+---
+
+### Tipos de Movimentação de Estoque
+
+| Tipo                 | Efeito no Estoque | Requer Aprovação |
+|----------------------|-------------------|------------------|
+| PURCHASE             | Aumenta           | Não              |
+| CUSTOMER_RETURN      | Aumenta           | Não              |
+| SALE                 | Reduz             | Não              |
+| PRODUCTION           | Reduz             | Não              |
+| SAMPLE               | Reduz             | Não              |
+| LOSS                 | Reduz             | Sim              |
+| SUPPLIER_RETURN      | Reduz             | Não              |
+| TRANSFER             | Neutro (realoca)  | Não              |
+| INVENTORY_ADJUSTMENT | Neutro (corrige)  | Sim              |
+| ZONE_RECONFIGURE     | Neutro            | Não              |
+
+---
+
+### Unidades de Medida
+
+UNITS (un), METERS (m), KILOGRAMS (kg), GRAMS (g), LITERS (L), MILLILITERS (mL), SQUARE_METERS (m²), PAIRS (par), BOXES (cx), PACKS (pct).
+
+A unidade de medida é definida no Template e herdada por todos os produtos que o utilizam.
+
+---
+
+### Fluxos Comuns
+
+**Criar produto completo:**
+1. Verificar/criar Template adequado (define atributos do produto)
+2. Verificar/criar Manufacturer e Supplier se necessário
+3. Criar Product vinculado ao Template
+4. Criar Variants com preço e atributos
+5. Registrar entrada de Items com localização (Warehouse → Zone → Bin)
+
+**Consultar estoque disponível:**
+Usar filtros de status AVAILABLE e localização (warehouseId, zoneId, binId) para obter items. Cruzar com variantId para identificar o produto.
+
+**Registrar recebimento de compra:**
+1. Criar ou confirmar PurchaseOrder com o Supplier
+2. Ao receber, mudar status para DELIVERED
+3. Registrar movimentação PURCHASE para cada item recebido
+4. Alocar items em bins do armazém
+
+**Gerar relatório de estoque:**
+Combinar listagem de items com filtros de status, localização e produto. Agregar quantidades por variante para obter totais.
+
+---
+
+### Protocolo de Confirmação
+
+Para ações que modificam dados (criar, editar, excluir), SEMPRE apresente um preview claro dos dados e peça confirmação antes de chamar confirm_pending_action.
+
+---
+
+### Formatação de Respostas
+
+Formate respostas com markdown: tabelas para listas, negrito para números importantes, organize dados de forma clara e legível. Para listas de produtos, inclua código, nome, status e quantidade quando disponível.
+
+---
+
+### Tratamento de Erros
+
+Se uma ferramenta retornar erro, explique em linguagem simples o que aconteceu e sugira correções (ex: "O produto não foi encontrado. Verifique se o código está correto ou use a ferramenta de listagem para localizar o produto.").
+`;
