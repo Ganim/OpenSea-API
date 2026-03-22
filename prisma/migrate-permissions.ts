@@ -55,6 +55,7 @@ const MODULE_LABELS: Record<string, string> = {
 };
 
 const ACTION_LABELS: Record<string, string> = {
+  // Standard actions
   access: 'Acessar',
   register: 'Cadastrar',
   modify: 'Alterar',
@@ -65,6 +66,29 @@ const ACTION_LABELS: Record<string, string> = {
   admin: 'Administrar',
   share: 'Compartilhar',
   onlyself: 'Apenas Próprio',
+  // Domain-specific actions (Sales)
+  confirm: 'Confirmar',
+  approve: 'Aprovar',
+  cancel: 'Cancelar',
+  reassign: 'Reatribuir',
+  reply: 'Responder',
+  execute: 'Executar',
+  activate: 'Ativar',
+  send: 'Enviar',
+  convert: 'Converter',
+  sell: 'Vender',
+  open: 'Abrir',
+  close: 'Fechar',
+  withdraw: 'Sacar',
+  supply: 'Suprir',
+  receive: 'Receber',
+  verify: 'Verificar',
+  override: 'Sobrescrever',
+  publish: 'Publicar',
+  generate: 'Gerar',
+  query: 'Consultar',
+  sync: 'Sincronizar',
+  withdrawal: 'Sacar',
 };
 
 function capitalize(s: string): string {
