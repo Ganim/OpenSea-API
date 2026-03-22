@@ -15,35 +15,12 @@ const activityTypeEnum = z.enum([
 
 export const createActivitySchema = z.object({
   type: activityTypeEnum.describe('Type of activity'),
-  title: z
-    .string()
-    .min(1)
-    .max(256)
-    .describe('Title of the activity'),
-  description: z
-    .string()
-    .max(4096)
-    .optional()
-    .describe('Activity description'),
-  contactId: z
-    .string()
-    .uuid()
-    .optional()
-    .describe('Related contact ID'),
-  customerId: z
-    .string()
-    .uuid()
-    .optional()
-    .describe('Related customer ID'),
-  dealId: z
-    .string()
-    .uuid()
-    .optional()
-    .describe('Related deal ID'),
-  dueAt: z.coerce
-    .date()
-    .optional()
-    .describe('Due date for the activity'),
+  title: z.string().min(1).max(256).describe('Title of the activity'),
+  description: z.string().max(4096).optional().describe('Activity description'),
+  contactId: z.string().uuid().optional().describe('Related contact ID'),
+  customerId: z.string().uuid().optional().describe('Related customer ID'),
+  dealId: z.string().uuid().optional().describe('Related deal ID'),
+  dueAt: z.coerce.date().optional().describe('Due date for the activity'),
   duration: z
     .number()
     .int()
@@ -74,16 +51,22 @@ export const activityResponseSchema = z.object({
   type: z.string().describe('Activity type'),
   title: z.string().describe('Activity title'),
   description: z.string().nullable().optional().describe('Description'),
-  contactId: z.string().uuid().nullable().optional().describe('Related contact ID'),
-  customerId: z.string().uuid().nullable().optional().describe('Related customer ID'),
+  contactId: z
+    .string()
+    .uuid()
+    .nullable()
+    .optional()
+    .describe('Related contact ID'),
   dealId: z.string().uuid().nullable().optional().describe('Related deal ID'),
-  performedByUserId: z.string().uuid().nullable().optional().describe('User who performed the activity'),
-  performedAt: z.coerce.date().describe('Date activity was performed'),
-  dueAt: z.coerce.date().nullable().optional().describe('Due date'),
-  completedAt: z.coerce.date().nullable().optional().describe('Completion date'),
+  userId: z.string().uuid().describe('User who created the activity'),
+  status: z.string().describe('Activity status'),
+  dueDate: z.coerce.date().nullable().optional().describe('Due date'),
+  completedAt: z.coerce
+    .date()
+    .nullable()
+    .optional()
+    .describe('Completion date'),
   duration: z.number().nullable().optional().describe('Duration in seconds'),
-  outcome: z.string().nullable().optional().describe('Outcome'),
-  metadata: z.record(z.string(), z.unknown()).nullable().optional().describe('Metadata'),
   createdAt: z.coerce.date().describe('Creation date'),
   updatedAt: z.coerce.date().nullable().optional().describe('Last update date'),
   deletedAt: z.coerce.date().nullable().optional().describe('Soft delete date'),
@@ -103,24 +86,10 @@ export const listActivitiesQuerySchema = z.object({
     .max(100)
     .default(20)
     .describe('Items per page (max 100)'),
-  contactId: z
-    .string()
-    .uuid()
-    .optional()
-    .describe('Filter by contact ID'),
-  customerId: z
-    .string()
-    .uuid()
-    .optional()
-    .describe('Filter by customer ID'),
-  dealId: z
-    .string()
-    .uuid()
-    .optional()
-    .describe('Filter by deal ID'),
-  type: activityTypeEnum
-    .optional()
-    .describe('Filter by activity type'),
+  contactId: z.string().uuid().optional().describe('Filter by contact ID'),
+  customerId: z.string().uuid().optional().describe('Filter by customer ID'),
+  dealId: z.string().uuid().optional().describe('Filter by deal ID'),
+  type: activityTypeEnum.optional().describe('Filter by activity type'),
   sortBy: z
     .enum(['performedAt', 'createdAt'])
     .optional()

@@ -137,7 +137,13 @@ export class Pipeline extends Entity<PipelineProps> {
   static create(
     props: Optional<
       PipelineProps,
-      'id' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'isDefault' | 'isActive' | 'position'
+      | 'id'
+      | 'createdAt'
+      | 'updatedAt'
+      | 'deletedAt'
+      | 'isDefault'
+      | 'isActive'
+      | 'position'
     >,
     id?: UniqueEntityID,
   ): Pipeline {

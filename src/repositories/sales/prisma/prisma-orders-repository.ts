@@ -59,10 +59,7 @@ export class PrismaOrdersRepository implements OrdersRepository {
     });
   }
 
-  async findById(
-    id: UniqueEntityID,
-    tenantId: string,
-  ): Promise<Order | null> {
+  async findById(id: UniqueEntityID, tenantId: string): Promise<Order | null> {
     const data = await prisma.order.findFirst({
       where: {
         id: id.toString(),

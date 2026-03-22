@@ -7,7 +7,12 @@ import type {
   CreateAnalyticsReportSchema,
   UpdateAnalyticsReportSchema,
 } from '../analytics-reports-repository';
-import type { ReportType, ReportFormat, ReportFrequency, ReportDeliveryMethod } from '@prisma/generated/client.js';
+import type {
+  ReportType,
+  ReportFormat,
+  ReportFrequency,
+  ReportDeliveryMethod,
+} from '@prisma/generated/client.js';
 
 function mapToDomain(data: Record<string, unknown>): AnalyticsReport {
   return AnalyticsReport.create(
@@ -42,7 +47,9 @@ function mapToDomain(data: Record<string, unknown>): AnalyticsReport {
   );
 }
 
-export class PrismaAnalyticsReportsRepository implements AnalyticsReportsRepository {
+export class PrismaAnalyticsReportsRepository
+  implements AnalyticsReportsRepository
+{
   async create(data: CreateAnalyticsReportSchema): Promise<AnalyticsReport> {
     const report = await prisma.analyticsReport.create({
       data: {
@@ -53,7 +60,9 @@ export class PrismaAnalyticsReportsRepository implements AnalyticsReportsReposit
         format: data.format as ReportFormat,
         dashboardId: data.dashboardId,
         isScheduled: data.isScheduled ?? false,
-        scheduleFrequency: data.scheduleFrequency as ReportFrequency | undefined,
+        scheduleFrequency: data.scheduleFrequency as
+          | ReportFrequency
+          | undefined,
         scheduleDayOfWeek: data.scheduleDayOfWeek,
         scheduleDayOfMonth: data.scheduleDayOfMonth,
         scheduleHour: data.scheduleHour,
@@ -69,12 +78,17 @@ export class PrismaAnalyticsReportsRepository implements AnalyticsReportsReposit
     return mapToDomain(report as unknown as Record<string, unknown>);
   }
 
-  async findById(id: UniqueEntityID, tenantId: string): Promise<AnalyticsReport | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<AnalyticsReport | null> {
     const report = await prisma.analyticsReport.findFirst({
       where: { id: id.toString(), tenantId, deletedAt: null },
     });
 
-    return report ? mapToDomain(report as unknown as Record<string, unknown>) : null;
+    return report
+      ? mapToDomain(report as unknown as Record<string, unknown>)
+      : null;
   }
 
   async findMany(
@@ -86,7 +100,8 @@ export class PrismaAnalyticsReportsRepository implements AnalyticsReportsReposit
     const where: Record<string, unknown> = { tenantId, deletedAt: null };
 
     if (filters?.type) where.type = filters.type;
-    if (filters?.isScheduled !== undefined) where.isScheduled = filters.isScheduled;
+    if (filters?.isScheduled !== undefined)
+      where.isScheduled = filters.isScheduled;
     if (filters?.isActive !== undefined) where.isActive = filters.isActive;
 
     const reports = await prisma.analyticsReport.findMany({
@@ -96,7 +111,9 @@ export class PrismaAnalyticsReportsRepository implements AnalyticsReportsReposit
       orderBy: { createdAt: 'desc' },
     });
 
-    return reports.map((r) => mapToDomain(r as unknown as Record<string, unknown>));
+    return reports.map((r) =>
+      mapToDomain(r as unknown as Record<string, unknown>),
+    );
   }
 
   async countMany(
@@ -106,28 +123,41 @@ export class PrismaAnalyticsReportsRepository implements AnalyticsReportsReposit
     const where: Record<string, unknown> = { tenantId, deletedAt: null };
 
     if (filters?.type) where.type = filters.type;
-    if (filters?.isScheduled !== undefined) where.isScheduled = filters.isScheduled;
+    if (filters?.isScheduled !== undefined)
+      where.isScheduled = filters.isScheduled;
     if (filters?.isActive !== undefined) where.isActive = filters.isActive;
 
     return prisma.analyticsReport.count({ where });
   }
 
-  async update(data: UpdateAnalyticsReportSchema): Promise<AnalyticsReport | null> {
+  async update(
+    data: UpdateAnalyticsReportSchema,
+  ): Promise<AnalyticsReport | null> {
     const updateData: Record<string, unknown> = {};
 
     if (data.name !== undefined) updateData.name = data.name;
     if (data.config !== undefined) updateData.config = data.config;
     if (data.format !== undefined) updateData.format = data.format;
-    if (data.isScheduled !== undefined) updateData.isScheduled = data.isScheduled;
-    if (data.scheduleFrequency !== undefined) updateData.scheduleFrequency = data.scheduleFrequency;
-    if (data.scheduleDayOfWeek !== undefined) updateData.scheduleDayOfWeek = data.scheduleDayOfWeek;
-    if (data.scheduleDayOfMonth !== undefined) updateData.scheduleDayOfMonth = data.scheduleDayOfMonth;
-    if (data.scheduleHour !== undefined) updateData.scheduleHour = data.scheduleHour;
-    if (data.scheduleTimezone !== undefined) updateData.scheduleTimezone = data.scheduleTimezone;
-    if (data.deliveryMethod !== undefined) updateData.deliveryMethod = data.deliveryMethod;
-    if (data.recipientUserIds !== undefined) updateData.recipientUserIds = data.recipientUserIds;
-    if (data.recipientEmails !== undefined) updateData.recipientEmails = data.recipientEmails;
-    if (data.recipientPhones !== undefined) updateData.recipientPhones = data.recipientPhones;
+    if (data.isScheduled !== undefined)
+      updateData.isScheduled = data.isScheduled;
+    if (data.scheduleFrequency !== undefined)
+      updateData.scheduleFrequency = data.scheduleFrequency;
+    if (data.scheduleDayOfWeek !== undefined)
+      updateData.scheduleDayOfWeek = data.scheduleDayOfWeek;
+    if (data.scheduleDayOfMonth !== undefined)
+      updateData.scheduleDayOfMonth = data.scheduleDayOfMonth;
+    if (data.scheduleHour !== undefined)
+      updateData.scheduleHour = data.scheduleHour;
+    if (data.scheduleTimezone !== undefined)
+      updateData.scheduleTimezone = data.scheduleTimezone;
+    if (data.deliveryMethod !== undefined)
+      updateData.deliveryMethod = data.deliveryMethod;
+    if (data.recipientUserIds !== undefined)
+      updateData.recipientUserIds = data.recipientUserIds;
+    if (data.recipientEmails !== undefined)
+      updateData.recipientEmails = data.recipientEmails;
+    if (data.recipientPhones !== undefined)
+      updateData.recipientPhones = data.recipientPhones;
     if (data.isActive !== undefined) updateData.isActive = data.isActive;
 
     const report = await prisma.analyticsReport.update({

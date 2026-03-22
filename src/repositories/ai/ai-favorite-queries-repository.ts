@@ -33,7 +33,9 @@ export interface FindManyFavoriteQueriesResult {
 
 export interface AiFavoriteQueriesRepository {
   create(data: CreateFavoriteQuerySchema): Promise<AiFavoriteQueryDTO>;
-  findMany(options: FindManyFavoriteQueriesOptions): Promise<FindManyFavoriteQueriesResult>;
+  findMany(
+    options: FindManyFavoriteQueriesOptions,
+  ): Promise<FindManyFavoriteQueriesResult>;
   delete(id: string, tenantId: string, userId: string): Promise<void>;
   incrementUsage(id: string): Promise<void>;
 }

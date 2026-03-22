@@ -1,3 +1,4 @@
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
@@ -71,10 +72,13 @@ export async function openSessionController(app: FastifyInstance) {
       };
 
       await logAudit(request, {
-        message: 'POS session opened on terminal {terminalId}',
+        message: AUDIT_MESSAGES.SALES.POS_SESSION_OPEN,
         entityId: session.id,
         placeholders: { userName: userId, terminalId: body.terminalId },
-        newData: { terminalId: body.terminalId, openingBalance: body.openingBalance },
+        newData: {
+          terminalId: body.terminalId,
+          openingBalance: body.openingBalance,
+        },
       });
 
       return reply.status(201).send({ session });

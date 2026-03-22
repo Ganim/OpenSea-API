@@ -43,7 +43,10 @@ export interface SignatureEnvelopeSignersRepository {
   findById(id: UniqueEntityID): Promise<SignatureEnvelopeSigner | null>;
   findByAccessToken(token: string): Promise<SignatureEnvelopeSigner | null>;
   findByEnvelopeId(envelopeId: string): Promise<SignatureEnvelopeSigner[]>;
-  findPendingByEnvelopeAndGroup(envelopeId: string, group: number): Promise<SignatureEnvelopeSigner[]>;
+  findPendingByEnvelopeAndGroup(
+    envelopeId: string,
+    group: number,
+  ): Promise<SignatureEnvelopeSigner[]>;
   update(data: UpdateSignerSchema): Promise<SignatureEnvelopeSigner | null>;
   updateManyStatus(envelopeId: string, status: string): Promise<void>;
 }

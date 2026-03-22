@@ -86,9 +86,9 @@ describe('SignDocumentUseCase', () => {
   });
 
   it('should throw on invalid token', async () => {
-    await expect(
-      sut.execute({ accessToken: 'invalid' }),
-    ).rejects.toThrow(ResourceNotFoundError);
+    await expect(sut.execute({ accessToken: 'invalid' })).rejects.toThrow(
+      ResourceNotFoundError,
+    );
   });
 
   it('should throw on already signed', async () => {
@@ -113,8 +113,8 @@ describe('SignDocumentUseCase', () => {
       status: 'SIGNED',
     });
 
-    await expect(
-      sut.execute({ accessToken: 'token-signed' }),
-    ).rejects.toThrow(BadRequestError);
+    await expect(sut.execute({ accessToken: 'token-signed' })).rejects.toThrow(
+      BadRequestError,
+    );
   });
 });

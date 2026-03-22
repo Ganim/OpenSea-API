@@ -14,7 +14,9 @@ export interface AnalyticsDashboardDTO {
   updatedAt?: Date;
 }
 
-export function dashboardToDTO(dashboard: AnalyticsDashboard): AnalyticsDashboardDTO {
+export function dashboardToDTO(
+  dashboard: AnalyticsDashboard,
+): AnalyticsDashboardDTO {
   return {
     id: dashboard.id.toString(),
     name: dashboard.name,

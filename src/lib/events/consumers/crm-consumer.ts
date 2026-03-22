@@ -42,10 +42,9 @@ function getLogger() {
  * Lazily load the TimelineEvents repository.
  */
 function getTimelineEventsRepository() {
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  const { PrismaTimelineEventsRepository } = require(
-    '@/repositories/sales/prisma/prisma-timeline-events-repository',
-  );
+  const {
+    PrismaTimelineEventsRepository,
+  } = require('@/repositories/sales/prisma/prisma-timeline-events-repository');
   return new PrismaTimelineEventsRepository();
 }
 
@@ -172,7 +171,9 @@ export const crmTimelineConsumer: EventConsumer = {
 
     try {
       const timelineRepo = getTimelineEventsRepository();
-      const { UniqueEntityID } = await import('@/entities/domain/unique-entity-id');
+      const { UniqueEntityID } = await import(
+        '@/entities/domain/unique-entity-id'
+      );
       const { TimelineEvent } = await import('@/entities/sales/timeline-event');
 
       const timelineEvent = TimelineEvent.create({
@@ -193,7 +194,11 @@ export const crmTimelineConsumer: EventConsumer = {
       await timelineRepo.create(timelineEvent);
 
       getLogger().info(
-        { eventId: event.id, dealId, timelineEventId: timelineEvent.id.toString() },
+        {
+          eventId: event.id,
+          dealId,
+          timelineEventId: timelineEvent.id.toString(),
+        },
         `[CrmConsumer] Timeline criada para deal ${dealId}`,
       );
     } catch (err) {

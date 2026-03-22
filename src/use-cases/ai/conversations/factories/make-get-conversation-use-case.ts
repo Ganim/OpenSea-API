@@ -5,5 +5,8 @@ import { GetConversationUseCase } from '../get-conversation';
 export function makeGetConversationUseCase() {
   const conversationsRepository = new PrismaAiConversationsRepository();
   const messagesRepository = new PrismaAiMessagesRepository();
-  return new GetConversationUseCase(conversationsRepository, messagesRepository);
+  return new GetConversationUseCase(
+    conversationsRepository,
+    messagesRepository,
+  );
 }

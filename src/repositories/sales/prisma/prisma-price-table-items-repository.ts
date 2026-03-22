@@ -18,7 +18,9 @@ function mapToDomain(data: Record<string, unknown>): PriceTableItem {
       minQuantity: data.minQuantity as number,
       maxQuantity: (data.maxQuantity as number) ?? undefined,
       costPrice: data.costPrice ? Number(data.costPrice) : undefined,
-      marginPercent: data.marginPercent ? Number(data.marginPercent) : undefined,
+      marginPercent: data.marginPercent
+        ? Number(data.marginPercent)
+        : undefined,
       createdAt: data.createdAt as Date,
       updatedAt: (data.updatedAt as Date) ?? undefined,
     },
@@ -26,7 +28,9 @@ function mapToDomain(data: Record<string, unknown>): PriceTableItem {
   );
 }
 
-export class PrismaPriceTableItemsRepository implements PriceTableItemsRepository {
+export class PrismaPriceTableItemsRepository
+  implements PriceTableItemsRepository
+{
   async create(data: CreatePriceTableItemSchema): Promise<PriceTableItem> {
     const result = await prisma.priceTableItem.create({
       data: {
@@ -92,10 +96,7 @@ export class PrismaPriceTableItemsRepository implements PriceTableItemsRepositor
         priceTableId,
         variantId,
         minQuantity: { lte: quantity },
-        OR: [
-          { maxQuantity: null },
-          { maxQuantity: { gte: quantity } },
-        ],
+        OR: [{ maxQuantity: null }, { maxQuantity: { gte: quantity } }],
       },
       orderBy: { minQuantity: 'desc' },
     });
@@ -169,7 +170,9 @@ export class PrismaPriceTableItemsRepository implements PriceTableItemsRepositor
     return mapToDomain(result as unknown as Record<string, unknown>);
   }
 
-  async bulkCreate(items: CreatePriceTableItemSchema[]): Promise<PriceTableItem[]> {
+  async bulkCreate(
+    items: CreatePriceTableItemSchema[],
+  ): Promise<PriceTableItem[]> {
     const created: PriceTableItem[] = [];
     for (const data of items) {
       const item = await this.upsert(data);

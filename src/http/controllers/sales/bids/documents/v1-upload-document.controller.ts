@@ -4,7 +4,10 @@ import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { bidDocumentResponseSchema, uploadBidDocumentSchema } from '@/http/schemas/sales/bids';
+import {
+  bidDocumentResponseSchema,
+  uploadBidDocumentSchema,
+} from '@/http/schemas/sales/bids';
 import { makeUploadBidDocumentUseCase } from '@/use-cases/sales/bids/factories/make-upload-bid-document-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';

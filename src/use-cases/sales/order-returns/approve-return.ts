@@ -15,9 +15,7 @@ interface ApproveReturnUseCaseResponse {
 }
 
 export class ApproveReturnUseCase {
-  constructor(
-    private orderReturnsRepository: OrderReturnsRepository,
-  ) {}
+  constructor(private orderReturnsRepository: OrderReturnsRepository) {}
 
   async execute(
     input: ApproveReturnUseCaseRequest,

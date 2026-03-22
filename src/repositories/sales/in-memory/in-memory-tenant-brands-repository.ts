@@ -23,9 +23,7 @@ export class InMemoryTenantBrandsRepository implements TenantBrandsRepository {
   }
 
   async findByTenant(tenantId: string): Promise<TenantBrand | null> {
-    return (
-      this.items.find((b) => b.tenantId.toString() === tenantId) ?? null
-    );
+    return this.items.find((b) => b.tenantId.toString() === tenantId) ?? null;
   }
 
   async save(brand: TenantBrand): Promise<void> {

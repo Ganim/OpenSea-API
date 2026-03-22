@@ -8,16 +8,8 @@ import { z } from 'zod';
 // ─── Create Campaign ───────────────────────────────────────────────────────────
 
 export const createCampaignSchema = z.object({
-  name: z
-    .string()
-    .min(1)
-    .max(128)
-    .describe('Campaign name'),
-  description: z
-    .string()
-    .max(500)
-    .optional()
-    .describe('Campaign description'),
+  name: z.string().min(1).max(128).describe('Campaign name'),
+  description: z.string().max(500).optional().describe('Campaign description'),
   type: z
     .enum([
       'PERCENTAGE',
@@ -28,12 +20,8 @@ export const createCampaignSchema = z.object({
       'BUNDLE_PRICE',
     ])
     .describe('Campaign type'),
-  startDate: z.coerce
-    .date()
-    .describe('Campaign start date'),
-  endDate: z.coerce
-    .date()
-    .describe('Campaign end date'),
+  startDate: z.coerce.date().describe('Campaign start date'),
+  endDate: z.coerce.date().describe('Campaign end date'),
   channels: z
     .array(z.string().max(50))
     .optional()
@@ -80,7 +68,13 @@ export const createCampaignSchema = z.object({
           'DAY_OF_WEEK',
           'TIME_RANGE',
         ]),
-        operator: z.enum(['EQUALS', 'IN', 'GREATER_THAN', 'LESS_THAN', 'BETWEEN']),
+        operator: z.enum([
+          'EQUALS',
+          'IN',
+          'GREATER_THAN',
+          'LESS_THAN',
+          'BETWEEN',
+        ]),
         value: z.string().max(500),
         value2: z.string().max(500).optional(),
       }),
@@ -92,7 +86,12 @@ export const createCampaignSchema = z.object({
       z.object({
         variantId: z.string().uuid().optional(),
         categoryId: z.string().uuid().optional(),
-        discountType: z.enum(['PERCENTAGE', 'FIXED_VALUE', 'FIXED_PRICE', 'FREE']),
+        discountType: z.enum([
+          'PERCENTAGE',
+          'FIXED_VALUE',
+          'FIXED_PRICE',
+          'FREE',
+        ]),
         discountValue: z.number().min(0),
         maxDiscount: z.number().positive().optional(),
       }),
@@ -119,7 +118,10 @@ export const campaignResponseSchema = z.object({
   startDate: z.coerce.date().describe('Start date'),
   endDate: z.coerce.date().describe('End date'),
   channels: z.array(z.string()).describe('Channels'),
-  targetAudience: z.record(z.string(), z.unknown()).nullable().describe('Target audience'),
+  targetAudience: z
+    .record(z.string(), z.unknown())
+    .nullable()
+    .describe('Target audience'),
   priority: z.number().describe('Priority'),
   stackable: z.boolean().describe('Is stackable'),
   maxUsageTotal: z.number().nullable().describe('Max total usage'),
@@ -136,12 +138,7 @@ export const campaignResponseSchema = z.object({
 // ─── List Campaigns Query ──────────────────────────────────────────────────────
 
 export const listCampaignsQuerySchema = z.object({
-  page: z.coerce
-    .number()
-    .int()
-    .positive()
-    .default(1)
-    .describe('Page number'),
+  page: z.coerce.number().int().positive().default(1).describe('Page number'),
   limit: z.coerce
     .number()
     .int()
@@ -149,11 +146,7 @@ export const listCampaignsQuerySchema = z.object({
     .max(100)
     .default(20)
     .describe('Items per page'),
-  search: z
-    .string()
-    .max(200)
-    .optional()
-    .describe('Search by name'),
+  search: z.string().max(200).optional().describe('Search by name'),
   type: z
     .enum([
       'PERCENTAGE',

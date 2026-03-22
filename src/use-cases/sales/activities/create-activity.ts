@@ -6,7 +6,15 @@ import type { ActivitiesRepository } from '@/repositories/sales/activities-repos
 import type { TimelineEventsRepository } from '@/repositories/sales/timeline-events-repository';
 
 const VALID_ACTIVITY_TYPES = [
-  'CALL', 'EMAIL', 'MEETING', 'TASK', 'NOTE', 'WHATSAPP', 'VISIT', 'PROPOSAL', 'FOLLOW_UP',
+  'CALL',
+  'EMAIL',
+  'MEETING',
+  'TASK',
+  'NOTE',
+  'WHATSAPP',
+  'VISIT',
+  'PROPOSAL',
+  'FOLLOW_UP',
 ];
 
 interface CreateActivityUseCaseRequest {
@@ -48,9 +56,7 @@ export class CreateActivityUseCase {
 
     const activity = Activity.create({
       tenantId: new UniqueEntityID(tenantId),
-      dealId: request.dealId
-        ? new UniqueEntityID(request.dealId)
-        : undefined,
+      dealId: request.dealId ? new UniqueEntityID(request.dealId) : undefined,
       contactId: request.contactId
         ? new UniqueEntityID(request.contactId)
         : undefined,

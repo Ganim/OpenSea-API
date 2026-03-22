@@ -2,7 +2,10 @@ import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { bidContractResponseSchema, listBidContractsQuerySchema } from '@/http/schemas/sales/bids';
+import {
+  bidContractResponseSchema,
+  listBidContractsQuerySchema,
+} from '@/http/schemas/sales/bids';
 import { makeListBidContractsUseCase } from '@/use-cases/sales/bids/factories/make-list-bid-contracts-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -43,11 +46,19 @@ export async function listBidContractsController(app: FastifyInstance) {
       const query = request.query;
 
       const useCase = makeListBidContractsUseCase();
-      const { contracts, total, totalPages } = await useCase.execute({ tenantId, ...query });
+      const { contracts, total, totalPages } = await useCase.execute({
+        tenantId,
+        ...query,
+      });
 
       return reply.status(200).send({
         contracts,
-        meta: { total, page: query.page, limit: query.limit, pages: totalPages },
+        meta: {
+          total,
+          page: query.page,
+          limit: query.limit,
+          pages: totalPages,
+        },
       });
     },
   });

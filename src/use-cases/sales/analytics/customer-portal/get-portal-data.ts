@@ -13,14 +13,20 @@ interface GetPortalDataUseCaseResponse {
 }
 
 export class GetPortalDataUseCase {
-  constructor(private portalAccessesRepository: CustomerPortalAccessesRepository) {}
+  constructor(
+    private portalAccessesRepository: CustomerPortalAccessesRepository,
+  ) {}
 
-  async execute(input: GetPortalDataUseCaseRequest): Promise<GetPortalDataUseCaseResponse> {
+  async execute(
+    input: GetPortalDataUseCaseRequest,
+  ): Promise<GetPortalDataUseCaseResponse> {
     if (!input.accessToken) {
       throw new BadRequestError('Access token is required.');
     }
 
-    const access = await this.portalAccessesRepository.findByToken(input.accessToken);
+    const access = await this.portalAccessesRepository.findByToken(
+      input.accessToken,
+    );
 
     if (!access) {
       throw new ResourceNotFoundError();

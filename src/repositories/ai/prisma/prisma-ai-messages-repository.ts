@@ -65,7 +65,9 @@ export class PrismaAiMessagesRepository implements AiMessagesRepository {
     return toDomain(raw);
   }
 
-  async findMany(options: FindManyMessagesOptions): Promise<FindManyMessagesResult> {
+  async findMany(
+    options: FindManyMessagesOptions,
+  ): Promise<FindManyMessagesResult> {
     const page = options.page ?? 1;
     const limit = Math.min(options.limit ?? 50, 100);
     const skip = (page - 1) * limit;

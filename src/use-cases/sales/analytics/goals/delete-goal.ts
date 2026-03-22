@@ -20,6 +20,9 @@ export class DeleteGoalUseCase {
       throw new ResourceNotFoundError();
     }
 
-    await this.goalsRepository.delete(new UniqueEntityID(input.id), input.tenantId);
+    await this.goalsRepository.delete(
+      new UniqueEntityID(input.id),
+      input.tenantId,
+    );
   }
 }

@@ -12,27 +12,15 @@ export const createContactSchema = z.object({
     .string()
     .uuid()
     .describe('UUID of the customer this contact belongs to'),
-  firstName: z
-    .string()
-    .min(1)
-    .max(100)
-    .describe('First name of the contact'),
-  lastName: z
-    .string()
-    .max(100)
-    .optional()
-    .describe('Last name of the contact'),
+  firstName: z.string().min(1).max(100).describe('First name of the contact'),
+  lastName: z.string().max(100).optional().describe('Last name of the contact'),
   email: z
     .string()
     .email()
     .max(254)
     .optional()
     .describe('Email address of the contact'),
-  phone: z
-    .string()
-    .max(30)
-    .optional()
-    .describe('Phone number of the contact'),
+  phone: z.string().max(30).optional().describe('Phone number of the contact'),
   whatsapp: z
     .string()
     .max(30)
@@ -50,11 +38,7 @@ export const createContactSchema = z.object({
     .optional()
     .default('OTHER')
     .describe('Role of the contact within the customer organization'),
-  jobTitle: z
-    .string()
-    .max(150)
-    .optional()
-    .describe('Job title of the contact'),
+  jobTitle: z.string().max(150).optional().describe('Job title of the contact'),
   department: z
     .string()
     .max(150)
@@ -154,11 +138,20 @@ export const contactResponseSchema = z.object({
   leadScore: z.number().describe('Lead score'),
   leadTemperature: z.string().nullable().describe('Lead temperature'),
   source: z.string().describe('Contact source'),
-  lastInteractionAt: z.coerce.date().nullable().describe('Last interaction date'),
+  lastInteractionAt: z.coerce
+    .date()
+    .nullable()
+    .describe('Last interaction date'),
   lastChannelUsed: z.string().nullable().describe('Last channel used'),
-  socialProfiles: z.record(z.string(), z.unknown()).nullable().describe('Social profiles'),
+  socialProfiles: z
+    .record(z.string(), z.unknown())
+    .nullable()
+    .describe('Social profiles'),
   tags: z.array(z.string()).describe('Tags'),
-  customFields: z.record(z.string(), z.unknown()).nullable().describe('Custom fields'),
+  customFields: z
+    .record(z.string(), z.unknown())
+    .nullable()
+    .describe('Custom fields'),
   avatarUrl: z.string().nullable().describe('Avatar URL'),
   assignedToUserId: z.string().nullable().describe('Assigned user ID'),
   isMainContact: z.boolean().describe('Is main contact'),
@@ -188,26 +181,23 @@ export const listContactsQuerySchema = z.object({
     .max(200)
     .optional()
     .describe('Search by name, email, or phone'),
-  customerId: z
-    .string()
-    .uuid()
-    .optional()
-    .describe('Filter by customer ID'),
-  lifecycleStage: z
-    .string()
-    .optional()
-    .describe('Filter by lifecycle stage'),
-  leadTemperature: z
-    .string()
-    .optional()
-    .describe('Filter by lead temperature'),
+  customerId: z.string().uuid().optional().describe('Filter by customer ID'),
+  lifecycleStage: z.string().optional().describe('Filter by lifecycle stage'),
+  leadTemperature: z.string().optional().describe('Filter by lead temperature'),
   assignedToUserId: z
     .string()
     .uuid()
     .optional()
     .describe('Filter by assigned user ID'),
   sortBy: z
-    .enum(['firstName', 'lastName', 'email', 'leadScore', 'createdAt', 'updatedAt'])
+    .enum([
+      'firstName',
+      'lastName',
+      'email',
+      'leadScore',
+      'createdAt',
+      'updatedAt',
+    ])
     .optional()
     .default('createdAt')
     .describe('Field to sort by'),

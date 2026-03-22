@@ -72,7 +72,8 @@ export class UpdateDealUseCase {
     }
     if (updates.lostReason !== undefined) deal.lostReason = updates.lostReason;
     if (updates.tags !== undefined) deal.tags = updates.tags;
-    if (updates.customFields !== undefined) deal.customFields = updates.customFields;
+    if (updates.customFields !== undefined)
+      deal.customFields = updates.customFields;
     if (updates.position !== undefined) deal.position = updates.position;
     if (updates.assignedToUserId !== undefined) {
       deal.assignedToUserId = updates.assignedToUserId

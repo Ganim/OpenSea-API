@@ -77,9 +77,7 @@ export class ClaudeProvider implements AiProvider {
 
     if (!response.ok) {
       const errorBody = await response.text().catch(() => 'Unknown error');
-      throw new Error(
-        `Anthropic API error (${response.status}): ${errorBody}`,
-      );
+      throw new Error(`Anthropic API error (${response.status}): ${errorBody}`);
     }
 
     const data = (await response.json()) as AnthropicResponse;

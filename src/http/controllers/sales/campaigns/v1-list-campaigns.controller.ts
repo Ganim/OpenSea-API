@@ -2,7 +2,10 @@ import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { campaignResponseSchema, listCampaignsQuerySchema } from '@/http/schemas';
+import {
+  campaignResponseSchema,
+  listCampaignsQuerySchema,
+} from '@/http/schemas';
 import { prisma } from '@/lib/prisma';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -40,7 +43,8 @@ export async function listCampaignsController(app: FastifyInstance) {
 
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
-      const { page, limit, search, type, status, sortBy, sortOrder } = request.query;
+      const { page, limit, search, type, status, sortBy, sortOrder } =
+        request.query;
 
       const where = {
         tenantId,

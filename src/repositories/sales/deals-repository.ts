@@ -20,8 +20,15 @@ export interface FindManyDealsPaginatedParams {
 export interface DealsRepository {
   create(deal: Deal): Promise<void>;
   findById(id: UniqueEntityID, tenantId: string): Promise<Deal | null>;
-  findManyPaginated(params: FindManyDealsPaginatedParams): Promise<PaginatedResult<Deal>>;
+  findManyPaginated(
+    params: FindManyDealsPaginatedParams,
+  ): Promise<PaginatedResult<Deal>>;
   findManyByStage(stageId: string, tenantId: string): Promise<Deal[]>;
   save(deal: Deal): Promise<void>;
+  changeStage(
+    id: UniqueEntityID,
+    tenantId: string,
+    stageId: UniqueEntityID,
+  ): Promise<void>;
   delete(id: UniqueEntityID, tenantId: string): Promise<void>;
 }

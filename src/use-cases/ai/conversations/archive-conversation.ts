@@ -23,7 +23,10 @@ export class ArchiveConversationUseCase {
       throw new Error('Conversation not found');
     }
 
-    await this.conversationsRepository.archive(request.conversationId, request.tenantId);
+    await this.conversationsRepository.archive(
+      request.conversationId,
+      request.tenantId,
+    );
 
     return { success: true };
   }

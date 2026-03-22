@@ -43,7 +43,8 @@ export class UpdateActivityUseCase {
     const oldStatus = activity.status;
 
     if (updates.title !== undefined) activity.title = updates.title;
-    if (updates.description !== undefined) activity.description = updates.description;
+    if (updates.description !== undefined)
+      activity.description = updates.description;
     if (updates.status !== undefined) {
       if (updates.status === 'COMPLETED') {
         activity.complete();

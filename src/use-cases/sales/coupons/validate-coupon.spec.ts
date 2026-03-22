@@ -17,7 +17,9 @@ describe('Validate Coupon Use Case', () => {
     sut = new ValidateCouponUseCase(couponsRepository);
   });
 
-  function createCoupon(overrides: Partial<Parameters<typeof Coupon.create>[0]> = {}): Coupon {
+  function createCoupon(
+    overrides: Partial<Parameters<typeof Coupon.create>[0]> = {},
+  ): Coupon {
     const coupon = Coupon.create({
       tenantId: new UniqueEntityID(TENANT_ID),
       code: 'SUMMER20',

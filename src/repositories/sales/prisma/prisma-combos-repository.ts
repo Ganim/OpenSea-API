@@ -44,10 +44,7 @@ export class PrismaCombosRepository implements CombosRepository {
     );
   }
 
-  async findById(
-    id: UniqueEntityID,
-    tenantId: string,
-  ): Promise<Combo | null> {
+  async findById(id: UniqueEntityID, tenantId: string): Promise<Combo | null> {
     const record = await prisma.combo.findUnique({
       where: { id: id.toString(), tenantId, deletedAt: null },
       include: { items: true },
@@ -136,7 +133,8 @@ export class PrismaCombosRepository implements CombosRepository {
   async update(data: UpdateComboSchema): Promise<Combo | null> {
     const updateData: Record<string, unknown> = {};
     if (data.name !== undefined) updateData.name = data.name;
-    if (data.description !== undefined) updateData.description = data.description;
+    if (data.description !== undefined)
+      updateData.description = data.description;
     if (data.isActive !== undefined) updateData.isActive = data.isActive;
 
     const record = await prisma.combo.update({

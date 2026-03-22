@@ -3,7 +3,8 @@ import type {
   UpdateAiTenantConfigSchema,
 } from '@/repositories/ai/ai-tenant-config-repository';
 
-interface UpdateAiConfigRequest extends Omit<UpdateAiTenantConfigSchema, 'tenantId'> {
+interface UpdateAiConfigRequest
+  extends Omit<UpdateAiTenantConfigSchema, 'tenantId'> {
   tenantId: string;
 }
 

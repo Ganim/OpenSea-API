@@ -1,6 +1,9 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { SignatureTemplate } from '@/entities/signature/signature-template';
-import type { SignatureLevelValue, EnvelopeRoutingTypeValue } from '@/entities/signature/signature-envelope';
+import type {
+  SignatureLevelValue,
+  EnvelopeRoutingTypeValue,
+} from '@/entities/signature/signature-envelope';
 import type { SignerSlot } from '@/entities/signature/signature-template';
 import type {
   CreateSignatureTemplateSchema,
@@ -15,7 +18,9 @@ export class InMemorySignatureTemplatesRepository
 {
   public items: SignatureTemplate[] = [];
 
-  async create(data: CreateSignatureTemplateSchema): Promise<SignatureTemplate> {
+  async create(
+    data: CreateSignatureTemplateSchema,
+  ): Promise<SignatureTemplate> {
     const template = SignatureTemplate.create({
       tenantId: new UniqueEntityID(data.tenantId),
       name: data.name,
@@ -57,9 +62,7 @@ export class InMemorySignatureTemplatesRepository
     }
     if (params.search) {
       const s = params.search.toLowerCase();
-      filtered = filtered.filter((item) =>
-        item.name.toLowerCase().includes(s),
-      );
+      filtered = filtered.filter((item) => item.name.toLowerCase().includes(s));
     }
 
     const page = params.page ?? 1;
@@ -85,7 +88,8 @@ export class InMemorySignatureTemplatesRepository
     if (data.description !== undefined)
       template.props.description = data.description ?? null;
     if (data.signatureLevel)
-      template.props.signatureLevel = data.signatureLevel as SignatureLevelValue;
+      template.props.signatureLevel =
+        data.signatureLevel as SignatureLevelValue;
     if (data.routingType)
       template.props.routingType = data.routingType as EnvelopeRoutingTypeValue;
     if (data.signerSlots)

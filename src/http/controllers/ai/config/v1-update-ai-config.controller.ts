@@ -1,6 +1,9 @@
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { updateAiConfigBodySchema, aiConfigResponseSchema } from '@/http/schemas/ai';
+import {
+  updateAiConfigBodySchema,
+  aiConfigResponseSchema,
+} from '@/http/schemas/ai';
 import { makeUpdateAiConfigUseCase } from '@/use-cases/ai/config/factories/make-update-ai-config-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';

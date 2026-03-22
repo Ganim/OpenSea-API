@@ -84,7 +84,7 @@ export const createEnvelopeSchema = z.object({
   reminderDays: z.number().int().min(0).optional(),
   autoExpireDays: z.number().int().min(0).optional(),
   tags: z.array(z.string()).optional(),
-  metadata: z.record(z.unknown()).optional(),
+  metadata: z.record(z.string(), z.unknown()).optional(),
   signers: z.array(signerInputSchema).min(1),
 });
 
@@ -136,7 +136,7 @@ export const envelopeResponseSchema = z.object({
   autoExpireDays: z.number().nullable(),
   createdByUserId: z.string(),
   tags: z.array(z.string()).nullable(),
-  metadata: z.record(z.unknown()).nullable(),
+  metadata: z.record(z.string(), z.unknown()).nullable(),
   completedAt: z.coerce.date().nullable(),
   cancelledAt: z.coerce.date().nullable(),
   cancelReason: z.string().nullable(),
@@ -151,7 +151,7 @@ export const envelopeDetailResponseSchema = envelopeResponseSchema.extend({
 // ─── Signing Schemas (Public) ──────────────────────────────────────────
 
 export const signDocumentSchema = z.object({
-  signatureData: z.record(z.unknown()).optional(),
+  signatureData: z.record(z.string(), z.unknown()).optional(),
   signatureImageFileId: z.string().uuid().optional(),
 });
 

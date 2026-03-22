@@ -115,7 +115,8 @@ export class PrismaCampaignsRepository implements CampaignsRepository {
   async update(data: UpdateCampaignSchema): Promise<Campaign | null> {
     const updateData: Record<string, unknown> = {};
     if (data.name !== undefined) updateData.name = data.name;
-    if (data.description !== undefined) updateData.description = data.description;
+    if (data.description !== undefined)
+      updateData.description = data.description;
     if (data.type !== undefined) updateData.type = data.type;
     if (data.status !== undefined) updateData.status = data.status;
 

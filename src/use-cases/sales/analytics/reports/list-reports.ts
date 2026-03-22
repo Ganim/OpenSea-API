@@ -22,7 +22,9 @@ interface ListReportsUseCaseResponse {
 export class ListReportsUseCase {
   constructor(private reportsRepository: AnalyticsReportsRepository) {}
 
-  async execute(input: ListReportsUseCaseRequest): Promise<ListReportsUseCaseResponse> {
+  async execute(
+    input: ListReportsUseCaseRequest,
+  ): Promise<ListReportsUseCaseResponse> {
     const page = input.page ?? 1;
     const perPage = input.perPage ?? 20;
     const filters = {

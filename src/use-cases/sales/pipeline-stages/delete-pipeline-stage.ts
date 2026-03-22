@@ -12,7 +12,9 @@ export class DeletePipelineStageUseCase {
   async execute(request: DeletePipelineStageUseCaseRequest): Promise<void> {
     const { id } = request;
 
-    const stage = await this.pipelineStagesRepository.findById(new UniqueEntityID(id));
+    const stage = await this.pipelineStagesRepository.findById(
+      new UniqueEntityID(id),
+    );
 
     if (!stage) {
       throw new ResourceNotFoundError('Pipeline stage not found');

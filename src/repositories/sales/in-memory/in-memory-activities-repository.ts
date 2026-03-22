@@ -35,9 +35,7 @@ export class InMemoryActivitiesRepository implements ActivitiesRepository {
     );
 
     if (params.dealId) {
-      filtered = filtered.filter(
-        (a) => a.dealId?.toString() === params.dealId,
-      );
+      filtered = filtered.filter((a) => a.dealId?.toString() === params.dealId);
     }
     if (params.contactId) {
       filtered = filtered.filter(
@@ -51,15 +49,11 @@ export class InMemoryActivitiesRepository implements ActivitiesRepository {
       filtered = filtered.filter((a) => a.status === params.status);
     }
     if (params.userId) {
-      filtered = filtered.filter(
-        (a) => a.userId.toString() === params.userId,
-      );
+      filtered = filtered.filter((a) => a.userId.toString() === params.userId);
     }
     if (params.search) {
       const search = params.search.toLowerCase();
-      filtered = filtered.filter((a) =>
-        a.title.toLowerCase().includes(search),
-      );
+      filtered = filtered.filter((a) => a.title.toLowerCase().includes(search));
     }
 
     const total = filtered.length;
@@ -94,9 +88,7 @@ export class InMemoryActivitiesRepository implements ActivitiesRepository {
   }
 
   async delete(id: UniqueEntityID, _tenantId: string): Promise<void> {
-    const activity = this.items.find(
-      (a) => a.id.toString() === id.toString(),
-    );
+    const activity = this.items.find((a) => a.id.toString() === id.toString());
     if (activity) {
       activity.delete();
     }

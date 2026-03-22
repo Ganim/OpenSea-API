@@ -85,16 +85,13 @@ export class GeminiProvider implements AiProvider {
 
     if (!response.ok) {
       const errorBody = await response.text();
-      throw new Error(
-        `Gemini API error (${response.status}): ${errorBody}`,
-      );
+      throw new Error(`Gemini API error (${response.status}): ${errorBody}`);
     }
 
     const data = (await response.json()) as GeminiResponse;
     const latencyMs = Date.now() - startTime;
 
-    const content =
-      data.candidates?.[0]?.content?.parts?.[0]?.text ?? '';
+    const content = data.candidates?.[0]?.content?.parts?.[0]?.text ?? '';
     const tokensInput = data.usageMetadata?.promptTokenCount ?? 0;
     const tokensOutput = data.usageMetadata?.candidatesTokenCount ?? 0;
 

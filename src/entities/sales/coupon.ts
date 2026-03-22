@@ -2,8 +2,15 @@ import { Entity } from '../domain/entities';
 import type { Optional } from '../domain/optional';
 import { UniqueEntityID } from '../domain/unique-entity-id';
 
-export type CouponDiscountType = 'PERCENTAGE' | 'FIXED_AMOUNT' | 'FREE_SHIPPING';
-export type CouponApplicableTo = 'ALL' | 'SPECIFIC_PRODUCTS' | 'SPECIFIC_CATEGORIES' | 'SPECIFIC_CUSTOMERS';
+export type CouponDiscountType =
+  | 'PERCENTAGE'
+  | 'FIXED_AMOUNT'
+  | 'FREE_SHIPPING';
+export type CouponApplicableTo =
+  | 'ALL'
+  | 'SPECIFIC_PRODUCTS'
+  | 'SPECIFIC_CATEGORIES'
+  | 'SPECIFIC_CUSTOMERS';
 
 export interface CouponUsageProps {
   id: UniqueEntityID;

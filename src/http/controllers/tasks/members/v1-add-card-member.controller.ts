@@ -62,7 +62,16 @@ export async function addCardMemberController(app: FastifyInstance) {
           memberId,
         });
 
-        return reply.status(201).send(result);
+        return reply.status(201).send({
+          member: {
+            id: result.member.id,
+            cardId: result.member.cardId,
+            userId: result.member.userId,
+            userName: null,
+            userEmail: null,
+            addedAt: result.member.createdAt,
+          },
+        });
       } catch (error) {
         if (error instanceof BadRequestError) {
           return reply.status(400).send({ message: error.message });

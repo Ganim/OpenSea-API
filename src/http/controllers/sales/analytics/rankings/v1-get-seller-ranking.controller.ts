@@ -14,7 +14,9 @@ export async function getSellerRankingController(app: FastifyInstance) {
       tags: ['Sales - Analytics Rankings'],
       summary: 'Get seller ranking by revenue',
       querystring: z.object({
-        period: z.enum(['today', 'week', 'month', 'quarter', 'year']).default('month'),
+        period: z
+          .enum(['today', 'week', 'month', 'quarter', 'year'])
+          .default('month'),
         limit: z.coerce.number().int().positive().max(50).default(10),
       }),
       response: {
@@ -36,7 +38,11 @@ export async function getSellerRankingController(app: FastifyInstance) {
 
       switch (period) {
         case 'today':
-          startDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+          startDate = new Date(
+            now.getFullYear(),
+            now.getMonth(),
+            now.getDate(),
+          );
           break;
         case 'week':
           startDate = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
@@ -45,7 +51,11 @@ export async function getSellerRankingController(app: FastifyInstance) {
           startDate = new Date(now.getFullYear(), now.getMonth(), 1);
           break;
         case 'quarter':
-          startDate = new Date(now.getFullYear(), Math.floor(now.getMonth() / 3) * 3, 1);
+          startDate = new Date(
+            now.getFullYear(),
+            Math.floor(now.getMonth() / 3) * 3,
+            1,
+          );
           break;
         case 'year':
           startDate = new Date(now.getFullYear(), 0, 1);
@@ -74,22 +84,29 @@ export async function getSellerRankingController(app: FastifyInstance) {
         .map((r) => r.assignedToUserId)
         .filter((id): id is string => id !== null);
 
-      const users = userIds.length > 0
-        ? await prisma.user.findMany({
-            where: { id: { in: userIds } },
-            include: { profile: true },
-          })
-        : [];
+      const users =
+        userIds.length > 0
+          ? await prisma.user.findMany({
+              where: { id: { in: userIds } },
+              include: { profile: true },
+            })
+          : [];
 
-      const userMap = new Map(users.map((u) => [
-        u.id,
-        u.profile ? `${u.profile.name} ${u.profile.surname || ''}`.trim() : u.email,
-      ]));
+      const userMap = new Map(
+        users.map((u) => [
+          u.id,
+          u.profile
+            ? `${u.profile.name} ${u.profile.surname || ''}`.trim()
+            : u.email,
+        ]),
+      );
 
       const enrichedRankings = rankings.map((r, index) => ({
         rank: index + 1,
         userId: r.assignedToUserId,
-        name: r.assignedToUserId ? (userMap.get(r.assignedToUserId) ?? 'Desconhecido') : 'Desconhecido',
+        name: r.assignedToUserId
+          ? (userMap.get(r.assignedToUserId) ?? 'Desconhecido')
+          : 'Desconhecido',
         totalRevenue: Number(r._sum?.grandTotal ?? 0),
         orderCount: r._count?._all ?? 0,
       }));

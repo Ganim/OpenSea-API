@@ -13,14 +13,19 @@ export class InMemorySignatureEnvelopesRepository
 {
   public items: SignatureEnvelope[] = [];
 
-  async create(data: CreateSignatureEnvelopeSchema): Promise<SignatureEnvelope> {
+  async create(
+    data: CreateSignatureEnvelopeSchema,
+  ): Promise<SignatureEnvelope> {
     const envelope = SignatureEnvelope.create({
       tenantId: new UniqueEntityID(data.tenantId),
       title: data.title,
       description: data.description,
       status: (data.status as SignatureEnvelope['status']) ?? undefined,
-      signatureLevel: data.signatureLevel as SignatureEnvelope['signatureLevel'],
-      minSignatureLevel: data.minSignatureLevel as SignatureEnvelope['signatureLevel'] ?? undefined,
+      signatureLevel:
+        data.signatureLevel as SignatureEnvelope['signatureLevel'],
+      minSignatureLevel:
+        (data.minSignatureLevel as SignatureEnvelope['signatureLevel']) ??
+        undefined,
       documentFileId: data.documentFileId,
       documentHash: data.documentHash,
       documentType: data.documentType,
@@ -65,8 +70,7 @@ export class InMemorySignatureEnvelopesRepository
     params: ListSignatureEnvelopesParams,
   ): Promise<FindManyEnvelopesResult> {
     let filtered = this.items.filter(
-      (item) =>
-        item.tenantId.toString() === params.tenantId && !item.deletedAt,
+      (item) => item.tenantId.toString() === params.tenantId && !item.deletedAt,
     );
 
     if (params.status) {

@@ -5,23 +5,13 @@
 import { z } from 'zod';
 
 export const createDealSchema = z.object({
-  title: z
-    .string()
-    .min(1)
-    .max(256)
-    .describe('Title of the deal'),
+  title: z.string().min(1).max(256).describe('Title of the deal'),
   customerId: z
     .string()
     .uuid()
     .describe('Customer ID associated with this deal'),
-  pipelineId: z
-    .string()
-    .uuid()
-    .describe('Pipeline ID where the deal lives'),
-  stageId: z
-    .string()
-    .uuid()
-    .describe('Current stage ID within the pipeline'),
+  pipelineId: z.string().uuid().describe('Pipeline ID where the deal lives'),
+  stageId: z.string().uuid().describe('Current stage ID within the pipeline'),
   value: z
     .number()
     .nonnegative()
@@ -67,10 +57,7 @@ export const updateDealSchema = createDealSchema
   .partial();
 
 export const changeDealStageSchema = z.object({
-  stageId: z
-    .string()
-    .uuid()
-    .describe('New stage ID to move the deal to'),
+  stageId: z.string().uuid().describe('New stage ID to move the deal to'),
   lostReason: z
     .string()
     .max(512)
@@ -87,18 +74,40 @@ export const dealResponseSchema = z.object({
   stageId: z.string().uuid().describe('Current stage ID'),
   value: z.number().nullable().optional().describe('Deal monetary value'),
   currency: z.string().describe('Currency code'),
-  expectedCloseDate: z.coerce.date().nullable().optional().describe('Expected close date'),
+  expectedCloseDate: z.coerce
+    .date()
+    .nullable()
+    .optional()
+    .describe('Expected close date'),
   probability: z.number().nullable().optional().describe('Win probability'),
   status: z.string().describe('Deal status (OPEN, WON, LOST)'),
   lostReason: z.string().nullable().optional().describe('Reason for loss'),
   wonAt: z.coerce.date().nullable().optional().describe('Date deal was won'),
   lostAt: z.coerce.date().nullable().optional().describe('Date deal was lost'),
-  closedAt: z.coerce.date().nullable().optional().describe('Date deal was closed'),
-  assignedToUserId: z.string().uuid().nullable().optional().describe('Assigned user ID'),
+  closedAt: z.coerce
+    .date()
+    .nullable()
+    .optional()
+    .describe('Date deal was closed'),
+  assignedToUserId: z
+    .string()
+    .uuid()
+    .nullable()
+    .optional()
+    .describe('Assigned user ID'),
   tags: z.array(z.string()).describe('Tags'),
-  customFields: z.record(z.string(), z.unknown()).nullable().optional().describe('Custom fields'),
+  customFields: z
+    .record(z.string(), z.unknown())
+    .nullable()
+    .optional()
+    .describe('Custom fields'),
   stageEnteredAt: z.coerce.date().describe('Date current stage was entered'),
-  previousDealId: z.string().uuid().nullable().optional().describe('Previous deal ID'),
+  previousDealId: z
+    .string()
+    .uuid()
+    .nullable()
+    .optional()
+    .describe('Previous deal ID'),
   createdAt: z.coerce.date().describe('Creation date'),
   updatedAt: z.coerce.date().nullable().optional().describe('Last update date'),
   deletedAt: z.coerce.date().nullable().optional().describe('Soft delete date'),
@@ -118,26 +127,10 @@ export const listDealsQuerySchema = z.object({
     .max(100)
     .default(20)
     .describe('Items per page (max 100)'),
-  search: z
-    .string()
-    .max(200)
-    .optional()
-    .describe('Search by deal title'),
-  customerId: z
-    .string()
-    .uuid()
-    .optional()
-    .describe('Filter by customer ID'),
-  pipelineId: z
-    .string()
-    .uuid()
-    .optional()
-    .describe('Filter by pipeline ID'),
-  stageId: z
-    .string()
-    .uuid()
-    .optional()
-    .describe('Filter by stage ID'),
+  search: z.string().max(200).optional().describe('Search by deal title'),
+  customerId: z.string().uuid().optional().describe('Filter by customer ID'),
+  pipelineId: z.string().uuid().optional().describe('Filter by pipeline ID'),
+  stageId: z.string().uuid().optional().describe('Filter by stage ID'),
   status: z
     .enum(['OPEN', 'WON', 'LOST'])
     .optional()

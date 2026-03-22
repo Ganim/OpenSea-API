@@ -38,7 +38,12 @@ export interface FindManyCertificatesResult {
 
 export interface DigitalCertificatesRepository {
   create(data: CreateDigitalCertificateSchema): Promise<DigitalCertificate>;
-  findById(id: UniqueEntityID, tenantId: string): Promise<DigitalCertificate | null>;
-  findMany(params: ListDigitalCertificatesParams): Promise<FindManyCertificatesResult>;
+  findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<DigitalCertificate | null>;
+  findMany(
+    params: ListDigitalCertificatesParams,
+  ): Promise<FindManyCertificatesResult>;
   delete(id: UniqueEntityID): Promise<void>;
 }

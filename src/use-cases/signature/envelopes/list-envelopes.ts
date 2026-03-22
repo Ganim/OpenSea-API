@@ -20,9 +20,7 @@ interface ListEnvelopesUseCaseResponse {
 }
 
 export class ListEnvelopesUseCase {
-  constructor(
-    private envelopesRepository: SignatureEnvelopesRepository,
-  ) {}
+  constructor(private envelopesRepository: SignatureEnvelopesRepository) {}
 
   async execute(
     request: ListEnvelopesUseCaseRequest,

@@ -1,6 +1,9 @@
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { listInsightsQuerySchema, insightResponseSchema } from '@/http/schemas/ai';
+import {
+  listInsightsQuerySchema,
+  insightResponseSchema,
+} from '@/http/schemas/ai';
 import { makeListInsightsUseCase } from '@/use-cases/ai/insights/factories/make-list-insights-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';

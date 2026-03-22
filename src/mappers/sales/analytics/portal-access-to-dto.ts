@@ -13,7 +13,9 @@ export interface CustomerPortalAccessDTO {
   updatedAt?: Date;
 }
 
-export function portalAccessToDTO(access: CustomerPortalAccess): CustomerPortalAccessDTO {
+export function portalAccessToDTO(
+  access: CustomerPortalAccess,
+): CustomerPortalAccessDTO {
   return {
     id: access.id.toString(),
     customerId: access.customerId,

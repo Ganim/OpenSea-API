@@ -27,7 +27,13 @@ export interface FindManyConversationsResult {
 export interface AiConversationsRepository {
   create(data: CreateConversationSchema): Promise<AiConversation>;
   findById(id: string, tenantId: string): Promise<AiConversation | null>;
-  findMany(options: FindManyConversationsOptions): Promise<FindManyConversationsResult>;
+  findMany(
+    options: FindManyConversationsOptions,
+  ): Promise<FindManyConversationsResult>;
   archive(id: string, tenantId: string): Promise<void>;
-  updateMessageCount(id: string, count: number, lastMessageAt: Date): Promise<void>;
+  updateMessageCount(
+    id: string,
+    count: number,
+    lastMessageAt: Date,
+  ): Promise<void>;
 }

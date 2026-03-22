@@ -167,7 +167,10 @@ export class SignatureEnvelope extends Entity<SignatureEnvelopeProps> {
   }
 
   get isActive(): boolean {
-    return !this.props.deletedAt && !['CANCELLED', 'EXPIRED', 'REJECTED'].includes(this.props.status);
+    return (
+      !this.props.deletedAt &&
+      !['CANCELLED', 'EXPIRED', 'REJECTED'].includes(this.props.status)
+    );
   }
 
   set status(status: EnvelopeStatusValue) {

@@ -1,6 +1,13 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
-import type { Campaign, CampaignApplicableTo, CampaignType } from '@/entities/sales/campaign';
-import type { CampaignProductProps, CampaignRuleProps } from '@/entities/sales/campaign';
+import type {
+  Campaign,
+  CampaignApplicableTo,
+  CampaignType,
+} from '@/entities/sales/campaign';
+import type {
+  CampaignProductProps,
+  CampaignRuleProps,
+} from '@/entities/sales/campaign';
 import type { CampaignsRepository } from '@/repositories/sales/campaigns-repository';
 
 interface CreateCampaignUseCaseRequest {

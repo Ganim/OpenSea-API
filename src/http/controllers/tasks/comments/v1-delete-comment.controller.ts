@@ -51,7 +51,14 @@ export async function deleteCommentController(app: FastifyInstance) {
         await getBoardUseCase.execute({ tenantId, userId, boardId });
 
         const useCase = makeDeleteCommentUseCase();
-        await useCase.execute({ tenantId, userId, userName, boardId, cardId, commentId });
+        await useCase.execute({
+          tenantId,
+          userId,
+          userName,
+          boardId,
+          cardId,
+          commentId,
+        });
 
         return reply.status(204).send(null);
       } catch (error) {

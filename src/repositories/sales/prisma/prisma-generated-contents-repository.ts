@@ -41,9 +41,7 @@ function mapToDomain(data: Record<string, unknown>): GeneratedContent {
       views: data.views as number,
       clicks: data.clicks as number,
       shares: data.shares as number,
-      engagement: data.engagement
-        ? Number(data.engagement)
-        : undefined,
+      engagement: data.engagement ? Number(data.engagement) : undefined,
       deletedAt: (data.deletedAt as Date) ?? undefined,
       createdAt: data.createdAt as Date,
       updatedAt: (data.updatedAt as Date) ?? undefined,

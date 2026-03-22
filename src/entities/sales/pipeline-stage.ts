@@ -111,7 +111,10 @@ export class PipelineStage extends Entity<PipelineStageProps> {
   }
 
   static create(
-    props: Optional<PipelineStageProps, 'id' | 'createdAt' | 'updatedAt' | 'position'>,
+    props: Optional<
+      PipelineStageProps,
+      'id' | 'createdAt' | 'updatedAt' | 'position'
+    >,
     id?: UniqueEntityID,
   ): PipelineStage {
     return new PipelineStage(

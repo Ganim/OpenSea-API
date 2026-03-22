@@ -24,7 +24,8 @@ export function makeCustomerPrice(
       tenantId: override.tenantId ?? new UniqueEntityID('tenant-1'),
       customerId: override.customerId ?? new UniqueEntityID(),
       variantId: override.variantId ?? new UniqueEntityID(),
-      price: override.price ?? Number(faker.commerce.price({ min: 10, max: 1000 })),
+      price:
+        override.price ?? Number(faker.commerce.price({ min: 10, max: 1000 })),
       validFrom: override.validFrom,
       validUntil: override.validUntil,
       notes: override.notes,

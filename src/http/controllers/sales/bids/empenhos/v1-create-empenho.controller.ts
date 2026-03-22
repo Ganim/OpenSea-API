@@ -4,7 +4,10 @@ import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { bidEmpenhoResponseSchema, createBidEmpenhoSchema } from '@/http/schemas/sales/bids';
+import {
+  bidEmpenhoResponseSchema,
+  createBidEmpenhoSchema,
+} from '@/http/schemas/sales/bids';
 import { makeCreateBidEmpenhoUseCase } from '@/use-cases/sales/bids/factories/make-create-bid-empenho-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -45,7 +48,11 @@ export async function createBidEmpenhoController(app: FastifyInstance) {
         message: AUDIT_MESSAGES.SALES.BID_EMPENHO_CREATE,
         entityId: empenho.id.toString(),
         placeholders: { userName: userId, empenhoNumber: body.empenhoNumber },
-        newData: { empenhoNumber: body.empenhoNumber, bidId: body.bidId, value: body.value },
+        newData: {
+          empenhoNumber: body.empenhoNumber,
+          bidId: body.bidId,
+          value: body.value,
+        },
       });
 
       return reply.status(201).send({ empenho });

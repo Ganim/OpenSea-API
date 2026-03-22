@@ -19,7 +19,10 @@ describe('List Price Table Items', () => {
     priceTableItemsRepository.items.push(
       makePriceTableItem({ priceTableId: tableId, price: 100 }),
       makePriceTableItem({ priceTableId: tableId, price: 200 }),
-      makePriceTableItem({ priceTableId: new UniqueEntityID('table-2'), price: 300 }),
+      makePriceTableItem({
+        priceTableId: new UniqueEntityID('table-2'),
+        price: 300,
+      }),
     );
 
     const result = await sut.execute({

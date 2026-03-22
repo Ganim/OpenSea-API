@@ -16,8 +16,14 @@ export const pipelineStageNestedResponseSchema = z.object({
   position: z.number().int().describe('Stage position (order)'),
   type: z.string().describe('Stage type (OPEN, WON, LOST, etc.)'),
   probability: z.number().nullable().describe('Win probability percentage'),
-  autoActions: z.record(z.string(), z.unknown()).nullable().describe('Auto-actions config'),
-  rottenAfterDays: z.number().nullable().describe('Days until deal is considered rotten'),
+  autoActions: z
+    .record(z.string(), z.unknown())
+    .nullable()
+    .describe('Auto-actions config'),
+  rottenAfterDays: z
+    .number()
+    .nullable()
+    .describe('Days until deal is considered rotten'),
   createdAt: z.coerce.date().describe('Creation date'),
   updatedAt: z.coerce.date().nullable().describe('Last update date'),
 });
@@ -25,21 +31,9 @@ export const pipelineStageNestedResponseSchema = z.object({
 // ─── Create Pipeline ────────────────────────────────────────────────────────
 
 export const createPipelineSchema = z.object({
-  name: z
-    .string()
-    .min(1)
-    .max(150)
-    .describe('Pipeline name'),
-  description: z
-    .string()
-    .max(500)
-    .optional()
-    .describe('Pipeline description'),
-  icon: z
-    .string()
-    .max(50)
-    .optional()
-    .describe('Pipeline icon identifier'),
+  name: z.string().min(1).max(150).describe('Pipeline name'),
+  description: z.string().max(500).optional().describe('Pipeline description'),
+  icon: z.string().max(50).optional().describe('Pipeline icon identifier'),
   color: z
     .string()
     .max(30)
@@ -80,22 +74,9 @@ export const createPipelineSchema = z.object({
 // ─── Update Pipeline ────────────────────────────────────────────────────────
 
 export const updatePipelineSchema = z.object({
-  name: z
-    .string()
-    .min(1)
-    .max(150)
-    .optional()
-    .describe('Pipeline name'),
-  description: z
-    .string()
-    .max(500)
-    .optional()
-    .describe('Pipeline description'),
-  icon: z
-    .string()
-    .max(50)
-    .optional()
-    .describe('Pipeline icon identifier'),
+  name: z.string().min(1).max(150).optional().describe('Pipeline name'),
+  description: z.string().max(500).optional().describe('Pipeline description'),
+  icon: z.string().max(50).optional().describe('Pipeline icon identifier'),
   color: z
     .string()
     .max(30)
@@ -111,10 +92,7 @@ export const updatePipelineSchema = z.object({
     .min(0)
     .optional()
     .describe('Display position (order)'),
-  isActive: z
-    .boolean()
-    .optional()
-    .describe('Whether the pipeline is active'),
+  isActive: z.boolean().optional().describe('Whether the pipeline is active'),
   nextPipelineId: z
     .string()
     .uuid()
@@ -137,7 +115,10 @@ export const pipelineResponseSchema = z.object({
   position: z.number().int().describe('Display position'),
   nextPipelineId: z.string().nullable().describe('Next pipeline ID'),
   isActive: z.boolean().describe('Is active'),
-  stages: z.array(pipelineStageNestedResponseSchema).optional().describe('Pipeline stages'),
+  stages: z
+    .array(pipelineStageNestedResponseSchema)
+    .optional()
+    .describe('Pipeline stages'),
   createdAt: z.coerce.date().describe('Creation date'),
   updatedAt: z.coerce.date().nullable().describe('Last update date'),
   deletedAt: z.coerce.date().nullable().describe('Deletion date'),

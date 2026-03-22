@@ -25,8 +25,12 @@ function mapToDomain(data: Record<string, unknown>): CustomerPortalAccess {
   );
 }
 
-export class PrismaCustomerPortalAccessesRepository implements CustomerPortalAccessesRepository {
-  async create(data: CreateCustomerPortalAccessSchema): Promise<CustomerPortalAccess> {
+export class PrismaCustomerPortalAccessesRepository
+  implements CustomerPortalAccessesRepository
+{
+  async create(
+    data: CreateCustomerPortalAccessSchema,
+  ): Promise<CustomerPortalAccess> {
     const access = await prisma.customerPortalAccess.create({
       data: {
         tenantId: data.tenantId,
@@ -34,7 +38,11 @@ export class PrismaCustomerPortalAccessesRepository implements CustomerPortalAcc
         accessToken: data.accessToken,
         contactId: data.contactId,
         isActive: data.isActive ?? true,
-        permissions: data.permissions ?? { viewOrders: true, viewInvoices: true, viewProposals: true },
+        permissions: data.permissions ?? {
+          viewOrders: true,
+          viewInvoices: true,
+          viewProposals: true,
+        },
         expiresAt: data.expiresAt,
       },
     });
@@ -42,12 +50,17 @@ export class PrismaCustomerPortalAccessesRepository implements CustomerPortalAcc
     return mapToDomain(access as unknown as Record<string, unknown>);
   }
 
-  async findById(id: UniqueEntityID, tenantId: string): Promise<CustomerPortalAccess | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<CustomerPortalAccess | null> {
     const access = await prisma.customerPortalAccess.findFirst({
       where: { id: id.toString(), tenantId },
     });
 
-    return access ? mapToDomain(access as unknown as Record<string, unknown>) : null;
+    return access
+      ? mapToDomain(access as unknown as Record<string, unknown>)
+      : null;
   }
 
   async findByToken(accessToken: string): Promise<CustomerPortalAccess | null> {
@@ -78,7 +91,9 @@ export class PrismaCustomerPortalAccessesRepository implements CustomerPortalAcc
       orderBy: { createdAt: 'desc' },
     });
 
-    return accesses.map((a) => mapToDomain(a as unknown as Record<string, unknown>));
+    return accesses.map((a) =>
+      mapToDomain(a as unknown as Record<string, unknown>),
+    );
   }
 
   async countMany(

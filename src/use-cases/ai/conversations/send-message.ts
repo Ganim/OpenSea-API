@@ -2,7 +2,10 @@ import type { AiConversationsRepository } from '@/repositories/ai/ai-conversatio
 import type { AiMessagesRepository } from '@/repositories/ai/ai-messages-repository';
 import type { AiTenantConfigRepository } from '@/repositories/ai/ai-tenant-config-repository';
 import type { AiRouter } from '@/services/ai-provider/ai-router';
-import type { AiProviderMessage, AiTier } from '@/services/ai-provider/ai-provider.interface';
+import type {
+  AiProviderMessage,
+  AiTier,
+} from '@/services/ai-provider/ai-provider.interface';
 
 interface SendMessageRequest {
   tenantId: string;
@@ -18,10 +21,13 @@ interface SendMessageRequest {
 }
 
 const PERSONALITY_PROMPTS: Record<string, string> = {
-  PROFESSIONAL: 'Você é um assistente empresarial profissional, objetivo e eficiente.',
-  FRIENDLY: 'Você é um assistente empresarial simpático e acessível, mantendo profissionalismo.',
+  PROFESSIONAL:
+    'Você é um assistente empresarial profissional, objetivo e eficiente.',
+  FRIENDLY:
+    'Você é um assistente empresarial simpático e acessível, mantendo profissionalismo.',
   TECHNICAL: 'Você é um assistente empresarial técnico, preciso e detalhista.',
-  CASUAL: 'Você é um assistente empresarial descontraído, mas sempre útil e informativo.',
+  CASUAL:
+    'Você é um assistente empresarial descontraído, mas sempre útil e informativo.',
 };
 
 export class SendMessageUseCase {
@@ -79,7 +85,8 @@ export class SendMessageUseCase {
     const personalityPrompt =
       personality === 'CUSTOM' && config?.customPersonality
         ? config.customPersonality
-        : PERSONALITY_PROMPTS[personality] ?? PERSONALITY_PROMPTS.PROFESSIONAL;
+        : (PERSONALITY_PROMPTS[personality] ??
+          PERSONALITY_PROMPTS.PROFESSIONAL);
 
     const systemPrompt = [
       `Seu nome é ${assistantName}.`,

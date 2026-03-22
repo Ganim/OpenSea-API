@@ -53,9 +53,7 @@ export class CancelOrderUseCase {
     // Find CANCELLED stage in the same pipeline
     const pipelineStages =
       await this.pipelineStagesRepository.findManyByPipeline(order.pipelineId);
-    const cancelledStage = pipelineStages.find(
-      (s) => s.type === 'CANCELLED',
-    );
+    const cancelledStage = pipelineStages.find((s) => s.type === 'CANCELLED');
 
     if (cancelledStage) {
       order.stageId = cancelledStage.id;

@@ -40,10 +40,9 @@ function getLogger() {
  * Lazily load the Notifications repository.
  */
 function getNotificationsRepository() {
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  const { PrismaNotificationsRepository } = require(
-    '@/repositories/notifications/prisma/prisma-notifications-repository',
-  );
+  const {
+    PrismaNotificationsRepository,
+  } = require('@/repositories/notifications/prisma/prisma-notifications-repository');
   return new PrismaNotificationsRepository();
 }
 
@@ -70,7 +69,9 @@ interface NotificationPayload {
 /**
  * Build notification payload from a domain event.
  */
-function buildNotificationPayload(event: DomainEvent): NotificationPayload | null {
+function buildNotificationPayload(
+  event: DomainEvent,
+): NotificationPayload | null {
   switch (event.type) {
     case SALES_EVENTS.DEAL_WON: {
       const data = event.data as unknown as DealWonData;
@@ -165,7 +166,9 @@ export const notificationConsumer: EventConsumer = {
 
     try {
       const notificationsRepo = getNotificationsRepository();
-      const { UniqueEntityID } = await import('@/entities/domain/unique-entity-id');
+      const { UniqueEntityID } = await import(
+        '@/entities/domain/unique-entity-id'
+      );
 
       await notificationsRepo.create({
         userId: new UniqueEntityID(userId),

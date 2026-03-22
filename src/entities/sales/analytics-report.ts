@@ -144,7 +144,18 @@ export class AnalyticsReport extends Entity<AnalyticsReportProps> {
   }
 
   static create(
-    props: Optional<AnalyticsReportProps, 'id' | 'isScheduled' | 'isActive' | 'scheduleTimezone' | 'recipientUserIds' | 'recipientEmails' | 'recipientPhones' | 'config' | 'createdAt'>,
+    props: Optional<
+      AnalyticsReportProps,
+      | 'id'
+      | 'isScheduled'
+      | 'isActive'
+      | 'scheduleTimezone'
+      | 'recipientUserIds'
+      | 'recipientEmails'
+      | 'recipientPhones'
+      | 'config'
+      | 'createdAt'
+    >,
     id?: UniqueEntityID,
   ): AnalyticsReport {
     return new AnalyticsReport(

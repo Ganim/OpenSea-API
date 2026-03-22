@@ -20,7 +20,9 @@ interface GetGoalProgressUseCaseResponse {
 export class GetGoalProgressUseCase {
   constructor(private goalsRepository: AnalyticsGoalsRepository) {}
 
-  async execute(input: GetGoalProgressUseCaseRequest): Promise<GetGoalProgressUseCaseResponse> {
+  async execute(
+    input: GetGoalProgressUseCaseRequest,
+  ): Promise<GetGoalProgressUseCaseResponse> {
     const goal = await this.goalsRepository.findById(
       new UniqueEntityID(input.id),
       input.tenantId,
@@ -33,9 +35,18 @@ export class GetGoalProgressUseCase {
     const now = new Date();
     const start = goal.startDate;
     const end = goal.endDate;
-    const totalDays = Math.max(1, Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)));
-    const daysElapsed = Math.max(0, Math.ceil((now.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)));
-    const daysRemaining = Math.max(0, Math.ceil((end.getTime() - now.getTime()) / (1000 * 60 * 60 * 24)));
+    const totalDays = Math.max(
+      1,
+      Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)),
+    );
+    const daysElapsed = Math.max(
+      0,
+      Math.ceil((now.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)),
+    );
+    const daysRemaining = Math.max(
+      0,
+      Math.ceil((end.getTime() - now.getTime()) / (1000 * 60 * 60 * 24)),
+    );
 
     // On track if progress % >= time elapsed %
     const timeElapsedPercent = (daysElapsed / totalDays) * 100;

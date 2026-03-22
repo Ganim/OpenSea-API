@@ -24,7 +24,8 @@ export function makePriceTableItem(
       priceTableId: override.priceTableId ?? new UniqueEntityID(),
       tenantId: override.tenantId ?? new UniqueEntityID('tenant-1'),
       variantId: override.variantId ?? new UniqueEntityID(),
-      price: override.price ?? Number(faker.commerce.price({ min: 10, max: 1000 })),
+      price:
+        override.price ?? Number(faker.commerce.price({ min: 10, max: 1000 })),
       minQuantity: override.minQuantity ?? 1,
       maxQuantity: override.maxQuantity,
       costPrice: override.costPrice,

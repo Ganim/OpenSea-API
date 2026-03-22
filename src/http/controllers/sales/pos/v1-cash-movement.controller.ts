@@ -1,3 +1,4 @@
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
@@ -66,14 +67,18 @@ export async function cashMovementController(app: FastifyInstance) {
       };
 
       await logAudit(request, {
-        message: 'POS cash {type}: R$ {amount}',
+        message: AUDIT_MESSAGES.SALES.POS_CASH_MOVEMENT,
         entityId: movement.id,
         placeholders: {
           userName: userId,
           type: body.type.toLowerCase(),
           amount: body.amount.toFixed(2),
         },
-        newData: { sessionId: body.sessionId, type: body.type, amount: body.amount },
+        newData: {
+          sessionId: body.sessionId,
+          type: body.type,
+          amount: body.amount,
+        },
       });
 
       return reply.status(201).send({ movement });

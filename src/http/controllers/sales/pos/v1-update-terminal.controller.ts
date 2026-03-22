@@ -1,3 +1,4 @@
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
@@ -73,7 +74,7 @@ export async function updateTerminalController(app: FastifyInstance) {
       };
 
       await logAudit(request, {
-        message: 'POS terminal updated: {terminalName}',
+        message: AUDIT_MESSAGES.SALES.POS_TERMINAL_UPDATE,
         entityId: terminalId,
         placeholders: { userName: userId, terminalName: terminal.name },
         newData: body,

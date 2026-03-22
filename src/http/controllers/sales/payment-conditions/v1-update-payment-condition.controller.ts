@@ -13,9 +13,7 @@ import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
-export async function v1UpdatePaymentConditionController(
-  app: FastifyInstance,
-) {
+export async function v1UpdatePaymentConditionController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'PUT',
     url: '/v1/payment-conditions/:id',

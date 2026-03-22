@@ -107,9 +107,7 @@ export class CreateDealUseCase {
         stageId,
         value: deal.value,
       },
-      userId: request.userId
-        ? new UniqueEntityID(request.userId)
-        : undefined,
+      userId: request.userId ? new UniqueEntityID(request.userId) : undefined,
     });
 
     await this.timelineEventsRepository.create(timelineEvent);

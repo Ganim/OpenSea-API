@@ -13,9 +13,7 @@ interface GetEnvelopeByIdUseCaseResponse {
 }
 
 export class GetEnvelopeByIdUseCase {
-  constructor(
-    private envelopesRepository: SignatureEnvelopesRepository,
-  ) {}
+  constructor(private envelopesRepository: SignatureEnvelopesRepository) {}
 
   async execute(
     request: GetEnvelopeByIdUseCaseRequest,

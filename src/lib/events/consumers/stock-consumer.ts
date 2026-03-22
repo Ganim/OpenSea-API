@@ -37,18 +37,16 @@ function getLogger() {
  * and @env initialization during unit tests.
  */
 function getItemReservationsRepository() {
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  const { PrismaItemReservationsRepository } = require(
-    '@/repositories/sales/prisma/prisma-item-reservations-repository',
-  );
+  const {
+    PrismaItemReservationsRepository,
+  } = require('@/repositories/sales/prisma/prisma-item-reservations-repository');
   return new PrismaItemReservationsRepository();
 }
 
 function getOrderItemsRepository() {
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  const { PrismaOrderItemsRepository } = require(
-    '@/repositories/sales/prisma/prisma-order-items-repository',
-  );
+  const {
+    PrismaOrderItemsRepository,
+  } = require('@/repositories/sales/prisma/prisma-order-items-repository');
   return new PrismaOrderItemsRepository();
 }
 
@@ -76,7 +74,9 @@ export const stockOrderReservationConsumer: EventConsumer = {
 
     try {
       const reservationsRepo = getItemReservationsRepository();
-      const { UniqueEntityID } = await import('@/entities/domain/unique-entity-id');
+      const { UniqueEntityID } = await import(
+        '@/entities/domain/unique-entity-id'
+      );
 
       const expiresAt = new Date();
       expiresAt.setDate(expiresAt.getDate() + 7); // 7-day reservation window
@@ -130,7 +130,9 @@ export const stockOrderCancellationConsumer: EventConsumer = {
 
     try {
       const reservationsRepo = getItemReservationsRepository();
-      const { UniqueEntityID } = await import('@/entities/domain/unique-entity-id');
+      const { UniqueEntityID } = await import(
+        '@/entities/domain/unique-entity-id'
+      );
 
       // Find all active reservations referencing this order
       // The reference field stores the orderId for order-based reservations

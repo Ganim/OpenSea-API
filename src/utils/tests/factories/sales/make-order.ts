@@ -1,5 +1,9 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import { Order, type OrderChannel, type OrderType } from '@/entities/sales/order';
+import {
+  Order,
+  type OrderChannel,
+  type OrderType,
+} from '@/entities/sales/order';
 import { faker } from '@faker-js/faker';
 
 interface MakeOrderProps {
@@ -35,8 +39,7 @@ interface MakeOrderProps {
 
 export function makeOrder(override: MakeOrderProps = {}): Order {
   const subtotal =
-    override.subtotal ??
-    Number(faker.commerce.price({ min: 100, max: 10000 }));
+    override.subtotal ?? Number(faker.commerce.price({ min: 100, max: 10000 }));
 
   return Order.create(
     {

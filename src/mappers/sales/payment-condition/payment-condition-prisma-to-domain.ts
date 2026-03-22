@@ -20,12 +20,8 @@ export function paymentConditionPrismaToDomain(raw: any): PaymentCondition {
       penaltyRate: raw.penaltyRate ? Number(raw.penaltyRate) : undefined,
       discountCash: raw.discountCash ? Number(raw.discountCash) : undefined,
       applicableTo: raw.applicableTo,
-      minOrderValue: raw.minOrderValue
-        ? Number(raw.minOrderValue)
-        : undefined,
-      maxOrderValue: raw.maxOrderValue
-        ? Number(raw.maxOrderValue)
-        : undefined,
+      minOrderValue: raw.minOrderValue ? Number(raw.minOrderValue) : undefined,
+      maxOrderValue: raw.maxOrderValue ? Number(raw.maxOrderValue) : undefined,
       isActive: raw.isActive,
       isDefault: raw.isDefault,
       deletedAt: raw.deletedAt ?? undefined,

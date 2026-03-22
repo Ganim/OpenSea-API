@@ -6,8 +6,18 @@ import type { PipelineStagesRepository } from '@/repositories/sales/pipeline-sta
 import type { PipelinesRepository } from '@/repositories/sales/pipelines-repository';
 
 const ALL_STAGE_TYPES = [
-  'OPEN', 'WON', 'LOST', 'DRAFT', 'PENDING_APPROVAL', 'APPROVED',
-  'PROCESSING', 'INVOICED', 'SHIPPED', 'DELIVERED', 'COMPLETED', 'CANCELLED',
+  'OPEN',
+  'WON',
+  'LOST',
+  'DRAFT',
+  'PENDING_APPROVAL',
+  'APPROVED',
+  'PROCESSING',
+  'INVOICED',
+  'SHIPPED',
+  'DELIVERED',
+  'COMPLETED',
+  'CANCELLED',
 ];
 
 interface UpdatePipelineStageUseCaseRequest {
@@ -36,9 +46,21 @@ export class UpdatePipelineStageUseCase {
   async execute(
     request: UpdatePipelineStageUseCaseRequest,
   ): Promise<UpdatePipelineStageUseCaseResponse> {
-    const { id, name, color, icon, position, type, probability, autoActions, rottenAfterDays } = request;
+    const {
+      id,
+      name,
+      color,
+      icon,
+      position,
+      type,
+      probability,
+      autoActions,
+      rottenAfterDays,
+    } = request;
 
-    const stage = await this.pipelineStagesRepository.findById(new UniqueEntityID(id));
+    const stage = await this.pipelineStagesRepository.findById(
+      new UniqueEntityID(id),
+    );
 
     if (!stage) {
       throw new ResourceNotFoundError('Pipeline stage not found');

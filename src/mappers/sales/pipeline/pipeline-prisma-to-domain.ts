@@ -1,7 +1,9 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Pipeline } from '@/entities/sales/pipeline';
 
-export function pipelinePrismaToDomain(data: Record<string, unknown>): Pipeline {
+export function pipelinePrismaToDomain(
+  data: Record<string, unknown>,
+): Pipeline {
   return Pipeline.create(
     {
       tenantId: new UniqueEntityID(data.tenantId as string),

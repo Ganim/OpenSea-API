@@ -14,13 +14,18 @@ export interface DealProps {
   priority: string;
   value?: number;
   currency: string;
+  probability?: number;
   expectedCloseDate?: Date;
   closedAt?: Date;
+  wonAt?: Date;
+  lostAt?: Date;
   lostReason?: string;
   source?: string;
   tags: string[];
   customFields?: Record<string, unknown>;
   position: number;
+  stageEnteredAt?: Date;
+  previousDealId?: UniqueEntityID;
   assignedToUserId?: UniqueEntityID;
   createdAt: Date;
   updatedAt?: Date;
@@ -102,6 +107,15 @@ export class Deal extends Entity<DealProps> {
     return this.props.currency;
   }
 
+  get probability(): number | undefined {
+    return this.props.probability;
+  }
+
+  set probability(value: number | undefined) {
+    this.props.probability = value;
+    this.touch();
+  }
+
   get expectedCloseDate(): Date | undefined {
     return this.props.expectedCloseDate;
   }
@@ -117,6 +131,24 @@ export class Deal extends Entity<DealProps> {
 
   set closedAt(value: Date | undefined) {
     this.props.closedAt = value;
+    this.touch();
+  }
+
+  get wonAt(): Date | undefined {
+    return this.props.wonAt;
+  }
+
+  set wonAt(value: Date | undefined) {
+    this.props.wonAt = value;
+    this.touch();
+  }
+
+  get lostAt(): Date | undefined {
+    return this.props.lostAt;
+  }
+
+  set lostAt(value: Date | undefined) {
+    this.props.lostAt = value;
     this.touch();
   }
 
@@ -160,6 +192,24 @@ export class Deal extends Entity<DealProps> {
     this.touch();
   }
 
+  get stageEnteredAt(): Date | undefined {
+    return this.props.stageEnteredAt;
+  }
+
+  set stageEnteredAt(value: Date | undefined) {
+    this.props.stageEnteredAt = value;
+    this.touch();
+  }
+
+  get previousDealId(): UniqueEntityID | undefined {
+    return this.props.previousDealId;
+  }
+
+  set previousDealId(value: UniqueEntityID | undefined) {
+    this.props.previousDealId = value;
+    this.touch();
+  }
+
   get assignedToUserId(): UniqueEntityID | undefined {
     return this.props.assignedToUserId;
   }
@@ -197,12 +247,14 @@ export class Deal extends Entity<DealProps> {
 
   markAsWon(): void {
     this.props.status = 'WON';
+    this.props.wonAt = new Date();
     this.props.closedAt = new Date();
     this.touch();
   }
 
   markAsLost(reason?: string): void {
     this.props.status = 'LOST';
+    this.props.lostAt = new Date();
     this.props.closedAt = new Date();
     this.props.lostReason = reason;
     this.touch();
@@ -215,7 +267,15 @@ export class Deal extends Entity<DealProps> {
   static create(
     props: Optional<
       DealProps,
-      'id' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'status' | 'priority' | 'currency' | 'tags' | 'position'
+      | 'id'
+      | 'createdAt'
+      | 'updatedAt'
+      | 'deletedAt'
+      | 'status'
+      | 'priority'
+      | 'currency'
+      | 'tags'
+      | 'position'
     >,
     id?: UniqueEntityID,
   ): Deal {

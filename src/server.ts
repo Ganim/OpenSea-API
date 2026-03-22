@@ -177,7 +177,9 @@ async function start() {
   console.log('[startup] Registering event consumers...');
   const eventBus = getTypedEventBus();
   registerEventConsumers(eventBus);
-  console.log(`[startup] ${eventBus.getConsumers().length} event consumers registered.`);
+  console.log(
+    `[startup] ${eventBus.getConsumers().length} event consumers registered.`,
+  );
 
   try {
     console.log('[startup] Initializing plugins and routes...');

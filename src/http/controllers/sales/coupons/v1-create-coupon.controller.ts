@@ -47,7 +47,9 @@ export async function createCouponController(app: FastifyInstance) {
       });
 
       if (existing) {
-        return reply.status(409).send({ message: 'Coupon code already exists in this tenant' });
+        return reply
+          .status(409)
+          .send({ message: 'Coupon code already exists in this tenant' });
       }
 
       const coupon = await prisma.coupon.create({
@@ -84,7 +86,9 @@ export async function createCouponController(app: FastifyInstance) {
         coupon: {
           ...coupon,
           value: Number(coupon.value),
-          minOrderValue: coupon.minOrderValue ? Number(coupon.minOrderValue) : null,
+          minOrderValue: coupon.minOrderValue
+            ? Number(coupon.minOrderValue)
+            : null,
           maxDiscount: coupon.maxDiscount ? Number(coupon.maxDiscount) : null,
           maxUsageTotal: coupon.maxUsageTotal ?? null,
           campaignId: coupon.campaignId ?? null,

@@ -53,7 +53,8 @@ export class BulkImportPricesUseCase {
       marginPercent: item.marginPercent,
     }));
 
-    const imported = await this.priceTableItemsRepository.bulkCreate(itemsToCreate);
+    const imported =
+      await this.priceTableItemsRepository.bulkCreate(itemsToCreate);
 
     return {
       imported,

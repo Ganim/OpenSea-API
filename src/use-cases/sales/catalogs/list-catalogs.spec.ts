@@ -32,7 +32,11 @@ describe('ListCatalogsUseCase', () => {
 
     for (let i = 0; i < 25; i++) {
       catalogsRepository.items.push(
-        Catalog.create({ tenantId, name: `Catalog ${i}`, slug: `catalog-${i}` }),
+        Catalog.create({
+          tenantId,
+          name: `Catalog ${i}`,
+          slug: `catalog-${i}`,
+        }),
       );
     }
 
@@ -48,7 +52,11 @@ describe('ListCatalogsUseCase', () => {
 
   it('should filter by status', async () => {
     const tenantId = new UniqueEntityID('tenant-1');
-    const catalog = Catalog.create({ tenantId, name: 'Active', slug: 'active' });
+    const catalog = Catalog.create({
+      tenantId,
+      name: 'Active',
+      slug: 'active',
+    });
     catalog.activate();
     catalogsRepository.items.push(catalog);
     catalogsRepository.items.push(

@@ -1,3 +1,4 @@
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
@@ -40,7 +41,7 @@ export async function deleteTerminalController(app: FastifyInstance) {
       // TODO: Replace stub with real use case (find + delete)
 
       await logAudit(request, {
-        message: 'POS terminal deleted: {terminalId}',
+        message: AUDIT_MESSAGES.SALES.POS_TERMINAL_DELETE,
         entityId: terminalId,
         placeholders: { userName: userId, terminalId },
         oldData: { id: terminalId, tenantId },

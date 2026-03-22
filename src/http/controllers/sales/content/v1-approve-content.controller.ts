@@ -56,10 +56,15 @@ export async function approveContentController(app: FastifyInstance) {
       await logAudit(request, {
         message: AUDIT_MESSAGES.SALES.CONTENT_APPROVE,
         entityId: id,
-        placeholders: { userName: userId, contentTitle: content.title ?? 'Sem título' },
+        placeholders: {
+          userName: userId,
+          contentTitle: content.title ?? 'Sem título',
+        },
       });
 
-      return reply.status(200).send({ content: generatedContentToDTO(content) });
+      return reply
+        .status(200)
+        .send({ content: generatedContentToDTO(content) });
     },
   });
 }

@@ -54,8 +54,8 @@ export async function listContactsController(app: FastifyInstance) {
       } = request.query;
 
       const listContactsUseCase = makeListContactsUseCase();
-      const { contacts, total, totalPages } =
-        await listContactsUseCase.execute({
+      const { contacts, total, totalPages } = await listContactsUseCase.execute(
+        {
           tenantId,
           page,
           limit,
@@ -66,7 +66,8 @@ export async function listContactsController(app: FastifyInstance) {
           assignedToUserId,
           sortBy,
           sortOrder,
-        });
+        },
+      );
 
       return reply.status(200).send({
         contacts: contacts.map(contactToDTO),

@@ -18,7 +18,10 @@ export class ViewInsightUseCase {
       throw new Error('Insight not found');
     }
 
-    await this.insightsRepository.markViewed(request.insightId, request.tenantId);
+    await this.insightsRepository.markViewed(
+      request.insightId,
+      request.tenantId,
+    );
 
     return { success: true };
   }

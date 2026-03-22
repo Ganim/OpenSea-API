@@ -49,7 +49,9 @@ export async function createCampaignController(app: FastifyInstance) {
           startDate: body.startDate,
           endDate: body.endDate,
           channels: body.channels,
-          targetAudience: body.targetAudience ? (body.targetAudience as object) : undefined,
+          targetAudience: body.targetAudience
+            ? (body.targetAudience as object)
+            : undefined,
           priority: body.priority,
           stackable: body.stackable,
           maxUsageTotal: body.maxUsageTotal,
@@ -98,7 +100,8 @@ export async function createCampaignController(app: FastifyInstance) {
       return reply.status(201).send({
         campaign: {
           ...campaign,
-          targetAudience: (campaign.targetAudience as Record<string, unknown>) ?? null,
+          targetAudience:
+            (campaign.targetAudience as Record<string, unknown>) ?? null,
           description: campaign.description ?? null,
           maxUsageTotal: campaign.maxUsageTotal ?? null,
           maxUsagePerCustomer: campaign.maxUsagePerCustomer ?? null,

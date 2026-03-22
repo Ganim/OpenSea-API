@@ -39,10 +39,14 @@ export function campaignToDTO(campaign: Campaign): CampaignDTO {
   };
 
   if (campaign.description) dto.description = campaign.description;
-  if (campaign.minOrderValue !== undefined) dto.minOrderValue = campaign.minOrderValue;
-  if (campaign.maxDiscountAmount !== undefined) dto.maxDiscountAmount = campaign.maxDiscountAmount;
-  if (campaign.maxUsageTotal !== undefined) dto.maxUsageTotal = campaign.maxUsageTotal;
-  if (campaign.maxUsagePerCustomer !== undefined) dto.maxUsagePerCustomer = campaign.maxUsagePerCustomer;
+  if (campaign.minOrderValue !== undefined)
+    dto.minOrderValue = campaign.minOrderValue;
+  if (campaign.maxDiscountAmount !== undefined)
+    dto.maxDiscountAmount = campaign.maxDiscountAmount;
+  if (campaign.maxUsageTotal !== undefined)
+    dto.maxUsageTotal = campaign.maxUsageTotal;
+  if (campaign.maxUsagePerCustomer !== undefined)
+    dto.maxUsagePerCustomer = campaign.maxUsagePerCustomer;
   if (campaign.startDate) dto.startDate = campaign.startDate;
   if (campaign.endDate) dto.endDate = campaign.endDate;
 

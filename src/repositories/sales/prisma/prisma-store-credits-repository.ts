@@ -51,10 +51,7 @@ export class PrismaStoreCreditsRepository implements StoreCreditsRepository {
 
     if (activeOnly) {
       where.isActive = true;
-      where.OR = [
-        { expiresAt: null },
-        { expiresAt: { gt: new Date() } },
-      ];
+      where.OR = [{ expiresAt: null }, { expiresAt: { gt: new Date() } }];
     }
 
     const items = await prisma.storeCredit.findMany({
@@ -74,10 +71,7 @@ export class PrismaStoreCreditsRepository implements StoreCreditsRepository {
         customerId: customerId.toString(),
         tenantId,
         isActive: true,
-        OR: [
-          { expiresAt: null },
-          { expiresAt: { gt: new Date() } },
-        ],
+        OR: [{ expiresAt: null }, { expiresAt: { gt: new Date() } }],
       },
       _sum: {
         balance: true,

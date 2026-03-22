@@ -17,7 +17,11 @@ describe('ListGeneratedContentsUseCase', () => {
     const tenantId = new UniqueEntityID('tenant-1');
 
     contentsRepository.items.push(
-      GeneratedContent.create({ tenantId, type: 'SOCIAL_POST', title: 'Post 1' }),
+      GeneratedContent.create({
+        tenantId,
+        type: 'SOCIAL_POST',
+        title: 'Post 1',
+      }),
       GeneratedContent.create({ tenantId, type: 'BANNER', title: 'Banner 1' }),
     );
 

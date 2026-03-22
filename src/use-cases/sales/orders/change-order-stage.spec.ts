@@ -57,9 +57,7 @@ describe('Change Order Stage', () => {
       stageId: processingStageId.toString(),
     });
 
-    expect(result.order.stageId.toString()).toBe(
-      processingStageId.toString(),
-    );
+    expect(result.order.stageId.toString()).toBe(processingStageId.toString());
   });
 
   it('should not change to a stage from different pipeline', async () => {

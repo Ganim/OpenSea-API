@@ -47,7 +47,9 @@ export async function getContentByIdController(app: FastifyInstance) {
         throw new ResourceNotFoundError('Content not found');
       }
 
-      return reply.status(200).send({ content: generatedContentToDTO(content) });
+      return reply
+        .status(200)
+        .send({ content: generatedContentToDTO(content) });
     },
   });
 }

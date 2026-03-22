@@ -27,19 +27,18 @@ export class ListGeneratedContentsUseCase {
   async execute(
     request: ListGeneratedContentsUseCaseRequest,
   ): Promise<ListGeneratedContentsUseCaseResponse> {
-    const contents =
-      await this.generatedContentsRepository.findManyPaginated({
-        tenantId: request.tenantId,
-        page: request.page ?? 1,
-        limit: Math.min(request.limit ?? 20, 100),
-        search: request.search,
-        type: request.type,
-        status: request.status,
-        productId: request.productId,
-        catalogId: request.catalogId,
-        sortBy: request.sortBy,
-        sortOrder: request.sortOrder,
-      });
+    const contents = await this.generatedContentsRepository.findManyPaginated({
+      tenantId: request.tenantId,
+      page: request.page ?? 1,
+      limit: Math.min(request.limit ?? 20, 100),
+      search: request.search,
+      type: request.type,
+      status: request.status,
+      productId: request.productId,
+      catalogId: request.catalogId,
+      sortBy: request.sortBy,
+      sortOrder: request.sortOrder,
+    });
 
     return { contents };
   }

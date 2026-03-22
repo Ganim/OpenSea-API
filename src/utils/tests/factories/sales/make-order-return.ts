@@ -30,8 +30,7 @@ export function makeOrderReturn(
       type: override.type ?? 'PARTIAL_RETURN',
       reason: override.reason ?? 'DEFECTIVE',
       reasonDetails: override.reasonDetails,
-      requestedByUserId:
-        override.requestedByUserId ?? new UniqueEntityID(),
+      requestedByUserId: override.requestedByUserId ?? new UniqueEntityID(),
       notes: override.notes,
     },
     new UniqueEntityID(),

@@ -149,7 +149,9 @@ describe('Bulk Create Products (E2E)', () => {
       .post('/v1/products/bulk')
       .set('Authorization', `Bearer ${token}`)
       .send({
-        products: [{ name: `Perm Test ${Date.now()}`, templateId: template.id }],
+        products: [
+          { name: `Perm Test ${Date.now()}`, templateId: template.id },
+        ],
       });
 
     expect(response.status).toBe(403);

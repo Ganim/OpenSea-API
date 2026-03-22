@@ -26,9 +26,17 @@ export async function createReportController(app: FastifyInstance) {
       body: z.object({
         name: z.string().min(1).max(128),
         type: z.enum([
-          'SALES_SUMMARY', 'COMMISSION_REPORT', 'PIPELINE_REPORT', 'PRODUCT_PERFORMANCE',
-          'CUSTOMER_ANALYSIS', 'BID_REPORT', 'MARKETPLACE_REPORT', 'CASHIER_REPORT',
-          'GOAL_PROGRESS', 'CURVA_ABC', 'CUSTOM',
+          'SALES_SUMMARY',
+          'COMMISSION_REPORT',
+          'PIPELINE_REPORT',
+          'PRODUCT_PERFORMANCE',
+          'CUSTOMER_ANALYSIS',
+          'BID_REPORT',
+          'MARKETPLACE_REPORT',
+          'CASHIER_REPORT',
+          'GOAL_PROGRESS',
+          'CURVA_ABC',
+          'CUSTOM',
         ]),
         config: z.record(z.string(), z.unknown()).optional(),
         format: z.enum(['PDF', 'EXCEL', 'CSV']),
@@ -39,7 +47,9 @@ export async function createReportController(app: FastifyInstance) {
         scheduleDayOfMonth: z.number().int().min(1).max(28).optional(),
         scheduleHour: z.number().int().min(0).max(23).optional(),
         scheduleTimezone: z.string().max(64).optional(),
-        deliveryMethod: z.enum(['EMAIL', 'WHATSAPP', 'BOTH', 'DOWNLOAD_ONLY']).optional(),
+        deliveryMethod: z
+          .enum(['EMAIL', 'WHATSAPP', 'BOTH', 'DOWNLOAD_ONLY'])
+          .optional(),
         recipientUserIds: z.array(z.string().uuid()).optional(),
         recipientEmails: z.array(z.string().email()).optional(),
         recipientPhones: z.array(z.string()).optional(),

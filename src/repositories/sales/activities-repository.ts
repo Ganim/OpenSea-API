@@ -19,7 +19,9 @@ export interface FindManyActivitiesPaginatedParams {
 export interface ActivitiesRepository {
   create(activity: Activity): Promise<void>;
   findById(id: UniqueEntityID, tenantId: string): Promise<Activity | null>;
-  findManyPaginated(params: FindManyActivitiesPaginatedParams): Promise<PaginatedResult<Activity>>;
+  findManyPaginated(
+    params: FindManyActivitiesPaginatedParams,
+  ): Promise<PaginatedResult<Activity>>;
   findManyByDeal(dealId: string, tenantId: string): Promise<Activity[]>;
   save(activity: Activity): Promise<void>;
   delete(id: UniqueEntityID, tenantId: string): Promise<void>;

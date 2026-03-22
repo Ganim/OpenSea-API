@@ -58,9 +58,7 @@ export function orderPrismaToDomain(raw: any): Order {
       notes: raw.notes ?? undefined,
       internalNotes: raw.internalNotes ?? undefined,
       tags: raw.tags ?? [],
-      customFields: raw.customFields as
-        | Record<string, unknown>
-        | undefined,
+      customFields: raw.customFields as Record<string, unknown> | undefined,
       stageEnteredAt: raw.stageEnteredAt,
       confirmedAt: raw.confirmedAt ?? undefined,
       cancelledAt: raw.cancelledAt ?? undefined,

@@ -8,21 +8,9 @@ import { z } from 'zod';
 // ─── Create Pipeline Stage ──────────────────────────────────────────────────
 
 export const createPipelineStageSchema = z.object({
-  name: z
-    .string()
-    .min(1)
-    .max(150)
-    .describe('Stage name'),
-  color: z
-    .string()
-    .max(30)
-    .optional()
-    .describe('Stage color (hex or named)'),
-  icon: z
-    .string()
-    .max(50)
-    .optional()
-    .describe('Stage icon identifier'),
+  name: z.string().min(1).max(150).describe('Stage name'),
+  color: z.string().max(30).optional().describe('Stage color (hex or named)'),
+  icon: z.string().max(50).optional().describe('Stage icon identifier'),
   position: z
     .number()
     .int()
@@ -67,9 +55,9 @@ export const createPipelineStageSchema = z.object({
 
 // ─── Update Pipeline Stage ──────────────────────────────────────────────────
 
-export const updatePipelineStageSchema = createPipelineStageSchema.partial().describe(
-  'Update pipeline stage fields (all optional)',
-);
+export const updatePipelineStageSchema = createPipelineStageSchema
+  .partial()
+  .describe('Update pipeline stage fields (all optional)');
 
 // ─── Pipeline Stage Response ────────────────────────────────────────────────
 
@@ -82,8 +70,14 @@ export const pipelineStageResponseSchema = z.object({
   position: z.number().int().describe('Stage position (order)'),
   type: z.string().describe('Stage type'),
   probability: z.number().nullable().describe('Win probability percentage'),
-  autoActions: z.record(z.string(), z.unknown()).nullable().describe('Auto-actions config'),
-  rottenAfterDays: z.number().nullable().describe('Days until deal is considered rotten'),
+  autoActions: z
+    .record(z.string(), z.unknown())
+    .nullable()
+    .describe('Auto-actions config'),
+  rottenAfterDays: z
+    .number()
+    .nullable()
+    .describe('Days until deal is considered rotten'),
   createdAt: z.coerce.date().describe('Creation date'),
   updatedAt: z.coerce.date().nullable().describe('Last update date'),
 });

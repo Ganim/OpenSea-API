@@ -2,7 +2,10 @@ import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { SignatureTemplate } from '@/entities/signature/signature-template';
 import { prisma } from '@/lib/prisma';
 import { signatureTemplatePrismaToDomain } from '@/mappers/signature';
-import type { SignatureLevel, EnvelopeRoutingType } from '@prisma/generated/client.js';
+import type {
+  SignatureLevel,
+  EnvelopeRoutingType,
+} from '@prisma/generated/client.js';
 import type {
   CreateSignatureTemplateSchema,
   FindManyTemplatesResult,
@@ -14,7 +17,9 @@ import type {
 export class PrismaSignatureTemplatesRepository
   implements SignatureTemplatesRepository
 {
-  async create(data: CreateSignatureTemplateSchema): Promise<SignatureTemplate> {
+  async create(
+    data: CreateSignatureTemplateSchema,
+  ): Promise<SignatureTemplate> {
     const db = await prisma.signatureTemplate.create({
       data: {
         tenantId: data.tenantId,
@@ -76,12 +81,17 @@ export class PrismaSignatureTemplatesRepository
   ): Promise<SignatureTemplate | null> {
     const updateData: Record<string, unknown> = {};
     if (data.name) updateData.name = data.name;
-    if (data.description !== undefined) updateData.description = data.description;
-    if (data.signatureLevel) updateData.signatureLevel = data.signatureLevel as SignatureLevel;
-    if (data.routingType) updateData.routingType = data.routingType as EnvelopeRoutingType;
+    if (data.description !== undefined)
+      updateData.description = data.description;
+    if (data.signatureLevel)
+      updateData.signatureLevel = data.signatureLevel as SignatureLevel;
+    if (data.routingType)
+      updateData.routingType = data.routingType as EnvelopeRoutingType;
     if (data.signerSlots) updateData.signerSlots = data.signerSlots as object;
-    if (data.expirationDays !== undefined) updateData.expirationDays = data.expirationDays;
-    if (data.reminderDays !== undefined) updateData.reminderDays = data.reminderDays;
+    if (data.expirationDays !== undefined)
+      updateData.expirationDays = data.expirationDays;
+    if (data.reminderDays !== undefined)
+      updateData.reminderDays = data.reminderDays;
     if (data.isActive !== undefined) updateData.isActive = data.isActive;
 
     const db = await prisma.signatureTemplate.update({

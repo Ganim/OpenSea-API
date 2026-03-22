@@ -130,9 +130,20 @@ export const listLoansQuerySchema = z.object({
     .enum(['ACTIVE', 'PAID_OFF', 'DEFAULTED', 'RENEGOTIATED', 'CANCELLED'])
     .optional()
     .describe('Status do empréstimo'),
-  bankAccountId: z.string().uuid().optional().describe('Filtrar por conta bancária'),
-  costCenterId: z.string().uuid().optional().describe('Filtrar por centro de custo'),
-  search: z.string().optional().describe('Busca textual por descrição ou instituição'),
+  bankAccountId: z
+    .string()
+    .uuid()
+    .optional()
+    .describe('Filtrar por conta bancária'),
+  costCenterId: z
+    .string()
+    .uuid()
+    .optional()
+    .describe('Filtrar por centro de custo'),
+  search: z
+    .string()
+    .optional()
+    .describe('Busca textual por descrição ou instituição'),
 });
 
 export const registerLoanPaymentSchema = z.object({

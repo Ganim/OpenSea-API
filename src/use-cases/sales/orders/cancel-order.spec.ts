@@ -66,12 +66,8 @@ describe('Cancel Order', () => {
     });
 
     expect(result.order.cancelledAt).toBeTruthy();
-    expect(result.order.cancelReason).toBe(
-      'Customer requested cancellation',
-    );
-    expect(result.order.stageId.toString()).toBe(
-      cancelledStageId.toString(),
-    );
+    expect(result.order.cancelReason).toBe('Customer requested cancellation');
+    expect(result.order.stageId.toString()).toBe(cancelledStageId.toString());
   });
 
   it('should not cancel a completed order', async () => {

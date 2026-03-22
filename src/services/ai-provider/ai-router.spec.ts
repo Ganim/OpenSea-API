@@ -66,9 +66,7 @@ describe('AiRouter', () => {
   });
 
   it('should route to tier 1 by default', async () => {
-    const messages: AiProviderMessage[] = [
-      { role: 'user', content: 'Hello' },
-    ];
+    const messages: AiProviderMessage[] = [{ role: 'user', content: 'Hello' }];
 
     const result = await router.complete(messages);
 
@@ -100,9 +98,7 @@ describe('AiRouter', () => {
   });
 
   it('should pass options to provider', async () => {
-    const messages: AiProviderMessage[] = [
-      { role: 'user', content: 'Hello' },
-    ];
+    const messages: AiProviderMessage[] = [{ role: 'user', content: 'Hello' }];
     const options = { temperature: 0.5, maxTokens: 1024 };
 
     await router.complete(messages, 1, options);
@@ -111,9 +107,7 @@ describe('AiRouter', () => {
   });
 
   it('should return correct response shape', async () => {
-    const messages: AiProviderMessage[] = [
-      { role: 'user', content: 'Hello' },
-    ];
+    const messages: AiProviderMessage[] = [{ role: 'user', content: 'Hello' }];
 
     const result = await router.complete(messages, 1);
 
@@ -130,9 +124,7 @@ describe('AiRouter', () => {
     const limitedRouter = new AiRouter();
     limitedRouter.registerProvider(1, tier1Provider);
 
-    const messages: AiProviderMessage[] = [
-      { role: 'user', content: 'Hello' },
-    ];
+    const messages: AiProviderMessage[] = [{ role: 'user', content: 'Hello' }];
 
     const result = await limitedRouter.complete(messages, 3);
 
@@ -143,9 +135,7 @@ describe('AiRouter', () => {
   it('should throw when no providers are available', async () => {
     const emptyRouter = new AiRouter();
 
-    const messages: AiProviderMessage[] = [
-      { role: 'user', content: 'Hello' },
-    ];
+    const messages: AiProviderMessage[] = [{ role: 'user', content: 'Hello' }];
 
     await expect(emptyRouter.complete(messages, 1)).rejects.toThrow(
       'No AI provider available',
@@ -175,9 +165,7 @@ describe('AiRouter', () => {
   it('should propagate provider errors', async () => {
     tier1Provider.shouldThrow = true;
 
-    const messages: AiProviderMessage[] = [
-      { role: 'user', content: 'Hello' },
-    ];
+    const messages: AiProviderMessage[] = [{ role: 'user', content: 'Hello' }];
 
     await expect(router.complete(messages, 1)).rejects.toThrow('Groq-8B error');
   });

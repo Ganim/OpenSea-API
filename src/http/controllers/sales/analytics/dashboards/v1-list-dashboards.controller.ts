@@ -16,7 +16,16 @@ export async function listDashboardsController(app: FastifyInstance) {
       querystring: z.object({
         page: z.coerce.number().int().positive().default(1),
         perPage: z.coerce.number().int().positive().max(100).default(20),
-        role: z.enum(['SELLER', 'MANAGER', 'DIRECTOR', 'BID_SPECIALIST', 'MARKETPLACE_OPS', 'CASHIER']).optional(),
+        role: z
+          .enum([
+            'SELLER',
+            'MANAGER',
+            'DIRECTOR',
+            'BID_SPECIALIST',
+            'MARKETPLACE_OPS',
+            'CASHIER',
+          ])
+          .optional(),
         visibility: z.enum(['PRIVATE', 'TEAM', 'TENANT']).optional(),
       }),
       response: {

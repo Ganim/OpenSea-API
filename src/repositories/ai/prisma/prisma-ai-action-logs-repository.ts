@@ -5,7 +5,11 @@ import type {
   FindManyActionLogsOptions,
   FindManyActionLogsResult,
 } from '../ai-action-logs-repository';
-import type { AiActionStatus, Prisma, AiActionLog } from '@prisma/generated/client.js';
+import type {
+  AiActionStatus,
+  Prisma,
+  AiActionLog,
+} from '@prisma/generated/client.js';
 
 function toDTO(raw: AiActionLog): AiActionLogDTO {
   return {
@@ -30,7 +34,9 @@ function toDTO(raw: AiActionLog): AiActionLogDTO {
 }
 
 export class PrismaAiActionLogsRepository implements AiActionLogsRepository {
-  async findMany(options: FindManyActionLogsOptions): Promise<FindManyActionLogsResult> {
+  async findMany(
+    options: FindManyActionLogsOptions,
+  ): Promise<FindManyActionLogsResult> {
     const page = options.page ?? 1;
     const limit = Math.min(options.limit ?? 20, 100);
     const skip = (page - 1) * limit;

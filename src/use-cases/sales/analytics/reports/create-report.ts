@@ -28,9 +28,17 @@ interface CreateReportUseCaseResponse {
 }
 
 const VALID_TYPES = [
-  'SALES_SUMMARY', 'COMMISSION_REPORT', 'PIPELINE_REPORT', 'PRODUCT_PERFORMANCE',
-  'CUSTOMER_ANALYSIS', 'BID_REPORT', 'MARKETPLACE_REPORT', 'CASHIER_REPORT',
-  'GOAL_PROGRESS', 'CURVA_ABC', 'CUSTOM',
+  'SALES_SUMMARY',
+  'COMMISSION_REPORT',
+  'PIPELINE_REPORT',
+  'PRODUCT_PERFORMANCE',
+  'CUSTOMER_ANALYSIS',
+  'BID_REPORT',
+  'MARKETPLACE_REPORT',
+  'CASHIER_REPORT',
+  'GOAL_PROGRESS',
+  'CURVA_ABC',
+  'CUSTOM',
 ];
 
 const VALID_FORMATS = ['PDF', 'EXCEL', 'CSV'];
@@ -38,7 +46,9 @@ const VALID_FORMATS = ['PDF', 'EXCEL', 'CSV'];
 export class CreateReportUseCase {
   constructor(private reportsRepository: AnalyticsReportsRepository) {}
 
-  async execute(input: CreateReportUseCaseRequest): Promise<CreateReportUseCaseResponse> {
+  async execute(
+    input: CreateReportUseCaseRequest,
+  ): Promise<CreateReportUseCaseResponse> {
     if (!input.name || input.name.trim().length === 0) {
       throw new BadRequestError('Report name is required.');
     }
@@ -57,9 +67,15 @@ export class CreateReportUseCase {
 
     if (input.isScheduled) {
       if (!input.scheduleFrequency) {
-        throw new BadRequestError('Schedule frequency is required for scheduled reports.');
+        throw new BadRequestError(
+          'Schedule frequency is required for scheduled reports.',
+        );
       }
-      if (input.scheduleHour === undefined || input.scheduleHour < 0 || input.scheduleHour > 23) {
+      if (
+        input.scheduleHour === undefined ||
+        input.scheduleHour < 0 ||
+        input.scheduleHour > 23
+      ) {
         throw new BadRequestError('Schedule hour must be between 0 and 23.');
       }
     }

@@ -52,10 +52,7 @@ export class PrismaCouponsRepository implements CouponsRepository {
     return mapToDomain(record);
   }
 
-  async findById(
-    id: UniqueEntityID,
-    tenantId: string,
-  ): Promise<Coupon | null> {
+  async findById(id: UniqueEntityID, tenantId: string): Promise<Coupon | null> {
     const record = await prisma.coupon.findFirst({
       where: { id: id.toString(), tenantId },
     });
@@ -112,7 +109,8 @@ export class PrismaCouponsRepository implements CouponsRepository {
   async update(data: UpdateCouponSchema): Promise<Coupon | null> {
     const updateData: Record<string, unknown> = {};
     if (data.code !== undefined) updateData.code = data.code.toUpperCase();
-    if (data.description !== undefined) updateData.description = data.description;
+    if (data.description !== undefined)
+      updateData.description = data.description;
     if (data.isActive !== undefined) updateData.isActive = data.isActive;
 
     const record = await prisma.coupon.update({

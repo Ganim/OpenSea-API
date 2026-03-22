@@ -2,7 +2,11 @@ import { Entity } from '../domain/entities';
 import type { Optional } from '../domain/optional';
 import { UniqueEntityID } from '../domain/unique-entity-id';
 
-export type PaymentConditionType = 'CASH' | 'INSTALLMENT' | 'CUSTOM' | 'CREDIT_LIMIT';
+export type PaymentConditionType =
+  | 'CASH'
+  | 'INSTALLMENT'
+  | 'CUSTOM'
+  | 'CREDIT_LIMIT';
 export type InterestType = 'SIMPLE' | 'COMPOUND';
 export type PaymentConditionApplicable = 'ALL' | 'RETAIL' | 'WHOLESALE' | 'BID';
 

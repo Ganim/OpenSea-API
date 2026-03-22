@@ -1,7 +1,9 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Activity } from '@/entities/sales/activity';
 
-export function activityPrismaToDomain(data: Record<string, unknown>): Activity {
+export function activityPrismaToDomain(
+  data: Record<string, unknown>,
+): Activity {
   return Activity.create(
     {
       tenantId: new UniqueEntityID(data.tenantId as string),

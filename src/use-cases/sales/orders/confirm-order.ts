@@ -73,10 +73,12 @@ export class ConfirmOrderUseCase {
     // Emit domain event for cross-module consumers
     try {
       const items = this.orderItemsRepository
-        ? (await this.orderItemsRepository.findManyByOrder(
-            order.id,
-            input.tenantId,
-          )).map((item) => ({
+        ? (
+            await this.orderItemsRepository.findManyByOrder(
+              order.id,
+              input.tenantId,
+            )
+          ).map((item) => ({
             variantId: item.variantId?.toString() ?? '',
             quantity: item.quantity,
             unitPrice: item.unitPrice,

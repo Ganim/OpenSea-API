@@ -78,8 +78,7 @@ export const SALES_AUDIT_MESSAGES = {
     action: AuditAction.ORDER_CONVERT_QUOTE,
     entity: AuditEntity.ORDER,
     module: AuditModule.SALES,
-    description:
-      '{{userName}} converteu orçamento #{{orderNumber}} em pedido',
+    description: '{{userName}} converteu orçamento #{{orderNumber}} em pedido',
   } satisfies AuditMessage,
 
   RETURN_CREATE: {
@@ -424,21 +423,24 @@ export const SALES_AUDIT_MESSAGES = {
     action: AuditAction.CREATE,
     entity: AuditEntity.CUSTOMER_PRICE,
     module: AuditModule.SALES,
-    description: 'Preço especial criado por {{userName}} para cliente {{customerId}}',
+    description:
+      'Preço especial criado por {{userName}} para cliente {{customerId}}',
   } satisfies AuditMessage,
 
   CUSTOMER_PRICE_UPDATE: {
     action: AuditAction.UPDATE,
     entity: AuditEntity.CUSTOMER_PRICE,
     module: AuditModule.SALES,
-    description: 'Preço especial atualizado por {{userName}} para cliente {{customerId}}',
+    description:
+      'Preço especial atualizado por {{userName}} para cliente {{customerId}}',
   } satisfies AuditMessage,
 
   CUSTOMER_PRICE_DELETE: {
     action: AuditAction.DELETE,
     entity: AuditEntity.CUSTOMER_PRICE,
     module: AuditModule.SALES,
-    description: 'Preço especial excluído por {{userName}} para cliente {{customerId}}',
+    description:
+      'Preço especial excluído por {{userName}} para cliente {{customerId}}',
   } satisfies AuditMessage,
 
   // ============================================================================
@@ -584,6 +586,66 @@ export const SALES_AUDIT_MESSAGES = {
     description: "Conteúdo '{{contentTitle}}' aprovado por {{userName}}",
   } satisfies AuditMessage,
 
+  // ============================================================================
+  // POS - Ponto de Venda
+  // ============================================================================
+
+  POS_TERMINAL_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.POS_TERMINAL,
+    module: AuditModule.SALES,
+    description: '{{userName}} criou o terminal PDV {{terminalName}}',
+  } satisfies AuditMessage,
+
+  POS_TERMINAL_UPDATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.POS_TERMINAL,
+    module: AuditModule.SALES,
+    description: '{{userName}} atualizou o terminal PDV {{terminalName}}',
+  } satisfies AuditMessage,
+
+  POS_TERMINAL_DELETE: {
+    action: AuditAction.DELETE,
+    entity: AuditEntity.POS_TERMINAL,
+    module: AuditModule.SALES,
+    description: '{{userName}} excluiu o terminal PDV {{terminalId}}',
+  } satisfies AuditMessage,
+
+  POS_SESSION_OPEN: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.POS_SESSION,
+    module: AuditModule.SALES,
+    description: '{{userName}} abriu sessão do PDV',
+  } satisfies AuditMessage,
+
+  POS_SESSION_CLOSE: {
+    action: AuditAction.STATUS_CHANGE,
+    entity: AuditEntity.POS_SESSION,
+    module: AuditModule.SALES,
+    description: '{{userName}} fechou sessão do PDV',
+  } satisfies AuditMessage,
+
+  POS_TRANSACTION_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.POS_TRANSACTION,
+    module: AuditModule.SALES,
+    description: '{{userName}} criou transação PDV',
+  } satisfies AuditMessage,
+
+  POS_TRANSACTION_CANCEL: {
+    action: AuditAction.CANCEL,
+    entity: AuditEntity.POS_TRANSACTION,
+    module: AuditModule.SALES,
+    description: 'Transação PDV {{transactionId}} cancelada',
+  } satisfies AuditMessage,
+
+  POS_CASH_MOVEMENT: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.POS_CASH_MOVEMENT,
+    module: AuditModule.SALES,
+    description: '{{userName}} registrou movimentação de caixa',
+  } satisfies AuditMessage,
+
   // ─── Bids (Licitacoes) ──────────────────────────────────────────────────
 
   BID_CREATE: {
@@ -611,14 +673,16 @@ export const SALES_AUDIT_MESSAGES = {
     action: AuditAction.UPDATE,
     entity: AuditEntity.BID,
     module: AuditModule.SALES,
-    description: "Status da licitacao '{{bidTitle}}' alterado para {{newStatus}} por {{userName}}",
+    description:
+      "Status da licitacao '{{bidTitle}}' alterado para {{newStatus}} por {{userName}}",
   } satisfies AuditMessage,
 
   BID_DOCUMENT_CREATE: {
     action: AuditAction.CREATE,
     entity: AuditEntity.BID_DOCUMENT,
     module: AuditModule.SALES,
-    description: "Documento '{{documentName}}' adicionado a licitacao por {{userName}}",
+    description:
+      "Documento '{{documentName}}' adicionado a licitacao por {{userName}}",
   } satisfies AuditMessage,
 
   BID_CONTRACT_CREATE: {
@@ -639,7 +703,8 @@ export const SALES_AUDIT_MESSAGES = {
     action: AuditAction.UPDATE,
     entity: AuditEntity.BID_AI_CONFIG,
     module: AuditModule.SALES,
-    description: "Configuracao de IA para licitacoes atualizada por {{userName}}",
+    description:
+      'Configuracao de IA para licitacoes atualizada por {{userName}}',
   } satisfies AuditMessage,
 } as const;
 

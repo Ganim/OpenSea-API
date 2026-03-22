@@ -70,10 +70,7 @@ export class PrismaPriceTablesRepository implements PriceTablesRepository {
     return mapToDomain(result as unknown as Record<string, unknown>);
   }
 
-  async findByName(
-    name: string,
-    tenantId: string,
-  ): Promise<PriceTable | null> {
+  async findByName(name: string, tenantId: string): Promise<PriceTable | null> {
     const result = await prisma.priceTable.findFirst({
       where: {
         name: { equals: name, mode: 'insensitive' },
@@ -142,7 +139,9 @@ export class PrismaPriceTablesRepository implements PriceTablesRepository {
     };
   }
 
-  async findActiveWithRulesByTenant(tenantId: string): Promise<PriceTableWithRules[]> {
+  async findActiveWithRulesByTenant(
+    tenantId: string,
+  ): Promise<PriceTableWithRules[]> {
     const results = await prisma.priceTable.findMany({
       where: {
         tenantId,
@@ -174,15 +173,18 @@ export class PrismaPriceTablesRepository implements PriceTablesRepository {
       const updateData: Record<string, unknown> = {};
 
       if (data.name !== undefined) updateData.name = data.name;
-      if (data.description !== undefined) updateData.description = data.description;
+      if (data.description !== undefined)
+        updateData.description = data.description;
       if (data.type !== undefined) updateData.type = data.type;
       if (data.currency !== undefined) updateData.currency = data.currency;
-      if (data.priceIncludesTax !== undefined) updateData.priceIncludesTax = data.priceIncludesTax;
+      if (data.priceIncludesTax !== undefined)
+        updateData.priceIncludesTax = data.priceIncludesTax;
       if (data.isDefault !== undefined) updateData.isDefault = data.isDefault;
       if (data.priority !== undefined) updateData.priority = data.priority;
       if (data.isActive !== undefined) updateData.isActive = data.isActive;
       if (data.validFrom !== undefined) updateData.validFrom = data.validFrom;
-      if (data.validUntil !== undefined) updateData.validUntil = data.validUntil;
+      if (data.validUntil !== undefined)
+        updateData.validUntil = data.validUntil;
 
       const result = await prisma.priceTable.update({
         where: { id: data.id.toString() },

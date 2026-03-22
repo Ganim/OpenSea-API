@@ -57,7 +57,7 @@ export async function createActivityController(app: FastifyInstance) {
         const useCase = makeCreateActivityUseCase();
         const { activity } = await useCase.execute({
           tenantId,
-          performedByUserId: userId,
+          userId,
           ...data,
         });
 
@@ -86,15 +86,12 @@ export async function createActivityController(app: FastifyInstance) {
             title: activity.title,
             description: activity.description ?? null,
             contactId: activity.contactId?.toString() ?? null,
-            customerId: activity.customerId?.toString() ?? null,
             dealId: activity.dealId?.toString() ?? null,
-            performedByUserId: activity.performedByUserId?.toString() ?? null,
-            performedAt: activity.performedAt,
-            dueAt: activity.dueAt ?? null,
+            userId: activity.userId.toString(),
+            status: activity.status,
+            dueDate: activity.dueDate ?? null,
             completedAt: activity.completedAt ?? null,
             duration: activity.duration ?? null,
-            outcome: activity.outcome ?? null,
-            metadata: activity.metadata ?? null,
             createdAt: activity.createdAt,
             updatedAt: activity.updatedAt ?? null,
             deletedAt: activity.deletedAt ?? null,

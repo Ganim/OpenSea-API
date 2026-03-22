@@ -5,5 +5,8 @@ import { UpsertPriceTableItemUseCase } from '@/use-cases/sales/price-tables/upse
 export function makeUpsertPriceTableItemUseCase() {
   const priceTableItemsRepository = new PrismaPriceTableItemsRepository();
   const priceTablesRepository = new PrismaPriceTablesRepository();
-  return new UpsertPriceTableItemUseCase(priceTableItemsRepository, priceTablesRepository);
+  return new UpsertPriceTableItemUseCase(
+    priceTableItemsRepository,
+    priceTablesRepository,
+  );
 }

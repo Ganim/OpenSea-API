@@ -1,3 +1,4 @@
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
@@ -71,8 +72,14 @@ export async function createTransactionController(app: FastifyInstance) {
       const body = request.body;
 
       // TODO: Replace stub with real use case
-      const subtotal = body.items.reduce((sum, i) => sum + i.unitPrice * i.quantity, 0);
-      const discount = body.items.reduce((sum, i) => sum + (i.discount ?? 0), 0);
+      const subtotal = body.items.reduce(
+        (sum, i) => sum + i.unitPrice * i.quantity,
+        0,
+      );
+      const discount = body.items.reduce(
+        (sum, i) => sum + (i.discount ?? 0),
+        0,
+      );
 
       const transaction = {
         id: crypto.randomUUID(),
@@ -89,7 +96,7 @@ export async function createTransactionController(app: FastifyInstance) {
       };
 
       await logAudit(request, {
-        message: 'POS transaction created: R$ {total}',
+        message: AUDIT_MESSAGES.SALES.POS_TRANSACTION_CREATE,
         entityId: transaction.id,
         placeholders: { userName: userId, total: transaction.total.toFixed(2) },
         newData: {

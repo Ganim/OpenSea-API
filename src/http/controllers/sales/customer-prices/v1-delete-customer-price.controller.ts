@@ -56,7 +56,11 @@ export async function deleteCustomerPriceController(app: FastifyInstance) {
           userName: userId,
           customerId: existing.customerId,
         },
-        oldData: { customerId: existing.customerId, variantId: existing.variantId, price: Number(existing.price) },
+        oldData: {
+          customerId: existing.customerId,
+          variantId: existing.variantId,
+          price: Number(existing.price),
+        },
       });
 
       return reply.status(204).send(null);

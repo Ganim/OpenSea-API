@@ -38,11 +38,12 @@ export class CreateCustomerPriceUseCase {
       throw new ResourceNotFoundError('Customer not found');
     }
 
-    const existing = await this.customerPricesRepository.findByCustomerAndVariant(
-      request.customerId,
-      request.variantId,
-      request.tenantId,
-    );
+    const existing =
+      await this.customerPricesRepository.findByCustomerAndVariant(
+        request.customerId,
+        request.variantId,
+        request.tenantId,
+      );
 
     if (existing) {
       throw new ConflictError(

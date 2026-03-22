@@ -8,18 +8,22 @@ import { z } from 'zod';
 // ─── Create Price Table ────────────────────────────────────────────────────────
 
 export const createPriceTableSchema = z.object({
-  name: z
-    .string()
-    .min(1)
-    .max(128)
-    .describe('Name of the price table'),
+  name: z.string().min(1).max(128).describe('Name of the price table'),
   description: z
     .string()
     .max(500)
     .optional()
     .describe('Description of the price table'),
   type: z
-    .enum(['DEFAULT', 'RETAIL', 'WHOLESALE', 'REGIONAL', 'CHANNEL', 'CUSTOMER', 'BID'])
+    .enum([
+      'DEFAULT',
+      'RETAIL',
+      'WHOLESALE',
+      'REGIONAL',
+      'CHANNEL',
+      'CUSTOMER',
+      'BID',
+    ])
     .optional()
     .default('DEFAULT')
     .describe('Type of the price table'),
@@ -51,14 +55,8 @@ export const createPriceTableSchema = z.object({
     .optional()
     .default(true)
     .describe('Whether the price table is active'),
-  validFrom: z.coerce
-    .date()
-    .optional()
-    .describe('Start of validity period'),
-  validUntil: z.coerce
-    .date()
-    .optional()
-    .describe('End of validity period'),
+  validFrom: z.coerce.date().optional().describe('Start of validity period'),
+  validUntil: z.coerce.date().optional().describe('End of validity period'),
 });
 
 // ─── Update Price Table ────────────────────────────────────────────────────────
@@ -109,7 +107,15 @@ export const listPriceTablesQuerySchema = z.object({
     .optional()
     .describe('Search by name or description'),
   type: z
-    .enum(['DEFAULT', 'RETAIL', 'WHOLESALE', 'REGIONAL', 'CHANNEL', 'CUSTOMER', 'BID'])
+    .enum([
+      'DEFAULT',
+      'RETAIL',
+      'WHOLESALE',
+      'REGIONAL',
+      'CHANNEL',
+      'CUSTOMER',
+      'BID',
+    ])
     .optional()
     .describe('Filter by type'),
   isActive: z
@@ -149,11 +155,7 @@ export const upsertPriceTableItemSchema = z.object({
           .min(1)
           .optional()
           .describe('Maximum quantity for this price tier'),
-        costPrice: z
-          .number()
-          .positive()
-          .optional()
-          .describe('Cost price'),
+        costPrice: z.number().positive().optional().describe('Cost price'),
         marginPercent: z
           .number()
           .min(0)
@@ -183,12 +185,7 @@ export const priceTableItemResponseSchema = z.object({
 // ─── List Price Table Items Query ──────────────────────────────────────────────
 
 export const listPriceTableItemsQuerySchema = z.object({
-  page: z.coerce
-    .number()
-    .int()
-    .positive()
-    .default(1)
-    .describe('Page number'),
+  page: z.coerce.number().int().positive().default(1).describe('Page number'),
   limit: z.coerce
     .number()
     .int()
@@ -196,11 +193,7 @@ export const listPriceTableItemsQuerySchema = z.object({
     .max(100)
     .default(20)
     .describe('Items per page'),
-  variantId: z
-    .string()
-    .uuid()
-    .optional()
-    .describe('Filter by variant ID'),
+  variantId: z.string().uuid().optional().describe('Filter by variant ID'),
   sortBy: z
     .enum(['price', 'minQuantity', 'createdAt'])
     .optional()
@@ -217,15 +210,31 @@ export const listPriceTableItemsQuerySchema = z.object({
 
 export const resolvePriceSchema = z.object({
   variantId: z.string().uuid().describe('Variant to resolve price for'),
-  customerId: z.string().uuid().optional().describe('Customer ID for customer-specific pricing'),
-  quantity: z.number().int().positive().optional().default(1).describe('Quantity for tiered pricing'),
-  priceTableId: z.string().uuid().optional().describe('Specific price table to use'),
+  customerId: z
+    .string()
+    .uuid()
+    .optional()
+    .describe('Customer ID for customer-specific pricing'),
+  quantity: z
+    .number()
+    .int()
+    .positive()
+    .optional()
+    .default(1)
+    .describe('Quantity for tiered pricing'),
+  priceTableId: z
+    .string()
+    .uuid()
+    .optional()
+    .describe('Specific price table to use'),
 });
 
 export const resolvePriceResponseSchema = z.object({
   variantId: z.string().uuid(),
   price: z.number(),
-  source: z.string().describe('Price source: customer_price, price_table, default'),
+  source: z
+    .string()
+    .describe('Price source: customer_price, price_table, default'),
   priceTableId: z.string().uuid().nullable(),
   priceTableName: z.string().nullable(),
   tiered: z.boolean(),

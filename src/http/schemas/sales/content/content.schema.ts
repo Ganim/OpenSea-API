@@ -5,12 +5,27 @@ import { z } from 'zod';
 export const createGeneratedContentSchema = z.object({
   type: z
     .enum([
-      'SOCIAL_POST', 'SOCIAL_STORY', 'SOCIAL_REEL', 'FOLDER_PAGE',
-      'EMAIL_CAMPAIGN', 'BANNER', 'PRODUCT_CARD', 'VIDEO', 'MOCKUP',
+      'SOCIAL_POST',
+      'SOCIAL_STORY',
+      'SOCIAL_REEL',
+      'FOLDER_PAGE',
+      'EMAIL_CAMPAIGN',
+      'BANNER',
+      'PRODUCT_CARD',
+      'VIDEO',
+      'MOCKUP',
     ])
     .describe('Content type'),
   channel: z
-    .enum(['INSTAGRAM', 'FACEBOOK', 'TIKTOK', 'WHATSAPP', 'EMAIL', 'PRINT', 'WEB'])
+    .enum([
+      'INSTAGRAM',
+      'FACEBOOK',
+      'TIKTOK',
+      'WHATSAPP',
+      'EMAIL',
+      'PRINT',
+      'WEB',
+    ])
     .optional()
     .describe('Target channel'),
   title: z.string().max(256).optional().describe('Content title'),
@@ -18,7 +33,11 @@ export const createGeneratedContentSchema = z.object({
   hashtags: z.array(z.string()).optional().default([]).describe('Hashtags'),
   templateId: z.string().uuid().optional().describe('Template ID'),
   brandId: z.string().uuid().optional().describe('Brand ID'),
-  variantIds: z.array(z.string().uuid()).optional().default([]).describe('Variant IDs'),
+  variantIds: z
+    .array(z.string().uuid())
+    .optional()
+    .default([])
+    .describe('Variant IDs'),
   catalogId: z.string().uuid().optional().describe('Catalog ID'),
   campaignId: z.string().uuid().optional().describe('Campaign ID'),
   aiGenerated: z.boolean().optional().default(false).describe('AI generated'),
@@ -68,11 +87,20 @@ export const listGeneratedContentsQuerySchema = z.object({
   search: z.string().optional(),
   type: z
     .enum([
-      'SOCIAL_POST', 'SOCIAL_STORY', 'SOCIAL_REEL', 'FOLDER_PAGE',
-      'EMAIL_CAMPAIGN', 'BANNER', 'PRODUCT_CARD', 'VIDEO', 'MOCKUP',
+      'SOCIAL_POST',
+      'SOCIAL_STORY',
+      'SOCIAL_REEL',
+      'FOLDER_PAGE',
+      'EMAIL_CAMPAIGN',
+      'BANNER',
+      'PRODUCT_CARD',
+      'VIDEO',
+      'MOCKUP',
     ])
     .optional(),
-  status: z.enum(['DRAFT', 'READY', 'APPROVED', 'PUBLISHED', 'ARCHIVED']).optional(),
+  status: z
+    .enum(['DRAFT', 'READY', 'APPROVED', 'PUBLISHED', 'ARCHIVED'])
+    .optional(),
   catalogId: z.string().uuid().optional(),
   sortBy: z.string().optional(),
   sortOrder: z.enum(['asc', 'desc']).optional(),

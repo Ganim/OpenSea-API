@@ -39,7 +39,9 @@ export interface CustomerPricesRepository {
     variantId: string,
     tenantId: string,
   ): Promise<CustomerPrice | null>;
-  findManyByCustomer(params: FindManyCustomerPricesParams): Promise<PaginatedResult<CustomerPrice>>;
+  findManyByCustomer(
+    params: FindManyCustomerPricesParams,
+  ): Promise<PaginatedResult<CustomerPrice>>;
   update(data: UpdateCustomerPriceSchema): Promise<CustomerPrice | null>;
   delete(id: UniqueEntityID, tenantId: string): Promise<void>;
 }

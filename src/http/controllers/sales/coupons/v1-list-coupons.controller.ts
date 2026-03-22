@@ -40,7 +40,16 @@ export async function listCouponsController(app: FastifyInstance) {
 
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
-      const { page, limit, search, type, isActive, campaignId, sortBy, sortOrder } = request.query;
+      const {
+        page,
+        limit,
+        search,
+        type,
+        isActive,
+        campaignId,
+        sortBy,
+        sortOrder,
+      } = request.query;
 
       const where = {
         tenantId,

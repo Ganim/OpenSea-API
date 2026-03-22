@@ -1,5 +1,10 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
-import type { Combo, ComboDiscountType, ComboItemProps, ComboType } from '@/entities/sales/combo';
+import type {
+  Combo,
+  ComboDiscountType,
+  ComboItemProps,
+  ComboType,
+} from '@/entities/sales/combo';
 import type { CombosRepository } from '@/repositories/sales/combos-repository';
 
 interface CreateComboUseCaseRequest {

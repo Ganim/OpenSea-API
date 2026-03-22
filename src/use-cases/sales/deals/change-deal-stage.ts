@@ -49,7 +49,7 @@ export class ChangeDealStageUseCase {
 
     // 3. Validate the new stage belongs to the deal's pipeline
     if (!newStage.pipelineId.equals(deal.pipelineId)) {
-      throw new BadRequestError('Stage does not belong to the deal\'s pipeline');
+      throw new BadRequestError("Stage does not belong to the deal's pipeline");
     }
 
     // Get the old stage info for the timeline event

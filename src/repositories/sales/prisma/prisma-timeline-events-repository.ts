@@ -1,7 +1,11 @@
 import type { TimelineEvent } from '@/entities/sales/timeline-event';
 import { prisma } from '@/lib/prisma';
 import { timelineEventPrismaToDomain } from '@/mappers/sales/timeline-event/timeline-event-prisma-to-domain';
-import type { TimelineEventsRepository } from '../timeline-events-repository';
+import type { PaginatedResult } from '@/repositories/pagination-params';
+import type {
+  FindManyTimelineEventsPaginatedParams,
+  TimelineEventsRepository,
+} from '../timeline-events-repository';
 import type { TimelineEventType } from '@prisma/generated/client.js';
 
 export class PrismaTimelineEventsRepository
@@ -37,6 +41,35 @@ export class PrismaTimelineEventsRepository
     return items.map((e: any) =>
       timelineEventPrismaToDomain(e as unknown as Record<string, unknown>),
     );
+  }
+
+  async findManyPaginated(
+    params: FindManyTimelineEventsPaginatedParams,
+  ): Promise<PaginatedResult<TimelineEvent>> {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const where: any = { tenantId: params.tenantId };
+    if (params.dealId) where.dealId = params.dealId;
+
+    const [items, total] = await Promise.all([
+      prisma.crmTimelineEvent.findMany({
+        where,
+        orderBy: { createdAt: 'desc' },
+        skip: (params.page - 1) * params.limit,
+        take: params.limit,
+      }),
+      prisma.crmTimelineEvent.count({ where }),
+    ]);
+
+    return {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      data: items.map((e: any) =>
+        timelineEventPrismaToDomain(e as unknown as Record<string, unknown>),
+      ),
+      total,
+      page: params.page,
+      limit: params.limit,
+      totalPages: Math.ceil(total / params.limit),
+    };
   }
 
   async deleteByDeal(dealId: string): Promise<void> {

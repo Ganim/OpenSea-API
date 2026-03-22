@@ -6,5 +6,8 @@ export function makeUpdateActivityUseCase() {
   const activitiesRepository = new PrismaActivitiesRepository();
   const timelineEventsRepository = new PrismaTimelineEventsRepository();
 
-  return new UpdateActivityUseCase(activitiesRepository, timelineEventsRepository);
+  return new UpdateActivityUseCase(
+    activitiesRepository,
+    timelineEventsRepository,
+  );
 }

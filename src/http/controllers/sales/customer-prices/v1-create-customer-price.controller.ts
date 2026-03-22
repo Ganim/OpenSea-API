@@ -4,7 +4,10 @@ import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { createCustomerPriceSchema, customerPriceResponseSchema } from '@/http/schemas';
+import {
+  createCustomerPriceSchema,
+  customerPriceResponseSchema,
+} from '@/http/schemas';
 import { prisma } from '@/lib/prisma';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -60,7 +63,11 @@ export async function createCustomerPriceController(app: FastifyInstance) {
           userName: userId,
           customerId: body.customerId,
         },
-        newData: { customerId: body.customerId, variantId: body.variantId, price: body.price },
+        newData: {
+          customerId: body.customerId,
+          variantId: body.variantId,
+          price: body.price,
+        },
       });
 
       return reply.status(201).send({

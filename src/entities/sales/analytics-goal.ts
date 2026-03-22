@@ -127,7 +127,10 @@ export class AnalyticsGoal extends Entity<AnalyticsGoalProps> {
 
   get progressPercentage(): number {
     if (this.props.targetValue === 0) return 0;
-    return Math.min(100, (this.props.currentValue / this.props.targetValue) * 100);
+    return Math.min(
+      100,
+      (this.props.currentValue / this.props.targetValue) * 100,
+    );
   }
 
   private touch() {
@@ -141,7 +144,10 @@ export class AnalyticsGoal extends Entity<AnalyticsGoalProps> {
   }
 
   static create(
-    props: Optional<AnalyticsGoalProps, 'id' | 'currentValue' | 'status' | 'createdAt'>,
+    props: Optional<
+      AnalyticsGoalProps,
+      'id' | 'currentValue' | 'status' | 'createdAt'
+    >,
     id?: UniqueEntityID,
   ): AnalyticsGoal {
     return new AnalyticsGoal(

@@ -11,9 +11,7 @@ interface GetBalanceUseCaseResponse {
 }
 
 export class GetBalanceUseCase {
-  constructor(
-    private storeCreditsRepository: StoreCreditsRepository,
-  ) {}
+  constructor(private storeCreditsRepository: StoreCreditsRepository) {}
 
   async execute(
     input: GetBalanceUseCaseRequest,

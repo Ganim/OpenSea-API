@@ -1,6 +1,10 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ConflictError } from '@/@errors/use-cases/conflict-error';
-import type { Coupon, CouponApplicableTo, CouponDiscountType } from '@/entities/sales/coupon';
+import type {
+  Coupon,
+  CouponApplicableTo,
+  CouponDiscountType,
+} from '@/entities/sales/coupon';
 import type { CouponsRepository } from '@/repositories/sales/coupons-repository';
 
 interface CreateCouponUseCaseRequest {

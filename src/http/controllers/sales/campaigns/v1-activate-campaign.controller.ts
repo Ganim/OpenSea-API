@@ -52,11 +52,15 @@ export async function activateCampaignController(app: FastifyInstance) {
       }
 
       if (existing.status === 'ACTIVE') {
-        return reply.status(400).send({ message: 'Campaign is already active' });
+        return reply
+          .status(400)
+          .send({ message: 'Campaign is already active' });
       }
 
       if (existing.status === 'ENDED' || existing.status === 'ARCHIVED') {
-        return reply.status(400).send({ message: 'Cannot activate an ended or archived campaign' });
+        return reply
+          .status(400)
+          .send({ message: 'Cannot activate an ended or archived campaign' });
       }
 
       const campaign = await prisma.campaign.update({
@@ -78,7 +82,8 @@ export async function activateCampaignController(app: FastifyInstance) {
       return reply.status(200).send({
         campaign: {
           ...campaign,
-          targetAudience: (campaign.targetAudience as Record<string, unknown>) ?? null,
+          targetAudience:
+            (campaign.targetAudience as Record<string, unknown>) ?? null,
           description: campaign.description ?? null,
           maxUsageTotal: campaign.maxUsageTotal ?? null,
           maxUsagePerCustomer: campaign.maxUsagePerCustomer ?? null,

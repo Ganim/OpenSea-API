@@ -4,7 +4,10 @@ import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { createGeneratedContentSchema, generatedContentResponseSchema } from '@/http/schemas';
+import {
+  createGeneratedContentSchema,
+  generatedContentResponseSchema,
+} from '@/http/schemas';
 import { generatedContentToDTO } from '@/mappers/sales/generated-content/generated-content-to-dto';
 import { makeCreateGeneratedContentUseCase } from '@/use-cases/sales/generated-contents/factories/make-create-generated-content-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -47,11 +50,16 @@ export async function createContentController(app: FastifyInstance) {
       await logAudit(request, {
         message: AUDIT_MESSAGES.SALES.CONTENT_CREATE,
         entityId: content.id.toString(),
-        placeholders: { userName: userId, contentTitle: content.title ?? 'Sem título' },
+        placeholders: {
+          userName: userId,
+          contentTitle: content.title ?? 'Sem título',
+        },
         newData: { type: body.type, channel: body.channel },
       });
 
-      return reply.status(201).send({ content: generatedContentToDTO(content) });
+      return reply
+        .status(201)
+        .send({ content: generatedContentToDTO(content) });
     },
   });
 }

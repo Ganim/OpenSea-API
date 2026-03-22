@@ -4,7 +4,10 @@ import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { pipelineStageResponseSchema, updatePipelineStageSchema } from '@/http/schemas';
+import {
+  pipelineStageResponseSchema,
+  updatePipelineStageSchema,
+} from '@/http/schemas';
 import { pipelineStageToDTO } from '@/mappers/sales/pipeline-stage/pipeline-stage-to-dto';
 import { makeUpdatePipelineStageUseCase } from '@/use-cases/sales/pipeline-stages/factories/make-update-pipeline-stage-use-case';
 import type { FastifyInstance } from 'fastify';

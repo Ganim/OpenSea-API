@@ -44,8 +44,9 @@ export class CreateReturnUseCase {
       throw new ResourceNotFoundError('Order not found.');
     }
 
-    const returnNumber =
-      await this.orderReturnsRepository.getNextReturnNumber(input.tenantId);
+    const returnNumber = await this.orderReturnsRepository.getNextReturnNumber(
+      input.tenantId,
+    );
 
     const orderReturn = OrderReturn.create({
       tenantId: new UniqueEntityID(input.tenantId),

@@ -26,7 +26,16 @@ export async function createDashboardController(app: FastifyInstance) {
       body: z.object({
         name: z.string().min(1).max(128),
         description: z.string().optional(),
-        role: z.enum(['SELLER', 'MANAGER', 'DIRECTOR', 'BID_SPECIALIST', 'MARKETPLACE_OPS', 'CASHIER']).optional(),
+        role: z
+          .enum([
+            'SELLER',
+            'MANAGER',
+            'DIRECTOR',
+            'BID_SPECIALIST',
+            'MARKETPLACE_OPS',
+            'CASHIER',
+          ])
+          .optional(),
         visibility: z.enum(['PRIVATE', 'TEAM', 'TENANT']).optional(),
         layout: z.record(z.string(), z.unknown()).optional(),
       }),

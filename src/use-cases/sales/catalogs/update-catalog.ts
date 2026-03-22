@@ -38,10 +38,12 @@ export class UpdateCatalogUseCase {
 
     if (request.name !== undefined) catalog.name = request.name;
     if (request.slug !== undefined) catalog.slug = request.slug;
-    if (request.description !== undefined) catalog.description = request.description;
+    if (request.description !== undefined)
+      catalog.description = request.description;
     if (request.status !== undefined) catalog.status = request.status;
     if (request.layout !== undefined) catalog.layout = request.layout;
-    if (request.showPrices !== undefined) catalog.showPrices = request.showPrices;
+    if (request.showPrices !== undefined)
+      catalog.showPrices = request.showPrices;
     if (request.showStock !== undefined) catalog.showStock = request.showStock;
     if (request.isPublic !== undefined) catalog.isPublic = request.isPublic;
     if (request.coverImageFileId !== undefined)

@@ -3,7 +3,9 @@ import { z } from 'zod';
 export const updateAiConfigBodySchema = z.object({
   assistantName: z.string().max(64).optional(),
   assistantAvatar: z.string().nullable().optional(),
-  personality: z.enum(['PROFESSIONAL', 'FRIENDLY', 'CASUAL', 'FORMAL', 'CUSTOM']).optional(),
+  personality: z
+    .enum(['PROFESSIONAL', 'FRIENDLY', 'CASUAL', 'FORMAL', 'CUSTOM'])
+    .optional(),
   customPersonality: z.string().nullable().optional(),
   toneOfVoice: z.enum(['NEUTRAL', 'WARM', 'DIRECT', 'ENTHUSIASTIC']).optional(),
   language: z.string().max(8).optional(),

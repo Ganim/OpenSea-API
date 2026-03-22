@@ -1,3 +1,4 @@
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
@@ -59,7 +60,7 @@ export async function cancelTransactionController(app: FastifyInstance) {
       };
 
       await logAudit(request, {
-        message: 'POS transaction cancelled: {transactionId}',
+        message: AUDIT_MESSAGES.SALES.POS_TRANSACTION_CANCEL,
         entityId: transactionId,
         placeholders: { userName: userId, transactionId },
         newData: { reason },

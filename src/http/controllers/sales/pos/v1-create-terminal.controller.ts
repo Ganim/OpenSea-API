@@ -1,3 +1,4 @@
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
@@ -69,13 +70,17 @@ export async function createTerminalController(app: FastifyInstance) {
       };
 
       await logAudit(request, {
-        message: 'POS terminal created: {terminalName}',
+        message: AUDIT_MESSAGES.SALES.POS_TERMINAL_CREATE,
         entityId: terminal.id,
         placeholders: {
           userName: userId,
           terminalName: terminal.name,
         },
-        newData: { name: body.name, mode: body.mode, warehouseId: body.warehouseId },
+        newData: {
+          name: body.name,
+          mode: body.mode,
+          warehouseId: body.warehouseId,
+        },
       });
 
       return reply.status(201).send({ terminal });

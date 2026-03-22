@@ -1,7 +1,11 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import { Order, type OrderChannel, type OrderType } from '@/entities/sales/order';
+import {
+  Order,
+  type OrderChannel,
+  type OrderType,
+} from '@/entities/sales/order';
 import { OrderItem } from '@/entities/sales/order-item';
 import type { CustomersRepository } from '@/repositories/sales/customers-repository';
 import type { OrderItemsRepository } from '@/repositories/sales/order-items-repository';
@@ -91,7 +95,9 @@ export class CreateOrderUseCase {
       throw new ResourceNotFoundError('Pipeline stage not found.');
     }
     if (stage.pipelineId.toString() !== input.pipelineId) {
-      throw new BadRequestError('Stage does not belong to the specified pipeline.');
+      throw new BadRequestError(
+        'Stage does not belong to the specified pipeline.',
+      );
     }
 
     // Validate items

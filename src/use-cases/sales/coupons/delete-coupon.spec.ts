@@ -32,10 +32,7 @@ describe('Delete Coupon Use Case', () => {
 
     expect(result.message).toBe('Coupon deleted successfully.');
 
-    const found = await couponsRepository.findById(
-      created.couponId,
-      TENANT_ID,
-    );
+    const found = await couponsRepository.findById(created.couponId, TENANT_ID);
     expect(found).toBeNull();
   });
 });

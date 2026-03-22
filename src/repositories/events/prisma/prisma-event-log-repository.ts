@@ -51,8 +51,7 @@ export class PrismaEventLogRepository implements EventLogRepository {
     if (filters.correlationId) where.correlationId = filters.correlationId;
     if (filters.sourceEntityType)
       where.sourceEntityType = filters.sourceEntityType;
-    if (filters.sourceEntityId)
-      where.sourceEntityId = filters.sourceEntityId;
+    if (filters.sourceEntityId) where.sourceEntityId = filters.sourceEntityId;
 
     if (filters.createdAfter || filters.createdBefore) {
       const createdAt: Record<string, Date> = {};

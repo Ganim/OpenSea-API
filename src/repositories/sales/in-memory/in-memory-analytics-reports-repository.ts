@@ -6,7 +6,9 @@ import type {
   UpdateAnalyticsReportSchema,
 } from '../analytics-reports-repository';
 
-export class InMemoryAnalyticsReportsRepository implements AnalyticsReportsRepository {
+export class InMemoryAnalyticsReportsRepository
+  implements AnalyticsReportsRepository
+{
   public items: AnalyticsReport[] = [];
 
   async create(data: CreateAnalyticsReportSchema): Promise<AnalyticsReport> {
@@ -34,10 +36,16 @@ export class InMemoryAnalyticsReportsRepository implements AnalyticsReportsRepos
     return report;
   }
 
-  async findById(id: UniqueEntityID, tenantId: string): Promise<AnalyticsReport | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<AnalyticsReport | null> {
     return (
       this.items.find(
-        (r) => r.id.toString() === id.toString() && r.tenantId.toString() === tenantId && !r.deletedAt,
+        (r) =>
+          r.id.toString() === id.toString() &&
+          r.tenantId.toString() === tenantId &&
+          !r.deletedAt,
       ) ?? null
     );
   }
@@ -48,11 +56,16 @@ export class InMemoryAnalyticsReportsRepository implements AnalyticsReportsRepos
     tenantId: string,
     filters?: { type?: string; isScheduled?: boolean; isActive?: boolean },
   ): Promise<AnalyticsReport[]> {
-    let filtered = this.items.filter((r) => r.tenantId.toString() === tenantId && !r.deletedAt);
+    let filtered = this.items.filter(
+      (r) => r.tenantId.toString() === tenantId && !r.deletedAt,
+    );
 
-    if (filters?.type) filtered = filtered.filter((r) => r.type === filters.type);
-    if (filters?.isScheduled !== undefined) filtered = filtered.filter((r) => r.isScheduled === filters.isScheduled);
-    if (filters?.isActive !== undefined) filtered = filtered.filter((r) => r.isActive === filters.isActive);
+    if (filters?.type)
+      filtered = filtered.filter((r) => r.type === filters.type);
+    if (filters?.isScheduled !== undefined)
+      filtered = filtered.filter((r) => r.isScheduled === filters.isScheduled);
+    if (filters?.isActive !== undefined)
+      filtered = filtered.filter((r) => r.isActive === filters.isActive);
 
     const start = (page - 1) * perPage;
     return filtered.slice(start, start + perPage);
@@ -62,18 +75,28 @@ export class InMemoryAnalyticsReportsRepository implements AnalyticsReportsRepos
     tenantId: string,
     filters?: { type?: string; isScheduled?: boolean; isActive?: boolean },
   ): Promise<number> {
-    let filtered = this.items.filter((r) => r.tenantId.toString() === tenantId && !r.deletedAt);
+    let filtered = this.items.filter(
+      (r) => r.tenantId.toString() === tenantId && !r.deletedAt,
+    );
 
-    if (filters?.type) filtered = filtered.filter((r) => r.type === filters.type);
-    if (filters?.isScheduled !== undefined) filtered = filtered.filter((r) => r.isScheduled === filters.isScheduled);
-    if (filters?.isActive !== undefined) filtered = filtered.filter((r) => r.isActive === filters.isActive);
+    if (filters?.type)
+      filtered = filtered.filter((r) => r.type === filters.type);
+    if (filters?.isScheduled !== undefined)
+      filtered = filtered.filter((r) => r.isScheduled === filters.isScheduled);
+    if (filters?.isActive !== undefined)
+      filtered = filtered.filter((r) => r.isActive === filters.isActive);
 
     return filtered.length;
   }
 
-  async update(data: UpdateAnalyticsReportSchema): Promise<AnalyticsReport | null> {
+  async update(
+    data: UpdateAnalyticsReportSchema,
+  ): Promise<AnalyticsReport | null> {
     const report = this.items.find(
-      (r) => r.id.toString() === data.id.toString() && r.tenantId.toString() === data.tenantId && !r.deletedAt,
+      (r) =>
+        r.id.toString() === data.id.toString() &&
+        r.tenantId.toString() === data.tenantId &&
+        !r.deletedAt,
     );
 
     if (!report) return null;
@@ -85,7 +108,8 @@ export class InMemoryAnalyticsReportsRepository implements AnalyticsReportsRepos
 
   async delete(id: UniqueEntityID, tenantId: string): Promise<void> {
     const report = this.items.find(
-      (r) => r.id.toString() === id.toString() && r.tenantId.toString() === tenantId,
+      (r) =>
+        r.id.toString() === id.toString() && r.tenantId.toString() === tenantId,
     );
     if (report) report.delete();
   }

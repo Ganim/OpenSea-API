@@ -47,10 +47,7 @@ export class InMemoryPriceTablesRepository implements PriceTablesRepository {
     );
   }
 
-  async findByName(
-    name: string,
-    tenantId: string,
-  ): Promise<PriceTable | null> {
+  async findByName(name: string, tenantId: string): Promise<PriceTable | null> {
     return (
       this.items.find(
         (pt) =>
@@ -65,9 +62,7 @@ export class InMemoryPriceTablesRepository implements PriceTablesRepository {
     return (
       this.items.find(
         (pt) =>
-          pt.isDefault &&
-          pt.tenantId.toString() === tenantId &&
-          !pt.deletedAt,
+          pt.isDefault && pt.tenantId.toString() === tenantId && !pt.deletedAt,
       ) ?? null
     );
   }
@@ -89,9 +84,7 @@ export class InMemoryPriceTablesRepository implements PriceTablesRepository {
 
     if (params.search) {
       const s = params.search.toLowerCase();
-      filtered = filtered.filter((pt) =>
-        pt.name.toLowerCase().includes(s),
-      );
+      filtered = filtered.filter((pt) => pt.name.toLowerCase().includes(s));
     }
 
     const total = filtered.length;
@@ -107,21 +100,19 @@ export class InMemoryPriceTablesRepository implements PriceTablesRepository {
     };
   }
 
-  async findActiveWithRulesByTenant(tenantId: string): Promise<PriceTableWithRules[]> {
+  async findActiveWithRulesByTenant(
+    tenantId: string,
+  ): Promise<PriceTableWithRules[]> {
     const active = this.items
       .filter(
         (pt) =>
-          pt.tenantId.toString() === tenantId &&
-          pt.isActive &&
-          !pt.deletedAt,
+          pt.tenantId.toString() === tenantId && pt.isActive && !pt.deletedAt,
       )
       .sort((a, b) => b.priority - a.priority);
 
     return active.map((table) => ({
       table,
-      rules: this.rules.filter(
-        (r) => r.priceTableId === table.id.toString(),
-      ),
+      rules: this.rules.filter((r) => r.priceTableId === table.id.toString()),
     }));
   }
 
@@ -137,10 +128,12 @@ export class InMemoryPriceTablesRepository implements PriceTablesRepository {
 
     const priceTable = this.items[index]!;
     if (data.name !== undefined) priceTable.name = data.name;
-    if (data.description !== undefined) priceTable.description = data.description;
+    if (data.description !== undefined)
+      priceTable.description = data.description;
     if (data.type !== undefined) priceTable.type = data.type;
     if (data.currency !== undefined) priceTable.currency = data.currency;
-    if (data.priceIncludesTax !== undefined) priceTable.priceIncludesTax = data.priceIncludesTax;
+    if (data.priceIncludesTax !== undefined)
+      priceTable.priceIncludesTax = data.priceIncludesTax;
     if (data.isDefault !== undefined) priceTable.isDefault = data.isDefault;
     if (data.priority !== undefined) priceTable.priority = data.priority;
     if (data.isActive !== undefined) priceTable.isActive = data.isActive;

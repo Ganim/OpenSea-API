@@ -33,10 +33,7 @@ export class InMemoryCombosRepository implements CombosRepository {
     return combo;
   }
 
-  async findById(
-    id: UniqueEntityID,
-    tenantId: string,
-  ): Promise<Combo | null> {
+  async findById(id: UniqueEntityID, tenantId: string): Promise<Combo | null> {
     const combo = this.items.find(
       (item) =>
         !item.deletedAt &&
@@ -50,8 +47,7 @@ export class InMemoryCombosRepository implements CombosRepository {
     params: FindManyCombosParams,
   ): Promise<PaginatedResult<Combo>> {
     let filtered = this.items.filter(
-      (item) =>
-        !item.deletedAt && item.tenantId.toString() === params.tenantId,
+      (item) => !item.deletedAt && item.tenantId.toString() === params.tenantId,
     );
 
     if (params.isActive !== undefined) {

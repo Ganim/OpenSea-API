@@ -465,7 +465,9 @@ describe('DomainEventBus', () => {
       expect(mockUpdate).toHaveBeenCalledOnce();
       const updateArgs = mockUpdate.mock.calls[0][0];
       expect(updateArgs.data.status).toBe('FAILED');
-      expect(updateArgs.data.failedConsumers).toHaveProperty('failing-consumer');
+      expect(updateArgs.data.failedConsumers).toHaveProperty(
+        'failing-consumer',
+      );
     });
 
     it('should not fail emit when persistence create throws', async () => {

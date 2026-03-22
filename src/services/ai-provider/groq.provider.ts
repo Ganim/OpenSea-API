@@ -67,9 +67,7 @@ export class GroqProvider implements AiProvider {
 
     if (!response.ok) {
       const errorBody = await response.text().catch(() => 'Unknown error');
-      throw new Error(
-        `Groq API error (${response.status}): ${errorBody}`,
-      );
+      throw new Error(`Groq API error (${response.status}): ${errorBody}`);
     }
 
     const data = (await response.json()) as GroqChatResponse;

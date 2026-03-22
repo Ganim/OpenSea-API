@@ -141,12 +141,7 @@ export class Combo extends Entity<ComboProps> {
   static create(
     props: Optional<
       ComboProps,
-      | 'id'
-      | 'isActive'
-      | 'items'
-      | 'categoryIds'
-      | 'createdAt'
-      | 'updatedAt'
+      'id' | 'isActive' | 'items' | 'categoryIds' | 'createdAt' | 'updatedAt'
     >,
     id?: UniqueEntityID,
   ): Combo {

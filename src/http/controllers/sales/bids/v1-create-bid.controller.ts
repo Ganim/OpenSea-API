@@ -45,7 +45,11 @@ export async function createBidController(app: FastifyInstance) {
         message: AUDIT_MESSAGES.SALES.BID_CREATE,
         entityId: bid.id.toString(),
         placeholders: { userName: userId, bidTitle: body.title },
-        newData: { title: body.title, agency: body.agency, modality: body.modality },
+        newData: {
+          title: body.title,
+          agency: body.agency,
+          modality: body.modality,
+        },
       });
 
       return reply.status(201).send({ bid });

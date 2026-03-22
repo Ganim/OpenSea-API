@@ -6,8 +6,18 @@ import type { PipelineStagesRepository } from '@/repositories/sales/pipeline-sta
 import type { PipelinesRepository } from '@/repositories/sales/pipelines-repository';
 
 const ALL_STAGE_TYPES = [
-  'OPEN', 'WON', 'LOST', 'DRAFT', 'PENDING_APPROVAL', 'APPROVED',
-  'PROCESSING', 'INVOICED', 'SHIPPED', 'DELIVERED', 'COMPLETED', 'CANCELLED',
+  'OPEN',
+  'WON',
+  'LOST',
+  'DRAFT',
+  'PENDING_APPROVAL',
+  'APPROVED',
+  'PROCESSING',
+  'INVOICED',
+  'SHIPPED',
+  'DELIVERED',
+  'COMPLETED',
+  'CANCELLED',
 ];
 
 interface CreatePipelineStageUseCaseRequest {
@@ -36,7 +46,18 @@ export class CreatePipelineStageUseCase {
   async execute(
     request: CreatePipelineStageUseCaseRequest,
   ): Promise<CreatePipelineStageUseCaseResponse> {
-    const { tenantId, pipelineId, name, color, icon, position, type, probability, autoActions, rottenAfterDays } = request;
+    const {
+      tenantId,
+      pipelineId,
+      name,
+      color,
+      icon,
+      position,
+      type,
+      probability,
+      autoActions,
+      rottenAfterDays,
+    } = request;
 
     if (!name || name.trim().length === 0) {
       throw new BadRequestError('Name is required');

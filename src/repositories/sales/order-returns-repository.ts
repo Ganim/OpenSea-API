@@ -14,7 +14,10 @@ export interface FindManyOrderReturnsPaginatedParams {
 export interface OrderReturnsRepository {
   create(orderReturn: OrderReturn): Promise<void>;
   findById(id: UniqueEntityID, tenantId: string): Promise<OrderReturn | null>;
-  findManyByOrder(orderId: UniqueEntityID, tenantId: string): Promise<OrderReturn[]>;
+  findManyByOrder(
+    orderId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<OrderReturn[]>;
   findManyPaginated(
     params: FindManyOrderReturnsPaginatedParams,
   ): Promise<PaginatedResult<OrderReturn>>;

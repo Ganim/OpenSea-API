@@ -58,10 +58,7 @@ export class ValidateCouponUseCase {
     }
 
     // 5. maxUsagePerCustomer not exceeded?
-    if (
-      request.customerId &&
-      coupon.maxUsagePerCustomer !== undefined
-    ) {
+    if (request.customerId && coupon.maxUsagePerCustomer !== undefined) {
       const customerUsageCount = coupon.getUsageCountForCustomer(
         request.customerId,
       );

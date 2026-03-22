@@ -5,7 +5,10 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import type { DomainEvent } from '../domain-event.interface';
 import { SALES_EVENTS } from '../sales-events';
 import { TypedEventBus } from '../typed-event-bus';
-import { stockOrderReservationConsumer, stockOrderCancellationConsumer } from './stock-consumer';
+import {
+  stockOrderReservationConsumer,
+  stockOrderCancellationConsumer,
+} from './stock-consumer';
 import { crmTimelineConsumer } from './crm-consumer';
 import { notificationConsumer } from './notification-consumer';
 
@@ -68,12 +71,22 @@ describe('Event Consumers', () => {
     it('should match CRM consumer to all deal and order events', () => {
       bus.register(crmTimelineConsumer);
 
-      const dealCreatedConsumers = bus.getConsumersForEvent(SALES_EVENTS.DEAL_CREATED);
+      const dealCreatedConsumers = bus.getConsumersForEvent(
+        SALES_EVENTS.DEAL_CREATED,
+      );
       const dealWonConsumers = bus.getConsumersForEvent(SALES_EVENTS.DEAL_WON);
-      const dealLostConsumers = bus.getConsumersForEvent(SALES_EVENTS.DEAL_LOST);
-      const orderConfirmedConsumers = bus.getConsumersForEvent(SALES_EVENTS.ORDER_CONFIRMED);
-      const orderCancelledConsumers = bus.getConsumersForEvent(SALES_EVENTS.ORDER_CANCELLED);
-      const stageChangedConsumers = bus.getConsumersForEvent(SALES_EVENTS.STAGE_CHANGED);
+      const dealLostConsumers = bus.getConsumersForEvent(
+        SALES_EVENTS.DEAL_LOST,
+      );
+      const orderConfirmedConsumers = bus.getConsumersForEvent(
+        SALES_EVENTS.ORDER_CONFIRMED,
+      );
+      const orderCancelledConsumers = bus.getConsumersForEvent(
+        SALES_EVENTS.ORDER_CANCELLED,
+      );
+      const stageChangedConsumers = bus.getConsumersForEvent(
+        SALES_EVENTS.STAGE_CHANGED,
+      );
 
       expect(dealCreatedConsumers).toHaveLength(1);
       expect(dealWonConsumers).toHaveLength(1);
@@ -87,9 +100,15 @@ describe('Event Consumers', () => {
       bus.register(notificationConsumer);
 
       const dealWon = bus.getConsumersForEvent(SALES_EVENTS.DEAL_WON);
-      const orderConfirmed = bus.getConsumersForEvent(SALES_EVENTS.ORDER_CONFIRMED);
-      const orderCancelled = bus.getConsumersForEvent(SALES_EVENTS.ORDER_CANCELLED);
-      const campaignActivated = bus.getConsumersForEvent(SALES_EVENTS.CAMPAIGN_ACTIVATED);
+      const orderConfirmed = bus.getConsumersForEvent(
+        SALES_EVENTS.ORDER_CONFIRMED,
+      );
+      const orderCancelled = bus.getConsumersForEvent(
+        SALES_EVENTS.ORDER_CANCELLED,
+      );
+      const campaignActivated = bus.getConsumersForEvent(
+        SALES_EVENTS.CAMPAIGN_ACTIVATED,
+      );
 
       expect(dealWon).toHaveLength(1);
       expect(orderConfirmed).toHaveLength(1);

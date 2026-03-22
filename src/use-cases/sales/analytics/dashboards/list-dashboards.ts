@@ -21,13 +21,20 @@ interface ListDashboardsUseCaseResponse {
 export class ListDashboardsUseCase {
   constructor(private dashboardsRepository: AnalyticsDashboardsRepository) {}
 
-  async execute(input: ListDashboardsUseCaseRequest): Promise<ListDashboardsUseCaseResponse> {
+  async execute(
+    input: ListDashboardsUseCaseRequest,
+  ): Promise<ListDashboardsUseCaseResponse> {
     const page = input.page ?? 1;
     const perPage = input.perPage ?? 20;
     const filters = { role: input.role, visibility: input.visibility };
 
     const [dashboards, total] = await Promise.all([
-      this.dashboardsRepository.findMany(page, perPage, input.tenantId, filters),
+      this.dashboardsRepository.findMany(
+        page,
+        perPage,
+        input.tenantId,
+        filters,
+      ),
       this.dashboardsRepository.countMany(input.tenantId, filters),
     ]);
 

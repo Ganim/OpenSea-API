@@ -12,7 +12,9 @@ export class InMemoryDigitalCertificatesRepository
 {
   public items: DigitalCertificate[] = [];
 
-  async create(data: CreateDigitalCertificateSchema): Promise<DigitalCertificate> {
+  async create(
+    data: CreateDigitalCertificateSchema,
+  ): Promise<DigitalCertificate> {
     const certificate = DigitalCertificate.create({
       tenantId: new UniqueEntityID(data.tenantId),
       name: data.name,
@@ -66,9 +68,7 @@ export class InMemoryDigitalCertificatesRepository
     }
     if (params.search) {
       const s = params.search.toLowerCase();
-      filtered = filtered.filter((item) =>
-        item.name.toLowerCase().includes(s),
-      );
+      filtered = filtered.filter((item) => item.name.toLowerCase().includes(s));
     }
 
     const page = params.page ?? 1;

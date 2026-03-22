@@ -23,7 +23,9 @@ interface ListGoalsUseCaseResponse {
 export class ListGoalsUseCase {
   constructor(private goalsRepository: AnalyticsGoalsRepository) {}
 
-  async execute(input: ListGoalsUseCaseRequest): Promise<ListGoalsUseCaseResponse> {
+  async execute(
+    input: ListGoalsUseCaseRequest,
+  ): Promise<ListGoalsUseCaseResponse> {
     const page = input.page ?? 1;
     const perPage = input.perPage ?? 20;
     const filters = {

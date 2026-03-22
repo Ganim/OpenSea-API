@@ -1,3 +1,4 @@
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
@@ -84,10 +85,13 @@ export async function closeSessionController(app: FastifyInstance) {
       };
 
       await logAudit(request, {
-        message: 'POS session closed: {sessionId}',
+        message: AUDIT_MESSAGES.SALES.POS_SESSION_CLOSE,
         entityId: sessionId,
         placeholders: { userName: userId, sessionId },
-        newData: { closingBalance: body.closingBalance, closingBreakdown: body.closingBreakdown },
+        newData: {
+          closingBalance: body.closingBalance,
+          closingBreakdown: body.closingBreakdown,
+        },
       });
 
       return reply.status(200).send({ session });

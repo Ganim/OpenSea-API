@@ -8,16 +8,8 @@ import { z } from 'zod';
 // ─── Create Combo ──────────────────────────────────────────────────────────────
 
 export const createComboSchema = z.object({
-  name: z
-    .string()
-    .min(1)
-    .max(128)
-    .describe('Combo name'),
-  description: z
-    .string()
-    .max(500)
-    .optional()
-    .describe('Combo description'),
+  name: z.string().min(1).max(128).describe('Combo name'),
+  description: z.string().max(500).optional().describe('Combo description'),
   type: z
     .enum(['FIXED', 'DYNAMIC'])
     .optional()
@@ -32,11 +24,7 @@ export const createComboSchema = z.object({
     .enum(['PERCENTAGE', 'FIXED_VALUE'])
     .optional()
     .describe('Discount type (for DYNAMIC type)'),
-  discountValue: z
-    .number()
-    .positive()
-    .optional()
-    .describe('Discount value'),
+  discountValue: z.number().positive().optional().describe('Discount value'),
   minItems: z
     .number()
     .int()
@@ -54,28 +42,32 @@ export const createComboSchema = z.object({
     .optional()
     .default(true)
     .describe('Whether the combo is active'),
-  validFrom: z.coerce
-    .date()
-    .optional()
-    .describe('Start of validity'),
-  validUntil: z.coerce
-    .date()
-    .optional()
-    .describe('End of validity'),
-  imageUrl: z
-    .string()
-    .url()
-    .max(512)
-    .optional()
-    .describe('Combo image URL'),
+  validFrom: z.coerce.date().optional().describe('Start of validity'),
+  validUntil: z.coerce.date().optional().describe('End of validity'),
+  imageUrl: z.string().url().max(512).optional().describe('Combo image URL'),
   items: z
     .array(
       z.object({
         variantId: z.string().uuid().optional().describe('Variant ID'),
         categoryId: z.string().uuid().optional().describe('Category ID'),
-        quantity: z.number().positive().optional().default(1).describe('Quantity'),
-        isRequired: z.boolean().optional().default(true).describe('Is required'),
-        position: z.number().int().min(0).optional().default(0).describe('Display position'),
+        quantity: z
+          .number()
+          .positive()
+          .optional()
+          .default(1)
+          .describe('Quantity'),
+        isRequired: z
+          .boolean()
+          .optional()
+          .default(true)
+          .describe('Is required'),
+        position: z
+          .number()
+          .int()
+          .min(0)
+          .optional()
+          .default(0)
+          .describe('Display position'),
       }),
     )
     .optional()
@@ -107,12 +99,7 @@ export const comboResponseSchema = z.object({
 // ─── List Combos Query ─────────────────────────────────────────────────────────
 
 export const listCombosQuerySchema = z.object({
-  page: z.coerce
-    .number()
-    .int()
-    .positive()
-    .default(1)
-    .describe('Page number'),
+  page: z.coerce.number().int().positive().default(1).describe('Page number'),
   limit: z.coerce
     .number()
     .int()
@@ -120,15 +107,8 @@ export const listCombosQuerySchema = z.object({
     .max(100)
     .default(20)
     .describe('Items per page'),
-  search: z
-    .string()
-    .max(200)
-    .optional()
-    .describe('Search by name'),
-  type: z
-    .enum(['FIXED', 'DYNAMIC'])
-    .optional()
-    .describe('Filter by type'),
+  search: z.string().max(200).optional().describe('Search by name'),
+  type: z.enum(['FIXED', 'DYNAMIC']).optional().describe('Filter by type'),
   isActive: z
     .enum(['true', 'false'])
     .optional()

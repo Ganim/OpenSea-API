@@ -51,7 +51,9 @@ export async function getComboByIdController(app: FastifyInstance) {
         combo: {
           ...combo,
           fixedPrice: combo.fixedPrice ? Number(combo.fixedPrice) : null,
-          discountValue: combo.discountValue ? Number(combo.discountValue) : null,
+          discountValue: combo.discountValue
+            ? Number(combo.discountValue)
+            : null,
           description: combo.description ?? null,
           discountType: combo.discountType ?? null,
           minItems: combo.minItems ?? null,

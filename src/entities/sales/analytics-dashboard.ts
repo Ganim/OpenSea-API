@@ -96,7 +96,10 @@ export class AnalyticsDashboard extends Entity<AnalyticsDashboardProps> {
   }
 
   static create(
-    props: Optional<AnalyticsDashboardProps, 'id' | 'isDefault' | 'isSystem' | 'visibility' | 'createdAt'>,
+    props: Optional<
+      AnalyticsDashboardProps,
+      'id' | 'isDefault' | 'isSystem' | 'visibility' | 'createdAt'
+    >,
     id?: UniqueEntityID,
   ): AnalyticsDashboard {
     return new AnalyticsDashboard(

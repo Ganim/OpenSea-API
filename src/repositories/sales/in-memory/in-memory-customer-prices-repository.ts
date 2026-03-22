@@ -34,8 +34,7 @@ export class InMemoryCustomerPricesRepository
     tenantId: string,
   ): Promise<CustomerPrice | null> {
     const item = this.items.find(
-      (cp) =>
-        cp.id.equals(id) && cp.tenantId.toString() === tenantId,
+      (cp) => cp.id.equals(id) && cp.tenantId.toString() === tenantId,
     );
     return item ?? null;
   }
@@ -74,12 +73,9 @@ export class InMemoryCustomerPricesRepository
     };
   }
 
-  async update(
-    data: UpdateCustomerPriceSchema,
-  ): Promise<CustomerPrice | null> {
+  async update(data: UpdateCustomerPriceSchema): Promise<CustomerPrice | null> {
     const idx = this.items.findIndex(
-      (cp) =>
-        cp.id.equals(data.id) && cp.tenantId.toString() === data.tenantId,
+      (cp) => cp.id.equals(data.id) && cp.tenantId.toString() === data.tenantId,
     );
     if (idx === -1) return null;
     const item = this.items[idx];

@@ -1,7 +1,10 @@
 import { Entity } from '../domain/entities';
 import { Optional } from '../domain/optional';
 import { UniqueEntityID } from '../domain/unique-entity-id';
-import type { SignatureLevelValue, EnvelopeRoutingTypeValue } from './signature-envelope';
+import type {
+  SignatureLevelValue,
+  EnvelopeRoutingTypeValue,
+} from './signature-envelope';
 
 export interface SignerSlot {
   order: number;

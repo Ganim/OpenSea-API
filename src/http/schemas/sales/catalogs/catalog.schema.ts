@@ -10,15 +10,31 @@ export const createCatalogSchema = z.object({
     .optional()
     .default('GENERAL')
     .describe('Catalog type'),
-  slug: z.string().max(128).optional().describe('URL slug (auto-generated if empty)'),
+  slug: z
+    .string()
+    .max(128)
+    .optional()
+    .describe('URL slug (auto-generated if empty)'),
   layout: z
     .enum(['GRID', 'LIST', 'MAGAZINE'])
     .optional()
     .default('GRID')
     .describe('Catalog layout'),
-  showPrices: z.boolean().optional().default(true).describe('Show product prices'),
-  showStock: z.boolean().optional().default(false).describe('Show stock availability'),
-  isPublic: z.boolean().optional().default(false).describe('Make catalog public'),
+  showPrices: z
+    .boolean()
+    .optional()
+    .default(true)
+    .describe('Show product prices'),
+  showStock: z
+    .boolean()
+    .optional()
+    .default(false)
+    .describe('Show stock availability'),
+  isPublic: z
+    .boolean()
+    .optional()
+    .default(false)
+    .describe('Make catalog public'),
   customerId: z.string().uuid().optional().describe('Customer ID'),
   campaignId: z.string().uuid().optional().describe('Campaign ID'),
   assignedToUserId: z.string().uuid().optional().describe('Assigned user ID'),
@@ -42,7 +58,12 @@ export const updateCatalogSchema = z.object({
   showPrices: z.boolean().optional().describe('Show product prices'),
   showStock: z.boolean().optional().describe('Show stock availability'),
   isPublic: z.boolean().optional().describe('Make catalog public'),
-  coverImageFileId: z.string().uuid().nullable().optional().describe('Cover image file ID'),
+  coverImageFileId: z
+    .string()
+    .uuid()
+    .nullable()
+    .optional()
+    .describe('Cover image file ID'),
 });
 
 // ─── Catalog Response ────────────────────────────────────────────────────────
@@ -59,7 +80,10 @@ export const catalogResponseSchema = z.object({
   assignedToUserId: z.string().nullable().describe('Assigned user ID'),
   customerId: z.string().nullable().describe('Customer ID'),
   campaignId: z.string().nullable().describe('Campaign ID'),
-  rules: z.record(z.string(), z.unknown()).nullable().describe('Auto-population rules'),
+  rules: z
+    .record(z.string(), z.unknown())
+    .nullable()
+    .describe('Auto-population rules'),
   aiCurated: z.boolean().describe('Whether AI curated'),
   layout: z.string().describe('Layout type'),
   showPrices: z.boolean().describe('Show prices'),

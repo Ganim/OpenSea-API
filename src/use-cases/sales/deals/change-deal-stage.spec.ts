@@ -1,6 +1,7 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import { Deal } from '@/entities/sales/deal';
 import { Pipeline } from '@/entities/sales/pipeline';
 import { PipelineStage } from '@/entities/sales/pipeline-stage';
 import { InMemoryDealsRepository } from '@/repositories/sales/in-memory/in-memory-deals-repository';
@@ -17,11 +18,11 @@ let timelineEventsRepository: InMemoryTimelineEventsRepository;
 let sut: ChangeDealStageUseCase;
 
 const TENANT_ID = 'tenant-1';
-let pipelineId: string;
-let stage1Id: string;
-let stage2Id: string;
-let wonStageId: string;
-let lostStageId: string;
+let pipelineId: UniqueEntityID;
+let stage1Id: UniqueEntityID;
+let stage2Id: UniqueEntityID;
+let wonStageId: UniqueEntityID;
+let lostStageId: UniqueEntityID;
 
 describe('ChangeDealStageUseCase', () => {
   beforeEach(async () => {
@@ -42,7 +43,7 @@ describe('ChangeDealStageUseCase', () => {
       type: 'SALES',
     });
     await pipelinesRepository.create(pipeline);
-    pipelineId = pipeline.id.toString();
+    pipelineId = pipeline.id;
 
     // Create stages
     const stage1 = PipelineStage.create({
@@ -52,7 +53,7 @@ describe('ChangeDealStageUseCase', () => {
       position: 0,
     });
     await pipelineStagesRepository.create(stage1);
-    stage1Id = stage1.id.toString();
+    stage1Id = stage1.id;
 
     const stage2 = PipelineStage.create({
       pipelineId: pipeline.id,
@@ -61,7 +62,7 @@ describe('ChangeDealStageUseCase', () => {
       position: 1,
     });
     await pipelineStagesRepository.create(stage2);
-    stage2Id = stage2.id.toString();
+    stage2Id = stage2.id;
 
     const wonStage = PipelineStage.create({
       pipelineId: pipeline.id,
@@ -70,7 +71,7 @@ describe('ChangeDealStageUseCase', () => {
       position: 2,
     });
     await pipelineStagesRepository.create(wonStage);
-    wonStageId = wonStage.id.toString();
+    wonStageId = wonStage.id;
 
     const lostStage = PipelineStage.create({
       pipelineId: pipeline.id,
@@ -79,42 +80,44 @@ describe('ChangeDealStageUseCase', () => {
       position: 3,
     });
     await pipelineStagesRepository.create(lostStage);
-    lostStageId = lostStage.id.toString();
+    lostStageId = lostStage.id;
   });
 
   it('should move deal to a new stage in the same pipeline', async () => {
-    const deal = await dealsRepository.create({
-      tenantId: TENANT_ID,
+    const deal = Deal.create({
+      tenantId: new UniqueEntityID(TENANT_ID),
       title: 'Big Deal',
-      customerId: 'customer-1',
+      customerId: new UniqueEntityID('customer-1'),
       pipelineId,
       stageId: stage1Id,
     });
+    await dealsRepository.create(deal);
 
     const result = await sut.execute({
       id: deal.id.toString(),
       tenantId: TENANT_ID,
-      stageId: stage2Id,
+      stageId: stage2Id.toString(),
     });
 
-    expect(result.deal.stageId.toString()).toBe(stage2Id);
+    expect(result.deal.stageId.toString()).toBe(stage2Id.toString());
     expect(result.deal.status).toBe('OPEN');
     expect(result.deal.stageEnteredAt).toBeDefined();
   });
 
   it('should set status to WON when moving to a WON stage', async () => {
-    const deal = await dealsRepository.create({
-      tenantId: TENANT_ID,
+    const deal = Deal.create({
+      tenantId: new UniqueEntityID(TENANT_ID),
       title: 'Winning Deal',
-      customerId: 'customer-1',
+      customerId: new UniqueEntityID('customer-1'),
       pipelineId,
       stageId: stage1Id,
     });
+    await dealsRepository.create(deal);
 
     const result = await sut.execute({
       id: deal.id.toString(),
       tenantId: TENANT_ID,
-      stageId: wonStageId,
+      stageId: wonStageId.toString(),
     });
 
     expect(result.deal.status).toBe('WON');
@@ -123,18 +126,19 @@ describe('ChangeDealStageUseCase', () => {
   });
 
   it('should set status to LOST when moving to a LOST stage', async () => {
-    const deal = await dealsRepository.create({
-      tenantId: TENANT_ID,
+    const deal = Deal.create({
+      tenantId: new UniqueEntityID(TENANT_ID),
       title: 'Losing Deal',
-      customerId: 'customer-1',
+      customerId: new UniqueEntityID('customer-1'),
       pipelineId,
       stageId: stage1Id,
     });
+    await dealsRepository.create(deal);
 
     const result = await sut.execute({
       id: deal.id.toString(),
       tenantId: TENANT_ID,
-      stageId: lostStageId,
+      stageId: lostStageId.toString(),
       lostReason: 'Too expensive',
     });
 
@@ -145,18 +149,19 @@ describe('ChangeDealStageUseCase', () => {
   });
 
   it('should create a TimelineEvent on stage change', async () => {
-    const deal = await dealsRepository.create({
-      tenantId: TENANT_ID,
+    const deal = Deal.create({
+      tenantId: new UniqueEntityID(TENANT_ID),
       title: 'Timeline Deal',
-      customerId: 'customer-1',
+      customerId: new UniqueEntityID('customer-1'),
       pipelineId,
       stageId: stage1Id,
     });
+    await dealsRepository.create(deal);
 
     await sut.execute({
       id: deal.id.toString(),
       tenantId: TENANT_ID,
-      stageId: stage2Id,
+      stageId: stage2Id.toString(),
     });
 
     expect(timelineEventsRepository.items).toHaveLength(1);
@@ -164,10 +169,10 @@ describe('ChangeDealStageUseCase', () => {
     const event = timelineEventsRepository.items[0];
     expect(event.type).toBe('STAGE_CHANGE');
     expect(event.dealId?.toString()).toBe(deal.id.toString());
-    expect(event.metadata.fromStageId).toBe(stage1Id);
-    expect(event.metadata.fromStageName).toBe('Prospecting');
-    expect(event.metadata.toStageId).toBe(stage2Id);
-    expect(event.metadata.toStageName).toBe('Negotiation');
+    expect(event.metadata?.fromStageId).toBe(stage1Id.toString());
+    expect(event.metadata?.fromStageName).toBe('Prospecting');
+    expect(event.metadata?.toStageId).toBe(stage2Id.toString());
+    expect(event.metadata?.toStageName).toBe('Negotiation');
   });
 
   it('should throw ResourceNotFoundError when deal does not exist', async () => {
@@ -175,19 +180,20 @@ describe('ChangeDealStageUseCase', () => {
       sut.execute({
         id: 'non-existent-deal',
         tenantId: TENANT_ID,
-        stageId: stage2Id,
+        stageId: stage2Id.toString(),
       }),
     ).rejects.toThrow(ResourceNotFoundError);
   });
 
   it('should throw ResourceNotFoundError when stage does not exist', async () => {
-    const deal = await dealsRepository.create({
-      tenantId: TENANT_ID,
+    const deal = Deal.create({
+      tenantId: new UniqueEntityID(TENANT_ID),
       title: 'Deal',
-      customerId: 'customer-1',
+      customerId: new UniqueEntityID('customer-1'),
       pipelineId,
       stageId: stage1Id,
     });
+    await dealsRepository.create(deal);
 
     await expect(
       sut.execute({
@@ -215,13 +221,14 @@ describe('ChangeDealStageUseCase', () => {
     });
     await pipelineStagesRepository.create(otherStage);
 
-    const deal = await dealsRepository.create({
-      tenantId: TENANT_ID,
+    const deal = Deal.create({
+      tenantId: new UniqueEntityID(TENANT_ID),
       title: 'Deal',
-      customerId: 'customer-1',
+      customerId: new UniqueEntityID('customer-1'),
       pipelineId,
       stageId: stage1Id,
     });
+    await dealsRepository.create(deal);
 
     await expect(
       sut.execute({

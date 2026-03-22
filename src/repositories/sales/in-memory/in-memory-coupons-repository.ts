@@ -36,10 +36,7 @@ export class InMemoryCouponsRepository implements CouponsRepository {
     return coupon;
   }
 
-  async findById(
-    id: UniqueEntityID,
-    tenantId: string,
-  ): Promise<Coupon | null> {
+  async findById(id: UniqueEntityID, tenantId: string): Promise<Coupon | null> {
     const coupon = this.items.find(
       (item) =>
         !item.deletedAt &&
@@ -63,8 +60,7 @@ export class InMemoryCouponsRepository implements CouponsRepository {
     params: FindManyCouponsParams,
   ): Promise<PaginatedResult<Coupon>> {
     let filtered = this.items.filter(
-      (item) =>
-        !item.deletedAt && item.tenantId.toString() === params.tenantId,
+      (item) => !item.deletedAt && item.tenantId.toString() === params.tenantId,
     );
 
     if (params.isActive !== undefined) {

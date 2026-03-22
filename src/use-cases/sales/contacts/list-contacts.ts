@@ -11,7 +11,13 @@ interface ListContactsUseCaseRequest {
   lifecycleStage?: string;
   leadTemperature?: string;
   assignedToUserId?: string;
-  sortBy?: 'firstName' | 'lastName' | 'email' | 'leadScore' | 'createdAt' | 'updatedAt';
+  sortBy?:
+    | 'firstName'
+    | 'lastName'
+    | 'email'
+    | 'leadScore'
+    | 'createdAt'
+    | 'updatedAt';
   sortOrder?: 'asc' | 'desc';
 }
 

@@ -7,7 +7,12 @@ import type {
   CreateAnalyticsGoalSchema,
   UpdateAnalyticsGoalSchema,
 } from '../analytics-goals-repository';
-import type { GoalType, GoalPeriod, GoalScope, GoalStatus } from '@prisma/generated/client.js';
+import type {
+  GoalType,
+  GoalPeriod,
+  GoalScope,
+  GoalStatus,
+} from '@prisma/generated/client.js';
 
 function mapToDomain(data: Record<string, unknown>): AnalyticsGoal {
   return AnalyticsGoal.create(
@@ -35,7 +40,9 @@ function mapToDomain(data: Record<string, unknown>): AnalyticsGoal {
   );
 }
 
-export class PrismaAnalyticsGoalsRepository implements AnalyticsGoalsRepository {
+export class PrismaAnalyticsGoalsRepository
+  implements AnalyticsGoalsRepository
+{
   async create(data: CreateAnalyticsGoalSchema): Promise<AnalyticsGoal> {
     const goal = await prisma.analyticsGoal.create({
       data: {
@@ -59,19 +66,29 @@ export class PrismaAnalyticsGoalsRepository implements AnalyticsGoalsRepository 
     return mapToDomain(goal as unknown as Record<string, unknown>);
   }
 
-  async findById(id: UniqueEntityID, tenantId: string): Promise<AnalyticsGoal | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<AnalyticsGoal | null> {
     const goal = await prisma.analyticsGoal.findFirst({
       where: { id: id.toString(), tenantId, deletedAt: null },
     });
 
-    return goal ? mapToDomain(goal as unknown as Record<string, unknown>) : null;
+    return goal
+      ? mapToDomain(goal as unknown as Record<string, unknown>)
+      : null;
   }
 
   async findMany(
     page: number,
     perPage: number,
     tenantId: string,
-    filters?: { status?: string; type?: string; scope?: string; userId?: string },
+    filters?: {
+      status?: string;
+      type?: string;
+      scope?: string;
+      userId?: string;
+    },
   ): Promise<AnalyticsGoal[]> {
     const where: Record<string, unknown> = { tenantId, deletedAt: null };
 
@@ -87,12 +104,19 @@ export class PrismaAnalyticsGoalsRepository implements AnalyticsGoalsRepository 
       orderBy: { createdAt: 'desc' },
     });
 
-    return goals.map((g) => mapToDomain(g as unknown as Record<string, unknown>));
+    return goals.map((g) =>
+      mapToDomain(g as unknown as Record<string, unknown>),
+    );
   }
 
   async countMany(
     tenantId: string,
-    filters?: { status?: string; type?: string; scope?: string; userId?: string },
+    filters?: {
+      status?: string;
+      type?: string;
+      scope?: string;
+      userId?: string;
+    },
   ): Promise<number> {
     const where: Record<string, unknown> = { tenantId, deletedAt: null };
 
@@ -108,8 +132,10 @@ export class PrismaAnalyticsGoalsRepository implements AnalyticsGoalsRepository 
     const updateData: Record<string, unknown> = {};
 
     if (data.name !== undefined) updateData.name = data.name;
-    if (data.targetValue !== undefined) updateData.targetValue = data.targetValue;
-    if (data.currentValue !== undefined) updateData.currentValue = data.currentValue;
+    if (data.targetValue !== undefined)
+      updateData.targetValue = data.targetValue;
+    if (data.currentValue !== undefined)
+      updateData.currentValue = data.currentValue;
     if (data.unit !== undefined) updateData.unit = data.unit;
     if (data.status !== undefined) updateData.status = data.status;
     if (data.startDate !== undefined) updateData.startDate = data.startDate;

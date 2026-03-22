@@ -24,8 +24,7 @@ export const SALES_EVENTS = {
   CAMPAIGN_ACTIVATED: 'sales.campaign.activated',
 } as const;
 
-export type SalesEventType =
-  (typeof SALES_EVENTS)[keyof typeof SALES_EVENTS];
+export type SalesEventType = (typeof SALES_EVENTS)[keyof typeof SALES_EVENTS];
 
 // ─── Event Data Interfaces ───────────────────────────────────────────────────
 

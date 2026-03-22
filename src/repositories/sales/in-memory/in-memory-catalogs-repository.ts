@@ -31,9 +31,7 @@ export class InMemoryCatalogsRepository implements CatalogsRepository {
     return (
       this.items.find(
         (c) =>
-          c.slug === slug &&
-          c.tenantId.toString() === tenantId &&
-          !c.isDeleted,
+          c.slug === slug && c.tenantId.toString() === tenantId && !c.isDeleted,
       ) ?? null
     );
   }

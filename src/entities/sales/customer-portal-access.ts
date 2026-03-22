@@ -86,7 +86,10 @@ export class CustomerPortalAccess extends Entity<CustomerPortalAccessProps> {
   }
 
   static create(
-    props: Optional<CustomerPortalAccessProps, 'id' | 'isActive' | 'permissions' | 'createdAt'>,
+    props: Optional<
+      CustomerPortalAccessProps,
+      'id' | 'isActive' | 'permissions' | 'createdAt'
+    >,
     id?: UniqueEntityID,
   ): CustomerPortalAccess {
     return new CustomerPortalAccess(

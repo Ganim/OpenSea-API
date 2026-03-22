@@ -50,7 +50,11 @@ export async function deleteBidController(app: FastifyInstance) {
         message: AUDIT_MESSAGES.SALES.BID_DELETE,
         entityId: bidId,
         placeholders: { userName: userId, bidTitle: bid.title },
-        oldData: { id: bid.id.toString(), title: bid.title, agency: bid.agency },
+        oldData: {
+          id: bid.id.toString(),
+          title: bid.title,
+          agency: bid.agency,
+        },
       });
 
       return reply.status(204).send(null);

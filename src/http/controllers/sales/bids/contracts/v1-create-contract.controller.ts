@@ -4,7 +4,10 @@ import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { bidContractResponseSchema, createBidContractSchema } from '@/http/schemas/sales/bids';
+import {
+  bidContractResponseSchema,
+  createBidContractSchema,
+} from '@/http/schemas/sales/bids';
 import { makeCreateBidContractUseCase } from '@/use-cases/sales/bids/factories/make-create-bid-contract-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -45,7 +48,11 @@ export async function createBidContractController(app: FastifyInstance) {
         message: AUDIT_MESSAGES.SALES.BID_CONTRACT_CREATE,
         entityId: contract.id.toString(),
         placeholders: { userName: userId, contractNumber: body.contractNumber },
-        newData: { contractNumber: body.contractNumber, bidId: body.bidId, value: body.value },
+        newData: {
+          contractNumber: body.contractNumber,
+          bidId: body.bidId,
+          value: body.value,
+        },
       });
 
       return reply.status(201).send({ contract });

@@ -30,7 +30,9 @@ export async function getPortalDataController(app: FastifyInstance) {
         return reply.status(200).send(result);
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
-          return reply.status(404).send({ message: 'Portal access not found.' });
+          return reply
+            .status(404)
+            .send({ message: 'Portal access not found.' });
         }
         if (error instanceof BadRequestError) {
           return reply.status(400).send({ message: error.message });

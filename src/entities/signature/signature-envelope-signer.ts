@@ -212,10 +212,13 @@ export class SignatureEnvelopeSigner extends Entity<SignatureEnvelopeSignerProps
     this.touch();
   }
 
-  reject(reason: string, evidence?: {
-    ipAddress?: string;
-    userAgent?: string;
-  }): void {
+  reject(
+    reason: string,
+    evidence?: {
+      ipAddress?: string;
+      userAgent?: string;
+    },
+  ): void {
     this.props.status = 'REJECTED';
     this.props.rejectedAt = new Date();
     this.props.rejectedReason = reason;

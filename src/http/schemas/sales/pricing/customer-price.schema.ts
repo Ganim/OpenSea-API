@@ -8,26 +8,11 @@ import { z } from 'zod';
 // ─── Create Customer Price ─────────────────────────────────────────────────────
 
 export const createCustomerPriceSchema = z.object({
-  customerId: z
-    .string()
-    .uuid()
-    .describe('UUID of the customer'),
-  variantId: z
-    .string()
-    .uuid()
-    .describe('UUID of the variant'),
-  price: z
-    .number()
-    .positive()
-    .describe('Negotiated price'),
-  validFrom: z.coerce
-    .date()
-    .optional()
-    .describe('Start of validity period'),
-  validUntil: z.coerce
-    .date()
-    .optional()
-    .describe('End of validity period'),
+  customerId: z.string().uuid().describe('UUID of the customer'),
+  variantId: z.string().uuid().describe('UUID of the variant'),
+  price: z.number().positive().describe('Negotiated price'),
+  validFrom: z.coerce.date().optional().describe('Start of validity period'),
+  validUntil: z.coerce.date().optional().describe('End of validity period'),
   notes: z
     .string()
     .max(500)
@@ -61,12 +46,7 @@ export const customerPriceResponseSchema = z.object({
 // ─── List Customer Prices Query ────────────────────────────────────────────────
 
 export const listCustomerPricesQuerySchema = z.object({
-  page: z.coerce
-    .number()
-    .int()
-    .positive()
-    .default(1)
-    .describe('Page number'),
+  page: z.coerce.number().int().positive().default(1).describe('Page number'),
   limit: z.coerce
     .number()
     .int()
@@ -74,16 +54,8 @@ export const listCustomerPricesQuerySchema = z.object({
     .max(100)
     .default(20)
     .describe('Items per page'),
-  customerId: z
-    .string()
-    .uuid()
-    .optional()
-    .describe('Filter by customer ID'),
-  variantId: z
-    .string()
-    .uuid()
-    .optional()
-    .describe('Filter by variant ID'),
+  customerId: z.string().uuid().optional().describe('Filter by customer ID'),
+  variantId: z.string().uuid().optional().describe('Filter by variant ID'),
   sortBy: z
     .enum(['price', 'createdAt', 'updatedAt'])
     .optional()

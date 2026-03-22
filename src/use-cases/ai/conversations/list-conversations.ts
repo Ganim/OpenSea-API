@@ -16,14 +16,15 @@ export class ListConversationsUseCase {
     const page = request.page ?? 1;
     const limit = Math.min(request.limit ?? 20, 100);
 
-    const { conversations, total } = await this.conversationsRepository.findMany({
-      tenantId: request.tenantId,
-      userId: request.userId,
-      status: request.status,
-      search: request.search,
-      page,
-      limit,
-    });
+    const { conversations, total } =
+      await this.conversationsRepository.findMany({
+        tenantId: request.tenantId,
+        userId: request.userId,
+        status: request.status,
+        search: request.search,
+        page,
+        limit,
+      });
 
     return {
       conversations: conversations.map((c) => ({

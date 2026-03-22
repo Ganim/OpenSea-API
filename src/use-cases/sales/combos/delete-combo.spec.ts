@@ -32,10 +32,7 @@ describe('Delete Combo Use Case', () => {
 
     expect(result.message).toBe('Combo deleted successfully.');
 
-    const found = await combosRepository.findById(
-      created.comboId,
-      TENANT_ID,
-    );
+    const found = await combosRepository.findById(created.comboId, TENANT_ID);
     expect(found).toBeNull();
   });
 });

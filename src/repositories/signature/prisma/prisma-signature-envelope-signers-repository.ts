@@ -2,7 +2,11 @@ import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { SignatureEnvelopeSigner } from '@/entities/signature/signature-envelope-signer';
 import { prisma } from '@/lib/prisma';
 import { signatureEnvelopeSignerPrismaToDomain } from '@/mappers/signature';
-import type { SignerRole, SignerStatus, SignatureLevel } from '@prisma/generated/client.js';
+import type {
+  SignerRole,
+  SignerStatus,
+  SignatureLevel,
+} from '@prisma/generated/client.js';
 import type {
   CreateSignerSchema,
   SignatureEnvelopeSignersRepository,
@@ -36,7 +40,9 @@ export class PrismaSignatureEnvelopeSignersRepository
     return signatureEnvelopeSignerPrismaToDomain(db);
   }
 
-  async createMany(data: CreateSignerSchema[]): Promise<SignatureEnvelopeSigner[]> {
+  async createMany(
+    data: CreateSignerSchema[],
+  ): Promise<SignatureEnvelopeSigner[]> {
     const results: SignatureEnvelopeSigner[] = [];
     for (const d of data) {
       results.push(await this.create(d));
@@ -94,7 +100,7 @@ export class PrismaSignatureEnvelopeSignersRepository
     if (data.signatureImageFileId !== undefined)
       updateData.signatureImageFileId = data.signatureImageFileId;
     if (data.signatureData !== undefined)
-      updateData.signatureData = data.signatureData as object ?? undefined;
+      updateData.signatureData = (data.signatureData as object) ?? undefined;
     if (data.ipAddress !== undefined) updateData.ipAddress = data.ipAddress;
     if (data.userAgent !== undefined) updateData.userAgent = data.userAgent;
     if (data.geoLatitude !== undefined)

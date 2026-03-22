@@ -27,7 +27,18 @@ export class UpdatePipelineUseCase {
   async execute(
     request: UpdatePipelineUseCaseRequest,
   ): Promise<UpdatePipelineUseCaseResponse> {
-    const { tenantId, id, name, description, icon, color, isDefault, position, isActive, nextPipelineId } = request;
+    const {
+      tenantId,
+      id,
+      name,
+      description,
+      icon,
+      color,
+      isDefault,
+      position,
+      isActive,
+      nextPipelineId,
+    } = request;
 
     const pipeline = await this.pipelinesRepository.findById(
       new UniqueEntityID(id),
@@ -43,7 +54,10 @@ export class UpdatePipelineUseCase {
         throw new BadRequestError('Name is required');
       }
       if (name !== pipeline.name) {
-        const existingPipeline = await this.pipelinesRepository.findByName(name, tenantId);
+        const existingPipeline = await this.pipelinesRepository.findByName(
+          name,
+          tenantId,
+        );
         if (existingPipeline && !existingPipeline.id.equals(pipeline.id)) {
           throw new BadRequestError('Pipeline with this name already exists');
         }

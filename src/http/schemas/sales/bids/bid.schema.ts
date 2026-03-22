@@ -39,19 +39,48 @@ export const createBidSchema = z.object({
   title: z.string().min(1).max(255).describe('Title of the bid'),
   description: z.string().max(5000).optional().describe('Detailed description'),
   modality: bidModalityEnum.describe('Bid modality'),
-  bidNumber: z.string().max(100).optional().describe('Official bid number (e.g. Pregao 001/2026)'),
+  bidNumber: z
+    .string()
+    .max(100)
+    .optional()
+    .describe('Official bid number (e.g. Pregao 001/2026)'),
   agency: z.string().min(1).max(255).describe('Government agency or entity'),
   agencyCnpj: z.string().max(20).optional().describe('Agency CNPJ'),
-  portalUrl: z.string().url().max(500).optional().describe('URL of the bid portal'),
-  editalUrl: z.string().url().max(500).optional().describe('URL of the edital document'),
-  estimatedValue: z.number().positive().optional().describe('Estimated total value'),
+  portalUrl: z
+    .string()
+    .url()
+    .max(500)
+    .optional()
+    .describe('URL of the bid portal'),
+  editalUrl: z
+    .string()
+    .url()
+    .max(500)
+    .optional()
+    .describe('URL of the edital document'),
+  estimatedValue: z
+    .number()
+    .positive()
+    .optional()
+    .describe('Estimated total value'),
   openingDate: z.coerce.date().optional().describe('Date/time the bid opens'),
   closingDate: z.coerce.date().optional().describe('Date/time the bid closes'),
-  disputeDate: z.coerce.date().optional().describe('Date/time of dispute session'),
+  disputeDate: z.coerce
+    .date()
+    .optional()
+    .describe('Date/time of dispute session'),
   notes: z.string().max(5000).optional().describe('Internal notes'),
   customerId: z.string().uuid().optional().describe('Related customer UUID'),
-  assignedToUserId: z.string().uuid().optional().describe('User assigned to this bid'),
-  tags: z.array(z.string().max(50)).max(20).optional().describe('Tags for categorization'),
+  assignedToUserId: z
+    .string()
+    .uuid()
+    .optional()
+    .describe('User assigned to this bid'),
+  tags: z
+    .array(z.string().max(50))
+    .max(20)
+    .optional()
+    .describe('Tags for categorization'),
 });
 
 // ─── Update Bid ─────────────────────────────────────────────────────────────
@@ -75,7 +104,15 @@ export const listBidsQuerySchema = z.object({
   modality: bidModalityEnum.optional(),
   assignedToUserId: z.string().uuid().optional(),
   customerId: z.string().uuid().optional(),
-  sortBy: z.enum(['title', 'openingDate', 'closingDate', 'estimatedValue', 'createdAt']).default('createdAt'),
+  sortBy: z
+    .enum([
+      'title',
+      'openingDate',
+      'closingDate',
+      'estimatedValue',
+      'createdAt',
+    ])
+    .default('createdAt'),
   sortOrder: z.enum(['asc', 'desc']).default('desc'),
 });
 
@@ -112,7 +149,12 @@ export const uploadBidDocumentSchema = z.object({
   name: z.string().min(1).max(255).describe('Document name'),
   type: z.string().max(100).optional().describe('Document type/category'),
   fileUrl: z.string().url().max(500).describe('URL of the uploaded file'),
-  fileSize: z.number().int().positive().optional().describe('File size in bytes'),
+  fileSize: z
+    .number()
+    .int()
+    .positive()
+    .optional()
+    .describe('File size in bytes'),
   mimeType: z.string().max(100).optional().describe('MIME type'),
   notes: z.string().max(2000).optional(),
 });
@@ -142,7 +184,11 @@ export const bidDocumentResponseSchema = z.object({
 
 export const createBidContractSchema = z.object({
   bidId: z.string().uuid().describe('Bid UUID'),
-  contractNumber: z.string().min(1).max(100).describe('Official contract number'),
+  contractNumber: z
+    .string()
+    .min(1)
+    .max(100)
+    .describe('Official contract number'),
   description: z.string().max(5000).optional(),
   value: z.number().positive().describe('Contract value'),
   startDate: z.coerce.date().describe('Contract start date'),
@@ -211,11 +257,25 @@ export const bidEmpenhoResponseSchema = z.object({
 
 export const updateBidAiConfigSchema = z.object({
   enabled: z.boolean().describe('Whether AI assistant is enabled for bids'),
-  autoAnalyzeEdital: z.boolean().optional().describe('Auto-analyze edital documents'),
+  autoAnalyzeEdital: z
+    .boolean()
+    .optional()
+    .describe('Auto-analyze edital documents'),
   autoSuggestPricing: z.boolean().optional().describe('Auto-suggest pricing'),
-  autoMonitorPortals: z.boolean().optional().describe('Auto-monitor bid portals'),
-  portalUrls: z.array(z.string().url().max(500)).max(20).optional().describe('Portal URLs to monitor'),
-  keywords: z.array(z.string().max(100)).max(50).optional().describe('Keywords to watch for'),
+  autoMonitorPortals: z
+    .boolean()
+    .optional()
+    .describe('Auto-monitor bid portals'),
+  portalUrls: z
+    .array(z.string().url().max(500))
+    .max(20)
+    .optional()
+    .describe('Portal URLs to monitor'),
+  keywords: z
+    .array(z.string().max(100))
+    .max(50)
+    .optional()
+    .describe('Keywords to watch for'),
 });
 
 export const bidAiConfigResponseSchema = z.object({

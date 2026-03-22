@@ -49,7 +49,9 @@ function toDomain(raw: {
   );
 }
 
-export class PrismaAiConversationsRepository implements AiConversationsRepository {
+export class PrismaAiConversationsRepository
+  implements AiConversationsRepository
+{
   async create(data: CreateConversationSchema): Promise<AiConversation> {
     const raw = await prisma.aiConversation.create({
       data: {
@@ -75,7 +77,9 @@ export class PrismaAiConversationsRepository implements AiConversationsRepositor
     return toDomain(raw);
   }
 
-  async findMany(options: FindManyConversationsOptions): Promise<FindManyConversationsResult> {
+  async findMany(
+    options: FindManyConversationsOptions,
+  ): Promise<FindManyConversationsResult> {
     const page = options.page ?? 1;
     const limit = Math.min(options.limit ?? 20, 100);
     const skip = (page - 1) * limit;
@@ -116,7 +120,11 @@ export class PrismaAiConversationsRepository implements AiConversationsRepositor
     });
   }
 
-  async updateMessageCount(id: string, count: number, lastMessageAt: Date): Promise<void> {
+  async updateMessageCount(
+    id: string,
+    count: number,
+    lastMessageAt: Date,
+  ): Promise<void> {
     await prisma.aiConversation.update({
       where: { id },
       data: { messageCount: count, lastMessageAt },

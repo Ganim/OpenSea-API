@@ -330,15 +330,22 @@ export const PermissionCodes = {
     },
     COUPONS: {
       ACCESS: 'sales.coupons.access' as const,
+      REGISTER: 'sales.coupons.register' as const,
+      REMOVE: 'sales.coupons.remove' as const,
       ADMIN: 'sales.coupons.admin' as const,
     },
     CAMPAIGNS: {
       ACCESS: 'sales.campaigns.access' as const,
+      REGISTER: 'sales.campaigns.register' as const,
+      MODIFY: 'sales.campaigns.modify' as const,
+      REMOVE: 'sales.campaigns.remove' as const,
       ADMIN: 'sales.campaigns.admin' as const,
       ACTIVATE: 'sales.campaigns.activate' as const,
     },
     COMBOS: {
       ACCESS: 'sales.combos.access' as const,
+      REGISTER: 'sales.combos.register' as const,
+      REMOVE: 'sales.combos.remove' as const,
       ADMIN: 'sales.combos.admin' as const,
     },
     // --- Promoções (existente) ---
@@ -429,22 +436,33 @@ export const PermissionCodes = {
       ACCESS: 'sales.bid-contracts.access' as const,
       ADMIN: 'sales.bid-contracts.admin' as const,
       REGISTER: 'sales.bid-contracts.register' as const,
+      MODIFY: 'sales.bid-contracts.modify' as const,
+      REMOVE: 'sales.bid-contracts.remove' as const,
     },
     BID_DOCUMENTS: {
       ACCESS: 'sales.bid-documents.access' as const,
       ADMIN: 'sales.bid-documents.admin' as const,
+      REGISTER: 'sales.bid-documents.register' as const,
+      MODIFY: 'sales.bid-documents.modify' as const,
+      REMOVE: 'sales.bid-documents.remove' as const,
     },
     // --- Catálogos e Conteúdo ---
     CATALOGS: {
       ACCESS: 'sales.catalogs.access' as const,
+      REGISTER: 'sales.catalogs.register' as const,
+      MODIFY: 'sales.catalogs.modify' as const,
+      REMOVE: 'sales.catalogs.remove' as const,
       ADMIN: 'sales.catalogs.admin' as const,
       PUBLISH: 'sales.catalogs.publish' as const,
     },
     CONTENT: {
       ACCESS: 'sales.content.access' as const,
+      REGISTER: 'sales.content.register' as const,
+      REMOVE: 'sales.content.remove' as const,
       GENERATE: 'sales.content.generate' as const,
       PUBLISH: 'sales.content.publish' as const,
       APPROVE: 'sales.content.approve' as const,
+      ADMIN: 'sales.content.admin' as const,
     },
     // --- Marketplaces ---
     MARKETPLACES: {
@@ -459,61 +477,17 @@ export const PermissionCodes = {
       EXPORT: 'sales.analytics.export' as const,
       ONLYSELF: 'sales.analytics.onlyself' as const,
     },
-    CONTACTS: {
-      ACCESS: 'sales.contacts.access' as const,
-      REGISTER: 'sales.contacts.register' as const,
-      MODIFY: 'sales.contacts.modify' as const,
-      REMOVE: 'sales.contacts.remove' as const,
-      ADMIN: 'sales.contacts.admin' as const,
-      ONLYSELF: 'sales.contacts.onlyself' as const,
-    },
-    PIPELINES: {
-      ACCESS: 'sales.pipelines.access' as const,
-      ADMIN: 'sales.pipelines.admin' as const,
-    },
-    PRICE_TABLES: {
-      ACCESS: 'sales.price-tables.access' as const,
-      REGISTER: 'sales.price-tables.register' as const,
-      MODIFY: 'sales.price-tables.modify' as const,
-      REMOVE: 'sales.price-tables.remove' as const,
-    },
+    // --- Customer Prices ---
     CUSTOMER_PRICES: {
       ACCESS: 'sales.customer-prices.access' as const,
       REGISTER: 'sales.customer-prices.register' as const,
       MODIFY: 'sales.customer-prices.modify' as const,
       REMOVE: 'sales.customer-prices.remove' as const,
     },
-    CAMPAIGNS: {
-      ACCESS: 'sales.campaigns.access' as const,
-      REGISTER: 'sales.campaigns.register' as const,
-      MODIFY: 'sales.campaigns.modify' as const,
-      REMOVE: 'sales.campaigns.remove' as const,
-    },
-    COUPONS: {
-      ACCESS: 'sales.coupons.access' as const,
-      REGISTER: 'sales.coupons.register' as const,
-      REMOVE: 'sales.coupons.remove' as const,
-    },
-    COMBOS: {
-      ACCESS: 'sales.combos.access' as const,
-      REGISTER: 'sales.combos.register' as const,
-      REMOVE: 'sales.combos.remove' as const,
-    },
-    CATALOGS: {
-      ACCESS: 'sales.catalogs.access' as const,
-      REGISTER: 'sales.catalogs.register' as const,
-      MODIFY: 'sales.catalogs.modify' as const,
-      REMOVE: 'sales.catalogs.remove' as const,
-    },
+    // --- Brand ---
     BRAND: {
       ACCESS: 'sales.brand.access' as const,
       MODIFY: 'sales.brand.modify' as const,
-    },
-    CONTENT: {
-      ACCESS: 'sales.content.access' as const,
-      REGISTER: 'sales.content.register' as const,
-      REMOVE: 'sales.content.remove' as const,
-      ADMIN: 'sales.content.admin' as const,
     },
     ANALYTICS_GOALS: {
       ACCESS: 'sales.analytics-goals.access' as const,
@@ -541,25 +515,6 @@ export const PermissionCodes = {
       ACCESS: 'sales.customer-portal.access' as const,
       REGISTER: 'sales.customer-portal.register' as const,
       REMOVE: 'sales.customer-portal.remove' as const,
-    },
-    BIDS: {
-      ACCESS: 'sales.bids.access' as const,
-      REGISTER: 'sales.bids.register' as const,
-      MODIFY: 'sales.bids.modify' as const,
-      REMOVE: 'sales.bids.remove' as const,
-      ADMIN: 'sales.bids.admin' as const,
-    },
-    BID_DOCUMENTS: {
-      ACCESS: 'sales.bid-documents.access' as const,
-      REGISTER: 'sales.bid-documents.register' as const,
-      MODIFY: 'sales.bid-documents.modify' as const,
-      REMOVE: 'sales.bid-documents.remove' as const,
-    },
-    BID_CONTRACTS: {
-      ACCESS: 'sales.bid-contracts.access' as const,
-      REGISTER: 'sales.bid-contracts.register' as const,
-      MODIFY: 'sales.bid-contracts.modify' as const,
-      REMOVE: 'sales.bid-contracts.remove' as const,
     },
     BID_EMPENHOS: {
       ACCESS: 'sales.bid-empenhos.access' as const,

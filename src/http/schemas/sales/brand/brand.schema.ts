@@ -9,12 +9,30 @@ export const updateBrandSchema = z.object({
   backgroundColor: z.string().max(16).optional().describe('Background color'),
   textColor: z.string().max(16).optional().describe('Text color'),
   fontFamily: z.string().max(64).optional().describe('Body font family'),
-  fontHeading: z.string().max(64).nullable().optional().describe('Heading font family'),
+  fontHeading: z
+    .string()
+    .max(64)
+    .nullable()
+    .optional()
+    .describe('Heading font family'),
   tagline: z.string().max(256).nullable().optional().describe('Brand tagline'),
   logoFileId: z.string().uuid().nullable().optional().describe('Logo file ID'),
-  logoIconFileId: z.string().uuid().nullable().optional().describe('Logo icon file ID'),
-  socialLinks: z.record(z.string(), z.string()).nullable().optional().describe('Social media links'),
-  contactInfo: z.record(z.string(), z.unknown()).nullable().optional().describe('Contact info'),
+  logoIconFileId: z
+    .string()
+    .uuid()
+    .nullable()
+    .optional()
+    .describe('Logo icon file ID'),
+  socialLinks: z
+    .record(z.string(), z.string())
+    .nullable()
+    .optional()
+    .describe('Social media links'),
+  contactInfo: z
+    .record(z.string(), z.unknown())
+    .nullable()
+    .optional()
+    .describe('Contact info'),
 });
 
 // ─── Brand Response ──────────────────────────────────────────────────────────
@@ -33,8 +51,14 @@ export const brandResponseSchema = z.object({
   fontFamily: z.string().describe('Body font family'),
   fontHeading: z.string().nullable().describe('Heading font family'),
   tagline: z.string().nullable().describe('Brand tagline'),
-  socialLinks: z.record(z.string(), z.string()).nullable().describe('Social links'),
-  contactInfo: z.record(z.string(), z.unknown()).nullable().describe('Contact info'),
+  socialLinks: z
+    .record(z.string(), z.string())
+    .nullable()
+    .describe('Social links'),
+  contactInfo: z
+    .record(z.string(), z.unknown())
+    .nullable()
+    .describe('Contact info'),
   isDefault: z.boolean().describe('Is default brand'),
   createdAt: z.coerce.date().describe('Creation date'),
   updatedAt: z.coerce.date().nullable().describe('Last update date'),

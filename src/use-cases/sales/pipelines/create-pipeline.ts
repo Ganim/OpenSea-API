@@ -4,8 +4,14 @@ import { Pipeline } from '@/entities/sales/pipeline';
 import type { PipelinesRepository } from '@/repositories/sales/pipelines-repository';
 
 const VALID_PIPELINE_TYPES = [
-  'SALES', 'ONBOARDING', 'SUPPORT', 'CUSTOM',
-  'ORDER_B2C', 'ORDER_B2B', 'ORDER_BID', 'ORDER_ECOMMERCE',
+  'SALES',
+  'ONBOARDING',
+  'SUPPORT',
+  'CUSTOM',
+  'ORDER_B2C',
+  'ORDER_B2B',
+  'ORDER_BID',
+  'ORDER_ECOMMERCE',
 ];
 
 interface CreatePipelineUseCaseRequest {
@@ -30,7 +36,17 @@ export class CreatePipelineUseCase {
   async execute(
     request: CreatePipelineUseCaseRequest,
   ): Promise<CreatePipelineUseCaseResponse> {
-    const { tenantId, name, description, icon, color, type, isDefault, position, nextPipelineId } = request;
+    const {
+      tenantId,
+      name,
+      description,
+      icon,
+      color,
+      type,
+      isDefault,
+      position,
+      nextPipelineId,
+    } = request;
 
     if (!name || name.trim().length === 0) {
       throw new BadRequestError('Name is required');
@@ -43,7 +59,10 @@ export class CreatePipelineUseCase {
       );
     }
 
-    const existingPipeline = await this.pipelinesRepository.findByName(name, tenantId);
+    const existingPipeline = await this.pipelinesRepository.findByName(
+      name,
+      tenantId,
+    );
     if (existingPipeline) {
       throw new BadRequestError('Pipeline with this name already exists');
     }
@@ -57,7 +76,9 @@ export class CreatePipelineUseCase {
       type: finalType,
       isDefault: isDefault ?? false,
       position,
-      nextPipelineId: nextPipelineId ? new UniqueEntityID(nextPipelineId) : undefined,
+      nextPipelineId: nextPipelineId
+        ? new UniqueEntityID(nextPipelineId)
+        : undefined,
     });
 
     await this.pipelinesRepository.create(pipeline);

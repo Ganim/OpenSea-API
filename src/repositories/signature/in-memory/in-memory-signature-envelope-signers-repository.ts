@@ -18,8 +18,8 @@ export class InMemorySignatureEnvelopeSignersRepository
       envelopeId: data.envelopeId,
       order: data.order,
       group: data.group,
-      role: data.role as SignatureEnvelopeSigner['role'] ?? undefined,
-      status: data.status as SignatureEnvelopeSigner['status'] ?? undefined,
+      role: (data.role as SignatureEnvelopeSigner['role']) ?? undefined,
+      status: (data.status as SignatureEnvelopeSigner['status']) ?? undefined,
       userId: data.userId,
       contactId: data.contactId,
       externalName: data.externalName,
@@ -36,7 +36,9 @@ export class InMemorySignatureEnvelopeSignersRepository
     return signer;
   }
 
-  async createMany(data: CreateSignerSchema[]): Promise<SignatureEnvelopeSigner[]> {
+  async createMany(
+    data: CreateSignerSchema[],
+  ): Promise<SignatureEnvelopeSigner[]> {
     const signers: SignatureEnvelopeSigner[] = [];
     for (const d of data) {
       const signer = await this.create(d);

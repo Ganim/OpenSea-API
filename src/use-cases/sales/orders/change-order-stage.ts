@@ -43,9 +43,7 @@ export class ChangeOrderStageUseCase {
     }
 
     if (newStage.pipelineId.toString() !== order.pipelineId.toString()) {
-      throw new BadRequestError(
-        'Stage does not belong to the order pipeline.',
-      );
+      throw new BadRequestError('Stage does not belong to the order pipeline.');
     }
 
     order.stageId = new UniqueEntityID(input.stageId);

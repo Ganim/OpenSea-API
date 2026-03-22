@@ -5,5 +5,8 @@ import { CreatePipelineStageUseCase } from '../create-pipeline-stage';
 export function makeCreatePipelineStageUseCase() {
   const pipelineStagesRepository = new PrismaPipelineStagesRepository();
   const pipelinesRepository = new PrismaPipelinesRepository();
-  return new CreatePipelineStageUseCase(pipelineStagesRepository, pipelinesRepository);
+  return new CreatePipelineStageUseCase(
+    pipelineStagesRepository,
+    pipelinesRepository,
+  );
 }

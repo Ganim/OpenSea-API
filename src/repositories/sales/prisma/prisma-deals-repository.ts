@@ -142,6 +142,20 @@ export class PrismaDealsRepository implements DealsRepository {
     });
   }
 
+  async changeStage(
+    id: UniqueEntityID,
+    _tenantId: string,
+    stageId: UniqueEntityID,
+  ): Promise<void> {
+    await prisma.crmDeal.update({
+      where: { id: id.toString() },
+      data: {
+        stageId: stageId.toString(),
+        updatedAt: new Date(),
+      },
+    });
+  }
+
   async delete(id: UniqueEntityID, _tenantId: string): Promise<void> {
     await prisma.crmDeal.update({
       where: { id: id.toString() },

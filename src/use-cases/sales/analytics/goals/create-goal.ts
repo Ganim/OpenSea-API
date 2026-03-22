@@ -23,17 +23,33 @@ interface CreateGoalUseCaseResponse {
 }
 
 const VALID_TYPES = [
-  'REVENUE', 'QUANTITY', 'DEALS_WON', 'NEW_CUSTOMERS',
-  'TICKET_AVERAGE', 'CONVERSION_RATE', 'COMMISSION', 'BID_WIN_RATE', 'CUSTOM',
+  'REVENUE',
+  'QUANTITY',
+  'DEALS_WON',
+  'NEW_CUSTOMERS',
+  'TICKET_AVERAGE',
+  'CONVERSION_RATE',
+  'COMMISSION',
+  'BID_WIN_RATE',
+  'CUSTOM',
 ];
 
-const VALID_PERIODS = ['DAILY', 'WEEKLY', 'MONTHLY', 'QUARTERLY', 'YEARLY', 'CUSTOM'];
+const VALID_PERIODS = [
+  'DAILY',
+  'WEEKLY',
+  'MONTHLY',
+  'QUARTERLY',
+  'YEARLY',
+  'CUSTOM',
+];
 const VALID_SCOPES = ['INDIVIDUAL', 'TEAM', 'TENANT'];
 
 export class CreateGoalUseCase {
   constructor(private goalsRepository: AnalyticsGoalsRepository) {}
 
-  async execute(input: CreateGoalUseCaseRequest): Promise<CreateGoalUseCaseResponse> {
+  async execute(
+    input: CreateGoalUseCaseRequest,
+  ): Promise<CreateGoalUseCaseResponse> {
     if (!input.name || input.name.trim().length === 0) {
       throw new BadRequestError('Goal name is required.');
     }

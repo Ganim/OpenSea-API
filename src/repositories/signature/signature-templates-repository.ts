@@ -40,8 +40,15 @@ export interface FindManyTemplatesResult {
 
 export interface SignatureTemplatesRepository {
   create(data: CreateSignatureTemplateSchema): Promise<SignatureTemplate>;
-  findById(id: UniqueEntityID, tenantId: string): Promise<SignatureTemplate | null>;
-  findMany(params: ListSignatureTemplatesParams): Promise<FindManyTemplatesResult>;
-  update(data: UpdateSignatureTemplateSchema): Promise<SignatureTemplate | null>;
+  findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<SignatureTemplate | null>;
+  findMany(
+    params: ListSignatureTemplatesParams,
+  ): Promise<FindManyTemplatesResult>;
+  update(
+    data: UpdateSignatureTemplateSchema,
+  ): Promise<SignatureTemplate | null>;
   delete(id: UniqueEntityID): Promise<void>;
 }

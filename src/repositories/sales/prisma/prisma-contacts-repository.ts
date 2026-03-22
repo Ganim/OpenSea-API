@@ -10,7 +10,10 @@ import type {
   FindManyPaginatedParams,
   UpdateContactSchema,
 } from '../contacts-repository';
-import type { ContactRole as PrismaContactRole, ContactLifecycleStage as PrismaLifecycleStage } from '@prisma/generated/client.js';
+import type {
+  ContactRole as PrismaContactRole,
+  ContactLifecycleStage as PrismaLifecycleStage,
+} from '@prisma/generated/client.js';
 
 function mapToDomain(data: Record<string, unknown>): Contact {
   return Contact.create(
@@ -31,7 +34,8 @@ function mapToDomain(data: Record<string, unknown>): Contact {
       source: (data.source as string) ?? 'MANUAL',
       lastInteractionAt: (data.lastInteractionAt as Date) ?? undefined,
       lastChannelUsed: (data.lastChannelUsed as string) ?? undefined,
-      socialProfiles: (data.socialProfiles as Record<string, unknown>) ?? undefined,
+      socialProfiles:
+        (data.socialProfiles as Record<string, unknown>) ?? undefined,
       tags: Array.isArray(data.tags) ? (data.tags as string[]) : [],
       customFields: (data.customFields as Record<string, unknown>) ?? undefined,
       avatarUrl: (data.avatarUrl as string) ?? undefined,
@@ -63,10 +67,10 @@ export class PrismaContactsRepository implements ContactsRepository {
         email: data.email,
         phone: data.phone,
         whatsapp: data.whatsapp,
-        role: (data.role.value) as PrismaContactRole,
+        role: data.role.value as PrismaContactRole,
         jobTitle: data.jobTitle,
         department: data.department,
-        lifecycleStage: (data.lifecycleStage.value) as PrismaLifecycleStage,
+        lifecycleStage: data.lifecycleStage.value as PrismaLifecycleStage,
         leadScore: data.leadScore ?? 0,
         leadTemperature: data.leadTemperature,
         source: data.source ?? 'MANUAL',
@@ -164,7 +168,8 @@ export class PrismaContactsRepository implements ContactsRepository {
       if (data.whatsapp !== undefined) updateData.whatsapp = data.whatsapp;
       if (data.role !== undefined) updateData.role = data.role.value;
       if (data.jobTitle !== undefined) updateData.jobTitle = data.jobTitle;
-      if (data.department !== undefined) updateData.department = data.department;
+      if (data.department !== undefined)
+        updateData.department = data.department;
       if (data.lifecycleStage !== undefined)
         updateData.lifecycleStage = data.lifecycleStage.value;
       if (data.leadScore !== undefined) updateData.leadScore = data.leadScore;
@@ -193,8 +198,11 @@ export class PrismaContactsRepository implements ContactsRepository {
         });
         if (existing) {
           const firstName = data.firstName ?? existing.firstName;
-          const lastName = data.lastName !== undefined ? data.lastName : existing.lastName;
-          updateData.fullName = lastName ? `${firstName} ${lastName}` : firstName;
+          const lastName =
+            data.lastName !== undefined ? data.lastName : existing.lastName;
+          updateData.fullName = lastName
+            ? `${firstName} ${lastName}`
+            : firstName;
         }
       }
 

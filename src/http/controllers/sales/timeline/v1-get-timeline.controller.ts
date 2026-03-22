@@ -48,11 +48,7 @@ export async function getTimelineController(app: FastifyInstance) {
           .uuid()
           .optional()
           .describe('Filter by customer ID'),
-        dealId: z
-          .string()
-          .uuid()
-          .optional()
-          .describe('Filter by deal ID'),
+        dealId: z.string().uuid().optional().describe('Filter by deal ID'),
       }),
       response: {
         200: z.object({

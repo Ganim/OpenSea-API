@@ -8,7 +8,9 @@ import type {
 } from '../ai-favorite-queries-repository';
 import type { AiFavoriteCategory, Prisma } from '@prisma/generated/client.js';
 
-export class PrismaAiFavoriteQueriesRepository implements AiFavoriteQueriesRepository {
+export class PrismaAiFavoriteQueriesRepository
+  implements AiFavoriteQueriesRepository
+{
   async create(data: CreateFavoriteQuerySchema): Promise<AiFavoriteQueryDTO> {
     const raw = await prisma.aiFavoriteQuery.create({
       data: {
@@ -23,7 +25,9 @@ export class PrismaAiFavoriteQueriesRepository implements AiFavoriteQueriesRepos
     return raw;
   }
 
-  async findMany(options: FindManyFavoriteQueriesOptions): Promise<FindManyFavoriteQueriesResult> {
+  async findMany(
+    options: FindManyFavoriteQueriesOptions,
+  ): Promise<FindManyFavoriteQueriesResult> {
     const page = options.page ?? 1;
     const limit = Math.min(options.limit ?? 20, 100);
     const skip = (page - 1) * limit;

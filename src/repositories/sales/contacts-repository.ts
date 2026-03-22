@@ -70,7 +70,9 @@ export interface FindManyPaginatedParams {
 export interface ContactsRepository {
   create(data: CreateContactSchema): Promise<Contact>;
   findById(id: UniqueEntityID, tenantId: string): Promise<Contact | null>;
-  findManyPaginated(params: FindManyPaginatedParams): Promise<PaginatedResult<Contact>>;
+  findManyPaginated(
+    params: FindManyPaginatedParams,
+  ): Promise<PaginatedResult<Contact>>;
   update(data: UpdateContactSchema): Promise<Contact | null>;
   delete(id: UniqueEntityID, tenantId: string): Promise<void>;
 }

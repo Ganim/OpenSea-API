@@ -17,13 +17,22 @@ interface CreateDashboardUseCaseResponse {
   dashboard: AnalyticsDashboardDTO;
 }
 
-const VALID_ROLES = ['SELLER', 'MANAGER', 'DIRECTOR', 'BID_SPECIALIST', 'MARKETPLACE_OPS', 'CASHIER'];
+const VALID_ROLES = [
+  'SELLER',
+  'MANAGER',
+  'DIRECTOR',
+  'BID_SPECIALIST',
+  'MARKETPLACE_OPS',
+  'CASHIER',
+];
 const VALID_VISIBILITIES = ['PRIVATE', 'TEAM', 'TENANT'];
 
 export class CreateDashboardUseCase {
   constructor(private dashboardsRepository: AnalyticsDashboardsRepository) {}
 
-  async execute(input: CreateDashboardUseCaseRequest): Promise<CreateDashboardUseCaseResponse> {
+  async execute(
+    input: CreateDashboardUseCaseRequest,
+  ): Promise<CreateDashboardUseCaseResponse> {
     if (!input.name || input.name.trim().length === 0) {
       throw new BadRequestError('Dashboard name is required.');
     }

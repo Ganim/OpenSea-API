@@ -13,7 +13,10 @@ export interface CreateCustomerPortalAccessSchema {
 
 export interface CustomerPortalAccessesRepository {
   create(data: CreateCustomerPortalAccessSchema): Promise<CustomerPortalAccess>;
-  findById(id: UniqueEntityID, tenantId: string): Promise<CustomerPortalAccess | null>;
+  findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<CustomerPortalAccess | null>;
   findByToken(accessToken: string): Promise<CustomerPortalAccess | null>;
   findMany(
     page: number,

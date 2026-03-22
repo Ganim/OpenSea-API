@@ -68,17 +68,21 @@ export class PrismaCardWatchersRepository implements CardWatchersRepository {
       orderBy: { createdAt: 'asc' },
       include: {
         user: {
-          select: { name: true, email: true },
+          select: { username: true, email: true },
         },
       },
     });
 
-    return rows.map(row => ({
+    return rows.map((row) => ({
       id: row.id,
       cardId: row.cardId,
       userId: row.userId,
-      userName: row.user?.name ?? null,
-      userEmail: row.user?.email ?? null,
+      userName:
+        (row as unknown as { user?: { username?: string | null } }).user
+          ?.username ?? null,
+      userEmail:
+        (row as unknown as { user?: { email?: string | null } }).user?.email ??
+        null,
       addedAt: row.createdAt,
     }));
   }

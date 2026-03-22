@@ -54,8 +54,7 @@ export class InMemoryCampaignsRepository implements CampaignsRepository {
     params: FindManyCampaignsParams,
   ): Promise<PaginatedResult<Campaign>> {
     let filtered = this.items.filter(
-      (item) =>
-        !item.deletedAt && item.tenantId.toString() === params.tenantId,
+      (item) => !item.deletedAt && item.tenantId.toString() === params.tenantId,
     );
 
     if (params.status) {

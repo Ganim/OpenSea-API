@@ -17,8 +17,13 @@ export interface FindManyGeneratedContentsParams {
 
 export interface GeneratedContentsRepository {
   create(content: GeneratedContent): Promise<void>;
-  findById(id: UniqueEntityID, tenantId: string): Promise<GeneratedContent | null>;
-  findManyPaginated(params: FindManyGeneratedContentsParams): Promise<PaginatedResult<GeneratedContent>>;
+  findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<GeneratedContent | null>;
+  findManyPaginated(
+    params: FindManyGeneratedContentsParams,
+  ): Promise<PaginatedResult<GeneratedContent>>;
   save(content: GeneratedContent): Promise<void>;
   delete(id: UniqueEntityID): Promise<void>;
 }

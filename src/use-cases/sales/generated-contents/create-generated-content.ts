@@ -4,8 +4,15 @@ import { GeneratedContent } from '@/entities/sales/generated-content';
 import type { GeneratedContentsRepository } from '@/repositories/sales/generated-contents-repository';
 
 const VALID_TYPES = [
-  'SOCIAL_POST', 'SOCIAL_STORY', 'SOCIAL_REEL', 'FOLDER_PAGE',
-  'EMAIL_CAMPAIGN', 'BANNER', 'PRODUCT_CARD', 'VIDEO', 'MOCKUP',
+  'SOCIAL_POST',
+  'SOCIAL_STORY',
+  'SOCIAL_REEL',
+  'FOLDER_PAGE',
+  'EMAIL_CAMPAIGN',
+  'BANNER',
+  'PRODUCT_CARD',
+  'VIDEO',
+  'MOCKUP',
 ];
 
 interface CreateGeneratedContentUseCaseRequest {

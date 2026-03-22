@@ -17,9 +17,7 @@ interface CreateSignatureTemplateUseCaseResponse {
 }
 
 export class CreateSignatureTemplateUseCase {
-  constructor(
-    private templatesRepository: SignatureTemplatesRepository,
-  ) {}
+  constructor(private templatesRepository: SignatureTemplatesRepository) {}
 
   async execute(
     request: CreateSignatureTemplateUseCaseRequest,

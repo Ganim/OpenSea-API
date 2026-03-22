@@ -1,7 +1,10 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { SignatureTemplate } from '@/entities/signature/signature-template';
 import type { SignerSlot } from '@/entities/signature/signature-template';
-import type { SignatureLevelValue, EnvelopeRoutingTypeValue } from '@/entities/signature/signature-envelope';
+import type {
+  SignatureLevelValue,
+  EnvelopeRoutingTypeValue,
+} from '@/entities/signature/signature-envelope';
 import type { SignatureTemplate as PrismaTemplate } from '@prisma/generated/client.js';
 
 export function signatureTemplatePrismaToDomain(

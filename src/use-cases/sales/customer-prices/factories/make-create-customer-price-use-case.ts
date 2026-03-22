@@ -5,5 +5,8 @@ import { CreateCustomerPriceUseCase } from '@/use-cases/sales/customer-prices/cr
 export function makeCreateCustomerPriceUseCase() {
   const customerPricesRepository = new PrismaCustomerPricesRepository();
   const customersRepository = new PrismaCustomersRepository();
-  return new CreateCustomerPriceUseCase(customerPricesRepository, customersRepository);
+  return new CreateCustomerPriceUseCase(
+    customerPricesRepository,
+    customersRepository,
+  );
 }

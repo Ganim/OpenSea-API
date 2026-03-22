@@ -25,7 +25,10 @@ export interface FindManyPriceTableItemsParams {
 
 export interface PriceTableItemsRepository {
   create(data: CreatePriceTableItemSchema): Promise<PriceTableItem>;
-  findById(id: UniqueEntityID, tenantId: string): Promise<PriceTableItem | null>;
+  findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<PriceTableItem | null>;
   findByTableAndVariant(
     priceTableId: string,
     variantId: string,
@@ -37,7 +40,9 @@ export interface PriceTableItemsRepository {
     variantId: string,
     quantity: number,
   ): Promise<PriceTableItem | null>;
-  findManyByTable(params: FindManyPriceTableItemsParams): Promise<PaginatedResult<PriceTableItem>>;
+  findManyByTable(
+    params: FindManyPriceTableItemsParams,
+  ): Promise<PaginatedResult<PriceTableItem>>;
   upsert(data: CreatePriceTableItemSchema): Promise<PriceTableItem>;
   bulkCreate(items: CreatePriceTableItemSchema[]): Promise<PriceTableItem[]>;
   delete(id: UniqueEntityID, tenantId: string): Promise<void>;

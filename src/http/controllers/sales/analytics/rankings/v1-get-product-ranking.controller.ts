@@ -14,7 +14,9 @@ export async function getProductRankingController(app: FastifyInstance) {
       tags: ['Sales - Analytics Rankings'],
       summary: 'Get product ranking by revenue',
       querystring: z.object({
-        period: z.enum(['today', 'week', 'month', 'quarter', 'year']).default('month'),
+        period: z
+          .enum(['today', 'week', 'month', 'quarter', 'year'])
+          .default('month'),
         limit: z.coerce.number().int().positive().max(50).default(10),
       }),
       response: {
@@ -35,7 +37,11 @@ export async function getProductRankingController(app: FastifyInstance) {
 
       switch (period) {
         case 'today':
-          startDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+          startDate = new Date(
+            now.getFullYear(),
+            now.getMonth(),
+            now.getDate(),
+          );
           break;
         case 'week':
           startDate = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
@@ -44,7 +50,11 @@ export async function getProductRankingController(app: FastifyInstance) {
           startDate = new Date(now.getFullYear(), now.getMonth(), 1);
           break;
         case 'quarter':
-          startDate = new Date(now.getFullYear(), Math.floor(now.getMonth() / 3) * 3, 1);
+          startDate = new Date(
+            now.getFullYear(),
+            Math.floor(now.getMonth() / 3) * 3,
+            1,
+          );
           break;
         case 'year':
           startDate = new Date(now.getFullYear(), 0, 1);
@@ -74,31 +84,37 @@ export async function getProductRankingController(app: FastifyInstance) {
         .map((r) => r.variantId)
         .filter((id): id is string => id !== null);
 
-      const variants = variantIds.length > 0
-        ? await prisma.variant.findMany({
-            where: { id: { in: variantIds } },
-            select: { id: true, sku: true, productId: true },
-          })
-        : [];
+      const variants =
+        variantIds.length > 0
+          ? await prisma.variant.findMany({
+              where: { id: { in: variantIds } },
+              select: { id: true, sku: true, productId: true },
+            })
+          : [];
 
       const productIds = [...new Set(variants.map((v) => v.productId))];
-      const products = productIds.length > 0
-        ? await prisma.product.findMany({
-            where: { id: { in: productIds } },
-            select: { id: true, name: true },
-          })
-        : [];
+      const products =
+        productIds.length > 0
+          ? await prisma.product.findMany({
+              where: { id: { in: productIds } },
+              select: { id: true, name: true },
+            })
+          : [];
 
       const productMap = new Map(products.map((p) => [p.id, p.name]));
-      const variantMap = new Map(variants.map((v) => [
-        v.id,
-        { name: productMap.get(v.productId) ?? 'Desconhecido', sku: v.sku },
-      ]));
+      const variantMap = new Map(
+        variants.map((v) => [
+          v.id,
+          { name: productMap.get(v.productId) ?? 'Desconhecido', sku: v.sku },
+        ]),
+      );
 
       const enrichedRankings = rankings.map((r, index) => ({
         rank: index + 1,
         variantId: r.variantId,
-        productName: r.variantId ? (variantMap.get(r.variantId)?.name ?? 'Desconhecido') : 'Desconhecido',
+        productName: r.variantId
+          ? (variantMap.get(r.variantId)?.name ?? 'Desconhecido')
+          : 'Desconhecido',
         sku: r.variantId ? (variantMap.get(r.variantId)?.sku ?? '') : '',
         totalRevenue: Number(r._sum?.subtotal ?? 0),
         totalQuantity: Number(r._sum?.quantity ?? 0),

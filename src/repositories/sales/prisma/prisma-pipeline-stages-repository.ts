@@ -89,10 +89,7 @@ export class PrismaPipelineStagesRepository
     });
   }
 
-  async reorder(
-    pipelineId: UniqueEntityID,
-    stageIds: string[],
-  ): Promise<void> {
+  async reorder(pipelineId: UniqueEntityID, stageIds: string[]): Promise<void> {
     const updates = stageIds.map((stageId, index) =>
       prisma.crmPipelineStage.update({
         where: { id: stageId },

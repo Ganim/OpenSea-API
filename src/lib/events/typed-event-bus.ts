@@ -69,9 +69,7 @@ export class TypedEventBus {
    * Remove a consumer by its ID (useful for tests).
    */
   unregister(consumerId: string): void {
-    this.consumers = this.consumers.filter(
-      (c) => c.consumerId !== consumerId,
-    );
+    this.consumers = this.consumers.filter((c) => c.consumerId !== consumerId);
   }
 
   /**
@@ -158,8 +156,7 @@ export class TypedEventBus {
           await this.executeWithRetry(consumer, fullEvent);
           processedBy.push(consumer.consumerId);
         } catch (err) {
-          const errorMessage =
-            err instanceof Error ? err.message : String(err);
+          const errorMessage = err instanceof Error ? err.message : String(err);
           failedConsumers[consumer.consumerId] = errorMessage;
           getLogger().error(
             {
@@ -178,7 +175,8 @@ export class TypedEventBus {
     if (this.eventLogRepo) {
       try {
         const allSucceeded = Object.keys(failedConsumers).length === 0;
-        const allFailed = processedBy.length === 0 && matchingConsumers.length > 0;
+        const allFailed =
+          processedBy.length === 0 && matchingConsumers.length > 0;
 
         if (allSucceeded) {
           await this.eventLogRepo.updateStatus(fullEvent.id, 'PROCESSED', {
@@ -232,7 +230,8 @@ export class TypedEventBus {
 
         if (attempt < maxRetries) {
           // Exponential backoff: baseMs * 4^attempt (0, 1x, 4x, 16x, ...)
-          const backoff = attempt === 0 ? 0 : baseBackoff * Math.pow(4, attempt - 1);
+          const backoff =
+            attempt === 0 ? 0 : baseBackoff * Math.pow(4, attempt - 1);
           if (backoff > 0) {
             await this.delay(backoff);
           }

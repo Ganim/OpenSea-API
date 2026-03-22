@@ -15,7 +15,10 @@ export interface CreateAnalyticsDashboardSchema {
 
 export interface AnalyticsDashboardsRepository {
   create(data: CreateAnalyticsDashboardSchema): Promise<AnalyticsDashboard>;
-  findById(id: UniqueEntityID, tenantId: string): Promise<AnalyticsDashboard | null>;
+  findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<AnalyticsDashboard | null>;
   findMany(
     page: number,
     perPage: number,

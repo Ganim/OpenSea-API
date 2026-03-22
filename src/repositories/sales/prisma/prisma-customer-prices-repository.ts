@@ -27,7 +27,9 @@ function mapToDomain(data: Record<string, unknown>): CustomerPrice {
   );
 }
 
-export class PrismaCustomerPricesRepository implements CustomerPricesRepository {
+export class PrismaCustomerPricesRepository
+  implements CustomerPricesRepository
+{
   async create(data: CreateCustomerPriceSchema): Promise<CustomerPrice> {
     const result = await prisma.customerPrice.create({
       data: {
@@ -114,7 +116,8 @@ export class PrismaCustomerPricesRepository implements CustomerPricesRepository 
 
       if (data.price !== undefined) updateData.price = data.price;
       if (data.validFrom !== undefined) updateData.validFrom = data.validFrom;
-      if (data.validUntil !== undefined) updateData.validUntil = data.validUntil;
+      if (data.validUntil !== undefined)
+        updateData.validUntil = data.validUntil;
       if (data.notes !== undefined) updateData.notes = data.notes;
 
       const result = await prisma.customerPrice.update({

@@ -2,9 +2,21 @@ import { Entity } from '../domain/entities';
 import type { Optional } from '../domain/optional';
 import { UniqueEntityID } from '../domain/unique-entity-id';
 
-export type CampaignStatus = 'DRAFT' | 'ACTIVE' | 'SCHEDULED' | 'PAUSED' | 'ENDED';
-export type CampaignType = 'PERCENTAGE' | 'FIXED_AMOUNT' | 'BUY_X_GET_Y' | 'FREE_SHIPPING';
-export type CampaignApplicableTo = 'ALL' | 'SPECIFIC_PRODUCTS' | 'SPECIFIC_CATEGORIES';
+export type CampaignStatus =
+  | 'DRAFT'
+  | 'ACTIVE'
+  | 'SCHEDULED'
+  | 'PAUSED'
+  | 'ENDED';
+export type CampaignType =
+  | 'PERCENTAGE'
+  | 'FIXED_AMOUNT'
+  | 'BUY_X_GET_Y'
+  | 'FREE_SHIPPING';
+export type CampaignApplicableTo =
+  | 'ALL'
+  | 'SPECIFIC_PRODUCTS'
+  | 'SPECIFIC_CATEGORIES';
 
 export interface CampaignRuleProps {
   id: UniqueEntityID;

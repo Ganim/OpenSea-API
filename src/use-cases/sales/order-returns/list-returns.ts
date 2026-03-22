@@ -20,9 +20,7 @@ interface ListReturnsUseCaseResponse {
 }
 
 export class ListReturnsUseCase {
-  constructor(
-    private orderReturnsRepository: OrderReturnsRepository,
-  ) {}
+  constructor(private orderReturnsRepository: OrderReturnsRepository) {}
 
   async execute(
     request: ListReturnsUseCaseRequest,

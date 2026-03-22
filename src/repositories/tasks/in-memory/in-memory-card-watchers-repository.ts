@@ -49,7 +49,7 @@ export class InMemoryCardWatchersRepository implements CardWatchersRepository {
     return this.items
       .filter((w) => w.cardId === cardId && w.role === 'MEMBER')
       .sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime())
-      .map(w => ({
+      .map((w) => ({
         id: w.id,
         cardId: w.cardId,
         userId: w.userId,

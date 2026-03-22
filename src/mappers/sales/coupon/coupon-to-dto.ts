@@ -35,10 +35,14 @@ export function couponToDTO(coupon: Coupon): CouponDTO {
   };
 
   if (coupon.description) dto.description = coupon.description;
-  if (coupon.minOrderValue !== undefined) dto.minOrderValue = coupon.minOrderValue;
-  if (coupon.maxDiscountAmount !== undefined) dto.maxDiscountAmount = coupon.maxDiscountAmount;
-  if (coupon.maxUsageTotal !== undefined) dto.maxUsageTotal = coupon.maxUsageTotal;
-  if (coupon.maxUsagePerCustomer !== undefined) dto.maxUsagePerCustomer = coupon.maxUsagePerCustomer;
+  if (coupon.minOrderValue !== undefined)
+    dto.minOrderValue = coupon.minOrderValue;
+  if (coupon.maxDiscountAmount !== undefined)
+    dto.maxDiscountAmount = coupon.maxDiscountAmount;
+  if (coupon.maxUsageTotal !== undefined)
+    dto.maxUsageTotal = coupon.maxUsageTotal;
+  if (coupon.maxUsagePerCustomer !== undefined)
+    dto.maxUsagePerCustomer = coupon.maxUsagePerCustomer;
   if (coupon.startDate) dto.startDate = coupon.startDate;
   if (coupon.endDate) dto.endDate = coupon.endDate;
 

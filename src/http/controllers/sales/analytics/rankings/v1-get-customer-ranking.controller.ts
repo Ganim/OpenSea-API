@@ -14,7 +14,9 @@ export async function getCustomerRankingController(app: FastifyInstance) {
       tags: ['Sales - Analytics Rankings'],
       summary: 'Get customer ranking by revenue',
       querystring: z.object({
-        period: z.enum(['today', 'week', 'month', 'quarter', 'year']).default('month'),
+        period: z
+          .enum(['today', 'week', 'month', 'quarter', 'year'])
+          .default('month'),
         limit: z.coerce.number().int().positive().max(50).default(10),
       }),
       response: {
@@ -35,7 +37,11 @@ export async function getCustomerRankingController(app: FastifyInstance) {
 
       switch (period) {
         case 'today':
-          startDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+          startDate = new Date(
+            now.getFullYear(),
+            now.getMonth(),
+            now.getDate(),
+          );
           break;
         case 'week':
           startDate = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
@@ -44,7 +50,11 @@ export async function getCustomerRankingController(app: FastifyInstance) {
           startDate = new Date(now.getFullYear(), now.getMonth(), 1);
           break;
         case 'quarter':
-          startDate = new Date(now.getFullYear(), Math.floor(now.getMonth() / 3) * 3, 1);
+          startDate = new Date(
+            now.getFullYear(),
+            Math.floor(now.getMonth() / 3) * 3,
+            1,
+          );
           break;
         case 'year':
           startDate = new Date(now.getFullYear(), 0, 1);
@@ -70,12 +80,13 @@ export async function getCustomerRankingController(app: FastifyInstance) {
         .map((r) => r.customerId)
         .filter((id): id is string => id !== null);
 
-      const customers = customerIds.length > 0
-        ? await prisma.customer.findMany({
-            where: { id: { in: customerIds } },
-            select: { id: true, name: true },
-          })
-        : [];
+      const customers =
+        customerIds.length > 0
+          ? await prisma.customer.findMany({
+              where: { id: { in: customerIds } },
+              select: { id: true, name: true },
+            })
+          : [];
 
       const customerMap = new Map(customers.map((c) => [c.id, c.name]));
 

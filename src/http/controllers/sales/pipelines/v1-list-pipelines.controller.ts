@@ -2,7 +2,10 @@ import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { listPipelinesQuerySchema, pipelineResponseSchema } from '@/http/schemas';
+import {
+  listPipelinesQuerySchema,
+  pipelineResponseSchema,
+} from '@/http/schemas';
 import { pipelineToDTO } from '@/mappers/sales/pipeline/pipeline-to-dto';
 import { makeListPipelinesUseCase } from '@/use-cases/sales/pipelines/factories/make-list-pipelines-use-case';
 import type { FastifyInstance } from 'fastify';

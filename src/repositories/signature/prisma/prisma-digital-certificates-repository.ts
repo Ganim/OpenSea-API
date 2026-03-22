@@ -2,7 +2,10 @@ import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { DigitalCertificate } from '@/entities/signature/digital-certificate';
 import { prisma } from '@/lib/prisma';
 import { digitalCertificatePrismaToDomain } from '@/mappers/signature';
-import type { CertificateType, CertificateStatus } from '@prisma/generated/client.js';
+import type {
+  CertificateType,
+  CertificateStatus,
+} from '@prisma/generated/client.js';
 import type {
   CreateDigitalCertificateSchema,
   DigitalCertificatesRepository,
@@ -13,7 +16,9 @@ import type {
 export class PrismaDigitalCertificatesRepository
   implements DigitalCertificatesRepository
 {
-  async create(data: CreateDigitalCertificateSchema): Promise<DigitalCertificate> {
+  async create(
+    data: CreateDigitalCertificateSchema,
+  ): Promise<DigitalCertificate> {
     const db = await prisma.digitalCertificate.create({
       data: {
         tenantId: data.tenantId,

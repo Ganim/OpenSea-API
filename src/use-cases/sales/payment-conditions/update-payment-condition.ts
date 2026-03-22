@@ -25,11 +25,10 @@ export class UpdatePaymentConditionUseCase {
   async execute(
     input: UpdatePaymentConditionUseCaseRequest,
   ): Promise<UpdatePaymentConditionUseCaseResponse> {
-    const paymentCondition =
-      await this.paymentConditionsRepository.findById(
-        new UniqueEntityID(input.id),
-        input.tenantId,
-      );
+    const paymentCondition = await this.paymentConditionsRepository.findById(
+      new UniqueEntityID(input.id),
+      input.tenantId,
+    );
 
     if (!paymentCondition) {
       throw new ResourceNotFoundError('Payment condition not found.');

@@ -36,18 +36,26 @@ export class UpdateTenantBrandUseCase {
       throw new ResourceNotFoundError('Brand not found');
     }
 
-    if (request.primaryColor !== undefined) brand.primaryColor = request.primaryColor;
-    if (request.secondaryColor !== undefined) brand.secondaryColor = request.secondaryColor;
-    if (request.accentColor !== undefined) brand.accentColor = request.accentColor;
-    if (request.backgroundColor !== undefined) brand.backgroundColor = request.backgroundColor;
+    if (request.primaryColor !== undefined)
+      brand.primaryColor = request.primaryColor;
+    if (request.secondaryColor !== undefined)
+      brand.secondaryColor = request.secondaryColor;
+    if (request.accentColor !== undefined)
+      brand.accentColor = request.accentColor;
+    if (request.backgroundColor !== undefined)
+      brand.backgroundColor = request.backgroundColor;
     if (request.textColor !== undefined) brand.textColor = request.textColor;
     if (request.fontFamily !== undefined) brand.fontFamily = request.fontFamily;
-    if (request.fontHeading !== undefined) brand.fontHeading = request.fontHeading;
+    if (request.fontHeading !== undefined)
+      brand.fontHeading = request.fontHeading;
     if (request.tagline !== undefined) brand.tagline = request.tagline;
     if (request.logoFileId !== undefined) brand.logoFileId = request.logoFileId;
-    if (request.logoIconFileId !== undefined) brand.logoIconFileId = request.logoIconFileId;
-    if (request.socialLinks !== undefined) brand.socialLinks = request.socialLinks;
-    if (request.contactInfo !== undefined) brand.contactInfo = request.contactInfo;
+    if (request.logoIconFileId !== undefined)
+      brand.logoIconFileId = request.logoIconFileId;
+    if (request.socialLinks !== undefined)
+      brand.socialLinks = request.socialLinks;
+    if (request.contactInfo !== undefined)
+      brand.contactInfo = request.contactInfo;
 
     await this.tenantBrandsRepository.save(brand);
 

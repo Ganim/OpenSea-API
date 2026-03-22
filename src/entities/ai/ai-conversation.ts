@@ -105,7 +105,10 @@ export class AiConversation extends Entity<AiConversationProps> {
   }
 
   static create(
-    props: Omit<AiConversationProps, 'createdAt' | 'status' | 'messageCount' | 'isPinned'> & {
+    props: Omit<
+      AiConversationProps,
+      'createdAt' | 'status' | 'messageCount' | 'isPinned'
+    > & {
       createdAt?: Date;
       status?: string;
       messageCount?: number;

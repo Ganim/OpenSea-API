@@ -49,9 +49,19 @@ export interface FindManyEnvelopesResult {
 
 export interface SignatureEnvelopesRepository {
   create(data: CreateSignatureEnvelopeSchema): Promise<SignatureEnvelope>;
-  findById(id: UniqueEntityID, tenantId: string): Promise<SignatureEnvelope | null>;
-  findByIdWithRelations(id: UniqueEntityID, tenantId: string): Promise<SignatureEnvelope | null>;
-  findMany(params: ListSignatureEnvelopesParams): Promise<FindManyEnvelopesResult>;
-  update(data: UpdateSignatureEnvelopeSchema): Promise<SignatureEnvelope | null>;
+  findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<SignatureEnvelope | null>;
+  findByIdWithRelations(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<SignatureEnvelope | null>;
+  findMany(
+    params: ListSignatureEnvelopesParams,
+  ): Promise<FindManyEnvelopesResult>;
+  update(
+    data: UpdateSignatureEnvelopeSchema,
+  ): Promise<SignatureEnvelope | null>;
   softDelete(id: UniqueEntityID): Promise<void>;
 }

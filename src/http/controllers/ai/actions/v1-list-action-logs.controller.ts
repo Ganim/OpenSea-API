@@ -1,6 +1,9 @@
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { listActionLogsQuerySchema, actionLogResponseSchema } from '@/http/schemas/ai';
+import {
+  listActionLogsQuerySchema,
+  actionLogResponseSchema,
+} from '@/http/schemas/ai';
 import { makeListActionLogsUseCase } from '@/use-cases/ai/actions/factories/make-list-action-logs-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';

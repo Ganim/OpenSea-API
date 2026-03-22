@@ -46,7 +46,12 @@ export interface PriceTableRuleData {
   id: string;
   priceTableId: string;
   tenantId: string;
-  ruleType: 'CUSTOMER_TYPE' | 'REGION' | 'CHANNEL' | 'CUSTOMER_TAG' | 'MIN_QUANTITY';
+  ruleType:
+    | 'CUSTOMER_TYPE'
+    | 'REGION'
+    | 'CHANNEL'
+    | 'CUSTOMER_TAG'
+    | 'MIN_QUANTITY';
   operator: 'EQUALS' | 'IN' | 'GREATER_THAN' | 'LESS_THAN' | 'BETWEEN';
   value: string;
   createdAt: Date;
@@ -62,7 +67,9 @@ export interface PriceTablesRepository {
   findById(id: UniqueEntityID, tenantId: string): Promise<PriceTable | null>;
   findByName(name: string, tenantId: string): Promise<PriceTable | null>;
   findDefault(tenantId: string): Promise<PriceTable | null>;
-  findManyPaginated(params: FindManyPriceTablesParams): Promise<PaginatedResult<PriceTable>>;
+  findManyPaginated(
+    params: FindManyPriceTablesParams,
+  ): Promise<PaginatedResult<PriceTable>>;
   findActiveWithRulesByTenant(tenantId: string): Promise<PriceTableWithRules[]>;
   update(data: UpdatePriceTableSchema): Promise<PriceTable | null>;
   delete(id: UniqueEntityID, tenantId: string): Promise<void>;

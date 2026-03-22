@@ -7,7 +7,9 @@ import type {
   PriceTableItemsRepository,
 } from '@/repositories/sales/price-table-items-repository';
 
-export class InMemoryPriceTableItemsRepository implements PriceTableItemsRepository {
+export class InMemoryPriceTableItemsRepository
+  implements PriceTableItemsRepository
+{
   public items: PriceTableItem[] = [];
 
   async create(data: CreatePriceTableItemSchema): Promise<PriceTableItem> {
@@ -106,16 +108,20 @@ export class InMemoryPriceTableItemsRepository implements PriceTableItemsReposit
 
     if (existing) {
       existing.price = data.price;
-      if (data.maxQuantity !== undefined) existing.maxQuantity = data.maxQuantity;
+      if (data.maxQuantity !== undefined)
+        existing.maxQuantity = data.maxQuantity;
       if (data.costPrice !== undefined) existing.costPrice = data.costPrice;
-      if (data.marginPercent !== undefined) existing.marginPercent = data.marginPercent;
+      if (data.marginPercent !== undefined)
+        existing.marginPercent = data.marginPercent;
       return existing;
     }
 
     return this.create(data);
   }
 
-  async bulkCreate(items: CreatePriceTableItemSchema[]): Promise<PriceTableItem[]> {
+  async bulkCreate(
+    items: CreatePriceTableItemSchema[],
+  ): Promise<PriceTableItem[]> {
     const created: PriceTableItem[] = [];
     for (const data of items) {
       const item = await this.upsert(data);

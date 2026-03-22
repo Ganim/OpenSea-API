@@ -148,7 +148,9 @@ describe('SetCardCustomFieldValuesUseCase', () => {
           { fieldId: requiredFieldId, value: null },
         ],
       }),
-    ).rejects.toThrow('O campo "Required Notes" é obrigatório e não pode estar vazio');
+    ).rejects.toThrow(
+      'O campo "Required Notes" é obrigatório e não pode estar vazio',
+    );
   });
 
   it('should reject if field does not exist', async () => {
@@ -219,7 +221,9 @@ describe('SetCardCustomFieldValuesUseCase', () => {
           { fieldId: requiredFieldId, value: 'Required value' },
         ],
       }),
-    ).rejects.toThrow('O campo "Done" espera um valor booleano (verdadeiro ou falso)');
+    ).rejects.toThrow(
+      'O campo "Done" espera um valor booleano (verdadeiro ou falso)',
+    );
   });
 
   it('should validate multi-select values against options', async () => {
@@ -242,7 +246,9 @@ describe('SetCardCustomFieldValuesUseCase', () => {
           { fieldId: requiredFieldId, value: 'Required value' },
         ],
       }),
-    ).rejects.toThrow('O valor "Unknown" não é uma opção válida para o campo "Tags"');
+    ).rejects.toThrow(
+      'O valor "Unknown" não é uma opção válida para o campo "Tags"',
+    );
   });
 
   it('should accept valid multi-select values', async () => {

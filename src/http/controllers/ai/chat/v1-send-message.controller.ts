@@ -1,6 +1,9 @@
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { sendMessageBodySchema, messageResponseSchema } from '@/http/schemas/ai';
+import {
+  sendMessageBodySchema,
+  messageResponseSchema,
+} from '@/http/schemas/ai';
 import { makeSendMessageUseCase } from '@/use-cases/ai/conversations/factories/make-send-message-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';

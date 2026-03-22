@@ -36,12 +36,7 @@ export class ListCardMembersUseCase {
       throw new ResourceNotFoundError('Board not found');
     }
 
-    await verifyBoardAccess(
-      this.boardMembersRepository,
-      board,
-      userId,
-      'read',
-    );
+    await verifyBoardAccess(this.boardMembersRepository, board, userId, 'read');
 
     const members =
       await this.cardWatchersRepository.findMembersByCardId(cardId);

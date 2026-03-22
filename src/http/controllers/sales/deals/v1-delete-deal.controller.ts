@@ -68,9 +68,7 @@ export async function deleteDealController(app: FastifyInstance) {
           oldData: { id: deal.id.toString(), title: deal.title },
         });
 
-        return reply
-          .status(200)
-          .send({ message: 'Deal deleted successfully' });
+        return reply.status(200).send({ message: 'Deal deleted successfully' });
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });

@@ -1,6 +1,10 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import type { Campaign, CampaignApplicableTo, CampaignType } from '@/entities/sales/campaign';
+import type {
+  Campaign,
+  CampaignApplicableTo,
+  CampaignType,
+} from '@/entities/sales/campaign';
 import type { CampaignsRepository } from '@/repositories/sales/campaigns-repository';
 
 interface UpdateCampaignUseCaseRequest {

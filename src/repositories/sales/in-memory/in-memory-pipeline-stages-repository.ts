@@ -12,12 +12,12 @@ export class InMemoryPipelineStagesRepository
   }
 
   async findById(id: UniqueEntityID): Promise<PipelineStage | null> {
-    return (
-      this.items.find((s) => s.id.toString() === id.toString()) ?? null
-    );
+    return this.items.find((s) => s.id.toString() === id.toString()) ?? null;
   }
 
-  async findManyByPipeline(pipelineId: UniqueEntityID): Promise<PipelineStage[]> {
+  async findManyByPipeline(
+    pipelineId: UniqueEntityID,
+  ): Promise<PipelineStage[]> {
     return this.items
       .filter((s) => s.pipelineId.toString() === pipelineId.toString())
       .sort((a, b) => a.position - b.position);

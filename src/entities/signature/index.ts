@@ -27,7 +27,4 @@ export type {
 } from './signature-audit-event';
 
 export { SignatureTemplate } from './signature-template';
-export type {
-  SignatureTemplateProps,
-  SignerSlot,
-} from './signature-template';
+export type { SignatureTemplateProps, SignerSlot } from './signature-template';

@@ -13,18 +13,11 @@ export const createCouponSchema = z.object({
     .uuid()
     .optional()
     .describe('Optional campaign association'),
-  code: z
-    .string()
-    .min(1)
-    .max(64)
-    .describe('Coupon code'),
+  code: z.string().min(1).max(64).describe('Coupon code'),
   type: z
     .enum(['PERCENTAGE', 'FIXED_VALUE', 'FREE_SHIPPING'])
     .describe('Coupon discount type'),
-  value: z
-    .number()
-    .positive()
-    .describe('Discount value'),
+  value: z.number().positive().describe('Discount value'),
   minOrderValue: z
     .number()
     .positive()
@@ -48,19 +41,20 @@ export const createCouponSchema = z.object({
     .optional()
     .default(1)
     .describe('Maximum usages per customer'),
-  validFrom: z.coerce
-    .date()
-    .describe('Start of validity'),
-  validUntil: z.coerce
-    .date()
-    .describe('End of validity'),
+  validFrom: z.coerce.date().describe('Start of validity'),
+  validUntil: z.coerce.date().describe('End of validity'),
   isActive: z
     .boolean()
     .optional()
     .default(true)
     .describe('Whether the coupon is active'),
   applicableTo: z
-    .enum(['ALL', 'SPECIFIC_PRODUCTS', 'SPECIFIC_CATEGORIES', 'SPECIFIC_CUSTOMERS'])
+    .enum([
+      'ALL',
+      'SPECIFIC_PRODUCTS',
+      'SPECIFIC_CATEGORIES',
+      'SPECIFIC_CUSTOMERS',
+    ])
     .optional()
     .default('ALL')
     .describe('Who the coupon applies to'),
@@ -105,12 +99,7 @@ export const couponResponseSchema = z.object({
 // ─── List Coupons Query ────────────────────────────────────────────────────────
 
 export const listCouponsQuerySchema = z.object({
-  page: z.coerce
-    .number()
-    .int()
-    .positive()
-    .default(1)
-    .describe('Page number'),
+  page: z.coerce.number().int().positive().default(1).describe('Page number'),
   limit: z.coerce
     .number()
     .int()
@@ -118,11 +107,7 @@ export const listCouponsQuerySchema = z.object({
     .max(100)
     .default(20)
     .describe('Items per page'),
-  search: z
-    .string()
-    .max(200)
-    .optional()
-    .describe('Search by code'),
+  search: z.string().max(200).optional().describe('Search by code'),
   type: z
     .enum(['PERCENTAGE', 'FIXED_VALUE', 'FREE_SHIPPING'])
     .optional()
@@ -131,11 +116,7 @@ export const listCouponsQuerySchema = z.object({
     .enum(['true', 'false'])
     .optional()
     .describe('Filter by active status'),
-  campaignId: z
-    .string()
-    .uuid()
-    .optional()
-    .describe('Filter by campaign'),
+  campaignId: z.string().uuid().optional().describe('Filter by campaign'),
   sortBy: z
     .enum(['code', 'type', 'value', 'validFrom', 'validUntil', 'createdAt'])
     .optional()
@@ -152,8 +133,15 @@ export const listCouponsQuerySchema = z.object({
 
 export const validateCouponSchema = z.object({
   code: z.string().min(1).max(64).describe('Coupon code to validate'),
-  orderValue: z.number().positive().optional().describe('Order value for validation'),
-  variantIds: z.array(z.string().uuid()).optional().describe('Variant IDs in the order'),
+  orderValue: z
+    .number()
+    .positive()
+    .optional()
+    .describe('Order value for validation'),
+  variantIds: z
+    .array(z.string().uuid())
+    .optional()
+    .describe('Variant IDs in the order'),
 });
 
 export const validateCouponResponseSchema = z.object({

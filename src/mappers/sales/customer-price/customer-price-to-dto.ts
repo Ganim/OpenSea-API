@@ -14,7 +14,9 @@ export interface CustomerPriceDTO {
   updatedAt: Date | null;
 }
 
-export function customerPriceToDTO(customerPrice: CustomerPrice): CustomerPriceDTO {
+export function customerPriceToDTO(
+  customerPrice: CustomerPrice,
+): CustomerPriceDTO {
   return {
     id: customerPrice.id.toString(),
     tenantId: customerPrice.tenantId.toString(),

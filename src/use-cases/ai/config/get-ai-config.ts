@@ -1,11 +1,17 @@
-import type { AiTenantConfigRepository, AiTenantConfigDTO } from '@/repositories/ai/ai-tenant-config-repository';
+import type {
+  AiTenantConfigRepository,
+  AiTenantConfigDTO,
+} from '@/repositories/ai/ai-tenant-config-repository';
 
 interface GetAiConfigRequest {
   tenantId: string;
 }
 
 // Default config when none exists
-const DEFAULT_CONFIG: Omit<AiTenantConfigDTO, 'id' | 'tenantId' | 'createdAt' | 'updatedAt'> = {
+const DEFAULT_CONFIG: Omit<
+  AiTenantConfigDTO,
+  'id' | 'tenantId' | 'createdAt' | 'updatedAt'
+> = {
   assistantName: 'Atlas',
   assistantAvatar: null,
   personality: 'PROFESSIONAL',

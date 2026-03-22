@@ -6,7 +6,9 @@ import type {
   FindManyGeneratedContentsParams,
 } from '@/repositories/sales/generated-contents-repository';
 
-export class InMemoryGeneratedContentsRepository implements GeneratedContentsRepository {
+export class InMemoryGeneratedContentsRepository
+  implements GeneratedContentsRepository
+{
   public items: GeneratedContent[] = [];
 
   async create(content: GeneratedContent): Promise<void> {
@@ -52,8 +54,8 @@ export class InMemoryGeneratedContentsRepository implements GeneratedContentsRep
     }
 
     if (params.productId) {
-      filtered = filtered.filter(
-        (c) => c.variantIds?.includes(params.productId!),
+      filtered = filtered.filter((c) =>
+        c.variantIds?.includes(params.productId!),
       );
     }
 

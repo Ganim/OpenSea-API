@@ -1,6 +1,9 @@
 import type { Pipeline } from '@/entities/sales/pipeline';
 import type { PipelineStage } from '@/entities/sales/pipeline-stage';
-import { pipelineStageToDTO, type PipelineStageDTO } from '../pipeline-stage/pipeline-stage-to-dto';
+import {
+  pipelineStageToDTO,
+  type PipelineStageDTO,
+} from '../pipeline-stage/pipeline-stage-to-dto';
 
 export interface PipelineDTO {
   id: string;

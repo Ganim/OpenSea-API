@@ -23,7 +23,8 @@ export function contactPrismaToDomain(raw: PrismaContact): Contact {
       source: raw.source,
       lastInteractionAt: raw.lastInteractionAt ?? undefined,
       lastChannelUsed: raw.lastChannelUsed ?? undefined,
-      socialProfiles: (raw.socialProfiles as Record<string, unknown>) ?? undefined,
+      socialProfiles:
+        (raw.socialProfiles as Record<string, unknown>) ?? undefined,
       tags: raw.tags,
       customFields: (raw.customFields as Record<string, unknown>) ?? undefined,
       avatarUrl: raw.avatarUrl ?? undefined,

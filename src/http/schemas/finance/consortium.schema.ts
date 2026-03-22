@@ -110,9 +110,20 @@ export const listConsortiaQuerySchema = z.object({
     .transform((v) => v === 'true')
     .optional()
     .describe('Filtrar apenas contemplados'),
-  bankAccountId: z.string().uuid().optional().describe('Filtrar por conta bancária'),
-  costCenterId: z.string().uuid().optional().describe('Filtrar por centro de custo'),
-  search: z.string().optional().describe('Busca textual por descrição ou administradora'),
+  bankAccountId: z
+    .string()
+    .uuid()
+    .optional()
+    .describe('Filtrar por conta bancária'),
+  costCenterId: z
+    .string()
+    .uuid()
+    .optional()
+    .describe('Filtrar por centro de custo'),
+  search: z
+    .string()
+    .optional()
+    .describe('Busca textual por descrição ou administradora'),
 });
 
 export const registerConsortiumPaymentSchema = z.object({

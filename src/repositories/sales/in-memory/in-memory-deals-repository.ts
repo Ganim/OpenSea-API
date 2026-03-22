@@ -13,10 +13,7 @@ export class InMemoryDealsRepository implements DealsRepository {
     this.items.push(deal);
   }
 
-  async findById(
-    id: UniqueEntityID,
-    tenantId: string,
-  ): Promise<Deal | null> {
+  async findById(id: UniqueEntityID, tenantId: string): Promise<Deal | null> {
     return (
       this.items.find(
         (d) =>
@@ -62,9 +59,7 @@ export class InMemoryDealsRepository implements DealsRepository {
     }
     if (params.search) {
       const search = params.search.toLowerCase();
-      filtered = filtered.filter((d) =>
-        d.title.toLowerCase().includes(search),
-      );
+      filtered = filtered.filter((d) => d.title.toLowerCase().includes(search));
     }
 
     const total = filtered.length;
@@ -95,6 +90,17 @@ export class InMemoryDealsRepository implements DealsRepository {
     );
     if (index !== -1) {
       this.items[index] = deal;
+    }
+  }
+
+  async changeStage(
+    id: UniqueEntityID,
+    _tenantId: string,
+    stageId: UniqueEntityID,
+  ): Promise<void> {
+    const deal = this.items.find((d) => d.id.toString() === id.toString());
+    if (deal) {
+      deal.stageId = stageId;
     }
   }
 

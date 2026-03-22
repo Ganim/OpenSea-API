@@ -1,6 +1,9 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { DigitalCertificate } from '@/entities/signature/digital-certificate';
-import type { CertificateTypeValue, CertificateStatusValue } from '@/entities/signature/digital-certificate';
+import type {
+  CertificateTypeValue,
+  CertificateStatusValue,
+} from '@/entities/signature/digital-certificate';
 import type { DigitalCertificate as PrismaDigitalCertificate } from '@prisma/generated/client.js';
 
 export function digitalCertificatePrismaToDomain(

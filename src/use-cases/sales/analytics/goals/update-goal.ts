@@ -24,7 +24,9 @@ interface UpdateGoalUseCaseResponse {
 export class UpdateGoalUseCase {
   constructor(private goalsRepository: AnalyticsGoalsRepository) {}
 
-  async execute(input: UpdateGoalUseCaseRequest): Promise<UpdateGoalUseCaseResponse> {
+  async execute(
+    input: UpdateGoalUseCaseRequest,
+  ): Promise<UpdateGoalUseCaseResponse> {
     const existing = await this.goalsRepository.findById(
       new UniqueEntityID(input.id),
       input.tenantId,

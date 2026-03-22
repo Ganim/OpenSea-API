@@ -42,7 +42,10 @@ export interface UpdateAnalyticsReportSchema {
 
 export interface AnalyticsReportsRepository {
   create(data: CreateAnalyticsReportSchema): Promise<AnalyticsReport>;
-  findById(id: UniqueEntityID, tenantId: string): Promise<AnalyticsReport | null>;
+  findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<AnalyticsReport | null>;
   findMany(
     page: number,
     perPage: number,

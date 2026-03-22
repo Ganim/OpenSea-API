@@ -33,7 +33,16 @@ export class AddChecklistItemUseCase {
   async execute(
     request: AddChecklistItemRequest,
   ): Promise<AddChecklistItemResponse> {
-    const { userId, userName, boardId, cardId, checklistId, title, assigneeId, dueDate } = request;
+    const {
+      userId,
+      userName,
+      boardId,
+      cardId,
+      checklistId,
+      title,
+      assigneeId,
+      dueDate,
+    } = request;
 
     const checklist = await this.cardChecklistsRepository.findById(
       checklistId,

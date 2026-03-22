@@ -33,5 +33,7 @@ export interface FindManyActionLogsResult {
 }
 
 export interface AiActionLogsRepository {
-  findMany(options: FindManyActionLogsOptions): Promise<FindManyActionLogsResult>;
+  findMany(
+    options: FindManyActionLogsOptions,
+  ): Promise<FindManyActionLogsResult>;
 }

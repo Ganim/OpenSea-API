@@ -45,7 +45,10 @@ export async function updateBidController(app: FastifyInstance) {
       const body = request.body;
 
       const getBidUseCase = makeGetBidByIdUseCase();
-      const { bid: oldBid } = await getBidUseCase.execute({ id: bidId, tenantId });
+      const { bid: oldBid } = await getBidUseCase.execute({
+        id: bidId,
+        tenantId,
+      });
 
       const useCase = makeUpdateBidUseCase();
       const { bid } = await useCase.execute({ id: bidId, tenantId, ...body });

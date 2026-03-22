@@ -67,17 +67,14 @@ export class CreateCardIntegrationUseCase {
       throw new ResourceNotFoundError('Card not found');
     }
 
-    const existing =
-      await this.cardIntegrationsRepository.findByCardAndEntity(
-        cardId,
-        type,
-        entityId,
-      );
+    const existing = await this.cardIntegrationsRepository.findByCardAndEntity(
+      cardId,
+      type,
+      entityId,
+    );
 
     if (existing) {
-      throw new ConflictError(
-        'This integration already exists for this card',
-      );
+      throw new ConflictError('This integration already exists for this card');
     }
 
     const integration = await this.cardIntegrationsRepository.create({

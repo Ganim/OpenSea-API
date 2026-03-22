@@ -53,9 +53,15 @@ export const createConnectionSchema = z.object({
   sellerId: z.string().min(1).max(255).optional(),
   accessToken: z.string().min(1).optional(),
   refreshToken: z.string().min(1).optional(),
-  credentials: z.record(z.unknown()).optional(),
+  credentials: z.record(z.string(), z.unknown()).optional(),
   autoSync: z.boolean().optional().default(true),
-  syncIntervalMinutes: z.coerce.number().int().min(5).max(1440).optional().default(30),
+  syncIntervalMinutes: z.coerce
+    .number()
+    .int()
+    .min(5)
+    .max(1440)
+    .optional()
+    .default(30),
 });
 
 export const updateConnectionSchema = z.object({
@@ -63,7 +69,7 @@ export const updateConnectionSchema = z.object({
   sellerId: z.string().min(1).max(255).optional(),
   accessToken: z.string().min(1).optional(),
   refreshToken: z.string().min(1).optional(),
-  credentials: z.record(z.unknown()).optional(),
+  credentials: z.record(z.string(), z.unknown()).optional(),
   autoSync: z.boolean().optional(),
   syncIntervalMinutes: z.coerce.number().int().min(5).max(1440).optional(),
   status: ConnectionStatusEnum.optional(),
@@ -89,7 +95,10 @@ export const listConnectionsQuerySchema = z.object({
   search: z.string().optional(),
   platform: MarketplacePlatformEnum.optional(),
   status: ConnectionStatusEnum.optional(),
-  sortBy: z.enum(['name', 'platform', 'status', 'createdAt', 'lastSyncAt']).optional().default('createdAt'),
+  sortBy: z
+    .enum(['name', 'platform', 'status', 'createdAt', 'lastSyncAt'])
+    .optional()
+    .default('createdAt'),
   sortOrder: z.enum(['asc', 'desc']).optional().default('desc'),
 });
 
@@ -105,7 +114,7 @@ export const publishListingSchema = z.object({
   quantity: z.coerce.number().int().min(0),
   currencyCode: z.string().length(3).optional().default('BRL'),
   shippingType: z.string().optional(),
-  attributes: z.record(z.unknown()).optional(),
+  attributes: z.record(z.string(), z.unknown()).optional(),
 });
 
 export const listingResponseSchema = z.object({
@@ -133,7 +142,10 @@ export const listListingsQuerySchema = z.object({
   search: z.string().optional(),
   status: ListingStatusEnum.optional(),
   variantId: z.string().uuid().optional(),
-  sortBy: z.enum(['title', 'price', 'status', 'createdAt']).optional().default('createdAt'),
+  sortBy: z
+    .enum(['title', 'price', 'status', 'createdAt'])
+    .optional()
+    .default('createdAt'),
   sortOrder: z.enum(['asc', 'desc']).optional().default('desc'),
 });
 
@@ -150,13 +162,15 @@ export const marketplaceOrderResponseSchema = z.object({
   currencyCode: z.string(),
   shippingCost: z.number().nullable(),
   platformFee: z.number().nullable(),
-  items: z.array(z.object({
-    externalId: z.string(),
-    title: z.string(),
-    quantity: z.number(),
-    unitPrice: z.number(),
-    variantId: z.string().uuid().nullable(),
-  })),
+  items: z.array(
+    z.object({
+      externalId: z.string(),
+      title: z.string(),
+      quantity: z.number(),
+      unitPrice: z.number(),
+      variantId: z.string().uuid().nullable(),
+    }),
+  ),
   acknowledgedAt: z.string().datetime().nullable(),
   shippedAt: z.string().datetime().nullable(),
   deliveredAt: z.string().datetime().nullable(),
@@ -169,7 +183,10 @@ export const listMarketplaceOrdersQuerySchema = z.object({
   limit: z.coerce.number().int().min(1).max(100).optional().default(20),
   search: z.string().optional(),
   status: MarketplaceOrderStatusEnum.optional(),
-  sortBy: z.enum(['totalAmount', 'status', 'createdAt']).optional().default('createdAt'),
+  sortBy: z
+    .enum(['totalAmount', 'status', 'createdAt'])
+    .optional()
+    .default('createdAt'),
   sortOrder: z.enum(['asc', 'desc']).optional().default('desc'),
 });
 
@@ -195,7 +212,10 @@ export const listPaymentsQuerySchema = z.object({
   page: z.coerce.number().int().min(1).optional().default(1),
   limit: z.coerce.number().int().min(1).max(100).optional().default(20),
   status: PaymentStatusEnum.optional(),
-  sortBy: z.enum(['grossAmount', 'netAmount', 'status', 'createdAt', 'paidAt']).optional().default('createdAt'),
+  sortBy: z
+    .enum(['grossAmount', 'netAmount', 'status', 'createdAt', 'paidAt'])
+    .optional()
+    .default('createdAt'),
   sortOrder: z.enum(['asc', 'desc']).optional().default('desc'),
 });
 

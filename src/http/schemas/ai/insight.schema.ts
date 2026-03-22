@@ -1,8 +1,21 @@
 import { z } from 'zod';
 
 export const listInsightsQuerySchema = z.object({
-  status: z.enum(['NEW', 'VIEWED', 'ACTED_ON', 'DISMISSED', 'EXPIRED']).optional(),
-  type: z.enum(['TREND', 'ANOMALY', 'OPPORTUNITY', 'RISK', 'PREDICTION', 'RECOMMENDATION', 'ALERT', 'CELEBRATION']).optional(),
+  status: z
+    .enum(['NEW', 'VIEWED', 'ACTED_ON', 'DISMISSED', 'EXPIRED'])
+    .optional(),
+  type: z
+    .enum([
+      'TREND',
+      'ANOMALY',
+      'OPPORTUNITY',
+      'RISK',
+      'PREDICTION',
+      'RECOMMENDATION',
+      'ALERT',
+      'CELEBRATION',
+    ])
+    .optional(),
   priority: z.enum(['LOW', 'MEDIUM', 'HIGH', 'URGENT']).optional(),
   module: z.string().max(32).optional(),
   page: z.coerce.number().int().positive().optional(),

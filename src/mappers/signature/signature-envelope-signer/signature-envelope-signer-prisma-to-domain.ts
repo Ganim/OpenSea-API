@@ -1,6 +1,9 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { SignatureEnvelopeSigner } from '@/entities/signature/signature-envelope-signer';
-import type { SignerRoleValue, SignerStatusValue } from '@/entities/signature/signature-envelope-signer';
+import type {
+  SignerRoleValue,
+  SignerStatusValue,
+} from '@/entities/signature/signature-envelope-signer';
 import type { SignatureLevelValue } from '@/entities/signature/signature-envelope';
 import type { SignatureEnvelopeSigner as PrismaSigner } from '@prisma/generated/client.js';
 

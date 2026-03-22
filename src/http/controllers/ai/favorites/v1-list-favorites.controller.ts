@@ -1,6 +1,9 @@
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { listFavoritesQuerySchema, favoriteResponseSchema } from '@/http/schemas/ai';
+import {
+  listFavoritesQuerySchema,
+  favoriteResponseSchema,
+} from '@/http/schemas/ai';
 import { makeListFavoritesUseCase } from '@/use-cases/ai/favorites/factories/make-list-favorites-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';

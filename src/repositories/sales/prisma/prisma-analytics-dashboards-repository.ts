@@ -6,7 +6,10 @@ import type {
   AnalyticsDashboardsRepository,
   CreateAnalyticsDashboardSchema,
 } from '../analytics-dashboards-repository';
-import type { DashboardRole, DashboardVisibility } from '@prisma/generated/client.js';
+import type {
+  DashboardRole,
+  DashboardVisibility,
+} from '@prisma/generated/client.js';
 
 function mapToDomain(data: Record<string, unknown>): AnalyticsDashboard {
   return AnalyticsDashboard.create(
@@ -28,8 +31,12 @@ function mapToDomain(data: Record<string, unknown>): AnalyticsDashboard {
   );
 }
 
-export class PrismaAnalyticsDashboardsRepository implements AnalyticsDashboardsRepository {
-  async create(data: CreateAnalyticsDashboardSchema): Promise<AnalyticsDashboard> {
+export class PrismaAnalyticsDashboardsRepository
+  implements AnalyticsDashboardsRepository
+{
+  async create(
+    data: CreateAnalyticsDashboardSchema,
+  ): Promise<AnalyticsDashboard> {
     const dashboard = await prisma.analyticsDashboard.create({
       data: {
         tenantId: data.tenantId,
@@ -47,12 +54,17 @@ export class PrismaAnalyticsDashboardsRepository implements AnalyticsDashboardsR
     return mapToDomain(dashboard as unknown as Record<string, unknown>);
   }
 
-  async findById(id: UniqueEntityID, tenantId: string): Promise<AnalyticsDashboard | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<AnalyticsDashboard | null> {
     const dashboard = await prisma.analyticsDashboard.findFirst({
       where: { id: id.toString(), tenantId, deletedAt: null },
     });
 
-    return dashboard ? mapToDomain(dashboard as unknown as Record<string, unknown>) : null;
+    return dashboard
+      ? mapToDomain(dashboard as unknown as Record<string, unknown>)
+      : null;
   }
 
   async findMany(
@@ -73,7 +85,9 @@ export class PrismaAnalyticsDashboardsRepository implements AnalyticsDashboardsR
       orderBy: { createdAt: 'desc' },
     });
 
-    return dashboards.map((d) => mapToDomain(d as unknown as Record<string, unknown>));
+    return dashboards.map((d) =>
+      mapToDomain(d as unknown as Record<string, unknown>),
+    );
   }
 
   async countMany(

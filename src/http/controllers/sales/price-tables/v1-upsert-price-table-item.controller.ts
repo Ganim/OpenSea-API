@@ -2,7 +2,10 @@ import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { priceTableItemResponseSchema, upsertPriceTableItemSchema } from '@/http/schemas';
+import {
+  priceTableItemResponseSchema,
+  upsertPriceTableItemSchema,
+} from '@/http/schemas';
 import { prisma } from '@/lib/prisma';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';

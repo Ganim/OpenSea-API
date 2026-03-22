@@ -18,7 +18,9 @@ export interface CatalogsRepository {
   create(catalog: Catalog): Promise<void>;
   findById(id: UniqueEntityID, tenantId: string): Promise<Catalog | null>;
   findBySlug(slug: string, tenantId: string): Promise<Catalog | null>;
-  findManyPaginated(params: FindManyCatalogsParams): Promise<PaginatedResult<Catalog>>;
+  findManyPaginated(
+    params: FindManyCatalogsParams,
+  ): Promise<PaginatedResult<Catalog>>;
   save(catalog: Catalog): Promise<void>;
   delete(id: UniqueEntityID): Promise<void>;
 }

@@ -5,5 +5,8 @@ import { BulkImportPricesUseCase } from '@/use-cases/sales/price-tables/bulk-imp
 export function makeBulkImportPricesUseCase() {
   const priceTableItemsRepository = new PrismaPriceTableItemsRepository();
   const priceTablesRepository = new PrismaPriceTablesRepository();
-  return new BulkImportPricesUseCase(priceTableItemsRepository, priceTablesRepository);
+  return new BulkImportPricesUseCase(
+    priceTableItemsRepository,
+    priceTablesRepository,
+  );
 }

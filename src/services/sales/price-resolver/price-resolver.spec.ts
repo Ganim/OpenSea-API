@@ -87,7 +87,8 @@ function createActiveCampaign(
       startDate: overrides.startDate ?? new Date('2020-01-01'),
       endDate: overrides.endDate ?? new Date('2030-12-31'),
       products:
-        overrides.applicableTo === 'SPECIFIC_PRODUCTS' && overrides.productVariantId
+        overrides.applicableTo === 'SPECIFIC_PRODUCTS' &&
+        overrides.productVariantId
           ? [
               {
                 id: new UniqueEntityID(),

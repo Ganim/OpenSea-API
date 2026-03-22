@@ -48,7 +48,6 @@ export class GetTimelineUseCase {
       this.activitiesRepository.findManyPaginated({
         tenantId,
         contactId,
-        customerId,
         dealId,
         page: 1,
         limit: 10000, // Fetch all for merging
@@ -65,26 +64,40 @@ export class GetTimelineUseCase {
     ]);
 
     // Map activities to timeline items
-    const activityItems: TimelineItem[] = activitiesResult.data.map((a) => ({
-      type: 'activity' as const,
-      id: a.id.toString(),
-      date: a.performedAt,
-      title: a.title,
-      activityType: a.type,
-      metadata: a.metadata,
-      performedByUserId: a.performedByUserId?.toString(),
-    }));
+    const activityItems: TimelineItem[] = activitiesResult.data.map(
+      (a: {
+        id: { toString(): string };
+        createdAt: Date;
+        title: string;
+        type: string;
+        userId: { toString(): string };
+      }) => ({
+        type: 'activity' as const,
+        id: a.id.toString(),
+        date: a.createdAt,
+        title: a.title,
+        activityType: a.type,
+        performedByUserId: a.userId.toString(),
+      }),
+    );
 
     // Map timeline events to timeline items
-    const eventItems: TimelineItem[] = eventsResult.data.map((e) => ({
-      type: 'timeline_event' as const,
-      id: e.id.toString(),
-      date: e.createdAt,
-      title: e.title,
-      eventType: e.type,
-      metadata: e.metadata,
-      source: e.source,
-    }));
+    const eventItems: TimelineItem[] = eventsResult.data.map(
+      (e: {
+        id: { toString(): string };
+        createdAt: Date;
+        title: string;
+        type: string;
+        metadata?: Record<string, unknown>;
+      }) => ({
+        type: 'timeline_event' as const,
+        id: e.id.toString(),
+        date: e.createdAt,
+        title: e.title,
+        eventType: e.type,
+        metadata: e.metadata,
+      }),
+    );
 
     // Merge and sort by date descending
     const allItems = [...activityItems, ...eventItems].sort(

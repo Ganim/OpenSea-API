@@ -13,7 +13,10 @@ export interface FindManyPaymentConditionsParams {
 
 export interface PaymentConditionsRepository {
   create(condition: PaymentCondition): Promise<void>;
-  findById(id: UniqueEntityID, tenantId: string): Promise<PaymentCondition | null>;
+  findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<PaymentCondition | null>;
   findDefault(tenantId: string): Promise<PaymentCondition | null>;
   findManyPaginated(
     params: FindManyPaymentConditionsParams,

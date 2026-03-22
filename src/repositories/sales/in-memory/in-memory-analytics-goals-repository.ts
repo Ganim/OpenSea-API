@@ -6,7 +6,9 @@ import type {
   UpdateAnalyticsGoalSchema,
 } from '../analytics-goals-repository';
 
-export class InMemoryAnalyticsGoalsRepository implements AnalyticsGoalsRepository {
+export class InMemoryAnalyticsGoalsRepository
+  implements AnalyticsGoalsRepository
+{
   public items: AnalyticsGoal[] = [];
 
   async create(data: CreateAnalyticsGoalSchema): Promise<AnalyticsGoal> {
@@ -31,10 +33,16 @@ export class InMemoryAnalyticsGoalsRepository implements AnalyticsGoalsRepositor
     return goal;
   }
 
-  async findById(id: UniqueEntityID, tenantId: string): Promise<AnalyticsGoal | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<AnalyticsGoal | null> {
     return (
       this.items.find(
-        (g) => g.id.toString() === id.toString() && g.tenantId.toString() === tenantId && !g.deletedAt,
+        (g) =>
+          g.id.toString() === id.toString() &&
+          g.tenantId.toString() === tenantId &&
+          !g.deletedAt,
       ) ?? null
     );
   }
@@ -43,14 +51,25 @@ export class InMemoryAnalyticsGoalsRepository implements AnalyticsGoalsRepositor
     page: number,
     perPage: number,
     tenantId: string,
-    filters?: { status?: string; type?: string; scope?: string; userId?: string },
+    filters?: {
+      status?: string;
+      type?: string;
+      scope?: string;
+      userId?: string;
+    },
   ): Promise<AnalyticsGoal[]> {
-    let filtered = this.items.filter((g) => g.tenantId.toString() === tenantId && !g.deletedAt);
+    let filtered = this.items.filter(
+      (g) => g.tenantId.toString() === tenantId && !g.deletedAt,
+    );
 
-    if (filters?.status) filtered = filtered.filter((g) => g.status === filters.status);
-    if (filters?.type) filtered = filtered.filter((g) => g.type === filters.type);
-    if (filters?.scope) filtered = filtered.filter((g) => g.scope === filters.scope);
-    if (filters?.userId) filtered = filtered.filter((g) => g.userId === filters.userId);
+    if (filters?.status)
+      filtered = filtered.filter((g) => g.status === filters.status);
+    if (filters?.type)
+      filtered = filtered.filter((g) => g.type === filters.type);
+    if (filters?.scope)
+      filtered = filtered.filter((g) => g.scope === filters.scope);
+    if (filters?.userId)
+      filtered = filtered.filter((g) => g.userId === filters.userId);
 
     const start = (page - 1) * perPage;
     return filtered.slice(start, start + perPage);
@@ -58,21 +77,35 @@ export class InMemoryAnalyticsGoalsRepository implements AnalyticsGoalsRepositor
 
   async countMany(
     tenantId: string,
-    filters?: { status?: string; type?: string; scope?: string; userId?: string },
+    filters?: {
+      status?: string;
+      type?: string;
+      scope?: string;
+      userId?: string;
+    },
   ): Promise<number> {
-    let filtered = this.items.filter((g) => g.tenantId.toString() === tenantId && !g.deletedAt);
+    let filtered = this.items.filter(
+      (g) => g.tenantId.toString() === tenantId && !g.deletedAt,
+    );
 
-    if (filters?.status) filtered = filtered.filter((g) => g.status === filters.status);
-    if (filters?.type) filtered = filtered.filter((g) => g.type === filters.type);
-    if (filters?.scope) filtered = filtered.filter((g) => g.scope === filters.scope);
-    if (filters?.userId) filtered = filtered.filter((g) => g.userId === filters.userId);
+    if (filters?.status)
+      filtered = filtered.filter((g) => g.status === filters.status);
+    if (filters?.type)
+      filtered = filtered.filter((g) => g.type === filters.type);
+    if (filters?.scope)
+      filtered = filtered.filter((g) => g.scope === filters.scope);
+    if (filters?.userId)
+      filtered = filtered.filter((g) => g.userId === filters.userId);
 
     return filtered.length;
   }
 
   async update(data: UpdateAnalyticsGoalSchema): Promise<AnalyticsGoal | null> {
     const goal = this.items.find(
-      (g) => g.id.toString() === data.id.toString() && g.tenantId.toString() === data.tenantId && !g.deletedAt,
+      (g) =>
+        g.id.toString() === data.id.toString() &&
+        g.tenantId.toString() === data.tenantId &&
+        !g.deletedAt,
     );
 
     if (!goal) return null;
@@ -87,7 +120,8 @@ export class InMemoryAnalyticsGoalsRepository implements AnalyticsGoalsRepositor
 
   async delete(id: UniqueEntityID, tenantId: string): Promise<void> {
     const goal = this.items.find(
-      (g) => g.id.toString() === id.toString() && g.tenantId.toString() === tenantId,
+      (g) =>
+        g.id.toString() === id.toString() && g.tenantId.toString() === tenantId,
     );
     if (goal) goal.delete();
   }

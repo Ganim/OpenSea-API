@@ -14,10 +14,7 @@ export class InMemoryOrdersRepository implements OrdersRepository {
     this.items.push(order);
   }
 
-  async findById(
-    id: UniqueEntityID,
-    tenantId: string,
-  ): Promise<Order | null> {
+  async findById(id: UniqueEntityID, tenantId: string): Promise<Order | null> {
     return (
       this.items.find(
         (o) =>

@@ -56,7 +56,9 @@ export async function updateCampaignController(app: FastifyInstance) {
       const { rules, products, targetAudience, ...restData } = body;
       const campaignData = {
         ...restData,
-        ...(targetAudience !== undefined && { targetAudience: targetAudience as object }),
+        ...(targetAudience !== undefined && {
+          targetAudience: targetAudience as object,
+        }),
       };
 
       const campaign = await prisma.$transaction(async (tx) => {
@@ -108,14 +110,19 @@ export async function updateCampaignController(app: FastifyInstance) {
           userName: userId,
           campaignName: campaign.name,
         },
-        oldData: { name: existing.name, type: existing.type, status: existing.status },
+        oldData: {
+          name: existing.name,
+          type: existing.type,
+          status: existing.status,
+        },
         newData: { name: body.name, type: body.type },
       });
 
       return reply.status(200).send({
         campaign: {
           ...campaign,
-          targetAudience: (campaign.targetAudience as Record<string, unknown>) ?? null,
+          targetAudience:
+            (campaign.targetAudience as Record<string, unknown>) ?? null,
           description: campaign.description ?? null,
           maxUsageTotal: campaign.maxUsageTotal ?? null,
           maxUsagePerCustomer: campaign.maxUsagePerCustomer ?? null,

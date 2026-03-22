@@ -51,13 +51,22 @@ describe('Create Pipeline Stage Use Case', () => {
 
   it('should not create a stage for non-existent pipeline', async () => {
     await expect(() =>
-      sut.execute({ tenantId: TENANT_ID, pipelineId: 'non-existent', name: 'Test' }),
+      sut.execute({
+        tenantId: TENANT_ID,
+        pipelineId: 'non-existent',
+        name: 'Test',
+      }),
     ).rejects.toBeInstanceOf(ResourceNotFoundError);
   });
 
   it('should reject invalid stage type', async () => {
     await expect(() =>
-      sut.execute({ tenantId: TENANT_ID, pipelineId, name: 'Test', type: 'INVALID' }),
+      sut.execute({
+        tenantId: TENANT_ID,
+        pipelineId,
+        name: 'Test',
+        type: 'INVALID',
+      }),
     ).rejects.toBeInstanceOf(BadRequestError);
   });
 });

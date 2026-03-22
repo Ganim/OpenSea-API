@@ -136,7 +136,11 @@ export class SetCardCustomFieldValuesUseCase {
         break;
       }
       case 'CHECKBOX': {
-        if (typeof value !== 'boolean' && value !== 'true' && value !== 'false') {
+        if (
+          typeof value !== 'boolean' &&
+          value !== 'true' &&
+          value !== 'false'
+        ) {
           throw new BadRequestError(
             `O campo "${field.name}" espera um valor booleano (verdadeiro ou falso)`,
           );

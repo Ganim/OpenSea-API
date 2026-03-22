@@ -17,9 +17,13 @@ interface CreatePortalAccessUseCaseResponse {
 }
 
 export class CreatePortalAccessUseCase {
-  constructor(private portalAccessesRepository: CustomerPortalAccessesRepository) {}
+  constructor(
+    private portalAccessesRepository: CustomerPortalAccessesRepository,
+  ) {}
 
-  async execute(input: CreatePortalAccessUseCaseRequest): Promise<CreatePortalAccessUseCaseResponse> {
+  async execute(
+    input: CreatePortalAccessUseCaseRequest,
+  ): Promise<CreatePortalAccessUseCaseResponse> {
     if (!input.customerId) {
       throw new BadRequestError('Customer ID is required.');
     }

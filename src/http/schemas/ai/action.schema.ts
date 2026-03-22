@@ -1,7 +1,9 @@
 import { z } from 'zod';
 
 export const listActionLogsQuerySchema = z.object({
-  status: z.enum(['PROPOSED', 'CONFIRMED', 'EXECUTED', 'FAILED', 'CANCELLED']).optional(),
+  status: z
+    .enum(['PROPOSED', 'CONFIRMED', 'EXECUTED', 'FAILED', 'CANCELLED'])
+    .optional(),
   targetModule: z.string().max(32).optional(),
   page: z.coerce.number().int().positive().optional(),
   limit: z.coerce.number().int().positive().max(100).optional(),

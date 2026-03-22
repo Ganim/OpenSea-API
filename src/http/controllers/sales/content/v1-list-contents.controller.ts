@@ -2,7 +2,10 @@ import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { listGeneratedContentsQuerySchema, generatedContentResponseSchema } from '@/http/schemas';
+import {
+  listGeneratedContentsQuerySchema,
+  generatedContentResponseSchema,
+} from '@/http/schemas';
 import { generatedContentToDTO } from '@/mappers/sales/generated-content/generated-content-to-dto';
 import { makeListGeneratedContentsUseCase } from '@/use-cases/sales/generated-contents/factories/make-list-generated-contents-use-case';
 import type { FastifyInstance } from 'fastify';

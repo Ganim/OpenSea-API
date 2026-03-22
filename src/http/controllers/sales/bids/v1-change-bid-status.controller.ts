@@ -4,7 +4,10 @@ import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { bidResponseSchema, changeBidStatusSchema } from '@/http/schemas/sales/bids';
+import {
+  bidResponseSchema,
+  changeBidStatusSchema,
+} from '@/http/schemas/sales/bids';
 import { makeChangeBidStatusUseCase } from '@/use-cases/sales/bids/factories/make-change-bid-status-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -44,12 +47,21 @@ export async function changeBidStatusController(app: FastifyInstance) {
       const { status, reason } = request.body;
 
       const useCase = makeChangeBidStatusUseCase();
-      const { bid } = await useCase.execute({ id: bidId, tenantId, status, reason });
+      const { bid } = await useCase.execute({
+        id: bidId,
+        tenantId,
+        status,
+        reason,
+      });
 
       await logAudit(request, {
         message: AUDIT_MESSAGES.SALES.BID_STATUS_CHANGE,
         entityId: bid.id.toString(),
-        placeholders: { userName: userId, bidTitle: bid.title, newStatus: status },
+        placeholders: {
+          userName: userId,
+          bidTitle: bid.title,
+          newStatus: status,
+        },
         newData: { status, reason },
       });
 

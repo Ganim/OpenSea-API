@@ -6,5 +6,8 @@ export function makeListTimelineEventsUseCase() {
   const timelineEventsRepository = new PrismaTimelineEventsRepository();
   const dealsRepository = new PrismaDealsRepository();
 
-  return new ListTimelineEventsUseCase(timelineEventsRepository, dealsRepository);
+  return new ListTimelineEventsUseCase(
+    timelineEventsRepository,
+    dealsRepository,
+  );
 }

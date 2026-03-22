@@ -1,8 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import {
-  isValidPermissionCode,
-  parsePermissionCode,
-} from './permission-codes';
+import { isValidPermissionCode, parsePermissionCode } from './permission-codes';
 
 describe('isValidPermissionCode', () => {
   it('should accept 3-level codes', () => {

@@ -51,7 +51,9 @@ export class PrismaAiInsightsRepository implements AiInsightsRepository {
     return toDomain(raw);
   }
 
-  async findMany(options: FindManyInsightsOptions): Promise<FindManyInsightsResult> {
+  async findMany(
+    options: FindManyInsightsOptions,
+  ): Promise<FindManyInsightsResult> {
     const page = options.page ?? 1;
     const limit = Math.min(options.limit ?? 20, 100);
     const skip = (page - 1) * limit;

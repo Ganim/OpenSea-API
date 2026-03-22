@@ -44,22 +44,14 @@ export class PriceResolver implements PriceResolverService {
     const basePrice = await this.getBasePrice(input);
 
     // 2. Active campaign discount
-    const campaignResult = await this.resolveCampaign(
-      input,
-      basePrice,
-      now,
-    );
+    const campaignResult = await this.resolveCampaign(input, basePrice, now);
     if (campaignResult) {
       return campaignResult;
     }
 
     // 3. Coupon discount
     if (input.couponCode) {
-      const couponResult = await this.resolveCoupon(
-        input,
-        basePrice,
-        now,
-      );
+      const couponResult = await this.resolveCoupon(input, basePrice, now);
       if (couponResult) {
         return couponResult;
       }
@@ -77,11 +69,12 @@ export class PriceResolver implements PriceResolverService {
     );
 
     if (defaultTable) {
-      const item = await this.priceTableItemsRepository.findBestForVariantInTable(
-        defaultTable.id.toString(),
-        input.variantId,
-        input.quantity,
-      );
+      const item =
+        await this.priceTableItemsRepository.findBestForVariantInTable(
+          defaultTable.id.toString(),
+          input.variantId,
+          input.quantity,
+        );
 
       if (item) {
         const result = this.buildOutput(
@@ -133,9 +126,7 @@ export class PriceResolver implements PriceResolverService {
     basePrice: number,
     now: Date,
   ): Promise<PriceResolverOutput | null> {
-    const campaigns = await this.campaignsRepository.findActive(
-      input.tenantId,
-    );
+    const campaigns = await this.campaignsRepository.findActive(input.tenantId);
 
     // Sort by priority DESC
     const sorted = [...campaigns].sort((a, b) => b.priority - a.priority);
@@ -160,10 +151,7 @@ export class PriceResolver implements PriceResolverService {
       if (!isApplicable) continue;
 
       // Calculate discount
-      if (
-        campaign.type === 'PERCENTAGE' ||
-        campaign.type === 'FIXED_AMOUNT'
-      ) {
+      if (campaign.type === 'PERCENTAGE' || campaign.type === 'FIXED_AMOUNT') {
         const discountAmount =
           campaign.type === 'PERCENTAGE'
             ? basePrice * (campaign.discountValue / 100)
@@ -181,8 +169,7 @@ export class PriceResolver implements PriceResolverService {
           finalPrice,
           priceSource: 'CAMPAIGN',
           discount: {
-            type:
-              campaign.type === 'PERCENTAGE' ? 'PERCENTAGE' : 'FIXED_VALUE',
+            type: campaign.type === 'PERCENTAGE' ? 'PERCENTAGE' : 'FIXED_VALUE',
             value: campaign.discountValue,
             amount: cappedDiscount,
             source: 'CAMPAIGN',
@@ -269,7 +256,8 @@ export class PriceResolver implements PriceResolverService {
       finalPrice,
       priceSource: 'COUPON',
       discount: {
-        type: coupon.discountType === 'PERCENTAGE' ? 'PERCENTAGE' : 'FIXED_VALUE',
+        type:
+          coupon.discountType === 'PERCENTAGE' ? 'PERCENTAGE' : 'FIXED_VALUE',
         value: coupon.discountValue,
         amount: cappedDiscount,
         source: 'COUPON',

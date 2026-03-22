@@ -50,7 +50,8 @@ export async function getCampaignByIdController(app: FastifyInstance) {
       return reply.status(200).send({
         campaign: {
           ...campaign,
-          targetAudience: (campaign.targetAudience as Record<string, unknown>) ?? null,
+          targetAudience:
+            (campaign.targetAudience as Record<string, unknown>) ?? null,
           description: campaign.description ?? null,
           maxUsageTotal: campaign.maxUsageTotal ?? null,
           maxUsagePerCustomer: campaign.maxUsagePerCustomer ?? null,

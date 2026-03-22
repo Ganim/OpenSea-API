@@ -3,7 +3,13 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Catalog } from '@/entities/sales/catalog';
 import type { CatalogsRepository } from '@/repositories/sales/catalogs-repository';
 
-const VALID_CATALOG_TYPES = ['GENERAL', 'SELLER', 'CAMPAIGN', 'CUSTOMER', 'AI_GENERATED'];
+const VALID_CATALOG_TYPES = [
+  'GENERAL',
+  'SELLER',
+  'CAMPAIGN',
+  'CUSTOMER',
+  'AI_GENERATED',
+];
 const VALID_LAYOUTS = ['GRID', 'LIST', 'MAGAZINE'];
 
 interface CreateCatalogUseCaseRequest {

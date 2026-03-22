@@ -56,9 +56,7 @@ export class InMemoryPaymentConditionsRepository
     }
     if (params.search) {
       const search = params.search.toLowerCase();
-      filtered = filtered.filter((c) =>
-        c.name.toLowerCase().includes(search),
-      );
+      filtered = filtered.filter((c) => c.name.toLowerCase().includes(search));
     }
 
     const total = filtered.length;
@@ -84,9 +82,7 @@ export class InMemoryPaymentConditionsRepository
   }
 
   async delete(id: UniqueEntityID, _tenantId: string): Promise<void> {
-    const condition = this.items.find(
-      (c) => c.id.toString() === id.toString(),
-    );
+    const condition = this.items.find((c) => c.id.toString() === id.toString());
     if (condition) {
       condition.delete();
     }
