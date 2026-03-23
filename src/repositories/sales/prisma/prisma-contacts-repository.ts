@@ -13,6 +13,7 @@ import type {
 import type {
   ContactRole as PrismaContactRole,
   ContactLifecycleStage as PrismaLifecycleStage,
+  Prisma,
 } from '@prisma/generated/client.js';
 
 function mapToDomain(data: Record<string, unknown>): Contact {
@@ -76,9 +77,13 @@ export class PrismaContactsRepository implements ContactsRepository {
         source: data.source ?? 'MANUAL',
         lastInteractionAt: data.lastInteractionAt,
         lastChannelUsed: data.lastChannelUsed,
-        socialProfiles: (data.socialProfiles ?? undefined) as any,
+        socialProfiles: (data.socialProfiles ?? undefined) as unknown as
+          | Prisma.InputJsonValue
+          | undefined,
         tags: data.tags ?? [],
-        customFields: (data.customFields ?? undefined) as any,
+        customFields: (data.customFields ?? undefined) as unknown as
+          | Prisma.InputJsonValue
+          | undefined,
         avatarUrl: data.avatarUrl,
         assignedToUserId: data.assignedToUserId,
         isMainContact: data.isMainContact ?? false,
@@ -134,7 +139,7 @@ export class PrismaContactsRepository implements ContactsRepository {
 
     const [contactsData, total] = await Promise.all([
       prisma.crmContact.findMany({
-        where: where as any,
+        where: where as never,
         skip: (params.page - 1) * params.limit,
         take: params.limit,
         orderBy: {
@@ -142,7 +147,7 @@ export class PrismaContactsRepository implements ContactsRepository {
         },
       }),
       prisma.crmContact.count({
-        where: where as any,
+        where: where as never,
       }),
     ]);
 

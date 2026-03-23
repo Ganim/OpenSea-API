@@ -52,9 +52,7 @@ function mapToDomain(data: Record<string, unknown>): MarketplaceOrder {
 export class PrismaMarketplaceOrdersRepository
   implements MarketplaceOrdersRepository
 {
-  async create(
-    data: CreateMarketplaceOrderSchema,
-  ): Promise<MarketplaceOrder> {
+  async create(data: CreateMarketplaceOrderSchema): Promise<MarketplaceOrder> {
     const record = await prisma.marketplaceOrder.create({
       data: {
         tenantId: data.tenantId,
@@ -73,7 +71,9 @@ export class PrismaMarketplaceOrdersRepository
         netAmount: data.netAmount,
         currency: data.currency ?? 'BRL',
         shippingMethod: data.shippingMethod,
-        deliveryAddress: data.deliveryAddress as Prisma.InputJsonValue | undefined,
+        deliveryAddress: data.deliveryAddress as
+          | Prisma.InputJsonValue
+          | undefined,
         receivedAt: data.receivedAt,
         notes: data.notes,
       },

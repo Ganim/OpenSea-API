@@ -1,4 +1,3 @@
-import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';

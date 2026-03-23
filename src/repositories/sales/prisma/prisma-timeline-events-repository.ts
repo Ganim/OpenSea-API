@@ -38,7 +38,7 @@ export class PrismaTimelineEventsRepository
       orderBy: { createdAt: 'desc' },
     });
 
-    return items.map((e: any) =>
+    return items.map((e) =>
       timelineEventPrismaToDomain(e as unknown as Record<string, unknown>),
     );
   }
@@ -46,23 +46,21 @@ export class PrismaTimelineEventsRepository
   async findManyPaginated(
     params: FindManyTimelineEventsPaginatedParams,
   ): Promise<PaginatedResult<TimelineEvent>> {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const where: any = { tenantId: params.tenantId };
+    const where: Record<string, unknown> = { tenantId: params.tenantId };
     if (params.dealId) where.dealId = params.dealId;
 
     const [items, total] = await Promise.all([
       prisma.crmTimelineEvent.findMany({
-        where,
+        where: where as never,
         orderBy: { createdAt: 'desc' },
         skip: (params.page - 1) * params.limit,
         take: params.limit,
       }),
-      prisma.crmTimelineEvent.count({ where }),
+      prisma.crmTimelineEvent.count({ where: where as never }),
     ]);
 
     return {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      data: items.map((e: any) =>
+      data: items.map((e) =>
         timelineEventPrismaToDomain(e as unknown as Record<string, unknown>),
       ),
       total,

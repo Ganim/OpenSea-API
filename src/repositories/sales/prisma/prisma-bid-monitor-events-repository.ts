@@ -22,7 +22,9 @@ function mapToDomain(data: Record<string, unknown>): BidMonitorEvent {
       actionRequired: data.actionRequired as boolean,
       actionTaken: (data.actionTaken as string) ?? undefined,
       actionTakenAt: (data.actionTakenAt as Date) ?? undefined,
-      actionTakenByUserId: data.actionTakenByUserId ? new UniqueEntityID(data.actionTakenByUserId as string) : undefined,
+      actionTakenByUserId: data.actionTakenByUserId
+        ? new UniqueEntityID(data.actionTakenByUserId as string)
+        : undefined,
       responseDeadline: (data.responseDeadline as Date) ?? undefined,
       responseStatus: (data.responseStatus as string) ?? undefined,
       createdAt: data.createdAt as Date,
@@ -31,7 +33,9 @@ function mapToDomain(data: Record<string, unknown>): BidMonitorEvent {
   );
 }
 
-export class PrismaBidMonitorEventsRepository implements BidMonitorEventsRepository {
+export class PrismaBidMonitorEventsRepository
+  implements BidMonitorEventsRepository
+{
   async create(event: BidMonitorEvent): Promise<void> {
     await prisma.bidMonitorEvent.create({
       data: {
@@ -54,7 +58,9 @@ export class PrismaBidMonitorEventsRepository implements BidMonitorEventsReposit
     });
   }
 
-  async findManyByBidId(params: FindManyBidMonitorEventsPaginatedParams): Promise<PaginatedResult<BidMonitorEvent>> {
+  async findManyByBidId(
+    params: FindManyBidMonitorEventsPaginatedParams,
+  ): Promise<PaginatedResult<BidMonitorEvent>> {
     const where: Record<string, unknown> = {
       tenantId: params.tenantId,
       bidId: params.bidId,
@@ -70,11 +76,15 @@ export class PrismaBidMonitorEventsRepository implements BidMonitorEventsReposit
         skip: (params.page - 1) * params.limit,
         take: params.limit,
       }),
-      prisma.bidMonitorEvent.count({ where: where as Prisma.BidMonitorEventWhereInput }),
+      prisma.bidMonitorEvent.count({
+        where: where as Prisma.BidMonitorEventWhereInput,
+      }),
     ]);
 
     return {
-      data: data.map((d) => mapToDomain(d as unknown as Record<string, unknown>)),
+      data: data.map((d) =>
+        mapToDomain(d as unknown as Record<string, unknown>),
+      ),
       total,
       page: params.page,
       limit: params.limit,

@@ -30,17 +30,18 @@ import { permissionsRoutes } from './controllers/rbac/permissions/routes';
 import { userDirectPermissionsRoutes } from './controllers/rbac/user-direct-permissions/routes';
 
 // Sales routes
-import { activitiesRoutes } from './controllers/sales/activities/routes';
+// TODO: CRM routes not yet implemented
+// import { activitiesRoutes } from './controllers/sales/activities/routes';
 import { commentsRoutes } from './controllers/sales/comments/routes';
 import { contactsRoutes } from './controllers/sales/contacts/routes';
 import { customersRoutes } from './controllers/sales/customers/routes';
-import { dealsRoutes } from './controllers/sales/deals/routes';
+// import { dealsRoutes } from './controllers/sales/deals/routes';
 import { itemReservationsRoutes } from './controllers/sales/item-reservations/routes';
 import { notificationPreferencesRoutes } from './controllers/sales/notification-preferences/routes';
 import { pipelineStagesRoutes } from './controllers/sales/pipeline-stages/routes';
 import { pipelinesRoutes } from './controllers/sales/pipelines/routes';
 import { salesOrdersRoutes } from './controllers/sales/sales-orders/routes';
-import { timelineRoutes } from './controllers/sales/timeline/routes';
+// import { timelineRoutes } from './controllers/sales/timeline/routes';
 import { variantPromotionsRoutes } from './controllers/sales/variant-promotions/routes';
 import { priceTablesRoutes } from './controllers/sales/price-tables/routes';
 import { customerPricesRoutes } from './controllers/sales/customer-prices/routes';

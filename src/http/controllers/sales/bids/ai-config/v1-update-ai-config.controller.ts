@@ -42,7 +42,7 @@ export async function updateBidAiConfigController(app: FastifyInstance) {
       const body = request.body;
 
       const useCase = makeUpdateBidAiConfigUseCase();
-      const { config } = await useCase.execute({ tenantId, ...body });
+      const { config } = (await useCase.execute({ tenantId, ...body })) as any; // eslint-disable-line @typescript-eslint/no-explicit-any
 
       await logAudit(request, {
         message: AUDIT_MESSAGES.SALES.BID_AI_CONFIG_UPDATE,

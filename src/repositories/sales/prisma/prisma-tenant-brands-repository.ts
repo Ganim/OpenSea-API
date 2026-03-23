@@ -2,6 +2,7 @@ import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { UniqueEntityID as EntityID } from '@/entities/domain/unique-entity-id';
 import { TenantBrand } from '@/entities/sales/tenant-brand';
 import { prisma } from '@/lib/prisma';
+import type { Prisma } from '@prisma/generated/client.js';
 import type { TenantBrandsRepository } from '../tenant-brands-repository';
 
 function mapToDomain(data: Record<string, unknown>): TenantBrand {
@@ -46,8 +47,12 @@ export class PrismaTenantBrandsRepository implements TenantBrandsRepository {
         fontFamily: brand.fontFamily,
         fontHeading: brand.fontHeading,
         tagline: brand.tagline,
-        socialLinks: (brand.socialLinks ?? undefined) as any,
-        contactInfo: (brand.contactInfo ?? undefined) as any,
+        socialLinks: (brand.socialLinks ?? undefined) as unknown as
+          | Prisma.InputJsonValue
+          | undefined,
+        contactInfo: (brand.contactInfo ?? undefined) as unknown as
+          | Prisma.InputJsonValue
+          | undefined,
         isDefault: brand.isDefault,
         createdAt: brand.createdAt,
       },
@@ -96,8 +101,12 @@ export class PrismaTenantBrandsRepository implements TenantBrandsRepository {
         fontFamily: brand.fontFamily,
         fontHeading: brand.fontHeading,
         tagline: brand.tagline,
-        socialLinks: (brand.socialLinks ?? undefined) as any,
-        contactInfo: (brand.contactInfo ?? undefined) as any,
+        socialLinks: (brand.socialLinks ?? undefined) as unknown as
+          | Prisma.InputJsonValue
+          | undefined,
+        contactInfo: (brand.contactInfo ?? undefined) as unknown as
+          | Prisma.InputJsonValue
+          | undefined,
       },
     });
   }

@@ -26,7 +26,18 @@ export async function v1ListMarketplaceOrdersController(app: FastifyInstance) {
         page: z.coerce.number().int().positive().default(1),
         perPage: z.coerce.number().int().positive().max(100).default(20),
         connectionId: z.string().uuid().optional(),
-        status: z.enum(['RECEIVED', 'ACKNOWLEDGED', 'PROCESSING', 'SHIPPED', 'DELIVERED', 'CANCELLED', 'RETURNED', 'DISPUTE']).optional(),
+        status: z
+          .enum([
+            'RECEIVED',
+            'ACKNOWLEDGED',
+            'PROCESSING',
+            'SHIPPED',
+            'DELIVERED',
+            'CANCELLED',
+            'RETURNED',
+            'DISPUTE',
+          ])
+          .optional(),
       }),
       response: {
         200: z.object({
@@ -43,7 +54,13 @@ export async function v1ListMarketplaceOrdersController(app: FastifyInstance) {
       const tenantId = request.user.tenantId!;
       const { page, perPage, connectionId, status } = request.query;
       const useCase = makeListMarketplaceOrdersUseCase();
-      const result = await useCase.execute({ tenantId, connectionId, status, page, perPage });
+      const result = await useCase.execute({
+        tenantId,
+        connectionId,
+        status,
+        page,
+        perPage,
+      });
       return reply.status(200).send(result);
     },
   });

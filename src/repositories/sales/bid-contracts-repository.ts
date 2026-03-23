@@ -13,8 +13,13 @@ export interface FindManyBidContractsPaginatedParams {
 export interface BidContractsRepository {
   create(contract: BidContract): Promise<void>;
   findById(id: UniqueEntityID, tenantId: string): Promise<BidContract | null>;
-  findByNumber(contractNumber: string, tenantId: string): Promise<BidContract | null>;
-  findManyPaginated(params: FindManyBidContractsPaginatedParams): Promise<PaginatedResult<BidContract>>;
+  findByNumber(
+    contractNumber: string,
+    tenantId: string,
+  ): Promise<BidContract | null>;
+  findManyPaginated(
+    params: FindManyBidContractsPaginatedParams,
+  ): Promise<PaginatedResult<BidContract>>;
   save(contract: BidContract): Promise<void>;
   delete(id: UniqueEntityID, tenantId: string): Promise<void>;
 }

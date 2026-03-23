@@ -42,7 +42,7 @@ function getLogger() {
 function getNotificationsRepository() {
   const {
     PrismaNotificationsRepository,
-  } = require('@/repositories/notifications/prisma/prisma-notifications-repository');
+  } = require('@/repositories/notifications/prisma/prisma-notifications-repository'); // eslint-disable-line @typescript-eslint/no-require-imports
   return new PrismaNotificationsRepository();
 }
 

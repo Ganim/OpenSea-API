@@ -1,9 +1,6 @@
 import { z } from 'zod';
 
-export const posCashMovementTypeEnum = z.enum([
-  'WITHDRAWAL',
-  'SUPPLY',
-]);
+export const posCashMovementTypeEnum = z.enum(['WITHDRAWAL', 'SUPPLY']);
 
 export const createPosCashMovementSchema = z.object({
   sessionId: z.string().uuid(),

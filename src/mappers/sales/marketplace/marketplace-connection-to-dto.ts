@@ -28,7 +28,9 @@ export interface MarketplaceConnectionDTO {
   updatedAt?: Date;
 }
 
-export function marketplaceConnectionToDTO(connection: MarketplaceConnection): MarketplaceConnectionDTO {
+export function marketplaceConnectionToDTO(
+  connection: MarketplaceConnection,
+): MarketplaceConnectionDTO {
   const dto: MarketplaceConnectionDTO = {
     id: connection.id.toString(),
     marketplace: connection.marketplace,
@@ -51,8 +53,10 @@ export function marketplaceConnectionToDTO(connection: MarketplaceConnection): M
   if (connection.lastSyncStatus) dto.lastSyncStatus = connection.lastSyncStatus;
   if (connection.lastSyncError) dto.lastSyncError = connection.lastSyncError;
   if (connection.priceTableId) dto.priceTableId = connection.priceTableId;
-  if (connection.commissionPercent !== undefined) dto.commissionPercent = connection.commissionPercent;
-  if (connection.defaultWarehouseId) dto.defaultWarehouseId = connection.defaultWarehouseId;
+  if (connection.commissionPercent !== undefined)
+    dto.commissionPercent = connection.commissionPercent;
+  if (connection.defaultWarehouseId)
+    dto.defaultWarehouseId = connection.defaultWarehouseId;
   if (connection.webhookUrl) dto.webhookUrl = connection.webhookUrl;
   if (connection.settings) dto.settings = connection.settings;
   if (connection.updatedAt) dto.updatedAt = connection.updatedAt;

@@ -1,4 +1,3 @@
-import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { MarketplacePayment } from '@/entities/sales/marketplace-payment';
 
 export interface MarketplacePaymentsRepository {

@@ -5,7 +5,6 @@ import type { PriceTableItemsRepository } from '@/repositories/sales/price-table
 import type {
   PriceTablesRepository,
   PriceTableRuleData,
-  PriceTableWithRules,
 } from '@/repositories/sales/price-tables-repository';
 import type {
   PriceResolverInput,

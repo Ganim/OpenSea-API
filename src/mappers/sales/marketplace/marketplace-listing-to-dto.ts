@@ -31,7 +31,9 @@ export interface MarketplaceListingDTO {
   updatedAt?: Date;
 }
 
-export function marketplaceListingToDTO(listing: MarketplaceListing): MarketplaceListingDTO {
+export function marketplaceListingToDTO(
+  listing: MarketplaceListing,
+): MarketplaceListingDTO {
   return {
     id: listing.id.toString(),
     connectionId: listing.connectionId.toString(),

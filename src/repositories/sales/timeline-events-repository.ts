@@ -1,4 +1,3 @@
-import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { TimelineEvent } from '@/entities/sales/timeline-event';
 import type { PaginatedResult } from '@/repositories/pagination-params';
 

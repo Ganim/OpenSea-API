@@ -15,7 +15,9 @@ interface GetBidByIdUseCaseResponse {
 export class GetBidByIdUseCase {
   constructor(private bidsRepository: BidsRepository) {}
 
-  async execute(request: GetBidByIdUseCaseRequest): Promise<GetBidByIdUseCaseResponse> {
+  async execute(
+    request: GetBidByIdUseCaseRequest,
+  ): Promise<GetBidByIdUseCaseResponse> {
     const bid = await this.bidsRepository.findById(
       new UniqueEntityID(request.id),
       request.tenantId,

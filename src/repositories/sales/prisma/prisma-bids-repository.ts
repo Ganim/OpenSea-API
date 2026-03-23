@@ -25,15 +25,20 @@ function mapToDomain(data: Record<string, unknown>): Bid {
       modality: data.modality as string as Bid['modality'],
       criterionType: data.criterionType as string as Bid['criterionType'],
       legalFramework: data.legalFramework as string as Bid['legalFramework'],
-      executionRegime: (data.executionRegime as string as Bid['executionRegime']) ?? undefined,
+      executionRegime:
+        (data.executionRegime as string as Bid['executionRegime']) ?? undefined,
       object: data.object as string,
       objectSummary: (data.objectSummary as string) ?? undefined,
       organName: data.organName as string,
       organCnpj: (data.organCnpj as string) ?? undefined,
       organState: (data.organState as string) ?? undefined,
       organCity: (data.organCity as string) ?? undefined,
-      estimatedValue: data.estimatedValue ? Number(data.estimatedValue) : undefined,
-      ourProposalValue: data.ourProposalValue ? Number(data.ourProposalValue) : undefined,
+      estimatedValue: data.estimatedValue
+        ? Number(data.estimatedValue)
+        : undefined,
+      ourProposalValue: data.ourProposalValue
+        ? Number(data.ourProposalValue)
+        : undefined,
       finalValue: data.finalValue ? Number(data.finalValue) : undefined,
       margin: data.margin ? Number(data.margin) : undefined,
       publicationDate: (data.publicationDate as Date) ?? undefined,
@@ -43,16 +48,28 @@ function mapToDomain(data: Record<string, unknown>): Bid {
       status: data.status as string as Bid['status'],
       viabilityScore: (data.viabilityScore as number) ?? undefined,
       viabilityReason: (data.viabilityReason as string) ?? undefined,
-      customerId: data.customerId ? new UniqueEntityID(data.customerId as string) : undefined,
-      assignedToUserId: data.assignedToUserId ? new UniqueEntityID(data.assignedToUserId as string) : undefined,
+      customerId: data.customerId
+        ? new UniqueEntityID(data.customerId as string)
+        : undefined,
+      assignedToUserId: data.assignedToUserId
+        ? new UniqueEntityID(data.assignedToUserId as string)
+        : undefined,
       exclusiveMeEpp: data.exclusiveMeEpp as boolean,
-      deliveryStates: Array.isArray(data.deliveryStates) ? (data.deliveryStates as string[]) : [],
+      deliveryStates: Array.isArray(data.deliveryStates)
+        ? (data.deliveryStates as string[])
+        : [],
       tags: Array.isArray(data.tags) ? (data.tags as string[]) : [],
       notes: (data.notes as string) ?? undefined,
       editalUrl: (data.editalUrl as string) ?? undefined,
-      editalFileId: data.editalFileId ? new UniqueEntityID(data.editalFileId as string) : undefined,
-      etpFileId: data.etpFileId ? new UniqueEntityID(data.etpFileId as string) : undefined,
-      trFileId: data.trFileId ? new UniqueEntityID(data.trFileId as string) : undefined,
+      editalFileId: data.editalFileId
+        ? new UniqueEntityID(data.editalFileId as string)
+        : undefined,
+      etpFileId: data.etpFileId
+        ? new UniqueEntityID(data.etpFileId as string)
+        : undefined,
+      trFileId: data.trFileId
+        ? new UniqueEntityID(data.trFileId as string)
+        : undefined,
       deletedAt: (data.deletedAt as Date) ?? undefined,
       createdAt: data.createdAt as Date,
       updatedAt: (data.updatedAt as Date) ?? undefined,
@@ -73,16 +90,27 @@ export class PrismaBidsRepository implements BidsRepository {
         modality: bid.modality as PrismaBidModality,
         criterionType: bid.criterionType as PrismaBidCriterion,
         legalFramework: bid.legalFramework as PrismaBidLegalFramework,
-        executionRegime: bid.executionRegime as PrismaBidExecutionRegime | undefined,
+        executionRegime: bid.executionRegime as
+          | PrismaBidExecutionRegime
+          | undefined,
         object: bid.object,
         objectSummary: bid.objectSummary,
         organName: bid.organName,
         organCnpj: bid.organCnpj,
         organState: bid.organState,
         organCity: bid.organCity,
-        estimatedValue: bid.estimatedValue != null ? new Prisma.Decimal(bid.estimatedValue) : undefined,
-        ourProposalValue: bid.ourProposalValue != null ? new Prisma.Decimal(bid.ourProposalValue) : undefined,
-        finalValue: bid.finalValue != null ? new Prisma.Decimal(bid.finalValue) : undefined,
+        estimatedValue:
+          bid.estimatedValue != null
+            ? new Prisma.Decimal(bid.estimatedValue)
+            : undefined,
+        ourProposalValue:
+          bid.ourProposalValue != null
+            ? new Prisma.Decimal(bid.ourProposalValue)
+            : undefined,
+        finalValue:
+          bid.finalValue != null
+            ? new Prisma.Decimal(bid.finalValue)
+            : undefined,
         margin: bid.margin != null ? new Prisma.Decimal(bid.margin) : undefined,
         publicationDate: bid.publicationDate,
         openingDate: bid.openingDate,
@@ -119,7 +147,9 @@ export class PrismaBidsRepository implements BidsRepository {
     return mapToDomain(data as unknown as Record<string, unknown>);
   }
 
-  async findManyPaginated(params: FindManyBidsPaginatedParams): Promise<PaginatedResult<Bid>> {
+  async findManyPaginated(
+    params: FindManyBidsPaginatedParams,
+  ): Promise<PaginatedResult<Bid>> {
     const where: Record<string, unknown> = {
       tenantId: params.tenantId,
       deletedAt: null,
@@ -128,7 +158,8 @@ export class PrismaBidsRepository implements BidsRepository {
     if (params.status) where.status = params.status;
     if (params.modality) where.modality = params.modality;
     if (params.organState) where.organState = params.organState;
-    if (params.assignedToUserId) where.assignedToUserId = params.assignedToUserId;
+    if (params.assignedToUserId)
+      where.assignedToUserId = params.assignedToUserId;
 
     if (params.search) {
       where.OR = [
@@ -151,7 +182,9 @@ export class PrismaBidsRepository implements BidsRepository {
     ]);
 
     return {
-      data: data.map((d) => mapToDomain(d as unknown as Record<string, unknown>)),
+      data: data.map((d) =>
+        mapToDomain(d as unknown as Record<string, unknown>),
+      ),
       total,
       page: params.page,
       limit: params.limit,
@@ -168,16 +201,25 @@ export class PrismaBidsRepository implements BidsRepository {
         modality: bid.modality as PrismaBidModality,
         criterionType: bid.criterionType as PrismaBidCriterion,
         legalFramework: bid.legalFramework as PrismaBidLegalFramework,
-        executionRegime: bid.executionRegime as PrismaBidExecutionRegime | undefined,
+        executionRegime: bid.executionRegime as
+          | PrismaBidExecutionRegime
+          | undefined,
         object: bid.object,
         objectSummary: bid.objectSummary,
         organName: bid.organName,
         organCnpj: bid.organCnpj,
         organState: bid.organState,
         organCity: bid.organCity,
-        estimatedValue: bid.estimatedValue != null ? new Prisma.Decimal(bid.estimatedValue) : null,
-        ourProposalValue: bid.ourProposalValue != null ? new Prisma.Decimal(bid.ourProposalValue) : null,
-        finalValue: bid.finalValue != null ? new Prisma.Decimal(bid.finalValue) : null,
+        estimatedValue:
+          bid.estimatedValue != null
+            ? new Prisma.Decimal(bid.estimatedValue)
+            : null,
+        ourProposalValue:
+          bid.ourProposalValue != null
+            ? new Prisma.Decimal(bid.ourProposalValue)
+            : null,
+        finalValue:
+          bid.finalValue != null ? new Prisma.Decimal(bid.finalValue) : null,
         margin: bid.margin != null ? new Prisma.Decimal(bid.margin) : null,
         publicationDate: bid.publicationDate,
         openingDate: bid.openingDate,

@@ -2,6 +2,7 @@ import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { UniqueEntityID as EntityID } from '@/entities/domain/unique-entity-id';
 import { AnalyticsDashboard } from '@/entities/sales/analytics-dashboard';
 import { prisma } from '@/lib/prisma';
+import type { Prisma } from '@prisma/generated/client.js';
 import type {
   AnalyticsDashboardsRepository,
   CreateAnalyticsDashboardSchema,
@@ -46,7 +47,9 @@ export class PrismaAnalyticsDashboardsRepository
         isSystem: data.isSystem ?? false,
         role: data.role as DashboardRole | undefined,
         visibility: (data.visibility as DashboardVisibility) ?? 'PRIVATE',
-        layout: (data.layout ?? undefined) as any,
+        layout: (data.layout ?? undefined) as unknown as
+          | Prisma.InputJsonValue
+          | undefined,
         createdByUserId: data.createdByUserId,
       },
     });
@@ -102,7 +105,7 @@ export class PrismaAnalyticsDashboardsRepository
     return prisma.analyticsDashboard.count({ where });
   }
 
-  async delete(id: UniqueEntityID, tenantId: string): Promise<void> {
+  async delete(id: UniqueEntityID, _tenantId: string): Promise<void> {
     await prisma.analyticsDashboard.update({
       where: { id: id.toString() },
       data: { deletedAt: new Date() },

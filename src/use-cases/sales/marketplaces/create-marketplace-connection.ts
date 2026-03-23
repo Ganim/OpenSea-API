@@ -1,5 +1,5 @@
 export class CreateMarketplaceConnectionUseCase {
-  async execute(request: any): Promise<any> {
+  async execute(_request: unknown): Promise<unknown> {
     throw new Error('CreateMarketplaceConnectionUseCase not implemented');
   }
 }

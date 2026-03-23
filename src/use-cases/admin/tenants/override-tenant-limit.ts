@@ -23,8 +23,8 @@ export class OverrideTenantLimitUseCase {
     tenantId,
     metric,
     newLimit,
-    expiresAt,
-    notes,
+    expiresAt: _expiresAt,
+    notes: _notes,
   }: OverrideTenantLimitUseCaseRequest): Promise<OverrideTenantLimitUseCaseResponse> {
     if (newLimit < 0) {
       throw new BadRequestError('Limit must be a non-negative number');

@@ -43,6 +43,6 @@ export function verifyCentralRole(allowedRoles: CentralUserRole[]) {
     }
 
     // Attach centralUser to request for downstream use
-    (request as any).centralUser = centralUser;
+    (request as unknown as Record<string, unknown>).centralUser = centralUser;
   };
 }

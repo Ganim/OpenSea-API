@@ -11,5 +11,7 @@ export interface FindManyBidMonitorEventsPaginatedParams {
 
 export interface BidMonitorEventsRepository {
   create(event: BidMonitorEvent): Promise<void>;
-  findManyByBidId(params: FindManyBidMonitorEventsPaginatedParams): Promise<PaginatedResult<BidMonitorEvent>>;
+  findManyByBidId(
+    params: FindManyBidMonitorEventsPaginatedParams,
+  ): Promise<PaginatedResult<BidMonitorEvent>>;
 }

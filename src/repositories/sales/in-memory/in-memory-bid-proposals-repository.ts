@@ -13,7 +13,10 @@ export class InMemoryBidProposalsRepository implements BidProposalsRepository {
     this.items.push(proposal);
   }
 
-  async findById(id: UniqueEntityID, tenantId: string): Promise<BidProposal | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<BidProposal | null> {
     return (
       this.items.find(
         (p) =>

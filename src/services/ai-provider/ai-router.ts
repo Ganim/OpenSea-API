@@ -87,9 +87,7 @@ export class AiRouter {
     // Fallback: find any tier that supports tools
     const toolTier = this.findToolCapableTier(selectedTier);
     if (!toolTier) {
-      throw new Error(
-        'No AI provider with tool support available on any tier',
-      );
+      throw new Error('No AI provider with tool support available on any tier');
     }
 
     const fallbackProvider = this.providers.get(toolTier)!;

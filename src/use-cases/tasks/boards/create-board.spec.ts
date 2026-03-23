@@ -14,7 +14,11 @@ describe('CreateBoardUseCase', () => {
     boardsRepository = new InMemoryBoardsRepository();
     boardColumnsRepository = new InMemoryBoardColumnsRepository();
     boardMembersRepository = new InMemoryBoardMembersRepository();
-    sut = new CreateBoardUseCase(boardsRepository, boardColumnsRepository, boardMembersRepository);
+    sut = new CreateBoardUseCase(
+      boardsRepository,
+      boardColumnsRepository,
+      boardMembersRepository,
+    );
   });
 
   it('should create a personal board', async () => {

@@ -5,7 +5,9 @@ import type {
   FindManyBidMonitorEventsPaginatedParams,
 } from '@/repositories/sales/bid-monitor-events-repository';
 
-export class InMemoryBidMonitorEventsRepository implements BidMonitorEventsRepository {
+export class InMemoryBidMonitorEventsRepository
+  implements BidMonitorEventsRepository
+{
   public items: BidMonitorEvent[] = [];
 
   async create(event: BidMonitorEvent): Promise<void> {
@@ -22,7 +24,9 @@ export class InMemoryBidMonitorEventsRepository implements BidMonitorEventsRepos
     );
 
     if (params.actionRequired !== undefined) {
-      filtered = filtered.filter((e) => e.actionRequired === params.actionRequired);
+      filtered = filtered.filter(
+        (e) => e.actionRequired === params.actionRequired,
+      );
     }
 
     const total = filtered.length;

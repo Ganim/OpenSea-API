@@ -1,5 +1,8 @@
-// EventLog model not yet in Prisma schema — using `any` for prisma client
-type PrismaClient = any;
+// EventLog model not yet in Prisma schema — using `unknown` for prisma client
+type PrismaClient = Record<
+  string,
+  Record<string, (...args: unknown[]) => unknown>
+>;
 
 import type {
   EventLogCreateInput,
@@ -72,7 +75,7 @@ export class PrismaEventLogRepository implements EventLogRepository {
 
     return {
       data: data as unknown as EventLogRecord[],
-      total,
+      total: total as number,
     };
   }
 

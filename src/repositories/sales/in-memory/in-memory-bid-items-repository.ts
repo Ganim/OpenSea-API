@@ -17,7 +17,10 @@ export class InMemoryBidItemsRepository implements BidItemsRepository {
     this.items.push(...items);
   }
 
-  async findById(id: UniqueEntityID, tenantId: string): Promise<BidItem | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<BidItem | null> {
     return (
       this.items.find(
         (i) =>

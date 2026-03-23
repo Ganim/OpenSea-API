@@ -49,7 +49,11 @@ export async function v1PublishListingController(app: FastifyInstance) {
       const data = request.body;
       try {
         const useCase = makePublishMarketplaceListingUseCase();
-        const result = await useCase.execute({ tenantId, connectionId, ...data });
+        const result = await useCase.execute({
+          tenantId,
+          connectionId,
+          ...data,
+        });
         return reply.status(201).send(result);
       } catch (err) {
         if (err instanceof BadRequestError) {

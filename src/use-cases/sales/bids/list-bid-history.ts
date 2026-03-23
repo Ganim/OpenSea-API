@@ -20,13 +20,16 @@ interface ListBidHistoryUseCaseResponse {
 export class ListBidHistoryUseCase {
   constructor(private bidHistoryRepository: BidHistoryRepository) {}
 
-  async execute(request: ListBidHistoryUseCaseRequest): Promise<ListBidHistoryUseCaseResponse> {
-    const result: PaginatedResult<BidHistory> = await this.bidHistoryRepository.findManyByBidId({
-      tenantId: request.tenantId,
-      bidId: request.bidId,
-      page: request.page,
-      limit: request.limit,
-    });
+  async execute(
+    request: ListBidHistoryUseCaseRequest,
+  ): Promise<ListBidHistoryUseCaseResponse> {
+    const result: PaginatedResult<BidHistory> =
+      await this.bidHistoryRepository.findManyByBidId({
+        tenantId: request.tenantId,
+        bidId: request.bidId,
+        page: request.page,
+        limit: request.limit,
+      });
 
     return {
       history: result.data,

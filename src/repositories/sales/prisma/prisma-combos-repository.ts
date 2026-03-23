@@ -9,6 +9,7 @@ import type {
   FindManyCombosParams,
   UpdateComboSchema,
 } from '../combos-repository';
+import type { ComboType, ComboDiscountType } from '@prisma/generated/client.js';
 
 export class PrismaCombosRepository implements CombosRepository {
   async create(data: CreateComboSchema): Promise<Combo> {
@@ -17,8 +18,8 @@ export class PrismaCombosRepository implements CombosRepository {
         tenantId: data.tenantId,
         name: data.name,
         description: data.description ?? null,
-        type: data.type as any,
-        discountType: data.discountType as any,
+        type: data.type as ComboType,
+        discountType: data.discountType as ComboDiscountType,
         discountValue: data.discountValue,
         isActive: data.isActive ?? true,
         validFrom: data.startDate ?? null,

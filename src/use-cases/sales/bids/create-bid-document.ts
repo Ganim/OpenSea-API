@@ -23,7 +23,9 @@ interface CreateBidDocumentUseCaseResponse {
 export class CreateBidDocumentUseCase {
   constructor(private bidDocumentsRepository: BidDocumentsRepository) {}
 
-  async execute(request: CreateBidDocumentUseCaseRequest): Promise<CreateBidDocumentUseCaseResponse> {
+  async execute(
+    request: CreateBidDocumentUseCaseRequest,
+  ): Promise<CreateBidDocumentUseCaseResponse> {
     if (!request.name || request.name.trim().length === 0) {
       throw new BadRequestError('Document name is required');
     }

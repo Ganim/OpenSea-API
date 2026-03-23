@@ -29,7 +29,9 @@ export class CancelPosTransactionUseCase {
     }
 
     if (transaction.status !== 'COMPLETED') {
-      throw new BadRequestError('Only completed transactions can be cancelled.');
+      throw new BadRequestError(
+        'Only completed transactions can be cancelled.',
+      );
     }
 
     transaction.status = 'CANCELLED';

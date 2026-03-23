@@ -71,14 +71,15 @@ export class ClosePosSessionUseCase {
     }
 
     // Get all completed transactions for this session to calculate cash sales
-    const transactions =
-      await this.posTransactionsRepository.findManyPaginated({
+    const transactions = await this.posTransactionsRepository.findManyPaginated(
+      {
         tenantId: request.tenantId,
         sessionId: request.sessionId,
         status: 'COMPLETED',
         page: 1,
         limit: 10000,
-      });
+      },
+    );
 
     // Sum cash payments (from grandTotal for simplicity - in production would
     // sum only CASH payments from PosTransactionPayment)
@@ -94,7 +95,9 @@ export class ClosePosSessionUseCase {
     session.closingBalance = request.closingBalance;
     session.expectedBalance = expectedCash;
     session.difference = difference;
-    session.closingBreakdown = request.closingBreakdown as Record<string, unknown> | undefined;
+    session.closingBreakdown = request.closingBreakdown as
+      | Record<string, unknown>
+      | undefined;
     if (request.notes) session.notes = request.notes;
 
     await this.posSessionsRepository.save(session);

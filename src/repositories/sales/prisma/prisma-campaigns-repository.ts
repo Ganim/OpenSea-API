@@ -9,27 +9,28 @@ import type {
   FindManyCampaignsParams,
   UpdateCampaignSchema,
 } from '../campaigns-repository';
+import type { CampaignType } from '@prisma/generated/client.js';
 
 // Helper to map a Prisma Campaign record to the domain entity.
 // The domain entity has fields (discountValue, applicableTo, currentUsageTotal)
 // that don't exist on the current Prisma model, so we provide safe defaults.
-function mapToDomain(record: any): Campaign {
+function mapToDomain(record: Record<string, unknown>): Campaign {
   return Campaign.create(
     {
-      tenantId: new EntityID(record.tenantId),
-      name: record.name,
-      description: record.description ?? undefined,
+      tenantId: new EntityID(record.tenantId as string),
+      name: record.name as string,
+      description: (record.description as string) ?? undefined,
       type: record.type as Campaign['type'],
       status: record.status as Campaign['status'],
       discountValue: 0,
       applicableTo: 'ALL' as Campaign['applicableTo'],
-      currentUsageTotal: record.usageCount ?? 0,
-      priority: record.priority ?? 0,
-      isStackable: record.stackable ?? false,
-      createdAt: record.createdAt,
-      updatedAt: record.updatedAt,
+      currentUsageTotal: (record.usageCount as number) ?? 0,
+      priority: (record.priority as number) ?? 0,
+      isStackable: (record.stackable as boolean) ?? false,
+      createdAt: record.createdAt as Date,
+      updatedAt: record.updatedAt as Date,
     },
-    new EntityID(record.id),
+    new EntityID(record.id as string),
   );
 }
 
@@ -40,7 +41,7 @@ export class PrismaCampaignsRepository implements CampaignsRepository {
         tenantId: data.tenantId,
         name: data.name,
         description: data.description ?? null,
-        type: data.type as any,
+        type: data.type as CampaignType,
         status: 'DRAFT',
         startDate: data.startDate ?? new Date(),
         endDate: data.endDate ?? new Date(),
@@ -52,7 +53,7 @@ export class PrismaCampaignsRepository implements CampaignsRepository {
       },
     });
 
-    return mapToDomain(record);
+    return mapToDomain(record as unknown as Record<string, unknown>);
   }
 
   async findById(
@@ -64,7 +65,7 @@ export class PrismaCampaignsRepository implements CampaignsRepository {
     });
 
     if (!record) return null;
-    return mapToDomain(record);
+    return mapToDomain(record as unknown as Record<string, unknown>);
   }
 
   async findManyPaginated(
@@ -93,7 +94,9 @@ export class PrismaCampaignsRepository implements CampaignsRepository {
       prisma.campaign.count({ where }),
     ]);
 
-    const data = records.map((r) => mapToDomain(r));
+    const data = records.map((r) =>
+      mapToDomain(r as unknown as Record<string, unknown>),
+    );
 
     return {
       data,
@@ -109,7 +112,9 @@ export class PrismaCampaignsRepository implements CampaignsRepository {
       where: { tenantId, status: 'ACTIVE', deletedAt: null },
     });
 
-    return records.map((r) => mapToDomain(r));
+    return records.map((r) =>
+      mapToDomain(r as unknown as Record<string, unknown>),
+    );
   }
 
   async update(data: UpdateCampaignSchema): Promise<Campaign | null> {
@@ -125,17 +130,17 @@ export class PrismaCampaignsRepository implements CampaignsRepository {
       data: updateData,
     });
 
-    return mapToDomain(record);
+    return mapToDomain(record as unknown as Record<string, unknown>);
   }
 
-  async delete(id: UniqueEntityID, tenantId: string): Promise<void> {
+  async delete(id: UniqueEntityID, _tenantId: string): Promise<void> {
     await prisma.campaign.update({
       where: { id: id.toString() },
       data: { deletedAt: new Date() },
     });
   }
 
-  async incrementUsage(id: UniqueEntityID, tenantId: string): Promise<void> {
+  async incrementUsage(id: UniqueEntityID, _tenantId: string): Promise<void> {
     await prisma.campaign.update({
       where: { id: id.toString() },
       data: { usageCount: { increment: 1 } },

@@ -2,7 +2,10 @@ import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { createBidContractSchema, bidContractResponseSchema } from '@/http/schemas/sales/bids/bid.schema';
+import {
+  createBidContractSchema,
+  bidContractResponseSchema,
+} from '@/http/schemas/sales/bids/bid.schema';
 import { bidContractToDTO } from '@/mappers/sales/bid-contract/bid-contract-to-dto';
 import { makeCreateBidContractUseCase } from '@/use-cases/sales/bids/factories/make-create-bid-contract-use-case';
 import type { FastifyInstance } from 'fastify';

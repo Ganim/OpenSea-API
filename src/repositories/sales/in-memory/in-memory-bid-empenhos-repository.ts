@@ -13,7 +13,10 @@ export class InMemoryBidEmpenhosRepository implements BidEmpenhosRepository {
     this.items.push(empenho);
   }
 
-  async findById(id: UniqueEntityID, tenantId: string): Promise<BidEmpenho | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<BidEmpenho | null> {
     return (
       this.items.find(
         (e) =>
@@ -23,7 +26,10 @@ export class InMemoryBidEmpenhosRepository implements BidEmpenhosRepository {
     );
   }
 
-  async findByNumber(empenhoNumber: string, tenantId: string): Promise<BidEmpenho | null> {
+  async findByNumber(
+    empenhoNumber: string,
+    tenantId: string,
+  ): Promise<BidEmpenho | null> {
     return (
       this.items.find(
         (e) =>

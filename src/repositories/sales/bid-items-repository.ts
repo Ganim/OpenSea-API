@@ -14,7 +14,9 @@ export interface BidItemsRepository {
   create(item: BidItem): Promise<void>;
   createMany(items: BidItem[]): Promise<void>;
   findById(id: UniqueEntityID, tenantId: string): Promise<BidItem | null>;
-  findManyByBidId(params: FindManyBidItemsPaginatedParams): Promise<PaginatedResult<BidItem>>;
+  findManyByBidId(
+    params: FindManyBidItemsPaginatedParams,
+  ): Promise<PaginatedResult<BidItem>>;
   save(item: BidItem): Promise<void>;
   deleteByBidId(bidId: string, tenantId: string): Promise<void>;
 }

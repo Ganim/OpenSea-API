@@ -105,7 +105,7 @@ describe('SignDocumentUseCase', () => {
       createdByUserId: 'user-1',
     });
 
-    const signer = await signersRepo.create({
+    const _signer = await signersRepo.create({
       tenantId: TENANT_ID,
       envelopeId: envelope.id.toString(),
       signatureLevel: 'SIMPLE',

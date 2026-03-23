@@ -123,7 +123,7 @@ describe('ScanInventoryItemUseCase', () => {
   });
 
   it('should create EXTRA item when scanned item is not in session', async () => {
-    const item = createItem({ uniqueCode: 'SCAN-003' });
+    const _item = createItem({ uniqueCode: 'SCAN-003' });
     const session = createSession();
 
     const result = await sut.execute({

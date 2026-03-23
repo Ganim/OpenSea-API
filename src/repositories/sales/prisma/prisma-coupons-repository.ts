@@ -9,24 +9,28 @@ import type {
   FindManyCouponsParams,
   UpdateCouponSchema,
 } from '../coupons-repository';
+import type {
+  CouponType,
+  CouponApplicableTo,
+} from '@prisma/generated/client.js';
 
 // Map Prisma Coupon record to domain entity.
 // The Prisma model uses `type`/`value`/`applicableTo`/`usageCount`
 // while the domain entity uses `discountType`/`discountValue`/`applicableTo`/`currentUsageTotal`.
-function mapToDomain(record: any): Coupon {
+function mapToDomain(record: Record<string, unknown>): Coupon {
   return Coupon.create(
     {
-      tenantId: new EntityID(record.tenantId),
-      code: record.code,
+      tenantId: new EntityID(record.tenantId as string),
+      code: record.code as string,
       discountType: record.type as Coupon['discountType'],
       discountValue: Number(record.value),
       applicableTo: record.applicableTo as Coupon['applicableTo'],
-      isActive: record.isActive,
-      currentUsageTotal: record.usageCount ?? 0,
-      createdAt: record.createdAt,
-      updatedAt: record.updatedAt,
+      isActive: record.isActive as boolean,
+      currentUsageTotal: (record.usageCount as number) ?? 0,
+      createdAt: record.createdAt as Date,
+      updatedAt: record.updatedAt as Date,
     },
-    new EntityID(record.id),
+    new EntityID(record.id as string),
   );
 }
 
@@ -36,9 +40,9 @@ export class PrismaCouponsRepository implements CouponsRepository {
       data: {
         tenantId: data.tenantId,
         code: data.code.toUpperCase(),
-        type: data.discountType as any,
+        type: data.discountType as CouponType,
         value: data.discountValue,
-        applicableTo: (data.applicableTo as any) ?? 'ALL',
+        applicableTo: (data.applicableTo as CouponApplicableTo) ?? 'ALL',
         minOrderValue: data.minOrderValue ?? null,
         maxDiscount: data.maxDiscountAmount ?? null,
         maxUsageTotal: data.maxUsageTotal ?? null,
@@ -49,7 +53,7 @@ export class PrismaCouponsRepository implements CouponsRepository {
       },
     });
 
-    return mapToDomain(record);
+    return mapToDomain(record as unknown as Record<string, unknown>);
   }
 
   async findById(id: UniqueEntityID, tenantId: string): Promise<Coupon | null> {
@@ -58,7 +62,7 @@ export class PrismaCouponsRepository implements CouponsRepository {
     });
 
     if (!record) return null;
-    return mapToDomain(record);
+    return mapToDomain(record as unknown as Record<string, unknown>);
   }
 
   async findByCode(code: string, tenantId: string): Promise<Coupon | null> {
@@ -70,7 +74,7 @@ export class PrismaCouponsRepository implements CouponsRepository {
     });
 
     if (!record) return null;
-    return mapToDomain(record);
+    return mapToDomain(record as unknown as Record<string, unknown>);
   }
 
   async findManyPaginated(
@@ -95,7 +99,9 @@ export class PrismaCouponsRepository implements CouponsRepository {
       prisma.coupon.count({ where }),
     ]);
 
-    const data = records.map((r) => mapToDomain(r));
+    const data = records.map((r) =>
+      mapToDomain(r as unknown as Record<string, unknown>),
+    );
 
     return {
       data,
@@ -118,17 +124,17 @@ export class PrismaCouponsRepository implements CouponsRepository {
       data: updateData,
     });
 
-    return mapToDomain(record);
+    return mapToDomain(record as unknown as Record<string, unknown>);
   }
 
-  async delete(id: UniqueEntityID, tenantId: string): Promise<void> {
+  async delete(id: UniqueEntityID, _tenantId: string): Promise<void> {
     await prisma.coupon.update({
       where: { id: id.toString() },
       data: { isActive: false },
     });
   }
 
-  async incrementUsage(id: UniqueEntityID, tenantId: string): Promise<void> {
+  async incrementUsage(id: UniqueEntityID, _tenantId: string): Promise<void> {
     await prisma.coupon.update({
       where: { id: id.toString() },
       data: { usageCount: { increment: 1 } },

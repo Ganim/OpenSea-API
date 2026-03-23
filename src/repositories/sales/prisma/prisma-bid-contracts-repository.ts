@@ -25,8 +25,11 @@ function mapToDomain(data: Record<string, unknown>): BidContract {
       renewalCount: data.renewalCount as number,
       maxRenewals: (data.maxRenewals as number) ?? undefined,
       renewalDeadline: (data.renewalDeadline as Date) ?? undefined,
-      deliveryAddresses: (data.deliveryAddresses as Record<string, unknown>) ?? undefined,
-      contractFileId: data.contractFileId ? new UniqueEntityID(data.contractFileId as string) : undefined,
+      deliveryAddresses:
+        (data.deliveryAddresses as Record<string, unknown>) ?? undefined,
+      contractFileId: data.contractFileId
+        ? new UniqueEntityID(data.contractFileId as string)
+        : undefined,
       notes: (data.notes as string) ?? undefined,
       deletedAt: (data.deletedAt as Date) ?? undefined,
       createdAt: data.createdAt as Date,
@@ -54,7 +57,8 @@ export class PrismaBidContractsRepository implements BidContractsRepository {
         renewalCount: contract.renewalCount,
         maxRenewals: contract.maxRenewals,
         renewalDeadline: contract.renewalDeadline,
-        deliveryAddresses: (contract.deliveryAddresses as Prisma.InputJsonValue) ?? undefined,
+        deliveryAddresses:
+          (contract.deliveryAddresses as Prisma.InputJsonValue) ?? undefined,
         contractFileId: contract.contractFileId?.toString(),
         notes: contract.notes,
         createdAt: contract.createdAt,
@@ -62,7 +66,10 @@ export class PrismaBidContractsRepository implements BidContractsRepository {
     });
   }
 
-  async findById(id: UniqueEntityID, tenantId: string): Promise<BidContract | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<BidContract | null> {
     const data = await prisma.bidContract.findFirst({
       where: { id: id.toString(), tenantId, deletedAt: null },
     });
@@ -70,7 +77,10 @@ export class PrismaBidContractsRepository implements BidContractsRepository {
     return mapToDomain(data as unknown as Record<string, unknown>);
   }
 
-  async findByNumber(contractNumber: string, tenantId: string): Promise<BidContract | null> {
+  async findByNumber(
+    contractNumber: string,
+    tenantId: string,
+  ): Promise<BidContract | null> {
     const data = await prisma.bidContract.findFirst({
       where: { contractNumber, tenantId, deletedAt: null },
     });
@@ -78,7 +88,9 @@ export class PrismaBidContractsRepository implements BidContractsRepository {
     return mapToDomain(data as unknown as Record<string, unknown>);
   }
 
-  async findManyPaginated(params: FindManyBidContractsPaginatedParams): Promise<PaginatedResult<BidContract>> {
+  async findManyPaginated(
+    params: FindManyBidContractsPaginatedParams,
+  ): Promise<PaginatedResult<BidContract>> {
     const where: Record<string, unknown> = {
       tenantId: params.tenantId,
       deletedAt: null,
@@ -93,11 +105,15 @@ export class PrismaBidContractsRepository implements BidContractsRepository {
         skip: (params.page - 1) * params.limit,
         take: params.limit,
       }),
-      prisma.bidContract.count({ where: where as Prisma.BidContractWhereInput }),
+      prisma.bidContract.count({
+        where: where as Prisma.BidContractWhereInput,
+      }),
     ]);
 
     return {
-      data: data.map((d) => mapToDomain(d as unknown as Record<string, unknown>)),
+      data: data.map((d) =>
+        mapToDomain(d as unknown as Record<string, unknown>),
+      ),
       total,
       page: params.page,
       limit: params.limit,

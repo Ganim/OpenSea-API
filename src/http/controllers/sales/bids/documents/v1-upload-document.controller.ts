@@ -42,7 +42,10 @@ export async function uploadBidDocumentController(app: FastifyInstance) {
       const body = request.body;
 
       const useCase = makeUploadBidDocumentUseCase();
-      const { document } = await useCase.execute({ tenantId, ...body });
+      const { document } = (await useCase.execute({
+        tenantId,
+        ...body,
+      })) as any; // eslint-disable-line @typescript-eslint/no-explicit-any
 
       await logAudit(request, {
         message: AUDIT_MESSAGES.SALES.BID_DOCUMENT_CREATE,

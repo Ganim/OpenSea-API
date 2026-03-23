@@ -94,7 +94,9 @@ export class PrismaMarketplaceConnectionsRepository
         defaultWarehouseId: data.defaultWarehouseId,
         webhookUrl: data.webhookUrl,
         webhookSecret: data.webhookSecret,
-        settings: (data.settings ?? undefined) as Prisma.InputJsonValue | undefined,
+        settings: (data.settings ?? undefined) as
+          | Prisma.InputJsonValue
+          | undefined,
       },
     });
 
@@ -160,7 +162,8 @@ export class PrismaMarketplaceConnectionsRepository
       if (data.name !== undefined) updateData.name = data.name;
       if (data.status !== undefined) updateData.status = data.status;
       if (data.sellerId !== undefined) updateData.sellerId = data.sellerId;
-      if (data.sellerName !== undefined) updateData.sellerName = data.sellerName;
+      if (data.sellerName !== undefined)
+        updateData.sellerName = data.sellerName;
       if (data.accessToken !== undefined)
         updateData.accessToken = data.accessToken;
       if (data.refreshToken !== undefined)
@@ -192,7 +195,8 @@ export class PrismaMarketplaceConnectionsRepository
         updateData.fulfillmentType = data.fulfillmentType;
       if (data.defaultWarehouseId !== undefined)
         updateData.defaultWarehouseId = data.defaultWarehouseId;
-      if (data.webhookUrl !== undefined) updateData.webhookUrl = data.webhookUrl;
+      if (data.webhookUrl !== undefined)
+        updateData.webhookUrl = data.webhookUrl;
       if (data.webhookSecret !== undefined)
         updateData.webhookSecret = data.webhookSecret;
       if (data.settings !== undefined) updateData.settings = data.settings;
@@ -232,7 +236,9 @@ export class PrismaMarketplaceConnectionsRepository
         priceMultiplier: connection.priceMultiplier,
         fulfillmentType: connection.fulfillmentType as PrismaFulfillmentType,
         defaultWarehouseId: connection.defaultWarehouseId,
-        settings: (connection.settings ?? undefined) as Prisma.InputJsonValue | undefined,
+        settings: (connection.settings ?? undefined) as
+          | Prisma.InputJsonValue
+          | undefined,
         deletedAt: connection.deletedAt,
         updatedAt: new Date(),
       },

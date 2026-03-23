@@ -43,7 +43,12 @@ export async function v1ListListingsController(app: FastifyInstance) {
       const { connectionId } = request.params;
       const { page, perPage } = request.query;
       const useCase = makeListMarketplaceListingsUseCase();
-      const result = await useCase.execute({ tenantId, connectionId, page, perPage });
+      const result = await useCase.execute({
+        tenantId,
+        connectionId,
+        page,
+        perPage,
+      });
       return reply.status(200).send(result);
     },
   });

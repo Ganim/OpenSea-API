@@ -34,7 +34,9 @@ export class CreateBidContractUseCase {
     private bidHistoryRepository: BidHistoryRepository,
   ) {}
 
-  async execute(request: CreateBidContractUseCaseRequest): Promise<CreateBidContractUseCaseResponse> {
+  async execute(
+    request: CreateBidContractUseCaseRequest,
+  ): Promise<CreateBidContractUseCaseResponse> {
     const bid = await this.bidsRepository.findById(
       new UniqueEntityID(request.bidId),
       request.tenantId,
@@ -85,8 +87,13 @@ export class CreateBidContractUseCase {
         tenantId: new UniqueEntityID(request.tenantId),
         action: 'BID_CONTRACT_CREATED',
         description: `Contrato ${request.contractNumber} criado`,
-        metadata: { contractId: contract.id.toString(), contractNumber: request.contractNumber },
-        performedByUserId: request.userId ? new UniqueEntityID(request.userId) : undefined,
+        metadata: {
+          contractId: contract.id.toString(),
+          contractNumber: request.contractNumber,
+        },
+        performedByUserId: request.userId
+          ? new UniqueEntityID(request.userId)
+          : undefined,
       }),
     );
 

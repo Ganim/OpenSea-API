@@ -26,7 +26,9 @@ export class CreateBidEmpenhoUseCase {
     private bidEmpenhosRepository: BidEmpenhosRepository,
   ) {}
 
-  async execute(request: CreateBidEmpenhoUseCaseRequest): Promise<CreateBidEmpenhoUseCaseResponse> {
+  async execute(
+    request: CreateBidEmpenhoUseCaseRequest,
+  ): Promise<CreateBidEmpenhoUseCaseResponse> {
     const contract = await this.bidContractsRepository.findById(
       new UniqueEntityID(request.contractId),
       request.tenantId,

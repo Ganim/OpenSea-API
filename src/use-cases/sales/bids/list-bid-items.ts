@@ -21,14 +21,17 @@ interface ListBidItemsUseCaseResponse {
 export class ListBidItemsUseCase {
   constructor(private bidItemsRepository: BidItemsRepository) {}
 
-  async execute(request: ListBidItemsUseCaseRequest): Promise<ListBidItemsUseCaseResponse> {
-    const result: PaginatedResult<BidItem> = await this.bidItemsRepository.findManyByBidId({
-      tenantId: request.tenantId,
-      bidId: request.bidId,
-      page: request.page,
-      limit: request.limit,
-      status: request.status,
-    });
+  async execute(
+    request: ListBidItemsUseCaseRequest,
+  ): Promise<ListBidItemsUseCaseResponse> {
+    const result: PaginatedResult<BidItem> =
+      await this.bidItemsRepository.findManyByBidId({
+        tenantId: request.tenantId,
+        bidId: request.bidId,
+        page: request.page,
+        limit: request.limit,
+        status: request.status,
+      });
 
     return {
       items: result.data,

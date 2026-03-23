@@ -13,7 +13,10 @@ export class InMemoryBidContractsRepository implements BidContractsRepository {
     this.items.push(contract);
   }
 
-  async findById(id: UniqueEntityID, tenantId: string): Promise<BidContract | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<BidContract | null> {
     return (
       this.items.find(
         (c) =>
@@ -24,7 +27,10 @@ export class InMemoryBidContractsRepository implements BidContractsRepository {
     );
   }
 
-  async findByNumber(contractNumber: string, tenantId: string): Promise<BidContract | null> {
+  async findByNumber(
+    contractNumber: string,
+    tenantId: string,
+  ): Promise<BidContract | null> {
     return (
       this.items.find(
         (c) =>

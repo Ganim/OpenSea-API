@@ -10,5 +10,7 @@ export interface FindManyBidHistoryPaginatedParams {
 
 export interface BidHistoryRepository {
   create(history: BidHistory): Promise<void>;
-  findManyByBidId(params: FindManyBidHistoryPaginatedParams): Promise<PaginatedResult<BidHistory>>;
+  findManyByBidId(
+    params: FindManyBidHistoryPaginatedParams,
+  ): Promise<PaginatedResult<BidHistory>>;
 }

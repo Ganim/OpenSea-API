@@ -1,5 +1,5 @@
 import type { ToolHandler, ToolExecutionContext } from '../tool-types';
-import { TOOL_LIST_MAX_ITEMS, TOOL_RESULT_MAX_CHARS } from '../tool-types';
+import { TOOL_LIST_MAX_ITEMS } from '../tool-types';
 
 // === Product Factories ===
 import { makeListProductsUseCase } from '@/use-cases/stock/products/factories/make-list-products-use-case';
@@ -60,12 +60,6 @@ function clampLimit(limit: unknown, fallback = 10): number {
   return Math.min(Math.max(1, n), TOOL_LIST_MAX_ITEMS);
 }
 
-function truncateResult(obj: unknown): string {
-  const json = JSON.stringify(obj);
-  if (json.length <= TOOL_RESULT_MAX_CHARS) return json;
-  return json.slice(0, TOOL_RESULT_MAX_CHARS - 50) + '… [truncado]';
-}
-
 // ─── Export ──────────────────────────────────────────────────────────
 
 export function getStockHandlers(): Record<string, ToolHandler> {
@@ -75,14 +69,21 @@ export function getStockHandlers(): Record<string, ToolHandler> {
     // =========================================================
 
     stock_list_products: {
-      async execute(args: Record<string, unknown>, context: ToolExecutionContext) {
+      async execute(
+        args: Record<string, unknown>,
+        context: ToolExecutionContext,
+      ) {
         const useCase = makeListProductsUseCase();
         const limit = clampLimit(args.limit);
         const result = await useCase.execute({
           tenantId: context.tenantId,
           search: args.search as string | undefined,
-          categoryIds: args.categoryId ? [args.categoryId as string] : undefined,
-          manufacturerIds: args.manufacturerId ? [args.manufacturerId as string] : undefined,
+          categoryIds: args.categoryId
+            ? [args.categoryId as string]
+            : undefined,
+          manufacturerIds: args.manufacturerId
+            ? [args.manufacturerId as string]
+            : undefined,
           page: (args.page as number) ?? 1,
           limit,
         });
@@ -103,7 +104,10 @@ export function getStockHandlers(): Record<string, ToolHandler> {
     },
 
     stock_get_product: {
-      async execute(args: Record<string, unknown>, context: ToolExecutionContext) {
+      async execute(
+        args: Record<string, unknown>,
+        context: ToolExecutionContext,
+      ) {
         // If productId provided, use get-by-id directly
         if (args.productId) {
           const useCase = makeGetProductByIdUseCase();
@@ -168,11 +172,16 @@ export function getStockHandlers(): Record<string, ToolHandler> {
     },
 
     stock_count_products: {
-      async execute(args: Record<string, unknown>, context: ToolExecutionContext) {
+      async execute(
+        args: Record<string, unknown>,
+        context: ToolExecutionContext,
+      ) {
         const useCase = makeListProductsUseCase();
         const result = await useCase.execute({
           tenantId: context.tenantId,
-          categoryIds: args.categoryId ? [args.categoryId as string] : undefined,
+          categoryIds: args.categoryId
+            ? [args.categoryId as string]
+            : undefined,
           page: 1,
           limit: 1,
         });
@@ -187,7 +196,10 @@ export function getStockHandlers(): Record<string, ToolHandler> {
     },
 
     stock_list_variants: {
-      async execute(args: Record<string, unknown>, context: ToolExecutionContext) {
+      async execute(
+        args: Record<string, unknown>,
+        context: ToolExecutionContext,
+      ) {
         const limit = clampLimit(args.limit);
 
         // If productId provided, use the specialized use-case
@@ -199,16 +211,18 @@ export function getStockHandlers(): Record<string, ToolHandler> {
           });
           return {
             total: result.variants.length,
-            variants: result.variants.slice(0, TOOL_LIST_MAX_ITEMS).map((v) => ({
-              id: v.variant.id.toString(),
-              name: v.variant.name,
-              sku: v.variant.sku,
-              fullCode: v.variant.fullCode,
-              price: v.variant.price,
-              productName: v.productName,
-              itemCount: v.itemCount,
-              totalQuantity: v.totalCurrentQuantity,
-            })),
+            variants: result.variants
+              .slice(0, TOOL_LIST_MAX_ITEMS)
+              .map((v) => ({
+                id: v.variant.id.toString(),
+                name: v.variant.name,
+                sku: v.variant.sku,
+                fullCode: v.variant.fullCode,
+                price: v.variant.price,
+                productName: v.productName,
+                itemCount: v.itemCount,
+                totalQuantity: v.totalCurrentQuantity,
+              })),
           };
         }
 
@@ -238,7 +252,10 @@ export function getStockHandlers(): Record<string, ToolHandler> {
     },
 
     stock_list_items: {
-      async execute(args: Record<string, unknown>, context: ToolExecutionContext) {
+      async execute(
+        args: Record<string, unknown>,
+        context: ToolExecutionContext,
+      ) {
         const useCase = makeListItemsUseCase();
         const limit = clampLimit(args.limit);
         const result = await useCase.execute({
@@ -270,26 +287,34 @@ export function getStockHandlers(): Record<string, ToolHandler> {
     },
 
     stock_list_categories: {
-      async execute(_args: Record<string, unknown>, context: ToolExecutionContext) {
+      async execute(
+        _args: Record<string, unknown>,
+        context: ToolExecutionContext,
+      ) {
         const useCase = makeListCategoriesUseCase();
         const result = await useCase.execute({ tenantId: context.tenantId });
         return {
           total: result.categories.length,
-          categories: result.categories.slice(0, TOOL_LIST_MAX_ITEMS).map((c) => ({
-            id: c.categoryId.toString(),
-            name: c.name,
-            slug: c.slug,
-            description: c.description,
-            parentId: c.parentId?.toString() ?? null,
-            isActive: c.isActive,
-            productCount: c.productCount,
-          })),
+          categories: result.categories
+            .slice(0, TOOL_LIST_MAX_ITEMS)
+            .map((c) => ({
+              id: c.categoryId.toString(),
+              name: c.name,
+              slug: c.slug,
+              description: c.description,
+              parentId: c.parentId?.toString() ?? null,
+              isActive: c.isActive,
+              productCount: c.productCount,
+            })),
         };
       },
     },
 
     stock_list_templates: {
-      async execute(args: Record<string, unknown>, context: ToolExecutionContext) {
+      async execute(
+        args: Record<string, unknown>,
+        context: ToolExecutionContext,
+      ) {
         const useCase = makeListTemplatesUseCase();
         const limit = clampLimit(args.limit);
         const result = await useCase.execute({
@@ -303,35 +328,45 @@ export function getStockHandlers(): Record<string, ToolHandler> {
           page: result.meta.page,
           pages: result.meta.pages,
           showing: result.templates.length,
-          templates: result.templates.slice(0, TOOL_LIST_MAX_ITEMS).map((t) => ({
-            id: t.id,
-            name: t.name,
-            code: t.code,
-          })),
+          templates: result.templates
+            .slice(0, TOOL_LIST_MAX_ITEMS)
+            .map((t) => ({
+              id: t.id,
+              name: t.name,
+              code: t.code,
+            })),
         };
       },
     },
 
     stock_list_suppliers: {
-      async execute(_args: Record<string, unknown>, context: ToolExecutionContext) {
+      async execute(
+        _args: Record<string, unknown>,
+        context: ToolExecutionContext,
+      ) {
         const useCase = makeListSuppliersUseCase();
         const result = await useCase.execute({ tenantId: context.tenantId });
         return {
           total: result.suppliers.length,
-          suppliers: result.suppliers.slice(0, TOOL_LIST_MAX_ITEMS).map((s) => ({
-            id: s.id,
-            name: s.name,
-            cnpj: s.cnpj,
-            email: s.email,
-            phone: s.phone,
-            isActive: s.isActive,
-          })),
+          suppliers: result.suppliers
+            .slice(0, TOOL_LIST_MAX_ITEMS)
+            .map((s) => ({
+              id: s.id,
+              name: s.name,
+              cnpj: s.cnpj,
+              email: s.email,
+              phone: s.phone,
+              isActive: s.isActive,
+            })),
         };
       },
     },
 
     stock_list_manufacturers: {
-      async execute(args: Record<string, unknown>, context: ToolExecutionContext) {
+      async execute(
+        args: Record<string, unknown>,
+        context: ToolExecutionContext,
+      ) {
         const useCase = makeListManufacturersUseCase();
         const limit = clampLimit(args.limit);
         const result = await useCase.execute({
@@ -345,19 +380,24 @@ export function getStockHandlers(): Record<string, ToolHandler> {
           page: result.meta.page,
           pages: result.meta.pages,
           showing: result.manufacturers.length,
-          manufacturers: result.manufacturers.slice(0, TOOL_LIST_MAX_ITEMS).map((m) => ({
-            id: m.manufacturerId.toString(),
-            name: m.name,
-            code: m.code,
-            country: m.country,
-            isActive: m.isActive,
-          })),
+          manufacturers: result.manufacturers
+            .slice(0, TOOL_LIST_MAX_ITEMS)
+            .map((m) => ({
+              id: m.manufacturerId.toString(),
+              name: m.name,
+              code: m.code,
+              country: m.country,
+              isActive: m.isActive,
+            })),
         };
       },
     },
 
     stock_list_tags: {
-      async execute(args: Record<string, unknown>, context: ToolExecutionContext) {
+      async execute(
+        args: Record<string, unknown>,
+        context: ToolExecutionContext,
+      ) {
         const useCase = makeListTagsUseCase();
         const limit = clampLimit(args.limit);
         const result = await useCase.execute({
@@ -382,7 +422,10 @@ export function getStockHandlers(): Record<string, ToolHandler> {
     },
 
     stock_list_warehouses: {
-      async execute(args: Record<string, unknown>, context: ToolExecutionContext) {
+      async execute(
+        args: Record<string, unknown>,
+        context: ToolExecutionContext,
+      ) {
         const useCase = makeListWarehousesUseCase();
         const activeOnly = args.active === true;
         const result = await useCase.execute({
@@ -391,20 +434,25 @@ export function getStockHandlers(): Record<string, ToolHandler> {
         });
         return {
           total: result.warehouses.length,
-          warehouses: result.warehouses.slice(0, TOOL_LIST_MAX_ITEMS).map((w) => ({
-            id: w.warehouseId.toString(),
-            code: w.code,
-            name: w.name,
-            description: w.description,
-            address: w.address,
-            isActive: w.isActive,
-          })),
+          warehouses: result.warehouses
+            .slice(0, TOOL_LIST_MAX_ITEMS)
+            .map((w) => ({
+              id: w.warehouseId.toString(),
+              code: w.code,
+              name: w.name,
+              description: w.description,
+              address: w.address,
+              isActive: w.isActive,
+            })),
         };
       },
     },
 
     stock_list_zones: {
-      async execute(args: Record<string, unknown>, context: ToolExecutionContext) {
+      async execute(
+        args: Record<string, unknown>,
+        context: ToolExecutionContext,
+      ) {
         const useCase = makeListZonesUseCase();
         const result = await useCase.execute({
           tenantId: context.tenantId,
@@ -425,7 +473,10 @@ export function getStockHandlers(): Record<string, ToolHandler> {
     },
 
     stock_list_bins: {
-      async execute(args: Record<string, unknown>, context: ToolExecutionContext) {
+      async execute(
+        args: Record<string, unknown>,
+        context: ToolExecutionContext,
+      ) {
         const useCase = makeListBinsUseCase();
         const result = await useCase.execute({
           tenantId: context.tenantId,
@@ -452,7 +503,10 @@ export function getStockHandlers(): Record<string, ToolHandler> {
     },
 
     stock_list_movements: {
-      async execute(args: Record<string, unknown>, context: ToolExecutionContext) {
+      async execute(
+        args: Record<string, unknown>,
+        context: ToolExecutionContext,
+      ) {
         const useCase = makeListItemMovementsUseCase();
         const limit = clampLimit(args.limit);
         const result = await useCase.execute({
@@ -466,20 +520,25 @@ export function getStockHandlers(): Record<string, ToolHandler> {
           page: result.meta.page,
           pages: result.meta.pages,
           showing: result.movements.length,
-          movements: result.movements.slice(0, TOOL_LIST_MAX_ITEMS).map((m) => ({
-            id: m.id,
-            type: m.movementType,
-            quantity: m.quantity,
-            itemId: m.itemId,
-            notes: m.notes?.slice(0, 100),
-            createdAt: m.createdAt,
-          })),
+          movements: result.movements
+            .slice(0, TOOL_LIST_MAX_ITEMS)
+            .map((m) => ({
+              id: m.id,
+              type: m.movementType,
+              quantity: m.quantity,
+              itemId: m.itemId,
+              notes: m.notes?.slice(0, 100),
+              createdAt: m.createdAt,
+            })),
         };
       },
     },
 
     stock_list_purchase_orders: {
-      async execute(args: Record<string, unknown>, context: ToolExecutionContext) {
+      async execute(
+        args: Record<string, unknown>,
+        context: ToolExecutionContext,
+      ) {
         const useCase = makeListPurchaseOrdersUseCase();
         const result = await useCase.execute({
           tenantId: context.tenantId,
@@ -490,24 +549,31 @@ export function getStockHandlers(): Record<string, ToolHandler> {
         });
         return {
           total: result.purchaseOrders.length,
-          purchaseOrders: result.purchaseOrders.slice(0, TOOL_LIST_MAX_ITEMS).map((po) => ({
-            id: po.id,
-            orderNumber: po.orderNumber,
-            supplierId: po.supplierId,
-            status: po.status,
-            expectedDate: po.expectedDate,
-            totalCost: po.totalCost,
-            notes: po.notes?.slice(0, 100),
-          })),
+          purchaseOrders: result.purchaseOrders
+            .slice(0, TOOL_LIST_MAX_ITEMS)
+            .map((po) => ({
+              id: po.id,
+              orderNumber: po.orderNumber,
+              supplierId: po.supplierId,
+              status: po.status,
+              expectedDate: po.expectedDate,
+              totalCost: po.totalCost,
+              notes: po.notes?.slice(0, 100),
+            })),
         };
       },
     },
 
     stock_get_item_location: {
-      async execute(args: Record<string, unknown>, context: ToolExecutionContext) {
+      async execute(
+        args: Record<string, unknown>,
+        context: ToolExecutionContext,
+      ) {
         const query = (args.itemId ?? args.sku ?? '') as string;
         if (!query) {
-          return { error: 'Informe o itemId ou SKU para buscar a localização.' };
+          return {
+            error: 'Informe o itemId ou SKU para buscar a localização.',
+          };
         }
         const useCase = makeSearchItemLocationUseCase();
         const result = await useCase.execute({
@@ -539,16 +605,21 @@ export function getStockHandlers(): Record<string, ToolHandler> {
     // =========================================================
 
     stock_create_product: {
-      async execute(args: Record<string, unknown>, context: ToolExecutionContext) {
+      async execute(
+        args: Record<string, unknown>,
+        context: ToolExecutionContext,
+      ) {
         const useCase = makeCreateProductUseCase();
         const result = await useCase.execute({
           tenantId: context.tenantId,
           name: args.name as string,
           description: args.description as string | undefined,
           status: args.status as string | undefined,
-          templateId: args.templateId as string ?? '',
+          templateId: (args.templateId as string) ?? '',
           manufacturerId: args.manufacturerId as string | undefined,
-          categoryIds: args.categoryId ? [args.categoryId as string] : undefined,
+          categoryIds: args.categoryId
+            ? [args.categoryId as string]
+            : undefined,
         });
         const p = result.product;
         return {
@@ -565,7 +636,10 @@ export function getStockHandlers(): Record<string, ToolHandler> {
     },
 
     stock_update_product: {
-      async execute(args: Record<string, unknown>, context: ToolExecutionContext) {
+      async execute(
+        args: Record<string, unknown>,
+        context: ToolExecutionContext,
+      ) {
         const useCase = makeUpdateProductUseCase();
         const result = await useCase.execute({
           tenantId: context.tenantId,
@@ -575,7 +649,9 @@ export function getStockHandlers(): Record<string, ToolHandler> {
           description: args.description as string | undefined,
           status: args.status as string | undefined,
           manufacturerId: args.manufacturerId as string | undefined,
-          categoryIds: args.categoryId ? [args.categoryId as string] : undefined,
+          categoryIds: args.categoryId
+            ? [args.categoryId as string]
+            : undefined,
         });
         const p = result.product;
         return {
@@ -592,7 +668,10 @@ export function getStockHandlers(): Record<string, ToolHandler> {
     },
 
     stock_create_variant: {
-      async execute(args: Record<string, unknown>, context: ToolExecutionContext) {
+      async execute(
+        args: Record<string, unknown>,
+        context: ToolExecutionContext,
+      ) {
         const useCase = makeCreateVariantUseCase();
         const variant = await useCase.execute({
           tenantId: context.tenantId,
@@ -618,7 +697,10 @@ export function getStockHandlers(): Record<string, ToolHandler> {
     },
 
     stock_update_variant: {
-      async execute(args: Record<string, unknown>, context: ToolExecutionContext) {
+      async execute(
+        args: Record<string, unknown>,
+        context: ToolExecutionContext,
+      ) {
         const useCase = makeUpdateVariantUseCase();
         const variant = await useCase.execute({
           tenantId: context.tenantId,
@@ -643,7 +725,10 @@ export function getStockHandlers(): Record<string, ToolHandler> {
     },
 
     stock_register_entry: {
-      async execute(args: Record<string, unknown>, context: ToolExecutionContext) {
+      async execute(
+        args: Record<string, unknown>,
+        context: ToolExecutionContext,
+      ) {
         const useCase = makeRegisterItemEntryUseCase();
         const result = await useCase.execute({
           tenantId: context.tenantId,
@@ -669,7 +754,10 @@ export function getStockHandlers(): Record<string, ToolHandler> {
     },
 
     stock_register_exit: {
-      async execute(args: Record<string, unknown>, context: ToolExecutionContext) {
+      async execute(
+        args: Record<string, unknown>,
+        context: ToolExecutionContext,
+      ) {
         // The exit use-case needs an itemId, not variantId.
         // We first find the item for this variant+warehouse.
         const listItemsUseCase = makeListItemsUseCase();
@@ -682,7 +770,9 @@ export function getStockHandlers(): Record<string, ToolHandler> {
         });
 
         if (itemsResult.items.length === 0) {
-          return { error: 'Nenhum item disponível encontrado para esta variante.' };
+          return {
+            error: 'Nenhum item disponível encontrado para esta variante.',
+          };
         }
 
         const itemId = itemsResult.items[0].id;
@@ -701,7 +791,8 @@ export function getStockHandlers(): Record<string, ToolHandler> {
           itemId,
           quantity: args.quantity as number,
           userId: context.userId,
-          movementType: (reasonToMovementType[args.reason as string] ?? 'SALE') as
+          movementType: (reasonToMovementType[args.reason as string] ??
+            'SALE') as
             | 'SALE'
             | 'PRODUCTION'
             | 'SAMPLE'
@@ -725,7 +816,10 @@ export function getStockHandlers(): Record<string, ToolHandler> {
     },
 
     stock_transfer_item: {
-      async execute(args: Record<string, unknown>, context: ToolExecutionContext) {
+      async execute(
+        args: Record<string, unknown>,
+        context: ToolExecutionContext,
+      ) {
         // The transfer use-case works on itemId + destinationBinId
         // We need to find an item from the specified variant+warehouse
         const listItemsUseCase = makeListItemsUseCase();
@@ -738,13 +832,18 @@ export function getStockHandlers(): Record<string, ToolHandler> {
         });
 
         if (itemsResult.items.length === 0) {
-          return { error: 'Nenhum item disponível encontrado para transferência.' };
+          return {
+            error: 'Nenhum item disponível encontrado para transferência.',
+          };
         }
 
         const itemId = itemsResult.items[0].id;
 
         if (!args.toBinId) {
-          return { error: 'É necessário informar o toBinId (bin de destino) para transferência.' };
+          return {
+            error:
+              'É necessário informar o toBinId (bin de destino) para transferência.',
+          };
         }
 
         const useCase = makeTransferItemUseCase();
@@ -769,7 +868,10 @@ export function getStockHandlers(): Record<string, ToolHandler> {
     },
 
     stock_create_category: {
-      async execute(args: Record<string, unknown>, context: ToolExecutionContext) {
+      async execute(
+        args: Record<string, unknown>,
+        context: ToolExecutionContext,
+      ) {
         const useCase = makeCreateCategoryUseCase();
         const result = await useCase.execute({
           tenantId: context.tenantId,
@@ -791,7 +893,10 @@ export function getStockHandlers(): Record<string, ToolHandler> {
     },
 
     stock_create_template: {
-      async execute(args: Record<string, unknown>, context: ToolExecutionContext) {
+      async execute(
+        args: Record<string, unknown>,
+        context: ToolExecutionContext,
+      ) {
         const useCase = makeCreateTemplateUseCase();
         const result = await useCase.execute({
           tenantId: context.tenantId,
@@ -810,7 +915,10 @@ export function getStockHandlers(): Record<string, ToolHandler> {
     },
 
     stock_create_supplier: {
-      async execute(args: Record<string, unknown>, context: ToolExecutionContext) {
+      async execute(
+        args: Record<string, unknown>,
+        context: ToolExecutionContext,
+      ) {
         const useCase = makeCreateSupplierUseCase();
         const result = await useCase.execute({
           tenantId: context.tenantId,
@@ -832,7 +940,10 @@ export function getStockHandlers(): Record<string, ToolHandler> {
     },
 
     stock_create_manufacturer: {
-      async execute(args: Record<string, unknown>, context: ToolExecutionContext) {
+      async execute(
+        args: Record<string, unknown>,
+        context: ToolExecutionContext,
+      ) {
         const useCase = makeCreateManufacturerUseCase();
         const result = await useCase.execute({
           tenantId: context.tenantId,
@@ -855,8 +966,16 @@ export function getStockHandlers(): Record<string, ToolHandler> {
     },
 
     stock_create_purchase_order: {
-      async execute(args: Record<string, unknown>, context: ToolExecutionContext) {
-        const items = (args.items as Array<{ variantId: string; quantity: number; unitCost?: number }>) ?? [];
+      async execute(
+        args: Record<string, unknown>,
+        context: ToolExecutionContext,
+      ) {
+        const items =
+          (args.items as Array<{
+            variantId: string;
+            quantity: number;
+            unitCost?: number;
+          }>) ?? [];
         if (items.length === 0) {
           return { error: 'A ordem de compra precisa de ao menos um item.' };
         }
@@ -870,7 +989,9 @@ export function getStockHandlers(): Record<string, ToolHandler> {
           orderNumber,
           supplierId: args.supplierId as string,
           createdBy: context.userId,
-          expectedDate: args.expectedDate ? new Date(args.expectedDate as string) : undefined,
+          expectedDate: args.expectedDate
+            ? new Date(args.expectedDate as string)
+            : undefined,
           notes: args.notes as string | undefined,
           items: items.map((i) => ({
             variantId: i.variantId,
@@ -892,7 +1013,10 @@ export function getStockHandlers(): Record<string, ToolHandler> {
     },
 
     stock_create_tag: {
-      async execute(args: Record<string, unknown>, context: ToolExecutionContext) {
+      async execute(
+        args: Record<string, unknown>,
+        context: ToolExecutionContext,
+      ) {
         const useCase = makeCreateTagUseCase();
         const result = await useCase.execute({
           tenantId: context.tenantId,
@@ -917,23 +1041,27 @@ export function getStockHandlers(): Record<string, ToolHandler> {
     // =========================================================
 
     stock_summary: {
-      async execute(args: Record<string, unknown>, context: ToolExecutionContext) {
+      async execute(
+        args: Record<string, unknown>,
+        context: ToolExecutionContext,
+      ) {
         // Compose multiple use-case calls for a summary
-        const [productsResult, warehousesResult, itemsResult] = await Promise.all([
-          makeListProductsUseCase().execute({
-            tenantId: context.tenantId,
-            page: 1,
-            limit: 1,
-          }),
-          makeListWarehousesUseCase().execute({
-            tenantId: context.tenantId,
-          }),
-          makeListItemsUseCase().execute({
-            tenantId: context.tenantId,
-            page: 1,
-            limit: 1,
-          }),
-        ]);
+        const [productsResult, warehousesResult, itemsResult] =
+          await Promise.all([
+            makeListProductsUseCase().execute({
+              tenantId: context.tenantId,
+              page: 1,
+              limit: 1,
+            }),
+            makeListWarehousesUseCase().execute({
+              tenantId: context.tenantId,
+            }),
+            makeListItemsUseCase().execute({
+              tenantId: context.tenantId,
+              page: 1,
+              limit: 1,
+            }),
+          ]);
 
         // Get stock alerts
         let alertCount = 0;
@@ -962,7 +1090,10 @@ export function getStockHandlers(): Record<string, ToolHandler> {
     },
 
     stock_low_stock_report: {
-      async execute(args: Record<string, unknown>, context: ToolExecutionContext) {
+      async execute(
+        args: Record<string, unknown>,
+        context: ToolExecutionContext,
+      ) {
         const useCase = makeCheckStockAlertsUseCase();
         const result = await useCase.execute({
           tenantId: context.tenantId,
@@ -987,7 +1118,10 @@ export function getStockHandlers(): Record<string, ToolHandler> {
     },
 
     stock_movement_report: {
-      async execute(args: Record<string, unknown>, context: ToolExecutionContext) {
+      async execute(
+        args: Record<string, unknown>,
+        context: ToolExecutionContext,
+      ) {
         const useCase = makeListItemMovementsUseCase();
         const result = await useCase.execute({
           tenantId: context.tenantId,
@@ -997,7 +1131,8 @@ export function getStockHandlers(): Record<string, ToolHandler> {
         });
 
         // Group movements by type
-        const byType: Record<string, { count: number; totalQuantity: number }> = {};
+        const byType: Record<string, { count: number; totalQuantity: number }> =
+          {};
         for (const m of result.movements) {
           const t = m.movementType;
           if (!byType[t]) byType[t] = { count: 0, totalQuantity: 0 };
@@ -1024,7 +1159,10 @@ export function getStockHandlers(): Record<string, ToolHandler> {
     },
 
     stock_valuation_report: {
-      async execute(args: Record<string, unknown>, context: ToolExecutionContext) {
+      async execute(
+        args: Record<string, unknown>,
+        context: ToolExecutionContext,
+      ) {
         // Compose: list items to calculate total valuation
         const useCase = makeListItemsUseCase();
         const result = await useCase.execute({
@@ -1037,7 +1175,10 @@ export function getStockHandlers(): Record<string, ToolHandler> {
         // Calculate totals
         let totalValue = 0;
         let totalItems = 0;
-        const byProduct: Record<string, { name: string; quantity: number; value: number }> = {};
+        const byProduct: Record<
+          string,
+          { name: string; quantity: number; value: number }
+        > = {};
 
         for (const item of result.items) {
           const cost = item.unitCost ?? 0;
@@ -1059,7 +1200,9 @@ export function getStockHandlers(): Record<string, ToolHandler> {
           .slice(0, TOOL_LIST_MAX_ITEMS);
 
         return {
-          referenceDate: (args.referenceDate as string) ?? new Date().toISOString().split('T')[0],
+          referenceDate:
+            (args.referenceDate as string) ??
+            new Date().toISOString().split('T')[0],
           totalItems,
           totalValue: Math.round(totalValue * 100) / 100,
           distinctProducts: Object.keys(byProduct).length,

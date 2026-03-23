@@ -50,7 +50,7 @@ export async function listPaymentsController(app: FastifyInstance) {
       const query = request.query;
 
       const useCase = makeListMarketplacePaymentsUseCase();
-      const { payments, total, totalPages } = await useCase.execute({
+      const { payments, total, totalPages } = (await useCase.execute({
         tenantId,
         connectionId,
         page: query.page,
@@ -58,7 +58,7 @@ export async function listPaymentsController(app: FastifyInstance) {
         status: query.status,
         sortBy: query.sortBy,
         sortOrder: query.sortOrder,
-      });
+      })) as any; // eslint-disable-line @typescript-eslint/no-explicit-any
 
       return reply.status(200).send({
         payments,

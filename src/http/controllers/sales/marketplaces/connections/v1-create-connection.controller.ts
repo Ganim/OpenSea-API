@@ -24,7 +24,18 @@ export async function v1CreateConnectionController(app: FastifyInstance) {
       tags: ['Sales - Marketplace Connections'],
       summary: 'Create a new marketplace connection',
       body: z.object({
-        marketplace: z.enum(['MERCADO_LIVRE', 'SHOPEE', 'AMAZON', 'MAGALU', 'TIKTOK_SHOP', 'AMERICANAS', 'ALIEXPRESS', 'CASAS_BAHIA', 'SHEIN', 'CUSTOM']),
+        marketplace: z.enum([
+          'MERCADO_LIVRE',
+          'SHOPEE',
+          'AMAZON',
+          'MAGALU',
+          'TIKTOK_SHOP',
+          'AMERICANAS',
+          'ALIEXPRESS',
+          'CASAS_BAHIA',
+          'SHEIN',
+          'CUSTOM',
+        ]),
         name: z.string().min(1).max(128),
         sellerId: z.string().optional(),
         sellerName: z.string().optional(),
@@ -61,7 +72,9 @@ export async function v1CreateConnectionController(app: FastifyInstance) {
         const result = await useCase.execute({
           tenantId,
           ...data,
-          tokenExpiresAt: data.tokenExpiresAt ? new Date(data.tokenExpiresAt) : undefined,
+          tokenExpiresAt: data.tokenExpiresAt
+            ? new Date(data.tokenExpiresAt)
+            : undefined,
         });
         return reply.status(201).send(result);
       } catch (err) {

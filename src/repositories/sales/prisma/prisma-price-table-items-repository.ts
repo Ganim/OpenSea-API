@@ -79,7 +79,7 @@ export class PrismaPriceTableItemsRepository
     }
 
     const result = await prisma.priceTableItem.findFirst({
-      where: where as any,
+      where: where as never,
     });
 
     if (!result) return null;
@@ -115,7 +115,7 @@ export class PrismaPriceTableItemsRepository
 
     const [results, total] = await Promise.all([
       prisma.priceTableItem.findMany({
-        where: where as any,
+        where: where as never,
         skip: (params.page - 1) * params.limit,
         take: params.limit,
         orderBy: {
@@ -123,7 +123,7 @@ export class PrismaPriceTableItemsRepository
         },
       }),
       prisma.priceTableItem.count({
-        where: where as any,
+        where: where as never,
       }),
     ]);
 

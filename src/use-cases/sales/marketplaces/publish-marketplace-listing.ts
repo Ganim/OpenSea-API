@@ -1,5 +1,5 @@
 export class PublishMarketplaceListingUseCase {
-  async execute(request: any): Promise<any> {
+  async execute(_request: unknown): Promise<unknown> {
     throw new Error('PublishMarketplaceListingUseCase not implemented');
   }
 }

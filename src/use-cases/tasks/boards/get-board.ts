@@ -52,11 +52,13 @@ export class GetBoardUseCase {
       }
     }
 
-    let [columns, labels, members] = await Promise.all([
+    const [columns, labels, membersResult] = await Promise.all([
       this.boardColumnsRepository.findByBoardId(boardId),
       this.boardLabelsRepository.findByBoardId(boardId),
       this.boardMembersRepository.findByBoardId(boardId),
     ]);
+
+    let members = membersResult;
 
     // Auto-add owner as member if missing (backward compat for boards created before this fix)
     if (isOwner && !members.some((m) => m.userId === userId)) {

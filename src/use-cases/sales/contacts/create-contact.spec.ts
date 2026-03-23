@@ -2,6 +2,7 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { InMemoryContactsRepository } from '@/repositories/sales/in-memory/in-memory-contacts-repository';
 import { InMemoryCustomersRepository } from '@/repositories/sales/in-memory/in-memory-customers-repository';
+import { CustomerType } from '@/entities/sales/value-objects/customer-type';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { CreateContactUseCase } from './create-contact';
 
@@ -21,7 +22,7 @@ describe('Create Contact Use Case', () => {
     const customer = await customersRepository.create({
       tenantId: TENANT_ID,
       name: 'Acme Corp',
-      type: 'COMPANY' as any,
+      type: CustomerType.create('BUSINESS'),
     });
     customerId = customer.id.toString();
   });

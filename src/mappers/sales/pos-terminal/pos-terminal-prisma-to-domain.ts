@@ -2,9 +2,7 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { PosTerminal } from '@/entities/sales/pos-terminal';
 import type { PosTerminal as PrismaPosTerminal } from '@prisma/generated/client.js';
 
-export function posTerminalPrismaToDomain(
-  raw: PrismaPosTerminal,
-): PosTerminal {
+export function posTerminalPrismaToDomain(raw: PrismaPosTerminal): PosTerminal {
   return PosTerminal.create(
     {
       id: new UniqueEntityID(raw.id),

@@ -46,9 +46,7 @@ export class InMemoryPosTerminalsRepository implements PosTerminalsRepository {
 
     if (params.search) {
       const search = params.search.toLowerCase();
-      filtered = filtered.filter((t) =>
-        t.name.toLowerCase().includes(search),
-      );
+      filtered = filtered.filter((t) => t.name.toLowerCase().includes(search));
     }
     if (params.mode) {
       filtered = filtered.filter((t) => t.mode === params.mode);
@@ -80,7 +78,10 @@ export class InMemoryPosTerminalsRepository implements PosTerminalsRepository {
   async delete(id: UniqueEntityID, tenantId: string): Promise<void> {
     this.items = this.items.filter(
       (t) =>
-        !(t.id.toString() === id.toString() && t.tenantId.toString() === tenantId),
+        !(
+          t.id.toString() === id.toString() &&
+          t.tenantId.toString() === tenantId
+        ),
     );
   }
 }

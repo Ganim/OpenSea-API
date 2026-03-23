@@ -20,6 +20,9 @@ export class DeleteBidUseCase {
       throw new ResourceNotFoundError('Bid not found');
     }
 
-    await this.bidsRepository.delete(new UniqueEntityID(request.id), request.tenantId);
+    await this.bidsRepository.delete(
+      new UniqueEntityID(request.id),
+      request.tenantId,
+    );
   }
 }

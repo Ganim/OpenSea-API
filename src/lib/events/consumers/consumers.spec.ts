@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
 
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 
 import type { DomainEvent } from '../domain-event.interface';
 import { SALES_EVENTS } from '../sales-events';

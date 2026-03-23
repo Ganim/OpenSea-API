@@ -95,7 +95,7 @@ export class PrismaDealsRepository implements DealsRepository {
     ]);
 
     return {
-      data: dealsData.map((d: any) =>
+      data: dealsData.map((d) =>
         dealPrismaToDomain(d as unknown as Record<string, unknown>),
       ),
       total,
@@ -115,7 +115,7 @@ export class PrismaDealsRepository implements DealsRepository {
       orderBy: { position: 'asc' },
     });
 
-    return items.map((d: any) =>
+    return items.map((d) =>
       dealPrismaToDomain(d as unknown as Record<string, unknown>),
     );
   }

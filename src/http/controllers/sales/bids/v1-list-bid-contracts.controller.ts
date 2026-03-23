@@ -2,7 +2,10 @@ import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { listBidContractsQuerySchema, bidContractResponseSchema } from '@/http/schemas/sales/bids/bid.schema';
+import {
+  listBidContractsQuerySchema,
+  bidContractResponseSchema,
+} from '@/http/schemas/sales/bids/bid.schema';
 import { bidContractToDTO } from '@/mappers/sales/bid-contract/bid-contract-to-dto';
 import { makeListBidContractsUseCase } from '@/use-cases/sales/bids/factories/make-list-bid-contracts-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -43,10 +46,11 @@ export async function listBidContractsController(app: FastifyInstance) {
       const query = request.query;
 
       const useCase = makeListBidContractsUseCase();
-      const { contracts, total, page, limit, totalPages } = await useCase.execute({
-        tenantId,
-        ...query,
-      });
+      const { contracts, total, page, limit, totalPages } =
+        await useCase.execute({
+          tenantId,
+          ...query,
+        });
 
       return reply.status(200).send({
         contracts: contracts.map(bidContractToDTO),

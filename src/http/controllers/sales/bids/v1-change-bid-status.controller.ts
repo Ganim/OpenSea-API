@@ -47,12 +47,12 @@ export async function changeBidStatusController(app: FastifyInstance) {
       const { status, reason } = request.body;
 
       const useCase = makeChangeBidStatusUseCase();
-      const { bid } = await useCase.execute({
+      const { bid } = (await useCase.execute({
         id: bidId,
         tenantId,
         status,
         reason,
-      });
+      })) as any; // eslint-disable-line @typescript-eslint/no-explicit-any
 
       await logAudit(request, {
         message: AUDIT_MESSAGES.SALES.BID_STATUS_CHANGE,

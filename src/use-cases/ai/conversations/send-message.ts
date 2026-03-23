@@ -8,7 +8,10 @@ import type {
 } from '@/services/ai-provider/ai-provider.interface';
 import type { ToolRegistry } from '@/services/ai-tools/tool-registry';
 import type { ToolExecutor } from '@/services/ai-tools/tool-executor';
-import type { AiAgenticMessage, ToolCall } from '@/services/ai-tools/tool-types';
+import type {
+  AiAgenticMessage,
+  ToolCall,
+} from '@/services/ai-tools/tool-types';
 import { AGENTIC_LOOP_MAX_ITERATIONS } from '@/services/ai-tools/tool-types';
 import { STOCK_INSTRUCTIONS } from '@/services/ai-tools/instructions/stock-instructions';
 
@@ -153,9 +156,7 @@ export class SendMessageUseCase {
                     `[Ferramenta chamada: ${tc.name}(${JSON.stringify(tc.arguments ?? {}).slice(0, 200)})]`,
                 )
                 .join('\n');
-              content = content
-                ? `${content}\n\n${toolSummary}`
-                : toolSummary;
+              content = content ? `${content}\n\n${toolSummary}` : toolSummary;
             }
           } catch {
             // Ignore JSON parse errors on toolCalls
@@ -181,7 +182,7 @@ export class SendMessageUseCase {
     let aiLatencyMs = 0;
     let aiCost = 0;
     let usedTier: AiTier = tier;
-    let allToolCalls: ToolCall[] = [];
+    const allToolCalls: ToolCall[] = [];
 
     const availableTiers = this.aiRouter.getAvailableTiers();
 

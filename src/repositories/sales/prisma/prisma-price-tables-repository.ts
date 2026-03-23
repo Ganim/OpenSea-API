@@ -116,7 +116,7 @@ export class PrismaPriceTablesRepository implements PriceTablesRepository {
 
     const [results, total] = await Promise.all([
       prisma.priceTable.findMany({
-        where: where as any,
+        where: where as never,
         skip: (params.page - 1) * params.limit,
         take: params.limit,
         orderBy: {
@@ -124,7 +124,7 @@ export class PrismaPriceTablesRepository implements PriceTablesRepository {
         },
       }),
       prisma.priceTable.count({
-        where: where as any,
+        where: where as never,
       }),
     ]);
 

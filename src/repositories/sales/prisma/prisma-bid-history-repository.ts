@@ -17,7 +17,9 @@ function mapToDomain(data: Record<string, unknown>): BidHistory {
       action: data.action as BidHistory['action'],
       description: data.description as string,
       metadata: (data.metadata as Record<string, unknown>) ?? undefined,
-      performedByUserId: data.performedByUserId ? new UniqueEntityID(data.performedByUserId as string) : undefined,
+      performedByUserId: data.performedByUserId
+        ? new UniqueEntityID(data.performedByUserId as string)
+        : undefined,
       performedByAi: data.performedByAi as boolean,
       isReversible: data.isReversible as boolean,
       createdAt: data.createdAt as Date,
@@ -44,7 +46,9 @@ export class PrismaBidHistoryRepository implements BidHistoryRepository {
     });
   }
 
-  async findManyByBidId(params: FindManyBidHistoryPaginatedParams): Promise<PaginatedResult<BidHistory>> {
+  async findManyByBidId(
+    params: FindManyBidHistoryPaginatedParams,
+  ): Promise<PaginatedResult<BidHistory>> {
     const where = {
       tenantId: params.tenantId,
       bidId: params.bidId,
@@ -61,7 +65,9 @@ export class PrismaBidHistoryRepository implements BidHistoryRepository {
     ]);
 
     return {
-      data: data.map((d) => mapToDomain(d as unknown as Record<string, unknown>)),
+      data: data.map((d) =>
+        mapToDomain(d as unknown as Record<string, unknown>),
+      ),
       total,
       page: params.page,
       limit: params.limit,

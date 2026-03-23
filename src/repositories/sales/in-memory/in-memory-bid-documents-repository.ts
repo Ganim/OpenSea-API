@@ -13,7 +13,10 @@ export class InMemoryBidDocumentsRepository implements BidDocumentsRepository {
     this.items.push(doc);
   }
 
-  async findById(id: UniqueEntityID, tenantId: string): Promise<BidDocument | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<BidDocument | null> {
     return (
       this.items.find(
         (d) =>

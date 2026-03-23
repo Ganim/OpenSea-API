@@ -1,6 +1,10 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import type {
+  MarketplaceConnectionStatusType,
+  MarketplaceFulfillmentTypeValue,
+} from '@/entities/sales/marketplace-connection';
 import type { MarketplaceConnectionDTO } from '@/mappers/sales/marketplace/marketplace-connection-to-dto';
 import { marketplaceConnectionToDTO } from '@/mappers/sales/marketplace/marketplace-connection-to-dto';
 import type { MarketplaceConnectionsRepository } from '@/repositories/sales/marketplace-connections-repository';
@@ -75,7 +79,8 @@ export class UpdateMarketplaceConnectionUseCase {
       );
     }
 
-    if (input.status !== undefined) connection.status = input.status as any;
+    if (input.status !== undefined)
+      connection.status = input.status as MarketplaceConnectionStatusType;
     if (input.sellerName !== undefined)
       connection.sellerName = input.sellerName;
     if (input.accessToken !== undefined)
@@ -106,7 +111,8 @@ export class UpdateMarketplaceConnectionUseCase {
     if (input.priceMultiplier !== undefined)
       connection.priceMultiplier = input.priceMultiplier;
     if (input.fulfillmentType !== undefined)
-      connection.fulfillmentType = input.fulfillmentType as any;
+      connection.fulfillmentType =
+        input.fulfillmentType as MarketplaceFulfillmentTypeValue;
     if (input.defaultWarehouseId !== undefined)
       connection.defaultWarehouseId = input.defaultWarehouseId;
     if (input.settings !== undefined) connection.settings = input.settings;

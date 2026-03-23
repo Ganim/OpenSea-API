@@ -6,7 +6,10 @@ import type {
   BidDocumentsRepository,
   FindManyBidDocumentsPaginatedParams,
 } from '../bid-documents-repository';
-import type { BidDocumentType as PrismaBidDocumentType, BidDocRenewalStatus as PrismaBidDocRenewalStatus } from '@prisma/generated/client.js';
+import type {
+  BidDocumentType as PrismaBidDocumentType,
+  BidDocRenewalStatus as PrismaBidDocRenewalStatus,
+} from '@prisma/generated/client.js';
 import { Prisma } from '@prisma/generated/client.js';
 
 function mapToDomain(data: Record<string, unknown>): BidDocument {
@@ -23,7 +26,8 @@ function mapToDomain(data: Record<string, unknown>): BidDocument {
       isValid: data.isValid as boolean,
       autoRenewable: data.autoRenewable as boolean,
       lastRenewAttempt: (data.lastRenewAttempt as Date) ?? undefined,
-      renewStatus: (data.renewStatus as BidDocument['renewStatus']) ?? undefined,
+      renewStatus:
+        (data.renewStatus as BidDocument['renewStatus']) ?? undefined,
       portalUploaded: data.portalUploaded as boolean,
       portalUploadedAt: (data.portalUploadedAt as Date) ?? undefined,
       createdAt: data.createdAt as Date,
@@ -57,7 +61,10 @@ export class PrismaBidDocumentsRepository implements BidDocumentsRepository {
     });
   }
 
-  async findById(id: UniqueEntityID, tenantId: string): Promise<BidDocument | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<BidDocument | null> {
     const data = await prisma.bidDocument.findFirst({
       where: { id: id.toString(), tenantId },
     });
@@ -65,7 +72,9 @@ export class PrismaBidDocumentsRepository implements BidDocumentsRepository {
     return mapToDomain(data as unknown as Record<string, unknown>);
   }
 
-  async findManyPaginated(params: FindManyBidDocumentsPaginatedParams): Promise<PaginatedResult<BidDocument>> {
+  async findManyPaginated(
+    params: FindManyBidDocumentsPaginatedParams,
+  ): Promise<PaginatedResult<BidDocument>> {
     const where: Record<string, unknown> = {
       tenantId: params.tenantId,
     };
@@ -79,11 +88,15 @@ export class PrismaBidDocumentsRepository implements BidDocumentsRepository {
         skip: (params.page - 1) * params.limit,
         take: params.limit,
       }),
-      prisma.bidDocument.count({ where: where as Prisma.BidDocumentWhereInput }),
+      prisma.bidDocument.count({
+        where: where as Prisma.BidDocumentWhereInput,
+      }),
     ]);
 
     return {
-      data: data.map((d) => mapToDomain(d as unknown as Record<string, unknown>)),
+      data: data.map((d) =>
+        mapToDomain(d as unknown as Record<string, unknown>),
+      ),
       total,
       page: params.page,
       limit: params.limit,

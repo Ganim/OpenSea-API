@@ -4,7 +4,11 @@ import type { Optional } from '../domain/optional';
 import { UniqueEntityID } from '../domain/unique-entity-id';
 
 export type InventorySessionMode = 'BIN' | 'ZONE' | 'PRODUCT';
-export type InventorySessionStatus = 'OPEN' | 'PAUSED' | 'COMPLETED' | 'CANCELLED';
+export type InventorySessionStatus =
+  | 'OPEN'
+  | 'PAUSED'
+  | 'COMPLETED'
+  | 'CANCELLED';
 
 export interface InventorySessionProps {
   tenantId: UniqueEntityID;

@@ -11,6 +11,7 @@ import type {
   CatalogType as PrismaCatalogType,
   CatalogStatus as PrismaCatalogStatus,
   CatalogLayout as PrismaCatalogLayout,
+  Prisma,
 } from '@prisma/generated/client.js';
 
 function mapToDomain(data: Record<string, unknown>): Catalog {
@@ -68,9 +69,13 @@ export class PrismaCatalogsRepository implements CatalogsRepository {
         assignedToUserId: catalog.assignedToUserId?.toString(),
         customerId: catalog.customerId?.toString(),
         campaignId: catalog.campaignId?.toString(),
-        rules: (catalog.rules ?? undefined) as any,
+        rules: (catalog.rules ?? undefined) as unknown as
+          | Prisma.InputJsonValue
+          | undefined,
         aiCurated: catalog.aiCurated,
-        aiCurationConfig: (catalog.aiCurationConfig ?? undefined) as any,
+        aiCurationConfig: (catalog.aiCurationConfig ?? undefined) as unknown as
+          | Prisma.InputJsonValue
+          | undefined,
         layout: catalog.layout as PrismaCatalogLayout,
         showPrices: catalog.showPrices,
         showStock: catalog.showStock,
@@ -172,7 +177,9 @@ export class PrismaCatalogsRepository implements CatalogsRepository {
         status: catalog.status as PrismaCatalogStatus,
         coverImageFileId: catalog.coverImageFileId,
         assignedToUserId: catalog.assignedToUserId?.toString() ?? null,
-        rules: (catalog.rules ?? undefined) as any,
+        rules: (catalog.rules ?? undefined) as unknown as
+          | Prisma.InputJsonValue
+          | undefined,
         layout: catalog.layout as PrismaCatalogLayout,
         showPrices: catalog.showPrices,
         showStock: catalog.showStock,

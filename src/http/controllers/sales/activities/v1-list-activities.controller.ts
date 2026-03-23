@@ -64,15 +64,8 @@ export async function listActivitiesController(app: FastifyInstance) {
 
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
-      const {
-        page,
-        limit,
-        contactId,
-        dealId,
-        type,
-        sortBy,
-        sortOrder,
-      } = request.query;
+      const { page, limit, contactId, dealId, type, sortBy, sortOrder } =
+        request.query;
 
       const useCase = makeListActivitiesUseCase();
       const { activities, total, totalPages } = await useCase.execute({

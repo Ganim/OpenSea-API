@@ -1,5 +1,5 @@
 export class UpdateBidAiConfigUseCase {
-  async execute(request: any): Promise<any> {
+  async execute(_request: unknown): Promise<unknown> {
     throw new Error('UpdateBidAiConfigUseCase not implemented');
   }
 }

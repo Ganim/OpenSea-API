@@ -35,11 +35,16 @@ export async function v1GetConnectionByIdController(app: FastifyInstance) {
       const tenantId = request.user.tenantId!;
       const { id } = request.params;
       const repository = new PrismaMarketplaceConnectionsRepository();
-      const connection = await repository.findById(new UniqueEntityID(id), tenantId);
+      const connection = await repository.findById(
+        new UniqueEntityID(id),
+        tenantId,
+      );
       if (!connection) {
         return reply.status(404).send({ message: 'Connection not found.' });
       }
-      return reply.status(200).send({ connection: marketplaceConnectionToDTO(connection) });
+      return reply
+        .status(200)
+        .send({ connection: marketplaceConnectionToDTO(connection) });
     },
   });
 }

@@ -2,6 +2,7 @@ import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { UniqueEntityID as EntityID } from '@/entities/domain/unique-entity-id';
 import { AnalyticsReport } from '@/entities/sales/analytics-report';
 import { prisma } from '@/lib/prisma';
+import type { Prisma } from '@prisma/generated/client.js';
 import type {
   AnalyticsReportsRepository,
   CreateAnalyticsReportSchema,
@@ -56,7 +57,7 @@ export class PrismaAnalyticsReportsRepository
         tenantId: data.tenantId,
         name: data.name,
         type: data.type as ReportType,
-        config: (data.config ?? {}) as any,
+        config: (data.config ?? {}) as unknown as Prisma.InputJsonValue,
         format: data.format as ReportFormat,
         dashboardId: data.dashboardId,
         isScheduled: data.isScheduled ?? false,
@@ -168,7 +169,7 @@ export class PrismaAnalyticsReportsRepository
     return mapToDomain(report as unknown as Record<string, unknown>);
   }
 
-  async delete(id: UniqueEntityID, tenantId: string): Promise<void> {
+  async delete(id: UniqueEntityID, _tenantId: string): Promise<void> {
     await prisma.analyticsReport.update({
       where: { id: id.toString() },
       data: { deletedAt: new Date(), isActive: false },

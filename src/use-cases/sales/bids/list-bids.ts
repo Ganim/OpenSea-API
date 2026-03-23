@@ -26,19 +26,22 @@ interface ListBidsUseCaseResponse {
 export class ListBidsUseCase {
   constructor(private bidsRepository: BidsRepository) {}
 
-  async execute(request: ListBidsUseCaseRequest): Promise<ListBidsUseCaseResponse> {
-    const result: PaginatedResult<Bid> = await this.bidsRepository.findManyPaginated({
-      tenantId: request.tenantId,
-      page: request.page,
-      limit: request.limit,
-      search: request.search,
-      status: request.status,
-      modality: request.modality,
-      organState: request.organState,
-      assignedToUserId: request.assignedToUserId,
-      sortBy: request.sortBy,
-      sortOrder: request.sortOrder,
-    });
+  async execute(
+    request: ListBidsUseCaseRequest,
+  ): Promise<ListBidsUseCaseResponse> {
+    const result: PaginatedResult<Bid> =
+      await this.bidsRepository.findManyPaginated({
+        tenantId: request.tenantId,
+        page: request.page,
+        limit: request.limit,
+        search: request.search,
+        status: request.status,
+        modality: request.modality,
+        organState: request.organState,
+        assignedToUserId: request.assignedToUserId,
+        sortBy: request.sortBy,
+        sortOrder: request.sortOrder,
+      });
 
     return {
       bids: result.data,

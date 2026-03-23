@@ -13,6 +13,8 @@ export interface FindManyBidDocumentsPaginatedParams {
 export interface BidDocumentsRepository {
   create(doc: BidDocument): Promise<void>;
   findById(id: UniqueEntityID, tenantId: string): Promise<BidDocument | null>;
-  findManyPaginated(params: FindManyBidDocumentsPaginatedParams): Promise<PaginatedResult<BidDocument>>;
+  findManyPaginated(
+    params: FindManyBidDocumentsPaginatedParams,
+  ): Promise<PaginatedResult<BidDocument>>;
   save(doc: BidDocument): Promise<void>;
 }

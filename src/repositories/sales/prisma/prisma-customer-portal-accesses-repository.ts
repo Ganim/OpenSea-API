@@ -119,7 +119,7 @@ export class PrismaCustomerPortalAccessesRepository
     });
   }
 
-  async delete(id: UniqueEntityID, tenantId: string): Promise<void> {
+  async delete(id: UniqueEntityID, _tenantId: string): Promise<void> {
     await prisma.customerPortalAccess.delete({
       where: { id: id.toString() },
     });

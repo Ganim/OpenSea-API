@@ -16,7 +16,10 @@ export interface FindManyPosTerminalsPaginatedParams {
 export interface PosTerminalsRepository {
   create(terminal: PosTerminal): Promise<void>;
   findById(id: UniqueEntityID, tenantId: string): Promise<PosTerminal | null>;
-  findByDeviceId(deviceId: string, tenantId: string): Promise<PosTerminal | null>;
+  findByDeviceId(
+    deviceId: string,
+    tenantId: string,
+  ): Promise<PosTerminal | null>;
   findManyPaginated(
     params: FindManyPosTerminalsPaginatedParams,
   ): Promise<PaginatedResult<PosTerminal>>;

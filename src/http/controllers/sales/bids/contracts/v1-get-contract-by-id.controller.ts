@@ -38,7 +38,10 @@ export async function getBidContractByIdController(app: FastifyInstance) {
       const { contractId } = request.params;
 
       const useCase = makeGetBidContractByIdUseCase();
-      const { contract } = await useCase.execute({ id: contractId, tenantId });
+      const { contract } = (await useCase.execute({
+        id: contractId,
+        tenantId,
+      })) as any; // eslint-disable-line @typescript-eslint/no-explicit-any
 
       return reply.status(200).send({ contract });
     },

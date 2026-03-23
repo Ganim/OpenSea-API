@@ -8,7 +8,7 @@ import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { employeeResponseSchema } from '@/http/schemas';
 import { employeeToDTOWithRelations } from '@/mappers/hr/employee/employee-to-dto';
 import { PrismaEmployeesRepository } from '@/repositories/hr/prisma/prisma-employees-repository';
-import { makeGetEmployeeByIdUseCase } from '@/use-cases/hr/employees/factories/make-get-employee-by-id-use-case';
+
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';

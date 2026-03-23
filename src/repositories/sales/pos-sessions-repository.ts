@@ -16,7 +16,10 @@ export interface FindManyPosSessionsPaginatedParams {
 export interface PosSessionsRepository {
   create(session: PosSession): Promise<void>;
   findById(id: UniqueEntityID, tenantId: string): Promise<PosSession | null>;
-  findActiveByTerminal(terminalId: string, tenantId: string): Promise<PosSession | null>;
+  findActiveByTerminal(
+    terminalId: string,
+    tenantId: string,
+  ): Promise<PosSession | null>;
   findManyPaginated(
     params: FindManyPosSessionsPaginatedParams,
   ): Promise<PaginatedResult<PosSession>>;

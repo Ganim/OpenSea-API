@@ -149,7 +149,7 @@ export class PrismaAnalyticsGoalsRepository
     return mapToDomain(goal as unknown as Record<string, unknown>);
   }
 
-  async delete(id: UniqueEntityID, tenantId: string): Promise<void> {
+  async delete(id: UniqueEntityID, _tenantId: string): Promise<void> {
     await prisma.analyticsGoal.update({
       where: { id: id.toString() },
       data: { deletedAt: new Date(), status: 'ARCHIVED' },

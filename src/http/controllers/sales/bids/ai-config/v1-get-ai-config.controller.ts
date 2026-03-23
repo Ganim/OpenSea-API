@@ -33,7 +33,7 @@ export async function getBidAiConfigController(app: FastifyInstance) {
       const tenantId = request.user.tenantId!;
 
       const useCase = makeGetBidAiConfigUseCase();
-      const { config } = await useCase.execute({ tenantId });
+      const { config } = (await useCase.execute({ tenantId })) as any; // eslint-disable-line @typescript-eslint/no-explicit-any
 
       return reply.status(200).send({ config });
     },

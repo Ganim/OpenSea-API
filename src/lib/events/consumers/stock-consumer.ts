@@ -39,14 +39,14 @@ function getLogger() {
 function getItemReservationsRepository() {
   const {
     PrismaItemReservationsRepository,
-  } = require('@/repositories/sales/prisma/prisma-item-reservations-repository');
+  } = require('@/repositories/sales/prisma/prisma-item-reservations-repository'); // eslint-disable-line @typescript-eslint/no-require-imports
   return new PrismaItemReservationsRepository();
 }
 
 function getOrderItemsRepository() {
   const {
     PrismaOrderItemsRepository,
-  } = require('@/repositories/sales/prisma/prisma-order-items-repository');
+  } = require('@/repositories/sales/prisma/prisma-order-items-repository'); // eslint-disable-line @typescript-eslint/no-require-imports
   return new PrismaOrderItemsRepository();
 }
 

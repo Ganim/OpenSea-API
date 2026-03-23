@@ -44,7 +44,7 @@ function getLogger() {
 function getTimelineEventsRepository() {
   const {
     PrismaTimelineEventsRepository,
-  } = require('@/repositories/sales/prisma/prisma-timeline-events-repository');
+  } = require('@/repositories/sales/prisma/prisma-timeline-events-repository'); // eslint-disable-line @typescript-eslint/no-require-imports
   return new PrismaTimelineEventsRepository();
 }
 

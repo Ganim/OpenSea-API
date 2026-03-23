@@ -27,7 +27,8 @@ export class PrismaPosSessionsRepository implements PosSessionsRepository {
         closingBalance: session.closingBalance ?? null,
         expectedBalance: session.expectedBalance ?? null,
         difference: session.difference ?? null,
-        closingBreakdown: (session.closingBreakdown as Prisma.InputJsonValue) ?? undefined,
+        closingBreakdown:
+          (session.closingBreakdown as Prisma.InputJsonValue) ?? undefined,
         notes: session.notes ?? null,
       },
     });
@@ -92,7 +93,8 @@ export class PrismaPosSessionsRepository implements PosSessionsRepository {
         closingBalance: session.closingBalance ?? null,
         expectedBalance: session.expectedBalance ?? null,
         difference: session.difference ?? null,
-        closingBreakdown: (session.closingBreakdown as Prisma.InputJsonValue) ?? undefined,
+        closingBreakdown:
+          (session.closingBreakdown as Prisma.InputJsonValue) ?? undefined,
         notes: session.notes ?? null,
       },
     });

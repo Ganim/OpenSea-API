@@ -51,17 +51,13 @@ export function inventorySessionItemPrismaToDomain(
       expectedBinId: raw.expectedBinId
         ? new EntityID(raw.expectedBinId)
         : undefined,
-      actualBinId: raw.actualBinId
-        ? new EntityID(raw.actualBinId)
-        : undefined,
+      actualBinId: raw.actualBinId ? new EntityID(raw.actualBinId) : undefined,
       status: raw.status as InventorySessionItemStatus,
       scannedAt: raw.scannedAt ?? undefined,
       resolution: raw.resolution
         ? (raw.resolution as DivergenceResolution)
         : undefined,
-      resolvedBy: raw.resolvedBy
-        ? new EntityID(raw.resolvedBy)
-        : undefined,
+      resolvedBy: raw.resolvedBy ? new EntityID(raw.resolvedBy) : undefined,
       resolvedAt: raw.resolvedAt ?? undefined,
       notes: raw.notes ?? undefined,
       createdAt: raw.createdAt,

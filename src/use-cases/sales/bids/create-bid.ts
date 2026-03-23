@@ -1,7 +1,12 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Bid } from '@/entities/sales/bid';
-import type { BidModality, BidCriterion, BidLegalFramework, BidExecutionRegime } from '@/entities/sales/bid';
+import type {
+  BidModality,
+  BidCriterion,
+  BidLegalFramework,
+  BidExecutionRegime,
+} from '@/entities/sales/bid';
 import type { BidsRepository } from '@/repositories/sales/bids-repository';
 import type { BidHistoryRepository } from '@/repositories/sales/bid-history-repository';
 import { BidHistory } from '@/entities/sales/bid-history';
@@ -46,7 +51,9 @@ export class CreateBidUseCase {
     private bidHistoryRepository: BidHistoryRepository,
   ) {}
 
-  async execute(request: CreateBidUseCaseRequest): Promise<CreateBidUseCaseResponse> {
+  async execute(
+    request: CreateBidUseCaseRequest,
+  ): Promise<CreateBidUseCaseResponse> {
     if (!request.editalNumber || request.editalNumber.trim().length === 0) {
       throw new BadRequestError('Edital number is required');
     }
@@ -67,7 +74,9 @@ export class CreateBidUseCase {
       modality: request.modality as BidModality,
       criterionType: request.criterionType as BidCriterion,
       legalFramework: request.legalFramework as BidLegalFramework,
-      executionRegime: request.executionRegime as BidExecutionRegime | undefined,
+      executionRegime: request.executionRegime as
+        | BidExecutionRegime
+        | undefined,
       object: request.object.trim(),
       objectSummary: request.objectSummary,
       organName: request.organName.trim(),
@@ -79,8 +88,12 @@ export class CreateBidUseCase {
       openingDate: request.openingDate,
       closingDate: request.closingDate,
       disputeDate: request.disputeDate,
-      customerId: request.customerId ? new UniqueEntityID(request.customerId) : undefined,
-      assignedToUserId: request.assignedToUserId ? new UniqueEntityID(request.assignedToUserId) : undefined,
+      customerId: request.customerId
+        ? new UniqueEntityID(request.customerId)
+        : undefined,
+      assignedToUserId: request.assignedToUserId
+        ? new UniqueEntityID(request.assignedToUserId)
+        : undefined,
       exclusiveMeEpp: request.exclusiveMeEpp,
       deliveryStates: request.deliveryStates,
       tags: request.tags,
@@ -96,7 +109,9 @@ export class CreateBidUseCase {
         tenantId: new UniqueEntityID(request.tenantId),
         action: 'BID_CREATED',
         description: `Licitação ${request.editalNumber} cadastrada`,
-        performedByUserId: request.userId ? new UniqueEntityID(request.userId) : undefined,
+        performedByUserId: request.userId
+          ? new UniqueEntityID(request.userId)
+          : undefined,
       }),
     );
 

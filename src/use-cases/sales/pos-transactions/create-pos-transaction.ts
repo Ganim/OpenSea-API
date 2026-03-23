@@ -68,7 +68,9 @@ export class CreatePosTransactionUseCase {
     }
 
     if (session.status !== 'OPEN') {
-      throw new BadRequestError('Session is not open. Cannot create transaction.');
+      throw new BadRequestError(
+        'Session is not open. Cannot create transaction.',
+      );
     }
 
     // Validate payments cover the grand total

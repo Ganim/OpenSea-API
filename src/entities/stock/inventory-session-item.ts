@@ -161,7 +161,10 @@ export class InventorySessionItem extends Entity<InventorySessionItemProps> {
   }
 
   static create(
-    props: Optional<InventorySessionItemProps, 'status' | 'createdAt' | 'updatedAt'>,
+    props: Optional<
+      InventorySessionItemProps,
+      'status' | 'createdAt' | 'updatedAt'
+    >,
     id?: UniqueEntityID,
   ): InventorySessionItem {
     const now = new Date();

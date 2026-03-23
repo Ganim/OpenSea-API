@@ -6,7 +6,10 @@ import type {
   BidEmpenhosRepository,
   FindManyBidEmpenhosPaginatedParams,
 } from '../bid-empenhos-repository';
-import type { BidEmpenhoType as PrismaBidEmpenhoType, BidEmpenhoStatus as PrismaBidEmpenhoStatus } from '@prisma/generated/client.js';
+import type {
+  BidEmpenhoType as PrismaBidEmpenhoType,
+  BidEmpenhoStatus as PrismaBidEmpenhoStatus,
+} from '@prisma/generated/client.js';
 import { Prisma } from '@prisma/generated/client.js';
 
 function mapToDomain(data: Record<string, unknown>): BidEmpenho {
@@ -19,7 +22,9 @@ function mapToDomain(data: Record<string, unknown>): BidEmpenho {
       value: Number(data.value),
       issueDate: data.issueDate as Date,
       status: data.status as BidEmpenho['status'],
-      orderId: data.orderId ? new UniqueEntityID(data.orderId as string) : undefined,
+      orderId: data.orderId
+        ? new UniqueEntityID(data.orderId as string)
+        : undefined,
       notes: (data.notes as string) ?? undefined,
       createdAt: data.createdAt as Date,
       updatedAt: (data.updatedAt as Date) ?? undefined,
@@ -47,7 +52,10 @@ export class PrismaBidEmpenhosRepository implements BidEmpenhosRepository {
     });
   }
 
-  async findById(id: UniqueEntityID, tenantId: string): Promise<BidEmpenho | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<BidEmpenho | null> {
     const data = await prisma.bidEmpenho.findFirst({
       where: { id: id.toString(), tenantId },
     });
@@ -55,7 +63,10 @@ export class PrismaBidEmpenhosRepository implements BidEmpenhosRepository {
     return mapToDomain(data as unknown as Record<string, unknown>);
   }
 
-  async findByNumber(empenhoNumber: string, tenantId: string): Promise<BidEmpenho | null> {
+  async findByNumber(
+    empenhoNumber: string,
+    tenantId: string,
+  ): Promise<BidEmpenho | null> {
     const data = await prisma.bidEmpenho.findFirst({
       where: { empenhoNumber, tenantId },
     });
@@ -63,7 +74,9 @@ export class PrismaBidEmpenhosRepository implements BidEmpenhosRepository {
     return mapToDomain(data as unknown as Record<string, unknown>);
   }
 
-  async findManyByContractId(params: FindManyBidEmpenhosPaginatedParams): Promise<PaginatedResult<BidEmpenho>> {
+  async findManyByContractId(
+    params: FindManyBidEmpenhosPaginatedParams,
+  ): Promise<PaginatedResult<BidEmpenho>> {
     const where: Record<string, unknown> = {
       tenantId: params.tenantId,
       contractId: params.contractId,
@@ -81,7 +94,9 @@ export class PrismaBidEmpenhosRepository implements BidEmpenhosRepository {
     ]);
 
     return {
-      data: data.map((d) => mapToDomain(d as unknown as Record<string, unknown>)),
+      data: data.map((d) =>
+        mapToDomain(d as unknown as Record<string, unknown>),
+      ),
       total,
       page: params.page,
       limit: params.limit,

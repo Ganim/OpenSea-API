@@ -3,7 +3,10 @@ import { UniqueEntityID as EntityID } from '@/entities/domain/unique-entity-id';
 import { PipelineStage } from '@/entities/sales/pipeline-stage';
 import { prisma } from '@/lib/prisma';
 import type { PipelineStagesRepository } from '../pipeline-stages-repository';
-import type { PipelineStageType as PrismaStageType } from '@prisma/generated/client.js';
+import type {
+  PipelineStageType as PrismaStageType,
+  Prisma,
+} from '@prisma/generated/client.js';
 
 function mapToDomain(data: Record<string, unknown>): PipelineStage {
   return PipelineStage.create(
@@ -38,7 +41,9 @@ export class PrismaPipelineStagesRepository
         position: stage.position,
         type: stage.type as PrismaStageType,
         probability: stage.probability,
-        autoActions: (stage.autoActions ?? undefined) as any,
+        autoActions: (stage.autoActions ?? undefined) as unknown as
+          | Prisma.InputJsonValue
+          | undefined,
         rottenAfterDays: stage.rottenAfterDays,
         createdAt: stage.createdAt,
       },
@@ -77,7 +82,9 @@ export class PrismaPipelineStagesRepository
         position: stage.position,
         type: stage.type as PrismaStageType,
         probability: stage.probability,
-        autoActions: (stage.autoActions ?? undefined) as any,
+        autoActions: (stage.autoActions ?? undefined) as unknown as
+          | Prisma.InputJsonValue
+          | undefined,
         rottenAfterDays: stage.rottenAfterDays,
       },
     });

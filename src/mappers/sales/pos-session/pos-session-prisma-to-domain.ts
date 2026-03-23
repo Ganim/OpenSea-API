@@ -13,10 +13,16 @@ export function posSessionPrismaToDomain(raw: PrismaPosSession): PosSession {
       openedAt: raw.openedAt,
       closedAt: raw.closedAt ?? undefined,
       openingBalance: Number(raw.openingBalance),
-      closingBalance: raw.closingBalance ? Number(raw.closingBalance) : undefined,
-      expectedBalance: raw.expectedBalance ? Number(raw.expectedBalance) : undefined,
+      closingBalance: raw.closingBalance
+        ? Number(raw.closingBalance)
+        : undefined,
+      expectedBalance: raw.expectedBalance
+        ? Number(raw.expectedBalance)
+        : undefined,
       difference: raw.difference ? Number(raw.difference) : undefined,
-      closingBreakdown: raw.closingBreakdown as Record<string, unknown> | undefined,
+      closingBreakdown: raw.closingBreakdown as
+        | Record<string, unknown>
+        | undefined,
       notes: raw.notes ?? undefined,
       createdAt: raw.createdAt,
       updatedAt: raw.updatedAt,

@@ -4,7 +4,6 @@ import {
   domainEventBus,
   type DomainEvent,
   type EnhancedDomainEvent,
-  type EventConsumer,
 } from './domain-events';
 
 describe('DomainEventBus', () => {

@@ -8,6 +8,7 @@ import { InMemoryDealsRepository } from '@/repositories/sales/in-memory/in-memor
 import { InMemoryPipelineStagesRepository } from '@/repositories/sales/in-memory/in-memory-pipeline-stages-repository';
 import { InMemoryPipelinesRepository } from '@/repositories/sales/in-memory/in-memory-pipelines-repository';
 import { InMemoryTimelineEventsRepository } from '@/repositories/sales/in-memory/in-memory-timeline-events-repository';
+import { CustomerType } from '@/entities/sales/value-objects/customer-type';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { CreateDealUseCase } from './create-deal';
 
@@ -41,7 +42,7 @@ describe('Create Deal Use Case', () => {
     const customer = await customersRepository.create({
       tenantId: TENANT_ID,
       name: 'Acme Corp',
-      type: 'COMPANY' as any,
+      type: CustomerType.create('BUSINESS'),
     });
     customerId = customer.id.toString();
 

@@ -27,7 +27,9 @@ export async function v1UpdateConnectionController(app: FastifyInstance) {
       params: z.object({ id: z.string().uuid() }),
       body: z.object({
         name: z.string().min(1).max(128).optional(),
-        status: z.enum(['ACTIVE', 'PAUSED', 'DISCONNECTED', 'ERROR']).optional(),
+        status: z
+          .enum(['ACTIVE', 'PAUSED', 'DISCONNECTED', 'ERROR'])
+          .optional(),
         sellerName: z.string().optional(),
         syncProducts: z.boolean().optional(),
         syncPrices: z.boolean().optional(),

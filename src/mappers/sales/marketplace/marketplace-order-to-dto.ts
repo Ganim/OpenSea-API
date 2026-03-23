@@ -33,7 +33,9 @@ export interface MarketplaceOrderDTO {
   updatedAt?: Date;
 }
 
-export function marketplaceOrderToDTO(order: MarketplaceOrder): MarketplaceOrderDTO {
+export function marketplaceOrderToDTO(
+  order: MarketplaceOrder,
+): MarketplaceOrderDTO {
   return {
     id: order.id.toString(),
     connectionId: order.connectionId.toString(),

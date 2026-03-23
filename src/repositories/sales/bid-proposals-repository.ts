@@ -12,6 +12,8 @@ export interface FindManyBidProposalsPaginatedParams {
 export interface BidProposalsRepository {
   create(proposal: BidProposal): Promise<void>;
   findById(id: UniqueEntityID, tenantId: string): Promise<BidProposal | null>;
-  findManyByBidId(params: FindManyBidProposalsPaginatedParams): Promise<PaginatedResult<BidProposal>>;
+  findManyByBidId(
+    params: FindManyBidProposalsPaginatedParams,
+  ): Promise<PaginatedResult<BidProposal>>;
   save(proposal: BidProposal): Promise<void>;
 }

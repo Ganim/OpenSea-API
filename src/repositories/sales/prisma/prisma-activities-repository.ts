@@ -91,7 +91,7 @@ export class PrismaActivitiesRepository implements ActivitiesRepository {
     ]);
 
     return {
-      data: activitiesData.map((a: any) =>
+      data: activitiesData.map((a) =>
         activityPrismaToDomain(a as unknown as Record<string, unknown>),
       ),
       total,
@@ -111,7 +111,7 @@ export class PrismaActivitiesRepository implements ActivitiesRepository {
       orderBy: { createdAt: 'desc' },
     });
 
-    return items.map((a: any) =>
+    return items.map((a) =>
       activityPrismaToDomain(a as unknown as Record<string, unknown>),
     );
   }

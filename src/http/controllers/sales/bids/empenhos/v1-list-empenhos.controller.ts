@@ -46,10 +46,10 @@ export async function listBidEmpenhosController(app: FastifyInstance) {
       const query = request.query;
 
       const useCase = makeListBidEmpenhosUseCase();
-      const { empenhos, total, totalPages } = await useCase.execute({
+      const { empenhos, total, totalPages } = (await useCase.execute({
         tenantId,
         ...query,
-      });
+      })) as any; // eslint-disable-line @typescript-eslint/no-explicit-any
 
       return reply.status(200).send({
         empenhos,

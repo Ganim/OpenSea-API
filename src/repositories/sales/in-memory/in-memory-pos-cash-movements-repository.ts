@@ -11,8 +11,6 @@ export class InMemoryPosCashMovementsRepository
   }
 
   async findBySessionId(sessionId: string): Promise<PosCashMovement[]> {
-    return this.items.filter(
-      (m) => m.sessionId.toString() === sessionId,
-    );
+    return this.items.filter((m) => m.sessionId.toString() === sessionId);
   }
 }

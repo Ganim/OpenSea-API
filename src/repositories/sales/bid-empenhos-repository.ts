@@ -13,7 +13,12 @@ export interface FindManyBidEmpenhosPaginatedParams {
 export interface BidEmpenhosRepository {
   create(empenho: BidEmpenho): Promise<void>;
   findById(id: UniqueEntityID, tenantId: string): Promise<BidEmpenho | null>;
-  findByNumber(empenhoNumber: string, tenantId: string): Promise<BidEmpenho | null>;
-  findManyByContractId(params: FindManyBidEmpenhosPaginatedParams): Promise<PaginatedResult<BidEmpenho>>;
+  findByNumber(
+    empenhoNumber: string,
+    tenantId: string,
+  ): Promise<BidEmpenho | null>;
+  findManyByContractId(
+    params: FindManyBidEmpenhosPaginatedParams,
+  ): Promise<PaginatedResult<BidEmpenho>>;
   save(empenho: BidEmpenho): Promise<void>;
 }

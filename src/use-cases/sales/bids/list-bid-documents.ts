@@ -21,14 +21,17 @@ interface ListBidDocumentsUseCaseResponse {
 export class ListBidDocumentsUseCase {
   constructor(private bidDocumentsRepository: BidDocumentsRepository) {}
 
-  async execute(request: ListBidDocumentsUseCaseRequest): Promise<ListBidDocumentsUseCaseResponse> {
-    const result: PaginatedResult<BidDocument> = await this.bidDocumentsRepository.findManyPaginated({
-      tenantId: request.tenantId,
-      page: request.page,
-      limit: request.limit,
-      bidId: request.bidId,
-      type: request.type,
-    });
+  async execute(
+    request: ListBidDocumentsUseCaseRequest,
+  ): Promise<ListBidDocumentsUseCaseResponse> {
+    const result: PaginatedResult<BidDocument> =
+      await this.bidDocumentsRepository.findManyPaginated({
+        tenantId: request.tenantId,
+        page: request.page,
+        limit: request.limit,
+        bidId: request.bidId,
+        type: request.type,
+      });
 
     return {
       documents: result.data,

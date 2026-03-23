@@ -101,8 +101,8 @@ describe('CreateInventorySessionUseCase', () => {
   it('should create a BIN mode session with items', async () => {
     const variantId = new UniqueEntityID();
     const { bin } = await createTestBin('A1');
-    const item1 = createTestItem(variantId, bin.binId);
-    const item2 = createTestItem(variantId, bin.binId);
+    const _item1 = createTestItem(variantId, bin.binId);
+    const _item2 = createTestItem(variantId, bin.binId);
 
     const result = await sut.execute({
       tenantId: TENANT_ID,

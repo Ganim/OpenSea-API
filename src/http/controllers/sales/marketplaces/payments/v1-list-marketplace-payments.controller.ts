@@ -7,7 +7,9 @@ import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
-export async function v1ListMarketplacePaymentsController(app: FastifyInstance) {
+export async function v1ListMarketplacePaymentsController(
+  app: FastifyInstance,
+) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/marketplace-payments',
@@ -42,7 +44,12 @@ export async function v1ListMarketplacePaymentsController(app: FastifyInstance) 
       const tenantId = request.user.tenantId!;
       const { page, perPage, connectionId } = request.query;
       const useCase = makeListMarketplacePaymentsUseCase();
-      const result = await useCase.execute({ tenantId, connectionId, page, perPage });
+      const result = await useCase.execute({
+        tenantId,
+        connectionId,
+        page,
+        perPage,
+      });
       return reply.status(200).send(result);
     },
   });

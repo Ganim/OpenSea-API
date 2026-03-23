@@ -17,7 +17,7 @@ export class GetSystemHealthUseCase {
   private readonly startedAt = Date.now();
 
   async execute(): Promise<GetSystemHealthUseCaseResponse> {
-    const uptimeMs = Date.now() - this.startedAt;
+    const _uptimeMs = Date.now() - this.startedAt;
 
     // Placeholder values — real health checks would ping DB/Redis
     const health: SystemHealthStatus = {

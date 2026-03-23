@@ -6,7 +6,10 @@ import type {
   BidItemsRepository,
   FindManyBidItemsPaginatedParams,
 } from '../bid-items-repository';
-import type { BidItemStatus as PrismaBidItemStatus, BidQuotaType as PrismaBidQuotaType } from '@prisma/generated/client.js';
+import type {
+  BidItemStatus as PrismaBidItemStatus,
+  BidQuotaType as PrismaBidQuotaType,
+} from '@prisma/generated/client.js';
 import { Prisma } from '@prisma/generated/client.js';
 
 function mapToDomain(data: Record<string, unknown>): BidItem {
@@ -20,12 +23,20 @@ function mapToDomain(data: Record<string, unknown>): BidItem {
       description: data.description as string,
       quantity: Number(data.quantity),
       unit: data.unit as string,
-      estimatedUnitPrice: data.estimatedUnitPrice ? Number(data.estimatedUnitPrice) : undefined,
+      estimatedUnitPrice: data.estimatedUnitPrice
+        ? Number(data.estimatedUnitPrice)
+        : undefined,
       ourUnitPrice: data.ourUnitPrice ? Number(data.ourUnitPrice) : undefined,
-      finalUnitPrice: data.finalUnitPrice ? Number(data.finalUnitPrice) : undefined,
+      finalUnitPrice: data.finalUnitPrice
+        ? Number(data.finalUnitPrice)
+        : undefined,
       status: data.status as BidItem['status'],
-      variantId: data.variantId ? new UniqueEntityID(data.variantId as string) : undefined,
-      matchConfidence: data.matchConfidence ? Number(data.matchConfidence) : undefined,
+      variantId: data.variantId
+        ? new UniqueEntityID(data.variantId as string)
+        : undefined,
+      matchConfidence: data.matchConfidence
+        ? Number(data.matchConfidence)
+        : undefined,
       quotaType: (data.quotaType as BidItem['quotaType']) ?? undefined,
       notes: (data.notes as string) ?? undefined,
       createdAt: data.createdAt as Date,
@@ -48,12 +59,24 @@ export class PrismaBidItemsRepository implements BidItemsRepository {
         description: item.description,
         quantity: new Prisma.Decimal(item.quantity),
         unit: item.unit,
-        estimatedUnitPrice: item.estimatedUnitPrice != null ? new Prisma.Decimal(item.estimatedUnitPrice) : undefined,
-        ourUnitPrice: item.ourUnitPrice != null ? new Prisma.Decimal(item.ourUnitPrice) : undefined,
-        finalUnitPrice: item.finalUnitPrice != null ? new Prisma.Decimal(item.finalUnitPrice) : undefined,
+        estimatedUnitPrice:
+          item.estimatedUnitPrice != null
+            ? new Prisma.Decimal(item.estimatedUnitPrice)
+            : undefined,
+        ourUnitPrice:
+          item.ourUnitPrice != null
+            ? new Prisma.Decimal(item.ourUnitPrice)
+            : undefined,
+        finalUnitPrice:
+          item.finalUnitPrice != null
+            ? new Prisma.Decimal(item.finalUnitPrice)
+            : undefined,
         status: item.status as PrismaBidItemStatus,
         variantId: item.variantId?.toString(),
-        matchConfidence: item.matchConfidence != null ? new Prisma.Decimal(item.matchConfidence) : undefined,
+        matchConfidence:
+          item.matchConfidence != null
+            ? new Prisma.Decimal(item.matchConfidence)
+            : undefined,
         quotaType: item.quotaType as PrismaBidQuotaType | undefined,
         notes: item.notes,
         createdAt: item.createdAt,
@@ -74,8 +97,14 @@ export class PrismaBidItemsRepository implements BidItemsRepository {
         description: item.description,
         quantity: new Prisma.Decimal(item.quantity),
         unit: item.unit,
-        estimatedUnitPrice: item.estimatedUnitPrice != null ? new Prisma.Decimal(item.estimatedUnitPrice) : undefined,
-        ourUnitPrice: item.ourUnitPrice != null ? new Prisma.Decimal(item.ourUnitPrice) : undefined,
+        estimatedUnitPrice:
+          item.estimatedUnitPrice != null
+            ? new Prisma.Decimal(item.estimatedUnitPrice)
+            : undefined,
+        ourUnitPrice:
+          item.ourUnitPrice != null
+            ? new Prisma.Decimal(item.ourUnitPrice)
+            : undefined,
         status: item.status as PrismaBidItemStatus,
         variantId: item.variantId?.toString(),
         quotaType: item.quotaType as PrismaBidQuotaType | undefined,
@@ -85,7 +114,10 @@ export class PrismaBidItemsRepository implements BidItemsRepository {
     });
   }
 
-  async findById(id: UniqueEntityID, tenantId: string): Promise<BidItem | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<BidItem | null> {
     const data = await prisma.bidItem.findFirst({
       where: { id: id.toString(), tenantId },
     });
@@ -93,7 +125,9 @@ export class PrismaBidItemsRepository implements BidItemsRepository {
     return mapToDomain(data as unknown as Record<string, unknown>);
   }
 
-  async findManyByBidId(params: FindManyBidItemsPaginatedParams): Promise<PaginatedResult<BidItem>> {
+  async findManyByBidId(
+    params: FindManyBidItemsPaginatedParams,
+  ): Promise<PaginatedResult<BidItem>> {
     const where: Record<string, unknown> = {
       tenantId: params.tenantId,
       bidId: params.bidId,
@@ -111,7 +145,9 @@ export class PrismaBidItemsRepository implements BidItemsRepository {
     ]);
 
     return {
-      data: data.map((d) => mapToDomain(d as unknown as Record<string, unknown>)),
+      data: data.map((d) =>
+        mapToDomain(d as unknown as Record<string, unknown>),
+      ),
       total,
       page: params.page,
       limit: params.limit,
@@ -123,8 +159,14 @@ export class PrismaBidItemsRepository implements BidItemsRepository {
     await prisma.bidItem.update({
       where: { id: item.id.toString() },
       data: {
-        ourUnitPrice: item.ourUnitPrice != null ? new Prisma.Decimal(item.ourUnitPrice) : null,
-        finalUnitPrice: item.finalUnitPrice != null ? new Prisma.Decimal(item.finalUnitPrice) : null,
+        ourUnitPrice:
+          item.ourUnitPrice != null
+            ? new Prisma.Decimal(item.ourUnitPrice)
+            : null,
+        finalUnitPrice:
+          item.finalUnitPrice != null
+            ? new Prisma.Decimal(item.finalUnitPrice)
+            : null,
         status: item.status as PrismaBidItemStatus,
         notes: item.notes,
       },

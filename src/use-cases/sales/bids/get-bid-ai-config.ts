@@ -1,5 +1,5 @@
 export class GetBidAiConfigUseCase {
-  async execute(request: any): Promise<any> {
+  async execute(_request: unknown): Promise<unknown> {
     throw new Error('GetBidAiConfigUseCase not implemented');
   }
 }

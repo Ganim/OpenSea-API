@@ -1,4 +1,3 @@
-import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import type { CardCommentsRepository } from '@/repositories/tasks/card-comments-repository';
 import type {

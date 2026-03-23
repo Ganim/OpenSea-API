@@ -14,7 +14,10 @@ export interface FindManyPosTransactionsPaginatedParams {
 
 export interface PosTransactionsRepository {
   create(transaction: PosTransaction): Promise<void>;
-  findById(id: UniqueEntityID, tenantId: string): Promise<PosTransaction | null>;
+  findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<PosTransaction | null>;
   findManyPaginated(
     params: FindManyPosTransactionsPaginatedParams,
   ): Promise<PaginatedResult<PosTransaction>>;

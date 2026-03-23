@@ -20,7 +20,9 @@ export interface MarketplacePaymentDTO {
   updatedAt?: Date;
 }
 
-export function marketplacePaymentToDTO(payment: MarketplacePayment): MarketplacePaymentDTO {
+export function marketplacePaymentToDTO(
+  payment: MarketplacePayment,
+): MarketplacePaymentDTO {
   return {
     id: payment.id.toString(),
     connectionId: payment.connectionId.toString(),

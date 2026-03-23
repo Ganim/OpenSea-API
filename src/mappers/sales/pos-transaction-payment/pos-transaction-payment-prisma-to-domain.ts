@@ -12,7 +12,9 @@ export function posTransactionPaymentPrismaToDomain(
       transactionId: new UniqueEntityID(raw.transactionId),
       method: raw.method,
       amount: Number(raw.amount),
-      receivedAmount: raw.receivedAmount ? Number(raw.receivedAmount) : undefined,
+      receivedAmount: raw.receivedAmount
+        ? Number(raw.receivedAmount)
+        : undefined,
       changeAmount: raw.changeAmount ? Number(raw.changeAmount) : undefined,
       installments: raw.installments,
       authCode: raw.authCode ?? undefined,
