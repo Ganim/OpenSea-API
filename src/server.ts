@@ -89,13 +89,13 @@ heapCheckInterval.unref();
 
 async function checkDatabaseConnection(): Promise<boolean> {
   try {
-    const timeoutId = setTimeout(() => {}, 5000);
+    const timeoutId = setTimeout(() => {}, 30000);
     await Promise.race([
       prisma.$queryRaw`SELECT 1`,
       new Promise((_, reject) => {
         const timer = setTimeout(
-          () => reject(new Error('Database connection timeout (5s)')),
-          5000,
+          () => reject(new Error('Database connection timeout (30s)')),
+          30000,
         );
         timer.unref();
       }),
