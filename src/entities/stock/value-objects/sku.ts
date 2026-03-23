@@ -18,6 +18,18 @@ export class SKU {
     return new SKU(value);
   }
 
+  /**
+   * Create SKU from fullCode + name: e.g. "067-0005-001-AZUL-MARINHO"
+   * fullCode format: "001.067.0005.001" → uses segments after first as prefix
+   * Guarantees uniqueness via the fullCode which is already unique.
+   */
+  static createFromFullCode(fullCode: string, name: string): SKU {
+    const prefix = fullCode.split('.').slice(1).join('-');
+    const baseName = SKU.generateSKUFromName(name);
+    const sku = `${prefix}-${baseName}`;
+    return new SKU(sku.substring(0, 64));
+  }
+
   static async generateFromName(
     name: string,
     variantsRepository: VariantsRepository,

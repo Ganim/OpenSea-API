@@ -68,21 +68,13 @@ export class CreateVariantUseCase {
       throw new BadRequestError('Name must not exceed 256 characters');
     }
 
-    // Generate SKU if not provided
-    let sku: string;
+    // Validate user-provided SKU upfront (auto-generated SKU is built later with sequentialCode)
+    let userProvidedSku: string | undefined;
     if (input.sku && input.sku.trim().length > 0) {
-      sku = SKU.create(input.sku).value;
-    } else {
-      const skuVO = await SKU.generateFromName(
-        input.name,
-        this.variantsRepository,
-      );
-      sku = skuVO.value;
-    }
-
-    // Validate SKU length
-    if (sku.length > 64) {
-      throw new BadRequestError('SKU must not exceed 64 characters');
+      userProvidedSku = SKU.create(input.sku).value;
+      if (userProvidedSku.length > 64) {
+        throw new BadRequestError('SKU must not exceed 64 characters');
+      }
     }
 
     // Set default price if not provided
@@ -157,10 +149,10 @@ export class CreateVariantUseCase {
       throw new ResourceNotFoundError('Product not found');
     }
 
-    // Check if SKU is unique (only if it was provided by user)
-    if (input.sku) {
+    // Check if user-provided SKU is unique
+    if (userProvidedSku) {
       const existingVariantBySKU = await this.variantsRepository.findBySKU(
-        sku,
+        userProvidedSku,
         input.tenantId,
       );
 
@@ -200,6 +192,11 @@ export class CreateVariantUseCase {
 
         // Generate fullCode: PRODUCT_FULLCODE.VARIANT_SEQ (ex: 001.001.0001.001)
         const fullCode = `${product.fullCode}.${padCode(nextSeq, 3)}`;
+
+        // Generate SKU: use user-provided or auto-generate from fullCode (e.g. 067-0005-001-AZUL-MARINHO)
+        const sku = userProvidedSku
+          ? userProvidedSku
+          : SKU.createFromFullCode(fullCode, input.name).value;
 
         // Generate slug from name (with nextSeq as suffix to ensure uniqueness)
         const slug = Slug.createUniqueFromText(

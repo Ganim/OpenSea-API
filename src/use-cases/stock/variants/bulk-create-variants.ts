@@ -284,16 +284,23 @@ export class BulkCreateVariantsUseCase {
         continue;
       }
 
-      // j. Generate SKU
+      // j. Generate codes (sequential per product) — needed for SKU
+      const nextSeq = nextSeqByProductId.get(variantInput.productId) ?? 1;
+      const fullCode = `${product.fullCode}.${padCode(nextSeq, 3)}`;
+      const slug = Slug.createUniqueFromText(
+        variantName,
+        `${product.fullCode}-${nextSeq}`,
+      );
+      const barcode = generateBarcode(fullCode);
+      const eanCode = generateEAN13(fullCode);
+      const upcCode = generateUPC(fullCode);
+
+      // k. Generate SKU from fullCode (e.g. 067-0005-001-AZUL-MARINHO)
       let sku: string;
       if (variantInput.sku && variantInput.sku.trim().length > 0) {
         sku = SKU.create(variantInput.sku).value;
       } else {
-        const skuVO = await SKU.generateFromName(
-          variantName,
-          this.variantsRepository,
-        );
-        sku = skuVO.value;
+        sku = SKU.createFromFullCode(fullCode, variantName).value;
       }
 
       if (sku.length > 64) {
@@ -304,17 +311,6 @@ export class BulkCreateVariantsUseCase {
         });
         continue;
       }
-
-      // k. Generate codes (sequential per product)
-      const nextSeq = nextSeqByProductId.get(variantInput.productId) ?? 1;
-      const fullCode = `${product.fullCode}.${padCode(nextSeq, 3)}`;
-      const slug = Slug.createUniqueFromText(
-        variantName,
-        `${product.fullCode}-${nextSeq}`,
-      );
-      const barcode = generateBarcode(fullCode);
-      const eanCode = generateEAN13(fullCode);
-      const upcCode = generateUPC(fullCode);
 
       // l. Create variant via repository
       try {
