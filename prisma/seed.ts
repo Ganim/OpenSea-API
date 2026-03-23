@@ -394,6 +394,94 @@ async function seedAdminUser(adminGroupId: string) {
   console.log('   ✅ admin@teste.com (senha: Teste@123)');
 }
 
+async function syncAllTenantPermissions() {
+  console.log('🔄 Sincronizando permissões de todos os tenants...');
+
+  const tenants = await prisma.tenant.findMany({
+    select: { id: true, name: true },
+  });
+
+  if (tenants.length === 0) {
+    console.log('   ⚠️ Nenhum tenant encontrado');
+    return;
+  }
+
+  const allPerms = await prisma.permission.findMany({
+    select: { id: true, code: true },
+  });
+  const allPermIds = new Set(allPerms.map((p) => p.id));
+  const permCodeToId = new Map(allPerms.map((p) => [p.code, p.id]));
+
+  const userPermIds = DEFAULT_USER_PERMISSIONS.map((code) =>
+    permCodeToId.get(code),
+  ).filter((id): id is string => id !== undefined);
+  const validUserPermIds = new Set(userPermIds);
+
+  for (const tenant of tenants) {
+    const tenantIdPrefix = tenant.id.substring(0, 8);
+
+    // Sync tenant admin group → ALL permissions
+    const adminGroup = await prisma.permissionGroup.findFirst({
+      where: {
+        slug: `${PermissionGroupSlugs.ADMIN}-${tenantIdPrefix}`,
+        tenantId: tenant.id,
+        deletedAt: null,
+      },
+    });
+
+    if (adminGroup) {
+      await prisma.permissionGroupPermission.createMany({
+        data: allPerms.map((p) => ({
+          groupId: adminGroup.id,
+          permissionId: p.id,
+          effect: 'allow',
+        })),
+        skipDuplicates: true,
+      });
+      await prisma.permissionGroupPermission.deleteMany({
+        where: {
+          groupId: adminGroup.id,
+          permissionId: { notIn: [...allPermIds] },
+        },
+      });
+    }
+
+    // Sync tenant user group → DEFAULT_USER_PERMISSIONS
+    const userGroup = await prisma.permissionGroup.findFirst({
+      where: {
+        slug: `${PermissionGroupSlugs.USER}-${tenantIdPrefix}`,
+        tenantId: tenant.id,
+        deletedAt: null,
+      },
+    });
+
+    if (userGroup) {
+      await prisma.permissionGroupPermission.createMany({
+        data: userPermIds.map((permissionId) => ({
+          groupId: userGroup.id,
+          permissionId,
+          effect: 'allow',
+        })),
+        skipDuplicates: true,
+      });
+      await prisma.permissionGroupPermission.deleteMany({
+        where: {
+          groupId: userGroup.id,
+          permissionId: { notIn: [...validUserPermIds] },
+        },
+      });
+    }
+
+    console.log(
+      `   ✅ Tenant "${tenant.name}": admin=${adminGroup ? allPerms.length : 'sem grupo'}, user=${userGroup ? userPermIds.length : 'sem grupo'}`,
+    );
+  }
+
+  console.log(
+    `   🎯 ${tenants.length} tenants sincronizados com ${allPerms.length} permissões`,
+  );
+}
+
 async function fixLegacyTenantGroups() {
   // Fix tenant groups that were created with bare slugs ('admin'/'user') instead of tenant-specific ones
   const legacyGroups = await prisma.permissionGroup.findMany({
@@ -1142,6 +1230,7 @@ async function main() {
   }
 
   await fixLegacyTenantGroups();
+  await syncAllTenantPermissions();
   await assignOrphanUsers(userGroupId);
   await seedNotificationTemplates();
 
