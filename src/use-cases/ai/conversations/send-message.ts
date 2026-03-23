@@ -131,11 +131,39 @@ export class SendMessageUseCase {
       .reverse();
 
     for (const msg of historyMessages) {
-      if (msg.content) {
-        aiMessages.push({
-          role: msg.role === 'USER' ? 'user' : 'assistant',
-          content: msg.content,
-        });
+      // Skip messages without content (unless they have tool data)
+      if (!msg.content && !msg.toolCalls) continue;
+
+      if (msg.role === 'USER') {
+        aiMessages.push({ role: 'user', content: msg.content ?? '' });
+      } else if (msg.role === 'ASSISTANT') {
+        // Include tool call results in the assistant message content
+        // so the AI has context of what it did previously
+        let content = msg.content ?? '';
+        if (msg.toolCalls) {
+          try {
+            const calls =
+              typeof msg.toolCalls === 'string'
+                ? JSON.parse(msg.toolCalls)
+                : msg.toolCalls;
+            if (Array.isArray(calls) && calls.length > 0) {
+              const toolSummary = calls
+                .map(
+                  (tc: { name: string; arguments?: Record<string, unknown> }) =>
+                    `[Ferramenta chamada: ${tc.name}(${JSON.stringify(tc.arguments ?? {}).slice(0, 200)})]`,
+                )
+                .join('\n');
+              content = content
+                ? `${content}\n\n${toolSummary}`
+                : toolSummary;
+            }
+          } catch {
+            // Ignore JSON parse errors on toolCalls
+          }
+        }
+        if (content) {
+          aiMessages.push({ role: 'assistant', content });
+        }
       }
     }
 
