@@ -28,3 +28,9 @@ export interface AiProvider {
 }
 
 export type AiTier = 1 | 2 | 3;
+
+// Re-export tool-related interfaces for convenience
+export type {
+  AiProviderWithTools,
+  AiProviderToolResponse,
+} from '@/services/ai-tools/tool-types';
