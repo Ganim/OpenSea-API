@@ -6,6 +6,11 @@ import type {
   AiProviderMessage,
   AiTier,
 } from '@/services/ai-provider/ai-provider.interface';
+import type { ToolRegistry } from '@/services/ai-tools/tool-registry';
+import type { ToolExecutor } from '@/services/ai-tools/tool-executor';
+import type { AiAgenticMessage, ToolCall } from '@/services/ai-tools/tool-types';
+import { AGENTIC_LOOP_MAX_ITERATIONS } from '@/services/ai-tools/tool-types';
+import { STOCK_INSTRUCTIONS } from '@/services/ai-tools/instructions/stock-instructions';
 
 interface SendMessageRequest {
   tenantId: string;
@@ -18,6 +23,7 @@ interface SendMessageRequest {
   contextEntityId?: string;
   attachments?: Record<string, unknown> | null;
   tier?: AiTier;
+  userPermissions?: string[];
 }
 
 const PERSONALITY_PROMPTS: Record<string, string> = {
@@ -36,6 +42,8 @@ export class SendMessageUseCase {
     private messagesRepository: AiMessagesRepository,
     private configRepository: AiTenantConfigRepository,
     private aiRouter: AiRouter,
+    private toolRegistry: ToolRegistry,
+    private toolExecutor: ToolExecutor,
   ) {}
 
   async execute(request: SendMessageRequest) {
@@ -88,13 +96,23 @@ export class SendMessageUseCase {
         : (PERSONALITY_PROMPTS[personality] ??
           PERSONALITY_PROMPTS.PROFESSIONAL);
 
-    const systemPrompt = [
+    const systemPromptParts = [
       `Seu nome é ${assistantName}.`,
       personalityPrompt,
       `Responda sempre em ${language}.`,
       'Você faz parte de um sistema ERP chamado OpenSea.',
       'Ajude o usuário com questões relacionadas ao gerenciamento do negócio.',
-    ].join(' ');
+    ];
+
+    // Append stock instructions if user has any stock permission
+    const hasStockPermissions = (request.userPermissions ?? []).some((p) =>
+      p.startsWith('stock.'),
+    );
+    if (hasStockPermissions) {
+      systemPromptParts.push(STOCK_INSTRUCTIONS);
+    }
+
+    const systemPrompt = systemPromptParts.join(' ');
 
     // Build message history for context
     const recentMessages = await this.messagesRepository.findMany({
@@ -135,6 +153,7 @@ export class SendMessageUseCase {
     let aiLatencyMs = 0;
     let aiCost = 0;
     let usedTier: AiTier = tier;
+    let allToolCalls: ToolCall[] = [];
 
     const availableTiers = this.aiRouter.getAvailableTiers();
 
@@ -144,14 +163,83 @@ export class SendMessageUseCase {
       aiModel = 'fallback';
     } else {
       try {
-        const response = await this.aiRouter.complete(aiMessages, tier);
-        aiContent = response.content;
-        aiModel = response.model;
-        aiTokensInput = response.tokensInput;
-        aiTokensOutput = response.tokensOutput;
-        aiLatencyMs = response.latencyMs;
-        aiCost = response.estimatedCost;
-        usedTier = response.tier;
+        // Check if user has permissions and tools are available
+        const filteredTools = this.toolRegistry.getToolsForUser(
+          request.userPermissions ?? [],
+        );
+
+        if (filteredTools.length > 0) {
+          // Agentic loop with tool calling
+          const loopMessages: AiAgenticMessage[] = [...aiMessages];
+          let finalContent: string | null = null;
+          let totalTokensIn = 0;
+          let totalTokensOut = 0;
+          let totalLatency = 0;
+          let totalCost = 0;
+
+          for (let i = 0; i < AGENTIC_LOOP_MAX_ITERATIONS; i++) {
+            const response = await this.aiRouter.completeWithTools(
+              loopMessages,
+              filteredTools,
+              tier,
+            );
+
+            totalTokensIn += response.tokensInput;
+            totalTokensOut += response.tokensOutput;
+            totalLatency += response.latencyMs;
+            totalCost += response.estimatedCost;
+            aiModel = response.model;
+            usedTier = response.tier;
+
+            if (response.toolCalls && response.toolCalls.length > 0) {
+              allToolCalls.push(...response.toolCalls);
+
+              // Push ONE assistant message with ALL tool calls
+              loopMessages.push({
+                role: 'assistant',
+                content: response.content,
+                toolCalls: response.toolCalls,
+              });
+
+              // Execute each tool call and push results
+              for (const tc of response.toolCalls) {
+                const result = await this.toolExecutor.execute(tc, {
+                  tenantId: request.tenantId,
+                  userId: request.userId,
+                  permissions: request.userPermissions ?? [],
+                  conversationId,
+                });
+
+                loopMessages.push({
+                  role: 'tool',
+                  toolCallId: tc.id,
+                  content: result.content,
+                });
+              }
+            } else {
+              finalContent = response.content;
+              break;
+            }
+          }
+
+          aiContent =
+            finalContent ??
+            'Desculpe, não consegui completar a análise. Tente reformular sua pergunta.';
+          aiTokensInput = totalTokensIn;
+          aiTokensOutput = totalTokensOut;
+          aiLatencyMs = totalLatency;
+          aiCost = totalCost;
+        } else {
+          // Simple completion without tools (existing behavior)
+          const response = await this.aiRouter.complete(aiMessages, tier);
+          aiContent = response.content;
+          aiModel = response.model;
+          aiTokensInput = response.tokensInput;
+          aiTokensOutput = response.tokensOutput;
+          aiLatencyMs = response.latencyMs;
+          aiCost = response.estimatedCost;
+          usedTier = response.tier;
+        }
       } catch (error) {
         const errorMessage =
           error instanceof Error ? error.message : 'Unknown error';
@@ -174,6 +262,10 @@ export class SendMessageUseCase {
       aiTokensOutput,
       aiLatencyMs,
       aiCost,
+      toolCalls:
+        allToolCalls.length > 0
+          ? (allToolCalls as unknown as Record<string, unknown>)
+          : null,
     });
 
     // Update conversation message count
