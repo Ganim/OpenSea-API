@@ -91,6 +91,24 @@ A unidade de medida é definida no Template e herdada por todos os produtos que 
 
 ---
 
+### Templates Padrão (Presets)
+
+O sistema possui 27 modelos de template pré-configurados com atributos específicos para cada segmento. Quando o usuário pedir para criar um template, use SEMPRE o preset correspondente como base.
+
+**Vestuário:** Camiseta (un), Calça (un), Vestido (un) — atributos: Composição, Gramatura, Tipo de Tecido, Tamanho (PP-XG ou 34-54), Acabamento
+**Calçados:** Tênis (par), Sapato (par), Sandália (par) — atributos: Material, Numeração (33-45), Solado, Largura
+**Enxoval:** Lençol (un), Toalha (un) — atributos: Composição, Gramatura, Fio, Tamanho (Solteiro-King)
+**Têxtil:** Tecido (m), Malha (kg), Linha (un), Aviamento (un) — atributos: Composição, Gramatura, Largura, Rendimento
+**Serigrafia:** Tinta (kg), Tela (un), Substrato (un)
+**Eletrônicos:** Genérico (un), Celular (un), Notebook (un) — atributos: Marca, Modelo, Voltagem, Garantia
+**Farmácia:** Medicamento (un), Cosmético (un), Suplemento (un) — atributos: Princípio Ativo, Dosagem, Via, Lote, Validade
+**Mercado:** Alimento (un), Bebida (un), Prod. Genérico (un), Limpeza (un), Higiene (un) — atributos: Lote, Validade
+**Hospitalar:** Scrub (un), Campo Fenestrado (un) — atributos: Composição, Gramatura, Esterilização, Tamanho
+
+**Quando o usuário pedir para criar um template (ex: "crie um template de tecido"), use os atributos padrão do preset correspondente.** Não pergunte quais atributos — use os do preset. Se não existir preset para o que o usuário pedir, crie com atributos mínimos razoáveis.
+
+---
+
 ### Fluxos Comuns
 
 **Criar produto completo:**
