@@ -34,7 +34,7 @@ export function makeAiRouter(): AiRouter {
   if (geminiApiKey) {
     router.registerProvider(
       3,
-      new GeminiProvider(geminiApiKey, 'gemini-2.5-pro'),
+      new GeminiProvider(geminiApiKey, 'gemini-2.5-flash'),
     );
   } else if (anthropicApiKey) {
     router.registerProvider(3, new ClaudeProvider(anthropicApiKey));
