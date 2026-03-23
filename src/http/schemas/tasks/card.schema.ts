@@ -85,6 +85,10 @@ export const listCardsQuerySchema = z.object({
   search: z.string().max(256).optional(),
   startDate: z.coerce.date().optional(),
   endDate: z.coerce.date().optional(),
+  includeArchived: z
+    .string()
+    .transform((val) => val === 'true')
+    .optional(),
   page: z.coerce.number().int().min(1).optional().default(1),
   limit: z.coerce.number().int().min(1).max(100).optional().default(50),
 });

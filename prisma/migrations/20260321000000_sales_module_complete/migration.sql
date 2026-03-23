@@ -1,379 +1,1238 @@
-Loaded Prisma config from prisma.config.ts.
-
--- CreateEnum
-CREATE TYPE "ContactRole" AS ENUM ('DECISION_MAKER', 'INFLUENCER', 'CHAMPION', 'GATEKEEPER', 'END_USER', 'OTHER');
-
--- CreateEnum
-CREATE TYPE "LifecycleStage" AS ENUM ('SUBSCRIBER', 'LEAD', 'QUALIFIED', 'OPPORTUNITY', 'CUSTOMER', 'EVANGELIST');
-
--- CreateEnum
-CREATE TYPE "LeadTemperature" AS ENUM ('HOT', 'WARM', 'COLD');
-
--- CreateEnum
-CREATE TYPE "ContactSource" AS ENUM ('MANUAL', 'IMPORT', 'FORM', 'WHATSAPP', 'INSTAGRAM', 'TELEGRAM', 'SMS', 'WEBCHAT', 'EMAIL', 'PDV', 'MARKETPLACE', 'BID', 'API');
-
--- CreateEnum
-CREATE TYPE "PipelineType" AS ENUM ('SALES', 'ONBOARDING', 'SUPPORT', 'CUSTOM', 'ORDER_B2C', 'ORDER_B2B', 'ORDER_BID', 'ORDER_ECOMMERCE');
-
--- CreateEnum
-CREATE TYPE "PipelineStageType" AS ENUM ('OPEN', 'WON', 'LOST', 'DRAFT', 'PENDING_APPROVAL', 'APPROVED', 'PROCESSING', 'INVOICED', 'SHIPPED', 'DELIVERED', 'COMPLETED', 'CANCELLED');
-
--- CreateEnum
-CREATE TYPE "DealStatus" AS ENUM ('OPEN', 'WON', 'LOST', 'ABANDONED');
-
--- CreateEnum
-CREATE TYPE "ActivityType" AS ENUM ('NOTE', 'CALL', 'MEETING', 'TASK', 'EMAIL_SENT', 'EMAIL_RECEIVED');
-
--- CreateEnum
-CREATE TYPE "ActivityOutcome" AS ENUM ('ANSWERED', 'NO_ANSWER', 'VOICEMAIL', 'COMPLETED', 'CANCELLED');
-
--- CreateEnum
-CREATE TYPE "TimelineEventType" AS ENUM ('STAGE_CHANGE', 'LIFECYCLE_CHANGE', 'DEAL_CREATED', 'DEAL_UPDATED', 'DEAL_WON', 'DEAL_LOST', 'SCORE_CHANGE', 'ASSIGNMENT_CHANGE', 'AI_INSIGHT', 'SYSTEM_EVENT', 'EXTERNAL_EVENT', 'STAGE_CHANGED', 'ACTIVITY_CREATED', 'ACTIVITY_COMPLETED', 'NOTE_ADDED', 'EMAIL_SENT', 'CONTACT_ADDED', 'VALUE_CHANGED', 'OWNER_CHANGED');
-
--- CreateEnum
-CREATE TYPE "TimelineEventSource" AS ENUM ('SYSTEM', 'AI', 'EXTERNAL_MODULE');
-
--- CreateEnum
-CREATE TYPE "ContactLifecycleStage" AS ENUM ('SUBSCRIBER', 'LEAD', 'QUALIFIED', 'OPPORTUNITY', 'CUSTOMER', 'EVANGELIST');
-
--- CreateEnum
-CREATE TYPE "DealPriority" AS ENUM ('LOW', 'MEDIUM', 'HIGH', 'URGENT');
-
--- CreateEnum
-CREATE TYPE "CrmActivityType" AS ENUM ('CALL', 'EMAIL', 'MEETING', 'TASK', 'NOTE', 'WHATSAPP', 'VISIT', 'PROPOSAL', 'FOLLOW_UP');
-
--- CreateEnum
-CREATE TYPE "CrmActivityStatus" AS ENUM ('PLANNED', 'IN_PROGRESS', 'COMPLETED', 'CANCELLED', 'OVERDUE');
-
--- CreateEnum
-CREATE TYPE "PriceTableType" AS ENUM ('DEFAULT', 'RETAIL', 'WHOLESALE', 'REGIONAL', 'CHANNEL', 'CUSTOMER', 'BID');
-
--- CreateEnum
-CREATE TYPE "PriceTableRuleType" AS ENUM ('CUSTOMER_TYPE', 'REGION', 'CHANNEL', 'CUSTOMER_TAG', 'MIN_QUANTITY');
-
--- CreateEnum
-CREATE TYPE "RuleOperator" AS ENUM ('EQUALS', 'IN', 'GREATER_THAN', 'LESS_THAN', 'BETWEEN');
-
--- CreateEnum
-CREATE TYPE "TaxType" AS ENUM ('ICMS', 'IPI', 'PIS', 'COFINS', 'ISS', 'ICMS_ST');
-
--- CreateEnum
-CREATE TYPE "StBaseCalculation" AS ENUM ('MVA', 'PAUTA');
-
--- CreateEnum
-CREATE TYPE "CampaignType" AS ENUM ('PERCENTAGE', 'FIXED_VALUE', 'BUY_X_GET_Y', 'BUY_X_GET_DISCOUNT', 'FREE_SHIPPING', 'BUNDLE_PRICE');
-
--- CreateEnum
-CREATE TYPE "CampaignStatusEnum" AS ENUM ('DRAFT', 'SCHEDULED', 'ACTIVE', 'PAUSED', 'ENDED', 'ARCHIVED');
-
--- CreateEnum
-CREATE TYPE "CampaignRuleType" AS ENUM ('MIN_QUANTITY', 'MIN_VALUE', 'PRODUCT_CATEGORY', 'CUSTOMER_TAG', 'CUSTOMER_TYPE', 'FIRST_PURCHASE', 'DAY_OF_WEEK', 'TIME_RANGE');
-
--- CreateEnum
-CREATE TYPE "CampaignDiscountType" AS ENUM ('PERCENTAGE', 'FIXED_VALUE', 'FIXED_PRICE', 'FREE');
-
--- CreateEnum
-CREATE TYPE "CouponType" AS ENUM ('PERCENTAGE', 'FIXED_VALUE', 'FREE_SHIPPING');
-
--- CreateEnum
-CREATE TYPE "CouponApplicableTo" AS ENUM ('ALL', 'SPECIFIC_PRODUCTS', 'SPECIFIC_CATEGORIES', 'SPECIFIC_CUSTOMERS');
-
--- CreateEnum
-CREATE TYPE "ComboType" AS ENUM ('FIXED', 'DYNAMIC');
-
--- CreateEnum
-CREATE TYPE "ComboDiscountType" AS ENUM ('PERCENTAGE', 'FIXED_VALUE');
-
--- CreateEnum
-CREATE TYPE "CatalogType" AS ENUM ('GENERAL', 'SELLER', 'CAMPAIGN', 'CUSTOMER', 'AI_GENERATED');
-
--- CreateEnum
-CREATE TYPE "CatalogStatus" AS ENUM ('DRAFT', 'ACTIVE', 'ARCHIVED');
-
--- CreateEnum
-CREATE TYPE "CatalogLayout" AS ENUM ('GRID', 'LIST', 'MAGAZINE');
-
--- CreateEnum
-CREATE TYPE "CatalogExportType" AS ENUM ('PDF_FOLDER', 'PDF_PRICE_LIST', 'IMAGE_GRID', 'SHAREABLE_LINK');
-
--- CreateEnum
-CREATE TYPE "CatalogExportStatus" AS ENUM ('PENDING', 'GENERATING', 'READY', 'FAILED', 'EXPIRED');
-
--- CreateEnum
-CREATE TYPE "ContentTemplateType" AS ENUM ('FOLDER_PAGE', 'SOCIAL_POST', 'SOCIAL_STORY', 'SOCIAL_REEL', 'EMAIL_CAMPAIGN', 'EMAIL_NEWSLETTER', 'BANNER', 'PRICE_LIST', 'PRODUCT_CARD', 'MOCKUP');
-
--- CreateEnum
-CREATE TYPE "ContentChannel" AS ENUM ('INSTAGRAM', 'FACEBOOK', 'TIKTOK', 'WHATSAPP', 'EMAIL', 'PRINT', 'WEB');
-
--- CreateEnum
-CREATE TYPE "GeneratedContentType" AS ENUM ('SOCIAL_POST', 'SOCIAL_STORY', 'SOCIAL_REEL', 'FOLDER_PAGE', 'EMAIL_CAMPAIGN', 'BANNER', 'PRODUCT_CARD', 'VIDEO', 'MOCKUP');
-
--- CreateEnum
-CREATE TYPE "ContentStatus" AS ENUM ('DRAFT', 'READY', 'APPROVED', 'PUBLISHED', 'ARCHIVED');
-
--- CreateEnum
-CREATE TYPE "MockupResultStatus" AS ENUM ('PENDING', 'GENERATING', 'READY', 'FAILED');
-
--- CreateEnum
-CREATE TYPE "EmailCampaignType" AS ENUM ('NEWSLETTER', 'PROMOTION', 'PRODUCT_LAUNCH', 'FOLLOW_UP', 'CUSTOM');
-
--- CreateEnum
-CREATE TYPE "EmailCampaignStatus" AS ENUM ('DRAFT', 'SCHEDULED', 'SENDING', 'SENT', 'CANCELLED');
-
--- CreateEnum
-CREATE TYPE "EmailRecipientType" AS ENUM ('ALL_CONTACTS', 'CUSTOMER_TAG', 'LIFECYCLE_STAGE', 'SPECIFIC_CONTACTS', 'SEGMENT');
-
--- CreateEnum
-CREATE TYPE "InventorySessionStatus" AS ENUM ('OPEN', 'PAUSED', 'COMPLETED', 'CANCELLED');
-
--- CreateEnum
-CREATE TYPE "InventorySessionMode" AS ENUM ('BIN', 'ZONE', 'PRODUCT');
-
--- CreateEnum
-CREATE TYPE "InventorySessionItemStatus" AS ENUM ('PENDING', 'CONFIRMED', 'MISSING', 'WRONG_BIN', 'EXTRA');
-
--- CreateEnum
-CREATE TYPE "DivergenceResolution" AS ENUM ('LOSS_REGISTERED', 'TRANSFERRED', 'ENTRY_CREATED', 'PENDING_REVIEW');
-
--- CreateEnum
-CREATE TYPE "SkillCategory" AS ENUM ('MODULE', 'CHANNEL', 'AI', 'INTEGRATION', 'FEATURE');
-
--- CreateEnum
-CREATE TYPE "PricingType" AS ENUM ('FLAT', 'PER_UNIT', 'USAGE');
-
--- CreateEnum
-CREATE TYPE "SubscriptionStatus" AS ENUM ('ACTIVE', 'CANCELLED', 'TRIAL', 'SUSPENDED');
-
--- CreateEnum
-CREATE TYPE "BillingStatus" AS ENUM ('PENDING', 'PAID', 'OVERDUE', 'CANCELLED');
-
--- CreateEnum
-CREATE TYPE "IntegrationType" AS ENUM ('WHATSAPP', 'INSTAGRAM', 'TELEGRAM', 'SMS', 'MARKETPLACE_ML', 'MARKETPLACE_SHOPEE', 'MARKETPLACE_AMAZON', 'BID_PORTAL', 'EMAIL_IMAP', 'CERTIFICATE_A1', 'CERTIFICATE_CLOUD', 'TEF', 'OLLAMA', 'SEFAZ');
-
--- CreateEnum
-CREATE TYPE "IntegrationConnectionStatus" AS ENUM ('CONNECTED', 'DISCONNECTED', 'ERROR', 'NOT_CONFIGURED');
-
--- CreateEnum
-CREATE TYPE "CentralUserRole" AS ENUM ('OWNER', 'ADMIN', 'SUPPORT', 'FINANCE', 'VIEWER');
-
--- CreateEnum
-CREATE TYPE "FeatureFlagCategory" AS ENUM ('BETA', 'EXPERIMENT', 'ROLLOUT', 'INTERNAL');
-
--- CreateEnum
-CREATE TYPE "TicketCategory" AS ENUM ('BUG', 'QUESTION', 'REQUEST', 'FINANCIAL', 'OTHER');
-
--- CreateEnum
-CREATE TYPE "TicketPriority" AS ENUM ('CRITICAL', 'HIGH', 'MEDIUM', 'LOW');
-
--- CreateEnum
-CREATE TYPE "TicketStatus" AS ENUM ('OPEN', 'IN_PROGRESS', 'WAITING_CLIENT', 'RESOLVED', 'CLOSED');
-
--- CreateEnum
-CREATE TYPE "TicketAuthorType" AS ENUM ('TENANT_USER', 'CENTRAL_TEAM', 'AI_ASSISTANT');
-
--- CreateEnum
-CREATE TYPE "CardIntegrationType" AS ENUM ('CUSTOMER', 'PRODUCT', 'FINANCE_ENTRY', 'EMAIL', 'DEPARTMENT', 'CALENDAR_EVENT');
-
--- CreateEnum
-CREATE TYPE "OrderType" AS ENUM ('QUOTE', 'ORDER');
-
--- CreateEnum
-CREATE TYPE "OrderChannel" AS ENUM ('PDV', 'WEB', 'WHATSAPP', 'MARKETPLACE', 'BID', 'MANUAL', 'API');
-
--- CreateEnum
-CREATE TYPE "DeliveryMethod" AS ENUM ('PICKUP', 'OWN_FLEET', 'CARRIER', 'PARTIAL');
-
--- CreateEnum
-CREATE TYPE "PaymentMethod" AS ENUM ('CASH', 'CREDIT_CARD', 'DEBIT_CARD', 'PIX', 'BOLETO', 'BANK_TRANSFER', 'CHECK', 'STORE_CREDIT', 'OTHER');
-
--- CreateEnum
-CREATE TYPE "PaymentStatus" AS ENUM ('PENDING', 'PAID', 'OVERDUE', 'CANCELLED', 'REFUNDED');
-
--- CreateEnum
-CREATE TYPE "PaymentConditionType" AS ENUM ('CASH', 'INSTALLMENT', 'CUSTOM', 'CREDIT_LIMIT');
-
--- CreateEnum
-CREATE TYPE "PaymentConditionApplicable" AS ENUM ('ALL', 'RETAIL', 'WHOLESALE', 'BID');
-
--- CreateEnum
-CREATE TYPE "InterestType" AS ENUM ('SIMPLE', 'COMPOUND');
-
--- CreateEnum
-CREATE TYPE "DeliveryStatus" AS ENUM ('PREPARING', 'SHIPPED', 'IN_TRANSIT', 'DELIVERED', 'FAILED');
-
--- CreateEnum
-CREATE TYPE "ReturnType" AS ENUM ('FULL_RETURN', 'PARTIAL_RETURN', 'EXCHANGE');
-
--- CreateEnum
-CREATE TYPE "ReturnStatus" AS ENUM ('REQUESTED', 'APPROVED', 'RECEIVING', 'RECEIVED', 'CREDIT_ISSUED', 'EXCHANGE_COMPLETED', 'REJECTED', 'CANCELLED');
-
--- CreateEnum
-CREATE TYPE "ReturnReason" AS ENUM ('DEFECTIVE', 'WRONG_ITEM', 'CHANGED_MIND', 'DAMAGED', 'NOT_AS_DESCRIBED', 'OTHER');
-
--- CreateEnum
-CREATE TYPE "ReturnItemCondition" AS ENUM ('NEW', 'USED', 'DAMAGED', 'DEFECTIVE');
-
--- CreateEnum
-CREATE TYPE "RefundMethod" AS ENUM ('SAME_METHOD', 'STORE_CREDIT', 'BANK_TRANSFER', 'PIX');
-
--- CreateEnum
-CREATE TYPE "StoreCreditSource" AS ENUM ('RETURN', 'MANUAL', 'CAMPAIGN', 'LOYALTY');
-
--- CreateEnum
-CREATE TYPE "ApprovalRuleType" AS ENUM ('ORDER_VALUE', 'DISCOUNT_PERCENT', 'CREDIT_EXCEEDED', 'NEW_CUSTOMER', 'MANUAL_PRICE', 'CUSTOM');
-
--- CreateEnum
-CREATE TYPE "CommissionType" AS ENUM ('PERCENTAGE', 'FIXED_PER_ORDER', 'FIXED_PER_ITEM', 'TIERED');
-
--- CreateEnum
-CREATE TYPE "CommissionStatus" AS ENUM ('PENDING', 'APPROVED', 'PAID', 'CANCELLED');
-
--- CreateEnum
-CREATE TYPE "CommissionAppliesTo" AS ENUM ('ALL', 'SPECIFIC_USERS', 'SPECIFIC_CATEGORIES', 'SPECIFIC_PRODUCTS');
-
--- CreateEnum
-CREATE TYPE "OrderHistoryAction" AS ENUM ('CREATED', 'STAGE_CHANGED', 'ITEM_ADDED', 'ITEM_REMOVED', 'ITEM_MODIFIED', 'PAYMENT_ADDED', 'PAYMENT_RECEIVED', 'APPROVAL_REQUESTED', 'APPROVED', 'REJECTED', 'DELIVERY_CREATED', 'DELIVERY_SHIPPED', 'DELIVERY_COMPLETED', 'RETURN_REQUESTED', 'RETURN_APPROVED', 'RETURN_COMPLETED', 'CANCELLED', 'NOTE_ADDED', 'ASSIGNED', 'COUPON_APPLIED');
-
--- CreateEnum
-CREATE TYPE "PriceSourceType" AS ENUM ('CUSTOMER', 'CAMPAIGN', 'COUPON', 'QUANTITY_TIER', 'TABLE', 'DEFAULT', 'MANUAL');
-
--- CreateEnum
-CREATE TYPE "CertificateType" AS ENUM ('A1', 'A3', 'CLOUD_NEOID', 'CLOUD_BIRDID', 'CLOUD_OTHER');
-
--- CreateEnum
-CREATE TYPE "CertificateStatus" AS ENUM ('ACTIVE', 'EXPIRED', 'REVOKED', 'PENDING_ACTIVATION');
-
--- CreateEnum
-CREATE TYPE "SignatureLevel" AS ENUM ('SIMPLE', 'ADVANCED', 'QUALIFIED');
-
--- CreateEnum
-CREATE TYPE "EnvelopeStatus" AS ENUM ('DRAFT', 'PENDING', 'IN_PROGRESS', 'COMPLETED', 'CANCELLED', 'EXPIRED', 'REJECTED');
-
--- CreateEnum
-CREATE TYPE "EnvelopeRoutingType" AS ENUM ('SEQUENTIAL', 'PARALLEL', 'HYBRID');
-
--- CreateEnum
-CREATE TYPE "SignerRole" AS ENUM ('SIGNER', 'APPROVER', 'WITNESS', 'REVIEWER');
-
--- CreateEnum
-CREATE TYPE "SignerStatus" AS ENUM ('PENDING', 'NOTIFIED', 'VIEWED', 'SIGNED', 'REJECTED', 'EXPIRED');
-
--- CreateEnum
-CREATE TYPE "SignatureAuditType" AS ENUM ('CREATED', 'SENT', 'VIEWED', 'SIGNED', 'REJECTED', 'REMINDED', 'EXPIRED', 'CANCELLED', 'DOWNLOADED', 'DOCUMENT_VERIFIED', 'CERTIFICATE_VALIDATED', 'OTP_SENT', 'OTP_VERIFIED', 'LINK_ACCESSED');
-
--- CreateEnum
-CREATE TYPE "WidgetType" AS ENUM ('KPI_CARD', 'BAR_CHART', 'LINE_CHART', 'PIE_CHART', 'FUNNEL', 'TABLE', 'HEATMAP', 'SCATTER', 'GAUGE', 'RANKING', 'COMPARISON', 'TREND');
-
--- CreateEnum
-CREATE TYPE "WidgetDataSource" AS ENUM ('ORDERS', 'DEALS', 'CONTACTS', 'CUSTOMERS', 'PRODUCTS', 'COMMISSIONS', 'CAMPAIGNS', 'BIDS', 'MARKETPLACE', 'CASHIER', 'CUSTOM_QUERY');
-
--- CreateEnum
-CREATE TYPE "DashboardRole" AS ENUM ('SELLER', 'MANAGER', 'DIRECTOR', 'BID_SPECIALIST', 'MARKETPLACE_OPS', 'CASHIER');
-
--- CreateEnum
-CREATE TYPE "DashboardVisibility" AS ENUM ('PRIVATE', 'TEAM', 'TENANT');
-
 -- CreateEnum
-CREATE TYPE "GoalType" AS ENUM ('REVENUE', 'QUANTITY', 'DEALS_WON', 'NEW_CUSTOMERS', 'TICKET_AVERAGE', 'CONVERSION_RATE', 'COMMISSION', 'BID_WIN_RATE', 'CUSTOM');
-
--- CreateEnum
-CREATE TYPE "GoalPeriod" AS ENUM ('DAILY', 'WEEKLY', 'MONTHLY', 'QUARTERLY', 'YEARLY', 'CUSTOM');
-
--- CreateEnum
-CREATE TYPE "GoalScope" AS ENUM ('INDIVIDUAL', 'TEAM', 'TENANT');
-
--- CreateEnum
-CREATE TYPE "GoalStatus" AS ENUM ('ACTIVE', 'ACHIEVED', 'MISSED', 'ARCHIVED');
-
--- CreateEnum
-CREATE TYPE "ReportType" AS ENUM ('SALES_SUMMARY', 'COMMISSION_REPORT', 'PIPELINE_REPORT', 'PRODUCT_PERFORMANCE', 'CUSTOMER_ANALYSIS', 'BID_REPORT', 'MARKETPLACE_REPORT', 'CASHIER_REPORT', 'GOAL_PROGRESS', 'CURVA_ABC', 'CUSTOM');
-
--- CreateEnum
-CREATE TYPE "ReportFormat" AS ENUM ('PDF', 'EXCEL', 'CSV');
-
--- CreateEnum
-CREATE TYPE "ReportFrequency" AS ENUM ('DAILY', 'WEEKLY', 'MONTHLY');
-
--- CreateEnum
-CREATE TYPE "ReportDeliveryMethod" AS ENUM ('EMAIL', 'WHATSAPP', 'BOTH', 'DOWNLOAD_ONLY');
-
--- CreateEnum
-CREATE TYPE "ReportGenerationStatus" AS ENUM ('GENERATING', 'SUCCESS', 'FAILED');
-
--- CreateEnum
-CREATE TYPE "AiPersonality" AS ENUM ('PROFESSIONAL', 'FRIENDLY', 'CASUAL', 'FORMAL', 'CUSTOM');
-
--- CreateEnum
-CREATE TYPE "AiToneOfVoice" AS ENUM ('NEUTRAL', 'WARM', 'DIRECT', 'ENTHUSIASTIC');
-
--- CreateEnum
-CREATE TYPE "AiConversationContext" AS ENUM ('DEDICATED', 'INLINE', 'COMMAND_BAR', 'VOICE');
-
--- CreateEnum
-CREATE TYPE "AiConversationStatus" AS ENUM ('ACTIVE', 'ARCHIVED');
-
--- CreateEnum
-CREATE TYPE "AiMessageRole" AS ENUM ('USER', 'ASSISTANT', 'SYSTEM', 'TOOL_CALL', 'TOOL_RESULT');
-
--- CreateEnum
-CREATE TYPE "AiMessageContentType" AS ENUM ('TEXT', 'CHART', 'TABLE', 'KPI_CARD', 'ACTION_CARD', 'IMAGE', 'ERROR', 'LOADING');
-
--- CreateEnum
-CREATE TYPE "AiFavoriteCategory" AS ENUM ('SALES', 'STOCK', 'FINANCE', 'HR', 'CRM', 'GENERAL');
-
--- CreateEnum
-CREATE TYPE "AiActionStatus" AS ENUM ('PROPOSED', 'CONFIRMED', 'EXECUTED', 'FAILED', 'CANCELLED');
-
--- CreateEnum
-CREATE TYPE "AiInsightType" AS ENUM ('TREND', 'ANOMALY', 'OPPORTUNITY', 'RISK', 'PREDICTION', 'RECOMMENDATION', 'ALERT', 'CELEBRATION');
-
--- CreateEnum
-CREATE TYPE "AiInsightPriority" AS ENUM ('LOW', 'MEDIUM', 'HIGH', 'URGENT');
-
--- CreateEnum
-CREATE TYPE "AiInsightStatus" AS ENUM ('NEW', 'VIEWED', 'ACTED_ON', 'DISMISSED', 'EXPIRED');
-
--- CreateEnum
-CREATE TYPE "PosTerminalMode" AS ENUM ('FAST_CHECKOUT', 'CONSULTIVE', 'SELF_SERVICE', 'EXTERNAL');
-
--- CreateEnum
-CREATE TYPE "PosCashierMode" AS ENUM ('INTEGRATED', 'SEPARATED');
-
--- CreateEnum
-CREATE TYPE "PosSessionStatus" AS ENUM ('OPEN', 'CLOSED', 'SUSPENDED');
-
--- CreateEnum
-CREATE TYPE "PosTransactionStatus" AS ENUM ('COMPLETED', 'CANCELLED', 'SUSPENDED', 'PENDING_SYNC');
-
--- CreateEnum
-CREATE TYPE "PosPaymentMethod" AS ENUM ('CASH', 'CREDIT_CARD', 'DEBIT_CARD', 'PIX', 'BOLETO', 'STORE_CREDIT', 'VOUCHER', 'PAYMENT_LINK', 'NFC', 'CHECK', 'OTHER');
-
--- CreateEnum
-CREATE TYPE "PosCashMovementType" AS ENUM ('OPENING', 'WITHDRAWAL', 'SUPPLY', 'CLOSING');
-
--- CreateEnum
-CREATE TYPE "PosOfflineStatus" AS ENUM ('PENDING', 'SYNCING', 'SYNCED', 'FAILED');
-
--- CreateEnum
-CREATE TYPE "PosOfflineOperationType" AS ENUM ('TRANSACTION', 'CASH_MOVEMENT', 'CUSTOMER_CREATE', 'SESSION_CLOSE');
-
--- CreateEnum
-CREATE TYPE "PosVisitOutcome" AS ENUM ('SALE', 'QUOTE', 'NO_SALE', 'FOLLOW_UP');
-
--- CreateEnum
-CREATE TYPE "PosPaymentLinkStatus" AS ENUM ('PENDING', 'PAID', 'EXPIRED');
-
--- CreateEnum
-CREATE TYPE "event_log_status" AS ENUM ('PUBLISHED', 'PROCESSING', 'PROCESSED', 'FAILED', 'DEAD_LETTER');
-
--- AlterEnum
-BEGIN;
-CREATE TYPE "OrganizationType_new" AS ENUM ('COMPANY', 'CUSTOMER');
-ALTER TABLE "organizations" ALTER COLUMN "type" TYPE "OrganizationType_new" USING ("type"::text::"OrganizationType_new");
-ALTER TYPE "OrganizationType" RENAME TO "OrganizationType_old";
-ALTER TYPE "OrganizationType_new" RENAME TO "OrganizationType";
-DROP TYPE "public"."OrganizationType_old";
-COMMIT;
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'ContactRole' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "ContactRole" AS ENUM ('DECISION_MAKER', 'INFLUENCER', 'CHAMPION', 'GATEKEEPER', 'END_USER', 'OTHER');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'LifecycleStage' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "LifecycleStage" AS ENUM ('SUBSCRIBER', 'LEAD', 'QUALIFIED', 'OPPORTUNITY', 'CUSTOMER', 'EVANGELIST');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'LeadTemperature' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "LeadTemperature" AS ENUM ('HOT', 'WARM', 'COLD');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'ContactSource' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "ContactSource" AS ENUM ('MANUAL', 'IMPORT', 'FORM', 'WHATSAPP', 'INSTAGRAM', 'TELEGRAM', 'SMS', 'WEBCHAT', 'EMAIL', 'PDV', 'MARKETPLACE', 'BID', 'API');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'PipelineType' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "PipelineType" AS ENUM ('SALES', 'ONBOARDING', 'SUPPORT', 'CUSTOM', 'ORDER_B2C', 'ORDER_B2B', 'ORDER_BID', 'ORDER_ECOMMERCE');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'PipelineStageType' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "PipelineStageType" AS ENUM ('OPEN', 'WON', 'LOST', 'DRAFT', 'PENDING_APPROVAL', 'APPROVED', 'PROCESSING', 'INVOICED', 'SHIPPED', 'DELIVERED', 'COMPLETED', 'CANCELLED');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'DealStatus' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "DealStatus" AS ENUM ('OPEN', 'WON', 'LOST', 'ABANDONED');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'ActivityType' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "ActivityType" AS ENUM ('NOTE', 'CALL', 'MEETING', 'TASK', 'EMAIL_SENT', 'EMAIL_RECEIVED');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'ActivityOutcome' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "ActivityOutcome" AS ENUM ('ANSWERED', 'NO_ANSWER', 'VOICEMAIL', 'COMPLETED', 'CANCELLED');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'TimelineEventType' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "TimelineEventType" AS ENUM ('STAGE_CHANGE', 'LIFECYCLE_CHANGE', 'DEAL_CREATED', 'DEAL_UPDATED', 'DEAL_WON', 'DEAL_LOST', 'SCORE_CHANGE', 'ASSIGNMENT_CHANGE', 'AI_INSIGHT', 'SYSTEM_EVENT', 'EXTERNAL_EVENT', 'STAGE_CHANGED', 'ACTIVITY_CREATED', 'ACTIVITY_COMPLETED', 'NOTE_ADDED', 'EMAIL_SENT', 'CONTACT_ADDED', 'VALUE_CHANGED', 'OWNER_CHANGED');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'TimelineEventSource' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "TimelineEventSource" AS ENUM ('SYSTEM', 'AI', 'EXTERNAL_MODULE');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'ContactLifecycleStage' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "ContactLifecycleStage" AS ENUM ('SUBSCRIBER', 'LEAD', 'QUALIFIED', 'OPPORTUNITY', 'CUSTOMER', 'EVANGELIST');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'DealPriority' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "DealPriority" AS ENUM ('LOW', 'MEDIUM', 'HIGH', 'URGENT');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'CrmActivityType' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "CrmActivityType" AS ENUM ('CALL', 'EMAIL', 'MEETING', 'TASK', 'NOTE', 'WHATSAPP', 'VISIT', 'PROPOSAL', 'FOLLOW_UP');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'CrmActivityStatus' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "CrmActivityStatus" AS ENUM ('PLANNED', 'IN_PROGRESS', 'COMPLETED', 'CANCELLED', 'OVERDUE');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'PriceTableType' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "PriceTableType" AS ENUM ('DEFAULT', 'RETAIL', 'WHOLESALE', 'REGIONAL', 'CHANNEL', 'CUSTOMER', 'BID');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'PriceTableRuleType' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "PriceTableRuleType" AS ENUM ('CUSTOMER_TYPE', 'REGION', 'CHANNEL', 'CUSTOMER_TAG', 'MIN_QUANTITY');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'RuleOperator' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "RuleOperator" AS ENUM ('EQUALS', 'IN', 'GREATER_THAN', 'LESS_THAN', 'BETWEEN');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'TaxType' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "TaxType" AS ENUM ('ICMS', 'IPI', 'PIS', 'COFINS', 'ISS', 'ICMS_ST');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'StBaseCalculation' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "StBaseCalculation" AS ENUM ('MVA', 'PAUTA');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'CampaignType' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "CampaignType" AS ENUM ('PERCENTAGE', 'FIXED_VALUE', 'BUY_X_GET_Y', 'BUY_X_GET_DISCOUNT', 'FREE_SHIPPING', 'BUNDLE_PRICE');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'CampaignStatusEnum' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "CampaignStatusEnum" AS ENUM ('DRAFT', 'SCHEDULED', 'ACTIVE', 'PAUSED', 'ENDED', 'ARCHIVED');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'CampaignRuleType' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "CampaignRuleType" AS ENUM ('MIN_QUANTITY', 'MIN_VALUE', 'PRODUCT_CATEGORY', 'CUSTOMER_TAG', 'CUSTOMER_TYPE', 'FIRST_PURCHASE', 'DAY_OF_WEEK', 'TIME_RANGE');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'CampaignDiscountType' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "CampaignDiscountType" AS ENUM ('PERCENTAGE', 'FIXED_VALUE', 'FIXED_PRICE', 'FREE');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'CouponType' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "CouponType" AS ENUM ('PERCENTAGE', 'FIXED_VALUE', 'FREE_SHIPPING');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'CouponApplicableTo' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "CouponApplicableTo" AS ENUM ('ALL', 'SPECIFIC_PRODUCTS', 'SPECIFIC_CATEGORIES', 'SPECIFIC_CUSTOMERS');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'ComboType' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "ComboType" AS ENUM ('FIXED', 'DYNAMIC');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'ComboDiscountType' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "ComboDiscountType" AS ENUM ('PERCENTAGE', 'FIXED_VALUE');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'CatalogType' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "CatalogType" AS ENUM ('GENERAL', 'SELLER', 'CAMPAIGN', 'CUSTOMER', 'AI_GENERATED');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'CatalogStatus' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "CatalogStatus" AS ENUM ('DRAFT', 'ACTIVE', 'ARCHIVED');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'CatalogLayout' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "CatalogLayout" AS ENUM ('GRID', 'LIST', 'MAGAZINE');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'CatalogExportType' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "CatalogExportType" AS ENUM ('PDF_FOLDER', 'PDF_PRICE_LIST', 'IMAGE_GRID', 'SHAREABLE_LINK');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'CatalogExportStatus' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "CatalogExportStatus" AS ENUM ('PENDING', 'GENERATING', 'READY', 'FAILED', 'EXPIRED');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'ContentTemplateType' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "ContentTemplateType" AS ENUM ('FOLDER_PAGE', 'SOCIAL_POST', 'SOCIAL_STORY', 'SOCIAL_REEL', 'EMAIL_CAMPAIGN', 'EMAIL_NEWSLETTER', 'BANNER', 'PRICE_LIST', 'PRODUCT_CARD', 'MOCKUP');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'ContentChannel' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "ContentChannel" AS ENUM ('INSTAGRAM', 'FACEBOOK', 'TIKTOK', 'WHATSAPP', 'EMAIL', 'PRINT', 'WEB');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'GeneratedContentType' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "GeneratedContentType" AS ENUM ('SOCIAL_POST', 'SOCIAL_STORY', 'SOCIAL_REEL', 'FOLDER_PAGE', 'EMAIL_CAMPAIGN', 'BANNER', 'PRODUCT_CARD', 'VIDEO', 'MOCKUP');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'ContentStatus' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "ContentStatus" AS ENUM ('DRAFT', 'READY', 'APPROVED', 'PUBLISHED', 'ARCHIVED');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'MockupResultStatus' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "MockupResultStatus" AS ENUM ('PENDING', 'GENERATING', 'READY', 'FAILED');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'EmailCampaignType' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "EmailCampaignType" AS ENUM ('NEWSLETTER', 'PROMOTION', 'PRODUCT_LAUNCH', 'FOLLOW_UP', 'CUSTOM');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'EmailCampaignStatus' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "EmailCampaignStatus" AS ENUM ('DRAFT', 'SCHEDULED', 'SENDING', 'SENT', 'CANCELLED');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'EmailRecipientType' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "EmailRecipientType" AS ENUM ('ALL_CONTACTS', 'CUSTOMER_TAG', 'LIFECYCLE_STAGE', 'SPECIFIC_CONTACTS', 'SEGMENT');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'InventorySessionStatus' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "InventorySessionStatus" AS ENUM ('OPEN', 'PAUSED', 'COMPLETED', 'CANCELLED');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'InventorySessionMode' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "InventorySessionMode" AS ENUM ('BIN', 'ZONE', 'PRODUCT');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'InventorySessionItemStatus' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "InventorySessionItemStatus" AS ENUM ('PENDING', 'CONFIRMED', 'MISSING', 'WRONG_BIN', 'EXTRA');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'DivergenceResolution' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "DivergenceResolution" AS ENUM ('LOSS_REGISTERED', 'TRANSFERRED', 'ENTRY_CREATED', 'PENDING_REVIEW');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'SkillCategory' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "SkillCategory" AS ENUM ('MODULE', 'CHANNEL', 'AI', 'INTEGRATION', 'FEATURE');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'PricingType' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "PricingType" AS ENUM ('FLAT', 'PER_UNIT', 'USAGE');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'SubscriptionStatus' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "SubscriptionStatus" AS ENUM ('ACTIVE', 'CANCELLED', 'TRIAL', 'SUSPENDED');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'BillingStatus' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "BillingStatus" AS ENUM ('PENDING', 'PAID', 'OVERDUE', 'CANCELLED');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'IntegrationType' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "IntegrationType" AS ENUM ('WHATSAPP', 'INSTAGRAM', 'TELEGRAM', 'SMS', 'MARKETPLACE_ML', 'MARKETPLACE_SHOPEE', 'MARKETPLACE_AMAZON', 'BID_PORTAL', 'EMAIL_IMAP', 'CERTIFICATE_A1', 'CERTIFICATE_CLOUD', 'TEF', 'OLLAMA', 'SEFAZ');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'IntegrationConnectionStatus' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "IntegrationConnectionStatus" AS ENUM ('CONNECTED', 'DISCONNECTED', 'ERROR', 'NOT_CONFIGURED');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'CentralUserRole' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "CentralUserRole" AS ENUM ('OWNER', 'ADMIN', 'SUPPORT', 'FINANCE', 'VIEWER');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'FeatureFlagCategory' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "FeatureFlagCategory" AS ENUM ('BETA', 'EXPERIMENT', 'ROLLOUT', 'INTERNAL');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'TicketCategory' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "TicketCategory" AS ENUM ('BUG', 'QUESTION', 'REQUEST', 'FINANCIAL', 'OTHER');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'TicketPriority' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "TicketPriority" AS ENUM ('CRITICAL', 'HIGH', 'MEDIUM', 'LOW');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'TicketStatus' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "TicketStatus" AS ENUM ('OPEN', 'IN_PROGRESS', 'WAITING_CLIENT', 'RESOLVED', 'CLOSED');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'TicketAuthorType' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "TicketAuthorType" AS ENUM ('TENANT_USER', 'CENTRAL_TEAM', 'AI_ASSISTANT');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'CardIntegrationType' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "CardIntegrationType" AS ENUM ('CUSTOMER', 'PRODUCT', 'FINANCE_ENTRY', 'EMAIL', 'DEPARTMENT', 'CALENDAR_EVENT');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'OrderType' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "OrderType" AS ENUM ('QUOTE', 'ORDER');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'OrderChannel' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "OrderChannel" AS ENUM ('PDV', 'WEB', 'WHATSAPP', 'MARKETPLACE', 'BID', 'MANUAL', 'API');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'DeliveryMethod' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "DeliveryMethod" AS ENUM ('PICKUP', 'OWN_FLEET', 'CARRIER', 'PARTIAL');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'PaymentMethod' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "PaymentMethod" AS ENUM ('CASH', 'CREDIT_CARD', 'DEBIT_CARD', 'PIX', 'BOLETO', 'BANK_TRANSFER', 'CHECK', 'STORE_CREDIT', 'OTHER');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'PaymentStatus' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "PaymentStatus" AS ENUM ('PENDING', 'PAID', 'OVERDUE', 'CANCELLED', 'REFUNDED');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'PaymentConditionType' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "PaymentConditionType" AS ENUM ('CASH', 'INSTALLMENT', 'CUSTOM', 'CREDIT_LIMIT');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'PaymentConditionApplicable' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "PaymentConditionApplicable" AS ENUM ('ALL', 'RETAIL', 'WHOLESALE', 'BID');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'InterestType' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "InterestType" AS ENUM ('SIMPLE', 'COMPOUND');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'DeliveryStatus' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "DeliveryStatus" AS ENUM ('PREPARING', 'SHIPPED', 'IN_TRANSIT', 'DELIVERED', 'FAILED');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'ReturnType' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "ReturnType" AS ENUM ('FULL_RETURN', 'PARTIAL_RETURN', 'EXCHANGE');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'ReturnStatus' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "ReturnStatus" AS ENUM ('REQUESTED', 'APPROVED', 'RECEIVING', 'RECEIVED', 'CREDIT_ISSUED', 'EXCHANGE_COMPLETED', 'REJECTED', 'CANCELLED');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'ReturnReason' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "ReturnReason" AS ENUM ('DEFECTIVE', 'WRONG_ITEM', 'CHANGED_MIND', 'DAMAGED', 'NOT_AS_DESCRIBED', 'OTHER');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'ReturnItemCondition' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "ReturnItemCondition" AS ENUM ('NEW', 'USED', 'DAMAGED', 'DEFECTIVE');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'RefundMethod' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "RefundMethod" AS ENUM ('SAME_METHOD', 'STORE_CREDIT', 'BANK_TRANSFER', 'PIX');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'StoreCreditSource' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "StoreCreditSource" AS ENUM ('RETURN', 'MANUAL', 'CAMPAIGN', 'LOYALTY');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'ApprovalRuleType' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "ApprovalRuleType" AS ENUM ('ORDER_VALUE', 'DISCOUNT_PERCENT', 'CREDIT_EXCEEDED', 'NEW_CUSTOMER', 'MANUAL_PRICE', 'CUSTOM');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'CommissionType' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "CommissionType" AS ENUM ('PERCENTAGE', 'FIXED_PER_ORDER', 'FIXED_PER_ITEM', 'TIERED');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'CommissionStatus' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "CommissionStatus" AS ENUM ('PENDING', 'APPROVED', 'PAID', 'CANCELLED');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'CommissionAppliesTo' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "CommissionAppliesTo" AS ENUM ('ALL', 'SPECIFIC_USERS', 'SPECIFIC_CATEGORIES', 'SPECIFIC_PRODUCTS');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'OrderHistoryAction' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "OrderHistoryAction" AS ENUM ('CREATED', 'STAGE_CHANGED', 'ITEM_ADDED', 'ITEM_REMOVED', 'ITEM_MODIFIED', 'PAYMENT_ADDED', 'PAYMENT_RECEIVED', 'APPROVAL_REQUESTED', 'APPROVED', 'REJECTED', 'DELIVERY_CREATED', 'DELIVERY_SHIPPED', 'DELIVERY_COMPLETED', 'RETURN_REQUESTED', 'RETURN_APPROVED', 'RETURN_COMPLETED', 'CANCELLED', 'NOTE_ADDED', 'ASSIGNED', 'COUPON_APPLIED');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'PriceSourceType' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "PriceSourceType" AS ENUM ('CUSTOMER', 'CAMPAIGN', 'COUPON', 'QUANTITY_TIER', 'TABLE', 'DEFAULT', 'MANUAL');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'CertificateType' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "CertificateType" AS ENUM ('A1', 'A3', 'CLOUD_NEOID', 'CLOUD_BIRDID', 'CLOUD_OTHER');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'CertificateStatus' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "CertificateStatus" AS ENUM ('ACTIVE', 'EXPIRED', 'REVOKED', 'PENDING_ACTIVATION');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'SignatureLevel' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "SignatureLevel" AS ENUM ('SIMPLE', 'ADVANCED', 'QUALIFIED');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'EnvelopeStatus' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "EnvelopeStatus" AS ENUM ('DRAFT', 'PENDING', 'IN_PROGRESS', 'COMPLETED', 'CANCELLED', 'EXPIRED', 'REJECTED');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'EnvelopeRoutingType' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "EnvelopeRoutingType" AS ENUM ('SEQUENTIAL', 'PARALLEL', 'HYBRID');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'SignerRole' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "SignerRole" AS ENUM ('SIGNER', 'APPROVER', 'WITNESS', 'REVIEWER');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'SignerStatus' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "SignerStatus" AS ENUM ('PENDING', 'NOTIFIED', 'VIEWED', 'SIGNED', 'REJECTED', 'EXPIRED');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'SignatureAuditType' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "SignatureAuditType" AS ENUM ('CREATED', 'SENT', 'VIEWED', 'SIGNED', 'REJECTED', 'REMINDED', 'EXPIRED', 'CANCELLED', 'DOWNLOADED', 'DOCUMENT_VERIFIED', 'CERTIFICATE_VALIDATED', 'OTP_SENT', 'OTP_VERIFIED', 'LINK_ACCESSED');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'WidgetType' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "WidgetType" AS ENUM ('KPI_CARD', 'BAR_CHART', 'LINE_CHART', 'PIE_CHART', 'FUNNEL', 'TABLE', 'HEATMAP', 'SCATTER', 'GAUGE', 'RANKING', 'COMPARISON', 'TREND');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'WidgetDataSource' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "WidgetDataSource" AS ENUM ('ORDERS', 'DEALS', 'CONTACTS', 'CUSTOMERS', 'PRODUCTS', 'COMMISSIONS', 'CAMPAIGNS', 'BIDS', 'MARKETPLACE', 'CASHIER', 'CUSTOM_QUERY');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'DashboardRole' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "DashboardRole" AS ENUM ('SELLER', 'MANAGER', 'DIRECTOR', 'BID_SPECIALIST', 'MARKETPLACE_OPS', 'CASHIER');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'DashboardVisibility' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "DashboardVisibility" AS ENUM ('PRIVATE', 'TEAM', 'TENANT');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'GoalType' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "GoalType" AS ENUM ('REVENUE', 'QUANTITY', 'DEALS_WON', 'NEW_CUSTOMERS', 'TICKET_AVERAGE', 'CONVERSION_RATE', 'COMMISSION', 'BID_WIN_RATE', 'CUSTOM');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'GoalPeriod' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "GoalPeriod" AS ENUM ('DAILY', 'WEEKLY', 'MONTHLY', 'QUARTERLY', 'YEARLY', 'CUSTOM');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'GoalScope' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "GoalScope" AS ENUM ('INDIVIDUAL', 'TEAM', 'TENANT');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'GoalStatus' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "GoalStatus" AS ENUM ('ACTIVE', 'ACHIEVED', 'MISSED', 'ARCHIVED');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'ReportType' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "ReportType" AS ENUM ('SALES_SUMMARY', 'COMMISSION_REPORT', 'PIPELINE_REPORT', 'PRODUCT_PERFORMANCE', 'CUSTOMER_ANALYSIS', 'BID_REPORT', 'MARKETPLACE_REPORT', 'CASHIER_REPORT', 'GOAL_PROGRESS', 'CURVA_ABC', 'CUSTOM');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'ReportFormat' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "ReportFormat" AS ENUM ('PDF', 'EXCEL', 'CSV');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'ReportFrequency' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "ReportFrequency" AS ENUM ('DAILY', 'WEEKLY', 'MONTHLY');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'ReportDeliveryMethod' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "ReportDeliveryMethod" AS ENUM ('EMAIL', 'WHATSAPP', 'BOTH', 'DOWNLOAD_ONLY');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'ReportGenerationStatus' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "ReportGenerationStatus" AS ENUM ('GENERATING', 'SUCCESS', 'FAILED');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'AiPersonality' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "AiPersonality" AS ENUM ('PROFESSIONAL', 'FRIENDLY', 'CASUAL', 'FORMAL', 'CUSTOM');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'AiToneOfVoice' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "AiToneOfVoice" AS ENUM ('NEUTRAL', 'WARM', 'DIRECT', 'ENTHUSIASTIC');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'AiConversationContext' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "AiConversationContext" AS ENUM ('DEDICATED', 'INLINE', 'COMMAND_BAR', 'VOICE');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'AiConversationStatus' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "AiConversationStatus" AS ENUM ('ACTIVE', 'ARCHIVED');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'AiMessageRole' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "AiMessageRole" AS ENUM ('USER', 'ASSISTANT', 'SYSTEM', 'TOOL_CALL', 'TOOL_RESULT');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'AiMessageContentType' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "AiMessageContentType" AS ENUM ('TEXT', 'CHART', 'TABLE', 'KPI_CARD', 'ACTION_CARD', 'IMAGE', 'ERROR', 'LOADING');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'AiFavoriteCategory' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "AiFavoriteCategory" AS ENUM ('SALES', 'STOCK', 'FINANCE', 'HR', 'CRM', 'GENERAL');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'AiActionStatus' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "AiActionStatus" AS ENUM ('PROPOSED', 'CONFIRMED', 'EXECUTED', 'FAILED', 'CANCELLED');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'AiInsightType' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "AiInsightType" AS ENUM ('TREND', 'ANOMALY', 'OPPORTUNITY', 'RISK', 'PREDICTION', 'RECOMMENDATION', 'ALERT', 'CELEBRATION');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'AiInsightPriority' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "AiInsightPriority" AS ENUM ('LOW', 'MEDIUM', 'HIGH', 'URGENT');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'AiInsightStatus' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "AiInsightStatus" AS ENUM ('NEW', 'VIEWED', 'ACTED_ON', 'DISMISSED', 'EXPIRED');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'PosTerminalMode' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "PosTerminalMode" AS ENUM ('FAST_CHECKOUT', 'CONSULTIVE', 'SELF_SERVICE', 'EXTERNAL');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'PosCashierMode' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "PosCashierMode" AS ENUM ('INTEGRATED', 'SEPARATED');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'PosSessionStatus' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "PosSessionStatus" AS ENUM ('OPEN', 'CLOSED', 'SUSPENDED');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'PosTransactionStatus' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "PosTransactionStatus" AS ENUM ('COMPLETED', 'CANCELLED', 'SUSPENDED', 'PENDING_SYNC');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'PosPaymentMethod' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "PosPaymentMethod" AS ENUM ('CASH', 'CREDIT_CARD', 'DEBIT_CARD', 'PIX', 'BOLETO', 'STORE_CREDIT', 'VOUCHER', 'PAYMENT_LINK', 'NFC', 'CHECK', 'OTHER');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'PosCashMovementType' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "PosCashMovementType" AS ENUM ('OPENING', 'WITHDRAWAL', 'SUPPLY', 'CLOSING');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'PosOfflineStatus' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "PosOfflineStatus" AS ENUM ('PENDING', 'SYNCING', 'SYNCED', 'FAILED');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'PosOfflineOperationType' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "PosOfflineOperationType" AS ENUM ('TRANSACTION', 'CASH_MOVEMENT', 'CUSTOMER_CREATE', 'SESSION_CLOSE');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'PosVisitOutcome' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "PosVisitOutcome" AS ENUM ('SALE', 'QUOTE', 'NO_SALE', 'FOLLOW_UP');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'PosPaymentLinkStatus' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "PosPaymentLinkStatus" AS ENUM ('PENDING', 'PAID', 'EXPIRED');
+  END IF;
+END $ct$;
+
+-- CreateEnum
+DO $ct$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type t JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'event_log_status' AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "event_log_status" AS ENUM ('PUBLISHED', 'PROCESSING', 'PROCESSED', 'FAILED', 'DEAD_LETTER');
+  END IF;
+END $ct$;
+
+-- AlterEnum (idempotent: skip if OrganizationType already has 'CUSTOMER')
+DO $ae$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_enum e JOIN pg_type t ON e.enumtypid = t.oid
+    JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE t.typname = 'OrganizationType' AND e.enumlabel = 'CUSTOMER'
+    AND n.nspname = current_schema()
+  ) THEN
+    CREATE TYPE "OrganizationType_new" AS ENUM ('COMPANY', 'CUSTOMER');
+    ALTER TABLE "organizations" ALTER COLUMN "type" TYPE "OrganizationType_new" USING ("type"::text::"OrganizationType_new");
+    ALTER TYPE "OrganizationType" RENAME TO "OrganizationType_old";
+    ALTER TYPE "OrganizationType_new" RENAME TO "OrganizationType";
+    DROP TYPE "OrganizationType_old";
+  END IF;
+END $ae$;
 
 -- AlterTable
 ALTER TABLE "card_watchers" ADD COLUMN     "role" TEXT NOT NULL DEFAULT 'WATCHER';

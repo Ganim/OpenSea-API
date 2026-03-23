@@ -8,6 +8,7 @@ import type {
   PosTerminalsRepository,
 } from '../pos-terminals-repository';
 import type {
+  Prisma,
   PosTerminalMode as PrismaMode,
   PosCashierMode as PrismaCashierMode,
 } from '@prisma/generated/client.js';
@@ -28,7 +29,7 @@ export class PrismaPosTerminalsRepository implements PosTerminalsRepository {
         isActive: terminal.isActive,
         lastSyncAt: terminal.lastSyncAt ?? null,
         lastOnlineAt: terminal.lastOnlineAt ?? null,
-        settings: terminal.settings ?? undefined,
+        settings: (terminal.settings as Prisma.InputJsonValue) ?? undefined,
       },
     });
   }
@@ -103,7 +104,7 @@ export class PrismaPosTerminalsRepository implements PosTerminalsRepository {
         isActive: terminal.isActive,
         lastSyncAt: terminal.lastSyncAt ?? null,
         lastOnlineAt: terminal.lastOnlineAt ?? null,
-        settings: terminal.settings ?? undefined,
+        settings: (terminal.settings as Prisma.InputJsonValue) ?? undefined,
       },
     });
   }

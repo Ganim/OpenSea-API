@@ -1,26 +1,43 @@
-import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import type { InventorySession } from '@/entities/stock/inventory-session';
-import type { InventorySessionItem } from '@/entities/stock/inventory-session-item';
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import type {
+  InventorySession,
+  InventorySessionMode,
+  InventorySessionStatus,
+} from '@/entities/stock/inventory-session';
+import type { PaginatedResult, PaginationParams } from '../pagination-params';
+
+export interface CreateInventorySessionSchema {
+  tenantId: string;
+  userId: UniqueEntityID;
+  mode: InventorySessionMode;
+  binId?: UniqueEntityID;
+  zoneId?: UniqueEntityID;
+  productId?: UniqueEntityID;
+  variantId?: UniqueEntityID;
+  totalItems?: number;
+  notes?: string;
+}
+
+export interface InventorySessionFilters {
+  status?: InventorySessionStatus;
+  mode?: InventorySessionMode;
+}
 
 export interface InventorySessionsRepository {
-  create(session: InventorySession): Promise<InventorySession>;
+  create(data: CreateInventorySessionSchema): Promise<InventorySession>;
   findById(
     id: UniqueEntityID,
     tenantId: string,
   ): Promise<InventorySession | null>;
   findActiveByScope(
-    scope: Record<string, string>,
     tenantId: string,
+    mode: InventorySessionMode,
+    scopeId: UniqueEntityID,
   ): Promise<InventorySession | null>;
-  list(params: {
-    tenantId: string;
-    status?: string;
-    mode?: string;
-    page?: number;
-    perPage?: number;
-  }): Promise<{ sessions: InventorySession[]; total: number }>;
+  findManyPaginated(
+    tenantId: string,
+    params: PaginationParams,
+    filters?: InventorySessionFilters,
+  ): Promise<PaginatedResult<InventorySession>>;
   save(session: InventorySession): Promise<void>;
-  createItem(item: InventorySessionItem): Promise<InventorySessionItem>;
-  findItemsBySessionId(sessionId: string): Promise<InventorySessionItem[]>;
-  saveItem(item: InventorySessionItem): Promise<void>;
 }

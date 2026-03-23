@@ -16,6 +16,7 @@ interface AddReactionRequest {
 
 interface AddReactionResponse {
   reaction: CommentReactionRecord;
+  removed: boolean;
 }
 
 export class AddReactionUseCase {
@@ -43,10 +44,10 @@ export class AddReactionUseCase {
         emoji,
       );
 
+    // Toggle: remove if already exists, add if not
     if (existingReaction) {
-      throw new BadRequestError(
-        'You have already reacted with this emoji on this comment',
-      );
+      await this.commentReactionsRepository.delete(existingReaction.id);
+      return { reaction: existingReaction, removed: true };
     }
 
     const reaction = await this.commentReactionsRepository.create({
@@ -55,6 +56,6 @@ export class AddReactionUseCase {
       emoji,
     });
 
-    return { reaction };
+    return { reaction, removed: false };
   }
 }

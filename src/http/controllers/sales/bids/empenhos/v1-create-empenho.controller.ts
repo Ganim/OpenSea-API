@@ -8,6 +8,7 @@ import {
   bidEmpenhoResponseSchema,
   createBidEmpenhoSchema,
 } from '@/http/schemas/sales/bids';
+import { bidEmpenhoToDTO } from '@/mappers/sales/bid-empenho/bid-empenho-to-dto';
 import { makeCreateBidEmpenhoUseCase } from '@/use-cases/sales/bids/factories/make-create-bid-empenho-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -50,12 +51,12 @@ export async function createBidEmpenhoController(app: FastifyInstance) {
         placeholders: { userName: userId, empenhoNumber: body.empenhoNumber },
         newData: {
           empenhoNumber: body.empenhoNumber,
-          bidId: body.bidId,
+          contractId: body.contractId,
           value: body.value,
         },
       });
 
-      return reply.status(201).send({ empenho });
+      return reply.status(201).send({ empenho: bidEmpenhoToDTO(empenho) });
     },
   });
 }

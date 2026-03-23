@@ -39,7 +39,7 @@ export async function v1UpdateConnectionController(app: FastifyInstance) {
         autoCalcPrice: z.boolean().optional(),
         priceMultiplier: z.number().min(0).optional(),
         fulfillmentType: z.enum(['SELF', 'MARKETPLACE', 'HYBRID']).optional(),
-        settings: z.record(z.unknown()).optional(),
+        settings: z.record(z.string(), z.unknown()).optional(),
       }),
       response: {
         200: z.object({ connection: z.any() }),

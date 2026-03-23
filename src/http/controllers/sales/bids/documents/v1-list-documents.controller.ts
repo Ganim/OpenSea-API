@@ -6,6 +6,7 @@ import {
   bidDocumentResponseSchema,
   listBidDocumentsQuerySchema,
 } from '@/http/schemas/sales/bids';
+import { bidDocumentToDTO } from '@/mappers/sales/bid-document/bid-document-to-dto';
 import { makeListBidDocumentsUseCase } from '@/use-cases/sales/bids/factories/make-list-bid-documents-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -52,7 +53,7 @@ export async function listBidDocumentsController(app: FastifyInstance) {
       });
 
       return reply.status(200).send({
-        documents,
+        documents: documents.map(bidDocumentToDTO),
         meta: {
           total,
           page: query.page,

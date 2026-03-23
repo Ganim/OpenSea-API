@@ -7,7 +7,10 @@ import type {
   FindManyPosSessionsPaginatedParams,
   PosSessionsRepository,
 } from '../pos-sessions-repository';
-import type { PosSessionStatus as PrismaStatus } from '@prisma/generated/client.js';
+import type {
+  Prisma,
+  PosSessionStatus as PrismaStatus,
+} from '@prisma/generated/client.js';
 
 export class PrismaPosSessionsRepository implements PosSessionsRepository {
   async create(session: PosSession): Promise<void> {
@@ -24,7 +27,7 @@ export class PrismaPosSessionsRepository implements PosSessionsRepository {
         closingBalance: session.closingBalance ?? null,
         expectedBalance: session.expectedBalance ?? null,
         difference: session.difference ?? null,
-        closingBreakdown: session.closingBreakdown ?? undefined,
+        closingBreakdown: (session.closingBreakdown as Prisma.InputJsonValue) ?? undefined,
         notes: session.notes ?? null,
       },
     });
@@ -89,7 +92,7 @@ export class PrismaPosSessionsRepository implements PosSessionsRepository {
         closingBalance: session.closingBalance ?? null,
         expectedBalance: session.expectedBalance ?? null,
         difference: session.difference ?? null,
-        closingBreakdown: session.closingBreakdown ?? undefined,
+        closingBreakdown: (session.closingBreakdown as Prisma.InputJsonValue) ?? undefined,
         notes: session.notes ?? null,
       },
     });

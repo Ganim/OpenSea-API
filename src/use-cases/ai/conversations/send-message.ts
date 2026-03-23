@@ -244,6 +244,9 @@ export class SendMessageUseCase {
         const errorMessage =
           error instanceof Error ? error.message : 'Unknown error';
         console.error(`[AI Provider Error] Tier ${tier}: ${errorMessage}`);
+        if (error instanceof Error && error.stack) {
+          console.error(`[AI Provider Stack]`, error.stack);
+        }
 
         aiContent = `Desculpe, ocorreu um erro ao processar sua mensagem. Por favor, tente novamente em alguns instantes.`;
         aiModel = 'error';

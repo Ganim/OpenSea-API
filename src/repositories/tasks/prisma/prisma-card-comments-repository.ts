@@ -9,13 +9,22 @@ import type {
   UpdateCardCommentSchema,
 } from '../card-comments-repository';
 
-const authorInclude = {
+const commentInclude = {
   author: {
     select: {
       id: true,
       email: true,
       username: true,
       profile: { select: { name: true, surname: true, avatarUrl: true } },
+    },
+  },
+  reactions: {
+    select: {
+      id: true,
+      commentId: true,
+      userId: true,
+      emoji: true,
+      createdAt: true,
     },
   },
 } as const;
@@ -51,6 +60,21 @@ function toRecord(raw: any): CardCommentRecord {
     authorName: resolveAuthorName(raw.author ?? null),
     authorEmail: raw.author?.email ?? null,
     authorAvatarUrl: raw.author?.profile?.avatarUrl ?? null,
+    reactions: (raw.reactions ?? []).map(
+      (r: {
+        id: string;
+        commentId: string;
+        userId: string;
+        emoji: string;
+        createdAt: Date;
+      }) => ({
+        id: r.id,
+        commentId: r.commentId,
+        userId: r.userId,
+        emoji: r.emoji,
+        createdAt: r.createdAt,
+      }),
+    ),
   };
 }
 
@@ -63,7 +87,7 @@ export class PrismaCardCommentsRepository implements CardCommentsRepository {
         content: data.content,
         mentions: (data.mentions as Prisma.InputJsonValue) ?? undefined,
       },
-      include: authorInclude,
+      include: commentInclude,
     });
 
     return toRecord(raw);
@@ -75,7 +99,7 @@ export class PrismaCardCommentsRepository implements CardCommentsRepository {
   ): Promise<CardCommentRecord | null> {
     const raw = await prisma.cardComment.findFirst({
       where: { id, cardId },
-      include: authorInclude,
+      include: commentInclude,
     });
 
     return raw ? toRecord(raw) : null;
@@ -94,7 +118,7 @@ export class PrismaCardCommentsRepository implements CardCommentsRepository {
     const [comments, total] = await Promise.all([
       prisma.cardComment.findMany({
         where,
-        include: authorInclude,
+        include: commentInclude,
         orderBy: { createdAt: 'desc' },
         skip: (page - 1) * limit,
         take: limit,
@@ -118,7 +142,7 @@ export class PrismaCardCommentsRepository implements CardCommentsRepository {
             : undefined,
         editedAt: new Date(),
       },
-      include: authorInclude,
+      include: commentInclude,
     });
 
     return toRecord(raw);

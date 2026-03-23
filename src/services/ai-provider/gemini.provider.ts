@@ -17,8 +17,8 @@ const GEMINI_API_URL =
   'https://generativelanguage.googleapis.com/v1beta/models';
 
 const GEMINI_PRICING: Record<string, { input: number; output: number }> = {
-  'gemini-2.5-pro-preview-06-05': { input: 1.25, output: 10.0 },
-  'gemini-2.5-flash-preview-05-20': { input: 0.15, output: 0.6 },
+  'gemini-2.5-pro': { input: 1.25, output: 10.0 },
+  'gemini-2.5-flash': { input: 0.15, output: 0.6 },
   'gemini-2.0-flash': { input: 0.1, output: 0.4 },
 };
 
@@ -58,7 +58,7 @@ export class GeminiProvider implements AiProvider, AiProviderWithTools {
 
   constructor(apiKey: string, defaultModel?: string) {
     this.apiKey = apiKey;
-    this.defaultModel = defaultModel ?? 'gemini-2.5-pro-preview-06-05';
+    this.defaultModel = defaultModel ?? 'gemini-2.5-pro';
   }
 
   async complete(

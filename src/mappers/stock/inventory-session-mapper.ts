@@ -6,13 +6,12 @@ import {
 } from '@/entities/stock/inventory-session';
 import {
   InventorySessionItem,
-  type InventoryItemResolution,
-  type InventoryItemStatus,
+  type DivergenceResolution,
+  type InventorySessionItemStatus,
 } from '@/entities/stock/inventory-session-item';
 import type {
   InventorySession as PrismaInventorySession,
   InventorySessionItem as PrismaInventorySessionItem,
-  Prisma,
 } from '@prisma/generated/client.js';
 
 export function inventorySessionPrismaToDomain(
@@ -21,44 +20,25 @@ export function inventorySessionPrismaToDomain(
   return InventorySession.create(
     {
       tenantId: new EntityID(raw.tenantId),
+      userId: new EntityID(raw.userId),
       mode: raw.mode as InventorySessionMode,
       status: raw.status as InventorySessionStatus,
-      scope: raw.scope as Record<string, unknown>,
+      binId: raw.binId ? new EntityID(raw.binId) : undefined,
+      zoneId: raw.zoneId ? new EntityID(raw.zoneId) : undefined,
+      productId: raw.productId ? new EntityID(raw.productId) : undefined,
+      variantId: raw.variantId ? new EntityID(raw.variantId) : undefined,
       totalItems: raw.totalItems,
+      scannedItems: raw.scannedItems,
       confirmedItems: raw.confirmedItems,
-      divergences: raw.divergences,
+      divergentItems: raw.divergentItems,
       notes: raw.notes ?? undefined,
       startedAt: raw.startedAt,
-      pausedAt: raw.pausedAt ?? undefined,
       completedAt: raw.completedAt ?? undefined,
       createdAt: raw.createdAt,
-      deletedAt: raw.deletedAt ?? undefined,
-      startedBy: raw.startedBy,
+      updatedAt: raw.updatedAt,
     },
     new EntityID(raw.id),
   );
-}
-
-export function inventorySessionToPersistence(
-  session: InventorySession,
-): Prisma.InventorySessionUncheckedCreateInput {
-  return {
-    id: session.id.toString(),
-    tenantId: session.tenantId.toString(),
-    mode: session.mode,
-    status: session.status,
-    scope: session.scope as Prisma.InputJsonValue,
-    totalItems: session.totalItems,
-    confirmedItems: session.confirmedItems,
-    divergences: session.divergences,
-    notes: session.notes ?? null,
-    startedAt: session.startedAt,
-    pausedAt: session.pausedAt ?? null,
-    completedAt: session.completedAt ?? null,
-    createdAt: session.createdAt,
-    deletedAt: session.deletedAt ?? null,
-    startedBy: session.startedBy,
-  };
 }
 
 export function inventorySessionItemPrismaToDomain(
@@ -66,34 +46,27 @@ export function inventorySessionItemPrismaToDomain(
 ): InventorySessionItem {
   return InventorySessionItem.create(
     {
-      sessionId: raw.sessionId,
-      itemId: raw.itemId ?? undefined,
-      binId: raw.binId,
-      status: raw.status as InventoryItemStatus,
-      resolution: (raw.resolution as InventoryItemResolution) ?? undefined,
-      notes: raw.notes ?? undefined,
+      sessionId: new EntityID(raw.sessionId),
+      itemId: new EntityID(raw.itemId),
+      expectedBinId: raw.expectedBinId
+        ? new EntityID(raw.expectedBinId)
+        : undefined,
+      actualBinId: raw.actualBinId
+        ? new EntityID(raw.actualBinId)
+        : undefined,
+      status: raw.status as InventorySessionItemStatus,
       scannedAt: raw.scannedAt ?? undefined,
+      resolution: raw.resolution
+        ? (raw.resolution as DivergenceResolution)
+        : undefined,
+      resolvedBy: raw.resolvedBy
+        ? new EntityID(raw.resolvedBy)
+        : undefined,
       resolvedAt: raw.resolvedAt ?? undefined,
-      resolvedBy: raw.resolvedBy ?? undefined,
+      notes: raw.notes ?? undefined,
       createdAt: raw.createdAt,
+      updatedAt: raw.updatedAt,
     },
     new EntityID(raw.id),
   );
-}
-
-export function inventorySessionItemToPersistence(
-  item: InventorySessionItem,
-): Prisma.InventorySessionItemUncheckedCreateInput {
-  return {
-    id: item.id.toString(),
-    sessionId: item.sessionId,
-    itemId: item.itemId ?? null,
-    binId: item.binId,
-    status: item.status,
-    resolution: item.resolution ?? null,
-    notes: item.notes ?? null,
-    scannedAt: item.scannedAt ?? null,
-    resolvedAt: item.resolvedAt ?? null,
-    resolvedBy: item.resolvedBy ?? null,
-  };
 }

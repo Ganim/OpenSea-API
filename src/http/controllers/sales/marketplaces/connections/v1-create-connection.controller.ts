@@ -45,7 +45,7 @@ export async function v1CreateConnectionController(app: FastifyInstance) {
         priceMultiplier: z.number().min(0).optional(),
         fulfillmentType: z.enum(['SELF', 'MARKETPLACE', 'HYBRID']).optional(),
         defaultWarehouseId: z.string().uuid().optional(),
-        settings: z.record(z.unknown()).optional(),
+        settings: z.record(z.string(), z.unknown()).optional(),
       }),
       response: {
         201: z.object({ connection: z.any() }),

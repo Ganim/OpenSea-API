@@ -6,6 +6,7 @@ import {
   bidContractResponseSchema,
   listBidContractsQuerySchema,
 } from '@/http/schemas/sales/bids';
+import { bidContractToDTO } from '@/mappers/sales/bid-contract/bid-contract-to-dto';
 import { makeListBidContractsUseCase } from '@/use-cases/sales/bids/factories/make-list-bid-contracts-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -52,7 +53,7 @@ export async function listBidContractsController(app: FastifyInstance) {
       });
 
       return reply.status(200).send({
-        contracts,
+        contracts: contracts.map(bidContractToDTO),
         meta: {
           total,
           page: query.page,

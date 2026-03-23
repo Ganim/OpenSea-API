@@ -34,6 +34,7 @@ export const commentResponseSchema = z.object({
   authorEmail: z.string().optional().nullable(),
   content: z.string(),
   mentions: z.array(z.string()).optional().nullable(),
+  reactions: z.array(commentReactionResponseSchema).optional(),
   editedAt: z.coerce.date().optional().nullable(),
   deletedAt: z.coerce.date().optional().nullable(),
   createdAt: z.coerce.date(),

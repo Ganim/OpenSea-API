@@ -26,88 +26,100 @@ export type AggregateInventorySessionItem = {
 
 export type InventorySessionItemMinAggregateOutputType = {
   id: string | null
-  status: $Enums.InventoryItemStatus | null
-  resolution: $Enums.InventoryItemResolution | null
-  notes: string | null
-  scannedAt: Date | null
-  resolvedAt: Date | null
-  createdAt: Date | null
   sessionId: string | null
   itemId: string | null
-  binId: string | null
+  expectedBinId: string | null
+  actualBinId: string | null
+  status: $Enums.InventorySessionItemStatus | null
+  scannedAt: Date | null
+  resolution: $Enums.DivergenceResolution | null
   resolvedBy: string | null
+  resolvedAt: Date | null
+  notes: string | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type InventorySessionItemMaxAggregateOutputType = {
   id: string | null
-  status: $Enums.InventoryItemStatus | null
-  resolution: $Enums.InventoryItemResolution | null
-  notes: string | null
-  scannedAt: Date | null
-  resolvedAt: Date | null
-  createdAt: Date | null
   sessionId: string | null
   itemId: string | null
-  binId: string | null
+  expectedBinId: string | null
+  actualBinId: string | null
+  status: $Enums.InventorySessionItemStatus | null
+  scannedAt: Date | null
+  resolution: $Enums.DivergenceResolution | null
   resolvedBy: string | null
+  resolvedAt: Date | null
+  notes: string | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type InventorySessionItemCountAggregateOutputType = {
   id: number
-  status: number
-  resolution: number
-  notes: number
-  scannedAt: number
-  resolvedAt: number
-  createdAt: number
   sessionId: number
   itemId: number
-  binId: number
+  expectedBinId: number
+  actualBinId: number
+  status: number
+  scannedAt: number
+  resolution: number
   resolvedBy: number
+  resolvedAt: number
+  notes: number
+  createdAt: number
+  updatedAt: number
   _all: number
 }
 
 
 export type InventorySessionItemMinAggregateInputType = {
   id?: true
-  status?: true
-  resolution?: true
-  notes?: true
-  scannedAt?: true
-  resolvedAt?: true
-  createdAt?: true
   sessionId?: true
   itemId?: true
-  binId?: true
+  expectedBinId?: true
+  actualBinId?: true
+  status?: true
+  scannedAt?: true
+  resolution?: true
   resolvedBy?: true
+  resolvedAt?: true
+  notes?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type InventorySessionItemMaxAggregateInputType = {
   id?: true
-  status?: true
-  resolution?: true
-  notes?: true
-  scannedAt?: true
-  resolvedAt?: true
-  createdAt?: true
   sessionId?: true
   itemId?: true
-  binId?: true
+  expectedBinId?: true
+  actualBinId?: true
+  status?: true
+  scannedAt?: true
+  resolution?: true
   resolvedBy?: true
+  resolvedAt?: true
+  notes?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type InventorySessionItemCountAggregateInputType = {
   id?: true
-  status?: true
-  resolution?: true
-  notes?: true
-  scannedAt?: true
-  resolvedAt?: true
-  createdAt?: true
   sessionId?: true
   itemId?: true
-  binId?: true
+  expectedBinId?: true
+  actualBinId?: true
+  status?: true
+  scannedAt?: true
+  resolution?: true
   resolvedBy?: true
+  resolvedAt?: true
+  notes?: true
+  createdAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -185,16 +197,18 @@ export type InventorySessionItemGroupByArgs<ExtArgs extends runtime.Types.Extens
 
 export type InventorySessionItemGroupByOutputType = {
   id: string
-  status: $Enums.InventoryItemStatus
-  resolution: $Enums.InventoryItemResolution | null
-  notes: string | null
-  scannedAt: Date | null
-  resolvedAt: Date | null
-  createdAt: Date
   sessionId: string
-  itemId: string | null
-  binId: string
+  itemId: string
+  expectedBinId: string | null
+  actualBinId: string | null
+  status: $Enums.InventorySessionItemStatus
+  scannedAt: Date | null
+  resolution: $Enums.DivergenceResolution | null
   resolvedBy: string | null
+  resolvedAt: Date | null
+  notes: string | null
+  createdAt: Date
+  updatedAt: Date
   _count: InventorySessionItemCountAggregateOutputType | null
   _min: InventorySessionItemMinAggregateOutputType | null
   _max: InventorySessionItemMaxAggregateOutputType | null
@@ -220,37 +234,43 @@ export type InventorySessionItemWhereInput = {
   OR?: Prisma.InventorySessionItemWhereInput[]
   NOT?: Prisma.InventorySessionItemWhereInput | Prisma.InventorySessionItemWhereInput[]
   id?: Prisma.StringFilter<"InventorySessionItem"> | string
-  status?: Prisma.EnumInventoryItemStatusFilter<"InventorySessionItem"> | $Enums.InventoryItemStatus
-  resolution?: Prisma.EnumInventoryItemResolutionNullableFilter<"InventorySessionItem"> | $Enums.InventoryItemResolution | null
-  notes?: Prisma.StringNullableFilter<"InventorySessionItem"> | string | null
-  scannedAt?: Prisma.DateTimeNullableFilter<"InventorySessionItem"> | Date | string | null
-  resolvedAt?: Prisma.DateTimeNullableFilter<"InventorySessionItem"> | Date | string | null
-  createdAt?: Prisma.DateTimeFilter<"InventorySessionItem"> | Date | string
   sessionId?: Prisma.StringFilter<"InventorySessionItem"> | string
-  itemId?: Prisma.StringNullableFilter<"InventorySessionItem"> | string | null
-  binId?: Prisma.StringFilter<"InventorySessionItem"> | string
+  itemId?: Prisma.StringFilter<"InventorySessionItem"> | string
+  expectedBinId?: Prisma.StringNullableFilter<"InventorySessionItem"> | string | null
+  actualBinId?: Prisma.StringNullableFilter<"InventorySessionItem"> | string | null
+  status?: Prisma.EnumInventorySessionItemStatusFilter<"InventorySessionItem"> | $Enums.InventorySessionItemStatus
+  scannedAt?: Prisma.DateTimeNullableFilter<"InventorySessionItem"> | Date | string | null
+  resolution?: Prisma.EnumDivergenceResolutionNullableFilter<"InventorySessionItem"> | $Enums.DivergenceResolution | null
   resolvedBy?: Prisma.StringNullableFilter<"InventorySessionItem"> | string | null
+  resolvedAt?: Prisma.DateTimeNullableFilter<"InventorySessionItem"> | Date | string | null
+  notes?: Prisma.StringNullableFilter<"InventorySessionItem"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"InventorySessionItem"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"InventorySessionItem"> | Date | string
   session?: Prisma.XOR<Prisma.InventorySessionScalarRelationFilter, Prisma.InventorySessionWhereInput>
-  item?: Prisma.XOR<Prisma.ItemNullableScalarRelationFilter, Prisma.ItemWhereInput> | null
-  bin?: Prisma.XOR<Prisma.BinScalarRelationFilter, Prisma.BinWhereInput>
+  item?: Prisma.XOR<Prisma.ItemScalarRelationFilter, Prisma.ItemWhereInput>
+  expectedBin?: Prisma.XOR<Prisma.BinNullableScalarRelationFilter, Prisma.BinWhereInput> | null
+  actualBin?: Prisma.XOR<Prisma.BinNullableScalarRelationFilter, Prisma.BinWhereInput> | null
   resolver?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }
 
 export type InventorySessionItemOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  status?: Prisma.SortOrder
-  resolution?: Prisma.SortOrderInput | Prisma.SortOrder
-  notes?: Prisma.SortOrderInput | Prisma.SortOrder
-  scannedAt?: Prisma.SortOrderInput | Prisma.SortOrder
-  resolvedAt?: Prisma.SortOrderInput | Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
   sessionId?: Prisma.SortOrder
-  itemId?: Prisma.SortOrderInput | Prisma.SortOrder
-  binId?: Prisma.SortOrder
+  itemId?: Prisma.SortOrder
+  expectedBinId?: Prisma.SortOrderInput | Prisma.SortOrder
+  actualBinId?: Prisma.SortOrderInput | Prisma.SortOrder
+  status?: Prisma.SortOrder
+  scannedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  resolution?: Prisma.SortOrderInput | Prisma.SortOrder
   resolvedBy?: Prisma.SortOrderInput | Prisma.SortOrder
+  resolvedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  notes?: Prisma.SortOrderInput | Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   session?: Prisma.InventorySessionOrderByWithRelationInput
   item?: Prisma.ItemOrderByWithRelationInput
-  bin?: Prisma.BinOrderByWithRelationInput
+  expectedBin?: Prisma.BinOrderByWithRelationInput
+  actualBin?: Prisma.BinOrderByWithRelationInput
   resolver?: Prisma.UserOrderByWithRelationInput
 }
 
@@ -259,34 +279,39 @@ export type InventorySessionItemWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.InventorySessionItemWhereInput | Prisma.InventorySessionItemWhereInput[]
   OR?: Prisma.InventorySessionItemWhereInput[]
   NOT?: Prisma.InventorySessionItemWhereInput | Prisma.InventorySessionItemWhereInput[]
-  status?: Prisma.EnumInventoryItemStatusFilter<"InventorySessionItem"> | $Enums.InventoryItemStatus
-  resolution?: Prisma.EnumInventoryItemResolutionNullableFilter<"InventorySessionItem"> | $Enums.InventoryItemResolution | null
-  notes?: Prisma.StringNullableFilter<"InventorySessionItem"> | string | null
-  scannedAt?: Prisma.DateTimeNullableFilter<"InventorySessionItem"> | Date | string | null
-  resolvedAt?: Prisma.DateTimeNullableFilter<"InventorySessionItem"> | Date | string | null
-  createdAt?: Prisma.DateTimeFilter<"InventorySessionItem"> | Date | string
   sessionId?: Prisma.StringFilter<"InventorySessionItem"> | string
-  itemId?: Prisma.StringNullableFilter<"InventorySessionItem"> | string | null
-  binId?: Prisma.StringFilter<"InventorySessionItem"> | string
+  itemId?: Prisma.StringFilter<"InventorySessionItem"> | string
+  expectedBinId?: Prisma.StringNullableFilter<"InventorySessionItem"> | string | null
+  actualBinId?: Prisma.StringNullableFilter<"InventorySessionItem"> | string | null
+  status?: Prisma.EnumInventorySessionItemStatusFilter<"InventorySessionItem"> | $Enums.InventorySessionItemStatus
+  scannedAt?: Prisma.DateTimeNullableFilter<"InventorySessionItem"> | Date | string | null
+  resolution?: Prisma.EnumDivergenceResolutionNullableFilter<"InventorySessionItem"> | $Enums.DivergenceResolution | null
   resolvedBy?: Prisma.StringNullableFilter<"InventorySessionItem"> | string | null
+  resolvedAt?: Prisma.DateTimeNullableFilter<"InventorySessionItem"> | Date | string | null
+  notes?: Prisma.StringNullableFilter<"InventorySessionItem"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"InventorySessionItem"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"InventorySessionItem"> | Date | string
   session?: Prisma.XOR<Prisma.InventorySessionScalarRelationFilter, Prisma.InventorySessionWhereInput>
-  item?: Prisma.XOR<Prisma.ItemNullableScalarRelationFilter, Prisma.ItemWhereInput> | null
-  bin?: Prisma.XOR<Prisma.BinScalarRelationFilter, Prisma.BinWhereInput>
+  item?: Prisma.XOR<Prisma.ItemScalarRelationFilter, Prisma.ItemWhereInput>
+  expectedBin?: Prisma.XOR<Prisma.BinNullableScalarRelationFilter, Prisma.BinWhereInput> | null
+  actualBin?: Prisma.XOR<Prisma.BinNullableScalarRelationFilter, Prisma.BinWhereInput> | null
   resolver?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }, "id">
 
 export type InventorySessionItemOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  status?: Prisma.SortOrder
-  resolution?: Prisma.SortOrderInput | Prisma.SortOrder
-  notes?: Prisma.SortOrderInput | Prisma.SortOrder
-  scannedAt?: Prisma.SortOrderInput | Prisma.SortOrder
-  resolvedAt?: Prisma.SortOrderInput | Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
   sessionId?: Prisma.SortOrder
-  itemId?: Prisma.SortOrderInput | Prisma.SortOrder
-  binId?: Prisma.SortOrder
+  itemId?: Prisma.SortOrder
+  expectedBinId?: Prisma.SortOrderInput | Prisma.SortOrder
+  actualBinId?: Prisma.SortOrderInput | Prisma.SortOrder
+  status?: Prisma.SortOrder
+  scannedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  resolution?: Prisma.SortOrderInput | Prisma.SortOrder
   resolvedBy?: Prisma.SortOrderInput | Prisma.SortOrder
+  resolvedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  notes?: Prisma.SortOrderInput | Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.InventorySessionItemCountOrderByAggregateInput
   _max?: Prisma.InventorySessionItemMaxOrderByAggregateInput
   _min?: Prisma.InventorySessionItemMinOrderByAggregateInput
@@ -297,110 +322,125 @@ export type InventorySessionItemScalarWhereWithAggregatesInput = {
   OR?: Prisma.InventorySessionItemScalarWhereWithAggregatesInput[]
   NOT?: Prisma.InventorySessionItemScalarWhereWithAggregatesInput | Prisma.InventorySessionItemScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"InventorySessionItem"> | string
-  status?: Prisma.EnumInventoryItemStatusWithAggregatesFilter<"InventorySessionItem"> | $Enums.InventoryItemStatus
-  resolution?: Prisma.EnumInventoryItemResolutionNullableWithAggregatesFilter<"InventorySessionItem"> | $Enums.InventoryItemResolution | null
-  notes?: Prisma.StringNullableWithAggregatesFilter<"InventorySessionItem"> | string | null
-  scannedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"InventorySessionItem"> | Date | string | null
-  resolvedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"InventorySessionItem"> | Date | string | null
-  createdAt?: Prisma.DateTimeWithAggregatesFilter<"InventorySessionItem"> | Date | string
   sessionId?: Prisma.StringWithAggregatesFilter<"InventorySessionItem"> | string
-  itemId?: Prisma.StringNullableWithAggregatesFilter<"InventorySessionItem"> | string | null
-  binId?: Prisma.StringWithAggregatesFilter<"InventorySessionItem"> | string
+  itemId?: Prisma.StringWithAggregatesFilter<"InventorySessionItem"> | string
+  expectedBinId?: Prisma.StringNullableWithAggregatesFilter<"InventorySessionItem"> | string | null
+  actualBinId?: Prisma.StringNullableWithAggregatesFilter<"InventorySessionItem"> | string | null
+  status?: Prisma.EnumInventorySessionItemStatusWithAggregatesFilter<"InventorySessionItem"> | $Enums.InventorySessionItemStatus
+  scannedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"InventorySessionItem"> | Date | string | null
+  resolution?: Prisma.EnumDivergenceResolutionNullableWithAggregatesFilter<"InventorySessionItem"> | $Enums.DivergenceResolution | null
   resolvedBy?: Prisma.StringNullableWithAggregatesFilter<"InventorySessionItem"> | string | null
+  resolvedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"InventorySessionItem"> | Date | string | null
+  notes?: Prisma.StringNullableWithAggregatesFilter<"InventorySessionItem"> | string | null
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<"InventorySessionItem"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"InventorySessionItem"> | Date | string
 }
 
 export type InventorySessionItemCreateInput = {
   id?: string
-  status?: $Enums.InventoryItemStatus
-  resolution?: $Enums.InventoryItemResolution | null
-  notes?: string | null
+  status?: $Enums.InventorySessionItemStatus
   scannedAt?: Date | string | null
+  resolution?: $Enums.DivergenceResolution | null
   resolvedAt?: Date | string | null
+  notes?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   session: Prisma.InventorySessionCreateNestedOneWithoutItemsInput
-  item?: Prisma.ItemCreateNestedOneWithoutInventoryItemsInput
-  bin: Prisma.BinCreateNestedOneWithoutInventoryItemsInput
-  resolver?: Prisma.UserCreateNestedOneWithoutInventoryResolutionsInput
+  item: Prisma.ItemCreateNestedOneWithoutInventorySessionItemsInput
+  expectedBin?: Prisma.BinCreateNestedOneWithoutInventorySessionItemsExpectedInput
+  actualBin?: Prisma.BinCreateNestedOneWithoutInventorySessionItemsActualInput
+  resolver?: Prisma.UserCreateNestedOneWithoutResolvedInventoryItemsInput
 }
 
 export type InventorySessionItemUncheckedCreateInput = {
   id?: string
-  status?: $Enums.InventoryItemStatus
-  resolution?: $Enums.InventoryItemResolution | null
-  notes?: string | null
-  scannedAt?: Date | string | null
-  resolvedAt?: Date | string | null
-  createdAt?: Date | string
   sessionId: string
-  itemId?: string | null
-  binId: string
+  itemId: string
+  expectedBinId?: string | null
+  actualBinId?: string | null
+  status?: $Enums.InventorySessionItemStatus
+  scannedAt?: Date | string | null
+  resolution?: $Enums.DivergenceResolution | null
   resolvedBy?: string | null
+  resolvedAt?: Date | string | null
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type InventorySessionItemUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumInventoryItemStatusFieldUpdateOperationsInput | $Enums.InventoryItemStatus
-  resolution?: Prisma.NullableEnumInventoryItemResolutionFieldUpdateOperationsInput | $Enums.InventoryItemResolution | null
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumInventorySessionItemStatusFieldUpdateOperationsInput | $Enums.InventorySessionItemStatus
   scannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  resolution?: Prisma.NullableEnumDivergenceResolutionFieldUpdateOperationsInput | $Enums.DivergenceResolution | null
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   session?: Prisma.InventorySessionUpdateOneRequiredWithoutItemsNestedInput
-  item?: Prisma.ItemUpdateOneWithoutInventoryItemsNestedInput
-  bin?: Prisma.BinUpdateOneRequiredWithoutInventoryItemsNestedInput
-  resolver?: Prisma.UserUpdateOneWithoutInventoryResolutionsNestedInput
+  item?: Prisma.ItemUpdateOneRequiredWithoutInventorySessionItemsNestedInput
+  expectedBin?: Prisma.BinUpdateOneWithoutInventorySessionItemsExpectedNestedInput
+  actualBin?: Prisma.BinUpdateOneWithoutInventorySessionItemsActualNestedInput
+  resolver?: Prisma.UserUpdateOneWithoutResolvedInventoryItemsNestedInput
 }
 
 export type InventorySessionItemUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumInventoryItemStatusFieldUpdateOperationsInput | $Enums.InventoryItemStatus
-  resolution?: Prisma.NullableEnumInventoryItemResolutionFieldUpdateOperationsInput | $Enums.InventoryItemResolution | null
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  scannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sessionId?: Prisma.StringFieldUpdateOperationsInput | string
-  itemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  binId?: Prisma.StringFieldUpdateOperationsInput | string
+  itemId?: Prisma.StringFieldUpdateOperationsInput | string
+  expectedBinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actualBinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumInventorySessionItemStatusFieldUpdateOperationsInput | $Enums.InventorySessionItemStatus
+  scannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  resolution?: Prisma.NullableEnumDivergenceResolutionFieldUpdateOperationsInput | $Enums.DivergenceResolution | null
   resolvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type InventorySessionItemCreateManyInput = {
   id?: string
-  status?: $Enums.InventoryItemStatus
-  resolution?: $Enums.InventoryItemResolution | null
-  notes?: string | null
-  scannedAt?: Date | string | null
-  resolvedAt?: Date | string | null
-  createdAt?: Date | string
   sessionId: string
-  itemId?: string | null
-  binId: string
+  itemId: string
+  expectedBinId?: string | null
+  actualBinId?: string | null
+  status?: $Enums.InventorySessionItemStatus
+  scannedAt?: Date | string | null
+  resolution?: $Enums.DivergenceResolution | null
   resolvedBy?: string | null
+  resolvedAt?: Date | string | null
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type InventorySessionItemUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumInventoryItemStatusFieldUpdateOperationsInput | $Enums.InventoryItemStatus
-  resolution?: Prisma.NullableEnumInventoryItemResolutionFieldUpdateOperationsInput | $Enums.InventoryItemResolution | null
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumInventorySessionItemStatusFieldUpdateOperationsInput | $Enums.InventorySessionItemStatus
   scannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  resolution?: Prisma.NullableEnumDivergenceResolutionFieldUpdateOperationsInput | $Enums.DivergenceResolution | null
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type InventorySessionItemUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumInventoryItemStatusFieldUpdateOperationsInput | $Enums.InventoryItemStatus
-  resolution?: Prisma.NullableEnumInventoryItemResolutionFieldUpdateOperationsInput | $Enums.InventoryItemResolution | null
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  scannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sessionId?: Prisma.StringFieldUpdateOperationsInput | string
-  itemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  binId?: Prisma.StringFieldUpdateOperationsInput | string
+  itemId?: Prisma.StringFieldUpdateOperationsInput | string
+  expectedBinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actualBinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumInventorySessionItemStatusFieldUpdateOperationsInput | $Enums.InventorySessionItemStatus
+  scannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  resolution?: Prisma.NullableEnumDivergenceResolutionFieldUpdateOperationsInput | $Enums.DivergenceResolution | null
   resolvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type InventorySessionItemListRelationFilter = {
@@ -415,44 +455,50 @@ export type InventorySessionItemOrderByRelationAggregateInput = {
 
 export type InventorySessionItemCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  status?: Prisma.SortOrder
-  resolution?: Prisma.SortOrder
-  notes?: Prisma.SortOrder
-  scannedAt?: Prisma.SortOrder
-  resolvedAt?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
   sessionId?: Prisma.SortOrder
   itemId?: Prisma.SortOrder
-  binId?: Prisma.SortOrder
+  expectedBinId?: Prisma.SortOrder
+  actualBinId?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  scannedAt?: Prisma.SortOrder
+  resolution?: Prisma.SortOrder
   resolvedBy?: Prisma.SortOrder
+  resolvedAt?: Prisma.SortOrder
+  notes?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type InventorySessionItemMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  status?: Prisma.SortOrder
-  resolution?: Prisma.SortOrder
-  notes?: Prisma.SortOrder
-  scannedAt?: Prisma.SortOrder
-  resolvedAt?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
   sessionId?: Prisma.SortOrder
   itemId?: Prisma.SortOrder
-  binId?: Prisma.SortOrder
+  expectedBinId?: Prisma.SortOrder
+  actualBinId?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  scannedAt?: Prisma.SortOrder
+  resolution?: Prisma.SortOrder
   resolvedBy?: Prisma.SortOrder
+  resolvedAt?: Prisma.SortOrder
+  notes?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type InventorySessionItemMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  status?: Prisma.SortOrder
-  resolution?: Prisma.SortOrder
-  notes?: Prisma.SortOrder
-  scannedAt?: Prisma.SortOrder
-  resolvedAt?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
   sessionId?: Prisma.SortOrder
   itemId?: Prisma.SortOrder
-  binId?: Prisma.SortOrder
+  expectedBinId?: Prisma.SortOrder
+  actualBinId?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  scannedAt?: Prisma.SortOrder
+  resolution?: Prisma.SortOrder
   resolvedBy?: Prisma.SortOrder
+  resolvedAt?: Prisma.SortOrder
+  notes?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type InventorySessionItemCreateNestedManyWithoutResolverInput = {
@@ -497,45 +543,87 @@ export type InventorySessionItemUncheckedUpdateManyWithoutResolverNestedInput = 
   deleteMany?: Prisma.InventorySessionItemScalarWhereInput | Prisma.InventorySessionItemScalarWhereInput[]
 }
 
-export type InventorySessionItemCreateNestedManyWithoutBinInput = {
-  create?: Prisma.XOR<Prisma.InventorySessionItemCreateWithoutBinInput, Prisma.InventorySessionItemUncheckedCreateWithoutBinInput> | Prisma.InventorySessionItemCreateWithoutBinInput[] | Prisma.InventorySessionItemUncheckedCreateWithoutBinInput[]
-  connectOrCreate?: Prisma.InventorySessionItemCreateOrConnectWithoutBinInput | Prisma.InventorySessionItemCreateOrConnectWithoutBinInput[]
-  createMany?: Prisma.InventorySessionItemCreateManyBinInputEnvelope
+export type InventorySessionItemCreateNestedManyWithoutExpectedBinInput = {
+  create?: Prisma.XOR<Prisma.InventorySessionItemCreateWithoutExpectedBinInput, Prisma.InventorySessionItemUncheckedCreateWithoutExpectedBinInput> | Prisma.InventorySessionItemCreateWithoutExpectedBinInput[] | Prisma.InventorySessionItemUncheckedCreateWithoutExpectedBinInput[]
+  connectOrCreate?: Prisma.InventorySessionItemCreateOrConnectWithoutExpectedBinInput | Prisma.InventorySessionItemCreateOrConnectWithoutExpectedBinInput[]
+  createMany?: Prisma.InventorySessionItemCreateManyExpectedBinInputEnvelope
   connect?: Prisma.InventorySessionItemWhereUniqueInput | Prisma.InventorySessionItemWhereUniqueInput[]
 }
 
-export type InventorySessionItemUncheckedCreateNestedManyWithoutBinInput = {
-  create?: Prisma.XOR<Prisma.InventorySessionItemCreateWithoutBinInput, Prisma.InventorySessionItemUncheckedCreateWithoutBinInput> | Prisma.InventorySessionItemCreateWithoutBinInput[] | Prisma.InventorySessionItemUncheckedCreateWithoutBinInput[]
-  connectOrCreate?: Prisma.InventorySessionItemCreateOrConnectWithoutBinInput | Prisma.InventorySessionItemCreateOrConnectWithoutBinInput[]
-  createMany?: Prisma.InventorySessionItemCreateManyBinInputEnvelope
+export type InventorySessionItemCreateNestedManyWithoutActualBinInput = {
+  create?: Prisma.XOR<Prisma.InventorySessionItemCreateWithoutActualBinInput, Prisma.InventorySessionItemUncheckedCreateWithoutActualBinInput> | Prisma.InventorySessionItemCreateWithoutActualBinInput[] | Prisma.InventorySessionItemUncheckedCreateWithoutActualBinInput[]
+  connectOrCreate?: Prisma.InventorySessionItemCreateOrConnectWithoutActualBinInput | Prisma.InventorySessionItemCreateOrConnectWithoutActualBinInput[]
+  createMany?: Prisma.InventorySessionItemCreateManyActualBinInputEnvelope
   connect?: Prisma.InventorySessionItemWhereUniqueInput | Prisma.InventorySessionItemWhereUniqueInput[]
 }
 
-export type InventorySessionItemUpdateManyWithoutBinNestedInput = {
-  create?: Prisma.XOR<Prisma.InventorySessionItemCreateWithoutBinInput, Prisma.InventorySessionItemUncheckedCreateWithoutBinInput> | Prisma.InventorySessionItemCreateWithoutBinInput[] | Prisma.InventorySessionItemUncheckedCreateWithoutBinInput[]
-  connectOrCreate?: Prisma.InventorySessionItemCreateOrConnectWithoutBinInput | Prisma.InventorySessionItemCreateOrConnectWithoutBinInput[]
-  upsert?: Prisma.InventorySessionItemUpsertWithWhereUniqueWithoutBinInput | Prisma.InventorySessionItemUpsertWithWhereUniqueWithoutBinInput[]
-  createMany?: Prisma.InventorySessionItemCreateManyBinInputEnvelope
+export type InventorySessionItemUncheckedCreateNestedManyWithoutExpectedBinInput = {
+  create?: Prisma.XOR<Prisma.InventorySessionItemCreateWithoutExpectedBinInput, Prisma.InventorySessionItemUncheckedCreateWithoutExpectedBinInput> | Prisma.InventorySessionItemCreateWithoutExpectedBinInput[] | Prisma.InventorySessionItemUncheckedCreateWithoutExpectedBinInput[]
+  connectOrCreate?: Prisma.InventorySessionItemCreateOrConnectWithoutExpectedBinInput | Prisma.InventorySessionItemCreateOrConnectWithoutExpectedBinInput[]
+  createMany?: Prisma.InventorySessionItemCreateManyExpectedBinInputEnvelope
+  connect?: Prisma.InventorySessionItemWhereUniqueInput | Prisma.InventorySessionItemWhereUniqueInput[]
+}
+
+export type InventorySessionItemUncheckedCreateNestedManyWithoutActualBinInput = {
+  create?: Prisma.XOR<Prisma.InventorySessionItemCreateWithoutActualBinInput, Prisma.InventorySessionItemUncheckedCreateWithoutActualBinInput> | Prisma.InventorySessionItemCreateWithoutActualBinInput[] | Prisma.InventorySessionItemUncheckedCreateWithoutActualBinInput[]
+  connectOrCreate?: Prisma.InventorySessionItemCreateOrConnectWithoutActualBinInput | Prisma.InventorySessionItemCreateOrConnectWithoutActualBinInput[]
+  createMany?: Prisma.InventorySessionItemCreateManyActualBinInputEnvelope
+  connect?: Prisma.InventorySessionItemWhereUniqueInput | Prisma.InventorySessionItemWhereUniqueInput[]
+}
+
+export type InventorySessionItemUpdateManyWithoutExpectedBinNestedInput = {
+  create?: Prisma.XOR<Prisma.InventorySessionItemCreateWithoutExpectedBinInput, Prisma.InventorySessionItemUncheckedCreateWithoutExpectedBinInput> | Prisma.InventorySessionItemCreateWithoutExpectedBinInput[] | Prisma.InventorySessionItemUncheckedCreateWithoutExpectedBinInput[]
+  connectOrCreate?: Prisma.InventorySessionItemCreateOrConnectWithoutExpectedBinInput | Prisma.InventorySessionItemCreateOrConnectWithoutExpectedBinInput[]
+  upsert?: Prisma.InventorySessionItemUpsertWithWhereUniqueWithoutExpectedBinInput | Prisma.InventorySessionItemUpsertWithWhereUniqueWithoutExpectedBinInput[]
+  createMany?: Prisma.InventorySessionItemCreateManyExpectedBinInputEnvelope
   set?: Prisma.InventorySessionItemWhereUniqueInput | Prisma.InventorySessionItemWhereUniqueInput[]
   disconnect?: Prisma.InventorySessionItemWhereUniqueInput | Prisma.InventorySessionItemWhereUniqueInput[]
   delete?: Prisma.InventorySessionItemWhereUniqueInput | Prisma.InventorySessionItemWhereUniqueInput[]
   connect?: Prisma.InventorySessionItemWhereUniqueInput | Prisma.InventorySessionItemWhereUniqueInput[]
-  update?: Prisma.InventorySessionItemUpdateWithWhereUniqueWithoutBinInput | Prisma.InventorySessionItemUpdateWithWhereUniqueWithoutBinInput[]
-  updateMany?: Prisma.InventorySessionItemUpdateManyWithWhereWithoutBinInput | Prisma.InventorySessionItemUpdateManyWithWhereWithoutBinInput[]
+  update?: Prisma.InventorySessionItemUpdateWithWhereUniqueWithoutExpectedBinInput | Prisma.InventorySessionItemUpdateWithWhereUniqueWithoutExpectedBinInput[]
+  updateMany?: Prisma.InventorySessionItemUpdateManyWithWhereWithoutExpectedBinInput | Prisma.InventorySessionItemUpdateManyWithWhereWithoutExpectedBinInput[]
   deleteMany?: Prisma.InventorySessionItemScalarWhereInput | Prisma.InventorySessionItemScalarWhereInput[]
 }
 
-export type InventorySessionItemUncheckedUpdateManyWithoutBinNestedInput = {
-  create?: Prisma.XOR<Prisma.InventorySessionItemCreateWithoutBinInput, Prisma.InventorySessionItemUncheckedCreateWithoutBinInput> | Prisma.InventorySessionItemCreateWithoutBinInput[] | Prisma.InventorySessionItemUncheckedCreateWithoutBinInput[]
-  connectOrCreate?: Prisma.InventorySessionItemCreateOrConnectWithoutBinInput | Prisma.InventorySessionItemCreateOrConnectWithoutBinInput[]
-  upsert?: Prisma.InventorySessionItemUpsertWithWhereUniqueWithoutBinInput | Prisma.InventorySessionItemUpsertWithWhereUniqueWithoutBinInput[]
-  createMany?: Prisma.InventorySessionItemCreateManyBinInputEnvelope
+export type InventorySessionItemUpdateManyWithoutActualBinNestedInput = {
+  create?: Prisma.XOR<Prisma.InventorySessionItemCreateWithoutActualBinInput, Prisma.InventorySessionItemUncheckedCreateWithoutActualBinInput> | Prisma.InventorySessionItemCreateWithoutActualBinInput[] | Prisma.InventorySessionItemUncheckedCreateWithoutActualBinInput[]
+  connectOrCreate?: Prisma.InventorySessionItemCreateOrConnectWithoutActualBinInput | Prisma.InventorySessionItemCreateOrConnectWithoutActualBinInput[]
+  upsert?: Prisma.InventorySessionItemUpsertWithWhereUniqueWithoutActualBinInput | Prisma.InventorySessionItemUpsertWithWhereUniqueWithoutActualBinInput[]
+  createMany?: Prisma.InventorySessionItemCreateManyActualBinInputEnvelope
   set?: Prisma.InventorySessionItemWhereUniqueInput | Prisma.InventorySessionItemWhereUniqueInput[]
   disconnect?: Prisma.InventorySessionItemWhereUniqueInput | Prisma.InventorySessionItemWhereUniqueInput[]
   delete?: Prisma.InventorySessionItemWhereUniqueInput | Prisma.InventorySessionItemWhereUniqueInput[]
   connect?: Prisma.InventorySessionItemWhereUniqueInput | Prisma.InventorySessionItemWhereUniqueInput[]
-  update?: Prisma.InventorySessionItemUpdateWithWhereUniqueWithoutBinInput | Prisma.InventorySessionItemUpdateWithWhereUniqueWithoutBinInput[]
-  updateMany?: Prisma.InventorySessionItemUpdateManyWithWhereWithoutBinInput | Prisma.InventorySessionItemUpdateManyWithWhereWithoutBinInput[]
+  update?: Prisma.InventorySessionItemUpdateWithWhereUniqueWithoutActualBinInput | Prisma.InventorySessionItemUpdateWithWhereUniqueWithoutActualBinInput[]
+  updateMany?: Prisma.InventorySessionItemUpdateManyWithWhereWithoutActualBinInput | Prisma.InventorySessionItemUpdateManyWithWhereWithoutActualBinInput[]
+  deleteMany?: Prisma.InventorySessionItemScalarWhereInput | Prisma.InventorySessionItemScalarWhereInput[]
+}
+
+export type InventorySessionItemUncheckedUpdateManyWithoutExpectedBinNestedInput = {
+  create?: Prisma.XOR<Prisma.InventorySessionItemCreateWithoutExpectedBinInput, Prisma.InventorySessionItemUncheckedCreateWithoutExpectedBinInput> | Prisma.InventorySessionItemCreateWithoutExpectedBinInput[] | Prisma.InventorySessionItemUncheckedCreateWithoutExpectedBinInput[]
+  connectOrCreate?: Prisma.InventorySessionItemCreateOrConnectWithoutExpectedBinInput | Prisma.InventorySessionItemCreateOrConnectWithoutExpectedBinInput[]
+  upsert?: Prisma.InventorySessionItemUpsertWithWhereUniqueWithoutExpectedBinInput | Prisma.InventorySessionItemUpsertWithWhereUniqueWithoutExpectedBinInput[]
+  createMany?: Prisma.InventorySessionItemCreateManyExpectedBinInputEnvelope
+  set?: Prisma.InventorySessionItemWhereUniqueInput | Prisma.InventorySessionItemWhereUniqueInput[]
+  disconnect?: Prisma.InventorySessionItemWhereUniqueInput | Prisma.InventorySessionItemWhereUniqueInput[]
+  delete?: Prisma.InventorySessionItemWhereUniqueInput | Prisma.InventorySessionItemWhereUniqueInput[]
+  connect?: Prisma.InventorySessionItemWhereUniqueInput | Prisma.InventorySessionItemWhereUniqueInput[]
+  update?: Prisma.InventorySessionItemUpdateWithWhereUniqueWithoutExpectedBinInput | Prisma.InventorySessionItemUpdateWithWhereUniqueWithoutExpectedBinInput[]
+  updateMany?: Prisma.InventorySessionItemUpdateManyWithWhereWithoutExpectedBinInput | Prisma.InventorySessionItemUpdateManyWithWhereWithoutExpectedBinInput[]
+  deleteMany?: Prisma.InventorySessionItemScalarWhereInput | Prisma.InventorySessionItemScalarWhereInput[]
+}
+
+export type InventorySessionItemUncheckedUpdateManyWithoutActualBinNestedInput = {
+  create?: Prisma.XOR<Prisma.InventorySessionItemCreateWithoutActualBinInput, Prisma.InventorySessionItemUncheckedCreateWithoutActualBinInput> | Prisma.InventorySessionItemCreateWithoutActualBinInput[] | Prisma.InventorySessionItemUncheckedCreateWithoutActualBinInput[]
+  connectOrCreate?: Prisma.InventorySessionItemCreateOrConnectWithoutActualBinInput | Prisma.InventorySessionItemCreateOrConnectWithoutActualBinInput[]
+  upsert?: Prisma.InventorySessionItemUpsertWithWhereUniqueWithoutActualBinInput | Prisma.InventorySessionItemUpsertWithWhereUniqueWithoutActualBinInput[]
+  createMany?: Prisma.InventorySessionItemCreateManyActualBinInputEnvelope
+  set?: Prisma.InventorySessionItemWhereUniqueInput | Prisma.InventorySessionItemWhereUniqueInput[]
+  disconnect?: Prisma.InventorySessionItemWhereUniqueInput | Prisma.InventorySessionItemWhereUniqueInput[]
+  delete?: Prisma.InventorySessionItemWhereUniqueInput | Prisma.InventorySessionItemWhereUniqueInput[]
+  connect?: Prisma.InventorySessionItemWhereUniqueInput | Prisma.InventorySessionItemWhereUniqueInput[]
+  update?: Prisma.InventorySessionItemUpdateWithWhereUniqueWithoutActualBinInput | Prisma.InventorySessionItemUpdateWithWhereUniqueWithoutActualBinInput[]
+  updateMany?: Prisma.InventorySessionItemUpdateManyWithWhereWithoutActualBinInput | Prisma.InventorySessionItemUpdateManyWithWhereWithoutActualBinInput[]
   deleteMany?: Prisma.InventorySessionItemScalarWhereInput | Prisma.InventorySessionItemScalarWhereInput[]
 }
 
@@ -623,38 +711,42 @@ export type InventorySessionItemUncheckedUpdateManyWithoutSessionNestedInput = {
   deleteMany?: Prisma.InventorySessionItemScalarWhereInput | Prisma.InventorySessionItemScalarWhereInput[]
 }
 
-export type EnumInventoryItemStatusFieldUpdateOperationsInput = {
-  set?: $Enums.InventoryItemStatus
+export type EnumInventorySessionItemStatusFieldUpdateOperationsInput = {
+  set?: $Enums.InventorySessionItemStatus
 }
 
-export type NullableEnumInventoryItemResolutionFieldUpdateOperationsInput = {
-  set?: $Enums.InventoryItemResolution | null
+export type NullableEnumDivergenceResolutionFieldUpdateOperationsInput = {
+  set?: $Enums.DivergenceResolution | null
 }
 
 export type InventorySessionItemCreateWithoutResolverInput = {
   id?: string
-  status?: $Enums.InventoryItemStatus
-  resolution?: $Enums.InventoryItemResolution | null
-  notes?: string | null
+  status?: $Enums.InventorySessionItemStatus
   scannedAt?: Date | string | null
+  resolution?: $Enums.DivergenceResolution | null
   resolvedAt?: Date | string | null
+  notes?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   session: Prisma.InventorySessionCreateNestedOneWithoutItemsInput
-  item?: Prisma.ItemCreateNestedOneWithoutInventoryItemsInput
-  bin: Prisma.BinCreateNestedOneWithoutInventoryItemsInput
+  item: Prisma.ItemCreateNestedOneWithoutInventorySessionItemsInput
+  expectedBin?: Prisma.BinCreateNestedOneWithoutInventorySessionItemsExpectedInput
+  actualBin?: Prisma.BinCreateNestedOneWithoutInventorySessionItemsActualInput
 }
 
 export type InventorySessionItemUncheckedCreateWithoutResolverInput = {
   id?: string
-  status?: $Enums.InventoryItemStatus
-  resolution?: $Enums.InventoryItemResolution | null
-  notes?: string | null
-  scannedAt?: Date | string | null
-  resolvedAt?: Date | string | null
-  createdAt?: Date | string
   sessionId: string
-  itemId?: string | null
-  binId: string
+  itemId: string
+  expectedBinId?: string | null
+  actualBinId?: string | null
+  status?: $Enums.InventorySessionItemStatus
+  scannedAt?: Date | string | null
+  resolution?: $Enums.DivergenceResolution | null
+  resolvedAt?: Date | string | null
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type InventorySessionItemCreateOrConnectWithoutResolverInput = {
@@ -688,94 +780,160 @@ export type InventorySessionItemScalarWhereInput = {
   OR?: Prisma.InventorySessionItemScalarWhereInput[]
   NOT?: Prisma.InventorySessionItemScalarWhereInput | Prisma.InventorySessionItemScalarWhereInput[]
   id?: Prisma.StringFilter<"InventorySessionItem"> | string
-  status?: Prisma.EnumInventoryItemStatusFilter<"InventorySessionItem"> | $Enums.InventoryItemStatus
-  resolution?: Prisma.EnumInventoryItemResolutionNullableFilter<"InventorySessionItem"> | $Enums.InventoryItemResolution | null
-  notes?: Prisma.StringNullableFilter<"InventorySessionItem"> | string | null
-  scannedAt?: Prisma.DateTimeNullableFilter<"InventorySessionItem"> | Date | string | null
-  resolvedAt?: Prisma.DateTimeNullableFilter<"InventorySessionItem"> | Date | string | null
-  createdAt?: Prisma.DateTimeFilter<"InventorySessionItem"> | Date | string
   sessionId?: Prisma.StringFilter<"InventorySessionItem"> | string
-  itemId?: Prisma.StringNullableFilter<"InventorySessionItem"> | string | null
-  binId?: Prisma.StringFilter<"InventorySessionItem"> | string
+  itemId?: Prisma.StringFilter<"InventorySessionItem"> | string
+  expectedBinId?: Prisma.StringNullableFilter<"InventorySessionItem"> | string | null
+  actualBinId?: Prisma.StringNullableFilter<"InventorySessionItem"> | string | null
+  status?: Prisma.EnumInventorySessionItemStatusFilter<"InventorySessionItem"> | $Enums.InventorySessionItemStatus
+  scannedAt?: Prisma.DateTimeNullableFilter<"InventorySessionItem"> | Date | string | null
+  resolution?: Prisma.EnumDivergenceResolutionNullableFilter<"InventorySessionItem"> | $Enums.DivergenceResolution | null
   resolvedBy?: Prisma.StringNullableFilter<"InventorySessionItem"> | string | null
+  resolvedAt?: Prisma.DateTimeNullableFilter<"InventorySessionItem"> | Date | string | null
+  notes?: Prisma.StringNullableFilter<"InventorySessionItem"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"InventorySessionItem"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"InventorySessionItem"> | Date | string
 }
 
-export type InventorySessionItemCreateWithoutBinInput = {
+export type InventorySessionItemCreateWithoutExpectedBinInput = {
   id?: string
-  status?: $Enums.InventoryItemStatus
-  resolution?: $Enums.InventoryItemResolution | null
-  notes?: string | null
+  status?: $Enums.InventorySessionItemStatus
   scannedAt?: Date | string | null
+  resolution?: $Enums.DivergenceResolution | null
   resolvedAt?: Date | string | null
+  notes?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   session: Prisma.InventorySessionCreateNestedOneWithoutItemsInput
-  item?: Prisma.ItemCreateNestedOneWithoutInventoryItemsInput
-  resolver?: Prisma.UserCreateNestedOneWithoutInventoryResolutionsInput
+  item: Prisma.ItemCreateNestedOneWithoutInventorySessionItemsInput
+  actualBin?: Prisma.BinCreateNestedOneWithoutInventorySessionItemsActualInput
+  resolver?: Prisma.UserCreateNestedOneWithoutResolvedInventoryItemsInput
 }
 
-export type InventorySessionItemUncheckedCreateWithoutBinInput = {
+export type InventorySessionItemUncheckedCreateWithoutExpectedBinInput = {
   id?: string
-  status?: $Enums.InventoryItemStatus
-  resolution?: $Enums.InventoryItemResolution | null
-  notes?: string | null
-  scannedAt?: Date | string | null
-  resolvedAt?: Date | string | null
-  createdAt?: Date | string
   sessionId: string
-  itemId?: string | null
+  itemId: string
+  actualBinId?: string | null
+  status?: $Enums.InventorySessionItemStatus
+  scannedAt?: Date | string | null
+  resolution?: $Enums.DivergenceResolution | null
   resolvedBy?: string | null
+  resolvedAt?: Date | string | null
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
-export type InventorySessionItemCreateOrConnectWithoutBinInput = {
+export type InventorySessionItemCreateOrConnectWithoutExpectedBinInput = {
   where: Prisma.InventorySessionItemWhereUniqueInput
-  create: Prisma.XOR<Prisma.InventorySessionItemCreateWithoutBinInput, Prisma.InventorySessionItemUncheckedCreateWithoutBinInput>
+  create: Prisma.XOR<Prisma.InventorySessionItemCreateWithoutExpectedBinInput, Prisma.InventorySessionItemUncheckedCreateWithoutExpectedBinInput>
 }
 
-export type InventorySessionItemCreateManyBinInputEnvelope = {
-  data: Prisma.InventorySessionItemCreateManyBinInput | Prisma.InventorySessionItemCreateManyBinInput[]
+export type InventorySessionItemCreateManyExpectedBinInputEnvelope = {
+  data: Prisma.InventorySessionItemCreateManyExpectedBinInput | Prisma.InventorySessionItemCreateManyExpectedBinInput[]
   skipDuplicates?: boolean
 }
 
-export type InventorySessionItemUpsertWithWhereUniqueWithoutBinInput = {
-  where: Prisma.InventorySessionItemWhereUniqueInput
-  update: Prisma.XOR<Prisma.InventorySessionItemUpdateWithoutBinInput, Prisma.InventorySessionItemUncheckedUpdateWithoutBinInput>
-  create: Prisma.XOR<Prisma.InventorySessionItemCreateWithoutBinInput, Prisma.InventorySessionItemUncheckedCreateWithoutBinInput>
+export type InventorySessionItemCreateWithoutActualBinInput = {
+  id?: string
+  status?: $Enums.InventorySessionItemStatus
+  scannedAt?: Date | string | null
+  resolution?: $Enums.DivergenceResolution | null
+  resolvedAt?: Date | string | null
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  session: Prisma.InventorySessionCreateNestedOneWithoutItemsInput
+  item: Prisma.ItemCreateNestedOneWithoutInventorySessionItemsInput
+  expectedBin?: Prisma.BinCreateNestedOneWithoutInventorySessionItemsExpectedInput
+  resolver?: Prisma.UserCreateNestedOneWithoutResolvedInventoryItemsInput
 }
 
-export type InventorySessionItemUpdateWithWhereUniqueWithoutBinInput = {
-  where: Prisma.InventorySessionItemWhereUniqueInput
-  data: Prisma.XOR<Prisma.InventorySessionItemUpdateWithoutBinInput, Prisma.InventorySessionItemUncheckedUpdateWithoutBinInput>
+export type InventorySessionItemUncheckedCreateWithoutActualBinInput = {
+  id?: string
+  sessionId: string
+  itemId: string
+  expectedBinId?: string | null
+  status?: $Enums.InventorySessionItemStatus
+  scannedAt?: Date | string | null
+  resolution?: $Enums.DivergenceResolution | null
+  resolvedBy?: string | null
+  resolvedAt?: Date | string | null
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
-export type InventorySessionItemUpdateManyWithWhereWithoutBinInput = {
+export type InventorySessionItemCreateOrConnectWithoutActualBinInput = {
+  where: Prisma.InventorySessionItemWhereUniqueInput
+  create: Prisma.XOR<Prisma.InventorySessionItemCreateWithoutActualBinInput, Prisma.InventorySessionItemUncheckedCreateWithoutActualBinInput>
+}
+
+export type InventorySessionItemCreateManyActualBinInputEnvelope = {
+  data: Prisma.InventorySessionItemCreateManyActualBinInput | Prisma.InventorySessionItemCreateManyActualBinInput[]
+  skipDuplicates?: boolean
+}
+
+export type InventorySessionItemUpsertWithWhereUniqueWithoutExpectedBinInput = {
+  where: Prisma.InventorySessionItemWhereUniqueInput
+  update: Prisma.XOR<Prisma.InventorySessionItemUpdateWithoutExpectedBinInput, Prisma.InventorySessionItemUncheckedUpdateWithoutExpectedBinInput>
+  create: Prisma.XOR<Prisma.InventorySessionItemCreateWithoutExpectedBinInput, Prisma.InventorySessionItemUncheckedCreateWithoutExpectedBinInput>
+}
+
+export type InventorySessionItemUpdateWithWhereUniqueWithoutExpectedBinInput = {
+  where: Prisma.InventorySessionItemWhereUniqueInput
+  data: Prisma.XOR<Prisma.InventorySessionItemUpdateWithoutExpectedBinInput, Prisma.InventorySessionItemUncheckedUpdateWithoutExpectedBinInput>
+}
+
+export type InventorySessionItemUpdateManyWithWhereWithoutExpectedBinInput = {
   where: Prisma.InventorySessionItemScalarWhereInput
-  data: Prisma.XOR<Prisma.InventorySessionItemUpdateManyMutationInput, Prisma.InventorySessionItemUncheckedUpdateManyWithoutBinInput>
+  data: Prisma.XOR<Prisma.InventorySessionItemUpdateManyMutationInput, Prisma.InventorySessionItemUncheckedUpdateManyWithoutExpectedBinInput>
+}
+
+export type InventorySessionItemUpsertWithWhereUniqueWithoutActualBinInput = {
+  where: Prisma.InventorySessionItemWhereUniqueInput
+  update: Prisma.XOR<Prisma.InventorySessionItemUpdateWithoutActualBinInput, Prisma.InventorySessionItemUncheckedUpdateWithoutActualBinInput>
+  create: Prisma.XOR<Prisma.InventorySessionItemCreateWithoutActualBinInput, Prisma.InventorySessionItemUncheckedCreateWithoutActualBinInput>
+}
+
+export type InventorySessionItemUpdateWithWhereUniqueWithoutActualBinInput = {
+  where: Prisma.InventorySessionItemWhereUniqueInput
+  data: Prisma.XOR<Prisma.InventorySessionItemUpdateWithoutActualBinInput, Prisma.InventorySessionItemUncheckedUpdateWithoutActualBinInput>
+}
+
+export type InventorySessionItemUpdateManyWithWhereWithoutActualBinInput = {
+  where: Prisma.InventorySessionItemScalarWhereInput
+  data: Prisma.XOR<Prisma.InventorySessionItemUpdateManyMutationInput, Prisma.InventorySessionItemUncheckedUpdateManyWithoutActualBinInput>
 }
 
 export type InventorySessionItemCreateWithoutItemInput = {
   id?: string
-  status?: $Enums.InventoryItemStatus
-  resolution?: $Enums.InventoryItemResolution | null
-  notes?: string | null
+  status?: $Enums.InventorySessionItemStatus
   scannedAt?: Date | string | null
+  resolution?: $Enums.DivergenceResolution | null
   resolvedAt?: Date | string | null
+  notes?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   session: Prisma.InventorySessionCreateNestedOneWithoutItemsInput
-  bin: Prisma.BinCreateNestedOneWithoutInventoryItemsInput
-  resolver?: Prisma.UserCreateNestedOneWithoutInventoryResolutionsInput
+  expectedBin?: Prisma.BinCreateNestedOneWithoutInventorySessionItemsExpectedInput
+  actualBin?: Prisma.BinCreateNestedOneWithoutInventorySessionItemsActualInput
+  resolver?: Prisma.UserCreateNestedOneWithoutResolvedInventoryItemsInput
 }
 
 export type InventorySessionItemUncheckedCreateWithoutItemInput = {
   id?: string
-  status?: $Enums.InventoryItemStatus
-  resolution?: $Enums.InventoryItemResolution | null
-  notes?: string | null
-  scannedAt?: Date | string | null
-  resolvedAt?: Date | string | null
-  createdAt?: Date | string
   sessionId: string
-  binId: string
+  expectedBinId?: string | null
+  actualBinId?: string | null
+  status?: $Enums.InventorySessionItemStatus
+  scannedAt?: Date | string | null
+  resolution?: $Enums.DivergenceResolution | null
   resolvedBy?: string | null
+  resolvedAt?: Date | string | null
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type InventorySessionItemCreateOrConnectWithoutItemInput = {
@@ -806,28 +964,32 @@ export type InventorySessionItemUpdateManyWithWhereWithoutItemInput = {
 
 export type InventorySessionItemCreateWithoutSessionInput = {
   id?: string
-  status?: $Enums.InventoryItemStatus
-  resolution?: $Enums.InventoryItemResolution | null
-  notes?: string | null
+  status?: $Enums.InventorySessionItemStatus
   scannedAt?: Date | string | null
+  resolution?: $Enums.DivergenceResolution | null
   resolvedAt?: Date | string | null
+  notes?: string | null
   createdAt?: Date | string
-  item?: Prisma.ItemCreateNestedOneWithoutInventoryItemsInput
-  bin: Prisma.BinCreateNestedOneWithoutInventoryItemsInput
-  resolver?: Prisma.UserCreateNestedOneWithoutInventoryResolutionsInput
+  updatedAt?: Date | string
+  item: Prisma.ItemCreateNestedOneWithoutInventorySessionItemsInput
+  expectedBin?: Prisma.BinCreateNestedOneWithoutInventorySessionItemsExpectedInput
+  actualBin?: Prisma.BinCreateNestedOneWithoutInventorySessionItemsActualInput
+  resolver?: Prisma.UserCreateNestedOneWithoutResolvedInventoryItemsInput
 }
 
 export type InventorySessionItemUncheckedCreateWithoutSessionInput = {
   id?: string
-  status?: $Enums.InventoryItemStatus
-  resolution?: $Enums.InventoryItemResolution | null
-  notes?: string | null
+  itemId: string
+  expectedBinId?: string | null
+  actualBinId?: string | null
+  status?: $Enums.InventorySessionItemStatus
   scannedAt?: Date | string | null
-  resolvedAt?: Date | string | null
-  createdAt?: Date | string
-  itemId?: string | null
-  binId: string
+  resolution?: $Enums.DivergenceResolution | null
   resolvedBy?: string | null
+  resolvedAt?: Date | string | null
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type InventorySessionItemCreateOrConnectWithoutSessionInput = {
@@ -858,299 +1020,405 @@ export type InventorySessionItemUpdateManyWithWhereWithoutSessionInput = {
 
 export type InventorySessionItemCreateManyResolverInput = {
   id?: string
-  status?: $Enums.InventoryItemStatus
-  resolution?: $Enums.InventoryItemResolution | null
-  notes?: string | null
-  scannedAt?: Date | string | null
-  resolvedAt?: Date | string | null
-  createdAt?: Date | string
   sessionId: string
-  itemId?: string | null
-  binId: string
+  itemId: string
+  expectedBinId?: string | null
+  actualBinId?: string | null
+  status?: $Enums.InventorySessionItemStatus
+  scannedAt?: Date | string | null
+  resolution?: $Enums.DivergenceResolution | null
+  resolvedAt?: Date | string | null
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type InventorySessionItemUpdateWithoutResolverInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumInventoryItemStatusFieldUpdateOperationsInput | $Enums.InventoryItemStatus
-  resolution?: Prisma.NullableEnumInventoryItemResolutionFieldUpdateOperationsInput | $Enums.InventoryItemResolution | null
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumInventorySessionItemStatusFieldUpdateOperationsInput | $Enums.InventorySessionItemStatus
   scannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  resolution?: Prisma.NullableEnumDivergenceResolutionFieldUpdateOperationsInput | $Enums.DivergenceResolution | null
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   session?: Prisma.InventorySessionUpdateOneRequiredWithoutItemsNestedInput
-  item?: Prisma.ItemUpdateOneWithoutInventoryItemsNestedInput
-  bin?: Prisma.BinUpdateOneRequiredWithoutInventoryItemsNestedInput
+  item?: Prisma.ItemUpdateOneRequiredWithoutInventorySessionItemsNestedInput
+  expectedBin?: Prisma.BinUpdateOneWithoutInventorySessionItemsExpectedNestedInput
+  actualBin?: Prisma.BinUpdateOneWithoutInventorySessionItemsActualNestedInput
 }
 
 export type InventorySessionItemUncheckedUpdateWithoutResolverInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumInventoryItemStatusFieldUpdateOperationsInput | $Enums.InventoryItemStatus
-  resolution?: Prisma.NullableEnumInventoryItemResolutionFieldUpdateOperationsInput | $Enums.InventoryItemResolution | null
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  scannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sessionId?: Prisma.StringFieldUpdateOperationsInput | string
-  itemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  binId?: Prisma.StringFieldUpdateOperationsInput | string
+  itemId?: Prisma.StringFieldUpdateOperationsInput | string
+  expectedBinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actualBinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumInventorySessionItemStatusFieldUpdateOperationsInput | $Enums.InventorySessionItemStatus
+  scannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  resolution?: Prisma.NullableEnumDivergenceResolutionFieldUpdateOperationsInput | $Enums.DivergenceResolution | null
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type InventorySessionItemUncheckedUpdateManyWithoutResolverInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumInventoryItemStatusFieldUpdateOperationsInput | $Enums.InventoryItemStatus
-  resolution?: Prisma.NullableEnumInventoryItemResolutionFieldUpdateOperationsInput | $Enums.InventoryItemResolution | null
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  scannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sessionId?: Prisma.StringFieldUpdateOperationsInput | string
-  itemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  binId?: Prisma.StringFieldUpdateOperationsInput | string
+  itemId?: Prisma.StringFieldUpdateOperationsInput | string
+  expectedBinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actualBinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumInventorySessionItemStatusFieldUpdateOperationsInput | $Enums.InventorySessionItemStatus
+  scannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  resolution?: Prisma.NullableEnumDivergenceResolutionFieldUpdateOperationsInput | $Enums.DivergenceResolution | null
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type InventorySessionItemCreateManyBinInput = {
+export type InventorySessionItemCreateManyExpectedBinInput = {
   id?: string
-  status?: $Enums.InventoryItemStatus
-  resolution?: $Enums.InventoryItemResolution | null
-  notes?: string | null
-  scannedAt?: Date | string | null
-  resolvedAt?: Date | string | null
-  createdAt?: Date | string
   sessionId: string
-  itemId?: string | null
+  itemId: string
+  actualBinId?: string | null
+  status?: $Enums.InventorySessionItemStatus
+  scannedAt?: Date | string | null
+  resolution?: $Enums.DivergenceResolution | null
   resolvedBy?: string | null
+  resolvedAt?: Date | string | null
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
-export type InventorySessionItemUpdateWithoutBinInput = {
+export type InventorySessionItemCreateManyActualBinInput = {
+  id?: string
+  sessionId: string
+  itemId: string
+  expectedBinId?: string | null
+  status?: $Enums.InventorySessionItemStatus
+  scannedAt?: Date | string | null
+  resolution?: $Enums.DivergenceResolution | null
+  resolvedBy?: string | null
+  resolvedAt?: Date | string | null
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type InventorySessionItemUpdateWithoutExpectedBinInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumInventoryItemStatusFieldUpdateOperationsInput | $Enums.InventoryItemStatus
-  resolution?: Prisma.NullableEnumInventoryItemResolutionFieldUpdateOperationsInput | $Enums.InventoryItemResolution | null
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumInventorySessionItemStatusFieldUpdateOperationsInput | $Enums.InventorySessionItemStatus
   scannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  resolution?: Prisma.NullableEnumDivergenceResolutionFieldUpdateOperationsInput | $Enums.DivergenceResolution | null
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   session?: Prisma.InventorySessionUpdateOneRequiredWithoutItemsNestedInput
-  item?: Prisma.ItemUpdateOneWithoutInventoryItemsNestedInput
-  resolver?: Prisma.UserUpdateOneWithoutInventoryResolutionsNestedInput
+  item?: Prisma.ItemUpdateOneRequiredWithoutInventorySessionItemsNestedInput
+  actualBin?: Prisma.BinUpdateOneWithoutInventorySessionItemsActualNestedInput
+  resolver?: Prisma.UserUpdateOneWithoutResolvedInventoryItemsNestedInput
 }
 
-export type InventorySessionItemUncheckedUpdateWithoutBinInput = {
+export type InventorySessionItemUncheckedUpdateWithoutExpectedBinInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumInventoryItemStatusFieldUpdateOperationsInput | $Enums.InventoryItemStatus
-  resolution?: Prisma.NullableEnumInventoryItemResolutionFieldUpdateOperationsInput | $Enums.InventoryItemResolution | null
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  scannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sessionId?: Prisma.StringFieldUpdateOperationsInput | string
-  itemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  itemId?: Prisma.StringFieldUpdateOperationsInput | string
+  actualBinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumInventorySessionItemStatusFieldUpdateOperationsInput | $Enums.InventorySessionItemStatus
+  scannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  resolution?: Prisma.NullableEnumDivergenceResolutionFieldUpdateOperationsInput | $Enums.DivergenceResolution | null
   resolvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type InventorySessionItemUncheckedUpdateManyWithoutBinInput = {
+export type InventorySessionItemUncheckedUpdateManyWithoutExpectedBinInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumInventoryItemStatusFieldUpdateOperationsInput | $Enums.InventoryItemStatus
-  resolution?: Prisma.NullableEnumInventoryItemResolutionFieldUpdateOperationsInput | $Enums.InventoryItemResolution | null
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  scannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sessionId?: Prisma.StringFieldUpdateOperationsInput | string
-  itemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  itemId?: Prisma.StringFieldUpdateOperationsInput | string
+  actualBinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumInventorySessionItemStatusFieldUpdateOperationsInput | $Enums.InventorySessionItemStatus
+  scannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  resolution?: Prisma.NullableEnumDivergenceResolutionFieldUpdateOperationsInput | $Enums.DivergenceResolution | null
   resolvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type InventorySessionItemUpdateWithoutActualBinInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumInventorySessionItemStatusFieldUpdateOperationsInput | $Enums.InventorySessionItemStatus
+  scannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  resolution?: Prisma.NullableEnumDivergenceResolutionFieldUpdateOperationsInput | $Enums.DivergenceResolution | null
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  session?: Prisma.InventorySessionUpdateOneRequiredWithoutItemsNestedInput
+  item?: Prisma.ItemUpdateOneRequiredWithoutInventorySessionItemsNestedInput
+  expectedBin?: Prisma.BinUpdateOneWithoutInventorySessionItemsExpectedNestedInput
+  resolver?: Prisma.UserUpdateOneWithoutResolvedInventoryItemsNestedInput
+}
+
+export type InventorySessionItemUncheckedUpdateWithoutActualBinInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  sessionId?: Prisma.StringFieldUpdateOperationsInput | string
+  itemId?: Prisma.StringFieldUpdateOperationsInput | string
+  expectedBinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumInventorySessionItemStatusFieldUpdateOperationsInput | $Enums.InventorySessionItemStatus
+  scannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  resolution?: Prisma.NullableEnumDivergenceResolutionFieldUpdateOperationsInput | $Enums.DivergenceResolution | null
+  resolvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type InventorySessionItemUncheckedUpdateManyWithoutActualBinInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  sessionId?: Prisma.StringFieldUpdateOperationsInput | string
+  itemId?: Prisma.StringFieldUpdateOperationsInput | string
+  expectedBinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumInventorySessionItemStatusFieldUpdateOperationsInput | $Enums.InventorySessionItemStatus
+  scannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  resolution?: Prisma.NullableEnumDivergenceResolutionFieldUpdateOperationsInput | $Enums.DivergenceResolution | null
+  resolvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type InventorySessionItemCreateManyItemInput = {
   id?: string
-  status?: $Enums.InventoryItemStatus
-  resolution?: $Enums.InventoryItemResolution | null
-  notes?: string | null
-  scannedAt?: Date | string | null
-  resolvedAt?: Date | string | null
-  createdAt?: Date | string
   sessionId: string
-  binId: string
+  expectedBinId?: string | null
+  actualBinId?: string | null
+  status?: $Enums.InventorySessionItemStatus
+  scannedAt?: Date | string | null
+  resolution?: $Enums.DivergenceResolution | null
   resolvedBy?: string | null
+  resolvedAt?: Date | string | null
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type InventorySessionItemUpdateWithoutItemInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumInventoryItemStatusFieldUpdateOperationsInput | $Enums.InventoryItemStatus
-  resolution?: Prisma.NullableEnumInventoryItemResolutionFieldUpdateOperationsInput | $Enums.InventoryItemResolution | null
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumInventorySessionItemStatusFieldUpdateOperationsInput | $Enums.InventorySessionItemStatus
   scannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  resolution?: Prisma.NullableEnumDivergenceResolutionFieldUpdateOperationsInput | $Enums.DivergenceResolution | null
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   session?: Prisma.InventorySessionUpdateOneRequiredWithoutItemsNestedInput
-  bin?: Prisma.BinUpdateOneRequiredWithoutInventoryItemsNestedInput
-  resolver?: Prisma.UserUpdateOneWithoutInventoryResolutionsNestedInput
+  expectedBin?: Prisma.BinUpdateOneWithoutInventorySessionItemsExpectedNestedInput
+  actualBin?: Prisma.BinUpdateOneWithoutInventorySessionItemsActualNestedInput
+  resolver?: Prisma.UserUpdateOneWithoutResolvedInventoryItemsNestedInput
 }
 
 export type InventorySessionItemUncheckedUpdateWithoutItemInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumInventoryItemStatusFieldUpdateOperationsInput | $Enums.InventoryItemStatus
-  resolution?: Prisma.NullableEnumInventoryItemResolutionFieldUpdateOperationsInput | $Enums.InventoryItemResolution | null
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  scannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sessionId?: Prisma.StringFieldUpdateOperationsInput | string
-  binId?: Prisma.StringFieldUpdateOperationsInput | string
+  expectedBinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actualBinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumInventorySessionItemStatusFieldUpdateOperationsInput | $Enums.InventorySessionItemStatus
+  scannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  resolution?: Prisma.NullableEnumDivergenceResolutionFieldUpdateOperationsInput | $Enums.DivergenceResolution | null
   resolvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type InventorySessionItemUncheckedUpdateManyWithoutItemInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumInventoryItemStatusFieldUpdateOperationsInput | $Enums.InventoryItemStatus
-  resolution?: Prisma.NullableEnumInventoryItemResolutionFieldUpdateOperationsInput | $Enums.InventoryItemResolution | null
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  scannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sessionId?: Prisma.StringFieldUpdateOperationsInput | string
-  binId?: Prisma.StringFieldUpdateOperationsInput | string
+  expectedBinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actualBinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumInventorySessionItemStatusFieldUpdateOperationsInput | $Enums.InventorySessionItemStatus
+  scannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  resolution?: Prisma.NullableEnumDivergenceResolutionFieldUpdateOperationsInput | $Enums.DivergenceResolution | null
   resolvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type InventorySessionItemCreateManySessionInput = {
   id?: string
-  status?: $Enums.InventoryItemStatus
-  resolution?: $Enums.InventoryItemResolution | null
-  notes?: string | null
+  itemId: string
+  expectedBinId?: string | null
+  actualBinId?: string | null
+  status?: $Enums.InventorySessionItemStatus
   scannedAt?: Date | string | null
-  resolvedAt?: Date | string | null
-  createdAt?: Date | string
-  itemId?: string | null
-  binId: string
+  resolution?: $Enums.DivergenceResolution | null
   resolvedBy?: string | null
+  resolvedAt?: Date | string | null
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type InventorySessionItemUpdateWithoutSessionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumInventoryItemStatusFieldUpdateOperationsInput | $Enums.InventoryItemStatus
-  resolution?: Prisma.NullableEnumInventoryItemResolutionFieldUpdateOperationsInput | $Enums.InventoryItemResolution | null
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumInventorySessionItemStatusFieldUpdateOperationsInput | $Enums.InventorySessionItemStatus
   scannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  resolution?: Prisma.NullableEnumDivergenceResolutionFieldUpdateOperationsInput | $Enums.DivergenceResolution | null
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  item?: Prisma.ItemUpdateOneWithoutInventoryItemsNestedInput
-  bin?: Prisma.BinUpdateOneRequiredWithoutInventoryItemsNestedInput
-  resolver?: Prisma.UserUpdateOneWithoutInventoryResolutionsNestedInput
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  item?: Prisma.ItemUpdateOneRequiredWithoutInventorySessionItemsNestedInput
+  expectedBin?: Prisma.BinUpdateOneWithoutInventorySessionItemsExpectedNestedInput
+  actualBin?: Prisma.BinUpdateOneWithoutInventorySessionItemsActualNestedInput
+  resolver?: Prisma.UserUpdateOneWithoutResolvedInventoryItemsNestedInput
 }
 
 export type InventorySessionItemUncheckedUpdateWithoutSessionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumInventoryItemStatusFieldUpdateOperationsInput | $Enums.InventoryItemStatus
-  resolution?: Prisma.NullableEnumInventoryItemResolutionFieldUpdateOperationsInput | $Enums.InventoryItemResolution | null
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  itemId?: Prisma.StringFieldUpdateOperationsInput | string
+  expectedBinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actualBinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumInventorySessionItemStatusFieldUpdateOperationsInput | $Enums.InventorySessionItemStatus
   scannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  itemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  binId?: Prisma.StringFieldUpdateOperationsInput | string
+  resolution?: Prisma.NullableEnumDivergenceResolutionFieldUpdateOperationsInput | $Enums.DivergenceResolution | null
   resolvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type InventorySessionItemUncheckedUpdateManyWithoutSessionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumInventoryItemStatusFieldUpdateOperationsInput | $Enums.InventoryItemStatus
-  resolution?: Prisma.NullableEnumInventoryItemResolutionFieldUpdateOperationsInput | $Enums.InventoryItemResolution | null
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  itemId?: Prisma.StringFieldUpdateOperationsInput | string
+  expectedBinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actualBinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumInventorySessionItemStatusFieldUpdateOperationsInput | $Enums.InventorySessionItemStatus
   scannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  itemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  binId?: Prisma.StringFieldUpdateOperationsInput | string
+  resolution?: Prisma.NullableEnumDivergenceResolutionFieldUpdateOperationsInput | $Enums.DivergenceResolution | null
   resolvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
 
 export type InventorySessionItemSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  status?: boolean
-  resolution?: boolean
-  notes?: boolean
-  scannedAt?: boolean
-  resolvedAt?: boolean
-  createdAt?: boolean
   sessionId?: boolean
   itemId?: boolean
-  binId?: boolean
+  expectedBinId?: boolean
+  actualBinId?: boolean
+  status?: boolean
+  scannedAt?: boolean
+  resolution?: boolean
   resolvedBy?: boolean
+  resolvedAt?: boolean
+  notes?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   session?: boolean | Prisma.InventorySessionDefaultArgs<ExtArgs>
-  item?: boolean | Prisma.InventorySessionItem$itemArgs<ExtArgs>
-  bin?: boolean | Prisma.BinDefaultArgs<ExtArgs>
+  item?: boolean | Prisma.ItemDefaultArgs<ExtArgs>
+  expectedBin?: boolean | Prisma.InventorySessionItem$expectedBinArgs<ExtArgs>
+  actualBin?: boolean | Prisma.InventorySessionItem$actualBinArgs<ExtArgs>
   resolver?: boolean | Prisma.InventorySessionItem$resolverArgs<ExtArgs>
 }, ExtArgs["result"]["inventorySessionItem"]>
 
 export type InventorySessionItemSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  status?: boolean
-  resolution?: boolean
-  notes?: boolean
-  scannedAt?: boolean
-  resolvedAt?: boolean
-  createdAt?: boolean
   sessionId?: boolean
   itemId?: boolean
-  binId?: boolean
+  expectedBinId?: boolean
+  actualBinId?: boolean
+  status?: boolean
+  scannedAt?: boolean
+  resolution?: boolean
   resolvedBy?: boolean
+  resolvedAt?: boolean
+  notes?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   session?: boolean | Prisma.InventorySessionDefaultArgs<ExtArgs>
-  item?: boolean | Prisma.InventorySessionItem$itemArgs<ExtArgs>
-  bin?: boolean | Prisma.BinDefaultArgs<ExtArgs>
+  item?: boolean | Prisma.ItemDefaultArgs<ExtArgs>
+  expectedBin?: boolean | Prisma.InventorySessionItem$expectedBinArgs<ExtArgs>
+  actualBin?: boolean | Prisma.InventorySessionItem$actualBinArgs<ExtArgs>
   resolver?: boolean | Prisma.InventorySessionItem$resolverArgs<ExtArgs>
 }, ExtArgs["result"]["inventorySessionItem"]>
 
 export type InventorySessionItemSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  status?: boolean
-  resolution?: boolean
-  notes?: boolean
-  scannedAt?: boolean
-  resolvedAt?: boolean
-  createdAt?: boolean
   sessionId?: boolean
   itemId?: boolean
-  binId?: boolean
+  expectedBinId?: boolean
+  actualBinId?: boolean
+  status?: boolean
+  scannedAt?: boolean
+  resolution?: boolean
   resolvedBy?: boolean
+  resolvedAt?: boolean
+  notes?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   session?: boolean | Prisma.InventorySessionDefaultArgs<ExtArgs>
-  item?: boolean | Prisma.InventorySessionItem$itemArgs<ExtArgs>
-  bin?: boolean | Prisma.BinDefaultArgs<ExtArgs>
+  item?: boolean | Prisma.ItemDefaultArgs<ExtArgs>
+  expectedBin?: boolean | Prisma.InventorySessionItem$expectedBinArgs<ExtArgs>
+  actualBin?: boolean | Prisma.InventorySessionItem$actualBinArgs<ExtArgs>
   resolver?: boolean | Prisma.InventorySessionItem$resolverArgs<ExtArgs>
 }, ExtArgs["result"]["inventorySessionItem"]>
 
 export type InventorySessionItemSelectScalar = {
   id?: boolean
-  status?: boolean
-  resolution?: boolean
-  notes?: boolean
-  scannedAt?: boolean
-  resolvedAt?: boolean
-  createdAt?: boolean
   sessionId?: boolean
   itemId?: boolean
-  binId?: boolean
+  expectedBinId?: boolean
+  actualBinId?: boolean
+  status?: boolean
+  scannedAt?: boolean
+  resolution?: boolean
   resolvedBy?: boolean
+  resolvedAt?: boolean
+  notes?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
 }
 
-export type InventorySessionItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "status" | "resolution" | "notes" | "scannedAt" | "resolvedAt" | "createdAt" | "sessionId" | "itemId" | "binId" | "resolvedBy", ExtArgs["result"]["inventorySessionItem"]>
+export type InventorySessionItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "sessionId" | "itemId" | "expectedBinId" | "actualBinId" | "status" | "scannedAt" | "resolution" | "resolvedBy" | "resolvedAt" | "notes" | "createdAt" | "updatedAt", ExtArgs["result"]["inventorySessionItem"]>
 export type InventorySessionItemInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   session?: boolean | Prisma.InventorySessionDefaultArgs<ExtArgs>
-  item?: boolean | Prisma.InventorySessionItem$itemArgs<ExtArgs>
-  bin?: boolean | Prisma.BinDefaultArgs<ExtArgs>
+  item?: boolean | Prisma.ItemDefaultArgs<ExtArgs>
+  expectedBin?: boolean | Prisma.InventorySessionItem$expectedBinArgs<ExtArgs>
+  actualBin?: boolean | Prisma.InventorySessionItem$actualBinArgs<ExtArgs>
   resolver?: boolean | Prisma.InventorySessionItem$resolverArgs<ExtArgs>
 }
 export type InventorySessionItemIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   session?: boolean | Prisma.InventorySessionDefaultArgs<ExtArgs>
-  item?: boolean | Prisma.InventorySessionItem$itemArgs<ExtArgs>
-  bin?: boolean | Prisma.BinDefaultArgs<ExtArgs>
+  item?: boolean | Prisma.ItemDefaultArgs<ExtArgs>
+  expectedBin?: boolean | Prisma.InventorySessionItem$expectedBinArgs<ExtArgs>
+  actualBin?: boolean | Prisma.InventorySessionItem$actualBinArgs<ExtArgs>
   resolver?: boolean | Prisma.InventorySessionItem$resolverArgs<ExtArgs>
 }
 export type InventorySessionItemIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   session?: boolean | Prisma.InventorySessionDefaultArgs<ExtArgs>
-  item?: boolean | Prisma.InventorySessionItem$itemArgs<ExtArgs>
-  bin?: boolean | Prisma.BinDefaultArgs<ExtArgs>
+  item?: boolean | Prisma.ItemDefaultArgs<ExtArgs>
+  expectedBin?: boolean | Prisma.InventorySessionItem$expectedBinArgs<ExtArgs>
+  actualBin?: boolean | Prisma.InventorySessionItem$actualBinArgs<ExtArgs>
   resolver?: boolean | Prisma.InventorySessionItem$resolverArgs<ExtArgs>
 }
 
@@ -1158,22 +1426,25 @@ export type $InventorySessionItemPayload<ExtArgs extends runtime.Types.Extension
   name: "InventorySessionItem"
   objects: {
     session: Prisma.$InventorySessionPayload<ExtArgs>
-    item: Prisma.$ItemPayload<ExtArgs> | null
-    bin: Prisma.$BinPayload<ExtArgs>
+    item: Prisma.$ItemPayload<ExtArgs>
+    expectedBin: Prisma.$BinPayload<ExtArgs> | null
+    actualBin: Prisma.$BinPayload<ExtArgs> | null
     resolver: Prisma.$UserPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
-    status: $Enums.InventoryItemStatus
-    resolution: $Enums.InventoryItemResolution | null
-    notes: string | null
-    scannedAt: Date | null
-    resolvedAt: Date | null
-    createdAt: Date
     sessionId: string
-    itemId: string | null
-    binId: string
+    itemId: string
+    expectedBinId: string | null
+    actualBinId: string | null
+    status: $Enums.InventorySessionItemStatus
+    scannedAt: Date | null
+    resolution: $Enums.DivergenceResolution | null
     resolvedBy: string | null
+    resolvedAt: Date | null
+    notes: string | null
+    createdAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["inventorySessionItem"]>
   composites: {}
 }
@@ -1569,8 +1840,9 @@ readonly fields: InventorySessionItemFieldRefs;
 export interface Prisma__InventorySessionItemClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   session<T extends Prisma.InventorySessionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.InventorySessionDefaultArgs<ExtArgs>>): Prisma.Prisma__InventorySessionClient<runtime.Types.Result.GetResult<Prisma.$InventorySessionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  item<T extends Prisma.InventorySessionItem$itemArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.InventorySessionItem$itemArgs<ExtArgs>>): Prisma.Prisma__ItemClient<runtime.Types.Result.GetResult<Prisma.$ItemPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  bin<T extends Prisma.BinDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BinDefaultArgs<ExtArgs>>): Prisma.Prisma__BinClient<runtime.Types.Result.GetResult<Prisma.$BinPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  item<T extends Prisma.ItemDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ItemDefaultArgs<ExtArgs>>): Prisma.Prisma__ItemClient<runtime.Types.Result.GetResult<Prisma.$ItemPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  expectedBin<T extends Prisma.InventorySessionItem$expectedBinArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.InventorySessionItem$expectedBinArgs<ExtArgs>>): Prisma.Prisma__BinClient<runtime.Types.Result.GetResult<Prisma.$BinPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  actualBin<T extends Prisma.InventorySessionItem$actualBinArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.InventorySessionItem$actualBinArgs<ExtArgs>>): Prisma.Prisma__BinClient<runtime.Types.Result.GetResult<Prisma.$BinPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   resolver<T extends Prisma.InventorySessionItem$resolverArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.InventorySessionItem$resolverArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1602,16 +1874,18 @@ export interface Prisma__InventorySessionItemClient<T, Null = never, ExtArgs ext
  */
 export interface InventorySessionItemFieldRefs {
   readonly id: Prisma.FieldRef<"InventorySessionItem", 'String'>
-  readonly status: Prisma.FieldRef<"InventorySessionItem", 'InventoryItemStatus'>
-  readonly resolution: Prisma.FieldRef<"InventorySessionItem", 'InventoryItemResolution'>
-  readonly notes: Prisma.FieldRef<"InventorySessionItem", 'String'>
-  readonly scannedAt: Prisma.FieldRef<"InventorySessionItem", 'DateTime'>
-  readonly resolvedAt: Prisma.FieldRef<"InventorySessionItem", 'DateTime'>
-  readonly createdAt: Prisma.FieldRef<"InventorySessionItem", 'DateTime'>
   readonly sessionId: Prisma.FieldRef<"InventorySessionItem", 'String'>
   readonly itemId: Prisma.FieldRef<"InventorySessionItem", 'String'>
-  readonly binId: Prisma.FieldRef<"InventorySessionItem", 'String'>
+  readonly expectedBinId: Prisma.FieldRef<"InventorySessionItem", 'String'>
+  readonly actualBinId: Prisma.FieldRef<"InventorySessionItem", 'String'>
+  readonly status: Prisma.FieldRef<"InventorySessionItem", 'InventorySessionItemStatus'>
+  readonly scannedAt: Prisma.FieldRef<"InventorySessionItem", 'DateTime'>
+  readonly resolution: Prisma.FieldRef<"InventorySessionItem", 'DivergenceResolution'>
   readonly resolvedBy: Prisma.FieldRef<"InventorySessionItem", 'String'>
+  readonly resolvedAt: Prisma.FieldRef<"InventorySessionItem", 'DateTime'>
+  readonly notes: Prisma.FieldRef<"InventorySessionItem", 'String'>
+  readonly createdAt: Prisma.FieldRef<"InventorySessionItem", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"InventorySessionItem", 'DateTime'>
 }
     
 
@@ -2008,22 +2282,41 @@ export type InventorySessionItemDeleteManyArgs<ExtArgs extends runtime.Types.Ext
 }
 
 /**
- * InventorySessionItem.item
+ * InventorySessionItem.expectedBin
  */
-export type InventorySessionItem$itemArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type InventorySessionItem$expectedBinArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the Item
+   * Select specific fields to fetch from the Bin
    */
-  select?: Prisma.ItemSelect<ExtArgs> | null
+  select?: Prisma.BinSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the Item
+   * Omit specific fields from the Bin
    */
-  omit?: Prisma.ItemOmit<ExtArgs> | null
+  omit?: Prisma.BinOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.ItemInclude<ExtArgs> | null
-  where?: Prisma.ItemWhereInput
+  include?: Prisma.BinInclude<ExtArgs> | null
+  where?: Prisma.BinWhereInput
+}
+
+/**
+ * InventorySessionItem.actualBin
+ */
+export type InventorySessionItem$actualBinArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Bin
+   */
+  select?: Prisma.BinSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Bin
+   */
+  omit?: Prisma.BinOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BinInclude<ExtArgs> | null
+  where?: Prisma.BinWhereInput
 }
 
 /**

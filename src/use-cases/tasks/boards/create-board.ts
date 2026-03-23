@@ -5,6 +5,7 @@ import {
   boardToDTO,
 } from '@/mappers/tasks/board/board-to-dto';
 import type { BoardColumnsRepository } from '@/repositories/tasks/board-columns-repository';
+import type { BoardMembersRepository } from '@/repositories/tasks/board-members-repository';
 import type { BoardsRepository } from '@/repositories/tasks/boards-repository';
 
 interface CreateBoardRequest {
@@ -34,6 +35,7 @@ export class CreateBoardUseCase {
   constructor(
     private boardsRepository: BoardsRepository,
     private boardColumnsRepository: BoardColumnsRepository,
+    private boardMembersRepository: BoardMembersRepository,
   ) {}
 
   async execute(request: CreateBoardRequest): Promise<CreateBoardResponse> {
@@ -71,6 +73,13 @@ export class CreateBoardUseCase {
     });
 
     const boardId = board.id.toString();
+
+    // Add owner as board member
+    await this.boardMembersRepository.create({
+      boardId,
+      userId,
+      role: 'EDITOR',
+    });
 
     const columns = await this.boardColumnsRepository.createMany(
       DEFAULT_COLUMNS.map((columnDef) => ({

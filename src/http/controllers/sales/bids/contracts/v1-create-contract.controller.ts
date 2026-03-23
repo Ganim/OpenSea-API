@@ -8,6 +8,7 @@ import {
   bidContractResponseSchema,
   createBidContractSchema,
 } from '@/http/schemas/sales/bids';
+import { bidContractToDTO } from '@/mappers/sales/bid-contract/bid-contract-to-dto';
 import { makeCreateBidContractUseCase } from '@/use-cases/sales/bids/factories/make-create-bid-contract-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -51,11 +52,11 @@ export async function createBidContractController(app: FastifyInstance) {
         newData: {
           contractNumber: body.contractNumber,
           bidId: body.bidId,
-          value: body.value,
+          value: body.totalValue,
         },
       });
 
-      return reply.status(201).send({ contract });
+      return reply.status(201).send({ contract: bidContractToDTO(contract) });
     },
   });
 }

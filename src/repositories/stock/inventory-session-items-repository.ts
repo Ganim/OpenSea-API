@@ -1,12 +1,15 @@
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import type { InventorySessionItem } from '@/entities/stock/inventory-session-item';
+import type {
+  InventorySessionItem,
+  InventorySessionItemStatus,
+} from '@/entities/stock/inventory-session-item';
 
 export interface CreateInventorySessionItemSchema {
   sessionId: UniqueEntityID;
   itemId: UniqueEntityID;
   expectedBinId?: UniqueEntityID;
   actualBinId?: UniqueEntityID;
-  status?: 'PENDING' | 'CONFIRMED' | 'MISSING' | 'WRONG_BIN' | 'EXTRA';
+  status?: InventorySessionItemStatus;
   notes?: string;
 }
 

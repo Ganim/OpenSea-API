@@ -1,3 +1,11 @@
+export interface CardCommentReactionRecord {
+  id: string;
+  commentId: string;
+  userId: string;
+  emoji: string;
+  createdAt: Date;
+}
+
 export interface CardCommentRecord {
   id: string;
   cardId: string;
@@ -10,6 +18,7 @@ export interface CardCommentRecord {
   authorName?: string | null;
   authorEmail?: string | null;
   authorAvatarUrl?: string | null;
+  reactions?: CardCommentReactionRecord[];
 }
 
 export interface CreateCardCommentSchema {

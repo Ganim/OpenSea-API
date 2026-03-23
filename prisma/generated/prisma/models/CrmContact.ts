@@ -385,6 +385,9 @@ export type CrmContactWhereInput = {
   assignedTo?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   crmDeals?: Prisma.CrmDealListRelationFilter
   crmActivities?: Prisma.CrmActivityListRelationFilter
+  orders?: Prisma.OrderListRelationFilter
+  signerAssignments?: Prisma.SignatureEnvelopeSignerListRelationFilter
+  portalAccesses?: Prisma.CustomerPortalAccessListRelationFilter
 }
 
 export type CrmContactOrderByWithRelationInput = {
@@ -420,6 +423,9 @@ export type CrmContactOrderByWithRelationInput = {
   assignedTo?: Prisma.UserOrderByWithRelationInput
   crmDeals?: Prisma.CrmDealOrderByRelationAggregateInput
   crmActivities?: Prisma.CrmActivityOrderByRelationAggregateInput
+  orders?: Prisma.OrderOrderByRelationAggregateInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerOrderByRelationAggregateInput
+  portalAccesses?: Prisma.CustomerPortalAccessOrderByRelationAggregateInput
 }
 
 export type CrmContactWhereUniqueInput = Prisma.AtLeast<{
@@ -458,6 +464,9 @@ export type CrmContactWhereUniqueInput = Prisma.AtLeast<{
   assignedTo?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   crmDeals?: Prisma.CrmDealListRelationFilter
   crmActivities?: Prisma.CrmActivityListRelationFilter
+  orders?: Prisma.OrderListRelationFilter
+  signerAssignments?: Prisma.SignatureEnvelopeSignerListRelationFilter
+  portalAccesses?: Prisma.CustomerPortalAccessListRelationFilter
 }, "id">
 
 export type CrmContactOrderByWithAggregationInput = {
@@ -558,6 +567,9 @@ export type CrmContactCreateInput = {
   assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedContactsInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutContactInput
   crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutContactInput
+  orders?: Prisma.OrderCreateNestedManyWithoutContactInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutContactInput
+  portalAccesses?: Prisma.CustomerPortalAccessCreateNestedManyWithoutContactInput
 }
 
 export type CrmContactUncheckedCreateInput = {
@@ -590,6 +602,9 @@ export type CrmContactUncheckedCreateInput = {
   deletedAt?: Date | string | null
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutContactInput
   crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutContactInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutContactInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutContactInput
+  portalAccesses?: Prisma.CustomerPortalAccessUncheckedCreateNestedManyWithoutContactInput
 }
 
 export type CrmContactUpdateInput = {
@@ -622,6 +637,9 @@ export type CrmContactUpdateInput = {
   assignedTo?: Prisma.UserUpdateOneWithoutAssignedContactsNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutContactNestedInput
   crmActivities?: Prisma.CrmActivityUpdateManyWithoutContactNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutContactNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutContactNestedInput
+  portalAccesses?: Prisma.CustomerPortalAccessUpdateManyWithoutContactNestedInput
 }
 
 export type CrmContactUncheckedUpdateInput = {
@@ -654,6 +672,9 @@ export type CrmContactUncheckedUpdateInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutContactNestedInput
   crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutContactNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutContactNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutContactNestedInput
+  portalAccesses?: Prisma.CustomerPortalAccessUncheckedUpdateManyWithoutContactNestedInput
 }
 
 export type CrmContactCreateManyInput = {
@@ -1016,6 +1037,54 @@ export type CrmContactUncheckedUpdateManyWithoutTenantNestedInput = {
   deleteMany?: Prisma.CrmContactScalarWhereInput | Prisma.CrmContactScalarWhereInput[]
 }
 
+export type CrmContactCreateNestedOneWithoutOrdersInput = {
+  create?: Prisma.XOR<Prisma.CrmContactCreateWithoutOrdersInput, Prisma.CrmContactUncheckedCreateWithoutOrdersInput>
+  connectOrCreate?: Prisma.CrmContactCreateOrConnectWithoutOrdersInput
+  connect?: Prisma.CrmContactWhereUniqueInput
+}
+
+export type CrmContactUpdateOneWithoutOrdersNestedInput = {
+  create?: Prisma.XOR<Prisma.CrmContactCreateWithoutOrdersInput, Prisma.CrmContactUncheckedCreateWithoutOrdersInput>
+  connectOrCreate?: Prisma.CrmContactCreateOrConnectWithoutOrdersInput
+  upsert?: Prisma.CrmContactUpsertWithoutOrdersInput
+  disconnect?: Prisma.CrmContactWhereInput | boolean
+  delete?: Prisma.CrmContactWhereInput | boolean
+  connect?: Prisma.CrmContactWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CrmContactUpdateToOneWithWhereWithoutOrdersInput, Prisma.CrmContactUpdateWithoutOrdersInput>, Prisma.CrmContactUncheckedUpdateWithoutOrdersInput>
+}
+
+export type CrmContactCreateNestedOneWithoutSignerAssignmentsInput = {
+  create?: Prisma.XOR<Prisma.CrmContactCreateWithoutSignerAssignmentsInput, Prisma.CrmContactUncheckedCreateWithoutSignerAssignmentsInput>
+  connectOrCreate?: Prisma.CrmContactCreateOrConnectWithoutSignerAssignmentsInput
+  connect?: Prisma.CrmContactWhereUniqueInput
+}
+
+export type CrmContactUpdateOneWithoutSignerAssignmentsNestedInput = {
+  create?: Prisma.XOR<Prisma.CrmContactCreateWithoutSignerAssignmentsInput, Prisma.CrmContactUncheckedCreateWithoutSignerAssignmentsInput>
+  connectOrCreate?: Prisma.CrmContactCreateOrConnectWithoutSignerAssignmentsInput
+  upsert?: Prisma.CrmContactUpsertWithoutSignerAssignmentsInput
+  disconnect?: Prisma.CrmContactWhereInput | boolean
+  delete?: Prisma.CrmContactWhereInput | boolean
+  connect?: Prisma.CrmContactWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CrmContactUpdateToOneWithWhereWithoutSignerAssignmentsInput, Prisma.CrmContactUpdateWithoutSignerAssignmentsInput>, Prisma.CrmContactUncheckedUpdateWithoutSignerAssignmentsInput>
+}
+
+export type CrmContactCreateNestedOneWithoutPortalAccessesInput = {
+  create?: Prisma.XOR<Prisma.CrmContactCreateWithoutPortalAccessesInput, Prisma.CrmContactUncheckedCreateWithoutPortalAccessesInput>
+  connectOrCreate?: Prisma.CrmContactCreateOrConnectWithoutPortalAccessesInput
+  connect?: Prisma.CrmContactWhereUniqueInput
+}
+
+export type CrmContactUpdateOneWithoutPortalAccessesNestedInput = {
+  create?: Prisma.XOR<Prisma.CrmContactCreateWithoutPortalAccessesInput, Prisma.CrmContactUncheckedCreateWithoutPortalAccessesInput>
+  connectOrCreate?: Prisma.CrmContactCreateOrConnectWithoutPortalAccessesInput
+  upsert?: Prisma.CrmContactUpsertWithoutPortalAccessesInput
+  disconnect?: Prisma.CrmContactWhereInput | boolean
+  delete?: Prisma.CrmContactWhereInput | boolean
+  connect?: Prisma.CrmContactWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CrmContactUpdateToOneWithWhereWithoutPortalAccessesInput, Prisma.CrmContactUpdateWithoutPortalAccessesInput>, Prisma.CrmContactUncheckedUpdateWithoutPortalAccessesInput>
+}
+
 export type CrmContactCreateWithoutAssignedToInput = {
   id?: string
   firstName: string
@@ -1045,6 +1114,9 @@ export type CrmContactCreateWithoutAssignedToInput = {
   customer: Prisma.CustomerCreateNestedOneWithoutCrmContactsInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutContactInput
   crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutContactInput
+  orders?: Prisma.OrderCreateNestedManyWithoutContactInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutContactInput
+  portalAccesses?: Prisma.CustomerPortalAccessCreateNestedManyWithoutContactInput
 }
 
 export type CrmContactUncheckedCreateWithoutAssignedToInput = {
@@ -1076,6 +1148,9 @@ export type CrmContactUncheckedCreateWithoutAssignedToInput = {
   deletedAt?: Date | string | null
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutContactInput
   crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutContactInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutContactInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutContactInput
+  portalAccesses?: Prisma.CustomerPortalAccessUncheckedCreateNestedManyWithoutContactInput
 }
 
 export type CrmContactCreateOrConnectWithoutAssignedToInput = {
@@ -1166,6 +1241,9 @@ export type CrmContactCreateWithoutCustomerInput = {
   assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedContactsInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutContactInput
   crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutContactInput
+  orders?: Prisma.OrderCreateNestedManyWithoutContactInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutContactInput
+  portalAccesses?: Prisma.CustomerPortalAccessCreateNestedManyWithoutContactInput
 }
 
 export type CrmContactUncheckedCreateWithoutCustomerInput = {
@@ -1197,6 +1275,9 @@ export type CrmContactUncheckedCreateWithoutCustomerInput = {
   deletedAt?: Date | string | null
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutContactInput
   crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutContactInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutContactInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutContactInput
+  portalAccesses?: Prisma.CustomerPortalAccessUncheckedCreateNestedManyWithoutContactInput
 }
 
 export type CrmContactCreateOrConnectWithoutCustomerInput = {
@@ -1254,6 +1335,9 @@ export type CrmContactCreateWithoutCrmDealsInput = {
   customer: Prisma.CustomerCreateNestedOneWithoutCrmContactsInput
   assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedContactsInput
   crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutContactInput
+  orders?: Prisma.OrderCreateNestedManyWithoutContactInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutContactInput
+  portalAccesses?: Prisma.CustomerPortalAccessCreateNestedManyWithoutContactInput
 }
 
 export type CrmContactUncheckedCreateWithoutCrmDealsInput = {
@@ -1285,6 +1369,9 @@ export type CrmContactUncheckedCreateWithoutCrmDealsInput = {
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutContactInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutContactInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutContactInput
+  portalAccesses?: Prisma.CustomerPortalAccessUncheckedCreateNestedManyWithoutContactInput
 }
 
 export type CrmContactCreateOrConnectWithoutCrmDealsInput = {
@@ -1332,6 +1419,9 @@ export type CrmContactUpdateWithoutCrmDealsInput = {
   customer?: Prisma.CustomerUpdateOneRequiredWithoutCrmContactsNestedInput
   assignedTo?: Prisma.UserUpdateOneWithoutAssignedContactsNestedInput
   crmActivities?: Prisma.CrmActivityUpdateManyWithoutContactNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutContactNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutContactNestedInput
+  portalAccesses?: Prisma.CustomerPortalAccessUpdateManyWithoutContactNestedInput
 }
 
 export type CrmContactUncheckedUpdateWithoutCrmDealsInput = {
@@ -1363,6 +1453,9 @@ export type CrmContactUncheckedUpdateWithoutCrmDealsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutContactNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutContactNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutContactNestedInput
+  portalAccesses?: Prisma.CustomerPortalAccessUncheckedUpdateManyWithoutContactNestedInput
 }
 
 export type CrmContactCreateWithoutCrmActivitiesInput = {
@@ -1394,6 +1487,9 @@ export type CrmContactCreateWithoutCrmActivitiesInput = {
   customer: Prisma.CustomerCreateNestedOneWithoutCrmContactsInput
   assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedContactsInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutContactInput
+  orders?: Prisma.OrderCreateNestedManyWithoutContactInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutContactInput
+  portalAccesses?: Prisma.CustomerPortalAccessCreateNestedManyWithoutContactInput
 }
 
 export type CrmContactUncheckedCreateWithoutCrmActivitiesInput = {
@@ -1425,6 +1521,9 @@ export type CrmContactUncheckedCreateWithoutCrmActivitiesInput = {
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutContactInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutContactInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutContactInput
+  portalAccesses?: Prisma.CustomerPortalAccessUncheckedCreateNestedManyWithoutContactInput
 }
 
 export type CrmContactCreateOrConnectWithoutCrmActivitiesInput = {
@@ -1472,6 +1571,9 @@ export type CrmContactUpdateWithoutCrmActivitiesInput = {
   customer?: Prisma.CustomerUpdateOneRequiredWithoutCrmContactsNestedInput
   assignedTo?: Prisma.UserUpdateOneWithoutAssignedContactsNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutContactNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutContactNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutContactNestedInput
+  portalAccesses?: Prisma.CustomerPortalAccessUpdateManyWithoutContactNestedInput
 }
 
 export type CrmContactUncheckedUpdateWithoutCrmActivitiesInput = {
@@ -1503,6 +1605,9 @@ export type CrmContactUncheckedUpdateWithoutCrmActivitiesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutContactNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutContactNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutContactNestedInput
+  portalAccesses?: Prisma.CustomerPortalAccessUncheckedUpdateManyWithoutContactNestedInput
 }
 
 export type CrmContactCreateWithoutTenantInput = {
@@ -1534,6 +1639,9 @@ export type CrmContactCreateWithoutTenantInput = {
   assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedContactsInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutContactInput
   crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutContactInput
+  orders?: Prisma.OrderCreateNestedManyWithoutContactInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutContactInput
+  portalAccesses?: Prisma.CustomerPortalAccessCreateNestedManyWithoutContactInput
 }
 
 export type CrmContactUncheckedCreateWithoutTenantInput = {
@@ -1565,6 +1673,9 @@ export type CrmContactUncheckedCreateWithoutTenantInput = {
   deletedAt?: Date | string | null
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutContactInput
   crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutContactInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutContactInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutContactInput
+  portalAccesses?: Prisma.CustomerPortalAccessUncheckedCreateNestedManyWithoutContactInput
 }
 
 export type CrmContactCreateOrConnectWithoutTenantInput = {
@@ -1591,6 +1702,462 @@ export type CrmContactUpdateWithWhereUniqueWithoutTenantInput = {
 export type CrmContactUpdateManyWithWhereWithoutTenantInput = {
   where: Prisma.CrmContactScalarWhereInput
   data: Prisma.XOR<Prisma.CrmContactUpdateManyMutationInput, Prisma.CrmContactUncheckedUpdateManyWithoutTenantInput>
+}
+
+export type CrmContactCreateWithoutOrdersInput = {
+  id?: string
+  firstName: string
+  lastName?: string | null
+  fullName: string
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
+  role?: $Enums.ContactRole
+  jobTitle?: string | null
+  department?: string | null
+  lifecycleStage?: $Enums.ContactLifecycleStage
+  leadScore?: number
+  leadTemperature?: string | null
+  source?: string
+  lastInteractionAt?: Date | string | null
+  lastChannelUsed?: string | null
+  socialProfiles?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  avatarUrl?: string | null
+  isMainContact?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  tenant: Prisma.TenantCreateNestedOneWithoutCrmContactsInput
+  customer: Prisma.CustomerCreateNestedOneWithoutCrmContactsInput
+  assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedContactsInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutContactInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutContactInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutContactInput
+  portalAccesses?: Prisma.CustomerPortalAccessCreateNestedManyWithoutContactInput
+}
+
+export type CrmContactUncheckedCreateWithoutOrdersInput = {
+  id?: string
+  tenantId: string
+  customerId: string
+  firstName: string
+  lastName?: string | null
+  fullName: string
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
+  role?: $Enums.ContactRole
+  jobTitle?: string | null
+  department?: string | null
+  lifecycleStage?: $Enums.ContactLifecycleStage
+  leadScore?: number
+  leadTemperature?: string | null
+  source?: string
+  lastInteractionAt?: Date | string | null
+  lastChannelUsed?: string | null
+  socialProfiles?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  avatarUrl?: string | null
+  assignedToUserId?: string | null
+  isMainContact?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutContactInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutContactInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutContactInput
+  portalAccesses?: Prisma.CustomerPortalAccessUncheckedCreateNestedManyWithoutContactInput
+}
+
+export type CrmContactCreateOrConnectWithoutOrdersInput = {
+  where: Prisma.CrmContactWhereUniqueInput
+  create: Prisma.XOR<Prisma.CrmContactCreateWithoutOrdersInput, Prisma.CrmContactUncheckedCreateWithoutOrdersInput>
+}
+
+export type CrmContactUpsertWithoutOrdersInput = {
+  update: Prisma.XOR<Prisma.CrmContactUpdateWithoutOrdersInput, Prisma.CrmContactUncheckedUpdateWithoutOrdersInput>
+  create: Prisma.XOR<Prisma.CrmContactCreateWithoutOrdersInput, Prisma.CrmContactUncheckedCreateWithoutOrdersInput>
+  where?: Prisma.CrmContactWhereInput
+}
+
+export type CrmContactUpdateToOneWithWhereWithoutOrdersInput = {
+  where?: Prisma.CrmContactWhereInput
+  data: Prisma.XOR<Prisma.CrmContactUpdateWithoutOrdersInput, Prisma.CrmContactUncheckedUpdateWithoutOrdersInput>
+}
+
+export type CrmContactUpdateWithoutOrdersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumContactRoleFieldUpdateOperationsInput | $Enums.ContactRole
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lifecycleStage?: Prisma.EnumContactLifecycleStageFieldUpdateOperationsInput | $Enums.ContactLifecycleStage
+  leadScore?: Prisma.IntFieldUpdateOperationsInput | number
+  leadTemperature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  source?: Prisma.StringFieldUpdateOperationsInput | string
+  lastInteractionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastChannelUsed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  socialProfiles?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isMainContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutCrmContactsNestedInput
+  customer?: Prisma.CustomerUpdateOneRequiredWithoutCrmContactsNestedInput
+  assignedTo?: Prisma.UserUpdateOneWithoutAssignedContactsNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutContactNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutContactNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutContactNestedInput
+  portalAccesses?: Prisma.CustomerPortalAccessUpdateManyWithoutContactNestedInput
+}
+
+export type CrmContactUncheckedUpdateWithoutOrdersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  customerId?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumContactRoleFieldUpdateOperationsInput | $Enums.ContactRole
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lifecycleStage?: Prisma.EnumContactLifecycleStageFieldUpdateOperationsInput | $Enums.ContactLifecycleStage
+  leadScore?: Prisma.IntFieldUpdateOperationsInput | number
+  leadTemperature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  source?: Prisma.StringFieldUpdateOperationsInput | string
+  lastInteractionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastChannelUsed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  socialProfiles?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  assignedToUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isMainContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutContactNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutContactNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutContactNestedInput
+  portalAccesses?: Prisma.CustomerPortalAccessUncheckedUpdateManyWithoutContactNestedInput
+}
+
+export type CrmContactCreateWithoutSignerAssignmentsInput = {
+  id?: string
+  firstName: string
+  lastName?: string | null
+  fullName: string
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
+  role?: $Enums.ContactRole
+  jobTitle?: string | null
+  department?: string | null
+  lifecycleStage?: $Enums.ContactLifecycleStage
+  leadScore?: number
+  leadTemperature?: string | null
+  source?: string
+  lastInteractionAt?: Date | string | null
+  lastChannelUsed?: string | null
+  socialProfiles?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  avatarUrl?: string | null
+  isMainContact?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  tenant: Prisma.TenantCreateNestedOneWithoutCrmContactsInput
+  customer: Prisma.CustomerCreateNestedOneWithoutCrmContactsInput
+  assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedContactsInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutContactInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutContactInput
+  orders?: Prisma.OrderCreateNestedManyWithoutContactInput
+  portalAccesses?: Prisma.CustomerPortalAccessCreateNestedManyWithoutContactInput
+}
+
+export type CrmContactUncheckedCreateWithoutSignerAssignmentsInput = {
+  id?: string
+  tenantId: string
+  customerId: string
+  firstName: string
+  lastName?: string | null
+  fullName: string
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
+  role?: $Enums.ContactRole
+  jobTitle?: string | null
+  department?: string | null
+  lifecycleStage?: $Enums.ContactLifecycleStage
+  leadScore?: number
+  leadTemperature?: string | null
+  source?: string
+  lastInteractionAt?: Date | string | null
+  lastChannelUsed?: string | null
+  socialProfiles?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  avatarUrl?: string | null
+  assignedToUserId?: string | null
+  isMainContact?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutContactInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutContactInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutContactInput
+  portalAccesses?: Prisma.CustomerPortalAccessUncheckedCreateNestedManyWithoutContactInput
+}
+
+export type CrmContactCreateOrConnectWithoutSignerAssignmentsInput = {
+  where: Prisma.CrmContactWhereUniqueInput
+  create: Prisma.XOR<Prisma.CrmContactCreateWithoutSignerAssignmentsInput, Prisma.CrmContactUncheckedCreateWithoutSignerAssignmentsInput>
+}
+
+export type CrmContactUpsertWithoutSignerAssignmentsInput = {
+  update: Prisma.XOR<Prisma.CrmContactUpdateWithoutSignerAssignmentsInput, Prisma.CrmContactUncheckedUpdateWithoutSignerAssignmentsInput>
+  create: Prisma.XOR<Prisma.CrmContactCreateWithoutSignerAssignmentsInput, Prisma.CrmContactUncheckedCreateWithoutSignerAssignmentsInput>
+  where?: Prisma.CrmContactWhereInput
+}
+
+export type CrmContactUpdateToOneWithWhereWithoutSignerAssignmentsInput = {
+  where?: Prisma.CrmContactWhereInput
+  data: Prisma.XOR<Prisma.CrmContactUpdateWithoutSignerAssignmentsInput, Prisma.CrmContactUncheckedUpdateWithoutSignerAssignmentsInput>
+}
+
+export type CrmContactUpdateWithoutSignerAssignmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumContactRoleFieldUpdateOperationsInput | $Enums.ContactRole
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lifecycleStage?: Prisma.EnumContactLifecycleStageFieldUpdateOperationsInput | $Enums.ContactLifecycleStage
+  leadScore?: Prisma.IntFieldUpdateOperationsInput | number
+  leadTemperature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  source?: Prisma.StringFieldUpdateOperationsInput | string
+  lastInteractionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastChannelUsed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  socialProfiles?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isMainContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutCrmContactsNestedInput
+  customer?: Prisma.CustomerUpdateOneRequiredWithoutCrmContactsNestedInput
+  assignedTo?: Prisma.UserUpdateOneWithoutAssignedContactsNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutContactNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutContactNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutContactNestedInput
+  portalAccesses?: Prisma.CustomerPortalAccessUpdateManyWithoutContactNestedInput
+}
+
+export type CrmContactUncheckedUpdateWithoutSignerAssignmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  customerId?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumContactRoleFieldUpdateOperationsInput | $Enums.ContactRole
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lifecycleStage?: Prisma.EnumContactLifecycleStageFieldUpdateOperationsInput | $Enums.ContactLifecycleStage
+  leadScore?: Prisma.IntFieldUpdateOperationsInput | number
+  leadTemperature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  source?: Prisma.StringFieldUpdateOperationsInput | string
+  lastInteractionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastChannelUsed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  socialProfiles?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  assignedToUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isMainContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutContactNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutContactNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutContactNestedInput
+  portalAccesses?: Prisma.CustomerPortalAccessUncheckedUpdateManyWithoutContactNestedInput
+}
+
+export type CrmContactCreateWithoutPortalAccessesInput = {
+  id?: string
+  firstName: string
+  lastName?: string | null
+  fullName: string
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
+  role?: $Enums.ContactRole
+  jobTitle?: string | null
+  department?: string | null
+  lifecycleStage?: $Enums.ContactLifecycleStage
+  leadScore?: number
+  leadTemperature?: string | null
+  source?: string
+  lastInteractionAt?: Date | string | null
+  lastChannelUsed?: string | null
+  socialProfiles?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  avatarUrl?: string | null
+  isMainContact?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  tenant: Prisma.TenantCreateNestedOneWithoutCrmContactsInput
+  customer: Prisma.CustomerCreateNestedOneWithoutCrmContactsInput
+  assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedContactsInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutContactInput
+  crmActivities?: Prisma.CrmActivityCreateNestedManyWithoutContactInput
+  orders?: Prisma.OrderCreateNestedManyWithoutContactInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutContactInput
+}
+
+export type CrmContactUncheckedCreateWithoutPortalAccessesInput = {
+  id?: string
+  tenantId: string
+  customerId: string
+  firstName: string
+  lastName?: string | null
+  fullName: string
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
+  role?: $Enums.ContactRole
+  jobTitle?: string | null
+  department?: string | null
+  lifecycleStage?: $Enums.ContactLifecycleStage
+  leadScore?: number
+  leadTemperature?: string | null
+  source?: string
+  lastInteractionAt?: Date | string | null
+  lastChannelUsed?: string | null
+  socialProfiles?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  avatarUrl?: string | null
+  assignedToUserId?: string | null
+  isMainContact?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutContactInput
+  crmActivities?: Prisma.CrmActivityUncheckedCreateNestedManyWithoutContactInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutContactInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutContactInput
+}
+
+export type CrmContactCreateOrConnectWithoutPortalAccessesInput = {
+  where: Prisma.CrmContactWhereUniqueInput
+  create: Prisma.XOR<Prisma.CrmContactCreateWithoutPortalAccessesInput, Prisma.CrmContactUncheckedCreateWithoutPortalAccessesInput>
+}
+
+export type CrmContactUpsertWithoutPortalAccessesInput = {
+  update: Prisma.XOR<Prisma.CrmContactUpdateWithoutPortalAccessesInput, Prisma.CrmContactUncheckedUpdateWithoutPortalAccessesInput>
+  create: Prisma.XOR<Prisma.CrmContactCreateWithoutPortalAccessesInput, Prisma.CrmContactUncheckedCreateWithoutPortalAccessesInput>
+  where?: Prisma.CrmContactWhereInput
+}
+
+export type CrmContactUpdateToOneWithWhereWithoutPortalAccessesInput = {
+  where?: Prisma.CrmContactWhereInput
+  data: Prisma.XOR<Prisma.CrmContactUpdateWithoutPortalAccessesInput, Prisma.CrmContactUncheckedUpdateWithoutPortalAccessesInput>
+}
+
+export type CrmContactUpdateWithoutPortalAccessesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumContactRoleFieldUpdateOperationsInput | $Enums.ContactRole
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lifecycleStage?: Prisma.EnumContactLifecycleStageFieldUpdateOperationsInput | $Enums.ContactLifecycleStage
+  leadScore?: Prisma.IntFieldUpdateOperationsInput | number
+  leadTemperature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  source?: Prisma.StringFieldUpdateOperationsInput | string
+  lastInteractionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastChannelUsed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  socialProfiles?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isMainContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutCrmContactsNestedInput
+  customer?: Prisma.CustomerUpdateOneRequiredWithoutCrmContactsNestedInput
+  assignedTo?: Prisma.UserUpdateOneWithoutAssignedContactsNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutContactNestedInput
+  crmActivities?: Prisma.CrmActivityUpdateManyWithoutContactNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutContactNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutContactNestedInput
+}
+
+export type CrmContactUncheckedUpdateWithoutPortalAccessesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  customerId?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumContactRoleFieldUpdateOperationsInput | $Enums.ContactRole
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lifecycleStage?: Prisma.EnumContactLifecycleStageFieldUpdateOperationsInput | $Enums.ContactLifecycleStage
+  leadScore?: Prisma.IntFieldUpdateOperationsInput | number
+  leadTemperature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  source?: Prisma.StringFieldUpdateOperationsInput | string
+  lastInteractionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastChannelUsed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  socialProfiles?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  assignedToUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isMainContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutContactNestedInput
+  crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutContactNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutContactNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutContactNestedInput
 }
 
 export type CrmContactCreateManyAssignedToInput = {
@@ -1651,6 +2218,9 @@ export type CrmContactUpdateWithoutAssignedToInput = {
   customer?: Prisma.CustomerUpdateOneRequiredWithoutCrmContactsNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutContactNestedInput
   crmActivities?: Prisma.CrmActivityUpdateManyWithoutContactNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutContactNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutContactNestedInput
+  portalAccesses?: Prisma.CustomerPortalAccessUpdateManyWithoutContactNestedInput
 }
 
 export type CrmContactUncheckedUpdateWithoutAssignedToInput = {
@@ -1682,6 +2252,9 @@ export type CrmContactUncheckedUpdateWithoutAssignedToInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutContactNestedInput
   crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutContactNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutContactNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutContactNestedInput
+  portalAccesses?: Prisma.CustomerPortalAccessUncheckedUpdateManyWithoutContactNestedInput
 }
 
 export type CrmContactUncheckedUpdateManyWithoutAssignedToInput = {
@@ -1771,6 +2344,9 @@ export type CrmContactUpdateWithoutCustomerInput = {
   assignedTo?: Prisma.UserUpdateOneWithoutAssignedContactsNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutContactNestedInput
   crmActivities?: Prisma.CrmActivityUpdateManyWithoutContactNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutContactNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutContactNestedInput
+  portalAccesses?: Prisma.CustomerPortalAccessUpdateManyWithoutContactNestedInput
 }
 
 export type CrmContactUncheckedUpdateWithoutCustomerInput = {
@@ -1802,6 +2378,9 @@ export type CrmContactUncheckedUpdateWithoutCustomerInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutContactNestedInput
   crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutContactNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutContactNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutContactNestedInput
+  portalAccesses?: Prisma.CustomerPortalAccessUncheckedUpdateManyWithoutContactNestedInput
 }
 
 export type CrmContactUncheckedUpdateManyWithoutCustomerInput = {
@@ -1891,6 +2470,9 @@ export type CrmContactUpdateWithoutTenantInput = {
   assignedTo?: Prisma.UserUpdateOneWithoutAssignedContactsNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutContactNestedInput
   crmActivities?: Prisma.CrmActivityUpdateManyWithoutContactNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutContactNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutContactNestedInput
+  portalAccesses?: Prisma.CustomerPortalAccessUpdateManyWithoutContactNestedInput
 }
 
 export type CrmContactUncheckedUpdateWithoutTenantInput = {
@@ -1922,6 +2504,9 @@ export type CrmContactUncheckedUpdateWithoutTenantInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutContactNestedInput
   crmActivities?: Prisma.CrmActivityUncheckedUpdateManyWithoutContactNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutContactNestedInput
+  signerAssignments?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutContactNestedInput
+  portalAccesses?: Prisma.CustomerPortalAccessUncheckedUpdateManyWithoutContactNestedInput
 }
 
 export type CrmContactUncheckedUpdateManyWithoutTenantInput = {
@@ -1961,11 +2546,17 @@ export type CrmContactUncheckedUpdateManyWithoutTenantInput = {
 export type CrmContactCountOutputType = {
   crmDeals: number
   crmActivities: number
+  orders: number
+  signerAssignments: number
+  portalAccesses: number
 }
 
 export type CrmContactCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   crmDeals?: boolean | CrmContactCountOutputTypeCountCrmDealsArgs
   crmActivities?: boolean | CrmContactCountOutputTypeCountCrmActivitiesArgs
+  orders?: boolean | CrmContactCountOutputTypeCountOrdersArgs
+  signerAssignments?: boolean | CrmContactCountOutputTypeCountSignerAssignmentsArgs
+  portalAccesses?: boolean | CrmContactCountOutputTypeCountPortalAccessesArgs
 }
 
 /**
@@ -1990,6 +2581,27 @@ export type CrmContactCountOutputTypeCountCrmDealsArgs<ExtArgs extends runtime.T
  */
 export type CrmContactCountOutputTypeCountCrmActivitiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.CrmActivityWhereInput
+}
+
+/**
+ * CrmContactCountOutputType without action
+ */
+export type CrmContactCountOutputTypeCountOrdersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.OrderWhereInput
+}
+
+/**
+ * CrmContactCountOutputType without action
+ */
+export type CrmContactCountOutputTypeCountSignerAssignmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SignatureEnvelopeSignerWhereInput
+}
+
+/**
+ * CrmContactCountOutputType without action
+ */
+export type CrmContactCountOutputTypeCountPortalAccessesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CustomerPortalAccessWhereInput
 }
 
 
@@ -2026,6 +2638,9 @@ export type CrmContactSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   assignedTo?: boolean | Prisma.CrmContact$assignedToArgs<ExtArgs>
   crmDeals?: boolean | Prisma.CrmContact$crmDealsArgs<ExtArgs>
   crmActivities?: boolean | Prisma.CrmContact$crmActivitiesArgs<ExtArgs>
+  orders?: boolean | Prisma.CrmContact$ordersArgs<ExtArgs>
+  signerAssignments?: boolean | Prisma.CrmContact$signerAssignmentsArgs<ExtArgs>
+  portalAccesses?: boolean | Prisma.CrmContact$portalAccessesArgs<ExtArgs>
   _count?: boolean | Prisma.CrmContactCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["crmContact"]>
 
@@ -2132,6 +2747,9 @@ export type CrmContactInclude<ExtArgs extends runtime.Types.Extensions.InternalA
   assignedTo?: boolean | Prisma.CrmContact$assignedToArgs<ExtArgs>
   crmDeals?: boolean | Prisma.CrmContact$crmDealsArgs<ExtArgs>
   crmActivities?: boolean | Prisma.CrmContact$crmActivitiesArgs<ExtArgs>
+  orders?: boolean | Prisma.CrmContact$ordersArgs<ExtArgs>
+  signerAssignments?: boolean | Prisma.CrmContact$signerAssignmentsArgs<ExtArgs>
+  portalAccesses?: boolean | Prisma.CrmContact$portalAccessesArgs<ExtArgs>
   _count?: boolean | Prisma.CrmContactCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type CrmContactIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2153,6 +2771,9 @@ export type $CrmContactPayload<ExtArgs extends runtime.Types.Extensions.Internal
     assignedTo: Prisma.$UserPayload<ExtArgs> | null
     crmDeals: Prisma.$CrmDealPayload<ExtArgs>[]
     crmActivities: Prisma.$CrmActivityPayload<ExtArgs>[]
+    orders: Prisma.$OrderPayload<ExtArgs>[]
+    signerAssignments: Prisma.$SignatureEnvelopeSignerPayload<ExtArgs>[]
+    portalAccesses: Prisma.$CustomerPortalAccessPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2581,6 +3202,9 @@ export interface Prisma__CrmContactClient<T, Null = never, ExtArgs extends runti
   assignedTo<T extends Prisma.CrmContact$assignedToArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CrmContact$assignedToArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   crmDeals<T extends Prisma.CrmContact$crmDealsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CrmContact$crmDealsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CrmDealPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   crmActivities<T extends Prisma.CrmContact$crmActivitiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CrmContact$crmActivitiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CrmActivityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  orders<T extends Prisma.CrmContact$ordersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CrmContact$ordersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  signerAssignments<T extends Prisma.CrmContact$signerAssignmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CrmContact$signerAssignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SignatureEnvelopeSignerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  portalAccesses<T extends Prisma.CrmContact$portalAccessesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CrmContact$portalAccessesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerPortalAccessPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3097,6 +3721,78 @@ export type CrmContact$crmActivitiesArgs<ExtArgs extends runtime.Types.Extension
   take?: number
   skip?: number
   distinct?: Prisma.CrmActivityScalarFieldEnum | Prisma.CrmActivityScalarFieldEnum[]
+}
+
+/**
+ * CrmContact.orders
+ */
+export type CrmContact$ordersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Order
+   */
+  select?: Prisma.OrderSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Order
+   */
+  omit?: Prisma.OrderOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OrderInclude<ExtArgs> | null
+  where?: Prisma.OrderWhereInput
+  orderBy?: Prisma.OrderOrderByWithRelationInput | Prisma.OrderOrderByWithRelationInput[]
+  cursor?: Prisma.OrderWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.OrderScalarFieldEnum | Prisma.OrderScalarFieldEnum[]
+}
+
+/**
+ * CrmContact.signerAssignments
+ */
+export type CrmContact$signerAssignmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SignatureEnvelopeSigner
+   */
+  select?: Prisma.SignatureEnvelopeSignerSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SignatureEnvelopeSigner
+   */
+  omit?: Prisma.SignatureEnvelopeSignerOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SignatureEnvelopeSignerInclude<ExtArgs> | null
+  where?: Prisma.SignatureEnvelopeSignerWhereInput
+  orderBy?: Prisma.SignatureEnvelopeSignerOrderByWithRelationInput | Prisma.SignatureEnvelopeSignerOrderByWithRelationInput[]
+  cursor?: Prisma.SignatureEnvelopeSignerWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SignatureEnvelopeSignerScalarFieldEnum | Prisma.SignatureEnvelopeSignerScalarFieldEnum[]
+}
+
+/**
+ * CrmContact.portalAccesses
+ */
+export type CrmContact$portalAccessesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CustomerPortalAccess
+   */
+  select?: Prisma.CustomerPortalAccessSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CustomerPortalAccess
+   */
+  omit?: Prisma.CustomerPortalAccessOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CustomerPortalAccessInclude<ExtArgs> | null
+  where?: Prisma.CustomerPortalAccessWhereInput
+  orderBy?: Prisma.CustomerPortalAccessOrderByWithRelationInput | Prisma.CustomerPortalAccessOrderByWithRelationInput[]
+  cursor?: Prisma.CustomerPortalAccessWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CustomerPortalAccessScalarFieldEnum | Prisma.CustomerPortalAccessScalarFieldEnum[]
 }
 
 /**

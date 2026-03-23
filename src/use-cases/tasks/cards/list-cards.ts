@@ -17,6 +17,7 @@ interface ListCardsRequest {
   search?: string;
   startDate?: Date;
   endDate?: Date;
+  includeArchived?: boolean;
   page?: number;
   limit?: number;
 }
@@ -66,7 +67,7 @@ export class ListCardsUseCase {
       search: request.search,
       startDate: request.startDate,
       endDate: request.endDate,
-      parentCardId: null,
+      includeArchived: request.includeArchived,
       page,
       limit,
     });

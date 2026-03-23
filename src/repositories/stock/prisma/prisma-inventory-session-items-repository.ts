@@ -77,7 +77,6 @@ export class PrismaInventorySessionItemsRepository
   async createMany(
     data: CreateInventorySessionItemSchema[],
   ): Promise<InventorySessionItem[]> {
-    // Prisma createMany doesn't return records, so use individual creates in a transaction
     const rows = await prisma.$transaction(
       data.map((d) =>
         prisma.inventorySessionItem.create({

@@ -1,41 +1,102 @@
 import { z } from 'zod';
 
 const bidModalityEnum = z.enum([
-  'PREGAO_ELETRONICO', 'PREGAO_PRESENCIAL', 'CONCORRENCIA', 'TOMADA_PRECOS',
-  'CONVITE', 'LEILAO', 'DIALOGO_COMPETITIVO', 'CONCURSO', 'DISPENSA', 'INEXIGIBILIDADE',
+  'PREGAO_ELETRONICO',
+  'PREGAO_PRESENCIAL',
+  'CONCORRENCIA',
+  'TOMADA_PRECOS',
+  'CONVITE',
+  'LEILAO',
+  'DIALOGO_COMPETITIVO',
+  'CONCURSO',
+  'DISPENSA',
+  'INEXIGIBILIDADE',
 ]);
 
 const bidCriterionEnum = z.enum([
-  'MENOR_PRECO', 'MAIOR_DESCONTO', 'MELHOR_TECNICA', 'TECNICA_PRECO', 'MAIOR_LANCE', 'MAIOR_RETORNO',
+  'MENOR_PRECO',
+  'MAIOR_DESCONTO',
+  'MELHOR_TECNICA',
+  'TECNICA_PRECO',
+  'MAIOR_LANCE',
+  'MAIOR_RETORNO',
 ]);
 
 const bidLegalFrameworkEnum = z.enum([
-  'LEI_14133_2021', 'LEI_8666_1993', 'LEI_10520_2002', 'LEI_12462_2011', 'DECRETO_10024_2019',
+  'LEI_14133_2021',
+  'LEI_8666_1993',
+  'LEI_10520_2002',
+  'LEI_12462_2011',
+  'DECRETO_10024_2019',
 ]);
 
 const bidExecutionRegimeEnum = z.enum([
-  'EMPREITADA_PRECO_GLOBAL', 'EMPREITADA_PRECO_UNITARIO', 'TAREFA', 'INTEGRAL', 'FORNECIMENTO_REGIME_PRECO',
+  'EMPREITADA_PRECO_GLOBAL',
+  'EMPREITADA_PRECO_UNITARIO',
+  'TAREFA',
+  'INTEGRAL',
+  'FORNECIMENTO_REGIME_PRECO',
 ]);
 
 const bidStatusEnum = z.enum([
-  'DISCOVERED', 'ANALYZING', 'VIABLE', 'NOT_VIABLE', 'PREPARING', 'PROPOSAL_SENT',
-  'AWAITING_DISPUTE', 'IN_DISPUTE', 'WON', 'LOST', 'DESERTED', 'REVOKED',
-  'SUSPENDED', 'MONITORING', 'CONTRACTED', 'COMPLETED', 'ARCHIVED',
+  'DISCOVERED',
+  'ANALYZING',
+  'VIABLE',
+  'NOT_VIABLE',
+  'PREPARING',
+  'PROPOSAL_SENT',
+  'AWAITING_DISPUTE',
+  'IN_DISPUTE',
+  'WON',
+  'LOST',
+  'DESERTED',
+  'REVOKED',
+  'SUSPENDED',
+  'MONITORING',
+  'CONTRACTED',
+  'COMPLETED',
+  'ARCHIVED',
 ]);
 
 const bidDocumentTypeEnum = z.enum([
-  'CERTIDAO_FEDERAL', 'CERTIDAO_ESTADUAL', 'CERTIDAO_MUNICIPAL', 'CERTIDAO_TRABALHISTA',
-  'CERTIDAO_FGTS', 'CERTIDAO_FALENCIA', 'BALANCO_PATRIMONIAL', 'CONTRATO_SOCIAL',
-  'ALVARA', 'ATESTADO_CAPACIDADE', 'PROPOSTA_TECNICA', 'PROPOSTA_COMERCIAL',
-  'EDITAL', 'ATA_REGISTRO', 'OUTROS',
+  'CERTIDAO_FEDERAL',
+  'CERTIDAO_ESTADUAL',
+  'CERTIDAO_MUNICIPAL',
+  'CERTIDAO_TRABALHISTA',
+  'CERTIDAO_FGTS',
+  'CERTIDAO_FALENCIA',
+  'BALANCO_PATRIMONIAL',
+  'CONTRATO_SOCIAL',
+  'ALVARA',
+  'ATESTADO_CAPACIDADE',
+  'PROPOSTA_TECNICA',
+  'PROPOSTA_COMERCIAL',
+  'EDITAL',
+  'ATA_REGISTRO',
+  'OUTROS',
 ]);
 
 const bidContractStatusEnum = z.enum([
-  'DRAFT_CONTRACT', 'ACTIVE_CONTRACT', 'SUSPENDED_CONTRACT',
-  'COMPLETED_CONTRACT', 'TERMINATED_CONTRACT', 'RENEWED_CONTRACT',
+  'DRAFT_CONTRACT',
+  'ACTIVE_CONTRACT',
+  'SUSPENDED_CONTRACT',
+  'COMPLETED_CONTRACT',
+  'TERMINATED_CONTRACT',
+  'RENEWED_CONTRACT',
 ]);
 
-const bidEmpenhoTypeEnum = z.enum(['ORDINARIO', 'ESTIMATIVO', 'GLOBAL_EMPENHO']);
+const bidEmpenhoTypeEnum = z.enum([
+  'ORDINARIO',
+  'ESTIMATIVO',
+  'GLOBAL_EMPENHO',
+]);
+
+const bidEmpenhoStatusEnum = z.enum([
+  'EMITIDO',
+  'PARCIALMENTE_LIQUIDADO',
+  'LIQUIDADO',
+  'ANULADO',
+]);
 
 // ─── Create Bid ────────────────────────────────────────────────────────────
 export const createBidSchema = z.object({
@@ -45,7 +106,9 @@ export const createBidSchema = z.object({
   modality: bidModalityEnum.describe('Bid modality'),
   criterionType: bidCriterionEnum.describe('Criterion type'),
   legalFramework: bidLegalFrameworkEnum.describe('Legal framework'),
-  executionRegime: bidExecutionRegimeEnum.optional().describe('Execution regime'),
+  executionRegime: bidExecutionRegimeEnum
+    .optional()
+    .describe('Execution regime'),
   object: z.string().min(1).describe('Object description'),
   objectSummary: z.string().max(512).optional().describe('Short summary'),
   organName: z.string().min(1).max(256).describe('Organ name'),
@@ -59,8 +122,15 @@ export const createBidSchema = z.object({
   disputeDate: z.coerce.date().optional().describe('Dispute date'),
   customerId: z.string().uuid().optional().describe('Customer (organ) ID'),
   assignedToUserId: z.string().uuid().optional().describe('Assigned user ID'),
-  exclusiveMeEpp: z.boolean().optional().default(false).describe('Exclusive ME/EPP'),
-  deliveryStates: z.array(z.string().max(2)).optional().describe('Delivery states'),
+  exclusiveMeEpp: z
+    .boolean()
+    .optional()
+    .default(false)
+    .describe('Exclusive ME/EPP'),
+  deliveryStates: z
+    .array(z.string().max(2))
+    .optional()
+    .describe('Delivery states'),
   tags: z.array(z.string().max(50)).optional().describe('Tags'),
   notes: z.string().optional().describe('Notes'),
   editalUrl: z.string().url().max(1024).optional().describe('Edital URL'),
@@ -71,13 +141,28 @@ export const updateBidSchema = z.object({
   object: z.string().min(1).optional().describe('Object description'),
   objectSummary: z.string().max(512).optional().describe('Short summary'),
   status: bidStatusEnum.optional().describe('Bid status'),
-  viabilityScore: z.number().int().min(0).max(100).optional().describe('Viability score'),
+  viabilityScore: z
+    .number()
+    .int()
+    .min(0)
+    .max(100)
+    .optional()
+    .describe('Viability score'),
   viabilityReason: z.string().max(512).optional().describe('Viability reason'),
-  ourProposalValue: z.number().positive().optional().describe('Our proposal value'),
+  ourProposalValue: z
+    .number()
+    .positive()
+    .optional()
+    .describe('Our proposal value'),
   finalValue: z.number().positive().optional().describe('Final value'),
   margin: z.number().optional().describe('Margin %'),
   customerId: z.string().uuid().nullable().optional().describe('Customer ID'),
-  assignedToUserId: z.string().uuid().nullable().optional().describe('Assigned user ID'),
+  assignedToUserId: z
+    .string()
+    .uuid()
+    .nullable()
+    .optional()
+    .describe('Assigned user ID'),
   tags: z.array(z.string().max(50)).optional().describe('Tags'),
   notes: z.string().optional().describe('Notes'),
 });
@@ -134,7 +219,10 @@ export const listBidsQuerySchema = z.object({
   modality: bidModalityEnum.optional(),
   organState: z.string().max(2).optional(),
   assignedToUserId: z.string().uuid().optional(),
-  sortBy: z.enum(['createdAt', 'openingDate', 'estimatedValue', 'editalNumber']).optional().default('createdAt'),
+  sortBy: z
+    .enum(['createdAt', 'openingDate', 'estimatedValue', 'editalNumber'])
+    .optional()
+    .default('createdAt'),
   sortOrder: z.enum(['asc', 'desc']).optional().default('desc'),
 });
 
@@ -288,4 +376,141 @@ export const bidHistoryResponseSchema = z.object({
 export const bidSubResourceQuerySchema = z.object({
   page: z.coerce.number().int().positive().default(1),
   limit: z.coerce.number().int().positive().max(100).default(20),
+});
+
+// ─── Change Bid Status ────────────────────────────────────────────────────
+export const changeBidStatusSchema = z.object({
+  status: bidStatusEnum.describe('New bid status'),
+  reason: z.string().max(512).optional().describe('Reason for status change'),
+});
+
+// ─── Upload Bid Document ──────────────────────────────────────────────────
+export const uploadBidDocumentSchema = z.object({
+  bidId: z.string().uuid().optional().describe('Bid UUID'),
+  type: bidDocumentTypeEnum.describe('Document type'),
+  name: z.string().min(1).max(256).describe('Document name'),
+  description: z.string().max(512).optional().describe('Document description'),
+  fileId: z.string().uuid().describe('File UUID from storage'),
+  issueDate: z.coerce.date().optional().describe('Issue date'),
+  expirationDate: z.coerce.date().optional().describe('Expiration date'),
+  autoRenewable: z
+    .boolean()
+    .optional()
+    .default(false)
+    .describe('Auto-renewable flag'),
+});
+
+// ─── List Bid Empenhos Query ──────────────────────────────────────────────
+export const listBidEmpenhosQuerySchema = z.object({
+  page: z.coerce.number().int().positive().default(1),
+  limit: z.coerce.number().int().positive().max(100).default(20),
+  contractId: z.string().uuid().optional().describe('Filter by contract'),
+  status: bidEmpenhoStatusEnum.optional().describe('Filter by empenho status'),
+  bidId: z.string().uuid().optional().describe('Filter by bid'),
+});
+
+// ─── Bid AI Config Response ───────────────────────────────────────────────
+export const bidAiConfigResponseSchema = z.object({
+  id: z.string().uuid(),
+  tenantId: z.string().uuid(),
+  autonomyLevel: z.number(),
+  maxEditalValue: z.number().nullable(),
+  minMarginPercent: z.number(),
+  allowedModalities: z.array(z.string()),
+  allowedCategories: z.array(z.string()),
+  blockedOrgans: z.array(z.string()),
+  maxSimultaneous: z.number(),
+  maxAggregateExposure: z.number().nullable(),
+  coolingOffMinutes: z.number(),
+  emergencyStop: z.boolean(),
+  firstTimeApproval: z.boolean(),
+  companySize: z.string().nullable(),
+  monitoringTimeoutDays: z.number(),
+  autoProspect: z.boolean(),
+  autoPropose: z.boolean(),
+  autoDispute: z.boolean(),
+  autoRespond: z.boolean(),
+  autoCreateOrder: z.boolean(),
+  notifyOnActions: z.boolean(),
+  chatResponseWhitelist: z.array(z.string()),
+  createdAt: z.coerce.date(),
+  updatedAt: z.coerce.date().nullable(),
+});
+
+// ─── Update Bid AI Config ─────────────────────────────────────────────────
+export const updateBidAiConfigSchema = z.object({
+  enabled: z.boolean().optional().describe('Enable/disable AI'),
+  autonomyLevel: z
+    .number()
+    .int()
+    .min(0)
+    .max(5)
+    .optional()
+    .describe('Autonomy level (0-5)'),
+  maxEditalValue: z
+    .number()
+    .positive()
+    .nullable()
+    .optional()
+    .describe('Max edital value'),
+  minMarginPercent: z
+    .number()
+    .min(0)
+    .max(100)
+    .optional()
+    .describe('Min margin %'),
+  allowedModalities: z
+    .array(z.string())
+    .optional()
+    .describe('Allowed modalities'),
+  allowedCategories: z
+    .array(z.string())
+    .optional()
+    .describe('Allowed categories'),
+  blockedOrgans: z.array(z.string()).optional().describe('Blocked organs'),
+  maxSimultaneous: z
+    .number()
+    .int()
+    .positive()
+    .optional()
+    .describe('Max simultaneous bids'),
+  maxAggregateExposure: z
+    .number()
+    .positive()
+    .nullable()
+    .optional()
+    .describe('Max aggregate exposure'),
+  coolingOffMinutes: z
+    .number()
+    .int()
+    .min(0)
+    .optional()
+    .describe('Cooling-off minutes'),
+  emergencyStop: z.boolean().optional().describe('Emergency stop'),
+  firstTimeApproval: z
+    .boolean()
+    .optional()
+    .describe('Require first-time approval'),
+  companySize: z
+    .string()
+    .max(16)
+    .nullable()
+    .optional()
+    .describe('Company size'),
+  monitoringTimeoutDays: z
+    .number()
+    .int()
+    .positive()
+    .optional()
+    .describe('Monitoring timeout days'),
+  autoProspect: z.boolean().optional().describe('Auto prospect'),
+  autoPropose: z.boolean().optional().describe('Auto propose'),
+  autoDispute: z.boolean().optional().describe('Auto dispute'),
+  autoRespond: z.boolean().optional().describe('Auto respond'),
+  autoCreateOrder: z.boolean().optional().describe('Auto create order'),
+  notifyOnActions: z.boolean().optional().describe('Notify on actions'),
+  chatResponseWhitelist: z
+    .array(z.string())
+    .optional()
+    .describe('Chat response whitelist'),
 });

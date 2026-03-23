@@ -36,7 +36,7 @@ function mapToDomain(customerData: Record<string, unknown>): Customer {
       tenantId: new EntityID(d.tenantId as string),
       name: d.name as string,
       type: CustomerType.create(d.type as string),
-      document: d.document ? Document.create(d.document as string) : undefined,
+      document: d.document ? Document.fromPersistence(d.document as string) : undefined,
       email: (d.email as string) ?? undefined,
       phone: (d.phone as string) ?? undefined,
       address: (d.address as string) ?? undefined,

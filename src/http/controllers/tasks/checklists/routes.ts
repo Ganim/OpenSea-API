@@ -4,6 +4,7 @@ import { createModuleMiddleware } from '@/http/middlewares/tenant/verify-module'
 import { addChecklistItemController } from './v1-add-checklist-item.controller';
 import { createChecklistController } from './v1-create-checklist.controller';
 import { deleteChecklistController } from './v1-delete-checklist.controller';
+import { listChecklistsController } from './v1-list-checklists.controller';
 import { removeChecklistItemController } from './v1-remove-checklist-item.controller';
 import { toggleChecklistItemController } from './v1-toggle-checklist-item.controller';
 import { updateChecklistController } from './v1-update-checklist.controller';
@@ -11,6 +12,7 @@ import { updateChecklistController } from './v1-update-checklist.controller';
 export async function taskChecklistsRoutes(app: FastifyInstance) {
   app.addHook('onRequest', createModuleMiddleware('TASKS'));
 
+  app.register(listChecklistsController);
   app.register(createChecklistController);
   app.register(updateChecklistController);
   app.register(deleteChecklistController);

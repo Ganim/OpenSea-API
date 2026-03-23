@@ -1,3 +1,4 @@
+import type { Prisma } from '@prisma/generated/client.js';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { MarketplaceConnection } from '@/entities/sales/marketplace-connection';
 import type {
@@ -93,7 +94,7 @@ export class PrismaMarketplaceConnectionsRepository
         defaultWarehouseId: data.defaultWarehouseId,
         webhookUrl: data.webhookUrl,
         webhookSecret: data.webhookSecret,
-        settings: data.settings ?? undefined,
+        settings: (data.settings ?? undefined) as Prisma.InputJsonValue | undefined,
       },
     });
 
@@ -231,7 +232,7 @@ export class PrismaMarketplaceConnectionsRepository
         priceMultiplier: connection.priceMultiplier,
         fulfillmentType: connection.fulfillmentType as PrismaFulfillmentType,
         defaultWarehouseId: connection.defaultWarehouseId,
-        settings: connection.settings ?? undefined,
+        settings: (connection.settings ?? undefined) as Prisma.InputJsonValue | undefined,
         deletedAt: connection.deletedAt,
         updatedAt: new Date(),
       },

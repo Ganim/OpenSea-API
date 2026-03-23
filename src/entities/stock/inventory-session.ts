@@ -8,24 +8,31 @@ export type InventorySessionStatus = 'OPEN' | 'PAUSED' | 'COMPLETED' | 'CANCELLE
 
 export interface InventorySessionProps {
   tenantId: UniqueEntityID;
+  userId: UniqueEntityID;
   mode: InventorySessionMode;
   status: InventorySessionStatus;
-  scope: Record<string, unknown>;
+  binId?: UniqueEntityID;
+  zoneId?: UniqueEntityID;
+  productId?: UniqueEntityID;
+  variantId?: UniqueEntityID;
   totalItems: number;
+  scannedItems: number;
   confirmedItems: number;
-  divergences: number;
+  divergentItems: number;
   notes?: string;
   startedAt: Date;
-  pausedAt?: Date;
   completedAt?: Date;
   createdAt: Date;
-  deletedAt?: Date;
-  startedBy: string;
+  updatedAt: Date;
 }
 
 export class InventorySession extends Entity<InventorySessionProps> {
   get tenantId(): UniqueEntityID {
     return this.props.tenantId;
+  }
+
+  get userId(): UniqueEntityID {
+    return this.props.userId;
   }
 
   get mode(): InventorySessionMode {
@@ -36,8 +43,20 @@ export class InventorySession extends Entity<InventorySessionProps> {
     return this.props.status;
   }
 
-  get scope(): Record<string, unknown> {
-    return this.props.scope;
+  get binId(): UniqueEntityID | undefined {
+    return this.props.binId;
+  }
+
+  get zoneId(): UniqueEntityID | undefined {
+    return this.props.zoneId;
+  }
+
+  get productId(): UniqueEntityID | undefined {
+    return this.props.productId;
+  }
+
+  get variantId(): UniqueEntityID | undefined {
+    return this.props.variantId;
   }
 
   get totalItems(): number {
@@ -48,6 +67,14 @@ export class InventorySession extends Entity<InventorySessionProps> {
     this.props.totalItems = value;
   }
 
+  get scannedItems(): number {
+    return this.props.scannedItems;
+  }
+
+  set scannedItems(value: number) {
+    this.props.scannedItems = value;
+  }
+
   get confirmedItems(): number {
     return this.props.confirmedItems;
   }
@@ -56,12 +83,12 @@ export class InventorySession extends Entity<InventorySessionProps> {
     this.props.confirmedItems = value;
   }
 
-  get divergences(): number {
-    return this.props.divergences;
+  get divergentItems(): number {
+    return this.props.divergentItems;
   }
 
-  set divergences(value: number) {
-    this.props.divergences = value;
+  set divergentItems(value: number) {
+    this.props.divergentItems = value;
   }
 
   get notes(): string | undefined {
@@ -76,10 +103,6 @@ export class InventorySession extends Entity<InventorySessionProps> {
     return this.props.startedAt;
   }
 
-  get pausedAt(): Date | undefined {
-    return this.props.pausedAt;
-  }
-
   get completedAt(): Date | undefined {
     return this.props.completedAt;
   }
@@ -88,17 +111,17 @@ export class InventorySession extends Entity<InventorySessionProps> {
     return this.props.createdAt;
   }
 
-  get deletedAt(): Date | undefined {
-    return this.props.deletedAt;
-  }
-
-  get startedBy(): string {
-    return this.props.startedBy;
+  get updatedAt(): Date {
+    return this.props.updatedAt;
   }
 
   // Computed properties
   get isActive(): boolean {
     return this.props.status === 'OPEN' || this.props.status === 'PAUSED';
+  }
+
+  get isOpen(): boolean {
+    return this.props.status === 'OPEN';
   }
 
   get progress(): number {
@@ -114,7 +137,7 @@ export class InventorySession extends Entity<InventorySessionProps> {
       );
     }
     this.props.status = 'PAUSED';
-    this.props.pausedAt = new Date();
+    this.props.updatedAt = new Date();
   }
 
   resume(): void {
@@ -124,7 +147,7 @@ export class InventorySession extends Entity<InventorySessionProps> {
       );
     }
     this.props.status = 'OPEN';
-    this.props.pausedAt = undefined;
+    this.props.updatedAt = new Date();
   }
 
   complete(): void {
@@ -135,6 +158,7 @@ export class InventorySession extends Entity<InventorySessionProps> {
     }
     this.props.status = 'COMPLETED';
     this.props.completedAt = new Date();
+    this.props.updatedAt = new Date();
   }
 
   cancel(): void {
@@ -145,10 +169,7 @@ export class InventorySession extends Entity<InventorySessionProps> {
     }
     this.props.status = 'CANCELLED';
     this.props.completedAt = new Date();
-  }
-
-  delete(): void {
-    this.props.deletedAt = new Date();
+    this.props.updatedAt = new Date();
   }
 
   static create(
@@ -156,24 +177,27 @@ export class InventorySession extends Entity<InventorySessionProps> {
       InventorySessionProps,
       | 'status'
       | 'totalItems'
+      | 'scannedItems'
       | 'confirmedItems'
-      | 'divergences'
+      | 'divergentItems'
       | 'startedAt'
       | 'createdAt'
-      | 'deletedAt'
+      | 'updatedAt'
     >,
     id?: UniqueEntityID,
   ): InventorySession {
+    const now = new Date();
     return new InventorySession(
       {
         ...props,
         status: props.status ?? 'OPEN',
         totalItems: props.totalItems ?? 0,
+        scannedItems: props.scannedItems ?? 0,
         confirmedItems: props.confirmedItems ?? 0,
-        divergences: props.divergences ?? 0,
-        startedAt: props.startedAt ?? new Date(),
-        createdAt: props.createdAt ?? new Date(),
-        deletedAt: props.deletedAt,
+        divergentItems: props.divergentItems ?? 0,
+        startedAt: props.startedAt ?? now,
+        createdAt: props.createdAt ?? now,
+        updatedAt: props.updatedAt ?? now,
       },
       id,
     );

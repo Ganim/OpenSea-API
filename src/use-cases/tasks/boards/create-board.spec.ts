@@ -2,16 +2,19 @@ import { describe, it, expect, beforeEach } from 'vitest';
 import { CreateBoardUseCase } from './create-board';
 import { InMemoryBoardsRepository } from '@/repositories/tasks/in-memory/in-memory-boards-repository';
 import { InMemoryBoardColumnsRepository } from '@/repositories/tasks/in-memory/in-memory-board-columns-repository';
+import { InMemoryBoardMembersRepository } from '@/repositories/tasks/in-memory/in-memory-board-members-repository';
 
 let boardsRepository: InMemoryBoardsRepository;
 let boardColumnsRepository: InMemoryBoardColumnsRepository;
+let boardMembersRepository: InMemoryBoardMembersRepository;
 let sut: CreateBoardUseCase;
 
 describe('CreateBoardUseCase', () => {
   beforeEach(() => {
     boardsRepository = new InMemoryBoardsRepository();
     boardColumnsRepository = new InMemoryBoardColumnsRepository();
-    sut = new CreateBoardUseCase(boardsRepository, boardColumnsRepository);
+    boardMembersRepository = new InMemoryBoardMembersRepository();
+    sut = new CreateBoardUseCase(boardsRepository, boardColumnsRepository, boardMembersRepository);
   });
 
   it('should create a personal board', async () => {

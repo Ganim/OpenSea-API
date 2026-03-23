@@ -36,7 +36,14 @@ export async function addReactionController(app: FastifyInstance) {
       }),
       body: addReactionSchema,
       response: {
-        201: z.object({ reaction: commentReactionResponseSchema }),
+        200: z.object({
+          reaction: commentReactionResponseSchema,
+          removed: z.boolean(),
+        }),
+        201: z.object({
+          reaction: commentReactionResponseSchema,
+          removed: z.boolean(),
+        }),
         400: z.object({ message: z.string() }),
         404: z.object({ message: z.string() }),
       },
@@ -56,7 +63,7 @@ export async function addReactionController(app: FastifyInstance) {
           ...request.body,
         });
 
-        return reply.status(201).send(result);
+        return reply.status(result.removed ? 200 : 201).send(result);
       } catch (error) {
         if (error instanceof BadRequestError) {
           return reply.status(400).send({ message: error.message });

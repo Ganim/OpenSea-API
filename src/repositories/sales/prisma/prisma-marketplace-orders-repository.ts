@@ -1,3 +1,4 @@
+import type { Prisma } from '@prisma/generated/client.js';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { MarketplaceOrder } from '@/entities/sales/marketplace-order';
 import type { MarketplaceOrderStatusType } from '@/entities/sales/marketplace-order';
@@ -72,7 +73,7 @@ export class PrismaMarketplaceOrdersRepository
         netAmount: data.netAmount,
         currency: data.currency ?? 'BRL',
         shippingMethod: data.shippingMethod,
-        deliveryAddress: data.deliveryAddress,
+        deliveryAddress: data.deliveryAddress as Prisma.InputJsonValue | undefined,
         receivedAt: data.receivedAt,
         notes: data.notes,
       },
@@ -133,9 +134,7 @@ export class PrismaMarketplaceOrdersRepository
     if (status) where.status = status;
 
     const records = await prisma.marketplaceOrder.findMany({
-      where: where as Parameters<
-        typeof prisma.marketplaceOrder.findMany
-      >[0]['where'],
+      where: where as Prisma.MarketplaceOrderWhereInput,
       skip: (page - 1) * perPage,
       take: perPage,
       orderBy: { receivedAt: 'desc' },
@@ -165,9 +164,7 @@ export class PrismaMarketplaceOrdersRepository
     if (status) where.status = status;
 
     return prisma.marketplaceOrder.count({
-      where: where as Parameters<
-        typeof prisma.marketplaceOrder.count
-      >[0]['where'],
+      where: where as Prisma.MarketplaceOrderWhereInput,
     });
   }
 
