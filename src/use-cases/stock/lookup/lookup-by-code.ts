@@ -1,8 +1,6 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import type { Bin } from '@/entities/stock/bin';
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { Item } from '@/entities/stock/item';
-import type { Product } from '@/entities/stock/product';
-import type { Variant } from '@/entities/stock/variant';
 import type { BinsRepository } from '@/repositories/stock/bins-repository';
 import type { ItemsRepository } from '@/repositories/stock/items-repository';
 import type { ProductsRepository } from '@/repositories/stock/products-repository';
@@ -22,7 +20,8 @@ interface LookupByCodeUseCaseRequest {
 
 interface LookupByCodeUseCaseResponse {
   entityType: LookupEntityType;
-  entity: Item | Variant | Product | Bin;
+  entityId: string;
+  entity: Record<string, unknown>;
 }
 
 export class LookupByCodeUseCase {
@@ -42,7 +41,7 @@ export class LookupByCodeUseCase {
     if (ITEM_PATTERN.test(code)) {
       const item = await this.itemsRepository.findByFullCode(code, tenantId);
       if (item) {
-        return { entityType: 'ITEM', entity: item };
+        return this.enrichItem(item, tenantId);
       }
     }
 
@@ -52,7 +51,20 @@ export class LookupByCodeUseCase {
         tenantId,
       );
       if (variant) {
-        return { entityType: 'VARIANT', entity: variant };
+        return {
+          entityType: 'VARIANT',
+          entityId: variant.id.toString(),
+          entity: {
+            id: variant.id.toString(),
+            name: variant.name,
+            sku: variant.sku,
+            fullCode: variant.fullCode,
+            barcode: variant.barcode,
+            price: variant.price,
+            colorHex: variant.colorHex,
+            status: variant.isActive ? 'Ativa' : 'Inativa',
+          },
+        };
       }
     }
 
@@ -62,14 +74,33 @@ export class LookupByCodeUseCase {
         tenantId,
       );
       if (product) {
-        return { entityType: 'PRODUCT', entity: product };
+        return {
+          entityType: 'PRODUCT',
+          entityId: product.id.toString(),
+          entity: {
+            id: product.id.toString(),
+            name: product.name,
+            fullCode: product.fullCode,
+            code: product.fullCode,
+          },
+        };
       }
     }
 
     if (BIN_PATTERN.test(code)) {
       const bin = await this.binsRepository.findByAddress(code, tenantId);
       if (bin) {
-        return { entityType: 'BIN', entity: bin };
+        return {
+          entityType: 'BIN',
+          entityId: bin.binId.toString(),
+          entity: {
+            id: bin.binId.toString(),
+            name: bin.address,
+            code: bin.address,
+            quantity: bin.currentOccupancy,
+            status: bin.isBlocked ? 'Bloqueado' : bin.isActive ? 'Ativo' : 'Inativo',
+          },
+        };
       }
     }
 
@@ -79,20 +110,74 @@ export class LookupByCodeUseCase {
       tenantId,
     );
     if (itemByBarcode) {
-      return { entityType: 'ITEM', entity: itemByBarcode };
+      return this.enrichItem(itemByBarcode, tenantId);
     }
 
     const itemByEan = await this.itemsRepository.findByEanCode(code, tenantId);
     if (itemByEan) {
-      return { entityType: 'ITEM', entity: itemByEan };
+      return this.enrichItem(itemByEan, tenantId);
     }
 
     const itemByUpc = await this.itemsRepository.findByUpcCode(code, tenantId);
     if (itemByUpc) {
-      return { entityType: 'ITEM', entity: itemByUpc };
+      return this.enrichItem(itemByUpc, tenantId);
     }
 
     // 3. Nothing found
     throw new ResourceNotFoundError(`No entity found for code: ${code}`);
+  }
+
+  /**
+   * Enrich an Item with variant name, product name, and bin address
+   */
+  private async enrichItem(
+    item: Item,
+    tenantId: string,
+  ): Promise<LookupByCodeUseCaseResponse> {
+    // Fetch related data in parallel
+    const [variant, bin] = await Promise.all([
+      this.variantsRepository.findById(
+        new UniqueEntityID(item.variantId.toString()),
+        tenantId,
+      ),
+      item.binId
+        ? this.binsRepository.findById(
+            new UniqueEntityID(item.binId.toString()),
+            tenantId,
+          )
+        : null,
+    ]);
+
+    let productName: string | undefined;
+    if (variant) {
+      const product = await this.productsRepository.findById(
+        new UniqueEntityID(variant.productId.toString()),
+        tenantId,
+      );
+      productName = product?.name;
+    }
+
+    const binAddress = bin?.address ?? item.lastKnownAddress;
+
+    return {
+      entityType: 'ITEM',
+      entityId: item.id.toString(),
+      entity: {
+        id: item.id.toString(),
+        name: [productName, variant?.name].filter(Boolean).join(' · '),
+        sku: variant?.sku,
+        barcode: item.barcode,
+        fullCode: item.fullCode,
+        variantName: variant?.name,
+        productName,
+        binLabel: binAddress,
+        location: binAddress,
+        batch: item.batchNumber,
+        expiresAt: item.expiryDate?.toISOString(),
+        manufacturedAt: item.manufacturingDate?.toISOString(),
+        quantity: item.currentQuantity,
+        status: item.status.value,
+      },
+    };
   }
 }

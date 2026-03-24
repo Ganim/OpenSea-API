@@ -21,6 +21,7 @@ export async function lookupByCodeController(app: FastifyInstance) {
         200: z.object({
           entityType: z.enum(['ITEM', 'VARIANT', 'PRODUCT', 'BIN']),
           entityId: z.string(),
+          entity: z.record(z.string(), z.unknown()),
         }),
         404: z.object({
           message: z.string(),
@@ -36,14 +37,15 @@ export async function lookupByCodeController(app: FastifyInstance) {
       const lookupUseCase = makeLookupByCodeUseCase();
 
       try {
-        const { entityType, entity } = await lookupUseCase.execute({
+        const result = await lookupUseCase.execute({
           tenantId,
           code: decodeURIComponent(code),
         });
 
         return reply.status(200).send({
-          entityType,
-          entityId: entity.id.toString(),
+          entityType: result.entityType,
+          entityId: result.entityId,
+          entity: result.entity,
         });
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
