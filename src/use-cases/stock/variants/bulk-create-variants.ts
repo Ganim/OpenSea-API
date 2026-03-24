@@ -338,7 +338,7 @@ export class BulkCreateVariantsUseCase {
           maxStock: variantInput.maxStock,
           reorderPoint: variantInput.reorderPoint,
           reorderQuantity: variantInput.reorderQuantity,
-          reference: variantInput.reference,
+          reference: variantInput.reference || '-',
           outOfLine: variantInput.outOfLine,
           isActive: variantInput.isActive,
         });

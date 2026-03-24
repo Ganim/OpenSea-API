@@ -235,7 +235,7 @@ export class CreateVariantUseCase {
           maxStock: input.maxStock,
           reorderPoint: input.reorderPoint,
           reorderQuantity: input.reorderQuantity,
-          reference: input.reference,
+          reference: input.reference || '-',
           similars: input.similars,
           outOfLine: input.outOfLine,
           isActive: input.isActive,
