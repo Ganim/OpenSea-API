@@ -15,6 +15,9 @@ interface BinItemDTO {
   manufacturerName: string | null;
   variantName: string | null;
   variantReference: string | null;
+  colorHex: string | null;
+  secondaryColorHex: string | null;
+  pattern: string | null;
   quantity: number;
   unitLabel: string | null;
   addedAt: Date;
@@ -102,6 +105,9 @@ export class GetBinDetailUseCase {
         manufacturerName: itemDTO.relatedData.manufacturerName ?? null,
         variantName: itemDTO.relatedData.variantName || null,
         variantReference: itemDTO.relatedData.variantReference ?? null,
+        colorHex: itemDTO.relatedData.variantColorHex ?? null,
+        secondaryColorHex: itemDTO.relatedData.variantSecondaryColorHex ?? null,
+        pattern: itemDTO.relatedData.variantPattern ?? null,
         quantity: itemDTO.item.currentQuantity,
         unitLabel: itemDTO.relatedData.templateUnitOfMeasure ?? null,
         addedAt: itemDTO.item.entryDate,

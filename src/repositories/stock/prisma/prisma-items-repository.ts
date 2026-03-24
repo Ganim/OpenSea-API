@@ -51,6 +51,8 @@ export interface ItemWithRelations {
     name: string;
     reference: string | null;
     colorHex: string | null;
+    secondaryColorHex: string | null;
+    pattern: string | null;
     attributes: object;
     product: {
       id: string;
@@ -104,6 +106,8 @@ export class PrismaItemsRepository implements ItemsRepository {
       >,
       variantAttributes: itemData.variant.attributes as Record<string, unknown>,
       variantColorHex: itemData.variant.colorHex ?? undefined,
+      variantSecondaryColorHex: itemData.variant.secondaryColorHex ?? undefined,
+      variantPattern: itemData.variant.pattern ?? undefined,
       manufacturerName: itemData.variant.product.manufacturer?.name,
       productId: itemData.variant.product.id,
     };
