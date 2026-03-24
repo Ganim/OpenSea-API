@@ -3,7 +3,9 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { Item } from '@/entities/stock/item';
 import type { BinsRepository } from '@/repositories/stock/bins-repository';
 import type { ItemsRepository } from '@/repositories/stock/items-repository';
+import type { ManufacturersRepository } from '@/repositories/stock/manufacturers-repository';
 import type { ProductsRepository } from '@/repositories/stock/products-repository';
+import type { TemplatesRepository } from '@/repositories/stock/templates-repository';
 import type { VariantsRepository } from '@/repositories/stock/variants-repository';
 
 const ITEM_PATTERN = /^\d{3}\.\d{3}\.\d{4}\.\d{3}-\d{5}$/;
@@ -30,6 +32,8 @@ export class LookupByCodeUseCase {
     private variantsRepository: VariantsRepository,
     private productsRepository: ProductsRepository,
     private binsRepository: BinsRepository,
+    private templatesRepository?: TemplatesRepository,
+    private manufacturersRepository?: ManufacturersRepository,
   ) {}
 
   async execute(
@@ -148,14 +152,29 @@ export class LookupByCodeUseCase {
         : null,
     ]);
 
-    let productName: string | undefined;
-    if (variant) {
-      const product = await this.productsRepository.findById(
-        new UniqueEntityID(variant.productId.toString()),
-        tenantId,
-      );
-      productName = product?.name;
-    }
+    // Fetch product
+    const product = variant
+      ? await this.productsRepository.findById(
+          new UniqueEntityID(variant.productId.toString()),
+          tenantId,
+        )
+      : null;
+
+    // Fetch template and manufacturer in parallel (optional repos)
+    const [template, manufacturer] = await Promise.all([
+      product?.templateId && this.templatesRepository
+        ? this.templatesRepository.findById(
+            new UniqueEntityID(product.templateId.toString()),
+            tenantId,
+          )
+        : null,
+      product?.manufacturerId && this.manufacturersRepository
+        ? this.manufacturersRepository.findById(
+            new UniqueEntityID(product.manufacturerId.toString()),
+            tenantId,
+          )
+        : null,
+    ]);
 
     const binAddress = bin?.address ?? item.lastKnownAddress;
 
@@ -164,12 +183,19 @@ export class LookupByCodeUseCase {
       entityId: item.id.toString(),
       entity: {
         id: item.id.toString(),
-        name: [productName, variant?.name].filter(Boolean).join(' · '),
+        name: [product?.name, variant?.name].filter(Boolean).join(' · '),
         sku: variant?.sku,
         barcode: item.barcode,
         fullCode: item.fullCode,
         variantName: variant?.name,
-        productName,
+        productName: product?.name,
+        templateName: template?.name,
+        unitOfMeasure: template?.unitOfMeasure,
+        manufacturerName: manufacturer?.name,
+        reference: variant?.reference,
+        colorHex: variant?.colorHex,
+        secondaryColorHex: variant?.secondaryColorHex,
+        pattern: variant?.pattern,
         binLabel: binAddress,
         location: binAddress,
         batch: item.batchNumber,
