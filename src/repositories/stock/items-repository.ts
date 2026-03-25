@@ -22,6 +22,8 @@ export interface ItemRelatedData {
   productAttributes?: Record<string, unknown>;
   variantAttributes?: Record<string, unknown>;
   variantColorHex?: string;
+  variantSecondaryColorHex?: string;
+  variantPattern?: string;
   manufacturerName?: string;
   productId?: string;
 }
