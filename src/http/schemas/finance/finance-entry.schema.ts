@@ -132,9 +132,7 @@ export const createFinanceEntrySchema = z
         tags
           ? [
               ...new Set(
-                tags
-                  .map((t) => t.trim().toLowerCase())
-                  .filter(Boolean),
+                tags.map((t) => t.trim().toLowerCase()).filter(Boolean),
               ),
             ]
           : undefined,
@@ -179,13 +177,7 @@ export const updateFinanceEntrySchema = z.object({
     .optional()
     .transform((tags) =>
       tags
-        ? [
-            ...new Set(
-              tags
-                .map((t) => t.trim().toLowerCase())
-                .filter(Boolean),
-            ),
-          ]
+        ? [...new Set(tags.map((t) => t.trim().toLowerCase()).filter(Boolean))]
         : undefined,
     ),
 });
@@ -373,6 +365,66 @@ export const createFinanceEntriesBatchSchema = z.object({
 export const batchCreateResponseSchema = z.object({
   created: z.number(),
   entries: z.array(financeEntryResponseSchema),
+});
+
+// ============================================================================
+// BULK OPERATIONS
+// ============================================================================
+
+const MAX_BULK_ENTRIES = 50;
+
+export const bulkEntryIdsSchema = z
+  .array(z.string().uuid())
+  .min(1, 'At least one entry ID is required')
+  .max(
+    MAX_BULK_ENTRIES,
+    `Maximum of ${MAX_BULK_ENTRIES} entries per bulk operation`,
+  );
+
+export const bulkPayEntriesSchema = z.object({
+  entryIds: bulkEntryIdsSchema,
+  bankAccountId: z
+    .string()
+    .uuid()
+    .describe('ID da conta bancária para o pagamento'),
+  method: z
+    .string()
+    .max(32)
+    .describe('Método de pagamento (PIX, BOLETO, TED, etc.)'),
+  reference: z.string().max(128).optional().describe('Referência do pagamento'),
+  paidAt: z.coerce
+    .date()
+    .optional()
+    .describe('Data do pagamento (padrão: agora)'),
+});
+
+export const bulkCancelEntriesSchema = z.object({
+  entryIds: bulkEntryIdsSchema,
+  reason: z
+    .string()
+    .max(500)
+    .optional()
+    .describe('Motivo do cancelamento em lote'),
+});
+
+export const bulkDeleteEntriesSchema = z.object({
+  entryIds: bulkEntryIdsSchema,
+});
+
+export const bulkCategorizeEntriesSchema = z.object({
+  entryIds: bulkEntryIdsSchema,
+  categoryId: z.string().uuid().describe('ID da nova categoria'),
+});
+
+export const bulkOperationResultSchema = z.object({
+  succeeded: z.number().describe('Quantidade de operações bem-sucedidas'),
+  failed: z.number().describe('Quantidade de operações que falharam'),
+  errors: z.array(
+    z.object({
+      entryId: z.string().uuid(),
+      error: z.string(),
+    }),
+  ),
 });
 
 export const listFinanceEntriesQuerySchema = z.object({

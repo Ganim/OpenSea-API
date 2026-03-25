@@ -16,6 +16,10 @@ import { ocrExtractDataController } from './v1-ocr-extract-data.controller';
 import { ocrUploadBatchController } from './v1-ocr-upload-batch.controller';
 import { getLastSupplierEntryController } from './v1-get-last-supplier-entry.controller';
 import { createEntriesBatchController } from './v1-create-entries-batch.controller';
+import { bulkPayEntriesController } from './v1-bulk-pay-entries.controller';
+import { bulkCancelEntriesController } from './v1-bulk-cancel-entries.controller';
+import { bulkDeleteEntriesController } from './v1-bulk-delete-entries.controller';
+import { bulkCategorizeEntriesController } from './v1-bulk-categorize-entries.controller';
 
 export async function financeEntriesRoutes(app: FastifyInstance) {
   app.addHook('preHandler', createModuleMiddleware('FINANCE'));
@@ -28,6 +32,10 @@ export async function financeEntriesRoutes(app: FastifyInstance) {
   app.register(deleteFinanceEntryController);
   app.register(registerPaymentController);
   app.register(cancelFinanceEntryController);
+  app.register(bulkPayEntriesController);
+  app.register(bulkCancelEntriesController);
+  app.register(bulkDeleteEntriesController);
+  app.register(bulkCategorizeEntriesController);
   app.register(parseBoletoController);
   app.register(parsePixController);
   app.register(checkOverdueController);

@@ -120,6 +120,36 @@ export const FINANCE_AUDIT_MESSAGES = {
       '{{userName}} registrou pagamento de R$ {{amount}} no lançamento {{entryCode}}',
   } satisfies AuditMessage,
 
+  FINANCE_ENTRY_BULK_PAY: {
+    action: AuditAction.PAYMENT_REGISTER,
+    entity: AuditEntity.FINANCE_ENTRY,
+    module: AuditModule.FINANCE,
+    description:
+      '{{userName}} registrou pagamento em lote para {{count}} lançamentos',
+  } satisfies AuditMessage,
+
+  FINANCE_ENTRY_BULK_CANCEL: {
+    action: AuditAction.ENTRY_CANCEL,
+    entity: AuditEntity.FINANCE_ENTRY,
+    module: AuditModule.FINANCE,
+    description: '{{userName}} cancelou {{count}} lançamentos em lote',
+  } satisfies AuditMessage,
+
+  FINANCE_ENTRY_BULK_DELETE: {
+    action: AuditAction.BULK_DELETE,
+    entity: AuditEntity.FINANCE_ENTRY,
+    module: AuditModule.FINANCE,
+    description: '{{userName}} excluiu {{count}} lançamentos em lote',
+  } satisfies AuditMessage,
+
+  FINANCE_ENTRY_BULK_CATEGORIZE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.FINANCE_ENTRY,
+    module: AuditModule.FINANCE,
+    description:
+      '{{userName}} alterou a categoria de {{count}} lançamentos em lote',
+  } satisfies AuditMessage,
+
   // ============================================================================
   // FINANCE ATTACHMENTS - Anexos Financeiros
   // ============================================================================
