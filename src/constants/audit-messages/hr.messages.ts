@@ -203,6 +203,42 @@ export const HR_AUDIT_MESSAGES = {
   } satisfies AuditMessage,
 
   // ============================================================================
+  // PUNCH CONFIGURATION - Configuração de ponto
+  // ============================================================================
+
+  /** Configuração de ponto atualizada */
+  PUNCH_CONFIG_UPDATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.PUNCH_CONFIGURATION,
+    module: AuditModule.HR,
+    description: '{{userName}} atualizou a configuração de ponto',
+  } satisfies AuditMessage,
+
+  /** Zona de geofence criada */
+  GEOFENCE_ZONE_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.GEOFENCE_ZONE,
+    module: AuditModule.HR,
+    description: '{{userName}} criou a zona de geofence {{zoneName}}',
+  } satisfies AuditMessage,
+
+  /** Zona de geofence atualizada */
+  GEOFENCE_ZONE_UPDATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.GEOFENCE_ZONE,
+    module: AuditModule.HR,
+    description: '{{userName}} atualizou a zona de geofence {{zoneName}}',
+  } satisfies AuditMessage,
+
+  /** Zona de geofence removida */
+  GEOFENCE_ZONE_DELETE: {
+    action: AuditAction.DELETE,
+    entity: AuditEntity.GEOFENCE_ZONE,
+    module: AuditModule.HR,
+    description: '{{userName}} removeu a zona de geofence {{zoneName}}',
+  } satisfies AuditMessage,
+
+  // ============================================================================
   // ABSENCES - Gestão de ausências
   // ============================================================================
 

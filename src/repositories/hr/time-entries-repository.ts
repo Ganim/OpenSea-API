@@ -11,6 +11,7 @@ export interface CreateTimeEntrySchema {
   longitude?: number;
   ipAddress?: string;
   notes?: string;
+  nsrNumber?: number;
 }
 
 export interface FindTimeEntriesFilters {
@@ -47,4 +48,5 @@ export interface TimeEntriesRepository {
     tenantId: string,
   ): Promise<TimeEntry | null>;
   delete(id: UniqueEntityID): Promise<void>;
+  findMaxNsrNumber(tenantId: string): Promise<number>;
 }

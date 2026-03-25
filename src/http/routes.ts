@@ -123,7 +123,10 @@ import { financeExportRoutes } from './controllers/finance/export/routes';
 import { loansRoutes } from './controllers/finance/loans/routes';
 import { contractsRoutes } from './controllers/finance/contracts/routes';
 import { financeRecurringRoutes } from './controllers/finance/recurring/routes';
+import { financeBudgetRoutes } from './controllers/finance/budgets/routes';
 import { financeCompaniesRoutes } from './controllers/finance/companies/routes';
+import { reconciliationRoutes } from './controllers/finance/reconciliation/routes';
+import { financeEscalationsRoutes } from './controllers/finance/escalations/routes';
 
 // Calendar routes
 import { calendarCalendarsRoutes } from './controllers/calendar/calendars/routes';
@@ -187,6 +190,8 @@ import { timeControlRoutes } from './controllers/hr/time-control/routes';
 import { hrReportsRoutes } from './controllers/hr/reports/routes';
 import { vacationPeriodsRoutes } from './controllers/hr/vacation-periods/routes';
 import { workSchedulesRoutes } from './controllers/hr/work-schedules/routes';
+import { punchConfigRoutes } from './controllers/hr/punch-config/routes';
+import { geofenceZonesRoutes } from './controllers/hr/geofence-zones/routes';
 
 export async function registerRoutes(app: FastifyInstance) {
   // Core routes
@@ -296,7 +301,10 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(financeExportRoutes);
   await app.register(contractsRoutes);
   await app.register(financeRecurringRoutes);
+  await app.register(financeBudgetRoutes);
   await app.register(financeCompaniesRoutes);
+  await app.register(reconciliationRoutes);
+  await app.register(financeEscalationsRoutes);
 
   // Calendar routes
   await app.register(calendarCalendarsRoutes);
@@ -332,6 +340,8 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(payrollsRoutes);
   await app.register(bonusesRoutes);
   await app.register(deductionsRoutes);
+  await app.register(punchConfigRoutes);
+  await app.register(geofenceZonesRoutes);
 
   // Tasks routes
   await app.register(taskBoardsRoutes);

@@ -129,4 +129,8 @@ export class InMemoryTimeEntriesRepository implements TimeEntriesRepository {
       this.items.splice(index, 1);
     }
   }
+
+  async findMaxNsrNumber(_tenantId: string): Promise<number> {
+    return 0;
+  }
 }

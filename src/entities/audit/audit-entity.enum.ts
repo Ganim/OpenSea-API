@@ -133,6 +133,8 @@ export enum AuditEntity {
   WORK_SCHEDULE = 'WORK_SCHEDULE',
   OVERTIME = 'OVERTIME',
   TIME_BANK = 'TIME_BANK',
+  PUNCH_CONFIGURATION = 'PUNCH_CONFIGURATION',
+  GEOFENCE_ZONE = 'GEOFENCE_ZONE',
 
   // ==========================================
   // HR - Ausências e Férias
@@ -169,6 +171,9 @@ export enum AuditEntity {
   CONSORTIUM_PAYMENT = 'CONSORTIUM_PAYMENT',
   CONTRACT = 'CONTRACT',
   RECURRING_CONFIG = 'RECURRING_CONFIG',
+  FINANCE_BUDGET = 'FINANCE_BUDGET',
+  BANK_RECONCILIATION = 'BANK_RECONCILIATION',
+  BANK_RECONCILIATION_ITEM = 'BANK_RECONCILIATION_ITEM',
 
   // ==========================================
   // Teams - Equipes

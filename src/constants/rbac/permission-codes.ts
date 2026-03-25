@@ -124,6 +124,8 @@ export const PermissionCodes = {
       REGISTER: 'finance.bank-accounts.register' as const,
       MODIFY: 'finance.bank-accounts.modify' as const,
       REMOVE: 'finance.bank-accounts.remove' as const,
+      ADMIN: 'finance.bank-accounts.admin' as const,
+      IMPORT: 'finance.bank-accounts.import' as const,
     },
     SUPPLIERS: {
       ACCESS: 'finance.suppliers.access' as const,
@@ -176,6 +178,12 @@ export const PermissionCodes = {
       MODIFY: 'finance.recurring.modify' as const,
       ADMIN: 'finance.recurring.admin' as const,
       ONLYSELF: 'finance.recurring.onlyself' as const,
+    },
+    BUDGETS: {
+      ACCESS: 'finance.budgets.access' as const,
+      REGISTER: 'finance.budgets.register' as const,
+      MODIFY: 'finance.budgets.modify' as const,
+      REMOVE: 'finance.budgets.remove' as const,
     },
   },
 
@@ -241,6 +249,7 @@ export const PermissionCodes = {
       REGISTER: 'hr.time-control.register' as const,
       EXPORT: 'hr.time-control.export' as const,
       PRINT: 'hr.time-control.print' as const,
+      ADMIN: 'hr.time-control.admin' as const,
     },
     BONUSES: {
       ACCESS: 'hr.bonuses.access' as const,
@@ -382,6 +391,13 @@ export const PermissionCodes = {
       CONFIRM: 'sales.orders.confirm' as const,
       APPROVE: 'sales.orders.approve' as const,
       CANCEL: 'sales.orders.cancel' as const,
+    },
+    // --- Créditos de Loja ---
+    STORE_CREDITS: {
+      ACCESS: 'sales.store-credits.access' as const,
+      REGISTER: 'sales.store-credits.register' as const,
+      REMOVE: 'sales.store-credits.remove' as const,
+      ADMIN: 'sales.store-credits.admin' as const,
     },
     // --- Orçamentos ---
     QUOTES: {

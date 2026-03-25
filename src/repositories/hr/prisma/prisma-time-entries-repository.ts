@@ -22,6 +22,7 @@ export class PrismaTimeEntriesRepository implements TimeEntriesRepository {
         longitude: data.longitude,
         ipAddress: data.ipAddress,
         notes: data.notes,
+        nsrNumber: data.nsrNumber,
       },
     });
 
@@ -151,5 +152,14 @@ export class PrismaTimeEntriesRepository implements TimeEntriesRepository {
     await prisma.timeEntry.delete({
       where: { id: id.toString() },
     });
+  }
+
+  async findMaxNsrNumber(tenantId: string): Promise<number> {
+    const result = await prisma.timeEntry.aggregate({
+      where: { tenantId },
+      _max: { nsrNumber: true },
+    });
+
+    return result._max.nsrNumber ?? 0;
   }
 }

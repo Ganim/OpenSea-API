@@ -4,7 +4,10 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { TimeEntry } from '@/entities/hr/time-entry';
 import { TimeEntryType } from '@/entities/hr/value-objects';
 import { EmployeesRepository } from '@/repositories/hr/employees-repository';
+import { GeofenceZonesRepository } from '@/repositories/hr/geofence-zones-repository';
+import { PunchConfigRepository } from '@/repositories/hr/punch-config-repository';
 import { TimeEntriesRepository } from '@/repositories/hr/time-entries-repository';
+import { haversineDistance } from '@/use-cases/hr/geofence-zones/validate-geofence';
 
 export interface ClockInRequest {
   tenantId: string;
@@ -18,12 +21,15 @@ export interface ClockInRequest {
 
 export interface ClockInResponse {
   timeEntry: TimeEntry;
+  nsrNumber?: number;
 }
 
 export class ClockInUseCase {
   constructor(
     private timeEntriesRepository: TimeEntriesRepository,
     private employeesRepository: EmployeesRepository,
+    private punchConfigRepository?: PunchConfigRepository,
+    private geofenceZonesRepository?: GeofenceZonesRepository,
   ) {}
 
   async execute(request: ClockInRequest): Promise<ClockInResponse> {
@@ -63,6 +69,50 @@ export class ClockInUseCase {
       );
     }
 
+    // Load punch configuration and validate geofence if enabled
+    if (this.punchConfigRepository && this.geofenceZonesRepository) {
+      const punchConfig =
+        await this.punchConfigRepository.findByTenantId(tenantId);
+
+      if (punchConfig?.geofenceEnabled) {
+        if (latitude == null || longitude == null) {
+          throw new BadRequestError(
+            'Location is required when geofence is enabled',
+          );
+        }
+
+        const activeZones =
+          await this.geofenceZonesRepository.findActiveByTenantId(tenantId);
+
+        if (activeZones.length > 0) {
+          let isWithin = false;
+          for (const zone of activeZones) {
+            const distance = haversineDistance(
+              latitude,
+              longitude,
+              zone.latitude,
+              zone.longitude,
+            );
+            if (distance <= zone.radiusMeters) {
+              isWithin = true;
+              break;
+            }
+          }
+
+          if (!isWithin) {
+            throw new BadRequestError(
+              'Clock-in rejected: location is outside all allowed geofence zones',
+            );
+          }
+        }
+      }
+    }
+
+    // Auto-generate NSR number
+    const maxNsr =
+      await this.timeEntriesRepository.findMaxNsrNumber(tenantId);
+    const nsrNumber = maxNsr + 1;
+
     // Create clock in entry
     const timeEntry = await this.timeEntriesRepository.create({
       tenantId,
@@ -73,10 +123,12 @@ export class ClockInUseCase {
       longitude,
       ipAddress,
       notes,
+      nsrNumber,
     });
 
     return {
       timeEntry,
+      nsrNumber,
     };
   }
 }
