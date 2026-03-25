@@ -14,6 +14,14 @@ export type AbsenceTypeValue =
   | 'MEDICAL_APPOINTMENT' // Consulta médica
   | 'JURY_DUTY' // Serviço do júri
   | 'UNPAID_LEAVE' // Licença não remunerada
+  | 'BLOOD_DONATION' // Doação de sangue (CLT art. 473, IV)
+  | 'ELECTORAL_REGISTRATION' // Alistamento eleitoral (CLT art. 473, V)
+  | 'MILITARY_SERVICE' // Serviço militar obrigatório (CLT art. 473, VI)
+  | 'VESTIBULAR_EXAM' // Vestibular/exame de admissão (CLT art. 473, VII)
+  | 'CHILD_MEDICAL' // Acompanhamento médico de filho (CLT art. 473, XI)
+  | 'PRENATAL_COMPANION' // Acompanhamento pré-natal (CLT art. 473, X)
+  | 'CANCER_SCREENING' // Exame preventivo de câncer (CLT art. 473, XII)
+  | 'WORK_ACCIDENT' // Acidente de trabalho
   | 'OTHER'; // Outros
 
 export const AbsenceTypeEnum = {
@@ -27,6 +35,14 @@ export const AbsenceTypeEnum = {
   MEDICAL_APPOINTMENT: 'MEDICAL_APPOINTMENT',
   JURY_DUTY: 'JURY_DUTY',
   UNPAID_LEAVE: 'UNPAID_LEAVE',
+  BLOOD_DONATION: 'BLOOD_DONATION',
+  ELECTORAL_REGISTRATION: 'ELECTORAL_REGISTRATION',
+  MILITARY_SERVICE: 'MILITARY_SERVICE',
+  VESTIBULAR_EXAM: 'VESTIBULAR_EXAM',
+  CHILD_MEDICAL: 'CHILD_MEDICAL',
+  PRENATAL_COMPANION: 'PRENATAL_COMPANION',
+  CANCER_SCREENING: 'CANCER_SCREENING',
+  WORK_ACCIDENT: 'WORK_ACCIDENT',
   OTHER: 'OTHER',
 } as const;
 
@@ -53,6 +69,14 @@ export class AbsenceType {
       'MEDICAL_APPOINTMENT',
       'JURY_DUTY',
       'UNPAID_LEAVE',
+      'BLOOD_DONATION',
+      'ELECTORAL_REGISTRATION',
+      'MILITARY_SERVICE',
+      'VESTIBULAR_EXAM',
+      'CHILD_MEDICAL',
+      'PRENATAL_COMPANION',
+      'CANCER_SCREENING',
+      'WORK_ACCIDENT',
       'OTHER',
     ];
 
@@ -104,6 +128,38 @@ export class AbsenceType {
     return new AbsenceType('UNPAID_LEAVE');
   }
 
+  static bloodDonation(): AbsenceType {
+    return new AbsenceType('BLOOD_DONATION');
+  }
+
+  static electoralRegistration(): AbsenceType {
+    return new AbsenceType('ELECTORAL_REGISTRATION');
+  }
+
+  static militaryService(): AbsenceType {
+    return new AbsenceType('MILITARY_SERVICE');
+  }
+
+  static vestibularExam(): AbsenceType {
+    return new AbsenceType('VESTIBULAR_EXAM');
+  }
+
+  static childMedical(): AbsenceType {
+    return new AbsenceType('CHILD_MEDICAL');
+  }
+
+  static prenatalCompanion(): AbsenceType {
+    return new AbsenceType('PRENATAL_COMPANION');
+  }
+
+  static cancerScreening(): AbsenceType {
+    return new AbsenceType('CANCER_SCREENING');
+  }
+
+  static workAccident(): AbsenceType {
+    return new AbsenceType('WORK_ACCIDENT');
+  }
+
   static other(): AbsenceType {
     return new AbsenceType('OTHER');
   }
@@ -149,6 +205,38 @@ export class AbsenceType {
     return this._value === 'UNPAID_LEAVE';
   }
 
+  isBloodDonation(): boolean {
+    return this._value === 'BLOOD_DONATION';
+  }
+
+  isElectoralRegistration(): boolean {
+    return this._value === 'ELECTORAL_REGISTRATION';
+  }
+
+  isMilitaryService(): boolean {
+    return this._value === 'MILITARY_SERVICE';
+  }
+
+  isVestibularExam(): boolean {
+    return this._value === 'VESTIBULAR_EXAM';
+  }
+
+  isChildMedical(): boolean {
+    return this._value === 'CHILD_MEDICAL';
+  }
+
+  isPrenatalCompanion(): boolean {
+    return this._value === 'PRENATAL_COMPANION';
+  }
+
+  isCancerScreening(): boolean {
+    return this._value === 'CANCER_SCREENING';
+  }
+
+  isWorkAccident(): boolean {
+    return this._value === 'WORK_ACCIDENT';
+  }
+
   isOther(): boolean {
     return this._value === 'OTHER';
   }
@@ -171,6 +259,9 @@ export class AbsenceType {
       'WEDDING_LEAVE',
       'MEDICAL_APPOINTMENT',
       'JURY_DUTY',
+      'BLOOD_DONATION',
+      'MILITARY_SERVICE',
+      'WORK_ACCIDENT',
     ].includes(this._value);
   }
 
@@ -189,6 +280,18 @@ export class AbsenceType {
         return 2;
       case 'WEDDING_LEAVE':
         return 3;
+      case 'BLOOD_DONATION':
+        return 1; // CLT art. 473, IV
+      case 'ELECTORAL_REGISTRATION':
+        return 2; // CLT art. 473, V
+      case 'VESTIBULAR_EXAM':
+        return 1; // CLT art. 473, VII (per exam day)
+      case 'CHILD_MEDICAL':
+        return 1; // CLT art. 473, XI (per year, child up to 6)
+      case 'PRENATAL_COMPANION':
+        return 2; // CLT art. 473, X (per pregnancy)
+      case 'CANCER_SCREENING':
+        return 3; // CLT art. 473, XII (per year)
       default:
         return null;
     }
