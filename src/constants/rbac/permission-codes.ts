@@ -242,6 +242,16 @@ export const PermissionCodes = {
       EXPORT: 'hr.time-control.export' as const,
       PRINT: 'hr.time-control.print' as const,
     },
+    BONUSES: {
+      ACCESS: 'hr.bonuses.access' as const,
+      REGISTER: 'hr.bonuses.register' as const,
+      REMOVE: 'hr.bonuses.remove' as const,
+    },
+    DEDUCTIONS: {
+      ACCESS: 'hr.deductions.access' as const,
+      REGISTER: 'hr.deductions.register' as const,
+      REMOVE: 'hr.deductions.remove' as const,
+    },
   },
 
   // ============================================================================
@@ -333,6 +343,7 @@ export const PermissionCodes = {
     COUPONS: {
       ACCESS: 'sales.coupons.access' as const,
       REGISTER: 'sales.coupons.register' as const,
+      MODIFY: 'sales.coupons.modify' as const,
       REMOVE: 'sales.coupons.remove' as const,
       ADMIN: 'sales.coupons.admin' as const,
     },
@@ -347,6 +358,7 @@ export const PermissionCodes = {
     COMBOS: {
       ACCESS: 'sales.combos.access' as const,
       REGISTER: 'sales.combos.register' as const,
+      MODIFY: 'sales.combos.modify' as const,
       REMOVE: 'sales.combos.remove' as const,
       ADMIN: 'sales.combos.admin' as const,
     },
@@ -725,6 +737,22 @@ export const PermissionCodes = {
         REGISTER: 'tools.signature.templates.register' as const,
         MODIFY: 'tools.signature.templates.modify' as const,
         REMOVE: 'tools.signature.templates.remove' as const,
+      },
+    },
+    MESSAGING: {
+      ACCOUNTS: {
+        ACCESS: 'tools.messaging.accounts.access' as const,
+        REGISTER: 'tools.messaging.accounts.register' as const,
+        MODIFY: 'tools.messaging.accounts.modify' as const,
+        REMOVE: 'tools.messaging.accounts.remove' as const,
+        ADMIN: 'tools.messaging.accounts.admin' as const,
+      },
+      CONTACTS: {
+        ACCESS: 'tools.messaging.contacts.access' as const,
+      },
+      MESSAGES: {
+        ACCESS: 'tools.messaging.messages.access' as const,
+        REGISTER: 'tools.messaging.messages.register' as const,
       },
     },
     AI: {
