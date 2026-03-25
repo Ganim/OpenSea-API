@@ -196,9 +196,13 @@ export class CreateFinanceEntryUseCase {
       request.competenceDate = request.issueDate;
     }
 
-    // Normalize tags
+    // Normalize tags: trim, lowercase, remove blanks, deduplicate
     if (request.tags) {
-      request.tags = request.tags.map((t) => t.trim().toLowerCase());
+      request.tags = [
+        ...new Set(
+          request.tags.map((t) => t.trim().toLowerCase()).filter(Boolean),
+        ),
+      ];
     }
 
     // Use transaction when we have rateio or installments/recurring

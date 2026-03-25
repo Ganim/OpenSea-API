@@ -124,7 +124,21 @@ export const createFinanceEntrySchema = z
       .enum(['CPF', 'CNPJ', 'EMAIL', 'PHONE', 'EVP'])
       .optional()
       .describe('Tipo da chave Pix'),
-    tags: z.array(z.string()).optional().describe('Tags para categorização'),
+    tags: z
+      .array(z.string())
+      .optional()
+      .describe('Tags para categorização')
+      .transform((tags) =>
+        tags
+          ? [
+              ...new Set(
+                tags
+                  .map((t) => t.trim().toLowerCase())
+                  .filter(Boolean),
+              ),
+            ]
+          : undefined,
+      ),
   })
   .refine(
     (data) =>
@@ -132,8 +146,7 @@ export const createFinanceEntrySchema = z
       !data.dueDate ||
       new Date(data.dueDate) >= new Date(data.issueDate),
     {
-      message:
-        'Data de vencimento deve ser igual ou posterior à data de emissão',
+      message: 'Due date must be on or after the issue date',
       path: ['dueDate'],
     },
   );
@@ -161,7 +174,20 @@ export const updateFinanceEntrySchema = z.object({
     .enum(['CPF', 'CNPJ', 'EMAIL', 'PHONE', 'EVP'])
     .nullable()
     .optional(),
-  tags: z.array(z.string()).optional(),
+  tags: z
+    .array(z.string())
+    .optional()
+    .transform((tags) =>
+      tags
+        ? [
+            ...new Set(
+              tags
+                .map((t) => t.trim().toLowerCase())
+                .filter(Boolean),
+            ),
+          ]
+        : undefined,
+    ),
 });
 
 export const financeEntryResponseSchema = z.object({
@@ -403,5 +429,5 @@ export const listFinanceEntriesQuerySchema = z.object({
   search: z
     .string()
     .optional()
-    .describe('Busca textual por descrição ou código'),
+    .describe('Busca textual por descrição, código, fornecedor ou cliente'),
 });

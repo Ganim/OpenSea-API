@@ -44,7 +44,7 @@ export async function getConsortiumByIdController(app: FastifyInstance) {
       try {
         const useCase = makeGetConsortiumByIdUseCase();
         const result = await useCase.execute({ tenantId, id });
-        reply.header('Cache-Control', 'private, max-age=30');
+        reply.header('Cache-Control', 'private, max-age=60');
         return reply.status(200).send(result);
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {

@@ -46,7 +46,7 @@ export async function getSupplierHistoryController(app: FastifyInstance) {
           companyName,
         });
 
-        reply.header('Cache-Control', 'private, max-age=60');
+        reply.header('Cache-Control', 'private, max-age=120');
         return reply.status(200).send(result);
       } catch (error) {
         if (error instanceof BadRequestError) {

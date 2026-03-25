@@ -46,6 +46,7 @@ export async function getDREInteractiveController(app: FastifyInstance) {
         ...query,
       });
 
+      reply.header('Cache-Control', 'private, max-age=30');
       return reply.status(200).send(result);
     },
   });

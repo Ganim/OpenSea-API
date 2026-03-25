@@ -38,7 +38,7 @@ export async function getRecurringConfigController(app: FastifyInstance) {
         throw new ResourceNotFoundError('Recurring config not found');
       }
 
-      reply.header('Cache-Control', 'private, max-age=60');
+      reply.header('Cache-Control', 'private, max-age=120');
       return reply.status(200).send(recurringConfigToDTO(config));
     },
   });

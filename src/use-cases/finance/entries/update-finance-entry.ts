@@ -90,7 +90,13 @@ export class UpdateFinanceEntryUseCase {
       beneficiaryCpfCnpj: request.beneficiaryCpfCnpj,
       pixKey: request.pixKey,
       pixKeyType: request.pixKeyType,
-      tags: request.tags?.map((t) => t.trim().toLowerCase()),
+      tags: request.tags
+        ? [
+            ...new Set(
+              request.tags.map((t) => t.trim().toLowerCase()).filter(Boolean),
+            ),
+          ]
+        : undefined,
     });
 
     if (!updated) {

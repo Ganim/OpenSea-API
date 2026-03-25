@@ -62,7 +62,7 @@ export async function listContractsController(app: FastifyInstance) {
 
       const pages = Math.ceil(result.total / (query.limit ?? 20));
 
-      reply.header('Cache-Control', 'private, max-age=60');
+      reply.header('Cache-Control', 'private, max-age=120');
       return reply.status(200).send({
         contracts: result.contracts,
         meta: {
