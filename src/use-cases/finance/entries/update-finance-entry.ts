@@ -27,6 +27,10 @@ interface UpdateFinanceEntryUseCaseRequest {
   competenceDate?: Date | null;
   boletoBarcode?: string | null;
   boletoDigitLine?: string | null;
+  beneficiaryName?: string | null;
+  beneficiaryCpfCnpj?: string | null;
+  pixKey?: string | null;
+  pixKeyType?: string | null;
   tags?: string[];
 }
 
@@ -82,6 +86,10 @@ export class UpdateFinanceEntryUseCase {
       competenceDate: request.competenceDate,
       boletoBarcode: request.boletoBarcode,
       boletoDigitLine: request.boletoDigitLine,
+      beneficiaryName: request.beneficiaryName,
+      beneficiaryCpfCnpj: request.beneficiaryCpfCnpj,
+      pixKey: request.pixKey,
+      pixKeyType: request.pixKeyType,
       tags: request.tags?.map((t) => t.trim().toLowerCase()),
     });
 

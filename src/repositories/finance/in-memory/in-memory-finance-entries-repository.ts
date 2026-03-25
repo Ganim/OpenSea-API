@@ -62,6 +62,10 @@ export class InMemoryFinanceEntriesRepository
       contractId: data.contractId,
       boletoBarcode: data.boletoBarcode,
       boletoDigitLine: data.boletoDigitLine,
+      beneficiaryName: data.beneficiaryName,
+      beneficiaryCpfCnpj: data.beneficiaryCpfCnpj,
+      pixKey: data.pixKey,
+      pixKeyType: data.pixKeyType,
       metadata: data.metadata ?? {},
       tags: data.tags ?? [],
       createdBy: data.createdBy,
@@ -248,6 +252,13 @@ export class InMemoryFinanceEntriesRepository
       item.boletoBarcode = data.boletoBarcode ?? undefined;
     if (data.boletoDigitLine !== undefined)
       item.boletoDigitLine = data.boletoDigitLine ?? undefined;
+    if (data.beneficiaryName !== undefined)
+      item.beneficiaryName = data.beneficiaryName ?? undefined;
+    if (data.beneficiaryCpfCnpj !== undefined)
+      item.beneficiaryCpfCnpj = data.beneficiaryCpfCnpj ?? undefined;
+    if (data.pixKey !== undefined) item.pixKey = data.pixKey ?? undefined;
+    if (data.pixKeyType !== undefined)
+      item.pixKeyType = data.pixKeyType ?? undefined;
     if (data.tags !== undefined) {
       // Tags don't have a setter, but we need to update the underlying props
       // Using Object.assign to update the internal tags array

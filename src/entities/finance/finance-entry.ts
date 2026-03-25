@@ -50,6 +50,10 @@ export interface FinanceEntryProps {
   contractId?: string;
   boletoBarcode?: string;
   boletoDigitLine?: string;
+  beneficiaryName?: string;
+  beneficiaryCpfCnpj?: string;
+  pixKey?: string;
+  pixKeyType?: string;
   metadata: Record<string, unknown>;
   tags: string[];
   createdBy?: string;
@@ -274,6 +278,38 @@ export class FinanceEntry extends Entity<FinanceEntryProps> {
   }
   set boletoDigitLine(value: string | undefined) {
     this.props.boletoDigitLine = value;
+    this.touch();
+  }
+
+  get beneficiaryName(): string | undefined {
+    return this.props.beneficiaryName;
+  }
+  set beneficiaryName(value: string | undefined) {
+    this.props.beneficiaryName = value;
+    this.touch();
+  }
+
+  get beneficiaryCpfCnpj(): string | undefined {
+    return this.props.beneficiaryCpfCnpj;
+  }
+  set beneficiaryCpfCnpj(value: string | undefined) {
+    this.props.beneficiaryCpfCnpj = value;
+    this.touch();
+  }
+
+  get pixKey(): string | undefined {
+    return this.props.pixKey;
+  }
+  set pixKey(value: string | undefined) {
+    this.props.pixKey = value;
+    this.touch();
+  }
+
+  get pixKeyType(): string | undefined {
+    return this.props.pixKeyType;
+  }
+  set pixKeyType(value: string | undefined) {
+    this.props.pixKeyType = value;
     this.touch();
   }
 

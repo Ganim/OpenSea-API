@@ -109,6 +109,21 @@ export const createFinanceEntrySchema = z
       .max(64)
       .optional()
       .describe('Linha digitável do boleto (criptografada em repouso)'),
+    beneficiaryName: z
+      .string()
+      .max(512)
+      .optional()
+      .describe('Nome do beneficiário'),
+    beneficiaryCpfCnpj: z
+      .string()
+      .max(20)
+      .optional()
+      .describe('CPF/CNPJ do beneficiário'),
+    pixKey: z.string().max(256).optional().describe('Chave Pix'),
+    pixKeyType: z
+      .enum(['CPF', 'CNPJ', 'EMAIL', 'PHONE', 'EVP'])
+      .optional()
+      .describe('Tipo da chave Pix'),
     tags: z.array(z.string()).optional().describe('Tags para categorização'),
   })
   .refine(
@@ -139,6 +154,13 @@ export const updateFinanceEntrySchema = z.object({
   competenceDate: z.coerce.date().nullable().optional(),
   boletoBarcode: z.string().max(64).nullable().optional(),
   boletoDigitLine: z.string().max(64).nullable().optional(),
+  beneficiaryName: z.string().max(512).nullable().optional(),
+  beneficiaryCpfCnpj: z.string().max(20).nullable().optional(),
+  pixKey: z.string().max(256).nullable().optional(),
+  pixKeyType: z
+    .enum(['CPF', 'CNPJ', 'EMAIL', 'PHONE', 'EVP'])
+    .nullable()
+    .optional(),
   tags: z.array(z.string()).optional(),
 });
 
@@ -257,6 +279,18 @@ export const financeEntryResponseSchema = z.object({
     .optional()
     .nullable()
     .describe('Linha digitável do boleto'),
+  beneficiaryName: z
+    .string()
+    .optional()
+    .nullable()
+    .describe('Nome do beneficiário'),
+  beneficiaryCpfCnpj: z
+    .string()
+    .optional()
+    .nullable()
+    .describe('CPF/CNPJ do beneficiário'),
+  pixKey: z.string().optional().nullable().describe('Chave Pix'),
+  pixKeyType: z.string().optional().nullable().describe('Tipo da chave Pix'),
   tags: z.array(z.string()).describe('Tags de categorização'),
   createdBy: z
     .string()

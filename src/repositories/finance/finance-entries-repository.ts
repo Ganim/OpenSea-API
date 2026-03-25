@@ -41,6 +41,10 @@ export interface CreateFinanceEntrySchema {
   contractId?: string;
   boletoBarcode?: string;
   boletoDigitLine?: string;
+  beneficiaryName?: string;
+  beneficiaryCpfCnpj?: string;
+  pixKey?: string;
+  pixKeyType?: string;
   metadata?: Record<string, unknown>;
   tags?: string[];
   createdBy?: string;
@@ -67,6 +71,10 @@ export interface UpdateFinanceEntrySchema {
   paymentDate?: Date;
   boletoBarcode?: string | null;
   boletoDigitLine?: string | null;
+  beneficiaryName?: string | null;
+  beneficiaryCpfCnpj?: string | null;
+  pixKey?: string | null;
+  pixKeyType?: string | null;
   tags?: string[];
 }
 

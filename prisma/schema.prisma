@@ -5380,6 +5380,11 @@ model FinanceEntry {
   boletoBarcode   String? @map("boleto_barcode") @db.VarChar(256)
   boletoDigitLine String? @map("boleto_digit_line") @db.VarChar(256)
 
+  beneficiaryName    String? @map("beneficiary_name") @db.VarChar(512)
+  beneficiaryCpfCnpj String? @map("beneficiary_cpf_cnpj") @db.VarChar(20)
+  pixKey             String? @map("pix_key") @db.VarChar(256)
+  pixKeyType         String? @map("pix_key_type") @db.VarChar(16)
+
   metadata Json     @default("{}")
   tags     String[] @default([])
 

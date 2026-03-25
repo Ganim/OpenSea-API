@@ -42,6 +42,10 @@ export interface FinanceEntryDTO {
   parentEntryId?: string;
   boletoBarcode?: string;
   boletoDigitLine?: string;
+  beneficiaryName?: string;
+  beneficiaryCpfCnpj?: string;
+  pixKey?: string;
+  pixKeyType?: string;
   tags: string[];
   createdBy?: string;
   createdAt: Date;
@@ -86,6 +90,10 @@ export function financeEntryToDTO(entry: FinanceEntry): FinanceEntryDTO {
     parentEntryId: entry.parentEntryId?.toString(),
     boletoBarcode: entry.boletoBarcode,
     boletoDigitLine: entry.boletoDigitLine,
+    beneficiaryName: entry.beneficiaryName,
+    beneficiaryCpfCnpj: entry.beneficiaryCpfCnpj,
+    pixKey: entry.pixKey,
+    pixKeyType: entry.pixKeyType,
     tags: entry.tags,
     createdBy: entry.createdBy,
     createdAt: entry.createdAt,

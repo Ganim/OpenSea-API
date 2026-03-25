@@ -54,6 +54,10 @@ interface CreateFinanceEntryUseCaseRequest {
   currentInstallment?: number;
   boletoBarcode?: string;
   boletoDigitLine?: string;
+  beneficiaryName?: string;
+  beneficiaryCpfCnpj?: string;
+  pixKey?: string;
+  pixKeyType?: string;
   tags?: string[];
   createdBy?: string;
 }
@@ -259,6 +263,10 @@ export class CreateFinanceEntryUseCase {
         currentInstallment: request.currentInstallment,
         boletoBarcode: request.boletoBarcode,
         boletoDigitLine: request.boletoDigitLine,
+        beneficiaryName: request.beneficiaryName,
+        beneficiaryCpfCnpj: request.beneficiaryCpfCnpj,
+        pixKey: request.pixKey,
+        pixKeyType: request.pixKeyType,
         tags: request.tags,
         createdBy: request.createdBy,
       },
@@ -417,6 +425,10 @@ export class CreateFinanceEntryUseCase {
           parentEntryId,
           boletoBarcode: request.boletoBarcode,
           boletoDigitLine: request.boletoDigitLine,
+          beneficiaryName: request.beneficiaryName,
+          beneficiaryCpfCnpj: request.beneficiaryCpfCnpj,
+          pixKey: request.pixKey,
+          pixKeyType: request.pixKeyType,
           tags: request.tags,
           createdBy: request.createdBy,
         },
@@ -494,6 +506,10 @@ export class CreateFinanceEntryUseCase {
         recurrenceUnit: request.recurrenceUnit,
         currentInstallment: 1,
         parentEntryId,
+        beneficiaryName: request.beneficiaryName,
+        beneficiaryCpfCnpj: request.beneficiaryCpfCnpj,
+        pixKey: request.pixKey,
+        pixKeyType: request.pixKeyType,
         tags: request.tags,
         createdBy: request.createdBy,
       },

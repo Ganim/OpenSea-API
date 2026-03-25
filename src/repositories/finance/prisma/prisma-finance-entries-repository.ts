@@ -96,6 +96,10 @@ export class PrismaFinanceEntriesRepository
         parentEntryId: data.parentEntryId,
         boletoBarcode: encryptedData.boletoBarcode,
         boletoDigitLine: encryptedData.boletoDigitLine,
+        beneficiaryName: data.beneficiaryName,
+        beneficiaryCpfCnpj: data.beneficiaryCpfCnpj,
+        pixKey: data.pixKey,
+        pixKeyType: data.pixKeyType,
         metadata: (data.metadata ?? {}) as Record<string, never>,
         tags: data.tags ?? [],
         createdBy: data.createdBy,
@@ -350,6 +354,18 @@ export class PrismaFinanceEntriesRepository
       }),
       ...(data.boletoDigitLine !== undefined && {
         boletoDigitLine: data.boletoDigitLine,
+      }),
+      ...(data.beneficiaryName !== undefined && {
+        beneficiaryName: data.beneficiaryName,
+      }),
+      ...(data.beneficiaryCpfCnpj !== undefined && {
+        beneficiaryCpfCnpj: data.beneficiaryCpfCnpj,
+      }),
+      ...(data.pixKey !== undefined && {
+        pixKey: data.pixKey,
+      }),
+      ...(data.pixKeyType !== undefined && {
+        pixKeyType: data.pixKeyType,
       }),
       ...(data.tags !== undefined && { tags: data.tags }),
     };

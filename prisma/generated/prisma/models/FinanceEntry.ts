@@ -82,6 +82,10 @@ export type FinanceEntryMinAggregateOutputType = {
   contractId: string | null
   boletoBarcode: string | null
   boletoDigitLine: string | null
+  beneficiaryName: string | null
+  beneficiaryCpfCnpj: string | null
+  pixKey: string | null
+  pixKeyType: string | null
   deletedAt: Date | null
   createdBy: string | null
   createdAt: Date | null
@@ -122,6 +126,10 @@ export type FinanceEntryMaxAggregateOutputType = {
   contractId: string | null
   boletoBarcode: string | null
   boletoDigitLine: string | null
+  beneficiaryName: string | null
+  beneficiaryCpfCnpj: string | null
+  pixKey: string | null
+  pixKeyType: string | null
   deletedAt: Date | null
   createdBy: string | null
   createdAt: Date | null
@@ -162,6 +170,10 @@ export type FinanceEntryCountAggregateOutputType = {
   contractId: number
   boletoBarcode: number
   boletoDigitLine: number
+  beneficiaryName: number
+  beneficiaryCpfCnpj: number
+  pixKey: number
+  pixKeyType: number
   metadata: number
   tags: number
   deletedAt: number
@@ -228,6 +240,10 @@ export type FinanceEntryMinAggregateInputType = {
   contractId?: true
   boletoBarcode?: true
   boletoDigitLine?: true
+  beneficiaryName?: true
+  beneficiaryCpfCnpj?: true
+  pixKey?: true
+  pixKeyType?: true
   deletedAt?: true
   createdBy?: true
   createdAt?: true
@@ -268,6 +284,10 @@ export type FinanceEntryMaxAggregateInputType = {
   contractId?: true
   boletoBarcode?: true
   boletoDigitLine?: true
+  beneficiaryName?: true
+  beneficiaryCpfCnpj?: true
+  pixKey?: true
+  pixKeyType?: true
   deletedAt?: true
   createdBy?: true
   createdAt?: true
@@ -308,6 +328,10 @@ export type FinanceEntryCountAggregateInputType = {
   contractId?: true
   boletoBarcode?: true
   boletoDigitLine?: true
+  beneficiaryName?: true
+  beneficiaryCpfCnpj?: true
+  pixKey?: true
+  pixKeyType?: true
   metadata?: true
   tags?: true
   deletedAt?: true
@@ -437,6 +461,10 @@ export type FinanceEntryGroupByOutputType = {
   contractId: string | null
   boletoBarcode: string | null
   boletoDigitLine: string | null
+  beneficiaryName: string | null
+  beneficiaryCpfCnpj: string | null
+  pixKey: string | null
+  pixKeyType: string | null
   metadata: runtime.JsonValue
   tags: string[]
   deletedAt: Date | null
@@ -502,6 +530,10 @@ export type FinanceEntryWhereInput = {
   contractId?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
   boletoBarcode?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
   boletoDigitLine?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
+  beneficiaryName?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
+  beneficiaryCpfCnpj?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
+  pixKey?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
+  pixKeyType?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
   metadata?: Prisma.JsonFilter<"FinanceEntry">
   tags?: Prisma.StringNullableListFilter<"FinanceEntry">
   deletedAt?: Prisma.DateTimeNullableFilter<"FinanceEntry"> | Date | string | null
@@ -553,6 +585,10 @@ export type FinanceEntryOrderByWithRelationInput = {
   contractId?: Prisma.SortOrderInput | Prisma.SortOrder
   boletoBarcode?: Prisma.SortOrderInput | Prisma.SortOrder
   boletoDigitLine?: Prisma.SortOrderInput | Prisma.SortOrder
+  beneficiaryName?: Prisma.SortOrderInput | Prisma.SortOrder
+  beneficiaryCpfCnpj?: Prisma.SortOrderInput | Prisma.SortOrder
+  pixKey?: Prisma.SortOrderInput | Prisma.SortOrder
+  pixKeyType?: Prisma.SortOrderInput | Prisma.SortOrder
   metadata?: Prisma.SortOrder
   tags?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -608,6 +644,10 @@ export type FinanceEntryWhereUniqueInput = Prisma.AtLeast<{
   contractId?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
   boletoBarcode?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
   boletoDigitLine?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
+  beneficiaryName?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
+  beneficiaryCpfCnpj?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
+  pixKey?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
+  pixKeyType?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
   metadata?: Prisma.JsonFilter<"FinanceEntry">
   tags?: Prisma.StringNullableListFilter<"FinanceEntry">
   deletedAt?: Prisma.DateTimeNullableFilter<"FinanceEntry"> | Date | string | null
@@ -659,6 +699,10 @@ export type FinanceEntryOrderByWithAggregationInput = {
   contractId?: Prisma.SortOrderInput | Prisma.SortOrder
   boletoBarcode?: Prisma.SortOrderInput | Prisma.SortOrder
   boletoDigitLine?: Prisma.SortOrderInput | Prisma.SortOrder
+  beneficiaryName?: Prisma.SortOrderInput | Prisma.SortOrder
+  beneficiaryCpfCnpj?: Prisma.SortOrderInput | Prisma.SortOrder
+  pixKey?: Prisma.SortOrderInput | Prisma.SortOrder
+  pixKeyType?: Prisma.SortOrderInput | Prisma.SortOrder
   metadata?: Prisma.SortOrder
   tags?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -709,6 +753,10 @@ export type FinanceEntryScalarWhereWithAggregatesInput = {
   contractId?: Prisma.StringNullableWithAggregatesFilter<"FinanceEntry"> | string | null
   boletoBarcode?: Prisma.StringNullableWithAggregatesFilter<"FinanceEntry"> | string | null
   boletoDigitLine?: Prisma.StringNullableWithAggregatesFilter<"FinanceEntry"> | string | null
+  beneficiaryName?: Prisma.StringNullableWithAggregatesFilter<"FinanceEntry"> | string | null
+  beneficiaryCpfCnpj?: Prisma.StringNullableWithAggregatesFilter<"FinanceEntry"> | string | null
+  pixKey?: Prisma.StringNullableWithAggregatesFilter<"FinanceEntry"> | string | null
+  pixKeyType?: Prisma.StringNullableWithAggregatesFilter<"FinanceEntry"> | string | null
   metadata?: Prisma.JsonWithAggregatesFilter<"FinanceEntry">
   tags?: Prisma.StringNullableListFilter<"FinanceEntry">
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"FinanceEntry"> | Date | string | null
@@ -746,6 +794,10 @@ export type FinanceEntryCreateInput = {
   contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
+  beneficiaryName?: string | null
+  beneficiaryCpfCnpj?: string | null
+  pixKey?: string | null
+  pixKeyType?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -797,6 +849,10 @@ export type FinanceEntryUncheckedCreateInput = {
   contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
+  beneficiaryName?: string | null
+  beneficiaryCpfCnpj?: string | null
+  pixKey?: string | null
+  pixKeyType?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -838,6 +894,10 @@ export type FinanceEntryUpdateInput = {
   contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -889,6 +949,10 @@ export type FinanceEntryUncheckedUpdateInput = {
   contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -935,6 +999,10 @@ export type FinanceEntryCreateManyInput = {
   contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
+  beneficiaryName?: string | null
+  beneficiaryCpfCnpj?: string | null
+  pixKey?: string | null
+  pixKeyType?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -972,6 +1040,10 @@ export type FinanceEntryUpdateManyMutationInput = {
   contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1014,6 +1086,10 @@ export type FinanceEntryUncheckedUpdateManyInput = {
   contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1077,6 +1153,10 @@ export type FinanceEntryCountOrderByAggregateInput = {
   contractId?: Prisma.SortOrder
   boletoBarcode?: Prisma.SortOrder
   boletoDigitLine?: Prisma.SortOrder
+  beneficiaryName?: Prisma.SortOrder
+  beneficiaryCpfCnpj?: Prisma.SortOrder
+  pixKey?: Prisma.SortOrder
+  pixKeyType?: Prisma.SortOrder
   metadata?: Prisma.SortOrder
   tags?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -1130,6 +1210,10 @@ export type FinanceEntryMaxOrderByAggregateInput = {
   contractId?: Prisma.SortOrder
   boletoBarcode?: Prisma.SortOrder
   boletoDigitLine?: Prisma.SortOrder
+  beneficiaryName?: Prisma.SortOrder
+  beneficiaryCpfCnpj?: Prisma.SortOrder
+  pixKey?: Prisma.SortOrder
+  pixKeyType?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -1170,6 +1254,10 @@ export type FinanceEntryMinOrderByAggregateInput = {
   contractId?: Prisma.SortOrder
   boletoBarcode?: Prisma.SortOrder
   boletoDigitLine?: Prisma.SortOrder
+  beneficiaryName?: Prisma.SortOrder
+  beneficiaryCpfCnpj?: Prisma.SortOrder
+  pixKey?: Prisma.SortOrder
+  pixKeyType?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -1514,6 +1602,10 @@ export type FinanceEntryCreateWithoutTenantInput = {
   contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
+  beneficiaryName?: string | null
+  beneficiaryCpfCnpj?: string | null
+  pixKey?: string | null
+  pixKeyType?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -1563,6 +1655,10 @@ export type FinanceEntryUncheckedCreateWithoutTenantInput = {
   contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
+  beneficiaryName?: string | null
+  beneficiaryCpfCnpj?: string | null
+  pixKey?: string | null
+  pixKeyType?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -1638,6 +1734,10 @@ export type FinanceEntryScalarWhereInput = {
   contractId?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
   boletoBarcode?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
   boletoDigitLine?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
+  beneficiaryName?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
+  beneficiaryCpfCnpj?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
+  pixKey?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
+  pixKeyType?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
   metadata?: Prisma.JsonFilter<"FinanceEntry">
   tags?: Prisma.StringNullableListFilter<"FinanceEntry">
   deletedAt?: Prisma.DateTimeNullableFilter<"FinanceEntry"> | Date | string | null
@@ -1675,6 +1775,10 @@ export type FinanceEntryCreateWithoutCostCenterInput = {
   contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
+  beneficiaryName?: string | null
+  beneficiaryCpfCnpj?: string | null
+  pixKey?: string | null
+  pixKeyType?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -1724,6 +1828,10 @@ export type FinanceEntryUncheckedCreateWithoutCostCenterInput = {
   contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
+  beneficiaryName?: string | null
+  beneficiaryCpfCnpj?: string | null
+  pixKey?: string | null
+  pixKeyType?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -1791,6 +1899,10 @@ export type FinanceEntryCreateWithoutBankAccountInput = {
   contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
+  beneficiaryName?: string | null
+  beneficiaryCpfCnpj?: string | null
+  pixKey?: string | null
+  pixKeyType?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -1840,6 +1952,10 @@ export type FinanceEntryUncheckedCreateWithoutBankAccountInput = {
   contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
+  beneficiaryName?: string | null
+  beneficiaryCpfCnpj?: string | null
+  pixKey?: string | null
+  pixKeyType?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -1907,6 +2023,10 @@ export type FinanceEntryCreateWithoutCategoryInput = {
   contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
+  beneficiaryName?: string | null
+  beneficiaryCpfCnpj?: string | null
+  pixKey?: string | null
+  pixKeyType?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -1956,6 +2076,10 @@ export type FinanceEntryUncheckedCreateWithoutCategoryInput = {
   contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
+  beneficiaryName?: string | null
+  beneficiaryCpfCnpj?: string | null
+  pixKey?: string | null
+  pixKeyType?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -2023,6 +2147,10 @@ export type FinanceEntryCreateWithoutChildEntriesInput = {
   contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
+  beneficiaryName?: string | null
+  beneficiaryCpfCnpj?: string | null
+  pixKey?: string | null
+  pixKeyType?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -2073,6 +2201,10 @@ export type FinanceEntryUncheckedCreateWithoutChildEntriesInput = {
   contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
+  beneficiaryName?: string | null
+  beneficiaryCpfCnpj?: string | null
+  pixKey?: string | null
+  pixKeyType?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -2118,6 +2250,10 @@ export type FinanceEntryCreateWithoutParentEntryInput = {
   contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
+  beneficiaryName?: string | null
+  beneficiaryCpfCnpj?: string | null
+  pixKey?: string | null
+  pixKeyType?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -2167,6 +2303,10 @@ export type FinanceEntryUncheckedCreateWithoutParentEntryInput = {
   contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
+  beneficiaryName?: string | null
+  beneficiaryCpfCnpj?: string | null
+  pixKey?: string | null
+  pixKeyType?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -2229,6 +2369,10 @@ export type FinanceEntryUpdateWithoutChildEntriesInput = {
   contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2279,6 +2423,10 @@ export type FinanceEntryUncheckedUpdateWithoutChildEntriesInput = {
   contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2335,6 +2483,10 @@ export type FinanceEntryCreateWithoutPaymentsInput = {
   contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
+  beneficiaryName?: string | null
+  beneficiaryCpfCnpj?: string | null
+  pixKey?: string | null
+  pixKeyType?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -2385,6 +2537,10 @@ export type FinanceEntryUncheckedCreateWithoutPaymentsInput = {
   contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
+  beneficiaryName?: string | null
+  beneficiaryCpfCnpj?: string | null
+  pixKey?: string | null
+  pixKeyType?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -2441,6 +2597,10 @@ export type FinanceEntryUpdateWithoutPaymentsInput = {
   contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2491,6 +2651,10 @@ export type FinanceEntryUncheckedUpdateWithoutPaymentsInput = {
   contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2531,6 +2695,10 @@ export type FinanceEntryCreateWithoutCostCenterAllocationsInput = {
   contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
+  beneficiaryName?: string | null
+  beneficiaryCpfCnpj?: string | null
+  pixKey?: string | null
+  pixKeyType?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -2581,6 +2749,10 @@ export type FinanceEntryUncheckedCreateWithoutCostCenterAllocationsInput = {
   contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
+  beneficiaryName?: string | null
+  beneficiaryCpfCnpj?: string | null
+  pixKey?: string | null
+  pixKeyType?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -2637,6 +2809,10 @@ export type FinanceEntryUpdateWithoutCostCenterAllocationsInput = {
   contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2687,6 +2863,10 @@ export type FinanceEntryUncheckedUpdateWithoutCostCenterAllocationsInput = {
   contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2727,6 +2907,10 @@ export type FinanceEntryCreateWithoutAttachmentsInput = {
   contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
+  beneficiaryName?: string | null
+  beneficiaryCpfCnpj?: string | null
+  pixKey?: string | null
+  pixKeyType?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -2777,6 +2961,10 @@ export type FinanceEntryUncheckedCreateWithoutAttachmentsInput = {
   contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
+  beneficiaryName?: string | null
+  beneficiaryCpfCnpj?: string | null
+  pixKey?: string | null
+  pixKeyType?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -2833,6 +3021,10 @@ export type FinanceEntryUpdateWithoutAttachmentsInput = {
   contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2883,6 +3075,10 @@ export type FinanceEntryUncheckedUpdateWithoutAttachmentsInput = {
   contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2927,6 +3123,10 @@ export type FinanceEntryCreateManyTenantInput = {
   contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
+  beneficiaryName?: string | null
+  beneficiaryCpfCnpj?: string | null
+  pixKey?: string | null
+  pixKeyType?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -2964,6 +3164,10 @@ export type FinanceEntryUpdateWithoutTenantInput = {
   contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3013,6 +3217,10 @@ export type FinanceEntryUncheckedUpdateWithoutTenantInput = {
   contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3058,6 +3266,10 @@ export type FinanceEntryUncheckedUpdateManyWithoutTenantInput = {
   contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3099,6 +3311,10 @@ export type FinanceEntryCreateManyCostCenterInput = {
   contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
+  beneficiaryName?: string | null
+  beneficiaryCpfCnpj?: string | null
+  pixKey?: string | null
+  pixKeyType?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -3136,6 +3352,10 @@ export type FinanceEntryUpdateWithoutCostCenterInput = {
   contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3185,6 +3405,10 @@ export type FinanceEntryUncheckedUpdateWithoutCostCenterInput = {
   contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3230,6 +3454,10 @@ export type FinanceEntryUncheckedUpdateManyWithoutCostCenterInput = {
   contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3271,6 +3499,10 @@ export type FinanceEntryCreateManyBankAccountInput = {
   contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
+  beneficiaryName?: string | null
+  beneficiaryCpfCnpj?: string | null
+  pixKey?: string | null
+  pixKeyType?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -3308,6 +3540,10 @@ export type FinanceEntryUpdateWithoutBankAccountInput = {
   contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3357,6 +3593,10 @@ export type FinanceEntryUncheckedUpdateWithoutBankAccountInput = {
   contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3402,6 +3642,10 @@ export type FinanceEntryUncheckedUpdateManyWithoutBankAccountInput = {
   contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3443,6 +3687,10 @@ export type FinanceEntryCreateManyCategoryInput = {
   contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
+  beneficiaryName?: string | null
+  beneficiaryCpfCnpj?: string | null
+  pixKey?: string | null
+  pixKeyType?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -3480,6 +3728,10 @@ export type FinanceEntryUpdateWithoutCategoryInput = {
   contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3529,6 +3781,10 @@ export type FinanceEntryUncheckedUpdateWithoutCategoryInput = {
   contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3574,6 +3830,10 @@ export type FinanceEntryUncheckedUpdateManyWithoutCategoryInput = {
   contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3615,6 +3875,10 @@ export type FinanceEntryCreateManyParentEntryInput = {
   contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
+  beneficiaryName?: string | null
+  beneficiaryCpfCnpj?: string | null
+  pixKey?: string | null
+  pixKeyType?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -3652,6 +3916,10 @@ export type FinanceEntryUpdateWithoutParentEntryInput = {
   contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3701,6 +3969,10 @@ export type FinanceEntryUncheckedUpdateWithoutParentEntryInput = {
   contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3746,6 +4018,10 @@ export type FinanceEntryUncheckedUpdateManyWithoutParentEntryInput = {
   contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3846,6 +4122,10 @@ export type FinanceEntrySelect<ExtArgs extends runtime.Types.Extensions.Internal
   contractId?: boolean
   boletoBarcode?: boolean
   boletoDigitLine?: boolean
+  beneficiaryName?: boolean
+  beneficiaryCpfCnpj?: boolean
+  pixKey?: boolean
+  pixKeyType?: boolean
   metadata?: boolean
   tags?: boolean
   deletedAt?: boolean
@@ -3898,6 +4178,10 @@ export type FinanceEntrySelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   contractId?: boolean
   boletoBarcode?: boolean
   boletoDigitLine?: boolean
+  beneficiaryName?: boolean
+  beneficiaryCpfCnpj?: boolean
+  pixKey?: boolean
+  pixKeyType?: boolean
   metadata?: boolean
   tags?: boolean
   deletedAt?: boolean
@@ -3945,6 +4229,10 @@ export type FinanceEntrySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   contractId?: boolean
   boletoBarcode?: boolean
   boletoDigitLine?: boolean
+  beneficiaryName?: boolean
+  beneficiaryCpfCnpj?: boolean
+  pixKey?: boolean
+  pixKeyType?: boolean
   metadata?: boolean
   tags?: boolean
   deletedAt?: boolean
@@ -3992,6 +4280,10 @@ export type FinanceEntrySelectScalar = {
   contractId?: boolean
   boletoBarcode?: boolean
   boletoDigitLine?: boolean
+  beneficiaryName?: boolean
+  beneficiaryCpfCnpj?: boolean
+  pixKey?: boolean
+  pixKeyType?: boolean
   metadata?: boolean
   tags?: boolean
   deletedAt?: boolean
@@ -4000,7 +4292,7 @@ export type FinanceEntrySelectScalar = {
   updatedAt?: boolean
 }
 
-export type FinanceEntryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "type" | "code" | "description" | "notes" | "categoryId" | "costCenterId" | "bankAccountId" | "supplierName" | "customerName" | "supplierId" | "customerId" | "salesOrderId" | "expectedAmount" | "actualAmount" | "discount" | "interest" | "penalty" | "issueDate" | "dueDate" | "competenceDate" | "paymentDate" | "status" | "recurrenceType" | "recurrenceInterval" | "recurrenceUnit" | "totalInstallments" | "currentInstallment" | "parentEntryId" | "contractId" | "boletoBarcode" | "boletoDigitLine" | "metadata" | "tags" | "deletedAt" | "createdBy" | "createdAt" | "updatedAt", ExtArgs["result"]["financeEntry"]>
+export type FinanceEntryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "type" | "code" | "description" | "notes" | "categoryId" | "costCenterId" | "bankAccountId" | "supplierName" | "customerName" | "supplierId" | "customerId" | "salesOrderId" | "expectedAmount" | "actualAmount" | "discount" | "interest" | "penalty" | "issueDate" | "dueDate" | "competenceDate" | "paymentDate" | "status" | "recurrenceType" | "recurrenceInterval" | "recurrenceUnit" | "totalInstallments" | "currentInstallment" | "parentEntryId" | "contractId" | "boletoBarcode" | "boletoDigitLine" | "beneficiaryName" | "beneficiaryCpfCnpj" | "pixKey" | "pixKeyType" | "metadata" | "tags" | "deletedAt" | "createdBy" | "createdAt" | "updatedAt", ExtArgs["result"]["financeEntry"]>
 export type FinanceEntryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   category?: boolean | Prisma.FinanceCategoryDefaultArgs<ExtArgs>
@@ -4075,6 +4367,10 @@ export type $FinanceEntryPayload<ExtArgs extends runtime.Types.Extensions.Intern
     contractId: string | null
     boletoBarcode: string | null
     boletoDigitLine: string | null
+    beneficiaryName: string | null
+    beneficiaryCpfCnpj: string | null
+    pixKey: string | null
+    pixKeyType: string | null
     metadata: runtime.JsonValue
     tags: string[]
     deletedAt: Date | null
@@ -4546,6 +4842,10 @@ export interface FinanceEntryFieldRefs {
   readonly contractId: Prisma.FieldRef<"FinanceEntry", 'String'>
   readonly boletoBarcode: Prisma.FieldRef<"FinanceEntry", 'String'>
   readonly boletoDigitLine: Prisma.FieldRef<"FinanceEntry", 'String'>
+  readonly beneficiaryName: Prisma.FieldRef<"FinanceEntry", 'String'>
+  readonly beneficiaryCpfCnpj: Prisma.FieldRef<"FinanceEntry", 'String'>
+  readonly pixKey: Prisma.FieldRef<"FinanceEntry", 'String'>
+  readonly pixKeyType: Prisma.FieldRef<"FinanceEntry", 'String'>
   readonly metadata: Prisma.FieldRef<"FinanceEntry", 'Json'>
   readonly tags: Prisma.FieldRef<"FinanceEntry", 'String[]'>
   readonly deletedAt: Prisma.FieldRef<"FinanceEntry", 'DateTime'>
