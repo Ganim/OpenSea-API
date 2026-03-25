@@ -1,5 +1,6 @@
 export * from './approve-payroll';
 export * from './calculate-payroll';
+export * from './calculate-thirteenth-salary';
 export * from './cancel-payroll';
 export * from './create-payroll';
 export * from './get-payroll';
