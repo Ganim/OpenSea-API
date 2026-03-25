@@ -2798,6 +2798,9 @@ model Customer {
   bids         Bid[]
   bidContracts BidContract[]
 
+  // Messaging Relations
+  messagingContacts MessagingContact[]
+
   assignedTo      User?            @relation("CustomerAssignedTo", fields: [assignedToUserId], references: [id])
   contacts        Contact[]
   deals           Deal[]
@@ -3739,6 +3742,24 @@ model Employee {
 
   country String @default("Brasil") @db.VarChar(64)
 
+  // eSocial S-2200 fields
+  raceColor                String?   @map("race_color")
+  educationLevel           String?   @map("education_level")
+  motherName               String?   @map("mother_name")
+  municipalityCode         String?   @map("municipality_code")
+  addressMunicipalityCode  String?   @map("address_municipality_code")
+  cboCode                  String?   @map("cbo_code")
+  admissionType            String?   @map("admission_type")
+  workerCategory           String?   @map("worker_category")
+  salaryUnit               String?   @map("salary_unit") @default("MONTHLY")
+  cnhNumber                String?   @map("cnh_number")
+  cnhCategory              String?   @map("cnh_category")
+  cnhExpiration            DateTime? @map("cnh_expiration")
+  professionalRegistration String?   @map("professional_registration")
+  unionCode                String?   @map("union_code")
+  fgtsOptDate              DateTime? @map("fgts_opt_date")
+  fgtsAccountNumber        String?   @map("fgts_account_number")
+
   // Dados bancários
   bankCode        String? @db.VarChar(8)
   bankName        String? @db.VarChar(128)
@@ -3804,6 +3825,15 @@ model Employee {
 
   // Deductions
   deductions Deduction[]
+
+  // Dependants
+  dependants EmployeeDependant[]
+
+  // Termination
+  termination Termination?
+
+  // Medical Exams
+  medicalExams MedicalExam[]
 
   // Management
   managedDepartments Department[] @relation("DepartmentManager")
@@ -3936,6 +3966,14 @@ model TimeEntry {
   longitude  Decimal?      @db.Decimal(11, 8)
   ipAddress  String?       @map("ip_address") @db.VarChar(64)
   notes      String?       @db.Text
+
+  // Portaria 671 / REP-P fields
+  nsrNumber         Int?     @map("nsr_number")
+  deviceType        String?  @map("device_type") @db.VarChar(8)
+  receiptGenerated  Boolean  @default(false) @map("receipt_generated")
+  receiptUrl        String?  @map("receipt_url")
+  deviceFingerprint String?  @map("device_fingerprint")
+  photoUrl          String?  @map("photo_url")
 
   // Audit
   createdAt DateTime @default(now()) @map("created_at")
@@ -4338,6 +4376,106 @@ model Deduction {
   @@index([isApplied])
   @@index([isRecurring])
   @@map("deductions")
+}
+
+model EmployeeDependant {
+  id         String @id @default(uuid())
+  tenantId   String @map("tenant_id")
+  employeeId String @map("employee_id")
+
+  name             String   @db.VarChar(256)
+  cpf              String?  @db.VarChar(256)
+  cpfHash          String?  @map("cpf_hash") @db.VarChar(64)
+  birthDate        DateTime @map("birth_date")
+  relationship     String   @db.VarChar(32) // SPOUSE, CHILD, STEPCHILD, PARENT, OTHER
+  isIrrfDependant  Boolean  @default(false) @map("is_irrf_dependant")
+  isSalarioFamilia Boolean  @default(false) @map("is_salario_familia")
+  hasDisability    Boolean  @default(false) @map("has_disability")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  tenant   Tenant   @relation(fields: [tenantId], references: [id])
+  employee Employee @relation(fields: [employeeId], references: [id])
+
+  @@index([tenantId])
+  @@index([employeeId])
+  @@map("employee_dependants")
+}
+
+model Termination {
+  id         String @id @default(uuid())
+  tenantId   String @map("tenant_id")
+  employeeId String @unique @map("employee_id")
+
+  type            String   @db.VarChar(32) // SEM_JUSTA_CAUSA, JUSTA_CAUSA, PEDIDO_DEMISSAO, ACORDO_MUTUO, CONTRATO_TEMPORARIO, RESCISAO_INDIRETA, FALECIMENTO
+  terminationDate DateTime @map("termination_date")
+  lastWorkDay     DateTime @map("last_work_day")
+  noticeType      String   @map("notice_type") @db.VarChar(16) // TRABALHADO, INDENIZADO, DISPENSADO
+  noticeDays      Int      @map("notice_days") @default(30)
+
+  // Verbas rescisórias
+  saldoSalario            Decimal? @map("saldo_salario") @db.Decimal(12, 2)
+  avisoIndenizado         Decimal? @map("aviso_indenizado") @db.Decimal(12, 2)
+  decimoTerceiroProp      Decimal? @map("decimo_terceiro_prop") @db.Decimal(12, 2)
+  feriasVencidas          Decimal? @map("ferias_vencidas") @db.Decimal(12, 2)
+  feriasVencidasTerco     Decimal? @map("ferias_vencidas_terco") @db.Decimal(12, 2)
+  feriasProporcional      Decimal? @map("ferias_proporcional") @db.Decimal(12, 2)
+  feriasProporcionalTerco Decimal? @map("ferias_proporcional_terco") @db.Decimal(12, 2)
+  multaFgts               Decimal? @map("multa_fgts") @db.Decimal(12, 2)
+
+  // Descontos
+  inssRescisao    Decimal? @map("inss_rescisao") @db.Decimal(12, 2)
+  irrfRescisao    Decimal? @map("irrf_rescisao") @db.Decimal(12, 2)
+  outrosDescontos Decimal? @map("outros_descontos") @db.Decimal(12, 2)
+
+  // Totais
+  totalBruto     Decimal? @map("total_bruto") @db.Decimal(12, 2)
+  totalDescontos Decimal? @map("total_descontos") @db.Decimal(12, 2)
+  totalLiquido   Decimal? @map("total_liquido") @db.Decimal(12, 2)
+
+  // Controle
+  paymentDeadline DateTime  @map("payment_deadline")
+  paidAt          DateTime? @map("paid_at")
+  status          String    @default("PENDING") @db.VarChar(16) // PENDING, CALCULATED, PAID
+  notes           String?
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  tenant   Tenant   @relation(fields: [tenantId], references: [id])
+  employee Employee @relation(fields: [employeeId], references: [id])
+
+  @@index([tenantId])
+  @@index([status])
+  @@map("terminations")
+}
+
+model MedicalExam {
+  id         String @id @default(uuid())
+  tenantId   String @map("tenant_id")
+  employeeId String @map("employee_id")
+
+  type           String    @db.VarChar(32) // ADMISSIONAL, PERIODICO, MUDANCA_FUNCAO, RETORNO, DEMISSIONAL
+  examDate       DateTime  @map("exam_date")
+  expirationDate DateTime? @map("expiration_date")
+  doctorName     String    @map("doctor_name") @db.VarChar(256)
+  doctorCrm      String    @map("doctor_crm") @db.VarChar(32)
+  result         String    @db.VarChar(32) // APTO, INAPTO, APTO_COM_RESTRICOES
+  observations   String?
+  documentUrl    String?   @map("document_url")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  tenant   Tenant   @relation(fields: [tenantId], references: [id])
+  employee Employee @relation(fields: [employeeId], references: [id])
+
+  @@index([tenantId])
+  @@index([employeeId])
+  @@index([type])
+  @@index([examDate])
+  @@map("medical_exams")
 }
 
 // ===============================================
@@ -4947,6 +5085,9 @@ model Tenant {
   payrolls                Payroll[]
   bonuses                 Bonus[]
   deductions              Deduction[]
+  employeeDependants      EmployeeDependant[]
+  terminations            Termination[]
+  medicalExams            MedicalExam[]
   // Audit domain
   auditLogs               AuditLog[]
   // Core domain
@@ -5074,6 +5215,18 @@ model Tenant {
   marketplaceListings    MarketplaceListing[]
   marketplaceOrders      MarketplaceOrder[]
   marketplacePayments    MarketplacePayment[]
+
+  // Messaging domain
+  messagingAccounts  MessagingAccount[]
+  messagingContacts  MessagingContact[]
+  messagingMessages  MessagingMessage[]
+  messagingTemplates MessagingTemplate[]
+
+  // Fiscal domain
+  fiscalConfigs      FiscalConfig[]
+  fiscalCertificates FiscalCertificate[]
+  fiscalDocuments    FiscalDocument[]
+  pixCharges         PixCharge[]
 
   @@index([status])
   @@index([deletedAt])
@@ -8188,6 +8341,9 @@ model Order {
   posTransactions PosTransaction[]
   posVisitLogs    PosVisitLog[]
 
+  // Fiscal Relations
+  fiscalDocuments FiscalDocument[]
+
   @@unique([tenantId, orderNumber])
   @@index([tenantId])
   @@index([tenantId, type])
@@ -10873,4 +11029,557 @@ model MarketplacePayment {
   @@index([connectionId, status])
   @@index([tenantId, status])
   @@map("marketplace_payments")
+}
+
+// ===============================================
+// UNIFIED MESSAGING
+// ===============================================
+
+// --- Enums ---
+
+enum MessagingChannel {
+  WHATSAPP
+  INSTAGRAM
+  TELEGRAM
+}
+
+enum MessagingDirection {
+  INBOUND
+  OUTBOUND
+}
+
+enum MessagingMessageStatus {
+  PENDING
+  SENT
+  DELIVERED
+  READ
+  FAILED
+}
+
+enum MessagingMessageType {
+  TEXT
+  IMAGE
+  VIDEO
+  AUDIO
+  DOCUMENT
+  LOCATION
+  TEMPLATE
+  INTERACTIVE
+  STICKER
+}
+
+enum MessagingAccountStatus {
+  ACTIVE
+  DISCONNECTED
+  ERROR
+  SUSPENDED
+}
+
+enum MessagingTemplateStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum MessagingTemplateCategory {
+  MARKETING
+  UTILITY
+  AUTHENTICATION
+}
+
+// --- Models ---
+
+model MessagingAccount {
+  id       String @id @default(uuid())
+  tenantId String @map("tenant_id")
+
+  channel MessagingChannel
+  name    String                 @db.VarChar(128)
+  status  MessagingAccountStatus @default(ACTIVE)
+
+  // Channel-specific identifiers
+  phoneNumber   String? @map("phone_number") @db.VarChar(20)
+  wabaId        String? @map("waba_id") @db.VarChar(64)
+  igAccountId   String? @map("ig_account_id") @db.VarChar(64)
+  tgBotToken    String? @map("tg_bot_token") @db.Text
+  tgBotUsername String? @map("tg_bot_username") @db.VarChar(64)
+
+  // OAuth/API credentials (encrypted)
+  accessToken    String?   @map("access_token") @db.Text
+  refreshToken   String?   @map("refresh_token") @db.Text
+  tokenExpiresAt DateTime? @map("token_expires_at")
+
+  // Config
+  webhookUrl    String? @map("webhook_url") @db.VarChar(512)
+  webhookSecret String? @map("webhook_secret") @db.VarChar(256)
+  settings      Json?
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  tenant    Tenant               @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  contacts  MessagingContact[]
+  messages  MessagingMessage[]
+  templates MessagingTemplate[]
+
+  @@unique([tenantId, channel, phoneNumber])
+  @@index([tenantId])
+  @@index([tenantId, channel])
+  @@map("messaging_accounts")
+}
+
+model MessagingContact {
+  id        String @id @default(uuid())
+  tenantId  String @map("tenant_id")
+  accountId String @map("account_id")
+
+  channel    MessagingChannel
+  externalId String @map("external_id") @db.VarChar(128)
+
+  name      String? @db.VarChar(256)
+  username  String? @db.VarChar(128)
+  avatarUrl String? @map("avatar_url") @db.VarChar(512)
+
+  // Link to ERP customer
+  customerId String? @map("customer_id")
+
+  // Conversation state
+  lastMessageAt DateTime? @map("last_message_at")
+  unreadCount   Int       @default(0) @map("unread_count")
+  isBlocked     Boolean   @default(false) @map("is_blocked")
+
+  metadata Json?
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  tenant   Tenant           @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  account  MessagingAccount @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  customer Customer?        @relation(fields: [customerId], references: [id])
+  messages MessagingMessage[]
+
+  @@unique([accountId, externalId])
+  @@index([tenantId])
+  @@index([tenantId, channel])
+  @@index([tenantId, lastMessageAt])
+  @@map("messaging_contacts")
+}
+
+model MessagingMessage {
+  id        String @id @default(uuid())
+  tenantId  String @map("tenant_id")
+  accountId String @map("account_id")
+  contactId String @map("contact_id")
+
+  channel   MessagingChannel
+  direction MessagingDirection
+  type      MessagingMessageType   @default(TEXT)
+  status    MessagingMessageStatus @default(PENDING)
+
+  // Content
+  text      String? @db.Text
+  mediaUrl  String? @map("media_url") @db.VarChar(1024)
+  mediaType String? @map("media_type") @db.VarChar(64)
+  fileName  String? @map("file_name") @db.VarChar(256)
+
+  // Template (WhatsApp)
+  templateName   String? @map("template_name") @db.VarChar(128)
+  templateParams Json?   @map("template_params")
+
+  // External reference
+  externalId String? @map("external_id") @db.VarChar(128)
+
+  // Reply
+  replyToMessageId String? @map("reply_to_message_id")
+
+  // Error
+  errorCode    String? @map("error_code") @db.VarChar(32)
+  errorMessage String? @map("error_message") @db.VarChar(512)
+
+  metadata Json?
+
+  // Timestamps
+  sentAt      DateTime? @map("sent_at")
+  deliveredAt DateTime? @map("delivered_at")
+  readAt      DateTime? @map("read_at")
+  createdAt   DateTime  @default(now()) @map("created_at")
+
+  // Relations
+  tenant  Tenant           @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  account MessagingAccount @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  contact MessagingContact @relation(fields: [contactId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@index([accountId, contactId])
+  @@index([tenantId, channel, createdAt])
+  @@index([contactId, createdAt])
+  @@index([externalId])
+  @@map("messaging_messages")
+}
+
+model MessagingTemplate {
+  id        String @id @default(uuid())
+  tenantId  String @map("tenant_id")
+  accountId String @map("account_id")
+
+  name     String                    @db.VarChar(128)
+  language String                    @db.VarChar(10)
+  category MessagingTemplateCategory
+  status   MessagingTemplateStatus   @default(PENDING)
+
+  // Template structure
+  components Json
+
+  // External
+  externalId String? @map("external_id") @db.VarChar(128)
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  tenant  Tenant           @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  account MessagingAccount @relation(fields: [accountId], references: [id], onDelete: Cascade)
+
+  @@unique([accountId, name, language])
+  @@index([tenantId])
+  @@map("messaging_templates")
+}
+
+// ===============================================
+// FISCAL DOCUMENTS
+// ===============================================
+
+// --- Enums ---
+
+enum FiscalDocumentType {
+  NFE
+  NFCE
+  NFSE
+}
+
+enum FiscalDocumentStatus {
+  DRAFT
+  PENDING
+  AUTHORIZED
+  CANCELLED
+  DENIED
+  CORRECTED
+  INUTILIZED
+}
+
+enum FiscalEmissionType {
+  NORMAL
+  CONTINGENCY_SVC_AN
+  CONTINGENCY_SVC_RS
+  CONTINGENCY_EPEC
+  CONTINGENCY_OFFLINE
+}
+
+enum FiscalEventType {
+  AUTHORIZATION
+  CANCELLATION
+  CORRECTION_LETTER
+  INUTILIZATION
+  MANIFESTATION
+}
+
+enum FiscalProviderType {
+  NUVEM_FISCAL
+  FOCUS_NFE
+  WEBMANIABR
+  NFEWIZARD
+}
+
+// --- Models ---
+
+model FiscalConfig {
+  id       String @id @default(uuid())
+  tenantId String @unique @map("tenant_id")
+
+  provider    FiscalProviderType @default(NUVEM_FISCAL)
+  environment NfeEnvironment     @default(HOMOLOGATION)
+
+  // API credentials (encrypted)
+  apiKey    String? @map("api_key") @db.Text
+  apiSecret String? @map("api_secret") @db.Text
+
+  // NF-e defaults
+  defaultSeries           Int     @default(1) @map("default_series")
+  lastNfeNumber           Int     @default(0) @map("last_nfe_number")
+  lastNfceNumber          Int     @default(0) @map("last_nfce_number")
+  defaultCfop             String? @map("default_cfop") @db.VarChar(10)
+  defaultNaturezaOperacao String? @map("default_natureza_operacao") @db.VarChar(128)
+
+  // Tax regime
+  taxRegime TaxRegimeEnum @default(SIMPLES)
+
+  // NFC-e
+  nfceEnabled  Boolean @default(false) @map("nfce_enabled")
+  nfceCscId    String? @map("nfce_csc_id") @db.VarChar(10)
+  nfceCscToken String? @map("nfce_csc_token") @db.VarChar(128)
+
+  // Certificate
+  certificateId String? @map("certificate_id")
+
+  // Contingency
+  contingencyMode   FiscalEmissionType @default(NORMAL) @map("contingency_mode")
+  contingencyReason String?            @map("contingency_reason") @db.VarChar(256)
+
+  settings Json?
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  tenant      Tenant             @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  certificate FiscalCertificate? @relation(fields: [certificateId], references: [id])
+  documents   FiscalDocument[]
+
+  @@index([tenantId])
+  @@map("fiscal_configs")
+}
+
+model FiscalCertificate {
+  id       String @id @default(uuid())
+  tenantId String @map("tenant_id")
+
+  // Certificate data (encrypted)
+  pfxData     Bytes  @map("pfx_data")
+  pfxPassword String @map("pfx_password") @db.Text
+
+  // Certificate metadata
+  serialNumber String   @map("serial_number") @db.VarChar(64)
+  issuer       String   @db.VarChar(256)
+  subject      String   @db.VarChar(256)
+  validFrom    DateTime @map("valid_from")
+  validUntil   DateTime @map("valid_until")
+
+  status CertificateStatus @default(ACTIVE)
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  tenant       Tenant         @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  fiscalConfig FiscalConfig[]
+
+  @@index([tenantId])
+  @@index([tenantId, validUntil])
+  @@map("fiscal_certificates")
+}
+
+model FiscalDocument {
+  id       String @id @default(uuid())
+  tenantId String @map("tenant_id")
+  configId String @map("config_id")
+
+  type      FiscalDocumentType
+  series    Int
+  number    Int
+  accessKey String? @unique @map("access_key") @db.VarChar(44)
+
+  status       FiscalDocumentStatus @default(DRAFT)
+  emissionType FiscalEmissionType   @default(NORMAL) @map("emission_type")
+
+  // Recipient
+  recipientCnpjCpf String? @map("recipient_cnpj_cpf") @db.VarChar(14)
+  recipientName    String? @map("recipient_name") @db.VarChar(256)
+  recipientIe      String? @map("recipient_ie") @db.VarChar(20)
+
+  // Nature of operation
+  naturezaOperacao String? @map("natureza_operacao") @db.VarChar(128)
+  cfop             String? @db.VarChar(10)
+
+  // Totals
+  totalProducts Decimal @default(0) @map("total_products") @db.Decimal(12, 2)
+  totalDiscount Decimal @default(0) @map("total_discount") @db.Decimal(12, 2)
+  totalShipping Decimal @default(0) @map("total_shipping") @db.Decimal(12, 2)
+  totalTax      Decimal @default(0) @map("total_tax") @db.Decimal(12, 2)
+  totalValue    Decimal @default(0) @map("total_value") @db.Decimal(12, 2)
+
+  // XML
+  xmlSent         String? @map("xml_sent") @db.Text
+  xmlAuthorized   String? @map("xml_authorized") @db.Text
+  xmlCancellation String? @map("xml_cancellation") @db.Text
+
+  // DANFE
+  danfePdfUrl String? @map("danfe_pdf_url") @db.VarChar(512)
+
+  // Protocol
+  protocolNumber String?   @map("protocol_number") @db.VarChar(32)
+  protocolDate   DateTime? @map("protocol_date")
+
+  // External provider reference
+  externalId String? @map("external_id") @db.VarChar(128)
+
+  // Link to sales
+  orderId String? @map("order_id")
+
+  // Cancellation
+  cancelledAt  DateTime? @map("cancelled_at")
+  cancelReason String?   @map("cancel_reason") @db.VarChar(256)
+
+  // Correction
+  correctionText String? @map("correction_text") @db.Text
+
+  // Additional info
+  additionalInfo String? @map("additional_info") @db.Text
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  tenant Tenant       @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  config FiscalConfig @relation(fields: [configId], references: [id])
+  order  Order?       @relation(fields: [orderId], references: [id])
+
+  items  FiscalDocumentItem[]
+  events FiscalDocumentEvent[]
+
+  @@unique([configId, type, series, number])
+  @@index([tenantId])
+  @@index([tenantId, type, status])
+  @@index([tenantId, createdAt])
+  @@index([orderId])
+  @@map("fiscal_documents")
+}
+
+model FiscalDocumentItem {
+  id               String @id @default(uuid())
+  fiscalDocumentId String @map("fiscal_document_id")
+
+  itemNumber Int @map("item_number")
+
+  // Product
+  productId   String? @map("product_id")
+  productName String  @map("product_name") @db.VarChar(256)
+  productCode String? @map("product_code") @db.VarChar(64)
+  ncm         String? @db.VarChar(8)
+  cest        String? @db.VarChar(7)
+  cfop        String  @db.VarChar(4)
+
+  // Quantities
+  quantity   Decimal @db.Decimal(12, 4)
+  unitPrice  Decimal @map("unit_price") @db.Decimal(12, 4)
+  totalPrice Decimal @map("total_price") @db.Decimal(12, 2)
+  discount   Decimal @default(0) @db.Decimal(12, 2)
+
+  // ICMS
+  cst       String? @db.VarChar(3)
+  icmsBase  Decimal @default(0) @map("icms_base") @db.Decimal(12, 2)
+  icmsRate  Decimal @default(0) @map("icms_rate") @db.Decimal(5, 2)
+  icmsValue Decimal @default(0) @map("icms_value") @db.Decimal(12, 2)
+
+  // IPI
+  ipiBase  Decimal @default(0) @map("ipi_base") @db.Decimal(12, 2)
+  ipiRate  Decimal @default(0) @map("ipi_rate") @db.Decimal(5, 2)
+  ipiValue Decimal @default(0) @map("ipi_value") @db.Decimal(12, 2)
+
+  // PIS
+  pisBase  Decimal @default(0) @map("pis_base") @db.Decimal(12, 2)
+  pisRate  Decimal @default(0) @map("pis_rate") @db.Decimal(5, 4)
+  pisValue Decimal @default(0) @map("pis_value") @db.Decimal(12, 2)
+
+  // COFINS
+  cofinsBase  Decimal @default(0) @map("cofins_base") @db.Decimal(12, 2)
+  cofinsRate  Decimal @default(0) @map("cofins_rate") @db.Decimal(5, 4)
+  cofinsValue Decimal @default(0) @map("cofins_value") @db.Decimal(12, 2)
+
+  // 2026 Tax Reform
+  ibsRate  Decimal @default(0) @map("ibs_rate") @db.Decimal(5, 4)
+  ibsValue Decimal @default(0) @map("ibs_value") @db.Decimal(12, 2)
+  cbsRate  Decimal @default(0) @map("cbs_rate") @db.Decimal(5, 4)
+  cbsValue Decimal @default(0) @map("cbs_value") @db.Decimal(12, 2)
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+
+  // Relations
+  fiscalDocument FiscalDocument @relation(fields: [fiscalDocumentId], references: [id], onDelete: Cascade)
+
+  @@index([fiscalDocumentId])
+  @@map("fiscal_document_items")
+}
+
+model FiscalDocumentEvent {
+  id               String @id @default(uuid())
+  fiscalDocumentId String @map("fiscal_document_id")
+
+  type        FiscalEventType
+  protocol    String? @db.VarChar(32)
+  description String? @db.VarChar(512)
+
+  xmlRequest  String? @map("xml_request") @db.Text
+  xmlResponse String? @map("xml_response") @db.Text
+
+  success      Boolean @default(true)
+  errorCode    String? @map("error_code") @db.VarChar(32)
+  errorMessage String? @map("error_message") @db.VarChar(512)
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+
+  // Relations
+  fiscalDocument FiscalDocument @relation(fields: [fiscalDocumentId], references: [id], onDelete: Cascade)
+
+  @@index([fiscalDocumentId])
+  @@index([fiscalDocumentId, type])
+  @@map("fiscal_document_events")
+}
+
+// ===============================================
+// PIX CHARGES
+// ===============================================
+
+model PixCharge {
+  id       String @id @default(uuid())
+  tenantId String @map("tenant_id")
+
+  // PIX identifiers
+  txId          String  @unique @map("tx_id") @db.VarChar(64)
+  location      String? @db.VarChar(512)
+  pixCopiaECola String? @map("pix_copia_e_cola") @db.Text
+
+  // Amount
+  amount Decimal @db.Decimal(12, 2)
+
+  // Status
+  status String @default("ACTIVE") @db.VarChar(32)
+
+  // Payer info (filled after payment)
+  payerName    String? @map("payer_name") @db.VarChar(256)
+  payerCpfCnpj String? @map("payer_cpf_cnpj") @db.VarChar(14)
+  endToEndId   String? @map("end_to_end_id") @db.VarChar(64)
+
+  // Link to POS or Order
+  posTransactionPaymentId String? @map("pos_transaction_payment_id")
+  orderId                 String? @map("order_id")
+
+  // Expiration
+  expiresAt DateTime? @map("expires_at")
+  paidAt    DateTime? @map("paid_at")
+
+  // Provider
+  provider     String @default("EFI") @db.VarChar(32)
+  providerData Json?  @map("provider_data")
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@index([tenantId, status])
+  @@index([txId])
+  @@map("pix_charges")
 }
