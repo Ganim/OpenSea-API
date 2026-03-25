@@ -728,6 +728,19 @@ export const SALES_AUDIT_MESSAGES = {
     description:
       'Configuracao de IA para licitacoes atualizada por {{userName}}',
   } satisfies AuditMessage,
+
+  // ============================================================================
+  // STORE CREDITS - Créditos de Loja
+  // ============================================================================
+
+  /** Crédito de loja excluído */
+  STORE_CREDIT_DELETE: {
+    action: AuditAction.DELETE,
+    entity: AuditEntity.STORE_CREDIT,
+    module: AuditModule.SALES,
+    description:
+      '{{userName}} excluiu crédito de loja de R${{amount}} do cliente {{customerName}}',
+  } satisfies AuditMessage,
 } as const;
 
 export type SalesAuditMessageKey = keyof typeof SALES_AUDIT_MESSAGES;

@@ -1,6 +1,10 @@
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { StoreCredit } from '@/entities/sales/store-credit';
-import type { StoreCreditsRepository } from '@/repositories/sales/store-credits-repository';
+import type {
+  FindManyStoreCreditsParams,
+  FindManyStoreCreditsResult,
+  StoreCreditsRepository,
+} from '@/repositories/sales/store-credits-repository';
 
 export class InMemoryStoreCreditsRepository implements StoreCreditsRepository {
   public items: StoreCredit[] = [];
@@ -35,6 +39,34 @@ export class InMemoryStoreCreditsRepository implements StoreCreditsRepository {
     );
   }
 
+  async findManyPaginated(
+    tenantId: string,
+    params: FindManyStoreCreditsParams,
+  ): Promise<FindManyStoreCreditsResult> {
+    const { page, limit, customerId } = params;
+
+    let filtered = this.items.filter((c) => c.tenantId.toString() === tenantId);
+
+    if (customerId) {
+      filtered = filtered.filter((c) => c.customerId.toString() === customerId);
+    }
+
+    // Sort by createdAt descending
+    filtered.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+
+    const total = filtered.length;
+    const start = (page - 1) * limit;
+    const paginated = filtered.slice(start, start + limit);
+
+    return {
+      data: paginated,
+      total,
+      page,
+      limit,
+      totalPages: Math.ceil(total / limit),
+    };
+  }
+
   async getBalance(
     customerId: UniqueEntityID,
     tenantId: string,
@@ -50,5 +82,15 @@ export class InMemoryStoreCreditsRepository implements StoreCreditsRepository {
     if (index !== -1) {
       this.items[index] = credit;
     }
+  }
+
+  async delete(id: UniqueEntityID, tenantId: string): Promise<void> {
+    this.items = this.items.filter(
+      (c) =>
+        !(
+          c.id.toString() === id.toString() &&
+          c.tenantId.toString() === tenantId
+        ),
+    );
   }
 }

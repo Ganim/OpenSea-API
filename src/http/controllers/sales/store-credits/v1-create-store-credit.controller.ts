@@ -17,7 +17,7 @@ export async function v1CreateStoreCreditController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.SALES.ORDERS.ADMIN,
+        permissionCode: PermissionCodes.SALES.STORE_CREDITS.REGISTER,
         resource: 'store-credits',
       }),
     ],

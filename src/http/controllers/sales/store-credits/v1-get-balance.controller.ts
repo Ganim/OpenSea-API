@@ -16,7 +16,7 @@ export async function v1GetStoreCreditBalanceController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.SALES.ORDERS.ACCESS,
+        permissionCode: PermissionCodes.SALES.STORE_CREDITS.ACCESS,
         resource: 'store-credits',
       }),
     ],
