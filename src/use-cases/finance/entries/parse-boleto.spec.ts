@@ -62,7 +62,7 @@ describe('ParseBoletoUseCase', () => {
 
     // Factor = 1100 in this case (positions 5-8)
     expect(result.boleto.dueDate).toBeInstanceOf(Date);
-    expect(result.boleto.dueDate.getFullYear()).toBeGreaterThanOrEqual(2000);
+    expect(result.boleto.dueDate!.getFullYear()).toBeGreaterThanOrEqual(2000);
   });
 
   it('should return both barcode and digit line', async () => {

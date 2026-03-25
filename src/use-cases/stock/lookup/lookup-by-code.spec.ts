@@ -1,6 +1,5 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import { Item } from '@/entities/stock/item';
 import { ItemStatus } from '@/entities/stock/value-objects/item-status';
 import { Slug } from '@/entities/stock/value-objects/slug';
 import { InMemoryBinsRepository } from '@/repositories/stock/in-memory/in-memory-bins-repository';

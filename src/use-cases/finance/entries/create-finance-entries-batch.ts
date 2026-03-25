@@ -53,9 +53,7 @@ interface CreateFinanceEntriesBatchResponse {
 }
 
 export class CreateFinanceEntriesBatchUseCase {
-  constructor(
-    private createFinanceEntryUseCase: CreateFinanceEntryUseCase,
-  ) {}
+  constructor(private createFinanceEntryUseCase: CreateFinanceEntryUseCase) {}
 
   async execute(
     request: CreateFinanceEntriesBatchRequest,
@@ -83,9 +81,7 @@ export class CreateFinanceEntriesBatchUseCase {
         createdEntries.push(result.entry);
       } catch (error) {
         if (error instanceof BadRequestError) {
-          throw new BadRequestError(
-            `Entry ${i + 1}: ${error.message}`,
-          );
+          throw new BadRequestError(`Entry ${i + 1}: ${error.message}`);
         }
         throw error;
       }

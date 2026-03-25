@@ -102,7 +102,11 @@ export class LookupByCodeUseCase {
             name: bin.address,
             code: bin.address,
             quantity: bin.currentOccupancy,
-            status: bin.isBlocked ? 'Bloqueado' : bin.isActive ? 'Ativo' : 'Inativo',
+            status: bin.isBlocked
+              ? 'Bloqueado'
+              : bin.isActive
+                ? 'Ativo'
+                : 'Inativo',
           },
         };
       }

@@ -3,10 +3,7 @@ import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import {
-  parsePixSchema,
-  parsePixResponseSchema,
-} from '@/http/schemas/finance';
+import { parsePixSchema, parsePixResponseSchema } from '@/http/schemas/finance';
 import { makeParsePixUseCase } from '@/use-cases/finance/entries/factories/make-parse-pix-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
