@@ -70,6 +70,9 @@ import { notificationsRoutes } from './controllers/notifications/routes';
 // Requests (Workflow)
 import { requestsRoutes } from './controllers/requests/routes';
 
+// Cashier routes
+import { cashierRoutes } from './controllers/cashier/routes';
+
 // Audit routes
 import { auditRoutes } from './controllers/audit/routes';
 
@@ -148,6 +151,9 @@ import { taskIntegrationsRoutes } from './controllers/tasks/integrations/routes'
 import { taskMembersRoutes } from './controllers/tasks/members/routes';
 import { taskWatchersRoutes } from './controllers/tasks/watchers/routes';
 
+// Messaging routes
+import { messagingRoutes } from './controllers/messaging/routes';
+
 // Signature routes
 import { signatureCertificatesRoutes } from './controllers/tools/signature/certificates/routes';
 import { signatureEnvelopesRoutes } from './controllers/tools/signature/envelopes/routes';
@@ -160,6 +166,9 @@ import { aiInsightsRoutes } from './controllers/ai/insights/routes';
 import { aiConfigRoutes } from './controllers/ai/config/routes';
 import { aiFavoritesRoutes } from './controllers/ai/favorites/routes';
 import { aiActionLogsRoutes } from './controllers/ai/actions/routes';
+import { aiContentRoutes } from './controllers/ai/content/routes';
+import { aiCampaignsRoutes } from './controllers/ai/campaigns/routes';
+import { aiWorkflowsRoutes } from './controllers/ai/workflows/routes';
 
 // HR routes
 import { absencesRoutes } from './controllers/hr/absences/routes';
@@ -351,6 +360,15 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(aiConfigRoutes);
   await app.register(aiFavoritesRoutes);
   await app.register(aiActionLogsRoutes);
+  await app.register(aiContentRoutes);
+  await app.register(aiCampaignsRoutes);
+  await app.register(aiWorkflowsRoutes);
+
+  // Messaging routes
+  await app.register(messagingRoutes);
+
+  // Cashier routes
+  await app.register(cashierRoutes);
 
   // Audit routes
   await app.register(auditRoutes);

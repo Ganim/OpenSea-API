@@ -434,6 +434,7 @@ model User {
   aiFavoriteQueries  AiFavoriteQuery[]
   aiActionLogs       AiActionLog[]
   aiActionsConfirmed AiActionLog[]     @relation("AiActionConfirmer")
+  aiWorkflows        AiWorkflow[]
 
   // POS Relations
   posSessions                PosSession[]      @relation("PosSessionOperator")
@@ -5182,6 +5183,7 @@ model Tenant {
   aiFavoriteQueries AiFavoriteQuery[]
   aiActionLogs      AiActionLog[]
   aiInsights        AiInsight[]
+  aiWorkflows       AiWorkflow[]
 
   // POS domain
   posTerminals    PosTerminal[]
@@ -11582,4 +11584,62 @@ model PixCharge {
   @@index([tenantId, status])
   @@index([txId])
   @@map("pix_charges")
+}
+
+// ── AI Workflow Models ──────────────────────────────────────────────
+
+enum AiWorkflowTrigger {
+  MANUAL
+  CRON
+  EVENT
+}
+
+enum AiWorkflowExecutionStatus {
+  RUNNING
+  COMPLETED
+  FAILED
+  CANCELLED
+}
+
+model AiWorkflow {
+  id            String            @id @default(uuid())
+  tenantId      String            @map("tenant_id")
+  userId        String            @map("user_id")
+  name          String            @db.VarChar(128)
+  description   String            @db.Text
+  naturalPrompt String            @map("natural_prompt") @db.Text
+  triggerType   AiWorkflowTrigger @default(MANUAL) @map("trigger_type")
+  triggerConfig Json?             @map("trigger_config")
+  conditions    Json?
+  actions       Json
+  isActive      Boolean           @default(true) @map("is_active")
+  lastRunAt     DateTime?         @map("last_run_at")
+  runCount      Int               @default(0) @map("run_count")
+  lastError     String?           @map("last_error") @db.Text
+  createdAt     DateTime          @default(now()) @map("created_at")
+  updatedAt     DateTime          @updatedAt @map("updated_at")
+
+  tenant     Tenant                  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  user       User                    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  executions AiWorkflowExecution[]
+
+  @@index([tenantId, isActive])
+  @@index([tenantId, triggerType])
+  @@map("ai_workflows")
+}
+
+model AiWorkflowExecution {
+  id          String                      @id @default(uuid())
+  workflowId  String                      @map("workflow_id")
+  status      AiWorkflowExecutionStatus   @default(RUNNING)
+  trigger     String                      @db.VarChar(32)
+  results     Json?
+  error       String?                     @db.Text
+  startedAt   DateTime                    @default(now()) @map("started_at")
+  completedAt DateTime?                   @map("completed_at")
+
+  workflow AiWorkflow @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+
+  @@index([workflowId, startedAt])
+  @@map("ai_workflow_executions")
 }

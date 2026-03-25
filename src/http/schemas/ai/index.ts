@@ -3,3 +3,6 @@ export * from './insight.schema';
 export * from './config.schema';
 export * from './favorite.schema';
 export * from './action.schema';
+export * from './content.schema';
+export * from './workflow.schema';
+export * from './campaign.schema';

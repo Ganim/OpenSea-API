@@ -7,6 +7,7 @@ import { registerEventConsumers } from './lib/events/register-consumers';
 import { httpLogger } from './lib/logger';
 import { prisma } from './lib/prisma';
 import { moduleLoadStart } from './startup-banner';
+import { getWorkflowScheduler } from './services/ai-workflows/workflow-scheduler';
 
 let isShuttingDown = false;
 const SHUTDOWN_TIMEOUT_MS = 15_000;
@@ -124,6 +125,9 @@ async function gracefulShutdown(signal: string) {
   shutdownTimer.unref();
 
   try {
+    // Stop AI workflow scheduler
+    getWorkflowScheduler().stop();
+
     // Close HTTP server (stop accepting new connections)
     await app.close();
     console.log('[shutdown] HTTP server closed');
@@ -200,6 +204,10 @@ async function start() {
       'HTTP server is running on port %d',
       env.PORT,
     );
+
+    // Start AI workflow scheduler (CRON-based workflows)
+    const scheduler = getWorkflowScheduler();
+    scheduler.start();
   } catch (err) {
     const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
     console.error(`[startup] Failed after ${elapsed}s:`, err);

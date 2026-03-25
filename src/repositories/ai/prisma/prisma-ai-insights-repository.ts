@@ -3,6 +3,7 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { AiInsight } from '@/entities/ai/ai-insight';
 import type {
   AiInsightsRepository,
+  CreateInsightData,
   FindManyInsightsOptions,
   FindManyInsightsResult,
 } from '../ai-insights-repository';
@@ -98,10 +99,43 @@ export class PrismaAiInsightsRepository implements AiInsightsRepository {
     };
   }
 
+  async create(data: CreateInsightData): Promise<AiInsight> {
+    const raw = await prisma.aiInsight.create({
+      data: {
+        tenantId: data.tenantId,
+        type: data.type as AiInsightType,
+        priority: data.priority as AiInsightPriority,
+        title: data.title,
+        content: data.content,
+        renderData: data.renderData
+          ? JSON.parse(JSON.stringify(data.renderData))
+          : undefined,
+        module: data.module,
+        relatedEntityType: data.relatedEntityType,
+        relatedEntityId: data.relatedEntityId,
+        targetUserIds: data.targetUserIds,
+        status: 'NEW' as AiInsightStatus,
+        actionUrl: data.actionUrl,
+        suggestedAction: data.suggestedAction,
+        expiresAt: data.expiresAt,
+        aiModel: data.aiModel,
+      },
+    });
+
+    return toDomain(raw);
+  }
+
   async markViewed(id: string, tenantId: string): Promise<void> {
     await prisma.aiInsight.update({
       where: { id, tenantId },
       data: { status: 'VIEWED', viewedAt: new Date() },
+    });
+  }
+
+  async markActedOn(id: string, tenantId: string): Promise<void> {
+    await prisma.aiInsight.update({
+      where: { id, tenantId },
+      data: { status: 'ACTED_ON', actedOnAt: new Date() },
     });
   }
 

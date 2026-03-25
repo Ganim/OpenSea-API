@@ -4,6 +4,7 @@ import { getSalesHandlers } from './modules/sales-handlers';
 import { getHrHandlers } from './modules/hr-handlers';
 import { getFinanceHandlers } from './modules/finance-handlers';
 import { getSystemHandlers } from './modules/system-handlers';
+import { getContentHandlers } from './modules/content-handlers';
 
 export class ToolUseCaseFactory {
   private handlers: Map<string, ToolHandler> = new Map();
@@ -22,6 +23,9 @@ export class ToolUseCaseFactory {
       this.handlers.set(name, handler);
     }
     for (const [name, handler] of Object.entries(getSystemHandlers())) {
+      this.handlers.set(name, handler);
+    }
+    for (const [name, handler] of Object.entries(getContentHandlers())) {
       this.handlers.set(name, handler);
     }
   }
