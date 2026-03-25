@@ -295,6 +295,20 @@ export class CalculatePayrollUseCase {
       items.push(irrfItem);
     }
 
+    // 7. FGTS calculation — employer contribution (8% of gross, NOT a deduction)
+    const fgtsAmount = this.calculateFGTS(totalEarnings);
+    if (fgtsAmount > 0) {
+      const fgtsItem = await this.payrollItemsRepository.create({
+        payrollId: payroll.id,
+        employeeId,
+        type: 'FGTS',
+        description: 'FGTS (contribuição patronal)',
+        amount: fgtsAmount,
+        isDeduction: false,
+      });
+      items.push(fgtsItem);
+    }
+
     return items;
   }
 
@@ -317,6 +331,15 @@ export class CalculatePayrollUseCase {
     }
 
     return Math.min(inss, table.maxContribution);
+  }
+
+  /**
+   * FGTS = 8% of gross pay (base salary + overtime + bonuses + night shift + hazard pay)
+   * This is an employer contribution and is NOT deducted from the employee's pay.
+   */
+  private calculateFGTS(grossSalary: number): number {
+    const FGTS_RATE = 0.08;
+    return Math.round(grossSalary * FGTS_RATE * 100) / 100;
   }
 
   private calculateIRRF(taxableBase: number, year: number): number {

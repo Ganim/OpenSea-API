@@ -49,10 +49,10 @@ export const PayrollItemTypeEnum = {
 };
 
 // Types that are deductions (will be subtracted from gross salary)
+// Note: FGTS is NOT a deduction — it is an employer contribution (informativo)
 const DEDUCTION_TYPES: PayrollItemTypeValue[] = [
   PayrollItemTypeEnum.INSS,
   PayrollItemTypeEnum.IRRF,
-  PayrollItemTypeEnum.FGTS,
   PayrollItemTypeEnum.HEALTH_PLAN,
   PayrollItemTypeEnum.DENTAL_PLAN,
   PayrollItemTypeEnum.TRANSPORT_VOUCHER,
