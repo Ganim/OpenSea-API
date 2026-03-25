@@ -1,25 +1,60 @@
 const BANK_CODES: Record<string, string> = {
   '001': 'Banco do Brasil',
+  '003': 'Banco da Amazônia',
+  '004': 'Banco do Nordeste',
+  '010': 'Credicoamo',
+  '021': 'Banestes',
   '033': 'Santander',
+  '036': 'Bradesco BBI',
   '041': 'Banrisul',
+  '047': 'Banese',
+  '065': 'AndBank',
+  '070': 'BRB',
   '077': 'Inter',
+  '082': 'Topázio',
+  '084': 'Uniprime',
+  '085': 'AILOS',
+  '097': 'CrediSIS',
   '104': 'Caixa Econômica',
+  '133': 'Cresol',
+  '136': 'Unicred',
+  '197': 'Stone',
+  '208': 'BTG Pactual',
   '212': 'Banco Original',
+  '218': 'BS2',
   '237': 'Bradesco',
+  '254': 'Paraná Banco',
   '260': 'Nubank',
+  '280': 'Avista',
+  '290': 'PagSeguro',
+  '318': 'BMG',
+  '336': 'C6 Bank',
   '341': 'Itaú',
+  '376': 'J.P. Morgan',
   '389': 'Mercantil',
+  '399': 'HSBC',
+  '403': 'Cora',
   '422': 'Safra',
+  '623': 'Pan',
+  '633': 'Rendimento',
+  '637': 'Sofisa',
+  '655': 'Neon',
+  '707': 'Daycoval',
+  '741': 'Ribeirão Preto',
+  '745': 'Citibank',
   '748': 'Sicredi',
   '756': 'Sicoob',
 };
 
-const BASE_DATE = new Date(1997, 9, 7); // Oct 7, 1997
+const MS_PER_DAY = 86_400_000;
+const OLD_BASE = Date.UTC(1997, 9, 7); // Oct 7, 1997
+const NEW_BASE = Date.UTC(2025, 1, 22); // Feb 22, 2025
+const CYCLE_BOUNDARY = Date.UTC(2025, 1, 22); // Feb 22, 2025
 
 export interface BoletoParseResult {
   bankCode: string;
   bankName: string;
-  dueDate: Date;
+  dueDate: Date | null;
   amount: number;
   barcode: string;
   digitLine: string;
@@ -62,11 +97,22 @@ export class BoletoBarcode {
     return BANK_CODES[this.bankCode] ?? 'Desconhecido';
   }
 
-  get dueDate(): Date {
+  static factorToDate(factor: number): Date | null {
+    if (factor === 0) return null;
+
+    const oldDate = OLD_BASE + factor * MS_PER_DAY;
+
+    if (oldDate < CYCLE_BOUNDARY && factor >= 1000) {
+      // New cycle: factor resets to 1000 with new base date
+      return new Date(NEW_BASE + (factor - 1000) * MS_PER_DAY);
+    }
+
+    return new Date(oldDate);
+  }
+
+  get dueDate(): Date | null {
     const factor = parseInt(this.barcode.substring(5, 9), 10);
-    if (factor === 0) return new Date();
-    const ms = BASE_DATE.getTime() + factor * 24 * 60 * 60 * 1000;
-    return new Date(ms);
+    return BoletoBarcode.factorToDate(factor);
   }
 
   get amount(): number {

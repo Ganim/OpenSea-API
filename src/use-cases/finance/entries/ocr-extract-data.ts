@@ -167,7 +167,7 @@ function parseFinancialText(text: string): OcrExtractedData {
     if (parsed) {
       const result = parsed.toResult();
       if (!data.valor && result.amount > 0) data.valor = result.amount;
-      if (!data.vencimento) {
+      if (!data.vencimento && result.dueDate) {
         data.vencimento = result.dueDate.toISOString().split('T')[0];
       }
       if (!data.codigoBarras) data.codigoBarras = result.barcode;
