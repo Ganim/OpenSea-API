@@ -18,10 +18,15 @@ import { OvertimeRepository } from '@/repositories/hr/overtime-repository';
 import { PayrollItemsRepository } from '@/repositories/hr/payroll-items-repository';
 import { PayrollsRepository } from '@/repositories/hr/payrolls-repository';
 
+/** IRRF dependant deduction per Brazilian tax law (R$189.59 per dependant) */
+const IRRF_DEPENDANT_DEDUCTION = 189.59;
+
 export interface CalculatePayrollRequest {
   tenantId: string;
   payrollId: string;
   processedBy: string;
+  /** Number of IRRF dependants per employee (employeeId -> count) */
+  irrfDependantsByEmployee?: Map<string, number>;
 }
 
 export interface CalculatePayrollResponse {
@@ -60,7 +65,8 @@ export class CalculatePayrollUseCase {
   async execute(
     request: CalculatePayrollRequest,
   ): Promise<CalculatePayrollResponse> {
-    const { tenantId, payrollId, processedBy } = request;
+    const { tenantId, payrollId, processedBy, irrfDependantsByEmployee } =
+      request;
 
     // Find payroll
     const payroll = await this.payrollsRepository.findById(
@@ -123,6 +129,8 @@ export class CalculatePayrollUseCase {
       // Calculate for each employee using prefetched data
       for (const employee of employees) {
         const empId = employee.id.toString();
+        const numberOfIrrfDependants =
+          irrfDependantsByEmployee?.get(empId) ?? 0;
         const employeeItems = await this.calculateEmployeePayroll(
           payroll,
           employee,
@@ -130,6 +138,7 @@ export class CalculatePayrollUseCase {
           absencesByEmployee.get(empId) ?? [],
           bonusesByEmployee.get(empId) ?? [],
           deductionsByEmployee.get(empId) ?? [],
+          numberOfIrrfDependants,
         );
         createdItems.push(...employeeItems);
       }
@@ -168,6 +177,7 @@ export class CalculatePayrollUseCase {
     absences: Absence[],
     bonuses: Bonus[],
     deductions: Deduction[],
+    numberOfIrrfDependants: number = 0,
   ): Promise<PayrollItem[]> {
     const items: PayrollItem[] = [];
     const employeeId = employee.id;
@@ -280,8 +290,11 @@ export class CalculatePayrollUseCase {
       items.push(inssItem);
     }
 
-    // IRRF calculation
-    const taxableBase = totalEarnings - inssAmount;
+    // IRRF calculation (deduct R$189.59 per IRRF dependant from base)
+    const taxableBase =
+      totalEarnings -
+      inssAmount -
+      IRRF_DEPENDANT_DEDUCTION * numberOfIrrfDependants;
     const irrfAmount = this.calculateIRRF(taxableBase, payroll.referenceYear);
     if (irrfAmount > 0) {
       const irrfItem = await this.payrollItemsRepository.create({
