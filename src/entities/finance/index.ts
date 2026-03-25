@@ -19,3 +19,14 @@ export { FinanceAttachment } from './finance-attachment';
 export type { FinanceAttachmentProps } from './finance-attachment';
 export { BoletoBarcode } from './value-objects/boleto-barcode';
 export type { BoletoParseResult } from './value-objects/boleto-barcode';
+export { OverdueEscalation } from './overdue-escalation';
+export type { OverdueEscalationProps } from './overdue-escalation';
+export { OverdueEscalationStep } from './overdue-escalation-step';
+export type { OverdueEscalationStepProps } from './overdue-escalation-step';
+export { OverdueAction } from './overdue-action';
+export type { OverdueActionProps } from './overdue-action';
+export type {
+  EscalationChannel,
+  EscalationTemplateType,
+  EscalationActionStatus,
+} from './overdue-escalation-types';

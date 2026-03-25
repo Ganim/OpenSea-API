@@ -8,6 +8,7 @@ import { httpLogger } from './lib/logger';
 import { prisma } from './lib/prisma';
 import { moduleLoadStart } from './startup-banner';
 import { getWorkflowScheduler } from './services/ai-workflows/workflow-scheduler';
+import { getInsightScheduler } from './services/ai-insights/insight-scheduler';
 
 let isShuttingDown = false;
 const SHUTDOWN_TIMEOUT_MS = 15_000;
@@ -125,8 +126,9 @@ async function gracefulShutdown(signal: string) {
   shutdownTimer.unref();
 
   try {
-    // Stop AI workflow scheduler
+    // Stop AI schedulers
     getWorkflowScheduler().stop();
+    getInsightScheduler().stop();
 
     // Close HTTP server (stop accepting new connections)
     await app.close();
@@ -208,6 +210,10 @@ async function start() {
     // Start AI workflow scheduler (CRON-based workflows)
     const scheduler = getWorkflowScheduler();
     scheduler.start();
+
+    // Start AI insight scheduler (proactive insights every 6 hours)
+    const insightScheduler = getInsightScheduler();
+    insightScheduler.start();
   } catch (err) {
     const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
     console.error(`[startup] Failed after ${elapsed}s:`, err);

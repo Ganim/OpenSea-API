@@ -35,6 +35,12 @@ export function recurringConfigPrismaToDomain(
       nextDueDate: raw.nextDueDate ?? undefined,
       interestRate: raw.interestRate ? Number(raw.interestRate) : undefined,
       penaltyRate: raw.penaltyRate ? Number(raw.penaltyRate) : undefined,
+      indexationType: raw.indexationType ?? undefined,
+      fixedAdjustmentRate: raw.fixedAdjustmentRate
+        ? Number(raw.fixedAdjustmentRate)
+        : undefined,
+      lastAdjustmentDate: raw.lastAdjustmentDate ?? undefined,
+      adjustmentMonth: raw.adjustmentMonth ?? undefined,
       notes: raw.notes ?? undefined,
       createdBy: raw.createdBy ?? undefined,
       createdAt: raw.createdAt,

@@ -29,6 +29,12 @@ export interface ToolResult {
   toolCallId: string;
   content: string;
   isError?: boolean;
+  /** Set when the tool requires user confirmation before execution */
+  pendingConfirmation?: {
+    toolCall: ToolCall;
+    toolName: string;
+    module: string;
+  };
 }
 
 export interface ToolExecutionContext {

@@ -99,6 +99,35 @@ export class PrismaAiInsightsRepository implements AiInsightsRepository {
     };
   }
 
+  async findExistingByTypeAndEntity(
+    tenantId: string,
+    type: string,
+    relatedEntityType?: string | null,
+    relatedEntityId?: string | null,
+  ): Promise<AiInsight | null> {
+    const where: Prisma.AiInsightWhereInput = {
+      tenantId,
+      type: type as AiInsightType,
+      status: { in: ['NEW', 'VIEWED'] as AiInsightStatus[] },
+    };
+
+    if (relatedEntityType) {
+      where.relatedEntityType = relatedEntityType;
+    }
+
+    if (relatedEntityId) {
+      where.relatedEntityId = relatedEntityId;
+    }
+
+    const raw = await prisma.aiInsight.findFirst({
+      where,
+      orderBy: { createdAt: 'desc' },
+    });
+
+    if (!raw) return null;
+    return toDomain(raw);
+  }
+
   async create(data: CreateInsightData): Promise<AiInsight> {
     const raw = await prisma.aiInsight.create({
       data: {

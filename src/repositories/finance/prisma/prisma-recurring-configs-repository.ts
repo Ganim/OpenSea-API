@@ -42,6 +42,15 @@ export class PrismaRecurringConfigsRepository
         nextDueDate: data.nextDueDate,
         interestRate: data.interestRate,
         penaltyRate: data.penaltyRate,
+        indexationType: data.indexationType as
+          | 'NONE'
+          | 'IPCA'
+          | 'IGPM'
+          | 'FIXED_RATE'
+          | undefined,
+        fixedAdjustmentRate: data.fixedAdjustmentRate,
+        lastAdjustmentDate: data.lastAdjustmentDate,
+        adjustmentMonth: data.adjustmentMonth,
         notes: data.notes,
         createdBy: data.createdBy,
       },
@@ -146,6 +155,14 @@ export class PrismaRecurringConfigsRepository
       updateData.interestRate = data.interestRate;
     if (data.penaltyRate !== undefined)
       updateData.penaltyRate = data.penaltyRate;
+    if (data.indexationType !== undefined)
+      updateData.indexationType = data.indexationType;
+    if (data.fixedAdjustmentRate !== undefined)
+      updateData.fixedAdjustmentRate = data.fixedAdjustmentRate;
+    if (data.lastAdjustmentDate !== undefined)
+      updateData.lastAdjustmentDate = data.lastAdjustmentDate;
+    if (data.adjustmentMonth !== undefined)
+      updateData.adjustmentMonth = data.adjustmentMonth;
     if (data.notes !== undefined) updateData.notes = data.notes;
     if (data.status !== undefined) updateData.status = data.status;
     if (data.generatedCount !== undefined)

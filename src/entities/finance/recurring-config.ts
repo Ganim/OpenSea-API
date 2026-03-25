@@ -3,6 +3,7 @@ import { Optional } from '../domain/optional';
 import { UniqueEntityID } from '../domain/unique-entity-id';
 import type {
   FinanceEntryType,
+  IndexationType,
   RecurringConfigStatus,
   RecurrenceUnit,
 } from './finance-entry-types';
@@ -32,6 +33,10 @@ export interface RecurringConfigProps {
   nextDueDate?: Date;
   interestRate?: number;
   penaltyRate?: number;
+  indexationType?: IndexationType;
+  fixedAdjustmentRate?: number;
+  lastAdjustmentDate?: Date;
+  adjustmentMonth?: number;
   notes?: string;
   createdBy?: string;
   deletedAt?: Date;
@@ -204,6 +209,38 @@ export class RecurringConfig extends Entity<RecurringConfigProps> {
   }
   set penaltyRate(value: number | undefined) {
     this.props.penaltyRate = value;
+    this.touch();
+  }
+
+  get indexationType(): IndexationType | undefined {
+    return this.props.indexationType;
+  }
+  set indexationType(value: IndexationType | undefined) {
+    this.props.indexationType = value;
+    this.touch();
+  }
+
+  get fixedAdjustmentRate(): number | undefined {
+    return this.props.fixedAdjustmentRate;
+  }
+  set fixedAdjustmentRate(value: number | undefined) {
+    this.props.fixedAdjustmentRate = value;
+    this.touch();
+  }
+
+  get lastAdjustmentDate(): Date | undefined {
+    return this.props.lastAdjustmentDate;
+  }
+  set lastAdjustmentDate(value: Date | undefined) {
+    this.props.lastAdjustmentDate = value;
+    this.touch();
+  }
+
+  get adjustmentMonth(): number | undefined {
+    return this.props.adjustmentMonth;
+  }
+  set adjustmentMonth(value: number | undefined) {
+    this.props.adjustmentMonth = value;
     this.touch();
   }
 

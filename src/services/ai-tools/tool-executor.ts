@@ -36,6 +36,11 @@ export class ToolExecutor {
           params: toolCall.arguments,
           message: `Ação "${tool.description}" requer confirmação do usuário. Apresente um preview claro dos dados e peça confirmação antes de chamar confirm_pending_action.`,
         }),
+        pendingConfirmation: {
+          toolCall,
+          toolName: toolCall.name,
+          module: tool.module,
+        },
       };
     }
 
@@ -76,5 +81,33 @@ export class ToolExecutor {
   requiresConfirmation(toolName: string): boolean {
     const tool = this.registry.getTool(toolName);
     return tool?.requiresConfirmation ?? false;
+  }
+
+  /**
+   * Execute a tool directly, bypassing the confirmation check.
+   * Used by the confirmation flow after the user approves a pending action.
+   */
+  async executeDirect(
+    toolName: string,
+    args: Record<string, unknown>,
+    context: ToolExecutionContext,
+  ): Promise<{ success: boolean; result?: unknown; error?: string }> {
+    const handler = this.factory.getHandler(toolName);
+
+    if (!handler) {
+      return {
+        success: false,
+        error: `Handler para "${toolName}" não implementado.`,
+      };
+    }
+
+    try {
+      const result = await handler.execute(args, context);
+      return { success: true, result };
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : 'Erro desconhecido';
+      return { success: false, error: message };
+    }
   }
 }

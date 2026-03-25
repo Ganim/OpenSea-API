@@ -27,6 +27,9 @@ export const createRecurringConfigSchema = z.object({
   totalOccurrences: z.number().int().positive().optional(),
   interestRate: z.number().min(0).optional(),
   penaltyRate: z.number().min(0).optional(),
+  indexationType: z.enum(['NONE', 'IPCA', 'IGPM', 'FIXED_RATE']).optional(),
+  fixedAdjustmentRate: z.number().min(0).max(1).optional(),
+  adjustmentMonth: z.number().int().min(1).max(12).optional(),
   notes: z.string().optional(),
 });
 
@@ -48,6 +51,12 @@ export const updateRecurringConfigSchema = z.object({
   endDate: z.coerce.date().nullable().optional(),
   interestRate: z.number().min(0).nullable().optional(),
   penaltyRate: z.number().min(0).nullable().optional(),
+  indexationType: z
+    .enum(['NONE', 'IPCA', 'IGPM', 'FIXED_RATE'])
+    .nullable()
+    .optional(),
+  fixedAdjustmentRate: z.number().min(0).max(1).nullable().optional(),
+  adjustmentMonth: z.number().int().min(1).max(12).nullable().optional(),
   notes: z.string().nullable().optional(),
 });
 
@@ -89,6 +98,10 @@ export const recurringConfigResponseSchema = z.object({
   nextDueDate: z.coerce.date().nullable(),
   interestRate: z.number().nullable(),
   penaltyRate: z.number().nullable(),
+  indexationType: z.string().nullable(),
+  fixedAdjustmentRate: z.number().nullable(),
+  lastAdjustmentDate: z.coerce.date().nullable(),
+  adjustmentMonth: z.number().nullable(),
   notes: z.string().nullable(),
   createdBy: z.string().nullable(),
   createdAt: z.coerce.date(),

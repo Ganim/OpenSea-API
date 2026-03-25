@@ -25,6 +25,10 @@ export interface RecurringConfigDTO {
   nextDueDate?: Date;
   interestRate?: number;
   penaltyRate?: number;
+  indexationType?: string;
+  fixedAdjustmentRate?: number;
+  lastAdjustmentDate?: Date;
+  adjustmentMonth?: number;
   notes?: string;
   createdBy?: string;
   createdAt: Date;
@@ -60,6 +64,10 @@ export function recurringConfigToDTO(
     nextDueDate: config.nextDueDate,
     interestRate: config.interestRate,
     penaltyRate: config.penaltyRate,
+    indexationType: config.indexationType,
+    fixedAdjustmentRate: config.fixedAdjustmentRate,
+    lastAdjustmentDate: config.lastAdjustmentDate,
+    adjustmentMonth: config.adjustmentMonth,
     notes: config.notes,
     createdBy: config.createdBy,
     createdAt: config.createdAt,

@@ -10,3 +10,11 @@ export {
   clearKnowledgeRegistryCache,
 } from './knowledge/make-knowledge-registry';
 export type { ModuleKnowledge } from './knowledge/module-knowledge.interface';
+export {
+  buildPendingAction,
+  getToolDisplayName,
+} from './pending-action.service';
+export type {
+  ActionCardRenderData,
+  PendingActionData,
+} from './pending-action.service';

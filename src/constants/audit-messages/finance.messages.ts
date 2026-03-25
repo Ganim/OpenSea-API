@@ -243,6 +243,48 @@ export const FINANCE_AUDIT_MESSAGES = {
       '{{userName}} marcou o consorcio {{consortiumName}} como contemplado ({{contemplationType}})',
   } satisfies AuditMessage,
   // ============================================================================
+  // BANK RECONCILIATION - Conciliação Bancária
+  // ============================================================================
+
+  RECONCILIATION_IMPORT: {
+    action: AuditAction.RECONCILIATION_IMPORT,
+    entity: AuditEntity.BANK_RECONCILIATION,
+    module: AuditModule.FINANCE,
+    description:
+      '{{userName}} importou arquivo OFX {{fileName}} com {{transactionCount}} transações',
+  } satisfies AuditMessage,
+
+  RECONCILIATION_MANUAL_MATCH: {
+    action: AuditAction.RECONCILIATION_MATCH,
+    entity: AuditEntity.BANK_RECONCILIATION_ITEM,
+    module: AuditModule.FINANCE,
+    description:
+      '{{userName}} conciliou manualmente transação {{fitId}} com lançamento {{entryId}}',
+  } satisfies AuditMessage,
+
+  RECONCILIATION_IGNORE: {
+    action: AuditAction.RECONCILIATION_IGNORE,
+    entity: AuditEntity.BANK_RECONCILIATION_ITEM,
+    module: AuditModule.FINANCE,
+    description: '{{userName}} ignorou a transação {{fitId}} na conciliação',
+  } satisfies AuditMessage,
+
+  RECONCILIATION_CREATE_ENTRY: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.FINANCE_ENTRY,
+    module: AuditModule.FINANCE,
+    description:
+      '{{userName}} criou lançamento a partir da transação bancária {{fitId}}',
+  } satisfies AuditMessage,
+
+  RECONCILIATION_COMPLETE: {
+    action: AuditAction.RECONCILIATION_COMPLETE,
+    entity: AuditEntity.BANK_RECONCILIATION,
+    module: AuditModule.FINANCE,
+    description: '{{userName}} finalizou a conciliação bancária {{fileName}}',
+  } satisfies AuditMessage,
+
+  // ============================================================================
   // CONTRACTS - Contratos de Servico
   // ============================================================================
 
@@ -273,6 +315,42 @@ export const FINANCE_AUDIT_MESSAGES = {
     module: AuditModule.FINANCE,
     description:
       '{{userName}} gerou lancamentos para o contrato {{contractTitle}}',
+  } satisfies AuditMessage,
+
+  // ============================================================================
+  // BUDGETS - Orçamentos
+  // ============================================================================
+
+  BUDGET_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.FINANCE_BUDGET,
+    module: AuditModule.FINANCE,
+    description:
+      '{{userName}} criou o orçamento para {{categoryName}} ({{month}}/{{year}})',
+  } satisfies AuditMessage,
+
+  BUDGET_UPDATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.FINANCE_BUDGET,
+    module: AuditModule.FINANCE,
+    description:
+      '{{userName}} atualizou o orçamento para {{categoryName}} ({{month}}/{{year}})',
+  } satisfies AuditMessage,
+
+  BUDGET_DELETE: {
+    action: AuditAction.DELETE,
+    entity: AuditEntity.FINANCE_BUDGET,
+    module: AuditModule.FINANCE,
+    description:
+      '{{userName}} excluiu o orçamento para {{categoryName}} ({{month}}/{{year}})',
+  } satisfies AuditMessage,
+
+  BUDGET_BULK_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.FINANCE_BUDGET,
+    module: AuditModule.FINANCE,
+    description:
+      '{{userName}} criou {{count}} orçamentos em lote para {{year}}',
   } satisfies AuditMessage,
 
   // ============================================================================

@@ -1,6 +1,7 @@
 import { PrismaAiConversationsRepository } from '@/repositories/ai/prisma/prisma-ai-conversations-repository';
 import { PrismaAiMessagesRepository } from '@/repositories/ai/prisma/prisma-ai-messages-repository';
 import { PrismaAiTenantConfigRepository } from '@/repositories/ai/prisma/prisma-ai-tenant-config-repository';
+import { PrismaAiActionLogsRepository } from '@/repositories/ai/prisma/prisma-ai-action-logs-repository';
 import { makeAiRouter } from '@/services/ai-provider/make-ai-router';
 import { makeToolRegistry } from '@/services/ai-tools/make-tool-registry';
 import { ToolUseCaseFactory } from '@/services/ai-tools/tool-use-case-factory';
@@ -12,6 +13,7 @@ export function makeSendMessageUseCase() {
   const conversationsRepository = new PrismaAiConversationsRepository();
   const messagesRepository = new PrismaAiMessagesRepository();
   const configRepository = new PrismaAiTenantConfigRepository();
+  const actionLogsRepository = new PrismaAiActionLogsRepository();
   const aiRouter = makeAiRouter();
   const toolRegistry = makeToolRegistry();
   const toolFactory = new ToolUseCaseFactory();
@@ -25,5 +27,6 @@ export function makeSendMessageUseCase() {
     toolRegistry,
     toolExecutor,
     knowledgeRegistry,
+    actionLogsRepository,
   );
 }

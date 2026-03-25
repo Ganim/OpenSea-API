@@ -2,6 +2,7 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { RecurringConfig } from '@/entities/finance/recurring-config';
 import type {
   FinanceEntryType,
+  IndexationType,
   RecurrenceUnit,
   RecurringConfigStatus,
 } from '@/entities/finance/finance-entry-types';
@@ -44,6 +45,10 @@ export class InMemoryRecurringConfigsRepository
       nextDueDate: data.nextDueDate,
       interestRate: data.interestRate,
       penaltyRate: data.penaltyRate,
+      indexationType: data.indexationType as IndexationType | undefined,
+      fixedAdjustmentRate: data.fixedAdjustmentRate,
+      lastAdjustmentDate: data.lastAdjustmentDate,
+      adjustmentMonth: data.adjustmentMonth,
       notes: data.notes,
       createdBy: data.createdBy,
     });
@@ -153,6 +158,15 @@ export class InMemoryRecurringConfigsRepository
       config.interestRate = data.interestRate ?? undefined;
     if (data.penaltyRate !== undefined)
       config.penaltyRate = data.penaltyRate ?? undefined;
+    if (data.indexationType !== undefined)
+      config.indexationType =
+        (data.indexationType as IndexationType) ?? undefined;
+    if (data.fixedAdjustmentRate !== undefined)
+      config.fixedAdjustmentRate = data.fixedAdjustmentRate ?? undefined;
+    if (data.lastAdjustmentDate !== undefined)
+      config.lastAdjustmentDate = data.lastAdjustmentDate ?? undefined;
+    if (data.adjustmentMonth !== undefined)
+      config.adjustmentMonth = data.adjustmentMonth ?? undefined;
     if (data.notes !== undefined) config.notes = data.notes ?? undefined;
     if (data.status !== undefined)
       config.status = data.status as RecurringConfigStatus;

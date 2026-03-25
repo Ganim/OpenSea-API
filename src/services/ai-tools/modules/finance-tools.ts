@@ -514,7 +514,7 @@ export function getFinanceTools(): ToolDefinition[] {
     },
 
     // =========================================================
-    // REPORT TOOLS (3)
+    // REPORT TOOLS (11)
     // =========================================================
     {
       name: 'finance_dashboard',
@@ -572,6 +572,169 @@ export function getFinanceTools(): ToolDefinition[] {
             type: 'number',
             description:
               'Dias para considerar "próximo do vencimento" (padrão: 3)',
+          },
+        },
+      },
+      module: 'finance',
+      permission: 'finance.entries.access',
+      requiresConfirmation: false,
+      category: 'report',
+    },
+
+    // ─── Advanced Analytical Tools ───────────────────────────
+
+    {
+      name: 'finance_get_summary',
+      description:
+        'Resumo financeiro por período: total a pagar, total a receber, vencidos, pagos no período e saldo em caixa. Use para perguntas como "Como está meu financeiro?"',
+      parameters: {
+        type: 'object',
+        properties: {
+          period: {
+            type: 'string',
+            enum: ['today', 'week', 'month', 'quarter', 'year'],
+            description:
+              'Período de análise (padrão: month). "today" = hoje, "week" = últimos 7 dias, "month" = mês atual, "quarter" = trimestre atual, "year" = ano atual',
+          },
+        },
+      },
+      module: 'finance',
+      permission: 'finance.entries.access',
+      requiresConfirmation: false,
+      category: 'report',
+    },
+    {
+      name: 'finance_list_overdue_entries',
+      description:
+        'Lista lançamentos vencidos com nome do fornecedor/cliente, valor, data de vencimento e dias de atraso. Use para perguntas como "Quem me deve?" ou "O que está vencido?"',
+      parameters: {
+        type: 'object',
+        properties: {
+          type: {
+            type: 'string',
+            enum: ['PAYABLE', 'RECEIVABLE'],
+            description:
+              'Tipo: PAYABLE (contas a pagar vencidas) ou RECEIVABLE (contas a receber vencidas). Se omitido, retorna ambos.',
+          },
+          limit: {
+            type: 'number',
+            description: 'Máximo de resultados (padrão 10, máximo 20)',
+          },
+        },
+      },
+      module: 'finance',
+      permission: 'finance.entries.access',
+      requiresConfirmation: false,
+      category: 'report',
+    },
+    {
+      name: 'finance_get_cashflow_forecast',
+      description:
+        'Previsão de fluxo de caixa: saldo atual, receitas e despesas previstas nos próximos dias, saldo projetado e alerta se saldo ficar negativo. Use para perguntas como "Vou ter dinheiro pro salário?"',
+      parameters: {
+        type: 'object',
+        properties: {
+          days: {
+            type: 'number',
+            description: 'Dias para projetar no futuro (padrão 30, máximo 180)',
+          },
+        },
+      },
+      module: 'finance',
+      permission: 'finance.entries.access',
+      requiresConfirmation: false,
+      category: 'report',
+    },
+    {
+      name: 'finance_compare_expenses',
+      description:
+        'Compara despesas entre dois meses, mostrando total de cada período, diferença, variação percentual e top categorias. Use para perguntas como "Gastei mais ou menos que mês passado?"',
+      parameters: {
+        type: 'object',
+        properties: {
+          period1: {
+            type: 'string',
+            description: 'Primeiro período no formato YYYY-MM (ex: 2026-01)',
+          },
+          period2: {
+            type: 'string',
+            description: 'Segundo período no formato YYYY-MM (ex: 2026-02)',
+          },
+          categoryId: {
+            type: 'string',
+            description:
+              'Filtrar por categoria específica (ID). Se omitido, compara todas as categorias.',
+          },
+        },
+        required: ['period1', 'period2'],
+      },
+      module: 'finance',
+      permission: 'finance.entries.access',
+      requiresConfirmation: false,
+      category: 'report',
+    },
+    {
+      name: 'finance_get_customer_payment_score',
+      description:
+        'Avalia o histórico de pagamento de um cliente: score, classificação, tempo médio de pagamento, taxa de pontualidade. Use para perguntas como "O cliente X paga em dia?"',
+      parameters: {
+        type: 'object',
+        properties: {
+          customerName: {
+            type: 'string',
+            description: 'Nome do cliente para avaliar (busca parcial)',
+          },
+        },
+        required: ['customerName'],
+      },
+      module: 'finance',
+      permission: 'finance.entries.access',
+      requiresConfirmation: false,
+      category: 'report',
+    },
+    {
+      name: 'finance_suggest_cost_reduction',
+      description:
+        'Analisa despesas recentes e sugere onde cortar gastos: top categorias, tendência mensal, categorias com aumento acima de 20%. Use para perguntas como "Onde posso cortar gastos?"',
+      parameters: {
+        type: 'object',
+        properties: {
+          months: {
+            type: 'number',
+            description:
+              'Meses de retrospectiva para análise (padrão 3, máximo 12)',
+          },
+        },
+      },
+      module: 'finance',
+      permission: 'finance.entries.access',
+      requiresConfirmation: false,
+      category: 'report',
+    },
+    {
+      name: 'finance_get_bank_account_balances',
+      description:
+        'Lista todas as contas bancárias ativas com nome, saldo atual e tipo. Use para perguntas como "Qual meu saldo?" ou "Quanto tenho no banco?"',
+      parameters: {
+        type: 'object',
+        properties: {},
+      },
+      module: 'finance',
+      permission: 'finance.bank-accounts.access',
+      requiresConfirmation: false,
+      category: 'report',
+    },
+    {
+      name: 'finance_get_upcoming_payments',
+      description:
+        'Lista lançamentos pendentes que vencem nos próximos dias, agrupados por dia e com total. Use para perguntas como "O que vence essa semana?" ou "O que tenho para pagar?"',
+      parameters: {
+        type: 'object',
+        properties: {
+          days: {
+            type: 'number',
+            description:
+              'Dias para buscar vencimentos futuros (padrão 7, máximo 90)',
           },
         },
       },

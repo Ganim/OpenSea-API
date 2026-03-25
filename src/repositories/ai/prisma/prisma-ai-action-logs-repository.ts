@@ -2,6 +2,7 @@ import { prisma } from '@/lib/prisma';
 import type {
   AiActionLogsRepository,
   AiActionLogDTO,
+  CreateActionLogSchema,
   FindManyActionLogsOptions,
   FindManyActionLogsResult,
 } from '../ai-action-logs-repository';
@@ -34,6 +35,56 @@ function toDTO(raw: AiActionLog): AiActionLogDTO {
 }
 
 export class PrismaAiActionLogsRepository implements AiActionLogsRepository {
+  async create(data: CreateActionLogSchema): Promise<AiActionLogDTO> {
+    const raw = await prisma.aiActionLog.create({
+      data: {
+        tenantId: data.tenantId,
+        userId: data.userId,
+        conversationId: data.conversationId ?? null,
+        messageId: data.messageId ?? null,
+        actionType: data.actionType,
+        targetModule: data.targetModule,
+        targetEntityType: data.targetEntityType,
+        targetEntityId: data.targetEntityId ?? null,
+        input: data.input as Prisma.InputJsonValue,
+        status: (data.status as AiActionStatus) ?? 'PROPOSED',
+      },
+    });
+    return toDTO(raw);
+  }
+
+  async findById(id: string): Promise<AiActionLogDTO | null> {
+    const raw = await prisma.aiActionLog.findUnique({ where: { id } });
+    return raw ? toDTO(raw) : null;
+  }
+
+  async updateStatus(
+    id: string,
+    status: string,
+    extra?: {
+      confirmedByUserId?: string;
+      confirmedAt?: Date;
+      executedAt?: Date;
+      output?: Record<string, unknown>;
+      error?: string;
+    },
+  ): Promise<AiActionLogDTO> {
+    const raw = await prisma.aiActionLog.update({
+      where: { id },
+      data: {
+        status: status as AiActionStatus,
+        confirmedByUserId: extra?.confirmedByUserId,
+        confirmedAt: extra?.confirmedAt,
+        executedAt: extra?.executedAt,
+        output: extra?.output
+          ? (extra.output as Prisma.InputJsonValue)
+          : undefined,
+        error: extra?.error,
+      },
+    });
+    return toDTO(raw);
+  }
+
   async findMany(
     options: FindManyActionLogsOptions,
   ): Promise<FindManyActionLogsResult> {

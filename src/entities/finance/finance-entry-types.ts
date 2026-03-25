@@ -32,6 +32,8 @@ export type PaymentMethod =
 
 export type RecurringConfigStatus = 'ACTIVE' | 'PAUSED' | 'CANCELLED';
 
+export type IndexationType = 'NONE' | 'IPCA' | 'IGPM' | 'FIXED_RATE';
+
 export type LoanType =
   | 'PERSONAL'
   | 'BUSINESS'

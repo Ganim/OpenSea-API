@@ -21,6 +21,10 @@ export interface CreateRecurringConfigSchema {
   nextDueDate?: Date;
   interestRate?: number;
   penaltyRate?: number;
+  indexationType?: string;
+  fixedAdjustmentRate?: number;
+  lastAdjustmentDate?: Date;
+  adjustmentMonth?: number;
   notes?: string;
   createdBy?: string;
 }
@@ -35,6 +39,10 @@ export interface UpdateRecurringConfigSchema {
   endDate?: Date | null;
   interestRate?: number | null;
   penaltyRate?: number | null;
+  indexationType?: string | null;
+  fixedAdjustmentRate?: number | null;
+  lastAdjustmentDate?: Date | null;
+  adjustmentMonth?: number | null;
   notes?: string | null;
   status?: string;
   generatedCount?: number;

@@ -37,6 +37,9 @@ interface CreateRecurringConfigUseCaseRequest {
   totalOccurrences?: number;
   interestRate?: number;
   penaltyRate?: number;
+  indexationType?: string;
+  fixedAdjustmentRate?: number;
+  adjustmentMonth?: number;
   notes?: string;
   createdBy?: string;
 }
@@ -105,6 +108,9 @@ export class CreateRecurringConfigUseCase {
       nextDueDate: startDate,
       interestRate: request.interestRate,
       penaltyRate: request.penaltyRate,
+      indexationType: request.indexationType,
+      fixedAdjustmentRate: request.fixedAdjustmentRate,
+      adjustmentMonth: request.adjustmentMonth,
       notes: request.notes,
       createdBy: request.createdBy,
     });

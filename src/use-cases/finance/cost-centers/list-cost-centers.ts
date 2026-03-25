@@ -8,6 +8,10 @@ interface ListCostCentersUseCaseRequest {
   tenantId: string;
   page?: number;
   limit?: number;
+  search?: string;
+  isActive?: boolean;
+  sortBy?: 'name' | 'code' | 'createdAt' | 'monthlyBudget' | 'annualBudget';
+  sortOrder?: 'asc' | 'desc';
 }
 
 interface PaginationMeta {

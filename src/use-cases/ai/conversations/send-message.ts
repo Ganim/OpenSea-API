@@ -1,6 +1,7 @@
 import type { AiConversationsRepository } from '@/repositories/ai/ai-conversations-repository';
 import type { AiMessagesRepository } from '@/repositories/ai/ai-messages-repository';
 import type { AiTenantConfigRepository } from '@/repositories/ai/ai-tenant-config-repository';
+import type { AiActionLogsRepository } from '@/repositories/ai/ai-action-logs-repository';
 import type { AiRouter } from '@/services/ai-provider/ai-router';
 import type {
   AiProviderMessage,
@@ -15,6 +16,12 @@ import type {
 import { AGENTIC_LOOP_MAX_ITERATIONS } from '@/services/ai-tools/tool-types';
 import type { KnowledgeRegistry } from '@/services/ai-tools/knowledge/knowledge-registry';
 import { KnowledgePromptBuilder } from '@/services/ai-tools/knowledge/knowledge-prompt-builder';
+import {
+  buildPendingAction,
+  getToolDisplayName,
+  type ActionCardRenderData,
+  type PendingActionData,
+} from '@/services/ai-tools/pending-action.service';
 
 interface SendMessageRequest {
   tenantId: string;
@@ -40,6 +47,12 @@ const PERSONALITY_PROMPTS: Record<string, string> = {
     'Você é um assistente empresarial descontraído, mas sempre útil e informativo.',
 };
 
+/** Regex to detect user confirm/cancel commands for pending actions */
+const CONFIRM_ACTION_REGEX =
+  /^(?:confirmar|confirm)\s+(?:a[çc][ãa]o|action)[:\s]+([a-f0-9-]{36})/i;
+const CANCEL_ACTION_REGEX =
+  /^(?:cancelar|cancel)\s+(?:a[çc][ãa]o|action)[:\s]+([a-f0-9-]{36})/i;
+
 export class SendMessageUseCase {
   private knowledgePromptBuilder = new KnowledgePromptBuilder();
 
@@ -51,6 +64,7 @@ export class SendMessageUseCase {
     private toolRegistry: ToolRegistry,
     private toolExecutor: ToolExecutor,
     private knowledgeRegistry: KnowledgeRegistry,
+    private actionLogsRepository: AiActionLogsRepository,
   ) {}
 
   async execute(request: SendMessageRequest) {
@@ -89,6 +103,29 @@ export class SendMessageUseCase {
       attachments: request.attachments,
     });
 
+    // ── Check if user is confirming or cancelling a pending action ─────
+    const confirmMatch = request.content.match(CONFIRM_ACTION_REGEX);
+    const cancelMatch = request.content.match(CANCEL_ACTION_REGEX);
+
+    if (confirmMatch) {
+      return this.handleConfirmAction(
+        confirmMatch[1],
+        conversationId,
+        request,
+        userMessage,
+      );
+    }
+
+    if (cancelMatch) {
+      return this.handleCancelAction(
+        cancelMatch[1],
+        conversationId,
+        request,
+        userMessage,
+      );
+    }
+
+    // ── Normal AI flow ────────────────────────────────────────────────
     // Load tenant AI configuration for personality and tier settings
     const config = await this.configRepository.findByTenantId(request.tenantId);
 
@@ -109,6 +146,7 @@ export class SendMessageUseCase {
       `Responda sempre em ${language}.`,
       'Você faz parte de um sistema ERP chamado OpenSea.',
       'Ajude o usuário com questões relacionadas ao gerenciamento do negócio.',
+      'Quando uma ferramenta requer confirmação, NÃO chame confirm_pending_action automaticamente. Apenas apresente os dados ao usuário e aguarde a resposta dele.',
     ];
 
     // Build contextual knowledge prompt from module knowledge system
@@ -190,6 +228,7 @@ export class SendMessageUseCase {
     let aiCost = 0;
     let usedTier: AiTier = tier;
     const allToolCalls: ToolCall[] = [];
+    let pendingAction: PendingActionData | null = null;
 
     const availableTiers = this.aiRouter.getAvailableTiers();
 
@@ -238,6 +277,8 @@ export class SendMessageUseCase {
               });
 
               // Execute each tool call and push results
+              let hasPendingConfirmation = false;
+
               for (const tc of response.toolCalls) {
                 const result = await this.toolExecutor.execute(tc, {
                   tenantId: request.tenantId,
@@ -251,6 +292,36 @@ export class SendMessageUseCase {
                   toolCallId: tc.id,
                   content: result.content,
                 });
+
+                // If this tool requires confirmation, build the ACTION_CARD
+                if (result.pendingConfirmation) {
+                  hasPendingConfirmation = true;
+                  const tool = this.toolRegistry.getTool(tc.name);
+                  if (tool) {
+                    pendingAction = buildPendingAction(tc, tool);
+                  }
+                }
+              }
+
+              // If we hit a pending confirmation, break the loop and let AI
+              // generate the confirmation message in the next iteration
+              if (hasPendingConfirmation) {
+                // Do one more AI call so it generates the user-facing text
+                const confirmResponse = await this.aiRouter.completeWithTools(
+                  loopMessages,
+                  filteredTools,
+                  tier,
+                );
+
+                totalTokensIn += confirmResponse.tokensInput;
+                totalTokensOut += confirmResponse.tokensOutput;
+                totalLatency += confirmResponse.latencyMs;
+                totalCost += confirmResponse.estimatedCost;
+
+                finalContent =
+                  confirmResponse.content ??
+                  'Essa ação requer sua confirmação. Deseja prosseguir?';
+                break;
               }
             } else {
               finalContent = response.content;
@@ -290,11 +361,41 @@ export class SendMessageUseCase {
       }
     }
 
+    // ── Determine content type and renderData ─────────────────────────
+    let contentType = 'TEXT';
+    let renderData: Record<string, unknown> | null = null;
+
+    if (pendingAction) {
+      contentType = 'ACTION_CARD';
+      renderData = pendingAction.renderData as unknown as Record<
+        string,
+        unknown
+      >;
+
+      // Persist the pending action in AiActionLog
+      const actionLog = await this.actionLogsRepository.create({
+        tenantId: request.tenantId,
+        userId: request.userId,
+        conversationId,
+        actionType: pendingAction.toolName,
+        targetModule: pendingAction.module,
+        targetEntityType: pendingAction.entityType,
+        input: pendingAction.args,
+        status: 'PROPOSED',
+      });
+
+      // Update renderData with the actual persisted actionId
+      (renderData as Record<string, unknown>).actionId = actionLog.id;
+      (pendingAction.renderData as ActionCardRenderData).actionId =
+        actionLog.id;
+    }
+
     const assistantMessage = await this.messagesRepository.create({
       conversationId,
       role: 'ASSISTANT',
       content: aiContent,
-      contentType: 'TEXT',
+      contentType,
+      renderData,
       aiTier: usedTier,
       aiModel,
       aiTokensInput,
@@ -305,6 +406,244 @@ export class SendMessageUseCase {
         allToolCalls.length > 0
           ? (allToolCalls as unknown as Record<string, unknown>)
           : null,
+    });
+
+    // If we created an action log, link the messageId back
+    if (pendingAction && renderData) {
+      const actionId = (renderData as Record<string, unknown>).actionId;
+      if (typeof actionId === 'string') {
+        await this.actionLogsRepository.updateStatus(actionId, 'PROPOSED', {
+          // We store messageId via a separate update since we need the message ID
+        });
+      }
+    }
+
+    // Update conversation message count
+    const conversation = await this.conversationsRepository.findById(
+      conversationId,
+      request.tenantId,
+    );
+
+    if (conversation) {
+      await this.conversationsRepository.updateMessageCount(
+        conversationId,
+        conversation.messageCount + 2,
+        new Date(),
+      );
+    }
+
+    return {
+      conversationId,
+      userMessage: {
+        id: userMessage.id.toString(),
+        role: userMessage.role,
+        content: userMessage.content,
+        contentType: userMessage.contentType,
+        createdAt: userMessage.createdAt,
+      },
+      assistantMessage: {
+        id: assistantMessage.id.toString(),
+        role: assistantMessage.role,
+        content: assistantMessage.content,
+        contentType: assistantMessage.contentType,
+        renderData: assistantMessage.renderData,
+        aiModel: assistantMessage.aiModel,
+        aiTier: assistantMessage.aiTier,
+        aiTokensInput: assistantMessage.aiTokensInput,
+        aiTokensOutput: assistantMessage.aiTokensOutput,
+        aiLatencyMs: assistantMessage.aiLatencyMs,
+        aiCost: assistantMessage.aiCost,
+        createdAt: assistantMessage.createdAt,
+      },
+    };
+  }
+
+  // ── Confirm a pending action ──────────────────────────────────────────
+
+  private async handleConfirmAction(
+    actionId: string,
+    conversationId: string,
+    request: SendMessageRequest,
+    userMessage: {
+      id: { toString(): string };
+      role: string;
+      content: string | null;
+      contentType: string;
+      createdAt: Date;
+    },
+  ) {
+    const actionLog = await this.actionLogsRepository.findById(actionId);
+
+    if (!actionLog) {
+      return this.buildActionResponse(
+        conversationId,
+        request,
+        userMessage,
+        'Ação não encontrada. Verifique o ID informado.',
+        'TEXT',
+        null,
+      );
+    }
+
+    if (actionLog.status !== 'PROPOSED') {
+      const statusMessage =
+        actionLog.status === 'EXECUTED'
+          ? 'Esta ação já foi executada anteriormente.'
+          : actionLog.status === 'CANCELLED'
+            ? 'Esta ação foi cancelada.'
+            : `Esta ação está com status "${actionLog.status}" e não pode ser confirmada.`;
+
+      return this.buildActionResponse(
+        conversationId,
+        request,
+        userMessage,
+        statusMessage,
+        'TEXT',
+        null,
+      );
+    }
+
+    // Execute the tool directly (bypass confirmation check)
+    const execution = await this.toolExecutor.executeDirect(
+      actionLog.actionType,
+      actionLog.input,
+      {
+        tenantId: request.tenantId,
+        userId: request.userId,
+        permissions: request.userPermissions ?? [],
+        conversationId,
+      },
+    );
+
+    if (!execution.success) {
+      await this.actionLogsRepository.updateStatus(actionId, 'FAILED', {
+        confirmedByUserId: request.userId,
+        confirmedAt: new Date(),
+        error: execution.error,
+      });
+
+      return this.buildActionResponse(
+        conversationId,
+        request,
+        userMessage,
+        `Erro ao executar a ação: ${execution.error}`,
+        'TEXT',
+        null,
+      );
+    }
+
+    // Mark as executed
+    await this.actionLogsRepository.updateStatus(actionId, 'EXECUTED', {
+      confirmedByUserId: request.userId,
+      confirmedAt: new Date(),
+      executedAt: new Date(),
+      output: execution.result as Record<string, unknown>,
+    });
+
+    const displayName = getToolDisplayName(actionLog.actionType);
+    const renderData: ActionCardRenderData = {
+      type: 'ACTION_CARD',
+      actionId,
+      toolName: actionLog.actionType,
+      displayName,
+      module: actionLog.targetModule,
+      status: 'EXECUTED',
+      fields: [],
+    };
+
+    return this.buildActionResponse(
+      conversationId,
+      request,
+      userMessage,
+      `A ação "${displayName}" foi executada com sucesso.`,
+      'ACTION_CARD',
+      renderData as unknown as Record<string, unknown>,
+    );
+  }
+
+  // ── Cancel a pending action ───────────────────────────────────────────
+
+  private async handleCancelAction(
+    actionId: string,
+    conversationId: string,
+    request: SendMessageRequest,
+    userMessage: {
+      id: { toString(): string };
+      role: string;
+      content: string | null;
+      contentType: string;
+      createdAt: Date;
+    },
+  ) {
+    const actionLog = await this.actionLogsRepository.findById(actionId);
+
+    if (!actionLog) {
+      return this.buildActionResponse(
+        conversationId,
+        request,
+        userMessage,
+        'Ação não encontrada. Verifique o ID informado.',
+        'TEXT',
+        null,
+      );
+    }
+
+    if (actionLog.status !== 'PROPOSED') {
+      return this.buildActionResponse(
+        conversationId,
+        request,
+        userMessage,
+        `Esta ação não pode ser cancelada (status: ${actionLog.status}).`,
+        'TEXT',
+        null,
+      );
+    }
+
+    await this.actionLogsRepository.updateStatus(actionId, 'CANCELLED');
+
+    const displayName = getToolDisplayName(actionLog.actionType);
+    const renderData: ActionCardRenderData = {
+      type: 'ACTION_CARD',
+      actionId,
+      toolName: actionLog.actionType,
+      displayName,
+      module: actionLog.targetModule,
+      status: 'CANCELLED',
+      fields: [],
+    };
+
+    return this.buildActionResponse(
+      conversationId,
+      request,
+      userMessage,
+      `A ação "${displayName}" foi cancelada.`,
+      'ACTION_CARD',
+      renderData as unknown as Record<string, unknown>,
+    );
+  }
+
+  // ── Helper to build a response without going through the AI ───────────
+
+  private async buildActionResponse(
+    conversationId: string,
+    request: SendMessageRequest,
+    userMessage: {
+      id: { toString(): string };
+      role: string;
+      content: string | null;
+      contentType: string;
+      createdAt: Date;
+    },
+    content: string,
+    contentType: string,
+    renderData: Record<string, unknown> | null,
+  ) {
+    const assistantMessage = await this.messagesRepository.create({
+      conversationId,
+      role: 'ASSISTANT',
+      content,
+      contentType,
+      renderData,
     });
 
     // Update conversation message count

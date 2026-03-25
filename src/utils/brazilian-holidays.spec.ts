@@ -3,6 +3,8 @@ import {
   getEasterDate,
   getBrazilianHolidays,
   getHolidaysInRange,
+  isBusinessDay,
+  getNextBusinessDay,
 } from './brazilian-holidays';
 
 describe('getEasterDate', () => {
@@ -163,5 +165,68 @@ describe('getHolidaysInRange', () => {
         holidays[i - 1].date.getTime(),
       );
     }
+  });
+});
+
+describe('isBusinessDay', () => {
+  it('should return true for a regular weekday', () => {
+    // 2026-03-25 is a Wednesday
+    expect(isBusinessDay(new Date(2026, 2, 25))).toBe(true);
+  });
+
+  it('should return false for a Saturday', () => {
+    // 2026-03-28 is a Saturday
+    expect(isBusinessDay(new Date(2026, 2, 28))).toBe(false);
+  });
+
+  it('should return false for a Sunday', () => {
+    // 2026-03-29 is a Sunday
+    expect(isBusinessDay(new Date(2026, 2, 29))).toBe(false);
+  });
+
+  it('should return false for a fixed holiday', () => {
+    // 2026-01-01 Confraternização Universal (Thursday)
+    expect(isBusinessDay(new Date(2026, 0, 1))).toBe(false);
+  });
+
+  it('should return false for a movable holiday (Carnaval)', () => {
+    // 2026 Carnaval = Feb 17 (Tuesday)
+    expect(isBusinessDay(new Date(2026, 1, 17))).toBe(false);
+  });
+
+  it('should return false for Christmas on a weekday', () => {
+    // 2026-12-25 is a Friday
+    expect(isBusinessDay(new Date(2026, 11, 25))).toBe(false);
+  });
+});
+
+describe('getNextBusinessDay', () => {
+  it('should return the same date if already a business day', () => {
+    // 2026-03-25 Wednesday
+    const date = new Date(2026, 2, 25);
+    const result = getNextBusinessDay(date);
+    expect(result.getDate()).toBe(25);
+    expect(result.getMonth()).toBe(2);
+  });
+
+  it('should skip a weekend to Monday', () => {
+    // 2026-03-28 Saturday -> 2026-03-30 Monday
+    const result = getNextBusinessDay(new Date(2026, 2, 28));
+    expect(result.getDate()).toBe(30);
+    expect(result.getMonth()).toBe(2);
+  });
+
+  it('should skip a holiday to the next business day', () => {
+    // 2026-01-01 Thursday (holiday) -> 2026-01-02 Friday
+    const result = getNextBusinessDay(new Date(2026, 0, 1));
+    expect(result.getDate()).toBe(2);
+    expect(result.getMonth()).toBe(0);
+  });
+
+  it('should skip consecutive non-business days (holiday + weekend)', () => {
+    // 2026-12-25 Friday (Christmas) -> 2026-12-28 Monday
+    const result = getNextBusinessDay(new Date(2026, 11, 25));
+    expect(result.getDate()).toBe(28);
+    expect(result.getMonth()).toBe(11);
   });
 });

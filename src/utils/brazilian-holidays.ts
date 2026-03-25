@@ -56,6 +56,51 @@ export function getBrazilianHolidays(year: number): BrazilianHoliday[] {
 }
 
 /**
+ * Checks whether a given date falls on a weekend (Saturday or Sunday).
+ */
+function isWeekend(date: Date): boolean {
+  const dayOfWeek = date.getDay();
+  return dayOfWeek === 0 || dayOfWeek === 6;
+}
+
+/**
+ * Checks whether a given date falls on a Brazilian national holiday.
+ */
+function isHoliday(date: Date): boolean {
+  const year = date.getFullYear();
+  const holidays = getBrazilianHolidays(year);
+
+  return holidays.some(
+    (holiday) =>
+      holiday.date.getFullYear() === date.getFullYear() &&
+      holiday.date.getMonth() === date.getMonth() &&
+      holiday.date.getDate() === date.getDate(),
+  );
+}
+
+/**
+ * Checks whether a given date is a business day (not weekend, not holiday).
+ */
+export function isBusinessDay(date: Date): boolean {
+  return !isWeekend(date) && !isHoliday(date);
+}
+
+/**
+ * Returns the next business day from a given date.
+ * If the date is already a business day, returns the same date.
+ * Otherwise, advances forward until a business day is found.
+ */
+export function getNextBusinessDay(date: Date): Date {
+  const adjusted = new Date(date);
+
+  while (!isBusinessDay(adjusted)) {
+    adjusted.setDate(adjusted.getDate() + 1);
+  }
+
+  return adjusted;
+}
+
+/**
  * Returns holidays that fall within a date range.
  * Supports ranges that span multiple years.
  */

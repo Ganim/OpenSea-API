@@ -465,7 +465,16 @@ const ALL_PERMISSIONS = {
   finance: {
     companies: ['read'],
     'cost-centers': ['create', 'read', 'update', 'delete', 'list', 'manage'],
-    'bank-accounts': ['create', 'read', 'update', 'delete', 'list', 'manage'],
+    'bank-accounts': [
+      'create',
+      'read',
+      'update',
+      'delete',
+      'list',
+      'manage',
+      'admin',
+      'import',
+    ],
     categories: ['create', 'read', 'update', 'delete', 'list', 'manage'],
     entries: [
       'create',
@@ -478,6 +487,8 @@ const ALL_PERMISSIONS = {
       'manage',
       'register',
       'import',
+      'access',
+      'admin',
     ],
     attachments: ['create', 'read', 'delete', 'list'],
     loans: ['create', 'read', 'update', 'delete', 'list', 'pay', 'manage'],

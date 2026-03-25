@@ -36,6 +36,12 @@ export interface CreateInsightData {
 export interface AiInsightsRepository {
   findById(id: string, tenantId: string): Promise<AiInsight | null>;
   findMany(options: FindManyInsightsOptions): Promise<FindManyInsightsResult>;
+  findExistingByTypeAndEntity(
+    tenantId: string,
+    type: string,
+    relatedEntityType?: string | null,
+    relatedEntityId?: string | null,
+  ): Promise<AiInsight | null>;
   create(data: CreateInsightData): Promise<AiInsight>;
   markViewed(id: string, tenantId: string): Promise<void>;
   markActedOn(id: string, tenantId: string): Promise<void>;

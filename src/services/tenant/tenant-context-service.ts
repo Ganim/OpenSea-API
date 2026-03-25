@@ -19,7 +19,8 @@ type SystemModule =
   | 'CALENDAR'
   | 'STORAGE'
   | 'EMAIL'
-  | 'TASKS';
+  | 'TASKS'
+  | 'MESSAGING';
 
 interface CachedPlan {
   planId: string;

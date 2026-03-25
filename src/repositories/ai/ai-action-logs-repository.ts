@@ -32,7 +32,33 @@ export interface FindManyActionLogsResult {
   total: number;
 }
 
+export interface CreateActionLogSchema {
+  tenantId: string;
+  userId: string;
+  conversationId?: string | null;
+  messageId?: string | null;
+  actionType: string;
+  targetModule: string;
+  targetEntityType: string;
+  targetEntityId?: string | null;
+  input: Record<string, unknown>;
+  status?: string;
+}
+
 export interface AiActionLogsRepository {
+  create(data: CreateActionLogSchema): Promise<AiActionLogDTO>;
+  findById(id: string): Promise<AiActionLogDTO | null>;
+  updateStatus(
+    id: string,
+    status: string,
+    extra?: {
+      confirmedByUserId?: string;
+      confirmedAt?: Date;
+      executedAt?: Date;
+      output?: Record<string, unknown>;
+      error?: string;
+    },
+  ): Promise<AiActionLogDTO>;
   findMany(
     options: FindManyActionLogsOptions,
   ): Promise<FindManyActionLogsResult>;

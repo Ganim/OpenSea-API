@@ -33,6 +33,7 @@ import { makeGetConsortiumByIdUseCase } from '@/use-cases/finance/consortia/fact
 // === Dashboard Factories ===
 import { makeGetFinanceDashboardUseCase } from '@/use-cases/finance/dashboard/factories/make-get-finance-dashboard-use-case';
 import { makeGetCashflowUseCase } from '@/use-cases/finance/dashboard/factories/make-get-cashflow-use-case';
+import { makeGetForecastUseCase } from '@/use-cases/finance/dashboard/factories/make-get-forecast-use-case';
 
 // ─── Helpers ─────────────────────────────────────────────────────────
 
@@ -752,6 +753,679 @@ export function getFinanceHandlers(): Record<string, ToolHandler> {
           payableOverdue: result.payableOverdue,
           receivableOverdue: result.receivableOverdue,
           dueSoonAlerts: result.dueSoonAlerts,
+        };
+      },
+    },
+
+    // =========================================================
+    // ADVANCED ANALYTICAL TOOLS (8)
+    // =========================================================
+
+    finance_get_summary: {
+      async execute(
+        args: Record<string, unknown>,
+        context: ToolExecutionContext,
+      ) {
+        const period = (args.period as string) ?? 'month';
+        const now = new Date();
+        let startDate: Date;
+        let endDate: Date;
+
+        switch (period) {
+          case 'today':
+            startDate = new Date(
+              Date.UTC(
+                now.getUTCFullYear(),
+                now.getUTCMonth(),
+                now.getUTCDate(),
+              ),
+            );
+            endDate = new Date(
+              Date.UTC(
+                now.getUTCFullYear(),
+                now.getUTCMonth(),
+                now.getUTCDate(),
+                23,
+                59,
+                59,
+              ),
+            );
+            break;
+          case 'week':
+            startDate = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+            endDate = now;
+            break;
+          case 'quarter': {
+            const quarterMonth = Math.floor(now.getUTCMonth() / 3) * 3;
+            startDate = new Date(
+              Date.UTC(now.getUTCFullYear(), quarterMonth, 1),
+            );
+            endDate = new Date(
+              Date.UTC(now.getUTCFullYear(), quarterMonth + 3, 0, 23, 59, 59),
+            );
+            break;
+          }
+          case 'year':
+            startDate = new Date(Date.UTC(now.getUTCFullYear(), 0, 1));
+            endDate = new Date(
+              Date.UTC(now.getUTCFullYear(), 11, 31, 23, 59, 59),
+            );
+            break;
+          default:
+            // month
+            startDate = new Date(
+              Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 1),
+            );
+            endDate = new Date(
+              Date.UTC(
+                now.getUTCFullYear(),
+                now.getUTCMonth() + 1,
+                0,
+                23,
+                59,
+                59,
+              ),
+            );
+        }
+
+        const dashboardUseCase = makeGetFinanceDashboardUseCase();
+        const dashboard = await dashboardUseCase.execute({
+          tenantId: context.tenantId,
+        });
+
+        const forecastUseCase = makeGetForecastUseCase();
+        const forecast = await forecastUseCase.execute({
+          tenantId: context.tenantId,
+          startDate,
+          endDate,
+          groupBy: 'month',
+        });
+
+        return {
+          period,
+          periodLabel: {
+            today: 'Hoje',
+            week: 'Últimos 7 dias',
+            month: 'Mês atual',
+            quarter: 'Trimestre atual',
+            year: 'Ano atual',
+          }[period],
+          totalPayablePending: dashboard.totalPayable,
+          totalReceivablePending: dashboard.totalReceivable,
+          totalOverdue: dashboard.overduePayable + dashboard.overdueReceivable,
+          overduePayable: dashboard.overduePayable,
+          overdueReceivable: dashboard.overdueReceivable,
+          paidThisPeriod: forecast.totals.totalPayable,
+          receivedThisPeriod: forecast.totals.totalReceivable,
+          cashBalance: dashboard.cashBalance,
+          netBalance: forecast.totals.netBalance,
+          overduePayableCount: dashboard.overduePayableCount,
+          overdueReceivableCount: dashboard.overdueReceivableCount,
+        };
+      },
+    },
+
+    finance_list_overdue_entries: {
+      async execute(
+        args: Record<string, unknown>,
+        context: ToolExecutionContext,
+      ) {
+        const type = args.type as string | undefined;
+        const limit = clampLimit(args.limit);
+        const now = new Date();
+
+        // Fetch overdue entries (status PENDING/PARTIAL with dueDate < now)
+        const listUseCase = makeListFinanceEntriesUseCase();
+        const result = await listUseCase.execute({
+          tenantId: context.tenantId,
+          type,
+          isOverdue: true,
+          page: 1,
+          limit,
+          sortBy: 'dueDate',
+          sortOrder: 'asc',
+        });
+
+        const entries = result.entries
+          .slice(0, TOOL_LIST_MAX_ITEMS)
+          .map((e) => {
+            const daysOverdue = Math.floor(
+              (now.getTime() - new Date(e.dueDate).getTime()) /
+                (1000 * 60 * 60 * 24),
+            );
+            return {
+              id: e.id,
+              code: e.code,
+              type: e.type,
+              name: e.type === 'RECEIVABLE' ? e.customerName : e.supplierName,
+              description: e.description?.slice(0, 80),
+              amount: e.remainingBalance ?? e.expectedAmount,
+              dueDate: e.dueDate,
+              daysOverdue: Math.max(0, daysOverdue),
+            };
+          })
+          .sort((a, b) => b.daysOverdue - a.daysOverdue);
+
+        const totalOverdueAmount = entries.reduce(
+          (sum, e) => sum + e.amount,
+          0,
+        );
+
+        return {
+          total: result.meta.total,
+          showing: entries.length,
+          totalOverdueAmount,
+          entries,
+        };
+      },
+    },
+
+    finance_get_cashflow_forecast: {
+      async execute(
+        args: Record<string, unknown>,
+        context: ToolExecutionContext,
+      ) {
+        const days = Math.min(Math.max(1, (args.days as number) ?? 30), 180);
+        const now = new Date();
+        const endDate = new Date(now.getTime() + days * 24 * 60 * 60 * 1000);
+
+        const cashflowUseCase = makeGetCashflowUseCase();
+        const cashflow = await cashflowUseCase.execute({
+          tenantId: context.tenantId,
+          startDate: now,
+          endDate,
+          groupBy: days <= 14 ? 'day' : days <= 60 ? 'week' : 'month',
+        });
+
+        const projectedBalance = cashflow.summary.closingBalance;
+        const alert =
+          projectedBalance < 0
+            ? `ALERTA: Saldo projetado negativo de R$ ${Math.abs(projectedBalance).toFixed(2)} em ${days} dias. Revise pagamentos ou antecipe recebíveis.`
+            : null;
+
+        return {
+          days,
+          currentBalance: cashflow.summary.openingBalance,
+          projectedIncome: cashflow.summary.totalInflow,
+          projectedExpenses: cashflow.summary.totalOutflow,
+          projectedBalance,
+          netFlow: cashflow.summary.netFlow,
+          alert,
+          timeline: cashflow.data.slice(0, TOOL_LIST_MAX_ITEMS).map((d) => ({
+            date: d.date,
+            inflow: d.inflow,
+            outflow: d.outflow,
+            net: d.net,
+            balance: d.cumulativeBalance,
+          })),
+        };
+      },
+    },
+
+    finance_compare_expenses: {
+      async execute(
+        args: Record<string, unknown>,
+        context: ToolExecutionContext,
+      ) {
+        const period1Str = args.period1 as string;
+        const period2Str = args.period2 as string;
+
+        if (!period1Str || !period2Str) {
+          return {
+            error:
+              'Informe period1 e period2 no formato YYYY-MM (ex: 2026-01).',
+          };
+        }
+
+        const [y1, m1] = period1Str.split('-').map(Number);
+        const [y2, m2] = period2Str.split('-').map(Number);
+
+        const start1 = new Date(Date.UTC(y1, m1 - 1, 1));
+        const end1 = new Date(Date.UTC(y1, m1, 0, 23, 59, 59));
+        const start2 = new Date(Date.UTC(y2, m2 - 1, 1));
+        const end2 = new Date(Date.UTC(y2, m2, 0, 23, 59, 59));
+
+        const forecastUseCase = makeGetForecastUseCase();
+
+        const [result1, result2] = await Promise.all([
+          forecastUseCase.execute({
+            tenantId: context.tenantId,
+            type: 'PAYABLE',
+            startDate: start1,
+            endDate: end1,
+            groupBy: 'month',
+          }),
+          forecastUseCase.execute({
+            tenantId: context.tenantId,
+            type: 'PAYABLE',
+            startDate: start2,
+            endDate: end2,
+            groupBy: 'month',
+          }),
+        ]);
+
+        const total1 = result1.totals.totalPayable;
+        const total2 = result2.totals.totalPayable;
+        const difference = total2 - total1;
+        const percentChange =
+          total1 > 0 ? ((difference / total1) * 100).toFixed(1) : null;
+
+        // Build category comparison
+        const cat1Map = new Map(
+          result1.byCategory.map((c) => [c.categoryId, c]),
+        );
+        const cat2Map = new Map(
+          result2.byCategory.map((c) => [c.categoryId, c]),
+        );
+        const allCatIds = new Set([...cat1Map.keys(), ...cat2Map.keys()]);
+
+        const categoryComparison = Array.from(allCatIds)
+          .map((catId) => {
+            const c1 = cat1Map.get(catId);
+            const c2 = cat2Map.get(catId);
+            const v1 = c1?.total ?? 0;
+            const v2 = c2?.total ?? 0;
+            const diff = v2 - v1;
+            const pct = v1 > 0 ? ((diff / v1) * 100).toFixed(1) : null;
+            return {
+              categoryId: catId,
+              categoryName: c2?.categoryName ?? c1?.categoryName ?? 'N/A',
+              period1Total: v1,
+              period2Total: v2,
+              difference: diff,
+              percentChange: pct,
+            };
+          })
+          .sort((a, b) => Math.abs(b.difference) - Math.abs(a.difference))
+          .slice(0, 10);
+
+        const increasedCategories = categoryComparison.filter(
+          (c) => c.percentChange !== null && parseFloat(c.percentChange) > 20,
+        );
+
+        return {
+          period1: period1Str,
+          period2: period2Str,
+          period1Total: total1,
+          period2Total: total2,
+          difference,
+          percentChange,
+          direction:
+            difference > 0 ? 'AUMENTO' : difference < 0 ? 'REDUÇÃO' : 'ESTÁVEL',
+          topCategories: categoryComparison,
+          categoriesWithSignificantIncrease: increasedCategories,
+        };
+      },
+    },
+
+    finance_get_customer_payment_score: {
+      async execute(
+        args: Record<string, unknown>,
+        context: ToolExecutionContext,
+      ) {
+        const customerName = args.customerName as string;
+        if (!customerName) {
+          return { error: 'Informe o nome do cliente (customerName).' };
+        }
+
+        const listUseCase = makeListFinanceEntriesUseCase();
+
+        // Get all receivable entries for this customer
+        const result = await listUseCase.execute({
+          tenantId: context.tenantId,
+          type: 'RECEIVABLE',
+          customerName,
+          page: 1,
+          limit: 200,
+        });
+
+        const entries = result.entries;
+
+        if (entries.length === 0) {
+          return {
+            error: `Nenhum lançamento encontrado para o cliente "${customerName}".`,
+            suggestion:
+              'Verifique a grafia do nome ou tente com parte do nome.',
+          };
+        }
+
+        // Calculate payment metrics
+        const paidEntries = entries.filter(
+          (e) => e.status === 'RECEIVED' || e.status === 'PAID',
+        );
+        const overdueEntries = entries.filter((e) => e.isOverdue);
+        const totalEntries = entries.length;
+
+        // Calculate average days to payment
+        let totalDaysToPayment = 0;
+        let entriesWithPaymentDate = 0;
+
+        for (const e of paidEntries) {
+          if (e.paymentDate && e.dueDate) {
+            const due = new Date(e.dueDate).getTime();
+            const paid = new Date(e.paymentDate).getTime();
+            const daysToPayment = Math.floor(
+              (paid - due) / (1000 * 60 * 60 * 24),
+            );
+            totalDaysToPayment += daysToPayment;
+            entriesWithPaymentDate++;
+          }
+        }
+
+        const avgDaysToPayment =
+          entriesWithPaymentDate > 0
+            ? Math.round(totalDaysToPayment / entriesWithPaymentDate)
+            : null;
+
+        // On-time rate: paid entries where paymentDate <= dueDate
+        const onTimeCount = paidEntries.filter((e) => {
+          if (!e.paymentDate || !e.dueDate) return false;
+          return new Date(e.paymentDate) <= new Date(e.dueDate);
+        }).length;
+
+        const onTimeRate =
+          paidEntries.length > 0
+            ? Math.round((onTimeCount / paidEntries.length) * 100)
+            : null;
+
+        // Score: 0-100 based on on-time rate and overdue ratio
+        let score = 50; // base
+        if (onTimeRate !== null) {
+          score = Math.round(onTimeRate * 0.7 + 30); // 30-100 range
+        }
+        if (overdueEntries.length > 0) {
+          const overdueRatio = overdueEntries.length / totalEntries;
+          score = Math.max(0, score - Math.round(overdueRatio * 40));
+        }
+        score = Math.min(100, Math.max(0, score));
+
+        // Rating
+        let rating: string;
+        if (score >= 90) rating = 'EXCELENTE';
+        else if (score >= 75) rating = 'BOM';
+        else if (score >= 50) rating = 'REGULAR';
+        else if (score >= 25) rating = 'RUIM';
+        else rating = 'CRÍTICO';
+
+        const totalReceivable = entries.reduce(
+          (sum, e) => sum + e.expectedAmount,
+          0,
+        );
+        const totalOverdue = overdueEntries.reduce(
+          (sum, e) => sum + (e.remainingBalance ?? e.expectedAmount),
+          0,
+        );
+
+        return {
+          customerName: entries[0]?.customerName ?? customerName,
+          score,
+          rating,
+          avgDaysToPayment,
+          onTimeRate: onTimeRate !== null ? `${onTimeRate}%` : 'N/A',
+          totalEntries,
+          paidEntries: paidEntries.length,
+          overdueEntries: overdueEntries.length,
+          totalReceivable,
+          totalOverdue,
+        };
+      },
+    },
+
+    finance_suggest_cost_reduction: {
+      async execute(
+        args: Record<string, unknown>,
+        context: ToolExecutionContext,
+      ) {
+        const months = Math.min(Math.max(1, (args.months as number) ?? 3), 12);
+        const now = new Date();
+
+        // Get category totals for each month in the lookback period
+        const forecastUseCase = makeGetForecastUseCase();
+        const monthlyResults = [];
+
+        for (let i = 0; i < months; i++) {
+          const monthStart = new Date(
+            Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - i, 1),
+          );
+          const monthEnd = new Date(
+            Date.UTC(
+              now.getUTCFullYear(),
+              now.getUTCMonth() - i + 1,
+              0,
+              23,
+              59,
+              59,
+            ),
+          );
+          const result = await forecastUseCase.execute({
+            tenantId: context.tenantId,
+            type: 'PAYABLE',
+            startDate: monthStart,
+            endDate: monthEnd,
+            groupBy: 'month',
+          });
+          monthlyResults.push({
+            month: `${monthStart.getUTCFullYear()}-${String(monthStart.getUTCMonth() + 1).padStart(2, '0')}`,
+            total: result.totals.totalPayable,
+            byCategory: result.byCategory,
+          });
+        }
+
+        // Top 5 categories by total expense across all months
+        const categoryTotals = new Map<
+          string,
+          { name: string; total: number; monthly: number[] }
+        >();
+        for (const mr of monthlyResults) {
+          for (const cat of mr.byCategory) {
+            const existing = categoryTotals.get(cat.categoryId) ?? {
+              name: cat.categoryName,
+              total: 0,
+              monthly: [],
+            };
+            existing.total += cat.total;
+            existing.monthly.push(cat.total);
+            categoryTotals.set(cat.categoryId, existing);
+          }
+        }
+
+        const topCategories = Array.from(categoryTotals.entries())
+          .sort(([, a], [, b]) => b.total - a.total)
+          .slice(0, 5)
+          .map(([id, data]) => ({
+            categoryId: id,
+            categoryName: data.name,
+            totalExpense: data.total,
+            monthlyAverage: Math.round(data.total / months),
+            monthlyValues: data.monthly,
+          }));
+
+        // Detect categories with >20% increase (compare most recent month vs previous)
+        const categoriesWithIncrease: Array<{
+          categoryId: string;
+          categoryName: string;
+          previousMonth: number;
+          currentMonth: number;
+          increasePercent: string;
+        }> = [];
+
+        if (monthlyResults.length >= 2) {
+          const currentMonth = monthlyResults[0];
+          const previousMonth = monthlyResults[1];
+          const prevMap = new Map(
+            previousMonth.byCategory.map((c) => [c.categoryId, c.total]),
+          );
+
+          for (const cat of currentMonth.byCategory) {
+            const prev = prevMap.get(cat.categoryId) ?? 0;
+            if (prev > 0) {
+              const increase = ((cat.total - prev) / prev) * 100;
+              if (increase > 20) {
+                categoriesWithIncrease.push({
+                  categoryId: cat.categoryId,
+                  categoryName: cat.categoryName,
+                  previousMonth: prev,
+                  currentMonth: cat.total,
+                  increasePercent: increase.toFixed(1),
+                });
+              }
+            }
+          }
+        }
+
+        // Month-over-month trend
+        const monthlyTrend = monthlyResults
+          .map((m) => ({
+            month: m.month,
+            total: m.total,
+          }))
+          .reverse(); // oldest first
+
+        // Generate suggestions
+        const suggestions: string[] = [];
+
+        if (categoriesWithIncrease.length > 0) {
+          for (const cat of categoriesWithIncrease.slice(0, 3)) {
+            suggestions.push(
+              `A categoria "${cat.categoryName}" aumentou ${cat.increasePercent}% em relação ao mês anterior (de R$ ${cat.previousMonth.toFixed(2)} para R$ ${cat.currentMonth.toFixed(2)}). Revise se há gastos desnecessários.`,
+            );
+          }
+        }
+
+        if (topCategories.length > 0) {
+          suggestions.push(
+            `As 3 maiores categorias de despesa são: ${topCategories
+              .slice(0, 3)
+              .map(
+                (c) =>
+                  `"${c.categoryName}" (média mensal: R$ ${c.monthlyAverage.toFixed(2)})`,
+              )
+              .join(', ')}. Negocie melhores condições ou busque alternativas.`,
+          );
+        }
+
+        if (monthlyTrend.length >= 2) {
+          const first = monthlyTrend[0].total;
+          const last = monthlyTrend[monthlyTrend.length - 1].total;
+          if (last > first * 1.1) {
+            suggestions.push(
+              `Despesas totais cresceram de R$ ${first.toFixed(2)} para R$ ${last.toFixed(2)} nos últimos ${months} meses. Considere estabelecer um teto orçamentário.`,
+            );
+          }
+        }
+
+        return {
+          months,
+          topCategories,
+          monthlyTrend,
+          categoriesWithSignificantIncrease: categoriesWithIncrease,
+          suggestions,
+        };
+      },
+    },
+
+    finance_get_bank_account_balances: {
+      async execute(
+        _args: Record<string, unknown>,
+        context: ToolExecutionContext,
+      ) {
+        const useCase = makeListBankAccountsUseCase();
+        const result = await useCase.execute({
+          tenantId: context.tenantId,
+        });
+
+        const activeAccounts = result.bankAccounts.filter(
+          (ba) => ba.status === 'ACTIVE',
+        );
+
+        const totalBalance = activeAccounts.reduce(
+          (sum, ba) => sum + ba.currentBalance,
+          0,
+        );
+
+        return {
+          totalBalance,
+          accountCount: activeAccounts.length,
+          accounts: activeAccounts.map((ba) => ({
+            id: ba.id,
+            name: ba.name,
+            bankName: ba.bankName,
+            accountType: ba.accountType,
+            currentBalance: ba.currentBalance,
+            isDefault: ba.isDefault,
+          })),
+        };
+      },
+    },
+
+    finance_get_upcoming_payments: {
+      async execute(
+        args: Record<string, unknown>,
+        context: ToolExecutionContext,
+      ) {
+        const days = Math.min(Math.max(1, (args.days as number) ?? 7), 90);
+        const now = new Date();
+        const endDate = new Date(now.getTime() + days * 24 * 60 * 60 * 1000);
+
+        const listUseCase = makeListFinanceEntriesUseCase();
+        const result = await listUseCase.execute({
+          tenantId: context.tenantId,
+          dueDateFrom: now,
+          dueDateTo: endDate,
+          status: 'PENDING',
+          page: 1,
+          limit: 50,
+          sortBy: 'dueDate',
+          sortOrder: 'asc',
+        });
+
+        // Group by day
+        const groupedByDay = new Map<
+          string,
+          Array<{
+            id: string;
+            code: string;
+            type: string;
+            description: string;
+            name: string | undefined;
+            amount: number;
+          }>
+        >();
+
+        for (const e of result.entries) {
+          const dayKey = new Date(e.dueDate).toISOString().split('T')[0];
+          const group = groupedByDay.get(dayKey) ?? [];
+          group.push({
+            id: e.id,
+            code: e.code,
+            type: e.type,
+            description: (e.description ?? '').slice(0, 80),
+            name: e.type === 'PAYABLE' ? e.supplierName : e.customerName,
+            amount: e.remainingBalance ?? e.expectedAmount,
+          });
+          groupedByDay.set(dayKey, group);
+        }
+
+        const dailyGroups = Array.from(groupedByDay.entries())
+          .sort(([a], [b]) => a.localeCompare(b))
+          .slice(0, TOOL_LIST_MAX_ITEMS)
+          .map(([date, entries]) => ({
+            date,
+            count: entries.length,
+            dayTotal: entries.reduce((s, e) => s + e.amount, 0),
+            entries: entries.slice(0, 10),
+          }));
+
+        const grandTotal = result.entries.reduce(
+          (sum, e) => sum + (e.remainingBalance ?? e.expectedAmount),
+          0,
+        );
+
+        return {
+          days,
+          totalEntries: result.meta.total,
+          grandTotal,
+          dailyGroups,
         };
       },
     },
