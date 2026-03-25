@@ -15,6 +15,7 @@ import { importPayrollController } from './v1-import-payroll.controller';
 import { ocrExtractDataController } from './v1-ocr-extract-data.controller';
 import { ocrUploadBatchController } from './v1-ocr-upload-batch.controller';
 import { getLastSupplierEntryController } from './v1-get-last-supplier-entry.controller';
+import { createEntriesBatchController } from './v1-create-entries-batch.controller';
 
 export async function financeEntriesRoutes(app: FastifyInstance) {
   app.addHook('preHandler', createModuleMiddleware('FINANCE'));
@@ -22,6 +23,7 @@ export async function financeEntriesRoutes(app: FastifyInstance) {
   app.register(getFinanceEntryByIdController);
   app.register(listFinanceEntriesController);
   app.register(createFinanceEntryController);
+  app.register(createEntriesBatchController);
   app.register(updateFinanceEntryController);
   app.register(deleteFinanceEntryController);
   app.register(registerPaymentController);

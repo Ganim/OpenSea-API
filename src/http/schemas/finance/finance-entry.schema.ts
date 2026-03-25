@@ -323,6 +323,32 @@ export const parseBoletoResponseSchema = z.object({
   digitLine: z.string(),
 });
 
+export const parsePixSchema = z.object({
+  code: z.string().min(1).max(1000),
+});
+
+export const parsePixResponseSchema = z.object({
+  type: z.enum(['COPIA_COLA', 'CHAVE']),
+  pixKey: z.string(),
+  pixKeyType: z.enum(['CPF', 'CNPJ', 'EMAIL', 'PHONE', 'EVP']),
+  merchantName: z.string().optional(),
+  merchantCity: z.string().optional(),
+  amount: z.number().optional(),
+});
+
+export const createFinanceEntriesBatchSchema = z.object({
+  entries: z
+    .array(createFinanceEntrySchema)
+    .min(1)
+    .max(20)
+    .describe('Array de lançamentos para criação em lote'),
+});
+
+export const batchCreateResponseSchema = z.object({
+  created: z.number(),
+  entries: z.array(financeEntryResponseSchema),
+});
+
 export const listFinanceEntriesQuerySchema = z.object({
   page: z.coerce.number().int().positive().optional().default(1),
   limit: z.coerce.number().int().positive().max(100).optional().default(20),
