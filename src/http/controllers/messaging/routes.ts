@@ -252,9 +252,18 @@ export async function messagingRoutes(app: FastifyInstance) {
 
       try {
         const useCase = makeSendMessageUseCase();
+        const body = request.body;
         const { message: sentMessage } = await useCase.execute({
           tenantId,
-          ...request.body,
+          accountId: body.accountId,
+          contactId: body.contactId,
+          text: body.text,
+          mediaUrl: body.mediaUrl,
+          mediaType: body.mediaType,
+          fileName: body.fileName,
+          templateName: body.templateName,
+          templateParams: body.templateParams as Record<string, string> | undefined,
+          replyToMessageId: body.replyToMessageId,
         });
 
         return reply

@@ -159,7 +159,10 @@ export const ModelName = {
   FinanceEntryPayment: 'FinanceEntryPayment',
   FinanceEntryCostCenter: 'FinanceEntryCostCenter',
   RecurringConfig: 'RecurringConfig',
+  FinanceBudget: 'FinanceBudget',
   FinanceAttachment: 'FinanceAttachment',
+  BankReconciliation: 'BankReconciliation',
+  BankReconciliationItem: 'BankReconciliationItem',
   Loan: 'Loan',
   LoanInstallment: 'LoanInstallment',
   Consortium: 'Consortium',
@@ -298,7 +301,12 @@ export const ModelName = {
   FiscalDocumentEvent: 'FiscalDocumentEvent',
   PixCharge: 'PixCharge',
   AiWorkflow: 'AiWorkflow',
-  AiWorkflowExecution: 'AiWorkflowExecution'
+  AiWorkflowExecution: 'AiWorkflowExecution',
+  OverdueEscalation: 'OverdueEscalation',
+  OverdueEscalationStep: 'OverdueEscalationStep',
+  OverdueAction: 'OverdueAction',
+  PunchConfiguration: 'PunchConfiguration',
+  GeofenceZone: 'GeofenceZone'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -2557,6 +2565,10 @@ export const RecurringConfigScalarFieldEnum = {
   nextDueDate: 'nextDueDate',
   interestRate: 'interestRate',
   penaltyRate: 'penaltyRate',
+  indexationType: 'indexationType',
+  fixedAdjustmentRate: 'fixedAdjustmentRate',
+  lastAdjustmentDate: 'lastAdjustmentDate',
+  adjustmentMonth: 'adjustmentMonth',
   notes: 'notes',
   createdBy: 'createdBy',
   deletedAt: 'deletedAt',
@@ -2565,6 +2577,22 @@ export const RecurringConfigScalarFieldEnum = {
 } as const
 
 export type RecurringConfigScalarFieldEnum = (typeof RecurringConfigScalarFieldEnum)[keyof typeof RecurringConfigScalarFieldEnum]
+
+
+export const FinanceBudgetScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  categoryId: 'categoryId',
+  costCenterId: 'costCenterId',
+  year: 'year',
+  month: 'month',
+  budgetAmount: 'budgetAmount',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type FinanceBudgetScalarFieldEnum = (typeof FinanceBudgetScalarFieldEnum)[keyof typeof FinanceBudgetScalarFieldEnum]
 
 
 export const FinanceAttachmentScalarFieldEnum = {
@@ -2581,6 +2609,42 @@ export const FinanceAttachmentScalarFieldEnum = {
 } as const
 
 export type FinanceAttachmentScalarFieldEnum = (typeof FinanceAttachmentScalarFieldEnum)[keyof typeof FinanceAttachmentScalarFieldEnum]
+
+
+export const BankReconciliationScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  bankAccountId: 'bankAccountId',
+  importDate: 'importDate',
+  fileName: 'fileName',
+  periodStart: 'periodStart',
+  periodEnd: 'periodEnd',
+  totalTransactions: 'totalTransactions',
+  matchedCount: 'matchedCount',
+  unmatchedCount: 'unmatchedCount',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BankReconciliationScalarFieldEnum = (typeof BankReconciliationScalarFieldEnum)[keyof typeof BankReconciliationScalarFieldEnum]
+
+
+export const BankReconciliationItemScalarFieldEnum = {
+  id: 'id',
+  reconciliationId: 'reconciliationId',
+  fitId: 'fitId',
+  transactionDate: 'transactionDate',
+  amount: 'amount',
+  description: 'description',
+  type: 'type',
+  matchedEntryId: 'matchedEntryId',
+  matchConfidence: 'matchConfidence',
+  matchStatus: 'matchStatus',
+  createdAt: 'createdAt'
+} as const
+
+export type BankReconciliationItemScalarFieldEnum = (typeof BankReconciliationItemScalarFieldEnum)[keyof typeof BankReconciliationItemScalarFieldEnum]
 
 
 export const LoanScalarFieldEnum = {
@@ -5551,6 +5615,88 @@ export const AiWorkflowExecutionScalarFieldEnum = {
 } as const
 
 export type AiWorkflowExecutionScalarFieldEnum = (typeof AiWorkflowExecutionScalarFieldEnum)[keyof typeof AiWorkflowExecutionScalarFieldEnum]
+
+
+export const OverdueEscalationScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  name: 'name',
+  isDefault: 'isDefault',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type OverdueEscalationScalarFieldEnum = (typeof OverdueEscalationScalarFieldEnum)[keyof typeof OverdueEscalationScalarFieldEnum]
+
+
+export const OverdueEscalationStepScalarFieldEnum = {
+  id: 'id',
+  escalationId: 'escalationId',
+  daysOverdue: 'daysOverdue',
+  channel: 'channel',
+  templateType: 'templateType',
+  subject: 'subject',
+  message: 'message',
+  isActive: 'isActive',
+  order: 'order'
+} as const
+
+export type OverdueEscalationStepScalarFieldEnum = (typeof OverdueEscalationStepScalarFieldEnum)[keyof typeof OverdueEscalationStepScalarFieldEnum]
+
+
+export const OverdueActionScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  entryId: 'entryId',
+  stepId: 'stepId',
+  channel: 'channel',
+  status: 'status',
+  sentAt: 'sentAt',
+  error: 'error',
+  createdAt: 'createdAt'
+} as const
+
+export type OverdueActionScalarFieldEnum = (typeof OverdueActionScalarFieldEnum)[keyof typeof OverdueActionScalarFieldEnum]
+
+
+export const PunchConfigurationScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  selfieRequired: 'selfieRequired',
+  gpsRequired: 'gpsRequired',
+  geofenceEnabled: 'geofenceEnabled',
+  qrCodeEnabled: 'qrCodeEnabled',
+  directLoginEnabled: 'directLoginEnabled',
+  kioskModeEnabled: 'kioskModeEnabled',
+  pwaEnabled: 'pwaEnabled',
+  offlineAllowed: 'offlineAllowed',
+  maxOfflineHours: 'maxOfflineHours',
+  toleranceMinutes: 'toleranceMinutes',
+  autoClockOutHours: 'autoClockOutHours',
+  pdfReceiptEnabled: 'pdfReceiptEnabled',
+  defaultRadiusMeters: 'defaultRadiusMeters',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PunchConfigurationScalarFieldEnum = (typeof PunchConfigurationScalarFieldEnum)[keyof typeof PunchConfigurationScalarFieldEnum]
+
+
+export const GeofenceZoneScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  name: 'name',
+  latitude: 'latitude',
+  longitude: 'longitude',
+  radiusMeters: 'radiusMeters',
+  isActive: 'isActive',
+  address: 'address',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type GeofenceZoneScalarFieldEnum = (typeof GeofenceZoneScalarFieldEnum)[keyof typeof GeofenceZoneScalarFieldEnum]
 
 
 export const SortOrder = {

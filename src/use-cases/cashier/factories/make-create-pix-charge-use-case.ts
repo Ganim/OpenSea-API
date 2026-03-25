@@ -1,9 +1,16 @@
-import type { CreatePixChargeUseCase } from '../create-pix-charge';
+import { PrismaPixChargesRepository } from '@/repositories/cashier/prisma/prisma-pix-charges-repository';
+import { PrismaTenantConsumptionsRepository } from '@/repositories/core/prisma/prisma-tenant-consumptions-repository';
+import { getPixProvider } from '@/services/cashier/pix-provider-factory';
+import { CreatePixChargeUseCase } from '../create-pix-charge';
 
-// TODO: Implement when PixCharge Prisma model is added to schema.prisma
-// Will use: PrismaPixChargesRepository, PrismaTenantConsumptionsRepository, getPixProvider()
-export function makeCreatePixChargeUseCase(): CreatePixChargeUseCase {
-  throw new Error(
-    'makeCreatePixChargeUseCase: PrismaPixChargesRepository not yet implemented. Add PixCharge model to schema.prisma first.',
+export function makeCreatePixChargeUseCase() {
+  const pixChargesRepository = new PrismaPixChargesRepository();
+  const consumptionsRepository = new PrismaTenantConsumptionsRepository();
+  const pixProvider = getPixProvider();
+
+  return new CreatePixChargeUseCase(
+    pixChargesRepository,
+    consumptionsRepository,
+    pixProvider,
   );
 }

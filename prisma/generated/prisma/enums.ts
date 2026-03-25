@@ -130,6 +130,37 @@ export const RecurringStatus = {
 export type RecurringStatus = (typeof RecurringStatus)[keyof typeof RecurringStatus]
 
 
+export const IndexationType = {
+  NONE: 'NONE',
+  IPCA: 'IPCA',
+  IGPM: 'IGPM',
+  FIXED_RATE: 'FIXED_RATE'
+} as const
+
+export type IndexationType = (typeof IndexationType)[keyof typeof IndexationType]
+
+
+export const ReconciliationStatus = {
+  PENDING: 'PENDING',
+  IN_PROGRESS: 'IN_PROGRESS',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type ReconciliationStatus = (typeof ReconciliationStatus)[keyof typeof ReconciliationStatus]
+
+
+export const ReconciliationMatchStatus = {
+  UNMATCHED: 'UNMATCHED',
+  AUTO_MATCHED: 'AUTO_MATCHED',
+  MANUAL_MATCHED: 'MANUAL_MATCHED',
+  IGNORED: 'IGNORED',
+  CREATED: 'CREATED'
+} as const
+
+export type ReconciliationMatchStatus = (typeof ReconciliationMatchStatus)[keyof typeof ReconciliationMatchStatus]
+
+
 export const FinanceAttachmentType = {
   BOLETO: 'BOLETO',
   PAYMENT_RECEIPT: 'PAYMENT_RECEIPT',
@@ -542,7 +573,36 @@ export const AuditEntity = {
   CUSTOMER: 'CUSTOMER',
   SALES_ORDER: 'SALES_ORDER',
   SALES_ORDER_ITEM: 'SALES_ORDER_ITEM',
+  ORDER: 'ORDER',
+  ORDER_ITEM: 'ORDER_ITEM',
+  ORDER_RETURN: 'ORDER_RETURN',
+  PAYMENT_CONDITION: 'PAYMENT_CONDITION',
+  STORE_CREDIT: 'STORE_CREDIT',
   ITEM_RESERVATION: 'ITEM_RESERVATION',
+  CONTACT: 'CONTACT',
+  PIPELINE: 'PIPELINE',
+  PIPELINE_STAGE: 'PIPELINE_STAGE',
+  DEAL: 'DEAL',
+  ACTIVITY: 'ACTIVITY',
+  PRICE_TABLE: 'PRICE_TABLE',
+  CUSTOMER_PRICE: 'CUSTOMER_PRICE',
+  CAMPAIGN: 'CAMPAIGN',
+  COUPON: 'COUPON',
+  COMBO: 'COMBO',
+  CATALOG: 'CATALOG',
+  CATALOG_ITEM: 'CATALOG_ITEM',
+  TENANT_BRAND: 'TENANT_BRAND',
+  GENERATED_CONTENT: 'GENERATED_CONTENT',
+  TIMELINE_EVENT: 'TIMELINE_EVENT',
+  POS_TERMINAL: 'POS_TERMINAL',
+  POS_SESSION: 'POS_SESSION',
+  POS_TRANSACTION: 'POS_TRANSACTION',
+  POS_CASH_MOVEMENT: 'POS_CASH_MOVEMENT',
+  BID: 'BID',
+  BID_DOCUMENT: 'BID_DOCUMENT',
+  BID_CONTRACT: 'BID_CONTRACT',
+  BID_EMPENHO: 'BID_EMPENHO',
+  BID_AI_CONFIG: 'BID_AI_CONFIG',
   ALERT: 'ALERT',
   NOTIFICATION: 'NOTIFICATION',
   NOTIFICATION_TEMPLATE: 'NOTIFICATION_TEMPLATE',
@@ -581,6 +641,9 @@ export const AuditEntity = {
   LOAN_INSTALLMENT: 'LOAN_INSTALLMENT',
   CONSORTIUM: 'CONSORTIUM',
   CONSORTIUM_PAYMENT: 'CONSORTIUM_PAYMENT',
+  CONTRACT: 'CONTRACT',
+  RECURRING_CONFIG: 'RECURRING_CONFIG',
+  CALENDAR: 'CALENDAR',
   CALENDAR_EVENT: 'CALENDAR_EVENT',
   CALENDAR_PARTICIPANT: 'CALENDAR_PARTICIPANT',
   CALENDAR_REMINDER: 'CALENDAR_REMINDER',
@@ -588,10 +651,16 @@ export const AuditEntity = {
   TASK_CARD: 'TASK_CARD',
   BOARD_MEMBER: 'BOARD_MEMBER',
   BOARD_AUTOMATION: 'BOARD_AUTOMATION',
+  EMAIL_ACCOUNT: 'EMAIL_ACCOUNT',
+  EMAIL_ACCOUNT_ACCESS: 'EMAIL_ACCOUNT_ACCESS',
+  EMAIL_MESSAGE: 'EMAIL_MESSAGE',
+  EMAIL_ATTACHMENT: 'EMAIL_ATTACHMENT',
   STORAGE_FOLDER: 'STORAGE_FOLDER',
   STORAGE_FILE: 'STORAGE_FILE',
   STORAGE_FILE_VERSION: 'STORAGE_FILE_VERSION',
   STORAGE_ACCESS_RULE: 'STORAGE_ACCESS_RULE',
+  FOLDER_ACCESS_RULE: 'FOLDER_ACCESS_RULE',
+  STORAGE_SHARE_LINK: 'STORAGE_SHARE_LINK',
   TENANT: 'TENANT',
   PLAN: 'PLAN',
   TENANT_USER: 'TENANT_USER',
@@ -1410,7 +1479,8 @@ export const SystemModuleEnum = {
   CALENDAR: 'CALENDAR',
   STORAGE: 'STORAGE',
   EMAIL: 'EMAIL',
-  TASKS: 'TASKS'
+  TASKS: 'TASKS',
+  MESSAGING: 'MESSAGING'
 } as const
 
 export type SystemModuleEnum = (typeof SystemModuleEnum)[keyof typeof SystemModuleEnum]
@@ -2947,3 +3017,33 @@ export const AiWorkflowExecutionStatus = {
 } as const
 
 export type AiWorkflowExecutionStatus = (typeof AiWorkflowExecutionStatus)[keyof typeof AiWorkflowExecutionStatus]
+
+
+export const EscalationChannel = {
+  EMAIL: 'EMAIL',
+  WHATSAPP: 'WHATSAPP',
+  INTERNAL_NOTE: 'INTERNAL_NOTE',
+  SYSTEM_ALERT: 'SYSTEM_ALERT'
+} as const
+
+export type EscalationChannel = (typeof EscalationChannel)[keyof typeof EscalationChannel]
+
+
+export const EscalationTemplateType = {
+  FRIENDLY_REMINDER: 'FRIENDLY_REMINDER',
+  FORMAL_NOTICE: 'FORMAL_NOTICE',
+  URGENT_NOTICE: 'URGENT_NOTICE',
+  FINAL_NOTICE: 'FINAL_NOTICE'
+} as const
+
+export type EscalationTemplateType = (typeof EscalationTemplateType)[keyof typeof EscalationTemplateType]
+
+
+export const EscalationActionStatus = {
+  PENDING: 'PENDING',
+  SENT: 'SENT',
+  FAILED: 'FAILED',
+  SKIPPED: 'SKIPPED'
+} as const
+
+export type EscalationActionStatus = (typeof EscalationActionStatus)[keyof typeof EscalationActionStatus]

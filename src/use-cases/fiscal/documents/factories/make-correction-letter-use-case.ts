@@ -1,20 +1,14 @@
-import { InMemoryFiscalConfigsRepository } from '@/repositories/fiscal/in-memory/in-memory-fiscal-configs-repository';
-import { InMemoryFiscalDocumentEventsRepository } from '@/repositories/fiscal/in-memory/in-memory-fiscal-document-events-repository';
-import { InMemoryFiscalDocumentsRepository } from '@/repositories/fiscal/in-memory/in-memory-fiscal-documents-repository';
+import { PrismaFiscalConfigsRepository } from '@/repositories/fiscal/prisma/prisma-fiscal-configs-repository';
+import { PrismaFiscalDocumentEventsRepository } from '@/repositories/fiscal/prisma/prisma-fiscal-document-events-repository';
+import { PrismaFiscalDocumentsRepository } from '@/repositories/fiscal/prisma/prisma-fiscal-documents-repository';
 import { getFiscalProvider } from '@/services/fiscal/fiscal-provider-factory';
 import { CorrectionLetterUseCase } from '../correction-letter';
 
-/**
- * Factory for CorrectionLetterUseCase.
- *
- * TODO: Replace in-memory repositories with Prisma implementations
- * once Prisma schema models for fiscal are created.
- */
 export function makeCorrectionLetterUseCase() {
-  const fiscalConfigsRepository = new InMemoryFiscalConfigsRepository();
-  const fiscalDocumentsRepository = new InMemoryFiscalDocumentsRepository();
+  const fiscalConfigsRepository = new PrismaFiscalConfigsRepository();
+  const fiscalDocumentsRepository = new PrismaFiscalDocumentsRepository();
   const fiscalDocumentEventsRepository =
-    new InMemoryFiscalDocumentEventsRepository();
+    new PrismaFiscalDocumentEventsRepository();
   const fiscalProvider = getFiscalProvider('NUVEM_FISCAL');
 
   return new CorrectionLetterUseCase(

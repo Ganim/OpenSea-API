@@ -1,16 +1,19 @@
-import { InMemoryMessagingAccountsRepository } from '@/repositories/messaging/in-memory/in-memory-messaging-accounts-repository';
-import { InMemoryMessagingContactsRepository } from '@/repositories/messaging/in-memory/in-memory-messaging-contacts-repository';
-import { InMemoryMessagingMessagesRepository } from '@/repositories/messaging/in-memory/in-memory-messaging-messages-repository';
+import { PrismaMessagingAccountsRepository } from '@/repositories/messaging/prisma/prisma-messaging-accounts-repository';
+import { PrismaMessagingContactsRepository } from '@/repositories/messaging/prisma/prisma-messaging-contacts-repository';
+import { PrismaMessagingMessagesRepository } from '@/repositories/messaging/prisma/prisma-messaging-messages-repository';
 import { makeMessagingGateway } from '@/services/messaging/messaging-gateway-factory';
 import type { MessagingChannel } from '@/entities/messaging/messaging-channel.enum';
 import { ReceiveWebhookUseCase } from '../receive-webhook';
 
-// TODO: Replace with Prisma repositories once Prisma schema migration is applied
 export function makeReceiveWebhookUseCase(channel: MessagingChannel) {
+  const messagingAccountsRepository = new PrismaMessagingAccountsRepository();
+  const messagingContactsRepository = new PrismaMessagingContactsRepository();
+  const messagingMessagesRepository = new PrismaMessagingMessagesRepository();
+
   return new ReceiveWebhookUseCase(
-    new InMemoryMessagingAccountsRepository(),
-    new InMemoryMessagingContactsRepository(),
-    new InMemoryMessagingMessagesRepository(),
+    messagingAccountsRepository,
+    messagingContactsRepository,
+    messagingMessagesRepository,
     makeMessagingGateway(channel),
   );
 }

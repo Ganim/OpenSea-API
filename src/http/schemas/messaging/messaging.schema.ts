@@ -48,7 +48,7 @@ export const messagingAccountResponseSchema = z.object({
   igAccountId: z.string().nullable(),
   tgBotUsername: z.string().nullable(),
   webhookUrl: z.string().nullable(),
-  settings: z.record(z.unknown()).nullable(),
+  settings: z.record(z.string(), z.unknown()).nullable(),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date(),
 });
@@ -66,7 +66,7 @@ export const createMessagingAccountBodySchema = z.object({
   tokenExpiresAt: z.coerce.date().optional(),
   webhookUrl: z.string().url().optional(),
   webhookSecret: z.string().max(256).optional(),
-  settings: z.record(z.unknown()).optional(),
+  settings: z.record(z.string(), z.unknown()).optional(),
 });
 
 // ── Messaging Contact ───────────────────────────────────────────────────────
@@ -111,7 +111,7 @@ export const messagingMessageResponseSchema = z.object({
   mediaType: z.string().nullable(),
   fileName: z.string().nullable(),
   templateName: z.string().nullable(),
-  templateParams: z.record(z.string()).nullable(),
+  templateParams: z.record(z.string(), z.string()).nullable(),
   externalId: z.string().nullable(),
   replyToMessageId: z.string().uuid().nullable(),
   errorCode: z.string().nullable(),
@@ -130,7 +130,7 @@ export const sendMessageBodySchema = z.object({
   mediaType: z.string().max(64).optional(),
   fileName: z.string().max(256).optional(),
   templateName: z.string().max(128).optional(),
-  templateParams: z.record(z.string()).optional(),
+  templateParams: z.record(z.string(), z.string()).optional(),
   replyToMessageId: z.string().uuid().optional(),
 });
 

@@ -1,11 +1,13 @@
-import { InMemoryMessagingContactsRepository } from '@/repositories/messaging/in-memory/in-memory-messaging-contacts-repository';
-import { InMemoryMessagingMessagesRepository } from '@/repositories/messaging/in-memory/in-memory-messaging-messages-repository';
+import { PrismaMessagingContactsRepository } from '@/repositories/messaging/prisma/prisma-messaging-contacts-repository';
+import { PrismaMessagingMessagesRepository } from '@/repositories/messaging/prisma/prisma-messaging-messages-repository';
 import { ListMessagesUseCase } from '../list-messages';
 
-// TODO: Replace with Prisma repositories once Prisma schema migration is applied
 export function makeListMessagesUseCase() {
+  const messagingContactsRepository = new PrismaMessagingContactsRepository();
+  const messagingMessagesRepository = new PrismaMessagingMessagesRepository();
+
   return new ListMessagesUseCase(
-    new InMemoryMessagingContactsRepository(),
-    new InMemoryMessagingMessagesRepository(),
+    messagingContactsRepository,
+    messagingMessagesRepository,
   );
 }

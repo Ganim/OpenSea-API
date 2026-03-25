@@ -1,15 +1,18 @@
-import { InMemoryMessagingAccountsRepository } from '@/repositories/messaging/in-memory/in-memory-messaging-accounts-repository';
-import { InMemoryMessagingContactsRepository } from '@/repositories/messaging/in-memory/in-memory-messaging-contacts-repository';
-import { InMemoryMessagingMessagesRepository } from '@/repositories/messaging/in-memory/in-memory-messaging-messages-repository';
+import { PrismaMessagingAccountsRepository } from '@/repositories/messaging/prisma/prisma-messaging-accounts-repository';
+import { PrismaMessagingContactsRepository } from '@/repositories/messaging/prisma/prisma-messaging-contacts-repository';
+import { PrismaMessagingMessagesRepository } from '@/repositories/messaging/prisma/prisma-messaging-messages-repository';
 import { WhatsAppGateway } from '@/services/messaging/whatsapp-gateway';
 import { SendMessageUseCase } from '../send-message';
 
-// TODO: Replace with Prisma repositories and proper gateway once Prisma schema migration is applied
 export function makeSendMessageUseCase() {
+  const messagingAccountsRepository = new PrismaMessagingAccountsRepository();
+  const messagingContactsRepository = new PrismaMessagingContactsRepository();
+  const messagingMessagesRepository = new PrismaMessagingMessagesRepository();
+
   return new SendMessageUseCase(
-    new InMemoryMessagingAccountsRepository(),
-    new InMemoryMessagingContactsRepository(),
-    new InMemoryMessagingMessagesRepository(),
+    messagingAccountsRepository,
+    messagingContactsRepository,
+    messagingMessagesRepository,
     new WhatsAppGateway(),
   );
 }

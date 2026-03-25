@@ -16,7 +16,8 @@ export type SystemModule =
   | 'CALENDAR'
   | 'STORAGE'
   | 'EMAIL'
-  | 'TASKS';
+  | 'TASKS'
+  | 'MESSAGING';
 
 export interface PlanModuleProps {
   id: UniqueEntityID;

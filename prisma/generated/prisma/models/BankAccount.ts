@@ -368,6 +368,7 @@ export type BankAccountWhereInput = {
   loanInstallments?: Prisma.LoanInstallmentListRelationFilter
   consortia?: Prisma.ConsortiumListRelationFilter
   consortiumPayments?: Prisma.ConsortiumPaymentListRelationFilter
+  reconciliations?: Prisma.BankReconciliationListRelationFilter
 }
 
 export type BankAccountOrderByWithRelationInput = {
@@ -402,6 +403,7 @@ export type BankAccountOrderByWithRelationInput = {
   loanInstallments?: Prisma.LoanInstallmentOrderByRelationAggregateInput
   consortia?: Prisma.ConsortiumOrderByRelationAggregateInput
   consortiumPayments?: Prisma.ConsortiumPaymentOrderByRelationAggregateInput
+  reconciliations?: Prisma.BankReconciliationOrderByRelationAggregateInput
 }
 
 export type BankAccountWhereUniqueInput = Prisma.AtLeast<{
@@ -440,6 +442,7 @@ export type BankAccountWhereUniqueInput = Prisma.AtLeast<{
   loanInstallments?: Prisma.LoanInstallmentListRelationFilter
   consortia?: Prisma.ConsortiumListRelationFilter
   consortiumPayments?: Prisma.ConsortiumPaymentListRelationFilter
+  reconciliations?: Prisma.BankReconciliationListRelationFilter
 }, "id" | "bank_accounts_unique_active">
 
 export type BankAccountOrderByWithAggregationInput = {
@@ -532,6 +535,7 @@ export type BankAccountCreateInput = {
   loanInstallments?: Prisma.LoanInstallmentCreateNestedManyWithoutBankAccountInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutBankAccountInput
   consortiumPayments?: Prisma.ConsortiumPaymentCreateNestedManyWithoutBankAccountInput
+  reconciliations?: Prisma.BankReconciliationCreateNestedManyWithoutBankAccountInput
 }
 
 export type BankAccountUncheckedCreateInput = {
@@ -564,6 +568,7 @@ export type BankAccountUncheckedCreateInput = {
   loanInstallments?: Prisma.LoanInstallmentUncheckedCreateNestedManyWithoutBankAccountInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutBankAccountInput
   consortiumPayments?: Prisma.ConsortiumPaymentUncheckedCreateNestedManyWithoutBankAccountInput
+  reconciliations?: Prisma.BankReconciliationUncheckedCreateNestedManyWithoutBankAccountInput
 }
 
 export type BankAccountUpdateInput = {
@@ -596,6 +601,7 @@ export type BankAccountUpdateInput = {
   loanInstallments?: Prisma.LoanInstallmentUpdateManyWithoutBankAccountNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutBankAccountNestedInput
   consortiumPayments?: Prisma.ConsortiumPaymentUpdateManyWithoutBankAccountNestedInput
+  reconciliations?: Prisma.BankReconciliationUpdateManyWithoutBankAccountNestedInput
 }
 
 export type BankAccountUncheckedUpdateInput = {
@@ -628,6 +634,7 @@ export type BankAccountUncheckedUpdateInput = {
   loanInstallments?: Prisma.LoanInstallmentUncheckedUpdateManyWithoutBankAccountNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutBankAccountNestedInput
   consortiumPayments?: Prisma.ConsortiumPaymentUncheckedUpdateManyWithoutBankAccountNestedInput
+  reconciliations?: Prisma.BankReconciliationUncheckedUpdateManyWithoutBankAccountNestedInput
 }
 
 export type BankAccountCreateManyInput = {
@@ -943,6 +950,20 @@ export type BankAccountUpdateOneWithoutFinancePaymentsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.BankAccountUpdateToOneWithWhereWithoutFinancePaymentsInput, Prisma.BankAccountUpdateWithoutFinancePaymentsInput>, Prisma.BankAccountUncheckedUpdateWithoutFinancePaymentsInput>
 }
 
+export type BankAccountCreateNestedOneWithoutReconciliationsInput = {
+  create?: Prisma.XOR<Prisma.BankAccountCreateWithoutReconciliationsInput, Prisma.BankAccountUncheckedCreateWithoutReconciliationsInput>
+  connectOrCreate?: Prisma.BankAccountCreateOrConnectWithoutReconciliationsInput
+  connect?: Prisma.BankAccountWhereUniqueInput
+}
+
+export type BankAccountUpdateOneRequiredWithoutReconciliationsNestedInput = {
+  create?: Prisma.XOR<Prisma.BankAccountCreateWithoutReconciliationsInput, Prisma.BankAccountUncheckedCreateWithoutReconciliationsInput>
+  connectOrCreate?: Prisma.BankAccountCreateOrConnectWithoutReconciliationsInput
+  upsert?: Prisma.BankAccountUpsertWithoutReconciliationsInput
+  connect?: Prisma.BankAccountWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.BankAccountUpdateToOneWithWhereWithoutReconciliationsInput, Prisma.BankAccountUpdateWithoutReconciliationsInput>, Prisma.BankAccountUncheckedUpdateWithoutReconciliationsInput>
+}
+
 export type BankAccountCreateNestedOneWithoutLoansInput = {
   create?: Prisma.XOR<Prisma.BankAccountCreateWithoutLoansInput, Prisma.BankAccountUncheckedCreateWithoutLoansInput>
   connectOrCreate?: Prisma.BankAccountCreateOrConnectWithoutLoansInput
@@ -1032,6 +1053,7 @@ export type BankAccountCreateWithoutCompanyInput = {
   loanInstallments?: Prisma.LoanInstallmentCreateNestedManyWithoutBankAccountInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutBankAccountInput
   consortiumPayments?: Prisma.ConsortiumPaymentCreateNestedManyWithoutBankAccountInput
+  reconciliations?: Prisma.BankReconciliationCreateNestedManyWithoutBankAccountInput
 }
 
 export type BankAccountUncheckedCreateWithoutCompanyInput = {
@@ -1063,6 +1085,7 @@ export type BankAccountUncheckedCreateWithoutCompanyInput = {
   loanInstallments?: Prisma.LoanInstallmentUncheckedCreateNestedManyWithoutBankAccountInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutBankAccountInput
   consortiumPayments?: Prisma.ConsortiumPaymentUncheckedCreateNestedManyWithoutBankAccountInput
+  reconciliations?: Prisma.BankReconciliationUncheckedCreateNestedManyWithoutBankAccountInput
 }
 
 export type BankAccountCreateOrConnectWithoutCompanyInput = {
@@ -1149,6 +1172,7 @@ export type BankAccountCreateWithoutTenantInput = {
   loanInstallments?: Prisma.LoanInstallmentCreateNestedManyWithoutBankAccountInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutBankAccountInput
   consortiumPayments?: Prisma.ConsortiumPaymentCreateNestedManyWithoutBankAccountInput
+  reconciliations?: Prisma.BankReconciliationCreateNestedManyWithoutBankAccountInput
 }
 
 export type BankAccountUncheckedCreateWithoutTenantInput = {
@@ -1180,6 +1204,7 @@ export type BankAccountUncheckedCreateWithoutTenantInput = {
   loanInstallments?: Prisma.LoanInstallmentUncheckedCreateNestedManyWithoutBankAccountInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutBankAccountInput
   consortiumPayments?: Prisma.ConsortiumPaymentUncheckedCreateNestedManyWithoutBankAccountInput
+  reconciliations?: Prisma.BankReconciliationUncheckedCreateNestedManyWithoutBankAccountInput
 }
 
 export type BankAccountCreateOrConnectWithoutTenantInput = {
@@ -1237,6 +1262,7 @@ export type BankAccountCreateWithoutFinanceEntriesInput = {
   loanInstallments?: Prisma.LoanInstallmentCreateNestedManyWithoutBankAccountInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutBankAccountInput
   consortiumPayments?: Prisma.ConsortiumPaymentCreateNestedManyWithoutBankAccountInput
+  reconciliations?: Prisma.BankReconciliationCreateNestedManyWithoutBankAccountInput
 }
 
 export type BankAccountUncheckedCreateWithoutFinanceEntriesInput = {
@@ -1268,6 +1294,7 @@ export type BankAccountUncheckedCreateWithoutFinanceEntriesInput = {
   loanInstallments?: Prisma.LoanInstallmentUncheckedCreateNestedManyWithoutBankAccountInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutBankAccountInput
   consortiumPayments?: Prisma.ConsortiumPaymentUncheckedCreateNestedManyWithoutBankAccountInput
+  reconciliations?: Prisma.BankReconciliationUncheckedCreateNestedManyWithoutBankAccountInput
 }
 
 export type BankAccountCreateOrConnectWithoutFinanceEntriesInput = {
@@ -1315,6 +1342,7 @@ export type BankAccountUpdateWithoutFinanceEntriesInput = {
   loanInstallments?: Prisma.LoanInstallmentUpdateManyWithoutBankAccountNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutBankAccountNestedInput
   consortiumPayments?: Prisma.ConsortiumPaymentUpdateManyWithoutBankAccountNestedInput
+  reconciliations?: Prisma.BankReconciliationUpdateManyWithoutBankAccountNestedInput
 }
 
 export type BankAccountUncheckedUpdateWithoutFinanceEntriesInput = {
@@ -1346,6 +1374,7 @@ export type BankAccountUncheckedUpdateWithoutFinanceEntriesInput = {
   loanInstallments?: Prisma.LoanInstallmentUncheckedUpdateManyWithoutBankAccountNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutBankAccountNestedInput
   consortiumPayments?: Prisma.ConsortiumPaymentUncheckedUpdateManyWithoutBankAccountNestedInput
+  reconciliations?: Prisma.BankReconciliationUncheckedUpdateManyWithoutBankAccountNestedInput
 }
 
 export type BankAccountCreateWithoutFinancePaymentsInput = {
@@ -1377,6 +1406,7 @@ export type BankAccountCreateWithoutFinancePaymentsInput = {
   loanInstallments?: Prisma.LoanInstallmentCreateNestedManyWithoutBankAccountInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutBankAccountInput
   consortiumPayments?: Prisma.ConsortiumPaymentCreateNestedManyWithoutBankAccountInput
+  reconciliations?: Prisma.BankReconciliationCreateNestedManyWithoutBankAccountInput
 }
 
 export type BankAccountUncheckedCreateWithoutFinancePaymentsInput = {
@@ -1408,6 +1438,7 @@ export type BankAccountUncheckedCreateWithoutFinancePaymentsInput = {
   loanInstallments?: Prisma.LoanInstallmentUncheckedCreateNestedManyWithoutBankAccountInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutBankAccountInput
   consortiumPayments?: Prisma.ConsortiumPaymentUncheckedCreateNestedManyWithoutBankAccountInput
+  reconciliations?: Prisma.BankReconciliationUncheckedCreateNestedManyWithoutBankAccountInput
 }
 
 export type BankAccountCreateOrConnectWithoutFinancePaymentsInput = {
@@ -1455,6 +1486,7 @@ export type BankAccountUpdateWithoutFinancePaymentsInput = {
   loanInstallments?: Prisma.LoanInstallmentUpdateManyWithoutBankAccountNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutBankAccountNestedInput
   consortiumPayments?: Prisma.ConsortiumPaymentUpdateManyWithoutBankAccountNestedInput
+  reconciliations?: Prisma.BankReconciliationUpdateManyWithoutBankAccountNestedInput
 }
 
 export type BankAccountUncheckedUpdateWithoutFinancePaymentsInput = {
@@ -1482,6 +1514,151 @@ export type BankAccountUncheckedUpdateWithoutFinancePaymentsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutBankAccountNestedInput
+  loans?: Prisma.LoanUncheckedUpdateManyWithoutBankAccountNestedInput
+  loanInstallments?: Prisma.LoanInstallmentUncheckedUpdateManyWithoutBankAccountNestedInput
+  consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutBankAccountNestedInput
+  consortiumPayments?: Prisma.ConsortiumPaymentUncheckedUpdateManyWithoutBankAccountNestedInput
+  reconciliations?: Prisma.BankReconciliationUncheckedUpdateManyWithoutBankAccountNestedInput
+}
+
+export type BankAccountCreateWithoutReconciliationsInput = {
+  id?: string
+  name: string
+  bankCode: string
+  bankName?: string | null
+  agency: string
+  agencyDigit?: string | null
+  accountNumber: string
+  accountDigit?: string | null
+  accountType: $Enums.BankAccountType
+  status?: $Enums.BankAccountStatus
+  pixKeyType?: string | null
+  pixKey?: string | null
+  currentBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: string | null
+  pixKeyHash?: string | null
+  balanceUpdatedAt?: Date | string | null
+  color?: string | null
+  isDefault?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutBankAccountsInput
+  company?: Prisma.CompanyCreateNestedOneWithoutBankAccountsInput
+  financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutBankAccountInput
+  financePayments?: Prisma.FinanceEntryPaymentCreateNestedManyWithoutBankAccountInput
+  loans?: Prisma.LoanCreateNestedManyWithoutBankAccountInput
+  loanInstallments?: Prisma.LoanInstallmentCreateNestedManyWithoutBankAccountInput
+  consortia?: Prisma.ConsortiumCreateNestedManyWithoutBankAccountInput
+  consortiumPayments?: Prisma.ConsortiumPaymentCreateNestedManyWithoutBankAccountInput
+}
+
+export type BankAccountUncheckedCreateWithoutReconciliationsInput = {
+  id?: string
+  tenantId: string
+  companyId?: string | null
+  name: string
+  bankCode: string
+  bankName?: string | null
+  agency: string
+  agencyDigit?: string | null
+  accountNumber: string
+  accountDigit?: string | null
+  accountType: $Enums.BankAccountType
+  status?: $Enums.BankAccountStatus
+  pixKeyType?: string | null
+  pixKey?: string | null
+  currentBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: string | null
+  pixKeyHash?: string | null
+  balanceUpdatedAt?: Date | string | null
+  color?: string | null
+  isDefault?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutBankAccountInput
+  financePayments?: Prisma.FinanceEntryPaymentUncheckedCreateNestedManyWithoutBankAccountInput
+  loans?: Prisma.LoanUncheckedCreateNestedManyWithoutBankAccountInput
+  loanInstallments?: Prisma.LoanInstallmentUncheckedCreateNestedManyWithoutBankAccountInput
+  consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutBankAccountInput
+  consortiumPayments?: Prisma.ConsortiumPaymentUncheckedCreateNestedManyWithoutBankAccountInput
+}
+
+export type BankAccountCreateOrConnectWithoutReconciliationsInput = {
+  where: Prisma.BankAccountWhereUniqueInput
+  create: Prisma.XOR<Prisma.BankAccountCreateWithoutReconciliationsInput, Prisma.BankAccountUncheckedCreateWithoutReconciliationsInput>
+}
+
+export type BankAccountUpsertWithoutReconciliationsInput = {
+  update: Prisma.XOR<Prisma.BankAccountUpdateWithoutReconciliationsInput, Prisma.BankAccountUncheckedUpdateWithoutReconciliationsInput>
+  create: Prisma.XOR<Prisma.BankAccountCreateWithoutReconciliationsInput, Prisma.BankAccountUncheckedCreateWithoutReconciliationsInput>
+  where?: Prisma.BankAccountWhereInput
+}
+
+export type BankAccountUpdateToOneWithWhereWithoutReconciliationsInput = {
+  where?: Prisma.BankAccountWhereInput
+  data: Prisma.XOR<Prisma.BankAccountUpdateWithoutReconciliationsInput, Prisma.BankAccountUncheckedUpdateWithoutReconciliationsInput>
+}
+
+export type BankAccountUpdateWithoutReconciliationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  bankCode?: Prisma.StringFieldUpdateOperationsInput | string
+  bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  agency?: Prisma.StringFieldUpdateOperationsInput | string
+  agencyDigit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accountNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  accountDigit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accountType?: Prisma.EnumBankAccountTypeFieldUpdateOperationsInput | $Enums.BankAccountType
+  status?: Prisma.EnumBankAccountStatusFieldUpdateOperationsInput | $Enums.BankAccountStatus
+  pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currentBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  balanceUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutBankAccountsNestedInput
+  company?: Prisma.CompanyUpdateOneWithoutBankAccountsNestedInput
+  financeEntries?: Prisma.FinanceEntryUpdateManyWithoutBankAccountNestedInput
+  financePayments?: Prisma.FinanceEntryPaymentUpdateManyWithoutBankAccountNestedInput
+  loans?: Prisma.LoanUpdateManyWithoutBankAccountNestedInput
+  loanInstallments?: Prisma.LoanInstallmentUpdateManyWithoutBankAccountNestedInput
+  consortia?: Prisma.ConsortiumUpdateManyWithoutBankAccountNestedInput
+  consortiumPayments?: Prisma.ConsortiumPaymentUpdateManyWithoutBankAccountNestedInput
+}
+
+export type BankAccountUncheckedUpdateWithoutReconciliationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  bankCode?: Prisma.StringFieldUpdateOperationsInput | string
+  bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  agency?: Prisma.StringFieldUpdateOperationsInput | string
+  agencyDigit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accountNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  accountDigit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accountType?: Prisma.EnumBankAccountTypeFieldUpdateOperationsInput | $Enums.BankAccountType
+  status?: Prisma.EnumBankAccountStatusFieldUpdateOperationsInput | $Enums.BankAccountStatus
+  pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currentBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  balanceUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutBankAccountNestedInput
+  financePayments?: Prisma.FinanceEntryPaymentUncheckedUpdateManyWithoutBankAccountNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutBankAccountNestedInput
   loanInstallments?: Prisma.LoanInstallmentUncheckedUpdateManyWithoutBankAccountNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutBankAccountNestedInput
@@ -1517,6 +1694,7 @@ export type BankAccountCreateWithoutLoansInput = {
   loanInstallments?: Prisma.LoanInstallmentCreateNestedManyWithoutBankAccountInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutBankAccountInput
   consortiumPayments?: Prisma.ConsortiumPaymentCreateNestedManyWithoutBankAccountInput
+  reconciliations?: Prisma.BankReconciliationCreateNestedManyWithoutBankAccountInput
 }
 
 export type BankAccountUncheckedCreateWithoutLoansInput = {
@@ -1548,6 +1726,7 @@ export type BankAccountUncheckedCreateWithoutLoansInput = {
   loanInstallments?: Prisma.LoanInstallmentUncheckedCreateNestedManyWithoutBankAccountInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutBankAccountInput
   consortiumPayments?: Prisma.ConsortiumPaymentUncheckedCreateNestedManyWithoutBankAccountInput
+  reconciliations?: Prisma.BankReconciliationUncheckedCreateNestedManyWithoutBankAccountInput
 }
 
 export type BankAccountCreateOrConnectWithoutLoansInput = {
@@ -1595,6 +1774,7 @@ export type BankAccountUpdateWithoutLoansInput = {
   loanInstallments?: Prisma.LoanInstallmentUpdateManyWithoutBankAccountNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutBankAccountNestedInput
   consortiumPayments?: Prisma.ConsortiumPaymentUpdateManyWithoutBankAccountNestedInput
+  reconciliations?: Prisma.BankReconciliationUpdateManyWithoutBankAccountNestedInput
 }
 
 export type BankAccountUncheckedUpdateWithoutLoansInput = {
@@ -1626,6 +1806,7 @@ export type BankAccountUncheckedUpdateWithoutLoansInput = {
   loanInstallments?: Prisma.LoanInstallmentUncheckedUpdateManyWithoutBankAccountNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutBankAccountNestedInput
   consortiumPayments?: Prisma.ConsortiumPaymentUncheckedUpdateManyWithoutBankAccountNestedInput
+  reconciliations?: Prisma.BankReconciliationUncheckedUpdateManyWithoutBankAccountNestedInput
 }
 
 export type BankAccountCreateWithoutLoanInstallmentsInput = {
@@ -1657,6 +1838,7 @@ export type BankAccountCreateWithoutLoanInstallmentsInput = {
   loans?: Prisma.LoanCreateNestedManyWithoutBankAccountInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutBankAccountInput
   consortiumPayments?: Prisma.ConsortiumPaymentCreateNestedManyWithoutBankAccountInput
+  reconciliations?: Prisma.BankReconciliationCreateNestedManyWithoutBankAccountInput
 }
 
 export type BankAccountUncheckedCreateWithoutLoanInstallmentsInput = {
@@ -1688,6 +1870,7 @@ export type BankAccountUncheckedCreateWithoutLoanInstallmentsInput = {
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutBankAccountInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutBankAccountInput
   consortiumPayments?: Prisma.ConsortiumPaymentUncheckedCreateNestedManyWithoutBankAccountInput
+  reconciliations?: Prisma.BankReconciliationUncheckedCreateNestedManyWithoutBankAccountInput
 }
 
 export type BankAccountCreateOrConnectWithoutLoanInstallmentsInput = {
@@ -1735,6 +1918,7 @@ export type BankAccountUpdateWithoutLoanInstallmentsInput = {
   loans?: Prisma.LoanUpdateManyWithoutBankAccountNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutBankAccountNestedInput
   consortiumPayments?: Prisma.ConsortiumPaymentUpdateManyWithoutBankAccountNestedInput
+  reconciliations?: Prisma.BankReconciliationUpdateManyWithoutBankAccountNestedInput
 }
 
 export type BankAccountUncheckedUpdateWithoutLoanInstallmentsInput = {
@@ -1766,6 +1950,7 @@ export type BankAccountUncheckedUpdateWithoutLoanInstallmentsInput = {
   loans?: Prisma.LoanUncheckedUpdateManyWithoutBankAccountNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutBankAccountNestedInput
   consortiumPayments?: Prisma.ConsortiumPaymentUncheckedUpdateManyWithoutBankAccountNestedInput
+  reconciliations?: Prisma.BankReconciliationUncheckedUpdateManyWithoutBankAccountNestedInput
 }
 
 export type BankAccountCreateWithoutConsortiaInput = {
@@ -1797,6 +1982,7 @@ export type BankAccountCreateWithoutConsortiaInput = {
   loans?: Prisma.LoanCreateNestedManyWithoutBankAccountInput
   loanInstallments?: Prisma.LoanInstallmentCreateNestedManyWithoutBankAccountInput
   consortiumPayments?: Prisma.ConsortiumPaymentCreateNestedManyWithoutBankAccountInput
+  reconciliations?: Prisma.BankReconciliationCreateNestedManyWithoutBankAccountInput
 }
 
 export type BankAccountUncheckedCreateWithoutConsortiaInput = {
@@ -1828,6 +2014,7 @@ export type BankAccountUncheckedCreateWithoutConsortiaInput = {
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutBankAccountInput
   loanInstallments?: Prisma.LoanInstallmentUncheckedCreateNestedManyWithoutBankAccountInput
   consortiumPayments?: Prisma.ConsortiumPaymentUncheckedCreateNestedManyWithoutBankAccountInput
+  reconciliations?: Prisma.BankReconciliationUncheckedCreateNestedManyWithoutBankAccountInput
 }
 
 export type BankAccountCreateOrConnectWithoutConsortiaInput = {
@@ -1875,6 +2062,7 @@ export type BankAccountUpdateWithoutConsortiaInput = {
   loans?: Prisma.LoanUpdateManyWithoutBankAccountNestedInput
   loanInstallments?: Prisma.LoanInstallmentUpdateManyWithoutBankAccountNestedInput
   consortiumPayments?: Prisma.ConsortiumPaymentUpdateManyWithoutBankAccountNestedInput
+  reconciliations?: Prisma.BankReconciliationUpdateManyWithoutBankAccountNestedInput
 }
 
 export type BankAccountUncheckedUpdateWithoutConsortiaInput = {
@@ -1906,6 +2094,7 @@ export type BankAccountUncheckedUpdateWithoutConsortiaInput = {
   loans?: Prisma.LoanUncheckedUpdateManyWithoutBankAccountNestedInput
   loanInstallments?: Prisma.LoanInstallmentUncheckedUpdateManyWithoutBankAccountNestedInput
   consortiumPayments?: Prisma.ConsortiumPaymentUncheckedUpdateManyWithoutBankAccountNestedInput
+  reconciliations?: Prisma.BankReconciliationUncheckedUpdateManyWithoutBankAccountNestedInput
 }
 
 export type BankAccountCreateWithoutConsortiumPaymentsInput = {
@@ -1937,6 +2126,7 @@ export type BankAccountCreateWithoutConsortiumPaymentsInput = {
   loans?: Prisma.LoanCreateNestedManyWithoutBankAccountInput
   loanInstallments?: Prisma.LoanInstallmentCreateNestedManyWithoutBankAccountInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutBankAccountInput
+  reconciliations?: Prisma.BankReconciliationCreateNestedManyWithoutBankAccountInput
 }
 
 export type BankAccountUncheckedCreateWithoutConsortiumPaymentsInput = {
@@ -1968,6 +2158,7 @@ export type BankAccountUncheckedCreateWithoutConsortiumPaymentsInput = {
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutBankAccountInput
   loanInstallments?: Prisma.LoanInstallmentUncheckedCreateNestedManyWithoutBankAccountInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutBankAccountInput
+  reconciliations?: Prisma.BankReconciliationUncheckedCreateNestedManyWithoutBankAccountInput
 }
 
 export type BankAccountCreateOrConnectWithoutConsortiumPaymentsInput = {
@@ -2015,6 +2206,7 @@ export type BankAccountUpdateWithoutConsortiumPaymentsInput = {
   loans?: Prisma.LoanUpdateManyWithoutBankAccountNestedInput
   loanInstallments?: Prisma.LoanInstallmentUpdateManyWithoutBankAccountNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutBankAccountNestedInput
+  reconciliations?: Prisma.BankReconciliationUpdateManyWithoutBankAccountNestedInput
 }
 
 export type BankAccountUncheckedUpdateWithoutConsortiumPaymentsInput = {
@@ -2046,6 +2238,7 @@ export type BankAccountUncheckedUpdateWithoutConsortiumPaymentsInput = {
   loans?: Prisma.LoanUncheckedUpdateManyWithoutBankAccountNestedInput
   loanInstallments?: Prisma.LoanInstallmentUncheckedUpdateManyWithoutBankAccountNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutBankAccountNestedInput
+  reconciliations?: Prisma.BankReconciliationUncheckedUpdateManyWithoutBankAccountNestedInput
 }
 
 export type BankAccountCreateManyCompanyInput = {
@@ -2102,6 +2295,7 @@ export type BankAccountUpdateWithoutCompanyInput = {
   loanInstallments?: Prisma.LoanInstallmentUpdateManyWithoutBankAccountNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutBankAccountNestedInput
   consortiumPayments?: Prisma.ConsortiumPaymentUpdateManyWithoutBankAccountNestedInput
+  reconciliations?: Prisma.BankReconciliationUpdateManyWithoutBankAccountNestedInput
 }
 
 export type BankAccountUncheckedUpdateWithoutCompanyInput = {
@@ -2133,6 +2327,7 @@ export type BankAccountUncheckedUpdateWithoutCompanyInput = {
   loanInstallments?: Prisma.LoanInstallmentUncheckedUpdateManyWithoutBankAccountNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutBankAccountNestedInput
   consortiumPayments?: Prisma.ConsortiumPaymentUncheckedUpdateManyWithoutBankAccountNestedInput
+  reconciliations?: Prisma.BankReconciliationUncheckedUpdateManyWithoutBankAccountNestedInput
 }
 
 export type BankAccountUncheckedUpdateManyWithoutCompanyInput = {
@@ -2214,6 +2409,7 @@ export type BankAccountUpdateWithoutTenantInput = {
   loanInstallments?: Prisma.LoanInstallmentUpdateManyWithoutBankAccountNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutBankAccountNestedInput
   consortiumPayments?: Prisma.ConsortiumPaymentUpdateManyWithoutBankAccountNestedInput
+  reconciliations?: Prisma.BankReconciliationUpdateManyWithoutBankAccountNestedInput
 }
 
 export type BankAccountUncheckedUpdateWithoutTenantInput = {
@@ -2245,6 +2441,7 @@ export type BankAccountUncheckedUpdateWithoutTenantInput = {
   loanInstallments?: Prisma.LoanInstallmentUncheckedUpdateManyWithoutBankAccountNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutBankAccountNestedInput
   consortiumPayments?: Prisma.ConsortiumPaymentUncheckedUpdateManyWithoutBankAccountNestedInput
+  reconciliations?: Prisma.BankReconciliationUncheckedUpdateManyWithoutBankAccountNestedInput
 }
 
 export type BankAccountUncheckedUpdateManyWithoutTenantInput = {
@@ -2284,6 +2481,7 @@ export type BankAccountCountOutputType = {
   loanInstallments: number
   consortia: number
   consortiumPayments: number
+  reconciliations: number
 }
 
 export type BankAccountCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2293,6 +2491,7 @@ export type BankAccountCountOutputTypeSelect<ExtArgs extends runtime.Types.Exten
   loanInstallments?: boolean | BankAccountCountOutputTypeCountLoanInstallmentsArgs
   consortia?: boolean | BankAccountCountOutputTypeCountConsortiaArgs
   consortiumPayments?: boolean | BankAccountCountOutputTypeCountConsortiumPaymentsArgs
+  reconciliations?: boolean | BankAccountCountOutputTypeCountReconciliationsArgs
 }
 
 /**
@@ -2347,6 +2546,13 @@ export type BankAccountCountOutputTypeCountConsortiumPaymentsArgs<ExtArgs extend
   where?: Prisma.ConsortiumPaymentWhereInput
 }
 
+/**
+ * BankAccountCountOutputType without action
+ */
+export type BankAccountCountOutputTypeCountReconciliationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BankReconciliationWhereInput
+}
+
 
 export type BankAccountSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -2380,6 +2586,7 @@ export type BankAccountSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   loanInstallments?: boolean | Prisma.BankAccount$loanInstallmentsArgs<ExtArgs>
   consortia?: boolean | Prisma.BankAccount$consortiaArgs<ExtArgs>
   consortiumPayments?: boolean | Prisma.BankAccount$consortiumPaymentsArgs<ExtArgs>
+  reconciliations?: boolean | Prisma.BankAccount$reconciliationsArgs<ExtArgs>
   _count?: boolean | Prisma.BankAccountCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["bankAccount"]>
 
@@ -2475,6 +2682,7 @@ export type BankAccountInclude<ExtArgs extends runtime.Types.Extensions.Internal
   loanInstallments?: boolean | Prisma.BankAccount$loanInstallmentsArgs<ExtArgs>
   consortia?: boolean | Prisma.BankAccount$consortiaArgs<ExtArgs>
   consortiumPayments?: boolean | Prisma.BankAccount$consortiumPaymentsArgs<ExtArgs>
+  reconciliations?: boolean | Prisma.BankAccount$reconciliationsArgs<ExtArgs>
   _count?: boolean | Prisma.BankAccountCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type BankAccountIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2497,6 +2705,7 @@ export type $BankAccountPayload<ExtArgs extends runtime.Types.Extensions.Interna
     loanInstallments: Prisma.$LoanInstallmentPayload<ExtArgs>[]
     consortia: Prisma.$ConsortiumPayload<ExtArgs>[]
     consortiumPayments: Prisma.$ConsortiumPaymentPayload<ExtArgs>[]
+    reconciliations: Prisma.$BankReconciliationPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2924,6 +3133,7 @@ export interface Prisma__BankAccountClient<T, Null = never, ExtArgs extends runt
   loanInstallments<T extends Prisma.BankAccount$loanInstallmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BankAccount$loanInstallmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LoanInstallmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   consortia<T extends Prisma.BankAccount$consortiaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BankAccount$consortiaArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ConsortiumPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   consortiumPayments<T extends Prisma.BankAccount$consortiumPaymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BankAccount$consortiumPaymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ConsortiumPaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  reconciliations<T extends Prisma.BankAccount$reconciliationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BankAccount$reconciliationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BankReconciliationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3532,6 +3742,30 @@ export type BankAccount$consortiumPaymentsArgs<ExtArgs extends runtime.Types.Ext
   take?: number
   skip?: number
   distinct?: Prisma.ConsortiumPaymentScalarFieldEnum | Prisma.ConsortiumPaymentScalarFieldEnum[]
+}
+
+/**
+ * BankAccount.reconciliations
+ */
+export type BankAccount$reconciliationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BankReconciliation
+   */
+  select?: Prisma.BankReconciliationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the BankReconciliation
+   */
+  omit?: Prisma.BankReconciliationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BankReconciliationInclude<ExtArgs> | null
+  where?: Prisma.BankReconciliationWhereInput
+  orderBy?: Prisma.BankReconciliationOrderByWithRelationInput | Prisma.BankReconciliationOrderByWithRelationInput[]
+  cursor?: Prisma.BankReconciliationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BankReconciliationScalarFieldEnum | Prisma.BankReconciliationScalarFieldEnum[]
 }
 
 /**

@@ -33,6 +33,8 @@ export type RecurringConfigAvgAggregateOutputType = {
   generatedCount: number | null
   interestRate: runtime.Decimal | null
   penaltyRate: runtime.Decimal | null
+  fixedAdjustmentRate: runtime.Decimal | null
+  adjustmentMonth: number | null
 }
 
 export type RecurringConfigSumAggregateOutputType = {
@@ -42,6 +44,8 @@ export type RecurringConfigSumAggregateOutputType = {
   generatedCount: number | null
   interestRate: runtime.Decimal | null
   penaltyRate: runtime.Decimal | null
+  fixedAdjustmentRate: runtime.Decimal | null
+  adjustmentMonth: number | null
 }
 
 export type RecurringConfigMinAggregateOutputType = {
@@ -69,6 +73,10 @@ export type RecurringConfigMinAggregateOutputType = {
   nextDueDate: Date | null
   interestRate: runtime.Decimal | null
   penaltyRate: runtime.Decimal | null
+  indexationType: $Enums.IndexationType | null
+  fixedAdjustmentRate: runtime.Decimal | null
+  lastAdjustmentDate: Date | null
+  adjustmentMonth: number | null
   notes: string | null
   createdBy: string | null
   deletedAt: Date | null
@@ -101,6 +109,10 @@ export type RecurringConfigMaxAggregateOutputType = {
   nextDueDate: Date | null
   interestRate: runtime.Decimal | null
   penaltyRate: runtime.Decimal | null
+  indexationType: $Enums.IndexationType | null
+  fixedAdjustmentRate: runtime.Decimal | null
+  lastAdjustmentDate: Date | null
+  adjustmentMonth: number | null
   notes: string | null
   createdBy: string | null
   deletedAt: Date | null
@@ -133,6 +145,10 @@ export type RecurringConfigCountAggregateOutputType = {
   nextDueDate: number
   interestRate: number
   penaltyRate: number
+  indexationType: number
+  fixedAdjustmentRate: number
+  lastAdjustmentDate: number
+  adjustmentMonth: number
   notes: number
   createdBy: number
   deletedAt: number
@@ -149,6 +165,8 @@ export type RecurringConfigAvgAggregateInputType = {
   generatedCount?: true
   interestRate?: true
   penaltyRate?: true
+  fixedAdjustmentRate?: true
+  adjustmentMonth?: true
 }
 
 export type RecurringConfigSumAggregateInputType = {
@@ -158,6 +176,8 @@ export type RecurringConfigSumAggregateInputType = {
   generatedCount?: true
   interestRate?: true
   penaltyRate?: true
+  fixedAdjustmentRate?: true
+  adjustmentMonth?: true
 }
 
 export type RecurringConfigMinAggregateInputType = {
@@ -185,6 +205,10 @@ export type RecurringConfigMinAggregateInputType = {
   nextDueDate?: true
   interestRate?: true
   penaltyRate?: true
+  indexationType?: true
+  fixedAdjustmentRate?: true
+  lastAdjustmentDate?: true
+  adjustmentMonth?: true
   notes?: true
   createdBy?: true
   deletedAt?: true
@@ -217,6 +241,10 @@ export type RecurringConfigMaxAggregateInputType = {
   nextDueDate?: true
   interestRate?: true
   penaltyRate?: true
+  indexationType?: true
+  fixedAdjustmentRate?: true
+  lastAdjustmentDate?: true
+  adjustmentMonth?: true
   notes?: true
   createdBy?: true
   deletedAt?: true
@@ -249,6 +277,10 @@ export type RecurringConfigCountAggregateInputType = {
   nextDueDate?: true
   interestRate?: true
   penaltyRate?: true
+  indexationType?: true
+  fixedAdjustmentRate?: true
+  lastAdjustmentDate?: true
+  adjustmentMonth?: true
   notes?: true
   createdBy?: true
   deletedAt?: true
@@ -368,6 +400,10 @@ export type RecurringConfigGroupByOutputType = {
   nextDueDate: Date | null
   interestRate: runtime.Decimal | null
   penaltyRate: runtime.Decimal | null
+  indexationType: $Enums.IndexationType | null
+  fixedAdjustmentRate: runtime.Decimal | null
+  lastAdjustmentDate: Date | null
+  adjustmentMonth: number | null
   notes: string | null
   createdBy: string | null
   deletedAt: Date | null
@@ -423,6 +459,10 @@ export type RecurringConfigWhereInput = {
   nextDueDate?: Prisma.DateTimeNullableFilter<"RecurringConfig"> | Date | string | null
   interestRate?: Prisma.DecimalNullableFilter<"RecurringConfig"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   penaltyRate?: Prisma.DecimalNullableFilter<"RecurringConfig"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  indexationType?: Prisma.EnumIndexationTypeNullableFilter<"RecurringConfig"> | $Enums.IndexationType | null
+  fixedAdjustmentRate?: Prisma.DecimalNullableFilter<"RecurringConfig"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  lastAdjustmentDate?: Prisma.DateTimeNullableFilter<"RecurringConfig"> | Date | string | null
+  adjustmentMonth?: Prisma.IntNullableFilter<"RecurringConfig"> | number | null
   notes?: Prisma.StringNullableFilter<"RecurringConfig"> | string | null
   createdBy?: Prisma.StringNullableFilter<"RecurringConfig"> | string | null
   deletedAt?: Prisma.DateTimeNullableFilter<"RecurringConfig"> | Date | string | null
@@ -456,6 +496,10 @@ export type RecurringConfigOrderByWithRelationInput = {
   nextDueDate?: Prisma.SortOrderInput | Prisma.SortOrder
   interestRate?: Prisma.SortOrderInput | Prisma.SortOrder
   penaltyRate?: Prisma.SortOrderInput | Prisma.SortOrder
+  indexationType?: Prisma.SortOrderInput | Prisma.SortOrder
+  fixedAdjustmentRate?: Prisma.SortOrderInput | Prisma.SortOrder
+  lastAdjustmentDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  adjustmentMonth?: Prisma.SortOrderInput | Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   createdBy?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -492,6 +536,10 @@ export type RecurringConfigWhereUniqueInput = Prisma.AtLeast<{
   nextDueDate?: Prisma.DateTimeNullableFilter<"RecurringConfig"> | Date | string | null
   interestRate?: Prisma.DecimalNullableFilter<"RecurringConfig"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   penaltyRate?: Prisma.DecimalNullableFilter<"RecurringConfig"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  indexationType?: Prisma.EnumIndexationTypeNullableFilter<"RecurringConfig"> | $Enums.IndexationType | null
+  fixedAdjustmentRate?: Prisma.DecimalNullableFilter<"RecurringConfig"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  lastAdjustmentDate?: Prisma.DateTimeNullableFilter<"RecurringConfig"> | Date | string | null
+  adjustmentMonth?: Prisma.IntNullableFilter<"RecurringConfig"> | number | null
   notes?: Prisma.StringNullableFilter<"RecurringConfig"> | string | null
   createdBy?: Prisma.StringNullableFilter<"RecurringConfig"> | string | null
   deletedAt?: Prisma.DateTimeNullableFilter<"RecurringConfig"> | Date | string | null
@@ -525,6 +573,10 @@ export type RecurringConfigOrderByWithAggregationInput = {
   nextDueDate?: Prisma.SortOrderInput | Prisma.SortOrder
   interestRate?: Prisma.SortOrderInput | Prisma.SortOrder
   penaltyRate?: Prisma.SortOrderInput | Prisma.SortOrder
+  indexationType?: Prisma.SortOrderInput | Prisma.SortOrder
+  fixedAdjustmentRate?: Prisma.SortOrderInput | Prisma.SortOrder
+  lastAdjustmentDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  adjustmentMonth?: Prisma.SortOrderInput | Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   createdBy?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -565,6 +617,10 @@ export type RecurringConfigScalarWhereWithAggregatesInput = {
   nextDueDate?: Prisma.DateTimeNullableWithAggregatesFilter<"RecurringConfig"> | Date | string | null
   interestRate?: Prisma.DecimalNullableWithAggregatesFilter<"RecurringConfig"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   penaltyRate?: Prisma.DecimalNullableWithAggregatesFilter<"RecurringConfig"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  indexationType?: Prisma.EnumIndexationTypeNullableWithAggregatesFilter<"RecurringConfig"> | $Enums.IndexationType | null
+  fixedAdjustmentRate?: Prisma.DecimalNullableWithAggregatesFilter<"RecurringConfig"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  lastAdjustmentDate?: Prisma.DateTimeNullableWithAggregatesFilter<"RecurringConfig"> | Date | string | null
+  adjustmentMonth?: Prisma.IntNullableWithAggregatesFilter<"RecurringConfig"> | number | null
   notes?: Prisma.StringNullableWithAggregatesFilter<"RecurringConfig"> | string | null
   createdBy?: Prisma.StringNullableWithAggregatesFilter<"RecurringConfig"> | string | null
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"RecurringConfig"> | Date | string | null
@@ -596,6 +652,10 @@ export type RecurringConfigCreateInput = {
   nextDueDate?: Date | string | null
   interestRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   penaltyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  indexationType?: $Enums.IndexationType | null
+  fixedAdjustmentRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  lastAdjustmentDate?: Date | string | null
+  adjustmentMonth?: number | null
   notes?: string | null
   createdBy?: string | null
   deletedAt?: Date | string | null
@@ -629,6 +689,10 @@ export type RecurringConfigUncheckedCreateInput = {
   nextDueDate?: Date | string | null
   interestRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   penaltyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  indexationType?: $Enums.IndexationType | null
+  fixedAdjustmentRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  lastAdjustmentDate?: Date | string | null
+  adjustmentMonth?: number | null
   notes?: string | null
   createdBy?: string | null
   deletedAt?: Date | string | null
@@ -660,6 +724,10 @@ export type RecurringConfigUpdateInput = {
   nextDueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   interestRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   penaltyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  indexationType?: Prisma.NullableEnumIndexationTypeFieldUpdateOperationsInput | $Enums.IndexationType | null
+  fixedAdjustmentRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  lastAdjustmentDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  adjustmentMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -693,6 +761,10 @@ export type RecurringConfigUncheckedUpdateInput = {
   nextDueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   interestRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   penaltyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  indexationType?: Prisma.NullableEnumIndexationTypeFieldUpdateOperationsInput | $Enums.IndexationType | null
+  fixedAdjustmentRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  lastAdjustmentDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  adjustmentMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -725,6 +797,10 @@ export type RecurringConfigCreateManyInput = {
   nextDueDate?: Date | string | null
   interestRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   penaltyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  indexationType?: $Enums.IndexationType | null
+  fixedAdjustmentRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  lastAdjustmentDate?: Date | string | null
+  adjustmentMonth?: number | null
   notes?: string | null
   createdBy?: string | null
   deletedAt?: Date | string | null
@@ -756,6 +832,10 @@ export type RecurringConfigUpdateManyMutationInput = {
   nextDueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   interestRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   penaltyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  indexationType?: Prisma.NullableEnumIndexationTypeFieldUpdateOperationsInput | $Enums.IndexationType | null
+  fixedAdjustmentRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  lastAdjustmentDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  adjustmentMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -788,6 +868,10 @@ export type RecurringConfigUncheckedUpdateManyInput = {
   nextDueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   interestRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   penaltyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  indexationType?: Prisma.NullableEnumIndexationTypeFieldUpdateOperationsInput | $Enums.IndexationType | null
+  fixedAdjustmentRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  lastAdjustmentDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  adjustmentMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -830,6 +914,10 @@ export type RecurringConfigCountOrderByAggregateInput = {
   nextDueDate?: Prisma.SortOrder
   interestRate?: Prisma.SortOrder
   penaltyRate?: Prisma.SortOrder
+  indexationType?: Prisma.SortOrder
+  fixedAdjustmentRate?: Prisma.SortOrder
+  lastAdjustmentDate?: Prisma.SortOrder
+  adjustmentMonth?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -844,6 +932,8 @@ export type RecurringConfigAvgOrderByAggregateInput = {
   generatedCount?: Prisma.SortOrder
   interestRate?: Prisma.SortOrder
   penaltyRate?: Prisma.SortOrder
+  fixedAdjustmentRate?: Prisma.SortOrder
+  adjustmentMonth?: Prisma.SortOrder
 }
 
 export type RecurringConfigMaxOrderByAggregateInput = {
@@ -871,6 +961,10 @@ export type RecurringConfigMaxOrderByAggregateInput = {
   nextDueDate?: Prisma.SortOrder
   interestRate?: Prisma.SortOrder
   penaltyRate?: Prisma.SortOrder
+  indexationType?: Prisma.SortOrder
+  fixedAdjustmentRate?: Prisma.SortOrder
+  lastAdjustmentDate?: Prisma.SortOrder
+  adjustmentMonth?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -903,6 +997,10 @@ export type RecurringConfigMinOrderByAggregateInput = {
   nextDueDate?: Prisma.SortOrder
   interestRate?: Prisma.SortOrder
   penaltyRate?: Prisma.SortOrder
+  indexationType?: Prisma.SortOrder
+  fixedAdjustmentRate?: Prisma.SortOrder
+  lastAdjustmentDate?: Prisma.SortOrder
+  adjustmentMonth?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -917,6 +1015,8 @@ export type RecurringConfigSumOrderByAggregateInput = {
   generatedCount?: Prisma.SortOrder
   interestRate?: Prisma.SortOrder
   penaltyRate?: Prisma.SortOrder
+  fixedAdjustmentRate?: Prisma.SortOrder
+  adjustmentMonth?: Prisma.SortOrder
 }
 
 export type RecurringConfigCreateNestedManyWithoutTenantInput = {
@@ -969,6 +1069,10 @@ export type EnumRecurrenceUnitFieldUpdateOperationsInput = {
   set?: $Enums.RecurrenceUnit
 }
 
+export type NullableEnumIndexationTypeFieldUpdateOperationsInput = {
+  set?: $Enums.IndexationType | null
+}
+
 export type RecurringConfigCreateWithoutTenantInput = {
   id?: string
   type: $Enums.FinanceEntryType
@@ -993,6 +1097,10 @@ export type RecurringConfigCreateWithoutTenantInput = {
   nextDueDate?: Date | string | null
   interestRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   penaltyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  indexationType?: $Enums.IndexationType | null
+  fixedAdjustmentRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  lastAdjustmentDate?: Date | string | null
+  adjustmentMonth?: number | null
   notes?: string | null
   createdBy?: string | null
   deletedAt?: Date | string | null
@@ -1024,6 +1132,10 @@ export type RecurringConfigUncheckedCreateWithoutTenantInput = {
   nextDueDate?: Date | string | null
   interestRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   penaltyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  indexationType?: $Enums.IndexationType | null
+  fixedAdjustmentRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  lastAdjustmentDate?: Date | string | null
+  adjustmentMonth?: number | null
   notes?: string | null
   createdBy?: string | null
   deletedAt?: Date | string | null
@@ -1085,6 +1197,10 @@ export type RecurringConfigScalarWhereInput = {
   nextDueDate?: Prisma.DateTimeNullableFilter<"RecurringConfig"> | Date | string | null
   interestRate?: Prisma.DecimalNullableFilter<"RecurringConfig"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   penaltyRate?: Prisma.DecimalNullableFilter<"RecurringConfig"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  indexationType?: Prisma.EnumIndexationTypeNullableFilter<"RecurringConfig"> | $Enums.IndexationType | null
+  fixedAdjustmentRate?: Prisma.DecimalNullableFilter<"RecurringConfig"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  lastAdjustmentDate?: Prisma.DateTimeNullableFilter<"RecurringConfig"> | Date | string | null
+  adjustmentMonth?: Prisma.IntNullableFilter<"RecurringConfig"> | number | null
   notes?: Prisma.StringNullableFilter<"RecurringConfig"> | string | null
   createdBy?: Prisma.StringNullableFilter<"RecurringConfig"> | string | null
   deletedAt?: Prisma.DateTimeNullableFilter<"RecurringConfig"> | Date | string | null
@@ -1116,6 +1232,10 @@ export type RecurringConfigCreateManyTenantInput = {
   nextDueDate?: Date | string | null
   interestRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   penaltyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  indexationType?: $Enums.IndexationType | null
+  fixedAdjustmentRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  lastAdjustmentDate?: Date | string | null
+  adjustmentMonth?: number | null
   notes?: string | null
   createdBy?: string | null
   deletedAt?: Date | string | null
@@ -1147,6 +1267,10 @@ export type RecurringConfigUpdateWithoutTenantInput = {
   nextDueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   interestRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   penaltyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  indexationType?: Prisma.NullableEnumIndexationTypeFieldUpdateOperationsInput | $Enums.IndexationType | null
+  fixedAdjustmentRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  lastAdjustmentDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  adjustmentMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1178,6 +1302,10 @@ export type RecurringConfigUncheckedUpdateWithoutTenantInput = {
   nextDueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   interestRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   penaltyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  indexationType?: Prisma.NullableEnumIndexationTypeFieldUpdateOperationsInput | $Enums.IndexationType | null
+  fixedAdjustmentRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  lastAdjustmentDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  adjustmentMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1209,6 +1337,10 @@ export type RecurringConfigUncheckedUpdateManyWithoutTenantInput = {
   nextDueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   interestRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   penaltyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  indexationType?: Prisma.NullableEnumIndexationTypeFieldUpdateOperationsInput | $Enums.IndexationType | null
+  fixedAdjustmentRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  lastAdjustmentDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  adjustmentMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1243,6 +1375,10 @@ export type RecurringConfigSelect<ExtArgs extends runtime.Types.Extensions.Inter
   nextDueDate?: boolean
   interestRate?: boolean
   penaltyRate?: boolean
+  indexationType?: boolean
+  fixedAdjustmentRate?: boolean
+  lastAdjustmentDate?: boolean
+  adjustmentMonth?: boolean
   notes?: boolean
   createdBy?: boolean
   deletedAt?: boolean
@@ -1276,6 +1412,10 @@ export type RecurringConfigSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   nextDueDate?: boolean
   interestRate?: boolean
   penaltyRate?: boolean
+  indexationType?: boolean
+  fixedAdjustmentRate?: boolean
+  lastAdjustmentDate?: boolean
+  adjustmentMonth?: boolean
   notes?: boolean
   createdBy?: boolean
   deletedAt?: boolean
@@ -1309,6 +1449,10 @@ export type RecurringConfigSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   nextDueDate?: boolean
   interestRate?: boolean
   penaltyRate?: boolean
+  indexationType?: boolean
+  fixedAdjustmentRate?: boolean
+  lastAdjustmentDate?: boolean
+  adjustmentMonth?: boolean
   notes?: boolean
   createdBy?: boolean
   deletedAt?: boolean
@@ -1342,6 +1486,10 @@ export type RecurringConfigSelectScalar = {
   nextDueDate?: boolean
   interestRate?: boolean
   penaltyRate?: boolean
+  indexationType?: boolean
+  fixedAdjustmentRate?: boolean
+  lastAdjustmentDate?: boolean
+  adjustmentMonth?: boolean
   notes?: boolean
   createdBy?: boolean
   deletedAt?: boolean
@@ -1349,7 +1497,7 @@ export type RecurringConfigSelectScalar = {
   updatedAt?: boolean
 }
 
-export type RecurringConfigOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "type" | "status" | "description" | "categoryId" | "costCenterId" | "bankAccountId" | "supplierName" | "customerName" | "supplierId" | "customerId" | "expectedAmount" | "isVariable" | "frequencyUnit" | "frequencyInterval" | "startDate" | "endDate" | "totalOccurrences" | "generatedCount" | "lastGeneratedDate" | "nextDueDate" | "interestRate" | "penaltyRate" | "notes" | "createdBy" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["recurringConfig"]>
+export type RecurringConfigOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "type" | "status" | "description" | "categoryId" | "costCenterId" | "bankAccountId" | "supplierName" | "customerName" | "supplierId" | "customerId" | "expectedAmount" | "isVariable" | "frequencyUnit" | "frequencyInterval" | "startDate" | "endDate" | "totalOccurrences" | "generatedCount" | "lastGeneratedDate" | "nextDueDate" | "interestRate" | "penaltyRate" | "indexationType" | "fixedAdjustmentRate" | "lastAdjustmentDate" | "adjustmentMonth" | "notes" | "createdBy" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["recurringConfig"]>
 export type RecurringConfigInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
 }
@@ -1390,6 +1538,10 @@ export type $RecurringConfigPayload<ExtArgs extends runtime.Types.Extensions.Int
     nextDueDate: Date | null
     interestRate: runtime.Decimal | null
     penaltyRate: runtime.Decimal | null
+    indexationType: $Enums.IndexationType | null
+    fixedAdjustmentRate: runtime.Decimal | null
+    lastAdjustmentDate: Date | null
+    adjustmentMonth: number | null
     notes: string | null
     createdBy: string | null
     deletedAt: Date | null
@@ -1843,6 +1995,10 @@ export interface RecurringConfigFieldRefs {
   readonly nextDueDate: Prisma.FieldRef<"RecurringConfig", 'DateTime'>
   readonly interestRate: Prisma.FieldRef<"RecurringConfig", 'Decimal'>
   readonly penaltyRate: Prisma.FieldRef<"RecurringConfig", 'Decimal'>
+  readonly indexationType: Prisma.FieldRef<"RecurringConfig", 'IndexationType'>
+  readonly fixedAdjustmentRate: Prisma.FieldRef<"RecurringConfig", 'Decimal'>
+  readonly lastAdjustmentDate: Prisma.FieldRef<"RecurringConfig", 'DateTime'>
+  readonly adjustmentMonth: Prisma.FieldRef<"RecurringConfig", 'Int'>
   readonly notes: Prisma.FieldRef<"RecurringConfig", 'String'>
   readonly createdBy: Prisma.FieldRef<"RecurringConfig", 'String'>
   readonly deletedAt: Prisma.FieldRef<"RecurringConfig", 'DateTime'>

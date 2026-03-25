@@ -55,7 +55,7 @@ export function createModuleMiddleware(module: SystemModule) {
     const tenantContextService = new TenantContextService();
     const isEnabled = await tenantContextService.isModuleEnabled(
       tenantId,
-      module,
+      module as any,
     );
 
     if (!isEnabled) {

@@ -1,9 +1,10 @@
-import type { ReceivePixWebhookUseCase } from '../receive-pix-webhook';
+import { PrismaPixChargesRepository } from '@/repositories/cashier/prisma/prisma-pix-charges-repository';
+import { getPixProvider } from '@/services/cashier/pix-provider-factory';
+import { ReceivePixWebhookUseCase } from '../receive-pix-webhook';
 
-// TODO: Implement when PixCharge Prisma model is added to schema.prisma
-// Will use: PrismaPixChargesRepository, getPixProvider()
-export function makeReceivePixWebhookUseCase(): ReceivePixWebhookUseCase {
-  throw new Error(
-    'makeReceivePixWebhookUseCase: PrismaPixChargesRepository not yet implemented. Add PixCharge model to schema.prisma first.',
-  );
+export function makeReceivePixWebhookUseCase() {
+  const pixChargesRepository = new PrismaPixChargesRepository();
+  const pixProvider = getPixProvider();
+
+  return new ReceivePixWebhookUseCase(pixChargesRepository, pixProvider);
 }

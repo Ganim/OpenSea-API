@@ -1,13 +1,8 @@
-import { InMemoryFiscalConfigsRepository } from '@/repositories/fiscal/in-memory/in-memory-fiscal-configs-repository';
+import { PrismaFiscalConfigsRepository } from '@/repositories/fiscal/prisma/prisma-fiscal-configs-repository';
 import { GetFiscalConfigUseCase } from '../get-fiscal-config';
 
-/**
- * Factory for GetFiscalConfigUseCase.
- *
- * TODO: Replace InMemoryFiscalConfigsRepository with PrismaFiscalConfigsRepository
- * once Prisma schema models for fiscal are created.
- */
 export function makeGetFiscalConfigUseCase() {
-  const fiscalConfigsRepository = new InMemoryFiscalConfigsRepository();
+  const fiscalConfigsRepository = new PrismaFiscalConfigsRepository();
+
   return new GetFiscalConfigUseCase(fiscalConfigsRepository);
 }

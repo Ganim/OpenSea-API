@@ -580,10 +580,25 @@ export type FinanceEntryCostCenter = Prisma.FinanceEntryCostCenterModel
  */
 export type RecurringConfig = Prisma.RecurringConfigModel
 /**
+ * Model FinanceBudget
+ * 
+ */
+export type FinanceBudget = Prisma.FinanceBudgetModel
+/**
  * Model FinanceAttachment
  * 
  */
 export type FinanceAttachment = Prisma.FinanceAttachmentModel
+/**
+ * Model BankReconciliation
+ * 
+ */
+export type BankReconciliation = Prisma.BankReconciliationModel
+/**
+ * Model BankReconciliationItem
+ * 
+ */
+export type BankReconciliationItem = Prisma.BankReconciliationItemModel
 /**
  * Model Loan
  * 
@@ -1279,3 +1294,28 @@ export type AiWorkflow = Prisma.AiWorkflowModel
  * 
  */
 export type AiWorkflowExecution = Prisma.AiWorkflowExecutionModel
+/**
+ * Model OverdueEscalation
+ * 
+ */
+export type OverdueEscalation = Prisma.OverdueEscalationModel
+/**
+ * Model OverdueEscalationStep
+ * 
+ */
+export type OverdueEscalationStep = Prisma.OverdueEscalationStepModel
+/**
+ * Model OverdueAction
+ * 
+ */
+export type OverdueAction = Prisma.OverdueActionModel
+/**
+ * Model PunchConfiguration
+ * 
+ */
+export type PunchConfiguration = Prisma.PunchConfigurationModel
+/**
+ * Model GeofenceZone
+ * 
+ */
+export type GeofenceZone = Prisma.GeofenceZoneModel

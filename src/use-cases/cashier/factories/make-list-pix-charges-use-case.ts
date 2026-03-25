@@ -1,9 +1,8 @@
-import type { ListPixChargesUseCase } from '../list-pix-charges';
+import { PrismaPixChargesRepository } from '@/repositories/cashier/prisma/prisma-pix-charges-repository';
+import { ListPixChargesUseCase } from '../list-pix-charges';
 
-// TODO: Implement when PixCharge Prisma model is added to schema.prisma
-// Will use: PrismaPixChargesRepository
-export function makeListPixChargesUseCase(): ListPixChargesUseCase {
-  throw new Error(
-    'makeListPixChargesUseCase: PrismaPixChargesRepository not yet implemented. Add PixCharge model to schema.prisma first.',
-  );
+export function makeListPixChargesUseCase() {
+  const pixChargesRepository = new PrismaPixChargesRepository();
+
+  return new ListPixChargesUseCase(pixChargesRepository);
 }
