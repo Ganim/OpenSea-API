@@ -609,6 +609,7 @@ export type OrderWhereInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageListRelationFilter
   posTransactions?: Prisma.PosTransactionListRelationFilter
   posVisitLogs?: Prisma.PosVisitLogListRelationFilter
+  fiscalDocuments?: Prisma.FiscalDocumentListRelationFilter
 }
 
 export type OrderOrderByWithRelationInput = {
@@ -686,6 +687,7 @@ export type OrderOrderByWithRelationInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageOrderByRelationAggregateInput
   posTransactions?: Prisma.PosTransactionOrderByRelationAggregateInput
   posVisitLogs?: Prisma.PosVisitLogOrderByRelationAggregateInput
+  fiscalDocuments?: Prisma.FiscalDocumentOrderByRelationAggregateInput
 }
 
 export type OrderWhereUniqueInput = Prisma.AtLeast<{
@@ -767,6 +769,7 @@ export type OrderWhereUniqueInput = Prisma.AtLeast<{
   storeCreditUsages?: Prisma.StoreCreditUsageListRelationFilter
   posTransactions?: Prisma.PosTransactionListRelationFilter
   posVisitLogs?: Prisma.PosVisitLogListRelationFilter
+  fiscalDocuments?: Prisma.FiscalDocumentListRelationFilter
 }, "id" | "tenantId_orderNumber">
 
 export type OrderOrderByWithAggregationInput = {
@@ -943,6 +946,7 @@ export type OrderCreateInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
 }
 
 export type OrderUncheckedCreateInput = {
@@ -1007,6 +1011,7 @@ export type OrderUncheckedCreateInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
 }
 
 export type OrderUpdateInput = {
@@ -1071,6 +1076,7 @@ export type OrderUpdateInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderUncheckedUpdateInput = {
@@ -1135,6 +1141,7 @@ export type OrderUncheckedUpdateInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderCreateManyInput = {
@@ -2220,6 +2227,22 @@ export type OrderUpdateOneWithoutPosVisitLogsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.OrderUpdateToOneWithWhereWithoutPosVisitLogsInput, Prisma.OrderUpdateWithoutPosVisitLogsInput>, Prisma.OrderUncheckedUpdateWithoutPosVisitLogsInput>
 }
 
+export type OrderCreateNestedOneWithoutFiscalDocumentsInput = {
+  create?: Prisma.XOR<Prisma.OrderCreateWithoutFiscalDocumentsInput, Prisma.OrderUncheckedCreateWithoutFiscalDocumentsInput>
+  connectOrCreate?: Prisma.OrderCreateOrConnectWithoutFiscalDocumentsInput
+  connect?: Prisma.OrderWhereUniqueInput
+}
+
+export type OrderUpdateOneWithoutFiscalDocumentsNestedInput = {
+  create?: Prisma.XOR<Prisma.OrderCreateWithoutFiscalDocumentsInput, Prisma.OrderUncheckedCreateWithoutFiscalDocumentsInput>
+  connectOrCreate?: Prisma.OrderCreateOrConnectWithoutFiscalDocumentsInput
+  upsert?: Prisma.OrderUpsertWithoutFiscalDocumentsInput
+  disconnect?: Prisma.OrderWhereInput | boolean
+  delete?: Prisma.OrderWhereInput | boolean
+  connect?: Prisma.OrderWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.OrderUpdateToOneWithWhereWithoutFiscalDocumentsInput, Prisma.OrderUpdateWithoutFiscalDocumentsInput>, Prisma.OrderUncheckedUpdateWithoutFiscalDocumentsInput>
+}
+
 export type OrderCreateWithoutAssignedToInput = {
   id?: string
   orderNumber: string
@@ -2281,6 +2304,7 @@ export type OrderCreateWithoutAssignedToInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
 }
 
 export type OrderUncheckedCreateWithoutAssignedToInput = {
@@ -2344,6 +2368,7 @@ export type OrderUncheckedCreateWithoutAssignedToInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
 }
 
 export type OrderCreateOrConnectWithoutAssignedToInput = {
@@ -2417,6 +2442,7 @@ export type OrderCreateWithoutApprovedByInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
 }
 
 export type OrderUncheckedCreateWithoutApprovedByInput = {
@@ -2480,6 +2506,7 @@ export type OrderUncheckedCreateWithoutApprovedByInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
 }
 
 export type OrderCreateOrConnectWithoutApprovedByInput = {
@@ -2640,6 +2667,7 @@ export type OrderCreateWithoutSourceWarehouseInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
 }
 
 export type OrderUncheckedCreateWithoutSourceWarehouseInput = {
@@ -2703,6 +2731,7 @@ export type OrderUncheckedCreateWithoutSourceWarehouseInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
 }
 
 export type OrderCreateOrConnectWithoutSourceWarehouseInput = {
@@ -2792,6 +2821,7 @@ export type OrderCreateWithoutCustomerInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
 }
 
 export type OrderUncheckedCreateWithoutCustomerInput = {
@@ -2855,6 +2885,7 @@ export type OrderUncheckedCreateWithoutCustomerInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
 }
 
 export type OrderCreateOrConnectWithoutCustomerInput = {
@@ -2944,6 +2975,7 @@ export type OrderCreateWithoutContactInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
 }
 
 export type OrderUncheckedCreateWithoutContactInput = {
@@ -3007,6 +3039,7 @@ export type OrderUncheckedCreateWithoutContactInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
 }
 
 export type OrderCreateOrConnectWithoutContactInput = {
@@ -3096,6 +3129,7 @@ export type OrderCreateWithoutPipelineInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
 }
 
 export type OrderUncheckedCreateWithoutPipelineInput = {
@@ -3159,6 +3193,7 @@ export type OrderUncheckedCreateWithoutPipelineInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
 }
 
 export type OrderCreateOrConnectWithoutPipelineInput = {
@@ -3248,6 +3283,7 @@ export type OrderCreateWithoutStageInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
 }
 
 export type OrderUncheckedCreateWithoutStageInput = {
@@ -3311,6 +3347,7 @@ export type OrderUncheckedCreateWithoutStageInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
 }
 
 export type OrderCreateOrConnectWithoutStageInput = {
@@ -3400,6 +3437,7 @@ export type OrderCreateWithoutTenantInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
 }
 
 export type OrderUncheckedCreateWithoutTenantInput = {
@@ -3463,6 +3501,7 @@ export type OrderUncheckedCreateWithoutTenantInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
 }
 
 export type OrderCreateOrConnectWithoutTenantInput = {
@@ -3552,6 +3591,7 @@ export type OrderCreateWithoutPriceTableInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
 }
 
 export type OrderUncheckedCreateWithoutPriceTableInput = {
@@ -3615,6 +3655,7 @@ export type OrderUncheckedCreateWithoutPriceTableInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
 }
 
 export type OrderCreateOrConnectWithoutPriceTableInput = {
@@ -3704,6 +3745,7 @@ export type OrderCreateWithoutCouponInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
 }
 
 export type OrderUncheckedCreateWithoutCouponInput = {
@@ -3767,6 +3809,7 @@ export type OrderUncheckedCreateWithoutCouponInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
 }
 
 export type OrderCreateOrConnectWithoutCouponInput = {
@@ -3856,6 +3899,7 @@ export type OrderCreateWithoutConvertedOrdersInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
 }
 
 export type OrderUncheckedCreateWithoutConvertedOrdersInput = {
@@ -3919,6 +3963,7 @@ export type OrderUncheckedCreateWithoutConvertedOrdersInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
 }
 
 export type OrderCreateOrConnectWithoutConvertedOrdersInput = {
@@ -3987,6 +4032,7 @@ export type OrderCreateWithoutQuoteInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
 }
 
 export type OrderUncheckedCreateWithoutQuoteInput = {
@@ -4050,6 +4096,7 @@ export type OrderUncheckedCreateWithoutQuoteInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
 }
 
 export type OrderCreateOrConnectWithoutQuoteInput = {
@@ -4123,6 +4170,7 @@ export type OrderCreateWithoutReturnedOrdersInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
 }
 
 export type OrderUncheckedCreateWithoutReturnedOrdersInput = {
@@ -4186,6 +4234,7 @@ export type OrderUncheckedCreateWithoutReturnedOrdersInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
 }
 
 export type OrderCreateOrConnectWithoutReturnedOrdersInput = {
@@ -4254,6 +4303,7 @@ export type OrderCreateWithoutReturnOriginInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
 }
 
 export type OrderUncheckedCreateWithoutReturnOriginInput = {
@@ -4317,6 +4367,7 @@ export type OrderUncheckedCreateWithoutReturnOriginInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
 }
 
 export type OrderCreateOrConnectWithoutReturnOriginInput = {
@@ -4401,6 +4452,7 @@ export type OrderUpdateWithoutConvertedOrdersInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderUncheckedUpdateWithoutConvertedOrdersInput = {
@@ -4464,6 +4516,7 @@ export type OrderUncheckedUpdateWithoutConvertedOrdersInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderUpsertWithWhereUniqueWithoutQuoteInput = {
@@ -4554,6 +4607,7 @@ export type OrderUpdateWithoutReturnedOrdersInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderUncheckedUpdateWithoutReturnedOrdersInput = {
@@ -4617,6 +4671,7 @@ export type OrderUncheckedUpdateWithoutReturnedOrdersInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderUpsertWithWhereUniqueWithoutReturnOriginInput = {
@@ -4696,6 +4751,7 @@ export type OrderCreateWithoutItemsInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
 }
 
 export type OrderUncheckedCreateWithoutItemsInput = {
@@ -4759,6 +4815,7 @@ export type OrderUncheckedCreateWithoutItemsInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
 }
 
 export type OrderCreateOrConnectWithoutItemsInput = {
@@ -4838,6 +4895,7 @@ export type OrderUpdateWithoutItemsInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderUncheckedUpdateWithoutItemsInput = {
@@ -4901,6 +4959,7 @@ export type OrderUncheckedUpdateWithoutItemsInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderCreateWithoutPaymentConditionInput = {
@@ -4964,6 +5023,7 @@ export type OrderCreateWithoutPaymentConditionInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
 }
 
 export type OrderUncheckedCreateWithoutPaymentConditionInput = {
@@ -5027,6 +5087,7 @@ export type OrderUncheckedCreateWithoutPaymentConditionInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
 }
 
 export type OrderCreateOrConnectWithoutPaymentConditionInput = {
@@ -5116,6 +5177,7 @@ export type OrderCreateWithoutPaymentsInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
 }
 
 export type OrderUncheckedCreateWithoutPaymentsInput = {
@@ -5179,6 +5241,7 @@ export type OrderUncheckedCreateWithoutPaymentsInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
 }
 
 export type OrderCreateOrConnectWithoutPaymentsInput = {
@@ -5258,6 +5321,7 @@ export type OrderUpdateWithoutPaymentsInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderUncheckedUpdateWithoutPaymentsInput = {
@@ -5321,6 +5385,7 @@ export type OrderUncheckedUpdateWithoutPaymentsInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderCreateWithoutDeliveriesInput = {
@@ -5384,6 +5449,7 @@ export type OrderCreateWithoutDeliveriesInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
 }
 
 export type OrderUncheckedCreateWithoutDeliveriesInput = {
@@ -5447,6 +5513,7 @@ export type OrderUncheckedCreateWithoutDeliveriesInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
 }
 
 export type OrderCreateOrConnectWithoutDeliveriesInput = {
@@ -5526,6 +5593,7 @@ export type OrderUpdateWithoutDeliveriesInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderUncheckedUpdateWithoutDeliveriesInput = {
@@ -5589,6 +5657,7 @@ export type OrderUncheckedUpdateWithoutDeliveriesInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderCreateWithoutReturnsInput = {
@@ -5652,6 +5721,7 @@ export type OrderCreateWithoutReturnsInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
 }
 
 export type OrderUncheckedCreateWithoutReturnsInput = {
@@ -5715,6 +5785,7 @@ export type OrderUncheckedCreateWithoutReturnsInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
 }
 
 export type OrderCreateOrConnectWithoutReturnsInput = {
@@ -5794,6 +5865,7 @@ export type OrderUpdateWithoutReturnsInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderUncheckedUpdateWithoutReturnsInput = {
@@ -5857,6 +5929,7 @@ export type OrderUncheckedUpdateWithoutReturnsInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderCreateWithoutStoreCreditsReservedInput = {
@@ -5920,6 +5993,7 @@ export type OrderCreateWithoutStoreCreditsReservedInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
 }
 
 export type OrderUncheckedCreateWithoutStoreCreditsReservedInput = {
@@ -5983,6 +6057,7 @@ export type OrderUncheckedCreateWithoutStoreCreditsReservedInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
 }
 
 export type OrderCreateOrConnectWithoutStoreCreditsReservedInput = {
@@ -6062,6 +6137,7 @@ export type OrderUpdateWithoutStoreCreditsReservedInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderUncheckedUpdateWithoutStoreCreditsReservedInput = {
@@ -6125,6 +6201,7 @@ export type OrderUncheckedUpdateWithoutStoreCreditsReservedInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderCreateWithoutStoreCreditUsagesInput = {
@@ -6188,6 +6265,7 @@ export type OrderCreateWithoutStoreCreditUsagesInput = {
   storeCreditsReserved?: Prisma.StoreCreditCreateNestedManyWithoutReservedForOrderInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
 }
 
 export type OrderUncheckedCreateWithoutStoreCreditUsagesInput = {
@@ -6251,6 +6329,7 @@ export type OrderUncheckedCreateWithoutStoreCreditUsagesInput = {
   storeCreditsReserved?: Prisma.StoreCreditUncheckedCreateNestedManyWithoutReservedForOrderInput
   posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
 }
 
 export type OrderCreateOrConnectWithoutStoreCreditUsagesInput = {
@@ -6330,6 +6409,7 @@ export type OrderUpdateWithoutStoreCreditUsagesInput = {
   storeCreditsReserved?: Prisma.StoreCreditUpdateManyWithoutReservedForOrderNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderUncheckedUpdateWithoutStoreCreditUsagesInput = {
@@ -6393,6 +6473,7 @@ export type OrderUncheckedUpdateWithoutStoreCreditUsagesInput = {
   storeCreditsReserved?: Prisma.StoreCreditUncheckedUpdateManyWithoutReservedForOrderNestedInput
   posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderCreateWithoutCommissionsInput = {
@@ -6456,6 +6537,7 @@ export type OrderCreateWithoutCommissionsInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
 }
 
 export type OrderUncheckedCreateWithoutCommissionsInput = {
@@ -6519,6 +6601,7 @@ export type OrderUncheckedCreateWithoutCommissionsInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
 }
 
 export type OrderCreateOrConnectWithoutCommissionsInput = {
@@ -6598,6 +6681,7 @@ export type OrderUpdateWithoutCommissionsInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderUncheckedUpdateWithoutCommissionsInput = {
@@ -6661,6 +6745,7 @@ export type OrderUncheckedUpdateWithoutCommissionsInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderCreateWithoutHistoryInput = {
@@ -6724,6 +6809,7 @@ export type OrderCreateWithoutHistoryInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
 }
 
 export type OrderUncheckedCreateWithoutHistoryInput = {
@@ -6787,6 +6873,7 @@ export type OrderUncheckedCreateWithoutHistoryInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
 }
 
 export type OrderCreateOrConnectWithoutHistoryInput = {
@@ -6866,6 +6953,7 @@ export type OrderUpdateWithoutHistoryInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderUncheckedUpdateWithoutHistoryInput = {
@@ -6929,6 +7017,7 @@ export type OrderUncheckedUpdateWithoutHistoryInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderCreateWithoutPosTransactionsInput = {
@@ -6992,6 +7081,7 @@ export type OrderCreateWithoutPosTransactionsInput = {
   storeCreditsReserved?: Prisma.StoreCreditCreateNestedManyWithoutReservedForOrderInput
   storeCreditUsages?: Prisma.StoreCreditUsageCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
 }
 
 export type OrderUncheckedCreateWithoutPosTransactionsInput = {
@@ -7055,6 +7145,7 @@ export type OrderUncheckedCreateWithoutPosTransactionsInput = {
   storeCreditsReserved?: Prisma.StoreCreditUncheckedCreateNestedManyWithoutReservedForOrderInput
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
 }
 
 export type OrderCreateOrConnectWithoutPosTransactionsInput = {
@@ -7134,6 +7225,7 @@ export type OrderUpdateWithoutPosTransactionsInput = {
   storeCreditsReserved?: Prisma.StoreCreditUpdateManyWithoutReservedForOrderNestedInput
   storeCreditUsages?: Prisma.StoreCreditUsageUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderUncheckedUpdateWithoutPosTransactionsInput = {
@@ -7197,6 +7289,7 @@ export type OrderUncheckedUpdateWithoutPosTransactionsInput = {
   storeCreditsReserved?: Prisma.StoreCreditUncheckedUpdateManyWithoutReservedForOrderNestedInput
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderCreateWithoutPosVisitLogsInput = {
@@ -7260,6 +7353,7 @@ export type OrderCreateWithoutPosVisitLogsInput = {
   storeCreditsReserved?: Prisma.StoreCreditCreateNestedManyWithoutReservedForOrderInput
   storeCreditUsages?: Prisma.StoreCreditUsageCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
 }
 
 export type OrderUncheckedCreateWithoutPosVisitLogsInput = {
@@ -7323,6 +7417,7 @@ export type OrderUncheckedCreateWithoutPosVisitLogsInput = {
   storeCreditsReserved?: Prisma.StoreCreditUncheckedCreateNestedManyWithoutReservedForOrderInput
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
 }
 
 export type OrderCreateOrConnectWithoutPosVisitLogsInput = {
@@ -7402,6 +7497,7 @@ export type OrderUpdateWithoutPosVisitLogsInput = {
   storeCreditsReserved?: Prisma.StoreCreditUpdateManyWithoutReservedForOrderNestedInput
   storeCreditUsages?: Prisma.StoreCreditUsageUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderUncheckedUpdateWithoutPosVisitLogsInput = {
@@ -7465,6 +7561,279 @@ export type OrderUncheckedUpdateWithoutPosVisitLogsInput = {
   storeCreditsReserved?: Prisma.StoreCreditUncheckedUpdateManyWithoutReservedForOrderNestedInput
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
+}
+
+export type OrderCreateWithoutFiscalDocumentsInput = {
+  id?: string
+  orderNumber: string
+  type: $Enums.OrderType
+  channel: $Enums.OrderChannel
+  subtotal: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  taxTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  grandTotal: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: string
+  creditUsed?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  paidAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  remainingAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  deliveryMethod?: $Enums.DeliveryMethod | null
+  deliveryAddress?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trackingCode?: string | null
+  carrierName?: string | null
+  estimatedDelivery?: Date | string | null
+  deliveredAt?: Date | string | null
+  needsApproval?: boolean
+  approvedAt?: Date | string | null
+  approvalNotes?: string | null
+  rejectedReason?: string | null
+  dealId?: string | null
+  notes?: string | null
+  internalNotes?: string | null
+  tags?: Prisma.OrderCreatetagsInput | string[]
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  stageEnteredAt: Date | string
+  confirmedAt?: Date | string | null
+  cancelledAt?: Date | string | null
+  cancelReason?: string | null
+  expiresAt?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutOrdersInput
+  customer: Prisma.CustomerCreateNestedOneWithoutOrdersInput
+  contact?: Prisma.CrmContactCreateNestedOneWithoutOrdersInput
+  pipeline: Prisma.CrmPipelineCreateNestedOneWithoutOrdersInput
+  stage: Prisma.CrmPipelineStageCreateNestedOneWithoutOrdersInput
+  priceTable?: Prisma.PriceTableCreateNestedOneWithoutOrdersInput
+  paymentCondition?: Prisma.PaymentConditionCreateNestedOneWithoutOrdersInput
+  quote?: Prisma.OrderCreateNestedOneWithoutConvertedOrdersInput
+  convertedOrders?: Prisma.OrderCreateNestedManyWithoutQuoteInput
+  returnOrigin?: Prisma.OrderCreateNestedOneWithoutReturnedOrdersInput
+  returnedOrders?: Prisma.OrderCreateNestedManyWithoutReturnOriginInput
+  coupon?: Prisma.CouponCreateNestedOneWithoutOrdersInput
+  sourceWarehouse?: Prisma.WarehouseCreateNestedOneWithoutOrdersInput
+  assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedOrdersInput
+  approvedBy?: Prisma.UserCreateNestedOneWithoutApprovedOrdersInput
+  items?: Prisma.OrderItemCreateNestedManyWithoutOrderInput
+  payments?: Prisma.OrderPaymentCreateNestedManyWithoutOrderInput
+  deliveries?: Prisma.OrderDeliveryCreateNestedManyWithoutOrderInput
+  returns?: Prisma.OrderReturnCreateNestedManyWithoutOrderInput
+  commissions?: Prisma.OrderCommissionCreateNestedManyWithoutOrderInput
+  history?: Prisma.OrderHistoryCreateNestedManyWithoutOrderInput
+  storeCreditsReserved?: Prisma.StoreCreditCreateNestedManyWithoutReservedForOrderInput
+  storeCreditUsages?: Prisma.StoreCreditUsageCreateNestedManyWithoutOrderInput
+  posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
+  posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+}
+
+export type OrderUncheckedCreateWithoutFiscalDocumentsInput = {
+  id?: string
+  tenantId: string
+  orderNumber: string
+  type: $Enums.OrderType
+  customerId: string
+  contactId?: string | null
+  pipelineId: string
+  stageId: string
+  channel: $Enums.OrderChannel
+  subtotal: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  taxTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  grandTotal: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: string
+  priceTableId?: string | null
+  paymentConditionId?: string | null
+  creditUsed?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  paidAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  remainingAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  deliveryMethod?: $Enums.DeliveryMethod | null
+  deliveryAddress?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trackingCode?: string | null
+  carrierName?: string | null
+  estimatedDelivery?: Date | string | null
+  deliveredAt?: Date | string | null
+  needsApproval?: boolean
+  approvedByUserId?: string | null
+  approvedAt?: Date | string | null
+  approvalNotes?: string | null
+  rejectedReason?: string | null
+  dealId?: string | null
+  quoteId?: string | null
+  returnOriginId?: string | null
+  couponId?: string | null
+  sourceWarehouseId?: string | null
+  assignedToUserId?: string | null
+  notes?: string | null
+  internalNotes?: string | null
+  tags?: Prisma.OrderCreatetagsInput | string[]
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  stageEnteredAt: Date | string
+  confirmedAt?: Date | string | null
+  cancelledAt?: Date | string | null
+  cancelReason?: string | null
+  expiresAt?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  convertedOrders?: Prisma.OrderUncheckedCreateNestedManyWithoutQuoteInput
+  returnedOrders?: Prisma.OrderUncheckedCreateNestedManyWithoutReturnOriginInput
+  items?: Prisma.OrderItemUncheckedCreateNestedManyWithoutOrderInput
+  payments?: Prisma.OrderPaymentUncheckedCreateNestedManyWithoutOrderInput
+  deliveries?: Prisma.OrderDeliveryUncheckedCreateNestedManyWithoutOrderInput
+  returns?: Prisma.OrderReturnUncheckedCreateNestedManyWithoutOrderInput
+  commissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutOrderInput
+  history?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutOrderInput
+  storeCreditsReserved?: Prisma.StoreCreditUncheckedCreateNestedManyWithoutReservedForOrderInput
+  storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
+  posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
+  posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+}
+
+export type OrderCreateOrConnectWithoutFiscalDocumentsInput = {
+  where: Prisma.OrderWhereUniqueInput
+  create: Prisma.XOR<Prisma.OrderCreateWithoutFiscalDocumentsInput, Prisma.OrderUncheckedCreateWithoutFiscalDocumentsInput>
+}
+
+export type OrderUpsertWithoutFiscalDocumentsInput = {
+  update: Prisma.XOR<Prisma.OrderUpdateWithoutFiscalDocumentsInput, Prisma.OrderUncheckedUpdateWithoutFiscalDocumentsInput>
+  create: Prisma.XOR<Prisma.OrderCreateWithoutFiscalDocumentsInput, Prisma.OrderUncheckedCreateWithoutFiscalDocumentsInput>
+  where?: Prisma.OrderWhereInput
+}
+
+export type OrderUpdateToOneWithWhereWithoutFiscalDocumentsInput = {
+  where?: Prisma.OrderWhereInput
+  data: Prisma.XOR<Prisma.OrderUpdateWithoutFiscalDocumentsInput, Prisma.OrderUncheckedUpdateWithoutFiscalDocumentsInput>
+}
+
+export type OrderUpdateWithoutFiscalDocumentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  orderNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumOrderTypeFieldUpdateOperationsInput | $Enums.OrderType
+  channel?: Prisma.EnumOrderChannelFieldUpdateOperationsInput | $Enums.OrderChannel
+  subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  taxTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  grandTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  creditUsed?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  paidAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  remainingAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  deliveryMethod?: Prisma.NullableEnumDeliveryMethodFieldUpdateOperationsInput | $Enums.DeliveryMethod | null
+  deliveryAddress?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  carrierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estimatedDelivery?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  needsApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dealId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  internalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.OrderUpdatetagsInput | string[]
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  stageEnteredAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  confirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutOrdersNestedInput
+  customer?: Prisma.CustomerUpdateOneRequiredWithoutOrdersNestedInput
+  contact?: Prisma.CrmContactUpdateOneWithoutOrdersNestedInput
+  pipeline?: Prisma.CrmPipelineUpdateOneRequiredWithoutOrdersNestedInput
+  stage?: Prisma.CrmPipelineStageUpdateOneRequiredWithoutOrdersNestedInput
+  priceTable?: Prisma.PriceTableUpdateOneWithoutOrdersNestedInput
+  paymentCondition?: Prisma.PaymentConditionUpdateOneWithoutOrdersNestedInput
+  quote?: Prisma.OrderUpdateOneWithoutConvertedOrdersNestedInput
+  convertedOrders?: Prisma.OrderUpdateManyWithoutQuoteNestedInput
+  returnOrigin?: Prisma.OrderUpdateOneWithoutReturnedOrdersNestedInput
+  returnedOrders?: Prisma.OrderUpdateManyWithoutReturnOriginNestedInput
+  coupon?: Prisma.CouponUpdateOneWithoutOrdersNestedInput
+  sourceWarehouse?: Prisma.WarehouseUpdateOneWithoutOrdersNestedInput
+  assignedTo?: Prisma.UserUpdateOneWithoutAssignedOrdersNestedInput
+  approvedBy?: Prisma.UserUpdateOneWithoutApprovedOrdersNestedInput
+  items?: Prisma.OrderItemUpdateManyWithoutOrderNestedInput
+  payments?: Prisma.OrderPaymentUpdateManyWithoutOrderNestedInput
+  deliveries?: Prisma.OrderDeliveryUpdateManyWithoutOrderNestedInput
+  returns?: Prisma.OrderReturnUpdateManyWithoutOrderNestedInput
+  commissions?: Prisma.OrderCommissionUpdateManyWithoutOrderNestedInput
+  history?: Prisma.OrderHistoryUpdateManyWithoutOrderNestedInput
+  storeCreditsReserved?: Prisma.StoreCreditUpdateManyWithoutReservedForOrderNestedInput
+  storeCreditUsages?: Prisma.StoreCreditUsageUpdateManyWithoutOrderNestedInput
+  posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
+  posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+}
+
+export type OrderUncheckedUpdateWithoutFiscalDocumentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  orderNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumOrderTypeFieldUpdateOperationsInput | $Enums.OrderType
+  customerId?: Prisma.StringFieldUpdateOperationsInput | string
+  contactId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineId?: Prisma.StringFieldUpdateOperationsInput | string
+  stageId?: Prisma.StringFieldUpdateOperationsInput | string
+  channel?: Prisma.EnumOrderChannelFieldUpdateOperationsInput | $Enums.OrderChannel
+  subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  taxTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  grandTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  priceTableId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentConditionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  creditUsed?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  paidAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  remainingAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  deliveryMethod?: Prisma.NullableEnumDeliveryMethodFieldUpdateOperationsInput | $Enums.DeliveryMethod | null
+  deliveryAddress?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  carrierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estimatedDelivery?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  needsApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  approvedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dealId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  returnOriginId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  couponId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sourceWarehouseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  assignedToUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  internalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.OrderUpdatetagsInput | string[]
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  stageEnteredAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  confirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  convertedOrders?: Prisma.OrderUncheckedUpdateManyWithoutQuoteNestedInput
+  returnedOrders?: Prisma.OrderUncheckedUpdateManyWithoutReturnOriginNestedInput
+  items?: Prisma.OrderItemUncheckedUpdateManyWithoutOrderNestedInput
+  payments?: Prisma.OrderPaymentUncheckedUpdateManyWithoutOrderNestedInput
+  deliveries?: Prisma.OrderDeliveryUncheckedUpdateManyWithoutOrderNestedInput
+  returns?: Prisma.OrderReturnUncheckedUpdateManyWithoutOrderNestedInput
+  commissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutOrderNestedInput
+  history?: Prisma.OrderHistoryUncheckedUpdateManyWithoutOrderNestedInput
+  storeCreditsReserved?: Prisma.StoreCreditUncheckedUpdateManyWithoutReservedForOrderNestedInput
+  storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
+  posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
+  posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderCreateManyAssignedToInput = {
@@ -7630,6 +7999,7 @@ export type OrderUpdateWithoutAssignedToInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderUncheckedUpdateWithoutAssignedToInput = {
@@ -7693,6 +8063,7 @@ export type OrderUncheckedUpdateWithoutAssignedToInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderUncheckedUpdateManyWithoutAssignedToInput = {
@@ -7807,6 +8178,7 @@ export type OrderUpdateWithoutApprovedByInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderUncheckedUpdateWithoutApprovedByInput = {
@@ -7870,6 +8242,7 @@ export type OrderUncheckedUpdateWithoutApprovedByInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderUncheckedUpdateManyWithoutApprovedByInput = {
@@ -8035,6 +8408,7 @@ export type OrderUpdateWithoutSourceWarehouseInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderUncheckedUpdateWithoutSourceWarehouseInput = {
@@ -8098,6 +8472,7 @@ export type OrderUncheckedUpdateWithoutSourceWarehouseInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderUncheckedUpdateManyWithoutSourceWarehouseInput = {
@@ -8263,6 +8638,7 @@ export type OrderUpdateWithoutCustomerInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderUncheckedUpdateWithoutCustomerInput = {
@@ -8326,6 +8702,7 @@ export type OrderUncheckedUpdateWithoutCustomerInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderUncheckedUpdateManyWithoutCustomerInput = {
@@ -8491,6 +8868,7 @@ export type OrderUpdateWithoutContactInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderUncheckedUpdateWithoutContactInput = {
@@ -8554,6 +8932,7 @@ export type OrderUncheckedUpdateWithoutContactInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderUncheckedUpdateManyWithoutContactInput = {
@@ -8719,6 +9098,7 @@ export type OrderUpdateWithoutPipelineInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderUncheckedUpdateWithoutPipelineInput = {
@@ -8782,6 +9162,7 @@ export type OrderUncheckedUpdateWithoutPipelineInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderUncheckedUpdateManyWithoutPipelineInput = {
@@ -8947,6 +9328,7 @@ export type OrderUpdateWithoutStageInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderUncheckedUpdateWithoutStageInput = {
@@ -9010,6 +9392,7 @@ export type OrderUncheckedUpdateWithoutStageInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderUncheckedUpdateManyWithoutStageInput = {
@@ -9175,6 +9558,7 @@ export type OrderUpdateWithoutTenantInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderUncheckedUpdateWithoutTenantInput = {
@@ -9238,6 +9622,7 @@ export type OrderUncheckedUpdateWithoutTenantInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderUncheckedUpdateManyWithoutTenantInput = {
@@ -9403,6 +9788,7 @@ export type OrderUpdateWithoutPriceTableInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderUncheckedUpdateWithoutPriceTableInput = {
@@ -9466,6 +9852,7 @@ export type OrderUncheckedUpdateWithoutPriceTableInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderUncheckedUpdateManyWithoutPriceTableInput = {
@@ -9631,6 +10018,7 @@ export type OrderUpdateWithoutCouponInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderUncheckedUpdateWithoutCouponInput = {
@@ -9694,6 +10082,7 @@ export type OrderUncheckedUpdateWithoutCouponInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderUncheckedUpdateManyWithoutCouponInput = {
@@ -9910,6 +10299,7 @@ export type OrderUpdateWithoutQuoteInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderUncheckedUpdateWithoutQuoteInput = {
@@ -9973,6 +10363,7 @@ export type OrderUncheckedUpdateWithoutQuoteInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderUncheckedUpdateManyWithoutQuoteInput = {
@@ -10087,6 +10478,7 @@ export type OrderUpdateWithoutReturnOriginInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderUncheckedUpdateWithoutReturnOriginInput = {
@@ -10150,6 +10542,7 @@ export type OrderUncheckedUpdateWithoutReturnOriginInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderUncheckedUpdateManyWithoutReturnOriginInput = {
@@ -10315,6 +10708,7 @@ export type OrderUpdateWithoutPaymentConditionInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderUncheckedUpdateWithoutPaymentConditionInput = {
@@ -10378,6 +10772,7 @@ export type OrderUncheckedUpdateWithoutPaymentConditionInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderUncheckedUpdateManyWithoutPaymentConditionInput = {
@@ -10449,6 +10844,7 @@ export type OrderCountOutputType = {
   storeCreditUsages: number
   posTransactions: number
   posVisitLogs: number
+  fiscalDocuments: number
 }
 
 export type OrderCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -10464,6 +10860,7 @@ export type OrderCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.
   storeCreditUsages?: boolean | OrderCountOutputTypeCountStoreCreditUsagesArgs
   posTransactions?: boolean | OrderCountOutputTypeCountPosTransactionsArgs
   posVisitLogs?: boolean | OrderCountOutputTypeCountPosVisitLogsArgs
+  fiscalDocuments?: boolean | OrderCountOutputTypeCountFiscalDocumentsArgs
 }
 
 /**
@@ -10560,6 +10957,13 @@ export type OrderCountOutputTypeCountPosVisitLogsArgs<ExtArgs extends runtime.Ty
   where?: Prisma.PosVisitLogWhereInput
 }
 
+/**
+ * OrderCountOutputType without action
+ */
+export type OrderCountOutputTypeCountFiscalDocumentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FiscalDocumentWhereInput
+}
+
 
 export type OrderSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -10636,6 +11040,7 @@ export type OrderSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   storeCreditUsages?: boolean | Prisma.Order$storeCreditUsagesArgs<ExtArgs>
   posTransactions?: boolean | Prisma.Order$posTransactionsArgs<ExtArgs>
   posVisitLogs?: boolean | Prisma.Order$posVisitLogsArgs<ExtArgs>
+  fiscalDocuments?: boolean | Prisma.Order$fiscalDocumentsArgs<ExtArgs>
   _count?: boolean | Prisma.OrderCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["order"]>
 
@@ -10848,6 +11253,7 @@ export type OrderInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   storeCreditUsages?: boolean | Prisma.Order$storeCreditUsagesArgs<ExtArgs>
   posTransactions?: boolean | Prisma.Order$posTransactionsArgs<ExtArgs>
   posVisitLogs?: boolean | Prisma.Order$posVisitLogsArgs<ExtArgs>
+  fiscalDocuments?: boolean | Prisma.Order$fiscalDocumentsArgs<ExtArgs>
   _count?: boolean | Prisma.OrderCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type OrderIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -10909,6 +11315,7 @@ export type $OrderPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     storeCreditUsages: Prisma.$StoreCreditUsagePayload<ExtArgs>[]
     posTransactions: Prisma.$PosTransactionPayload<ExtArgs>[]
     posVisitLogs: Prisma.$PosVisitLogPayload<ExtArgs>[]
+    fiscalDocuments: Prisma.$FiscalDocumentPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -11379,6 +11786,7 @@ export interface Prisma__OrderClient<T, Null = never, ExtArgs extends runtime.Ty
   storeCreditUsages<T extends Prisma.Order$storeCreditUsagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Order$storeCreditUsagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StoreCreditUsagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   posTransactions<T extends Prisma.Order$posTransactionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Order$posTransactionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PosTransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   posVisitLogs<T extends Prisma.Order$posVisitLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Order$posVisitLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PosVisitLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  fiscalDocuments<T extends Prisma.Order$fiscalDocumentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Order$fiscalDocumentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FiscalDocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -12309,6 +12717,30 @@ export type Order$posVisitLogsArgs<ExtArgs extends runtime.Types.Extensions.Inte
   take?: number
   skip?: number
   distinct?: Prisma.PosVisitLogScalarFieldEnum | Prisma.PosVisitLogScalarFieldEnum[]
+}
+
+/**
+ * Order.fiscalDocuments
+ */
+export type Order$fiscalDocumentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the FiscalDocument
+   */
+  select?: Prisma.FiscalDocumentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the FiscalDocument
+   */
+  omit?: Prisma.FiscalDocumentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FiscalDocumentInclude<ExtArgs> | null
+  where?: Prisma.FiscalDocumentWhereInput
+  orderBy?: Prisma.FiscalDocumentOrderByWithRelationInput | Prisma.FiscalDocumentOrderByWithRelationInput[]
+  cursor?: Prisma.FiscalDocumentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FiscalDocumentScalarFieldEnum | Prisma.FiscalDocumentScalarFieldEnum[]
 }
 
 /**

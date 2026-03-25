@@ -2803,3 +2803,147 @@ export const MarketplacePaymentStatus = {
 } as const
 
 export type MarketplacePaymentStatus = (typeof MarketplacePaymentStatus)[keyof typeof MarketplacePaymentStatus]
+
+
+export const MessagingChannel = {
+  WHATSAPP: 'WHATSAPP',
+  INSTAGRAM: 'INSTAGRAM',
+  TELEGRAM: 'TELEGRAM'
+} as const
+
+export type MessagingChannel = (typeof MessagingChannel)[keyof typeof MessagingChannel]
+
+
+export const MessagingDirection = {
+  INBOUND: 'INBOUND',
+  OUTBOUND: 'OUTBOUND'
+} as const
+
+export type MessagingDirection = (typeof MessagingDirection)[keyof typeof MessagingDirection]
+
+
+export const MessagingMessageStatus = {
+  PENDING: 'PENDING',
+  SENT: 'SENT',
+  DELIVERED: 'DELIVERED',
+  READ: 'READ',
+  FAILED: 'FAILED'
+} as const
+
+export type MessagingMessageStatus = (typeof MessagingMessageStatus)[keyof typeof MessagingMessageStatus]
+
+
+export const MessagingMessageType = {
+  TEXT: 'TEXT',
+  IMAGE: 'IMAGE',
+  VIDEO: 'VIDEO',
+  AUDIO: 'AUDIO',
+  DOCUMENT: 'DOCUMENT',
+  LOCATION: 'LOCATION',
+  TEMPLATE: 'TEMPLATE',
+  INTERACTIVE: 'INTERACTIVE',
+  STICKER: 'STICKER'
+} as const
+
+export type MessagingMessageType = (typeof MessagingMessageType)[keyof typeof MessagingMessageType]
+
+
+export const MessagingAccountStatus = {
+  ACTIVE: 'ACTIVE',
+  DISCONNECTED: 'DISCONNECTED',
+  ERROR: 'ERROR',
+  SUSPENDED: 'SUSPENDED'
+} as const
+
+export type MessagingAccountStatus = (typeof MessagingAccountStatus)[keyof typeof MessagingAccountStatus]
+
+
+export const MessagingTemplateStatus = {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED'
+} as const
+
+export type MessagingTemplateStatus = (typeof MessagingTemplateStatus)[keyof typeof MessagingTemplateStatus]
+
+
+export const MessagingTemplateCategory = {
+  MARKETING: 'MARKETING',
+  UTILITY: 'UTILITY',
+  AUTHENTICATION: 'AUTHENTICATION'
+} as const
+
+export type MessagingTemplateCategory = (typeof MessagingTemplateCategory)[keyof typeof MessagingTemplateCategory]
+
+
+export const FiscalDocumentType = {
+  NFE: 'NFE',
+  NFCE: 'NFCE',
+  NFSE: 'NFSE'
+} as const
+
+export type FiscalDocumentType = (typeof FiscalDocumentType)[keyof typeof FiscalDocumentType]
+
+
+export const FiscalDocumentStatus = {
+  DRAFT: 'DRAFT',
+  PENDING: 'PENDING',
+  AUTHORIZED: 'AUTHORIZED',
+  CANCELLED: 'CANCELLED',
+  DENIED: 'DENIED',
+  CORRECTED: 'CORRECTED',
+  INUTILIZED: 'INUTILIZED'
+} as const
+
+export type FiscalDocumentStatus = (typeof FiscalDocumentStatus)[keyof typeof FiscalDocumentStatus]
+
+
+export const FiscalEmissionType = {
+  NORMAL: 'NORMAL',
+  CONTINGENCY_SVC_AN: 'CONTINGENCY_SVC_AN',
+  CONTINGENCY_SVC_RS: 'CONTINGENCY_SVC_RS',
+  CONTINGENCY_EPEC: 'CONTINGENCY_EPEC',
+  CONTINGENCY_OFFLINE: 'CONTINGENCY_OFFLINE'
+} as const
+
+export type FiscalEmissionType = (typeof FiscalEmissionType)[keyof typeof FiscalEmissionType]
+
+
+export const FiscalEventType = {
+  AUTHORIZATION: 'AUTHORIZATION',
+  CANCELLATION: 'CANCELLATION',
+  CORRECTION_LETTER: 'CORRECTION_LETTER',
+  INUTILIZATION: 'INUTILIZATION',
+  MANIFESTATION: 'MANIFESTATION'
+} as const
+
+export type FiscalEventType = (typeof FiscalEventType)[keyof typeof FiscalEventType]
+
+
+export const FiscalProviderType = {
+  NUVEM_FISCAL: 'NUVEM_FISCAL',
+  FOCUS_NFE: 'FOCUS_NFE',
+  WEBMANIABR: 'WEBMANIABR',
+  NFEWIZARD: 'NFEWIZARD'
+} as const
+
+export type FiscalProviderType = (typeof FiscalProviderType)[keyof typeof FiscalProviderType]
+
+
+export const AiWorkflowTrigger = {
+  MANUAL: 'MANUAL',
+  CRON: 'CRON',
+  EVENT: 'EVENT'
+} as const
+
+export type AiWorkflowTrigger = (typeof AiWorkflowTrigger)[keyof typeof AiWorkflowTrigger]
+
+
+export const AiWorkflowExecutionStatus = {
+  RUNNING: 'RUNNING',
+  COMPLETED: 'COMPLETED',
+  FAILED: 'FAILED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type AiWorkflowExecutionStatus = (typeof AiWorkflowExecutionStatus)[keyof typeof AiWorkflowExecutionStatus]

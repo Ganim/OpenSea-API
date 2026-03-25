@@ -438,6 +438,21 @@ export type Bonus = Prisma.BonusModel
  */
 export type Deduction = Prisma.DeductionModel
 /**
+ * Model EmployeeDependant
+ * 
+ */
+export type EmployeeDependant = Prisma.EmployeeDependantModel
+/**
+ * Model Termination
+ * 
+ */
+export type Termination = Prisma.TerminationModel
+/**
+ * Model MedicalExam
+ * 
+ */
+export type MedicalExam = Prisma.MedicalExamModel
+/**
  * Model Company
  * 
  */
@@ -1182,3 +1197,63 @@ export type MarketplaceOrder = Prisma.MarketplaceOrderModel
  * 
  */
 export type MarketplacePayment = Prisma.MarketplacePaymentModel
+/**
+ * Model MessagingAccount
+ * 
+ */
+export type MessagingAccount = Prisma.MessagingAccountModel
+/**
+ * Model MessagingContact
+ * 
+ */
+export type MessagingContact = Prisma.MessagingContactModel
+/**
+ * Model MessagingMessage
+ * 
+ */
+export type MessagingMessage = Prisma.MessagingMessageModel
+/**
+ * Model MessagingTemplate
+ * 
+ */
+export type MessagingTemplate = Prisma.MessagingTemplateModel
+/**
+ * Model FiscalConfig
+ * 
+ */
+export type FiscalConfig = Prisma.FiscalConfigModel
+/**
+ * Model FiscalCertificate
+ * 
+ */
+export type FiscalCertificate = Prisma.FiscalCertificateModel
+/**
+ * Model FiscalDocument
+ * 
+ */
+export type FiscalDocument = Prisma.FiscalDocumentModel
+/**
+ * Model FiscalDocumentItem
+ * 
+ */
+export type FiscalDocumentItem = Prisma.FiscalDocumentItemModel
+/**
+ * Model FiscalDocumentEvent
+ * 
+ */
+export type FiscalDocumentEvent = Prisma.FiscalDocumentEventModel
+/**
+ * Model PixCharge
+ * 
+ */
+export type PixCharge = Prisma.PixChargeModel
+/**
+ * Model AiWorkflow
+ * 
+ */
+export type AiWorkflow = Prisma.AiWorkflowModel
+/**
+ * Model AiWorkflowExecution
+ * 
+ */
+export type AiWorkflowExecution = Prisma.AiWorkflowExecutionModel

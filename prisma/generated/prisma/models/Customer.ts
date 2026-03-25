@@ -382,6 +382,7 @@ export type CustomerWhereInput = {
   posVisitLogs?: Prisma.PosVisitLogListRelationFilter
   bids?: Prisma.BidListRelationFilter
   bidContracts?: Prisma.BidContractListRelationFilter
+  messagingContacts?: Prisma.MessagingContactListRelationFilter
   assignedTo?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   contacts?: Prisma.ContactListRelationFilter
   deals?: Prisma.DealListRelationFilter
@@ -435,6 +436,7 @@ export type CustomerOrderByWithRelationInput = {
   posVisitLogs?: Prisma.PosVisitLogOrderByRelationAggregateInput
   bids?: Prisma.BidOrderByRelationAggregateInput
   bidContracts?: Prisma.BidContractOrderByRelationAggregateInput
+  messagingContacts?: Prisma.MessagingContactOrderByRelationAggregateInput
   assignedTo?: Prisma.UserOrderByWithRelationInput
   contacts?: Prisma.ContactOrderByRelationAggregateInput
   deals?: Prisma.DealOrderByRelationAggregateInput
@@ -492,6 +494,7 @@ export type CustomerWhereUniqueInput = Prisma.AtLeast<{
   posVisitLogs?: Prisma.PosVisitLogListRelationFilter
   bids?: Prisma.BidListRelationFilter
   bidContracts?: Prisma.BidContractListRelationFilter
+  messagingContacts?: Prisma.MessagingContactListRelationFilter
   assignedTo?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   contacts?: Prisma.ContactListRelationFilter
   deals?: Prisma.DealListRelationFilter
@@ -613,6 +616,7 @@ export type CustomerCreateInput = {
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutCustomerInput
   bids?: Prisma.BidCreateNestedManyWithoutCustomerInput
   bidContracts?: Prisma.BidContractCreateNestedManyWithoutCustomerInput
+  messagingContacts?: Prisma.MessagingContactCreateNestedManyWithoutCustomerInput
   assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedCustomersInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealCreateNestedManyWithoutCustomerInput
@@ -665,6 +669,7 @@ export type CustomerUncheckedCreateInput = {
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutCustomerInput
   bids?: Prisma.BidUncheckedCreateNestedManyWithoutCustomerInput
   bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutCustomerInput
+  messagingContacts?: Prisma.MessagingContactUncheckedCreateNestedManyWithoutCustomerInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealUncheckedCreateNestedManyWithoutCustomerInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCustomerInput
@@ -715,6 +720,7 @@ export type CustomerUpdateInput = {
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutCustomerNestedInput
   bids?: Prisma.BidUpdateManyWithoutCustomerNestedInput
   bidContracts?: Prisma.BidContractUpdateManyWithoutCustomerNestedInput
+  messagingContacts?: Prisma.MessagingContactUpdateManyWithoutCustomerNestedInput
   assignedTo?: Prisma.UserUpdateOneWithoutAssignedCustomersNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUpdateManyWithoutCustomerNestedInput
@@ -767,6 +773,7 @@ export type CustomerUncheckedUpdateInput = {
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutCustomerNestedInput
   bids?: Prisma.BidUncheckedUpdateManyWithoutCustomerNestedInput
   bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutCustomerNestedInput
+  messagingContacts?: Prisma.MessagingContactUncheckedUpdateManyWithoutCustomerNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUncheckedUpdateManyWithoutCustomerNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCustomerNestedInput
@@ -1364,6 +1371,22 @@ export type CustomerUpdateOneRequiredWithoutBidContractsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CustomerUpdateToOneWithWhereWithoutBidContractsInput, Prisma.CustomerUpdateWithoutBidContractsInput>, Prisma.CustomerUncheckedUpdateWithoutBidContractsInput>
 }
 
+export type CustomerCreateNestedOneWithoutMessagingContactsInput = {
+  create?: Prisma.XOR<Prisma.CustomerCreateWithoutMessagingContactsInput, Prisma.CustomerUncheckedCreateWithoutMessagingContactsInput>
+  connectOrCreate?: Prisma.CustomerCreateOrConnectWithoutMessagingContactsInput
+  connect?: Prisma.CustomerWhereUniqueInput
+}
+
+export type CustomerUpdateOneWithoutMessagingContactsNestedInput = {
+  create?: Prisma.XOR<Prisma.CustomerCreateWithoutMessagingContactsInput, Prisma.CustomerUncheckedCreateWithoutMessagingContactsInput>
+  connectOrCreate?: Prisma.CustomerCreateOrConnectWithoutMessagingContactsInput
+  upsert?: Prisma.CustomerUpsertWithoutMessagingContactsInput
+  disconnect?: Prisma.CustomerWhereInput | boolean
+  delete?: Prisma.CustomerWhereInput | boolean
+  connect?: Prisma.CustomerWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CustomerUpdateToOneWithWhereWithoutMessagingContactsInput, Prisma.CustomerUpdateWithoutMessagingContactsInput>, Prisma.CustomerUncheckedUpdateWithoutMessagingContactsInput>
+}
+
 export type CustomerCreateWithoutAssignedToInput = {
   id?: string
   name: string
@@ -1408,6 +1431,7 @@ export type CustomerCreateWithoutAssignedToInput = {
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutCustomerInput
   bids?: Prisma.BidCreateNestedManyWithoutCustomerInput
   bidContracts?: Prisma.BidContractCreateNestedManyWithoutCustomerInput
+  messagingContacts?: Prisma.MessagingContactCreateNestedManyWithoutCustomerInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealCreateNestedManyWithoutCustomerInput
   activities?: Prisma.ActivityCreateNestedManyWithoutCustomerInput
@@ -1458,6 +1482,7 @@ export type CustomerUncheckedCreateWithoutAssignedToInput = {
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutCustomerInput
   bids?: Prisma.BidUncheckedCreateNestedManyWithoutCustomerInput
   bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutCustomerInput
+  messagingContacts?: Prisma.MessagingContactUncheckedCreateNestedManyWithoutCustomerInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealUncheckedCreateNestedManyWithoutCustomerInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCustomerInput
@@ -1568,6 +1593,7 @@ export type CustomerCreateWithoutSalesOrdersInput = {
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutCustomerInput
   bids?: Prisma.BidCreateNestedManyWithoutCustomerInput
   bidContracts?: Prisma.BidContractCreateNestedManyWithoutCustomerInput
+  messagingContacts?: Prisma.MessagingContactCreateNestedManyWithoutCustomerInput
   assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedCustomersInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealCreateNestedManyWithoutCustomerInput
@@ -1619,6 +1645,7 @@ export type CustomerUncheckedCreateWithoutSalesOrdersInput = {
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutCustomerInput
   bids?: Prisma.BidUncheckedCreateNestedManyWithoutCustomerInput
   bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutCustomerInput
+  messagingContacts?: Prisma.MessagingContactUncheckedCreateNestedManyWithoutCustomerInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealUncheckedCreateNestedManyWithoutCustomerInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCustomerInput
@@ -1684,6 +1711,7 @@ export type CustomerUpdateWithoutSalesOrdersInput = {
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutCustomerNestedInput
   bids?: Prisma.BidUpdateManyWithoutCustomerNestedInput
   bidContracts?: Prisma.BidContractUpdateManyWithoutCustomerNestedInput
+  messagingContacts?: Prisma.MessagingContactUpdateManyWithoutCustomerNestedInput
   assignedTo?: Prisma.UserUpdateOneWithoutAssignedCustomersNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUpdateManyWithoutCustomerNestedInput
@@ -1735,6 +1763,7 @@ export type CustomerUncheckedUpdateWithoutSalesOrdersInput = {
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutCustomerNestedInput
   bids?: Prisma.BidUncheckedUpdateManyWithoutCustomerNestedInput
   bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutCustomerNestedInput
+  messagingContacts?: Prisma.MessagingContactUncheckedUpdateManyWithoutCustomerNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUncheckedUpdateManyWithoutCustomerNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCustomerNestedInput
@@ -1784,6 +1813,7 @@ export type CustomerCreateWithoutCrmContactsInput = {
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutCustomerInput
   bids?: Prisma.BidCreateNestedManyWithoutCustomerInput
   bidContracts?: Prisma.BidContractCreateNestedManyWithoutCustomerInput
+  messagingContacts?: Prisma.MessagingContactCreateNestedManyWithoutCustomerInput
   assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedCustomersInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealCreateNestedManyWithoutCustomerInput
@@ -1835,6 +1865,7 @@ export type CustomerUncheckedCreateWithoutCrmContactsInput = {
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutCustomerInput
   bids?: Prisma.BidUncheckedCreateNestedManyWithoutCustomerInput
   bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutCustomerInput
+  messagingContacts?: Prisma.MessagingContactUncheckedCreateNestedManyWithoutCustomerInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealUncheckedCreateNestedManyWithoutCustomerInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCustomerInput
@@ -1900,6 +1931,7 @@ export type CustomerUpdateWithoutCrmContactsInput = {
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutCustomerNestedInput
   bids?: Prisma.BidUpdateManyWithoutCustomerNestedInput
   bidContracts?: Prisma.BidContractUpdateManyWithoutCustomerNestedInput
+  messagingContacts?: Prisma.MessagingContactUpdateManyWithoutCustomerNestedInput
   assignedTo?: Prisma.UserUpdateOneWithoutAssignedCustomersNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUpdateManyWithoutCustomerNestedInput
@@ -1951,6 +1983,7 @@ export type CustomerUncheckedUpdateWithoutCrmContactsInput = {
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutCustomerNestedInput
   bids?: Prisma.BidUncheckedUpdateManyWithoutCustomerNestedInput
   bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutCustomerNestedInput
+  messagingContacts?: Prisma.MessagingContactUncheckedUpdateManyWithoutCustomerNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUncheckedUpdateManyWithoutCustomerNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCustomerNestedInput
@@ -2000,6 +2033,7 @@ export type CustomerCreateWithoutCrmDealsInput = {
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutCustomerInput
   bids?: Prisma.BidCreateNestedManyWithoutCustomerInput
   bidContracts?: Prisma.BidContractCreateNestedManyWithoutCustomerInput
+  messagingContacts?: Prisma.MessagingContactCreateNestedManyWithoutCustomerInput
   assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedCustomersInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealCreateNestedManyWithoutCustomerInput
@@ -2051,6 +2085,7 @@ export type CustomerUncheckedCreateWithoutCrmDealsInput = {
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutCustomerInput
   bids?: Prisma.BidUncheckedCreateNestedManyWithoutCustomerInput
   bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutCustomerInput
+  messagingContacts?: Prisma.MessagingContactUncheckedCreateNestedManyWithoutCustomerInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealUncheckedCreateNestedManyWithoutCustomerInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCustomerInput
@@ -2116,6 +2151,7 @@ export type CustomerUpdateWithoutCrmDealsInput = {
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutCustomerNestedInput
   bids?: Prisma.BidUpdateManyWithoutCustomerNestedInput
   bidContracts?: Prisma.BidContractUpdateManyWithoutCustomerNestedInput
+  messagingContacts?: Prisma.MessagingContactUpdateManyWithoutCustomerNestedInput
   assignedTo?: Prisma.UserUpdateOneWithoutAssignedCustomersNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUpdateManyWithoutCustomerNestedInput
@@ -2167,6 +2203,7 @@ export type CustomerUncheckedUpdateWithoutCrmDealsInput = {
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutCustomerNestedInput
   bids?: Prisma.BidUncheckedUpdateManyWithoutCustomerNestedInput
   bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutCustomerNestedInput
+  messagingContacts?: Prisma.MessagingContactUncheckedUpdateManyWithoutCustomerNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUncheckedUpdateManyWithoutCustomerNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCustomerNestedInput
@@ -2217,6 +2254,7 @@ export type CustomerCreateWithoutContactsInput = {
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutCustomerInput
   bids?: Prisma.BidCreateNestedManyWithoutCustomerInput
   bidContracts?: Prisma.BidContractCreateNestedManyWithoutCustomerInput
+  messagingContacts?: Prisma.MessagingContactCreateNestedManyWithoutCustomerInput
   assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedCustomersInput
   deals?: Prisma.DealCreateNestedManyWithoutCustomerInput
   activities?: Prisma.ActivityCreateNestedManyWithoutCustomerInput
@@ -2268,6 +2306,7 @@ export type CustomerUncheckedCreateWithoutContactsInput = {
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutCustomerInput
   bids?: Prisma.BidUncheckedCreateNestedManyWithoutCustomerInput
   bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutCustomerInput
+  messagingContacts?: Prisma.MessagingContactUncheckedCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealUncheckedCreateNestedManyWithoutCustomerInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCustomerInput
   timelineEvents?: Prisma.TimelineEventUncheckedCreateNestedManyWithoutCustomerInput
@@ -2333,6 +2372,7 @@ export type CustomerUpdateWithoutContactsInput = {
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutCustomerNestedInput
   bids?: Prisma.BidUpdateManyWithoutCustomerNestedInput
   bidContracts?: Prisma.BidContractUpdateManyWithoutCustomerNestedInput
+  messagingContacts?: Prisma.MessagingContactUpdateManyWithoutCustomerNestedInput
   assignedTo?: Prisma.UserUpdateOneWithoutAssignedCustomersNestedInput
   deals?: Prisma.DealUpdateManyWithoutCustomerNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutCustomerNestedInput
@@ -2384,6 +2424,7 @@ export type CustomerUncheckedUpdateWithoutContactsInput = {
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutCustomerNestedInput
   bids?: Prisma.BidUncheckedUpdateManyWithoutCustomerNestedInput
   bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutCustomerNestedInput
+  messagingContacts?: Prisma.MessagingContactUncheckedUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUncheckedUpdateManyWithoutCustomerNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCustomerNestedInput
   timelineEvents?: Prisma.TimelineEventUncheckedUpdateManyWithoutCustomerNestedInput
@@ -2433,6 +2474,7 @@ export type CustomerCreateWithoutDealsInput = {
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutCustomerInput
   bids?: Prisma.BidCreateNestedManyWithoutCustomerInput
   bidContracts?: Prisma.BidContractCreateNestedManyWithoutCustomerInput
+  messagingContacts?: Prisma.MessagingContactCreateNestedManyWithoutCustomerInput
   assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedCustomersInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCustomerInput
   activities?: Prisma.ActivityCreateNestedManyWithoutCustomerInput
@@ -2484,6 +2526,7 @@ export type CustomerUncheckedCreateWithoutDealsInput = {
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutCustomerInput
   bids?: Prisma.BidUncheckedCreateNestedManyWithoutCustomerInput
   bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutCustomerInput
+  messagingContacts?: Prisma.MessagingContactUncheckedCreateNestedManyWithoutCustomerInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCustomerInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCustomerInput
   timelineEvents?: Prisma.TimelineEventUncheckedCreateNestedManyWithoutCustomerInput
@@ -2549,6 +2592,7 @@ export type CustomerUpdateWithoutDealsInput = {
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutCustomerNestedInput
   bids?: Prisma.BidUpdateManyWithoutCustomerNestedInput
   bidContracts?: Prisma.BidContractUpdateManyWithoutCustomerNestedInput
+  messagingContacts?: Prisma.MessagingContactUpdateManyWithoutCustomerNestedInput
   assignedTo?: Prisma.UserUpdateOneWithoutAssignedCustomersNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCustomerNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutCustomerNestedInput
@@ -2600,6 +2644,7 @@ export type CustomerUncheckedUpdateWithoutDealsInput = {
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutCustomerNestedInput
   bids?: Prisma.BidUncheckedUpdateManyWithoutCustomerNestedInput
   bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutCustomerNestedInput
+  messagingContacts?: Prisma.MessagingContactUncheckedUpdateManyWithoutCustomerNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCustomerNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCustomerNestedInput
   timelineEvents?: Prisma.TimelineEventUncheckedUpdateManyWithoutCustomerNestedInput
@@ -2649,6 +2694,7 @@ export type CustomerCreateWithoutActivitiesInput = {
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutCustomerInput
   bids?: Prisma.BidCreateNestedManyWithoutCustomerInput
   bidContracts?: Prisma.BidContractCreateNestedManyWithoutCustomerInput
+  messagingContacts?: Prisma.MessagingContactCreateNestedManyWithoutCustomerInput
   assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedCustomersInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealCreateNestedManyWithoutCustomerInput
@@ -2700,6 +2746,7 @@ export type CustomerUncheckedCreateWithoutActivitiesInput = {
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutCustomerInput
   bids?: Prisma.BidUncheckedCreateNestedManyWithoutCustomerInput
   bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutCustomerInput
+  messagingContacts?: Prisma.MessagingContactUncheckedCreateNestedManyWithoutCustomerInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealUncheckedCreateNestedManyWithoutCustomerInput
   timelineEvents?: Prisma.TimelineEventUncheckedCreateNestedManyWithoutCustomerInput
@@ -2765,6 +2812,7 @@ export type CustomerUpdateWithoutActivitiesInput = {
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutCustomerNestedInput
   bids?: Prisma.BidUpdateManyWithoutCustomerNestedInput
   bidContracts?: Prisma.BidContractUpdateManyWithoutCustomerNestedInput
+  messagingContacts?: Prisma.MessagingContactUpdateManyWithoutCustomerNestedInput
   assignedTo?: Prisma.UserUpdateOneWithoutAssignedCustomersNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUpdateManyWithoutCustomerNestedInput
@@ -2816,6 +2864,7 @@ export type CustomerUncheckedUpdateWithoutActivitiesInput = {
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutCustomerNestedInput
   bids?: Prisma.BidUncheckedUpdateManyWithoutCustomerNestedInput
   bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutCustomerNestedInput
+  messagingContacts?: Prisma.MessagingContactUncheckedUpdateManyWithoutCustomerNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUncheckedUpdateManyWithoutCustomerNestedInput
   timelineEvents?: Prisma.TimelineEventUncheckedUpdateManyWithoutCustomerNestedInput
@@ -2865,6 +2914,7 @@ export type CustomerCreateWithoutTimelineEventsInput = {
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutCustomerInput
   bids?: Prisma.BidCreateNestedManyWithoutCustomerInput
   bidContracts?: Prisma.BidContractCreateNestedManyWithoutCustomerInput
+  messagingContacts?: Prisma.MessagingContactCreateNestedManyWithoutCustomerInput
   assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedCustomersInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealCreateNestedManyWithoutCustomerInput
@@ -2916,6 +2966,7 @@ export type CustomerUncheckedCreateWithoutTimelineEventsInput = {
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutCustomerInput
   bids?: Prisma.BidUncheckedCreateNestedManyWithoutCustomerInput
   bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutCustomerInput
+  messagingContacts?: Prisma.MessagingContactUncheckedCreateNestedManyWithoutCustomerInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealUncheckedCreateNestedManyWithoutCustomerInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCustomerInput
@@ -2981,6 +3032,7 @@ export type CustomerUpdateWithoutTimelineEventsInput = {
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutCustomerNestedInput
   bids?: Prisma.BidUpdateManyWithoutCustomerNestedInput
   bidContracts?: Prisma.BidContractUpdateManyWithoutCustomerNestedInput
+  messagingContacts?: Prisma.MessagingContactUpdateManyWithoutCustomerNestedInput
   assignedTo?: Prisma.UserUpdateOneWithoutAssignedCustomersNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUpdateManyWithoutCustomerNestedInput
@@ -3032,6 +3084,7 @@ export type CustomerUncheckedUpdateWithoutTimelineEventsInput = {
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutCustomerNestedInput
   bids?: Prisma.BidUncheckedUpdateManyWithoutCustomerNestedInput
   bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutCustomerNestedInput
+  messagingContacts?: Prisma.MessagingContactUncheckedUpdateManyWithoutCustomerNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUncheckedUpdateManyWithoutCustomerNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCustomerNestedInput
@@ -3080,6 +3133,7 @@ export type CustomerCreateWithoutTenantInput = {
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutCustomerInput
   bids?: Prisma.BidCreateNestedManyWithoutCustomerInput
   bidContracts?: Prisma.BidContractCreateNestedManyWithoutCustomerInput
+  messagingContacts?: Prisma.MessagingContactCreateNestedManyWithoutCustomerInput
   assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedCustomersInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealCreateNestedManyWithoutCustomerInput
@@ -3131,6 +3185,7 @@ export type CustomerUncheckedCreateWithoutTenantInput = {
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutCustomerInput
   bids?: Prisma.BidUncheckedCreateNestedManyWithoutCustomerInput
   bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutCustomerInput
+  messagingContacts?: Prisma.MessagingContactUncheckedCreateNestedManyWithoutCustomerInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealUncheckedCreateNestedManyWithoutCustomerInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCustomerInput
@@ -3206,6 +3261,7 @@ export type CustomerCreateWithoutCustomerPricesInput = {
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutCustomerInput
   bids?: Prisma.BidCreateNestedManyWithoutCustomerInput
   bidContracts?: Prisma.BidContractCreateNestedManyWithoutCustomerInput
+  messagingContacts?: Prisma.MessagingContactCreateNestedManyWithoutCustomerInput
   assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedCustomersInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealCreateNestedManyWithoutCustomerInput
@@ -3257,6 +3313,7 @@ export type CustomerUncheckedCreateWithoutCustomerPricesInput = {
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutCustomerInput
   bids?: Prisma.BidUncheckedCreateNestedManyWithoutCustomerInput
   bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutCustomerInput
+  messagingContacts?: Prisma.MessagingContactUncheckedCreateNestedManyWithoutCustomerInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealUncheckedCreateNestedManyWithoutCustomerInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCustomerInput
@@ -3322,6 +3379,7 @@ export type CustomerUpdateWithoutCustomerPricesInput = {
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutCustomerNestedInput
   bids?: Prisma.BidUpdateManyWithoutCustomerNestedInput
   bidContracts?: Prisma.BidContractUpdateManyWithoutCustomerNestedInput
+  messagingContacts?: Prisma.MessagingContactUpdateManyWithoutCustomerNestedInput
   assignedTo?: Prisma.UserUpdateOneWithoutAssignedCustomersNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUpdateManyWithoutCustomerNestedInput
@@ -3373,6 +3431,7 @@ export type CustomerUncheckedUpdateWithoutCustomerPricesInput = {
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutCustomerNestedInput
   bids?: Prisma.BidUncheckedUpdateManyWithoutCustomerNestedInput
   bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutCustomerNestedInput
+  messagingContacts?: Prisma.MessagingContactUncheckedUpdateManyWithoutCustomerNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUncheckedUpdateManyWithoutCustomerNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCustomerNestedInput
@@ -3422,6 +3481,7 @@ export type CustomerCreateWithoutCouponsInput = {
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutCustomerInput
   bids?: Prisma.BidCreateNestedManyWithoutCustomerInput
   bidContracts?: Prisma.BidContractCreateNestedManyWithoutCustomerInput
+  messagingContacts?: Prisma.MessagingContactCreateNestedManyWithoutCustomerInput
   assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedCustomersInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealCreateNestedManyWithoutCustomerInput
@@ -3473,6 +3533,7 @@ export type CustomerUncheckedCreateWithoutCouponsInput = {
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutCustomerInput
   bids?: Prisma.BidUncheckedCreateNestedManyWithoutCustomerInput
   bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutCustomerInput
+  messagingContacts?: Prisma.MessagingContactUncheckedCreateNestedManyWithoutCustomerInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealUncheckedCreateNestedManyWithoutCustomerInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCustomerInput
@@ -3538,6 +3599,7 @@ export type CustomerUpdateWithoutCouponsInput = {
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutCustomerNestedInput
   bids?: Prisma.BidUpdateManyWithoutCustomerNestedInput
   bidContracts?: Prisma.BidContractUpdateManyWithoutCustomerNestedInput
+  messagingContacts?: Prisma.MessagingContactUpdateManyWithoutCustomerNestedInput
   assignedTo?: Prisma.UserUpdateOneWithoutAssignedCustomersNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUpdateManyWithoutCustomerNestedInput
@@ -3589,6 +3651,7 @@ export type CustomerUncheckedUpdateWithoutCouponsInput = {
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutCustomerNestedInput
   bids?: Prisma.BidUncheckedUpdateManyWithoutCustomerNestedInput
   bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutCustomerNestedInput
+  messagingContacts?: Prisma.MessagingContactUncheckedUpdateManyWithoutCustomerNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUncheckedUpdateManyWithoutCustomerNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCustomerNestedInput
@@ -3638,6 +3701,7 @@ export type CustomerCreateWithoutCouponUsagesInput = {
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutCustomerInput
   bids?: Prisma.BidCreateNestedManyWithoutCustomerInput
   bidContracts?: Prisma.BidContractCreateNestedManyWithoutCustomerInput
+  messagingContacts?: Prisma.MessagingContactCreateNestedManyWithoutCustomerInput
   assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedCustomersInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealCreateNestedManyWithoutCustomerInput
@@ -3689,6 +3753,7 @@ export type CustomerUncheckedCreateWithoutCouponUsagesInput = {
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutCustomerInput
   bids?: Prisma.BidUncheckedCreateNestedManyWithoutCustomerInput
   bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutCustomerInput
+  messagingContacts?: Prisma.MessagingContactUncheckedCreateNestedManyWithoutCustomerInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealUncheckedCreateNestedManyWithoutCustomerInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCustomerInput
@@ -3754,6 +3819,7 @@ export type CustomerUpdateWithoutCouponUsagesInput = {
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutCustomerNestedInput
   bids?: Prisma.BidUpdateManyWithoutCustomerNestedInput
   bidContracts?: Prisma.BidContractUpdateManyWithoutCustomerNestedInput
+  messagingContacts?: Prisma.MessagingContactUpdateManyWithoutCustomerNestedInput
   assignedTo?: Prisma.UserUpdateOneWithoutAssignedCustomersNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUpdateManyWithoutCustomerNestedInput
@@ -3805,6 +3871,7 @@ export type CustomerUncheckedUpdateWithoutCouponUsagesInput = {
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutCustomerNestedInput
   bids?: Prisma.BidUncheckedUpdateManyWithoutCustomerNestedInput
   bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutCustomerNestedInput
+  messagingContacts?: Prisma.MessagingContactUncheckedUpdateManyWithoutCustomerNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUncheckedUpdateManyWithoutCustomerNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCustomerNestedInput
@@ -3854,6 +3921,7 @@ export type CustomerCreateWithoutCatalogsInput = {
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutCustomerInput
   bids?: Prisma.BidCreateNestedManyWithoutCustomerInput
   bidContracts?: Prisma.BidContractCreateNestedManyWithoutCustomerInput
+  messagingContacts?: Prisma.MessagingContactCreateNestedManyWithoutCustomerInput
   assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedCustomersInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealCreateNestedManyWithoutCustomerInput
@@ -3905,6 +3973,7 @@ export type CustomerUncheckedCreateWithoutCatalogsInput = {
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutCustomerInput
   bids?: Prisma.BidUncheckedCreateNestedManyWithoutCustomerInput
   bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutCustomerInput
+  messagingContacts?: Prisma.MessagingContactUncheckedCreateNestedManyWithoutCustomerInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealUncheckedCreateNestedManyWithoutCustomerInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCustomerInput
@@ -3970,6 +4039,7 @@ export type CustomerUpdateWithoutCatalogsInput = {
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutCustomerNestedInput
   bids?: Prisma.BidUpdateManyWithoutCustomerNestedInput
   bidContracts?: Prisma.BidContractUpdateManyWithoutCustomerNestedInput
+  messagingContacts?: Prisma.MessagingContactUpdateManyWithoutCustomerNestedInput
   assignedTo?: Prisma.UserUpdateOneWithoutAssignedCustomersNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUpdateManyWithoutCustomerNestedInput
@@ -4021,6 +4091,7 @@ export type CustomerUncheckedUpdateWithoutCatalogsInput = {
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutCustomerNestedInput
   bids?: Prisma.BidUncheckedUpdateManyWithoutCustomerNestedInput
   bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutCustomerNestedInput
+  messagingContacts?: Prisma.MessagingContactUncheckedUpdateManyWithoutCustomerNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUncheckedUpdateManyWithoutCustomerNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCustomerNestedInput
@@ -4070,6 +4141,7 @@ export type CustomerCreateWithoutOrdersInput = {
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutCustomerInput
   bids?: Prisma.BidCreateNestedManyWithoutCustomerInput
   bidContracts?: Prisma.BidContractCreateNestedManyWithoutCustomerInput
+  messagingContacts?: Prisma.MessagingContactCreateNestedManyWithoutCustomerInput
   assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedCustomersInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealCreateNestedManyWithoutCustomerInput
@@ -4121,6 +4193,7 @@ export type CustomerUncheckedCreateWithoutOrdersInput = {
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutCustomerInput
   bids?: Prisma.BidUncheckedCreateNestedManyWithoutCustomerInput
   bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutCustomerInput
+  messagingContacts?: Prisma.MessagingContactUncheckedCreateNestedManyWithoutCustomerInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealUncheckedCreateNestedManyWithoutCustomerInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCustomerInput
@@ -4186,6 +4259,7 @@ export type CustomerUpdateWithoutOrdersInput = {
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutCustomerNestedInput
   bids?: Prisma.BidUpdateManyWithoutCustomerNestedInput
   bidContracts?: Prisma.BidContractUpdateManyWithoutCustomerNestedInput
+  messagingContacts?: Prisma.MessagingContactUpdateManyWithoutCustomerNestedInput
   assignedTo?: Prisma.UserUpdateOneWithoutAssignedCustomersNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUpdateManyWithoutCustomerNestedInput
@@ -4237,6 +4311,7 @@ export type CustomerUncheckedUpdateWithoutOrdersInput = {
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutCustomerNestedInput
   bids?: Prisma.BidUncheckedUpdateManyWithoutCustomerNestedInput
   bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutCustomerNestedInput
+  messagingContacts?: Prisma.MessagingContactUncheckedUpdateManyWithoutCustomerNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUncheckedUpdateManyWithoutCustomerNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCustomerNestedInput
@@ -4286,6 +4361,7 @@ export type CustomerCreateWithoutStoreCreditsInput = {
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutCustomerInput
   bids?: Prisma.BidCreateNestedManyWithoutCustomerInput
   bidContracts?: Prisma.BidContractCreateNestedManyWithoutCustomerInput
+  messagingContacts?: Prisma.MessagingContactCreateNestedManyWithoutCustomerInput
   assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedCustomersInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealCreateNestedManyWithoutCustomerInput
@@ -4337,6 +4413,7 @@ export type CustomerUncheckedCreateWithoutStoreCreditsInput = {
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutCustomerInput
   bids?: Prisma.BidUncheckedCreateNestedManyWithoutCustomerInput
   bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutCustomerInput
+  messagingContacts?: Prisma.MessagingContactUncheckedCreateNestedManyWithoutCustomerInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealUncheckedCreateNestedManyWithoutCustomerInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCustomerInput
@@ -4402,6 +4479,7 @@ export type CustomerUpdateWithoutStoreCreditsInput = {
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutCustomerNestedInput
   bids?: Prisma.BidUpdateManyWithoutCustomerNestedInput
   bidContracts?: Prisma.BidContractUpdateManyWithoutCustomerNestedInput
+  messagingContacts?: Prisma.MessagingContactUpdateManyWithoutCustomerNestedInput
   assignedTo?: Prisma.UserUpdateOneWithoutAssignedCustomersNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUpdateManyWithoutCustomerNestedInput
@@ -4453,6 +4531,7 @@ export type CustomerUncheckedUpdateWithoutStoreCreditsInput = {
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutCustomerNestedInput
   bids?: Prisma.BidUncheckedUpdateManyWithoutCustomerNestedInput
   bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutCustomerNestedInput
+  messagingContacts?: Prisma.MessagingContactUncheckedUpdateManyWithoutCustomerNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUncheckedUpdateManyWithoutCustomerNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCustomerNestedInput
@@ -4502,6 +4581,7 @@ export type CustomerCreateWithoutCustomerCreditLimitsInput = {
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutCustomerInput
   bids?: Prisma.BidCreateNestedManyWithoutCustomerInput
   bidContracts?: Prisma.BidContractCreateNestedManyWithoutCustomerInput
+  messagingContacts?: Prisma.MessagingContactCreateNestedManyWithoutCustomerInput
   assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedCustomersInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealCreateNestedManyWithoutCustomerInput
@@ -4553,6 +4633,7 @@ export type CustomerUncheckedCreateWithoutCustomerCreditLimitsInput = {
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutCustomerInput
   bids?: Prisma.BidUncheckedCreateNestedManyWithoutCustomerInput
   bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutCustomerInput
+  messagingContacts?: Prisma.MessagingContactUncheckedCreateNestedManyWithoutCustomerInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealUncheckedCreateNestedManyWithoutCustomerInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCustomerInput
@@ -4618,6 +4699,7 @@ export type CustomerUpdateWithoutCustomerCreditLimitsInput = {
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutCustomerNestedInput
   bids?: Prisma.BidUpdateManyWithoutCustomerNestedInput
   bidContracts?: Prisma.BidContractUpdateManyWithoutCustomerNestedInput
+  messagingContacts?: Prisma.MessagingContactUpdateManyWithoutCustomerNestedInput
   assignedTo?: Prisma.UserUpdateOneWithoutAssignedCustomersNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUpdateManyWithoutCustomerNestedInput
@@ -4669,6 +4751,7 @@ export type CustomerUncheckedUpdateWithoutCustomerCreditLimitsInput = {
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutCustomerNestedInput
   bids?: Prisma.BidUncheckedUpdateManyWithoutCustomerNestedInput
   bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutCustomerNestedInput
+  messagingContacts?: Prisma.MessagingContactUncheckedUpdateManyWithoutCustomerNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUncheckedUpdateManyWithoutCustomerNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCustomerNestedInput
@@ -4718,6 +4801,7 @@ export type CustomerCreateWithoutPortalAccessesInput = {
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutCustomerInput
   bids?: Prisma.BidCreateNestedManyWithoutCustomerInput
   bidContracts?: Prisma.BidContractCreateNestedManyWithoutCustomerInput
+  messagingContacts?: Prisma.MessagingContactCreateNestedManyWithoutCustomerInput
   assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedCustomersInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealCreateNestedManyWithoutCustomerInput
@@ -4769,6 +4853,7 @@ export type CustomerUncheckedCreateWithoutPortalAccessesInput = {
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutCustomerInput
   bids?: Prisma.BidUncheckedCreateNestedManyWithoutCustomerInput
   bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutCustomerInput
+  messagingContacts?: Prisma.MessagingContactUncheckedCreateNestedManyWithoutCustomerInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealUncheckedCreateNestedManyWithoutCustomerInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCustomerInput
@@ -4834,6 +4919,7 @@ export type CustomerUpdateWithoutPortalAccessesInput = {
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutCustomerNestedInput
   bids?: Prisma.BidUpdateManyWithoutCustomerNestedInput
   bidContracts?: Prisma.BidContractUpdateManyWithoutCustomerNestedInput
+  messagingContacts?: Prisma.MessagingContactUpdateManyWithoutCustomerNestedInput
   assignedTo?: Prisma.UserUpdateOneWithoutAssignedCustomersNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUpdateManyWithoutCustomerNestedInput
@@ -4885,6 +4971,7 @@ export type CustomerUncheckedUpdateWithoutPortalAccessesInput = {
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutCustomerNestedInput
   bids?: Prisma.BidUncheckedUpdateManyWithoutCustomerNestedInput
   bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutCustomerNestedInput
+  messagingContacts?: Prisma.MessagingContactUncheckedUpdateManyWithoutCustomerNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUncheckedUpdateManyWithoutCustomerNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCustomerNestedInput
@@ -4934,6 +5021,7 @@ export type CustomerCreateWithoutPosTransactionsInput = {
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutCustomerInput
   bids?: Prisma.BidCreateNestedManyWithoutCustomerInput
   bidContracts?: Prisma.BidContractCreateNestedManyWithoutCustomerInput
+  messagingContacts?: Prisma.MessagingContactCreateNestedManyWithoutCustomerInput
   assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedCustomersInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealCreateNestedManyWithoutCustomerInput
@@ -4985,6 +5073,7 @@ export type CustomerUncheckedCreateWithoutPosTransactionsInput = {
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutCustomerInput
   bids?: Prisma.BidUncheckedCreateNestedManyWithoutCustomerInput
   bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutCustomerInput
+  messagingContacts?: Prisma.MessagingContactUncheckedCreateNestedManyWithoutCustomerInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealUncheckedCreateNestedManyWithoutCustomerInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCustomerInput
@@ -5050,6 +5139,7 @@ export type CustomerUpdateWithoutPosTransactionsInput = {
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutCustomerNestedInput
   bids?: Prisma.BidUpdateManyWithoutCustomerNestedInput
   bidContracts?: Prisma.BidContractUpdateManyWithoutCustomerNestedInput
+  messagingContacts?: Prisma.MessagingContactUpdateManyWithoutCustomerNestedInput
   assignedTo?: Prisma.UserUpdateOneWithoutAssignedCustomersNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUpdateManyWithoutCustomerNestedInput
@@ -5101,6 +5191,7 @@ export type CustomerUncheckedUpdateWithoutPosTransactionsInput = {
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutCustomerNestedInput
   bids?: Prisma.BidUncheckedUpdateManyWithoutCustomerNestedInput
   bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutCustomerNestedInput
+  messagingContacts?: Prisma.MessagingContactUncheckedUpdateManyWithoutCustomerNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUncheckedUpdateManyWithoutCustomerNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCustomerNestedInput
@@ -5150,6 +5241,7 @@ export type CustomerCreateWithoutPosVisitLogsInput = {
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutCustomerInput
   bids?: Prisma.BidCreateNestedManyWithoutCustomerInput
   bidContracts?: Prisma.BidContractCreateNestedManyWithoutCustomerInput
+  messagingContacts?: Prisma.MessagingContactCreateNestedManyWithoutCustomerInput
   assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedCustomersInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealCreateNestedManyWithoutCustomerInput
@@ -5201,6 +5293,7 @@ export type CustomerUncheckedCreateWithoutPosVisitLogsInput = {
   posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutCustomerInput
   bids?: Prisma.BidUncheckedCreateNestedManyWithoutCustomerInput
   bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutCustomerInput
+  messagingContacts?: Prisma.MessagingContactUncheckedCreateNestedManyWithoutCustomerInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealUncheckedCreateNestedManyWithoutCustomerInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCustomerInput
@@ -5266,6 +5359,7 @@ export type CustomerUpdateWithoutPosVisitLogsInput = {
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutCustomerNestedInput
   bids?: Prisma.BidUpdateManyWithoutCustomerNestedInput
   bidContracts?: Prisma.BidContractUpdateManyWithoutCustomerNestedInput
+  messagingContacts?: Prisma.MessagingContactUpdateManyWithoutCustomerNestedInput
   assignedTo?: Prisma.UserUpdateOneWithoutAssignedCustomersNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUpdateManyWithoutCustomerNestedInput
@@ -5317,6 +5411,7 @@ export type CustomerUncheckedUpdateWithoutPosVisitLogsInput = {
   posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutCustomerNestedInput
   bids?: Prisma.BidUncheckedUpdateManyWithoutCustomerNestedInput
   bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutCustomerNestedInput
+  messagingContacts?: Prisma.MessagingContactUncheckedUpdateManyWithoutCustomerNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUncheckedUpdateManyWithoutCustomerNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCustomerNestedInput
@@ -5366,6 +5461,7 @@ export type CustomerCreateWithoutBidsInput = {
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutCustomerInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutCustomerInput
   bidContracts?: Prisma.BidContractCreateNestedManyWithoutCustomerInput
+  messagingContacts?: Prisma.MessagingContactCreateNestedManyWithoutCustomerInput
   assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedCustomersInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealCreateNestedManyWithoutCustomerInput
@@ -5417,6 +5513,7 @@ export type CustomerUncheckedCreateWithoutBidsInput = {
   posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutCustomerInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutCustomerInput
   bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutCustomerInput
+  messagingContacts?: Prisma.MessagingContactUncheckedCreateNestedManyWithoutCustomerInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealUncheckedCreateNestedManyWithoutCustomerInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCustomerInput
@@ -5482,6 +5579,7 @@ export type CustomerUpdateWithoutBidsInput = {
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutCustomerNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutCustomerNestedInput
   bidContracts?: Prisma.BidContractUpdateManyWithoutCustomerNestedInput
+  messagingContacts?: Prisma.MessagingContactUpdateManyWithoutCustomerNestedInput
   assignedTo?: Prisma.UserUpdateOneWithoutAssignedCustomersNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUpdateManyWithoutCustomerNestedInput
@@ -5533,6 +5631,7 @@ export type CustomerUncheckedUpdateWithoutBidsInput = {
   posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutCustomerNestedInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutCustomerNestedInput
   bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutCustomerNestedInput
+  messagingContacts?: Prisma.MessagingContactUncheckedUpdateManyWithoutCustomerNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUncheckedUpdateManyWithoutCustomerNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCustomerNestedInput
@@ -5582,6 +5681,7 @@ export type CustomerCreateWithoutBidContractsInput = {
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutCustomerInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutCustomerInput
   bids?: Prisma.BidCreateNestedManyWithoutCustomerInput
+  messagingContacts?: Prisma.MessagingContactCreateNestedManyWithoutCustomerInput
   assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedCustomersInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealCreateNestedManyWithoutCustomerInput
@@ -5633,6 +5733,7 @@ export type CustomerUncheckedCreateWithoutBidContractsInput = {
   posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutCustomerInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutCustomerInput
   bids?: Prisma.BidUncheckedCreateNestedManyWithoutCustomerInput
+  messagingContacts?: Prisma.MessagingContactUncheckedCreateNestedManyWithoutCustomerInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealUncheckedCreateNestedManyWithoutCustomerInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCustomerInput
@@ -5698,6 +5799,7 @@ export type CustomerUpdateWithoutBidContractsInput = {
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutCustomerNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutCustomerNestedInput
   bids?: Prisma.BidUpdateManyWithoutCustomerNestedInput
+  messagingContacts?: Prisma.MessagingContactUpdateManyWithoutCustomerNestedInput
   assignedTo?: Prisma.UserUpdateOneWithoutAssignedCustomersNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUpdateManyWithoutCustomerNestedInput
@@ -5749,6 +5851,227 @@ export type CustomerUncheckedUpdateWithoutBidContractsInput = {
   posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutCustomerNestedInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutCustomerNestedInput
   bids?: Prisma.BidUncheckedUpdateManyWithoutCustomerNestedInput
+  messagingContacts?: Prisma.MessagingContactUncheckedUpdateManyWithoutCustomerNestedInput
+  contacts?: Prisma.ContactUncheckedUpdateManyWithoutCustomerNestedInput
+  deals?: Prisma.DealUncheckedUpdateManyWithoutCustomerNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutCustomerNestedInput
+  timelineEvents?: Prisma.TimelineEventUncheckedUpdateManyWithoutCustomerNestedInput
+}
+
+export type CustomerCreateWithoutMessagingContactsInput = {
+  id?: string
+  name: string
+  type?: $Enums.CustomerType
+  document?: string | null
+  email?: string | null
+  phone?: string | null
+  address?: string | null
+  city?: string | null
+  state?: string | null
+  zipCode?: string | null
+  documentHash?: string | null
+  emailHash?: string | null
+  country?: string | null
+  notes?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  tradeName?: string | null
+  stateRegistration?: string | null
+  website?: string | null
+  addressNumber?: string | null
+  addressComplement?: string | null
+  addressNeighborhood?: string | null
+  tags?: Prisma.CustomerCreatetagsInput | string[]
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  source?: $Enums.ContactSource
+  tenant: Prisma.TenantCreateNestedOneWithoutCustomersInput
+  salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutCustomerInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutCustomerInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutCustomerInput
+  customerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCustomerInput
+  coupons?: Prisma.CouponCreateNestedManyWithoutCustomerInput
+  couponUsages?: Prisma.CouponUsageCreateNestedManyWithoutCustomerInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutCustomerInput
+  orders?: Prisma.OrderCreateNestedManyWithoutCustomerInput
+  storeCredits?: Prisma.StoreCreditCreateNestedManyWithoutCustomerInput
+  customerCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutCustomerInput
+  portalAccesses?: Prisma.CustomerPortalAccessCreateNestedManyWithoutCustomerInput
+  posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutCustomerInput
+  posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutCustomerInput
+  bids?: Prisma.BidCreateNestedManyWithoutCustomerInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutCustomerInput
+  assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedCustomersInput
+  contacts?: Prisma.ContactCreateNestedManyWithoutCustomerInput
+  deals?: Prisma.DealCreateNestedManyWithoutCustomerInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutCustomerInput
+  timelineEvents?: Prisma.TimelineEventCreateNestedManyWithoutCustomerInput
+}
+
+export type CustomerUncheckedCreateWithoutMessagingContactsInput = {
+  id?: string
+  name: string
+  type?: $Enums.CustomerType
+  document?: string | null
+  email?: string | null
+  phone?: string | null
+  address?: string | null
+  city?: string | null
+  state?: string | null
+  zipCode?: string | null
+  documentHash?: string | null
+  emailHash?: string | null
+  country?: string | null
+  notes?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  tradeName?: string | null
+  stateRegistration?: string | null
+  website?: string | null
+  addressNumber?: string | null
+  addressComplement?: string | null
+  addressNeighborhood?: string | null
+  tags?: Prisma.CustomerCreatetagsInput | string[]
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  source?: $Enums.ContactSource
+  assignedToUserId?: string | null
+  tenantId: string
+  salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutCustomerInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutCustomerInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutCustomerInput
+  customerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCustomerInput
+  coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutCustomerInput
+  couponUsages?: Prisma.CouponUsageUncheckedCreateNestedManyWithoutCustomerInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutCustomerInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutCustomerInput
+  storeCredits?: Prisma.StoreCreditUncheckedCreateNestedManyWithoutCustomerInput
+  customerCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutCustomerInput
+  portalAccesses?: Prisma.CustomerPortalAccessUncheckedCreateNestedManyWithoutCustomerInput
+  posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutCustomerInput
+  posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutCustomerInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutCustomerInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutCustomerInput
+  contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCustomerInput
+  deals?: Prisma.DealUncheckedCreateNestedManyWithoutCustomerInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCustomerInput
+  timelineEvents?: Prisma.TimelineEventUncheckedCreateNestedManyWithoutCustomerInput
+}
+
+export type CustomerCreateOrConnectWithoutMessagingContactsInput = {
+  where: Prisma.CustomerWhereUniqueInput
+  create: Prisma.XOR<Prisma.CustomerCreateWithoutMessagingContactsInput, Prisma.CustomerUncheckedCreateWithoutMessagingContactsInput>
+}
+
+export type CustomerUpsertWithoutMessagingContactsInput = {
+  update: Prisma.XOR<Prisma.CustomerUpdateWithoutMessagingContactsInput, Prisma.CustomerUncheckedUpdateWithoutMessagingContactsInput>
+  create: Prisma.XOR<Prisma.CustomerCreateWithoutMessagingContactsInput, Prisma.CustomerUncheckedCreateWithoutMessagingContactsInput>
+  where?: Prisma.CustomerWhereInput
+}
+
+export type CustomerUpdateToOneWithWhereWithoutMessagingContactsInput = {
+  where?: Prisma.CustomerWhereInput
+  data: Prisma.XOR<Prisma.CustomerUpdateWithoutMessagingContactsInput, Prisma.CustomerUncheckedUpdateWithoutMessagingContactsInput>
+}
+
+export type CustomerUpdateWithoutMessagingContactsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumCustomerTypeFieldUpdateOperationsInput | $Enums.CustomerType
+  document?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  documentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tradeName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stateRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressComplement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressNeighborhood?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.CustomerUpdatetagsInput | string[]
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  source?: Prisma.EnumContactSourceFieldUpdateOperationsInput | $Enums.ContactSource
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutCustomersNestedInput
+  salesOrders?: Prisma.SalesOrderUpdateManyWithoutCustomerNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutCustomerNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutCustomerNestedInput
+  customerPrices?: Prisma.CustomerPriceUpdateManyWithoutCustomerNestedInput
+  coupons?: Prisma.CouponUpdateManyWithoutCustomerNestedInput
+  couponUsages?: Prisma.CouponUsageUpdateManyWithoutCustomerNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutCustomerNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutCustomerNestedInput
+  storeCredits?: Prisma.StoreCreditUpdateManyWithoutCustomerNestedInput
+  customerCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutCustomerNestedInput
+  portalAccesses?: Prisma.CustomerPortalAccessUpdateManyWithoutCustomerNestedInput
+  posTransactions?: Prisma.PosTransactionUpdateManyWithoutCustomerNestedInput
+  posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutCustomerNestedInput
+  bids?: Prisma.BidUpdateManyWithoutCustomerNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutCustomerNestedInput
+  assignedTo?: Prisma.UserUpdateOneWithoutAssignedCustomersNestedInput
+  contacts?: Prisma.ContactUpdateManyWithoutCustomerNestedInput
+  deals?: Prisma.DealUpdateManyWithoutCustomerNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutCustomerNestedInput
+  timelineEvents?: Prisma.TimelineEventUpdateManyWithoutCustomerNestedInput
+}
+
+export type CustomerUncheckedUpdateWithoutMessagingContactsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumCustomerTypeFieldUpdateOperationsInput | $Enums.CustomerType
+  document?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  documentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tradeName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stateRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressComplement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressNeighborhood?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.CustomerUpdatetagsInput | string[]
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  source?: Prisma.EnumContactSourceFieldUpdateOperationsInput | $Enums.ContactSource
+  assignedToUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutCustomerNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutCustomerNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutCustomerNestedInput
+  customerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCustomerNestedInput
+  coupons?: Prisma.CouponUncheckedUpdateManyWithoutCustomerNestedInput
+  couponUsages?: Prisma.CouponUsageUncheckedUpdateManyWithoutCustomerNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutCustomerNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutCustomerNestedInput
+  storeCredits?: Prisma.StoreCreditUncheckedUpdateManyWithoutCustomerNestedInput
+  customerCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutCustomerNestedInput
+  portalAccesses?: Prisma.CustomerPortalAccessUncheckedUpdateManyWithoutCustomerNestedInput
+  posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutCustomerNestedInput
+  posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutCustomerNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutCustomerNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutCustomerNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUncheckedUpdateManyWithoutCustomerNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCustomerNestedInput
@@ -5830,6 +6153,7 @@ export type CustomerUpdateWithoutAssignedToInput = {
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutCustomerNestedInput
   bids?: Prisma.BidUpdateManyWithoutCustomerNestedInput
   bidContracts?: Prisma.BidContractUpdateManyWithoutCustomerNestedInput
+  messagingContacts?: Prisma.MessagingContactUpdateManyWithoutCustomerNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUpdateManyWithoutCustomerNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutCustomerNestedInput
@@ -5880,6 +6204,7 @@ export type CustomerUncheckedUpdateWithoutAssignedToInput = {
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutCustomerNestedInput
   bids?: Prisma.BidUncheckedUpdateManyWithoutCustomerNestedInput
   bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutCustomerNestedInput
+  messagingContacts?: Prisma.MessagingContactUncheckedUpdateManyWithoutCustomerNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUncheckedUpdateManyWithoutCustomerNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCustomerNestedInput
@@ -5991,6 +6316,7 @@ export type CustomerUpdateWithoutTenantInput = {
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutCustomerNestedInput
   bids?: Prisma.BidUpdateManyWithoutCustomerNestedInput
   bidContracts?: Prisma.BidContractUpdateManyWithoutCustomerNestedInput
+  messagingContacts?: Prisma.MessagingContactUpdateManyWithoutCustomerNestedInput
   assignedTo?: Prisma.UserUpdateOneWithoutAssignedCustomersNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUpdateManyWithoutCustomerNestedInput
@@ -6042,6 +6368,7 @@ export type CustomerUncheckedUpdateWithoutTenantInput = {
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutCustomerNestedInput
   bids?: Prisma.BidUncheckedUpdateManyWithoutCustomerNestedInput
   bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutCustomerNestedInput
+  messagingContacts?: Prisma.MessagingContactUncheckedUpdateManyWithoutCustomerNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUncheckedUpdateManyWithoutCustomerNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCustomerNestedInput
@@ -6100,6 +6427,7 @@ export type CustomerCountOutputType = {
   posVisitLogs: number
   bids: number
   bidContracts: number
+  messagingContacts: number
   contacts: number
   deals: number
   activities: number
@@ -6122,6 +6450,7 @@ export type CustomerCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensio
   posVisitLogs?: boolean | CustomerCountOutputTypeCountPosVisitLogsArgs
   bids?: boolean | CustomerCountOutputTypeCountBidsArgs
   bidContracts?: boolean | CustomerCountOutputTypeCountBidContractsArgs
+  messagingContacts?: boolean | CustomerCountOutputTypeCountMessagingContactsArgs
   contacts?: boolean | CustomerCountOutputTypeCountContactsArgs
   deals?: boolean | CustomerCountOutputTypeCountDealsArgs
   activities?: boolean | CustomerCountOutputTypeCountActivitiesArgs
@@ -6246,6 +6575,13 @@ export type CustomerCountOutputTypeCountBidContractsArgs<ExtArgs extends runtime
 /**
  * CustomerCountOutputType without action
  */
+export type CustomerCountOutputTypeCountMessagingContactsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MessagingContactWhereInput
+}
+
+/**
+ * CustomerCountOutputType without action
+ */
 export type CustomerCountOutputTypeCountContactsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.ContactWhereInput
 }
@@ -6318,6 +6654,7 @@ export type CustomerSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   posVisitLogs?: boolean | Prisma.Customer$posVisitLogsArgs<ExtArgs>
   bids?: boolean | Prisma.Customer$bidsArgs<ExtArgs>
   bidContracts?: boolean | Prisma.Customer$bidContractsArgs<ExtArgs>
+  messagingContacts?: boolean | Prisma.Customer$messagingContactsArgs<ExtArgs>
   assignedTo?: boolean | Prisma.Customer$assignedToArgs<ExtArgs>
   contacts?: boolean | Prisma.Customer$contactsArgs<ExtArgs>
   deals?: boolean | Prisma.Customer$dealsArgs<ExtArgs>
@@ -6444,6 +6781,7 @@ export type CustomerInclude<ExtArgs extends runtime.Types.Extensions.InternalArg
   posVisitLogs?: boolean | Prisma.Customer$posVisitLogsArgs<ExtArgs>
   bids?: boolean | Prisma.Customer$bidsArgs<ExtArgs>
   bidContracts?: boolean | Prisma.Customer$bidContractsArgs<ExtArgs>
+  messagingContacts?: boolean | Prisma.Customer$messagingContactsArgs<ExtArgs>
   assignedTo?: boolean | Prisma.Customer$assignedToArgs<ExtArgs>
   contacts?: boolean | Prisma.Customer$contactsArgs<ExtArgs>
   deals?: boolean | Prisma.Customer$dealsArgs<ExtArgs>
@@ -6479,6 +6817,7 @@ export type $CustomerPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     posVisitLogs: Prisma.$PosVisitLogPayload<ExtArgs>[]
     bids: Prisma.$BidPayload<ExtArgs>[]
     bidContracts: Prisma.$BidContractPayload<ExtArgs>[]
+    messagingContacts: Prisma.$MessagingContactPayload<ExtArgs>[]
     assignedTo: Prisma.$UserPayload<ExtArgs> | null
     contacts: Prisma.$ContactPayload<ExtArgs>[]
     deals: Prisma.$DealPayload<ExtArgs>[]
@@ -6925,6 +7264,7 @@ export interface Prisma__CustomerClient<T, Null = never, ExtArgs extends runtime
   posVisitLogs<T extends Prisma.Customer$posVisitLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Customer$posVisitLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PosVisitLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   bids<T extends Prisma.Customer$bidsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Customer$bidsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BidPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   bidContracts<T extends Prisma.Customer$bidContractsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Customer$bidContractsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BidContractPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  messagingContacts<T extends Prisma.Customer$messagingContactsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Customer$messagingContactsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MessagingContactPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   assignedTo<T extends Prisma.Customer$assignedToArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Customer$assignedToArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   contacts<T extends Prisma.Customer$contactsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Customer$contactsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ContactPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   deals<T extends Prisma.Customer$dealsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Customer$dealsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DealPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -7741,6 +8081,30 @@ export type Customer$bidContractsArgs<ExtArgs extends runtime.Types.Extensions.I
   take?: number
   skip?: number
   distinct?: Prisma.BidContractScalarFieldEnum | Prisma.BidContractScalarFieldEnum[]
+}
+
+/**
+ * Customer.messagingContacts
+ */
+export type Customer$messagingContactsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MessagingContact
+   */
+  select?: Prisma.MessagingContactSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MessagingContact
+   */
+  omit?: Prisma.MessagingContactOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MessagingContactInclude<ExtArgs> | null
+  where?: Prisma.MessagingContactWhereInput
+  orderBy?: Prisma.MessagingContactOrderByWithRelationInput | Prisma.MessagingContactOrderByWithRelationInput[]
+  cursor?: Prisma.MessagingContactWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MessagingContactScalarFieldEnum | Prisma.MessagingContactScalarFieldEnum[]
 }
 
 /**

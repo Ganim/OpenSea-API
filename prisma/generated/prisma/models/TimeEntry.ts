@@ -29,11 +29,13 @@ export type AggregateTimeEntry = {
 export type TimeEntryAvgAggregateOutputType = {
   latitude: runtime.Decimal | null
   longitude: runtime.Decimal | null
+  nsrNumber: number | null
 }
 
 export type TimeEntrySumAggregateOutputType = {
   latitude: runtime.Decimal | null
   longitude: runtime.Decimal | null
+  nsrNumber: number | null
 }
 
 export type TimeEntryMinAggregateOutputType = {
@@ -46,6 +48,12 @@ export type TimeEntryMinAggregateOutputType = {
   longitude: runtime.Decimal | null
   ipAddress: string | null
   notes: string | null
+  nsrNumber: number | null
+  deviceType: string | null
+  receiptGenerated: boolean | null
+  receiptUrl: string | null
+  deviceFingerprint: string | null
+  photoUrl: string | null
   createdAt: Date | null
 }
 
@@ -59,6 +67,12 @@ export type TimeEntryMaxAggregateOutputType = {
   longitude: runtime.Decimal | null
   ipAddress: string | null
   notes: string | null
+  nsrNumber: number | null
+  deviceType: string | null
+  receiptGenerated: boolean | null
+  receiptUrl: string | null
+  deviceFingerprint: string | null
+  photoUrl: string | null
   createdAt: Date | null
 }
 
@@ -72,6 +86,12 @@ export type TimeEntryCountAggregateOutputType = {
   longitude: number
   ipAddress: number
   notes: number
+  nsrNumber: number
+  deviceType: number
+  receiptGenerated: number
+  receiptUrl: number
+  deviceFingerprint: number
+  photoUrl: number
   createdAt: number
   _all: number
 }
@@ -80,11 +100,13 @@ export type TimeEntryCountAggregateOutputType = {
 export type TimeEntryAvgAggregateInputType = {
   latitude?: true
   longitude?: true
+  nsrNumber?: true
 }
 
 export type TimeEntrySumAggregateInputType = {
   latitude?: true
   longitude?: true
+  nsrNumber?: true
 }
 
 export type TimeEntryMinAggregateInputType = {
@@ -97,6 +119,12 @@ export type TimeEntryMinAggregateInputType = {
   longitude?: true
   ipAddress?: true
   notes?: true
+  nsrNumber?: true
+  deviceType?: true
+  receiptGenerated?: true
+  receiptUrl?: true
+  deviceFingerprint?: true
+  photoUrl?: true
   createdAt?: true
 }
 
@@ -110,6 +138,12 @@ export type TimeEntryMaxAggregateInputType = {
   longitude?: true
   ipAddress?: true
   notes?: true
+  nsrNumber?: true
+  deviceType?: true
+  receiptGenerated?: true
+  receiptUrl?: true
+  deviceFingerprint?: true
+  photoUrl?: true
   createdAt?: true
 }
 
@@ -123,6 +157,12 @@ export type TimeEntryCountAggregateInputType = {
   longitude?: true
   ipAddress?: true
   notes?: true
+  nsrNumber?: true
+  deviceType?: true
+  receiptGenerated?: true
+  receiptUrl?: true
+  deviceFingerprint?: true
+  photoUrl?: true
   createdAt?: true
   _all?: true
 }
@@ -223,6 +263,12 @@ export type TimeEntryGroupByOutputType = {
   longitude: runtime.Decimal | null
   ipAddress: string | null
   notes: string | null
+  nsrNumber: number | null
+  deviceType: string | null
+  receiptGenerated: boolean
+  receiptUrl: string | null
+  deviceFingerprint: string | null
+  photoUrl: string | null
   createdAt: Date
   _count: TimeEntryCountAggregateOutputType | null
   _avg: TimeEntryAvgAggregateOutputType | null
@@ -259,6 +305,12 @@ export type TimeEntryWhereInput = {
   longitude?: Prisma.DecimalNullableFilter<"TimeEntry"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   ipAddress?: Prisma.StringNullableFilter<"TimeEntry"> | string | null
   notes?: Prisma.StringNullableFilter<"TimeEntry"> | string | null
+  nsrNumber?: Prisma.IntNullableFilter<"TimeEntry"> | number | null
+  deviceType?: Prisma.StringNullableFilter<"TimeEntry"> | string | null
+  receiptGenerated?: Prisma.BoolFilter<"TimeEntry"> | boolean
+  receiptUrl?: Prisma.StringNullableFilter<"TimeEntry"> | string | null
+  deviceFingerprint?: Prisma.StringNullableFilter<"TimeEntry"> | string | null
+  photoUrl?: Prisma.StringNullableFilter<"TimeEntry"> | string | null
   createdAt?: Prisma.DateTimeFilter<"TimeEntry"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   employee?: Prisma.XOR<Prisma.EmployeeScalarRelationFilter, Prisma.EmployeeWhereInput>
@@ -274,6 +326,12 @@ export type TimeEntryOrderByWithRelationInput = {
   longitude?: Prisma.SortOrderInput | Prisma.SortOrder
   ipAddress?: Prisma.SortOrderInput | Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
+  nsrNumber?: Prisma.SortOrderInput | Prisma.SortOrder
+  deviceType?: Prisma.SortOrderInput | Prisma.SortOrder
+  receiptGenerated?: Prisma.SortOrder
+  receiptUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  deviceFingerprint?: Prisma.SortOrderInput | Prisma.SortOrder
+  photoUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   tenant?: Prisma.TenantOrderByWithRelationInput
   employee?: Prisma.EmployeeOrderByWithRelationInput
@@ -292,6 +350,12 @@ export type TimeEntryWhereUniqueInput = Prisma.AtLeast<{
   longitude?: Prisma.DecimalNullableFilter<"TimeEntry"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   ipAddress?: Prisma.StringNullableFilter<"TimeEntry"> | string | null
   notes?: Prisma.StringNullableFilter<"TimeEntry"> | string | null
+  nsrNumber?: Prisma.IntNullableFilter<"TimeEntry"> | number | null
+  deviceType?: Prisma.StringNullableFilter<"TimeEntry"> | string | null
+  receiptGenerated?: Prisma.BoolFilter<"TimeEntry"> | boolean
+  receiptUrl?: Prisma.StringNullableFilter<"TimeEntry"> | string | null
+  deviceFingerprint?: Prisma.StringNullableFilter<"TimeEntry"> | string | null
+  photoUrl?: Prisma.StringNullableFilter<"TimeEntry"> | string | null
   createdAt?: Prisma.DateTimeFilter<"TimeEntry"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   employee?: Prisma.XOR<Prisma.EmployeeScalarRelationFilter, Prisma.EmployeeWhereInput>
@@ -307,6 +371,12 @@ export type TimeEntryOrderByWithAggregationInput = {
   longitude?: Prisma.SortOrderInput | Prisma.SortOrder
   ipAddress?: Prisma.SortOrderInput | Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
+  nsrNumber?: Prisma.SortOrderInput | Prisma.SortOrder
+  deviceType?: Prisma.SortOrderInput | Prisma.SortOrder
+  receiptGenerated?: Prisma.SortOrder
+  receiptUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  deviceFingerprint?: Prisma.SortOrderInput | Prisma.SortOrder
+  photoUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.TimeEntryCountOrderByAggregateInput
   _avg?: Prisma.TimeEntryAvgOrderByAggregateInput
@@ -328,6 +398,12 @@ export type TimeEntryScalarWhereWithAggregatesInput = {
   longitude?: Prisma.DecimalNullableWithAggregatesFilter<"TimeEntry"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   ipAddress?: Prisma.StringNullableWithAggregatesFilter<"TimeEntry"> | string | null
   notes?: Prisma.StringNullableWithAggregatesFilter<"TimeEntry"> | string | null
+  nsrNumber?: Prisma.IntNullableWithAggregatesFilter<"TimeEntry"> | number | null
+  deviceType?: Prisma.StringNullableWithAggregatesFilter<"TimeEntry"> | string | null
+  receiptGenerated?: Prisma.BoolWithAggregatesFilter<"TimeEntry"> | boolean
+  receiptUrl?: Prisma.StringNullableWithAggregatesFilter<"TimeEntry"> | string | null
+  deviceFingerprint?: Prisma.StringNullableWithAggregatesFilter<"TimeEntry"> | string | null
+  photoUrl?: Prisma.StringNullableWithAggregatesFilter<"TimeEntry"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"TimeEntry"> | Date | string
 }
 
@@ -339,6 +415,12 @@ export type TimeEntryCreateInput = {
   longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   ipAddress?: string | null
   notes?: string | null
+  nsrNumber?: number | null
+  deviceType?: string | null
+  receiptGenerated?: boolean
+  receiptUrl?: string | null
+  deviceFingerprint?: string | null
+  photoUrl?: string | null
   createdAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutTimeEntriesInput
   employee: Prisma.EmployeeCreateNestedOneWithoutTimeEntriesInput
@@ -354,6 +436,12 @@ export type TimeEntryUncheckedCreateInput = {
   longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   ipAddress?: string | null
   notes?: string | null
+  nsrNumber?: number | null
+  deviceType?: string | null
+  receiptGenerated?: boolean
+  receiptUrl?: string | null
+  deviceFingerprint?: string | null
+  photoUrl?: string | null
   createdAt?: Date | string
 }
 
@@ -365,6 +453,12 @@ export type TimeEntryUpdateInput = {
   longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nsrNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deviceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  receiptGenerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  receiptUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutTimeEntriesNestedInput
   employee?: Prisma.EmployeeUpdateOneRequiredWithoutTimeEntriesNestedInput
@@ -380,6 +474,12 @@ export type TimeEntryUncheckedUpdateInput = {
   longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nsrNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deviceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  receiptGenerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  receiptUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -393,6 +493,12 @@ export type TimeEntryCreateManyInput = {
   longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   ipAddress?: string | null
   notes?: string | null
+  nsrNumber?: number | null
+  deviceType?: string | null
+  receiptGenerated?: boolean
+  receiptUrl?: string | null
+  deviceFingerprint?: string | null
+  photoUrl?: string | null
   createdAt?: Date | string
 }
 
@@ -404,6 +510,12 @@ export type TimeEntryUpdateManyMutationInput = {
   longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nsrNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deviceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  receiptGenerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  receiptUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -417,6 +529,12 @@ export type TimeEntryUncheckedUpdateManyInput = {
   longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nsrNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deviceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  receiptGenerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  receiptUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -440,12 +558,19 @@ export type TimeEntryCountOrderByAggregateInput = {
   longitude?: Prisma.SortOrder
   ipAddress?: Prisma.SortOrder
   notes?: Prisma.SortOrder
+  nsrNumber?: Prisma.SortOrder
+  deviceType?: Prisma.SortOrder
+  receiptGenerated?: Prisma.SortOrder
+  receiptUrl?: Prisma.SortOrder
+  deviceFingerprint?: Prisma.SortOrder
+  photoUrl?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
 export type TimeEntryAvgOrderByAggregateInput = {
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
+  nsrNumber?: Prisma.SortOrder
 }
 
 export type TimeEntryMaxOrderByAggregateInput = {
@@ -458,6 +583,12 @@ export type TimeEntryMaxOrderByAggregateInput = {
   longitude?: Prisma.SortOrder
   ipAddress?: Prisma.SortOrder
   notes?: Prisma.SortOrder
+  nsrNumber?: Prisma.SortOrder
+  deviceType?: Prisma.SortOrder
+  receiptGenerated?: Prisma.SortOrder
+  receiptUrl?: Prisma.SortOrder
+  deviceFingerprint?: Prisma.SortOrder
+  photoUrl?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -471,12 +602,19 @@ export type TimeEntryMinOrderByAggregateInput = {
   longitude?: Prisma.SortOrder
   ipAddress?: Prisma.SortOrder
   notes?: Prisma.SortOrder
+  nsrNumber?: Prisma.SortOrder
+  deviceType?: Prisma.SortOrder
+  receiptGenerated?: Prisma.SortOrder
+  receiptUrl?: Prisma.SortOrder
+  deviceFingerprint?: Prisma.SortOrder
+  photoUrl?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
 export type TimeEntrySumOrderByAggregateInput = {
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
+  nsrNumber?: Prisma.SortOrder
 }
 
 export type TimeEntryCreateNestedManyWithoutEmployeeInput = {
@@ -575,6 +713,12 @@ export type TimeEntryCreateWithoutEmployeeInput = {
   longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   ipAddress?: string | null
   notes?: string | null
+  nsrNumber?: number | null
+  deviceType?: string | null
+  receiptGenerated?: boolean
+  receiptUrl?: string | null
+  deviceFingerprint?: string | null
+  photoUrl?: string | null
   createdAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutTimeEntriesInput
 }
@@ -588,6 +732,12 @@ export type TimeEntryUncheckedCreateWithoutEmployeeInput = {
   longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   ipAddress?: string | null
   notes?: string | null
+  nsrNumber?: number | null
+  deviceType?: string | null
+  receiptGenerated?: boolean
+  receiptUrl?: string | null
+  deviceFingerprint?: string | null
+  photoUrl?: string | null
   createdAt?: Date | string
 }
 
@@ -630,6 +780,12 @@ export type TimeEntryScalarWhereInput = {
   longitude?: Prisma.DecimalNullableFilter<"TimeEntry"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   ipAddress?: Prisma.StringNullableFilter<"TimeEntry"> | string | null
   notes?: Prisma.StringNullableFilter<"TimeEntry"> | string | null
+  nsrNumber?: Prisma.IntNullableFilter<"TimeEntry"> | number | null
+  deviceType?: Prisma.StringNullableFilter<"TimeEntry"> | string | null
+  receiptGenerated?: Prisma.BoolFilter<"TimeEntry"> | boolean
+  receiptUrl?: Prisma.StringNullableFilter<"TimeEntry"> | string | null
+  deviceFingerprint?: Prisma.StringNullableFilter<"TimeEntry"> | string | null
+  photoUrl?: Prisma.StringNullableFilter<"TimeEntry"> | string | null
   createdAt?: Prisma.DateTimeFilter<"TimeEntry"> | Date | string
 }
 
@@ -641,6 +797,12 @@ export type TimeEntryCreateWithoutTenantInput = {
   longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   ipAddress?: string | null
   notes?: string | null
+  nsrNumber?: number | null
+  deviceType?: string | null
+  receiptGenerated?: boolean
+  receiptUrl?: string | null
+  deviceFingerprint?: string | null
+  photoUrl?: string | null
   createdAt?: Date | string
   employee: Prisma.EmployeeCreateNestedOneWithoutTimeEntriesInput
 }
@@ -654,6 +816,12 @@ export type TimeEntryUncheckedCreateWithoutTenantInput = {
   longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   ipAddress?: string | null
   notes?: string | null
+  nsrNumber?: number | null
+  deviceType?: string | null
+  receiptGenerated?: boolean
+  receiptUrl?: string | null
+  deviceFingerprint?: string | null
+  photoUrl?: string | null
   createdAt?: Date | string
 }
 
@@ -692,6 +860,12 @@ export type TimeEntryCreateManyEmployeeInput = {
   longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   ipAddress?: string | null
   notes?: string | null
+  nsrNumber?: number | null
+  deviceType?: string | null
+  receiptGenerated?: boolean
+  receiptUrl?: string | null
+  deviceFingerprint?: string | null
+  photoUrl?: string | null
   createdAt?: Date | string
 }
 
@@ -703,6 +877,12 @@ export type TimeEntryUpdateWithoutEmployeeInput = {
   longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nsrNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deviceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  receiptGenerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  receiptUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutTimeEntriesNestedInput
 }
@@ -716,6 +896,12 @@ export type TimeEntryUncheckedUpdateWithoutEmployeeInput = {
   longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nsrNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deviceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  receiptGenerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  receiptUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -728,6 +914,12 @@ export type TimeEntryUncheckedUpdateManyWithoutEmployeeInput = {
   longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nsrNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deviceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  receiptGenerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  receiptUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -740,6 +932,12 @@ export type TimeEntryCreateManyTenantInput = {
   longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   ipAddress?: string | null
   notes?: string | null
+  nsrNumber?: number | null
+  deviceType?: string | null
+  receiptGenerated?: boolean
+  receiptUrl?: string | null
+  deviceFingerprint?: string | null
+  photoUrl?: string | null
   createdAt?: Date | string
 }
 
@@ -751,6 +949,12 @@ export type TimeEntryUpdateWithoutTenantInput = {
   longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nsrNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deviceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  receiptGenerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  receiptUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employee?: Prisma.EmployeeUpdateOneRequiredWithoutTimeEntriesNestedInput
 }
@@ -764,6 +968,12 @@ export type TimeEntryUncheckedUpdateWithoutTenantInput = {
   longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nsrNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deviceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  receiptGenerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  receiptUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -776,6 +986,12 @@ export type TimeEntryUncheckedUpdateManyWithoutTenantInput = {
   longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nsrNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deviceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  receiptGenerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  receiptUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -791,6 +1007,12 @@ export type TimeEntrySelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   longitude?: boolean
   ipAddress?: boolean
   notes?: boolean
+  nsrNumber?: boolean
+  deviceType?: boolean
+  receiptGenerated?: boolean
+  receiptUrl?: boolean
+  deviceFingerprint?: boolean
+  photoUrl?: boolean
   createdAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
@@ -806,6 +1028,12 @@ export type TimeEntrySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   longitude?: boolean
   ipAddress?: boolean
   notes?: boolean
+  nsrNumber?: boolean
+  deviceType?: boolean
+  receiptGenerated?: boolean
+  receiptUrl?: boolean
+  deviceFingerprint?: boolean
+  photoUrl?: boolean
   createdAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
@@ -821,6 +1049,12 @@ export type TimeEntrySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   longitude?: boolean
   ipAddress?: boolean
   notes?: boolean
+  nsrNumber?: boolean
+  deviceType?: boolean
+  receiptGenerated?: boolean
+  receiptUrl?: boolean
+  deviceFingerprint?: boolean
+  photoUrl?: boolean
   createdAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
@@ -836,10 +1070,16 @@ export type TimeEntrySelectScalar = {
   longitude?: boolean
   ipAddress?: boolean
   notes?: boolean
+  nsrNumber?: boolean
+  deviceType?: boolean
+  receiptGenerated?: boolean
+  receiptUrl?: boolean
+  deviceFingerprint?: boolean
+  photoUrl?: boolean
   createdAt?: boolean
 }
 
-export type TimeEntryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "employeeId" | "entryType" | "timestamp" | "latitude" | "longitude" | "ipAddress" | "notes" | "createdAt", ExtArgs["result"]["timeEntry"]>
+export type TimeEntryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "employeeId" | "entryType" | "timestamp" | "latitude" | "longitude" | "ipAddress" | "notes" | "nsrNumber" | "deviceType" | "receiptGenerated" | "receiptUrl" | "deviceFingerprint" | "photoUrl" | "createdAt", ExtArgs["result"]["timeEntry"]>
 export type TimeEntryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
@@ -869,6 +1109,12 @@ export type $TimeEntryPayload<ExtArgs extends runtime.Types.Extensions.InternalA
     longitude: runtime.Decimal | null
     ipAddress: string | null
     notes: string | null
+    nsrNumber: number | null
+    deviceType: string | null
+    receiptGenerated: boolean
+    receiptUrl: string | null
+    deviceFingerprint: string | null
+    photoUrl: string | null
     createdAt: Date
   }, ExtArgs["result"]["timeEntry"]>
   composites: {}
@@ -1304,6 +1550,12 @@ export interface TimeEntryFieldRefs {
   readonly longitude: Prisma.FieldRef<"TimeEntry", 'Decimal'>
   readonly ipAddress: Prisma.FieldRef<"TimeEntry", 'String'>
   readonly notes: Prisma.FieldRef<"TimeEntry", 'String'>
+  readonly nsrNumber: Prisma.FieldRef<"TimeEntry", 'Int'>
+  readonly deviceType: Prisma.FieldRef<"TimeEntry", 'String'>
+  readonly receiptGenerated: Prisma.FieldRef<"TimeEntry", 'Boolean'>
+  readonly receiptUrl: Prisma.FieldRef<"TimeEntry", 'String'>
+  readonly deviceFingerprint: Prisma.FieldRef<"TimeEntry", 'String'>
+  readonly photoUrl: Prisma.FieldRef<"TimeEntry", 'String'>
   readonly createdAt: Prisma.FieldRef<"TimeEntry", 'DateTime'>
 }
     

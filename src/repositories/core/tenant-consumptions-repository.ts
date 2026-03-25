@@ -10,6 +10,7 @@ export interface TenantConsumptionsRepository {
     period: string,
     metric: string,
   ): Promise<TenantConsumption | null>;
+  findByPeriod(period: string): Promise<TenantConsumption[]>;
   findByPeriodAndMetricPrefix(
     period: string,
     metricPrefix: string,

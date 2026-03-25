@@ -135,6 +135,9 @@ export const ModelName = {
   PayrollItem: 'PayrollItem',
   Bonus: 'Bonus',
   Deduction: 'Deduction',
+  EmployeeDependant: 'EmployeeDependant',
+  Termination: 'Termination',
+  MedicalExam: 'MedicalExam',
   Company: 'Company',
   CompanyDocument: 'CompanyDocument',
   CompanyAddress: 'CompanyAddress',
@@ -283,7 +286,19 @@ export const ModelName = {
   MarketplaceConnection: 'MarketplaceConnection',
   MarketplaceListing: 'MarketplaceListing',
   MarketplaceOrder: 'MarketplaceOrder',
-  MarketplacePayment: 'MarketplacePayment'
+  MarketplacePayment: 'MarketplacePayment',
+  MessagingAccount: 'MessagingAccount',
+  MessagingContact: 'MessagingContact',
+  MessagingMessage: 'MessagingMessage',
+  MessagingTemplate: 'MessagingTemplate',
+  FiscalConfig: 'FiscalConfig',
+  FiscalCertificate: 'FiscalCertificate',
+  FiscalDocument: 'FiscalDocument',
+  FiscalDocumentItem: 'FiscalDocumentItem',
+  FiscalDocumentEvent: 'FiscalDocumentEvent',
+  PixCharge: 'PixCharge',
+  AiWorkflow: 'AiWorkflow',
+  AiWorkflowExecution: 'AiWorkflowExecution'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1749,6 +1764,22 @@ export const EmployeeScalarFieldEnum = {
   pixKeyHash: 'pixKeyHash',
   bankAccountHash: 'bankAccountHash',
   country: 'country',
+  raceColor: 'raceColor',
+  educationLevel: 'educationLevel',
+  motherName: 'motherName',
+  municipalityCode: 'municipalityCode',
+  addressMunicipalityCode: 'addressMunicipalityCode',
+  cboCode: 'cboCode',
+  admissionType: 'admissionType',
+  workerCategory: 'workerCategory',
+  salaryUnit: 'salaryUnit',
+  cnhNumber: 'cnhNumber',
+  cnhCategory: 'cnhCategory',
+  cnhExpiration: 'cnhExpiration',
+  professionalRegistration: 'professionalRegistration',
+  unionCode: 'unionCode',
+  fgtsOptDate: 'fgtsOptDate',
+  fgtsAccountNumber: 'fgtsAccountNumber',
   bankCode: 'bankCode',
   bankName: 'bankName',
   bankAgency: 'bankAgency',
@@ -1826,6 +1857,12 @@ export const TimeEntryScalarFieldEnum = {
   longitude: 'longitude',
   ipAddress: 'ipAddress',
   notes: 'notes',
+  nsrNumber: 'nsrNumber',
+  deviceType: 'deviceType',
+  receiptGenerated: 'receiptGenerated',
+  receiptUrl: 'receiptUrl',
+  deviceFingerprint: 'deviceFingerprint',
+  photoUrl: 'photoUrl',
   createdAt: 'createdAt'
 } as const
 
@@ -2017,6 +2054,78 @@ export const DeductionScalarFieldEnum = {
 } as const
 
 export type DeductionScalarFieldEnum = (typeof DeductionScalarFieldEnum)[keyof typeof DeductionScalarFieldEnum]
+
+
+export const EmployeeDependantScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  employeeId: 'employeeId',
+  name: 'name',
+  cpf: 'cpf',
+  cpfHash: 'cpfHash',
+  birthDate: 'birthDate',
+  relationship: 'relationship',
+  isIrrfDependant: 'isIrrfDependant',
+  isSalarioFamilia: 'isSalarioFamilia',
+  hasDisability: 'hasDisability',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type EmployeeDependantScalarFieldEnum = (typeof EmployeeDependantScalarFieldEnum)[keyof typeof EmployeeDependantScalarFieldEnum]
+
+
+export const TerminationScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  employeeId: 'employeeId',
+  type: 'type',
+  terminationDate: 'terminationDate',
+  lastWorkDay: 'lastWorkDay',
+  noticeType: 'noticeType',
+  noticeDays: 'noticeDays',
+  saldoSalario: 'saldoSalario',
+  avisoIndenizado: 'avisoIndenizado',
+  decimoTerceiroProp: 'decimoTerceiroProp',
+  feriasVencidas: 'feriasVencidas',
+  feriasVencidasTerco: 'feriasVencidasTerco',
+  feriasProporcional: 'feriasProporcional',
+  feriasProporcionalTerco: 'feriasProporcionalTerco',
+  multaFgts: 'multaFgts',
+  inssRescisao: 'inssRescisao',
+  irrfRescisao: 'irrfRescisao',
+  outrosDescontos: 'outrosDescontos',
+  totalBruto: 'totalBruto',
+  totalDescontos: 'totalDescontos',
+  totalLiquido: 'totalLiquido',
+  paymentDeadline: 'paymentDeadline',
+  paidAt: 'paidAt',
+  status: 'status',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TerminationScalarFieldEnum = (typeof TerminationScalarFieldEnum)[keyof typeof TerminationScalarFieldEnum]
+
+
+export const MedicalExamScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  employeeId: 'employeeId',
+  type: 'type',
+  examDate: 'examDate',
+  expirationDate: 'expirationDate',
+  doctorName: 'doctorName',
+  doctorCrm: 'doctorCrm',
+  result: 'result',
+  observations: 'observations',
+  documentUrl: 'documentUrl',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type MedicalExamScalarFieldEnum = (typeof MedicalExamScalarFieldEnum)[keyof typeof MedicalExamScalarFieldEnum]
 
 
 export const CompanyScalarFieldEnum = {
@@ -5153,6 +5262,295 @@ export const MarketplacePaymentScalarFieldEnum = {
 } as const
 
 export type MarketplacePaymentScalarFieldEnum = (typeof MarketplacePaymentScalarFieldEnum)[keyof typeof MarketplacePaymentScalarFieldEnum]
+
+
+export const MessagingAccountScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  channel: 'channel',
+  name: 'name',
+  status: 'status',
+  phoneNumber: 'phoneNumber',
+  wabaId: 'wabaId',
+  igAccountId: 'igAccountId',
+  tgBotToken: 'tgBotToken',
+  tgBotUsername: 'tgBotUsername',
+  accessToken: 'accessToken',
+  refreshToken: 'refreshToken',
+  tokenExpiresAt: 'tokenExpiresAt',
+  webhookUrl: 'webhookUrl',
+  webhookSecret: 'webhookSecret',
+  settings: 'settings',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type MessagingAccountScalarFieldEnum = (typeof MessagingAccountScalarFieldEnum)[keyof typeof MessagingAccountScalarFieldEnum]
+
+
+export const MessagingContactScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  accountId: 'accountId',
+  channel: 'channel',
+  externalId: 'externalId',
+  name: 'name',
+  username: 'username',
+  avatarUrl: 'avatarUrl',
+  customerId: 'customerId',
+  lastMessageAt: 'lastMessageAt',
+  unreadCount: 'unreadCount',
+  isBlocked: 'isBlocked',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type MessagingContactScalarFieldEnum = (typeof MessagingContactScalarFieldEnum)[keyof typeof MessagingContactScalarFieldEnum]
+
+
+export const MessagingMessageScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  accountId: 'accountId',
+  contactId: 'contactId',
+  channel: 'channel',
+  direction: 'direction',
+  type: 'type',
+  status: 'status',
+  text: 'text',
+  mediaUrl: 'mediaUrl',
+  mediaType: 'mediaType',
+  fileName: 'fileName',
+  templateName: 'templateName',
+  templateParams: 'templateParams',
+  externalId: 'externalId',
+  replyToMessageId: 'replyToMessageId',
+  errorCode: 'errorCode',
+  errorMessage: 'errorMessage',
+  metadata: 'metadata',
+  sentAt: 'sentAt',
+  deliveredAt: 'deliveredAt',
+  readAt: 'readAt',
+  createdAt: 'createdAt'
+} as const
+
+export type MessagingMessageScalarFieldEnum = (typeof MessagingMessageScalarFieldEnum)[keyof typeof MessagingMessageScalarFieldEnum]
+
+
+export const MessagingTemplateScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  accountId: 'accountId',
+  name: 'name',
+  language: 'language',
+  category: 'category',
+  status: 'status',
+  components: 'components',
+  externalId: 'externalId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type MessagingTemplateScalarFieldEnum = (typeof MessagingTemplateScalarFieldEnum)[keyof typeof MessagingTemplateScalarFieldEnum]
+
+
+export const FiscalConfigScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  provider: 'provider',
+  environment: 'environment',
+  apiKey: 'apiKey',
+  apiSecret: 'apiSecret',
+  defaultSeries: 'defaultSeries',
+  lastNfeNumber: 'lastNfeNumber',
+  lastNfceNumber: 'lastNfceNumber',
+  defaultCfop: 'defaultCfop',
+  defaultNaturezaOperacao: 'defaultNaturezaOperacao',
+  taxRegime: 'taxRegime',
+  nfceEnabled: 'nfceEnabled',
+  nfceCscId: 'nfceCscId',
+  nfceCscToken: 'nfceCscToken',
+  certificateId: 'certificateId',
+  contingencyMode: 'contingencyMode',
+  contingencyReason: 'contingencyReason',
+  settings: 'settings',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type FiscalConfigScalarFieldEnum = (typeof FiscalConfigScalarFieldEnum)[keyof typeof FiscalConfigScalarFieldEnum]
+
+
+export const FiscalCertificateScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  pfxData: 'pfxData',
+  pfxPassword: 'pfxPassword',
+  serialNumber: 'serialNumber',
+  issuer: 'issuer',
+  subject: 'subject',
+  validFrom: 'validFrom',
+  validUntil: 'validUntil',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type FiscalCertificateScalarFieldEnum = (typeof FiscalCertificateScalarFieldEnum)[keyof typeof FiscalCertificateScalarFieldEnum]
+
+
+export const FiscalDocumentScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  configId: 'configId',
+  type: 'type',
+  series: 'series',
+  number: 'number',
+  accessKey: 'accessKey',
+  status: 'status',
+  emissionType: 'emissionType',
+  recipientCnpjCpf: 'recipientCnpjCpf',
+  recipientName: 'recipientName',
+  recipientIe: 'recipientIe',
+  naturezaOperacao: 'naturezaOperacao',
+  cfop: 'cfop',
+  totalProducts: 'totalProducts',
+  totalDiscount: 'totalDiscount',
+  totalShipping: 'totalShipping',
+  totalTax: 'totalTax',
+  totalValue: 'totalValue',
+  xmlSent: 'xmlSent',
+  xmlAuthorized: 'xmlAuthorized',
+  xmlCancellation: 'xmlCancellation',
+  danfePdfUrl: 'danfePdfUrl',
+  protocolNumber: 'protocolNumber',
+  protocolDate: 'protocolDate',
+  externalId: 'externalId',
+  orderId: 'orderId',
+  cancelledAt: 'cancelledAt',
+  cancelReason: 'cancelReason',
+  correctionText: 'correctionText',
+  additionalInfo: 'additionalInfo',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type FiscalDocumentScalarFieldEnum = (typeof FiscalDocumentScalarFieldEnum)[keyof typeof FiscalDocumentScalarFieldEnum]
+
+
+export const FiscalDocumentItemScalarFieldEnum = {
+  id: 'id',
+  fiscalDocumentId: 'fiscalDocumentId',
+  itemNumber: 'itemNumber',
+  productId: 'productId',
+  productName: 'productName',
+  productCode: 'productCode',
+  ncm: 'ncm',
+  cest: 'cest',
+  cfop: 'cfop',
+  quantity: 'quantity',
+  unitPrice: 'unitPrice',
+  totalPrice: 'totalPrice',
+  discount: 'discount',
+  cst: 'cst',
+  icmsBase: 'icmsBase',
+  icmsRate: 'icmsRate',
+  icmsValue: 'icmsValue',
+  ipiBase: 'ipiBase',
+  ipiRate: 'ipiRate',
+  ipiValue: 'ipiValue',
+  pisBase: 'pisBase',
+  pisRate: 'pisRate',
+  pisValue: 'pisValue',
+  cofinsBase: 'cofinsBase',
+  cofinsRate: 'cofinsRate',
+  cofinsValue: 'cofinsValue',
+  ibsRate: 'ibsRate',
+  ibsValue: 'ibsValue',
+  cbsRate: 'cbsRate',
+  cbsValue: 'cbsValue',
+  createdAt: 'createdAt'
+} as const
+
+export type FiscalDocumentItemScalarFieldEnum = (typeof FiscalDocumentItemScalarFieldEnum)[keyof typeof FiscalDocumentItemScalarFieldEnum]
+
+
+export const FiscalDocumentEventScalarFieldEnum = {
+  id: 'id',
+  fiscalDocumentId: 'fiscalDocumentId',
+  type: 'type',
+  protocol: 'protocol',
+  description: 'description',
+  xmlRequest: 'xmlRequest',
+  xmlResponse: 'xmlResponse',
+  success: 'success',
+  errorCode: 'errorCode',
+  errorMessage: 'errorMessage',
+  createdAt: 'createdAt'
+} as const
+
+export type FiscalDocumentEventScalarFieldEnum = (typeof FiscalDocumentEventScalarFieldEnum)[keyof typeof FiscalDocumentEventScalarFieldEnum]
+
+
+export const PixChargeScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  txId: 'txId',
+  location: 'location',
+  pixCopiaECola: 'pixCopiaECola',
+  amount: 'amount',
+  status: 'status',
+  payerName: 'payerName',
+  payerCpfCnpj: 'payerCpfCnpj',
+  endToEndId: 'endToEndId',
+  posTransactionPaymentId: 'posTransactionPaymentId',
+  orderId: 'orderId',
+  expiresAt: 'expiresAt',
+  paidAt: 'paidAt',
+  provider: 'provider',
+  providerData: 'providerData',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PixChargeScalarFieldEnum = (typeof PixChargeScalarFieldEnum)[keyof typeof PixChargeScalarFieldEnum]
+
+
+export const AiWorkflowScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  userId: 'userId',
+  name: 'name',
+  description: 'description',
+  naturalPrompt: 'naturalPrompt',
+  triggerType: 'triggerType',
+  triggerConfig: 'triggerConfig',
+  conditions: 'conditions',
+  actions: 'actions',
+  isActive: 'isActive',
+  lastRunAt: 'lastRunAt',
+  runCount: 'runCount',
+  lastError: 'lastError',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AiWorkflowScalarFieldEnum = (typeof AiWorkflowScalarFieldEnum)[keyof typeof AiWorkflowScalarFieldEnum]
+
+
+export const AiWorkflowExecutionScalarFieldEnum = {
+  id: 'id',
+  workflowId: 'workflowId',
+  status: 'status',
+  trigger: 'trigger',
+  results: 'results',
+  error: 'error',
+  startedAt: 'startedAt',
+  completedAt: 'completedAt'
+} as const
+
+export type AiWorkflowExecutionScalarFieldEnum = (typeof AiWorkflowExecutionScalarFieldEnum)[keyof typeof AiWorkflowExecutionScalarFieldEnum]
 
 
 export const SortOrder = {

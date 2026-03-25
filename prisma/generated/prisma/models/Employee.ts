@@ -78,6 +78,22 @@ export type EmployeeMinAggregateOutputType = {
   pixKeyHash: string | null
   bankAccountHash: string | null
   country: string | null
+  raceColor: string | null
+  educationLevel: string | null
+  motherName: string | null
+  municipalityCode: string | null
+  addressMunicipalityCode: string | null
+  cboCode: string | null
+  admissionType: string | null
+  workerCategory: string | null
+  salaryUnit: string | null
+  cnhNumber: string | null
+  cnhCategory: string | null
+  cnhExpiration: Date | null
+  professionalRegistration: string | null
+  unionCode: string | null
+  fgtsOptDate: Date | null
+  fgtsAccountNumber: string | null
   bankCode: string | null
   bankName: string | null
   bankAgency: string | null
@@ -144,6 +160,22 @@ export type EmployeeMaxAggregateOutputType = {
   pixKeyHash: string | null
   bankAccountHash: string | null
   country: string | null
+  raceColor: string | null
+  educationLevel: string | null
+  motherName: string | null
+  municipalityCode: string | null
+  addressMunicipalityCode: string | null
+  cboCode: string | null
+  admissionType: string | null
+  workerCategory: string | null
+  salaryUnit: string | null
+  cnhNumber: string | null
+  cnhCategory: string | null
+  cnhExpiration: Date | null
+  professionalRegistration: string | null
+  unionCode: string | null
+  fgtsOptDate: Date | null
+  fgtsAccountNumber: string | null
   bankCode: string | null
   bankName: string | null
   bankAgency: string | null
@@ -212,6 +244,22 @@ export type EmployeeCountAggregateOutputType = {
   pixKeyHash: number
   bankAccountHash: number
   country: number
+  raceColor: number
+  educationLevel: number
+  motherName: number
+  municipalityCode: number
+  addressMunicipalityCode: number
+  cboCode: number
+  admissionType: number
+  workerCategory: number
+  salaryUnit: number
+  cnhNumber: number
+  cnhCategory: number
+  cnhExpiration: number
+  professionalRegistration: number
+  unionCode: number
+  fgtsOptDate: number
+  fgtsAccountNumber: number
   bankCode: number
   bankName: number
   bankAgency: number
@@ -292,6 +340,22 @@ export type EmployeeMinAggregateInputType = {
   pixKeyHash?: true
   bankAccountHash?: true
   country?: true
+  raceColor?: true
+  educationLevel?: true
+  motherName?: true
+  municipalityCode?: true
+  addressMunicipalityCode?: true
+  cboCode?: true
+  admissionType?: true
+  workerCategory?: true
+  salaryUnit?: true
+  cnhNumber?: true
+  cnhCategory?: true
+  cnhExpiration?: true
+  professionalRegistration?: true
+  unionCode?: true
+  fgtsOptDate?: true
+  fgtsAccountNumber?: true
   bankCode?: true
   bankName?: true
   bankAgency?: true
@@ -358,6 +422,22 @@ export type EmployeeMaxAggregateInputType = {
   pixKeyHash?: true
   bankAccountHash?: true
   country?: true
+  raceColor?: true
+  educationLevel?: true
+  motherName?: true
+  municipalityCode?: true
+  addressMunicipalityCode?: true
+  cboCode?: true
+  admissionType?: true
+  workerCategory?: true
+  salaryUnit?: true
+  cnhNumber?: true
+  cnhCategory?: true
+  cnhExpiration?: true
+  professionalRegistration?: true
+  unionCode?: true
+  fgtsOptDate?: true
+  fgtsAccountNumber?: true
   bankCode?: true
   bankName?: true
   bankAgency?: true
@@ -426,6 +506,22 @@ export type EmployeeCountAggregateInputType = {
   pixKeyHash?: true
   bankAccountHash?: true
   country?: true
+  raceColor?: true
+  educationLevel?: true
+  motherName?: true
+  municipalityCode?: true
+  addressMunicipalityCode?: true
+  cboCode?: true
+  admissionType?: true
+  workerCategory?: true
+  salaryUnit?: true
+  cnhNumber?: true
+  cnhCategory?: true
+  cnhExpiration?: true
+  professionalRegistration?: true
+  unionCode?: true
+  fgtsOptDate?: true
+  fgtsAccountNumber?: true
   bankCode?: true
   bankName?: true
   bankAgency?: true
@@ -583,6 +679,22 @@ export type EmployeeGroupByOutputType = {
   pixKeyHash: string | null
   bankAccountHash: string | null
   country: string
+  raceColor: string | null
+  educationLevel: string | null
+  motherName: string | null
+  municipalityCode: string | null
+  addressMunicipalityCode: string | null
+  cboCode: string | null
+  admissionType: string | null
+  workerCategory: string | null
+  salaryUnit: string | null
+  cnhNumber: string | null
+  cnhCategory: string | null
+  cnhExpiration: Date | null
+  professionalRegistration: string | null
+  unionCode: string | null
+  fgtsOptDate: Date | null
+  fgtsAccountNumber: string | null
   bankCode: string | null
   bankName: string | null
   bankAgency: string | null
@@ -676,6 +788,22 @@ export type EmployeeWhereInput = {
   pixKeyHash?: Prisma.StringNullableFilter<"Employee"> | string | null
   bankAccountHash?: Prisma.StringNullableFilter<"Employee"> | string | null
   country?: Prisma.StringFilter<"Employee"> | string
+  raceColor?: Prisma.StringNullableFilter<"Employee"> | string | null
+  educationLevel?: Prisma.StringNullableFilter<"Employee"> | string | null
+  motherName?: Prisma.StringNullableFilter<"Employee"> | string | null
+  municipalityCode?: Prisma.StringNullableFilter<"Employee"> | string | null
+  addressMunicipalityCode?: Prisma.StringNullableFilter<"Employee"> | string | null
+  cboCode?: Prisma.StringNullableFilter<"Employee"> | string | null
+  admissionType?: Prisma.StringNullableFilter<"Employee"> | string | null
+  workerCategory?: Prisma.StringNullableFilter<"Employee"> | string | null
+  salaryUnit?: Prisma.StringNullableFilter<"Employee"> | string | null
+  cnhNumber?: Prisma.StringNullableFilter<"Employee"> | string | null
+  cnhCategory?: Prisma.StringNullableFilter<"Employee"> | string | null
+  cnhExpiration?: Prisma.DateTimeNullableFilter<"Employee"> | Date | string | null
+  professionalRegistration?: Prisma.StringNullableFilter<"Employee"> | string | null
+  unionCode?: Prisma.StringNullableFilter<"Employee"> | string | null
+  fgtsOptDate?: Prisma.DateTimeNullableFilter<"Employee"> | Date | string | null
+  fgtsAccountNumber?: Prisma.StringNullableFilter<"Employee"> | string | null
   bankCode?: Prisma.StringNullableFilter<"Employee"> | string | null
   bankName?: Prisma.StringNullableFilter<"Employee"> | string | null
   bankAgency?: Prisma.StringNullableFilter<"Employee"> | string | null
@@ -715,6 +843,9 @@ export type EmployeeWhereInput = {
   vacationPeriods?: Prisma.VacationPeriodListRelationFilter
   bonuses?: Prisma.BonusListRelationFilter
   deductions?: Prisma.DeductionListRelationFilter
+  dependants?: Prisma.EmployeeDependantListRelationFilter
+  termination?: Prisma.XOR<Prisma.TerminationNullableScalarRelationFilter, Prisma.TerminationWhereInput> | null
+  medicalExams?: Prisma.MedicalExamListRelationFilter
   managedDepartments?: Prisma.DepartmentListRelationFilter
   company?: Prisma.XOR<Prisma.CompanyNullableScalarRelationFilter, Prisma.CompanyWhereInput> | null
 }
@@ -763,6 +894,22 @@ export type EmployeeOrderByWithRelationInput = {
   pixKeyHash?: Prisma.SortOrderInput | Prisma.SortOrder
   bankAccountHash?: Prisma.SortOrderInput | Prisma.SortOrder
   country?: Prisma.SortOrder
+  raceColor?: Prisma.SortOrderInput | Prisma.SortOrder
+  educationLevel?: Prisma.SortOrderInput | Prisma.SortOrder
+  motherName?: Prisma.SortOrderInput | Prisma.SortOrder
+  municipalityCode?: Prisma.SortOrderInput | Prisma.SortOrder
+  addressMunicipalityCode?: Prisma.SortOrderInput | Prisma.SortOrder
+  cboCode?: Prisma.SortOrderInput | Prisma.SortOrder
+  admissionType?: Prisma.SortOrderInput | Prisma.SortOrder
+  workerCategory?: Prisma.SortOrderInput | Prisma.SortOrder
+  salaryUnit?: Prisma.SortOrderInput | Prisma.SortOrder
+  cnhNumber?: Prisma.SortOrderInput | Prisma.SortOrder
+  cnhCategory?: Prisma.SortOrderInput | Prisma.SortOrder
+  cnhExpiration?: Prisma.SortOrderInput | Prisma.SortOrder
+  professionalRegistration?: Prisma.SortOrderInput | Prisma.SortOrder
+  unionCode?: Prisma.SortOrderInput | Prisma.SortOrder
+  fgtsOptDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  fgtsAccountNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   bankCode?: Prisma.SortOrderInput | Prisma.SortOrder
   bankName?: Prisma.SortOrderInput | Prisma.SortOrder
   bankAgency?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -802,6 +949,9 @@ export type EmployeeOrderByWithRelationInput = {
   vacationPeriods?: Prisma.VacationPeriodOrderByRelationAggregateInput
   bonuses?: Prisma.BonusOrderByRelationAggregateInput
   deductions?: Prisma.DeductionOrderByRelationAggregateInput
+  dependants?: Prisma.EmployeeDependantOrderByRelationAggregateInput
+  termination?: Prisma.TerminationOrderByWithRelationInput
+  medicalExams?: Prisma.MedicalExamOrderByRelationAggregateInput
   managedDepartments?: Prisma.DepartmentOrderByRelationAggregateInput
   company?: Prisma.CompanyOrderByWithRelationInput
 }
@@ -856,6 +1006,22 @@ export type EmployeeWhereUniqueInput = Prisma.AtLeast<{
   pixKeyHash?: Prisma.StringNullableFilter<"Employee"> | string | null
   bankAccountHash?: Prisma.StringNullableFilter<"Employee"> | string | null
   country?: Prisma.StringFilter<"Employee"> | string
+  raceColor?: Prisma.StringNullableFilter<"Employee"> | string | null
+  educationLevel?: Prisma.StringNullableFilter<"Employee"> | string | null
+  motherName?: Prisma.StringNullableFilter<"Employee"> | string | null
+  municipalityCode?: Prisma.StringNullableFilter<"Employee"> | string | null
+  addressMunicipalityCode?: Prisma.StringNullableFilter<"Employee"> | string | null
+  cboCode?: Prisma.StringNullableFilter<"Employee"> | string | null
+  admissionType?: Prisma.StringNullableFilter<"Employee"> | string | null
+  workerCategory?: Prisma.StringNullableFilter<"Employee"> | string | null
+  salaryUnit?: Prisma.StringNullableFilter<"Employee"> | string | null
+  cnhNumber?: Prisma.StringNullableFilter<"Employee"> | string | null
+  cnhCategory?: Prisma.StringNullableFilter<"Employee"> | string | null
+  cnhExpiration?: Prisma.DateTimeNullableFilter<"Employee"> | Date | string | null
+  professionalRegistration?: Prisma.StringNullableFilter<"Employee"> | string | null
+  unionCode?: Prisma.StringNullableFilter<"Employee"> | string | null
+  fgtsOptDate?: Prisma.DateTimeNullableFilter<"Employee"> | Date | string | null
+  fgtsAccountNumber?: Prisma.StringNullableFilter<"Employee"> | string | null
   bankCode?: Prisma.StringNullableFilter<"Employee"> | string | null
   bankName?: Prisma.StringNullableFilter<"Employee"> | string | null
   bankAgency?: Prisma.StringNullableFilter<"Employee"> | string | null
@@ -895,6 +1061,9 @@ export type EmployeeWhereUniqueInput = Prisma.AtLeast<{
   vacationPeriods?: Prisma.VacationPeriodListRelationFilter
   bonuses?: Prisma.BonusListRelationFilter
   deductions?: Prisma.DeductionListRelationFilter
+  dependants?: Prisma.EmployeeDependantListRelationFilter
+  termination?: Prisma.XOR<Prisma.TerminationNullableScalarRelationFilter, Prisma.TerminationWhereInput> | null
+  medicalExams?: Prisma.MedicalExamListRelationFilter
   managedDepartments?: Prisma.DepartmentListRelationFilter
   company?: Prisma.XOR<Prisma.CompanyNullableScalarRelationFilter, Prisma.CompanyWhereInput> | null
 }, "id" | "userId" | "employees_registration_tenant_unique_active" | "employees_cpf_tenant_unique_active" | "employees_pis_tenant_unique_active">
@@ -943,6 +1112,22 @@ export type EmployeeOrderByWithAggregationInput = {
   pixKeyHash?: Prisma.SortOrderInput | Prisma.SortOrder
   bankAccountHash?: Prisma.SortOrderInput | Prisma.SortOrder
   country?: Prisma.SortOrder
+  raceColor?: Prisma.SortOrderInput | Prisma.SortOrder
+  educationLevel?: Prisma.SortOrderInput | Prisma.SortOrder
+  motherName?: Prisma.SortOrderInput | Prisma.SortOrder
+  municipalityCode?: Prisma.SortOrderInput | Prisma.SortOrder
+  addressMunicipalityCode?: Prisma.SortOrderInput | Prisma.SortOrder
+  cboCode?: Prisma.SortOrderInput | Prisma.SortOrder
+  admissionType?: Prisma.SortOrderInput | Prisma.SortOrder
+  workerCategory?: Prisma.SortOrderInput | Prisma.SortOrder
+  salaryUnit?: Prisma.SortOrderInput | Prisma.SortOrder
+  cnhNumber?: Prisma.SortOrderInput | Prisma.SortOrder
+  cnhCategory?: Prisma.SortOrderInput | Prisma.SortOrder
+  cnhExpiration?: Prisma.SortOrderInput | Prisma.SortOrder
+  professionalRegistration?: Prisma.SortOrderInput | Prisma.SortOrder
+  unionCode?: Prisma.SortOrderInput | Prisma.SortOrder
+  fgtsOptDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  fgtsAccountNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   bankCode?: Prisma.SortOrderInput | Prisma.SortOrder
   bankName?: Prisma.SortOrderInput | Prisma.SortOrder
   bankAgency?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -1021,6 +1206,22 @@ export type EmployeeScalarWhereWithAggregatesInput = {
   pixKeyHash?: Prisma.StringNullableWithAggregatesFilter<"Employee"> | string | null
   bankAccountHash?: Prisma.StringNullableWithAggregatesFilter<"Employee"> | string | null
   country?: Prisma.StringWithAggregatesFilter<"Employee"> | string
+  raceColor?: Prisma.StringNullableWithAggregatesFilter<"Employee"> | string | null
+  educationLevel?: Prisma.StringNullableWithAggregatesFilter<"Employee"> | string | null
+  motherName?: Prisma.StringNullableWithAggregatesFilter<"Employee"> | string | null
+  municipalityCode?: Prisma.StringNullableWithAggregatesFilter<"Employee"> | string | null
+  addressMunicipalityCode?: Prisma.StringNullableWithAggregatesFilter<"Employee"> | string | null
+  cboCode?: Prisma.StringNullableWithAggregatesFilter<"Employee"> | string | null
+  admissionType?: Prisma.StringNullableWithAggregatesFilter<"Employee"> | string | null
+  workerCategory?: Prisma.StringNullableWithAggregatesFilter<"Employee"> | string | null
+  salaryUnit?: Prisma.StringNullableWithAggregatesFilter<"Employee"> | string | null
+  cnhNumber?: Prisma.StringNullableWithAggregatesFilter<"Employee"> | string | null
+  cnhCategory?: Prisma.StringNullableWithAggregatesFilter<"Employee"> | string | null
+  cnhExpiration?: Prisma.DateTimeNullableWithAggregatesFilter<"Employee"> | Date | string | null
+  professionalRegistration?: Prisma.StringNullableWithAggregatesFilter<"Employee"> | string | null
+  unionCode?: Prisma.StringNullableWithAggregatesFilter<"Employee"> | string | null
+  fgtsOptDate?: Prisma.DateTimeNullableWithAggregatesFilter<"Employee"> | Date | string | null
+  fgtsAccountNumber?: Prisma.StringNullableWithAggregatesFilter<"Employee"> | string | null
   bankCode?: Prisma.StringNullableWithAggregatesFilter<"Employee"> | string | null
   bankName?: Prisma.StringNullableWithAggregatesFilter<"Employee"> | string | null
   bankAgency?: Prisma.StringNullableWithAggregatesFilter<"Employee"> | string | null
@@ -1089,6 +1290,22 @@ export type EmployeeCreateInput = {
   pixKeyHash?: string | null
   bankAccountHash?: string | null
   country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
   bankCode?: string | null
   bankName?: string | null
   bankAgency?: string | null
@@ -1123,6 +1340,9 @@ export type EmployeeCreateInput = {
   vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutEmployeeInput
   bonuses?: Prisma.BonusCreateNestedManyWithoutEmployeeInput
   deductions?: Prisma.DeductionCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
 }
@@ -1171,6 +1391,22 @@ export type EmployeeUncheckedCreateInput = {
   pixKeyHash?: string | null
   bankAccountHash?: string | null
   country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
   bankCode?: string | null
   bankName?: string | null
   bankAgency?: string | null
@@ -1204,6 +1440,9 @@ export type EmployeeUncheckedCreateInput = {
   vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutEmployeeInput
   bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutEmployeeInput
   deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantUncheckedCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
 }
 
@@ -1249,6 +1488,22 @@ export type EmployeeUpdateInput = {
   pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1283,6 +1538,9 @@ export type EmployeeUpdateInput = {
   vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutEmployeeNestedInput
   bonuses?: Prisma.BonusUpdateManyWithoutEmployeeNestedInput
   deductions?: Prisma.DeductionUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
 }
@@ -1331,6 +1589,22 @@ export type EmployeeUncheckedUpdateInput = {
   pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1364,6 +1638,9 @@ export type EmployeeUncheckedUpdateInput = {
   vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutEmployeeNestedInput
   bonuses?: Prisma.BonusUncheckedUpdateManyWithoutEmployeeNestedInput
   deductions?: Prisma.DeductionUncheckedUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUncheckedUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
 }
 
@@ -1411,6 +1688,22 @@ export type EmployeeCreateManyInput = {
   pixKeyHash?: string | null
   bankAccountHash?: string | null
   country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
   bankCode?: string | null
   bankName?: string | null
   bankAgency?: string | null
@@ -1479,6 +1772,22 @@ export type EmployeeUpdateManyMutationInput = {
   pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1544,6 +1853,22 @@ export type EmployeeUncheckedUpdateManyInput = {
   pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1647,6 +1972,22 @@ export type EmployeeCountOrderByAggregateInput = {
   pixKeyHash?: Prisma.SortOrder
   bankAccountHash?: Prisma.SortOrder
   country?: Prisma.SortOrder
+  raceColor?: Prisma.SortOrder
+  educationLevel?: Prisma.SortOrder
+  motherName?: Prisma.SortOrder
+  municipalityCode?: Prisma.SortOrder
+  addressMunicipalityCode?: Prisma.SortOrder
+  cboCode?: Prisma.SortOrder
+  admissionType?: Prisma.SortOrder
+  workerCategory?: Prisma.SortOrder
+  salaryUnit?: Prisma.SortOrder
+  cnhNumber?: Prisma.SortOrder
+  cnhCategory?: Prisma.SortOrder
+  cnhExpiration?: Prisma.SortOrder
+  professionalRegistration?: Prisma.SortOrder
+  unionCode?: Prisma.SortOrder
+  fgtsOptDate?: Prisma.SortOrder
+  fgtsAccountNumber?: Prisma.SortOrder
   bankCode?: Prisma.SortOrder
   bankName?: Prisma.SortOrder
   bankAgency?: Prisma.SortOrder
@@ -1720,6 +2061,22 @@ export type EmployeeMaxOrderByAggregateInput = {
   pixKeyHash?: Prisma.SortOrder
   bankAccountHash?: Prisma.SortOrder
   country?: Prisma.SortOrder
+  raceColor?: Prisma.SortOrder
+  educationLevel?: Prisma.SortOrder
+  motherName?: Prisma.SortOrder
+  municipalityCode?: Prisma.SortOrder
+  addressMunicipalityCode?: Prisma.SortOrder
+  cboCode?: Prisma.SortOrder
+  admissionType?: Prisma.SortOrder
+  workerCategory?: Prisma.SortOrder
+  salaryUnit?: Prisma.SortOrder
+  cnhNumber?: Prisma.SortOrder
+  cnhCategory?: Prisma.SortOrder
+  cnhExpiration?: Prisma.SortOrder
+  professionalRegistration?: Prisma.SortOrder
+  unionCode?: Prisma.SortOrder
+  fgtsOptDate?: Prisma.SortOrder
+  fgtsAccountNumber?: Prisma.SortOrder
   bankCode?: Prisma.SortOrder
   bankName?: Prisma.SortOrder
   bankAgency?: Prisma.SortOrder
@@ -1786,6 +2143,22 @@ export type EmployeeMinOrderByAggregateInput = {
   pixKeyHash?: Prisma.SortOrder
   bankAccountHash?: Prisma.SortOrder
   country?: Prisma.SortOrder
+  raceColor?: Prisma.SortOrder
+  educationLevel?: Prisma.SortOrder
+  motherName?: Prisma.SortOrder
+  municipalityCode?: Prisma.SortOrder
+  addressMunicipalityCode?: Prisma.SortOrder
+  cboCode?: Prisma.SortOrder
+  admissionType?: Prisma.SortOrder
+  workerCategory?: Prisma.SortOrder
+  salaryUnit?: Prisma.SortOrder
+  cnhNumber?: Prisma.SortOrder
+  cnhCategory?: Prisma.SortOrder
+  cnhExpiration?: Prisma.SortOrder
+  professionalRegistration?: Prisma.SortOrder
+  unionCode?: Prisma.SortOrder
+  fgtsOptDate?: Prisma.SortOrder
+  fgtsAccountNumber?: Prisma.SortOrder
   bankCode?: Prisma.SortOrder
   bankName?: Prisma.SortOrder
   bankAgency?: Prisma.SortOrder
@@ -2176,6 +2549,48 @@ export type EmployeeUpdateOneRequiredWithoutDeductionsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.EmployeeUpdateToOneWithWhereWithoutDeductionsInput, Prisma.EmployeeUpdateWithoutDeductionsInput>, Prisma.EmployeeUncheckedUpdateWithoutDeductionsInput>
 }
 
+export type EmployeeCreateNestedOneWithoutDependantsInput = {
+  create?: Prisma.XOR<Prisma.EmployeeCreateWithoutDependantsInput, Prisma.EmployeeUncheckedCreateWithoutDependantsInput>
+  connectOrCreate?: Prisma.EmployeeCreateOrConnectWithoutDependantsInput
+  connect?: Prisma.EmployeeWhereUniqueInput
+}
+
+export type EmployeeUpdateOneRequiredWithoutDependantsNestedInput = {
+  create?: Prisma.XOR<Prisma.EmployeeCreateWithoutDependantsInput, Prisma.EmployeeUncheckedCreateWithoutDependantsInput>
+  connectOrCreate?: Prisma.EmployeeCreateOrConnectWithoutDependantsInput
+  upsert?: Prisma.EmployeeUpsertWithoutDependantsInput
+  connect?: Prisma.EmployeeWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.EmployeeUpdateToOneWithWhereWithoutDependantsInput, Prisma.EmployeeUpdateWithoutDependantsInput>, Prisma.EmployeeUncheckedUpdateWithoutDependantsInput>
+}
+
+export type EmployeeCreateNestedOneWithoutTerminationInput = {
+  create?: Prisma.XOR<Prisma.EmployeeCreateWithoutTerminationInput, Prisma.EmployeeUncheckedCreateWithoutTerminationInput>
+  connectOrCreate?: Prisma.EmployeeCreateOrConnectWithoutTerminationInput
+  connect?: Prisma.EmployeeWhereUniqueInput
+}
+
+export type EmployeeUpdateOneRequiredWithoutTerminationNestedInput = {
+  create?: Prisma.XOR<Prisma.EmployeeCreateWithoutTerminationInput, Prisma.EmployeeUncheckedCreateWithoutTerminationInput>
+  connectOrCreate?: Prisma.EmployeeCreateOrConnectWithoutTerminationInput
+  upsert?: Prisma.EmployeeUpsertWithoutTerminationInput
+  connect?: Prisma.EmployeeWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.EmployeeUpdateToOneWithWhereWithoutTerminationInput, Prisma.EmployeeUpdateWithoutTerminationInput>, Prisma.EmployeeUncheckedUpdateWithoutTerminationInput>
+}
+
+export type EmployeeCreateNestedOneWithoutMedicalExamsInput = {
+  create?: Prisma.XOR<Prisma.EmployeeCreateWithoutMedicalExamsInput, Prisma.EmployeeUncheckedCreateWithoutMedicalExamsInput>
+  connectOrCreate?: Prisma.EmployeeCreateOrConnectWithoutMedicalExamsInput
+  connect?: Prisma.EmployeeWhereUniqueInput
+}
+
+export type EmployeeUpdateOneRequiredWithoutMedicalExamsNestedInput = {
+  create?: Prisma.XOR<Prisma.EmployeeCreateWithoutMedicalExamsInput, Prisma.EmployeeUncheckedCreateWithoutMedicalExamsInput>
+  connectOrCreate?: Prisma.EmployeeCreateOrConnectWithoutMedicalExamsInput
+  upsert?: Prisma.EmployeeUpsertWithoutMedicalExamsInput
+  connect?: Prisma.EmployeeWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.EmployeeUpdateToOneWithWhereWithoutMedicalExamsInput, Prisma.EmployeeUpdateWithoutMedicalExamsInput>, Prisma.EmployeeUncheckedUpdateWithoutMedicalExamsInput>
+}
+
 export type EmployeeCreateNestedManyWithoutCompanyInput = {
   create?: Prisma.XOR<Prisma.EmployeeCreateWithoutCompanyInput, Prisma.EmployeeUncheckedCreateWithoutCompanyInput> | Prisma.EmployeeCreateWithoutCompanyInput[] | Prisma.EmployeeUncheckedCreateWithoutCompanyInput[]
   connectOrCreate?: Prisma.EmployeeCreateOrConnectWithoutCompanyInput | Prisma.EmployeeCreateOrConnectWithoutCompanyInput[]
@@ -2302,6 +2717,22 @@ export type EmployeeCreateWithoutUserInput = {
   pixKeyHash?: string | null
   bankAccountHash?: string | null
   country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
   bankCode?: string | null
   bankName?: string | null
   bankAgency?: string | null
@@ -2335,6 +2766,9 @@ export type EmployeeCreateWithoutUserInput = {
   vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutEmployeeInput
   bonuses?: Prisma.BonusCreateNestedManyWithoutEmployeeInput
   deductions?: Prisma.DeductionCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
 }
@@ -2382,6 +2816,22 @@ export type EmployeeUncheckedCreateWithoutUserInput = {
   pixKeyHash?: string | null
   bankAccountHash?: string | null
   country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
   bankCode?: string | null
   bankName?: string | null
   bankAgency?: string | null
@@ -2415,6 +2865,9 @@ export type EmployeeUncheckedCreateWithoutUserInput = {
   vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutEmployeeInput
   bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutEmployeeInput
   deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantUncheckedCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
 }
 
@@ -2476,6 +2929,22 @@ export type EmployeeUpdateWithoutUserInput = {
   pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2509,6 +2978,9 @@ export type EmployeeUpdateWithoutUserInput = {
   vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutEmployeeNestedInput
   bonuses?: Prisma.BonusUpdateManyWithoutEmployeeNestedInput
   deductions?: Prisma.DeductionUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
 }
@@ -2556,6 +3028,22 @@ export type EmployeeUncheckedUpdateWithoutUserInput = {
   pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2589,6 +3077,9 @@ export type EmployeeUncheckedUpdateWithoutUserInput = {
   vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutEmployeeNestedInput
   bonuses?: Prisma.BonusUncheckedUpdateManyWithoutEmployeeNestedInput
   deductions?: Prisma.DeductionUncheckedUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUncheckedUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
 }
 
@@ -2634,6 +3125,22 @@ export type EmployeeCreateWithoutOrganizationInput = {
   pixKeyHash?: string | null
   bankAccountHash?: string | null
   country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
   bankCode?: string | null
   bankName?: string | null
   bankAgency?: string | null
@@ -2667,6 +3174,9 @@ export type EmployeeCreateWithoutOrganizationInput = {
   vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutEmployeeInput
   bonuses?: Prisma.BonusCreateNestedManyWithoutEmployeeInput
   deductions?: Prisma.DeductionCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
 }
@@ -2715,6 +3225,22 @@ export type EmployeeUncheckedCreateWithoutOrganizationInput = {
   pixKeyHash?: string | null
   bankAccountHash?: string | null
   country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
   bankCode?: string | null
   bankName?: string | null
   bankAgency?: string | null
@@ -2747,6 +3273,9 @@ export type EmployeeUncheckedCreateWithoutOrganizationInput = {
   vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutEmployeeInput
   bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutEmployeeInput
   deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantUncheckedCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
 }
 
@@ -2823,6 +3352,22 @@ export type EmployeeScalarWhereInput = {
   pixKeyHash?: Prisma.StringNullableFilter<"Employee"> | string | null
   bankAccountHash?: Prisma.StringNullableFilter<"Employee"> | string | null
   country?: Prisma.StringFilter<"Employee"> | string
+  raceColor?: Prisma.StringNullableFilter<"Employee"> | string | null
+  educationLevel?: Prisma.StringNullableFilter<"Employee"> | string | null
+  motherName?: Prisma.StringNullableFilter<"Employee"> | string | null
+  municipalityCode?: Prisma.StringNullableFilter<"Employee"> | string | null
+  addressMunicipalityCode?: Prisma.StringNullableFilter<"Employee"> | string | null
+  cboCode?: Prisma.StringNullableFilter<"Employee"> | string | null
+  admissionType?: Prisma.StringNullableFilter<"Employee"> | string | null
+  workerCategory?: Prisma.StringNullableFilter<"Employee"> | string | null
+  salaryUnit?: Prisma.StringNullableFilter<"Employee"> | string | null
+  cnhNumber?: Prisma.StringNullableFilter<"Employee"> | string | null
+  cnhCategory?: Prisma.StringNullableFilter<"Employee"> | string | null
+  cnhExpiration?: Prisma.DateTimeNullableFilter<"Employee"> | Date | string | null
+  professionalRegistration?: Prisma.StringNullableFilter<"Employee"> | string | null
+  unionCode?: Prisma.StringNullableFilter<"Employee"> | string | null
+  fgtsOptDate?: Prisma.DateTimeNullableFilter<"Employee"> | Date | string | null
+  fgtsAccountNumber?: Prisma.StringNullableFilter<"Employee"> | string | null
   bankCode?: Prisma.StringNullableFilter<"Employee"> | string | null
   bankName?: Prisma.StringNullableFilter<"Employee"> | string | null
   bankAgency?: Prisma.StringNullableFilter<"Employee"> | string | null
@@ -2891,6 +3436,22 @@ export type EmployeeCreateWithoutSubordinatesInput = {
   pixKeyHash?: string | null
   bankAccountHash?: string | null
   country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
   bankCode?: string | null
   bankName?: string | null
   bankAgency?: string | null
@@ -2924,6 +3485,9 @@ export type EmployeeCreateWithoutSubordinatesInput = {
   vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutEmployeeInput
   bonuses?: Prisma.BonusCreateNestedManyWithoutEmployeeInput
   deductions?: Prisma.DeductionCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
 }
@@ -2972,6 +3536,22 @@ export type EmployeeUncheckedCreateWithoutSubordinatesInput = {
   pixKeyHash?: string | null
   bankAccountHash?: string | null
   country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
   bankCode?: string | null
   bankName?: string | null
   bankAgency?: string | null
@@ -3004,6 +3584,9 @@ export type EmployeeUncheckedCreateWithoutSubordinatesInput = {
   vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutEmployeeInput
   bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutEmployeeInput
   deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantUncheckedCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
 }
 
@@ -3054,6 +3637,22 @@ export type EmployeeCreateWithoutSupervisorInput = {
   pixKeyHash?: string | null
   bankAccountHash?: string | null
   country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
   bankCode?: string | null
   bankName?: string | null
   bankAgency?: string | null
@@ -3087,6 +3686,9 @@ export type EmployeeCreateWithoutSupervisorInput = {
   vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutEmployeeInput
   bonuses?: Prisma.BonusCreateNestedManyWithoutEmployeeInput
   deductions?: Prisma.DeductionCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
 }
@@ -3135,6 +3737,22 @@ export type EmployeeUncheckedCreateWithoutSupervisorInput = {
   pixKeyHash?: string | null
   bankAccountHash?: string | null
   country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
   bankCode?: string | null
   bankName?: string | null
   bankAgency?: string | null
@@ -3167,6 +3785,9 @@ export type EmployeeUncheckedCreateWithoutSupervisorInput = {
   vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutEmployeeInput
   bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutEmployeeInput
   deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantUncheckedCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
 }
 
@@ -3233,6 +3854,22 @@ export type EmployeeUpdateWithoutSubordinatesInput = {
   pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3266,6 +3903,9 @@ export type EmployeeUpdateWithoutSubordinatesInput = {
   vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutEmployeeNestedInput
   bonuses?: Prisma.BonusUpdateManyWithoutEmployeeNestedInput
   deductions?: Prisma.DeductionUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
 }
@@ -3314,6 +3954,22 @@ export type EmployeeUncheckedUpdateWithoutSubordinatesInput = {
   pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3346,6 +4002,9 @@ export type EmployeeUncheckedUpdateWithoutSubordinatesInput = {
   vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutEmployeeNestedInput
   bonuses?: Prisma.BonusUncheckedUpdateManyWithoutEmployeeNestedInput
   deductions?: Prisma.DeductionUncheckedUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUncheckedUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
 }
 
@@ -3407,6 +4066,22 @@ export type EmployeeCreateWithoutManagedDepartmentsInput = {
   pixKeyHash?: string | null
   bankAccountHash?: string | null
   country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
   bankCode?: string | null
   bankName?: string | null
   bankAgency?: string | null
@@ -3441,6 +4116,9 @@ export type EmployeeCreateWithoutManagedDepartmentsInput = {
   vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutEmployeeInput
   bonuses?: Prisma.BonusCreateNestedManyWithoutEmployeeInput
   deductions?: Prisma.DeductionCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
 }
 
@@ -3488,6 +4166,22 @@ export type EmployeeUncheckedCreateWithoutManagedDepartmentsInput = {
   pixKeyHash?: string | null
   bankAccountHash?: string | null
   country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
   bankCode?: string | null
   bankName?: string | null
   bankAgency?: string | null
@@ -3521,6 +4215,9 @@ export type EmployeeUncheckedCreateWithoutManagedDepartmentsInput = {
   vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutEmployeeInput
   bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutEmployeeInput
   deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantUncheckedCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutManagedDepartmentsInput = {
@@ -3570,6 +4267,22 @@ export type EmployeeCreateWithoutDepartmentInput = {
   pixKeyHash?: string | null
   bankAccountHash?: string | null
   country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
   bankCode?: string | null
   bankName?: string | null
   bankAgency?: string | null
@@ -3603,6 +4316,9 @@ export type EmployeeCreateWithoutDepartmentInput = {
   vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutEmployeeInput
   bonuses?: Prisma.BonusCreateNestedManyWithoutEmployeeInput
   deductions?: Prisma.DeductionCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
 }
@@ -3651,6 +4367,22 @@ export type EmployeeUncheckedCreateWithoutDepartmentInput = {
   pixKeyHash?: string | null
   bankAccountHash?: string | null
   country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
   bankCode?: string | null
   bankName?: string | null
   bankAgency?: string | null
@@ -3683,6 +4415,9 @@ export type EmployeeUncheckedCreateWithoutDepartmentInput = {
   vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutEmployeeInput
   bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutEmployeeInput
   deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantUncheckedCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
 }
 
@@ -3749,6 +4484,22 @@ export type EmployeeUpdateWithoutManagedDepartmentsInput = {
   pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3783,6 +4534,9 @@ export type EmployeeUpdateWithoutManagedDepartmentsInput = {
   vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutEmployeeNestedInput
   bonuses?: Prisma.BonusUpdateManyWithoutEmployeeNestedInput
   deductions?: Prisma.DeductionUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
 }
 
@@ -3830,6 +4584,22 @@ export type EmployeeUncheckedUpdateWithoutManagedDepartmentsInput = {
   pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3863,6 +4633,9 @@ export type EmployeeUncheckedUpdateWithoutManagedDepartmentsInput = {
   vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutEmployeeNestedInput
   bonuses?: Prisma.BonusUncheckedUpdateManyWithoutEmployeeNestedInput
   deductions?: Prisma.DeductionUncheckedUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUncheckedUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUpsertWithWhereUniqueWithoutDepartmentInput = {
@@ -3923,6 +4696,22 @@ export type EmployeeCreateWithoutPositionInput = {
   pixKeyHash?: string | null
   bankAccountHash?: string | null
   country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
   bankCode?: string | null
   bankName?: string | null
   bankAgency?: string | null
@@ -3956,6 +4745,9 @@ export type EmployeeCreateWithoutPositionInput = {
   vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutEmployeeInput
   bonuses?: Prisma.BonusCreateNestedManyWithoutEmployeeInput
   deductions?: Prisma.DeductionCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
 }
@@ -4004,6 +4796,22 @@ export type EmployeeUncheckedCreateWithoutPositionInput = {
   pixKeyHash?: string | null
   bankAccountHash?: string | null
   country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
   bankCode?: string | null
   bankName?: string | null
   bankAgency?: string | null
@@ -4036,6 +4844,9 @@ export type EmployeeUncheckedCreateWithoutPositionInput = {
   vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutEmployeeInput
   bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutEmployeeInput
   deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantUncheckedCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
 }
 
@@ -4107,6 +4918,22 @@ export type EmployeeCreateWithoutTimeEntriesInput = {
   pixKeyHash?: string | null
   bankAccountHash?: string | null
   country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
   bankCode?: string | null
   bankName?: string | null
   bankAgency?: string | null
@@ -4140,6 +4967,9 @@ export type EmployeeCreateWithoutTimeEntriesInput = {
   vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutEmployeeInput
   bonuses?: Prisma.BonusCreateNestedManyWithoutEmployeeInput
   deductions?: Prisma.DeductionCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
 }
@@ -4188,6 +5018,22 @@ export type EmployeeUncheckedCreateWithoutTimeEntriesInput = {
   pixKeyHash?: string | null
   bankAccountHash?: string | null
   country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
   bankCode?: string | null
   bankName?: string | null
   bankAgency?: string | null
@@ -4220,6 +5066,9 @@ export type EmployeeUncheckedCreateWithoutTimeEntriesInput = {
   vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutEmployeeInput
   bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutEmployeeInput
   deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantUncheckedCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
 }
 
@@ -4281,6 +5130,22 @@ export type EmployeeUpdateWithoutTimeEntriesInput = {
   pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4314,6 +5179,9 @@ export type EmployeeUpdateWithoutTimeEntriesInput = {
   vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutEmployeeNestedInput
   bonuses?: Prisma.BonusUpdateManyWithoutEmployeeNestedInput
   deductions?: Prisma.DeductionUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
 }
@@ -4362,6 +5230,22 @@ export type EmployeeUncheckedUpdateWithoutTimeEntriesInput = {
   pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4394,6 +5278,9 @@ export type EmployeeUncheckedUpdateWithoutTimeEntriesInput = {
   vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutEmployeeNestedInput
   bonuses?: Prisma.BonusUncheckedUpdateManyWithoutEmployeeNestedInput
   deductions?: Prisma.DeductionUncheckedUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUncheckedUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
 }
 
@@ -4439,6 +5326,22 @@ export type EmployeeCreateWithoutOvertimeInput = {
   pixKeyHash?: string | null
   bankAccountHash?: string | null
   country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
   bankCode?: string | null
   bankName?: string | null
   bankAgency?: string | null
@@ -4472,6 +5375,9 @@ export type EmployeeCreateWithoutOvertimeInput = {
   vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutEmployeeInput
   bonuses?: Prisma.BonusCreateNestedManyWithoutEmployeeInput
   deductions?: Prisma.DeductionCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
 }
@@ -4520,6 +5426,22 @@ export type EmployeeUncheckedCreateWithoutOvertimeInput = {
   pixKeyHash?: string | null
   bankAccountHash?: string | null
   country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
   bankCode?: string | null
   bankName?: string | null
   bankAgency?: string | null
@@ -4552,6 +5474,9 @@ export type EmployeeUncheckedCreateWithoutOvertimeInput = {
   vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutEmployeeInput
   bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutEmployeeInput
   deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantUncheckedCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
 }
 
@@ -4613,6 +5538,22 @@ export type EmployeeUpdateWithoutOvertimeInput = {
   pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4646,6 +5587,9 @@ export type EmployeeUpdateWithoutOvertimeInput = {
   vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutEmployeeNestedInput
   bonuses?: Prisma.BonusUpdateManyWithoutEmployeeNestedInput
   deductions?: Prisma.DeductionUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
 }
@@ -4694,6 +5638,22 @@ export type EmployeeUncheckedUpdateWithoutOvertimeInput = {
   pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4726,6 +5686,9 @@ export type EmployeeUncheckedUpdateWithoutOvertimeInput = {
   vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutEmployeeNestedInput
   bonuses?: Prisma.BonusUncheckedUpdateManyWithoutEmployeeNestedInput
   deductions?: Prisma.DeductionUncheckedUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUncheckedUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
 }
 
@@ -4771,6 +5734,22 @@ export type EmployeeCreateWithoutTimeBanksInput = {
   pixKeyHash?: string | null
   bankAccountHash?: string | null
   country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
   bankCode?: string | null
   bankName?: string | null
   bankAgency?: string | null
@@ -4804,6 +5783,9 @@ export type EmployeeCreateWithoutTimeBanksInput = {
   vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutEmployeeInput
   bonuses?: Prisma.BonusCreateNestedManyWithoutEmployeeInput
   deductions?: Prisma.DeductionCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
 }
@@ -4852,6 +5834,22 @@ export type EmployeeUncheckedCreateWithoutTimeBanksInput = {
   pixKeyHash?: string | null
   bankAccountHash?: string | null
   country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
   bankCode?: string | null
   bankName?: string | null
   bankAgency?: string | null
@@ -4884,6 +5882,9 @@ export type EmployeeUncheckedCreateWithoutTimeBanksInput = {
   vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutEmployeeInput
   bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutEmployeeInput
   deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantUncheckedCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
 }
 
@@ -4945,6 +5946,22 @@ export type EmployeeUpdateWithoutTimeBanksInput = {
   pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4978,6 +5995,9 @@ export type EmployeeUpdateWithoutTimeBanksInput = {
   vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutEmployeeNestedInput
   bonuses?: Prisma.BonusUpdateManyWithoutEmployeeNestedInput
   deductions?: Prisma.DeductionUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
 }
@@ -5026,6 +6046,22 @@ export type EmployeeUncheckedUpdateWithoutTimeBanksInput = {
   pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5058,6 +6094,9 @@ export type EmployeeUncheckedUpdateWithoutTimeBanksInput = {
   vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutEmployeeNestedInput
   bonuses?: Prisma.BonusUncheckedUpdateManyWithoutEmployeeNestedInput
   deductions?: Prisma.DeductionUncheckedUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUncheckedUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
 }
 
@@ -5103,6 +6142,22 @@ export type EmployeeCreateWithoutAbsencesInput = {
   pixKeyHash?: string | null
   bankAccountHash?: string | null
   country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
   bankCode?: string | null
   bankName?: string | null
   bankAgency?: string | null
@@ -5136,6 +6191,9 @@ export type EmployeeCreateWithoutAbsencesInput = {
   vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutEmployeeInput
   bonuses?: Prisma.BonusCreateNestedManyWithoutEmployeeInput
   deductions?: Prisma.DeductionCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
 }
@@ -5184,6 +6242,22 @@ export type EmployeeUncheckedCreateWithoutAbsencesInput = {
   pixKeyHash?: string | null
   bankAccountHash?: string | null
   country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
   bankCode?: string | null
   bankName?: string | null
   bankAgency?: string | null
@@ -5216,6 +6290,9 @@ export type EmployeeUncheckedCreateWithoutAbsencesInput = {
   vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutEmployeeInput
   bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutEmployeeInput
   deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantUncheckedCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
 }
 
@@ -5277,6 +6354,22 @@ export type EmployeeUpdateWithoutAbsencesInput = {
   pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5310,6 +6403,9 @@ export type EmployeeUpdateWithoutAbsencesInput = {
   vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutEmployeeNestedInput
   bonuses?: Prisma.BonusUpdateManyWithoutEmployeeNestedInput
   deductions?: Prisma.DeductionUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
 }
@@ -5358,6 +6454,22 @@ export type EmployeeUncheckedUpdateWithoutAbsencesInput = {
   pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5390,6 +6502,9 @@ export type EmployeeUncheckedUpdateWithoutAbsencesInput = {
   vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutEmployeeNestedInput
   bonuses?: Prisma.BonusUncheckedUpdateManyWithoutEmployeeNestedInput
   deductions?: Prisma.DeductionUncheckedUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUncheckedUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
 }
 
@@ -5435,6 +6550,22 @@ export type EmployeeCreateWithoutVacationPeriodsInput = {
   pixKeyHash?: string | null
   bankAccountHash?: string | null
   country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
   bankCode?: string | null
   bankName?: string | null
   bankAgency?: string | null
@@ -5468,6 +6599,9 @@ export type EmployeeCreateWithoutVacationPeriodsInput = {
   timeBanks?: Prisma.TimeBankCreateNestedManyWithoutEmployeeInput
   bonuses?: Prisma.BonusCreateNestedManyWithoutEmployeeInput
   deductions?: Prisma.DeductionCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
 }
@@ -5516,6 +6650,22 @@ export type EmployeeUncheckedCreateWithoutVacationPeriodsInput = {
   pixKeyHash?: string | null
   bankAccountHash?: string | null
   country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
   bankCode?: string | null
   bankName?: string | null
   bankAgency?: string | null
@@ -5548,6 +6698,9 @@ export type EmployeeUncheckedCreateWithoutVacationPeriodsInput = {
   timeBanks?: Prisma.TimeBankUncheckedCreateNestedManyWithoutEmployeeInput
   bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutEmployeeInput
   deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantUncheckedCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
 }
 
@@ -5609,6 +6762,22 @@ export type EmployeeUpdateWithoutVacationPeriodsInput = {
   pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5642,6 +6811,9 @@ export type EmployeeUpdateWithoutVacationPeriodsInput = {
   timeBanks?: Prisma.TimeBankUpdateManyWithoutEmployeeNestedInput
   bonuses?: Prisma.BonusUpdateManyWithoutEmployeeNestedInput
   deductions?: Prisma.DeductionUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
 }
@@ -5690,6 +6862,22 @@ export type EmployeeUncheckedUpdateWithoutVacationPeriodsInput = {
   pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5722,6 +6910,9 @@ export type EmployeeUncheckedUpdateWithoutVacationPeriodsInput = {
   timeBanks?: Prisma.TimeBankUncheckedUpdateManyWithoutEmployeeNestedInput
   bonuses?: Prisma.BonusUncheckedUpdateManyWithoutEmployeeNestedInput
   deductions?: Prisma.DeductionUncheckedUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUncheckedUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
 }
 
@@ -5767,6 +6958,22 @@ export type EmployeeCreateWithoutPayrollItemsInput = {
   pixKeyHash?: string | null
   bankAccountHash?: string | null
   country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
   bankCode?: string | null
   bankName?: string | null
   bankAgency?: string | null
@@ -5800,6 +7007,9 @@ export type EmployeeCreateWithoutPayrollItemsInput = {
   vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutEmployeeInput
   bonuses?: Prisma.BonusCreateNestedManyWithoutEmployeeInput
   deductions?: Prisma.DeductionCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
 }
@@ -5848,6 +7058,22 @@ export type EmployeeUncheckedCreateWithoutPayrollItemsInput = {
   pixKeyHash?: string | null
   bankAccountHash?: string | null
   country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
   bankCode?: string | null
   bankName?: string | null
   bankAgency?: string | null
@@ -5880,6 +7106,9 @@ export type EmployeeUncheckedCreateWithoutPayrollItemsInput = {
   vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutEmployeeInput
   bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutEmployeeInput
   deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantUncheckedCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
 }
 
@@ -5941,6 +7170,22 @@ export type EmployeeUpdateWithoutPayrollItemsInput = {
   pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5974,6 +7219,9 @@ export type EmployeeUpdateWithoutPayrollItemsInput = {
   vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutEmployeeNestedInput
   bonuses?: Prisma.BonusUpdateManyWithoutEmployeeNestedInput
   deductions?: Prisma.DeductionUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
 }
@@ -6022,6 +7270,22 @@ export type EmployeeUncheckedUpdateWithoutPayrollItemsInput = {
   pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6054,6 +7318,9 @@ export type EmployeeUncheckedUpdateWithoutPayrollItemsInput = {
   vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutEmployeeNestedInput
   bonuses?: Prisma.BonusUncheckedUpdateManyWithoutEmployeeNestedInput
   deductions?: Prisma.DeductionUncheckedUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUncheckedUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
 }
 
@@ -6099,6 +7366,22 @@ export type EmployeeCreateWithoutBonusesInput = {
   pixKeyHash?: string | null
   bankAccountHash?: string | null
   country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
   bankCode?: string | null
   bankName?: string | null
   bankAgency?: string | null
@@ -6132,6 +7415,9 @@ export type EmployeeCreateWithoutBonusesInput = {
   timeBanks?: Prisma.TimeBankCreateNestedManyWithoutEmployeeInput
   vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutEmployeeInput
   deductions?: Prisma.DeductionCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
 }
@@ -6180,6 +7466,22 @@ export type EmployeeUncheckedCreateWithoutBonusesInput = {
   pixKeyHash?: string | null
   bankAccountHash?: string | null
   country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
   bankCode?: string | null
   bankName?: string | null
   bankAgency?: string | null
@@ -6212,6 +7514,9 @@ export type EmployeeUncheckedCreateWithoutBonusesInput = {
   timeBanks?: Prisma.TimeBankUncheckedCreateNestedManyWithoutEmployeeInput
   vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutEmployeeInput
   deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantUncheckedCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
 }
 
@@ -6273,6 +7578,22 @@ export type EmployeeUpdateWithoutBonusesInput = {
   pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6306,6 +7627,9 @@ export type EmployeeUpdateWithoutBonusesInput = {
   timeBanks?: Prisma.TimeBankUpdateManyWithoutEmployeeNestedInput
   vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutEmployeeNestedInput
   deductions?: Prisma.DeductionUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
 }
@@ -6354,6 +7678,22 @@ export type EmployeeUncheckedUpdateWithoutBonusesInput = {
   pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6386,6 +7726,9 @@ export type EmployeeUncheckedUpdateWithoutBonusesInput = {
   timeBanks?: Prisma.TimeBankUncheckedUpdateManyWithoutEmployeeNestedInput
   vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutEmployeeNestedInput
   deductions?: Prisma.DeductionUncheckedUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUncheckedUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
 }
 
@@ -6431,6 +7774,22 @@ export type EmployeeCreateWithoutDeductionsInput = {
   pixKeyHash?: string | null
   bankAccountHash?: string | null
   country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
   bankCode?: string | null
   bankName?: string | null
   bankAgency?: string | null
@@ -6464,6 +7823,9 @@ export type EmployeeCreateWithoutDeductionsInput = {
   timeBanks?: Prisma.TimeBankCreateNestedManyWithoutEmployeeInput
   vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutEmployeeInput
   bonuses?: Prisma.BonusCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
 }
@@ -6512,6 +7874,22 @@ export type EmployeeUncheckedCreateWithoutDeductionsInput = {
   pixKeyHash?: string | null
   bankAccountHash?: string | null
   country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
   bankCode?: string | null
   bankName?: string | null
   bankAgency?: string | null
@@ -6544,6 +7922,9 @@ export type EmployeeUncheckedCreateWithoutDeductionsInput = {
   timeBanks?: Prisma.TimeBankUncheckedCreateNestedManyWithoutEmployeeInput
   vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutEmployeeInput
   bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantUncheckedCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
 }
 
@@ -6605,6 +7986,22 @@ export type EmployeeUpdateWithoutDeductionsInput = {
   pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6638,6 +8035,9 @@ export type EmployeeUpdateWithoutDeductionsInput = {
   timeBanks?: Prisma.TimeBankUpdateManyWithoutEmployeeNestedInput
   vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutEmployeeNestedInput
   bonuses?: Prisma.BonusUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
 }
@@ -6686,6 +8086,22 @@ export type EmployeeUncheckedUpdateWithoutDeductionsInput = {
   pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6718,6 +8134,1233 @@ export type EmployeeUncheckedUpdateWithoutDeductionsInput = {
   timeBanks?: Prisma.TimeBankUncheckedUpdateManyWithoutEmployeeNestedInput
   vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutEmployeeNestedInput
   bonuses?: Prisma.BonusUncheckedUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUncheckedUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
+  managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
+}
+
+export type EmployeeCreateWithoutDependantsInput = {
+  id?: string
+  registrationNumber: string
+  fullName: string
+  socialName?: string | null
+  birthDate?: Date | string | null
+  gender?: string | null
+  pcd?: boolean
+  maritalStatus?: string | null
+  nationality?: string | null
+  birthPlace?: string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf: string
+  rg?: string | null
+  rgIssuer?: string | null
+  rgIssueDate?: Date | string | null
+  pis?: string | null
+  ctpsNumber?: string | null
+  ctpsSeries?: string | null
+  ctpsState?: string | null
+  voterTitle?: string | null
+  militaryDoc?: string | null
+  email?: string | null
+  personalEmail?: string | null
+  phone?: string | null
+  mobilePhone?: string | null
+  emergencyContact?: string | null
+  emergencyPhone?: string | null
+  address?: string | null
+  addressNumber?: string | null
+  complement?: string | null
+  neighborhood?: string | null
+  city?: string | null
+  state?: string | null
+  zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
+  country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
+  bankCode?: string | null
+  bankName?: string | null
+  bankAgency?: string | null
+  bankAccount?: string | null
+  bankAccountType?: string | null
+  pixKey?: string | null
+  hireDate: Date | string
+  terminationDate?: Date | string | null
+  status?: $Enums.EmployeeStatus
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType: $Enums.ContractType
+  workRegime: $Enums.WorkRegime
+  weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
+  user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
+  department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
+  position?: Prisma.PositionCreateNestedOneWithoutEmployeesInput
+  supervisor?: Prisma.EmployeeCreateNestedOneWithoutSubordinatesInput
+  subordinates?: Prisma.EmployeeCreateNestedManyWithoutSupervisorInput
+  organization?: Prisma.OrganizationCreateNestedOneWithoutEmployeesInput
+  timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutEmployeeInput
+  absences?: Prisma.AbsenceCreateNestedManyWithoutEmployeeInput
+  payrollItems?: Prisma.PayrollItemCreateNestedManyWithoutEmployeeInput
+  overtime?: Prisma.OvertimeCreateNestedManyWithoutEmployeeInput
+  timeBanks?: Prisma.TimeBankCreateNestedManyWithoutEmployeeInput
+  vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutEmployeeInput
+  bonuses?: Prisma.BonusCreateNestedManyWithoutEmployeeInput
+  deductions?: Prisma.DeductionCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
+  managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
+  company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
+}
+
+export type EmployeeUncheckedCreateWithoutDependantsInput = {
+  id?: string
+  tenantId: string
+  registrationNumber: string
+  userId?: string | null
+  fullName: string
+  socialName?: string | null
+  birthDate?: Date | string | null
+  gender?: string | null
+  pcd?: boolean
+  maritalStatus?: string | null
+  nationality?: string | null
+  birthPlace?: string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf: string
+  rg?: string | null
+  rgIssuer?: string | null
+  rgIssueDate?: Date | string | null
+  pis?: string | null
+  ctpsNumber?: string | null
+  ctpsSeries?: string | null
+  ctpsState?: string | null
+  voterTitle?: string | null
+  militaryDoc?: string | null
+  email?: string | null
+  personalEmail?: string | null
+  phone?: string | null
+  mobilePhone?: string | null
+  emergencyContact?: string | null
+  emergencyPhone?: string | null
+  address?: string | null
+  addressNumber?: string | null
+  complement?: string | null
+  neighborhood?: string | null
+  city?: string | null
+  state?: string | null
+  zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
+  country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
+  bankCode?: string | null
+  bankName?: string | null
+  bankAgency?: string | null
+  bankAccount?: string | null
+  bankAccountType?: string | null
+  pixKey?: string | null
+  departmentId?: string | null
+  positionId?: string | null
+  supervisorId?: string | null
+  organizationId?: string | null
+  hireDate: Date | string
+  terminationDate?: Date | string | null
+  status?: $Enums.EmployeeStatus
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType: $Enums.ContractType
+  workRegime: $Enums.WorkRegime
+  weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  companyId?: string | null
+  subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
+  timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
+  absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
+  payrollItems?: Prisma.PayrollItemUncheckedCreateNestedManyWithoutEmployeeInput
+  overtime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutEmployeeInput
+  timeBanks?: Prisma.TimeBankUncheckedCreateNestedManyWithoutEmployeeInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutEmployeeInput
+  bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutEmployeeInput
+  deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
+  managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
+}
+
+export type EmployeeCreateOrConnectWithoutDependantsInput = {
+  where: Prisma.EmployeeWhereUniqueInput
+  create: Prisma.XOR<Prisma.EmployeeCreateWithoutDependantsInput, Prisma.EmployeeUncheckedCreateWithoutDependantsInput>
+}
+
+export type EmployeeUpsertWithoutDependantsInput = {
+  update: Prisma.XOR<Prisma.EmployeeUpdateWithoutDependantsInput, Prisma.EmployeeUncheckedUpdateWithoutDependantsInput>
+  create: Prisma.XOR<Prisma.EmployeeCreateWithoutDependantsInput, Prisma.EmployeeUncheckedCreateWithoutDependantsInput>
+  where?: Prisma.EmployeeWhereInput
+}
+
+export type EmployeeUpdateToOneWithWhereWithoutDependantsInput = {
+  where?: Prisma.EmployeeWhereInput
+  data: Prisma.XOR<Prisma.EmployeeUpdateWithoutDependantsInput, Prisma.EmployeeUncheckedUpdateWithoutDependantsInput>
+}
+
+export type EmployeeUpdateWithoutDependantsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pcd?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  maritalStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthPlace?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf?: Prisma.StringFieldUpdateOperationsInput | string
+  rg?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssuer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsSeries?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsState?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  voterTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  militaryDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mobilePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  complement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  neighborhood?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccount?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
+  workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
+  weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
+  user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
+  department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
+  position?: Prisma.PositionUpdateOneWithoutEmployeesNestedInput
+  supervisor?: Prisma.EmployeeUpdateOneWithoutSubordinatesNestedInput
+  subordinates?: Prisma.EmployeeUpdateManyWithoutSupervisorNestedInput
+  organization?: Prisma.OrganizationUpdateOneWithoutEmployeesNestedInput
+  timeEntries?: Prisma.TimeEntryUpdateManyWithoutEmployeeNestedInput
+  absences?: Prisma.AbsenceUpdateManyWithoutEmployeeNestedInput
+  payrollItems?: Prisma.PayrollItemUpdateManyWithoutEmployeeNestedInput
+  overtime?: Prisma.OvertimeUpdateManyWithoutEmployeeNestedInput
+  timeBanks?: Prisma.TimeBankUpdateManyWithoutEmployeeNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutEmployeeNestedInput
+  bonuses?: Prisma.BonusUpdateManyWithoutEmployeeNestedInput
+  deductions?: Prisma.DeductionUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
+  managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
+  company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
+}
+
+export type EmployeeUncheckedUpdateWithoutDependantsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pcd?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  maritalStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthPlace?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf?: Prisma.StringFieldUpdateOperationsInput | string
+  rg?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssuer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsSeries?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsState?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  voterTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  militaryDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mobilePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  complement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  neighborhood?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccount?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  positionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supervisorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  organizationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
+  workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
+  weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
+  timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
+  absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
+  payrollItems?: Prisma.PayrollItemUncheckedUpdateManyWithoutEmployeeNestedInput
+  overtime?: Prisma.OvertimeUncheckedUpdateManyWithoutEmployeeNestedInput
+  timeBanks?: Prisma.TimeBankUncheckedUpdateManyWithoutEmployeeNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutEmployeeNestedInput
+  bonuses?: Prisma.BonusUncheckedUpdateManyWithoutEmployeeNestedInput
+  deductions?: Prisma.DeductionUncheckedUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
+  managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
+}
+
+export type EmployeeCreateWithoutTerminationInput = {
+  id?: string
+  registrationNumber: string
+  fullName: string
+  socialName?: string | null
+  birthDate?: Date | string | null
+  gender?: string | null
+  pcd?: boolean
+  maritalStatus?: string | null
+  nationality?: string | null
+  birthPlace?: string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf: string
+  rg?: string | null
+  rgIssuer?: string | null
+  rgIssueDate?: Date | string | null
+  pis?: string | null
+  ctpsNumber?: string | null
+  ctpsSeries?: string | null
+  ctpsState?: string | null
+  voterTitle?: string | null
+  militaryDoc?: string | null
+  email?: string | null
+  personalEmail?: string | null
+  phone?: string | null
+  mobilePhone?: string | null
+  emergencyContact?: string | null
+  emergencyPhone?: string | null
+  address?: string | null
+  addressNumber?: string | null
+  complement?: string | null
+  neighborhood?: string | null
+  city?: string | null
+  state?: string | null
+  zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
+  country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
+  bankCode?: string | null
+  bankName?: string | null
+  bankAgency?: string | null
+  bankAccount?: string | null
+  bankAccountType?: string | null
+  pixKey?: string | null
+  hireDate: Date | string
+  terminationDate?: Date | string | null
+  status?: $Enums.EmployeeStatus
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType: $Enums.ContractType
+  workRegime: $Enums.WorkRegime
+  weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
+  user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
+  department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
+  position?: Prisma.PositionCreateNestedOneWithoutEmployeesInput
+  supervisor?: Prisma.EmployeeCreateNestedOneWithoutSubordinatesInput
+  subordinates?: Prisma.EmployeeCreateNestedManyWithoutSupervisorInput
+  organization?: Prisma.OrganizationCreateNestedOneWithoutEmployeesInput
+  timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutEmployeeInput
+  absences?: Prisma.AbsenceCreateNestedManyWithoutEmployeeInput
+  payrollItems?: Prisma.PayrollItemCreateNestedManyWithoutEmployeeInput
+  overtime?: Prisma.OvertimeCreateNestedManyWithoutEmployeeInput
+  timeBanks?: Prisma.TimeBankCreateNestedManyWithoutEmployeeInput
+  vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutEmployeeInput
+  bonuses?: Prisma.BonusCreateNestedManyWithoutEmployeeInput
+  deductions?: Prisma.DeductionCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantCreateNestedManyWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
+  managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
+  company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
+}
+
+export type EmployeeUncheckedCreateWithoutTerminationInput = {
+  id?: string
+  tenantId: string
+  registrationNumber: string
+  userId?: string | null
+  fullName: string
+  socialName?: string | null
+  birthDate?: Date | string | null
+  gender?: string | null
+  pcd?: boolean
+  maritalStatus?: string | null
+  nationality?: string | null
+  birthPlace?: string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf: string
+  rg?: string | null
+  rgIssuer?: string | null
+  rgIssueDate?: Date | string | null
+  pis?: string | null
+  ctpsNumber?: string | null
+  ctpsSeries?: string | null
+  ctpsState?: string | null
+  voterTitle?: string | null
+  militaryDoc?: string | null
+  email?: string | null
+  personalEmail?: string | null
+  phone?: string | null
+  mobilePhone?: string | null
+  emergencyContact?: string | null
+  emergencyPhone?: string | null
+  address?: string | null
+  addressNumber?: string | null
+  complement?: string | null
+  neighborhood?: string | null
+  city?: string | null
+  state?: string | null
+  zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
+  country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
+  bankCode?: string | null
+  bankName?: string | null
+  bankAgency?: string | null
+  bankAccount?: string | null
+  bankAccountType?: string | null
+  pixKey?: string | null
+  departmentId?: string | null
+  positionId?: string | null
+  supervisorId?: string | null
+  organizationId?: string | null
+  hireDate: Date | string
+  terminationDate?: Date | string | null
+  status?: $Enums.EmployeeStatus
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType: $Enums.ContractType
+  workRegime: $Enums.WorkRegime
+  weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  companyId?: string | null
+  subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
+  timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
+  absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
+  payrollItems?: Prisma.PayrollItemUncheckedCreateNestedManyWithoutEmployeeInput
+  overtime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutEmployeeInput
+  timeBanks?: Prisma.TimeBankUncheckedCreateNestedManyWithoutEmployeeInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutEmployeeInput
+  bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutEmployeeInput
+  deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantUncheckedCreateNestedManyWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
+  managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
+}
+
+export type EmployeeCreateOrConnectWithoutTerminationInput = {
+  where: Prisma.EmployeeWhereUniqueInput
+  create: Prisma.XOR<Prisma.EmployeeCreateWithoutTerminationInput, Prisma.EmployeeUncheckedCreateWithoutTerminationInput>
+}
+
+export type EmployeeUpsertWithoutTerminationInput = {
+  update: Prisma.XOR<Prisma.EmployeeUpdateWithoutTerminationInput, Prisma.EmployeeUncheckedUpdateWithoutTerminationInput>
+  create: Prisma.XOR<Prisma.EmployeeCreateWithoutTerminationInput, Prisma.EmployeeUncheckedCreateWithoutTerminationInput>
+  where?: Prisma.EmployeeWhereInput
+}
+
+export type EmployeeUpdateToOneWithWhereWithoutTerminationInput = {
+  where?: Prisma.EmployeeWhereInput
+  data: Prisma.XOR<Prisma.EmployeeUpdateWithoutTerminationInput, Prisma.EmployeeUncheckedUpdateWithoutTerminationInput>
+}
+
+export type EmployeeUpdateWithoutTerminationInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pcd?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  maritalStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthPlace?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf?: Prisma.StringFieldUpdateOperationsInput | string
+  rg?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssuer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsSeries?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsState?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  voterTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  militaryDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mobilePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  complement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  neighborhood?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccount?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
+  workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
+  weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
+  user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
+  department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
+  position?: Prisma.PositionUpdateOneWithoutEmployeesNestedInput
+  supervisor?: Prisma.EmployeeUpdateOneWithoutSubordinatesNestedInput
+  subordinates?: Prisma.EmployeeUpdateManyWithoutSupervisorNestedInput
+  organization?: Prisma.OrganizationUpdateOneWithoutEmployeesNestedInput
+  timeEntries?: Prisma.TimeEntryUpdateManyWithoutEmployeeNestedInput
+  absences?: Prisma.AbsenceUpdateManyWithoutEmployeeNestedInput
+  payrollItems?: Prisma.PayrollItemUpdateManyWithoutEmployeeNestedInput
+  overtime?: Prisma.OvertimeUpdateManyWithoutEmployeeNestedInput
+  timeBanks?: Prisma.TimeBankUpdateManyWithoutEmployeeNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutEmployeeNestedInput
+  bonuses?: Prisma.BonusUpdateManyWithoutEmployeeNestedInput
+  deductions?: Prisma.DeductionUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUpdateManyWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
+  managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
+  company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
+}
+
+export type EmployeeUncheckedUpdateWithoutTerminationInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pcd?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  maritalStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthPlace?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf?: Prisma.StringFieldUpdateOperationsInput | string
+  rg?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssuer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsSeries?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsState?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  voterTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  militaryDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mobilePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  complement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  neighborhood?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccount?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  positionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supervisorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  organizationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
+  workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
+  weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
+  timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
+  absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
+  payrollItems?: Prisma.PayrollItemUncheckedUpdateManyWithoutEmployeeNestedInput
+  overtime?: Prisma.OvertimeUncheckedUpdateManyWithoutEmployeeNestedInput
+  timeBanks?: Prisma.TimeBankUncheckedUpdateManyWithoutEmployeeNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutEmployeeNestedInput
+  bonuses?: Prisma.BonusUncheckedUpdateManyWithoutEmployeeNestedInput
+  deductions?: Prisma.DeductionUncheckedUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUncheckedUpdateManyWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
+  managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
+}
+
+export type EmployeeCreateWithoutMedicalExamsInput = {
+  id?: string
+  registrationNumber: string
+  fullName: string
+  socialName?: string | null
+  birthDate?: Date | string | null
+  gender?: string | null
+  pcd?: boolean
+  maritalStatus?: string | null
+  nationality?: string | null
+  birthPlace?: string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf: string
+  rg?: string | null
+  rgIssuer?: string | null
+  rgIssueDate?: Date | string | null
+  pis?: string | null
+  ctpsNumber?: string | null
+  ctpsSeries?: string | null
+  ctpsState?: string | null
+  voterTitle?: string | null
+  militaryDoc?: string | null
+  email?: string | null
+  personalEmail?: string | null
+  phone?: string | null
+  mobilePhone?: string | null
+  emergencyContact?: string | null
+  emergencyPhone?: string | null
+  address?: string | null
+  addressNumber?: string | null
+  complement?: string | null
+  neighborhood?: string | null
+  city?: string | null
+  state?: string | null
+  zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
+  country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
+  bankCode?: string | null
+  bankName?: string | null
+  bankAgency?: string | null
+  bankAccount?: string | null
+  bankAccountType?: string | null
+  pixKey?: string | null
+  hireDate: Date | string
+  terminationDate?: Date | string | null
+  status?: $Enums.EmployeeStatus
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType: $Enums.ContractType
+  workRegime: $Enums.WorkRegime
+  weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
+  user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
+  department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
+  position?: Prisma.PositionCreateNestedOneWithoutEmployeesInput
+  supervisor?: Prisma.EmployeeCreateNestedOneWithoutSubordinatesInput
+  subordinates?: Prisma.EmployeeCreateNestedManyWithoutSupervisorInput
+  organization?: Prisma.OrganizationCreateNestedOneWithoutEmployeesInput
+  timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutEmployeeInput
+  absences?: Prisma.AbsenceCreateNestedManyWithoutEmployeeInput
+  payrollItems?: Prisma.PayrollItemCreateNestedManyWithoutEmployeeInput
+  overtime?: Prisma.OvertimeCreateNestedManyWithoutEmployeeInput
+  timeBanks?: Prisma.TimeBankCreateNestedManyWithoutEmployeeInput
+  vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutEmployeeInput
+  bonuses?: Prisma.BonusCreateNestedManyWithoutEmployeeInput
+  deductions?: Prisma.DeductionCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
+  managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
+  company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
+}
+
+export type EmployeeUncheckedCreateWithoutMedicalExamsInput = {
+  id?: string
+  tenantId: string
+  registrationNumber: string
+  userId?: string | null
+  fullName: string
+  socialName?: string | null
+  birthDate?: Date | string | null
+  gender?: string | null
+  pcd?: boolean
+  maritalStatus?: string | null
+  nationality?: string | null
+  birthPlace?: string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf: string
+  rg?: string | null
+  rgIssuer?: string | null
+  rgIssueDate?: Date | string | null
+  pis?: string | null
+  ctpsNumber?: string | null
+  ctpsSeries?: string | null
+  ctpsState?: string | null
+  voterTitle?: string | null
+  militaryDoc?: string | null
+  email?: string | null
+  personalEmail?: string | null
+  phone?: string | null
+  mobilePhone?: string | null
+  emergencyContact?: string | null
+  emergencyPhone?: string | null
+  address?: string | null
+  addressNumber?: string | null
+  complement?: string | null
+  neighborhood?: string | null
+  city?: string | null
+  state?: string | null
+  zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
+  country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
+  bankCode?: string | null
+  bankName?: string | null
+  bankAgency?: string | null
+  bankAccount?: string | null
+  bankAccountType?: string | null
+  pixKey?: string | null
+  departmentId?: string | null
+  positionId?: string | null
+  supervisorId?: string | null
+  organizationId?: string | null
+  hireDate: Date | string
+  terminationDate?: Date | string | null
+  status?: $Enums.EmployeeStatus
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType: $Enums.ContractType
+  workRegime: $Enums.WorkRegime
+  weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  companyId?: string | null
+  subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
+  timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
+  absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
+  payrollItems?: Prisma.PayrollItemUncheckedCreateNestedManyWithoutEmployeeInput
+  overtime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutEmployeeInput
+  timeBanks?: Prisma.TimeBankUncheckedCreateNestedManyWithoutEmployeeInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutEmployeeInput
+  bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutEmployeeInput
+  deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantUncheckedCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
+  managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
+}
+
+export type EmployeeCreateOrConnectWithoutMedicalExamsInput = {
+  where: Prisma.EmployeeWhereUniqueInput
+  create: Prisma.XOR<Prisma.EmployeeCreateWithoutMedicalExamsInput, Prisma.EmployeeUncheckedCreateWithoutMedicalExamsInput>
+}
+
+export type EmployeeUpsertWithoutMedicalExamsInput = {
+  update: Prisma.XOR<Prisma.EmployeeUpdateWithoutMedicalExamsInput, Prisma.EmployeeUncheckedUpdateWithoutMedicalExamsInput>
+  create: Prisma.XOR<Prisma.EmployeeCreateWithoutMedicalExamsInput, Prisma.EmployeeUncheckedCreateWithoutMedicalExamsInput>
+  where?: Prisma.EmployeeWhereInput
+}
+
+export type EmployeeUpdateToOneWithWhereWithoutMedicalExamsInput = {
+  where?: Prisma.EmployeeWhereInput
+  data: Prisma.XOR<Prisma.EmployeeUpdateWithoutMedicalExamsInput, Prisma.EmployeeUncheckedUpdateWithoutMedicalExamsInput>
+}
+
+export type EmployeeUpdateWithoutMedicalExamsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pcd?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  maritalStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthPlace?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf?: Prisma.StringFieldUpdateOperationsInput | string
+  rg?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssuer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsSeries?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsState?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  voterTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  militaryDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mobilePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  complement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  neighborhood?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccount?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
+  workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
+  weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
+  user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
+  department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
+  position?: Prisma.PositionUpdateOneWithoutEmployeesNestedInput
+  supervisor?: Prisma.EmployeeUpdateOneWithoutSubordinatesNestedInput
+  subordinates?: Prisma.EmployeeUpdateManyWithoutSupervisorNestedInput
+  organization?: Prisma.OrganizationUpdateOneWithoutEmployeesNestedInput
+  timeEntries?: Prisma.TimeEntryUpdateManyWithoutEmployeeNestedInput
+  absences?: Prisma.AbsenceUpdateManyWithoutEmployeeNestedInput
+  payrollItems?: Prisma.PayrollItemUpdateManyWithoutEmployeeNestedInput
+  overtime?: Prisma.OvertimeUpdateManyWithoutEmployeeNestedInput
+  timeBanks?: Prisma.TimeBankUpdateManyWithoutEmployeeNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutEmployeeNestedInput
+  bonuses?: Prisma.BonusUpdateManyWithoutEmployeeNestedInput
+  deductions?: Prisma.DeductionUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
+  managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
+  company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
+}
+
+export type EmployeeUncheckedUpdateWithoutMedicalExamsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pcd?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  maritalStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthPlace?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf?: Prisma.StringFieldUpdateOperationsInput | string
+  rg?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssuer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsSeries?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsState?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  voterTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  militaryDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mobilePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  complement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  neighborhood?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccount?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  positionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supervisorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  organizationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
+  workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
+  weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
+  timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
+  absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
+  payrollItems?: Prisma.PayrollItemUncheckedUpdateManyWithoutEmployeeNestedInput
+  overtime?: Prisma.OvertimeUncheckedUpdateManyWithoutEmployeeNestedInput
+  timeBanks?: Prisma.TimeBankUncheckedUpdateManyWithoutEmployeeNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutEmployeeNestedInput
+  bonuses?: Prisma.BonusUncheckedUpdateManyWithoutEmployeeNestedInput
+  deductions?: Prisma.DeductionUncheckedUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUncheckedUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
 }
 
@@ -6763,6 +9406,22 @@ export type EmployeeCreateWithoutCompanyInput = {
   pixKeyHash?: string | null
   bankAccountHash?: string | null
   country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
   bankCode?: string | null
   bankName?: string | null
   bankAgency?: string | null
@@ -6797,6 +9456,9 @@ export type EmployeeCreateWithoutCompanyInput = {
   vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutEmployeeInput
   bonuses?: Prisma.BonusCreateNestedManyWithoutEmployeeInput
   deductions?: Prisma.DeductionCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
 }
 
@@ -6844,6 +9506,22 @@ export type EmployeeUncheckedCreateWithoutCompanyInput = {
   pixKeyHash?: string | null
   bankAccountHash?: string | null
   country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
   bankCode?: string | null
   bankName?: string | null
   bankAgency?: string | null
@@ -6876,6 +9554,9 @@ export type EmployeeUncheckedCreateWithoutCompanyInput = {
   vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutEmployeeInput
   bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutEmployeeInput
   deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantUncheckedCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
 }
 
@@ -6947,6 +9628,22 @@ export type EmployeeCreateWithoutTenantInput = {
   pixKeyHash?: string | null
   bankAccountHash?: string | null
   country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
   bankCode?: string | null
   bankName?: string | null
   bankAgency?: string | null
@@ -6980,6 +9677,9 @@ export type EmployeeCreateWithoutTenantInput = {
   vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutEmployeeInput
   bonuses?: Prisma.BonusCreateNestedManyWithoutEmployeeInput
   deductions?: Prisma.DeductionCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
 }
@@ -7027,6 +9727,22 @@ export type EmployeeUncheckedCreateWithoutTenantInput = {
   pixKeyHash?: string | null
   bankAccountHash?: string | null
   country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
   bankCode?: string | null
   bankName?: string | null
   bankAgency?: string | null
@@ -7060,6 +9776,9 @@ export type EmployeeUncheckedCreateWithoutTenantInput = {
   vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutEmployeeInput
   bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutEmployeeInput
   deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantUncheckedCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
 }
 
@@ -7133,6 +9852,22 @@ export type EmployeeCreateManyOrganizationInput = {
   pixKeyHash?: string | null
   bankAccountHash?: string | null
   country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
   bankCode?: string | null
   bankName?: string | null
   bankAgency?: string | null
@@ -7200,6 +9935,22 @@ export type EmployeeUpdateWithoutOrganizationInput = {
   pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7233,6 +9984,9 @@ export type EmployeeUpdateWithoutOrganizationInput = {
   vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutEmployeeNestedInput
   bonuses?: Prisma.BonusUpdateManyWithoutEmployeeNestedInput
   deductions?: Prisma.DeductionUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
 }
@@ -7281,6 +10035,22 @@ export type EmployeeUncheckedUpdateWithoutOrganizationInput = {
   pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7313,6 +10083,9 @@ export type EmployeeUncheckedUpdateWithoutOrganizationInput = {
   vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutEmployeeNestedInput
   bonuses?: Prisma.BonusUncheckedUpdateManyWithoutEmployeeNestedInput
   deductions?: Prisma.DeductionUncheckedUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUncheckedUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
 }
 
@@ -7360,6 +10133,22 @@ export type EmployeeUncheckedUpdateManyWithoutOrganizationInput = {
   pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7429,6 +10218,22 @@ export type EmployeeCreateManySupervisorInput = {
   pixKeyHash?: string | null
   bankAccountHash?: string | null
   country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
   bankCode?: string | null
   bankName?: string | null
   bankAgency?: string | null
@@ -7496,6 +10301,22 @@ export type EmployeeUpdateWithoutSupervisorInput = {
   pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7529,6 +10350,9 @@ export type EmployeeUpdateWithoutSupervisorInput = {
   vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutEmployeeNestedInput
   bonuses?: Prisma.BonusUpdateManyWithoutEmployeeNestedInput
   deductions?: Prisma.DeductionUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
 }
@@ -7577,6 +10401,22 @@ export type EmployeeUncheckedUpdateWithoutSupervisorInput = {
   pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7609,6 +10449,9 @@ export type EmployeeUncheckedUpdateWithoutSupervisorInput = {
   vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutEmployeeNestedInput
   bonuses?: Prisma.BonusUncheckedUpdateManyWithoutEmployeeNestedInput
   deductions?: Prisma.DeductionUncheckedUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUncheckedUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
 }
 
@@ -7656,6 +10499,22 @@ export type EmployeeUncheckedUpdateManyWithoutSupervisorInput = {
   pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7725,6 +10584,22 @@ export type EmployeeCreateManyDepartmentInput = {
   pixKeyHash?: string | null
   bankAccountHash?: string | null
   country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
   bankCode?: string | null
   bankName?: string | null
   bankAgency?: string | null
@@ -7792,6 +10667,22 @@ export type EmployeeUpdateWithoutDepartmentInput = {
   pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7825,6 +10716,9 @@ export type EmployeeUpdateWithoutDepartmentInput = {
   vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutEmployeeNestedInput
   bonuses?: Prisma.BonusUpdateManyWithoutEmployeeNestedInput
   deductions?: Prisma.DeductionUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
 }
@@ -7873,6 +10767,22 @@ export type EmployeeUncheckedUpdateWithoutDepartmentInput = {
   pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7905,6 +10815,9 @@ export type EmployeeUncheckedUpdateWithoutDepartmentInput = {
   vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutEmployeeNestedInput
   bonuses?: Prisma.BonusUncheckedUpdateManyWithoutEmployeeNestedInput
   deductions?: Prisma.DeductionUncheckedUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUncheckedUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
 }
 
@@ -7952,6 +10865,22 @@ export type EmployeeUncheckedUpdateManyWithoutDepartmentInput = {
   pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8021,6 +10950,22 @@ export type EmployeeCreateManyPositionInput = {
   pixKeyHash?: string | null
   bankAccountHash?: string | null
   country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
   bankCode?: string | null
   bankName?: string | null
   bankAgency?: string | null
@@ -8088,6 +11033,22 @@ export type EmployeeUpdateWithoutPositionInput = {
   pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8121,6 +11082,9 @@ export type EmployeeUpdateWithoutPositionInput = {
   vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutEmployeeNestedInput
   bonuses?: Prisma.BonusUpdateManyWithoutEmployeeNestedInput
   deductions?: Prisma.DeductionUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
 }
@@ -8169,6 +11133,22 @@ export type EmployeeUncheckedUpdateWithoutPositionInput = {
   pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8201,6 +11181,9 @@ export type EmployeeUncheckedUpdateWithoutPositionInput = {
   vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutEmployeeNestedInput
   bonuses?: Prisma.BonusUncheckedUpdateManyWithoutEmployeeNestedInput
   deductions?: Prisma.DeductionUncheckedUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUncheckedUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
 }
 
@@ -8248,6 +11231,22 @@ export type EmployeeUncheckedUpdateManyWithoutPositionInput = {
   pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8317,6 +11316,22 @@ export type EmployeeCreateManyCompanyInput = {
   pixKeyHash?: string | null
   bankAccountHash?: string | null
   country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
   bankCode?: string | null
   bankName?: string | null
   bankAgency?: string | null
@@ -8384,6 +11399,22 @@ export type EmployeeUpdateWithoutCompanyInput = {
   pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8418,6 +11449,9 @@ export type EmployeeUpdateWithoutCompanyInput = {
   vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutEmployeeNestedInput
   bonuses?: Prisma.BonusUpdateManyWithoutEmployeeNestedInput
   deductions?: Prisma.DeductionUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
 }
 
@@ -8465,6 +11499,22 @@ export type EmployeeUncheckedUpdateWithoutCompanyInput = {
   pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8497,6 +11547,9 @@ export type EmployeeUncheckedUpdateWithoutCompanyInput = {
   vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutEmployeeNestedInput
   bonuses?: Prisma.BonusUncheckedUpdateManyWithoutEmployeeNestedInput
   deductions?: Prisma.DeductionUncheckedUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUncheckedUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
 }
 
@@ -8544,6 +11597,22 @@ export type EmployeeUncheckedUpdateManyWithoutCompanyInput = {
   pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8612,6 +11681,22 @@ export type EmployeeCreateManyTenantInput = {
   pixKeyHash?: string | null
   bankAccountHash?: string | null
   country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
   bankCode?: string | null
   bankName?: string | null
   bankAgency?: string | null
@@ -8680,6 +11765,22 @@ export type EmployeeUpdateWithoutTenantInput = {
   pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8713,6 +11814,9 @@ export type EmployeeUpdateWithoutTenantInput = {
   vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutEmployeeNestedInput
   bonuses?: Prisma.BonusUpdateManyWithoutEmployeeNestedInput
   deductions?: Prisma.DeductionUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
 }
@@ -8760,6 +11864,22 @@ export type EmployeeUncheckedUpdateWithoutTenantInput = {
   pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8793,6 +11913,9 @@ export type EmployeeUncheckedUpdateWithoutTenantInput = {
   vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutEmployeeNestedInput
   bonuses?: Prisma.BonusUncheckedUpdateManyWithoutEmployeeNestedInput
   deductions?: Prisma.DeductionUncheckedUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUncheckedUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
 }
 
@@ -8839,6 +11962,22 @@ export type EmployeeUncheckedUpdateManyWithoutTenantInput = {
   pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8880,6 +12019,8 @@ export type EmployeeCountOutputType = {
   vacationPeriods: number
   bonuses: number
   deductions: number
+  dependants: number
+  medicalExams: number
   managedDepartments: number
 }
 
@@ -8893,6 +12034,8 @@ export type EmployeeCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensio
   vacationPeriods?: boolean | EmployeeCountOutputTypeCountVacationPeriodsArgs
   bonuses?: boolean | EmployeeCountOutputTypeCountBonusesArgs
   deductions?: boolean | EmployeeCountOutputTypeCountDeductionsArgs
+  dependants?: boolean | EmployeeCountOutputTypeCountDependantsArgs
+  medicalExams?: boolean | EmployeeCountOutputTypeCountMedicalExamsArgs
   managedDepartments?: boolean | EmployeeCountOutputTypeCountManagedDepartmentsArgs
 }
 
@@ -8972,6 +12115,20 @@ export type EmployeeCountOutputTypeCountDeductionsArgs<ExtArgs extends runtime.T
 /**
  * EmployeeCountOutputType without action
  */
+export type EmployeeCountOutputTypeCountDependantsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.EmployeeDependantWhereInput
+}
+
+/**
+ * EmployeeCountOutputType without action
+ */
+export type EmployeeCountOutputTypeCountMedicalExamsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MedicalExamWhereInput
+}
+
+/**
+ * EmployeeCountOutputType without action
+ */
 export type EmployeeCountOutputTypeCountManagedDepartmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.DepartmentWhereInput
 }
@@ -9021,6 +12178,22 @@ export type EmployeeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   pixKeyHash?: boolean
   bankAccountHash?: boolean
   country?: boolean
+  raceColor?: boolean
+  educationLevel?: boolean
+  motherName?: boolean
+  municipalityCode?: boolean
+  addressMunicipalityCode?: boolean
+  cboCode?: boolean
+  admissionType?: boolean
+  workerCategory?: boolean
+  salaryUnit?: boolean
+  cnhNumber?: boolean
+  cnhCategory?: boolean
+  cnhExpiration?: boolean
+  professionalRegistration?: boolean
+  unionCode?: boolean
+  fgtsOptDate?: boolean
+  fgtsAccountNumber?: boolean
   bankCode?: boolean
   bankName?: boolean
   bankAgency?: boolean
@@ -9060,6 +12233,9 @@ export type EmployeeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   vacationPeriods?: boolean | Prisma.Employee$vacationPeriodsArgs<ExtArgs>
   bonuses?: boolean | Prisma.Employee$bonusesArgs<ExtArgs>
   deductions?: boolean | Prisma.Employee$deductionsArgs<ExtArgs>
+  dependants?: boolean | Prisma.Employee$dependantsArgs<ExtArgs>
+  termination?: boolean | Prisma.Employee$terminationArgs<ExtArgs>
+  medicalExams?: boolean | Prisma.Employee$medicalExamsArgs<ExtArgs>
   managedDepartments?: boolean | Prisma.Employee$managedDepartmentsArgs<ExtArgs>
   company?: boolean | Prisma.Employee$companyArgs<ExtArgs>
   _count?: boolean | Prisma.EmployeeCountOutputTypeDefaultArgs<ExtArgs>
@@ -9109,6 +12285,22 @@ export type EmployeeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   pixKeyHash?: boolean
   bankAccountHash?: boolean
   country?: boolean
+  raceColor?: boolean
+  educationLevel?: boolean
+  motherName?: boolean
+  municipalityCode?: boolean
+  addressMunicipalityCode?: boolean
+  cboCode?: boolean
+  admissionType?: boolean
+  workerCategory?: boolean
+  salaryUnit?: boolean
+  cnhNumber?: boolean
+  cnhCategory?: boolean
+  cnhExpiration?: boolean
+  professionalRegistration?: boolean
+  unionCode?: boolean
+  fgtsOptDate?: boolean
+  fgtsAccountNumber?: boolean
   bankCode?: boolean
   bankName?: boolean
   bankAgency?: boolean
@@ -9186,6 +12378,22 @@ export type EmployeeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   pixKeyHash?: boolean
   bankAccountHash?: boolean
   country?: boolean
+  raceColor?: boolean
+  educationLevel?: boolean
+  motherName?: boolean
+  municipalityCode?: boolean
+  addressMunicipalityCode?: boolean
+  cboCode?: boolean
+  admissionType?: boolean
+  workerCategory?: boolean
+  salaryUnit?: boolean
+  cnhNumber?: boolean
+  cnhCategory?: boolean
+  cnhExpiration?: boolean
+  professionalRegistration?: boolean
+  unionCode?: boolean
+  fgtsOptDate?: boolean
+  fgtsAccountNumber?: boolean
   bankCode?: boolean
   bankName?: boolean
   bankAgency?: boolean
@@ -9263,6 +12471,22 @@ export type EmployeeSelectScalar = {
   pixKeyHash?: boolean
   bankAccountHash?: boolean
   country?: boolean
+  raceColor?: boolean
+  educationLevel?: boolean
+  motherName?: boolean
+  municipalityCode?: boolean
+  addressMunicipalityCode?: boolean
+  cboCode?: boolean
+  admissionType?: boolean
+  workerCategory?: boolean
+  salaryUnit?: boolean
+  cnhNumber?: boolean
+  cnhCategory?: boolean
+  cnhExpiration?: boolean
+  professionalRegistration?: boolean
+  unionCode?: boolean
+  fgtsOptDate?: boolean
+  fgtsAccountNumber?: boolean
   bankCode?: boolean
   bankName?: boolean
   bankAgency?: boolean
@@ -9289,7 +12513,7 @@ export type EmployeeSelectScalar = {
   companyId?: boolean
 }
 
-export type EmployeeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "registrationNumber" | "userId" | "fullName" | "socialName" | "birthDate" | "gender" | "pcd" | "maritalStatus" | "nationality" | "birthPlace" | "emergencyContactInfo" | "healthConditions" | "cpf" | "rg" | "rgIssuer" | "rgIssueDate" | "pis" | "ctpsNumber" | "ctpsSeries" | "ctpsState" | "voterTitle" | "militaryDoc" | "email" | "personalEmail" | "phone" | "mobilePhone" | "emergencyContact" | "emergencyPhone" | "address" | "addressNumber" | "complement" | "neighborhood" | "city" | "state" | "zipCode" | "cpfHash" | "rgHash" | "pisHash" | "pixKeyHash" | "bankAccountHash" | "country" | "bankCode" | "bankName" | "bankAgency" | "bankAccount" | "bankAccountType" | "pixKey" | "departmentId" | "positionId" | "supervisorId" | "organizationId" | "hireDate" | "terminationDate" | "status" | "baseSalary" | "contractType" | "workRegime" | "weeklyHours" | "photoUrl" | "metadata" | "pendingIssues" | "deletedAt" | "createdAt" | "updatedAt" | "companyId", ExtArgs["result"]["employee"]>
+export type EmployeeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "registrationNumber" | "userId" | "fullName" | "socialName" | "birthDate" | "gender" | "pcd" | "maritalStatus" | "nationality" | "birthPlace" | "emergencyContactInfo" | "healthConditions" | "cpf" | "rg" | "rgIssuer" | "rgIssueDate" | "pis" | "ctpsNumber" | "ctpsSeries" | "ctpsState" | "voterTitle" | "militaryDoc" | "email" | "personalEmail" | "phone" | "mobilePhone" | "emergencyContact" | "emergencyPhone" | "address" | "addressNumber" | "complement" | "neighborhood" | "city" | "state" | "zipCode" | "cpfHash" | "rgHash" | "pisHash" | "pixKeyHash" | "bankAccountHash" | "country" | "raceColor" | "educationLevel" | "motherName" | "municipalityCode" | "addressMunicipalityCode" | "cboCode" | "admissionType" | "workerCategory" | "salaryUnit" | "cnhNumber" | "cnhCategory" | "cnhExpiration" | "professionalRegistration" | "unionCode" | "fgtsOptDate" | "fgtsAccountNumber" | "bankCode" | "bankName" | "bankAgency" | "bankAccount" | "bankAccountType" | "pixKey" | "departmentId" | "positionId" | "supervisorId" | "organizationId" | "hireDate" | "terminationDate" | "status" | "baseSalary" | "contractType" | "workRegime" | "weeklyHours" | "photoUrl" | "metadata" | "pendingIssues" | "deletedAt" | "createdAt" | "updatedAt" | "companyId", ExtArgs["result"]["employee"]>
 export type EmployeeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   user?: boolean | Prisma.Employee$userArgs<ExtArgs>
@@ -9306,6 +12530,9 @@ export type EmployeeInclude<ExtArgs extends runtime.Types.Extensions.InternalArg
   vacationPeriods?: boolean | Prisma.Employee$vacationPeriodsArgs<ExtArgs>
   bonuses?: boolean | Prisma.Employee$bonusesArgs<ExtArgs>
   deductions?: boolean | Prisma.Employee$deductionsArgs<ExtArgs>
+  dependants?: boolean | Prisma.Employee$dependantsArgs<ExtArgs>
+  termination?: boolean | Prisma.Employee$terminationArgs<ExtArgs>
+  medicalExams?: boolean | Prisma.Employee$medicalExamsArgs<ExtArgs>
   managedDepartments?: boolean | Prisma.Employee$managedDepartmentsArgs<ExtArgs>
   company?: boolean | Prisma.Employee$companyArgs<ExtArgs>
   _count?: boolean | Prisma.EmployeeCountOutputTypeDefaultArgs<ExtArgs>
@@ -9347,6 +12574,9 @@ export type $EmployeePayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     vacationPeriods: Prisma.$VacationPeriodPayload<ExtArgs>[]
     bonuses: Prisma.$BonusPayload<ExtArgs>[]
     deductions: Prisma.$DeductionPayload<ExtArgs>[]
+    dependants: Prisma.$EmployeeDependantPayload<ExtArgs>[]
+    termination: Prisma.$TerminationPayload<ExtArgs> | null
+    medicalExams: Prisma.$MedicalExamPayload<ExtArgs>[]
     managedDepartments: Prisma.$DepartmentPayload<ExtArgs>[]
     company: Prisma.$CompanyPayload<ExtArgs> | null
   }
@@ -9394,6 +12624,22 @@ export type $EmployeePayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     pixKeyHash: string | null
     bankAccountHash: string | null
     country: string
+    raceColor: string | null
+    educationLevel: string | null
+    motherName: string | null
+    municipalityCode: string | null
+    addressMunicipalityCode: string | null
+    cboCode: string | null
+    admissionType: string | null
+    workerCategory: string | null
+    salaryUnit: string | null
+    cnhNumber: string | null
+    cnhCategory: string | null
+    cnhExpiration: Date | null
+    professionalRegistration: string | null
+    unionCode: string | null
+    fgtsOptDate: Date | null
+    fgtsAccountNumber: string | null
     bankCode: string | null
     bankName: string | null
     bankAgency: string | null
@@ -9827,6 +13073,9 @@ export interface Prisma__EmployeeClient<T, Null = never, ExtArgs extends runtime
   vacationPeriods<T extends Prisma.Employee$vacationPeriodsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Employee$vacationPeriodsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$VacationPeriodPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   bonuses<T extends Prisma.Employee$bonusesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Employee$bonusesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BonusPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   deductions<T extends Prisma.Employee$deductionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Employee$deductionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DeductionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  dependants<T extends Prisma.Employee$dependantsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Employee$dependantsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EmployeeDependantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  termination<T extends Prisma.Employee$terminationArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Employee$terminationArgs<ExtArgs>>): Prisma.Prisma__TerminationClient<runtime.Types.Result.GetResult<Prisma.$TerminationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  medicalExams<T extends Prisma.Employee$medicalExamsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Employee$medicalExamsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MedicalExamPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   managedDepartments<T extends Prisma.Employee$managedDepartmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Employee$managedDepartmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   company<T extends Prisma.Employee$companyArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Employee$companyArgs<ExtArgs>>): Prisma.Prisma__CompanyClient<runtime.Types.Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
@@ -9901,6 +13150,22 @@ export interface EmployeeFieldRefs {
   readonly pixKeyHash: Prisma.FieldRef<"Employee", 'String'>
   readonly bankAccountHash: Prisma.FieldRef<"Employee", 'String'>
   readonly country: Prisma.FieldRef<"Employee", 'String'>
+  readonly raceColor: Prisma.FieldRef<"Employee", 'String'>
+  readonly educationLevel: Prisma.FieldRef<"Employee", 'String'>
+  readonly motherName: Prisma.FieldRef<"Employee", 'String'>
+  readonly municipalityCode: Prisma.FieldRef<"Employee", 'String'>
+  readonly addressMunicipalityCode: Prisma.FieldRef<"Employee", 'String'>
+  readonly cboCode: Prisma.FieldRef<"Employee", 'String'>
+  readonly admissionType: Prisma.FieldRef<"Employee", 'String'>
+  readonly workerCategory: Prisma.FieldRef<"Employee", 'String'>
+  readonly salaryUnit: Prisma.FieldRef<"Employee", 'String'>
+  readonly cnhNumber: Prisma.FieldRef<"Employee", 'String'>
+  readonly cnhCategory: Prisma.FieldRef<"Employee", 'String'>
+  readonly cnhExpiration: Prisma.FieldRef<"Employee", 'DateTime'>
+  readonly professionalRegistration: Prisma.FieldRef<"Employee", 'String'>
+  readonly unionCode: Prisma.FieldRef<"Employee", 'String'>
+  readonly fgtsOptDate: Prisma.FieldRef<"Employee", 'DateTime'>
+  readonly fgtsAccountNumber: Prisma.FieldRef<"Employee", 'String'>
   readonly bankCode: Prisma.FieldRef<"Employee", 'String'>
   readonly bankName: Prisma.FieldRef<"Employee", 'String'>
   readonly bankAgency: Prisma.FieldRef<"Employee", 'String'>
@@ -10629,6 +13894,73 @@ export type Employee$deductionsArgs<ExtArgs extends runtime.Types.Extensions.Int
   take?: number
   skip?: number
   distinct?: Prisma.DeductionScalarFieldEnum | Prisma.DeductionScalarFieldEnum[]
+}
+
+/**
+ * Employee.dependants
+ */
+export type Employee$dependantsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the EmployeeDependant
+   */
+  select?: Prisma.EmployeeDependantSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the EmployeeDependant
+   */
+  omit?: Prisma.EmployeeDependantOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.EmployeeDependantInclude<ExtArgs> | null
+  where?: Prisma.EmployeeDependantWhereInput
+  orderBy?: Prisma.EmployeeDependantOrderByWithRelationInput | Prisma.EmployeeDependantOrderByWithRelationInput[]
+  cursor?: Prisma.EmployeeDependantWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.EmployeeDependantScalarFieldEnum | Prisma.EmployeeDependantScalarFieldEnum[]
+}
+
+/**
+ * Employee.termination
+ */
+export type Employee$terminationArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Termination
+   */
+  select?: Prisma.TerminationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Termination
+   */
+  omit?: Prisma.TerminationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TerminationInclude<ExtArgs> | null
+  where?: Prisma.TerminationWhereInput
+}
+
+/**
+ * Employee.medicalExams
+ */
+export type Employee$medicalExamsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MedicalExam
+   */
+  select?: Prisma.MedicalExamSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MedicalExam
+   */
+  omit?: Prisma.MedicalExamOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MedicalExamInclude<ExtArgs> | null
+  where?: Prisma.MedicalExamWhereInput
+  orderBy?: Prisma.MedicalExamOrderByWithRelationInput | Prisma.MedicalExamOrderByWithRelationInput[]
+  cursor?: Prisma.MedicalExamWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MedicalExamScalarFieldEnum | Prisma.MedicalExamScalarFieldEnum[]
 }
 
 /**

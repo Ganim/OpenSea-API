@@ -35,6 +35,15 @@ export class PrismaTenantConsumptionsRepository
     return tenantConsumptionPrismaToDomain(consumptionDb);
   }
 
+  async findByPeriod(period: string): Promise<TenantConsumption[]> {
+    const consumptionsDb = await prisma.tenantConsumption.findMany({
+      where: { period },
+      orderBy: { metric: 'asc' },
+    });
+
+    return consumptionsDb.map(tenantConsumptionPrismaToDomain);
+  }
+
   async findByPeriodAndMetricPrefix(
     period: string,
     metricPrefix: string,

@@ -16,7 +16,8 @@ export type SystemModule =
   | 'CALENDAR'
   | 'STORAGE'
   | 'EMAIL'
-  | 'TASKS';
+  | 'TASKS'
+  | 'MESSAGING';
 
 /**
  * Factory that creates a middleware to verify if the tenant's plan

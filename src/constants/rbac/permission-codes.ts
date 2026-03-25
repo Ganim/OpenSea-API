@@ -787,6 +787,12 @@ export const PermissionCodes = {
       MODIFY: 'system.label-templates.modify' as const,
       REMOVE: 'system.label-templates.remove' as const,
     },
+    FISCAL: {
+      ACCESS: 'system.fiscal.access' as const,
+      REGISTER: 'system.fiscal.register' as const,
+      MODIFY: 'system.fiscal.modify' as const,
+      ADMIN: 'system.fiscal.admin' as const,
+    },
     NOTIFICATIONS: {
       ADMIN: 'system.notifications.admin' as const,
     },

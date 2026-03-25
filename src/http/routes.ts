@@ -170,6 +170,9 @@ import { aiContentRoutes } from './controllers/ai/content/routes';
 import { aiCampaignsRoutes } from './controllers/ai/campaigns/routes';
 import { aiWorkflowsRoutes } from './controllers/ai/workflows/routes';
 
+// Fiscal routes
+import { fiscalRoutes } from './controllers/fiscal/routes';
+
 // HR routes
 import { absencesRoutes } from './controllers/hr/absences/routes';
 import { bonusesRoutes } from './controllers/hr/bonuses/routes';
@@ -369,6 +372,9 @@ export async function registerRoutes(app: FastifyInstance) {
 
   // Cashier routes
   await app.register(cashierRoutes);
+
+  // Fiscal routes
+  await app.register(fiscalRoutes);
 
   // Audit routes
   await app.register(auditRoutes);
