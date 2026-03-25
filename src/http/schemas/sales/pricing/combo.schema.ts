@@ -74,6 +74,91 @@ export const createComboSchema = z.object({
     .describe('Combo items'),
 });
 
+// ─── Update Combo ───────────────────────────────────────────────────────────────
+
+export const updateComboSchema = z.object({
+  name: z.string().min(1).max(128).optional().describe('Combo name'),
+  description: z
+    .string()
+    .max(500)
+    .nullable()
+    .optional()
+    .describe('Combo description'),
+  type: z.enum(['FIXED', 'DYNAMIC']).optional().describe('Combo type'),
+  fixedPrice: z
+    .number()
+    .positive()
+    .nullable()
+    .optional()
+    .describe('Fixed combo price (for FIXED type)'),
+  discountType: z
+    .enum(['PERCENTAGE', 'FIXED_VALUE'])
+    .nullable()
+    .optional()
+    .describe('Discount type (for DYNAMIC type)'),
+  discountValue: z
+    .number()
+    .positive()
+    .nullable()
+    .optional()
+    .describe('Discount value'),
+  minItems: z
+    .number()
+    .int()
+    .min(1)
+    .nullable()
+    .optional()
+    .describe('Minimum items in combo'),
+  maxItems: z
+    .number()
+    .int()
+    .min(1)
+    .nullable()
+    .optional()
+    .describe('Maximum items in combo'),
+  isActive: z.boolean().optional().describe('Whether the combo is active'),
+  validFrom: z.coerce
+    .date()
+    .nullable()
+    .optional()
+    .describe('Start of validity'),
+  validUntil: z.coerce.date().nullable().optional().describe('End of validity'),
+  imageUrl: z
+    .string()
+    .url()
+    .max(512)
+    .nullable()
+    .optional()
+    .describe('Combo image URL'),
+  items: z
+    .array(
+      z.object({
+        variantId: z.string().uuid().optional().describe('Variant ID'),
+        categoryId: z.string().uuid().optional().describe('Category ID'),
+        quantity: z
+          .number()
+          .positive()
+          .optional()
+          .default(1)
+          .describe('Quantity'),
+        isRequired: z
+          .boolean()
+          .optional()
+          .default(true)
+          .describe('Is required'),
+        position: z
+          .number()
+          .int()
+          .min(0)
+          .optional()
+          .default(0)
+          .describe('Display position'),
+      }),
+    )
+    .optional()
+    .describe('Combo items (replaces all existing items)'),
+});
+
 // ─── Combo Response ────────────────────────────────────────────────────────────
 
 export const comboResponseSchema = z.object({

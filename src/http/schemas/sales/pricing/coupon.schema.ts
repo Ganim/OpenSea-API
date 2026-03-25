@@ -70,6 +70,70 @@ export const createCouponSchema = z.object({
     .describe('Specific customer restriction'),
 });
 
+// ─── Update Coupon ──────────────────────────────────────────────────────────────
+
+export const updateCouponSchema = z.object({
+  campaignId: z
+    .string()
+    .uuid()
+    .nullable()
+    .optional()
+    .describe('Optional campaign association'),
+  code: z.string().min(1).max(64).optional().describe('Coupon code'),
+  type: z
+    .enum(['PERCENTAGE', 'FIXED_VALUE', 'FREE_SHIPPING'])
+    .optional()
+    .describe('Coupon discount type'),
+  value: z.number().positive().optional().describe('Discount value'),
+  minOrderValue: z
+    .number()
+    .positive()
+    .nullable()
+    .optional()
+    .describe('Minimum order value to apply coupon'),
+  maxDiscount: z
+    .number()
+    .positive()
+    .nullable()
+    .optional()
+    .describe('Maximum discount cap'),
+  maxUsageTotal: z
+    .number()
+    .int()
+    .positive()
+    .nullable()
+    .optional()
+    .describe('Maximum total usages'),
+  maxUsagePerCustomer: z
+    .number()
+    .int()
+    .positive()
+    .optional()
+    .describe('Maximum usages per customer'),
+  validFrom: z.coerce.date().optional().describe('Start of validity'),
+  validUntil: z.coerce.date().optional().describe('End of validity'),
+  isActive: z.boolean().optional().describe('Whether the coupon is active'),
+  applicableTo: z
+    .enum([
+      'ALL',
+      'SPECIFIC_PRODUCTS',
+      'SPECIFIC_CATEGORIES',
+      'SPECIFIC_CUSTOMERS',
+    ])
+    .optional()
+    .describe('Who the coupon applies to'),
+  targetIds: z
+    .array(z.string().uuid())
+    .optional()
+    .describe('Target entity IDs based on applicableTo'),
+  customerId: z
+    .string()
+    .uuid()
+    .nullable()
+    .optional()
+    .describe('Specific customer restriction'),
+});
+
 // ─── Coupon Response ───────────────────────────────────────────────────────────
 
 export const couponResponseSchema = z.object({

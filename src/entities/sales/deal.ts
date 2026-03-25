@@ -276,6 +276,7 @@ export class Deal extends Entity<DealProps> {
       | 'currency'
       | 'tags'
       | 'position'
+      | 'stageEnteredAt'
     >,
     id?: UniqueEntityID,
   ): Deal {
@@ -288,6 +289,7 @@ export class Deal extends Entity<DealProps> {
         currency: props.currency ?? 'BRL',
         tags: props.tags ?? [],
         position: props.position ?? 0,
+        stageEnteredAt: props.stageEnteredAt ?? new Date(),
         createdAt: props.createdAt ?? new Date(),
         updatedAt: props.updatedAt,
         deletedAt: props.deletedAt,

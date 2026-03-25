@@ -70,6 +70,26 @@ process.env.DATABASE_URL = testDatabaseUrl;
   }
 }
 
+// Cria o schema PostgreSQL antes de rodar migrate deploy.
+// Prisma 7 com driver adapters não cria o schema automaticamente.
+{
+  const { PrismaClient } = await import('./generated/prisma/client.js');
+  const { PrismaPg } = await import('@prisma/adapter-pg');
+
+  const createSchemaAdapter = new PrismaPg({
+    connectionString: originalDatabaseUrl,
+  });
+  const createSchemaClient = new PrismaClient({ adapter: createSchemaAdapter });
+
+  try {
+    await createSchemaClient.$executeRawUnsafe(
+      `CREATE SCHEMA IF NOT EXISTS "${schema}"`,
+    );
+  } finally {
+    await createSchemaClient.$disconnect();
+  }
+}
+
 // Aplica o schema no banco de testes usando `migrate deploy`.
 // Com fileParallelism: false os specs rodam sequencialmente, então
 // não há contenção do advisory lock do PostgreSQL.

@@ -6,6 +6,7 @@ import { createComboController } from './v1-create-combo.controller';
 import { deleteComboController } from './v1-delete-combo.controller';
 import { getComboByIdController } from './v1-get-combo-by-id.controller';
 import { listCombosController } from './v1-list-combos.controller';
+import { updateComboController } from './v1-update-combo.controller';
 
 export async function combosRoutes(app: FastifyInstance) {
   app.addHook('onRequest', createModuleMiddleware('SALES'));
@@ -24,6 +25,7 @@ export async function combosRoutes(app: FastifyInstance) {
     async (mutationApp) => {
       mutationApp.register(rateLimit, rateLimitConfig.mutation);
       mutationApp.register(createComboController);
+      mutationApp.register(updateComboController);
     },
     { prefix: '' },
   );

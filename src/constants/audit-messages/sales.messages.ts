@@ -415,6 +415,14 @@ export const SALES_AUDIT_MESSAGES = {
     description: "Tabela de preço '{{tableName}}' excluída por {{userName}}",
   } satisfies AuditMessage,
 
+  PRICE_TABLE_BULK_IMPORT: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.PRICE_TABLE,
+    module: AuditModule.SALES,
+    description:
+      "{{count}} itens importados na tabela '{{tableName}}' por {{userName}}",
+  } satisfies AuditMessage,
+
   // ============================================================================
   // CUSTOMER PRICES - Preços por cliente
   // ============================================================================
@@ -486,6 +494,13 @@ export const SALES_AUDIT_MESSAGES = {
     description: "Cupom '{{couponCode}}' criado por {{userName}}",
   } satisfies AuditMessage,
 
+  COUPON_UPDATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.COUPON,
+    module: AuditModule.SALES,
+    description: "Cupom '{{couponCode}}' atualizado por {{userName}}",
+  } satisfies AuditMessage,
+
   COUPON_DELETE: {
     action: AuditAction.DELETE,
     entity: AuditEntity.COUPON,
@@ -502,6 +517,13 @@ export const SALES_AUDIT_MESSAGES = {
     entity: AuditEntity.COMBO,
     module: AuditModule.SALES,
     description: "Combo '{{comboName}}' criado por {{userName}}",
+  } satisfies AuditMessage,
+
+  COMBO_UPDATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.COMBO,
+    module: AuditModule.SALES,
+    description: "Combo '{{comboName}}' atualizado por {{userName}}",
   } satisfies AuditMessage,
 
   COMBO_DELETE: {

@@ -4,7 +4,9 @@ import { rateLimitConfig } from '@/config/rate-limits';
 import rateLimit from '@fastify/rate-limit';
 import { createCouponController } from './v1-create-coupon.controller';
 import { deleteCouponController } from './v1-delete-coupon.controller';
+import { getCouponByIdController } from './v1-get-coupon-by-id.controller';
 import { listCouponsController } from './v1-list-coupons.controller';
+import { updateCouponController } from './v1-update-coupon.controller';
 import { validateCouponController } from './v1-validate-coupon.controller';
 
 export async function couponsRoutes(app: FastifyInstance) {
@@ -24,6 +26,7 @@ export async function couponsRoutes(app: FastifyInstance) {
     async (mutationApp) => {
       mutationApp.register(rateLimit, rateLimitConfig.mutation);
       mutationApp.register(createCouponController);
+      mutationApp.register(updateCouponController);
       mutationApp.register(validateCouponController);
     },
     { prefix: '' },
@@ -33,6 +36,7 @@ export async function couponsRoutes(app: FastifyInstance) {
   app.register(
     async (queryApp) => {
       queryApp.register(rateLimit, rateLimitConfig.query);
+      queryApp.register(getCouponByIdController);
       queryApp.register(listCouponsController);
     },
     { prefix: '' },
