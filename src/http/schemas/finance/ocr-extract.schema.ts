@@ -18,6 +18,17 @@ export const ocrExtractResponseSchema = z.object({
   confidence: z.number(),
 });
 
+export const ocrBatchResponseSchema = z.object({
+  results: z.array(
+    z.object({
+      filename: z.string(),
+      extractedData: ocrExtractedDataSchema,
+      confidence: z.number(),
+      error: z.string().optional(),
+    }),
+  ),
+});
+
 export const lastSupplierEntryQuerySchema = z.object({
   supplierName: z.string().min(1).max(256),
 });

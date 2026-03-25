@@ -9,9 +9,11 @@ import { listFinanceEntriesController } from './v1-list-finance-entries.controll
 import { registerPaymentController } from './v1-register-payment.controller';
 import { cancelFinanceEntryController } from './v1-cancel-finance-entry.controller';
 import { parseBoletoController } from './v1-parse-boleto.controller';
+import { parsePixController } from './v1-parse-pix.controller';
 import { checkOverdueController } from './v1-check-overdue.controller';
 import { importPayrollController } from './v1-import-payroll.controller';
 import { ocrExtractDataController } from './v1-ocr-extract-data.controller';
+import { ocrUploadBatchController } from './v1-ocr-upload-batch.controller';
 import { getLastSupplierEntryController } from './v1-get-last-supplier-entry.controller';
 
 export async function financeEntriesRoutes(app: FastifyInstance) {
@@ -25,8 +27,10 @@ export async function financeEntriesRoutes(app: FastifyInstance) {
   app.register(registerPaymentController);
   app.register(cancelFinanceEntryController);
   app.register(parseBoletoController);
+  app.register(parsePixController);
   app.register(checkOverdueController);
   app.register(importPayrollController);
   app.register(ocrExtractDataController);
+  app.register(ocrUploadBatchController);
   app.register(getLastSupplierEntryController);
 }
