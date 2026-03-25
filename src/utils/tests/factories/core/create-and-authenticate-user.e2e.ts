@@ -441,6 +441,8 @@ const ALL_PERMISSIONS = {
       'pay',
       'cancel',
       'manage',
+      'register',
+      'import',
     ],
     attachments: ['create', 'read', 'delete', 'list'],
     loans: ['create', 'read', 'update', 'delete', 'list', 'pay', 'manage'],
