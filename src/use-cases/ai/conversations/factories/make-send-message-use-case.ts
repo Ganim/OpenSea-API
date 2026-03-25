@@ -5,6 +5,7 @@ import { makeAiRouter } from '@/services/ai-provider/make-ai-router';
 import { makeToolRegistry } from '@/services/ai-tools/make-tool-registry';
 import { ToolUseCaseFactory } from '@/services/ai-tools/tool-use-case-factory';
 import { ToolExecutor } from '@/services/ai-tools/tool-executor';
+import { makeKnowledgeRegistry } from '@/services/ai-tools/knowledge/make-knowledge-registry';
 import { SendMessageUseCase } from '../send-message';
 
 export function makeSendMessageUseCase() {
@@ -15,6 +16,7 @@ export function makeSendMessageUseCase() {
   const toolRegistry = makeToolRegistry();
   const toolFactory = new ToolUseCaseFactory();
   const toolExecutor = new ToolExecutor(toolRegistry, toolFactory);
+  const knowledgeRegistry = makeKnowledgeRegistry();
   return new SendMessageUseCase(
     conversationsRepository,
     messagesRepository,
@@ -22,5 +24,6 @@ export function makeSendMessageUseCase() {
     aiRouter,
     toolRegistry,
     toolExecutor,
+    knowledgeRegistry,
   );
 }

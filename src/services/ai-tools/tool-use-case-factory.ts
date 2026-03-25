@@ -1,5 +1,8 @@
 import type { ToolHandler } from './tool-types';
 import { getStockHandlers } from './modules/stock-handlers';
+import { getSalesHandlers } from './modules/sales-handlers';
+import { getHrHandlers } from './modules/hr-handlers';
+import { getFinanceHandlers } from './modules/finance-handlers';
 import { getSystemHandlers } from './modules/system-handlers';
 
 export class ToolUseCaseFactory {
@@ -7,6 +10,15 @@ export class ToolUseCaseFactory {
 
   constructor() {
     for (const [name, handler] of Object.entries(getStockHandlers())) {
+      this.handlers.set(name, handler);
+    }
+    for (const [name, handler] of Object.entries(getSalesHandlers())) {
+      this.handlers.set(name, handler);
+    }
+    for (const [name, handler] of Object.entries(getHrHandlers())) {
+      this.handlers.set(name, handler);
+    }
+    for (const [name, handler] of Object.entries(getFinanceHandlers())) {
       this.handlers.set(name, handler);
     }
     for (const [name, handler] of Object.entries(getSystemHandlers())) {

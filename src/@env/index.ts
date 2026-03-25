@@ -53,6 +53,9 @@ const envSchema = z.object({
   EMAIL_CREDENTIALS_KEY: z.string().min(32).optional(),
   // Previous key for zero-downtime key rotation
   EMAIL_CREDENTIALS_KEY_PREVIOUS: z.string().min(32).optional(),
+
+  // Ollama (local AI fallback)
+  OLLAMA_HOST: z.string().optional(),
 });
 
 const _env = envSchema.safeParse(process.env);

@@ -13,7 +13,8 @@ import type {
   ToolCall,
 } from '@/services/ai-tools/tool-types';
 import { AGENTIC_LOOP_MAX_ITERATIONS } from '@/services/ai-tools/tool-types';
-import { STOCK_INSTRUCTIONS } from '@/services/ai-tools/instructions/stock-instructions';
+import type { KnowledgeRegistry } from '@/services/ai-tools/knowledge/knowledge-registry';
+import { KnowledgePromptBuilder } from '@/services/ai-tools/knowledge/knowledge-prompt-builder';
 
 interface SendMessageRequest {
   tenantId: string;
@@ -40,6 +41,8 @@ const PERSONALITY_PROMPTS: Record<string, string> = {
 };
 
 export class SendMessageUseCase {
+  private knowledgePromptBuilder = new KnowledgePromptBuilder();
+
   constructor(
     private conversationsRepository: AiConversationsRepository,
     private messagesRepository: AiMessagesRepository,
@@ -47,6 +50,7 @@ export class SendMessageUseCase {
     private aiRouter: AiRouter,
     private toolRegistry: ToolRegistry,
     private toolExecutor: ToolExecutor,
+    private knowledgeRegistry: KnowledgeRegistry,
   ) {}
 
   async execute(request: SendMessageRequest) {
@@ -107,12 +111,15 @@ export class SendMessageUseCase {
       'Ajude o usuário com questões relacionadas ao gerenciamento do negócio.',
     ];
 
-    // Append stock instructions if user has any stock permission
-    const hasStockPermissions = (request.userPermissions ?? []).some((p) =>
-      p.startsWith('stock.'),
+    // Build contextual knowledge prompt from module knowledge system
+    const knowledgePrompt = this.knowledgePromptBuilder.buildContextualPrompt(
+      this.knowledgeRegistry,
+      request.content,
+      request.userPermissions ?? [],
     );
-    if (hasStockPermissions) {
-      systemPromptParts.push(STOCK_INSTRUCTIONS);
+
+    if (knowledgePrompt) {
+      systemPromptParts.push(knowledgePrompt);
     }
 
     const systemPrompt = systemPromptParts.join(' ');
