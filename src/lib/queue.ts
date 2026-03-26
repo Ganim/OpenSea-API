@@ -285,6 +285,9 @@ export const QUEUE_NAMES = {
   AUDIT_LOGS: 'audit-logs',
   REPORTS: 'reports',
   DEAD_LETTER: 'dead-letter',
+  MARKETPLACE_SYNC_PRODUCTS: 'marketplace-sync-products',
+  MARKETPLACE_IMPORT_ORDERS: 'marketplace-import-orders',
+  MARKETPLACE_SYNC_INVENTORY: 'marketplace-sync-inventory',
 } as const;
 
 export type QueueName = (typeof QUEUE_NAMES)[keyof typeof QUEUE_NAMES];
