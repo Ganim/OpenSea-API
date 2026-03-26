@@ -4,6 +4,7 @@ import { getSalesTools } from './modules/sales-tools';
 import { getHrTools } from './modules/hr-tools';
 import { getFinanceTools } from './modules/finance-tools';
 import { getContentTools } from './modules/content-tools';
+import { getCrossModuleTools } from './modules/cross-module-tools';
 
 let cached: ToolRegistry | null = null;
 
@@ -16,6 +17,7 @@ export function makeToolRegistry(): ToolRegistry {
   registry.registerMany(getHrTools());
   registry.registerMany(getFinanceTools());
   registry.registerMany(getContentTools());
+  registry.registerMany(getCrossModuleTools());
 
   cached = registry;
   return registry;

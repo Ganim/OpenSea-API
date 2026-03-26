@@ -5,6 +5,7 @@ import { getHrHandlers } from './modules/hr-handlers';
 import { getFinanceHandlers } from './modules/finance-handlers';
 import { getSystemHandlers } from './modules/system-handlers';
 import { getContentHandlers } from './modules/content-handlers';
+import { getCrossModuleHandlers } from './modules/cross-module-handlers';
 
 export class ToolUseCaseFactory {
   private handlers: Map<string, ToolHandler> = new Map();
@@ -26,6 +27,9 @@ export class ToolUseCaseFactory {
       this.handlers.set(name, handler);
     }
     for (const [name, handler] of Object.entries(getContentHandlers())) {
+      this.handlers.set(name, handler);
+    }
+    for (const [name, handler] of Object.entries(getCrossModuleHandlers())) {
       this.handlers.set(name, handler);
     }
   }
