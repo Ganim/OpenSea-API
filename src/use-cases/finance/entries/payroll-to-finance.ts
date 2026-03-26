@@ -38,6 +38,8 @@ const PAYROLL_TYPE_TO_CATEGORY: Record<PayrollItemTypeValue, string> = {
   ADVANCE: 'salarios-e-ordenados',
   LOAN: 'salarios-e-ordenados',
   OTHER_DEDUCTION: 'salarios-e-ordenados',
+  OVERTIME_100: 'salarios-e-ordenados',
+  DSR: 'salarios-e-ordenados',
 };
 
 export class PayrollToFinanceUseCase {

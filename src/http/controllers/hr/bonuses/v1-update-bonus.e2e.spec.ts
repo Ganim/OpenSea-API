@@ -22,8 +22,8 @@ describe('Update Bonus (E2E)', () => {
 
   it('should update a bonus successfully', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
-    const employee = await createEmployeeE2E({ tenantId });
-    const bonus = await createBonus(tenantId, employee.id);
+    const employeeData = await createEmployeeE2E({ tenantId });
+    const bonus = await createBonus(tenantId, employeeData.employee.id);
 
     const response = await request(app.server)
       .put(`/v1/hr/bonuses/${bonus.id}`)
