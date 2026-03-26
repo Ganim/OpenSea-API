@@ -35,6 +35,7 @@ export type FinanceEntryAvgAggregateOutputType = {
   recurrenceInterval: number | null
   totalInstallments: number | null
   currentInstallment: number | null
+  boletoChargeId: number | null
 }
 
 export type FinanceEntrySumAggregateOutputType = {
@@ -46,6 +47,7 @@ export type FinanceEntrySumAggregateOutputType = {
   recurrenceInterval: number | null
   totalInstallments: number | null
   currentInstallment: number | null
+  boletoChargeId: number | null
 }
 
 export type FinanceEntryMinAggregateOutputType = {
@@ -80,8 +82,13 @@ export type FinanceEntryMinAggregateOutputType = {
   currentInstallment: number | null
   parentEntryId: string | null
   contractId: string | null
+  pixChargeId: string | null
   boletoBarcode: string | null
   boletoDigitLine: string | null
+  boletoChargeId: number | null
+  boletoBarcodeNumber: string | null
+  boletoDigitableLine: string | null
+  boletoPdfUrl: string | null
   beneficiaryName: string | null
   beneficiaryCpfCnpj: string | null
   pixKey: string | null
@@ -124,8 +131,13 @@ export type FinanceEntryMaxAggregateOutputType = {
   currentInstallment: number | null
   parentEntryId: string | null
   contractId: string | null
+  pixChargeId: string | null
   boletoBarcode: string | null
   boletoDigitLine: string | null
+  boletoChargeId: number | null
+  boletoBarcodeNumber: string | null
+  boletoDigitableLine: string | null
+  boletoPdfUrl: string | null
   beneficiaryName: string | null
   beneficiaryCpfCnpj: string | null
   pixKey: string | null
@@ -168,8 +180,13 @@ export type FinanceEntryCountAggregateOutputType = {
   currentInstallment: number
   parentEntryId: number
   contractId: number
+  pixChargeId: number
   boletoBarcode: number
   boletoDigitLine: number
+  boletoChargeId: number
+  boletoBarcodeNumber: number
+  boletoDigitableLine: number
+  boletoPdfUrl: number
   beneficiaryName: number
   beneficiaryCpfCnpj: number
   pixKey: number
@@ -193,6 +210,7 @@ export type FinanceEntryAvgAggregateInputType = {
   recurrenceInterval?: true
   totalInstallments?: true
   currentInstallment?: true
+  boletoChargeId?: true
 }
 
 export type FinanceEntrySumAggregateInputType = {
@@ -204,6 +222,7 @@ export type FinanceEntrySumAggregateInputType = {
   recurrenceInterval?: true
   totalInstallments?: true
   currentInstallment?: true
+  boletoChargeId?: true
 }
 
 export type FinanceEntryMinAggregateInputType = {
@@ -238,8 +257,13 @@ export type FinanceEntryMinAggregateInputType = {
   currentInstallment?: true
   parentEntryId?: true
   contractId?: true
+  pixChargeId?: true
   boletoBarcode?: true
   boletoDigitLine?: true
+  boletoChargeId?: true
+  boletoBarcodeNumber?: true
+  boletoDigitableLine?: true
+  boletoPdfUrl?: true
   beneficiaryName?: true
   beneficiaryCpfCnpj?: true
   pixKey?: true
@@ -282,8 +306,13 @@ export type FinanceEntryMaxAggregateInputType = {
   currentInstallment?: true
   parentEntryId?: true
   contractId?: true
+  pixChargeId?: true
   boletoBarcode?: true
   boletoDigitLine?: true
+  boletoChargeId?: true
+  boletoBarcodeNumber?: true
+  boletoDigitableLine?: true
+  boletoPdfUrl?: true
   beneficiaryName?: true
   beneficiaryCpfCnpj?: true
   pixKey?: true
@@ -326,8 +355,13 @@ export type FinanceEntryCountAggregateInputType = {
   currentInstallment?: true
   parentEntryId?: true
   contractId?: true
+  pixChargeId?: true
   boletoBarcode?: true
   boletoDigitLine?: true
+  boletoChargeId?: true
+  boletoBarcodeNumber?: true
+  boletoDigitableLine?: true
+  boletoPdfUrl?: true
   beneficiaryName?: true
   beneficiaryCpfCnpj?: true
   pixKey?: true
@@ -459,8 +493,13 @@ export type FinanceEntryGroupByOutputType = {
   currentInstallment: number | null
   parentEntryId: string | null
   contractId: string | null
+  pixChargeId: string | null
   boletoBarcode: string | null
   boletoDigitLine: string | null
+  boletoChargeId: number | null
+  boletoBarcodeNumber: string | null
+  boletoDigitableLine: string | null
+  boletoPdfUrl: string | null
   beneficiaryName: string | null
   beneficiaryCpfCnpj: string | null
   pixKey: string | null
@@ -528,8 +567,13 @@ export type FinanceEntryWhereInput = {
   currentInstallment?: Prisma.IntNullableFilter<"FinanceEntry"> | number | null
   parentEntryId?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
   contractId?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
+  pixChargeId?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
   boletoBarcode?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
   boletoDigitLine?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
+  boletoChargeId?: Prisma.IntNullableFilter<"FinanceEntry"> | number | null
+  boletoBarcodeNumber?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
+  boletoDigitableLine?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
+  boletoPdfUrl?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
   beneficiaryName?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
   beneficiaryCpfCnpj?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
   pixKey?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
@@ -546,6 +590,7 @@ export type FinanceEntryWhereInput = {
   bankAccount?: Prisma.XOR<Prisma.BankAccountNullableScalarRelationFilter, Prisma.BankAccountWhereInput> | null
   parentEntry?: Prisma.XOR<Prisma.FinanceEntryNullableScalarRelationFilter, Prisma.FinanceEntryWhereInput> | null
   childEntries?: Prisma.FinanceEntryListRelationFilter
+  pixCharge?: Prisma.XOR<Prisma.PixChargeNullableScalarRelationFilter, Prisma.PixChargeWhereInput> | null
   payments?: Prisma.FinanceEntryPaymentListRelationFilter
   attachments?: Prisma.FinanceAttachmentListRelationFilter
   costCenterAllocations?: Prisma.FinanceEntryCostCenterListRelationFilter
@@ -585,8 +630,13 @@ export type FinanceEntryOrderByWithRelationInput = {
   currentInstallment?: Prisma.SortOrderInput | Prisma.SortOrder
   parentEntryId?: Prisma.SortOrderInput | Prisma.SortOrder
   contractId?: Prisma.SortOrderInput | Prisma.SortOrder
+  pixChargeId?: Prisma.SortOrderInput | Prisma.SortOrder
   boletoBarcode?: Prisma.SortOrderInput | Prisma.SortOrder
   boletoDigitLine?: Prisma.SortOrderInput | Prisma.SortOrder
+  boletoChargeId?: Prisma.SortOrderInput | Prisma.SortOrder
+  boletoBarcodeNumber?: Prisma.SortOrderInput | Prisma.SortOrder
+  boletoDigitableLine?: Prisma.SortOrderInput | Prisma.SortOrder
+  boletoPdfUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   beneficiaryName?: Prisma.SortOrderInput | Prisma.SortOrder
   beneficiaryCpfCnpj?: Prisma.SortOrderInput | Prisma.SortOrder
   pixKey?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -603,6 +653,7 @@ export type FinanceEntryOrderByWithRelationInput = {
   bankAccount?: Prisma.BankAccountOrderByWithRelationInput
   parentEntry?: Prisma.FinanceEntryOrderByWithRelationInput
   childEntries?: Prisma.FinanceEntryOrderByRelationAggregateInput
+  pixCharge?: Prisma.PixChargeOrderByWithRelationInput
   payments?: Prisma.FinanceEntryPaymentOrderByRelationAggregateInput
   attachments?: Prisma.FinanceAttachmentOrderByRelationAggregateInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterOrderByRelationAggregateInput
@@ -646,8 +697,13 @@ export type FinanceEntryWhereUniqueInput = Prisma.AtLeast<{
   currentInstallment?: Prisma.IntNullableFilter<"FinanceEntry"> | number | null
   parentEntryId?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
   contractId?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
+  pixChargeId?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
   boletoBarcode?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
   boletoDigitLine?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
+  boletoChargeId?: Prisma.IntNullableFilter<"FinanceEntry"> | number | null
+  boletoBarcodeNumber?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
+  boletoDigitableLine?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
+  boletoPdfUrl?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
   beneficiaryName?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
   beneficiaryCpfCnpj?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
   pixKey?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
@@ -664,6 +720,7 @@ export type FinanceEntryWhereUniqueInput = Prisma.AtLeast<{
   bankAccount?: Prisma.XOR<Prisma.BankAccountNullableScalarRelationFilter, Prisma.BankAccountWhereInput> | null
   parentEntry?: Prisma.XOR<Prisma.FinanceEntryNullableScalarRelationFilter, Prisma.FinanceEntryWhereInput> | null
   childEntries?: Prisma.FinanceEntryListRelationFilter
+  pixCharge?: Prisma.XOR<Prisma.PixChargeNullableScalarRelationFilter, Prisma.PixChargeWhereInput> | null
   payments?: Prisma.FinanceEntryPaymentListRelationFilter
   attachments?: Prisma.FinanceAttachmentListRelationFilter
   costCenterAllocations?: Prisma.FinanceEntryCostCenterListRelationFilter
@@ -703,8 +760,13 @@ export type FinanceEntryOrderByWithAggregationInput = {
   currentInstallment?: Prisma.SortOrderInput | Prisma.SortOrder
   parentEntryId?: Prisma.SortOrderInput | Prisma.SortOrder
   contractId?: Prisma.SortOrderInput | Prisma.SortOrder
+  pixChargeId?: Prisma.SortOrderInput | Prisma.SortOrder
   boletoBarcode?: Prisma.SortOrderInput | Prisma.SortOrder
   boletoDigitLine?: Prisma.SortOrderInput | Prisma.SortOrder
+  boletoChargeId?: Prisma.SortOrderInput | Prisma.SortOrder
+  boletoBarcodeNumber?: Prisma.SortOrderInput | Prisma.SortOrder
+  boletoDigitableLine?: Prisma.SortOrderInput | Prisma.SortOrder
+  boletoPdfUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   beneficiaryName?: Prisma.SortOrderInput | Prisma.SortOrder
   beneficiaryCpfCnpj?: Prisma.SortOrderInput | Prisma.SortOrder
   pixKey?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -757,8 +819,13 @@ export type FinanceEntryScalarWhereWithAggregatesInput = {
   currentInstallment?: Prisma.IntNullableWithAggregatesFilter<"FinanceEntry"> | number | null
   parentEntryId?: Prisma.StringNullableWithAggregatesFilter<"FinanceEntry"> | string | null
   contractId?: Prisma.StringNullableWithAggregatesFilter<"FinanceEntry"> | string | null
+  pixChargeId?: Prisma.StringNullableWithAggregatesFilter<"FinanceEntry"> | string | null
   boletoBarcode?: Prisma.StringNullableWithAggregatesFilter<"FinanceEntry"> | string | null
   boletoDigitLine?: Prisma.StringNullableWithAggregatesFilter<"FinanceEntry"> | string | null
+  boletoChargeId?: Prisma.IntNullableWithAggregatesFilter<"FinanceEntry"> | number | null
+  boletoBarcodeNumber?: Prisma.StringNullableWithAggregatesFilter<"FinanceEntry"> | string | null
+  boletoDigitableLine?: Prisma.StringNullableWithAggregatesFilter<"FinanceEntry"> | string | null
+  boletoPdfUrl?: Prisma.StringNullableWithAggregatesFilter<"FinanceEntry"> | string | null
   beneficiaryName?: Prisma.StringNullableWithAggregatesFilter<"FinanceEntry"> | string | null
   beneficiaryCpfCnpj?: Prisma.StringNullableWithAggregatesFilter<"FinanceEntry"> | string | null
   pixKey?: Prisma.StringNullableWithAggregatesFilter<"FinanceEntry"> | string | null
@@ -800,6 +867,10 @@ export type FinanceEntryCreateInput = {
   contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
+  boletoChargeId?: number | null
+  boletoBarcodeNumber?: string | null
+  boletoDigitableLine?: string | null
+  boletoPdfUrl?: string | null
   beneficiaryName?: string | null
   beneficiaryCpfCnpj?: string | null
   pixKey?: string | null
@@ -816,6 +887,7 @@ export type FinanceEntryCreateInput = {
   bankAccount?: Prisma.BankAccountCreateNestedOneWithoutFinanceEntriesInput
   parentEntry?: Prisma.FinanceEntryCreateNestedOneWithoutChildEntriesInput
   childEntries?: Prisma.FinanceEntryCreateNestedManyWithoutParentEntryInput
+  pixCharge?: Prisma.PixChargeCreateNestedOneWithoutFinanceEntriesInput
   payments?: Prisma.FinanceEntryPaymentCreateNestedManyWithoutEntryInput
   attachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutEntryInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterCreateNestedManyWithoutEntryInput
@@ -855,8 +927,13 @@ export type FinanceEntryUncheckedCreateInput = {
   currentInstallment?: number | null
   parentEntryId?: string | null
   contractId?: string | null
+  pixChargeId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
+  boletoChargeId?: number | null
+  boletoBarcodeNumber?: string | null
+  boletoDigitableLine?: string | null
+  boletoPdfUrl?: string | null
   beneficiaryName?: string | null
   beneficiaryCpfCnpj?: string | null
   pixKey?: string | null
@@ -904,6 +981,10 @@ export type FinanceEntryUpdateInput = {
   contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoChargeId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  boletoBarcodeNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoDigitableLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoPdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -920,6 +1001,7 @@ export type FinanceEntryUpdateInput = {
   bankAccount?: Prisma.BankAccountUpdateOneWithoutFinanceEntriesNestedInput
   parentEntry?: Prisma.FinanceEntryUpdateOneWithoutChildEntriesNestedInput
   childEntries?: Prisma.FinanceEntryUpdateManyWithoutParentEntryNestedInput
+  pixCharge?: Prisma.PixChargeUpdateOneWithoutFinanceEntriesNestedInput
   payments?: Prisma.FinanceEntryPaymentUpdateManyWithoutEntryNestedInput
   attachments?: Prisma.FinanceAttachmentUpdateManyWithoutEntryNestedInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterUpdateManyWithoutEntryNestedInput
@@ -959,8 +1041,13 @@ export type FinanceEntryUncheckedUpdateInput = {
   currentInstallment?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   parentEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixChargeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoChargeId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  boletoBarcodeNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoDigitableLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoPdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1011,8 +1098,13 @@ export type FinanceEntryCreateManyInput = {
   currentInstallment?: number | null
   parentEntryId?: string | null
   contractId?: string | null
+  pixChargeId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
+  boletoChargeId?: number | null
+  boletoBarcodeNumber?: string | null
+  boletoDigitableLine?: string | null
+  boletoPdfUrl?: string | null
   beneficiaryName?: string | null
   beneficiaryCpfCnpj?: string | null
   pixKey?: string | null
@@ -1054,6 +1146,10 @@ export type FinanceEntryUpdateManyMutationInput = {
   contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoChargeId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  boletoBarcodeNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoDigitableLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoPdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1098,8 +1194,13 @@ export type FinanceEntryUncheckedUpdateManyInput = {
   currentInstallment?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   parentEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixChargeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoChargeId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  boletoBarcodeNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoDigitableLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoPdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1165,8 +1266,13 @@ export type FinanceEntryCountOrderByAggregateInput = {
   currentInstallment?: Prisma.SortOrder
   parentEntryId?: Prisma.SortOrder
   contractId?: Prisma.SortOrder
+  pixChargeId?: Prisma.SortOrder
   boletoBarcode?: Prisma.SortOrder
   boletoDigitLine?: Prisma.SortOrder
+  boletoChargeId?: Prisma.SortOrder
+  boletoBarcodeNumber?: Prisma.SortOrder
+  boletoDigitableLine?: Prisma.SortOrder
+  boletoPdfUrl?: Prisma.SortOrder
   beneficiaryName?: Prisma.SortOrder
   beneficiaryCpfCnpj?: Prisma.SortOrder
   pixKey?: Prisma.SortOrder
@@ -1188,6 +1294,7 @@ export type FinanceEntryAvgOrderByAggregateInput = {
   recurrenceInterval?: Prisma.SortOrder
   totalInstallments?: Prisma.SortOrder
   currentInstallment?: Prisma.SortOrder
+  boletoChargeId?: Prisma.SortOrder
 }
 
 export type FinanceEntryMaxOrderByAggregateInput = {
@@ -1222,8 +1329,13 @@ export type FinanceEntryMaxOrderByAggregateInput = {
   currentInstallment?: Prisma.SortOrder
   parentEntryId?: Prisma.SortOrder
   contractId?: Prisma.SortOrder
+  pixChargeId?: Prisma.SortOrder
   boletoBarcode?: Prisma.SortOrder
   boletoDigitLine?: Prisma.SortOrder
+  boletoChargeId?: Prisma.SortOrder
+  boletoBarcodeNumber?: Prisma.SortOrder
+  boletoDigitableLine?: Prisma.SortOrder
+  boletoPdfUrl?: Prisma.SortOrder
   beneficiaryName?: Prisma.SortOrder
   beneficiaryCpfCnpj?: Prisma.SortOrder
   pixKey?: Prisma.SortOrder
@@ -1266,8 +1378,13 @@ export type FinanceEntryMinOrderByAggregateInput = {
   currentInstallment?: Prisma.SortOrder
   parentEntryId?: Prisma.SortOrder
   contractId?: Prisma.SortOrder
+  pixChargeId?: Prisma.SortOrder
   boletoBarcode?: Prisma.SortOrder
   boletoDigitLine?: Prisma.SortOrder
+  boletoChargeId?: Prisma.SortOrder
+  boletoBarcodeNumber?: Prisma.SortOrder
+  boletoDigitableLine?: Prisma.SortOrder
+  boletoPdfUrl?: Prisma.SortOrder
   beneficiaryName?: Prisma.SortOrder
   beneficiaryCpfCnpj?: Prisma.SortOrder
   pixKey?: Prisma.SortOrder
@@ -1287,6 +1404,7 @@ export type FinanceEntrySumOrderByAggregateInput = {
   recurrenceInterval?: Prisma.SortOrder
   totalInstallments?: Prisma.SortOrder
   currentInstallment?: Prisma.SortOrder
+  boletoChargeId?: Prisma.SortOrder
 }
 
 export type FinanceEntryScalarRelationFilter = {
@@ -1603,6 +1721,48 @@ export type FinanceEntryUpdateOneWithoutReconciliationItemsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.FinanceEntryUpdateToOneWithWhereWithoutReconciliationItemsInput, Prisma.FinanceEntryUpdateWithoutReconciliationItemsInput>, Prisma.FinanceEntryUncheckedUpdateWithoutReconciliationItemsInput>
 }
 
+export type FinanceEntryCreateNestedManyWithoutPixChargeInput = {
+  create?: Prisma.XOR<Prisma.FinanceEntryCreateWithoutPixChargeInput, Prisma.FinanceEntryUncheckedCreateWithoutPixChargeInput> | Prisma.FinanceEntryCreateWithoutPixChargeInput[] | Prisma.FinanceEntryUncheckedCreateWithoutPixChargeInput[]
+  connectOrCreate?: Prisma.FinanceEntryCreateOrConnectWithoutPixChargeInput | Prisma.FinanceEntryCreateOrConnectWithoutPixChargeInput[]
+  createMany?: Prisma.FinanceEntryCreateManyPixChargeInputEnvelope
+  connect?: Prisma.FinanceEntryWhereUniqueInput | Prisma.FinanceEntryWhereUniqueInput[]
+}
+
+export type FinanceEntryUncheckedCreateNestedManyWithoutPixChargeInput = {
+  create?: Prisma.XOR<Prisma.FinanceEntryCreateWithoutPixChargeInput, Prisma.FinanceEntryUncheckedCreateWithoutPixChargeInput> | Prisma.FinanceEntryCreateWithoutPixChargeInput[] | Prisma.FinanceEntryUncheckedCreateWithoutPixChargeInput[]
+  connectOrCreate?: Prisma.FinanceEntryCreateOrConnectWithoutPixChargeInput | Prisma.FinanceEntryCreateOrConnectWithoutPixChargeInput[]
+  createMany?: Prisma.FinanceEntryCreateManyPixChargeInputEnvelope
+  connect?: Prisma.FinanceEntryWhereUniqueInput | Prisma.FinanceEntryWhereUniqueInput[]
+}
+
+export type FinanceEntryUpdateManyWithoutPixChargeNestedInput = {
+  create?: Prisma.XOR<Prisma.FinanceEntryCreateWithoutPixChargeInput, Prisma.FinanceEntryUncheckedCreateWithoutPixChargeInput> | Prisma.FinanceEntryCreateWithoutPixChargeInput[] | Prisma.FinanceEntryUncheckedCreateWithoutPixChargeInput[]
+  connectOrCreate?: Prisma.FinanceEntryCreateOrConnectWithoutPixChargeInput | Prisma.FinanceEntryCreateOrConnectWithoutPixChargeInput[]
+  upsert?: Prisma.FinanceEntryUpsertWithWhereUniqueWithoutPixChargeInput | Prisma.FinanceEntryUpsertWithWhereUniqueWithoutPixChargeInput[]
+  createMany?: Prisma.FinanceEntryCreateManyPixChargeInputEnvelope
+  set?: Prisma.FinanceEntryWhereUniqueInput | Prisma.FinanceEntryWhereUniqueInput[]
+  disconnect?: Prisma.FinanceEntryWhereUniqueInput | Prisma.FinanceEntryWhereUniqueInput[]
+  delete?: Prisma.FinanceEntryWhereUniqueInput | Prisma.FinanceEntryWhereUniqueInput[]
+  connect?: Prisma.FinanceEntryWhereUniqueInput | Prisma.FinanceEntryWhereUniqueInput[]
+  update?: Prisma.FinanceEntryUpdateWithWhereUniqueWithoutPixChargeInput | Prisma.FinanceEntryUpdateWithWhereUniqueWithoutPixChargeInput[]
+  updateMany?: Prisma.FinanceEntryUpdateManyWithWhereWithoutPixChargeInput | Prisma.FinanceEntryUpdateManyWithWhereWithoutPixChargeInput[]
+  deleteMany?: Prisma.FinanceEntryScalarWhereInput | Prisma.FinanceEntryScalarWhereInput[]
+}
+
+export type FinanceEntryUncheckedUpdateManyWithoutPixChargeNestedInput = {
+  create?: Prisma.XOR<Prisma.FinanceEntryCreateWithoutPixChargeInput, Prisma.FinanceEntryUncheckedCreateWithoutPixChargeInput> | Prisma.FinanceEntryCreateWithoutPixChargeInput[] | Prisma.FinanceEntryUncheckedCreateWithoutPixChargeInput[]
+  connectOrCreate?: Prisma.FinanceEntryCreateOrConnectWithoutPixChargeInput | Prisma.FinanceEntryCreateOrConnectWithoutPixChargeInput[]
+  upsert?: Prisma.FinanceEntryUpsertWithWhereUniqueWithoutPixChargeInput | Prisma.FinanceEntryUpsertWithWhereUniqueWithoutPixChargeInput[]
+  createMany?: Prisma.FinanceEntryCreateManyPixChargeInputEnvelope
+  set?: Prisma.FinanceEntryWhereUniqueInput | Prisma.FinanceEntryWhereUniqueInput[]
+  disconnect?: Prisma.FinanceEntryWhereUniqueInput | Prisma.FinanceEntryWhereUniqueInput[]
+  delete?: Prisma.FinanceEntryWhereUniqueInput | Prisma.FinanceEntryWhereUniqueInput[]
+  connect?: Prisma.FinanceEntryWhereUniqueInput | Prisma.FinanceEntryWhereUniqueInput[]
+  update?: Prisma.FinanceEntryUpdateWithWhereUniqueWithoutPixChargeInput | Prisma.FinanceEntryUpdateWithWhereUniqueWithoutPixChargeInput[]
+  updateMany?: Prisma.FinanceEntryUpdateManyWithWhereWithoutPixChargeInput | Prisma.FinanceEntryUpdateManyWithWhereWithoutPixChargeInput[]
+  deleteMany?: Prisma.FinanceEntryScalarWhereInput | Prisma.FinanceEntryScalarWhereInput[]
+}
+
 export type FinanceEntryCreateNestedOneWithoutOverdueActionsInput = {
   create?: Prisma.XOR<Prisma.FinanceEntryCreateWithoutOverdueActionsInput, Prisma.FinanceEntryUncheckedCreateWithoutOverdueActionsInput>
   connectOrCreate?: Prisma.FinanceEntryCreateOrConnectWithoutOverdueActionsInput
@@ -1646,6 +1806,10 @@ export type FinanceEntryCreateWithoutTenantInput = {
   contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
+  boletoChargeId?: number | null
+  boletoBarcodeNumber?: string | null
+  boletoDigitableLine?: string | null
+  boletoPdfUrl?: string | null
   beneficiaryName?: string | null
   beneficiaryCpfCnpj?: string | null
   pixKey?: string | null
@@ -1661,6 +1825,7 @@ export type FinanceEntryCreateWithoutTenantInput = {
   bankAccount?: Prisma.BankAccountCreateNestedOneWithoutFinanceEntriesInput
   parentEntry?: Prisma.FinanceEntryCreateNestedOneWithoutChildEntriesInput
   childEntries?: Prisma.FinanceEntryCreateNestedManyWithoutParentEntryInput
+  pixCharge?: Prisma.PixChargeCreateNestedOneWithoutFinanceEntriesInput
   payments?: Prisma.FinanceEntryPaymentCreateNestedManyWithoutEntryInput
   attachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutEntryInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterCreateNestedManyWithoutEntryInput
@@ -1699,8 +1864,13 @@ export type FinanceEntryUncheckedCreateWithoutTenantInput = {
   currentInstallment?: number | null
   parentEntryId?: string | null
   contractId?: string | null
+  pixChargeId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
+  boletoChargeId?: number | null
+  boletoBarcodeNumber?: string | null
+  boletoDigitableLine?: string | null
+  boletoPdfUrl?: string | null
   beneficiaryName?: string | null
   beneficiaryCpfCnpj?: string | null
   pixKey?: string | null
@@ -1780,8 +1950,13 @@ export type FinanceEntryScalarWhereInput = {
   currentInstallment?: Prisma.IntNullableFilter<"FinanceEntry"> | number | null
   parentEntryId?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
   contractId?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
+  pixChargeId?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
   boletoBarcode?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
   boletoDigitLine?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
+  boletoChargeId?: Prisma.IntNullableFilter<"FinanceEntry"> | number | null
+  boletoBarcodeNumber?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
+  boletoDigitableLine?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
+  boletoPdfUrl?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
   beneficiaryName?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
   beneficiaryCpfCnpj?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
   pixKey?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
@@ -1823,6 +1998,10 @@ export type FinanceEntryCreateWithoutCostCenterInput = {
   contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
+  boletoChargeId?: number | null
+  boletoBarcodeNumber?: string | null
+  boletoDigitableLine?: string | null
+  boletoPdfUrl?: string | null
   beneficiaryName?: string | null
   beneficiaryCpfCnpj?: string | null
   pixKey?: string | null
@@ -1838,6 +2017,7 @@ export type FinanceEntryCreateWithoutCostCenterInput = {
   bankAccount?: Prisma.BankAccountCreateNestedOneWithoutFinanceEntriesInput
   parentEntry?: Prisma.FinanceEntryCreateNestedOneWithoutChildEntriesInput
   childEntries?: Prisma.FinanceEntryCreateNestedManyWithoutParentEntryInput
+  pixCharge?: Prisma.PixChargeCreateNestedOneWithoutFinanceEntriesInput
   payments?: Prisma.FinanceEntryPaymentCreateNestedManyWithoutEntryInput
   attachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutEntryInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterCreateNestedManyWithoutEntryInput
@@ -1876,8 +2056,13 @@ export type FinanceEntryUncheckedCreateWithoutCostCenterInput = {
   currentInstallment?: number | null
   parentEntryId?: string | null
   contractId?: string | null
+  pixChargeId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
+  boletoChargeId?: number | null
+  boletoBarcodeNumber?: string | null
+  boletoDigitableLine?: string | null
+  boletoPdfUrl?: string | null
   beneficiaryName?: string | null
   beneficiaryCpfCnpj?: string | null
   pixKey?: string | null
@@ -1951,6 +2136,10 @@ export type FinanceEntryCreateWithoutBankAccountInput = {
   contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
+  boletoChargeId?: number | null
+  boletoBarcodeNumber?: string | null
+  boletoDigitableLine?: string | null
+  boletoPdfUrl?: string | null
   beneficiaryName?: string | null
   beneficiaryCpfCnpj?: string | null
   pixKey?: string | null
@@ -1966,6 +2155,7 @@ export type FinanceEntryCreateWithoutBankAccountInput = {
   costCenter?: Prisma.CostCenterCreateNestedOneWithoutFinanceEntriesInput
   parentEntry?: Prisma.FinanceEntryCreateNestedOneWithoutChildEntriesInput
   childEntries?: Prisma.FinanceEntryCreateNestedManyWithoutParentEntryInput
+  pixCharge?: Prisma.PixChargeCreateNestedOneWithoutFinanceEntriesInput
   payments?: Prisma.FinanceEntryPaymentCreateNestedManyWithoutEntryInput
   attachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutEntryInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterCreateNestedManyWithoutEntryInput
@@ -2004,8 +2194,13 @@ export type FinanceEntryUncheckedCreateWithoutBankAccountInput = {
   currentInstallment?: number | null
   parentEntryId?: string | null
   contractId?: string | null
+  pixChargeId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
+  boletoChargeId?: number | null
+  boletoBarcodeNumber?: string | null
+  boletoDigitableLine?: string | null
+  boletoPdfUrl?: string | null
   beneficiaryName?: string | null
   beneficiaryCpfCnpj?: string | null
   pixKey?: string | null
@@ -2079,6 +2274,10 @@ export type FinanceEntryCreateWithoutCategoryInput = {
   contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
+  boletoChargeId?: number | null
+  boletoBarcodeNumber?: string | null
+  boletoDigitableLine?: string | null
+  boletoPdfUrl?: string | null
   beneficiaryName?: string | null
   beneficiaryCpfCnpj?: string | null
   pixKey?: string | null
@@ -2094,6 +2293,7 @@ export type FinanceEntryCreateWithoutCategoryInput = {
   bankAccount?: Prisma.BankAccountCreateNestedOneWithoutFinanceEntriesInput
   parentEntry?: Prisma.FinanceEntryCreateNestedOneWithoutChildEntriesInput
   childEntries?: Prisma.FinanceEntryCreateNestedManyWithoutParentEntryInput
+  pixCharge?: Prisma.PixChargeCreateNestedOneWithoutFinanceEntriesInput
   payments?: Prisma.FinanceEntryPaymentCreateNestedManyWithoutEntryInput
   attachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutEntryInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterCreateNestedManyWithoutEntryInput
@@ -2132,8 +2332,13 @@ export type FinanceEntryUncheckedCreateWithoutCategoryInput = {
   currentInstallment?: number | null
   parentEntryId?: string | null
   contractId?: string | null
+  pixChargeId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
+  boletoChargeId?: number | null
+  boletoBarcodeNumber?: string | null
+  boletoDigitableLine?: string | null
+  boletoPdfUrl?: string | null
   beneficiaryName?: string | null
   beneficiaryCpfCnpj?: string | null
   pixKey?: string | null
@@ -2207,6 +2412,10 @@ export type FinanceEntryCreateWithoutChildEntriesInput = {
   contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
+  boletoChargeId?: number | null
+  boletoBarcodeNumber?: string | null
+  boletoDigitableLine?: string | null
+  boletoPdfUrl?: string | null
   beneficiaryName?: string | null
   beneficiaryCpfCnpj?: string | null
   pixKey?: string | null
@@ -2222,6 +2431,7 @@ export type FinanceEntryCreateWithoutChildEntriesInput = {
   costCenter?: Prisma.CostCenterCreateNestedOneWithoutFinanceEntriesInput
   bankAccount?: Prisma.BankAccountCreateNestedOneWithoutFinanceEntriesInput
   parentEntry?: Prisma.FinanceEntryCreateNestedOneWithoutChildEntriesInput
+  pixCharge?: Prisma.PixChargeCreateNestedOneWithoutFinanceEntriesInput
   payments?: Prisma.FinanceEntryPaymentCreateNestedManyWithoutEntryInput
   attachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutEntryInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterCreateNestedManyWithoutEntryInput
@@ -2261,8 +2471,13 @@ export type FinanceEntryUncheckedCreateWithoutChildEntriesInput = {
   currentInstallment?: number | null
   parentEntryId?: string | null
   contractId?: string | null
+  pixChargeId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
+  boletoChargeId?: number | null
+  boletoBarcodeNumber?: string | null
+  boletoDigitableLine?: string | null
+  boletoPdfUrl?: string | null
   beneficiaryName?: string | null
   beneficiaryCpfCnpj?: string | null
   pixKey?: string | null
@@ -2314,6 +2529,10 @@ export type FinanceEntryCreateWithoutParentEntryInput = {
   contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
+  boletoChargeId?: number | null
+  boletoBarcodeNumber?: string | null
+  boletoDigitableLine?: string | null
+  boletoPdfUrl?: string | null
   beneficiaryName?: string | null
   beneficiaryCpfCnpj?: string | null
   pixKey?: string | null
@@ -2329,6 +2548,7 @@ export type FinanceEntryCreateWithoutParentEntryInput = {
   costCenter?: Prisma.CostCenterCreateNestedOneWithoutFinanceEntriesInput
   bankAccount?: Prisma.BankAccountCreateNestedOneWithoutFinanceEntriesInput
   childEntries?: Prisma.FinanceEntryCreateNestedManyWithoutParentEntryInput
+  pixCharge?: Prisma.PixChargeCreateNestedOneWithoutFinanceEntriesInput
   payments?: Prisma.FinanceEntryPaymentCreateNestedManyWithoutEntryInput
   attachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutEntryInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterCreateNestedManyWithoutEntryInput
@@ -2367,8 +2587,13 @@ export type FinanceEntryUncheckedCreateWithoutParentEntryInput = {
   totalInstallments?: number | null
   currentInstallment?: number | null
   contractId?: string | null
+  pixChargeId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
+  boletoChargeId?: number | null
+  boletoBarcodeNumber?: string | null
+  boletoDigitableLine?: string | null
+  boletoPdfUrl?: string | null
   beneficiaryName?: string | null
   beneficiaryCpfCnpj?: string | null
   pixKey?: string | null
@@ -2437,6 +2662,10 @@ export type FinanceEntryUpdateWithoutChildEntriesInput = {
   contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoChargeId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  boletoBarcodeNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoDigitableLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoPdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2452,6 +2681,7 @@ export type FinanceEntryUpdateWithoutChildEntriesInput = {
   costCenter?: Prisma.CostCenterUpdateOneWithoutFinanceEntriesNestedInput
   bankAccount?: Prisma.BankAccountUpdateOneWithoutFinanceEntriesNestedInput
   parentEntry?: Prisma.FinanceEntryUpdateOneWithoutChildEntriesNestedInput
+  pixCharge?: Prisma.PixChargeUpdateOneWithoutFinanceEntriesNestedInput
   payments?: Prisma.FinanceEntryPaymentUpdateManyWithoutEntryNestedInput
   attachments?: Prisma.FinanceAttachmentUpdateManyWithoutEntryNestedInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterUpdateManyWithoutEntryNestedInput
@@ -2491,8 +2721,13 @@ export type FinanceEntryUncheckedUpdateWithoutChildEntriesInput = {
   currentInstallment?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   parentEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixChargeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoChargeId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  boletoBarcodeNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoDigitableLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoPdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2555,6 +2790,10 @@ export type FinanceEntryCreateWithoutPaymentsInput = {
   contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
+  boletoChargeId?: number | null
+  boletoBarcodeNumber?: string | null
+  boletoDigitableLine?: string | null
+  boletoPdfUrl?: string | null
   beneficiaryName?: string | null
   beneficiaryCpfCnpj?: string | null
   pixKey?: string | null
@@ -2571,6 +2810,7 @@ export type FinanceEntryCreateWithoutPaymentsInput = {
   bankAccount?: Prisma.BankAccountCreateNestedOneWithoutFinanceEntriesInput
   parentEntry?: Prisma.FinanceEntryCreateNestedOneWithoutChildEntriesInput
   childEntries?: Prisma.FinanceEntryCreateNestedManyWithoutParentEntryInput
+  pixCharge?: Prisma.PixChargeCreateNestedOneWithoutFinanceEntriesInput
   attachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutEntryInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterCreateNestedManyWithoutEntryInput
   reconciliationItems?: Prisma.BankReconciliationItemCreateNestedManyWithoutMatchedEntryInput
@@ -2609,8 +2849,13 @@ export type FinanceEntryUncheckedCreateWithoutPaymentsInput = {
   currentInstallment?: number | null
   parentEntryId?: string | null
   contractId?: string | null
+  pixChargeId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
+  boletoChargeId?: number | null
+  boletoBarcodeNumber?: string | null
+  boletoDigitableLine?: string | null
+  boletoPdfUrl?: string | null
   beneficiaryName?: string | null
   beneficiaryCpfCnpj?: string | null
   pixKey?: string | null
@@ -2673,6 +2918,10 @@ export type FinanceEntryUpdateWithoutPaymentsInput = {
   contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoChargeId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  boletoBarcodeNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoDigitableLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoPdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2689,6 +2938,7 @@ export type FinanceEntryUpdateWithoutPaymentsInput = {
   bankAccount?: Prisma.BankAccountUpdateOneWithoutFinanceEntriesNestedInput
   parentEntry?: Prisma.FinanceEntryUpdateOneWithoutChildEntriesNestedInput
   childEntries?: Prisma.FinanceEntryUpdateManyWithoutParentEntryNestedInput
+  pixCharge?: Prisma.PixChargeUpdateOneWithoutFinanceEntriesNestedInput
   attachments?: Prisma.FinanceAttachmentUpdateManyWithoutEntryNestedInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterUpdateManyWithoutEntryNestedInput
   reconciliationItems?: Prisma.BankReconciliationItemUpdateManyWithoutMatchedEntryNestedInput
@@ -2727,8 +2977,13 @@ export type FinanceEntryUncheckedUpdateWithoutPaymentsInput = {
   currentInstallment?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   parentEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixChargeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoChargeId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  boletoBarcodeNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoDigitableLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoPdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2775,6 +3030,10 @@ export type FinanceEntryCreateWithoutCostCenterAllocationsInput = {
   contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
+  boletoChargeId?: number | null
+  boletoBarcodeNumber?: string | null
+  boletoDigitableLine?: string | null
+  boletoPdfUrl?: string | null
   beneficiaryName?: string | null
   beneficiaryCpfCnpj?: string | null
   pixKey?: string | null
@@ -2791,6 +3050,7 @@ export type FinanceEntryCreateWithoutCostCenterAllocationsInput = {
   bankAccount?: Prisma.BankAccountCreateNestedOneWithoutFinanceEntriesInput
   parentEntry?: Prisma.FinanceEntryCreateNestedOneWithoutChildEntriesInput
   childEntries?: Prisma.FinanceEntryCreateNestedManyWithoutParentEntryInput
+  pixCharge?: Prisma.PixChargeCreateNestedOneWithoutFinanceEntriesInput
   payments?: Prisma.FinanceEntryPaymentCreateNestedManyWithoutEntryInput
   attachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutEntryInput
   reconciliationItems?: Prisma.BankReconciliationItemCreateNestedManyWithoutMatchedEntryInput
@@ -2829,8 +3089,13 @@ export type FinanceEntryUncheckedCreateWithoutCostCenterAllocationsInput = {
   currentInstallment?: number | null
   parentEntryId?: string | null
   contractId?: string | null
+  pixChargeId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
+  boletoChargeId?: number | null
+  boletoBarcodeNumber?: string | null
+  boletoDigitableLine?: string | null
+  boletoPdfUrl?: string | null
   beneficiaryName?: string | null
   beneficiaryCpfCnpj?: string | null
   pixKey?: string | null
@@ -2893,6 +3158,10 @@ export type FinanceEntryUpdateWithoutCostCenterAllocationsInput = {
   contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoChargeId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  boletoBarcodeNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoDigitableLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoPdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2909,6 +3178,7 @@ export type FinanceEntryUpdateWithoutCostCenterAllocationsInput = {
   bankAccount?: Prisma.BankAccountUpdateOneWithoutFinanceEntriesNestedInput
   parentEntry?: Prisma.FinanceEntryUpdateOneWithoutChildEntriesNestedInput
   childEntries?: Prisma.FinanceEntryUpdateManyWithoutParentEntryNestedInput
+  pixCharge?: Prisma.PixChargeUpdateOneWithoutFinanceEntriesNestedInput
   payments?: Prisma.FinanceEntryPaymentUpdateManyWithoutEntryNestedInput
   attachments?: Prisma.FinanceAttachmentUpdateManyWithoutEntryNestedInput
   reconciliationItems?: Prisma.BankReconciliationItemUpdateManyWithoutMatchedEntryNestedInput
@@ -2947,8 +3217,13 @@ export type FinanceEntryUncheckedUpdateWithoutCostCenterAllocationsInput = {
   currentInstallment?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   parentEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixChargeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoChargeId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  boletoBarcodeNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoDigitableLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoPdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2995,6 +3270,10 @@ export type FinanceEntryCreateWithoutAttachmentsInput = {
   contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
+  boletoChargeId?: number | null
+  boletoBarcodeNumber?: string | null
+  boletoDigitableLine?: string | null
+  boletoPdfUrl?: string | null
   beneficiaryName?: string | null
   beneficiaryCpfCnpj?: string | null
   pixKey?: string | null
@@ -3011,6 +3290,7 @@ export type FinanceEntryCreateWithoutAttachmentsInput = {
   bankAccount?: Prisma.BankAccountCreateNestedOneWithoutFinanceEntriesInput
   parentEntry?: Prisma.FinanceEntryCreateNestedOneWithoutChildEntriesInput
   childEntries?: Prisma.FinanceEntryCreateNestedManyWithoutParentEntryInput
+  pixCharge?: Prisma.PixChargeCreateNestedOneWithoutFinanceEntriesInput
   payments?: Prisma.FinanceEntryPaymentCreateNestedManyWithoutEntryInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterCreateNestedManyWithoutEntryInput
   reconciliationItems?: Prisma.BankReconciliationItemCreateNestedManyWithoutMatchedEntryInput
@@ -3049,8 +3329,13 @@ export type FinanceEntryUncheckedCreateWithoutAttachmentsInput = {
   currentInstallment?: number | null
   parentEntryId?: string | null
   contractId?: string | null
+  pixChargeId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
+  boletoChargeId?: number | null
+  boletoBarcodeNumber?: string | null
+  boletoDigitableLine?: string | null
+  boletoPdfUrl?: string | null
   beneficiaryName?: string | null
   beneficiaryCpfCnpj?: string | null
   pixKey?: string | null
@@ -3113,6 +3398,10 @@ export type FinanceEntryUpdateWithoutAttachmentsInput = {
   contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoChargeId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  boletoBarcodeNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoDigitableLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoPdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3129,6 +3418,7 @@ export type FinanceEntryUpdateWithoutAttachmentsInput = {
   bankAccount?: Prisma.BankAccountUpdateOneWithoutFinanceEntriesNestedInput
   parentEntry?: Prisma.FinanceEntryUpdateOneWithoutChildEntriesNestedInput
   childEntries?: Prisma.FinanceEntryUpdateManyWithoutParentEntryNestedInput
+  pixCharge?: Prisma.PixChargeUpdateOneWithoutFinanceEntriesNestedInput
   payments?: Prisma.FinanceEntryPaymentUpdateManyWithoutEntryNestedInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterUpdateManyWithoutEntryNestedInput
   reconciliationItems?: Prisma.BankReconciliationItemUpdateManyWithoutMatchedEntryNestedInput
@@ -3167,8 +3457,13 @@ export type FinanceEntryUncheckedUpdateWithoutAttachmentsInput = {
   currentInstallment?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   parentEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixChargeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoChargeId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  boletoBarcodeNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoDigitableLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoPdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3215,6 +3510,10 @@ export type FinanceEntryCreateWithoutReconciliationItemsInput = {
   contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
+  boletoChargeId?: number | null
+  boletoBarcodeNumber?: string | null
+  boletoDigitableLine?: string | null
+  boletoPdfUrl?: string | null
   beneficiaryName?: string | null
   beneficiaryCpfCnpj?: string | null
   pixKey?: string | null
@@ -3231,6 +3530,7 @@ export type FinanceEntryCreateWithoutReconciliationItemsInput = {
   bankAccount?: Prisma.BankAccountCreateNestedOneWithoutFinanceEntriesInput
   parentEntry?: Prisma.FinanceEntryCreateNestedOneWithoutChildEntriesInput
   childEntries?: Prisma.FinanceEntryCreateNestedManyWithoutParentEntryInput
+  pixCharge?: Prisma.PixChargeCreateNestedOneWithoutFinanceEntriesInput
   payments?: Prisma.FinanceEntryPaymentCreateNestedManyWithoutEntryInput
   attachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutEntryInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterCreateNestedManyWithoutEntryInput
@@ -3269,8 +3569,13 @@ export type FinanceEntryUncheckedCreateWithoutReconciliationItemsInput = {
   currentInstallment?: number | null
   parentEntryId?: string | null
   contractId?: string | null
+  pixChargeId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
+  boletoChargeId?: number | null
+  boletoBarcodeNumber?: string | null
+  boletoDigitableLine?: string | null
+  boletoPdfUrl?: string | null
   beneficiaryName?: string | null
   beneficiaryCpfCnpj?: string | null
   pixKey?: string | null
@@ -3333,6 +3638,10 @@ export type FinanceEntryUpdateWithoutReconciliationItemsInput = {
   contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoChargeId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  boletoBarcodeNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoDigitableLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoPdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3349,6 +3658,7 @@ export type FinanceEntryUpdateWithoutReconciliationItemsInput = {
   bankAccount?: Prisma.BankAccountUpdateOneWithoutFinanceEntriesNestedInput
   parentEntry?: Prisma.FinanceEntryUpdateOneWithoutChildEntriesNestedInput
   childEntries?: Prisma.FinanceEntryUpdateManyWithoutParentEntryNestedInput
+  pixCharge?: Prisma.PixChargeUpdateOneWithoutFinanceEntriesNestedInput
   payments?: Prisma.FinanceEntryPaymentUpdateManyWithoutEntryNestedInput
   attachments?: Prisma.FinanceAttachmentUpdateManyWithoutEntryNestedInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterUpdateManyWithoutEntryNestedInput
@@ -3387,8 +3697,13 @@ export type FinanceEntryUncheckedUpdateWithoutReconciliationItemsInput = {
   currentInstallment?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   parentEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixChargeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoChargeId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  boletoBarcodeNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoDigitableLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoPdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3404,6 +3719,144 @@ export type FinanceEntryUncheckedUpdateWithoutReconciliationItemsInput = {
   attachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutEntryNestedInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterUncheckedUpdateManyWithoutEntryNestedInput
   overdueActions?: Prisma.OverdueActionUncheckedUpdateManyWithoutEntryNestedInput
+}
+
+export type FinanceEntryCreateWithoutPixChargeInput = {
+  id?: string
+  type: $Enums.FinanceEntryType
+  code: string
+  description: string
+  notes?: string | null
+  supplierName?: string | null
+  customerName?: string | null
+  supplierId?: string | null
+  customerId?: string | null
+  salesOrderId?: string | null
+  expectedAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  actualAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  interest?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  penalty?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  issueDate: Date | string
+  dueDate: Date | string
+  competenceDate?: Date | string | null
+  paymentDate?: Date | string | null
+  status?: $Enums.FinanceEntryStatus
+  recurrenceType?: $Enums.FinanceEntryRecurrence
+  recurrenceInterval?: number | null
+  recurrenceUnit?: $Enums.RecurrenceUnit | null
+  totalInstallments?: number | null
+  currentInstallment?: number | null
+  contractId?: string | null
+  boletoBarcode?: string | null
+  boletoDigitLine?: string | null
+  boletoChargeId?: number | null
+  boletoBarcodeNumber?: string | null
+  boletoDigitableLine?: string | null
+  boletoPdfUrl?: string | null
+  beneficiaryName?: string | null
+  beneficiaryCpfCnpj?: string | null
+  pixKey?: string | null
+  pixKeyType?: string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.FinanceEntryCreatetagsInput | string[]
+  deletedAt?: Date | string | null
+  createdBy?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutFinanceEntriesInput
+  category: Prisma.FinanceCategoryCreateNestedOneWithoutFinanceEntriesInput
+  costCenter?: Prisma.CostCenterCreateNestedOneWithoutFinanceEntriesInput
+  bankAccount?: Prisma.BankAccountCreateNestedOneWithoutFinanceEntriesInput
+  parentEntry?: Prisma.FinanceEntryCreateNestedOneWithoutChildEntriesInput
+  childEntries?: Prisma.FinanceEntryCreateNestedManyWithoutParentEntryInput
+  payments?: Prisma.FinanceEntryPaymentCreateNestedManyWithoutEntryInput
+  attachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutEntryInput
+  costCenterAllocations?: Prisma.FinanceEntryCostCenterCreateNestedManyWithoutEntryInput
+  reconciliationItems?: Prisma.BankReconciliationItemCreateNestedManyWithoutMatchedEntryInput
+  overdueActions?: Prisma.OverdueActionCreateNestedManyWithoutEntryInput
+}
+
+export type FinanceEntryUncheckedCreateWithoutPixChargeInput = {
+  id?: string
+  tenantId: string
+  type: $Enums.FinanceEntryType
+  code: string
+  description: string
+  notes?: string | null
+  categoryId: string
+  costCenterId?: string | null
+  bankAccountId?: string | null
+  supplierName?: string | null
+  customerName?: string | null
+  supplierId?: string | null
+  customerId?: string | null
+  salesOrderId?: string | null
+  expectedAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  actualAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  interest?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  penalty?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  issueDate: Date | string
+  dueDate: Date | string
+  competenceDate?: Date | string | null
+  paymentDate?: Date | string | null
+  status?: $Enums.FinanceEntryStatus
+  recurrenceType?: $Enums.FinanceEntryRecurrence
+  recurrenceInterval?: number | null
+  recurrenceUnit?: $Enums.RecurrenceUnit | null
+  totalInstallments?: number | null
+  currentInstallment?: number | null
+  parentEntryId?: string | null
+  contractId?: string | null
+  boletoBarcode?: string | null
+  boletoDigitLine?: string | null
+  boletoChargeId?: number | null
+  boletoBarcodeNumber?: string | null
+  boletoDigitableLine?: string | null
+  boletoPdfUrl?: string | null
+  beneficiaryName?: string | null
+  beneficiaryCpfCnpj?: string | null
+  pixKey?: string | null
+  pixKeyType?: string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.FinanceEntryCreatetagsInput | string[]
+  deletedAt?: Date | string | null
+  createdBy?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  childEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutParentEntryInput
+  payments?: Prisma.FinanceEntryPaymentUncheckedCreateNestedManyWithoutEntryInput
+  attachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutEntryInput
+  costCenterAllocations?: Prisma.FinanceEntryCostCenterUncheckedCreateNestedManyWithoutEntryInput
+  reconciliationItems?: Prisma.BankReconciliationItemUncheckedCreateNestedManyWithoutMatchedEntryInput
+  overdueActions?: Prisma.OverdueActionUncheckedCreateNestedManyWithoutEntryInput
+}
+
+export type FinanceEntryCreateOrConnectWithoutPixChargeInput = {
+  where: Prisma.FinanceEntryWhereUniqueInput
+  create: Prisma.XOR<Prisma.FinanceEntryCreateWithoutPixChargeInput, Prisma.FinanceEntryUncheckedCreateWithoutPixChargeInput>
+}
+
+export type FinanceEntryCreateManyPixChargeInputEnvelope = {
+  data: Prisma.FinanceEntryCreateManyPixChargeInput | Prisma.FinanceEntryCreateManyPixChargeInput[]
+  skipDuplicates?: boolean
+}
+
+export type FinanceEntryUpsertWithWhereUniqueWithoutPixChargeInput = {
+  where: Prisma.FinanceEntryWhereUniqueInput
+  update: Prisma.XOR<Prisma.FinanceEntryUpdateWithoutPixChargeInput, Prisma.FinanceEntryUncheckedUpdateWithoutPixChargeInput>
+  create: Prisma.XOR<Prisma.FinanceEntryCreateWithoutPixChargeInput, Prisma.FinanceEntryUncheckedCreateWithoutPixChargeInput>
+}
+
+export type FinanceEntryUpdateWithWhereUniqueWithoutPixChargeInput = {
+  where: Prisma.FinanceEntryWhereUniqueInput
+  data: Prisma.XOR<Prisma.FinanceEntryUpdateWithoutPixChargeInput, Prisma.FinanceEntryUncheckedUpdateWithoutPixChargeInput>
+}
+
+export type FinanceEntryUpdateManyWithWhereWithoutPixChargeInput = {
+  where: Prisma.FinanceEntryScalarWhereInput
+  data: Prisma.XOR<Prisma.FinanceEntryUpdateManyMutationInput, Prisma.FinanceEntryUncheckedUpdateManyWithoutPixChargeInput>
 }
 
 export type FinanceEntryCreateWithoutOverdueActionsInput = {
@@ -3435,6 +3888,10 @@ export type FinanceEntryCreateWithoutOverdueActionsInput = {
   contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
+  boletoChargeId?: number | null
+  boletoBarcodeNumber?: string | null
+  boletoDigitableLine?: string | null
+  boletoPdfUrl?: string | null
   beneficiaryName?: string | null
   beneficiaryCpfCnpj?: string | null
   pixKey?: string | null
@@ -3451,6 +3908,7 @@ export type FinanceEntryCreateWithoutOverdueActionsInput = {
   bankAccount?: Prisma.BankAccountCreateNestedOneWithoutFinanceEntriesInput
   parentEntry?: Prisma.FinanceEntryCreateNestedOneWithoutChildEntriesInput
   childEntries?: Prisma.FinanceEntryCreateNestedManyWithoutParentEntryInput
+  pixCharge?: Prisma.PixChargeCreateNestedOneWithoutFinanceEntriesInput
   payments?: Prisma.FinanceEntryPaymentCreateNestedManyWithoutEntryInput
   attachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutEntryInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterCreateNestedManyWithoutEntryInput
@@ -3489,8 +3947,13 @@ export type FinanceEntryUncheckedCreateWithoutOverdueActionsInput = {
   currentInstallment?: number | null
   parentEntryId?: string | null
   contractId?: string | null
+  pixChargeId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
+  boletoChargeId?: number | null
+  boletoBarcodeNumber?: string | null
+  boletoDigitableLine?: string | null
+  boletoPdfUrl?: string | null
   beneficiaryName?: string | null
   beneficiaryCpfCnpj?: string | null
   pixKey?: string | null
@@ -3553,6 +4016,10 @@ export type FinanceEntryUpdateWithoutOverdueActionsInput = {
   contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoChargeId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  boletoBarcodeNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoDigitableLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoPdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3569,6 +4036,7 @@ export type FinanceEntryUpdateWithoutOverdueActionsInput = {
   bankAccount?: Prisma.BankAccountUpdateOneWithoutFinanceEntriesNestedInput
   parentEntry?: Prisma.FinanceEntryUpdateOneWithoutChildEntriesNestedInput
   childEntries?: Prisma.FinanceEntryUpdateManyWithoutParentEntryNestedInput
+  pixCharge?: Prisma.PixChargeUpdateOneWithoutFinanceEntriesNestedInput
   payments?: Prisma.FinanceEntryPaymentUpdateManyWithoutEntryNestedInput
   attachments?: Prisma.FinanceAttachmentUpdateManyWithoutEntryNestedInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterUpdateManyWithoutEntryNestedInput
@@ -3607,8 +4075,13 @@ export type FinanceEntryUncheckedUpdateWithoutOverdueActionsInput = {
   currentInstallment?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   parentEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixChargeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoChargeId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  boletoBarcodeNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoDigitableLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoPdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3657,8 +4130,13 @@ export type FinanceEntryCreateManyTenantInput = {
   currentInstallment?: number | null
   parentEntryId?: string | null
   contractId?: string | null
+  pixChargeId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
+  boletoChargeId?: number | null
+  boletoBarcodeNumber?: string | null
+  boletoDigitableLine?: string | null
+  boletoPdfUrl?: string | null
   beneficiaryName?: string | null
   beneficiaryCpfCnpj?: string | null
   pixKey?: string | null
@@ -3700,6 +4178,10 @@ export type FinanceEntryUpdateWithoutTenantInput = {
   contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoChargeId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  boletoBarcodeNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoDigitableLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoPdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3715,6 +4197,7 @@ export type FinanceEntryUpdateWithoutTenantInput = {
   bankAccount?: Prisma.BankAccountUpdateOneWithoutFinanceEntriesNestedInput
   parentEntry?: Prisma.FinanceEntryUpdateOneWithoutChildEntriesNestedInput
   childEntries?: Prisma.FinanceEntryUpdateManyWithoutParentEntryNestedInput
+  pixCharge?: Prisma.PixChargeUpdateOneWithoutFinanceEntriesNestedInput
   payments?: Prisma.FinanceEntryPaymentUpdateManyWithoutEntryNestedInput
   attachments?: Prisma.FinanceAttachmentUpdateManyWithoutEntryNestedInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterUpdateManyWithoutEntryNestedInput
@@ -3753,8 +4236,13 @@ export type FinanceEntryUncheckedUpdateWithoutTenantInput = {
   currentInstallment?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   parentEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixChargeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoChargeId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  boletoBarcodeNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoDigitableLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoPdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3804,8 +4292,13 @@ export type FinanceEntryUncheckedUpdateManyWithoutTenantInput = {
   currentInstallment?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   parentEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixChargeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoChargeId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  boletoBarcodeNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoDigitableLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoPdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3849,8 +4342,13 @@ export type FinanceEntryCreateManyCostCenterInput = {
   currentInstallment?: number | null
   parentEntryId?: string | null
   contractId?: string | null
+  pixChargeId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
+  boletoChargeId?: number | null
+  boletoBarcodeNumber?: string | null
+  boletoDigitableLine?: string | null
+  boletoPdfUrl?: string | null
   beneficiaryName?: string | null
   beneficiaryCpfCnpj?: string | null
   pixKey?: string | null
@@ -3892,6 +4390,10 @@ export type FinanceEntryUpdateWithoutCostCenterInput = {
   contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoChargeId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  boletoBarcodeNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoDigitableLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoPdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3907,6 +4409,7 @@ export type FinanceEntryUpdateWithoutCostCenterInput = {
   bankAccount?: Prisma.BankAccountUpdateOneWithoutFinanceEntriesNestedInput
   parentEntry?: Prisma.FinanceEntryUpdateOneWithoutChildEntriesNestedInput
   childEntries?: Prisma.FinanceEntryUpdateManyWithoutParentEntryNestedInput
+  pixCharge?: Prisma.PixChargeUpdateOneWithoutFinanceEntriesNestedInput
   payments?: Prisma.FinanceEntryPaymentUpdateManyWithoutEntryNestedInput
   attachments?: Prisma.FinanceAttachmentUpdateManyWithoutEntryNestedInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterUpdateManyWithoutEntryNestedInput
@@ -3945,8 +4448,13 @@ export type FinanceEntryUncheckedUpdateWithoutCostCenterInput = {
   currentInstallment?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   parentEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixChargeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoChargeId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  boletoBarcodeNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoDigitableLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoPdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3996,8 +4504,13 @@ export type FinanceEntryUncheckedUpdateManyWithoutCostCenterInput = {
   currentInstallment?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   parentEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixChargeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoChargeId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  boletoBarcodeNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoDigitableLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoPdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4041,8 +4554,13 @@ export type FinanceEntryCreateManyBankAccountInput = {
   currentInstallment?: number | null
   parentEntryId?: string | null
   contractId?: string | null
+  pixChargeId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
+  boletoChargeId?: number | null
+  boletoBarcodeNumber?: string | null
+  boletoDigitableLine?: string | null
+  boletoPdfUrl?: string | null
   beneficiaryName?: string | null
   beneficiaryCpfCnpj?: string | null
   pixKey?: string | null
@@ -4084,6 +4602,10 @@ export type FinanceEntryUpdateWithoutBankAccountInput = {
   contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoChargeId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  boletoBarcodeNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoDigitableLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoPdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4099,6 +4621,7 @@ export type FinanceEntryUpdateWithoutBankAccountInput = {
   costCenter?: Prisma.CostCenterUpdateOneWithoutFinanceEntriesNestedInput
   parentEntry?: Prisma.FinanceEntryUpdateOneWithoutChildEntriesNestedInput
   childEntries?: Prisma.FinanceEntryUpdateManyWithoutParentEntryNestedInput
+  pixCharge?: Prisma.PixChargeUpdateOneWithoutFinanceEntriesNestedInput
   payments?: Prisma.FinanceEntryPaymentUpdateManyWithoutEntryNestedInput
   attachments?: Prisma.FinanceAttachmentUpdateManyWithoutEntryNestedInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterUpdateManyWithoutEntryNestedInput
@@ -4137,8 +4660,13 @@ export type FinanceEntryUncheckedUpdateWithoutBankAccountInput = {
   currentInstallment?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   parentEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixChargeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoChargeId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  boletoBarcodeNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoDigitableLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoPdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4188,8 +4716,13 @@ export type FinanceEntryUncheckedUpdateManyWithoutBankAccountInput = {
   currentInstallment?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   parentEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixChargeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoChargeId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  boletoBarcodeNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoDigitableLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoPdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4233,8 +4766,13 @@ export type FinanceEntryCreateManyCategoryInput = {
   currentInstallment?: number | null
   parentEntryId?: string | null
   contractId?: string | null
+  pixChargeId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
+  boletoChargeId?: number | null
+  boletoBarcodeNumber?: string | null
+  boletoDigitableLine?: string | null
+  boletoPdfUrl?: string | null
   beneficiaryName?: string | null
   beneficiaryCpfCnpj?: string | null
   pixKey?: string | null
@@ -4276,6 +4814,10 @@ export type FinanceEntryUpdateWithoutCategoryInput = {
   contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoChargeId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  boletoBarcodeNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoDigitableLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoPdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4291,6 +4833,7 @@ export type FinanceEntryUpdateWithoutCategoryInput = {
   bankAccount?: Prisma.BankAccountUpdateOneWithoutFinanceEntriesNestedInput
   parentEntry?: Prisma.FinanceEntryUpdateOneWithoutChildEntriesNestedInput
   childEntries?: Prisma.FinanceEntryUpdateManyWithoutParentEntryNestedInput
+  pixCharge?: Prisma.PixChargeUpdateOneWithoutFinanceEntriesNestedInput
   payments?: Prisma.FinanceEntryPaymentUpdateManyWithoutEntryNestedInput
   attachments?: Prisma.FinanceAttachmentUpdateManyWithoutEntryNestedInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterUpdateManyWithoutEntryNestedInput
@@ -4329,8 +4872,13 @@ export type FinanceEntryUncheckedUpdateWithoutCategoryInput = {
   currentInstallment?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   parentEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixChargeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoChargeId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  boletoBarcodeNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoDigitableLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoPdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4380,8 +4928,13 @@ export type FinanceEntryUncheckedUpdateManyWithoutCategoryInput = {
   currentInstallment?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   parentEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixChargeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoChargeId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  boletoBarcodeNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoDigitableLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoPdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4425,8 +4978,13 @@ export type FinanceEntryCreateManyParentEntryInput = {
   totalInstallments?: number | null
   currentInstallment?: number | null
   contractId?: string | null
+  pixChargeId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
+  boletoChargeId?: number | null
+  boletoBarcodeNumber?: string | null
+  boletoDigitableLine?: string | null
+  boletoPdfUrl?: string | null
   beneficiaryName?: string | null
   beneficiaryCpfCnpj?: string | null
   pixKey?: string | null
@@ -4468,6 +5026,10 @@ export type FinanceEntryUpdateWithoutParentEntryInput = {
   contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoChargeId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  boletoBarcodeNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoDigitableLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoPdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4483,6 +5045,7 @@ export type FinanceEntryUpdateWithoutParentEntryInput = {
   costCenter?: Prisma.CostCenterUpdateOneWithoutFinanceEntriesNestedInput
   bankAccount?: Prisma.BankAccountUpdateOneWithoutFinanceEntriesNestedInput
   childEntries?: Prisma.FinanceEntryUpdateManyWithoutParentEntryNestedInput
+  pixCharge?: Prisma.PixChargeUpdateOneWithoutFinanceEntriesNestedInput
   payments?: Prisma.FinanceEntryPaymentUpdateManyWithoutEntryNestedInput
   attachments?: Prisma.FinanceAttachmentUpdateManyWithoutEntryNestedInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterUpdateManyWithoutEntryNestedInput
@@ -4521,8 +5084,13 @@ export type FinanceEntryUncheckedUpdateWithoutParentEntryInput = {
   totalInstallments?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   currentInstallment?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixChargeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoChargeId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  boletoBarcodeNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoDigitableLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoPdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4572,8 +5140,225 @@ export type FinanceEntryUncheckedUpdateManyWithoutParentEntryInput = {
   totalInstallments?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   currentInstallment?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixChargeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoChargeId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  boletoBarcodeNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoDigitableLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoPdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type FinanceEntryCreateManyPixChargeInput = {
+  id?: string
+  tenantId: string
+  type: $Enums.FinanceEntryType
+  code: string
+  description: string
+  notes?: string | null
+  categoryId: string
+  costCenterId?: string | null
+  bankAccountId?: string | null
+  supplierName?: string | null
+  customerName?: string | null
+  supplierId?: string | null
+  customerId?: string | null
+  salesOrderId?: string | null
+  expectedAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  actualAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  interest?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  penalty?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  issueDate: Date | string
+  dueDate: Date | string
+  competenceDate?: Date | string | null
+  paymentDate?: Date | string | null
+  status?: $Enums.FinanceEntryStatus
+  recurrenceType?: $Enums.FinanceEntryRecurrence
+  recurrenceInterval?: number | null
+  recurrenceUnit?: $Enums.RecurrenceUnit | null
+  totalInstallments?: number | null
+  currentInstallment?: number | null
+  parentEntryId?: string | null
+  contractId?: string | null
+  boletoBarcode?: string | null
+  boletoDigitLine?: string | null
+  boletoChargeId?: number | null
+  boletoBarcodeNumber?: string | null
+  boletoDigitableLine?: string | null
+  boletoPdfUrl?: string | null
+  beneficiaryName?: string | null
+  beneficiaryCpfCnpj?: string | null
+  pixKey?: string | null
+  pixKeyType?: string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.FinanceEntryCreatetagsInput | string[]
+  deletedAt?: Date | string | null
+  createdBy?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type FinanceEntryUpdateWithoutPixChargeInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumFinanceEntryTypeFieldUpdateOperationsInput | $Enums.FinanceEntryType
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salesOrderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expectedAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  actualAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  interest?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  penalty?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  issueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  dueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  competenceDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  paymentDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumFinanceEntryStatusFieldUpdateOperationsInput | $Enums.FinanceEntryStatus
+  recurrenceType?: Prisma.EnumFinanceEntryRecurrenceFieldUpdateOperationsInput | $Enums.FinanceEntryRecurrence
+  recurrenceInterval?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  recurrenceUnit?: Prisma.NullableEnumRecurrenceUnitFieldUpdateOperationsInput | $Enums.RecurrenceUnit | null
+  totalInstallments?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  currentInstallment?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoChargeId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  boletoBarcodeNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoDigitableLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoPdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutFinanceEntriesNestedInput
+  category?: Prisma.FinanceCategoryUpdateOneRequiredWithoutFinanceEntriesNestedInput
+  costCenter?: Prisma.CostCenterUpdateOneWithoutFinanceEntriesNestedInput
+  bankAccount?: Prisma.BankAccountUpdateOneWithoutFinanceEntriesNestedInput
+  parentEntry?: Prisma.FinanceEntryUpdateOneWithoutChildEntriesNestedInput
+  childEntries?: Prisma.FinanceEntryUpdateManyWithoutParentEntryNestedInput
+  payments?: Prisma.FinanceEntryPaymentUpdateManyWithoutEntryNestedInput
+  attachments?: Prisma.FinanceAttachmentUpdateManyWithoutEntryNestedInput
+  costCenterAllocations?: Prisma.FinanceEntryCostCenterUpdateManyWithoutEntryNestedInput
+  reconciliationItems?: Prisma.BankReconciliationItemUpdateManyWithoutMatchedEntryNestedInput
+  overdueActions?: Prisma.OverdueActionUpdateManyWithoutEntryNestedInput
+}
+
+export type FinanceEntryUncheckedUpdateWithoutPixChargeInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumFinanceEntryTypeFieldUpdateOperationsInput | $Enums.FinanceEntryType
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoryId?: Prisma.StringFieldUpdateOperationsInput | string
+  costCenterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salesOrderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expectedAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  actualAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  interest?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  penalty?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  issueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  dueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  competenceDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  paymentDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumFinanceEntryStatusFieldUpdateOperationsInput | $Enums.FinanceEntryStatus
+  recurrenceType?: Prisma.EnumFinanceEntryRecurrenceFieldUpdateOperationsInput | $Enums.FinanceEntryRecurrence
+  recurrenceInterval?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  recurrenceUnit?: Prisma.NullableEnumRecurrenceUnitFieldUpdateOperationsInput | $Enums.RecurrenceUnit | null
+  totalInstallments?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  currentInstallment?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  parentEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoChargeId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  boletoBarcodeNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoDigitableLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoPdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  childEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutParentEntryNestedInput
+  payments?: Prisma.FinanceEntryPaymentUncheckedUpdateManyWithoutEntryNestedInput
+  attachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutEntryNestedInput
+  costCenterAllocations?: Prisma.FinanceEntryCostCenterUncheckedUpdateManyWithoutEntryNestedInput
+  reconciliationItems?: Prisma.BankReconciliationItemUncheckedUpdateManyWithoutMatchedEntryNestedInput
+  overdueActions?: Prisma.OverdueActionUncheckedUpdateManyWithoutEntryNestedInput
+}
+
+export type FinanceEntryUncheckedUpdateManyWithoutPixChargeInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumFinanceEntryTypeFieldUpdateOperationsInput | $Enums.FinanceEntryType
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoryId?: Prisma.StringFieldUpdateOperationsInput | string
+  costCenterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salesOrderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expectedAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  actualAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  interest?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  penalty?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  issueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  dueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  competenceDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  paymentDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumFinanceEntryStatusFieldUpdateOperationsInput | $Enums.FinanceEntryStatus
+  recurrenceType?: Prisma.EnumFinanceEntryRecurrenceFieldUpdateOperationsInput | $Enums.FinanceEntryRecurrence
+  recurrenceInterval?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  recurrenceUnit?: Prisma.NullableEnumRecurrenceUnitFieldUpdateOperationsInput | $Enums.RecurrenceUnit | null
+  totalInstallments?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  currentInstallment?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  parentEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoChargeId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  boletoBarcodeNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoDigitableLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoPdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4694,8 +5479,13 @@ export type FinanceEntrySelect<ExtArgs extends runtime.Types.Extensions.Internal
   currentInstallment?: boolean
   parentEntryId?: boolean
   contractId?: boolean
+  pixChargeId?: boolean
   boletoBarcode?: boolean
   boletoDigitLine?: boolean
+  boletoChargeId?: boolean
+  boletoBarcodeNumber?: boolean
+  boletoDigitableLine?: boolean
+  boletoPdfUrl?: boolean
   beneficiaryName?: boolean
   beneficiaryCpfCnpj?: boolean
   pixKey?: boolean
@@ -4712,6 +5502,7 @@ export type FinanceEntrySelect<ExtArgs extends runtime.Types.Extensions.Internal
   bankAccount?: boolean | Prisma.FinanceEntry$bankAccountArgs<ExtArgs>
   parentEntry?: boolean | Prisma.FinanceEntry$parentEntryArgs<ExtArgs>
   childEntries?: boolean | Prisma.FinanceEntry$childEntriesArgs<ExtArgs>
+  pixCharge?: boolean | Prisma.FinanceEntry$pixChargeArgs<ExtArgs>
   payments?: boolean | Prisma.FinanceEntry$paymentsArgs<ExtArgs>
   attachments?: boolean | Prisma.FinanceEntry$attachmentsArgs<ExtArgs>
   costCenterAllocations?: boolean | Prisma.FinanceEntry$costCenterAllocationsArgs<ExtArgs>
@@ -4752,8 +5543,13 @@ export type FinanceEntrySelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   currentInstallment?: boolean
   parentEntryId?: boolean
   contractId?: boolean
+  pixChargeId?: boolean
   boletoBarcode?: boolean
   boletoDigitLine?: boolean
+  boletoChargeId?: boolean
+  boletoBarcodeNumber?: boolean
+  boletoDigitableLine?: boolean
+  boletoPdfUrl?: boolean
   beneficiaryName?: boolean
   beneficiaryCpfCnpj?: boolean
   pixKey?: boolean
@@ -4769,6 +5565,7 @@ export type FinanceEntrySelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   costCenter?: boolean | Prisma.FinanceEntry$costCenterArgs<ExtArgs>
   bankAccount?: boolean | Prisma.FinanceEntry$bankAccountArgs<ExtArgs>
   parentEntry?: boolean | Prisma.FinanceEntry$parentEntryArgs<ExtArgs>
+  pixCharge?: boolean | Prisma.FinanceEntry$pixChargeArgs<ExtArgs>
 }, ExtArgs["result"]["financeEntry"]>
 
 export type FinanceEntrySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -4803,8 +5600,13 @@ export type FinanceEntrySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   currentInstallment?: boolean
   parentEntryId?: boolean
   contractId?: boolean
+  pixChargeId?: boolean
   boletoBarcode?: boolean
   boletoDigitLine?: boolean
+  boletoChargeId?: boolean
+  boletoBarcodeNumber?: boolean
+  boletoDigitableLine?: boolean
+  boletoPdfUrl?: boolean
   beneficiaryName?: boolean
   beneficiaryCpfCnpj?: boolean
   pixKey?: boolean
@@ -4820,6 +5622,7 @@ export type FinanceEntrySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   costCenter?: boolean | Prisma.FinanceEntry$costCenterArgs<ExtArgs>
   bankAccount?: boolean | Prisma.FinanceEntry$bankAccountArgs<ExtArgs>
   parentEntry?: boolean | Prisma.FinanceEntry$parentEntryArgs<ExtArgs>
+  pixCharge?: boolean | Prisma.FinanceEntry$pixChargeArgs<ExtArgs>
 }, ExtArgs["result"]["financeEntry"]>
 
 export type FinanceEntrySelectScalar = {
@@ -4854,8 +5657,13 @@ export type FinanceEntrySelectScalar = {
   currentInstallment?: boolean
   parentEntryId?: boolean
   contractId?: boolean
+  pixChargeId?: boolean
   boletoBarcode?: boolean
   boletoDigitLine?: boolean
+  boletoChargeId?: boolean
+  boletoBarcodeNumber?: boolean
+  boletoDigitableLine?: boolean
+  boletoPdfUrl?: boolean
   beneficiaryName?: boolean
   beneficiaryCpfCnpj?: boolean
   pixKey?: boolean
@@ -4868,7 +5676,7 @@ export type FinanceEntrySelectScalar = {
   updatedAt?: boolean
 }
 
-export type FinanceEntryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "type" | "code" | "description" | "notes" | "categoryId" | "costCenterId" | "bankAccountId" | "supplierName" | "customerName" | "supplierId" | "customerId" | "salesOrderId" | "expectedAmount" | "actualAmount" | "discount" | "interest" | "penalty" | "issueDate" | "dueDate" | "competenceDate" | "paymentDate" | "status" | "recurrenceType" | "recurrenceInterval" | "recurrenceUnit" | "totalInstallments" | "currentInstallment" | "parentEntryId" | "contractId" | "boletoBarcode" | "boletoDigitLine" | "beneficiaryName" | "beneficiaryCpfCnpj" | "pixKey" | "pixKeyType" | "metadata" | "tags" | "deletedAt" | "createdBy" | "createdAt" | "updatedAt", ExtArgs["result"]["financeEntry"]>
+export type FinanceEntryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "type" | "code" | "description" | "notes" | "categoryId" | "costCenterId" | "bankAccountId" | "supplierName" | "customerName" | "supplierId" | "customerId" | "salesOrderId" | "expectedAmount" | "actualAmount" | "discount" | "interest" | "penalty" | "issueDate" | "dueDate" | "competenceDate" | "paymentDate" | "status" | "recurrenceType" | "recurrenceInterval" | "recurrenceUnit" | "totalInstallments" | "currentInstallment" | "parentEntryId" | "contractId" | "pixChargeId" | "boletoBarcode" | "boletoDigitLine" | "boletoChargeId" | "boletoBarcodeNumber" | "boletoDigitableLine" | "boletoPdfUrl" | "beneficiaryName" | "beneficiaryCpfCnpj" | "pixKey" | "pixKeyType" | "metadata" | "tags" | "deletedAt" | "createdBy" | "createdAt" | "updatedAt", ExtArgs["result"]["financeEntry"]>
 export type FinanceEntryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   category?: boolean | Prisma.FinanceCategoryDefaultArgs<ExtArgs>
@@ -4876,6 +5684,7 @@ export type FinanceEntryInclude<ExtArgs extends runtime.Types.Extensions.Interna
   bankAccount?: boolean | Prisma.FinanceEntry$bankAccountArgs<ExtArgs>
   parentEntry?: boolean | Prisma.FinanceEntry$parentEntryArgs<ExtArgs>
   childEntries?: boolean | Prisma.FinanceEntry$childEntriesArgs<ExtArgs>
+  pixCharge?: boolean | Prisma.FinanceEntry$pixChargeArgs<ExtArgs>
   payments?: boolean | Prisma.FinanceEntry$paymentsArgs<ExtArgs>
   attachments?: boolean | Prisma.FinanceEntry$attachmentsArgs<ExtArgs>
   costCenterAllocations?: boolean | Prisma.FinanceEntry$costCenterAllocationsArgs<ExtArgs>
@@ -4889,6 +5698,7 @@ export type FinanceEntryIncludeCreateManyAndReturn<ExtArgs extends runtime.Types
   costCenter?: boolean | Prisma.FinanceEntry$costCenterArgs<ExtArgs>
   bankAccount?: boolean | Prisma.FinanceEntry$bankAccountArgs<ExtArgs>
   parentEntry?: boolean | Prisma.FinanceEntry$parentEntryArgs<ExtArgs>
+  pixCharge?: boolean | Prisma.FinanceEntry$pixChargeArgs<ExtArgs>
 }
 export type FinanceEntryIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
@@ -4896,6 +5706,7 @@ export type FinanceEntryIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types
   costCenter?: boolean | Prisma.FinanceEntry$costCenterArgs<ExtArgs>
   bankAccount?: boolean | Prisma.FinanceEntry$bankAccountArgs<ExtArgs>
   parentEntry?: boolean | Prisma.FinanceEntry$parentEntryArgs<ExtArgs>
+  pixCharge?: boolean | Prisma.FinanceEntry$pixChargeArgs<ExtArgs>
 }
 
 export type $FinanceEntryPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -4907,6 +5718,7 @@ export type $FinanceEntryPayload<ExtArgs extends runtime.Types.Extensions.Intern
     bankAccount: Prisma.$BankAccountPayload<ExtArgs> | null
     parentEntry: Prisma.$FinanceEntryPayload<ExtArgs> | null
     childEntries: Prisma.$FinanceEntryPayload<ExtArgs>[]
+    pixCharge: Prisma.$PixChargePayload<ExtArgs> | null
     payments: Prisma.$FinanceEntryPaymentPayload<ExtArgs>[]
     attachments: Prisma.$FinanceAttachmentPayload<ExtArgs>[]
     costCenterAllocations: Prisma.$FinanceEntryCostCenterPayload<ExtArgs>[]
@@ -4945,8 +5757,13 @@ export type $FinanceEntryPayload<ExtArgs extends runtime.Types.Extensions.Intern
     currentInstallment: number | null
     parentEntryId: string | null
     contractId: string | null
+    pixChargeId: string | null
     boletoBarcode: string | null
     boletoDigitLine: string | null
+    boletoChargeId: number | null
+    boletoBarcodeNumber: string | null
+    boletoDigitableLine: string | null
+    boletoPdfUrl: string | null
     beneficiaryName: string | null
     beneficiaryCpfCnpj: string | null
     pixKey: string | null
@@ -5357,6 +6174,7 @@ export interface Prisma__FinanceEntryClient<T, Null = never, ExtArgs extends run
   bankAccount<T extends Prisma.FinanceEntry$bankAccountArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FinanceEntry$bankAccountArgs<ExtArgs>>): Prisma.Prisma__BankAccountClient<runtime.Types.Result.GetResult<Prisma.$BankAccountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   parentEntry<T extends Prisma.FinanceEntry$parentEntryArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FinanceEntry$parentEntryArgs<ExtArgs>>): Prisma.Prisma__FinanceEntryClient<runtime.Types.Result.GetResult<Prisma.$FinanceEntryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   childEntries<T extends Prisma.FinanceEntry$childEntriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FinanceEntry$childEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FinanceEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  pixCharge<T extends Prisma.FinanceEntry$pixChargeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FinanceEntry$pixChargeArgs<ExtArgs>>): Prisma.Prisma__PixChargeClient<runtime.Types.Result.GetResult<Prisma.$PixChargePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   payments<T extends Prisma.FinanceEntry$paymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FinanceEntry$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FinanceEntryPaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   attachments<T extends Prisma.FinanceEntry$attachmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FinanceEntry$attachmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FinanceAttachmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   costCenterAllocations<T extends Prisma.FinanceEntry$costCenterAllocationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FinanceEntry$costCenterAllocationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FinanceEntryCostCenterPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -5422,8 +6240,13 @@ export interface FinanceEntryFieldRefs {
   readonly currentInstallment: Prisma.FieldRef<"FinanceEntry", 'Int'>
   readonly parentEntryId: Prisma.FieldRef<"FinanceEntry", 'String'>
   readonly contractId: Prisma.FieldRef<"FinanceEntry", 'String'>
+  readonly pixChargeId: Prisma.FieldRef<"FinanceEntry", 'String'>
   readonly boletoBarcode: Prisma.FieldRef<"FinanceEntry", 'String'>
   readonly boletoDigitLine: Prisma.FieldRef<"FinanceEntry", 'String'>
+  readonly boletoChargeId: Prisma.FieldRef<"FinanceEntry", 'Int'>
+  readonly boletoBarcodeNumber: Prisma.FieldRef<"FinanceEntry", 'String'>
+  readonly boletoDigitableLine: Prisma.FieldRef<"FinanceEntry", 'String'>
+  readonly boletoPdfUrl: Prisma.FieldRef<"FinanceEntry", 'String'>
   readonly beneficiaryName: Prisma.FieldRef<"FinanceEntry", 'String'>
   readonly beneficiaryCpfCnpj: Prisma.FieldRef<"FinanceEntry", 'String'>
   readonly pixKey: Prisma.FieldRef<"FinanceEntry", 'String'>
@@ -5908,6 +6731,25 @@ export type FinanceEntry$childEntriesArgs<ExtArgs extends runtime.Types.Extensio
   take?: number
   skip?: number
   distinct?: Prisma.FinanceEntryScalarFieldEnum | Prisma.FinanceEntryScalarFieldEnum[]
+}
+
+/**
+ * FinanceEntry.pixCharge
+ */
+export type FinanceEntry$pixChargeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PixCharge
+   */
+  select?: Prisma.PixChargeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PixCharge
+   */
+  omit?: Prisma.PixChargeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PixChargeInclude<ExtArgs> | null
+  where?: Prisma.PixChargeWhereInput
 }
 
 /**

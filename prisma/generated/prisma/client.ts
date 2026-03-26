@@ -440,6 +440,11 @@ export type Absence = Prisma.AbsenceModel
  */
 export type VacationPeriod = Prisma.VacationPeriodModel
 /**
+ * Model VacationSplit
+ * 
+ */
+export type VacationSplit = Prisma.VacationSplitModel
+/**
  * Model Payroll
  * 
  */

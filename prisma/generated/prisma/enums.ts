@@ -1360,7 +1360,9 @@ export const PayrollItemType = {
   BONUS: 'BONUS',
   COMMISSION: 'COMMISSION',
   OVERTIME: 'OVERTIME',
+  OVERTIME_100: 'OVERTIME_100',
   NIGHT_SHIFT: 'NIGHT_SHIFT',
+  DSR: 'DSR',
   HAZARD_PAY: 'HAZARD_PAY',
   DANGER_PAY: 'DANGER_PAY',
   VACATION_PAY: 'VACATION_PAY',
@@ -2415,7 +2417,8 @@ export const AiActionStatus = {
   CONFIRMED: 'CONFIRMED',
   EXECUTED: 'EXECUTED',
   FAILED: 'FAILED',
-  CANCELLED: 'CANCELLED'
+  CANCELLED: 'CANCELLED',
+  UNDONE: 'UNDONE'
 } as const
 
 export type AiActionStatus = (typeof AiActionStatus)[keyof typeof AiActionStatus]

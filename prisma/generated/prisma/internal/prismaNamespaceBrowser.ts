@@ -131,6 +131,7 @@ export const ModelName = {
   TimeBank: 'TimeBank',
   Absence: 'Absence',
   VacationPeriod: 'VacationPeriod',
+  VacationSplit: 'VacationSplit',
   Payroll: 'Payroll',
   PayrollItem: 'PayrollItem',
   Bonus: 'Bonus',
@@ -1989,6 +1990,23 @@ export const VacationPeriodScalarFieldEnum = {
 export type VacationPeriodScalarFieldEnum = (typeof VacationPeriodScalarFieldEnum)[keyof typeof VacationPeriodScalarFieldEnum]
 
 
+export const VacationSplitScalarFieldEnum = {
+  id: 'id',
+  vacationPeriodId: 'vacationPeriodId',
+  splitNumber: 'splitNumber',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  days: 'days',
+  status: 'status',
+  paymentDate: 'paymentDate',
+  paymentAmount: 'paymentAmount',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type VacationSplitScalarFieldEnum = (typeof VacationSplitScalarFieldEnum)[keyof typeof VacationSplitScalarFieldEnum]
+
+
 export const PayrollScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
@@ -2485,8 +2503,13 @@ export const FinanceEntryScalarFieldEnum = {
   currentInstallment: 'currentInstallment',
   parentEntryId: 'parentEntryId',
   contractId: 'contractId',
+  pixChargeId: 'pixChargeId',
   boletoBarcode: 'boletoBarcode',
   boletoDigitLine: 'boletoDigitLine',
+  boletoChargeId: 'boletoChargeId',
+  boletoBarcodeNumber: 'boletoBarcodeNumber',
+  boletoDigitableLine: 'boletoDigitableLine',
+  boletoPdfUrl: 'boletoPdfUrl',
   beneficiaryName: 'beneficiaryName',
   beneficiaryCpfCnpj: 'beneficiaryCpfCnpj',
   pixKey: 'pixKey',
@@ -4734,6 +4757,7 @@ export const AiActionLogScalarFieldEnum = {
   confirmedAt: 'confirmedAt',
   executedAt: 'executedAt',
   error: 'error',
+  auditLogId: 'auditLogId',
   createdAt: 'createdAt'
 } as const
 

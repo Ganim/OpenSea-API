@@ -39,6 +39,7 @@ export type AiActionLogMinAggregateOutputType = {
   confirmedAt: Date | null
   executedAt: Date | null
   error: string | null
+  auditLogId: string | null
   createdAt: Date | null
 }
 
@@ -57,6 +58,7 @@ export type AiActionLogMaxAggregateOutputType = {
   confirmedAt: Date | null
   executedAt: Date | null
   error: string | null
+  auditLogId: string | null
   createdAt: Date | null
 }
 
@@ -77,6 +79,7 @@ export type AiActionLogCountAggregateOutputType = {
   confirmedAt: number
   executedAt: number
   error: number
+  auditLogId: number
   createdAt: number
   _all: number
 }
@@ -97,6 +100,7 @@ export type AiActionLogMinAggregateInputType = {
   confirmedAt?: true
   executedAt?: true
   error?: true
+  auditLogId?: true
   createdAt?: true
 }
 
@@ -115,6 +119,7 @@ export type AiActionLogMaxAggregateInputType = {
   confirmedAt?: true
   executedAt?: true
   error?: true
+  auditLogId?: true
   createdAt?: true
 }
 
@@ -135,6 +140,7 @@ export type AiActionLogCountAggregateInputType = {
   confirmedAt?: true
   executedAt?: true
   error?: true
+  auditLogId?: true
   createdAt?: true
   _all?: true
 }
@@ -228,6 +234,7 @@ export type AiActionLogGroupByOutputType = {
   confirmedAt: Date | null
   executedAt: Date | null
   error: string | null
+  auditLogId: string | null
   createdAt: Date
   _count: AiActionLogCountAggregateOutputType | null
   _min: AiActionLogMinAggregateOutputType | null
@@ -269,6 +276,7 @@ export type AiActionLogWhereInput = {
   confirmedAt?: Prisma.DateTimeNullableFilter<"AiActionLog"> | Date | string | null
   executedAt?: Prisma.DateTimeNullableFilter<"AiActionLog"> | Date | string | null
   error?: Prisma.StringNullableFilter<"AiActionLog"> | string | null
+  auditLogId?: Prisma.StringNullableFilter<"AiActionLog"> | string | null
   createdAt?: Prisma.DateTimeFilter<"AiActionLog"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -292,6 +300,7 @@ export type AiActionLogOrderByWithRelationInput = {
   confirmedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   executedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   error?: Prisma.SortOrderInput | Prisma.SortOrder
+  auditLogId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   tenant?: Prisma.TenantOrderByWithRelationInput
   user?: Prisma.UserOrderByWithRelationInput
@@ -318,6 +327,7 @@ export type AiActionLogWhereUniqueInput = Prisma.AtLeast<{
   confirmedAt?: Prisma.DateTimeNullableFilter<"AiActionLog"> | Date | string | null
   executedAt?: Prisma.DateTimeNullableFilter<"AiActionLog"> | Date | string | null
   error?: Prisma.StringNullableFilter<"AiActionLog"> | string | null
+  auditLogId?: Prisma.StringNullableFilter<"AiActionLog"> | string | null
   createdAt?: Prisma.DateTimeFilter<"AiActionLog"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -341,6 +351,7 @@ export type AiActionLogOrderByWithAggregationInput = {
   confirmedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   executedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   error?: Prisma.SortOrderInput | Prisma.SortOrder
+  auditLogId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.AiActionLogCountOrderByAggregateInput
   _max?: Prisma.AiActionLogMaxOrderByAggregateInput
@@ -367,6 +378,7 @@ export type AiActionLogScalarWhereWithAggregatesInput = {
   confirmedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"AiActionLog"> | Date | string | null
   executedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"AiActionLog"> | Date | string | null
   error?: Prisma.StringNullableWithAggregatesFilter<"AiActionLog"> | string | null
+  auditLogId?: Prisma.StringNullableWithAggregatesFilter<"AiActionLog"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"AiActionLog"> | Date | string
 }
 
@@ -384,6 +396,7 @@ export type AiActionLogCreateInput = {
   confirmedAt?: Date | string | null
   executedAt?: Date | string | null
   error?: string | null
+  auditLogId?: string | null
   createdAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutAiActionLogsInput
   user: Prisma.UserCreateNestedOneWithoutAiActionLogsInput
@@ -407,6 +420,7 @@ export type AiActionLogUncheckedCreateInput = {
   confirmedAt?: Date | string | null
   executedAt?: Date | string | null
   error?: string | null
+  auditLogId?: string | null
   createdAt?: Date | string
 }
 
@@ -424,6 +438,7 @@ export type AiActionLogUpdateInput = {
   confirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   executedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   error?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  auditLogId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutAiActionLogsNestedInput
   user?: Prisma.UserUpdateOneRequiredWithoutAiActionLogsNestedInput
@@ -447,6 +462,7 @@ export type AiActionLogUncheckedUpdateInput = {
   confirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   executedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   error?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  auditLogId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -467,6 +483,7 @@ export type AiActionLogCreateManyInput = {
   confirmedAt?: Date | string | null
   executedAt?: Date | string | null
   error?: string | null
+  auditLogId?: string | null
   createdAt?: Date | string
 }
 
@@ -484,6 +501,7 @@ export type AiActionLogUpdateManyMutationInput = {
   confirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   executedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   error?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  auditLogId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -504,6 +522,7 @@ export type AiActionLogUncheckedUpdateManyInput = {
   confirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   executedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   error?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  auditLogId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -534,6 +553,7 @@ export type AiActionLogCountOrderByAggregateInput = {
   confirmedAt?: Prisma.SortOrder
   executedAt?: Prisma.SortOrder
   error?: Prisma.SortOrder
+  auditLogId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -552,6 +572,7 @@ export type AiActionLogMaxOrderByAggregateInput = {
   confirmedAt?: Prisma.SortOrder
   executedAt?: Prisma.SortOrder
   error?: Prisma.SortOrder
+  auditLogId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -570,6 +591,7 @@ export type AiActionLogMinOrderByAggregateInput = {
   confirmedAt?: Prisma.SortOrder
   executedAt?: Prisma.SortOrder
   error?: Prisma.SortOrder
+  auditLogId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -717,6 +739,7 @@ export type AiActionLogCreateWithoutUserInput = {
   confirmedAt?: Date | string | null
   executedAt?: Date | string | null
   error?: string | null
+  auditLogId?: string | null
   createdAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutAiActionLogsInput
   confirmedBy?: Prisma.UserCreateNestedOneWithoutAiActionsConfirmedInput
@@ -738,6 +761,7 @@ export type AiActionLogUncheckedCreateWithoutUserInput = {
   confirmedAt?: Date | string | null
   executedAt?: Date | string | null
   error?: string | null
+  auditLogId?: string | null
   createdAt?: Date | string
 }
 
@@ -765,6 +789,7 @@ export type AiActionLogCreateWithoutConfirmedByInput = {
   confirmedAt?: Date | string | null
   executedAt?: Date | string | null
   error?: string | null
+  auditLogId?: string | null
   createdAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutAiActionLogsInput
   user: Prisma.UserCreateNestedOneWithoutAiActionLogsInput
@@ -786,6 +811,7 @@ export type AiActionLogUncheckedCreateWithoutConfirmedByInput = {
   confirmedAt?: Date | string | null
   executedAt?: Date | string | null
   error?: string | null
+  auditLogId?: string | null
   createdAt?: Date | string
 }
 
@@ -835,6 +861,7 @@ export type AiActionLogScalarWhereInput = {
   confirmedAt?: Prisma.DateTimeNullableFilter<"AiActionLog"> | Date | string | null
   executedAt?: Prisma.DateTimeNullableFilter<"AiActionLog"> | Date | string | null
   error?: Prisma.StringNullableFilter<"AiActionLog"> | string | null
+  auditLogId?: Prisma.StringNullableFilter<"AiActionLog"> | string | null
   createdAt?: Prisma.DateTimeFilter<"AiActionLog"> | Date | string
 }
 
@@ -868,6 +895,7 @@ export type AiActionLogCreateWithoutTenantInput = {
   confirmedAt?: Date | string | null
   executedAt?: Date | string | null
   error?: string | null
+  auditLogId?: string | null
   createdAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutAiActionLogsInput
   confirmedBy?: Prisma.UserCreateNestedOneWithoutAiActionsConfirmedInput
@@ -889,6 +917,7 @@ export type AiActionLogUncheckedCreateWithoutTenantInput = {
   confirmedAt?: Date | string | null
   executedAt?: Date | string | null
   error?: string | null
+  auditLogId?: string | null
   createdAt?: Date | string
 }
 
@@ -934,6 +963,7 @@ export type AiActionLogCreateManyUserInput = {
   confirmedAt?: Date | string | null
   executedAt?: Date | string | null
   error?: string | null
+  auditLogId?: string | null
   createdAt?: Date | string
 }
 
@@ -953,6 +983,7 @@ export type AiActionLogCreateManyConfirmedByInput = {
   confirmedAt?: Date | string | null
   executedAt?: Date | string | null
   error?: string | null
+  auditLogId?: string | null
   createdAt?: Date | string
 }
 
@@ -970,6 +1001,7 @@ export type AiActionLogUpdateWithoutUserInput = {
   confirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   executedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   error?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  auditLogId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutAiActionLogsNestedInput
   confirmedBy?: Prisma.UserUpdateOneWithoutAiActionsConfirmedNestedInput
@@ -991,6 +1023,7 @@ export type AiActionLogUncheckedUpdateWithoutUserInput = {
   confirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   executedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   error?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  auditLogId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -1010,6 +1043,7 @@ export type AiActionLogUncheckedUpdateManyWithoutUserInput = {
   confirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   executedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   error?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  auditLogId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -1027,6 +1061,7 @@ export type AiActionLogUpdateWithoutConfirmedByInput = {
   confirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   executedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   error?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  auditLogId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutAiActionLogsNestedInput
   user?: Prisma.UserUpdateOneRequiredWithoutAiActionLogsNestedInput
@@ -1048,6 +1083,7 @@ export type AiActionLogUncheckedUpdateWithoutConfirmedByInput = {
   confirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   executedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   error?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  auditLogId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -1067,6 +1103,7 @@ export type AiActionLogUncheckedUpdateManyWithoutConfirmedByInput = {
   confirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   executedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   error?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  auditLogId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -1086,6 +1123,7 @@ export type AiActionLogCreateManyTenantInput = {
   confirmedAt?: Date | string | null
   executedAt?: Date | string | null
   error?: string | null
+  auditLogId?: string | null
   createdAt?: Date | string
 }
 
@@ -1103,6 +1141,7 @@ export type AiActionLogUpdateWithoutTenantInput = {
   confirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   executedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   error?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  auditLogId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutAiActionLogsNestedInput
   confirmedBy?: Prisma.UserUpdateOneWithoutAiActionsConfirmedNestedInput
@@ -1124,6 +1163,7 @@ export type AiActionLogUncheckedUpdateWithoutTenantInput = {
   confirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   executedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   error?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  auditLogId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -1143,6 +1183,7 @@ export type AiActionLogUncheckedUpdateManyWithoutTenantInput = {
   confirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   executedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   error?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  auditLogId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -1165,6 +1206,7 @@ export type AiActionLogSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   confirmedAt?: boolean
   executedAt?: boolean
   error?: boolean
+  auditLogId?: boolean
   createdAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1188,6 +1230,7 @@ export type AiActionLogSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   confirmedAt?: boolean
   executedAt?: boolean
   error?: boolean
+  auditLogId?: boolean
   createdAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1211,6 +1254,7 @@ export type AiActionLogSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   confirmedAt?: boolean
   executedAt?: boolean
   error?: boolean
+  auditLogId?: boolean
   createdAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1234,10 +1278,11 @@ export type AiActionLogSelectScalar = {
   confirmedAt?: boolean
   executedAt?: boolean
   error?: boolean
+  auditLogId?: boolean
   createdAt?: boolean
 }
 
-export type AiActionLogOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "userId" | "conversationId" | "messageId" | "actionType" | "targetModule" | "targetEntityType" | "targetEntityId" | "input" | "output" | "status" | "confirmedByUserId" | "confirmedAt" | "executedAt" | "error" | "createdAt", ExtArgs["result"]["aiActionLog"]>
+export type AiActionLogOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "userId" | "conversationId" | "messageId" | "actionType" | "targetModule" | "targetEntityType" | "targetEntityId" | "input" | "output" | "status" | "confirmedByUserId" | "confirmedAt" | "executedAt" | "error" | "auditLogId" | "createdAt", ExtArgs["result"]["aiActionLog"]>
 export type AiActionLogInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1278,6 +1323,7 @@ export type $AiActionLogPayload<ExtArgs extends runtime.Types.Extensions.Interna
     confirmedAt: Date | null
     executedAt: Date | null
     error: string | null
+    auditLogId: string | null
     createdAt: Date
   }, ExtArgs["result"]["aiActionLog"]>
   composites: {}
@@ -1721,6 +1767,7 @@ export interface AiActionLogFieldRefs {
   readonly confirmedAt: Prisma.FieldRef<"AiActionLog", 'DateTime'>
   readonly executedAt: Prisma.FieldRef<"AiActionLog", 'DateTime'>
   readonly error: Prisma.FieldRef<"AiActionLog", 'String'>
+  readonly auditLogId: Prisma.FieldRef<"AiActionLog", 'String'>
   readonly createdAt: Prisma.FieldRef<"AiActionLog", 'DateTime'>
 }
     

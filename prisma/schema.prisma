@@ -3849,6 +3849,11 @@ model Employee {
   weeklyHours     Decimal        @map("weekly_hours") @db.Decimal(5, 2) // Horas semanais
   photoUrl        String?        @map("photo_url") @db.VarChar(512)
 
+  // Estabilidade gestante (ADCT Art. 10, II, b)
+  isPregnant         Boolean   @default(false) @map("is_pregnant")
+  pregnancyStartDate DateTime? @map("pregnancy_start_date")
+  childBirthDate     DateTime? @map("child_birth_date")
+
   // Metadados flexíveis
   metadata      Json @default("{}")
   pendingIssues Json @default("[]") @map("pending_issues")
@@ -4134,6 +4139,10 @@ model TimeBank {
   balance    Decimal @db.Decimal(8, 2) // Saldo em horas
   year       Int
   version    Int     @default(0) // Optimistic locking
+
+  // Acordo de banco de horas (Art. 59 CLT)
+  agreementType  String    @default("INDIVIDUAL") @map("agreement_type") @db.VarChar(16) // INDIVIDUAL or COLLECTIVE
+  expirationDate DateTime? @map("expiration_date")
 
   // Audit
   createdAt DateTime @default(now()) @map("created_at")
@@ -11984,6 +11993,46 @@ model PunchConfiguration {
   tenant Tenant @relation(fields: [tenantId], references: [id])
 
   @@map("punch_configurations")
+}
+
+// ===============================================
+// HR TENANT CONFIGURATION
+// ===============================================
+
+model HrTenantConfig {
+  id       String @id @default(uuid())
+  tenantId String @unique @map("tenant_id")
+
+  // Empresa Cidadã (Lei 11.770/08)
+  empresaCidadaEnabled Boolean @default(false) @map("empresa_cidada_enabled")
+  maternityLeaveDays   Int     @default(120) @map("maternity_leave_days")   // 120 or 180
+  paternityLeaveDays   Int     @default(5) @map("paternity_leave_days")     // 5 or 20
+
+  // Contribuição Sindical
+  unionContributionEnabled Boolean  @default(false) @map("union_contribution_enabled")
+  unionContributionRate    Decimal? @map("union_contribution_rate") @db.Decimal(5, 4) // e.g., 0.0333 = 1 day salary
+
+  // PAT (Programa de Alimentação do Trabalhador)
+  patEnabled                  Boolean  @default(false) @map("pat_enabled")
+  patMonthlyValuePerEmployee  Decimal? @map("pat_monthly_value") @db.Decimal(10, 2)
+
+  // Banco de Horas (validade padrão)
+  timeBankIndividualMonths Int @default(6) @map("time_bank_individual_months")  // 6 months individual agreement
+  timeBankCollectiveMonths Int @default(12) @map("time_bank_collective_months") // 12 months collective agreement
+
+  // GPS — Contribuição Patronal
+  ratPercent       Decimal @default(2) @map("rat_percent") @db.Decimal(3, 1)    // 1, 2, or 3
+  fapFactor        Decimal @default(1) @map("fap_factor") @db.Decimal(4, 3)     // 0.500 to 2.000
+  terceirosPercent Decimal @default(5.8) @map("terceiros_percent") @db.Decimal(4, 2)
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+
+  @@map("hr_tenant_configs")
 }
 
 model GeofenceZone {

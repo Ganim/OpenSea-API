@@ -317,6 +317,7 @@ export type PixChargeWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"PixCharge"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"PixCharge"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
+  financeEntries?: Prisma.FinanceEntryListRelationFilter
 }
 
 export type PixChargeOrderByWithRelationInput = {
@@ -339,6 +340,7 @@ export type PixChargeOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   tenant?: Prisma.TenantOrderByWithRelationInput
+  financeEntries?: Prisma.FinanceEntryOrderByRelationAggregateInput
 }
 
 export type PixChargeWhereUniqueInput = Prisma.AtLeast<{
@@ -364,6 +366,7 @@ export type PixChargeWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"PixCharge"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"PixCharge"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
+  financeEntries?: Prisma.FinanceEntryListRelationFilter
 }, "id" | "txId">
 
 export type PixChargeOrderByWithAggregationInput = {
@@ -435,6 +438,7 @@ export type PixChargeCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutPixChargesInput
+  financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutPixChargeInput
 }
 
 export type PixChargeUncheckedCreateInput = {
@@ -456,6 +460,7 @@ export type PixChargeUncheckedCreateInput = {
   providerData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
+  financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutPixChargeInput
 }
 
 export type PixChargeUpdateInput = {
@@ -477,6 +482,7 @@ export type PixChargeUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutPixChargesNestedInput
+  financeEntries?: Prisma.FinanceEntryUpdateManyWithoutPixChargeNestedInput
 }
 
 export type PixChargeUncheckedUpdateInput = {
@@ -498,6 +504,7 @@ export type PixChargeUncheckedUpdateInput = {
   providerData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutPixChargeNestedInput
 }
 
 export type PixChargeCreateManyInput = {
@@ -570,6 +577,11 @@ export type PixChargeListRelationFilter = {
 
 export type PixChargeOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type PixChargeNullableScalarRelationFilter = {
+  is?: Prisma.PixChargeWhereInput | null
+  isNot?: Prisma.PixChargeWhereInput | null
 }
 
 export type PixChargeCountOrderByAggregateInput = {
@@ -683,6 +695,22 @@ export type PixChargeUncheckedUpdateManyWithoutTenantNestedInput = {
   deleteMany?: Prisma.PixChargeScalarWhereInput | Prisma.PixChargeScalarWhereInput[]
 }
 
+export type PixChargeCreateNestedOneWithoutFinanceEntriesInput = {
+  create?: Prisma.XOR<Prisma.PixChargeCreateWithoutFinanceEntriesInput, Prisma.PixChargeUncheckedCreateWithoutFinanceEntriesInput>
+  connectOrCreate?: Prisma.PixChargeCreateOrConnectWithoutFinanceEntriesInput
+  connect?: Prisma.PixChargeWhereUniqueInput
+}
+
+export type PixChargeUpdateOneWithoutFinanceEntriesNestedInput = {
+  create?: Prisma.XOR<Prisma.PixChargeCreateWithoutFinanceEntriesInput, Prisma.PixChargeUncheckedCreateWithoutFinanceEntriesInput>
+  connectOrCreate?: Prisma.PixChargeCreateOrConnectWithoutFinanceEntriesInput
+  upsert?: Prisma.PixChargeUpsertWithoutFinanceEntriesInput
+  disconnect?: Prisma.PixChargeWhereInput | boolean
+  delete?: Prisma.PixChargeWhereInput | boolean
+  connect?: Prisma.PixChargeWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PixChargeUpdateToOneWithWhereWithoutFinanceEntriesInput, Prisma.PixChargeUpdateWithoutFinanceEntriesInput>, Prisma.PixChargeUncheckedUpdateWithoutFinanceEntriesInput>
+}
+
 export type PixChargeCreateWithoutTenantInput = {
   id?: string
   txId: string
@@ -701,6 +729,7 @@ export type PixChargeCreateWithoutTenantInput = {
   providerData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
+  financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutPixChargeInput
 }
 
 export type PixChargeUncheckedCreateWithoutTenantInput = {
@@ -721,6 +750,7 @@ export type PixChargeUncheckedCreateWithoutTenantInput = {
   providerData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
+  financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutPixChargeInput
 }
 
 export type PixChargeCreateOrConnectWithoutTenantInput = {
@@ -773,6 +803,106 @@ export type PixChargeScalarWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"PixCharge"> | Date | string
 }
 
+export type PixChargeCreateWithoutFinanceEntriesInput = {
+  id?: string
+  txId: string
+  location?: string | null
+  pixCopiaECola?: string | null
+  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: string
+  payerName?: string | null
+  payerCpfCnpj?: string | null
+  endToEndId?: string | null
+  posTransactionPaymentId?: string | null
+  orderId?: string | null
+  expiresAt?: Date | string | null
+  paidAt?: Date | string | null
+  provider?: string
+  providerData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutPixChargesInput
+}
+
+export type PixChargeUncheckedCreateWithoutFinanceEntriesInput = {
+  id?: string
+  tenantId: string
+  txId: string
+  location?: string | null
+  pixCopiaECola?: string | null
+  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: string
+  payerName?: string | null
+  payerCpfCnpj?: string | null
+  endToEndId?: string | null
+  posTransactionPaymentId?: string | null
+  orderId?: string | null
+  expiresAt?: Date | string | null
+  paidAt?: Date | string | null
+  provider?: string
+  providerData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type PixChargeCreateOrConnectWithoutFinanceEntriesInput = {
+  where: Prisma.PixChargeWhereUniqueInput
+  create: Prisma.XOR<Prisma.PixChargeCreateWithoutFinanceEntriesInput, Prisma.PixChargeUncheckedCreateWithoutFinanceEntriesInput>
+}
+
+export type PixChargeUpsertWithoutFinanceEntriesInput = {
+  update: Prisma.XOR<Prisma.PixChargeUpdateWithoutFinanceEntriesInput, Prisma.PixChargeUncheckedUpdateWithoutFinanceEntriesInput>
+  create: Prisma.XOR<Prisma.PixChargeCreateWithoutFinanceEntriesInput, Prisma.PixChargeUncheckedCreateWithoutFinanceEntriesInput>
+  where?: Prisma.PixChargeWhereInput
+}
+
+export type PixChargeUpdateToOneWithWhereWithoutFinanceEntriesInput = {
+  where?: Prisma.PixChargeWhereInput
+  data: Prisma.XOR<Prisma.PixChargeUpdateWithoutFinanceEntriesInput, Prisma.PixChargeUncheckedUpdateWithoutFinanceEntriesInput>
+}
+
+export type PixChargeUpdateWithoutFinanceEntriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  txId?: Prisma.StringFieldUpdateOperationsInput | string
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixCopiaECola?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  payerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  payerCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  endToEndId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posTransactionPaymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  orderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  provider?: Prisma.StringFieldUpdateOperationsInput | string
+  providerData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutPixChargesNestedInput
+}
+
+export type PixChargeUncheckedUpdateWithoutFinanceEntriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  txId?: Prisma.StringFieldUpdateOperationsInput | string
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixCopiaECola?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  payerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  payerCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  endToEndId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posTransactionPaymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  orderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  provider?: Prisma.StringFieldUpdateOperationsInput | string
+  providerData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 export type PixChargeCreateManyTenantInput = {
   id?: string
   txId: string
@@ -811,6 +941,7 @@ export type PixChargeUpdateWithoutTenantInput = {
   providerData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  financeEntries?: Prisma.FinanceEntryUpdateManyWithoutPixChargeNestedInput
 }
 
 export type PixChargeUncheckedUpdateWithoutTenantInput = {
@@ -831,6 +962,7 @@ export type PixChargeUncheckedUpdateWithoutTenantInput = {
   providerData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutPixChargeNestedInput
 }
 
 export type PixChargeUncheckedUpdateManyWithoutTenantInput = {
@@ -854,6 +986,35 @@ export type PixChargeUncheckedUpdateManyWithoutTenantInput = {
 }
 
 
+/**
+ * Count Type PixChargeCountOutputType
+ */
+
+export type PixChargeCountOutputType = {
+  financeEntries: number
+}
+
+export type PixChargeCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  financeEntries?: boolean | PixChargeCountOutputTypeCountFinanceEntriesArgs
+}
+
+/**
+ * PixChargeCountOutputType without action
+ */
+export type PixChargeCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PixChargeCountOutputType
+   */
+  select?: Prisma.PixChargeCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * PixChargeCountOutputType without action
+ */
+export type PixChargeCountOutputTypeCountFinanceEntriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FinanceEntryWhereInput
+}
+
 
 export type PixChargeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -875,6 +1036,8 @@ export type PixChargeSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
+  financeEntries?: boolean | Prisma.PixCharge$financeEntriesArgs<ExtArgs>
+  _count?: boolean | Prisma.PixChargeCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["pixCharge"]>
 
 export type PixChargeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -945,6 +1108,8 @@ export type PixChargeSelectScalar = {
 export type PixChargeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "txId" | "location" | "pixCopiaECola" | "amount" | "status" | "payerName" | "payerCpfCnpj" | "endToEndId" | "posTransactionPaymentId" | "orderId" | "expiresAt" | "paidAt" | "provider" | "providerData" | "createdAt" | "updatedAt", ExtArgs["result"]["pixCharge"]>
 export type PixChargeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
+  financeEntries?: boolean | Prisma.PixCharge$financeEntriesArgs<ExtArgs>
+  _count?: boolean | Prisma.PixChargeCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type PixChargeIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
@@ -957,6 +1122,7 @@ export type $PixChargePayload<ExtArgs extends runtime.Types.Extensions.InternalA
   name: "PixCharge"
   objects: {
     tenant: Prisma.$TenantPayload<ExtArgs>
+    financeEntries: Prisma.$FinanceEntryPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1372,6 +1538,7 @@ readonly fields: PixChargeFieldRefs;
 export interface Prisma__PixChargeClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   tenant<T extends Prisma.TenantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  financeEntries<T extends Prisma.PixCharge$financeEntriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PixCharge$financeEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FinanceEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1812,6 +1979,30 @@ export type PixChargeDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Int
    * Limit how many PixCharges to delete.
    */
   limit?: number
+}
+
+/**
+ * PixCharge.financeEntries
+ */
+export type PixCharge$financeEntriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the FinanceEntry
+   */
+  select?: Prisma.FinanceEntrySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the FinanceEntry
+   */
+  omit?: Prisma.FinanceEntryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FinanceEntryInclude<ExtArgs> | null
+  where?: Prisma.FinanceEntryWhereInput
+  orderBy?: Prisma.FinanceEntryOrderByWithRelationInput | Prisma.FinanceEntryOrderByWithRelationInput[]
+  cursor?: Prisma.FinanceEntryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FinanceEntryScalarFieldEnum | Prisma.FinanceEntryScalarFieldEnum[]
 }
 
 /**
