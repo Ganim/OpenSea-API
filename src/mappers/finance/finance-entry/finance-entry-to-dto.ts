@@ -40,6 +40,7 @@ export interface FinanceEntryDTO {
   totalInstallments?: number;
   currentInstallment?: number;
   parentEntryId?: string;
+  fiscalDocumentId?: string;
   boletoBarcode?: string;
   boletoDigitLine?: string;
   boletoChargeId?: number;
@@ -93,6 +94,7 @@ export function financeEntryToDTO(entry: FinanceEntry): FinanceEntryDTO {
     totalInstallments: entry.totalInstallments,
     currentInstallment: entry.currentInstallment,
     parentEntryId: entry.parentEntryId?.toString(),
+    fiscalDocumentId: entry.fiscalDocumentId,
     boletoBarcode: entry.boletoBarcode,
     boletoDigitLine: entry.boletoDigitLine,
     boletoChargeId: entry.boletoChargeId,

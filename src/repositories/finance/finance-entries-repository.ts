@@ -39,6 +39,7 @@ export interface CreateFinanceEntrySchema {
   currentInstallment?: number;
   parentEntryId?: string;
   contractId?: string;
+  fiscalDocumentId?: string;
   boletoBarcode?: string;
   boletoDigitLine?: string;
   boletoChargeId?: number;
@@ -84,6 +85,7 @@ export interface UpdateFinanceEntrySchema {
   pixKey?: string | null;
   pixKeyType?: string | null;
   pixChargeId?: string | null;
+  fiscalDocumentId?: string | null;
   tags?: string[];
 }
 

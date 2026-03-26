@@ -48,6 +48,7 @@ export interface FinanceEntryProps {
   currentInstallment?: number;
   parentEntryId?: UniqueEntityID;
   contractId?: string;
+  fiscalDocumentId?: string;
   boletoBarcode?: string;
   boletoDigitLine?: string;
   boletoChargeId?: number;
@@ -268,6 +269,14 @@ export class FinanceEntry extends Entity<FinanceEntryProps> {
 
   get contractId(): string | undefined {
     return this.props.contractId;
+  }
+
+  get fiscalDocumentId(): string | undefined {
+    return this.props.fiscalDocumentId;
+  }
+  set fiscalDocumentId(value: string | undefined) {
+    this.props.fiscalDocumentId = value;
+    this.touch();
   }
 
   get boletoBarcode(): string | undefined {

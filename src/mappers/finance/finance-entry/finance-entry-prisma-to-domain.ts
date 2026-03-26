@@ -54,6 +54,7 @@ export function financeEntryPrismaToDomain(
       pixKey: raw.pixKey ?? undefined,
       pixKeyType: raw.pixKeyType ?? undefined,
       pixChargeId: raw.pixChargeId ?? undefined,
+      fiscalDocumentId: raw.fiscalDocumentId ?? undefined,
       metadata: (raw.metadata as Record<string, unknown>) ?? {},
       tags: raw.tags ?? [],
       createdBy: raw.createdBy ?? undefined,

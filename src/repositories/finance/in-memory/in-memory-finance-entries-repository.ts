@@ -273,6 +273,8 @@ export class InMemoryFinanceEntriesRepository
       item.pixKeyType = data.pixKeyType ?? undefined;
     if (data.pixChargeId !== undefined)
       item.pixChargeId = data.pixChargeId ?? undefined;
+    if (data.fiscalDocumentId !== undefined)
+      item.fiscalDocumentId = data.fiscalDocumentId ?? undefined;
     if (data.tags !== undefined) {
       // Tags don't have a setter, but we need to update the underlying props
       // Using Object.assign to update the internal tags array

@@ -16,6 +16,7 @@ import { ocrExtractDataController } from './v1-ocr-extract-data.controller';
 import { ocrUploadBatchController } from './v1-ocr-upload-batch.controller';
 import { getLastSupplierEntryController } from './v1-get-last-supplier-entry.controller';
 import { createBoletoForEntryController } from './v1-create-boleto-for-entry.controller';
+import { emitNfeFromEntryController } from './v1-emit-nfe-from-entry.controller';
 import { createPixChargeController } from './v1-create-pix-charge.controller';
 import { payViaPixController } from './v1-pay-via-pix.controller';
 import { createEntriesBatchController } from './v1-create-entries-batch.controller';
@@ -23,6 +24,11 @@ import { bulkPayEntriesController } from './v1-bulk-pay-entries.controller';
 import { bulkCancelEntriesController } from './v1-bulk-cancel-entries.controller';
 import { bulkDeleteEntriesController } from './v1-bulk-delete-entries.controller';
 import { bulkCategorizeEntriesController } from './v1-bulk-categorize-entries.controller';
+import { emailToEntryConfigController } from './v1-email-to-entry-config.controller';
+import { processEmailToEntryController } from './v1-process-email-to-entry.controller';
+import { calculateEntryRetentionsController } from './v1-calculate-entry-retentions.controller';
+import { applyEntryRetentionsController } from './v1-apply-entry-retentions.controller';
+import { listEntryRetentionsController } from './v1-list-entry-retentions.controller';
 
 export async function financeEntriesRoutes(app: FastifyInstance) {
   app.addHook('preHandler', createModuleMiddleware('FINANCE'));
@@ -49,4 +55,10 @@ export async function financeEntriesRoutes(app: FastifyInstance) {
   app.register(ocrExtractDataController);
   app.register(ocrUploadBatchController);
   app.register(getLastSupplierEntryController);
+  app.register(emitNfeFromEntryController);
+  app.register(emailToEntryConfigController);
+  app.register(processEmailToEntryController);
+  app.register(calculateEntryRetentionsController);
+  app.register(applyEntryRetentionsController);
+  app.register(listEntryRetentionsController);
 }

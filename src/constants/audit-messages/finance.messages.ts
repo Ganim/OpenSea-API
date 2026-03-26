@@ -128,6 +128,14 @@ export const FINANCE_AUDIT_MESSAGES = {
       '{{userName}} gerou boleto para o lançamento {{entryCode}}',
   } satisfies AuditMessage,
 
+  FINANCE_ENTRY_NFE_EMIT: {
+    action: AuditAction.GENERATE,
+    entity: AuditEntity.FINANCE_ENTRY,
+    module: AuditModule.FINANCE,
+    description:
+      '{{userName}} emitiu {{documentType}} nº {{documentNumber}} para o lançamento {{entryId}}',
+  } satisfies AuditMessage,
+
   FINANCE_ENTRY_BULK_PAY: {
     action: AuditAction.PAYMENT_REGISTER,
     entity: AuditEntity.FINANCE_ENTRY,
@@ -156,6 +164,18 @@ export const FINANCE_AUDIT_MESSAGES = {
     module: AuditModule.FINANCE,
     description:
       '{{userName}} alterou a categoria de {{count}} lançamentos em lote',
+  } satisfies AuditMessage,
+
+  // ============================================================================
+  // FINANCE ENTRY RETENTIONS - Retenções Tributárias
+  // ============================================================================
+
+  FINANCE_ENTRY_RETENTION_APPLY: {
+    action: AuditAction.RETENTION_APPLY,
+    entity: AuditEntity.FINANCE_ENTRY_RETENTION,
+    module: AuditModule.FINANCE,
+    description:
+      '{{userName}} aplicou retenções tributárias ao lançamento {{entryCode}} (total retido: R$ {{totalRetained}})',
   } satisfies AuditMessage,
 
   // ============================================================================

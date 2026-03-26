@@ -386,6 +386,9 @@ export class PrismaFinanceEntriesRepository
       ...(data.pixChargeId !== undefined && {
         pixChargeId: data.pixChargeId,
       }),
+      ...(data.fiscalDocumentId !== undefined && {
+        fiscalDocumentId: data.fiscalDocumentId,
+      }),
       ...(data.tags !== undefined && { tags: data.tags }),
     };
 
