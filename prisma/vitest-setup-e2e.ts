@@ -1,9 +1,9 @@
-import { execFile } from 'node:child_process';
+import { exec } from 'node:child_process';
 import { randomUUID } from 'node:crypto';
 import { promisify } from 'node:util';
 import { afterAll } from 'vitest';
 
-const execFileAsync = promisify(execFile);
+const execAsync = promisify(exec);
 
 // Load .env file for forked processes (required for JWT_SECRET and other env vars)
 process.loadEnvFile();
@@ -70,7 +70,7 @@ process.env.DATABASE_URL = testDatabaseUrl;
   }
 }
 
-// Cria o schema PostgreSQL antes de rodar migrate deploy.
+// Cria o schema PostgreSQL antes de aplicar as migrações.
 // Prisma 7 com driver adapters não cria o schema automaticamente.
 {
   const { PrismaClient } = await import('./generated/prisma/client.js');
@@ -91,15 +91,51 @@ process.env.DATABASE_URL = testDatabaseUrl;
 }
 
 // Aplica o schema no banco de testes usando `migrate deploy`.
+// Prisma 7 com driver adapters tem um bug intermitente (P1014) ao aplicar
+// migrações em schemas isolados. A estratégia de retry com recreação do
+// schema resolve o problema de forma confiável.
 // Com fileParallelism: false os specs rodam sequencialmente, então
 // não há contenção do advisory lock do PostgreSQL.
-await execFileAsync('npx', ['prisma', 'migrate', 'deploy'], {
-  env: {
-    ...process.env,
-    DATABASE_URL: testDatabaseUrl,
-  },
-  shell: true,
-});
+const MAX_MIGRATE_RETRIES = 3;
+for (let attempt = 1; attempt <= MAX_MIGRATE_RETRIES; attempt++) {
+  try {
+    await execAsync(`npx prisma migrate deploy`, {
+      env: {
+        ...process.env,
+        DATABASE_URL: testDatabaseUrl,
+      },
+      maxBuffer: 1024 * 1024 * 10, // 10MB buffer for large migration output
+    });
+    break; // Success
+  } catch (error) {
+    const stderr = (error as { stderr?: string }).stderr || '';
+    if (stderr.includes('P1014') && attempt < MAX_MIGRATE_RETRIES) {
+      console.warn(
+        `⚠️ migrate deploy failed with P1014 (attempt ${attempt}/${MAX_MIGRATE_RETRIES}), retrying...`,
+      );
+      // Drop and recreate the schema before retrying
+      const { PrismaClient } = await import('./generated/prisma/client.js');
+      const { PrismaPg } = await import('@prisma/adapter-pg');
+
+      const retryAdapter = new PrismaPg({
+        connectionString: originalDatabaseUrl,
+      });
+      const retryClient = new PrismaClient({ adapter: retryAdapter });
+      try {
+        await retryClient.$executeRawUnsafe(
+          `DROP SCHEMA IF EXISTS "${schema}" CASCADE`,
+        );
+        await retryClient.$executeRawUnsafe(
+          `CREATE SCHEMA IF NOT EXISTS "${schema}"`,
+        );
+      } finally {
+        await retryClient.$disconnect();
+      }
+      continue;
+    }
+    throw error; // Non-retryable error or max retries exceeded
+  }
+}
 
 // Create system user required by EnsureSystemCalendarsUseCase (SYSTEM_USER_ID)
 {
@@ -107,7 +143,10 @@ await execFileAsync('npx', ['prisma', 'migrate', 'deploy'], {
   const { PrismaPg } = await import('@prisma/adapter-pg');
 
   const adapter = new PrismaPg(
-    { connectionString: testDatabaseUrl },
+    {
+      connectionString: testDatabaseUrl,
+      options: `-c search_path="${schema}"`,
+    },
     { schema },
   );
   const setupClient = new PrismaClient({ adapter });

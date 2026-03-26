@@ -3,7 +3,8 @@ import {
   type FiscalEventType,
 } from '@/entities/fiscal/fiscal-document-event';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import { prisma, Prisma } from '@/lib/prisma';
+import { prisma } from '@/lib/prisma';
+import { FiscalEventType as PrismaFiscalEventType } from '@prisma/generated/client.js';
 import type { FiscalDocumentEventsRepository } from '../fiscal-document-events-repository';
 
 function toDomain(raw: Record<string, unknown>): FiscalDocumentEvent {
@@ -44,7 +45,7 @@ export class PrismaFiscalDocumentEventsRepository
       data: {
         id: event.id.toString(),
         fiscalDocumentId: event.fiscalDocumentId.toString(),
-        type: event.type as any,
+        type: event.type as unknown as PrismaFiscalEventType,
         protocol: event.protocol ?? null,
         description: event.description || null,
         xmlRequest: event.xmlRequest ?? null,

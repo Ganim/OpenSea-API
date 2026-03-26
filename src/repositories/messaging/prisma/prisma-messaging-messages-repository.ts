@@ -5,6 +5,12 @@ import type { MessagingMessageStatus } from '@/entities/messaging/messaging-mess
 import type { MessagingMessageType } from '@/entities/messaging/messaging-message-type.enum';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { prisma, Prisma } from '@/lib/prisma';
+import {
+  MessagingChannel as PrismaMessagingChannel,
+  MessagingDirection as PrismaMessagingDirection,
+  MessagingMessageType as PrismaMessagingMessageType,
+  MessagingMessageStatus as PrismaMessagingMessageStatus,
+} from '@prisma/generated/client.js';
 import type {
   MessagingMessagesRepository,
   ListMessagesParams,
@@ -98,10 +104,10 @@ export class PrismaMessagingMessagesRepository
         tenantId: message.tenantId.toString(),
         accountId: message.accountId.toString(),
         contactId: message.contactId.toString(),
-        channel: message.channel as any,
-        direction: message.direction as any,
-        type: message.type as any,
-        status: message.status as any,
+        channel: message.channel as unknown as PrismaMessagingChannel,
+        direction: message.direction as unknown as PrismaMessagingDirection,
+        type: message.type as unknown as PrismaMessagingMessageType,
+        status: message.status as unknown as PrismaMessagingMessageStatus,
         text: message.text,
         mediaUrl: message.mediaUrl,
         mediaType: message.mediaType,
@@ -127,7 +133,7 @@ export class PrismaMessagingMessagesRepository
     await prisma.messagingMessage.update({
       where: { id: message.id.toString() },
       data: {
-        status: message.status as any,
+        status: message.status as unknown as PrismaMessagingMessageStatus,
         externalId: message.externalId,
         errorCode: message.errorCode,
         errorMessage: message.errorMessage,

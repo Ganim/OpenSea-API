@@ -6,6 +6,12 @@ import {
 } from '@/entities/fiscal/fiscal-config';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { prisma, Prisma } from '@/lib/prisma';
+import {
+  FiscalProviderType as PrismaFiscalProviderType,
+  NfeEnvironment as PrismaNfeEnvironment,
+  TaxRegimeEnum as PrismaTaxRegimeEnum,
+  FiscalEmissionType as PrismaFiscalEmissionType,
+} from '@prisma/generated/client.js';
 import type { FiscalConfigsRepository } from '../fiscal-configs-repository';
 
 function toDomain(raw: Record<string, unknown>): FiscalConfig {
@@ -55,8 +61,8 @@ export class PrismaFiscalConfigsRepository implements FiscalConfigsRepository {
       data: {
         id: config.id.toString(),
         tenantId: config.tenantId.toString(),
-        provider: config.provider as any,
-        environment: config.environment as any,
+        provider: config.provider as unknown as PrismaFiscalProviderType,
+        environment: config.environment as unknown as PrismaNfeEnvironment,
         apiKey: config.apiKey || null,
         apiSecret: config.apiSecret ?? null,
         defaultSeries: config.defaultSeries,
@@ -64,14 +70,14 @@ export class PrismaFiscalConfigsRepository implements FiscalConfigsRepository {
         lastNfceNumber: config.lastNfceNumber,
         defaultCfop: config.defaultCfop || null,
         defaultNaturezaOperacao: config.defaultNaturezaOperacao || null,
-        taxRegime: config.taxRegime as any,
+        taxRegime: config.taxRegime as unknown as PrismaTaxRegimeEnum,
         nfceEnabled: config.nfceEnabled,
         nfceCscId: config.nfceCscId ?? null,
         nfceCscToken: config.nfceCscToken ?? null,
         certificateId: config.certificateId?.toString() ?? null,
         contingencyMode: config.contingencyMode
-          ? ('CONTINGENCY_OFFLINE' as any)
-          : ('NORMAL' as any),
+          ? PrismaFiscalEmissionType.CONTINGENCY_OFFLINE
+          : PrismaFiscalEmissionType.NORMAL,
         contingencyReason: config.contingencyReason ?? null,
         settings: (config.settings as Prisma.InputJsonValue) ?? Prisma.JsonNull,
         createdAt: config.createdAt,
@@ -83,8 +89,8 @@ export class PrismaFiscalConfigsRepository implements FiscalConfigsRepository {
     await prisma.fiscalConfig.update({
       where: { id: config.id.toString() },
       data: {
-        provider: config.provider as any,
-        environment: config.environment as any,
+        provider: config.provider as unknown as PrismaFiscalProviderType,
+        environment: config.environment as unknown as PrismaNfeEnvironment,
         apiKey: config.apiKey || null,
         apiSecret: config.apiSecret ?? null,
         defaultSeries: config.defaultSeries,
@@ -92,14 +98,14 @@ export class PrismaFiscalConfigsRepository implements FiscalConfigsRepository {
         lastNfceNumber: config.lastNfceNumber,
         defaultCfop: config.defaultCfop || null,
         defaultNaturezaOperacao: config.defaultNaturezaOperacao || null,
-        taxRegime: config.taxRegime as any,
+        taxRegime: config.taxRegime as unknown as PrismaTaxRegimeEnum,
         nfceEnabled: config.nfceEnabled,
         nfceCscId: config.nfceCscId ?? null,
         nfceCscToken: config.nfceCscToken ?? null,
         certificateId: config.certificateId?.toString() ?? null,
         contingencyMode: config.contingencyMode
-          ? ('CONTINGENCY_OFFLINE' as any)
-          : ('NORMAL' as any),
+          ? PrismaFiscalEmissionType.CONTINGENCY_OFFLINE
+          : PrismaFiscalEmissionType.NORMAL,
         contingencyReason: config.contingencyReason ?? null,
         settings: (config.settings as Prisma.InputJsonValue) ?? Prisma.JsonNull,
       },

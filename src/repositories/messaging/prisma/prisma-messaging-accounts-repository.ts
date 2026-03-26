@@ -78,8 +78,7 @@ export class PrismaMessagingAccountsRepository
         tenantId: account.tenantId.toString(),
         channel: account.channel as unknown as PrismaMessagingChannel,
         name: account.name,
-        status:
-          account.status as unknown as PrismaMessagingAccountStatus,
+        status: account.status as unknown as PrismaMessagingAccountStatus,
         phoneNumber: account.phoneNumber,
         wabaId: account.wabaId,
         igAccountId: account.igAccountId,
@@ -103,7 +102,7 @@ export class PrismaMessagingAccountsRepository
       where: { id: account.id.toString() },
       data: {
         name: account.name,
-        status: account.status as any,
+        status: account.status as unknown as PrismaMessagingAccountStatus,
         phoneNumber: account.phoneNumber,
         wabaId: account.wabaId,
         igAccountId: account.igAccountId,
@@ -121,4 +120,8 @@ export class PrismaMessagingAccountsRepository
   }
 
   async delete(id: string): Promise<void> {
-  
+    await prisma.messagingAccount.delete({
+      where: { id },
+    });
+  }
+}

@@ -3,6 +3,10 @@ import type { MessagingTemplateCategory } from '@/entities/messaging/messaging-t
 import type { MessagingTemplateStatus } from '@/entities/messaging/messaging-template-status.enum';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { prisma, Prisma } from '@/lib/prisma';
+import {
+  MessagingTemplateCategory as PrismaMessagingTemplateCategory,
+  MessagingTemplateStatus as PrismaMessagingTemplateStatus,
+} from '@prisma/generated/client.js';
 import type { MessagingTemplatesRepository } from '../messaging-templates-repository';
 
 function toDomain(raw: Record<string, unknown>): MessagingTemplate {
@@ -61,8 +65,9 @@ export class PrismaMessagingTemplatesRepository
         accountId: template.accountId.toString(),
         name: template.name,
         language: template.language,
-        category: template.category as any,
-        status: template.status as any,
+        category:
+          template.category as unknown as PrismaMessagingTemplateCategory,
+        status: template.status as unknown as PrismaMessagingTemplateStatus,
         components: template.components as Prisma.InputJsonValue,
         externalId: template.externalId,
         createdAt: template.createdAt,
@@ -77,8 +82,9 @@ export class PrismaMessagingTemplatesRepository
       data: {
         name: template.name,
         language: template.language,
-        category: template.category as any,
-        status: template.status as any,
+        category:
+          template.category as unknown as PrismaMessagingTemplateCategory,
+        status: template.status as unknown as PrismaMessagingTemplateStatus,
         components: template.components as Prisma.InputJsonValue,
         externalId: template.externalId,
       },

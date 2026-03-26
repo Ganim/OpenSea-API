@@ -11,8 +11,9 @@ import { v1TransmitBatchController } from './v1-transmit-batch.controller';
 import { v1ListEsocialBatchesController } from './v1-list-esocial-batches.controller';
 import { v1GetEsocialBatchController } from './v1-get-esocial-batch.controller';
 import { v1CheckBatchStatusController } from './v1-check-batch-status.controller';
-import { v1EsocialConfigController } from './v1-esocial-config.controller';
-import { v1EsocialCertificateController } from './v1-esocial-certificate.controller';
+// Config and certificate routes are now in controllers/esocial/ (dedicated module)
+// import { v1EsocialConfigController } from './v1-esocial-config.controller';
+// import { v1EsocialCertificateController } from './v1-esocial-certificate.controller';
 // Phase 2 — XML Event Builders
 import { v1GenerateEventController } from './v1-generate-event.controller';
 import { v1ReviewEventController } from './v1-review-event.controller';
@@ -33,8 +34,7 @@ export async function esocialRoutes(app: FastifyInstance) {
       queryApp.register(v1GetEsocialEventController);
       queryApp.register(v1ListEsocialBatchesController);
       queryApp.register(v1GetEsocialBatchController);
-      queryApp.register(v1EsocialConfigController);
-      queryApp.register(v1EsocialCertificateController);
+      // Config and certificate routes moved to controllers/esocial/
     },
     { prefix: '' },
   );

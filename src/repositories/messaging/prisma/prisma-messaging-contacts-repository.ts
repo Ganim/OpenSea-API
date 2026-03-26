@@ -2,6 +2,7 @@ import { MessagingContact } from '@/entities/messaging/messaging-contact';
 import type { MessagingChannel } from '@/entities/messaging/messaging-channel.enum';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { prisma, Prisma } from '@/lib/prisma';
+import { MessagingChannel as PrismaMessagingChannel } from '@prisma/generated/client.js';
 import type {
   MessagingContactsRepository,
   ListContactsParams,
@@ -69,7 +70,7 @@ export class PrismaMessagingContactsRepository
     const where: Prisma.MessagingContactWhereInput = { tenantId };
 
     if (channel) {
-      where.channel = channel as any;
+      where.channel = channel as unknown as PrismaMessagingChannel;
     }
 
     if (search) {
@@ -102,7 +103,7 @@ export class PrismaMessagingContactsRepository
         id: contact.id.toString(),
         tenantId: contact.tenantId.toString(),
         accountId: contact.accountId.toString(),
-        channel: contact.channel as any,
+        channel: contact.channel as unknown as PrismaMessagingChannel,
         externalId: contact.externalId,
         name: contact.name,
         username: contact.username,

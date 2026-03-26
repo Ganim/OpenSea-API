@@ -6,6 +6,11 @@ import {
 } from '@/entities/fiscal/fiscal-document';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { prisma, Prisma } from '@/lib/prisma';
+import {
+  FiscalDocumentType as PrismaFiscalDocumentType,
+  FiscalDocumentStatus as PrismaFiscalDocumentStatus,
+  FiscalEmissionType as PrismaFiscalEmissionType,
+} from '@prisma/generated/client.js';
 import type {
   FiscalDocumentsRepository,
   FiscalDocumentFilters,
@@ -101,11 +106,11 @@ export class PrismaFiscalDocumentsRepository
     const where: Prisma.FiscalDocumentWhereInput = { tenantId };
 
     if (type) {
-      where.type = type as any;
+      where.type = type as unknown as PrismaFiscalDocumentType;
     }
 
     if (status) {
-      where.status = status as any;
+      where.status = status as unknown as PrismaFiscalDocumentStatus;
     }
 
     if (startDate || endDate) {
@@ -143,7 +148,7 @@ export class PrismaFiscalDocumentsRepository
     const maxNumberResult = await prisma.fiscalDocument.aggregate({
       where: {
         configId,
-        type: type as any,
+        type: type as unknown as PrismaFiscalDocumentType,
         series,
       },
       _max: { number: true },
@@ -158,12 +163,13 @@ export class PrismaFiscalDocumentsRepository
         id: document.id.toString(),
         tenantId: document.tenantId.toString(),
         configId: document.configId.toString(),
-        type: document.type as any,
+        type: document.type as unknown as PrismaFiscalDocumentType,
         series: document.series,
         number: document.number,
         accessKey: document.accessKey ?? null,
-        status: document.status as any,
-        emissionType: document.emissionType as any,
+        status: document.status as unknown as PrismaFiscalDocumentStatus,
+        emissionType:
+          document.emissionType as unknown as PrismaFiscalEmissionType,
         recipientCnpjCpf: document.recipientCnpjCpf || null,
         recipientName: document.recipientName || null,
         recipientIe: document.recipientIe ?? null,
@@ -196,7 +202,7 @@ export class PrismaFiscalDocumentsRepository
       where: { id: document.id.toString() },
       data: {
         accessKey: document.accessKey ?? null,
-        status: document.status as any,
+        status: document.status as unknown as PrismaFiscalDocumentStatus,
         xmlSent: document.xmlSent ?? null,
         xmlAuthorized: document.xmlAuthorized ?? null,
         xmlCancellation: document.xmlCancellation ?? null,
