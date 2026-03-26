@@ -182,6 +182,8 @@ import { aiActionLogsRoutes } from './controllers/ai/actions/routes';
 import { aiContentRoutes } from './controllers/ai/content/routes';
 import { aiCampaignsRoutes } from './controllers/ai/campaigns/routes';
 import { aiWorkflowsRoutes } from './controllers/ai/workflows/routes';
+import { aiSetupWizardRoutes } from './controllers/ai/setup-wizard/routes';
+import { aiDocumentsRoutes } from './controllers/ai/documents/routes';
 
 // Fiscal routes
 import { fiscalRoutes } from './controllers/fiscal/routes';
@@ -206,6 +208,9 @@ import { workSchedulesRoutes } from './controllers/hr/work-schedules/routes';
 import { punchConfigRoutes } from './controllers/hr/punch-config/routes';
 import { geofenceZonesRoutes } from './controllers/hr/geofence-zones/routes';
 import { medicalExamsRoutes } from './controllers/hr/medical-exams/routes';
+import { safetyProgramsRoutes } from './controllers/hr/safety-programs/routes';
+import { workplaceRisksRoutes } from './controllers/hr/workplace-risks/routes';
+import { hrConfigRoutes } from './controllers/hr/hr-config/routes';
 
 export async function registerRoutes(app: FastifyInstance) {
   // Core routes
@@ -370,6 +375,9 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(punchConfigRoutes);
   await app.register(geofenceZonesRoutes);
   await app.register(medicalExamsRoutes);
+  await app.register(safetyProgramsRoutes);
+  await app.register(workplaceRisksRoutes);
+  await app.register(hrConfigRoutes);
 
   // Tasks routes
   await app.register(taskBoardsRoutes);
@@ -402,6 +410,8 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(aiContentRoutes);
   await app.register(aiCampaignsRoutes);
   await app.register(aiWorkflowsRoutes);
+  await app.register(aiSetupWizardRoutes);
+  await app.register(aiDocumentsRoutes);
 
   // Messaging routes
   await app.register(messagingRoutes);
