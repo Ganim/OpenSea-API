@@ -1,4 +1,14 @@
 export { EsocialXmlBuilder } from './base-builder';
+export { S1000Builder } from './s1000-builder';
+export type { S1000Input } from './s1000-builder';
+export { S1005Builder } from './s1005-builder';
+export type { S1005Input } from './s1005-builder';
+export { S1010Builder } from './s1010-builder';
+export type { S1010Input } from './s1010-builder';
+export { S1020Builder } from './s1020-builder';
+export type { S1020Input } from './s1020-builder';
+export { S1070Builder } from './s1070-builder';
+export type { S1070Input } from './s1070-builder';
 export { S2190Builder } from './s2190-builder';
 export type { S2190Input } from './s2190-builder';
 export { S2200Builder } from './s2200-builder';
