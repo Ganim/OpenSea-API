@@ -647,7 +647,14 @@ export const ModelName = {
   PunchConfiguration: 'PunchConfiguration',
   HrTenantConfig: 'HrTenantConfig',
   GeofenceZone: 'GeofenceZone',
-  EmailToEntryConfig: 'EmailToEntryConfig'
+  EmailToEntryConfig: 'EmailToEntryConfig',
+  EsocialConfig: 'EsocialConfig',
+  EsocialCertificate: 'EsocialCertificate',
+  EsocialEvent: 'EsocialEvent',
+  EsocialEventStatusHistory: 'EsocialEventStatusHistory',
+  EsocialBatch: 'EsocialBatch',
+  EsocialRubrica: 'EsocialRubrica',
+  EsocialTable: 'EsocialTable'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -663,7 +670,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "userProfile" | "session" | "refreshToken" | "permission" | "permissionGroup" | "permissionGroupPermission" | "userPermissionGroup" | "userDirectPermission" | "permissionAuditLog" | "organization" | "organizationAddress" | "organizationCnae" | "organizationFiscalSettings" | "organizationStakeholder" | "supplier" | "manufacturer" | "category" | "warehouse" | "zone" | "bin" | "volume" | "volumeItem" | "template" | "product" | "variant" | "item" | "itemMovement" | "productCategory" | "variantPriceHistory" | "auditLog" | "tag" | "productTag" | "variantImage" | "productCareInstruction" | "productAttachment" | "variantAttachment" | "alert" | "purchaseOrder" | "purchaseOrderItem" | "unitConversion" | "stockSnapshot" | "inventorySession" | "inventorySessionItem" | "customer" | "salesOrder" | "salesOrderItem" | "crmContact" | "crmPipeline" | "crmPipelineStage" | "crmDeal" | "crmActivity" | "crmTimelineEvent" | "pipeline" | "pipelineStage" | "contact" | "deal" | "contactDeal" | "activity" | "timelineEvent" | "itemReservation" | "variantSupplierCode" | "variantPromotion" | "comment" | "notificationPreference" | "notificationTemplate" | "notification" | "request" | "requestAttachment" | "requestComment" | "requestHistory" | "employee" | "department" | "position" | "timeEntry" | "workSchedule" | "overtime" | "timeBank" | "absence" | "vacationPeriod" | "vacationSplit" | "payroll" | "payrollItem" | "bonus" | "deduction" | "employeeDependant" | "termination" | "medicalExam" | "safetyProgram" | "workplaceRisk" | "cipaMandate" | "cipaMember" | "company" | "companyDocument" | "companyAddress" | "companyCnae" | "companyFiscalSettings" | "companyStakeholder" | "labelTemplate" | "tenant" | "plan" | "planModule" | "tenantPlan" | "tenantUser" | "tenantFeatureFlag" | "costCenter" | "bankAccount" | "financeCategory" | "financeEntry" | "financeEntryRetention" | "financeCodeSequence" | "financeEntryPayment" | "financeEntryCostCenter" | "recurringConfig" | "financeBudget" | "financeAttachment" | "bankReconciliation" | "bankReconciliationItem" | "loan" | "loanInstallment" | "consortium" | "consortiumPayment" | "contract" | "storageFolder" | "storageFile" | "storageFileVersion" | "folderAccessRule" | "storageShareLink" | "calendar" | "teamCalendarConfig" | "calendarEvent" | "eventParticipant" | "eventReminder" | "emailAccount" | "emailAccountAccess" | "emailFolder" | "emailMessage" | "emailAttachment" | "team" | "teamMember" | "teamEmailAccount" | "board" | "boardColumn" | "card" | "boardLabel" | "cardLabel" | "boardMember" | "boardCustomField" | "cardCustomFieldValue" | "cardComment" | "commentReaction" | "cardAttachment" | "cardChecklist" | "checklistItem" | "cardActivity" | "boardAutomation" | "cardWatcher" | "systemSkillDefinition" | "skillPricing" | "tenantSubscription" | "tenantConsumption" | "tenantBilling" | "tenantIntegrationStatus" | "centralUser" | "supportTicket" | "supportTicketMessage" | "supportTicketAttachment" | "supportSlaConfig" | "priceTable" | "priceTableRule" | "priceTableItem" | "customerPrice" | "taxProfile" | "taxRule" | "campaign" | "campaignRule" | "campaignProduct" | "coupon" | "couponUsage" | "combo" | "comboItem" | "catalog" | "catalogItem" | "catalogExport" | "tenantBrand" | "contentTemplate" | "generatedContent" | "productMockup" | "emailCampaign" | "order" | "orderItem" | "paymentCondition" | "orderPayment" | "orderDelivery" | "orderDeliveryItem" | "orderReturn" | "orderReturnItem" | "storeCredit" | "storeCreditUsage" | "customerCreditLimit" | "approvalRule" | "orderCommission" | "commissionRule" | "orderHistory" | "digitalCertificate" | "signatureEnvelope" | "signatureEnvelopeSigner" | "signatureAuditEvent" | "signatureTemplate" | "analyticsWidget" | "analyticsDashboard" | "analyticsDashboardWidget" | "analyticsGoal" | "analyticsReport" | "analyticsReportGeneration" | "customerPortalAccess" | "aiTenantConfig" | "aiConversation" | "aiMessage" | "aiFavoriteQuery" | "aiActionLog" | "aiInsight" | "posTerminal" | "posSession" | "posTransaction" | "posTransactionPayment" | "posCashMovement" | "posOfflineQueue" | "posVisitLog" | "cardIntegration" | "eventLog" | "bid" | "bidItem" | "bidProposal" | "bidDocument" | "bidContract" | "bidEmpenho" | "bidMonitorEvent" | "bidHistory" | "bidAiConfig" | "certidaoSchedule" | "marketplaceConnection" | "marketplaceListing" | "marketplaceOrder" | "marketplacePayment" | "messagingAccount" | "messagingContact" | "messagingMessage" | "messagingTemplate" | "fiscalConfig" | "fiscalCertificate" | "fiscalDocument" | "fiscalDocumentItem" | "fiscalDocumentEvent" | "pixCharge" | "aiWorkflow" | "aiWorkflowExecution" | "overdueEscalation" | "overdueEscalationStep" | "overdueAction" | "punchConfiguration" | "hrTenantConfig" | "geofenceZone" | "emailToEntryConfig"
+    modelProps: "user" | "userProfile" | "session" | "refreshToken" | "permission" | "permissionGroup" | "permissionGroupPermission" | "userPermissionGroup" | "userDirectPermission" | "permissionAuditLog" | "organization" | "organizationAddress" | "organizationCnae" | "organizationFiscalSettings" | "organizationStakeholder" | "supplier" | "manufacturer" | "category" | "warehouse" | "zone" | "bin" | "volume" | "volumeItem" | "template" | "product" | "variant" | "item" | "itemMovement" | "productCategory" | "variantPriceHistory" | "auditLog" | "tag" | "productTag" | "variantImage" | "productCareInstruction" | "productAttachment" | "variantAttachment" | "alert" | "purchaseOrder" | "purchaseOrderItem" | "unitConversion" | "stockSnapshot" | "inventorySession" | "inventorySessionItem" | "customer" | "salesOrder" | "salesOrderItem" | "crmContact" | "crmPipeline" | "crmPipelineStage" | "crmDeal" | "crmActivity" | "crmTimelineEvent" | "pipeline" | "pipelineStage" | "contact" | "deal" | "contactDeal" | "activity" | "timelineEvent" | "itemReservation" | "variantSupplierCode" | "variantPromotion" | "comment" | "notificationPreference" | "notificationTemplate" | "notification" | "request" | "requestAttachment" | "requestComment" | "requestHistory" | "employee" | "department" | "position" | "timeEntry" | "workSchedule" | "overtime" | "timeBank" | "absence" | "vacationPeriod" | "vacationSplit" | "payroll" | "payrollItem" | "bonus" | "deduction" | "employeeDependant" | "termination" | "medicalExam" | "safetyProgram" | "workplaceRisk" | "cipaMandate" | "cipaMember" | "company" | "companyDocument" | "companyAddress" | "companyCnae" | "companyFiscalSettings" | "companyStakeholder" | "labelTemplate" | "tenant" | "plan" | "planModule" | "tenantPlan" | "tenantUser" | "tenantFeatureFlag" | "costCenter" | "bankAccount" | "financeCategory" | "financeEntry" | "financeEntryRetention" | "financeCodeSequence" | "financeEntryPayment" | "financeEntryCostCenter" | "recurringConfig" | "financeBudget" | "financeAttachment" | "bankReconciliation" | "bankReconciliationItem" | "loan" | "loanInstallment" | "consortium" | "consortiumPayment" | "contract" | "storageFolder" | "storageFile" | "storageFileVersion" | "folderAccessRule" | "storageShareLink" | "calendar" | "teamCalendarConfig" | "calendarEvent" | "eventParticipant" | "eventReminder" | "emailAccount" | "emailAccountAccess" | "emailFolder" | "emailMessage" | "emailAttachment" | "team" | "teamMember" | "teamEmailAccount" | "board" | "boardColumn" | "card" | "boardLabel" | "cardLabel" | "boardMember" | "boardCustomField" | "cardCustomFieldValue" | "cardComment" | "commentReaction" | "cardAttachment" | "cardChecklist" | "checklistItem" | "cardActivity" | "boardAutomation" | "cardWatcher" | "systemSkillDefinition" | "skillPricing" | "tenantSubscription" | "tenantConsumption" | "tenantBilling" | "tenantIntegrationStatus" | "centralUser" | "supportTicket" | "supportTicketMessage" | "supportTicketAttachment" | "supportSlaConfig" | "priceTable" | "priceTableRule" | "priceTableItem" | "customerPrice" | "taxProfile" | "taxRule" | "campaign" | "campaignRule" | "campaignProduct" | "coupon" | "couponUsage" | "combo" | "comboItem" | "catalog" | "catalogItem" | "catalogExport" | "tenantBrand" | "contentTemplate" | "generatedContent" | "productMockup" | "emailCampaign" | "order" | "orderItem" | "paymentCondition" | "orderPayment" | "orderDelivery" | "orderDeliveryItem" | "orderReturn" | "orderReturnItem" | "storeCredit" | "storeCreditUsage" | "customerCreditLimit" | "approvalRule" | "orderCommission" | "commissionRule" | "orderHistory" | "digitalCertificate" | "signatureEnvelope" | "signatureEnvelopeSigner" | "signatureAuditEvent" | "signatureTemplate" | "analyticsWidget" | "analyticsDashboard" | "analyticsDashboardWidget" | "analyticsGoal" | "analyticsReport" | "analyticsReportGeneration" | "customerPortalAccess" | "aiTenantConfig" | "aiConversation" | "aiMessage" | "aiFavoriteQuery" | "aiActionLog" | "aiInsight" | "posTerminal" | "posSession" | "posTransaction" | "posTransactionPayment" | "posCashMovement" | "posOfflineQueue" | "posVisitLog" | "cardIntegration" | "eventLog" | "bid" | "bidItem" | "bidProposal" | "bidDocument" | "bidContract" | "bidEmpenho" | "bidMonitorEvent" | "bidHistory" | "bidAiConfig" | "certidaoSchedule" | "marketplaceConnection" | "marketplaceListing" | "marketplaceOrder" | "marketplacePayment" | "messagingAccount" | "messagingContact" | "messagingMessage" | "messagingTemplate" | "fiscalConfig" | "fiscalCertificate" | "fiscalDocument" | "fiscalDocumentItem" | "fiscalDocumentEvent" | "pixCharge" | "aiWorkflow" | "aiWorkflowExecution" | "overdueEscalation" | "overdueEscalationStep" | "overdueAction" | "punchConfiguration" | "hrTenantConfig" | "geofenceZone" | "emailToEntryConfig" | "esocialConfig" | "esocialCertificate" | "esocialEvent" | "esocialEventStatusHistory" | "esocialBatch" | "esocialRubrica" | "esocialTable"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -20203,6 +20210,524 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    EsocialConfig: {
+      payload: Prisma.$EsocialConfigPayload<ExtArgs>
+      fields: Prisma.EsocialConfigFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.EsocialConfigFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialConfigPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.EsocialConfigFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialConfigPayload>
+        }
+        findFirst: {
+          args: Prisma.EsocialConfigFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialConfigPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.EsocialConfigFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialConfigPayload>
+        }
+        findMany: {
+          args: Prisma.EsocialConfigFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialConfigPayload>[]
+        }
+        create: {
+          args: Prisma.EsocialConfigCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialConfigPayload>
+        }
+        createMany: {
+          args: Prisma.EsocialConfigCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.EsocialConfigCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialConfigPayload>[]
+        }
+        delete: {
+          args: Prisma.EsocialConfigDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialConfigPayload>
+        }
+        update: {
+          args: Prisma.EsocialConfigUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialConfigPayload>
+        }
+        deleteMany: {
+          args: Prisma.EsocialConfigDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.EsocialConfigUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.EsocialConfigUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialConfigPayload>[]
+        }
+        upsert: {
+          args: Prisma.EsocialConfigUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialConfigPayload>
+        }
+        aggregate: {
+          args: Prisma.EsocialConfigAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateEsocialConfig>
+        }
+        groupBy: {
+          args: Prisma.EsocialConfigGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EsocialConfigGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.EsocialConfigCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EsocialConfigCountAggregateOutputType> | number
+        }
+      }
+    }
+    EsocialCertificate: {
+      payload: Prisma.$EsocialCertificatePayload<ExtArgs>
+      fields: Prisma.EsocialCertificateFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.EsocialCertificateFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialCertificatePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.EsocialCertificateFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialCertificatePayload>
+        }
+        findFirst: {
+          args: Prisma.EsocialCertificateFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialCertificatePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.EsocialCertificateFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialCertificatePayload>
+        }
+        findMany: {
+          args: Prisma.EsocialCertificateFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialCertificatePayload>[]
+        }
+        create: {
+          args: Prisma.EsocialCertificateCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialCertificatePayload>
+        }
+        createMany: {
+          args: Prisma.EsocialCertificateCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.EsocialCertificateCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialCertificatePayload>[]
+        }
+        delete: {
+          args: Prisma.EsocialCertificateDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialCertificatePayload>
+        }
+        update: {
+          args: Prisma.EsocialCertificateUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialCertificatePayload>
+        }
+        deleteMany: {
+          args: Prisma.EsocialCertificateDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.EsocialCertificateUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.EsocialCertificateUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialCertificatePayload>[]
+        }
+        upsert: {
+          args: Prisma.EsocialCertificateUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialCertificatePayload>
+        }
+        aggregate: {
+          args: Prisma.EsocialCertificateAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateEsocialCertificate>
+        }
+        groupBy: {
+          args: Prisma.EsocialCertificateGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EsocialCertificateGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.EsocialCertificateCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EsocialCertificateCountAggregateOutputType> | number
+        }
+      }
+    }
+    EsocialEvent: {
+      payload: Prisma.$EsocialEventPayload<ExtArgs>
+      fields: Prisma.EsocialEventFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.EsocialEventFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialEventPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.EsocialEventFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialEventPayload>
+        }
+        findFirst: {
+          args: Prisma.EsocialEventFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialEventPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.EsocialEventFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialEventPayload>
+        }
+        findMany: {
+          args: Prisma.EsocialEventFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialEventPayload>[]
+        }
+        create: {
+          args: Prisma.EsocialEventCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialEventPayload>
+        }
+        createMany: {
+          args: Prisma.EsocialEventCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.EsocialEventCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialEventPayload>[]
+        }
+        delete: {
+          args: Prisma.EsocialEventDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialEventPayload>
+        }
+        update: {
+          args: Prisma.EsocialEventUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialEventPayload>
+        }
+        deleteMany: {
+          args: Prisma.EsocialEventDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.EsocialEventUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.EsocialEventUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialEventPayload>[]
+        }
+        upsert: {
+          args: Prisma.EsocialEventUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialEventPayload>
+        }
+        aggregate: {
+          args: Prisma.EsocialEventAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateEsocialEvent>
+        }
+        groupBy: {
+          args: Prisma.EsocialEventGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EsocialEventGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.EsocialEventCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EsocialEventCountAggregateOutputType> | number
+        }
+      }
+    }
+    EsocialEventStatusHistory: {
+      payload: Prisma.$EsocialEventStatusHistoryPayload<ExtArgs>
+      fields: Prisma.EsocialEventStatusHistoryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.EsocialEventStatusHistoryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialEventStatusHistoryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.EsocialEventStatusHistoryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialEventStatusHistoryPayload>
+        }
+        findFirst: {
+          args: Prisma.EsocialEventStatusHistoryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialEventStatusHistoryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.EsocialEventStatusHistoryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialEventStatusHistoryPayload>
+        }
+        findMany: {
+          args: Prisma.EsocialEventStatusHistoryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialEventStatusHistoryPayload>[]
+        }
+        create: {
+          args: Prisma.EsocialEventStatusHistoryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialEventStatusHistoryPayload>
+        }
+        createMany: {
+          args: Prisma.EsocialEventStatusHistoryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.EsocialEventStatusHistoryCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialEventStatusHistoryPayload>[]
+        }
+        delete: {
+          args: Prisma.EsocialEventStatusHistoryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialEventStatusHistoryPayload>
+        }
+        update: {
+          args: Prisma.EsocialEventStatusHistoryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialEventStatusHistoryPayload>
+        }
+        deleteMany: {
+          args: Prisma.EsocialEventStatusHistoryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.EsocialEventStatusHistoryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.EsocialEventStatusHistoryUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialEventStatusHistoryPayload>[]
+        }
+        upsert: {
+          args: Prisma.EsocialEventStatusHistoryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialEventStatusHistoryPayload>
+        }
+        aggregate: {
+          args: Prisma.EsocialEventStatusHistoryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateEsocialEventStatusHistory>
+        }
+        groupBy: {
+          args: Prisma.EsocialEventStatusHistoryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EsocialEventStatusHistoryGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.EsocialEventStatusHistoryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EsocialEventStatusHistoryCountAggregateOutputType> | number
+        }
+      }
+    }
+    EsocialBatch: {
+      payload: Prisma.$EsocialBatchPayload<ExtArgs>
+      fields: Prisma.EsocialBatchFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.EsocialBatchFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialBatchPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.EsocialBatchFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialBatchPayload>
+        }
+        findFirst: {
+          args: Prisma.EsocialBatchFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialBatchPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.EsocialBatchFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialBatchPayload>
+        }
+        findMany: {
+          args: Prisma.EsocialBatchFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialBatchPayload>[]
+        }
+        create: {
+          args: Prisma.EsocialBatchCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialBatchPayload>
+        }
+        createMany: {
+          args: Prisma.EsocialBatchCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.EsocialBatchCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialBatchPayload>[]
+        }
+        delete: {
+          args: Prisma.EsocialBatchDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialBatchPayload>
+        }
+        update: {
+          args: Prisma.EsocialBatchUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialBatchPayload>
+        }
+        deleteMany: {
+          args: Prisma.EsocialBatchDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.EsocialBatchUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.EsocialBatchUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialBatchPayload>[]
+        }
+        upsert: {
+          args: Prisma.EsocialBatchUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialBatchPayload>
+        }
+        aggregate: {
+          args: Prisma.EsocialBatchAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateEsocialBatch>
+        }
+        groupBy: {
+          args: Prisma.EsocialBatchGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EsocialBatchGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.EsocialBatchCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EsocialBatchCountAggregateOutputType> | number
+        }
+      }
+    }
+    EsocialRubrica: {
+      payload: Prisma.$EsocialRubricaPayload<ExtArgs>
+      fields: Prisma.EsocialRubricaFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.EsocialRubricaFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialRubricaPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.EsocialRubricaFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialRubricaPayload>
+        }
+        findFirst: {
+          args: Prisma.EsocialRubricaFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialRubricaPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.EsocialRubricaFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialRubricaPayload>
+        }
+        findMany: {
+          args: Prisma.EsocialRubricaFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialRubricaPayload>[]
+        }
+        create: {
+          args: Prisma.EsocialRubricaCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialRubricaPayload>
+        }
+        createMany: {
+          args: Prisma.EsocialRubricaCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.EsocialRubricaCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialRubricaPayload>[]
+        }
+        delete: {
+          args: Prisma.EsocialRubricaDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialRubricaPayload>
+        }
+        update: {
+          args: Prisma.EsocialRubricaUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialRubricaPayload>
+        }
+        deleteMany: {
+          args: Prisma.EsocialRubricaDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.EsocialRubricaUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.EsocialRubricaUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialRubricaPayload>[]
+        }
+        upsert: {
+          args: Prisma.EsocialRubricaUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialRubricaPayload>
+        }
+        aggregate: {
+          args: Prisma.EsocialRubricaAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateEsocialRubrica>
+        }
+        groupBy: {
+          args: Prisma.EsocialRubricaGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EsocialRubricaGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.EsocialRubricaCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EsocialRubricaCountAggregateOutputType> | number
+        }
+      }
+    }
+    EsocialTable: {
+      payload: Prisma.$EsocialTablePayload<ExtArgs>
+      fields: Prisma.EsocialTableFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.EsocialTableFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialTablePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.EsocialTableFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialTablePayload>
+        }
+        findFirst: {
+          args: Prisma.EsocialTableFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialTablePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.EsocialTableFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialTablePayload>
+        }
+        findMany: {
+          args: Prisma.EsocialTableFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialTablePayload>[]
+        }
+        create: {
+          args: Prisma.EsocialTableCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialTablePayload>
+        }
+        createMany: {
+          args: Prisma.EsocialTableCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.EsocialTableCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialTablePayload>[]
+        }
+        delete: {
+          args: Prisma.EsocialTableDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialTablePayload>
+        }
+        update: {
+          args: Prisma.EsocialTableUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialTablePayload>
+        }
+        deleteMany: {
+          args: Prisma.EsocialTableDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.EsocialTableUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.EsocialTableUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialTablePayload>[]
+        }
+        upsert: {
+          args: Prisma.EsocialTableUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialTablePayload>
+        }
+        aggregate: {
+          args: Prisma.EsocialTableAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateEsocialTable>
+        }
+        groupBy: {
+          args: Prisma.EsocialTableGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EsocialTableGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.EsocialTableCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EsocialTableCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -25771,6 +26296,136 @@ export const EmailToEntryConfigScalarFieldEnum = {
 export type EmailToEntryConfigScalarFieldEnum = (typeof EmailToEntryConfigScalarFieldEnum)[keyof typeof EmailToEntryConfigScalarFieldEnum]
 
 
+export const EsocialConfigScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  environment: 'environment',
+  version: 'version',
+  tpInsc: 'tpInsc',
+  nrInsc: 'nrInsc',
+  autoGenerateOnAdmission: 'autoGenerateOnAdmission',
+  autoGenerateOnTermination: 'autoGenerateOnTermination',
+  autoGenerateOnLeave: 'autoGenerateOnLeave',
+  autoGenerateOnPayroll: 'autoGenerateOnPayroll',
+  requireApproval: 'requireApproval',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type EsocialConfigScalarFieldEnum = (typeof EsocialConfigScalarFieldEnum)[keyof typeof EsocialConfigScalarFieldEnum]
+
+
+export const EsocialCertificateScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  type: 'type',
+  serialNumber: 'serialNumber',
+  issuer: 'issuer',
+  subject: 'subject',
+  validFrom: 'validFrom',
+  validUntil: 'validUntil',
+  pfxData: 'pfxData',
+  passphrase: 'passphrase',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type EsocialCertificateScalarFieldEnum = (typeof EsocialCertificateScalarFieldEnum)[keyof typeof EsocialCertificateScalarFieldEnum]
+
+
+export const EsocialEventScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  eventType: 'eventType',
+  status: 'status',
+  referenceId: 'referenceId',
+  referenceType: 'referenceType',
+  xmlContent: 'xmlContent',
+  xmlHash: 'xmlHash',
+  reviewedBy: 'reviewedBy',
+  reviewedAt: 'reviewedAt',
+  reviewNotes: 'reviewNotes',
+  approvedBy: 'approvedBy',
+  approvedAt: 'approvedAt',
+  batchId: 'batchId',
+  protocol: 'protocol',
+  receipt: 'receipt',
+  transmittedAt: 'transmittedAt',
+  responseAt: 'responseAt',
+  responseXml: 'responseXml',
+  rejectionCode: 'rejectionCode',
+  rejectionMessage: 'rejectionMessage',
+  retryCount: 'retryCount',
+  nextRetryAt: 'nextRetryAt',
+  originalEventId: 'originalEventId',
+  isRectification: 'isRectification',
+  deadline: 'deadline',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type EsocialEventScalarFieldEnum = (typeof EsocialEventScalarFieldEnum)[keyof typeof EsocialEventScalarFieldEnum]
+
+
+export const EsocialEventStatusHistoryScalarFieldEnum = {
+  id: 'id',
+  eventId: 'eventId',
+  fromStatus: 'fromStatus',
+  toStatus: 'toStatus',
+  changedBy: 'changedBy',
+  reason: 'reason',
+  createdAt: 'createdAt'
+} as const
+
+export type EsocialEventStatusHistoryScalarFieldEnum = (typeof EsocialEventStatusHistoryScalarFieldEnum)[keyof typeof EsocialEventStatusHistoryScalarFieldEnum]
+
+
+export const EsocialBatchScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  status: 'status',
+  eventCount: 'eventCount',
+  protocol: 'protocol',
+  transmittedAt: 'transmittedAt',
+  completedAt: 'completedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type EsocialBatchScalarFieldEnum = (typeof EsocialBatchScalarFieldEnum)[keyof typeof EsocialBatchScalarFieldEnum]
+
+
+export const EsocialRubricaScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  code: 'code',
+  description: 'description',
+  type: 'type',
+  incidInss: 'incidInss',
+  incidIrrf: 'incidIrrf',
+  incidFgts: 'incidFgts',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type EsocialRubricaScalarFieldEnum = (typeof EsocialRubricaScalarFieldEnum)[keyof typeof EsocialRubricaScalarFieldEnum]
+
+
+export const EsocialTableScalarFieldEnum = {
+  id: 'id',
+  tableCode: 'tableCode',
+  itemCode: 'itemCode',
+  description: 'description',
+  validFrom: 'validFrom',
+  validUntil: 'validUntil',
+  isActive: 'isActive'
+} as const
+
+export type EsocialTableScalarFieldEnum = (typeof EsocialTableScalarFieldEnum)[keyof typeof EsocialTableScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -29662,6 +30317,13 @@ export type GlobalOmitConfig = {
   hrTenantConfig?: Prisma.HrTenantConfigOmit
   geofenceZone?: Prisma.GeofenceZoneOmit
   emailToEntryConfig?: Prisma.EmailToEntryConfigOmit
+  esocialConfig?: Prisma.EsocialConfigOmit
+  esocialCertificate?: Prisma.EsocialCertificateOmit
+  esocialEvent?: Prisma.EsocialEventOmit
+  esocialEventStatusHistory?: Prisma.EsocialEventStatusHistoryOmit
+  esocialBatch?: Prisma.EsocialBatchOmit
+  esocialRubrica?: Prisma.EsocialRubricaOmit
+  esocialTable?: Prisma.EsocialTableOmit
 }
 
 /* Types for Logging */

@@ -314,7 +314,14 @@ export const ModelName = {
   PunchConfiguration: 'PunchConfiguration',
   HrTenantConfig: 'HrTenantConfig',
   GeofenceZone: 'GeofenceZone',
-  EmailToEntryConfig: 'EmailToEntryConfig'
+  EmailToEntryConfig: 'EmailToEntryConfig',
+  EsocialConfig: 'EsocialConfig',
+  EsocialCertificate: 'EsocialCertificate',
+  EsocialEvent: 'EsocialEvent',
+  EsocialEventStatusHistory: 'EsocialEventStatusHistory',
+  EsocialBatch: 'EsocialBatch',
+  EsocialRubrica: 'EsocialRubrica',
+  EsocialTable: 'EsocialTable'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -5860,6 +5867,136 @@ export const EmailToEntryConfigScalarFieldEnum = {
 } as const
 
 export type EmailToEntryConfigScalarFieldEnum = (typeof EmailToEntryConfigScalarFieldEnum)[keyof typeof EmailToEntryConfigScalarFieldEnum]
+
+
+export const EsocialConfigScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  environment: 'environment',
+  version: 'version',
+  tpInsc: 'tpInsc',
+  nrInsc: 'nrInsc',
+  autoGenerateOnAdmission: 'autoGenerateOnAdmission',
+  autoGenerateOnTermination: 'autoGenerateOnTermination',
+  autoGenerateOnLeave: 'autoGenerateOnLeave',
+  autoGenerateOnPayroll: 'autoGenerateOnPayroll',
+  requireApproval: 'requireApproval',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type EsocialConfigScalarFieldEnum = (typeof EsocialConfigScalarFieldEnum)[keyof typeof EsocialConfigScalarFieldEnum]
+
+
+export const EsocialCertificateScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  type: 'type',
+  serialNumber: 'serialNumber',
+  issuer: 'issuer',
+  subject: 'subject',
+  validFrom: 'validFrom',
+  validUntil: 'validUntil',
+  pfxData: 'pfxData',
+  passphrase: 'passphrase',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type EsocialCertificateScalarFieldEnum = (typeof EsocialCertificateScalarFieldEnum)[keyof typeof EsocialCertificateScalarFieldEnum]
+
+
+export const EsocialEventScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  eventType: 'eventType',
+  status: 'status',
+  referenceId: 'referenceId',
+  referenceType: 'referenceType',
+  xmlContent: 'xmlContent',
+  xmlHash: 'xmlHash',
+  reviewedBy: 'reviewedBy',
+  reviewedAt: 'reviewedAt',
+  reviewNotes: 'reviewNotes',
+  approvedBy: 'approvedBy',
+  approvedAt: 'approvedAt',
+  batchId: 'batchId',
+  protocol: 'protocol',
+  receipt: 'receipt',
+  transmittedAt: 'transmittedAt',
+  responseAt: 'responseAt',
+  responseXml: 'responseXml',
+  rejectionCode: 'rejectionCode',
+  rejectionMessage: 'rejectionMessage',
+  retryCount: 'retryCount',
+  nextRetryAt: 'nextRetryAt',
+  originalEventId: 'originalEventId',
+  isRectification: 'isRectification',
+  deadline: 'deadline',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type EsocialEventScalarFieldEnum = (typeof EsocialEventScalarFieldEnum)[keyof typeof EsocialEventScalarFieldEnum]
+
+
+export const EsocialEventStatusHistoryScalarFieldEnum = {
+  id: 'id',
+  eventId: 'eventId',
+  fromStatus: 'fromStatus',
+  toStatus: 'toStatus',
+  changedBy: 'changedBy',
+  reason: 'reason',
+  createdAt: 'createdAt'
+} as const
+
+export type EsocialEventStatusHistoryScalarFieldEnum = (typeof EsocialEventStatusHistoryScalarFieldEnum)[keyof typeof EsocialEventStatusHistoryScalarFieldEnum]
+
+
+export const EsocialBatchScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  status: 'status',
+  eventCount: 'eventCount',
+  protocol: 'protocol',
+  transmittedAt: 'transmittedAt',
+  completedAt: 'completedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type EsocialBatchScalarFieldEnum = (typeof EsocialBatchScalarFieldEnum)[keyof typeof EsocialBatchScalarFieldEnum]
+
+
+export const EsocialRubricaScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  code: 'code',
+  description: 'description',
+  type: 'type',
+  incidInss: 'incidInss',
+  incidIrrf: 'incidIrrf',
+  incidFgts: 'incidFgts',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type EsocialRubricaScalarFieldEnum = (typeof EsocialRubricaScalarFieldEnum)[keyof typeof EsocialRubricaScalarFieldEnum]
+
+
+export const EsocialTableScalarFieldEnum = {
+  id: 'id',
+  tableCode: 'tableCode',
+  itemCode: 'itemCode',
+  description: 'description',
+  validFrom: 'validFrom',
+  validUntil: 'validUntil',
+  isActive: 'isActive'
+} as const
+
+export type EsocialTableScalarFieldEnum = (typeof EsocialTableScalarFieldEnum)[keyof typeof EsocialTableScalarFieldEnum]
 
 
 export const SortOrder = {

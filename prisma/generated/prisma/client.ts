@@ -1359,3 +1359,38 @@ export type GeofenceZone = Prisma.GeofenceZoneModel
  * 
  */
 export type EmailToEntryConfig = Prisma.EmailToEntryConfigModel
+/**
+ * Model EsocialConfig
+ * 
+ */
+export type EsocialConfig = Prisma.EsocialConfigModel
+/**
+ * Model EsocialCertificate
+ * 
+ */
+export type EsocialCertificate = Prisma.EsocialCertificateModel
+/**
+ * Model EsocialEvent
+ * 
+ */
+export type EsocialEvent = Prisma.EsocialEventModel
+/**
+ * Model EsocialEventStatusHistory
+ * 
+ */
+export type EsocialEventStatusHistory = Prisma.EsocialEventStatusHistoryModel
+/**
+ * Model EsocialBatch
+ * 
+ */
+export type EsocialBatch = Prisma.EsocialBatchModel
+/**
+ * Model EsocialRubrica
+ * 
+ */
+export type EsocialRubrica = Prisma.EsocialRubricaModel
+/**
+ * Model EsocialTable
+ * 
+ */
+export type EsocialTable = Prisma.EsocialTableModel
