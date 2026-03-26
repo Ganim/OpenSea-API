@@ -3,7 +3,6 @@ import {
   extractTag,
   extractTagAsNumber,
   extractAllGroups,
-  extractGroup,
 } from './base-parser';
 
 // ---------------------------------------------------------------------------

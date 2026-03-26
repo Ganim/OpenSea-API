@@ -32,7 +32,10 @@ export function extractTag(xml: string, tagName: string): string | null {
  * Extract the text content of a tag and parse it as a number.
  * Returns `null` if the tag is not found or the value is not a valid number.
  */
-export function extractTagAsNumber(xml: string, tagName: string): number | null {
+export function extractTagAsNumber(
+  xml: string,
+  tagName: string,
+): number | null {
   const raw = extractTag(xml, tagName);
   if (raw === null) return null;
   const parsed = Number(raw);
