@@ -13,6 +13,13 @@ import { v1GetEsocialBatchController } from './v1-get-esocial-batch.controller';
 import { v1CheckBatchStatusController } from './v1-check-batch-status.controller';
 import { v1EsocialConfigController } from './v1-esocial-config.controller';
 import { v1EsocialCertificateController } from './v1-esocial-certificate.controller';
+// Phase 2 — XML Event Builders
+import { v1GenerateEventController } from './v1-generate-event.controller';
+import { v1ReviewEventController } from './v1-review-event.controller';
+import { v1ApproveEventController } from './v1-approve-event.controller';
+import { v1RejectEventController } from './v1-reject-event.controller';
+import { v1RectifyEventController } from './v1-rectify-event.controller';
+import { v1DeleteEventController } from './v1-delete-event.controller';
 
 export async function esocialRoutes(app: FastifyInstance) {
   app.addHook('onRequest', createModuleMiddleware('HR'));
@@ -36,10 +43,18 @@ export async function esocialRoutes(app: FastifyInstance) {
   app.register(
     async (mutationApp) => {
       mutationApp.register(rateLimit, rateLimitConfig.mutation);
+      // Phase 1 — unified status update
       mutationApp.register(v1UpdateEventStatusController);
       mutationApp.register(v1BulkApproveEventsController);
       mutationApp.register(v1TransmitBatchController);
       mutationApp.register(v1CheckBatchStatusController);
+      // Phase 2 — individual lifecycle endpoints
+      mutationApp.register(v1GenerateEventController);
+      mutationApp.register(v1ReviewEventController);
+      mutationApp.register(v1ApproveEventController);
+      mutationApp.register(v1RejectEventController);
+      mutationApp.register(v1RectifyEventController);
+      mutationApp.register(v1DeleteEventController);
     },
     { prefix: '' },
   );
