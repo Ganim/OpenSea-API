@@ -18,6 +18,12 @@ export const SALES_EVENTS = {
   // Orders
   ORDER_CONFIRMED: 'sales.order.confirmed',
   ORDER_CANCELLED: 'sales.order.cancelled',
+  ORDER_PAID: 'sales.order.paid',
+  ORDER_SHIPPED: 'sales.order.shipped',
+  ORDER_DELIVERED: 'sales.order.delivered',
+
+  // Marketplace
+  MARKETPLACE_ORDER_IMPORTED: 'sales.marketplace-order.imported',
 
   // Pricing & Promotions
   PRICE_TABLE_UPDATED: 'sales.price-table.updated',
@@ -86,4 +92,32 @@ export interface CampaignActivatedData {
   campaignId: string;
   products: string[];
   channels: string[];
+}
+
+export interface OrderPaidData {
+  orderId: string;
+  customerId: string;
+  paymentMethod: string;
+  paymentAmount: number;
+  total: number;
+  items: Array<{ productName: string; quantity: number; unitPrice: number }>;
+}
+
+export interface OrderShippedData {
+  orderId: string;
+  trackingCode?: string;
+  carrier?: string;
+}
+
+export interface OrderDeliveredData {
+  orderId: string;
+}
+
+export interface MarketplaceOrderImportedData {
+  orderId: string;
+  externalOrderId: string;
+  marketplace: string;
+  buyerName: string;
+  total: number;
+  items: Array<{ productName: string; quantity: number; unitPrice: number }>;
 }

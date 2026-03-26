@@ -596,6 +596,29 @@ export function getSalesTools(): ToolDefinition[] {
     },
 
     // =========================================================
+    // ANALYSIS TOOLS (1)
+    // =========================================================
+    {
+      name: 'sales_analyze_bid_competition',
+      description:
+        'Analisa uma licitacao/edital e sugere estrategia de precos com base nos itens do estoque e historico de pedidos',
+      parameters: {
+        type: 'object',
+        properties: {
+          orderId: {
+            type: 'string',
+            description: 'ID do pedido de licitacao (canal BID) para analisar',
+          },
+        },
+        required: ['orderId'],
+      },
+      module: 'sales',
+      permission: 'sales.orders.access',
+      requiresConfirmation: false,
+      category: 'query',
+    },
+
+    // =========================================================
     // REPORT TOOLS (4)
     // =========================================================
     {

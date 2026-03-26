@@ -653,6 +653,130 @@ export function getSalesHandlers(): Record<string, ToolHandler> {
     },
 
     // =========================================================
+    // ANALYSIS TOOLS (1)
+    // =========================================================
+
+    sales_analyze_bid_competition: {
+      async execute(
+        args: Record<string, unknown>,
+        context: ToolExecutionContext,
+      ) {
+        if (!args.orderId) {
+          return { error: 'Informe o orderId do pedido de licitacao.' };
+        }
+
+        const getOrderUseCase = makeGetOrderByIdUseCase();
+        const bidOrder = await getOrderUseCase.execute({
+          tenantId: context.tenantId,
+          orderId: args.orderId as string,
+        });
+
+        const order = bidOrder.order;
+        const orderItems = bidOrder.items;
+
+        if (order.channel !== 'BID') {
+          return {
+            error: `O pedido ${order.orderNumber} nao e do canal BID (licitacao). Canal atual: ${order.channel}.`,
+          };
+        }
+
+        // Calculate per-item analysis
+        const itemAnalysis = orderItems.map((item) => {
+          const totalItemValue = item.quantity * item.unitPrice;
+          const discountAmount =
+            (item.discountPercent ?? 0) > 0
+              ? totalItemValue * ((item.discountPercent ?? 0) / 100)
+              : (item.discountValue ?? 0);
+          const netUnitPrice =
+            item.quantity > 0
+              ? (totalItemValue - discountAmount) / item.quantity
+              : item.unitPrice;
+
+          return {
+            name: item.name,
+            sku: item.sku,
+            quantity: item.quantity,
+            unitPrice: item.unitPrice,
+            netUnitPrice: Math.round(netUnitPrice * 100) / 100,
+            totalValue: Math.round(totalItemValue * 100) / 100,
+            discountApplied: Math.round(discountAmount * 100) / 100,
+            variantId: item.variantId?.toString() ?? null,
+          };
+        });
+
+        // Get historical BID orders for comparison
+        const historicalOrders = await makeListOrdersUseCase().execute({
+          tenantId: context.tenantId,
+          channel: 'BID',
+          page: 1,
+          limit: 50,
+        });
+
+        // Calculate aggregate stats from historical BID orders
+        const completedBidOrders = historicalOrders.orders.filter(
+          (o) => o.id.toString() !== order.id.toString(),
+        );
+
+        const historicalAvgTicket =
+          completedBidOrders.length > 0
+            ? completedBidOrders.reduce((sum, o) => sum + o.grandTotal, 0) /
+              completedBidOrders.length
+            : 0;
+
+        // Build strategic recommendations
+        const recommendations: string[] = [];
+
+        if (
+          order.grandTotal > historicalAvgTicket * 1.5 &&
+          historicalAvgTicket > 0
+        ) {
+          recommendations.push(
+            `O valor total (R$ ${order.grandTotal.toFixed(2)}) esta 50%+ acima do ticket medio historico de licitacoes (R$ ${historicalAvgTicket.toFixed(2)}). Considere revisar precos para maior competitividade.`,
+          );
+        }
+
+        const highValueItems = itemAnalysis
+          .filter((i) => i.totalValue > order.grandTotal * 0.3)
+          .map((i) => i.name);
+
+        if (highValueItems.length > 0) {
+          recommendations.push(
+            `Itens de maior peso no valor total: ${highValueItems.join(', ')}. Negocie melhores condicoes nestes itens para ganhar vantagem competitiva.`,
+          );
+        }
+
+        const zeroDiscountItems = itemAnalysis.filter(
+          (i) => i.discountApplied === 0,
+        );
+        if (zeroDiscountItems.length > 0) {
+          recommendations.push(
+            `${zeroDiscountItems.length} item(ns) sem desconto aplicado. Avalie margem para oferecer descontos estrategicos.`,
+          );
+        }
+
+        if (completedBidOrders.length === 0) {
+          recommendations.push(
+            'Nenhum historico de licitacoes encontrado. Recomendamos cautela na precificacao e analise detalhada do mercado.',
+          );
+        }
+
+        return {
+          orderId: order.id.toString(),
+          orderNumber: order.orderNumber,
+          channel: order.channel,
+          grandTotal: order.grandTotal,
+          itemCount: orderItems.length,
+          itemAnalysis: itemAnalysis.slice(0, TOOL_LIST_MAX_ITEMS),
+          historicalContext: {
+            totalBidOrders: completedBidOrders.length,
+            averageBidTicket: Math.round(historicalAvgTicket * 100) / 100,
+          },
+          recommendations,
+        };
+      },
+    },
+
+    // =========================================================
     // REPORT TOOLS (4)
     // =========================================================
 

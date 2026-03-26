@@ -5,6 +5,8 @@
  */
 
 export type { DomainEvent, EventConsumer } from './domain-event.interface';
+
+// Sales events
 export { SALES_EVENTS } from './sales-events';
 export type {
   CampaignActivatedData,
@@ -12,12 +14,36 @@ export type {
   DealCreatedData,
   DealLostData,
   DealWonData,
+  MarketplaceOrderImportedData,
   OrderCancelledData,
   OrderConfirmedData,
+  OrderDeliveredData,
+  OrderPaidData,
+  OrderShippedData,
   PriceTableUpdatedData,
   SalesEventType,
   StageChangedData,
 } from './sales-events';
+
+// Finance events
+export { FINANCE_EVENTS } from './finance-events';
+export type {
+  EntryCreatedData,
+  EntryOverdueData,
+  EntryPaidData,
+  FinanceEventType,
+  PixPaymentReceivedData,
+} from './finance-events';
+
+// Messaging events
+export { MESSAGING_EVENTS } from './messaging-events';
+export type {
+  MessageReceivedData,
+  MessageSentData,
+  MessagingEventType,
+} from './messaging-events';
+
+// Event bus
 export {
   TypedEventBus,
   getTypedEventBus,
@@ -35,3 +61,10 @@ export {
   stockOrderCancellationConsumer,
   stockOrderReservationConsumer,
 } from './consumers/stock-consumer';
+export {
+  financeOrderPaymentConsumer,
+  financePixPaymentConsumer,
+} from './consumers/finance-consumer';
+export { marketplaceOrderImportConsumer } from './consumers/marketplace-consumer';
+export { dealWonOrderCreationConsumer } from './consumers/deal-won-consumer';
+export { messagingNotificationConsumer } from './consumers/messaging-notification-consumer';
