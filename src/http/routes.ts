@@ -139,6 +139,16 @@ import { financeCompaniesRoutes } from './controllers/finance/companies/routes';
 import { reconciliationRoutes } from './controllers/finance/reconciliation/routes';
 import { financeEscalationsRoutes } from './controllers/finance/escalations/routes';
 import { financeApprovalRulesRoutes } from './controllers/finance/approval-rules/routes';
+import { financeAccountantRoutes } from './controllers/finance/accountant/routes';
+import { bankConnectionsRoutes } from './controllers/finance/bank-connections/routes';
+import { paymentLinksRoutes } from './controllers/finance/payment-links/routes';
+import { financeExchangeRatesRoutes } from './controllers/finance/exchange-rates/routes';
+
+// Accountant Portal routes (token-based auth)
+import { accountantPortalRoutes } from './controllers/accountant/routes';
+
+// Public routes (no auth)
+import { publicRoutes } from './controllers/public/routes';
 
 // Calendar routes
 import { calendarCalendarsRoutes } from './controllers/calendar/calendars/routes';
@@ -346,6 +356,16 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(reconciliationRoutes);
   await app.register(financeEscalationsRoutes);
   await app.register(financeApprovalRulesRoutes);
+  await app.register(financeAccountantRoutes);
+  await app.register(bankConnectionsRoutes);
+  await app.register(paymentLinksRoutes);
+  await app.register(financeExchangeRatesRoutes);
+
+  // Accountant Portal routes (token-based auth, no JWT)
+  await app.register(accountantPortalRoutes);
+
+  // Public routes (no auth)
+  await app.register(publicRoutes);
 
   // Calendar routes
   await app.register(calendarCalendarsRoutes);

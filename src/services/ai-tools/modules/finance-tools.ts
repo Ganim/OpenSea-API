@@ -744,6 +744,44 @@ export function getFinanceTools(): ToolDefinition[] {
       category: 'report',
     },
     {
+      name: 'finance_suggest_payment_timing',
+      description:
+        'Analisa lançamentos a pagar e sugere o melhor momento para cada pagamento: desconto por antecipação, segurança para atrasar ou risco de multa. Use para perguntas como "Quando devo pagar?", "Posso atrasar alguma conta?" ou "Tem algum desconto por antecipação?"',
+      parameters: {
+        type: 'object',
+        properties: {
+          daysAhead: {
+            type: 'number',
+            description:
+              'Dias no futuro para analisar (padrão 30, máximo 90)',
+          },
+        },
+      },
+      module: 'finance',
+      permission: 'finance.entries.access',
+      requiresConfirmation: false,
+      category: 'report',
+    },
+    {
+      name: 'finance_three_way_match',
+      description:
+        'Executa a verificação de correspondência tripla (three-way matching) para um lançamento a pagar: compara nota fiscal, pedido de compra e recebimento de mercadoria. Use para perguntas como "Confere a nota com o pedido?" ou "O recebimento bate com a NF?"',
+      parameters: {
+        type: 'object',
+        properties: {
+          entryId: {
+            type: 'string',
+            description: 'ID do lançamento a pagar para verificar',
+          },
+        },
+        required: ['entryId'],
+      },
+      module: 'finance',
+      permission: 'finance.entries.access',
+      requiresConfirmation: false,
+      category: 'report',
+    },
+    {
       name: 'finance_get_upcoming_payments',
       description:
         'Lista lançamentos pendentes que vencem nos próximos dias, agrupados por dia e com total. Use para perguntas como "O que vence essa semana?" ou "O que tenho para pagar?"',

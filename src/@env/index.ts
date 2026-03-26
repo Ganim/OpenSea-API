@@ -57,6 +57,10 @@ const envSchema = z.object({
   // eSocial certificate encryption key (optional — derives from JWT_SECRET if not set)
   ESOCIAL_ENCRYPTION_KEY: z.string().min(32).optional(),
 
+  // Pluggy Open Finance
+  PLUGGY_CLIENT_ID: z.string().optional(),
+  PLUGGY_CLIENT_SECRET: z.string().optional(),
+
   // Ollama (local AI fallback)
   OLLAMA_HOST: z.string().optional(),
 });

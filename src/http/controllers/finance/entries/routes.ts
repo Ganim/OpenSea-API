@@ -29,6 +29,7 @@ import { processEmailToEntryController } from './v1-process-email-to-entry.contr
 import { calculateEntryRetentionsController } from './v1-calculate-entry-retentions.controller';
 import { applyEntryRetentionsController } from './v1-apply-entry-retentions.controller';
 import { listEntryRetentionsController } from './v1-list-entry-retentions.controller';
+import { threeWayMatchController } from './v1-three-way-match.controller';
 
 export async function financeEntriesRoutes(app: FastifyInstance) {
   app.addHook('preHandler', createModuleMiddleware('FINANCE'));
@@ -61,4 +62,5 @@ export async function financeEntriesRoutes(app: FastifyInstance) {
   app.register(calculateEntryRetentionsController);
   app.register(applyEntryRetentionsController);
   app.register(listEntryRetentionsController);
+  app.register(threeWayMatchController);
 }

@@ -8,6 +8,7 @@ import { getDREInteractiveController } from './v1-get-dre-interactive.controller
 import { getFinanceOverviewController } from './v1-get-finance-overview.controller';
 import { detectAnomaliesController } from './v1-detect-anomalies.controller';
 import { getPredictiveCashflowController } from './v1-get-predictive-cashflow.controller';
+import { getPaymentTimingController } from './v1-get-payment-timing.controller';
 
 export async function financeDashboardRoutes(app: FastifyInstance) {
   app.addHook('preHandler', createModuleMiddleware('FINANCE'));
@@ -19,4 +20,5 @@ export async function financeDashboardRoutes(app: FastifyInstance) {
   app.register(getFinanceOverviewController);
   app.register(detectAnomaliesController);
   app.register(getPredictiveCashflowController);
+  app.register(getPaymentTimingController);
 }

@@ -60,6 +60,9 @@ export interface FinanceEntryProps {
   pixKey?: string;
   pixKeyType?: string;
   pixChargeId?: string;
+  currency?: string;
+  exchangeRate?: number;
+  originalAmount?: number;
   metadata: Record<string, unknown>;
   tags: string[];
   createdBy?: string;
@@ -364,6 +367,30 @@ export class FinanceEntry extends Entity<FinanceEntryProps> {
   }
   set pixChargeId(value: string | undefined) {
     this.props.pixChargeId = value;
+    this.touch();
+  }
+
+  get currency(): string | undefined {
+    return this.props.currency;
+  }
+  set currency(value: string | undefined) {
+    this.props.currency = value;
+    this.touch();
+  }
+
+  get exchangeRate(): number | undefined {
+    return this.props.exchangeRate;
+  }
+  set exchangeRate(value: number | undefined) {
+    this.props.exchangeRate = value;
+    this.touch();
+  }
+
+  get originalAmount(): number | undefined {
+    return this.props.originalAmount;
+  }
+  set originalAmount(value: number | undefined) {
+    this.props.originalAmount = value;
     this.touch();
   }
 

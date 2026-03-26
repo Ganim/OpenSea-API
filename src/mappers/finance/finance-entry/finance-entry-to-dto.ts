@@ -52,6 +52,9 @@ export interface FinanceEntryDTO {
   pixKey?: string;
   pixKeyType?: string;
   pixChargeId?: string;
+  currency?: string;
+  exchangeRate?: number;
+  originalAmount?: number;
   tags: string[];
   createdBy?: string;
   createdAt: Date;
@@ -106,6 +109,9 @@ export function financeEntryToDTO(entry: FinanceEntry): FinanceEntryDTO {
     pixKey: entry.pixKey,
     pixKeyType: entry.pixKeyType,
     pixChargeId: entry.pixChargeId,
+    currency: entry.currency,
+    exchangeRate: entry.exchangeRate,
+    originalAmount: entry.originalAmount,
     tags: entry.tags,
     createdBy: entry.createdBy,
     createdAt: entry.createdAt,

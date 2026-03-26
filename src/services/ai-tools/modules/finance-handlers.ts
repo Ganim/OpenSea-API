@@ -1406,6 +1406,81 @@ export function getFinanceHandlers(): Record<string, ToolHandler> {
       },
     },
 
+    finance_suggest_payment_timing: {
+      async execute(
+        args: Record<string, unknown>,
+        context: ToolExecutionContext,
+      ) {
+        const { makeSuggestPaymentTimingUseCase } = await import(
+          '@/use-cases/finance/analytics/factories/make-suggest-payment-timing-use-case'
+        );
+        const daysAhead = Math.min(Math.max(1, (args.daysAhead as number) ?? 30), 90);
+
+        const useCase = makeSuggestPaymentTimingUseCase();
+        const result = await useCase.execute({
+          tenantId: context.tenantId,
+          daysAhead,
+        });
+
+        const summaryText = result.suggestions.length === 0
+          ? `Analisei ${result.analyzedEntries} lançamento(s) a pagar e não encontrei otimizações de timing. Todos os pagamentos estão no prazo ideal.`
+          : `Encontrei ${result.suggestions.length} sugestão(ões) de otimização de pagamento com economia potencial de R$ ${result.totalPotentialSavings.toFixed(2)}.`;
+
+        return {
+          summary: summaryText,
+          totalPotentialSavings: result.totalPotentialSavings,
+          analyzedEntries: result.analyzedEntries,
+          suggestions: result.suggestions.slice(0, TOOL_LIST_MAX_ITEMS).map((s) => ({
+            entryId: s.entryId,
+            supplierName: s.supplierName,
+            amount: s.amount,
+            currentDueDate: s.currentDueDate,
+            suggestedPayDate: s.suggestedPayDate,
+            reason: s.reason,
+            savingsAmount: s.savingsAmount,
+            priority: s.priority,
+            type: s.type,
+          })),
+        };
+      },
+    },
+
+    finance_three_way_match: {
+      async execute(
+        args: Record<string, unknown>,
+        context: ToolExecutionContext,
+      ) {
+        if (!args.entryId) {
+          return { error: 'Informe o entryId do lançamento a pagar.' };
+        }
+
+        const { makeThreeWayMatchUseCase } = await import(
+          '@/use-cases/finance/matching/factories/make-three-way-match-use-case'
+        );
+
+        const useCase = makeThreeWayMatchUseCase();
+        try {
+          const result = await useCase.execute({
+            tenantId: context.tenantId,
+            entryId: args.entryId as string,
+          });
+
+          return {
+            matchStatus: result.matchStatus,
+            recommendation: result.recommendation,
+            invoice: result.invoice ?? null,
+            purchaseOrder: result.purchaseOrder ?? null,
+            goodsReceipt: result.goodsReceipt ?? null,
+            discrepancies: result.discrepancies,
+          };
+        } catch (error) {
+          return {
+            error: error instanceof Error ? error.message : 'Erro ao executar matching',
+          };
+        }
+      },
+    },
+
     finance_get_upcoming_payments: {
       async execute(
         args: Record<string, unknown>,
