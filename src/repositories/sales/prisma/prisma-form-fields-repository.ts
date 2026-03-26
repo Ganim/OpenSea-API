@@ -31,7 +31,9 @@ export class PrismaFormFieldsRepository implements FormFieldsRepository {
         formId: data.formId,
         label: data.label,
         type: data.type as FormFieldType,
-        options: data.options ?? undefined,
+        options:
+          (data.options as unknown as import('@prisma/generated/client.js').Prisma.InputJsonValue) ??
+          undefined,
         isRequired: data.isRequired ?? false,
         order: data.order,
       },
