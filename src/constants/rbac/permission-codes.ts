@@ -267,6 +267,13 @@ export const PermissionCodes = {
       MODIFY: 'hr.medical-exams.modify' as const,
       REMOVE: 'hr.medical-exams.remove' as const,
     },
+    SAFETY: {
+      ACCESS: 'hr.safety.access' as const,
+      REGISTER: 'hr.safety.register' as const,
+      MODIFY: 'hr.safety.modify' as const,
+      REMOVE: 'hr.safety.remove' as const,
+      ADMIN: 'hr.safety.admin' as const,
+    },
   },
 
   // ============================================================================

@@ -3907,6 +3907,9 @@ model Employee {
   // Medical Exams
   medicalExams MedicalExam[]
 
+  // CIPA
+  cipaMembers CipaMember[]
+
   // Management
   managedDepartments Department[] @relation("DepartmentManager")
   company            Company?     @relation(fields: [companyId], references: [id])
@@ -4581,6 +4584,115 @@ model MedicalExam {
 }
 
 // ===============================================
+// SAFETY PROGRAMS (PCMSO/PGR) — NR-1, NR-7
+// ===============================================
+
+model SafetyProgram {
+  id          String   @id @default(uuid())
+  tenantId    String   @map("tenant_id")
+  type        String   @db.VarChar(16) // PCMSO, PGR, LTCAT, PPRA (legacy)
+  name        String   @db.VarChar(256)
+  validFrom   DateTime @map("valid_from")
+  validUntil  DateTime @map("valid_until")
+  responsibleName         String @map("responsible_name") @db.VarChar(256)
+  responsibleRegistration String @map("responsible_registration") @db.VarChar(64) // CRM, CREA
+  documentUrl String?  @map("document_url")
+  status      String   @default("ACTIVE") @db.VarChar(16) // ACTIVE, EXPIRED, DRAFT
+  notes       String?
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  tenant Tenant        @relation(fields: [tenantId], references: [id])
+  risks  WorkplaceRisk[]
+
+  @@index([tenantId])
+  @@index([type])
+  @@index([status])
+  @@index([validFrom])
+  @@index([validUntil])
+  @@map("safety_programs")
+}
+
+model WorkplaceRisk {
+  id              String  @id @default(uuid())
+  tenantId        String  @map("tenant_id")
+  safetyProgramId String  @map("safety_program_id")
+
+  name            String  @db.VarChar(256) // e.g., "Ruído", "Químico", "Ergonômico"
+  category        String  @db.VarChar(32)  // FISICO, QUIMICO, BIOLOGICO, ERGONOMICO, ACIDENTE
+  severity        String  @db.VarChar(16)  // BAIXO, MEDIO, ALTO, CRITICO
+  source          String? @db.VarChar(256) // e.g., "Máquina de corte", "Produto químico X"
+  affectedArea    String? @map("affected_area") @db.VarChar(256) // e.g., "Galpão de produção"
+  controlMeasures String? @map("control_measures") // Medidas de controle existentes
+  epiRequired     String? @map("epi_required") // EPIs necessários (luva, capacete, etc.)
+  isActive        Boolean @default(true) @map("is_active")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  tenant        Tenant        @relation(fields: [tenantId], references: [id])
+  safetyProgram SafetyProgram @relation(fields: [safetyProgramId], references: [id])
+
+  @@index([tenantId])
+  @@index([safetyProgramId])
+  @@index([category])
+  @@index([severity])
+  @@map("workplace_risks")
+}
+
+// ===============================================
+// CIPA (NR-5) — Comissão Interna de Prevenção de Acidentes
+// ===============================================
+
+model CipaMandate {
+  id          String    @id @default(uuid())
+  tenantId    String    @map("tenant_id")
+  name        String    @db.VarChar(256) // e.g., "CIPA 2026/2027"
+  startDate   DateTime  @map("start_date")
+  endDate     DateTime  @map("end_date") // Typically 1 year
+  status      String    @default("ACTIVE") @db.VarChar(16) // ACTIVE, EXPIRED, DRAFT
+  electionDate DateTime? @map("election_date")
+  notes       String?
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  tenant  Tenant       @relation(fields: [tenantId], references: [id])
+  members CipaMember[]
+
+  @@index([tenantId])
+  @@index([status])
+  @@index([startDate])
+  @@index([endDate])
+  @@map("cipa_mandates")
+}
+
+model CipaMember {
+  id           String    @id @default(uuid())
+  tenantId     String    @map("tenant_id")
+  mandateId    String    @map("mandate_id")
+  employeeId   String    @map("employee_id")
+  role         String    @db.VarChar(32) // PRESIDENTE, VICE_PRESIDENTE, SECRETARIO, MEMBRO_TITULAR, MEMBRO_SUPLENTE
+  type         String    @db.VarChar(16) // EMPREGADOR (appointed), EMPREGADO (elected)
+  isStable     Boolean   @default(false) @map("is_stable") // Elected members have job stability
+  stableUntil  DateTime? @map("stable_until") // mandate end + 1 year for elected members
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  tenant   Tenant      @relation(fields: [tenantId], references: [id])
+  mandate  CipaMandate @relation(fields: [mandateId], references: [id])
+  employee Employee    @relation(fields: [employeeId], references: [id])
+
+  @@unique([mandateId, employeeId])
+  @@index([tenantId])
+  @@index([mandateId])
+  @@index([employeeId])
+  @@map("cipa_members")
+}
+
+// ===============================================
 // COMPANY MODULE
 // ===============================================
 
@@ -5191,6 +5303,10 @@ model Tenant {
   employeeDependants      EmployeeDependant[]
   terminations            Termination[]
   medicalExams            MedicalExam[]
+  safetyPrograms          SafetyProgram[]
+  workplaceRisks          WorkplaceRisk[]
+  cipaMandates            CipaMandate[]
+  cipaMembers             CipaMember[]
   // Audit domain
   auditLogs               AuditLog[]
   // Core domain
@@ -5339,6 +5455,9 @@ model Tenant {
   // Punch Configuration domain
   punchConfiguration PunchConfiguration?
   geofenceZones      GeofenceZone[]
+
+  // HR Tenant Configuration
+  hrTenantConfig HrTenantConfig?
 
   @@index([status])
   @@index([deletedAt])
