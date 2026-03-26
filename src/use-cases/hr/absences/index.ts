@@ -7,3 +7,4 @@ export * from './list-absences';
 export * from './reject-absence';
 export * from './request-sick-leave';
 export * from './request-vacation';
+export * from './update-absence';

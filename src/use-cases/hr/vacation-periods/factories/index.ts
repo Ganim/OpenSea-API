@@ -12,3 +12,4 @@ export * from './make-schedule-vacation-split-use-case';
 export * from './make-schedule-vacation-use-case';
 export * from './make-sell-vacation-days-use-case';
 export * from './make-start-vacation-use-case';
+export * from './make-update-vacation-period-use-case';

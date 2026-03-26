@@ -195,8 +195,30 @@ export class InMemoryVacationPeriodsRepository
 
     const vacationPeriod = this.items[index];
 
-    // Update would mutate the entity - this is a simplified implementation
-    // In real scenario, you'd create a new instance or use proper update methods
+    if (data.acquisitionStart !== undefined)
+      vacationPeriod.props.acquisitionStart = data.acquisitionStart;
+    if (data.acquisitionEnd !== undefined)
+      vacationPeriod.props.acquisitionEnd = data.acquisitionEnd;
+    if (data.concessionStart !== undefined)
+      vacationPeriod.props.concessionStart = data.concessionStart;
+    if (data.concessionEnd !== undefined)
+      vacationPeriod.props.concessionEnd = data.concessionEnd;
+    if (data.totalDays !== undefined)
+      vacationPeriod.props.totalDays = data.totalDays;
+    if (data.usedDays !== undefined)
+      vacationPeriod.props.usedDays = data.usedDays;
+    if (data.soldDays !== undefined)
+      vacationPeriod.props.soldDays = data.soldDays;
+    if (data.remainingDays !== undefined)
+      vacationPeriod.props.remainingDays = data.remainingDays;
+    if (data.status !== undefined)
+      vacationPeriod.props.status = VacationStatus.create(data.status);
+    if (data.scheduledStart !== undefined)
+      vacationPeriod.props.scheduledStart = data.scheduledStart ?? undefined;
+    if (data.scheduledEnd !== undefined)
+      vacationPeriod.props.scheduledEnd = data.scheduledEnd ?? undefined;
+    if (data.notes !== undefined) vacationPeriod.props.notes = data.notes;
+    vacationPeriod.props.updatedAt = new Date();
 
     return vacationPeriod;
   }

@@ -231,8 +231,28 @@ export class InMemoryAbsencesRepository implements AbsencesRepository {
 
     const absence = this.items[index];
 
-    // Update would mutate the entity - this is a simplified implementation
-    // In real scenario, you'd create a new instance or use proper update methods
+    if (data.startDate !== undefined) absence.props.startDate = data.startDate;
+    if (data.endDate !== undefined) absence.props.endDate = data.endDate;
+    if (data.type !== undefined)
+      absence.props.type = AbsenceType.create(data.type);
+    if (data.totalDays !== undefined) absence.props.totalDays = data.totalDays;
+    if (data.status !== undefined)
+      absence.props.status = AbsenceStatus.create(data.status);
+    if (data.reason !== undefined) absence.props.reason = data.reason;
+    if (data.documentUrl !== undefined)
+      absence.props.documentUrl = data.documentUrl;
+    if (data.cid !== undefined) absence.props.cid = data.cid;
+    if (data.isPaid !== undefined) absence.props.isPaid = data.isPaid;
+    if (data.isInssResponsibility !== undefined)
+      absence.props.isInssResponsibility = data.isInssResponsibility;
+    if (data.approvedBy !== undefined)
+      absence.props.approvedBy = data.approvedBy;
+    if (data.approvedAt !== undefined)
+      absence.props.approvedAt = data.approvedAt;
+    if (data.rejectionReason !== undefined)
+      absence.props.rejectionReason = data.rejectionReason;
+    if (data.notes !== undefined) absence.props.notes = data.notes;
+    absence.props.updatedAt = new Date();
 
     return absence;
   }

@@ -11,3 +11,4 @@ export * from './list-vacation-periods';
 export * from './schedule-vacation';
 export * from './sell-vacation-days';
 export * from './start-vacation';
+export * from './update-vacation-period';

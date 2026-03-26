@@ -6,3 +6,4 @@ export * from './make-list-absences-use-case';
 export * from './make-reject-absence-use-case';
 export * from './make-request-sick-leave-use-case';
 export * from './make-request-vacation-use-case';
+export * from './make-update-absence-use-case';
