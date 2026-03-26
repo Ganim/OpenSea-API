@@ -51,7 +51,7 @@ describe('Discount Rules (E2E)', () => {
 
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty('discountRules');
-    expect(response.body).toHaveProperty('meta');
+    expect(response.body).toHaveProperty('total');
     expect(Array.isArray(response.body.discountRules)).toBe(true);
   });
 

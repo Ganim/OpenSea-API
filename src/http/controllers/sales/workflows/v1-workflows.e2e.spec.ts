@@ -58,7 +58,7 @@ describe('Workflows (E2E)', () => {
 
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty('workflows');
-    expect(response.body).toHaveProperty('meta');
+    expect(response.body).toHaveProperty('total');
     expect(Array.isArray(response.body.workflows)).toBe(true);
   });
 

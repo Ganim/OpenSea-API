@@ -60,7 +60,7 @@ describe('Conversations (E2E)', () => {
 
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty('conversations');
-    expect(response.body).toHaveProperty('meta');
+    expect(response.body).toHaveProperty('total');
     expect(Array.isArray(response.body.conversations)).toBe(true);
   });
 

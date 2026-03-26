@@ -65,7 +65,7 @@ describe('Quotes (E2E)', () => {
 
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty('quotes');
-    expect(response.body).toHaveProperty('meta');
+    expect(response.body).toHaveProperty('total');
     expect(Array.isArray(response.body.quotes)).toBe(true);
   });
 
