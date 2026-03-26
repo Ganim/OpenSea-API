@@ -76,7 +76,10 @@ export class LeadScore extends Entity<LeadScoreProps> {
   }
 
   static create(
-    props: Optional<LeadScoreProps, 'id' | 'score' | 'tier' | 'factors' | 'calculatedAt' | 'createdAt'>,
+    props: Optional<
+      LeadScoreProps,
+      'id' | 'score' | 'tier' | 'factors' | 'calculatedAt' | 'createdAt'
+    >,
     id?: UniqueEntityID,
   ): LeadScore {
     const score = props.score ?? 0;

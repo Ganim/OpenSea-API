@@ -74,8 +74,11 @@ export enum AuditEntity {
   QUOTE = 'QUOTE',
   PROPOSAL = 'PROPOSAL',
   DISCOUNT_RULE = 'DISCOUNT_RULE',
+  LEAD_ROUTING_RULE = 'LEAD_ROUTING_RULE',
   LEAD_SCORING_RULE = 'LEAD_SCORING_RULE',
   LEAD_SCORE = 'LEAD_SCORE',
+  INTEGRATION = 'INTEGRATION',
+  TENANT_INTEGRATION = 'TENANT_INTEGRATION',
   WORKFLOW = 'WORKFLOW',
   WORKFLOW_STEP = 'WORKFLOW_STEP',
   MESSAGE_TEMPLATE = 'MESSAGE_TEMPLATE',
@@ -85,18 +88,27 @@ export enum AuditEntity {
   // ==========================================
   CONVERSATION = 'CONVERSATION',
   CONVERSATION_MESSAGE = 'CONVERSATION_MESSAGE',
+  CHATBOT_CONFIG = 'CHATBOT_CONFIG',
+  DEAL_PREDICTION = 'DEAL_PREDICTION',
 
   // ==========================================
   // Forms - Formulários CRM
   // ==========================================
   FORM = 'FORM',
   FORM_SUBMISSION = 'FORM_SUBMISSION',
+  LANDING_PAGE = 'LANDING_PAGE',
 
   // ==========================================
   // Cashier - Caixa
   // ==========================================
   CASHIER_SESSION = 'CASHIER_SESSION',
   CASHIER_TRANSACTION = 'CASHIER_TRANSACTION',
+
+  // ==========================================
+  // Process Blueprints - Regras de Processo
+  // ==========================================
+  PROCESS_BLUEPRINT = 'PROCESS_BLUEPRINT',
+  BLUEPRINT_STAGE_RULE = 'BLUEPRINT_STAGE_RULE',
 
   // ==========================================
   // POS - Ponto de Venda
@@ -252,6 +264,13 @@ export enum AuditEntity {
   PLAN = 'PLAN',
   TENANT_USER = 'TENANT_USER',
   FEATURE_FLAG = 'FEATURE_FLAG',
+
+  // ==========================================
+  // Cadence Sequences
+  // ==========================================
+  CADENCE_SEQUENCE = 'CADENCE_SEQUENCE',
+  CADENCE_STEP = 'CADENCE_STEP',
+  CADENCE_ENROLLMENT = 'CADENCE_ENROLLMENT',
 
   // ==========================================
   // System

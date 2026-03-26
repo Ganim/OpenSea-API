@@ -391,6 +391,34 @@ export const SALES_AUDIT_MESSAGES = {
   } satisfies AuditMessage,
 
   // ============================================================================
+  // PROCESS BLUEPRINTS - Regras de Processo
+  // ============================================================================
+
+  /** Blueprint de processo criado */
+  BLUEPRINT_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.PROCESS_BLUEPRINT,
+    module: AuditModule.SALES,
+    description: "Blueprint '{{blueprintName}}' criado por {{userName}}",
+  } satisfies AuditMessage,
+
+  /** Blueprint de processo atualizado */
+  BLUEPRINT_UPDATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.PROCESS_BLUEPRINT,
+    module: AuditModule.SALES,
+    description: "Blueprint '{{blueprintName}}' atualizado por {{userName}}",
+  } satisfies AuditMessage,
+
+  /** Blueprint de processo excluído */
+  BLUEPRINT_DELETE: {
+    action: AuditAction.DELETE,
+    entity: AuditEntity.PROCESS_BLUEPRINT,
+    module: AuditModule.SALES,
+    description: "Blueprint '{{blueprintName}}' excluído por {{userName}}",
+  } satisfies AuditMessage,
+
+  // ============================================================================
   // PRICE TABLES - Tabelas de preço
   // ============================================================================
 
@@ -787,6 +815,77 @@ export const SALES_AUDIT_MESSAGES = {
   } satisfies AuditMessage,
 
   // ============================================================================
+  // CADENCE SEQUENCES - Sequências de Cadência
+  // ============================================================================
+
+  /** Cadência criada */
+  CADENCE_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.CADENCE_SEQUENCE,
+    module: AuditModule.SALES,
+    description: "Cadência '{{cadenceName}}' criada por {{userName}}",
+  } satisfies AuditMessage,
+
+  /** Cadência atualizada */
+  CADENCE_UPDATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.CADENCE_SEQUENCE,
+    module: AuditModule.SALES,
+    description: "Cadência '{{cadenceName}}' atualizada por {{userName}}",
+  } satisfies AuditMessage,
+
+  /** Cadência excluída */
+  CADENCE_DELETE: {
+    action: AuditAction.DELETE,
+    entity: AuditEntity.CADENCE_SEQUENCE,
+    module: AuditModule.SALES,
+    description: "Cadência '{{cadenceName}}' excluída por {{userName}}",
+  } satisfies AuditMessage,
+
+  /** Cadência ativada */
+  CADENCE_ACTIVATE: {
+    action: AuditAction.ACTIVATE,
+    entity: AuditEntity.CADENCE_SEQUENCE,
+    module: AuditModule.SALES,
+    description: "Cadência '{{cadenceName}}' ativada por {{userName}}",
+  } satisfies AuditMessage,
+
+  /** Cadência desativada */
+  CADENCE_DEACTIVATE: {
+    action: AuditAction.DEACTIVATE,
+    entity: AuditEntity.CADENCE_SEQUENCE,
+    module: AuditModule.SALES,
+    description: "Cadência '{{cadenceName}}' desativada por {{userName}}",
+  } satisfies AuditMessage,
+
+  /** Contato inscrito em cadência */
+  CADENCE_ENROLL: {
+    action: AuditAction.ENROLL,
+    entity: AuditEntity.CADENCE_ENROLLMENT,
+    module: AuditModule.SALES,
+    description:
+      "Contato inscrito na cadência '{{cadenceName}}' por {{userName}}",
+  } satisfies AuditMessage,
+
+  /** Passo da cadência avançado */
+  CADENCE_ADVANCE_STEP: {
+    action: AuditAction.ADVANCE_STEP,
+    entity: AuditEntity.CADENCE_ENROLLMENT,
+    module: AuditModule.SALES,
+    description:
+      "Passo {{stepOrder}} da cadência '{{cadenceName}}' avançado por {{userName}}",
+  } satisfies AuditMessage,
+
+  /** Ações pendentes processadas */
+  CADENCE_PROCESS_PENDING: {
+    action: AuditAction.PROCESS_PENDING,
+    entity: AuditEntity.CADENCE_ENROLLMENT,
+    module: AuditModule.SALES,
+    description:
+      '{{processedCount}} ações pendentes de cadência processadas por {{userName}}',
+  } satisfies AuditMessage,
+
+  // ============================================================================
   // PROPOSALS - Propostas Comerciais
   // ============================================================================
 
@@ -875,7 +974,8 @@ export const SALES_AUDIT_MESSAGES = {
     action: AuditAction.VALIDATE,
     entity: AuditEntity.DISCOUNT_RULE,
     module: AuditModule.SALES,
-    description: '{{userName}} validou descontos para carrinho com {{itemCount}} itens',
+    description:
+      '{{userName}} validou descontos para carrinho com {{itemCount}} itens',
   } satisfies AuditMessage,
 
   // ============================================================================
@@ -921,7 +1021,8 @@ export const SALES_AUDIT_MESSAGES = {
     action: AuditAction.EXECUTE,
     entity: AuditEntity.WORKFLOW,
     module: AuditModule.SALES,
-    description: "Workflow '{{workflowName}}' executado por {{userName}} (trigger: {{trigger}})",
+    description:
+      "Workflow '{{workflowName}}' executado por {{userName}} (trigger: {{trigger}})",
   } satisfies AuditMessage,
 
   // ============================================================================
@@ -983,24 +1084,21 @@ export const SALES_AUDIT_MESSAGES = {
     action: AuditAction.CREATE,
     entity: AuditEntity.CONVERSATION,
     module: AuditModule.SALES,
-    description:
-      "{{userName}} criou conversa '{{conversationSubject}}'",
+    description: "{{userName}} criou conversa '{{conversationSubject}}'",
   } satisfies AuditMessage,
 
   CONVERSATION_CLOSE: {
     action: AuditAction.CONVERSATION_CLOSE,
     entity: AuditEntity.CONVERSATION,
     module: AuditModule.SALES,
-    description:
-      "{{userName}} fechou conversa '{{conversationSubject}}'",
+    description: "{{userName}} fechou conversa '{{conversationSubject}}'",
   } satisfies AuditMessage,
 
   CONVERSATION_ARCHIVE: {
     action: AuditAction.CONVERSATION_ARCHIVE,
     entity: AuditEntity.CONVERSATION,
     module: AuditModule.SALES,
-    description:
-      "{{userName}} arquivou conversa '{{conversationSubject}}'",
+    description: "{{userName}} arquivou conversa '{{conversationSubject}}'",
   } satisfies AuditMessage,
 
   CONVERSATION_DELETE: {
@@ -1053,8 +1151,7 @@ export const SALES_AUDIT_MESSAGES = {
     action: AuditAction.FORM_UNPUBLISH,
     entity: AuditEntity.FORM,
     module: AuditModule.SALES,
-    description:
-      "{{userName}} despublicou formulário '{{formTitle}}'",
+    description: "{{userName}} despublicou formulário '{{formTitle}}'",
   } satisfies AuditMessage,
 
   FORM_DUPLICATE: {
@@ -1068,8 +1165,46 @@ export const SALES_AUDIT_MESSAGES = {
     action: AuditAction.FORM_SUBMIT,
     entity: AuditEntity.FORM_SUBMISSION,
     module: AuditModule.SALES,
-    description:
-      "Submissão recebida no formulário '{{formTitle}}'",
+    description: "Submissão recebida no formulário '{{formTitle}}'",
+  } satisfies AuditMessage,
+
+  // ============================================================================
+  // LANDING PAGES - Páginas de captura
+  // ============================================================================
+
+  LANDING_PAGE_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.LANDING_PAGE,
+    module: AuditModule.SALES,
+    description: "{{userName}} criou landing page '{{pageTitle}}'",
+  } satisfies AuditMessage,
+
+  LANDING_PAGE_UPDATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.LANDING_PAGE,
+    module: AuditModule.SALES,
+    description: "{{userName}} atualizou landing page '{{pageTitle}}'",
+  } satisfies AuditMessage,
+
+  LANDING_PAGE_DELETE: {
+    action: AuditAction.DELETE,
+    entity: AuditEntity.LANDING_PAGE,
+    module: AuditModule.SALES,
+    description: "{{userName}} excluiu landing page '{{pageTitle}}'",
+  } satisfies AuditMessage,
+
+  LANDING_PAGE_PUBLISH: {
+    action: AuditAction.STATUS_CHANGE,
+    entity: AuditEntity.LANDING_PAGE,
+    module: AuditModule.SALES,
+    description: "{{userName}} publicou landing page '{{pageTitle}}'",
+  } satisfies AuditMessage,
+
+  LANDING_PAGE_UNPUBLISH: {
+    action: AuditAction.STATUS_CHANGE,
+    entity: AuditEntity.LANDING_PAGE,
+    module: AuditModule.SALES,
+    description: "{{userName}} despublicou landing page '{{pageTitle}}'",
   } satisfies AuditMessage,
 
   // ============================================================================
@@ -1108,7 +1243,83 @@ export const SALES_AUDIT_MESSAGES = {
     action: AuditAction.CASH_MOVEMENT,
     entity: AuditEntity.CASHIER_TRANSACTION,
     module: AuditModule.SALES,
-    description: '{{userName}} registrou movimentação de caixa ({{movementType}})',
+    description:
+      '{{userName}} registrou movimentação de caixa ({{movementType}})',
+  } satisfies AuditMessage,
+
+  // ============================================================================
+  // LEAD SCORING - Pontuação de Leads
+  // ============================================================================
+
+  LEAD_SCORING_RULE_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.LEAD_SCORING_RULE,
+    module: AuditModule.SALES,
+    description: "Regra de scoring '{{ruleName}}' criada por {{userName}}",
+  } satisfies AuditMessage,
+
+  LEAD_SCORING_RULE_UPDATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.LEAD_SCORING_RULE,
+    module: AuditModule.SALES,
+    description: "Regra de scoring '{{ruleName}}' atualizada por {{userName}}",
+  } satisfies AuditMessage,
+
+  LEAD_SCORING_RULE_DELETE: {
+    action: AuditAction.DELETE,
+    entity: AuditEntity.LEAD_SCORING_RULE,
+    module: AuditModule.SALES,
+    description: "Regra de scoring '{{ruleName}}' excluída por {{userName}}",
+  } satisfies AuditMessage,
+
+  LEAD_SCORE_CALCULATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.LEAD_SCORE,
+    module: AuditModule.SALES,
+    description:
+      '{{userName}} calculou score do lead {{customerId}} — {{score}} ({{tier}})',
+  } satisfies AuditMessage,
+
+  LEAD_SCORE_BULK_RECALCULATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.LEAD_SCORE,
+    module: AuditModule.SALES,
+    description:
+      '{{userName}} recalculou scores de {{processedCount}} clientes',
+  } satisfies AuditMessage,
+
+  // ============================================================================
+  // LEAD ROUTING - Roteamento automático de leads
+  // ============================================================================
+
+  LEAD_ROUTING_RULE_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.LEAD_ROUTING_RULE,
+    module: AuditModule.SALES,
+    description: "Regra de roteamento '{{ruleName}}' criada por {{userName}}",
+  } satisfies AuditMessage,
+
+  LEAD_ROUTING_RULE_UPDATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.LEAD_ROUTING_RULE,
+    module: AuditModule.SALES,
+    description:
+      "Regra de roteamento '{{ruleName}}' atualizada por {{userName}}",
+  } satisfies AuditMessage,
+
+  LEAD_ROUTING_RULE_DELETE: {
+    action: AuditAction.DELETE,
+    entity: AuditEntity.LEAD_ROUTING_RULE,
+    module: AuditModule.SALES,
+    description: "Regra de roteamento '{{ruleName}}' excluída por {{userName}}",
+  } satisfies AuditMessage,
+
+  LEAD_ROUTING_EXECUTED: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.LEAD_ROUTING_RULE,
+    module: AuditModule.SALES,
+    description:
+      "Lead do cliente '{{customerName}}' roteado para {{assignedUser}} via regra '{{ruleName}}' ({{strategy}})",
   } satisfies AuditMessage,
 } as const;
 

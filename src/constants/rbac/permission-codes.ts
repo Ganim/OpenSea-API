@@ -317,6 +317,14 @@ export const PermissionCodes = {
       ACCESS: 'sales.pipelines.access' as const,
       ADMIN: 'sales.pipelines.admin' as const,
     },
+    // --- CRM: Blueprints ---
+    BLUEPRINTS: {
+      ACCESS: 'sales.blueprints.access' as const,
+      REGISTER: 'sales.blueprints.register' as const,
+      MODIFY: 'sales.blueprints.modify' as const,
+      REMOVE: 'sales.blueprints.remove' as const,
+      ADMIN: 'sales.blueprints.admin' as const,
+    },
     // --- CRM: Atividades ---
     ACTIVITIES: {
       ACCESS: 'sales.activities.access' as const,
@@ -348,6 +356,14 @@ export const PermissionCodes = {
       MODIFY: 'sales.forms.modify' as const,
       REMOVE: 'sales.forms.remove' as const,
       ADMIN: 'sales.forms.admin' as const,
+    },
+    // --- CRM: Landing Pages ---
+    LANDING_PAGES: {
+      ACCESS: 'sales.landing-pages.access' as const,
+      REGISTER: 'sales.landing-pages.register' as const,
+      MODIFY: 'sales.landing-pages.modify' as const,
+      REMOVE: 'sales.landing-pages.remove' as const,
+      ADMIN: 'sales.landing-pages.admin' as const,
     },
     // --- CRM: Propostas ---
     PROPOSALS: {
@@ -382,6 +398,13 @@ export const PermissionCodes = {
       MODIFY: 'sales.discounts.modify' as const,
       REMOVE: 'sales.discounts.remove' as const,
       ADMIN: 'sales.discounts.admin' as const,
+    },
+    LEAD_SCORING: {
+      ACCESS: 'sales.lead-scoring.access' as const,
+      REGISTER: 'sales.lead-scoring.register' as const,
+      MODIFY: 'sales.lead-scoring.modify' as const,
+      REMOVE: 'sales.lead-scoring.remove' as const,
+      ADMIN: 'sales.lead-scoring.admin' as const,
     },
     COUPONS: {
       ACCESS: 'sales.coupons.access' as const,
@@ -600,6 +623,14 @@ export const PermissionCodes = {
       MODIFY: 'sales.marketplace-payments.modify' as const,
       REMOVE: 'sales.marketplace-payments.remove' as const,
     },
+    // --- Lead Routing ---
+    LEAD_ROUTING: {
+      ACCESS: 'sales.lead-routing.access' as const,
+      REGISTER: 'sales.lead-routing.register' as const,
+      MODIFY: 'sales.lead-routing.modify' as const,
+      REMOVE: 'sales.lead-routing.remove' as const,
+      ADMIN: 'sales.lead-routing.admin' as const,
+    },
     // --- PDV ---
     POS: {
       ACCESS: 'sales.pos.access' as const,
@@ -630,6 +661,15 @@ export const PermissionCodes = {
         SUPPLY: 'sales.pos.cash.supply' as const,
       },
       RECEIVE: 'sales.pos.receive' as const,
+    },
+    // --- Cadências ---
+    CADENCES: {
+      ACCESS: 'sales.cadences.access' as const,
+      REGISTER: 'sales.cadences.register' as const,
+      MODIFY: 'sales.cadences.modify' as const,
+      REMOVE: 'sales.cadences.remove' as const,
+      ADMIN: 'sales.cadences.admin' as const,
+      EXECUTE: 'sales.cadences.execute' as const,
     },
   },
 

@@ -18,7 +18,7 @@ const createTerminalBodySchema = z.object({
   cashierMode: z.enum(['INTEGRATED', 'SEPARATED']).optional(),
   acceptsPendingOrders: z.boolean().optional(),
   defaultPriceTableId: z.string().uuid().optional(),
-  settings: z.record(z.unknown()).optional(),
+  settings: z.record(z.string(), z.unknown()).optional(),
 });
 
 const terminalResponseSchema = z.object({

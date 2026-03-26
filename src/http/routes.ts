@@ -69,6 +69,7 @@ import { msgTemplatesRoutes } from './controllers/sales/msg-templates/routes';
 import { conversationsRoutes } from './controllers/sales/conversations/routes';
 import { bidBotRoutes } from './controllers/sales/bid-bot/routes';
 import { salesCashierRoutes } from './controllers/sales/cashier/routes';
+import { leadScoringRoutes } from './controllers/sales/lead-scoring/routes';
 // Sales - Analytics
 import { analyticsGoalsRoutes } from './controllers/sales/analytics/goals/routes';
 import { analyticsDashboardsRoutes } from './controllers/sales/analytics/dashboards/routes';
@@ -196,6 +197,7 @@ import { aiCampaignsRoutes } from './controllers/ai/campaigns/routes';
 import { aiWorkflowsRoutes } from './controllers/ai/workflows/routes';
 import { aiSetupWizardRoutes } from './controllers/ai/setup-wizard/routes';
 import { aiDocumentsRoutes } from './controllers/ai/documents/routes';
+import { aiFinanceRoutes } from './controllers/ai/finance/routes';
 
 // eSocial routes
 import { esocialConfigRoutes } from './controllers/esocial/config/routes';
@@ -329,6 +331,7 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(conversationsRoutes);
   await app.register(bidBotRoutes);
   await app.register(salesCashierRoutes);
+  await app.register(leadScoringRoutes);
   await app.register(notificationsRoutes);
 
   // Sales - Analytics routes
@@ -448,6 +451,7 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(aiWorkflowsRoutes);
   await app.register(aiSetupWizardRoutes);
   await app.register(aiDocumentsRoutes);
+  await app.register(aiFinanceRoutes);
 
   // Messaging routes
   await app.register(messagingRoutes);
