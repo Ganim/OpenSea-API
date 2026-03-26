@@ -831,6 +831,39 @@ export const PermissionCodes = {
       ADMIN: 'system.self.admin' as const,
     },
   },
+
+  // ============================================================================
+  // ESOCIAL — eSocial compliance module
+  // ============================================================================
+  ESOCIAL: {
+    CONFIG: {
+      ACCESS: 'esocial.config.access' as const,
+      MODIFY: 'esocial.config.modify' as const,
+      ADMIN: 'esocial.config.admin' as const,
+    },
+    EVENTS: {
+      ACCESS: 'esocial.events.access' as const,
+      REGISTER: 'esocial.events.register' as const,
+      MODIFY: 'esocial.events.modify' as const,
+      REMOVE: 'esocial.events.remove' as const,
+      APPROVE: 'esocial.events.approve' as const,
+      TRANSMIT: 'esocial.events.transmit' as const,
+      EXPORT: 'esocial.events.export' as const,
+    },
+    RUBRICAS: {
+      ACCESS: 'esocial.rubricas.access' as const,
+      REGISTER: 'esocial.rubricas.register' as const,
+      MODIFY: 'esocial.rubricas.modify' as const,
+      REMOVE: 'esocial.rubricas.remove' as const,
+    },
+    TABLES: {
+      ACCESS: 'esocial.tables.access' as const,
+    },
+    CERTIFICATES: {
+      ACCESS: 'esocial.certificates.access' as const,
+      ADMIN: 'esocial.certificates.admin' as const,
+    },
+  },
 } as const;
 
 // =============================================================================

@@ -35,3 +35,4 @@ export * from './hr.schema'; // → ./hr/* (28 arquivos modulares - includes man
 export * from './sales.schema'; // → ./sales/* (16 arquivos modulares)
 export * from './stock.schema'; // → ./stock/* (24 arquivos modulares + product.schema compatibility)
 export * from './rbac.schema'; // → ./rbac/* (schemas RBAC)
+export * from './esocial'; // → ./esocial/* (schemas eSocial)
