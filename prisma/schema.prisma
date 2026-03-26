@@ -4264,8 +4264,9 @@ model VacationPeriod {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   // Relations
-  tenant   Tenant   @relation(fields: [tenantId], references: [id])
-  employee Employee @relation(fields: [employeeId], references: [id])
+  tenant   Tenant           @relation(fields: [tenantId], references: [id])
+  employee Employee         @relation(fields: [employeeId], references: [id])
+  splits   VacationSplit[]
 
   @@index([tenantId])
   @@index([employeeId])
@@ -4274,6 +4275,29 @@ model VacationPeriod {
   @@index([concessionStart, concessionEnd])
   @@index([deletedAt])
   @@map("vacation_periods")
+}
+
+model VacationSplit {
+  id               String   @id @default(uuid())
+  vacationPeriodId String   @map("vacation_period_id")
+  splitNumber      Int      @map("split_number") // 1, 2 ou 3
+  startDate        DateTime @map("start_date")
+  endDate          DateTime @map("end_date")
+  days             Int
+  status           String   @default("SCHEDULED") @db.VarChar(16) // SCHEDULED, IN_PROGRESS, COMPLETED, CANCELLED
+  paymentDate      DateTime? @map("payment_date")
+  paymentAmount    Decimal?  @map("payment_amount") @db.Decimal(12, 2)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  vacationPeriod VacationPeriod @relation(fields: [vacationPeriodId], references: [id])
+
+  @@unique([vacationPeriodId, splitNumber])
+  @@index([vacationPeriodId])
+  @@index([status])
+  @@index([startDate, endDate])
+  @@map("vacation_splits")
 }
 
 // ===============================================
@@ -5610,10 +5634,16 @@ model FinanceEntry {
   currentInstallment Int?                   @map("current_installment")
   parentEntryId      String?                @map("parent_entry_id")
 
-  contractId String? @map("contract_id")
+  contractId  String? @map("contract_id")
+  pixChargeId String? @map("pix_charge_id")
 
   boletoBarcode   String? @map("boleto_barcode") @db.VarChar(256)
   boletoDigitLine String? @map("boleto_digit_line") @db.VarChar(256)
+
+  boletoChargeId      Int?    @map("boleto_charge_id")
+  boletoBarcodeNumber String? @map("boleto_barcode_number") @db.VarChar(64)
+  boletoDigitableLine String? @map("boleto_digitable_line") @db.VarChar(64)
+  boletoPdfUrl        String? @map("boleto_pdf_url") @db.VarChar(1024)
 
   beneficiaryName    String? @map("beneficiary_name") @db.VarChar(512)
   beneficiaryCpfCnpj String? @map("beneficiary_cpf_cnpj") @db.VarChar(20)
@@ -5635,6 +5665,8 @@ model FinanceEntry {
   parentEntry  FinanceEntry?   @relation("EntryRecurrence", fields: [parentEntryId], references: [id])
   childEntries FinanceEntry[]  @relation("EntryRecurrence")
 
+  pixCharge  PixCharge? @relation(fields: [pixChargeId], references: [id])
+
   payments              FinanceEntryPayment[]
   attachments           FinanceAttachment[]
   costCenterAllocations FinanceEntryCostCenter[]
@@ -5655,6 +5687,7 @@ model FinanceEntry {
   @@index([createdBy])
   @@index([deletedAt])
   @@index([contractId])
+  @@index([pixChargeId])
   @@index([tenantId, type, status])
   @@index([tenantId, dueDate, status])
   @@map("finance_entries")
@@ -11761,7 +11794,8 @@ model PixCharge {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   // Relations
-  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  tenant         Tenant         @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  financeEntries FinanceEntry[]
 
   @@index([tenantId])
   @@index([tenantId, status])
