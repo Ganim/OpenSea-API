@@ -5,6 +5,8 @@ import rateLimit from '@fastify/rate-limit';
 import { v1CalculateWorkedHoursController } from './v1-calculate-worked-hours.controller';
 import { v1ClockInController } from './v1-clock-in.controller';
 import { v1ClockOutController } from './v1-clock-out.controller';
+import { v1GenerateAFDController } from './v1-generate-afd.controller';
+import { v1GenerateAFDTController } from './v1-generate-afdt.controller';
 import { v1ListTimeEntriesController } from './v1-list-time-entries.controller';
 
 export async function timeControlRoutes(app: FastifyInstance) {
@@ -26,6 +28,8 @@ export async function timeControlRoutes(app: FastifyInstance) {
     async (queryApp) => {
       queryApp.register(rateLimit, rateLimitConfig.query);
       queryApp.register(v1ListTimeEntriesController);
+      queryApp.register(v1GenerateAFDController);
+      queryApp.register(v1GenerateAFDTController);
     },
     { prefix: '' },
   );
