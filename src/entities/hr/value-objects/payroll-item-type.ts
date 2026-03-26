@@ -6,7 +6,9 @@
 export type PayrollItemTypeValue =
   | 'BASE_SALARY'
   | 'OVERTIME'
+  | 'OVERTIME_100'
   | 'NIGHT_SHIFT'
+  | 'DSR'
   | 'HAZARD_PAY'
   | 'DANGER_PAY'
   | 'BONUS'
@@ -28,7 +30,9 @@ export type PayrollItemTypeValue =
 export const PayrollItemTypeEnum = {
   BASE_SALARY: 'BASE_SALARY' as const,
   OVERTIME: 'OVERTIME' as const,
+  OVERTIME_100: 'OVERTIME_100' as const,
   NIGHT_SHIFT: 'NIGHT_SHIFT' as const,
+  DSR: 'DSR' as const,
   HAZARD_PAY: 'HAZARD_PAY' as const,
   DANGER_PAY: 'DANGER_PAY' as const,
   BONUS: 'BONUS' as const,
@@ -66,7 +70,9 @@ const DEDUCTION_TYPES: PayrollItemTypeValue[] = [
 const EARNING_TYPES: PayrollItemTypeValue[] = [
   PayrollItemTypeEnum.BASE_SALARY,
   PayrollItemTypeEnum.OVERTIME,
+  PayrollItemTypeEnum.OVERTIME_100,
   PayrollItemTypeEnum.NIGHT_SHIFT,
+  PayrollItemTypeEnum.DSR,
   PayrollItemTypeEnum.HAZARD_PAY,
   PayrollItemTypeEnum.DANGER_PAY,
   PayrollItemTypeEnum.BONUS,
@@ -106,8 +112,16 @@ export class PayrollItemType {
     return new PayrollItemType(PayrollItemTypeEnum.OVERTIME);
   }
 
+  static OVERTIME_100(): PayrollItemType {
+    return new PayrollItemType(PayrollItemTypeEnum.OVERTIME_100);
+  }
+
   static NIGHT_SHIFT(): PayrollItemType {
     return new PayrollItemType(PayrollItemTypeEnum.NIGHT_SHIFT);
+  }
+
+  static DSR(): PayrollItemType {
+    return new PayrollItemType(PayrollItemTypeEnum.DSR);
   }
 
   static HAZARD_PAY(): PayrollItemType {

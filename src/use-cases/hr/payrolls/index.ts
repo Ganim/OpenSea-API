@@ -1,4 +1,6 @@
 export * from './approve-payroll';
+export * from './calculate-dsr';
+export * from './calculate-night-shift';
 export * from './calculate-payroll';
 export * from './calculate-thirteenth-salary';
 export * from './cancel-payroll';
