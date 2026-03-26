@@ -1,6 +1,7 @@
 import { prisma } from '@/lib/prisma';
 import type { TransactionClient } from '@/lib/transaction-manager';
 import { financeApprovalRulePrismaToDomain } from '@/mappers/finance/finance-approval-rule/finance-approval-rule-prisma-to-domain';
+import { Prisma } from '@prisma/generated/client.js';
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { FinanceApprovalRule } from '@/entities/finance/finance-approval-rule';
 import type {
@@ -31,7 +32,7 @@ export class PrismaFinanceApprovalRulesRepository
         isActive: data.isActive ?? true,
         action: data.action,
         maxAmount: data.maxAmount,
-        conditions: data.conditions ?? {},
+        conditions: (data.conditions ?? {}) as Prisma.InputJsonValue,
         priority: data.priority ?? 0,
       },
     });
@@ -74,7 +75,7 @@ export class PrismaFinanceApprovalRulesRepository
     const limit = options.limit ?? 20;
     const skip = (page - 1) * limit;
 
-    const where: Record<string, unknown> = {
+    const where: Prisma.FinanceApprovalRuleWhereInput = {
       tenantId: options.tenantId,
       deletedAt: null,
     };
