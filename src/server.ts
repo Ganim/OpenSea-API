@@ -9,6 +9,7 @@ import { prisma } from './lib/prisma';
 import { moduleLoadStart } from './startup-banner';
 import { getWorkflowScheduler } from './services/ai-workflows/workflow-scheduler';
 import { getInsightScheduler } from './services/ai-insights/insight-scheduler';
+import { getFinanceScheduler } from './services/finance/finance-scheduler';
 
 let isShuttingDown = false;
 const SHUTDOWN_TIMEOUT_MS = 15_000;
@@ -126,9 +127,10 @@ async function gracefulShutdown(signal: string) {
   shutdownTimer.unref();
 
   try {
-    // Stop AI schedulers
+    // Stop all schedulers
     getWorkflowScheduler().stop();
     getInsightScheduler().stop();
+    getFinanceScheduler().stop();
 
     // Close HTTP server (stop accepting new connections)
     await app.close();
@@ -214,6 +216,10 @@ async function start() {
     // Start AI insight scheduler (proactive insights every 6 hours)
     const insightScheduler = getInsightScheduler();
     insightScheduler.start();
+
+    // Start finance scheduler (recurring entries, escalations, bank sync)
+    const financeScheduler = getFinanceScheduler();
+    financeScheduler.start();
   } catch (err) {
     const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
     console.error(`[startup] Failed after ${elapsed}s:`, err);
