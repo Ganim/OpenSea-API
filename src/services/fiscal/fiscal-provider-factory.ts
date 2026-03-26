@@ -1,6 +1,9 @@
 import type { FiscalProvider as FiscalProviderType } from '@/entities/fiscal/fiscal-config';
 import type { FiscalProvider } from './fiscal-provider.interface';
+import { FocusNFeProvider } from './focus-nfe.provider';
+import { NFeWizardProvider } from './nfewizard.provider';
 import { NuvemFiscalProvider } from './nuvem-fiscal.provider';
+import { WebmaniaBRProvider } from './webmaniabr.provider';
 
 const providerInstances = new Map<FiscalProviderType, FiscalProvider>();
 
@@ -8,8 +11,6 @@ const providerInstances = new Map<FiscalProviderType, FiscalProvider>();
  * Returns a FiscalProvider implementation based on the provider type.
  *
  * Uses a singleton cache to avoid re-instantiation on every call.
- * Additional providers (FOCUS_NFE, WEBMANIABR, NFEWIZARD) can be
- * registered here as they are implemented.
  */
 export function getFiscalProvider(
   providerType: FiscalProviderType,
@@ -25,22 +26,16 @@ export function getFiscalProvider(
       break;
 
     case 'FOCUS_NFE':
-      // TODO: Implement FocusNFeProvider
-      throw new Error(
-        'FOCUS_NFE provider is not yet implemented. Use NUVEM_FISCAL.',
-      );
+      provider = new FocusNFeProvider();
+      break;
 
     case 'WEBMANIABR':
-      // TODO: Implement WebmaniaBRProvider
-      throw new Error(
-        'WEBMANIABR provider is not yet implemented. Use NUVEM_FISCAL.',
-      );
+      provider = new WebmaniaBRProvider();
+      break;
 
     case 'NFEWIZARD':
-      // TODO: Implement NFeWizardProvider
-      throw new Error(
-        'NFEWIZARD provider is not yet implemented. Use NUVEM_FISCAL.',
-      );
+      provider = new NFeWizardProvider();
+      break;
 
     default:
       throw new Error(`Unknown fiscal provider: ${providerType}`);
