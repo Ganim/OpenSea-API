@@ -136,6 +136,7 @@ export enum AuditEntity {
   TIME_BANK = 'TIME_BANK',
   PUNCH_CONFIGURATION = 'PUNCH_CONFIGURATION',
   GEOFENCE_ZONE = 'GEOFENCE_ZONE',
+  HR_TENANT_CONFIG = 'HR_TENANT_CONFIG',
 
   // ==========================================
   // HR - Ausências e Férias

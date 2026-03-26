@@ -68,6 +68,9 @@ export interface EmployeeDTO {
   workRegime: string;
   weeklyHours: number;
   photoUrl?: string | null;
+  isPregnant: boolean;
+  pregnancyStartDate?: Date | null;
+  childBirthDate?: Date | null;
   metadata: Record<string, unknown>;
   pendingIssues: string[];
   createdAt: Date;
@@ -132,6 +135,9 @@ export function employeeToDTO(employee: Employee): EmployeeDTO {
     workRegime: employee.workRegime.value,
     weeklyHours: employee.weeklyHours,
     photoUrl: employee.photoUrl ?? null,
+    isPregnant: employee.isPregnant,
+    pregnancyStartDate: employee.pregnancyStartDate ?? null,
+    childBirthDate: employee.childBirthDate ?? null,
     metadata: employee.metadata,
     pendingIssues: employee.pendingIssues,
     createdAt: employee.createdAt,

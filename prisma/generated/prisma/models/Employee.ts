@@ -112,6 +112,9 @@ export type EmployeeMinAggregateOutputType = {
   workRegime: $Enums.WorkRegime | null
   weeklyHours: runtime.Decimal | null
   photoUrl: string | null
+  isPregnant: boolean | null
+  pregnancyStartDate: Date | null
+  childBirthDate: Date | null
   deletedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -194,6 +197,9 @@ export type EmployeeMaxAggregateOutputType = {
   workRegime: $Enums.WorkRegime | null
   weeklyHours: runtime.Decimal | null
   photoUrl: string | null
+  isPregnant: boolean | null
+  pregnancyStartDate: Date | null
+  childBirthDate: Date | null
   deletedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -278,6 +284,9 @@ export type EmployeeCountAggregateOutputType = {
   workRegime: number
   weeklyHours: number
   photoUrl: number
+  isPregnant: number
+  pregnancyStartDate: number
+  childBirthDate: number
   metadata: number
   pendingIssues: number
   deletedAt: number
@@ -374,6 +383,9 @@ export type EmployeeMinAggregateInputType = {
   workRegime?: true
   weeklyHours?: true
   photoUrl?: true
+  isPregnant?: true
+  pregnancyStartDate?: true
+  childBirthDate?: true
   deletedAt?: true
   createdAt?: true
   updatedAt?: true
@@ -456,6 +468,9 @@ export type EmployeeMaxAggregateInputType = {
   workRegime?: true
   weeklyHours?: true
   photoUrl?: true
+  isPregnant?: true
+  pregnancyStartDate?: true
+  childBirthDate?: true
   deletedAt?: true
   createdAt?: true
   updatedAt?: true
@@ -540,6 +555,9 @@ export type EmployeeCountAggregateInputType = {
   workRegime?: true
   weeklyHours?: true
   photoUrl?: true
+  isPregnant?: true
+  pregnancyStartDate?: true
+  childBirthDate?: true
   metadata?: true
   pendingIssues?: true
   deletedAt?: true
@@ -713,6 +731,9 @@ export type EmployeeGroupByOutputType = {
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal
   photoUrl: string | null
+  isPregnant: boolean
+  pregnancyStartDate: Date | null
+  childBirthDate: Date | null
   metadata: runtime.JsonValue
   pendingIssues: runtime.JsonValue
   deletedAt: Date | null
@@ -822,6 +843,9 @@ export type EmployeeWhereInput = {
   workRegime?: Prisma.EnumWorkRegimeFilter<"Employee"> | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFilter<"Employee"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: Prisma.StringNullableFilter<"Employee"> | string | null
+  isPregnant?: Prisma.BoolFilter<"Employee"> | boolean
+  pregnancyStartDate?: Prisma.DateTimeNullableFilter<"Employee"> | Date | string | null
+  childBirthDate?: Prisma.DateTimeNullableFilter<"Employee"> | Date | string | null
   metadata?: Prisma.JsonFilter<"Employee">
   pendingIssues?: Prisma.JsonFilter<"Employee">
   deletedAt?: Prisma.DateTimeNullableFilter<"Employee"> | Date | string | null
@@ -846,6 +870,7 @@ export type EmployeeWhereInput = {
   dependants?: Prisma.EmployeeDependantListRelationFilter
   termination?: Prisma.XOR<Prisma.TerminationNullableScalarRelationFilter, Prisma.TerminationWhereInput> | null
   medicalExams?: Prisma.MedicalExamListRelationFilter
+  cipaMembers?: Prisma.CipaMemberListRelationFilter
   managedDepartments?: Prisma.DepartmentListRelationFilter
   company?: Prisma.XOR<Prisma.CompanyNullableScalarRelationFilter, Prisma.CompanyWhereInput> | null
 }
@@ -928,6 +953,9 @@ export type EmployeeOrderByWithRelationInput = {
   workRegime?: Prisma.SortOrder
   weeklyHours?: Prisma.SortOrder
   photoUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  isPregnant?: Prisma.SortOrder
+  pregnancyStartDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  childBirthDate?: Prisma.SortOrderInput | Prisma.SortOrder
   metadata?: Prisma.SortOrder
   pendingIssues?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -952,6 +980,7 @@ export type EmployeeOrderByWithRelationInput = {
   dependants?: Prisma.EmployeeDependantOrderByRelationAggregateInput
   termination?: Prisma.TerminationOrderByWithRelationInput
   medicalExams?: Prisma.MedicalExamOrderByRelationAggregateInput
+  cipaMembers?: Prisma.CipaMemberOrderByRelationAggregateInput
   managedDepartments?: Prisma.DepartmentOrderByRelationAggregateInput
   company?: Prisma.CompanyOrderByWithRelationInput
 }
@@ -1040,6 +1069,9 @@ export type EmployeeWhereUniqueInput = Prisma.AtLeast<{
   workRegime?: Prisma.EnumWorkRegimeFilter<"Employee"> | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFilter<"Employee"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: Prisma.StringNullableFilter<"Employee"> | string | null
+  isPregnant?: Prisma.BoolFilter<"Employee"> | boolean
+  pregnancyStartDate?: Prisma.DateTimeNullableFilter<"Employee"> | Date | string | null
+  childBirthDate?: Prisma.DateTimeNullableFilter<"Employee"> | Date | string | null
   metadata?: Prisma.JsonFilter<"Employee">
   pendingIssues?: Prisma.JsonFilter<"Employee">
   deletedAt?: Prisma.DateTimeNullableFilter<"Employee"> | Date | string | null
@@ -1064,6 +1096,7 @@ export type EmployeeWhereUniqueInput = Prisma.AtLeast<{
   dependants?: Prisma.EmployeeDependantListRelationFilter
   termination?: Prisma.XOR<Prisma.TerminationNullableScalarRelationFilter, Prisma.TerminationWhereInput> | null
   medicalExams?: Prisma.MedicalExamListRelationFilter
+  cipaMembers?: Prisma.CipaMemberListRelationFilter
   managedDepartments?: Prisma.DepartmentListRelationFilter
   company?: Prisma.XOR<Prisma.CompanyNullableScalarRelationFilter, Prisma.CompanyWhereInput> | null
 }, "id" | "userId" | "employees_registration_tenant_unique_active" | "employees_cpf_tenant_unique_active" | "employees_pis_tenant_unique_active">
@@ -1146,6 +1179,9 @@ export type EmployeeOrderByWithAggregationInput = {
   workRegime?: Prisma.SortOrder
   weeklyHours?: Prisma.SortOrder
   photoUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  isPregnant?: Prisma.SortOrder
+  pregnancyStartDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  childBirthDate?: Prisma.SortOrderInput | Prisma.SortOrder
   metadata?: Prisma.SortOrder
   pendingIssues?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -1240,6 +1276,9 @@ export type EmployeeScalarWhereWithAggregatesInput = {
   workRegime?: Prisma.EnumWorkRegimeWithAggregatesFilter<"Employee"> | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalWithAggregatesFilter<"Employee"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: Prisma.StringNullableWithAggregatesFilter<"Employee"> | string | null
+  isPregnant?: Prisma.BoolWithAggregatesFilter<"Employee"> | boolean
+  pregnancyStartDate?: Prisma.DateTimeNullableWithAggregatesFilter<"Employee"> | Date | string | null
+  childBirthDate?: Prisma.DateTimeNullableWithAggregatesFilter<"Employee"> | Date | string | null
   metadata?: Prisma.JsonWithAggregatesFilter<"Employee">
   pendingIssues?: Prisma.JsonWithAggregatesFilter<"Employee">
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Employee"> | Date | string | null
@@ -1320,6 +1359,9 @@ export type EmployeeCreateInput = {
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Date | string | null
@@ -1343,6 +1385,7 @@ export type EmployeeCreateInput = {
   dependants?: Prisma.EmployeeDependantCreateNestedManyWithoutEmployeeInput
   termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
 }
@@ -1425,6 +1468,9 @@ export type EmployeeUncheckedCreateInput = {
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Date | string | null
@@ -1443,6 +1489,7 @@ export type EmployeeUncheckedCreateInput = {
   dependants?: Prisma.EmployeeDependantUncheckedCreateNestedManyWithoutEmployeeInput
   termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberUncheckedCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
 }
 
@@ -1518,6 +1565,9 @@ export type EmployeeUpdateInput = {
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1541,6 +1591,7 @@ export type EmployeeUpdateInput = {
   dependants?: Prisma.EmployeeDependantUpdateManyWithoutEmployeeNestedInput
   termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
 }
@@ -1623,6 +1674,9 @@ export type EmployeeUncheckedUpdateInput = {
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1641,6 +1695,7 @@ export type EmployeeUncheckedUpdateInput = {
   dependants?: Prisma.EmployeeDependantUncheckedUpdateManyWithoutEmployeeNestedInput
   termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUncheckedUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
 }
 
@@ -1722,6 +1777,9 @@ export type EmployeeCreateManyInput = {
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Date | string | null
@@ -1802,6 +1860,9 @@ export type EmployeeUpdateManyMutationInput = {
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1887,6 +1948,9 @@ export type EmployeeUncheckedUpdateManyInput = {
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2006,6 +2070,9 @@ export type EmployeeCountOrderByAggregateInput = {
   workRegime?: Prisma.SortOrder
   weeklyHours?: Prisma.SortOrder
   photoUrl?: Prisma.SortOrder
+  isPregnant?: Prisma.SortOrder
+  pregnancyStartDate?: Prisma.SortOrder
+  childBirthDate?: Prisma.SortOrder
   metadata?: Prisma.SortOrder
   pendingIssues?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -2095,6 +2162,9 @@ export type EmployeeMaxOrderByAggregateInput = {
   workRegime?: Prisma.SortOrder
   weeklyHours?: Prisma.SortOrder
   photoUrl?: Prisma.SortOrder
+  isPregnant?: Prisma.SortOrder
+  pregnancyStartDate?: Prisma.SortOrder
+  childBirthDate?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -2177,6 +2247,9 @@ export type EmployeeMinOrderByAggregateInput = {
   workRegime?: Prisma.SortOrder
   weeklyHours?: Prisma.SortOrder
   photoUrl?: Prisma.SortOrder
+  isPregnant?: Prisma.SortOrder
+  pregnancyStartDate?: Prisma.SortOrder
+  childBirthDate?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -2591,6 +2664,20 @@ export type EmployeeUpdateOneRequiredWithoutMedicalExamsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.EmployeeUpdateToOneWithWhereWithoutMedicalExamsInput, Prisma.EmployeeUpdateWithoutMedicalExamsInput>, Prisma.EmployeeUncheckedUpdateWithoutMedicalExamsInput>
 }
 
+export type EmployeeCreateNestedOneWithoutCipaMembersInput = {
+  create?: Prisma.XOR<Prisma.EmployeeCreateWithoutCipaMembersInput, Prisma.EmployeeUncheckedCreateWithoutCipaMembersInput>
+  connectOrCreate?: Prisma.EmployeeCreateOrConnectWithoutCipaMembersInput
+  connect?: Prisma.EmployeeWhereUniqueInput
+}
+
+export type EmployeeUpdateOneRequiredWithoutCipaMembersNestedInput = {
+  create?: Prisma.XOR<Prisma.EmployeeCreateWithoutCipaMembersInput, Prisma.EmployeeUncheckedCreateWithoutCipaMembersInput>
+  connectOrCreate?: Prisma.EmployeeCreateOrConnectWithoutCipaMembersInput
+  upsert?: Prisma.EmployeeUpsertWithoutCipaMembersInput
+  connect?: Prisma.EmployeeWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.EmployeeUpdateToOneWithWhereWithoutCipaMembersInput, Prisma.EmployeeUpdateWithoutCipaMembersInput>, Prisma.EmployeeUncheckedUpdateWithoutCipaMembersInput>
+}
+
 export type EmployeeCreateNestedManyWithoutCompanyInput = {
   create?: Prisma.XOR<Prisma.EmployeeCreateWithoutCompanyInput, Prisma.EmployeeUncheckedCreateWithoutCompanyInput> | Prisma.EmployeeCreateWithoutCompanyInput[] | Prisma.EmployeeUncheckedCreateWithoutCompanyInput[]
   connectOrCreate?: Prisma.EmployeeCreateOrConnectWithoutCompanyInput | Prisma.EmployeeCreateOrConnectWithoutCompanyInput[]
@@ -2747,6 +2834,9 @@ export type EmployeeCreateWithoutUserInput = {
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Date | string | null
@@ -2769,6 +2859,7 @@ export type EmployeeCreateWithoutUserInput = {
   dependants?: Prisma.EmployeeDependantCreateNestedManyWithoutEmployeeInput
   termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
 }
@@ -2850,6 +2941,9 @@ export type EmployeeUncheckedCreateWithoutUserInput = {
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Date | string | null
@@ -2868,6 +2962,7 @@ export type EmployeeUncheckedCreateWithoutUserInput = {
   dependants?: Prisma.EmployeeDependantUncheckedCreateNestedManyWithoutEmployeeInput
   termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberUncheckedCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
 }
 
@@ -2959,6 +3054,9 @@ export type EmployeeUpdateWithoutUserInput = {
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2981,6 +3079,7 @@ export type EmployeeUpdateWithoutUserInput = {
   dependants?: Prisma.EmployeeDependantUpdateManyWithoutEmployeeNestedInput
   termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
 }
@@ -3062,6 +3161,9 @@ export type EmployeeUncheckedUpdateWithoutUserInput = {
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3080,6 +3182,7 @@ export type EmployeeUncheckedUpdateWithoutUserInput = {
   dependants?: Prisma.EmployeeDependantUncheckedUpdateManyWithoutEmployeeNestedInput
   termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUncheckedUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
 }
 
@@ -3155,6 +3258,9 @@ export type EmployeeCreateWithoutOrganizationInput = {
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Date | string | null
@@ -3177,6 +3283,7 @@ export type EmployeeCreateWithoutOrganizationInput = {
   dependants?: Prisma.EmployeeDependantCreateNestedManyWithoutEmployeeInput
   termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
 }
@@ -3258,6 +3365,9 @@ export type EmployeeUncheckedCreateWithoutOrganizationInput = {
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Date | string | null
@@ -3276,6 +3386,7 @@ export type EmployeeUncheckedCreateWithoutOrganizationInput = {
   dependants?: Prisma.EmployeeDependantUncheckedCreateNestedManyWithoutEmployeeInput
   termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberUncheckedCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
 }
 
@@ -3386,6 +3497,9 @@ export type EmployeeScalarWhereInput = {
   workRegime?: Prisma.EnumWorkRegimeFilter<"Employee"> | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFilter<"Employee"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: Prisma.StringNullableFilter<"Employee"> | string | null
+  isPregnant?: Prisma.BoolFilter<"Employee"> | boolean
+  pregnancyStartDate?: Prisma.DateTimeNullableFilter<"Employee"> | Date | string | null
+  childBirthDate?: Prisma.DateTimeNullableFilter<"Employee"> | Date | string | null
   metadata?: Prisma.JsonFilter<"Employee">
   pendingIssues?: Prisma.JsonFilter<"Employee">
   deletedAt?: Prisma.DateTimeNullableFilter<"Employee"> | Date | string | null
@@ -3466,6 +3580,9 @@ export type EmployeeCreateWithoutSubordinatesInput = {
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Date | string | null
@@ -3488,6 +3605,7 @@ export type EmployeeCreateWithoutSubordinatesInput = {
   dependants?: Prisma.EmployeeDependantCreateNestedManyWithoutEmployeeInput
   termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
 }
@@ -3570,6 +3688,9 @@ export type EmployeeUncheckedCreateWithoutSubordinatesInput = {
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Date | string | null
@@ -3587,6 +3708,7 @@ export type EmployeeUncheckedCreateWithoutSubordinatesInput = {
   dependants?: Prisma.EmployeeDependantUncheckedCreateNestedManyWithoutEmployeeInput
   termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberUncheckedCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
 }
 
@@ -3667,6 +3789,9 @@ export type EmployeeCreateWithoutSupervisorInput = {
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Date | string | null
@@ -3689,6 +3814,7 @@ export type EmployeeCreateWithoutSupervisorInput = {
   dependants?: Prisma.EmployeeDependantCreateNestedManyWithoutEmployeeInput
   termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
 }
@@ -3770,6 +3896,9 @@ export type EmployeeUncheckedCreateWithoutSupervisorInput = {
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Date | string | null
@@ -3788,6 +3917,7 @@ export type EmployeeUncheckedCreateWithoutSupervisorInput = {
   dependants?: Prisma.EmployeeDependantUncheckedCreateNestedManyWithoutEmployeeInput
   termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberUncheckedCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
 }
 
@@ -3884,6 +4014,9 @@ export type EmployeeUpdateWithoutSubordinatesInput = {
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3906,6 +4039,7 @@ export type EmployeeUpdateWithoutSubordinatesInput = {
   dependants?: Prisma.EmployeeDependantUpdateManyWithoutEmployeeNestedInput
   termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
 }
@@ -3988,6 +4122,9 @@ export type EmployeeUncheckedUpdateWithoutSubordinatesInput = {
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4005,6 +4142,7 @@ export type EmployeeUncheckedUpdateWithoutSubordinatesInput = {
   dependants?: Prisma.EmployeeDependantUncheckedUpdateManyWithoutEmployeeNestedInput
   termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUncheckedUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
 }
 
@@ -4096,6 +4234,9 @@ export type EmployeeCreateWithoutManagedDepartmentsInput = {
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Date | string | null
@@ -4119,6 +4260,7 @@ export type EmployeeCreateWithoutManagedDepartmentsInput = {
   dependants?: Prisma.EmployeeDependantCreateNestedManyWithoutEmployeeInput
   termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberCreateNestedManyWithoutEmployeeInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
 }
 
@@ -4200,6 +4342,9 @@ export type EmployeeUncheckedCreateWithoutManagedDepartmentsInput = {
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Date | string | null
@@ -4218,6 +4363,7 @@ export type EmployeeUncheckedCreateWithoutManagedDepartmentsInput = {
   dependants?: Prisma.EmployeeDependantUncheckedCreateNestedManyWithoutEmployeeInput
   termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutManagedDepartmentsInput = {
@@ -4297,6 +4443,9 @@ export type EmployeeCreateWithoutDepartmentInput = {
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Date | string | null
@@ -4319,6 +4468,7 @@ export type EmployeeCreateWithoutDepartmentInput = {
   dependants?: Prisma.EmployeeDependantCreateNestedManyWithoutEmployeeInput
   termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
 }
@@ -4400,6 +4550,9 @@ export type EmployeeUncheckedCreateWithoutDepartmentInput = {
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Date | string | null
@@ -4418,6 +4571,7 @@ export type EmployeeUncheckedCreateWithoutDepartmentInput = {
   dependants?: Prisma.EmployeeDependantUncheckedCreateNestedManyWithoutEmployeeInput
   termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberUncheckedCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
 }
 
@@ -4514,6 +4668,9 @@ export type EmployeeUpdateWithoutManagedDepartmentsInput = {
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4537,6 +4694,7 @@ export type EmployeeUpdateWithoutManagedDepartmentsInput = {
   dependants?: Prisma.EmployeeDependantUpdateManyWithoutEmployeeNestedInput
   termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUpdateManyWithoutEmployeeNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
 }
 
@@ -4618,6 +4776,9 @@ export type EmployeeUncheckedUpdateWithoutManagedDepartmentsInput = {
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4636,6 +4797,7 @@ export type EmployeeUncheckedUpdateWithoutManagedDepartmentsInput = {
   dependants?: Prisma.EmployeeDependantUncheckedUpdateManyWithoutEmployeeNestedInput
   termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUpsertWithWhereUniqueWithoutDepartmentInput = {
@@ -4726,6 +4888,9 @@ export type EmployeeCreateWithoutPositionInput = {
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Date | string | null
@@ -4748,6 +4913,7 @@ export type EmployeeCreateWithoutPositionInput = {
   dependants?: Prisma.EmployeeDependantCreateNestedManyWithoutEmployeeInput
   termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
 }
@@ -4829,6 +4995,9 @@ export type EmployeeUncheckedCreateWithoutPositionInput = {
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Date | string | null
@@ -4847,6 +5016,7 @@ export type EmployeeUncheckedCreateWithoutPositionInput = {
   dependants?: Prisma.EmployeeDependantUncheckedCreateNestedManyWithoutEmployeeInput
   termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberUncheckedCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
 }
 
@@ -4948,6 +5118,9 @@ export type EmployeeCreateWithoutTimeEntriesInput = {
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Date | string | null
@@ -4970,6 +5143,7 @@ export type EmployeeCreateWithoutTimeEntriesInput = {
   dependants?: Prisma.EmployeeDependantCreateNestedManyWithoutEmployeeInput
   termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
 }
@@ -5052,6 +5226,9 @@ export type EmployeeUncheckedCreateWithoutTimeEntriesInput = {
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Date | string | null
@@ -5069,6 +5246,7 @@ export type EmployeeUncheckedCreateWithoutTimeEntriesInput = {
   dependants?: Prisma.EmployeeDependantUncheckedCreateNestedManyWithoutEmployeeInput
   termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberUncheckedCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
 }
 
@@ -5160,6 +5338,9 @@ export type EmployeeUpdateWithoutTimeEntriesInput = {
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5182,6 +5363,7 @@ export type EmployeeUpdateWithoutTimeEntriesInput = {
   dependants?: Prisma.EmployeeDependantUpdateManyWithoutEmployeeNestedInput
   termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
 }
@@ -5264,6 +5446,9 @@ export type EmployeeUncheckedUpdateWithoutTimeEntriesInput = {
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5281,6 +5466,7 @@ export type EmployeeUncheckedUpdateWithoutTimeEntriesInput = {
   dependants?: Prisma.EmployeeDependantUncheckedUpdateManyWithoutEmployeeNestedInput
   termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUncheckedUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
 }
 
@@ -5356,6 +5542,9 @@ export type EmployeeCreateWithoutOvertimeInput = {
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Date | string | null
@@ -5378,6 +5567,7 @@ export type EmployeeCreateWithoutOvertimeInput = {
   dependants?: Prisma.EmployeeDependantCreateNestedManyWithoutEmployeeInput
   termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
 }
@@ -5460,6 +5650,9 @@ export type EmployeeUncheckedCreateWithoutOvertimeInput = {
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Date | string | null
@@ -5477,6 +5670,7 @@ export type EmployeeUncheckedCreateWithoutOvertimeInput = {
   dependants?: Prisma.EmployeeDependantUncheckedCreateNestedManyWithoutEmployeeInput
   termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberUncheckedCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
 }
 
@@ -5568,6 +5762,9 @@ export type EmployeeUpdateWithoutOvertimeInput = {
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5590,6 +5787,7 @@ export type EmployeeUpdateWithoutOvertimeInput = {
   dependants?: Prisma.EmployeeDependantUpdateManyWithoutEmployeeNestedInput
   termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
 }
@@ -5672,6 +5870,9 @@ export type EmployeeUncheckedUpdateWithoutOvertimeInput = {
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5689,6 +5890,7 @@ export type EmployeeUncheckedUpdateWithoutOvertimeInput = {
   dependants?: Prisma.EmployeeDependantUncheckedUpdateManyWithoutEmployeeNestedInput
   termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUncheckedUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
 }
 
@@ -5764,6 +5966,9 @@ export type EmployeeCreateWithoutTimeBanksInput = {
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Date | string | null
@@ -5786,6 +5991,7 @@ export type EmployeeCreateWithoutTimeBanksInput = {
   dependants?: Prisma.EmployeeDependantCreateNestedManyWithoutEmployeeInput
   termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
 }
@@ -5868,6 +6074,9 @@ export type EmployeeUncheckedCreateWithoutTimeBanksInput = {
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Date | string | null
@@ -5885,6 +6094,7 @@ export type EmployeeUncheckedCreateWithoutTimeBanksInput = {
   dependants?: Prisma.EmployeeDependantUncheckedCreateNestedManyWithoutEmployeeInput
   termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberUncheckedCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
 }
 
@@ -5976,6 +6186,9 @@ export type EmployeeUpdateWithoutTimeBanksInput = {
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5998,6 +6211,7 @@ export type EmployeeUpdateWithoutTimeBanksInput = {
   dependants?: Prisma.EmployeeDependantUpdateManyWithoutEmployeeNestedInput
   termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
 }
@@ -6080,6 +6294,9 @@ export type EmployeeUncheckedUpdateWithoutTimeBanksInput = {
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6097,6 +6314,7 @@ export type EmployeeUncheckedUpdateWithoutTimeBanksInput = {
   dependants?: Prisma.EmployeeDependantUncheckedUpdateManyWithoutEmployeeNestedInput
   termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUncheckedUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
 }
 
@@ -6172,6 +6390,9 @@ export type EmployeeCreateWithoutAbsencesInput = {
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Date | string | null
@@ -6194,6 +6415,7 @@ export type EmployeeCreateWithoutAbsencesInput = {
   dependants?: Prisma.EmployeeDependantCreateNestedManyWithoutEmployeeInput
   termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
 }
@@ -6276,6 +6498,9 @@ export type EmployeeUncheckedCreateWithoutAbsencesInput = {
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Date | string | null
@@ -6293,6 +6518,7 @@ export type EmployeeUncheckedCreateWithoutAbsencesInput = {
   dependants?: Prisma.EmployeeDependantUncheckedCreateNestedManyWithoutEmployeeInput
   termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberUncheckedCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
 }
 
@@ -6384,6 +6610,9 @@ export type EmployeeUpdateWithoutAbsencesInput = {
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6406,6 +6635,7 @@ export type EmployeeUpdateWithoutAbsencesInput = {
   dependants?: Prisma.EmployeeDependantUpdateManyWithoutEmployeeNestedInput
   termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
 }
@@ -6488,6 +6718,9 @@ export type EmployeeUncheckedUpdateWithoutAbsencesInput = {
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6505,6 +6738,7 @@ export type EmployeeUncheckedUpdateWithoutAbsencesInput = {
   dependants?: Prisma.EmployeeDependantUncheckedUpdateManyWithoutEmployeeNestedInput
   termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUncheckedUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
 }
 
@@ -6580,6 +6814,9 @@ export type EmployeeCreateWithoutVacationPeriodsInput = {
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Date | string | null
@@ -6602,6 +6839,7 @@ export type EmployeeCreateWithoutVacationPeriodsInput = {
   dependants?: Prisma.EmployeeDependantCreateNestedManyWithoutEmployeeInput
   termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
 }
@@ -6684,6 +6922,9 @@ export type EmployeeUncheckedCreateWithoutVacationPeriodsInput = {
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Date | string | null
@@ -6701,6 +6942,7 @@ export type EmployeeUncheckedCreateWithoutVacationPeriodsInput = {
   dependants?: Prisma.EmployeeDependantUncheckedCreateNestedManyWithoutEmployeeInput
   termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberUncheckedCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
 }
 
@@ -6792,6 +7034,9 @@ export type EmployeeUpdateWithoutVacationPeriodsInput = {
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6814,6 +7059,7 @@ export type EmployeeUpdateWithoutVacationPeriodsInput = {
   dependants?: Prisma.EmployeeDependantUpdateManyWithoutEmployeeNestedInput
   termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
 }
@@ -6896,6 +7142,9 @@ export type EmployeeUncheckedUpdateWithoutVacationPeriodsInput = {
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6913,6 +7162,7 @@ export type EmployeeUncheckedUpdateWithoutVacationPeriodsInput = {
   dependants?: Prisma.EmployeeDependantUncheckedUpdateManyWithoutEmployeeNestedInput
   termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUncheckedUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
 }
 
@@ -6988,6 +7238,9 @@ export type EmployeeCreateWithoutPayrollItemsInput = {
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Date | string | null
@@ -7010,6 +7263,7 @@ export type EmployeeCreateWithoutPayrollItemsInput = {
   dependants?: Prisma.EmployeeDependantCreateNestedManyWithoutEmployeeInput
   termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
 }
@@ -7092,6 +7346,9 @@ export type EmployeeUncheckedCreateWithoutPayrollItemsInput = {
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Date | string | null
@@ -7109,6 +7366,7 @@ export type EmployeeUncheckedCreateWithoutPayrollItemsInput = {
   dependants?: Prisma.EmployeeDependantUncheckedCreateNestedManyWithoutEmployeeInput
   termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberUncheckedCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
 }
 
@@ -7200,6 +7458,9 @@ export type EmployeeUpdateWithoutPayrollItemsInput = {
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7222,6 +7483,7 @@ export type EmployeeUpdateWithoutPayrollItemsInput = {
   dependants?: Prisma.EmployeeDependantUpdateManyWithoutEmployeeNestedInput
   termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
 }
@@ -7304,6 +7566,9 @@ export type EmployeeUncheckedUpdateWithoutPayrollItemsInput = {
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7321,6 +7586,7 @@ export type EmployeeUncheckedUpdateWithoutPayrollItemsInput = {
   dependants?: Prisma.EmployeeDependantUncheckedUpdateManyWithoutEmployeeNestedInput
   termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUncheckedUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
 }
 
@@ -7396,6 +7662,9 @@ export type EmployeeCreateWithoutBonusesInput = {
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Date | string | null
@@ -7418,6 +7687,7 @@ export type EmployeeCreateWithoutBonusesInput = {
   dependants?: Prisma.EmployeeDependantCreateNestedManyWithoutEmployeeInput
   termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
 }
@@ -7500,6 +7770,9 @@ export type EmployeeUncheckedCreateWithoutBonusesInput = {
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Date | string | null
@@ -7517,6 +7790,7 @@ export type EmployeeUncheckedCreateWithoutBonusesInput = {
   dependants?: Prisma.EmployeeDependantUncheckedCreateNestedManyWithoutEmployeeInput
   termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberUncheckedCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
 }
 
@@ -7608,6 +7882,9 @@ export type EmployeeUpdateWithoutBonusesInput = {
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7630,6 +7907,7 @@ export type EmployeeUpdateWithoutBonusesInput = {
   dependants?: Prisma.EmployeeDependantUpdateManyWithoutEmployeeNestedInput
   termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
 }
@@ -7712,6 +7990,9 @@ export type EmployeeUncheckedUpdateWithoutBonusesInput = {
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7729,6 +8010,7 @@ export type EmployeeUncheckedUpdateWithoutBonusesInput = {
   dependants?: Prisma.EmployeeDependantUncheckedUpdateManyWithoutEmployeeNestedInput
   termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUncheckedUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
 }
 
@@ -7804,6 +8086,9 @@ export type EmployeeCreateWithoutDeductionsInput = {
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Date | string | null
@@ -7826,6 +8111,7 @@ export type EmployeeCreateWithoutDeductionsInput = {
   dependants?: Prisma.EmployeeDependantCreateNestedManyWithoutEmployeeInput
   termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
 }
@@ -7908,6 +8194,9 @@ export type EmployeeUncheckedCreateWithoutDeductionsInput = {
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Date | string | null
@@ -7925,6 +8214,7 @@ export type EmployeeUncheckedCreateWithoutDeductionsInput = {
   dependants?: Prisma.EmployeeDependantUncheckedCreateNestedManyWithoutEmployeeInput
   termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberUncheckedCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
 }
 
@@ -8016,6 +8306,9 @@ export type EmployeeUpdateWithoutDeductionsInput = {
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8038,6 +8331,7 @@ export type EmployeeUpdateWithoutDeductionsInput = {
   dependants?: Prisma.EmployeeDependantUpdateManyWithoutEmployeeNestedInput
   termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
 }
@@ -8120,6 +8414,9 @@ export type EmployeeUncheckedUpdateWithoutDeductionsInput = {
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8137,6 +8434,7 @@ export type EmployeeUncheckedUpdateWithoutDeductionsInput = {
   dependants?: Prisma.EmployeeDependantUncheckedUpdateManyWithoutEmployeeNestedInput
   termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUncheckedUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
 }
 
@@ -8212,6 +8510,9 @@ export type EmployeeCreateWithoutDependantsInput = {
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Date | string | null
@@ -8234,6 +8535,7 @@ export type EmployeeCreateWithoutDependantsInput = {
   deductions?: Prisma.DeductionCreateNestedManyWithoutEmployeeInput
   termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
 }
@@ -8316,6 +8618,9 @@ export type EmployeeUncheckedCreateWithoutDependantsInput = {
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Date | string | null
@@ -8333,6 +8638,7 @@ export type EmployeeUncheckedCreateWithoutDependantsInput = {
   deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutEmployeeInput
   termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberUncheckedCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
 }
 
@@ -8424,6 +8730,9 @@ export type EmployeeUpdateWithoutDependantsInput = {
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8446,6 +8755,7 @@ export type EmployeeUpdateWithoutDependantsInput = {
   deductions?: Prisma.DeductionUpdateManyWithoutEmployeeNestedInput
   termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
 }
@@ -8528,6 +8838,9 @@ export type EmployeeUncheckedUpdateWithoutDependantsInput = {
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8545,6 +8858,7 @@ export type EmployeeUncheckedUpdateWithoutDependantsInput = {
   deductions?: Prisma.DeductionUncheckedUpdateManyWithoutEmployeeNestedInput
   termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUncheckedUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
 }
 
@@ -8620,6 +8934,9 @@ export type EmployeeCreateWithoutTerminationInput = {
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Date | string | null
@@ -8642,6 +8959,7 @@ export type EmployeeCreateWithoutTerminationInput = {
   deductions?: Prisma.DeductionCreateNestedManyWithoutEmployeeInput
   dependants?: Prisma.EmployeeDependantCreateNestedManyWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
 }
@@ -8724,6 +9042,9 @@ export type EmployeeUncheckedCreateWithoutTerminationInput = {
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Date | string | null
@@ -8741,6 +9062,7 @@ export type EmployeeUncheckedCreateWithoutTerminationInput = {
   deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutEmployeeInput
   dependants?: Prisma.EmployeeDependantUncheckedCreateNestedManyWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberUncheckedCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
 }
 
@@ -8832,6 +9154,9 @@ export type EmployeeUpdateWithoutTerminationInput = {
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8854,6 +9179,7 @@ export type EmployeeUpdateWithoutTerminationInput = {
   deductions?: Prisma.DeductionUpdateManyWithoutEmployeeNestedInput
   dependants?: Prisma.EmployeeDependantUpdateManyWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
 }
@@ -8936,6 +9262,9 @@ export type EmployeeUncheckedUpdateWithoutTerminationInput = {
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8953,6 +9282,7 @@ export type EmployeeUncheckedUpdateWithoutTerminationInput = {
   deductions?: Prisma.DeductionUncheckedUpdateManyWithoutEmployeeNestedInput
   dependants?: Prisma.EmployeeDependantUncheckedUpdateManyWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUncheckedUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
 }
 
@@ -9028,6 +9358,9 @@ export type EmployeeCreateWithoutMedicalExamsInput = {
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Date | string | null
@@ -9050,6 +9383,7 @@ export type EmployeeCreateWithoutMedicalExamsInput = {
   deductions?: Prisma.DeductionCreateNestedManyWithoutEmployeeInput
   dependants?: Prisma.EmployeeDependantCreateNestedManyWithoutEmployeeInput
   termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
 }
@@ -9132,6 +9466,9 @@ export type EmployeeUncheckedCreateWithoutMedicalExamsInput = {
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Date | string | null
@@ -9149,6 +9486,7 @@ export type EmployeeUncheckedCreateWithoutMedicalExamsInput = {
   deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutEmployeeInput
   dependants?: Prisma.EmployeeDependantUncheckedCreateNestedManyWithoutEmployeeInput
   termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberUncheckedCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
 }
 
@@ -9240,6 +9578,9 @@ export type EmployeeUpdateWithoutMedicalExamsInput = {
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -9262,6 +9603,7 @@ export type EmployeeUpdateWithoutMedicalExamsInput = {
   deductions?: Prisma.DeductionUpdateManyWithoutEmployeeNestedInput
   dependants?: Prisma.EmployeeDependantUpdateManyWithoutEmployeeNestedInput
   termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
 }
@@ -9344,6 +9686,9 @@ export type EmployeeUncheckedUpdateWithoutMedicalExamsInput = {
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -9361,6 +9706,431 @@ export type EmployeeUncheckedUpdateWithoutMedicalExamsInput = {
   deductions?: Prisma.DeductionUncheckedUpdateManyWithoutEmployeeNestedInput
   dependants?: Prisma.EmployeeDependantUncheckedUpdateManyWithoutEmployeeNestedInput
   termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUncheckedUpdateManyWithoutEmployeeNestedInput
+  managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
+}
+
+export type EmployeeCreateWithoutCipaMembersInput = {
+  id?: string
+  registrationNumber: string
+  fullName: string
+  socialName?: string | null
+  birthDate?: Date | string | null
+  gender?: string | null
+  pcd?: boolean
+  maritalStatus?: string | null
+  nationality?: string | null
+  birthPlace?: string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf: string
+  rg?: string | null
+  rgIssuer?: string | null
+  rgIssueDate?: Date | string | null
+  pis?: string | null
+  ctpsNumber?: string | null
+  ctpsSeries?: string | null
+  ctpsState?: string | null
+  voterTitle?: string | null
+  militaryDoc?: string | null
+  email?: string | null
+  personalEmail?: string | null
+  phone?: string | null
+  mobilePhone?: string | null
+  emergencyContact?: string | null
+  emergencyPhone?: string | null
+  address?: string | null
+  addressNumber?: string | null
+  complement?: string | null
+  neighborhood?: string | null
+  city?: string | null
+  state?: string | null
+  zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
+  country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
+  bankCode?: string | null
+  bankName?: string | null
+  bankAgency?: string | null
+  bankAccount?: string | null
+  bankAccountType?: string | null
+  pixKey?: string | null
+  hireDate: Date | string
+  terminationDate?: Date | string | null
+  status?: $Enums.EmployeeStatus
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType: $Enums.ContractType
+  workRegime: $Enums.WorkRegime
+  weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
+  user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
+  department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
+  position?: Prisma.PositionCreateNestedOneWithoutEmployeesInput
+  supervisor?: Prisma.EmployeeCreateNestedOneWithoutSubordinatesInput
+  subordinates?: Prisma.EmployeeCreateNestedManyWithoutSupervisorInput
+  organization?: Prisma.OrganizationCreateNestedOneWithoutEmployeesInput
+  timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutEmployeeInput
+  absences?: Prisma.AbsenceCreateNestedManyWithoutEmployeeInput
+  payrollItems?: Prisma.PayrollItemCreateNestedManyWithoutEmployeeInput
+  overtime?: Prisma.OvertimeCreateNestedManyWithoutEmployeeInput
+  timeBanks?: Prisma.TimeBankCreateNestedManyWithoutEmployeeInput
+  vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutEmployeeInput
+  bonuses?: Prisma.BonusCreateNestedManyWithoutEmployeeInput
+  deductions?: Prisma.DeductionCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
+  managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
+  company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
+}
+
+export type EmployeeUncheckedCreateWithoutCipaMembersInput = {
+  id?: string
+  tenantId: string
+  registrationNumber: string
+  userId?: string | null
+  fullName: string
+  socialName?: string | null
+  birthDate?: Date | string | null
+  gender?: string | null
+  pcd?: boolean
+  maritalStatus?: string | null
+  nationality?: string | null
+  birthPlace?: string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf: string
+  rg?: string | null
+  rgIssuer?: string | null
+  rgIssueDate?: Date | string | null
+  pis?: string | null
+  ctpsNumber?: string | null
+  ctpsSeries?: string | null
+  ctpsState?: string | null
+  voterTitle?: string | null
+  militaryDoc?: string | null
+  email?: string | null
+  personalEmail?: string | null
+  phone?: string | null
+  mobilePhone?: string | null
+  emergencyContact?: string | null
+  emergencyPhone?: string | null
+  address?: string | null
+  addressNumber?: string | null
+  complement?: string | null
+  neighborhood?: string | null
+  city?: string | null
+  state?: string | null
+  zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
+  country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
+  bankCode?: string | null
+  bankName?: string | null
+  bankAgency?: string | null
+  bankAccount?: string | null
+  bankAccountType?: string | null
+  pixKey?: string | null
+  departmentId?: string | null
+  positionId?: string | null
+  supervisorId?: string | null
+  organizationId?: string | null
+  hireDate: Date | string
+  terminationDate?: Date | string | null
+  status?: $Enums.EmployeeStatus
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType: $Enums.ContractType
+  workRegime: $Enums.WorkRegime
+  weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  companyId?: string | null
+  subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
+  timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
+  absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
+  payrollItems?: Prisma.PayrollItemUncheckedCreateNestedManyWithoutEmployeeInput
+  overtime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutEmployeeInput
+  timeBanks?: Prisma.TimeBankUncheckedCreateNestedManyWithoutEmployeeInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutEmployeeInput
+  bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutEmployeeInput
+  deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantUncheckedCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
+  managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
+}
+
+export type EmployeeCreateOrConnectWithoutCipaMembersInput = {
+  where: Prisma.EmployeeWhereUniqueInput
+  create: Prisma.XOR<Prisma.EmployeeCreateWithoutCipaMembersInput, Prisma.EmployeeUncheckedCreateWithoutCipaMembersInput>
+}
+
+export type EmployeeUpsertWithoutCipaMembersInput = {
+  update: Prisma.XOR<Prisma.EmployeeUpdateWithoutCipaMembersInput, Prisma.EmployeeUncheckedUpdateWithoutCipaMembersInput>
+  create: Prisma.XOR<Prisma.EmployeeCreateWithoutCipaMembersInput, Prisma.EmployeeUncheckedCreateWithoutCipaMembersInput>
+  where?: Prisma.EmployeeWhereInput
+}
+
+export type EmployeeUpdateToOneWithWhereWithoutCipaMembersInput = {
+  where?: Prisma.EmployeeWhereInput
+  data: Prisma.XOR<Prisma.EmployeeUpdateWithoutCipaMembersInput, Prisma.EmployeeUncheckedUpdateWithoutCipaMembersInput>
+}
+
+export type EmployeeUpdateWithoutCipaMembersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pcd?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  maritalStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthPlace?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf?: Prisma.StringFieldUpdateOperationsInput | string
+  rg?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssuer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsSeries?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsState?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  voterTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  militaryDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mobilePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  complement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  neighborhood?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccount?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
+  workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
+  weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
+  user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
+  department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
+  position?: Prisma.PositionUpdateOneWithoutEmployeesNestedInput
+  supervisor?: Prisma.EmployeeUpdateOneWithoutSubordinatesNestedInput
+  subordinates?: Prisma.EmployeeUpdateManyWithoutSupervisorNestedInput
+  organization?: Prisma.OrganizationUpdateOneWithoutEmployeesNestedInput
+  timeEntries?: Prisma.TimeEntryUpdateManyWithoutEmployeeNestedInput
+  absences?: Prisma.AbsenceUpdateManyWithoutEmployeeNestedInput
+  payrollItems?: Prisma.PayrollItemUpdateManyWithoutEmployeeNestedInput
+  overtime?: Prisma.OvertimeUpdateManyWithoutEmployeeNestedInput
+  timeBanks?: Prisma.TimeBankUpdateManyWithoutEmployeeNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutEmployeeNestedInput
+  bonuses?: Prisma.BonusUpdateManyWithoutEmployeeNestedInput
+  deductions?: Prisma.DeductionUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
+  managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
+  company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
+}
+
+export type EmployeeUncheckedUpdateWithoutCipaMembersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pcd?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  maritalStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthPlace?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf?: Prisma.StringFieldUpdateOperationsInput | string
+  rg?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssuer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsSeries?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsState?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  voterTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  militaryDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mobilePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  complement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  neighborhood?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccount?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  positionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supervisorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  organizationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
+  workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
+  weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
+  timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
+  absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
+  payrollItems?: Prisma.PayrollItemUncheckedUpdateManyWithoutEmployeeNestedInput
+  overtime?: Prisma.OvertimeUncheckedUpdateManyWithoutEmployeeNestedInput
+  timeBanks?: Prisma.TimeBankUncheckedUpdateManyWithoutEmployeeNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutEmployeeNestedInput
+  bonuses?: Prisma.BonusUncheckedUpdateManyWithoutEmployeeNestedInput
+  deductions?: Prisma.DeductionUncheckedUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUncheckedUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
 }
 
@@ -9436,6 +10206,9 @@ export type EmployeeCreateWithoutCompanyInput = {
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Date | string | null
@@ -9459,6 +10232,7 @@ export type EmployeeCreateWithoutCompanyInput = {
   dependants?: Prisma.EmployeeDependantCreateNestedManyWithoutEmployeeInput
   termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
 }
 
@@ -9540,6 +10314,9 @@ export type EmployeeUncheckedCreateWithoutCompanyInput = {
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Date | string | null
@@ -9557,6 +10334,7 @@ export type EmployeeUncheckedCreateWithoutCompanyInput = {
   dependants?: Prisma.EmployeeDependantUncheckedCreateNestedManyWithoutEmployeeInput
   termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberUncheckedCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
 }
 
@@ -9658,6 +10436,9 @@ export type EmployeeCreateWithoutTenantInput = {
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Date | string | null
@@ -9680,6 +10461,7 @@ export type EmployeeCreateWithoutTenantInput = {
   dependants?: Prisma.EmployeeDependantCreateNestedManyWithoutEmployeeInput
   termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
 }
@@ -9761,6 +10543,9 @@ export type EmployeeUncheckedCreateWithoutTenantInput = {
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Date | string | null
@@ -9779,6 +10564,7 @@ export type EmployeeUncheckedCreateWithoutTenantInput = {
   dependants?: Prisma.EmployeeDependantUncheckedCreateNestedManyWithoutEmployeeInput
   termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberUncheckedCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
 }
 
@@ -9885,6 +10671,9 @@ export type EmployeeCreateManyOrganizationInput = {
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Date | string | null
@@ -9965,6 +10754,9 @@ export type EmployeeUpdateWithoutOrganizationInput = {
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -9987,6 +10779,7 @@ export type EmployeeUpdateWithoutOrganizationInput = {
   dependants?: Prisma.EmployeeDependantUpdateManyWithoutEmployeeNestedInput
   termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
 }
@@ -10068,6 +10861,9 @@ export type EmployeeUncheckedUpdateWithoutOrganizationInput = {
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -10086,6 +10882,7 @@ export type EmployeeUncheckedUpdateWithoutOrganizationInput = {
   dependants?: Prisma.EmployeeDependantUncheckedUpdateManyWithoutEmployeeNestedInput
   termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUncheckedUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
 }
 
@@ -10166,6 +10963,9 @@ export type EmployeeUncheckedUpdateManyWithoutOrganizationInput = {
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -10251,6 +11051,9 @@ export type EmployeeCreateManySupervisorInput = {
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Date | string | null
@@ -10331,6 +11134,9 @@ export type EmployeeUpdateWithoutSupervisorInput = {
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -10353,6 +11159,7 @@ export type EmployeeUpdateWithoutSupervisorInput = {
   dependants?: Prisma.EmployeeDependantUpdateManyWithoutEmployeeNestedInput
   termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
 }
@@ -10434,6 +11241,9 @@ export type EmployeeUncheckedUpdateWithoutSupervisorInput = {
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -10452,6 +11262,7 @@ export type EmployeeUncheckedUpdateWithoutSupervisorInput = {
   dependants?: Prisma.EmployeeDependantUncheckedUpdateManyWithoutEmployeeNestedInput
   termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUncheckedUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
 }
 
@@ -10532,6 +11343,9 @@ export type EmployeeUncheckedUpdateManyWithoutSupervisorInput = {
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -10617,6 +11431,9 @@ export type EmployeeCreateManyDepartmentInput = {
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Date | string | null
@@ -10697,6 +11514,9 @@ export type EmployeeUpdateWithoutDepartmentInput = {
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -10719,6 +11539,7 @@ export type EmployeeUpdateWithoutDepartmentInput = {
   dependants?: Prisma.EmployeeDependantUpdateManyWithoutEmployeeNestedInput
   termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
 }
@@ -10800,6 +11621,9 @@ export type EmployeeUncheckedUpdateWithoutDepartmentInput = {
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -10818,6 +11642,7 @@ export type EmployeeUncheckedUpdateWithoutDepartmentInput = {
   dependants?: Prisma.EmployeeDependantUncheckedUpdateManyWithoutEmployeeNestedInput
   termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUncheckedUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
 }
 
@@ -10898,6 +11723,9 @@ export type EmployeeUncheckedUpdateManyWithoutDepartmentInput = {
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -10983,6 +11811,9 @@ export type EmployeeCreateManyPositionInput = {
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Date | string | null
@@ -11063,6 +11894,9 @@ export type EmployeeUpdateWithoutPositionInput = {
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -11085,6 +11919,7 @@ export type EmployeeUpdateWithoutPositionInput = {
   dependants?: Prisma.EmployeeDependantUpdateManyWithoutEmployeeNestedInput
   termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
 }
@@ -11166,6 +12001,9 @@ export type EmployeeUncheckedUpdateWithoutPositionInput = {
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -11184,6 +12022,7 @@ export type EmployeeUncheckedUpdateWithoutPositionInput = {
   dependants?: Prisma.EmployeeDependantUncheckedUpdateManyWithoutEmployeeNestedInput
   termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUncheckedUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
 }
 
@@ -11264,6 +12103,9 @@ export type EmployeeUncheckedUpdateManyWithoutPositionInput = {
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -11350,6 +12192,9 @@ export type EmployeeCreateManyCompanyInput = {
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Date | string | null
@@ -11429,6 +12274,9 @@ export type EmployeeUpdateWithoutCompanyInput = {
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -11452,6 +12300,7 @@ export type EmployeeUpdateWithoutCompanyInput = {
   dependants?: Prisma.EmployeeDependantUpdateManyWithoutEmployeeNestedInput
   termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
 }
 
@@ -11533,6 +12382,9 @@ export type EmployeeUncheckedUpdateWithoutCompanyInput = {
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -11550,6 +12402,7 @@ export type EmployeeUncheckedUpdateWithoutCompanyInput = {
   dependants?: Prisma.EmployeeDependantUncheckedUpdateManyWithoutEmployeeNestedInput
   termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUncheckedUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
 }
 
@@ -11631,6 +12484,9 @@ export type EmployeeUncheckedUpdateManyWithoutCompanyInput = {
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -11715,6 +12571,9 @@ export type EmployeeCreateManyTenantInput = {
   workRegime: $Enums.WorkRegime
   weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Date | string | null
@@ -11795,6 +12654,9 @@ export type EmployeeUpdateWithoutTenantInput = {
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -11817,6 +12679,7 @@ export type EmployeeUpdateWithoutTenantInput = {
   dependants?: Prisma.EmployeeDependantUpdateManyWithoutEmployeeNestedInput
   termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
 }
@@ -11898,6 +12761,9 @@ export type EmployeeUncheckedUpdateWithoutTenantInput = {
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -11916,6 +12782,7 @@ export type EmployeeUncheckedUpdateWithoutTenantInput = {
   dependants?: Prisma.EmployeeDependantUncheckedUpdateManyWithoutEmployeeNestedInput
   termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUncheckedUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
 }
 
@@ -11996,6 +12863,9 @@ export type EmployeeUncheckedUpdateManyWithoutTenantInput = {
   workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
   weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -12021,6 +12891,7 @@ export type EmployeeCountOutputType = {
   deductions: number
   dependants: number
   medicalExams: number
+  cipaMembers: number
   managedDepartments: number
 }
 
@@ -12036,6 +12907,7 @@ export type EmployeeCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensio
   deductions?: boolean | EmployeeCountOutputTypeCountDeductionsArgs
   dependants?: boolean | EmployeeCountOutputTypeCountDependantsArgs
   medicalExams?: boolean | EmployeeCountOutputTypeCountMedicalExamsArgs
+  cipaMembers?: boolean | EmployeeCountOutputTypeCountCipaMembersArgs
   managedDepartments?: boolean | EmployeeCountOutputTypeCountManagedDepartmentsArgs
 }
 
@@ -12129,6 +13001,13 @@ export type EmployeeCountOutputTypeCountMedicalExamsArgs<ExtArgs extends runtime
 /**
  * EmployeeCountOutputType without action
  */
+export type EmployeeCountOutputTypeCountCipaMembersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CipaMemberWhereInput
+}
+
+/**
+ * EmployeeCountOutputType without action
+ */
 export type EmployeeCountOutputTypeCountManagedDepartmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.DepartmentWhereInput
 }
@@ -12212,6 +13091,9 @@ export type EmployeeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   workRegime?: boolean
   weeklyHours?: boolean
   photoUrl?: boolean
+  isPregnant?: boolean
+  pregnancyStartDate?: boolean
+  childBirthDate?: boolean
   metadata?: boolean
   pendingIssues?: boolean
   deletedAt?: boolean
@@ -12236,6 +13118,7 @@ export type EmployeeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   dependants?: boolean | Prisma.Employee$dependantsArgs<ExtArgs>
   termination?: boolean | Prisma.Employee$terminationArgs<ExtArgs>
   medicalExams?: boolean | Prisma.Employee$medicalExamsArgs<ExtArgs>
+  cipaMembers?: boolean | Prisma.Employee$cipaMembersArgs<ExtArgs>
   managedDepartments?: boolean | Prisma.Employee$managedDepartmentsArgs<ExtArgs>
   company?: boolean | Prisma.Employee$companyArgs<ExtArgs>
   _count?: boolean | Prisma.EmployeeCountOutputTypeDefaultArgs<ExtArgs>
@@ -12319,6 +13202,9 @@ export type EmployeeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   workRegime?: boolean
   weeklyHours?: boolean
   photoUrl?: boolean
+  isPregnant?: boolean
+  pregnancyStartDate?: boolean
+  childBirthDate?: boolean
   metadata?: boolean
   pendingIssues?: boolean
   deletedAt?: boolean
@@ -12412,6 +13298,9 @@ export type EmployeeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   workRegime?: boolean
   weeklyHours?: boolean
   photoUrl?: boolean
+  isPregnant?: boolean
+  pregnancyStartDate?: boolean
+  childBirthDate?: boolean
   metadata?: boolean
   pendingIssues?: boolean
   deletedAt?: boolean
@@ -12505,6 +13394,9 @@ export type EmployeeSelectScalar = {
   workRegime?: boolean
   weeklyHours?: boolean
   photoUrl?: boolean
+  isPregnant?: boolean
+  pregnancyStartDate?: boolean
+  childBirthDate?: boolean
   metadata?: boolean
   pendingIssues?: boolean
   deletedAt?: boolean
@@ -12513,7 +13405,7 @@ export type EmployeeSelectScalar = {
   companyId?: boolean
 }
 
-export type EmployeeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "registrationNumber" | "userId" | "fullName" | "socialName" | "birthDate" | "gender" | "pcd" | "maritalStatus" | "nationality" | "birthPlace" | "emergencyContactInfo" | "healthConditions" | "cpf" | "rg" | "rgIssuer" | "rgIssueDate" | "pis" | "ctpsNumber" | "ctpsSeries" | "ctpsState" | "voterTitle" | "militaryDoc" | "email" | "personalEmail" | "phone" | "mobilePhone" | "emergencyContact" | "emergencyPhone" | "address" | "addressNumber" | "complement" | "neighborhood" | "city" | "state" | "zipCode" | "cpfHash" | "rgHash" | "pisHash" | "pixKeyHash" | "bankAccountHash" | "country" | "raceColor" | "educationLevel" | "motherName" | "municipalityCode" | "addressMunicipalityCode" | "cboCode" | "admissionType" | "workerCategory" | "salaryUnit" | "cnhNumber" | "cnhCategory" | "cnhExpiration" | "professionalRegistration" | "unionCode" | "fgtsOptDate" | "fgtsAccountNumber" | "bankCode" | "bankName" | "bankAgency" | "bankAccount" | "bankAccountType" | "pixKey" | "departmentId" | "positionId" | "supervisorId" | "organizationId" | "hireDate" | "terminationDate" | "status" | "baseSalary" | "contractType" | "workRegime" | "weeklyHours" | "photoUrl" | "metadata" | "pendingIssues" | "deletedAt" | "createdAt" | "updatedAt" | "companyId", ExtArgs["result"]["employee"]>
+export type EmployeeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "registrationNumber" | "userId" | "fullName" | "socialName" | "birthDate" | "gender" | "pcd" | "maritalStatus" | "nationality" | "birthPlace" | "emergencyContactInfo" | "healthConditions" | "cpf" | "rg" | "rgIssuer" | "rgIssueDate" | "pis" | "ctpsNumber" | "ctpsSeries" | "ctpsState" | "voterTitle" | "militaryDoc" | "email" | "personalEmail" | "phone" | "mobilePhone" | "emergencyContact" | "emergencyPhone" | "address" | "addressNumber" | "complement" | "neighborhood" | "city" | "state" | "zipCode" | "cpfHash" | "rgHash" | "pisHash" | "pixKeyHash" | "bankAccountHash" | "country" | "raceColor" | "educationLevel" | "motherName" | "municipalityCode" | "addressMunicipalityCode" | "cboCode" | "admissionType" | "workerCategory" | "salaryUnit" | "cnhNumber" | "cnhCategory" | "cnhExpiration" | "professionalRegistration" | "unionCode" | "fgtsOptDate" | "fgtsAccountNumber" | "bankCode" | "bankName" | "bankAgency" | "bankAccount" | "bankAccountType" | "pixKey" | "departmentId" | "positionId" | "supervisorId" | "organizationId" | "hireDate" | "terminationDate" | "status" | "baseSalary" | "contractType" | "workRegime" | "weeklyHours" | "photoUrl" | "isPregnant" | "pregnancyStartDate" | "childBirthDate" | "metadata" | "pendingIssues" | "deletedAt" | "createdAt" | "updatedAt" | "companyId", ExtArgs["result"]["employee"]>
 export type EmployeeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   user?: boolean | Prisma.Employee$userArgs<ExtArgs>
@@ -12533,6 +13425,7 @@ export type EmployeeInclude<ExtArgs extends runtime.Types.Extensions.InternalArg
   dependants?: boolean | Prisma.Employee$dependantsArgs<ExtArgs>
   termination?: boolean | Prisma.Employee$terminationArgs<ExtArgs>
   medicalExams?: boolean | Prisma.Employee$medicalExamsArgs<ExtArgs>
+  cipaMembers?: boolean | Prisma.Employee$cipaMembersArgs<ExtArgs>
   managedDepartments?: boolean | Prisma.Employee$managedDepartmentsArgs<ExtArgs>
   company?: boolean | Prisma.Employee$companyArgs<ExtArgs>
   _count?: boolean | Prisma.EmployeeCountOutputTypeDefaultArgs<ExtArgs>
@@ -12577,6 +13470,7 @@ export type $EmployeePayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     dependants: Prisma.$EmployeeDependantPayload<ExtArgs>[]
     termination: Prisma.$TerminationPayload<ExtArgs> | null
     medicalExams: Prisma.$MedicalExamPayload<ExtArgs>[]
+    cipaMembers: Prisma.$CipaMemberPayload<ExtArgs>[]
     managedDepartments: Prisma.$DepartmentPayload<ExtArgs>[]
     company: Prisma.$CompanyPayload<ExtArgs> | null
   }
@@ -12658,6 +13552,9 @@ export type $EmployeePayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     workRegime: $Enums.WorkRegime
     weeklyHours: runtime.Decimal
     photoUrl: string | null
+    isPregnant: boolean
+    pregnancyStartDate: Date | null
+    childBirthDate: Date | null
     metadata: runtime.JsonValue
     pendingIssues: runtime.JsonValue
     deletedAt: Date | null
@@ -13076,6 +13973,7 @@ export interface Prisma__EmployeeClient<T, Null = never, ExtArgs extends runtime
   dependants<T extends Prisma.Employee$dependantsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Employee$dependantsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EmployeeDependantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   termination<T extends Prisma.Employee$terminationArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Employee$terminationArgs<ExtArgs>>): Prisma.Prisma__TerminationClient<runtime.Types.Result.GetResult<Prisma.$TerminationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   medicalExams<T extends Prisma.Employee$medicalExamsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Employee$medicalExamsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MedicalExamPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  cipaMembers<T extends Prisma.Employee$cipaMembersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Employee$cipaMembersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CipaMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   managedDepartments<T extends Prisma.Employee$managedDepartmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Employee$managedDepartmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   company<T extends Prisma.Employee$companyArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Employee$companyArgs<ExtArgs>>): Prisma.Prisma__CompanyClient<runtime.Types.Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
@@ -13184,6 +14082,9 @@ export interface EmployeeFieldRefs {
   readonly workRegime: Prisma.FieldRef<"Employee", 'WorkRegime'>
   readonly weeklyHours: Prisma.FieldRef<"Employee", 'Decimal'>
   readonly photoUrl: Prisma.FieldRef<"Employee", 'String'>
+  readonly isPregnant: Prisma.FieldRef<"Employee", 'Boolean'>
+  readonly pregnancyStartDate: Prisma.FieldRef<"Employee", 'DateTime'>
+  readonly childBirthDate: Prisma.FieldRef<"Employee", 'DateTime'>
   readonly metadata: Prisma.FieldRef<"Employee", 'Json'>
   readonly pendingIssues: Prisma.FieldRef<"Employee", 'Json'>
   readonly deletedAt: Prisma.FieldRef<"Employee", 'DateTime'>
@@ -13961,6 +14862,30 @@ export type Employee$medicalExamsArgs<ExtArgs extends runtime.Types.Extensions.I
   take?: number
   skip?: number
   distinct?: Prisma.MedicalExamScalarFieldEnum | Prisma.MedicalExamScalarFieldEnum[]
+}
+
+/**
+ * Employee.cipaMembers
+ */
+export type Employee$cipaMembersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CipaMember
+   */
+  select?: Prisma.CipaMemberSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CipaMember
+   */
+  omit?: Prisma.CipaMemberOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CipaMemberInclude<ExtArgs> | null
+  where?: Prisma.CipaMemberWhereInput
+  orderBy?: Prisma.CipaMemberOrderByWithRelationInput | Prisma.CipaMemberOrderByWithRelationInput[]
+  cursor?: Prisma.CipaMemberWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CipaMemberScalarFieldEnum | Prisma.CipaMemberScalarFieldEnum[]
 }
 
 /**

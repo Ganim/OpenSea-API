@@ -139,6 +139,10 @@ export const ModelName = {
   EmployeeDependant: 'EmployeeDependant',
   Termination: 'Termination',
   MedicalExam: 'MedicalExam',
+  SafetyProgram: 'SafetyProgram',
+  WorkplaceRisk: 'WorkplaceRisk',
+  CipaMandate: 'CipaMandate',
+  CipaMember: 'CipaMember',
   Company: 'Company',
   CompanyDocument: 'CompanyDocument',
   CompanyAddress: 'CompanyAddress',
@@ -156,6 +160,7 @@ export const ModelName = {
   BankAccount: 'BankAccount',
   FinanceCategory: 'FinanceCategory',
   FinanceEntry: 'FinanceEntry',
+  FinanceEntryRetention: 'FinanceEntryRetention',
   FinanceCodeSequence: 'FinanceCodeSequence',
   FinanceEntryPayment: 'FinanceEntryPayment',
   FinanceEntryCostCenter: 'FinanceEntryCostCenter',
@@ -307,7 +312,9 @@ export const ModelName = {
   OverdueEscalationStep: 'OverdueEscalationStep',
   OverdueAction: 'OverdueAction',
   PunchConfiguration: 'PunchConfiguration',
-  GeofenceZone: 'GeofenceZone'
+  HrTenantConfig: 'HrTenantConfig',
+  GeofenceZone: 'GeofenceZone',
+  EmailToEntryConfig: 'EmailToEntryConfig'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1807,6 +1814,9 @@ export const EmployeeScalarFieldEnum = {
   workRegime: 'workRegime',
   weeklyHours: 'weeklyHours',
   photoUrl: 'photoUrl',
+  isPregnant: 'isPregnant',
+  pregnancyStartDate: 'pregnancyStartDate',
+  childBirthDate: 'childBirthDate',
   metadata: 'metadata',
   pendingIssues: 'pendingIssues',
   deletedAt: 'deletedAt',
@@ -1930,6 +1940,8 @@ export const TimeBankScalarFieldEnum = {
   balance: 'balance',
   year: 'year',
   version: 'version',
+  agreementType: 'agreementType',
+  expirationDate: 'expirationDate',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -2152,6 +2164,76 @@ export const MedicalExamScalarFieldEnum = {
 } as const
 
 export type MedicalExamScalarFieldEnum = (typeof MedicalExamScalarFieldEnum)[keyof typeof MedicalExamScalarFieldEnum]
+
+
+export const SafetyProgramScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  type: 'type',
+  name: 'name',
+  validFrom: 'validFrom',
+  validUntil: 'validUntil',
+  responsibleName: 'responsibleName',
+  responsibleRegistration: 'responsibleRegistration',
+  documentUrl: 'documentUrl',
+  status: 'status',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SafetyProgramScalarFieldEnum = (typeof SafetyProgramScalarFieldEnum)[keyof typeof SafetyProgramScalarFieldEnum]
+
+
+export const WorkplaceRiskScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  safetyProgramId: 'safetyProgramId',
+  name: 'name',
+  category: 'category',
+  severity: 'severity',
+  source: 'source',
+  affectedArea: 'affectedArea',
+  controlMeasures: 'controlMeasures',
+  epiRequired: 'epiRequired',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type WorkplaceRiskScalarFieldEnum = (typeof WorkplaceRiskScalarFieldEnum)[keyof typeof WorkplaceRiskScalarFieldEnum]
+
+
+export const CipaMandateScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  name: 'name',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  status: 'status',
+  electionDate: 'electionDate',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CipaMandateScalarFieldEnum = (typeof CipaMandateScalarFieldEnum)[keyof typeof CipaMandateScalarFieldEnum]
+
+
+export const CipaMemberScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  mandateId: 'mandateId',
+  employeeId: 'employeeId',
+  role: 'role',
+  type: 'type',
+  isStable: 'isStable',
+  stableUntil: 'stableUntil',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CipaMemberScalarFieldEnum = (typeof CipaMemberScalarFieldEnum)[keyof typeof CipaMemberScalarFieldEnum]
 
 
 export const CompanyScalarFieldEnum = {
@@ -2519,10 +2601,27 @@ export const FinanceEntryScalarFieldEnum = {
   deletedAt: 'deletedAt',
   createdBy: 'createdBy',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  fiscalDocumentId: 'fiscalDocumentId'
 } as const
 
 export type FinanceEntryScalarFieldEnum = (typeof FinanceEntryScalarFieldEnum)[keyof typeof FinanceEntryScalarFieldEnum]
+
+
+export const FinanceEntryRetentionScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  entryId: 'entryId',
+  taxType: 'taxType',
+  grossAmount: 'grossAmount',
+  rate: 'rate',
+  amount: 'amount',
+  withheld: 'withheld',
+  description: 'description',
+  createdAt: 'createdAt'
+} as const
+
+export type FinanceEntryRetentionScalarFieldEnum = (typeof FinanceEntryRetentionScalarFieldEnum)[keyof typeof FinanceEntryRetentionScalarFieldEnum]
 
 
 export const FinanceCodeSequenceScalarFieldEnum = {
@@ -5707,6 +5806,28 @@ export const PunchConfigurationScalarFieldEnum = {
 export type PunchConfigurationScalarFieldEnum = (typeof PunchConfigurationScalarFieldEnum)[keyof typeof PunchConfigurationScalarFieldEnum]
 
 
+export const HrTenantConfigScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  empresaCidadaEnabled: 'empresaCidadaEnabled',
+  maternityLeaveDays: 'maternityLeaveDays',
+  paternityLeaveDays: 'paternityLeaveDays',
+  unionContributionEnabled: 'unionContributionEnabled',
+  unionContributionRate: 'unionContributionRate',
+  patEnabled: 'patEnabled',
+  patMonthlyValuePerEmployee: 'patMonthlyValuePerEmployee',
+  timeBankIndividualMonths: 'timeBankIndividualMonths',
+  timeBankCollectiveMonths: 'timeBankCollectiveMonths',
+  ratPercent: 'ratPercent',
+  fapFactor: 'fapFactor',
+  terceirosPercent: 'terceirosPercent',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type HrTenantConfigScalarFieldEnum = (typeof HrTenantConfigScalarFieldEnum)[keyof typeof HrTenantConfigScalarFieldEnum]
+
+
 export const GeofenceZoneScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
@@ -5721,6 +5842,24 @@ export const GeofenceZoneScalarFieldEnum = {
 } as const
 
 export type GeofenceZoneScalarFieldEnum = (typeof GeofenceZoneScalarFieldEnum)[keyof typeof GeofenceZoneScalarFieldEnum]
+
+
+export const EmailToEntryConfigScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  emailAccountId: 'emailAccountId',
+  monitoredFolder: 'monitoredFolder',
+  isActive: 'isActive',
+  autoCreate: 'autoCreate',
+  defaultType: 'defaultType',
+  defaultCategoryId: 'defaultCategoryId',
+  processedCount: 'processedCount',
+  lastProcessedAt: 'lastProcessedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type EmailToEntryConfigScalarFieldEnum = (typeof EmailToEntryConfigScalarFieldEnum)[keyof typeof EmailToEntryConfigScalarFieldEnum]
 
 
 export const SortOrder = {

@@ -1666,6 +1666,23 @@ export type EnumRecurrenceUnitNullableWithAggregatesFilter<$PrismaModel = never>
   _max?: Prisma.NestedEnumRecurrenceUnitNullableFilter<$PrismaModel>
 }
 
+export type EnumRetentionTaxTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.RetentionTaxType | Prisma.EnumRetentionTaxTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.RetentionTaxType[] | Prisma.ListEnumRetentionTaxTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.RetentionTaxType[] | Prisma.ListEnumRetentionTaxTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumRetentionTaxTypeFilter<$PrismaModel> | $Enums.RetentionTaxType
+}
+
+export type EnumRetentionTaxTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.RetentionTaxType | Prisma.EnumRetentionTaxTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.RetentionTaxType[] | Prisma.ListEnumRetentionTaxTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.RetentionTaxType[] | Prisma.ListEnumRetentionTaxTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumRetentionTaxTypeWithAggregatesFilter<$PrismaModel> | $Enums.RetentionTaxType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumRetentionTaxTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumRetentionTaxTypeFilter<$PrismaModel>
+}
+
 export type EnumRecurringStatusFilter<$PrismaModel = never> = {
   equals?: $Enums.RecurringStatus | Prisma.EnumRecurringStatusFieldRefInput<$PrismaModel>
   in?: $Enums.RecurringStatus[] | Prisma.ListEnumRecurringStatusFieldRefInput<$PrismaModel>
@@ -6262,6 +6279,23 @@ export type NestedEnumRecurrenceUnitNullableWithAggregatesFilter<$PrismaModel = 
   _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
   _min?: Prisma.NestedEnumRecurrenceUnitNullableFilter<$PrismaModel>
   _max?: Prisma.NestedEnumRecurrenceUnitNullableFilter<$PrismaModel>
+}
+
+export type NestedEnumRetentionTaxTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.RetentionTaxType | Prisma.EnumRetentionTaxTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.RetentionTaxType[] | Prisma.ListEnumRetentionTaxTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.RetentionTaxType[] | Prisma.ListEnumRetentionTaxTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumRetentionTaxTypeFilter<$PrismaModel> | $Enums.RetentionTaxType
+}
+
+export type NestedEnumRetentionTaxTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.RetentionTaxType | Prisma.EnumRetentionTaxTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.RetentionTaxType[] | Prisma.ListEnumRetentionTaxTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.RetentionTaxType[] | Prisma.ListEnumRetentionTaxTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumRetentionTaxTypeWithAggregatesFilter<$PrismaModel> | $Enums.RetentionTaxType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumRetentionTaxTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumRetentionTaxTypeFilter<$PrismaModel>
 }
 
 export type NestedEnumRecurringStatusFilter<$PrismaModel = never> = {

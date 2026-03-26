@@ -20,6 +20,7 @@ import { v1UpdateEmployeeController } from './v1-update-employee.controller';
 import { v1GetEmployeesLabelDataController } from './v1-get-employees-label-data.controller';
 import { v1UploadEmployeePhotoController } from './v1-upload-employee-photo.controller';
 import { v1DeleteEmployeePhotoController } from './v1-delete-employee-photo.controller';
+import { v1GeneratePPPController } from './v1-generate-ppp.controller';
 
 export async function employeesRoutes(app: FastifyInstance) {
   app.addHook('onRequest', createModuleMiddleware('HR'));
@@ -54,6 +55,7 @@ export async function employeesRoutes(app: FastifyInstance) {
       queryApp.register(v1ListEmployeesController);
       queryApp.register(v1CheckCpfController);
       queryApp.register(v1GetEmployeesLabelDataController);
+      queryApp.register(v1GeneratePPPController);
     },
     { prefix: '' },
   );

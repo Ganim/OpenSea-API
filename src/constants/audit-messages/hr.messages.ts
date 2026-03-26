@@ -214,6 +214,18 @@ export const HR_AUDIT_MESSAGES = {
     description: '{{userName}} atualizou a configuração de ponto',
   } satisfies AuditMessage,
 
+  // ============================================================================
+  // HR TENANT CONFIG - Configuração geral de RH
+  // ============================================================================
+
+  /** Configuração de RH atualizada */
+  HR_CONFIG_UPDATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.HR_TENANT_CONFIG,
+    module: AuditModule.HR,
+    description: '{{userName}} atualizou a configuração de RH do tenant',
+  } satisfies AuditMessage,
+
   /** Zona de geofence criada */
   GEOFENCE_ZONE_CREATE: {
     action: AuditAction.CREATE,

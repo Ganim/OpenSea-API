@@ -472,6 +472,10 @@ export const ModelName = {
   EmployeeDependant: 'EmployeeDependant',
   Termination: 'Termination',
   MedicalExam: 'MedicalExam',
+  SafetyProgram: 'SafetyProgram',
+  WorkplaceRisk: 'WorkplaceRisk',
+  CipaMandate: 'CipaMandate',
+  CipaMember: 'CipaMember',
   Company: 'Company',
   CompanyDocument: 'CompanyDocument',
   CompanyAddress: 'CompanyAddress',
@@ -489,6 +493,7 @@ export const ModelName = {
   BankAccount: 'BankAccount',
   FinanceCategory: 'FinanceCategory',
   FinanceEntry: 'FinanceEntry',
+  FinanceEntryRetention: 'FinanceEntryRetention',
   FinanceCodeSequence: 'FinanceCodeSequence',
   FinanceEntryPayment: 'FinanceEntryPayment',
   FinanceEntryCostCenter: 'FinanceEntryCostCenter',
@@ -640,7 +645,9 @@ export const ModelName = {
   OverdueEscalationStep: 'OverdueEscalationStep',
   OverdueAction: 'OverdueAction',
   PunchConfiguration: 'PunchConfiguration',
-  GeofenceZone: 'GeofenceZone'
+  HrTenantConfig: 'HrTenantConfig',
+  GeofenceZone: 'GeofenceZone',
+  EmailToEntryConfig: 'EmailToEntryConfig'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -656,7 +663,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "userProfile" | "session" | "refreshToken" | "permission" | "permissionGroup" | "permissionGroupPermission" | "userPermissionGroup" | "userDirectPermission" | "permissionAuditLog" | "organization" | "organizationAddress" | "organizationCnae" | "organizationFiscalSettings" | "organizationStakeholder" | "supplier" | "manufacturer" | "category" | "warehouse" | "zone" | "bin" | "volume" | "volumeItem" | "template" | "product" | "variant" | "item" | "itemMovement" | "productCategory" | "variantPriceHistory" | "auditLog" | "tag" | "productTag" | "variantImage" | "productCareInstruction" | "productAttachment" | "variantAttachment" | "alert" | "purchaseOrder" | "purchaseOrderItem" | "unitConversion" | "stockSnapshot" | "inventorySession" | "inventorySessionItem" | "customer" | "salesOrder" | "salesOrderItem" | "crmContact" | "crmPipeline" | "crmPipelineStage" | "crmDeal" | "crmActivity" | "crmTimelineEvent" | "pipeline" | "pipelineStage" | "contact" | "deal" | "contactDeal" | "activity" | "timelineEvent" | "itemReservation" | "variantSupplierCode" | "variantPromotion" | "comment" | "notificationPreference" | "notificationTemplate" | "notification" | "request" | "requestAttachment" | "requestComment" | "requestHistory" | "employee" | "department" | "position" | "timeEntry" | "workSchedule" | "overtime" | "timeBank" | "absence" | "vacationPeriod" | "vacationSplit" | "payroll" | "payrollItem" | "bonus" | "deduction" | "employeeDependant" | "termination" | "medicalExam" | "company" | "companyDocument" | "companyAddress" | "companyCnae" | "companyFiscalSettings" | "companyStakeholder" | "labelTemplate" | "tenant" | "plan" | "planModule" | "tenantPlan" | "tenantUser" | "tenantFeatureFlag" | "costCenter" | "bankAccount" | "financeCategory" | "financeEntry" | "financeCodeSequence" | "financeEntryPayment" | "financeEntryCostCenter" | "recurringConfig" | "financeBudget" | "financeAttachment" | "bankReconciliation" | "bankReconciliationItem" | "loan" | "loanInstallment" | "consortium" | "consortiumPayment" | "contract" | "storageFolder" | "storageFile" | "storageFileVersion" | "folderAccessRule" | "storageShareLink" | "calendar" | "teamCalendarConfig" | "calendarEvent" | "eventParticipant" | "eventReminder" | "emailAccount" | "emailAccountAccess" | "emailFolder" | "emailMessage" | "emailAttachment" | "team" | "teamMember" | "teamEmailAccount" | "board" | "boardColumn" | "card" | "boardLabel" | "cardLabel" | "boardMember" | "boardCustomField" | "cardCustomFieldValue" | "cardComment" | "commentReaction" | "cardAttachment" | "cardChecklist" | "checklistItem" | "cardActivity" | "boardAutomation" | "cardWatcher" | "systemSkillDefinition" | "skillPricing" | "tenantSubscription" | "tenantConsumption" | "tenantBilling" | "tenantIntegrationStatus" | "centralUser" | "supportTicket" | "supportTicketMessage" | "supportTicketAttachment" | "supportSlaConfig" | "priceTable" | "priceTableRule" | "priceTableItem" | "customerPrice" | "taxProfile" | "taxRule" | "campaign" | "campaignRule" | "campaignProduct" | "coupon" | "couponUsage" | "combo" | "comboItem" | "catalog" | "catalogItem" | "catalogExport" | "tenantBrand" | "contentTemplate" | "generatedContent" | "productMockup" | "emailCampaign" | "order" | "orderItem" | "paymentCondition" | "orderPayment" | "orderDelivery" | "orderDeliveryItem" | "orderReturn" | "orderReturnItem" | "storeCredit" | "storeCreditUsage" | "customerCreditLimit" | "approvalRule" | "orderCommission" | "commissionRule" | "orderHistory" | "digitalCertificate" | "signatureEnvelope" | "signatureEnvelopeSigner" | "signatureAuditEvent" | "signatureTemplate" | "analyticsWidget" | "analyticsDashboard" | "analyticsDashboardWidget" | "analyticsGoal" | "analyticsReport" | "analyticsReportGeneration" | "customerPortalAccess" | "aiTenantConfig" | "aiConversation" | "aiMessage" | "aiFavoriteQuery" | "aiActionLog" | "aiInsight" | "posTerminal" | "posSession" | "posTransaction" | "posTransactionPayment" | "posCashMovement" | "posOfflineQueue" | "posVisitLog" | "cardIntegration" | "eventLog" | "bid" | "bidItem" | "bidProposal" | "bidDocument" | "bidContract" | "bidEmpenho" | "bidMonitorEvent" | "bidHistory" | "bidAiConfig" | "certidaoSchedule" | "marketplaceConnection" | "marketplaceListing" | "marketplaceOrder" | "marketplacePayment" | "messagingAccount" | "messagingContact" | "messagingMessage" | "messagingTemplate" | "fiscalConfig" | "fiscalCertificate" | "fiscalDocument" | "fiscalDocumentItem" | "fiscalDocumentEvent" | "pixCharge" | "aiWorkflow" | "aiWorkflowExecution" | "overdueEscalation" | "overdueEscalationStep" | "overdueAction" | "punchConfiguration" | "geofenceZone"
+    modelProps: "user" | "userProfile" | "session" | "refreshToken" | "permission" | "permissionGroup" | "permissionGroupPermission" | "userPermissionGroup" | "userDirectPermission" | "permissionAuditLog" | "organization" | "organizationAddress" | "organizationCnae" | "organizationFiscalSettings" | "organizationStakeholder" | "supplier" | "manufacturer" | "category" | "warehouse" | "zone" | "bin" | "volume" | "volumeItem" | "template" | "product" | "variant" | "item" | "itemMovement" | "productCategory" | "variantPriceHistory" | "auditLog" | "tag" | "productTag" | "variantImage" | "productCareInstruction" | "productAttachment" | "variantAttachment" | "alert" | "purchaseOrder" | "purchaseOrderItem" | "unitConversion" | "stockSnapshot" | "inventorySession" | "inventorySessionItem" | "customer" | "salesOrder" | "salesOrderItem" | "crmContact" | "crmPipeline" | "crmPipelineStage" | "crmDeal" | "crmActivity" | "crmTimelineEvent" | "pipeline" | "pipelineStage" | "contact" | "deal" | "contactDeal" | "activity" | "timelineEvent" | "itemReservation" | "variantSupplierCode" | "variantPromotion" | "comment" | "notificationPreference" | "notificationTemplate" | "notification" | "request" | "requestAttachment" | "requestComment" | "requestHistory" | "employee" | "department" | "position" | "timeEntry" | "workSchedule" | "overtime" | "timeBank" | "absence" | "vacationPeriod" | "vacationSplit" | "payroll" | "payrollItem" | "bonus" | "deduction" | "employeeDependant" | "termination" | "medicalExam" | "safetyProgram" | "workplaceRisk" | "cipaMandate" | "cipaMember" | "company" | "companyDocument" | "companyAddress" | "companyCnae" | "companyFiscalSettings" | "companyStakeholder" | "labelTemplate" | "tenant" | "plan" | "planModule" | "tenantPlan" | "tenantUser" | "tenantFeatureFlag" | "costCenter" | "bankAccount" | "financeCategory" | "financeEntry" | "financeEntryRetention" | "financeCodeSequence" | "financeEntryPayment" | "financeEntryCostCenter" | "recurringConfig" | "financeBudget" | "financeAttachment" | "bankReconciliation" | "bankReconciliationItem" | "loan" | "loanInstallment" | "consortium" | "consortiumPayment" | "contract" | "storageFolder" | "storageFile" | "storageFileVersion" | "folderAccessRule" | "storageShareLink" | "calendar" | "teamCalendarConfig" | "calendarEvent" | "eventParticipant" | "eventReminder" | "emailAccount" | "emailAccountAccess" | "emailFolder" | "emailMessage" | "emailAttachment" | "team" | "teamMember" | "teamEmailAccount" | "board" | "boardColumn" | "card" | "boardLabel" | "cardLabel" | "boardMember" | "boardCustomField" | "cardCustomFieldValue" | "cardComment" | "commentReaction" | "cardAttachment" | "cardChecklist" | "checklistItem" | "cardActivity" | "boardAutomation" | "cardWatcher" | "systemSkillDefinition" | "skillPricing" | "tenantSubscription" | "tenantConsumption" | "tenantBilling" | "tenantIntegrationStatus" | "centralUser" | "supportTicket" | "supportTicketMessage" | "supportTicketAttachment" | "supportSlaConfig" | "priceTable" | "priceTableRule" | "priceTableItem" | "customerPrice" | "taxProfile" | "taxRule" | "campaign" | "campaignRule" | "campaignProduct" | "coupon" | "couponUsage" | "combo" | "comboItem" | "catalog" | "catalogItem" | "catalogExport" | "tenantBrand" | "contentTemplate" | "generatedContent" | "productMockup" | "emailCampaign" | "order" | "orderItem" | "paymentCondition" | "orderPayment" | "orderDelivery" | "orderDeliveryItem" | "orderReturn" | "orderReturnItem" | "storeCredit" | "storeCreditUsage" | "customerCreditLimit" | "approvalRule" | "orderCommission" | "commissionRule" | "orderHistory" | "digitalCertificate" | "signatureEnvelope" | "signatureEnvelopeSigner" | "signatureAuditEvent" | "signatureTemplate" | "analyticsWidget" | "analyticsDashboard" | "analyticsDashboardWidget" | "analyticsGoal" | "analyticsReport" | "analyticsReportGeneration" | "customerPortalAccess" | "aiTenantConfig" | "aiConversation" | "aiMessage" | "aiFavoriteQuery" | "aiActionLog" | "aiInsight" | "posTerminal" | "posSession" | "posTransaction" | "posTransactionPayment" | "posCashMovement" | "posOfflineQueue" | "posVisitLog" | "cardIntegration" | "eventLog" | "bid" | "bidItem" | "bidProposal" | "bidDocument" | "bidContract" | "bidEmpenho" | "bidMonitorEvent" | "bidHistory" | "bidAiConfig" | "certidaoSchedule" | "marketplaceConnection" | "marketplaceListing" | "marketplaceOrder" | "marketplacePayment" | "messagingAccount" | "messagingContact" | "messagingMessage" | "messagingTemplate" | "fiscalConfig" | "fiscalCertificate" | "fiscalDocument" | "fiscalDocumentItem" | "fiscalDocumentEvent" | "pixCharge" | "aiWorkflow" | "aiWorkflowExecution" | "overdueEscalation" | "overdueEscalationStep" | "overdueAction" | "punchConfiguration" | "hrTenantConfig" | "geofenceZone" | "emailToEntryConfig"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -7172,6 +7179,302 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    SafetyProgram: {
+      payload: Prisma.$SafetyProgramPayload<ExtArgs>
+      fields: Prisma.SafetyProgramFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SafetyProgramFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SafetyProgramPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SafetyProgramFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SafetyProgramPayload>
+        }
+        findFirst: {
+          args: Prisma.SafetyProgramFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SafetyProgramPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SafetyProgramFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SafetyProgramPayload>
+        }
+        findMany: {
+          args: Prisma.SafetyProgramFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SafetyProgramPayload>[]
+        }
+        create: {
+          args: Prisma.SafetyProgramCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SafetyProgramPayload>
+        }
+        createMany: {
+          args: Prisma.SafetyProgramCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SafetyProgramCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SafetyProgramPayload>[]
+        }
+        delete: {
+          args: Prisma.SafetyProgramDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SafetyProgramPayload>
+        }
+        update: {
+          args: Prisma.SafetyProgramUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SafetyProgramPayload>
+        }
+        deleteMany: {
+          args: Prisma.SafetyProgramDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SafetyProgramUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SafetyProgramUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SafetyProgramPayload>[]
+        }
+        upsert: {
+          args: Prisma.SafetyProgramUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SafetyProgramPayload>
+        }
+        aggregate: {
+          args: Prisma.SafetyProgramAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSafetyProgram>
+        }
+        groupBy: {
+          args: Prisma.SafetyProgramGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SafetyProgramGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SafetyProgramCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SafetyProgramCountAggregateOutputType> | number
+        }
+      }
+    }
+    WorkplaceRisk: {
+      payload: Prisma.$WorkplaceRiskPayload<ExtArgs>
+      fields: Prisma.WorkplaceRiskFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.WorkplaceRiskFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkplaceRiskPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.WorkplaceRiskFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkplaceRiskPayload>
+        }
+        findFirst: {
+          args: Prisma.WorkplaceRiskFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkplaceRiskPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.WorkplaceRiskFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkplaceRiskPayload>
+        }
+        findMany: {
+          args: Prisma.WorkplaceRiskFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkplaceRiskPayload>[]
+        }
+        create: {
+          args: Prisma.WorkplaceRiskCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkplaceRiskPayload>
+        }
+        createMany: {
+          args: Prisma.WorkplaceRiskCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.WorkplaceRiskCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkplaceRiskPayload>[]
+        }
+        delete: {
+          args: Prisma.WorkplaceRiskDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkplaceRiskPayload>
+        }
+        update: {
+          args: Prisma.WorkplaceRiskUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkplaceRiskPayload>
+        }
+        deleteMany: {
+          args: Prisma.WorkplaceRiskDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.WorkplaceRiskUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.WorkplaceRiskUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkplaceRiskPayload>[]
+        }
+        upsert: {
+          args: Prisma.WorkplaceRiskUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkplaceRiskPayload>
+        }
+        aggregate: {
+          args: Prisma.WorkplaceRiskAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateWorkplaceRisk>
+        }
+        groupBy: {
+          args: Prisma.WorkplaceRiskGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.WorkplaceRiskGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.WorkplaceRiskCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.WorkplaceRiskCountAggregateOutputType> | number
+        }
+      }
+    }
+    CipaMandate: {
+      payload: Prisma.$CipaMandatePayload<ExtArgs>
+      fields: Prisma.CipaMandateFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CipaMandateFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CipaMandatePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CipaMandateFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CipaMandatePayload>
+        }
+        findFirst: {
+          args: Prisma.CipaMandateFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CipaMandatePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CipaMandateFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CipaMandatePayload>
+        }
+        findMany: {
+          args: Prisma.CipaMandateFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CipaMandatePayload>[]
+        }
+        create: {
+          args: Prisma.CipaMandateCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CipaMandatePayload>
+        }
+        createMany: {
+          args: Prisma.CipaMandateCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CipaMandateCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CipaMandatePayload>[]
+        }
+        delete: {
+          args: Prisma.CipaMandateDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CipaMandatePayload>
+        }
+        update: {
+          args: Prisma.CipaMandateUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CipaMandatePayload>
+        }
+        deleteMany: {
+          args: Prisma.CipaMandateDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CipaMandateUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CipaMandateUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CipaMandatePayload>[]
+        }
+        upsert: {
+          args: Prisma.CipaMandateUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CipaMandatePayload>
+        }
+        aggregate: {
+          args: Prisma.CipaMandateAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCipaMandate>
+        }
+        groupBy: {
+          args: Prisma.CipaMandateGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CipaMandateGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CipaMandateCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CipaMandateCountAggregateOutputType> | number
+        }
+      }
+    }
+    CipaMember: {
+      payload: Prisma.$CipaMemberPayload<ExtArgs>
+      fields: Prisma.CipaMemberFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CipaMemberFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CipaMemberPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CipaMemberFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CipaMemberPayload>
+        }
+        findFirst: {
+          args: Prisma.CipaMemberFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CipaMemberPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CipaMemberFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CipaMemberPayload>
+        }
+        findMany: {
+          args: Prisma.CipaMemberFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CipaMemberPayload>[]
+        }
+        create: {
+          args: Prisma.CipaMemberCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CipaMemberPayload>
+        }
+        createMany: {
+          args: Prisma.CipaMemberCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CipaMemberCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CipaMemberPayload>[]
+        }
+        delete: {
+          args: Prisma.CipaMemberDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CipaMemberPayload>
+        }
+        update: {
+          args: Prisma.CipaMemberUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CipaMemberPayload>
+        }
+        deleteMany: {
+          args: Prisma.CipaMemberDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CipaMemberUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CipaMemberUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CipaMemberPayload>[]
+        }
+        upsert: {
+          args: Prisma.CipaMemberUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CipaMemberPayload>
+        }
+        aggregate: {
+          args: Prisma.CipaMemberAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCipaMember>
+        }
+        groupBy: {
+          args: Prisma.CipaMemberGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CipaMemberGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CipaMemberCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CipaMemberCountAggregateOutputType> | number
+        }
+      }
+    }
     Company: {
       payload: Prisma.$CompanyPayload<ExtArgs>
       fields: Prisma.CompanyFieldRefs
@@ -8427,6 +8730,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.FinanceEntryCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.FinanceEntryCountAggregateOutputType> | number
+        }
+      }
+    }
+    FinanceEntryRetention: {
+      payload: Prisma.$FinanceEntryRetentionPayload<ExtArgs>
+      fields: Prisma.FinanceEntryRetentionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.FinanceEntryRetentionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceEntryRetentionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.FinanceEntryRetentionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceEntryRetentionPayload>
+        }
+        findFirst: {
+          args: Prisma.FinanceEntryRetentionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceEntryRetentionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.FinanceEntryRetentionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceEntryRetentionPayload>
+        }
+        findMany: {
+          args: Prisma.FinanceEntryRetentionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceEntryRetentionPayload>[]
+        }
+        create: {
+          args: Prisma.FinanceEntryRetentionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceEntryRetentionPayload>
+        }
+        createMany: {
+          args: Prisma.FinanceEntryRetentionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.FinanceEntryRetentionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceEntryRetentionPayload>[]
+        }
+        delete: {
+          args: Prisma.FinanceEntryRetentionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceEntryRetentionPayload>
+        }
+        update: {
+          args: Prisma.FinanceEntryRetentionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceEntryRetentionPayload>
+        }
+        deleteMany: {
+          args: Prisma.FinanceEntryRetentionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.FinanceEntryRetentionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.FinanceEntryRetentionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceEntryRetentionPayload>[]
+        }
+        upsert: {
+          args: Prisma.FinanceEntryRetentionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceEntryRetentionPayload>
+        }
+        aggregate: {
+          args: Prisma.FinanceEntryRetentionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateFinanceEntryRetention>
+        }
+        groupBy: {
+          args: Prisma.FinanceEntryRetentionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FinanceEntryRetentionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.FinanceEntryRetentionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FinanceEntryRetentionCountAggregateOutputType> | number
         }
       }
     }
@@ -19604,6 +19981,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    HrTenantConfig: {
+      payload: Prisma.$HrTenantConfigPayload<ExtArgs>
+      fields: Prisma.HrTenantConfigFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.HrTenantConfigFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HrTenantConfigPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.HrTenantConfigFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HrTenantConfigPayload>
+        }
+        findFirst: {
+          args: Prisma.HrTenantConfigFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HrTenantConfigPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.HrTenantConfigFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HrTenantConfigPayload>
+        }
+        findMany: {
+          args: Prisma.HrTenantConfigFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HrTenantConfigPayload>[]
+        }
+        create: {
+          args: Prisma.HrTenantConfigCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HrTenantConfigPayload>
+        }
+        createMany: {
+          args: Prisma.HrTenantConfigCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.HrTenantConfigCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HrTenantConfigPayload>[]
+        }
+        delete: {
+          args: Prisma.HrTenantConfigDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HrTenantConfigPayload>
+        }
+        update: {
+          args: Prisma.HrTenantConfigUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HrTenantConfigPayload>
+        }
+        deleteMany: {
+          args: Prisma.HrTenantConfigDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.HrTenantConfigUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.HrTenantConfigUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HrTenantConfigPayload>[]
+        }
+        upsert: {
+          args: Prisma.HrTenantConfigUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HrTenantConfigPayload>
+        }
+        aggregate: {
+          args: Prisma.HrTenantConfigAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateHrTenantConfig>
+        }
+        groupBy: {
+          args: Prisma.HrTenantConfigGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.HrTenantConfigGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.HrTenantConfigCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.HrTenantConfigCountAggregateOutputType> | number
+        }
+      }
+    }
     GeofenceZone: {
       payload: Prisma.$GeofenceZonePayload<ExtArgs>
       fields: Prisma.GeofenceZoneFieldRefs
@@ -19675,6 +20126,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.GeofenceZoneCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.GeofenceZoneCountAggregateOutputType> | number
+        }
+      }
+    }
+    EmailToEntryConfig: {
+      payload: Prisma.$EmailToEntryConfigPayload<ExtArgs>
+      fields: Prisma.EmailToEntryConfigFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.EmailToEntryConfigFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmailToEntryConfigPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.EmailToEntryConfigFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmailToEntryConfigPayload>
+        }
+        findFirst: {
+          args: Prisma.EmailToEntryConfigFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmailToEntryConfigPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.EmailToEntryConfigFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmailToEntryConfigPayload>
+        }
+        findMany: {
+          args: Prisma.EmailToEntryConfigFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmailToEntryConfigPayload>[]
+        }
+        create: {
+          args: Prisma.EmailToEntryConfigCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmailToEntryConfigPayload>
+        }
+        createMany: {
+          args: Prisma.EmailToEntryConfigCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.EmailToEntryConfigCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmailToEntryConfigPayload>[]
+        }
+        delete: {
+          args: Prisma.EmailToEntryConfigDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmailToEntryConfigPayload>
+        }
+        update: {
+          args: Prisma.EmailToEntryConfigUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmailToEntryConfigPayload>
+        }
+        deleteMany: {
+          args: Prisma.EmailToEntryConfigDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.EmailToEntryConfigUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.EmailToEntryConfigUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmailToEntryConfigPayload>[]
+        }
+        upsert: {
+          args: Prisma.EmailToEntryConfigUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmailToEntryConfigPayload>
+        }
+        aggregate: {
+          args: Prisma.EmailToEntryConfigAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateEmailToEntryConfig>
+        }
+        groupBy: {
+          args: Prisma.EmailToEntryConfigGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EmailToEntryConfigGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.EmailToEntryConfigCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EmailToEntryConfigCountAggregateOutputType> | number
         }
       }
     }
@@ -21198,6 +21723,9 @@ export const EmployeeScalarFieldEnum = {
   workRegime: 'workRegime',
   weeklyHours: 'weeklyHours',
   photoUrl: 'photoUrl',
+  isPregnant: 'isPregnant',
+  pregnancyStartDate: 'pregnancyStartDate',
+  childBirthDate: 'childBirthDate',
   metadata: 'metadata',
   pendingIssues: 'pendingIssues',
   deletedAt: 'deletedAt',
@@ -21321,6 +21849,8 @@ export const TimeBankScalarFieldEnum = {
   balance: 'balance',
   year: 'year',
   version: 'version',
+  agreementType: 'agreementType',
+  expirationDate: 'expirationDate',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -21543,6 +22073,76 @@ export const MedicalExamScalarFieldEnum = {
 } as const
 
 export type MedicalExamScalarFieldEnum = (typeof MedicalExamScalarFieldEnum)[keyof typeof MedicalExamScalarFieldEnum]
+
+
+export const SafetyProgramScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  type: 'type',
+  name: 'name',
+  validFrom: 'validFrom',
+  validUntil: 'validUntil',
+  responsibleName: 'responsibleName',
+  responsibleRegistration: 'responsibleRegistration',
+  documentUrl: 'documentUrl',
+  status: 'status',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SafetyProgramScalarFieldEnum = (typeof SafetyProgramScalarFieldEnum)[keyof typeof SafetyProgramScalarFieldEnum]
+
+
+export const WorkplaceRiskScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  safetyProgramId: 'safetyProgramId',
+  name: 'name',
+  category: 'category',
+  severity: 'severity',
+  source: 'source',
+  affectedArea: 'affectedArea',
+  controlMeasures: 'controlMeasures',
+  epiRequired: 'epiRequired',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type WorkplaceRiskScalarFieldEnum = (typeof WorkplaceRiskScalarFieldEnum)[keyof typeof WorkplaceRiskScalarFieldEnum]
+
+
+export const CipaMandateScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  name: 'name',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  status: 'status',
+  electionDate: 'electionDate',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CipaMandateScalarFieldEnum = (typeof CipaMandateScalarFieldEnum)[keyof typeof CipaMandateScalarFieldEnum]
+
+
+export const CipaMemberScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  mandateId: 'mandateId',
+  employeeId: 'employeeId',
+  role: 'role',
+  type: 'type',
+  isStable: 'isStable',
+  stableUntil: 'stableUntil',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CipaMemberScalarFieldEnum = (typeof CipaMemberScalarFieldEnum)[keyof typeof CipaMemberScalarFieldEnum]
 
 
 export const CompanyScalarFieldEnum = {
@@ -21910,10 +22510,27 @@ export const FinanceEntryScalarFieldEnum = {
   deletedAt: 'deletedAt',
   createdBy: 'createdBy',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  fiscalDocumentId: 'fiscalDocumentId'
 } as const
 
 export type FinanceEntryScalarFieldEnum = (typeof FinanceEntryScalarFieldEnum)[keyof typeof FinanceEntryScalarFieldEnum]
+
+
+export const FinanceEntryRetentionScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  entryId: 'entryId',
+  taxType: 'taxType',
+  grossAmount: 'grossAmount',
+  rate: 'rate',
+  amount: 'amount',
+  withheld: 'withheld',
+  description: 'description',
+  createdAt: 'createdAt'
+} as const
+
+export type FinanceEntryRetentionScalarFieldEnum = (typeof FinanceEntryRetentionScalarFieldEnum)[keyof typeof FinanceEntryRetentionScalarFieldEnum]
 
 
 export const FinanceCodeSequenceScalarFieldEnum = {
@@ -25098,6 +25715,28 @@ export const PunchConfigurationScalarFieldEnum = {
 export type PunchConfigurationScalarFieldEnum = (typeof PunchConfigurationScalarFieldEnum)[keyof typeof PunchConfigurationScalarFieldEnum]
 
 
+export const HrTenantConfigScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  empresaCidadaEnabled: 'empresaCidadaEnabled',
+  maternityLeaveDays: 'maternityLeaveDays',
+  paternityLeaveDays: 'paternityLeaveDays',
+  unionContributionEnabled: 'unionContributionEnabled',
+  unionContributionRate: 'unionContributionRate',
+  patEnabled: 'patEnabled',
+  patMonthlyValuePerEmployee: 'patMonthlyValuePerEmployee',
+  timeBankIndividualMonths: 'timeBankIndividualMonths',
+  timeBankCollectiveMonths: 'timeBankCollectiveMonths',
+  ratPercent: 'ratPercent',
+  fapFactor: 'fapFactor',
+  terceirosPercent: 'terceirosPercent',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type HrTenantConfigScalarFieldEnum = (typeof HrTenantConfigScalarFieldEnum)[keyof typeof HrTenantConfigScalarFieldEnum]
+
+
 export const GeofenceZoneScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
@@ -25112,6 +25751,24 @@ export const GeofenceZoneScalarFieldEnum = {
 } as const
 
 export type GeofenceZoneScalarFieldEnum = (typeof GeofenceZoneScalarFieldEnum)[keyof typeof GeofenceZoneScalarFieldEnum]
+
+
+export const EmailToEntryConfigScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  emailAccountId: 'emailAccountId',
+  monitoredFolder: 'monitoredFolder',
+  isActive: 'isActive',
+  autoCreate: 'autoCreate',
+  defaultType: 'defaultType',
+  defaultCategoryId: 'defaultCategoryId',
+  processedCount: 'processedCount',
+  lastProcessedAt: 'lastProcessedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type EmailToEntryConfigScalarFieldEnum = (typeof EmailToEntryConfigScalarFieldEnum)[keyof typeof EmailToEntryConfigScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -26250,6 +26907,20 @@ export type EnumRecurrenceUnitFieldRefInput<$PrismaModel> = FieldRefInputType<$P
  * Reference to a field of type 'RecurrenceUnit[]'
  */
 export type ListEnumRecurrenceUnitFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RecurrenceUnit[]'>
+    
+
+
+/**
+ * Reference to a field of type 'RetentionTaxType'
+ */
+export type EnumRetentionTaxTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RetentionTaxType'>
+    
+
+
+/**
+ * Reference to a field of type 'RetentionTaxType[]'
+ */
+export type ListEnumRetentionTaxTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RetentionTaxType[]'>
     
 
 
@@ -28815,6 +29486,10 @@ export type GlobalOmitConfig = {
   employeeDependant?: Prisma.EmployeeDependantOmit
   termination?: Prisma.TerminationOmit
   medicalExam?: Prisma.MedicalExamOmit
+  safetyProgram?: Prisma.SafetyProgramOmit
+  workplaceRisk?: Prisma.WorkplaceRiskOmit
+  cipaMandate?: Prisma.CipaMandateOmit
+  cipaMember?: Prisma.CipaMemberOmit
   company?: Prisma.CompanyOmit
   companyDocument?: Prisma.CompanyDocumentOmit
   companyAddress?: Prisma.CompanyAddressOmit
@@ -28832,6 +29507,7 @@ export type GlobalOmitConfig = {
   bankAccount?: Prisma.BankAccountOmit
   financeCategory?: Prisma.FinanceCategoryOmit
   financeEntry?: Prisma.FinanceEntryOmit
+  financeEntryRetention?: Prisma.FinanceEntryRetentionOmit
   financeCodeSequence?: Prisma.FinanceCodeSequenceOmit
   financeEntryPayment?: Prisma.FinanceEntryPaymentOmit
   financeEntryCostCenter?: Prisma.FinanceEntryCostCenterOmit
@@ -28983,7 +29659,9 @@ export type GlobalOmitConfig = {
   overdueEscalationStep?: Prisma.OverdueEscalationStepOmit
   overdueAction?: Prisma.OverdueActionOmit
   punchConfiguration?: Prisma.PunchConfigurationOmit
+  hrTenantConfig?: Prisma.HrTenantConfigOmit
   geofenceZone?: Prisma.GeofenceZoneOmit
+  emailToEntryConfig?: Prisma.EmailToEntryConfigOmit
 }
 
 /* Types for Logging */

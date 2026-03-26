@@ -480,6 +480,26 @@ export type Termination = Prisma.TerminationModel
  */
 export type MedicalExam = Prisma.MedicalExamModel
 /**
+ * Model SafetyProgram
+ * 
+ */
+export type SafetyProgram = Prisma.SafetyProgramModel
+/**
+ * Model WorkplaceRisk
+ * 
+ */
+export type WorkplaceRisk = Prisma.WorkplaceRiskModel
+/**
+ * Model CipaMandate
+ * 
+ */
+export type CipaMandate = Prisma.CipaMandateModel
+/**
+ * Model CipaMember
+ * 
+ */
+export type CipaMember = Prisma.CipaMemberModel
+/**
  * Model Company
  * 
  */
@@ -564,6 +584,11 @@ export type FinanceCategory = Prisma.FinanceCategoryModel
  * 
  */
 export type FinanceEntry = Prisma.FinanceEntryModel
+/**
+ * Model FinanceEntryRetention
+ * 
+ */
+export type FinanceEntryRetention = Prisma.FinanceEntryRetentionModel
 /**
  * Model FinanceCodeSequence
  * 
@@ -1320,7 +1345,17 @@ export type OverdueAction = Prisma.OverdueActionModel
  */
 export type PunchConfiguration = Prisma.PunchConfigurationModel
 /**
+ * Model HrTenantConfig
+ * 
+ */
+export type HrTenantConfig = Prisma.HrTenantConfigModel
+/**
  * Model GeofenceZone
  * 
  */
 export type GeofenceZone = Prisma.GeofenceZoneModel
+/**
+ * Model EmailToEntryConfig
+ * 
+ */
+export type EmailToEntryConfig = Prisma.EmailToEntryConfigModel

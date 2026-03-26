@@ -69,6 +69,9 @@ export interface CreateEmployeeSchema {
   workRegime: WorkRegime;
   weeklyHours: number;
   photoUrl?: string;
+  isPregnant?: boolean;
+  pregnancyStartDate?: Date;
+  childBirthDate?: Date;
   metadata?: Record<string, unknown>;
   pendingIssues?: string[];
 }
@@ -129,6 +132,9 @@ export interface UpdateEmployeeSchema {
   workRegime?: WorkRegime;
   weeklyHours?: number;
   photoUrl?: string | null;
+  isPregnant?: boolean;
+  pregnancyStartDate?: Date | null;
+  childBirthDate?: Date | null;
   metadata?: Record<string, unknown>;
   pendingIssues?: string[];
 }

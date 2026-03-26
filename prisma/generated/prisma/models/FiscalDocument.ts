@@ -469,6 +469,7 @@ export type FiscalDocumentWhereInput = {
   order?: Prisma.XOR<Prisma.OrderNullableScalarRelationFilter, Prisma.OrderWhereInput> | null
   items?: Prisma.FiscalDocumentItemListRelationFilter
   events?: Prisma.FiscalDocumentEventListRelationFilter
+  financeEntries?: Prisma.FinanceEntryListRelationFilter
 }
 
 export type FiscalDocumentOrderByWithRelationInput = {
@@ -510,6 +511,7 @@ export type FiscalDocumentOrderByWithRelationInput = {
   order?: Prisma.OrderOrderByWithRelationInput
   items?: Prisma.FiscalDocumentItemOrderByRelationAggregateInput
   events?: Prisma.FiscalDocumentEventOrderByRelationAggregateInput
+  financeEntries?: Prisma.FinanceEntryOrderByRelationAggregateInput
 }
 
 export type FiscalDocumentWhereUniqueInput = Prisma.AtLeast<{
@@ -555,6 +557,7 @@ export type FiscalDocumentWhereUniqueInput = Prisma.AtLeast<{
   order?: Prisma.XOR<Prisma.OrderNullableScalarRelationFilter, Prisma.OrderWhereInput> | null
   items?: Prisma.FiscalDocumentItemListRelationFilter
   events?: Prisma.FiscalDocumentEventListRelationFilter
+  financeEntries?: Prisma.FinanceEntryListRelationFilter
 }, "id" | "accessKey" | "configId_type_series_number">
 
 export type FiscalDocumentOrderByWithAggregationInput = {
@@ -673,6 +676,7 @@ export type FiscalDocumentCreateInput = {
   order?: Prisma.OrderCreateNestedOneWithoutFiscalDocumentsInput
   items?: Prisma.FiscalDocumentItemCreateNestedManyWithoutFiscalDocumentInput
   events?: Prisma.FiscalDocumentEventCreateNestedManyWithoutFiscalDocumentInput
+  financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutFiscalDocumentInput
 }
 
 export type FiscalDocumentUncheckedCreateInput = {
@@ -711,6 +715,7 @@ export type FiscalDocumentUncheckedCreateInput = {
   updatedAt?: Date | string
   items?: Prisma.FiscalDocumentItemUncheckedCreateNestedManyWithoutFiscalDocumentInput
   events?: Prisma.FiscalDocumentEventUncheckedCreateNestedManyWithoutFiscalDocumentInput
+  financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutFiscalDocumentInput
 }
 
 export type FiscalDocumentUpdateInput = {
@@ -749,6 +754,7 @@ export type FiscalDocumentUpdateInput = {
   order?: Prisma.OrderUpdateOneWithoutFiscalDocumentsNestedInput
   items?: Prisma.FiscalDocumentItemUpdateManyWithoutFiscalDocumentNestedInput
   events?: Prisma.FiscalDocumentEventUpdateManyWithoutFiscalDocumentNestedInput
+  financeEntries?: Prisma.FinanceEntryUpdateManyWithoutFiscalDocumentNestedInput
 }
 
 export type FiscalDocumentUncheckedUpdateInput = {
@@ -787,6 +793,7 @@ export type FiscalDocumentUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.FiscalDocumentItemUncheckedUpdateManyWithoutFiscalDocumentNestedInput
   events?: Prisma.FiscalDocumentEventUncheckedUpdateManyWithoutFiscalDocumentNestedInput
+  financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutFiscalDocumentNestedInput
 }
 
 export type FiscalDocumentCreateManyInput = {
@@ -902,6 +909,11 @@ export type FiscalDocumentListRelationFilter = {
 
 export type FiscalDocumentOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type FiscalDocumentNullableScalarRelationFilter = {
+  is?: Prisma.FiscalDocumentWhereInput | null
+  isNot?: Prisma.FiscalDocumentWhereInput | null
 }
 
 export type FiscalDocumentConfigIdTypeSeriesNumberCompoundUniqueInput = {
@@ -1086,6 +1098,22 @@ export type FiscalDocumentUncheckedUpdateManyWithoutTenantNestedInput = {
   deleteMany?: Prisma.FiscalDocumentScalarWhereInput | Prisma.FiscalDocumentScalarWhereInput[]
 }
 
+export type FiscalDocumentCreateNestedOneWithoutFinanceEntriesInput = {
+  create?: Prisma.XOR<Prisma.FiscalDocumentCreateWithoutFinanceEntriesInput, Prisma.FiscalDocumentUncheckedCreateWithoutFinanceEntriesInput>
+  connectOrCreate?: Prisma.FiscalDocumentCreateOrConnectWithoutFinanceEntriesInput
+  connect?: Prisma.FiscalDocumentWhereUniqueInput
+}
+
+export type FiscalDocumentUpdateOneWithoutFinanceEntriesNestedInput = {
+  create?: Prisma.XOR<Prisma.FiscalDocumentCreateWithoutFinanceEntriesInput, Prisma.FiscalDocumentUncheckedCreateWithoutFinanceEntriesInput>
+  connectOrCreate?: Prisma.FiscalDocumentCreateOrConnectWithoutFinanceEntriesInput
+  upsert?: Prisma.FiscalDocumentUpsertWithoutFinanceEntriesInput
+  disconnect?: Prisma.FiscalDocumentWhereInput | boolean
+  delete?: Prisma.FiscalDocumentWhereInput | boolean
+  connect?: Prisma.FiscalDocumentWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.FiscalDocumentUpdateToOneWithWhereWithoutFinanceEntriesInput, Prisma.FiscalDocumentUpdateWithoutFinanceEntriesInput>, Prisma.FiscalDocumentUncheckedUpdateWithoutFinanceEntriesInput>
+}
+
 export type FiscalDocumentCreateNestedManyWithoutOrderInput = {
   create?: Prisma.XOR<Prisma.FiscalDocumentCreateWithoutOrderInput, Prisma.FiscalDocumentUncheckedCreateWithoutOrderInput> | Prisma.FiscalDocumentCreateWithoutOrderInput[] | Prisma.FiscalDocumentUncheckedCreateWithoutOrderInput[]
   connectOrCreate?: Prisma.FiscalDocumentCreateOrConnectWithoutOrderInput | Prisma.FiscalDocumentCreateOrConnectWithoutOrderInput[]
@@ -1241,6 +1269,7 @@ export type FiscalDocumentCreateWithoutTenantInput = {
   order?: Prisma.OrderCreateNestedOneWithoutFiscalDocumentsInput
   items?: Prisma.FiscalDocumentItemCreateNestedManyWithoutFiscalDocumentInput
   events?: Prisma.FiscalDocumentEventCreateNestedManyWithoutFiscalDocumentInput
+  financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutFiscalDocumentInput
 }
 
 export type FiscalDocumentUncheckedCreateWithoutTenantInput = {
@@ -1278,6 +1307,7 @@ export type FiscalDocumentUncheckedCreateWithoutTenantInput = {
   updatedAt?: Date | string
   items?: Prisma.FiscalDocumentItemUncheckedCreateNestedManyWithoutFiscalDocumentInput
   events?: Prisma.FiscalDocumentEventUncheckedCreateNestedManyWithoutFiscalDocumentInput
+  financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutFiscalDocumentInput
 }
 
 export type FiscalDocumentCreateOrConnectWithoutTenantInput = {
@@ -1345,6 +1375,174 @@ export type FiscalDocumentScalarWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"FiscalDocument"> | Date | string
 }
 
+export type FiscalDocumentCreateWithoutFinanceEntriesInput = {
+  id?: string
+  type: $Enums.FiscalDocumentType
+  series: number
+  number: number
+  accessKey?: string | null
+  status?: $Enums.FiscalDocumentStatus
+  emissionType?: $Enums.FiscalEmissionType
+  recipientCnpjCpf?: string | null
+  recipientName?: string | null
+  recipientIe?: string | null
+  naturezaOperacao?: string | null
+  cfop?: string | null
+  totalProducts?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalDiscount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalShipping?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalTax?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalValue?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  xmlSent?: string | null
+  xmlAuthorized?: string | null
+  xmlCancellation?: string | null
+  danfePdfUrl?: string | null
+  protocolNumber?: string | null
+  protocolDate?: Date | string | null
+  externalId?: string | null
+  cancelledAt?: Date | string | null
+  cancelReason?: string | null
+  correctionText?: string | null
+  additionalInfo?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutFiscalDocumentsInput
+  config: Prisma.FiscalConfigCreateNestedOneWithoutDocumentsInput
+  order?: Prisma.OrderCreateNestedOneWithoutFiscalDocumentsInput
+  items?: Prisma.FiscalDocumentItemCreateNestedManyWithoutFiscalDocumentInput
+  events?: Prisma.FiscalDocumentEventCreateNestedManyWithoutFiscalDocumentInput
+}
+
+export type FiscalDocumentUncheckedCreateWithoutFinanceEntriesInput = {
+  id?: string
+  tenantId: string
+  configId: string
+  type: $Enums.FiscalDocumentType
+  series: number
+  number: number
+  accessKey?: string | null
+  status?: $Enums.FiscalDocumentStatus
+  emissionType?: $Enums.FiscalEmissionType
+  recipientCnpjCpf?: string | null
+  recipientName?: string | null
+  recipientIe?: string | null
+  naturezaOperacao?: string | null
+  cfop?: string | null
+  totalProducts?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalDiscount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalShipping?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalTax?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalValue?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  xmlSent?: string | null
+  xmlAuthorized?: string | null
+  xmlCancellation?: string | null
+  danfePdfUrl?: string | null
+  protocolNumber?: string | null
+  protocolDate?: Date | string | null
+  externalId?: string | null
+  orderId?: string | null
+  cancelledAt?: Date | string | null
+  cancelReason?: string | null
+  correctionText?: string | null
+  additionalInfo?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  items?: Prisma.FiscalDocumentItemUncheckedCreateNestedManyWithoutFiscalDocumentInput
+  events?: Prisma.FiscalDocumentEventUncheckedCreateNestedManyWithoutFiscalDocumentInput
+}
+
+export type FiscalDocumentCreateOrConnectWithoutFinanceEntriesInput = {
+  where: Prisma.FiscalDocumentWhereUniqueInput
+  create: Prisma.XOR<Prisma.FiscalDocumentCreateWithoutFinanceEntriesInput, Prisma.FiscalDocumentUncheckedCreateWithoutFinanceEntriesInput>
+}
+
+export type FiscalDocumentUpsertWithoutFinanceEntriesInput = {
+  update: Prisma.XOR<Prisma.FiscalDocumentUpdateWithoutFinanceEntriesInput, Prisma.FiscalDocumentUncheckedUpdateWithoutFinanceEntriesInput>
+  create: Prisma.XOR<Prisma.FiscalDocumentCreateWithoutFinanceEntriesInput, Prisma.FiscalDocumentUncheckedCreateWithoutFinanceEntriesInput>
+  where?: Prisma.FiscalDocumentWhereInput
+}
+
+export type FiscalDocumentUpdateToOneWithWhereWithoutFinanceEntriesInput = {
+  where?: Prisma.FiscalDocumentWhereInput
+  data: Prisma.XOR<Prisma.FiscalDocumentUpdateWithoutFinanceEntriesInput, Prisma.FiscalDocumentUncheckedUpdateWithoutFinanceEntriesInput>
+}
+
+export type FiscalDocumentUpdateWithoutFinanceEntriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.FiscalDocumentType
+  series?: Prisma.IntFieldUpdateOperationsInput | number
+  number?: Prisma.IntFieldUpdateOperationsInput | number
+  accessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumFiscalDocumentStatusFieldUpdateOperationsInput | $Enums.FiscalDocumentStatus
+  emissionType?: Prisma.EnumFiscalEmissionTypeFieldUpdateOperationsInput | $Enums.FiscalEmissionType
+  recipientCnpjCpf?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientIe?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  naturezaOperacao?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cfop?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  totalProducts?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalDiscount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalShipping?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalTax?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  xmlSent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xmlAuthorized?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xmlCancellation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  danfePdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  protocolNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  protocolDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  externalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  correctionText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  additionalInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutFiscalDocumentsNestedInput
+  config?: Prisma.FiscalConfigUpdateOneRequiredWithoutDocumentsNestedInput
+  order?: Prisma.OrderUpdateOneWithoutFiscalDocumentsNestedInput
+  items?: Prisma.FiscalDocumentItemUpdateManyWithoutFiscalDocumentNestedInput
+  events?: Prisma.FiscalDocumentEventUpdateManyWithoutFiscalDocumentNestedInput
+}
+
+export type FiscalDocumentUncheckedUpdateWithoutFinanceEntriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  configId?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.FiscalDocumentType
+  series?: Prisma.IntFieldUpdateOperationsInput | number
+  number?: Prisma.IntFieldUpdateOperationsInput | number
+  accessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumFiscalDocumentStatusFieldUpdateOperationsInput | $Enums.FiscalDocumentStatus
+  emissionType?: Prisma.EnumFiscalEmissionTypeFieldUpdateOperationsInput | $Enums.FiscalEmissionType
+  recipientCnpjCpf?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientIe?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  naturezaOperacao?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cfop?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  totalProducts?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalDiscount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalShipping?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalTax?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  xmlSent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xmlAuthorized?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xmlCancellation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  danfePdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  protocolNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  protocolDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  externalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  orderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  correctionText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  additionalInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  items?: Prisma.FiscalDocumentItemUncheckedUpdateManyWithoutFiscalDocumentNestedInput
+  events?: Prisma.FiscalDocumentEventUncheckedUpdateManyWithoutFiscalDocumentNestedInput
+}
+
 export type FiscalDocumentCreateWithoutOrderInput = {
   id?: string
   type: $Enums.FiscalDocumentType
@@ -1380,6 +1578,7 @@ export type FiscalDocumentCreateWithoutOrderInput = {
   config: Prisma.FiscalConfigCreateNestedOneWithoutDocumentsInput
   items?: Prisma.FiscalDocumentItemCreateNestedManyWithoutFiscalDocumentInput
   events?: Prisma.FiscalDocumentEventCreateNestedManyWithoutFiscalDocumentInput
+  financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutFiscalDocumentInput
 }
 
 export type FiscalDocumentUncheckedCreateWithoutOrderInput = {
@@ -1417,6 +1616,7 @@ export type FiscalDocumentUncheckedCreateWithoutOrderInput = {
   updatedAt?: Date | string
   items?: Prisma.FiscalDocumentItemUncheckedCreateNestedManyWithoutFiscalDocumentInput
   events?: Prisma.FiscalDocumentEventUncheckedCreateNestedManyWithoutFiscalDocumentInput
+  financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutFiscalDocumentInput
 }
 
 export type FiscalDocumentCreateOrConnectWithoutOrderInput = {
@@ -1480,6 +1680,7 @@ export type FiscalDocumentCreateWithoutConfigInput = {
   order?: Prisma.OrderCreateNestedOneWithoutFiscalDocumentsInput
   items?: Prisma.FiscalDocumentItemCreateNestedManyWithoutFiscalDocumentInput
   events?: Prisma.FiscalDocumentEventCreateNestedManyWithoutFiscalDocumentInput
+  financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutFiscalDocumentInput
 }
 
 export type FiscalDocumentUncheckedCreateWithoutConfigInput = {
@@ -1517,6 +1718,7 @@ export type FiscalDocumentUncheckedCreateWithoutConfigInput = {
   updatedAt?: Date | string
   items?: Prisma.FiscalDocumentItemUncheckedCreateNestedManyWithoutFiscalDocumentInput
   events?: Prisma.FiscalDocumentEventUncheckedCreateNestedManyWithoutFiscalDocumentInput
+  financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutFiscalDocumentInput
 }
 
 export type FiscalDocumentCreateOrConnectWithoutConfigInput = {
@@ -1580,6 +1782,7 @@ export type FiscalDocumentCreateWithoutItemsInput = {
   config: Prisma.FiscalConfigCreateNestedOneWithoutDocumentsInput
   order?: Prisma.OrderCreateNestedOneWithoutFiscalDocumentsInput
   events?: Prisma.FiscalDocumentEventCreateNestedManyWithoutFiscalDocumentInput
+  financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutFiscalDocumentInput
 }
 
 export type FiscalDocumentUncheckedCreateWithoutItemsInput = {
@@ -1617,6 +1820,7 @@ export type FiscalDocumentUncheckedCreateWithoutItemsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   events?: Prisma.FiscalDocumentEventUncheckedCreateNestedManyWithoutFiscalDocumentInput
+  financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutFiscalDocumentInput
 }
 
 export type FiscalDocumentCreateOrConnectWithoutItemsInput = {
@@ -1670,6 +1874,7 @@ export type FiscalDocumentUpdateWithoutItemsInput = {
   config?: Prisma.FiscalConfigUpdateOneRequiredWithoutDocumentsNestedInput
   order?: Prisma.OrderUpdateOneWithoutFiscalDocumentsNestedInput
   events?: Prisma.FiscalDocumentEventUpdateManyWithoutFiscalDocumentNestedInput
+  financeEntries?: Prisma.FinanceEntryUpdateManyWithoutFiscalDocumentNestedInput
 }
 
 export type FiscalDocumentUncheckedUpdateWithoutItemsInput = {
@@ -1707,6 +1912,7 @@ export type FiscalDocumentUncheckedUpdateWithoutItemsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   events?: Prisma.FiscalDocumentEventUncheckedUpdateManyWithoutFiscalDocumentNestedInput
+  financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutFiscalDocumentNestedInput
 }
 
 export type FiscalDocumentCreateWithoutEventsInput = {
@@ -1744,6 +1950,7 @@ export type FiscalDocumentCreateWithoutEventsInput = {
   config: Prisma.FiscalConfigCreateNestedOneWithoutDocumentsInput
   order?: Prisma.OrderCreateNestedOneWithoutFiscalDocumentsInput
   items?: Prisma.FiscalDocumentItemCreateNestedManyWithoutFiscalDocumentInput
+  financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutFiscalDocumentInput
 }
 
 export type FiscalDocumentUncheckedCreateWithoutEventsInput = {
@@ -1781,6 +1988,7 @@ export type FiscalDocumentUncheckedCreateWithoutEventsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   items?: Prisma.FiscalDocumentItemUncheckedCreateNestedManyWithoutFiscalDocumentInput
+  financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutFiscalDocumentInput
 }
 
 export type FiscalDocumentCreateOrConnectWithoutEventsInput = {
@@ -1834,6 +2042,7 @@ export type FiscalDocumentUpdateWithoutEventsInput = {
   config?: Prisma.FiscalConfigUpdateOneRequiredWithoutDocumentsNestedInput
   order?: Prisma.OrderUpdateOneWithoutFiscalDocumentsNestedInput
   items?: Prisma.FiscalDocumentItemUpdateManyWithoutFiscalDocumentNestedInput
+  financeEntries?: Prisma.FinanceEntryUpdateManyWithoutFiscalDocumentNestedInput
 }
 
 export type FiscalDocumentUncheckedUpdateWithoutEventsInput = {
@@ -1871,6 +2080,7 @@ export type FiscalDocumentUncheckedUpdateWithoutEventsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.FiscalDocumentItemUncheckedUpdateManyWithoutFiscalDocumentNestedInput
+  financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutFiscalDocumentNestedInput
 }
 
 export type FiscalDocumentCreateManyTenantInput = {
@@ -1943,6 +2153,7 @@ export type FiscalDocumentUpdateWithoutTenantInput = {
   order?: Prisma.OrderUpdateOneWithoutFiscalDocumentsNestedInput
   items?: Prisma.FiscalDocumentItemUpdateManyWithoutFiscalDocumentNestedInput
   events?: Prisma.FiscalDocumentEventUpdateManyWithoutFiscalDocumentNestedInput
+  financeEntries?: Prisma.FinanceEntryUpdateManyWithoutFiscalDocumentNestedInput
 }
 
 export type FiscalDocumentUncheckedUpdateWithoutTenantInput = {
@@ -1980,6 +2191,7 @@ export type FiscalDocumentUncheckedUpdateWithoutTenantInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.FiscalDocumentItemUncheckedUpdateManyWithoutFiscalDocumentNestedInput
   events?: Prisma.FiscalDocumentEventUncheckedUpdateManyWithoutFiscalDocumentNestedInput
+  financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutFiscalDocumentNestedInput
 }
 
 export type FiscalDocumentUncheckedUpdateManyWithoutTenantInput = {
@@ -2087,6 +2299,7 @@ export type FiscalDocumentUpdateWithoutOrderInput = {
   config?: Prisma.FiscalConfigUpdateOneRequiredWithoutDocumentsNestedInput
   items?: Prisma.FiscalDocumentItemUpdateManyWithoutFiscalDocumentNestedInput
   events?: Prisma.FiscalDocumentEventUpdateManyWithoutFiscalDocumentNestedInput
+  financeEntries?: Prisma.FinanceEntryUpdateManyWithoutFiscalDocumentNestedInput
 }
 
 export type FiscalDocumentUncheckedUpdateWithoutOrderInput = {
@@ -2124,6 +2337,7 @@ export type FiscalDocumentUncheckedUpdateWithoutOrderInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.FiscalDocumentItemUncheckedUpdateManyWithoutFiscalDocumentNestedInput
   events?: Prisma.FiscalDocumentEventUncheckedUpdateManyWithoutFiscalDocumentNestedInput
+  financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutFiscalDocumentNestedInput
 }
 
 export type FiscalDocumentUncheckedUpdateManyWithoutOrderInput = {
@@ -2231,6 +2445,7 @@ export type FiscalDocumentUpdateWithoutConfigInput = {
   order?: Prisma.OrderUpdateOneWithoutFiscalDocumentsNestedInput
   items?: Prisma.FiscalDocumentItemUpdateManyWithoutFiscalDocumentNestedInput
   events?: Prisma.FiscalDocumentEventUpdateManyWithoutFiscalDocumentNestedInput
+  financeEntries?: Prisma.FinanceEntryUpdateManyWithoutFiscalDocumentNestedInput
 }
 
 export type FiscalDocumentUncheckedUpdateWithoutConfigInput = {
@@ -2268,6 +2483,7 @@ export type FiscalDocumentUncheckedUpdateWithoutConfigInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.FiscalDocumentItemUncheckedUpdateManyWithoutFiscalDocumentNestedInput
   events?: Prisma.FiscalDocumentEventUncheckedUpdateManyWithoutFiscalDocumentNestedInput
+  financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutFiscalDocumentNestedInput
 }
 
 export type FiscalDocumentUncheckedUpdateManyWithoutConfigInput = {
@@ -2313,11 +2529,13 @@ export type FiscalDocumentUncheckedUpdateManyWithoutConfigInput = {
 export type FiscalDocumentCountOutputType = {
   items: number
   events: number
+  financeEntries: number
 }
 
 export type FiscalDocumentCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   items?: boolean | FiscalDocumentCountOutputTypeCountItemsArgs
   events?: boolean | FiscalDocumentCountOutputTypeCountEventsArgs
+  financeEntries?: boolean | FiscalDocumentCountOutputTypeCountFinanceEntriesArgs
 }
 
 /**
@@ -2342,6 +2560,13 @@ export type FiscalDocumentCountOutputTypeCountItemsArgs<ExtArgs extends runtime.
  */
 export type FiscalDocumentCountOutputTypeCountEventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.FiscalDocumentEventWhereInput
+}
+
+/**
+ * FiscalDocumentCountOutputType without action
+ */
+export type FiscalDocumentCountOutputTypeCountFinanceEntriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FinanceEntryWhereInput
 }
 
 
@@ -2384,6 +2609,7 @@ export type FiscalDocumentSelect<ExtArgs extends runtime.Types.Extensions.Intern
   order?: boolean | Prisma.FiscalDocument$orderArgs<ExtArgs>
   items?: boolean | Prisma.FiscalDocument$itemsArgs<ExtArgs>
   events?: boolean | Prisma.FiscalDocument$eventsArgs<ExtArgs>
+  financeEntries?: boolean | Prisma.FiscalDocument$financeEntriesArgs<ExtArgs>
   _count?: boolean | Prisma.FiscalDocumentCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["fiscalDocument"]>
 
@@ -2508,6 +2734,7 @@ export type FiscalDocumentInclude<ExtArgs extends runtime.Types.Extensions.Inter
   order?: boolean | Prisma.FiscalDocument$orderArgs<ExtArgs>
   items?: boolean | Prisma.FiscalDocument$itemsArgs<ExtArgs>
   events?: boolean | Prisma.FiscalDocument$eventsArgs<ExtArgs>
+  financeEntries?: boolean | Prisma.FiscalDocument$financeEntriesArgs<ExtArgs>
   _count?: boolean | Prisma.FiscalDocumentCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type FiscalDocumentIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2529,6 +2756,7 @@ export type $FiscalDocumentPayload<ExtArgs extends runtime.Types.Extensions.Inte
     order: Prisma.$OrderPayload<ExtArgs> | null
     items: Prisma.$FiscalDocumentItemPayload<ExtArgs>[]
     events: Prisma.$FiscalDocumentEventPayload<ExtArgs>[]
+    financeEntries: Prisma.$FinanceEntryPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2963,6 +3191,7 @@ export interface Prisma__FiscalDocumentClient<T, Null = never, ExtArgs extends r
   order<T extends Prisma.FiscalDocument$orderArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FiscalDocument$orderArgs<ExtArgs>>): Prisma.Prisma__OrderClient<runtime.Types.Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   items<T extends Prisma.FiscalDocument$itemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FiscalDocument$itemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FiscalDocumentItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   events<T extends Prisma.FiscalDocument$eventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FiscalDocument$eventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FiscalDocumentEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  financeEntries<T extends Prisma.FiscalDocument$financeEntriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FiscalDocument$financeEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FinanceEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3485,6 +3714,30 @@ export type FiscalDocument$eventsArgs<ExtArgs extends runtime.Types.Extensions.I
   take?: number
   skip?: number
   distinct?: Prisma.FiscalDocumentEventScalarFieldEnum | Prisma.FiscalDocumentEventScalarFieldEnum[]
+}
+
+/**
+ * FiscalDocument.financeEntries
+ */
+export type FiscalDocument$financeEntriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the FinanceEntry
+   */
+  select?: Prisma.FinanceEntrySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the FinanceEntry
+   */
+  omit?: Prisma.FinanceEntryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FinanceEntryInclude<ExtArgs> | null
+  where?: Prisma.FinanceEntryWhereInput
+  orderBy?: Prisma.FinanceEntryOrderByWithRelationInput | Prisma.FinanceEntryOrderByWithRelationInput[]
+  cursor?: Prisma.FinanceEntryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FinanceEntryScalarFieldEnum | Prisma.FinanceEntryScalarFieldEnum[]
 }
 
 /**

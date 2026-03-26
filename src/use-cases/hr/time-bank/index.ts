@@ -23,3 +23,11 @@ export {
   ListTimeBanksResponse,
   ListTimeBanksUseCase,
 } from './list-time-banks';
+export {
+  checkTimeBankExpiry,
+  findExpiredTimeBanks,
+  getTimeBankExpirationDate,
+  type TimeBankAgreementType,
+  type TimeBankEntry,
+  type TimeBankExpiryResult,
+} from './check-time-bank-expiry';

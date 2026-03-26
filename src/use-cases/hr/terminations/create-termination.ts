@@ -9,6 +9,7 @@ import {
 import { EmployeeStatus } from '@/entities/hr/value-objects';
 import { EmployeesRepository } from '@/repositories/hr/employees-repository';
 import { TerminationsRepository } from '@/repositories/hr/terminations-repository';
+import { checkEmploymentStability } from '../employees/check-employment-stability';
 
 export interface CreateTerminationRequest {
   tenantId: string;
@@ -23,6 +24,14 @@ export interface CreateTerminationRequest {
 export interface CreateTerminationResponse {
   termination: Termination;
 }
+
+/** Tipos de rescisão que ignoram estabilidade provisória */
+const STABILITY_EXEMPT_TYPES = [
+  TerminationType.JUSTA_CAUSA,
+  TerminationType.PEDIDO_DEMISSAO,
+  TerminationType.FALECIMENTO,
+  TerminationType.RESCISAO_INDIRETA,
+];
 
 export class CreateTerminationUseCase {
   constructor(
@@ -69,6 +78,19 @@ export class CreateTerminationUseCase {
       throw new BadRequestError(
         'Funcionário já possui registro de rescisão',
       );
+    }
+
+    // Check employment stability for non-exempt termination types
+    if (!STABILITY_EXEMPT_TYPES.includes(type)) {
+      const stability = checkEmploymentStability(employee);
+      if (stability.isStable) {
+        const stableUntilMsg = stability.stableUntil
+          ? ` Estável até ${stability.stableUntil.toLocaleDateString('pt-BR')}.`
+          : '';
+        throw new BadRequestError(
+          `Funcionário possui estabilidade provisória: ${stability.reason}.${stableUntilMsg} Rescisão do tipo "${type}" bloqueada.`,
+        );
+      }
     }
 
     // Calculate aviso prévio days: 30 + (3 × complete years of service), max 90

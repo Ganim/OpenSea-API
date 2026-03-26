@@ -121,6 +121,18 @@ export const RecurrenceUnit = {
 export type RecurrenceUnit = (typeof RecurrenceUnit)[keyof typeof RecurrenceUnit]
 
 
+export const RetentionTaxType = {
+  IRRF: 'IRRF',
+  ISS: 'ISS',
+  INSS: 'INSS',
+  PIS: 'PIS',
+  COFINS: 'COFINS',
+  CSLL: 'CSLL'
+} as const
+
+export type RetentionTaxType = (typeof RetentionTaxType)[keyof typeof RetentionTaxType]
+
+
 export const RecurringStatus = {
   ACTIVE: 'ACTIVE',
   PAUSED: 'PAUSED',

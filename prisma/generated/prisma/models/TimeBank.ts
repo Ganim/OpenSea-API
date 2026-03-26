@@ -45,6 +45,8 @@ export type TimeBankMinAggregateOutputType = {
   balance: runtime.Decimal | null
   year: number | null
   version: number | null
+  agreementType: string | null
+  expirationDate: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -56,6 +58,8 @@ export type TimeBankMaxAggregateOutputType = {
   balance: runtime.Decimal | null
   year: number | null
   version: number | null
+  agreementType: string | null
+  expirationDate: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -67,6 +71,8 @@ export type TimeBankCountAggregateOutputType = {
   balance: number
   year: number
   version: number
+  agreementType: number
+  expirationDate: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -92,6 +98,8 @@ export type TimeBankMinAggregateInputType = {
   balance?: true
   year?: true
   version?: true
+  agreementType?: true
+  expirationDate?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -103,6 +111,8 @@ export type TimeBankMaxAggregateInputType = {
   balance?: true
   year?: true
   version?: true
+  agreementType?: true
+  expirationDate?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -114,6 +124,8 @@ export type TimeBankCountAggregateInputType = {
   balance?: true
   year?: true
   version?: true
+  agreementType?: true
+  expirationDate?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -212,6 +224,8 @@ export type TimeBankGroupByOutputType = {
   balance: runtime.Decimal
   year: number
   version: number
+  agreementType: string
+  expirationDate: Date | null
   createdAt: Date
   updatedAt: Date
   _count: TimeBankCountAggregateOutputType | null
@@ -246,6 +260,8 @@ export type TimeBankWhereInput = {
   balance?: Prisma.DecimalFilter<"TimeBank"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   year?: Prisma.IntFilter<"TimeBank"> | number
   version?: Prisma.IntFilter<"TimeBank"> | number
+  agreementType?: Prisma.StringFilter<"TimeBank"> | string
+  expirationDate?: Prisma.DateTimeNullableFilter<"TimeBank"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"TimeBank"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"TimeBank"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
@@ -259,6 +275,8 @@ export type TimeBankOrderByWithRelationInput = {
   balance?: Prisma.SortOrder
   year?: Prisma.SortOrder
   version?: Prisma.SortOrder
+  agreementType?: Prisma.SortOrder
+  expirationDate?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   tenant?: Prisma.TenantOrderByWithRelationInput
@@ -276,6 +294,8 @@ export type TimeBankWhereUniqueInput = Prisma.AtLeast<{
   balance?: Prisma.DecimalFilter<"TimeBank"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   year?: Prisma.IntFilter<"TimeBank"> | number
   version?: Prisma.IntFilter<"TimeBank"> | number
+  agreementType?: Prisma.StringFilter<"TimeBank"> | string
+  expirationDate?: Prisma.DateTimeNullableFilter<"TimeBank"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"TimeBank"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"TimeBank"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
@@ -289,6 +309,8 @@ export type TimeBankOrderByWithAggregationInput = {
   balance?: Prisma.SortOrder
   year?: Prisma.SortOrder
   version?: Prisma.SortOrder
+  agreementType?: Prisma.SortOrder
+  expirationDate?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.TimeBankCountOrderByAggregateInput
@@ -308,6 +330,8 @@ export type TimeBankScalarWhereWithAggregatesInput = {
   balance?: Prisma.DecimalWithAggregatesFilter<"TimeBank"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   year?: Prisma.IntWithAggregatesFilter<"TimeBank"> | number
   version?: Prisma.IntWithAggregatesFilter<"TimeBank"> | number
+  agreementType?: Prisma.StringWithAggregatesFilter<"TimeBank"> | string
+  expirationDate?: Prisma.DateTimeNullableWithAggregatesFilter<"TimeBank"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"TimeBank"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"TimeBank"> | Date | string
 }
@@ -317,6 +341,8 @@ export type TimeBankCreateInput = {
   balance: runtime.Decimal | runtime.DecimalJsLike | number | string
   year: number
   version?: number
+  agreementType?: string
+  expirationDate?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutTimeBanksInput
@@ -330,6 +356,8 @@ export type TimeBankUncheckedCreateInput = {
   balance: runtime.Decimal | runtime.DecimalJsLike | number | string
   year: number
   version?: number
+  agreementType?: string
+  expirationDate?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -339,6 +367,8 @@ export type TimeBankUpdateInput = {
   balance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   year?: Prisma.IntFieldUpdateOperationsInput | number
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  agreementType?: Prisma.StringFieldUpdateOperationsInput | string
+  expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutTimeBanksNestedInput
@@ -352,6 +382,8 @@ export type TimeBankUncheckedUpdateInput = {
   balance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   year?: Prisma.IntFieldUpdateOperationsInput | number
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  agreementType?: Prisma.StringFieldUpdateOperationsInput | string
+  expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -363,6 +395,8 @@ export type TimeBankCreateManyInput = {
   balance: runtime.Decimal | runtime.DecimalJsLike | number | string
   year: number
   version?: number
+  agreementType?: string
+  expirationDate?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -372,6 +406,8 @@ export type TimeBankUpdateManyMutationInput = {
   balance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   year?: Prisma.IntFieldUpdateOperationsInput | number
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  agreementType?: Prisma.StringFieldUpdateOperationsInput | string
+  expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -383,6 +419,8 @@ export type TimeBankUncheckedUpdateManyInput = {
   balance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   year?: Prisma.IntFieldUpdateOperationsInput | number
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  agreementType?: Prisma.StringFieldUpdateOperationsInput | string
+  expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -409,6 +447,8 @@ export type TimeBankCountOrderByAggregateInput = {
   balance?: Prisma.SortOrder
   year?: Prisma.SortOrder
   version?: Prisma.SortOrder
+  agreementType?: Prisma.SortOrder
+  expirationDate?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -426,6 +466,8 @@ export type TimeBankMaxOrderByAggregateInput = {
   balance?: Prisma.SortOrder
   year?: Prisma.SortOrder
   version?: Prisma.SortOrder
+  agreementType?: Prisma.SortOrder
+  expirationDate?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -437,6 +479,8 @@ export type TimeBankMinOrderByAggregateInput = {
   balance?: Prisma.SortOrder
   year?: Prisma.SortOrder
   version?: Prisma.SortOrder
+  agreementType?: Prisma.SortOrder
+  expirationDate?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -536,6 +580,8 @@ export type TimeBankCreateWithoutEmployeeInput = {
   balance: runtime.Decimal | runtime.DecimalJsLike | number | string
   year: number
   version?: number
+  agreementType?: string
+  expirationDate?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutTimeBanksInput
@@ -547,6 +593,8 @@ export type TimeBankUncheckedCreateWithoutEmployeeInput = {
   balance: runtime.Decimal | runtime.DecimalJsLike | number | string
   year: number
   version?: number
+  agreementType?: string
+  expirationDate?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -587,6 +635,8 @@ export type TimeBankScalarWhereInput = {
   balance?: Prisma.DecimalFilter<"TimeBank"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   year?: Prisma.IntFilter<"TimeBank"> | number
   version?: Prisma.IntFilter<"TimeBank"> | number
+  agreementType?: Prisma.StringFilter<"TimeBank"> | string
+  expirationDate?: Prisma.DateTimeNullableFilter<"TimeBank"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"TimeBank"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"TimeBank"> | Date | string
 }
@@ -596,6 +646,8 @@ export type TimeBankCreateWithoutTenantInput = {
   balance: runtime.Decimal | runtime.DecimalJsLike | number | string
   year: number
   version?: number
+  agreementType?: string
+  expirationDate?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   employee: Prisma.EmployeeCreateNestedOneWithoutTimeBanksInput
@@ -607,6 +659,8 @@ export type TimeBankUncheckedCreateWithoutTenantInput = {
   balance: runtime.Decimal | runtime.DecimalJsLike | number | string
   year: number
   version?: number
+  agreementType?: string
+  expirationDate?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -643,6 +697,8 @@ export type TimeBankCreateManyEmployeeInput = {
   balance: runtime.Decimal | runtime.DecimalJsLike | number | string
   year: number
   version?: number
+  agreementType?: string
+  expirationDate?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -652,6 +708,8 @@ export type TimeBankUpdateWithoutEmployeeInput = {
   balance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   year?: Prisma.IntFieldUpdateOperationsInput | number
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  agreementType?: Prisma.StringFieldUpdateOperationsInput | string
+  expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutTimeBanksNestedInput
@@ -663,6 +721,8 @@ export type TimeBankUncheckedUpdateWithoutEmployeeInput = {
   balance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   year?: Prisma.IntFieldUpdateOperationsInput | number
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  agreementType?: Prisma.StringFieldUpdateOperationsInput | string
+  expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -673,6 +733,8 @@ export type TimeBankUncheckedUpdateManyWithoutEmployeeInput = {
   balance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   year?: Prisma.IntFieldUpdateOperationsInput | number
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  agreementType?: Prisma.StringFieldUpdateOperationsInput | string
+  expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -683,6 +745,8 @@ export type TimeBankCreateManyTenantInput = {
   balance: runtime.Decimal | runtime.DecimalJsLike | number | string
   year: number
   version?: number
+  agreementType?: string
+  expirationDate?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -692,6 +756,8 @@ export type TimeBankUpdateWithoutTenantInput = {
   balance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   year?: Prisma.IntFieldUpdateOperationsInput | number
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  agreementType?: Prisma.StringFieldUpdateOperationsInput | string
+  expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employee?: Prisma.EmployeeUpdateOneRequiredWithoutTimeBanksNestedInput
@@ -703,6 +769,8 @@ export type TimeBankUncheckedUpdateWithoutTenantInput = {
   balance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   year?: Prisma.IntFieldUpdateOperationsInput | number
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  agreementType?: Prisma.StringFieldUpdateOperationsInput | string
+  expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -713,6 +781,8 @@ export type TimeBankUncheckedUpdateManyWithoutTenantInput = {
   balance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   year?: Prisma.IntFieldUpdateOperationsInput | number
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  agreementType?: Prisma.StringFieldUpdateOperationsInput | string
+  expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -726,6 +796,8 @@ export type TimeBankSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   balance?: boolean
   year?: boolean
   version?: boolean
+  agreementType?: boolean
+  expirationDate?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
@@ -739,6 +811,8 @@ export type TimeBankSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   balance?: boolean
   year?: boolean
   version?: boolean
+  agreementType?: boolean
+  expirationDate?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
@@ -752,6 +826,8 @@ export type TimeBankSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   balance?: boolean
   year?: boolean
   version?: boolean
+  agreementType?: boolean
+  expirationDate?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
@@ -765,11 +841,13 @@ export type TimeBankSelectScalar = {
   balance?: boolean
   year?: boolean
   version?: boolean
+  agreementType?: boolean
+  expirationDate?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type TimeBankOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "employeeId" | "balance" | "year" | "version" | "createdAt" | "updatedAt", ExtArgs["result"]["timeBank"]>
+export type TimeBankOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "employeeId" | "balance" | "year" | "version" | "agreementType" | "expirationDate" | "createdAt" | "updatedAt", ExtArgs["result"]["timeBank"]>
 export type TimeBankInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
@@ -796,6 +874,8 @@ export type $TimeBankPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     balance: runtime.Decimal
     year: number
     version: number
+    agreementType: string
+    expirationDate: Date | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["timeBank"]>
@@ -1229,6 +1309,8 @@ export interface TimeBankFieldRefs {
   readonly balance: Prisma.FieldRef<"TimeBank", 'Decimal'>
   readonly year: Prisma.FieldRef<"TimeBank", 'Int'>
   readonly version: Prisma.FieldRef<"TimeBank", 'Int'>
+  readonly agreementType: Prisma.FieldRef<"TimeBank", 'String'>
+  readonly expirationDate: Prisma.FieldRef<"TimeBank", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"TimeBank", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"TimeBank", 'DateTime'>
 }

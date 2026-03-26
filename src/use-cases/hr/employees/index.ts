@@ -12,3 +12,5 @@ export * from './suspend-employee';
 export * from './terminate-employee';
 export * from './transfer-employee';
 export * from './update-employee';
+export * from './check-employment-stability';
+export * from './generate-ppp-pdf';

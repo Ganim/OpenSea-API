@@ -75,6 +75,9 @@ export interface EmployeeProps {
   workRegime: WorkRegime;
   weeklyHours: number;
   photoUrl?: string;
+  isPregnant: boolean;
+  pregnancyStartDate?: Date;
+  childBirthDate?: Date;
   metadata: Record<string, unknown>;
   pendingIssues: string[];
   deletedAt?: Date;
@@ -303,6 +306,18 @@ export class Employee extends Entity<EmployeeProps> {
     return this.props.photoUrl;
   }
 
+  get isPregnant(): boolean {
+    return this.props.isPregnant;
+  }
+
+  get pregnancyStartDate(): Date | undefined {
+    return this.props.pregnancyStartDate;
+  }
+
+  get childBirthDate(): Date | undefined {
+    return this.props.childBirthDate;
+  }
+
   get metadata(): Record<string, unknown> {
     return this.props.metadata;
   }
@@ -392,8 +407,8 @@ export class Employee extends Entity<EmployeeProps> {
   }
 
   static create(
-    props: Omit<EmployeeProps, 'createdAt' | 'updatedAt'> &
-      Partial<Pick<EmployeeProps, 'createdAt' | 'updatedAt'>>,
+    props: Omit<EmployeeProps, 'createdAt' | 'updatedAt' | 'isPregnant'> &
+      Partial<Pick<EmployeeProps, 'createdAt' | 'updatedAt' | 'isPregnant'>>,
     id?: UniqueEntityID,
   ): Employee {
     const now = new Date();
@@ -403,6 +418,7 @@ export class Employee extends Entity<EmployeeProps> {
     return new Employee(
       {
         ...props,
+        isPregnant: props.isPregnant ?? false,
         pendingIssues: props.pendingIssues ?? [],
         createdAt,
         updatedAt,
