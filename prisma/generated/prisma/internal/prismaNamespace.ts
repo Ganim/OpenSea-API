@@ -651,10 +651,15 @@ export const ModelName = {
   EsocialConfig: 'EsocialConfig',
   EsocialCertificate: 'EsocialCertificate',
   EsocialEvent: 'EsocialEvent',
-  EsocialEventStatusHistory: 'EsocialEventStatusHistory',
   EsocialBatch: 'EsocialBatch',
   EsocialRubrica: 'EsocialRubrica',
-  EsocialTable: 'EsocialTable'
+  EsocialEventStatusHistory: 'EsocialEventStatusHistory',
+  EsocialTable: 'EsocialTable',
+  FinanceApprovalRule: 'FinanceApprovalRule',
+  BankConnection: 'BankConnection',
+  PaymentLink: 'PaymentLink',
+  AccountantAccess: 'AccountantAccess',
+  ExchangeRate: 'ExchangeRate'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -670,7 +675,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "userProfile" | "session" | "refreshToken" | "permission" | "permissionGroup" | "permissionGroupPermission" | "userPermissionGroup" | "userDirectPermission" | "permissionAuditLog" | "organization" | "organizationAddress" | "organizationCnae" | "organizationFiscalSettings" | "organizationStakeholder" | "supplier" | "manufacturer" | "category" | "warehouse" | "zone" | "bin" | "volume" | "volumeItem" | "template" | "product" | "variant" | "item" | "itemMovement" | "productCategory" | "variantPriceHistory" | "auditLog" | "tag" | "productTag" | "variantImage" | "productCareInstruction" | "productAttachment" | "variantAttachment" | "alert" | "purchaseOrder" | "purchaseOrderItem" | "unitConversion" | "stockSnapshot" | "inventorySession" | "inventorySessionItem" | "customer" | "salesOrder" | "salesOrderItem" | "crmContact" | "crmPipeline" | "crmPipelineStage" | "crmDeal" | "crmActivity" | "crmTimelineEvent" | "pipeline" | "pipelineStage" | "contact" | "deal" | "contactDeal" | "activity" | "timelineEvent" | "itemReservation" | "variantSupplierCode" | "variantPromotion" | "comment" | "notificationPreference" | "notificationTemplate" | "notification" | "request" | "requestAttachment" | "requestComment" | "requestHistory" | "employee" | "department" | "position" | "timeEntry" | "workSchedule" | "overtime" | "timeBank" | "absence" | "vacationPeriod" | "vacationSplit" | "payroll" | "payrollItem" | "bonus" | "deduction" | "employeeDependant" | "termination" | "medicalExam" | "safetyProgram" | "workplaceRisk" | "cipaMandate" | "cipaMember" | "company" | "companyDocument" | "companyAddress" | "companyCnae" | "companyFiscalSettings" | "companyStakeholder" | "labelTemplate" | "tenant" | "plan" | "planModule" | "tenantPlan" | "tenantUser" | "tenantFeatureFlag" | "costCenter" | "bankAccount" | "financeCategory" | "financeEntry" | "financeEntryRetention" | "financeCodeSequence" | "financeEntryPayment" | "financeEntryCostCenter" | "recurringConfig" | "financeBudget" | "financeAttachment" | "bankReconciliation" | "bankReconciliationItem" | "loan" | "loanInstallment" | "consortium" | "consortiumPayment" | "contract" | "storageFolder" | "storageFile" | "storageFileVersion" | "folderAccessRule" | "storageShareLink" | "calendar" | "teamCalendarConfig" | "calendarEvent" | "eventParticipant" | "eventReminder" | "emailAccount" | "emailAccountAccess" | "emailFolder" | "emailMessage" | "emailAttachment" | "team" | "teamMember" | "teamEmailAccount" | "board" | "boardColumn" | "card" | "boardLabel" | "cardLabel" | "boardMember" | "boardCustomField" | "cardCustomFieldValue" | "cardComment" | "commentReaction" | "cardAttachment" | "cardChecklist" | "checklistItem" | "cardActivity" | "boardAutomation" | "cardWatcher" | "systemSkillDefinition" | "skillPricing" | "tenantSubscription" | "tenantConsumption" | "tenantBilling" | "tenantIntegrationStatus" | "centralUser" | "supportTicket" | "supportTicketMessage" | "supportTicketAttachment" | "supportSlaConfig" | "priceTable" | "priceTableRule" | "priceTableItem" | "customerPrice" | "taxProfile" | "taxRule" | "campaign" | "campaignRule" | "campaignProduct" | "coupon" | "couponUsage" | "combo" | "comboItem" | "catalog" | "catalogItem" | "catalogExport" | "tenantBrand" | "contentTemplate" | "generatedContent" | "productMockup" | "emailCampaign" | "order" | "orderItem" | "paymentCondition" | "orderPayment" | "orderDelivery" | "orderDeliveryItem" | "orderReturn" | "orderReturnItem" | "storeCredit" | "storeCreditUsage" | "customerCreditLimit" | "approvalRule" | "orderCommission" | "commissionRule" | "orderHistory" | "digitalCertificate" | "signatureEnvelope" | "signatureEnvelopeSigner" | "signatureAuditEvent" | "signatureTemplate" | "analyticsWidget" | "analyticsDashboard" | "analyticsDashboardWidget" | "analyticsGoal" | "analyticsReport" | "analyticsReportGeneration" | "customerPortalAccess" | "aiTenantConfig" | "aiConversation" | "aiMessage" | "aiFavoriteQuery" | "aiActionLog" | "aiInsight" | "posTerminal" | "posSession" | "posTransaction" | "posTransactionPayment" | "posCashMovement" | "posOfflineQueue" | "posVisitLog" | "cardIntegration" | "eventLog" | "bid" | "bidItem" | "bidProposal" | "bidDocument" | "bidContract" | "bidEmpenho" | "bidMonitorEvent" | "bidHistory" | "bidAiConfig" | "certidaoSchedule" | "marketplaceConnection" | "marketplaceListing" | "marketplaceOrder" | "marketplacePayment" | "messagingAccount" | "messagingContact" | "messagingMessage" | "messagingTemplate" | "fiscalConfig" | "fiscalCertificate" | "fiscalDocument" | "fiscalDocumentItem" | "fiscalDocumentEvent" | "pixCharge" | "aiWorkflow" | "aiWorkflowExecution" | "overdueEscalation" | "overdueEscalationStep" | "overdueAction" | "punchConfiguration" | "hrTenantConfig" | "geofenceZone" | "emailToEntryConfig" | "esocialConfig" | "esocialCertificate" | "esocialEvent" | "esocialEventStatusHistory" | "esocialBatch" | "esocialRubrica" | "esocialTable"
+    modelProps: "user" | "userProfile" | "session" | "refreshToken" | "permission" | "permissionGroup" | "permissionGroupPermission" | "userPermissionGroup" | "userDirectPermission" | "permissionAuditLog" | "organization" | "organizationAddress" | "organizationCnae" | "organizationFiscalSettings" | "organizationStakeholder" | "supplier" | "manufacturer" | "category" | "warehouse" | "zone" | "bin" | "volume" | "volumeItem" | "template" | "product" | "variant" | "item" | "itemMovement" | "productCategory" | "variantPriceHistory" | "auditLog" | "tag" | "productTag" | "variantImage" | "productCareInstruction" | "productAttachment" | "variantAttachment" | "alert" | "purchaseOrder" | "purchaseOrderItem" | "unitConversion" | "stockSnapshot" | "inventorySession" | "inventorySessionItem" | "customer" | "salesOrder" | "salesOrderItem" | "crmContact" | "crmPipeline" | "crmPipelineStage" | "crmDeal" | "crmActivity" | "crmTimelineEvent" | "pipeline" | "pipelineStage" | "contact" | "deal" | "contactDeal" | "activity" | "timelineEvent" | "itemReservation" | "variantSupplierCode" | "variantPromotion" | "comment" | "notificationPreference" | "notificationTemplate" | "notification" | "request" | "requestAttachment" | "requestComment" | "requestHistory" | "employee" | "department" | "position" | "timeEntry" | "workSchedule" | "overtime" | "timeBank" | "absence" | "vacationPeriod" | "vacationSplit" | "payroll" | "payrollItem" | "bonus" | "deduction" | "employeeDependant" | "termination" | "medicalExam" | "safetyProgram" | "workplaceRisk" | "cipaMandate" | "cipaMember" | "company" | "companyDocument" | "companyAddress" | "companyCnae" | "companyFiscalSettings" | "companyStakeholder" | "labelTemplate" | "tenant" | "plan" | "planModule" | "tenantPlan" | "tenantUser" | "tenantFeatureFlag" | "costCenter" | "bankAccount" | "financeCategory" | "financeEntry" | "financeEntryRetention" | "financeCodeSequence" | "financeEntryPayment" | "financeEntryCostCenter" | "recurringConfig" | "financeBudget" | "financeAttachment" | "bankReconciliation" | "bankReconciliationItem" | "loan" | "loanInstallment" | "consortium" | "consortiumPayment" | "contract" | "storageFolder" | "storageFile" | "storageFileVersion" | "folderAccessRule" | "storageShareLink" | "calendar" | "teamCalendarConfig" | "calendarEvent" | "eventParticipant" | "eventReminder" | "emailAccount" | "emailAccountAccess" | "emailFolder" | "emailMessage" | "emailAttachment" | "team" | "teamMember" | "teamEmailAccount" | "board" | "boardColumn" | "card" | "boardLabel" | "cardLabel" | "boardMember" | "boardCustomField" | "cardCustomFieldValue" | "cardComment" | "commentReaction" | "cardAttachment" | "cardChecklist" | "checklistItem" | "cardActivity" | "boardAutomation" | "cardWatcher" | "systemSkillDefinition" | "skillPricing" | "tenantSubscription" | "tenantConsumption" | "tenantBilling" | "tenantIntegrationStatus" | "centralUser" | "supportTicket" | "supportTicketMessage" | "supportTicketAttachment" | "supportSlaConfig" | "priceTable" | "priceTableRule" | "priceTableItem" | "customerPrice" | "taxProfile" | "taxRule" | "campaign" | "campaignRule" | "campaignProduct" | "coupon" | "couponUsage" | "combo" | "comboItem" | "catalog" | "catalogItem" | "catalogExport" | "tenantBrand" | "contentTemplate" | "generatedContent" | "productMockup" | "emailCampaign" | "order" | "orderItem" | "paymentCondition" | "orderPayment" | "orderDelivery" | "orderDeliveryItem" | "orderReturn" | "orderReturnItem" | "storeCredit" | "storeCreditUsage" | "customerCreditLimit" | "approvalRule" | "orderCommission" | "commissionRule" | "orderHistory" | "digitalCertificate" | "signatureEnvelope" | "signatureEnvelopeSigner" | "signatureAuditEvent" | "signatureTemplate" | "analyticsWidget" | "analyticsDashboard" | "analyticsDashboardWidget" | "analyticsGoal" | "analyticsReport" | "analyticsReportGeneration" | "customerPortalAccess" | "aiTenantConfig" | "aiConversation" | "aiMessage" | "aiFavoriteQuery" | "aiActionLog" | "aiInsight" | "posTerminal" | "posSession" | "posTransaction" | "posTransactionPayment" | "posCashMovement" | "posOfflineQueue" | "posVisitLog" | "cardIntegration" | "eventLog" | "bid" | "bidItem" | "bidProposal" | "bidDocument" | "bidContract" | "bidEmpenho" | "bidMonitorEvent" | "bidHistory" | "bidAiConfig" | "certidaoSchedule" | "marketplaceConnection" | "marketplaceListing" | "marketplaceOrder" | "marketplacePayment" | "messagingAccount" | "messagingContact" | "messagingMessage" | "messagingTemplate" | "fiscalConfig" | "fiscalCertificate" | "fiscalDocument" | "fiscalDocumentItem" | "fiscalDocumentEvent" | "pixCharge" | "aiWorkflow" | "aiWorkflowExecution" | "overdueEscalation" | "overdueEscalationStep" | "overdueAction" | "punchConfiguration" | "hrTenantConfig" | "geofenceZone" | "emailToEntryConfig" | "esocialConfig" | "esocialCertificate" | "esocialEvent" | "esocialBatch" | "esocialRubrica" | "esocialEventStatusHistory" | "esocialTable" | "financeApprovalRule" | "bankConnection" | "paymentLink" | "accountantAccess" | "exchangeRate"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -20432,80 +20437,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    EsocialEventStatusHistory: {
-      payload: Prisma.$EsocialEventStatusHistoryPayload<ExtArgs>
-      fields: Prisma.EsocialEventStatusHistoryFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.EsocialEventStatusHistoryFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialEventStatusHistoryPayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.EsocialEventStatusHistoryFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialEventStatusHistoryPayload>
-        }
-        findFirst: {
-          args: Prisma.EsocialEventStatusHistoryFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialEventStatusHistoryPayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.EsocialEventStatusHistoryFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialEventStatusHistoryPayload>
-        }
-        findMany: {
-          args: Prisma.EsocialEventStatusHistoryFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialEventStatusHistoryPayload>[]
-        }
-        create: {
-          args: Prisma.EsocialEventStatusHistoryCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialEventStatusHistoryPayload>
-        }
-        createMany: {
-          args: Prisma.EsocialEventStatusHistoryCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.EsocialEventStatusHistoryCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialEventStatusHistoryPayload>[]
-        }
-        delete: {
-          args: Prisma.EsocialEventStatusHistoryDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialEventStatusHistoryPayload>
-        }
-        update: {
-          args: Prisma.EsocialEventStatusHistoryUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialEventStatusHistoryPayload>
-        }
-        deleteMany: {
-          args: Prisma.EsocialEventStatusHistoryDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.EsocialEventStatusHistoryUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.EsocialEventStatusHistoryUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialEventStatusHistoryPayload>[]
-        }
-        upsert: {
-          args: Prisma.EsocialEventStatusHistoryUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialEventStatusHistoryPayload>
-        }
-        aggregate: {
-          args: Prisma.EsocialEventStatusHistoryAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateEsocialEventStatusHistory>
-        }
-        groupBy: {
-          args: Prisma.EsocialEventStatusHistoryGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.EsocialEventStatusHistoryGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.EsocialEventStatusHistoryCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.EsocialEventStatusHistoryCountAggregateOutputType> | number
-        }
-      }
-    }
     EsocialBatch: {
       payload: Prisma.$EsocialBatchPayload<ExtArgs>
       fields: Prisma.EsocialBatchFieldRefs
@@ -20654,6 +20585,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    EsocialEventStatusHistory: {
+      payload: Prisma.$EsocialEventStatusHistoryPayload<ExtArgs>
+      fields: Prisma.EsocialEventStatusHistoryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.EsocialEventStatusHistoryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialEventStatusHistoryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.EsocialEventStatusHistoryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialEventStatusHistoryPayload>
+        }
+        findFirst: {
+          args: Prisma.EsocialEventStatusHistoryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialEventStatusHistoryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.EsocialEventStatusHistoryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialEventStatusHistoryPayload>
+        }
+        findMany: {
+          args: Prisma.EsocialEventStatusHistoryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialEventStatusHistoryPayload>[]
+        }
+        create: {
+          args: Prisma.EsocialEventStatusHistoryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialEventStatusHistoryPayload>
+        }
+        createMany: {
+          args: Prisma.EsocialEventStatusHistoryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.EsocialEventStatusHistoryCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialEventStatusHistoryPayload>[]
+        }
+        delete: {
+          args: Prisma.EsocialEventStatusHistoryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialEventStatusHistoryPayload>
+        }
+        update: {
+          args: Prisma.EsocialEventStatusHistoryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialEventStatusHistoryPayload>
+        }
+        deleteMany: {
+          args: Prisma.EsocialEventStatusHistoryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.EsocialEventStatusHistoryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.EsocialEventStatusHistoryUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialEventStatusHistoryPayload>[]
+        }
+        upsert: {
+          args: Prisma.EsocialEventStatusHistoryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EsocialEventStatusHistoryPayload>
+        }
+        aggregate: {
+          args: Prisma.EsocialEventStatusHistoryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateEsocialEventStatusHistory>
+        }
+        groupBy: {
+          args: Prisma.EsocialEventStatusHistoryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EsocialEventStatusHistoryGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.EsocialEventStatusHistoryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EsocialEventStatusHistoryCountAggregateOutputType> | number
+        }
+      }
+    }
     EsocialTable: {
       payload: Prisma.$EsocialTablePayload<ExtArgs>
       fields: Prisma.EsocialTableFieldRefs
@@ -20725,6 +20730,376 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.EsocialTableCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.EsocialTableCountAggregateOutputType> | number
+        }
+      }
+    }
+    FinanceApprovalRule: {
+      payload: Prisma.$FinanceApprovalRulePayload<ExtArgs>
+      fields: Prisma.FinanceApprovalRuleFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.FinanceApprovalRuleFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceApprovalRulePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.FinanceApprovalRuleFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceApprovalRulePayload>
+        }
+        findFirst: {
+          args: Prisma.FinanceApprovalRuleFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceApprovalRulePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.FinanceApprovalRuleFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceApprovalRulePayload>
+        }
+        findMany: {
+          args: Prisma.FinanceApprovalRuleFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceApprovalRulePayload>[]
+        }
+        create: {
+          args: Prisma.FinanceApprovalRuleCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceApprovalRulePayload>
+        }
+        createMany: {
+          args: Prisma.FinanceApprovalRuleCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.FinanceApprovalRuleCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceApprovalRulePayload>[]
+        }
+        delete: {
+          args: Prisma.FinanceApprovalRuleDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceApprovalRulePayload>
+        }
+        update: {
+          args: Prisma.FinanceApprovalRuleUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceApprovalRulePayload>
+        }
+        deleteMany: {
+          args: Prisma.FinanceApprovalRuleDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.FinanceApprovalRuleUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.FinanceApprovalRuleUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceApprovalRulePayload>[]
+        }
+        upsert: {
+          args: Prisma.FinanceApprovalRuleUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceApprovalRulePayload>
+        }
+        aggregate: {
+          args: Prisma.FinanceApprovalRuleAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateFinanceApprovalRule>
+        }
+        groupBy: {
+          args: Prisma.FinanceApprovalRuleGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FinanceApprovalRuleGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.FinanceApprovalRuleCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FinanceApprovalRuleCountAggregateOutputType> | number
+        }
+      }
+    }
+    BankConnection: {
+      payload: Prisma.$BankConnectionPayload<ExtArgs>
+      fields: Prisma.BankConnectionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.BankConnectionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BankConnectionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.BankConnectionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BankConnectionPayload>
+        }
+        findFirst: {
+          args: Prisma.BankConnectionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BankConnectionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.BankConnectionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BankConnectionPayload>
+        }
+        findMany: {
+          args: Prisma.BankConnectionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BankConnectionPayload>[]
+        }
+        create: {
+          args: Prisma.BankConnectionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BankConnectionPayload>
+        }
+        createMany: {
+          args: Prisma.BankConnectionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.BankConnectionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BankConnectionPayload>[]
+        }
+        delete: {
+          args: Prisma.BankConnectionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BankConnectionPayload>
+        }
+        update: {
+          args: Prisma.BankConnectionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BankConnectionPayload>
+        }
+        deleteMany: {
+          args: Prisma.BankConnectionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.BankConnectionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.BankConnectionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BankConnectionPayload>[]
+        }
+        upsert: {
+          args: Prisma.BankConnectionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BankConnectionPayload>
+        }
+        aggregate: {
+          args: Prisma.BankConnectionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateBankConnection>
+        }
+        groupBy: {
+          args: Prisma.BankConnectionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.BankConnectionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.BankConnectionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.BankConnectionCountAggregateOutputType> | number
+        }
+      }
+    }
+    PaymentLink: {
+      payload: Prisma.$PaymentLinkPayload<ExtArgs>
+      fields: Prisma.PaymentLinkFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PaymentLinkFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PaymentLinkPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PaymentLinkFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PaymentLinkPayload>
+        }
+        findFirst: {
+          args: Prisma.PaymentLinkFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PaymentLinkPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PaymentLinkFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PaymentLinkPayload>
+        }
+        findMany: {
+          args: Prisma.PaymentLinkFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PaymentLinkPayload>[]
+        }
+        create: {
+          args: Prisma.PaymentLinkCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PaymentLinkPayload>
+        }
+        createMany: {
+          args: Prisma.PaymentLinkCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PaymentLinkCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PaymentLinkPayload>[]
+        }
+        delete: {
+          args: Prisma.PaymentLinkDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PaymentLinkPayload>
+        }
+        update: {
+          args: Prisma.PaymentLinkUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PaymentLinkPayload>
+        }
+        deleteMany: {
+          args: Prisma.PaymentLinkDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PaymentLinkUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PaymentLinkUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PaymentLinkPayload>[]
+        }
+        upsert: {
+          args: Prisma.PaymentLinkUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PaymentLinkPayload>
+        }
+        aggregate: {
+          args: Prisma.PaymentLinkAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePaymentLink>
+        }
+        groupBy: {
+          args: Prisma.PaymentLinkGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PaymentLinkGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PaymentLinkCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PaymentLinkCountAggregateOutputType> | number
+        }
+      }
+    }
+    AccountantAccess: {
+      payload: Prisma.$AccountantAccessPayload<ExtArgs>
+      fields: Prisma.AccountantAccessFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AccountantAccessFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AccountantAccessPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AccountantAccessFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AccountantAccessPayload>
+        }
+        findFirst: {
+          args: Prisma.AccountantAccessFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AccountantAccessPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AccountantAccessFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AccountantAccessPayload>
+        }
+        findMany: {
+          args: Prisma.AccountantAccessFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AccountantAccessPayload>[]
+        }
+        create: {
+          args: Prisma.AccountantAccessCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AccountantAccessPayload>
+        }
+        createMany: {
+          args: Prisma.AccountantAccessCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.AccountantAccessCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AccountantAccessPayload>[]
+        }
+        delete: {
+          args: Prisma.AccountantAccessDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AccountantAccessPayload>
+        }
+        update: {
+          args: Prisma.AccountantAccessUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AccountantAccessPayload>
+        }
+        deleteMany: {
+          args: Prisma.AccountantAccessDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AccountantAccessUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.AccountantAccessUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AccountantAccessPayload>[]
+        }
+        upsert: {
+          args: Prisma.AccountantAccessUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AccountantAccessPayload>
+        }
+        aggregate: {
+          args: Prisma.AccountantAccessAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAccountantAccess>
+        }
+        groupBy: {
+          args: Prisma.AccountantAccessGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AccountantAccessGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AccountantAccessCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AccountantAccessCountAggregateOutputType> | number
+        }
+      }
+    }
+    ExchangeRate: {
+      payload: Prisma.$ExchangeRatePayload<ExtArgs>
+      fields: Prisma.ExchangeRateFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ExchangeRateFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExchangeRatePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ExchangeRateFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExchangeRatePayload>
+        }
+        findFirst: {
+          args: Prisma.ExchangeRateFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExchangeRatePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ExchangeRateFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExchangeRatePayload>
+        }
+        findMany: {
+          args: Prisma.ExchangeRateFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExchangeRatePayload>[]
+        }
+        create: {
+          args: Prisma.ExchangeRateCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExchangeRatePayload>
+        }
+        createMany: {
+          args: Prisma.ExchangeRateCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ExchangeRateCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExchangeRatePayload>[]
+        }
+        delete: {
+          args: Prisma.ExchangeRateDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExchangeRatePayload>
+        }
+        update: {
+          args: Prisma.ExchangeRateUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExchangeRatePayload>
+        }
+        deleteMany: {
+          args: Prisma.ExchangeRateDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ExchangeRateUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ExchangeRateUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExchangeRatePayload>[]
+        }
+        upsert: {
+          args: Prisma.ExchangeRateUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExchangeRatePayload>
+        }
+        aggregate: {
+          args: Prisma.ExchangeRateAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateExchangeRate>
+        }
+        groupBy: {
+          args: Prisma.ExchangeRateGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ExchangeRateGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ExchangeRateCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ExchangeRateCountAggregateOutputType> | number
         }
       }
     }
@@ -22360,6 +22735,10 @@ export const OvertimeScalarFieldEnum = {
   approved: 'approved',
   approvedBy: 'approvedBy',
   approvedAt: 'approvedAt',
+  rejected: 'rejected',
+  rejectedBy: 'rejectedBy',
+  rejectedAt: 'rejectedAt',
+  rejectionReason: 'rejectionReason',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -23030,6 +23409,9 @@ export const FinanceEntryScalarFieldEnum = {
   beneficiaryCpfCnpj: 'beneficiaryCpfCnpj',
   pixKey: 'pixKey',
   pixKeyType: 'pixKeyType',
+  currency: 'currency',
+  exchangeRate: 'exchangeRate',
+  originalAmount: 'originalAmount',
   metadata: 'metadata',
   tags: 'tags',
   deletedAt: 'deletedAt',
@@ -26300,14 +26682,10 @@ export const EsocialConfigScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
   environment: 'environment',
-  version: 'version',
-  tpInsc: 'tpInsc',
-  nrInsc: 'nrInsc',
-  autoGenerateOnAdmission: 'autoGenerateOnAdmission',
-  autoGenerateOnTermination: 'autoGenerateOnTermination',
-  autoGenerateOnLeave: 'autoGenerateOnLeave',
-  autoGenerateOnPayroll: 'autoGenerateOnPayroll',
+  autoGenerate: 'autoGenerate',
   requireApproval: 'requireApproval',
+  employerType: 'employerType',
+  employerDocument: 'employerDocument',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -26318,15 +26696,14 @@ export type EsocialConfigScalarFieldEnum = (typeof EsocialConfigScalarFieldEnum)
 export const EsocialCertificateScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
-  type: 'type',
+  encryptedPfx: 'encryptedPfx',
+  encryptionIv: 'encryptionIv',
+  encryptionTag: 'encryptionTag',
   serialNumber: 'serialNumber',
   issuer: 'issuer',
   subject: 'subject',
   validFrom: 'validFrom',
   validUntil: 'validUntil',
-  pfxData: 'pfxData',
-  passphrase: 'passphrase',
-  isActive: 'isActive',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -26338,34 +26715,71 @@ export const EsocialEventScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
   eventType: 'eventType',
+  description: 'description',
   status: 'status',
   referenceId: 'referenceId',
+  referenceName: 'referenceName',
   referenceType: 'referenceType',
+  periodStart: 'periodStart',
+  periodEnd: 'periodEnd',
+  deadline: 'deadline',
   xmlContent: 'xmlContent',
-  xmlHash: 'xmlHash',
-  reviewedBy: 'reviewedBy',
-  reviewedAt: 'reviewedAt',
-  reviewNotes: 'reviewNotes',
-  approvedBy: 'approvedBy',
-  approvedAt: 'approvedAt',
+  signedXml: 'signedXml',
   batchId: 'batchId',
-  protocol: 'protocol',
   receipt: 'receipt',
-  transmittedAt: 'transmittedAt',
-  responseAt: 'responseAt',
-  responseXml: 'responseXml',
   rejectionCode: 'rejectionCode',
   rejectionMessage: 'rejectionMessage',
   retryCount: 'retryCount',
   nextRetryAt: 'nextRetryAt',
-  originalEventId: 'originalEventId',
-  isRectification: 'isRectification',
-  deadline: 'deadline',
+  rectifiedEventId: 'rectifiedEventId',
+  createdBy: 'createdBy',
+  reviewedBy: 'reviewedBy',
+  reviewedAt: 'reviewedAt',
+  approvedBy: 'approvedBy',
+  approvedAt: 'approvedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type EsocialEventScalarFieldEnum = (typeof EsocialEventScalarFieldEnum)[keyof typeof EsocialEventScalarFieldEnum]
+
+
+export const EsocialBatchScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  protocol: 'protocol',
+  status: 'status',
+  environment: 'environment',
+  totalEvents: 'totalEvents',
+  acceptedCount: 'acceptedCount',
+  rejectedCount: 'rejectedCount',
+  transmittedAt: 'transmittedAt',
+  checkedAt: 'checkedAt',
+  errorMessage: 'errorMessage',
+  retryCount: 'retryCount',
+  nextRetryAt: 'nextRetryAt',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type EsocialBatchScalarFieldEnum = (typeof EsocialBatchScalarFieldEnum)[keyof typeof EsocialBatchScalarFieldEnum]
+
+
+export const EsocialRubricaScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  code: 'code',
+  description: 'description',
+  nature: 'nature',
+  type: 'type',
+  incidence: 'incidence',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type EsocialRubricaScalarFieldEnum = (typeof EsocialRubricaScalarFieldEnum)[keyof typeof EsocialRubricaScalarFieldEnum]
 
 
 export const EsocialEventStatusHistoryScalarFieldEnum = {
@@ -26381,38 +26795,6 @@ export const EsocialEventStatusHistoryScalarFieldEnum = {
 export type EsocialEventStatusHistoryScalarFieldEnum = (typeof EsocialEventStatusHistoryScalarFieldEnum)[keyof typeof EsocialEventStatusHistoryScalarFieldEnum]
 
 
-export const EsocialBatchScalarFieldEnum = {
-  id: 'id',
-  tenantId: 'tenantId',
-  status: 'status',
-  eventCount: 'eventCount',
-  protocol: 'protocol',
-  transmittedAt: 'transmittedAt',
-  completedAt: 'completedAt',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type EsocialBatchScalarFieldEnum = (typeof EsocialBatchScalarFieldEnum)[keyof typeof EsocialBatchScalarFieldEnum]
-
-
-export const EsocialRubricaScalarFieldEnum = {
-  id: 'id',
-  tenantId: 'tenantId',
-  code: 'code',
-  description: 'description',
-  type: 'type',
-  incidInss: 'incidInss',
-  incidIrrf: 'incidIrrf',
-  incidFgts: 'incidFgts',
-  isActive: 'isActive',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type EsocialRubricaScalarFieldEnum = (typeof EsocialRubricaScalarFieldEnum)[keyof typeof EsocialRubricaScalarFieldEnum]
-
-
 export const EsocialTableScalarFieldEnum = {
   id: 'id',
   tableCode: 'tableCode',
@@ -26424,6 +26806,90 @@ export const EsocialTableScalarFieldEnum = {
 } as const
 
 export type EsocialTableScalarFieldEnum = (typeof EsocialTableScalarFieldEnum)[keyof typeof EsocialTableScalarFieldEnum]
+
+
+export const FinanceApprovalRuleScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  name: 'name',
+  isActive: 'isActive',
+  action: 'action',
+  maxAmount: 'maxAmount',
+  conditions: 'conditions',
+  priority: 'priority',
+  appliedCount: 'appliedCount',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type FinanceApprovalRuleScalarFieldEnum = (typeof FinanceApprovalRuleScalarFieldEnum)[keyof typeof FinanceApprovalRuleScalarFieldEnum]
+
+
+export const BankConnectionScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  bankAccountId: 'bankAccountId',
+  provider: 'provider',
+  externalItemId: 'externalItemId',
+  accessToken: 'accessToken',
+  status: 'status',
+  lastSyncAt: 'lastSyncAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BankConnectionScalarFieldEnum = (typeof BankConnectionScalarFieldEnum)[keyof typeof BankConnectionScalarFieldEnum]
+
+
+export const PaymentLinkScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  entryId: 'entryId',
+  slug: 'slug',
+  amount: 'amount',
+  description: 'description',
+  customerName: 'customerName',
+  expiresAt: 'expiresAt',
+  pixCopiaECola: 'pixCopiaECola',
+  boletoDigitableLine: 'boletoDigitableLine',
+  boletoPdfUrl: 'boletoPdfUrl',
+  status: 'status',
+  paidAt: 'paidAt',
+  createdAt: 'createdAt'
+} as const
+
+export type PaymentLinkScalarFieldEnum = (typeof PaymentLinkScalarFieldEnum)[keyof typeof PaymentLinkScalarFieldEnum]
+
+
+export const AccountantAccessScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  email: 'email',
+  name: 'name',
+  cpfCnpj: 'cpfCnpj',
+  crc: 'crc',
+  accessToken: 'accessToken',
+  isActive: 'isActive',
+  lastAccessAt: 'lastAccessAt',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AccountantAccessScalarFieldEnum = (typeof AccountantAccessScalarFieldEnum)[keyof typeof AccountantAccessScalarFieldEnum]
+
+
+export const ExchangeRateScalarFieldEnum = {
+  id: 'id',
+  currency: 'currency',
+  rate: 'rate',
+  date: 'date',
+  source: 'source',
+  createdAt: 'createdAt'
+} as const
+
+export type ExchangeRateScalarFieldEnum = (typeof ExchangeRateScalarFieldEnum)[keyof typeof ExchangeRateScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -29958,6 +30424,90 @@ export type EnumEscalationActionStatusFieldRefInput<$PrismaModel> = FieldRefInpu
 export type ListEnumEscalationActionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EscalationActionStatus[]'>
     
 
+
+/**
+ * Reference to a field of type 'EsocialEnvironment'
+ */
+export type EnumEsocialEnvironmentFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EsocialEnvironment'>
+    
+
+
+/**
+ * Reference to a field of type 'EsocialEnvironment[]'
+ */
+export type ListEnumEsocialEnvironmentFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EsocialEnvironment[]'>
+    
+
+
+/**
+ * Reference to a field of type 'EsocialEventStatus'
+ */
+export type EnumEsocialEventStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EsocialEventStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'EsocialEventStatus[]'
+ */
+export type ListEnumEsocialEventStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EsocialEventStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'EsocialBatchStatus'
+ */
+export type EnumEsocialBatchStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EsocialBatchStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'EsocialBatchStatus[]'
+ */
+export type ListEnumEsocialBatchStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EsocialBatchStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'FinanceApprovalAction'
+ */
+export type EnumFinanceApprovalActionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FinanceApprovalAction'>
+    
+
+
+/**
+ * Reference to a field of type 'FinanceApprovalAction[]'
+ */
+export type ListEnumFinanceApprovalActionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FinanceApprovalAction[]'>
+    
+
+
+/**
+ * Reference to a field of type 'BankConnectionStatus'
+ */
+export type EnumBankConnectionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BankConnectionStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'BankConnectionStatus[]'
+ */
+export type ListEnumBankConnectionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BankConnectionStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'PaymentLinkStatus'
+ */
+export type EnumPaymentLinkStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PaymentLinkStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'PaymentLinkStatus[]'
+ */
+export type ListEnumPaymentLinkStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PaymentLinkStatus[]'>
+    
+
 /**
  * Batch Payload for updateMany & deleteMany & createMany
  */
@@ -30320,10 +30870,15 @@ export type GlobalOmitConfig = {
   esocialConfig?: Prisma.EsocialConfigOmit
   esocialCertificate?: Prisma.EsocialCertificateOmit
   esocialEvent?: Prisma.EsocialEventOmit
-  esocialEventStatusHistory?: Prisma.EsocialEventStatusHistoryOmit
   esocialBatch?: Prisma.EsocialBatchOmit
   esocialRubrica?: Prisma.EsocialRubricaOmit
+  esocialEventStatusHistory?: Prisma.EsocialEventStatusHistoryOmit
   esocialTable?: Prisma.EsocialTableOmit
+  financeApprovalRule?: Prisma.FinanceApprovalRuleOmit
+  bankConnection?: Prisma.BankConnectionOmit
+  paymentLink?: Prisma.PaymentLinkOmit
+  accountantAccess?: Prisma.AccountantAccessOmit
+  exchangeRate?: Prisma.ExchangeRateOmit
 }
 
 /* Types for Logging */

@@ -254,11 +254,13 @@ export const PermissionCodes = {
     BONUSES: {
       ACCESS: 'hr.bonuses.access' as const,
       REGISTER: 'hr.bonuses.register' as const,
+      MODIFY: 'hr.bonuses.modify' as const,
       REMOVE: 'hr.bonuses.remove' as const,
     },
     DEDUCTIONS: {
       ACCESS: 'hr.deductions.access' as const,
       REGISTER: 'hr.deductions.register' as const,
+      MODIFY: 'hr.deductions.modify' as const,
       REMOVE: 'hr.deductions.remove' as const,
     },
     MEDICAL_EXAMS: {

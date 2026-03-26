@@ -5,6 +5,7 @@ import rateLimit from '@fastify/rate-limit';
 import { v1ApproveOvertimeController } from './v1-approve-overtime.controller';
 import { v1GetOvertimeController } from './v1-get-overtime.controller';
 import { v1ListOvertimeController } from './v1-list-overtime.controller';
+import { v1RejectOvertimeController } from './v1-reject-overtime.controller';
 import { v1RequestOvertimeController } from './v1-request-overtime.controller';
 
 export async function overtimeRoutes(app: FastifyInstance) {
@@ -16,6 +17,7 @@ export async function overtimeRoutes(app: FastifyInstance) {
       mutationApp.register(rateLimit, rateLimitConfig.mutation);
       mutationApp.register(v1RequestOvertimeController);
       mutationApp.register(v1ApproveOvertimeController);
+      mutationApp.register(v1RejectOvertimeController);
     },
     { prefix: '' },
   );

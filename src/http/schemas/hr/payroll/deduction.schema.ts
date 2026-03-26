@@ -19,6 +19,18 @@ export const createDeductionSchema = z.object({
 });
 
 /**
+ * Schema para atualização de dedução
+ */
+export const updateDeductionSchema = z.object({
+  name: z.string().min(1).max(128).optional(),
+  amount: z.number().positive().optional(),
+  reason: z.string().min(10).max(1000).optional(),
+  date: z.coerce.date().optional(),
+  isRecurring: z.boolean().optional(),
+  installments: z.number().int().positive().optional(),
+});
+
+/**
  * Schema para filtros de listagem de deduções
  */
 export const listDeductionsQuerySchema = z.object({

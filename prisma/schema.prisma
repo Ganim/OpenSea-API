@@ -373,7 +373,8 @@ model User {
   paidPayrolls      Payroll[] @relation("PayrollPayer")
 
   // Overtime Relations
-  approvedOvertime Overtime[]
+  approvedOvertime Overtime[] @relation("OvertimeApprover")
+  rejectedOvertime Overtime[] @relation("OvertimeRejecter")
 
   // Absence Relations
   approvedAbsences Absence[]
@@ -4125,6 +4126,11 @@ model Overtime {
   approvedBy String?   @map("approved_by")
   approvedAt DateTime? @map("approved_at")
 
+  rejected        Boolean   @default(false)
+  rejectedBy      String?   @map("rejected_by")
+  rejectedAt      DateTime? @map("rejected_at")
+  rejectionReason String?   @map("rejection_reason") @db.Text
+
   // Audit
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -4132,7 +4138,8 @@ model Overtime {
   // Relations
   tenant   Tenant   @relation(fields: [tenantId], references: [id])
   employee Employee @relation(fields: [employeeId], references: [id])
-  approver User?    @relation(fields: [approvedBy], references: [id])
+  approver User?    @relation("OvertimeApprover", fields: [approvedBy], references: [id])
+  rejecter User?    @relation("OvertimeRejecter", fields: [rejectedBy], references: [id])
 
   @@index([tenantId])
   @@index([employeeId])
@@ -12380,8 +12387,9 @@ model EsocialEvent {
   updatedAt  DateTime @updatedAt @map("updated_at")
 
   // Relations
-  tenant Tenant         @relation(fields: [tenantId], references: [id])
-  batch  EsocialBatch?  @relation(fields: [batchId], references: [id])
+  tenant         Tenant                      @relation(fields: [tenantId], references: [id])
+  batch          EsocialBatch?               @relation(fields: [batchId], references: [id])
+  statusHistory  EsocialEventStatusHistory[]
 
   @@index([tenantId])
   @@index([tenantId, status])
@@ -12452,116 +12460,6 @@ model EsocialRubrica {
   @@map("esocial_rubricas")
 }
 
-// ===============================================
-// ESOCIAL MODULE
-// ===============================================
-
-model EsocialConfig {
-  id          String  @id @default(uuid())
-  tenantId    String  @unique @map("tenant_id")
-  environment String  @default("HOMOLOGACAO") @db.VarChar(16) // PRODUCAO, HOMOLOGACAO
-  version     String  @default("S-1.2") @db.VarChar(16)
-
-  // Employer identification
-  tpInsc      Int     @default(1) @map("tp_insc") // 1=CNPJ, 2=CPF
-  nrInsc      String? @map("nr_insc") @db.VarChar(14) // CNPJ/CPF without mask
-
-  // Auto-generation settings
-  autoGenerateOnAdmission  Boolean @default(true) @map("auto_generate_on_admission")
-  autoGenerateOnTermination Boolean @default(true) @map("auto_generate_on_termination")
-  autoGenerateOnLeave      Boolean @default(true) @map("auto_generate_on_leave")
-  autoGenerateOnPayroll    Boolean @default(true) @map("auto_generate_on_payroll")
-
-  // Review settings
-  requireApproval Boolean @default(true) @map("require_approval")
-
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-
-  tenant Tenant @relation(fields: [tenantId], references: [id])
-
-  @@map("esocial_configs")
-}
-
-model EsocialCertificate {
-  id           String   @id @default(uuid())
-  tenantId     String   @unique @map("tenant_id")
-  type         String   @db.VarChar(8) // E_CNPJ, E_CPF
-  serialNumber String   @map("serial_number") @db.VarChar(64)
-  issuer       String   @db.VarChar(256)
-  subject      String   @db.VarChar(256)
-  validFrom    DateTime @map("valid_from")
-  validUntil   DateTime @map("valid_until")
-  pfxData      Bytes    @map("pfx_data") // Encrypted PFX binary
-  passphrase   String   @db.VarChar(512) // Encrypted passphrase
-  isActive     Boolean  @default(true) @map("is_active")
-
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-
-  tenant Tenant @relation(fields: [tenantId], references: [id])
-
-  @@map("esocial_certificates")
-}
-
-model EsocialEvent {
-  id            String  @id @default(uuid())
-  tenantId      String  @map("tenant_id")
-  eventType     String  @map("event_type") @db.VarChar(8) // S-2190, S-2200, S-1200, etc.
-  status        String  @default("DRAFT") @db.VarChar(16) // DRAFT, VALIDATED, REVIEWED, APPROVED, QUEUED, TRANSMITTING, ACCEPTED, REJECTED, ERROR
-
-  // Reference to source entity
-  referenceId   String? @map("reference_id")
-  referenceType String? @map("reference_type") @db.VarChar(32) // EMPLOYEE, PAYROLL, ABSENCE, TERMINATION, MEDICAL_EXAM
-
-  // XML content
-  xmlContent    String  @map("xml_content") @db.Text
-  xmlHash       String? @map("xml_hash") @db.VarChar(64)
-
-  // Review workflow
-  reviewedBy    String? @map("reviewed_by")
-  reviewedAt    DateTime? @map("reviewed_at")
-  reviewNotes   String? @map("review_notes")
-  approvedBy    String? @map("approved_by")
-  approvedAt    DateTime? @map("approved_at")
-
-  // Transmission
-  batchId       String? @map("batch_id")
-  protocol      String? @db.VarChar(64)
-  receipt       String? @db.VarChar(64)
-  transmittedAt DateTime? @map("transmitted_at")
-  responseAt    DateTime? @map("response_at")
-  responseXml   String? @map("response_xml") @db.Text
-
-  // Error handling
-  rejectionCode    String? @map("rejection_code") @db.VarChar(16)
-  rejectionMessage String? @map("rejection_message") @db.Text
-  retryCount       Int     @default(0) @map("retry_count")
-  nextRetryAt      DateTime? @map("next_retry_at")
-
-  // Rectification
-  originalEventId String? @map("original_event_id")
-  isRectification Boolean @default(false) @map("is_rectification")
-
-  // Deadline
-  deadline      DateTime?
-
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-
-  tenant         Tenant                      @relation(fields: [tenantId], references: [id])
-  batch          EsocialBatch?               @relation(fields: [batchId], references: [id])
-  originalEvent  EsocialEvent?               @relation("EventRectification", fields: [originalEventId], references: [id])
-  rectifications EsocialEvent[]              @relation("EventRectification")
-  statusHistory  EsocialEventStatusHistory[]
-
-  @@index([tenantId, status])
-  @@index([tenantId, eventType])
-  @@index([tenantId, referenceId])
-  @@index([deadline])
-  @@map("esocial_events")
-}
-
 model EsocialEventStatusHistory {
   id         String   @id @default(uuid())
   eventId    String   @map("event_id")
@@ -12576,46 +12474,6 @@ model EsocialEventStatusHistory {
 
   @@index([eventId])
   @@map("esocial_event_status_history")
-}
-
-model EsocialBatch {
-  id         String   @id @default(uuid())
-  tenantId   String   @map("tenant_id")
-  status     String   @default("PENDING") @db.VarChar(16) // PENDING, TRANSMITTING, COMPLETED, PARTIAL_ERROR, ERROR
-  eventCount Int      @map("event_count")
-
-  protocol      String?   @db.VarChar(64)
-  transmittedAt DateTime? @map("transmitted_at")
-  completedAt   DateTime? @map("completed_at")
-
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-
-  tenant Tenant         @relation(fields: [tenantId], references: [id])
-  events EsocialEvent[]
-
-  @@index([tenantId, status])
-  @@map("esocial_batches")
-}
-
-model EsocialRubrica {
-  id          String  @id @default(uuid())
-  tenantId    String  @map("tenant_id")
-  code        String  @db.VarChar(32)
-  description String  @db.VarChar(256)
-  type        Int     // 1=Vencimento, 2=Desconto, 3=Informativo
-  incidInss   String? @map("incid_inss") @db.VarChar(2) // Incidência INSS
-  incidIrrf   String? @map("incid_irrf") @db.VarChar(2) // Incidência IRRF
-  incidFgts   String? @map("incid_fgts") @db.VarChar(2) // Incidência FGTS
-  isActive    Boolean @default(true) @map("is_active")
-
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-
-  tenant Tenant @relation(fields: [tenantId], references: [id])
-
-  @@unique([tenantId, code])
-  @@map("esocial_rubricas")
 }
 
 model EsocialTable {

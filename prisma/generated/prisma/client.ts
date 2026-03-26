@@ -1375,11 +1375,6 @@ export type EsocialCertificate = Prisma.EsocialCertificateModel
  */
 export type EsocialEvent = Prisma.EsocialEventModel
 /**
- * Model EsocialEventStatusHistory
- * 
- */
-export type EsocialEventStatusHistory = Prisma.EsocialEventStatusHistoryModel
-/**
  * Model EsocialBatch
  * 
  */
@@ -1390,7 +1385,37 @@ export type EsocialBatch = Prisma.EsocialBatchModel
  */
 export type EsocialRubrica = Prisma.EsocialRubricaModel
 /**
+ * Model EsocialEventStatusHistory
+ * 
+ */
+export type EsocialEventStatusHistory = Prisma.EsocialEventStatusHistoryModel
+/**
  * Model EsocialTable
  * 
  */
 export type EsocialTable = Prisma.EsocialTableModel
+/**
+ * Model FinanceApprovalRule
+ * 
+ */
+export type FinanceApprovalRule = Prisma.FinanceApprovalRuleModel
+/**
+ * Model BankConnection
+ * 
+ */
+export type BankConnection = Prisma.BankConnectionModel
+/**
+ * Model PaymentLink
+ * 
+ */
+export type PaymentLink = Prisma.PaymentLinkModel
+/**
+ * Model AccountantAccess
+ * 
+ */
+export type AccountantAccess = Prisma.AccountantAccessModel
+/**
+ * Model ExchangeRate
+ * 
+ */
+export type ExchangeRate = Prisma.ExchangeRateModel

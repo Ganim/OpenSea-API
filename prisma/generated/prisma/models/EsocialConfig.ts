@@ -20,32 +20,18 @@ export type EsocialConfigModel = runtime.Types.Result.DefaultSelection<Prisma.$E
 
 export type AggregateEsocialConfig = {
   _count: EsocialConfigCountAggregateOutputType | null
-  _avg: EsocialConfigAvgAggregateOutputType | null
-  _sum: EsocialConfigSumAggregateOutputType | null
   _min: EsocialConfigMinAggregateOutputType | null
   _max: EsocialConfigMaxAggregateOutputType | null
-}
-
-export type EsocialConfigAvgAggregateOutputType = {
-  tpInsc: number | null
-}
-
-export type EsocialConfigSumAggregateOutputType = {
-  tpInsc: number | null
 }
 
 export type EsocialConfigMinAggregateOutputType = {
   id: string | null
   tenantId: string | null
-  environment: string | null
-  version: string | null
-  tpInsc: number | null
-  nrInsc: string | null
-  autoGenerateOnAdmission: boolean | null
-  autoGenerateOnTermination: boolean | null
-  autoGenerateOnLeave: boolean | null
-  autoGenerateOnPayroll: boolean | null
+  environment: $Enums.EsocialEnvironment | null
+  autoGenerate: boolean | null
   requireApproval: boolean | null
+  employerType: string | null
+  employerDocument: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -53,15 +39,11 @@ export type EsocialConfigMinAggregateOutputType = {
 export type EsocialConfigMaxAggregateOutputType = {
   id: string | null
   tenantId: string | null
-  environment: string | null
-  version: string | null
-  tpInsc: number | null
-  nrInsc: string | null
-  autoGenerateOnAdmission: boolean | null
-  autoGenerateOnTermination: boolean | null
-  autoGenerateOnLeave: boolean | null
-  autoGenerateOnPayroll: boolean | null
+  environment: $Enums.EsocialEnvironment | null
+  autoGenerate: boolean | null
   requireApproval: boolean | null
+  employerType: string | null
+  employerDocument: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -70,40 +52,24 @@ export type EsocialConfigCountAggregateOutputType = {
   id: number
   tenantId: number
   environment: number
-  version: number
-  tpInsc: number
-  nrInsc: number
-  autoGenerateOnAdmission: number
-  autoGenerateOnTermination: number
-  autoGenerateOnLeave: number
-  autoGenerateOnPayroll: number
+  autoGenerate: number
   requireApproval: number
+  employerType: number
+  employerDocument: number
   createdAt: number
   updatedAt: number
   _all: number
 }
 
 
-export type EsocialConfigAvgAggregateInputType = {
-  tpInsc?: true
-}
-
-export type EsocialConfigSumAggregateInputType = {
-  tpInsc?: true
-}
-
 export type EsocialConfigMinAggregateInputType = {
   id?: true
   tenantId?: true
   environment?: true
-  version?: true
-  tpInsc?: true
-  nrInsc?: true
-  autoGenerateOnAdmission?: true
-  autoGenerateOnTermination?: true
-  autoGenerateOnLeave?: true
-  autoGenerateOnPayroll?: true
+  autoGenerate?: true
   requireApproval?: true
+  employerType?: true
+  employerDocument?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -112,14 +78,10 @@ export type EsocialConfigMaxAggregateInputType = {
   id?: true
   tenantId?: true
   environment?: true
-  version?: true
-  tpInsc?: true
-  nrInsc?: true
-  autoGenerateOnAdmission?: true
-  autoGenerateOnTermination?: true
-  autoGenerateOnLeave?: true
-  autoGenerateOnPayroll?: true
+  autoGenerate?: true
   requireApproval?: true
+  employerType?: true
+  employerDocument?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -128,14 +90,10 @@ export type EsocialConfigCountAggregateInputType = {
   id?: true
   tenantId?: true
   environment?: true
-  version?: true
-  tpInsc?: true
-  nrInsc?: true
-  autoGenerateOnAdmission?: true
-  autoGenerateOnTermination?: true
-  autoGenerateOnLeave?: true
-  autoGenerateOnPayroll?: true
+  autoGenerate?: true
   requireApproval?: true
+  employerType?: true
+  employerDocument?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -179,18 +137,6 @@ export type EsocialConfigAggregateArgs<ExtArgs extends runtime.Types.Extensions.
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
-   * Select which fields to average
-  **/
-  _avg?: EsocialConfigAvgAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
-   * Select which fields to sum
-  **/
-  _sum?: EsocialConfigSumAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
    * Select which fields to find the minimum value
   **/
   _min?: EsocialConfigMinAggregateInputType
@@ -221,8 +167,6 @@ export type EsocialConfigGroupByArgs<ExtArgs extends runtime.Types.Extensions.In
   take?: number
   skip?: number
   _count?: EsocialConfigCountAggregateInputType | true
-  _avg?: EsocialConfigAvgAggregateInputType
-  _sum?: EsocialConfigSumAggregateInputType
   _min?: EsocialConfigMinAggregateInputType
   _max?: EsocialConfigMaxAggregateInputType
 }
@@ -230,20 +174,14 @@ export type EsocialConfigGroupByArgs<ExtArgs extends runtime.Types.Extensions.In
 export type EsocialConfigGroupByOutputType = {
   id: string
   tenantId: string
-  environment: string
-  version: string
-  tpInsc: number
-  nrInsc: string | null
-  autoGenerateOnAdmission: boolean
-  autoGenerateOnTermination: boolean
-  autoGenerateOnLeave: boolean
-  autoGenerateOnPayroll: boolean
+  environment: $Enums.EsocialEnvironment
+  autoGenerate: boolean
   requireApproval: boolean
+  employerType: string
+  employerDocument: string | null
   createdAt: Date
   updatedAt: Date
   _count: EsocialConfigCountAggregateOutputType | null
-  _avg: EsocialConfigAvgAggregateOutputType | null
-  _sum: EsocialConfigSumAggregateOutputType | null
   _min: EsocialConfigMinAggregateOutputType | null
   _max: EsocialConfigMaxAggregateOutputType | null
 }
@@ -269,15 +207,11 @@ export type EsocialConfigWhereInput = {
   NOT?: Prisma.EsocialConfigWhereInput | Prisma.EsocialConfigWhereInput[]
   id?: Prisma.StringFilter<"EsocialConfig"> | string
   tenantId?: Prisma.StringFilter<"EsocialConfig"> | string
-  environment?: Prisma.StringFilter<"EsocialConfig"> | string
-  version?: Prisma.StringFilter<"EsocialConfig"> | string
-  tpInsc?: Prisma.IntFilter<"EsocialConfig"> | number
-  nrInsc?: Prisma.StringNullableFilter<"EsocialConfig"> | string | null
-  autoGenerateOnAdmission?: Prisma.BoolFilter<"EsocialConfig"> | boolean
-  autoGenerateOnTermination?: Prisma.BoolFilter<"EsocialConfig"> | boolean
-  autoGenerateOnLeave?: Prisma.BoolFilter<"EsocialConfig"> | boolean
-  autoGenerateOnPayroll?: Prisma.BoolFilter<"EsocialConfig"> | boolean
+  environment?: Prisma.EnumEsocialEnvironmentFilter<"EsocialConfig"> | $Enums.EsocialEnvironment
+  autoGenerate?: Prisma.BoolFilter<"EsocialConfig"> | boolean
   requireApproval?: Prisma.BoolFilter<"EsocialConfig"> | boolean
+  employerType?: Prisma.StringFilter<"EsocialConfig"> | string
+  employerDocument?: Prisma.StringNullableFilter<"EsocialConfig"> | string | null
   createdAt?: Prisma.DateTimeFilter<"EsocialConfig"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"EsocialConfig"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
@@ -287,14 +221,10 @@ export type EsocialConfigOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
   environment?: Prisma.SortOrder
-  version?: Prisma.SortOrder
-  tpInsc?: Prisma.SortOrder
-  nrInsc?: Prisma.SortOrderInput | Prisma.SortOrder
-  autoGenerateOnAdmission?: Prisma.SortOrder
-  autoGenerateOnTermination?: Prisma.SortOrder
-  autoGenerateOnLeave?: Prisma.SortOrder
-  autoGenerateOnPayroll?: Prisma.SortOrder
+  autoGenerate?: Prisma.SortOrder
   requireApproval?: Prisma.SortOrder
+  employerType?: Prisma.SortOrder
+  employerDocument?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   tenant?: Prisma.TenantOrderByWithRelationInput
@@ -306,15 +236,11 @@ export type EsocialConfigWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.EsocialConfigWhereInput | Prisma.EsocialConfigWhereInput[]
   OR?: Prisma.EsocialConfigWhereInput[]
   NOT?: Prisma.EsocialConfigWhereInput | Prisma.EsocialConfigWhereInput[]
-  environment?: Prisma.StringFilter<"EsocialConfig"> | string
-  version?: Prisma.StringFilter<"EsocialConfig"> | string
-  tpInsc?: Prisma.IntFilter<"EsocialConfig"> | number
-  nrInsc?: Prisma.StringNullableFilter<"EsocialConfig"> | string | null
-  autoGenerateOnAdmission?: Prisma.BoolFilter<"EsocialConfig"> | boolean
-  autoGenerateOnTermination?: Prisma.BoolFilter<"EsocialConfig"> | boolean
-  autoGenerateOnLeave?: Prisma.BoolFilter<"EsocialConfig"> | boolean
-  autoGenerateOnPayroll?: Prisma.BoolFilter<"EsocialConfig"> | boolean
+  environment?: Prisma.EnumEsocialEnvironmentFilter<"EsocialConfig"> | $Enums.EsocialEnvironment
+  autoGenerate?: Prisma.BoolFilter<"EsocialConfig"> | boolean
   requireApproval?: Prisma.BoolFilter<"EsocialConfig"> | boolean
+  employerType?: Prisma.StringFilter<"EsocialConfig"> | string
+  employerDocument?: Prisma.StringNullableFilter<"EsocialConfig"> | string | null
   createdAt?: Prisma.DateTimeFilter<"EsocialConfig"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"EsocialConfig"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
@@ -324,21 +250,15 @@ export type EsocialConfigOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
   environment?: Prisma.SortOrder
-  version?: Prisma.SortOrder
-  tpInsc?: Prisma.SortOrder
-  nrInsc?: Prisma.SortOrderInput | Prisma.SortOrder
-  autoGenerateOnAdmission?: Prisma.SortOrder
-  autoGenerateOnTermination?: Prisma.SortOrder
-  autoGenerateOnLeave?: Prisma.SortOrder
-  autoGenerateOnPayroll?: Prisma.SortOrder
+  autoGenerate?: Prisma.SortOrder
   requireApproval?: Prisma.SortOrder
+  employerType?: Prisma.SortOrder
+  employerDocument?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.EsocialConfigCountOrderByAggregateInput
-  _avg?: Prisma.EsocialConfigAvgOrderByAggregateInput
   _max?: Prisma.EsocialConfigMaxOrderByAggregateInput
   _min?: Prisma.EsocialConfigMinOrderByAggregateInput
-  _sum?: Prisma.EsocialConfigSumOrderByAggregateInput
 }
 
 export type EsocialConfigScalarWhereWithAggregatesInput = {
@@ -347,30 +267,22 @@ export type EsocialConfigScalarWhereWithAggregatesInput = {
   NOT?: Prisma.EsocialConfigScalarWhereWithAggregatesInput | Prisma.EsocialConfigScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"EsocialConfig"> | string
   tenantId?: Prisma.StringWithAggregatesFilter<"EsocialConfig"> | string
-  environment?: Prisma.StringWithAggregatesFilter<"EsocialConfig"> | string
-  version?: Prisma.StringWithAggregatesFilter<"EsocialConfig"> | string
-  tpInsc?: Prisma.IntWithAggregatesFilter<"EsocialConfig"> | number
-  nrInsc?: Prisma.StringNullableWithAggregatesFilter<"EsocialConfig"> | string | null
-  autoGenerateOnAdmission?: Prisma.BoolWithAggregatesFilter<"EsocialConfig"> | boolean
-  autoGenerateOnTermination?: Prisma.BoolWithAggregatesFilter<"EsocialConfig"> | boolean
-  autoGenerateOnLeave?: Prisma.BoolWithAggregatesFilter<"EsocialConfig"> | boolean
-  autoGenerateOnPayroll?: Prisma.BoolWithAggregatesFilter<"EsocialConfig"> | boolean
+  environment?: Prisma.EnumEsocialEnvironmentWithAggregatesFilter<"EsocialConfig"> | $Enums.EsocialEnvironment
+  autoGenerate?: Prisma.BoolWithAggregatesFilter<"EsocialConfig"> | boolean
   requireApproval?: Prisma.BoolWithAggregatesFilter<"EsocialConfig"> | boolean
+  employerType?: Prisma.StringWithAggregatesFilter<"EsocialConfig"> | string
+  employerDocument?: Prisma.StringNullableWithAggregatesFilter<"EsocialConfig"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"EsocialConfig"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"EsocialConfig"> | Date | string
 }
 
 export type EsocialConfigCreateInput = {
   id?: string
-  environment?: string
-  version?: string
-  tpInsc?: number
-  nrInsc?: string | null
-  autoGenerateOnAdmission?: boolean
-  autoGenerateOnTermination?: boolean
-  autoGenerateOnLeave?: boolean
-  autoGenerateOnPayroll?: boolean
+  environment?: $Enums.EsocialEnvironment
+  autoGenerate?: boolean
   requireApproval?: boolean
+  employerType?: string
+  employerDocument?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutEsocialConfigInput
@@ -379,30 +291,22 @@ export type EsocialConfigCreateInput = {
 export type EsocialConfigUncheckedCreateInput = {
   id?: string
   tenantId: string
-  environment?: string
-  version?: string
-  tpInsc?: number
-  nrInsc?: string | null
-  autoGenerateOnAdmission?: boolean
-  autoGenerateOnTermination?: boolean
-  autoGenerateOnLeave?: boolean
-  autoGenerateOnPayroll?: boolean
+  environment?: $Enums.EsocialEnvironment
+  autoGenerate?: boolean
   requireApproval?: boolean
+  employerType?: string
+  employerDocument?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type EsocialConfigUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  environment?: Prisma.StringFieldUpdateOperationsInput | string
-  version?: Prisma.StringFieldUpdateOperationsInput | string
-  tpInsc?: Prisma.IntFieldUpdateOperationsInput | number
-  nrInsc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  autoGenerateOnAdmission?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  autoGenerateOnTermination?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  autoGenerateOnLeave?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  autoGenerateOnPayroll?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  environment?: Prisma.EnumEsocialEnvironmentFieldUpdateOperationsInput | $Enums.EsocialEnvironment
+  autoGenerate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   requireApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  employerType?: Prisma.StringFieldUpdateOperationsInput | string
+  employerDocument?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutEsocialConfigNestedInput
@@ -411,15 +315,11 @@ export type EsocialConfigUpdateInput = {
 export type EsocialConfigUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  environment?: Prisma.StringFieldUpdateOperationsInput | string
-  version?: Prisma.StringFieldUpdateOperationsInput | string
-  tpInsc?: Prisma.IntFieldUpdateOperationsInput | number
-  nrInsc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  autoGenerateOnAdmission?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  autoGenerateOnTermination?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  autoGenerateOnLeave?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  autoGenerateOnPayroll?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  environment?: Prisma.EnumEsocialEnvironmentFieldUpdateOperationsInput | $Enums.EsocialEnvironment
+  autoGenerate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   requireApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  employerType?: Prisma.StringFieldUpdateOperationsInput | string
+  employerDocument?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -427,30 +327,22 @@ export type EsocialConfigUncheckedUpdateInput = {
 export type EsocialConfigCreateManyInput = {
   id?: string
   tenantId: string
-  environment?: string
-  version?: string
-  tpInsc?: number
-  nrInsc?: string | null
-  autoGenerateOnAdmission?: boolean
-  autoGenerateOnTermination?: boolean
-  autoGenerateOnLeave?: boolean
-  autoGenerateOnPayroll?: boolean
+  environment?: $Enums.EsocialEnvironment
+  autoGenerate?: boolean
   requireApproval?: boolean
+  employerType?: string
+  employerDocument?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type EsocialConfigUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  environment?: Prisma.StringFieldUpdateOperationsInput | string
-  version?: Prisma.StringFieldUpdateOperationsInput | string
-  tpInsc?: Prisma.IntFieldUpdateOperationsInput | number
-  nrInsc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  autoGenerateOnAdmission?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  autoGenerateOnTermination?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  autoGenerateOnLeave?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  autoGenerateOnPayroll?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  environment?: Prisma.EnumEsocialEnvironmentFieldUpdateOperationsInput | $Enums.EsocialEnvironment
+  autoGenerate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   requireApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  employerType?: Prisma.StringFieldUpdateOperationsInput | string
+  employerDocument?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -458,15 +350,11 @@ export type EsocialConfigUpdateManyMutationInput = {
 export type EsocialConfigUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  environment?: Prisma.StringFieldUpdateOperationsInput | string
-  version?: Prisma.StringFieldUpdateOperationsInput | string
-  tpInsc?: Prisma.IntFieldUpdateOperationsInput | number
-  nrInsc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  autoGenerateOnAdmission?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  autoGenerateOnTermination?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  autoGenerateOnLeave?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  autoGenerateOnPayroll?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  environment?: Prisma.EnumEsocialEnvironmentFieldUpdateOperationsInput | $Enums.EsocialEnvironment
+  autoGenerate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   requireApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  employerType?: Prisma.StringFieldUpdateOperationsInput | string
+  employerDocument?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -480,34 +368,22 @@ export type EsocialConfigCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
   environment?: Prisma.SortOrder
-  version?: Prisma.SortOrder
-  tpInsc?: Prisma.SortOrder
-  nrInsc?: Prisma.SortOrder
-  autoGenerateOnAdmission?: Prisma.SortOrder
-  autoGenerateOnTermination?: Prisma.SortOrder
-  autoGenerateOnLeave?: Prisma.SortOrder
-  autoGenerateOnPayroll?: Prisma.SortOrder
+  autoGenerate?: Prisma.SortOrder
   requireApproval?: Prisma.SortOrder
+  employerType?: Prisma.SortOrder
+  employerDocument?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-}
-
-export type EsocialConfigAvgOrderByAggregateInput = {
-  tpInsc?: Prisma.SortOrder
 }
 
 export type EsocialConfigMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
   environment?: Prisma.SortOrder
-  version?: Prisma.SortOrder
-  tpInsc?: Prisma.SortOrder
-  nrInsc?: Prisma.SortOrder
-  autoGenerateOnAdmission?: Prisma.SortOrder
-  autoGenerateOnTermination?: Prisma.SortOrder
-  autoGenerateOnLeave?: Prisma.SortOrder
-  autoGenerateOnPayroll?: Prisma.SortOrder
+  autoGenerate?: Prisma.SortOrder
   requireApproval?: Prisma.SortOrder
+  employerType?: Prisma.SortOrder
+  employerDocument?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -516,20 +392,12 @@ export type EsocialConfigMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
   environment?: Prisma.SortOrder
-  version?: Prisma.SortOrder
-  tpInsc?: Prisma.SortOrder
-  nrInsc?: Prisma.SortOrder
-  autoGenerateOnAdmission?: Prisma.SortOrder
-  autoGenerateOnTermination?: Prisma.SortOrder
-  autoGenerateOnLeave?: Prisma.SortOrder
-  autoGenerateOnPayroll?: Prisma.SortOrder
+  autoGenerate?: Prisma.SortOrder
   requireApproval?: Prisma.SortOrder
+  employerType?: Prisma.SortOrder
+  employerDocument?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-}
-
-export type EsocialConfigSumOrderByAggregateInput = {
-  tpInsc?: Prisma.SortOrder
 }
 
 export type EsocialConfigCreateNestedOneWithoutTenantInput = {
@@ -564,32 +432,28 @@ export type EsocialConfigUncheckedUpdateOneWithoutTenantNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.EsocialConfigUpdateToOneWithWhereWithoutTenantInput, Prisma.EsocialConfigUpdateWithoutTenantInput>, Prisma.EsocialConfigUncheckedUpdateWithoutTenantInput>
 }
 
+export type EnumEsocialEnvironmentFieldUpdateOperationsInput = {
+  set?: $Enums.EsocialEnvironment
+}
+
 export type EsocialConfigCreateWithoutTenantInput = {
   id?: string
-  environment?: string
-  version?: string
-  tpInsc?: number
-  nrInsc?: string | null
-  autoGenerateOnAdmission?: boolean
-  autoGenerateOnTermination?: boolean
-  autoGenerateOnLeave?: boolean
-  autoGenerateOnPayroll?: boolean
+  environment?: $Enums.EsocialEnvironment
+  autoGenerate?: boolean
   requireApproval?: boolean
+  employerType?: string
+  employerDocument?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type EsocialConfigUncheckedCreateWithoutTenantInput = {
   id?: string
-  environment?: string
-  version?: string
-  tpInsc?: number
-  nrInsc?: string | null
-  autoGenerateOnAdmission?: boolean
-  autoGenerateOnTermination?: boolean
-  autoGenerateOnLeave?: boolean
-  autoGenerateOnPayroll?: boolean
+  environment?: $Enums.EsocialEnvironment
+  autoGenerate?: boolean
   requireApproval?: boolean
+  employerType?: string
+  employerDocument?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -612,30 +476,22 @@ export type EsocialConfigUpdateToOneWithWhereWithoutTenantInput = {
 
 export type EsocialConfigUpdateWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  environment?: Prisma.StringFieldUpdateOperationsInput | string
-  version?: Prisma.StringFieldUpdateOperationsInput | string
-  tpInsc?: Prisma.IntFieldUpdateOperationsInput | number
-  nrInsc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  autoGenerateOnAdmission?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  autoGenerateOnTermination?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  autoGenerateOnLeave?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  autoGenerateOnPayroll?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  environment?: Prisma.EnumEsocialEnvironmentFieldUpdateOperationsInput | $Enums.EsocialEnvironment
+  autoGenerate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   requireApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  employerType?: Prisma.StringFieldUpdateOperationsInput | string
+  employerDocument?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type EsocialConfigUncheckedUpdateWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  environment?: Prisma.StringFieldUpdateOperationsInput | string
-  version?: Prisma.StringFieldUpdateOperationsInput | string
-  tpInsc?: Prisma.IntFieldUpdateOperationsInput | number
-  nrInsc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  autoGenerateOnAdmission?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  autoGenerateOnTermination?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  autoGenerateOnLeave?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  autoGenerateOnPayroll?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  environment?: Prisma.EnumEsocialEnvironmentFieldUpdateOperationsInput | $Enums.EsocialEnvironment
+  autoGenerate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   requireApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  employerType?: Prisma.StringFieldUpdateOperationsInput | string
+  employerDocument?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -646,14 +502,10 @@ export type EsocialConfigSelect<ExtArgs extends runtime.Types.Extensions.Interna
   id?: boolean
   tenantId?: boolean
   environment?: boolean
-  version?: boolean
-  tpInsc?: boolean
-  nrInsc?: boolean
-  autoGenerateOnAdmission?: boolean
-  autoGenerateOnTermination?: boolean
-  autoGenerateOnLeave?: boolean
-  autoGenerateOnPayroll?: boolean
+  autoGenerate?: boolean
   requireApproval?: boolean
+  employerType?: boolean
+  employerDocument?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
@@ -663,14 +515,10 @@ export type EsocialConfigSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   id?: boolean
   tenantId?: boolean
   environment?: boolean
-  version?: boolean
-  tpInsc?: boolean
-  nrInsc?: boolean
-  autoGenerateOnAdmission?: boolean
-  autoGenerateOnTermination?: boolean
-  autoGenerateOnLeave?: boolean
-  autoGenerateOnPayroll?: boolean
+  autoGenerate?: boolean
   requireApproval?: boolean
+  employerType?: boolean
+  employerDocument?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
@@ -680,14 +528,10 @@ export type EsocialConfigSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   id?: boolean
   tenantId?: boolean
   environment?: boolean
-  version?: boolean
-  tpInsc?: boolean
-  nrInsc?: boolean
-  autoGenerateOnAdmission?: boolean
-  autoGenerateOnTermination?: boolean
-  autoGenerateOnLeave?: boolean
-  autoGenerateOnPayroll?: boolean
+  autoGenerate?: boolean
   requireApproval?: boolean
+  employerType?: boolean
+  employerDocument?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
@@ -697,19 +541,15 @@ export type EsocialConfigSelectScalar = {
   id?: boolean
   tenantId?: boolean
   environment?: boolean
-  version?: boolean
-  tpInsc?: boolean
-  nrInsc?: boolean
-  autoGenerateOnAdmission?: boolean
-  autoGenerateOnTermination?: boolean
-  autoGenerateOnLeave?: boolean
-  autoGenerateOnPayroll?: boolean
+  autoGenerate?: boolean
   requireApproval?: boolean
+  employerType?: boolean
+  employerDocument?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type EsocialConfigOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "environment" | "version" | "tpInsc" | "nrInsc" | "autoGenerateOnAdmission" | "autoGenerateOnTermination" | "autoGenerateOnLeave" | "autoGenerateOnPayroll" | "requireApproval" | "createdAt" | "updatedAt", ExtArgs["result"]["esocialConfig"]>
+export type EsocialConfigOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "environment" | "autoGenerate" | "requireApproval" | "employerType" | "employerDocument" | "createdAt" | "updatedAt", ExtArgs["result"]["esocialConfig"]>
 export type EsocialConfigInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
 }
@@ -728,15 +568,11 @@ export type $EsocialConfigPayload<ExtArgs extends runtime.Types.Extensions.Inter
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     tenantId: string
-    environment: string
-    version: string
-    tpInsc: number
-    nrInsc: string | null
-    autoGenerateOnAdmission: boolean
-    autoGenerateOnTermination: boolean
-    autoGenerateOnLeave: boolean
-    autoGenerateOnPayroll: boolean
+    environment: $Enums.EsocialEnvironment
+    autoGenerate: boolean
     requireApproval: boolean
+    employerType: string
+    employerDocument: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["esocialConfig"]>
@@ -1165,15 +1001,11 @@ export interface Prisma__EsocialConfigClient<T, Null = never, ExtArgs extends ru
 export interface EsocialConfigFieldRefs {
   readonly id: Prisma.FieldRef<"EsocialConfig", 'String'>
   readonly tenantId: Prisma.FieldRef<"EsocialConfig", 'String'>
-  readonly environment: Prisma.FieldRef<"EsocialConfig", 'String'>
-  readonly version: Prisma.FieldRef<"EsocialConfig", 'String'>
-  readonly tpInsc: Prisma.FieldRef<"EsocialConfig", 'Int'>
-  readonly nrInsc: Prisma.FieldRef<"EsocialConfig", 'String'>
-  readonly autoGenerateOnAdmission: Prisma.FieldRef<"EsocialConfig", 'Boolean'>
-  readonly autoGenerateOnTermination: Prisma.FieldRef<"EsocialConfig", 'Boolean'>
-  readonly autoGenerateOnLeave: Prisma.FieldRef<"EsocialConfig", 'Boolean'>
-  readonly autoGenerateOnPayroll: Prisma.FieldRef<"EsocialConfig", 'Boolean'>
+  readonly environment: Prisma.FieldRef<"EsocialConfig", 'EsocialEnvironment'>
+  readonly autoGenerate: Prisma.FieldRef<"EsocialConfig", 'Boolean'>
   readonly requireApproval: Prisma.FieldRef<"EsocialConfig", 'Boolean'>
+  readonly employerType: Prisma.FieldRef<"EsocialConfig", 'String'>
+  readonly employerDocument: Prisma.FieldRef<"EsocialConfig", 'String'>
   readonly createdAt: Prisma.FieldRef<"EsocialConfig", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"EsocialConfig", 'DateTime'>
 }

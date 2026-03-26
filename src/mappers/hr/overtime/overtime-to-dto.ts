@@ -9,6 +9,10 @@ export interface OvertimeDTO {
   approved: boolean;
   approvedBy?: string | null;
   approvedAt?: Date | null;
+  rejected: boolean;
+  rejectedBy?: string | null;
+  rejectedAt?: Date | null;
+  rejectionReason?: string | null;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -23,6 +27,10 @@ export function overtimeToDTO(overtime: Overtime): OvertimeDTO {
     approved: overtime.approved,
     approvedBy: overtime.approvedBy?.toString() ?? null,
     approvedAt: overtime.approvedAt ?? null,
+    rejected: overtime.rejected,
+    rejectedBy: overtime.rejectedBy?.toString() ?? null,
+    rejectedAt: overtime.rejectedAt ?? null,
+    rejectionReason: overtime.rejectionReason ?? null,
     createdAt: overtime.createdAt,
     updatedAt: overtime.updatedAt,
   };

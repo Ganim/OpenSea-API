@@ -17,6 +17,16 @@ export const createBonusSchema = z.object({
 });
 
 /**
+ * Schema para atualização de bônus
+ */
+export const updateBonusSchema = z.object({
+  name: z.string().min(1).max(128).optional(),
+  amount: z.number().positive().optional(),
+  reason: z.string().min(10).max(1000).optional(),
+  date: z.coerce.date().optional(),
+});
+
+/**
  * Schema para filtros de listagem de bônus
  */
 export const listBonusesQuerySchema = z.object({

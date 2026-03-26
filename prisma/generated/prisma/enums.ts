@@ -3062,3 +3062,66 @@ export const EscalationActionStatus = {
 } as const
 
 export type EscalationActionStatus = (typeof EscalationActionStatus)[keyof typeof EscalationActionStatus]
+
+
+export const EsocialEventStatus = {
+  DRAFT: 'DRAFT',
+  REVIEWED: 'REVIEWED',
+  APPROVED: 'APPROVED',
+  TRANSMITTING: 'TRANSMITTING',
+  ACCEPTED: 'ACCEPTED',
+  REJECTED: 'REJECTED',
+  ERROR: 'ERROR'
+} as const
+
+export type EsocialEventStatus = (typeof EsocialEventStatus)[keyof typeof EsocialEventStatus]
+
+
+export const EsocialEnvironment = {
+  PRODUCAO: 'PRODUCAO',
+  HOMOLOGACAO: 'HOMOLOGACAO'
+} as const
+
+export type EsocialEnvironment = (typeof EsocialEnvironment)[keyof typeof EsocialEnvironment]
+
+
+export const EsocialBatchStatus = {
+  PENDING: 'PENDING',
+  TRANSMITTING: 'TRANSMITTING',
+  TRANSMITTED: 'TRANSMITTED',
+  PARTIALLY_ACCEPTED: 'PARTIALLY_ACCEPTED',
+  ACCEPTED: 'ACCEPTED',
+  REJECTED: 'REJECTED',
+  ERROR: 'ERROR'
+} as const
+
+export type EsocialBatchStatus = (typeof EsocialBatchStatus)[keyof typeof EsocialBatchStatus]
+
+
+export const FinanceApprovalAction = {
+  AUTO_PAY: 'AUTO_PAY',
+  AUTO_APPROVE: 'AUTO_APPROVE',
+  FLAG_REVIEW: 'FLAG_REVIEW'
+} as const
+
+export type FinanceApprovalAction = (typeof FinanceApprovalAction)[keyof typeof FinanceApprovalAction]
+
+
+export const BankConnectionStatus = {
+  ACTIVE: 'ACTIVE',
+  EXPIRED: 'EXPIRED',
+  ERROR: 'ERROR',
+  REVOKED: 'REVOKED'
+} as const
+
+export type BankConnectionStatus = (typeof BankConnectionStatus)[keyof typeof BankConnectionStatus]
+
+
+export const PaymentLinkStatus = {
+  ACTIVE: 'ACTIVE',
+  PAID: 'PAID',
+  EXPIRED: 'EXPIRED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type PaymentLinkStatus = (typeof PaymentLinkStatus)[keyof typeof PaymentLinkStatus]

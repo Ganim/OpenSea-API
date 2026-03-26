@@ -173,11 +173,31 @@ export class InMemoryDeductionsRepository implements DeductionsRepository {
 
     const deduction = this.items[index];
 
+    if (data.name !== undefined) {
+      deduction.props.name = data.name;
+      deduction.props.updatedAt = new Date();
+    }
     if (data.amount !== undefined) {
       deduction.updateAmount(data.amount);
     }
     if (data.reason !== undefined) {
       deduction.updateReason(data.reason);
+    }
+    if (data.date !== undefined) {
+      deduction.props.date = data.date;
+      deduction.props.updatedAt = new Date();
+    }
+    if (data.isRecurring !== undefined) {
+      deduction.props.isRecurring = data.isRecurring;
+      deduction.props.updatedAt = new Date();
+    }
+    if (data.installments !== undefined) {
+      deduction.props.installments = data.installments;
+      deduction.props.updatedAt = new Date();
+    }
+    if (data.currentInstallment !== undefined) {
+      deduction.props.currentInstallment = data.currentInstallment;
+      deduction.props.updatedAt = new Date();
     }
     if (data.isApplied === true && data.payrollId) {
       deduction.markAsApplied(data.payrollId);

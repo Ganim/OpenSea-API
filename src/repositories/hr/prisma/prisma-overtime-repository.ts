@@ -215,6 +215,10 @@ export class PrismaOvertimeRepository implements OvertimeRepository {
         approved: overtime.approved,
         approvedBy: overtime.approvedBy?.toString(),
         approvedAt: overtime.approvedAt,
+        rejected: overtime.rejected,
+        rejectedBy: overtime.rejectedBy?.toString(),
+        rejectedAt: overtime.rejectedAt,
+        rejectionReason: overtime.rejectionReason,
       },
     });
   }

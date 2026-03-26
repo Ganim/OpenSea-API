@@ -142,11 +142,17 @@ export class InMemoryBonusesRepository implements BonusesRepository {
 
     const bonus = this.items[index];
 
+    if (data.name !== undefined) {
+      bonus.updateName(data.name);
+    }
     if (data.amount !== undefined) {
       bonus.updateAmount(data.amount);
     }
     if (data.reason !== undefined) {
       bonus.updateReason(data.reason);
+    }
+    if (data.date !== undefined) {
+      bonus.updateDate(data.date);
     }
     if (data.isPaid === true && data.payrollId) {
       bonus.markAsPaid(data.payrollId);

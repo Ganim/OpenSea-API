@@ -27,21 +27,34 @@ export type AggregateEsocialBatch = {
 }
 
 export type EsocialBatchAvgAggregateOutputType = {
-  eventCount: number | null
+  totalEvents: number | null
+  acceptedCount: number | null
+  rejectedCount: number | null
+  retryCount: number | null
 }
 
 export type EsocialBatchSumAggregateOutputType = {
-  eventCount: number | null
+  totalEvents: number | null
+  acceptedCount: number | null
+  rejectedCount: number | null
+  retryCount: number | null
 }
 
 export type EsocialBatchMinAggregateOutputType = {
   id: string | null
   tenantId: string | null
-  status: string | null
-  eventCount: number | null
   protocol: string | null
+  status: $Enums.EsocialBatchStatus | null
+  environment: $Enums.EsocialEnvironment | null
+  totalEvents: number | null
+  acceptedCount: number | null
+  rejectedCount: number | null
   transmittedAt: Date | null
-  completedAt: Date | null
+  checkedAt: Date | null
+  errorMessage: string | null
+  retryCount: number | null
+  nextRetryAt: Date | null
+  createdBy: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -49,11 +62,18 @@ export type EsocialBatchMinAggregateOutputType = {
 export type EsocialBatchMaxAggregateOutputType = {
   id: string | null
   tenantId: string | null
-  status: string | null
-  eventCount: number | null
   protocol: string | null
+  status: $Enums.EsocialBatchStatus | null
+  environment: $Enums.EsocialEnvironment | null
+  totalEvents: number | null
+  acceptedCount: number | null
+  rejectedCount: number | null
   transmittedAt: Date | null
-  completedAt: Date | null
+  checkedAt: Date | null
+  errorMessage: string | null
+  retryCount: number | null
+  nextRetryAt: Date | null
+  createdBy: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -61,11 +81,18 @@ export type EsocialBatchMaxAggregateOutputType = {
 export type EsocialBatchCountAggregateOutputType = {
   id: number
   tenantId: number
-  status: number
-  eventCount: number
   protocol: number
+  status: number
+  environment: number
+  totalEvents: number
+  acceptedCount: number
+  rejectedCount: number
   transmittedAt: number
-  completedAt: number
+  checkedAt: number
+  errorMessage: number
+  retryCount: number
+  nextRetryAt: number
+  createdBy: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -73,21 +100,34 @@ export type EsocialBatchCountAggregateOutputType = {
 
 
 export type EsocialBatchAvgAggregateInputType = {
-  eventCount?: true
+  totalEvents?: true
+  acceptedCount?: true
+  rejectedCount?: true
+  retryCount?: true
 }
 
 export type EsocialBatchSumAggregateInputType = {
-  eventCount?: true
+  totalEvents?: true
+  acceptedCount?: true
+  rejectedCount?: true
+  retryCount?: true
 }
 
 export type EsocialBatchMinAggregateInputType = {
   id?: true
   tenantId?: true
-  status?: true
-  eventCount?: true
   protocol?: true
+  status?: true
+  environment?: true
+  totalEvents?: true
+  acceptedCount?: true
+  rejectedCount?: true
   transmittedAt?: true
-  completedAt?: true
+  checkedAt?: true
+  errorMessage?: true
+  retryCount?: true
+  nextRetryAt?: true
+  createdBy?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -95,11 +135,18 @@ export type EsocialBatchMinAggregateInputType = {
 export type EsocialBatchMaxAggregateInputType = {
   id?: true
   tenantId?: true
-  status?: true
-  eventCount?: true
   protocol?: true
+  status?: true
+  environment?: true
+  totalEvents?: true
+  acceptedCount?: true
+  rejectedCount?: true
   transmittedAt?: true
-  completedAt?: true
+  checkedAt?: true
+  errorMessage?: true
+  retryCount?: true
+  nextRetryAt?: true
+  createdBy?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -107,11 +154,18 @@ export type EsocialBatchMaxAggregateInputType = {
 export type EsocialBatchCountAggregateInputType = {
   id?: true
   tenantId?: true
-  status?: true
-  eventCount?: true
   protocol?: true
+  status?: true
+  environment?: true
+  totalEvents?: true
+  acceptedCount?: true
+  rejectedCount?: true
   transmittedAt?: true
-  completedAt?: true
+  checkedAt?: true
+  errorMessage?: true
+  retryCount?: true
+  nextRetryAt?: true
+  createdBy?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -206,11 +260,18 @@ export type EsocialBatchGroupByArgs<ExtArgs extends runtime.Types.Extensions.Int
 export type EsocialBatchGroupByOutputType = {
   id: string
   tenantId: string
-  status: string
-  eventCount: number
   protocol: string | null
+  status: $Enums.EsocialBatchStatus
+  environment: $Enums.EsocialEnvironment
+  totalEvents: number
+  acceptedCount: number
+  rejectedCount: number
   transmittedAt: Date | null
-  completedAt: Date | null
+  checkedAt: Date | null
+  errorMessage: string | null
+  retryCount: number
+  nextRetryAt: Date | null
+  createdBy: string | null
   createdAt: Date
   updatedAt: Date
   _count: EsocialBatchCountAggregateOutputType | null
@@ -241,11 +302,18 @@ export type EsocialBatchWhereInput = {
   NOT?: Prisma.EsocialBatchWhereInput | Prisma.EsocialBatchWhereInput[]
   id?: Prisma.StringFilter<"EsocialBatch"> | string
   tenantId?: Prisma.StringFilter<"EsocialBatch"> | string
-  status?: Prisma.StringFilter<"EsocialBatch"> | string
-  eventCount?: Prisma.IntFilter<"EsocialBatch"> | number
   protocol?: Prisma.StringNullableFilter<"EsocialBatch"> | string | null
+  status?: Prisma.EnumEsocialBatchStatusFilter<"EsocialBatch"> | $Enums.EsocialBatchStatus
+  environment?: Prisma.EnumEsocialEnvironmentFilter<"EsocialBatch"> | $Enums.EsocialEnvironment
+  totalEvents?: Prisma.IntFilter<"EsocialBatch"> | number
+  acceptedCount?: Prisma.IntFilter<"EsocialBatch"> | number
+  rejectedCount?: Prisma.IntFilter<"EsocialBatch"> | number
   transmittedAt?: Prisma.DateTimeNullableFilter<"EsocialBatch"> | Date | string | null
-  completedAt?: Prisma.DateTimeNullableFilter<"EsocialBatch"> | Date | string | null
+  checkedAt?: Prisma.DateTimeNullableFilter<"EsocialBatch"> | Date | string | null
+  errorMessage?: Prisma.StringNullableFilter<"EsocialBatch"> | string | null
+  retryCount?: Prisma.IntFilter<"EsocialBatch"> | number
+  nextRetryAt?: Prisma.DateTimeNullableFilter<"EsocialBatch"> | Date | string | null
+  createdBy?: Prisma.StringNullableFilter<"EsocialBatch"> | string | null
   createdAt?: Prisma.DateTimeFilter<"EsocialBatch"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"EsocialBatch"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
@@ -255,11 +323,18 @@ export type EsocialBatchWhereInput = {
 export type EsocialBatchOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
-  status?: Prisma.SortOrder
-  eventCount?: Prisma.SortOrder
   protocol?: Prisma.SortOrderInput | Prisma.SortOrder
+  status?: Prisma.SortOrder
+  environment?: Prisma.SortOrder
+  totalEvents?: Prisma.SortOrder
+  acceptedCount?: Prisma.SortOrder
+  rejectedCount?: Prisma.SortOrder
   transmittedAt?: Prisma.SortOrderInput | Prisma.SortOrder
-  completedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  checkedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  errorMessage?: Prisma.SortOrderInput | Prisma.SortOrder
+  retryCount?: Prisma.SortOrder
+  nextRetryAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  createdBy?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   tenant?: Prisma.TenantOrderByWithRelationInput
@@ -272,11 +347,18 @@ export type EsocialBatchWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.EsocialBatchWhereInput[]
   NOT?: Prisma.EsocialBatchWhereInput | Prisma.EsocialBatchWhereInput[]
   tenantId?: Prisma.StringFilter<"EsocialBatch"> | string
-  status?: Prisma.StringFilter<"EsocialBatch"> | string
-  eventCount?: Prisma.IntFilter<"EsocialBatch"> | number
   protocol?: Prisma.StringNullableFilter<"EsocialBatch"> | string | null
+  status?: Prisma.EnumEsocialBatchStatusFilter<"EsocialBatch"> | $Enums.EsocialBatchStatus
+  environment?: Prisma.EnumEsocialEnvironmentFilter<"EsocialBatch"> | $Enums.EsocialEnvironment
+  totalEvents?: Prisma.IntFilter<"EsocialBatch"> | number
+  acceptedCount?: Prisma.IntFilter<"EsocialBatch"> | number
+  rejectedCount?: Prisma.IntFilter<"EsocialBatch"> | number
   transmittedAt?: Prisma.DateTimeNullableFilter<"EsocialBatch"> | Date | string | null
-  completedAt?: Prisma.DateTimeNullableFilter<"EsocialBatch"> | Date | string | null
+  checkedAt?: Prisma.DateTimeNullableFilter<"EsocialBatch"> | Date | string | null
+  errorMessage?: Prisma.StringNullableFilter<"EsocialBatch"> | string | null
+  retryCount?: Prisma.IntFilter<"EsocialBatch"> | number
+  nextRetryAt?: Prisma.DateTimeNullableFilter<"EsocialBatch"> | Date | string | null
+  createdBy?: Prisma.StringNullableFilter<"EsocialBatch"> | string | null
   createdAt?: Prisma.DateTimeFilter<"EsocialBatch"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"EsocialBatch"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
@@ -286,11 +368,18 @@ export type EsocialBatchWhereUniqueInput = Prisma.AtLeast<{
 export type EsocialBatchOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
-  status?: Prisma.SortOrder
-  eventCount?: Prisma.SortOrder
   protocol?: Prisma.SortOrderInput | Prisma.SortOrder
+  status?: Prisma.SortOrder
+  environment?: Prisma.SortOrder
+  totalEvents?: Prisma.SortOrder
+  acceptedCount?: Prisma.SortOrder
+  rejectedCount?: Prisma.SortOrder
   transmittedAt?: Prisma.SortOrderInput | Prisma.SortOrder
-  completedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  checkedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  errorMessage?: Prisma.SortOrderInput | Prisma.SortOrder
+  retryCount?: Prisma.SortOrder
+  nextRetryAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  createdBy?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.EsocialBatchCountOrderByAggregateInput
@@ -306,22 +395,36 @@ export type EsocialBatchScalarWhereWithAggregatesInput = {
   NOT?: Prisma.EsocialBatchScalarWhereWithAggregatesInput | Prisma.EsocialBatchScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"EsocialBatch"> | string
   tenantId?: Prisma.StringWithAggregatesFilter<"EsocialBatch"> | string
-  status?: Prisma.StringWithAggregatesFilter<"EsocialBatch"> | string
-  eventCount?: Prisma.IntWithAggregatesFilter<"EsocialBatch"> | number
   protocol?: Prisma.StringNullableWithAggregatesFilter<"EsocialBatch"> | string | null
+  status?: Prisma.EnumEsocialBatchStatusWithAggregatesFilter<"EsocialBatch"> | $Enums.EsocialBatchStatus
+  environment?: Prisma.EnumEsocialEnvironmentWithAggregatesFilter<"EsocialBatch"> | $Enums.EsocialEnvironment
+  totalEvents?: Prisma.IntWithAggregatesFilter<"EsocialBatch"> | number
+  acceptedCount?: Prisma.IntWithAggregatesFilter<"EsocialBatch"> | number
+  rejectedCount?: Prisma.IntWithAggregatesFilter<"EsocialBatch"> | number
   transmittedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"EsocialBatch"> | Date | string | null
-  completedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"EsocialBatch"> | Date | string | null
+  checkedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"EsocialBatch"> | Date | string | null
+  errorMessage?: Prisma.StringNullableWithAggregatesFilter<"EsocialBatch"> | string | null
+  retryCount?: Prisma.IntWithAggregatesFilter<"EsocialBatch"> | number
+  nextRetryAt?: Prisma.DateTimeNullableWithAggregatesFilter<"EsocialBatch"> | Date | string | null
+  createdBy?: Prisma.StringNullableWithAggregatesFilter<"EsocialBatch"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"EsocialBatch"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"EsocialBatch"> | Date | string
 }
 
 export type EsocialBatchCreateInput = {
   id?: string
-  status?: string
-  eventCount: number
   protocol?: string | null
+  status?: $Enums.EsocialBatchStatus
+  environment: $Enums.EsocialEnvironment
+  totalEvents?: number
+  acceptedCount?: number
+  rejectedCount?: number
   transmittedAt?: Date | string | null
-  completedAt?: Date | string | null
+  checkedAt?: Date | string | null
+  errorMessage?: string | null
+  retryCount?: number
+  nextRetryAt?: Date | string | null
+  createdBy?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutEsocialBatchesInput
@@ -331,11 +434,18 @@ export type EsocialBatchCreateInput = {
 export type EsocialBatchUncheckedCreateInput = {
   id?: string
   tenantId: string
-  status?: string
-  eventCount: number
   protocol?: string | null
+  status?: $Enums.EsocialBatchStatus
+  environment: $Enums.EsocialEnvironment
+  totalEvents?: number
+  acceptedCount?: number
+  rejectedCount?: number
   transmittedAt?: Date | string | null
-  completedAt?: Date | string | null
+  checkedAt?: Date | string | null
+  errorMessage?: string | null
+  retryCount?: number
+  nextRetryAt?: Date | string | null
+  createdBy?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   events?: Prisma.EsocialEventUncheckedCreateNestedManyWithoutBatchInput
@@ -343,11 +453,18 @@ export type EsocialBatchUncheckedCreateInput = {
 
 export type EsocialBatchUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
-  eventCount?: Prisma.IntFieldUpdateOperationsInput | number
   protocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumEsocialBatchStatusFieldUpdateOperationsInput | $Enums.EsocialBatchStatus
+  environment?: Prisma.EnumEsocialEnvironmentFieldUpdateOperationsInput | $Enums.EsocialEnvironment
+  totalEvents?: Prisma.IntFieldUpdateOperationsInput | number
+  acceptedCount?: Prisma.IntFieldUpdateOperationsInput | number
+  rejectedCount?: Prisma.IntFieldUpdateOperationsInput | number
   transmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  checkedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  retryCount?: Prisma.IntFieldUpdateOperationsInput | number
+  nextRetryAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutEsocialBatchesNestedInput
@@ -357,11 +474,18 @@ export type EsocialBatchUpdateInput = {
 export type EsocialBatchUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
-  eventCount?: Prisma.IntFieldUpdateOperationsInput | number
   protocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumEsocialBatchStatusFieldUpdateOperationsInput | $Enums.EsocialBatchStatus
+  environment?: Prisma.EnumEsocialEnvironmentFieldUpdateOperationsInput | $Enums.EsocialEnvironment
+  totalEvents?: Prisma.IntFieldUpdateOperationsInput | number
+  acceptedCount?: Prisma.IntFieldUpdateOperationsInput | number
+  rejectedCount?: Prisma.IntFieldUpdateOperationsInput | number
   transmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  checkedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  retryCount?: Prisma.IntFieldUpdateOperationsInput | number
+  nextRetryAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   events?: Prisma.EsocialEventUncheckedUpdateManyWithoutBatchNestedInput
@@ -370,22 +494,36 @@ export type EsocialBatchUncheckedUpdateInput = {
 export type EsocialBatchCreateManyInput = {
   id?: string
   tenantId: string
-  status?: string
-  eventCount: number
   protocol?: string | null
+  status?: $Enums.EsocialBatchStatus
+  environment: $Enums.EsocialEnvironment
+  totalEvents?: number
+  acceptedCount?: number
+  rejectedCount?: number
   transmittedAt?: Date | string | null
-  completedAt?: Date | string | null
+  checkedAt?: Date | string | null
+  errorMessage?: string | null
+  retryCount?: number
+  nextRetryAt?: Date | string | null
+  createdBy?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type EsocialBatchUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
-  eventCount?: Prisma.IntFieldUpdateOperationsInput | number
   protocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumEsocialBatchStatusFieldUpdateOperationsInput | $Enums.EsocialBatchStatus
+  environment?: Prisma.EnumEsocialEnvironmentFieldUpdateOperationsInput | $Enums.EsocialEnvironment
+  totalEvents?: Prisma.IntFieldUpdateOperationsInput | number
+  acceptedCount?: Prisma.IntFieldUpdateOperationsInput | number
+  rejectedCount?: Prisma.IntFieldUpdateOperationsInput | number
   transmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  checkedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  retryCount?: Prisma.IntFieldUpdateOperationsInput | number
+  nextRetryAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -393,11 +531,18 @@ export type EsocialBatchUpdateManyMutationInput = {
 export type EsocialBatchUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
-  eventCount?: Prisma.IntFieldUpdateOperationsInput | number
   protocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumEsocialBatchStatusFieldUpdateOperationsInput | $Enums.EsocialBatchStatus
+  environment?: Prisma.EnumEsocialEnvironmentFieldUpdateOperationsInput | $Enums.EsocialEnvironment
+  totalEvents?: Prisma.IntFieldUpdateOperationsInput | number
+  acceptedCount?: Prisma.IntFieldUpdateOperationsInput | number
+  rejectedCount?: Prisma.IntFieldUpdateOperationsInput | number
   transmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  checkedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  retryCount?: Prisma.IntFieldUpdateOperationsInput | number
+  nextRetryAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -420,27 +565,44 @@ export type EsocialBatchNullableScalarRelationFilter = {
 export type EsocialBatchCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
-  status?: Prisma.SortOrder
-  eventCount?: Prisma.SortOrder
   protocol?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  environment?: Prisma.SortOrder
+  totalEvents?: Prisma.SortOrder
+  acceptedCount?: Prisma.SortOrder
+  rejectedCount?: Prisma.SortOrder
   transmittedAt?: Prisma.SortOrder
-  completedAt?: Prisma.SortOrder
+  checkedAt?: Prisma.SortOrder
+  errorMessage?: Prisma.SortOrder
+  retryCount?: Prisma.SortOrder
+  nextRetryAt?: Prisma.SortOrder
+  createdBy?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type EsocialBatchAvgOrderByAggregateInput = {
-  eventCount?: Prisma.SortOrder
+  totalEvents?: Prisma.SortOrder
+  acceptedCount?: Prisma.SortOrder
+  rejectedCount?: Prisma.SortOrder
+  retryCount?: Prisma.SortOrder
 }
 
 export type EsocialBatchMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
-  status?: Prisma.SortOrder
-  eventCount?: Prisma.SortOrder
   protocol?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  environment?: Prisma.SortOrder
+  totalEvents?: Prisma.SortOrder
+  acceptedCount?: Prisma.SortOrder
+  rejectedCount?: Prisma.SortOrder
   transmittedAt?: Prisma.SortOrder
-  completedAt?: Prisma.SortOrder
+  checkedAt?: Prisma.SortOrder
+  errorMessage?: Prisma.SortOrder
+  retryCount?: Prisma.SortOrder
+  nextRetryAt?: Prisma.SortOrder
+  createdBy?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -448,17 +610,27 @@ export type EsocialBatchMaxOrderByAggregateInput = {
 export type EsocialBatchMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
-  status?: Prisma.SortOrder
-  eventCount?: Prisma.SortOrder
   protocol?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  environment?: Prisma.SortOrder
+  totalEvents?: Prisma.SortOrder
+  acceptedCount?: Prisma.SortOrder
+  rejectedCount?: Prisma.SortOrder
   transmittedAt?: Prisma.SortOrder
-  completedAt?: Prisma.SortOrder
+  checkedAt?: Prisma.SortOrder
+  errorMessage?: Prisma.SortOrder
+  retryCount?: Prisma.SortOrder
+  nextRetryAt?: Prisma.SortOrder
+  createdBy?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type EsocialBatchSumOrderByAggregateInput = {
-  eventCount?: Prisma.SortOrder
+  totalEvents?: Prisma.SortOrder
+  acceptedCount?: Prisma.SortOrder
+  rejectedCount?: Prisma.SortOrder
+  retryCount?: Prisma.SortOrder
 }
 
 export type EsocialBatchCreateNestedManyWithoutTenantInput = {
@@ -519,13 +691,24 @@ export type EsocialBatchUpdateOneWithoutEventsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.EsocialBatchUpdateToOneWithWhereWithoutEventsInput, Prisma.EsocialBatchUpdateWithoutEventsInput>, Prisma.EsocialBatchUncheckedUpdateWithoutEventsInput>
 }
 
+export type EnumEsocialBatchStatusFieldUpdateOperationsInput = {
+  set?: $Enums.EsocialBatchStatus
+}
+
 export type EsocialBatchCreateWithoutTenantInput = {
   id?: string
-  status?: string
-  eventCount: number
   protocol?: string | null
+  status?: $Enums.EsocialBatchStatus
+  environment: $Enums.EsocialEnvironment
+  totalEvents?: number
+  acceptedCount?: number
+  rejectedCount?: number
   transmittedAt?: Date | string | null
-  completedAt?: Date | string | null
+  checkedAt?: Date | string | null
+  errorMessage?: string | null
+  retryCount?: number
+  nextRetryAt?: Date | string | null
+  createdBy?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   events?: Prisma.EsocialEventCreateNestedManyWithoutBatchInput
@@ -533,11 +716,18 @@ export type EsocialBatchCreateWithoutTenantInput = {
 
 export type EsocialBatchUncheckedCreateWithoutTenantInput = {
   id?: string
-  status?: string
-  eventCount: number
   protocol?: string | null
+  status?: $Enums.EsocialBatchStatus
+  environment: $Enums.EsocialEnvironment
+  totalEvents?: number
+  acceptedCount?: number
+  rejectedCount?: number
   transmittedAt?: Date | string | null
-  completedAt?: Date | string | null
+  checkedAt?: Date | string | null
+  errorMessage?: string | null
+  retryCount?: number
+  nextRetryAt?: Date | string | null
+  createdBy?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   events?: Prisma.EsocialEventUncheckedCreateNestedManyWithoutBatchInput
@@ -575,22 +765,36 @@ export type EsocialBatchScalarWhereInput = {
   NOT?: Prisma.EsocialBatchScalarWhereInput | Prisma.EsocialBatchScalarWhereInput[]
   id?: Prisma.StringFilter<"EsocialBatch"> | string
   tenantId?: Prisma.StringFilter<"EsocialBatch"> | string
-  status?: Prisma.StringFilter<"EsocialBatch"> | string
-  eventCount?: Prisma.IntFilter<"EsocialBatch"> | number
   protocol?: Prisma.StringNullableFilter<"EsocialBatch"> | string | null
+  status?: Prisma.EnumEsocialBatchStatusFilter<"EsocialBatch"> | $Enums.EsocialBatchStatus
+  environment?: Prisma.EnumEsocialEnvironmentFilter<"EsocialBatch"> | $Enums.EsocialEnvironment
+  totalEvents?: Prisma.IntFilter<"EsocialBatch"> | number
+  acceptedCount?: Prisma.IntFilter<"EsocialBatch"> | number
+  rejectedCount?: Prisma.IntFilter<"EsocialBatch"> | number
   transmittedAt?: Prisma.DateTimeNullableFilter<"EsocialBatch"> | Date | string | null
-  completedAt?: Prisma.DateTimeNullableFilter<"EsocialBatch"> | Date | string | null
+  checkedAt?: Prisma.DateTimeNullableFilter<"EsocialBatch"> | Date | string | null
+  errorMessage?: Prisma.StringNullableFilter<"EsocialBatch"> | string | null
+  retryCount?: Prisma.IntFilter<"EsocialBatch"> | number
+  nextRetryAt?: Prisma.DateTimeNullableFilter<"EsocialBatch"> | Date | string | null
+  createdBy?: Prisma.StringNullableFilter<"EsocialBatch"> | string | null
   createdAt?: Prisma.DateTimeFilter<"EsocialBatch"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"EsocialBatch"> | Date | string
 }
 
 export type EsocialBatchCreateWithoutEventsInput = {
   id?: string
-  status?: string
-  eventCount: number
   protocol?: string | null
+  status?: $Enums.EsocialBatchStatus
+  environment: $Enums.EsocialEnvironment
+  totalEvents?: number
+  acceptedCount?: number
+  rejectedCount?: number
   transmittedAt?: Date | string | null
-  completedAt?: Date | string | null
+  checkedAt?: Date | string | null
+  errorMessage?: string | null
+  retryCount?: number
+  nextRetryAt?: Date | string | null
+  createdBy?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutEsocialBatchesInput
@@ -599,11 +803,18 @@ export type EsocialBatchCreateWithoutEventsInput = {
 export type EsocialBatchUncheckedCreateWithoutEventsInput = {
   id?: string
   tenantId: string
-  status?: string
-  eventCount: number
   protocol?: string | null
+  status?: $Enums.EsocialBatchStatus
+  environment: $Enums.EsocialEnvironment
+  totalEvents?: number
+  acceptedCount?: number
+  rejectedCount?: number
   transmittedAt?: Date | string | null
-  completedAt?: Date | string | null
+  checkedAt?: Date | string | null
+  errorMessage?: string | null
+  retryCount?: number
+  nextRetryAt?: Date | string | null
+  createdBy?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -626,11 +837,18 @@ export type EsocialBatchUpdateToOneWithWhereWithoutEventsInput = {
 
 export type EsocialBatchUpdateWithoutEventsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
-  eventCount?: Prisma.IntFieldUpdateOperationsInput | number
   protocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumEsocialBatchStatusFieldUpdateOperationsInput | $Enums.EsocialBatchStatus
+  environment?: Prisma.EnumEsocialEnvironmentFieldUpdateOperationsInput | $Enums.EsocialEnvironment
+  totalEvents?: Prisma.IntFieldUpdateOperationsInput | number
+  acceptedCount?: Prisma.IntFieldUpdateOperationsInput | number
+  rejectedCount?: Prisma.IntFieldUpdateOperationsInput | number
   transmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  checkedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  retryCount?: Prisma.IntFieldUpdateOperationsInput | number
+  nextRetryAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutEsocialBatchesNestedInput
@@ -639,33 +857,54 @@ export type EsocialBatchUpdateWithoutEventsInput = {
 export type EsocialBatchUncheckedUpdateWithoutEventsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
-  eventCount?: Prisma.IntFieldUpdateOperationsInput | number
   protocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumEsocialBatchStatusFieldUpdateOperationsInput | $Enums.EsocialBatchStatus
+  environment?: Prisma.EnumEsocialEnvironmentFieldUpdateOperationsInput | $Enums.EsocialEnvironment
+  totalEvents?: Prisma.IntFieldUpdateOperationsInput | number
+  acceptedCount?: Prisma.IntFieldUpdateOperationsInput | number
+  rejectedCount?: Prisma.IntFieldUpdateOperationsInput | number
   transmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  checkedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  retryCount?: Prisma.IntFieldUpdateOperationsInput | number
+  nextRetryAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type EsocialBatchCreateManyTenantInput = {
   id?: string
-  status?: string
-  eventCount: number
   protocol?: string | null
+  status?: $Enums.EsocialBatchStatus
+  environment: $Enums.EsocialEnvironment
+  totalEvents?: number
+  acceptedCount?: number
+  rejectedCount?: number
   transmittedAt?: Date | string | null
-  completedAt?: Date | string | null
+  checkedAt?: Date | string | null
+  errorMessage?: string | null
+  retryCount?: number
+  nextRetryAt?: Date | string | null
+  createdBy?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type EsocialBatchUpdateWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
-  eventCount?: Prisma.IntFieldUpdateOperationsInput | number
   protocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumEsocialBatchStatusFieldUpdateOperationsInput | $Enums.EsocialBatchStatus
+  environment?: Prisma.EnumEsocialEnvironmentFieldUpdateOperationsInput | $Enums.EsocialEnvironment
+  totalEvents?: Prisma.IntFieldUpdateOperationsInput | number
+  acceptedCount?: Prisma.IntFieldUpdateOperationsInput | number
+  rejectedCount?: Prisma.IntFieldUpdateOperationsInput | number
   transmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  checkedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  retryCount?: Prisma.IntFieldUpdateOperationsInput | number
+  nextRetryAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   events?: Prisma.EsocialEventUpdateManyWithoutBatchNestedInput
@@ -673,11 +912,18 @@ export type EsocialBatchUpdateWithoutTenantInput = {
 
 export type EsocialBatchUncheckedUpdateWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
-  eventCount?: Prisma.IntFieldUpdateOperationsInput | number
   protocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumEsocialBatchStatusFieldUpdateOperationsInput | $Enums.EsocialBatchStatus
+  environment?: Prisma.EnumEsocialEnvironmentFieldUpdateOperationsInput | $Enums.EsocialEnvironment
+  totalEvents?: Prisma.IntFieldUpdateOperationsInput | number
+  acceptedCount?: Prisma.IntFieldUpdateOperationsInput | number
+  rejectedCount?: Prisma.IntFieldUpdateOperationsInput | number
   transmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  checkedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  retryCount?: Prisma.IntFieldUpdateOperationsInput | number
+  nextRetryAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   events?: Prisma.EsocialEventUncheckedUpdateManyWithoutBatchNestedInput
@@ -685,11 +931,18 @@ export type EsocialBatchUncheckedUpdateWithoutTenantInput = {
 
 export type EsocialBatchUncheckedUpdateManyWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
-  eventCount?: Prisma.IntFieldUpdateOperationsInput | number
   protocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumEsocialBatchStatusFieldUpdateOperationsInput | $Enums.EsocialBatchStatus
+  environment?: Prisma.EnumEsocialEnvironmentFieldUpdateOperationsInput | $Enums.EsocialEnvironment
+  totalEvents?: Prisma.IntFieldUpdateOperationsInput | number
+  acceptedCount?: Prisma.IntFieldUpdateOperationsInput | number
+  rejectedCount?: Prisma.IntFieldUpdateOperationsInput | number
   transmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  checkedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  retryCount?: Prisma.IntFieldUpdateOperationsInput | number
+  nextRetryAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -728,11 +981,18 @@ export type EsocialBatchCountOutputTypeCountEventsArgs<ExtArgs extends runtime.T
 export type EsocialBatchSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   tenantId?: boolean
-  status?: boolean
-  eventCount?: boolean
   protocol?: boolean
+  status?: boolean
+  environment?: boolean
+  totalEvents?: boolean
+  acceptedCount?: boolean
+  rejectedCount?: boolean
   transmittedAt?: boolean
-  completedAt?: boolean
+  checkedAt?: boolean
+  errorMessage?: boolean
+  retryCount?: boolean
+  nextRetryAt?: boolean
+  createdBy?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
@@ -743,11 +1003,18 @@ export type EsocialBatchSelect<ExtArgs extends runtime.Types.Extensions.Internal
 export type EsocialBatchSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   tenantId?: boolean
-  status?: boolean
-  eventCount?: boolean
   protocol?: boolean
+  status?: boolean
+  environment?: boolean
+  totalEvents?: boolean
+  acceptedCount?: boolean
+  rejectedCount?: boolean
   transmittedAt?: boolean
-  completedAt?: boolean
+  checkedAt?: boolean
+  errorMessage?: boolean
+  retryCount?: boolean
+  nextRetryAt?: boolean
+  createdBy?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
@@ -756,11 +1023,18 @@ export type EsocialBatchSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
 export type EsocialBatchSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   tenantId?: boolean
-  status?: boolean
-  eventCount?: boolean
   protocol?: boolean
+  status?: boolean
+  environment?: boolean
+  totalEvents?: boolean
+  acceptedCount?: boolean
+  rejectedCount?: boolean
   transmittedAt?: boolean
-  completedAt?: boolean
+  checkedAt?: boolean
+  errorMessage?: boolean
+  retryCount?: boolean
+  nextRetryAt?: boolean
+  createdBy?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
@@ -769,16 +1043,23 @@ export type EsocialBatchSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
 export type EsocialBatchSelectScalar = {
   id?: boolean
   tenantId?: boolean
-  status?: boolean
-  eventCount?: boolean
   protocol?: boolean
+  status?: boolean
+  environment?: boolean
+  totalEvents?: boolean
+  acceptedCount?: boolean
+  rejectedCount?: boolean
   transmittedAt?: boolean
-  completedAt?: boolean
+  checkedAt?: boolean
+  errorMessage?: boolean
+  retryCount?: boolean
+  nextRetryAt?: boolean
+  createdBy?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type EsocialBatchOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "status" | "eventCount" | "protocol" | "transmittedAt" | "completedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["esocialBatch"]>
+export type EsocialBatchOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "protocol" | "status" | "environment" | "totalEvents" | "acceptedCount" | "rejectedCount" | "transmittedAt" | "checkedAt" | "errorMessage" | "retryCount" | "nextRetryAt" | "createdBy" | "createdAt" | "updatedAt", ExtArgs["result"]["esocialBatch"]>
 export type EsocialBatchInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   events?: boolean | Prisma.EsocialBatch$eventsArgs<ExtArgs>
@@ -800,11 +1081,18 @@ export type $EsocialBatchPayload<ExtArgs extends runtime.Types.Extensions.Intern
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     tenantId: string
-    status: string
-    eventCount: number
     protocol: string | null
+    status: $Enums.EsocialBatchStatus
+    environment: $Enums.EsocialEnvironment
+    totalEvents: number
+    acceptedCount: number
+    rejectedCount: number
     transmittedAt: Date | null
-    completedAt: Date | null
+    checkedAt: Date | null
+    errorMessage: string | null
+    retryCount: number
+    nextRetryAt: Date | null
+    createdBy: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["esocialBatch"]>
@@ -1234,11 +1522,18 @@ export interface Prisma__EsocialBatchClient<T, Null = never, ExtArgs extends run
 export interface EsocialBatchFieldRefs {
   readonly id: Prisma.FieldRef<"EsocialBatch", 'String'>
   readonly tenantId: Prisma.FieldRef<"EsocialBatch", 'String'>
-  readonly status: Prisma.FieldRef<"EsocialBatch", 'String'>
-  readonly eventCount: Prisma.FieldRef<"EsocialBatch", 'Int'>
   readonly protocol: Prisma.FieldRef<"EsocialBatch", 'String'>
+  readonly status: Prisma.FieldRef<"EsocialBatch", 'EsocialBatchStatus'>
+  readonly environment: Prisma.FieldRef<"EsocialBatch", 'EsocialEnvironment'>
+  readonly totalEvents: Prisma.FieldRef<"EsocialBatch", 'Int'>
+  readonly acceptedCount: Prisma.FieldRef<"EsocialBatch", 'Int'>
+  readonly rejectedCount: Prisma.FieldRef<"EsocialBatch", 'Int'>
   readonly transmittedAt: Prisma.FieldRef<"EsocialBatch", 'DateTime'>
-  readonly completedAt: Prisma.FieldRef<"EsocialBatch", 'DateTime'>
+  readonly checkedAt: Prisma.FieldRef<"EsocialBatch", 'DateTime'>
+  readonly errorMessage: Prisma.FieldRef<"EsocialBatch", 'String'>
+  readonly retryCount: Prisma.FieldRef<"EsocialBatch", 'Int'>
+  readonly nextRetryAt: Prisma.FieldRef<"EsocialBatch", 'DateTime'>
+  readonly createdBy: Prisma.FieldRef<"EsocialBatch", 'String'>
   readonly createdAt: Prisma.FieldRef<"EsocialBatch", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"EsocialBatch", 'DateTime'>
 }

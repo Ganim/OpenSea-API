@@ -108,6 +108,28 @@ export class Bonus extends Entity<BonusProps> {
     this.props.updatedAt = new Date();
   }
 
+  updateName(name: string): void {
+    if (this.isPaid) {
+      throw new Error('Cannot update name of paid bonus');
+    }
+
+    if (!name || name.trim().length === 0) {
+      throw new Error('Name is required');
+    }
+
+    this.props.name = name.trim();
+    this.props.updatedAt = new Date();
+  }
+
+  updateDate(date: Date): void {
+    if (this.isPaid) {
+      throw new Error('Cannot update date of paid bonus');
+    }
+
+    this.props.date = date;
+    this.props.updatedAt = new Date();
+  }
+
   private constructor(props: BonusProps, id?: UniqueEntityID) {
     super(props, id);
   }

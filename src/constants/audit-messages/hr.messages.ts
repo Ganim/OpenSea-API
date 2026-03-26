@@ -374,6 +374,15 @@ export const HR_AUDIT_MESSAGES = {
       '{{userName}} aprovou {{hours}} horas extras de {{employeeName}}',
   } satisfies AuditMessage,
 
+  /** Hora extra rejeitada */
+  OVERTIME_REJECT: {
+    action: AuditAction.OVERTIME_REJECT,
+    entity: AuditEntity.OVERTIME,
+    module: AuditModule.HR,
+    description:
+      '{{userName}} rejeitou {{hours}} horas extras de {{employeeName}}',
+  } satisfies AuditMessage,
+
   // ============================================================================
   // TIME BANK - Banco de horas
   // ============================================================================
@@ -467,6 +476,15 @@ export const HR_AUDIT_MESSAGES = {
       '{{userName}} concedeu bônus de R$ {{amount}} para {{employeeName}}: {{description}}',
   } satisfies AuditMessage,
 
+  /** Bônus atualizado */
+  BONUS_UPDATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.BONUS,
+    module: AuditModule.HR,
+    description:
+      '{{userName}} atualizou bônus de {{employeeName}}: {{description}}',
+  } satisfies AuditMessage,
+
   /** Bônus excluído */
   BONUS_DELETE: {
     action: AuditAction.DELETE,
@@ -486,6 +504,15 @@ export const HR_AUDIT_MESSAGES = {
     module: AuditModule.HR,
     description:
       '{{userName}} registrou desconto de R$ {{amount}} para {{employeeName}}: {{description}}',
+  } satisfies AuditMessage,
+
+  /** Desconto atualizado */
+  DEDUCTION_UPDATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.DEDUCTION,
+    module: AuditModule.HR,
+    description:
+      '{{userName}} atualizou desconto de {{employeeName}}: {{description}}',
   } satisfies AuditMessage,
 
   /** Desconto excluído */

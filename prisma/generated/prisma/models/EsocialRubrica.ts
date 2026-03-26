@@ -20,18 +20,8 @@ export type EsocialRubricaModel = runtime.Types.Result.DefaultSelection<Prisma.$
 
 export type AggregateEsocialRubrica = {
   _count: EsocialRubricaCountAggregateOutputType | null
-  _avg: EsocialRubricaAvgAggregateOutputType | null
-  _sum: EsocialRubricaSumAggregateOutputType | null
   _min: EsocialRubricaMinAggregateOutputType | null
   _max: EsocialRubricaMaxAggregateOutputType | null
-}
-
-export type EsocialRubricaAvgAggregateOutputType = {
-  type: number | null
-}
-
-export type EsocialRubricaSumAggregateOutputType = {
-  type: number | null
 }
 
 export type EsocialRubricaMinAggregateOutputType = {
@@ -39,10 +29,8 @@ export type EsocialRubricaMinAggregateOutputType = {
   tenantId: string | null
   code: string | null
   description: string | null
-  type: number | null
-  incidInss: string | null
-  incidIrrf: string | null
-  incidFgts: string | null
+  nature: string | null
+  type: string | null
   isActive: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -53,10 +41,8 @@ export type EsocialRubricaMaxAggregateOutputType = {
   tenantId: string | null
   code: string | null
   description: string | null
-  type: number | null
-  incidInss: string | null
-  incidIrrf: string | null
-  incidFgts: string | null
+  nature: string | null
+  type: string | null
   isActive: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -67,10 +53,9 @@ export type EsocialRubricaCountAggregateOutputType = {
   tenantId: number
   code: number
   description: number
+  nature: number
   type: number
-  incidInss: number
-  incidIrrf: number
-  incidFgts: number
+  incidence: number
   isActive: number
   createdAt: number
   updatedAt: number
@@ -78,23 +63,13 @@ export type EsocialRubricaCountAggregateOutputType = {
 }
 
 
-export type EsocialRubricaAvgAggregateInputType = {
-  type?: true
-}
-
-export type EsocialRubricaSumAggregateInputType = {
-  type?: true
-}
-
 export type EsocialRubricaMinAggregateInputType = {
   id?: true
   tenantId?: true
   code?: true
   description?: true
+  nature?: true
   type?: true
-  incidInss?: true
-  incidIrrf?: true
-  incidFgts?: true
   isActive?: true
   createdAt?: true
   updatedAt?: true
@@ -105,10 +80,8 @@ export type EsocialRubricaMaxAggregateInputType = {
   tenantId?: true
   code?: true
   description?: true
+  nature?: true
   type?: true
-  incidInss?: true
-  incidIrrf?: true
-  incidFgts?: true
   isActive?: true
   createdAt?: true
   updatedAt?: true
@@ -119,10 +92,9 @@ export type EsocialRubricaCountAggregateInputType = {
   tenantId?: true
   code?: true
   description?: true
+  nature?: true
   type?: true
-  incidInss?: true
-  incidIrrf?: true
-  incidFgts?: true
+  incidence?: true
   isActive?: true
   createdAt?: true
   updatedAt?: true
@@ -167,18 +139,6 @@ export type EsocialRubricaAggregateArgs<ExtArgs extends runtime.Types.Extensions
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
-   * Select which fields to average
-  **/
-  _avg?: EsocialRubricaAvgAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
-   * Select which fields to sum
-  **/
-  _sum?: EsocialRubricaSumAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
    * Select which fields to find the minimum value
   **/
   _min?: EsocialRubricaMinAggregateInputType
@@ -209,8 +169,6 @@ export type EsocialRubricaGroupByArgs<ExtArgs extends runtime.Types.Extensions.I
   take?: number
   skip?: number
   _count?: EsocialRubricaCountAggregateInputType | true
-  _avg?: EsocialRubricaAvgAggregateInputType
-  _sum?: EsocialRubricaSumAggregateInputType
   _min?: EsocialRubricaMinAggregateInputType
   _max?: EsocialRubricaMaxAggregateInputType
 }
@@ -220,16 +178,13 @@ export type EsocialRubricaGroupByOutputType = {
   tenantId: string
   code: string
   description: string
-  type: number
-  incidInss: string | null
-  incidIrrf: string | null
-  incidFgts: string | null
+  nature: string
+  type: string
+  incidence: runtime.JsonValue
   isActive: boolean
   createdAt: Date
   updatedAt: Date
   _count: EsocialRubricaCountAggregateOutputType | null
-  _avg: EsocialRubricaAvgAggregateOutputType | null
-  _sum: EsocialRubricaSumAggregateOutputType | null
   _min: EsocialRubricaMinAggregateOutputType | null
   _max: EsocialRubricaMaxAggregateOutputType | null
 }
@@ -257,10 +212,9 @@ export type EsocialRubricaWhereInput = {
   tenantId?: Prisma.StringFilter<"EsocialRubrica"> | string
   code?: Prisma.StringFilter<"EsocialRubrica"> | string
   description?: Prisma.StringFilter<"EsocialRubrica"> | string
-  type?: Prisma.IntFilter<"EsocialRubrica"> | number
-  incidInss?: Prisma.StringNullableFilter<"EsocialRubrica"> | string | null
-  incidIrrf?: Prisma.StringNullableFilter<"EsocialRubrica"> | string | null
-  incidFgts?: Prisma.StringNullableFilter<"EsocialRubrica"> | string | null
+  nature?: Prisma.StringFilter<"EsocialRubrica"> | string
+  type?: Prisma.StringFilter<"EsocialRubrica"> | string
+  incidence?: Prisma.JsonFilter<"EsocialRubrica">
   isActive?: Prisma.BoolFilter<"EsocialRubrica"> | boolean
   createdAt?: Prisma.DateTimeFilter<"EsocialRubrica"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"EsocialRubrica"> | Date | string
@@ -272,10 +226,9 @@ export type EsocialRubricaOrderByWithRelationInput = {
   tenantId?: Prisma.SortOrder
   code?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  nature?: Prisma.SortOrder
   type?: Prisma.SortOrder
-  incidInss?: Prisma.SortOrderInput | Prisma.SortOrder
-  incidIrrf?: Prisma.SortOrderInput | Prisma.SortOrder
-  incidFgts?: Prisma.SortOrderInput | Prisma.SortOrder
+  incidence?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -291,10 +244,9 @@ export type EsocialRubricaWhereUniqueInput = Prisma.AtLeast<{
   tenantId?: Prisma.StringFilter<"EsocialRubrica"> | string
   code?: Prisma.StringFilter<"EsocialRubrica"> | string
   description?: Prisma.StringFilter<"EsocialRubrica"> | string
-  type?: Prisma.IntFilter<"EsocialRubrica"> | number
-  incidInss?: Prisma.StringNullableFilter<"EsocialRubrica"> | string | null
-  incidIrrf?: Prisma.StringNullableFilter<"EsocialRubrica"> | string | null
-  incidFgts?: Prisma.StringNullableFilter<"EsocialRubrica"> | string | null
+  nature?: Prisma.StringFilter<"EsocialRubrica"> | string
+  type?: Prisma.StringFilter<"EsocialRubrica"> | string
+  incidence?: Prisma.JsonFilter<"EsocialRubrica">
   isActive?: Prisma.BoolFilter<"EsocialRubrica"> | boolean
   createdAt?: Prisma.DateTimeFilter<"EsocialRubrica"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"EsocialRubrica"> | Date | string
@@ -306,18 +258,15 @@ export type EsocialRubricaOrderByWithAggregationInput = {
   tenantId?: Prisma.SortOrder
   code?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  nature?: Prisma.SortOrder
   type?: Prisma.SortOrder
-  incidInss?: Prisma.SortOrderInput | Prisma.SortOrder
-  incidIrrf?: Prisma.SortOrderInput | Prisma.SortOrder
-  incidFgts?: Prisma.SortOrderInput | Prisma.SortOrder
+  incidence?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.EsocialRubricaCountOrderByAggregateInput
-  _avg?: Prisma.EsocialRubricaAvgOrderByAggregateInput
   _max?: Prisma.EsocialRubricaMaxOrderByAggregateInput
   _min?: Prisma.EsocialRubricaMinOrderByAggregateInput
-  _sum?: Prisma.EsocialRubricaSumOrderByAggregateInput
 }
 
 export type EsocialRubricaScalarWhereWithAggregatesInput = {
@@ -328,10 +277,9 @@ export type EsocialRubricaScalarWhereWithAggregatesInput = {
   tenantId?: Prisma.StringWithAggregatesFilter<"EsocialRubrica"> | string
   code?: Prisma.StringWithAggregatesFilter<"EsocialRubrica"> | string
   description?: Prisma.StringWithAggregatesFilter<"EsocialRubrica"> | string
-  type?: Prisma.IntWithAggregatesFilter<"EsocialRubrica"> | number
-  incidInss?: Prisma.StringNullableWithAggregatesFilter<"EsocialRubrica"> | string | null
-  incidIrrf?: Prisma.StringNullableWithAggregatesFilter<"EsocialRubrica"> | string | null
-  incidFgts?: Prisma.StringNullableWithAggregatesFilter<"EsocialRubrica"> | string | null
+  nature?: Prisma.StringWithAggregatesFilter<"EsocialRubrica"> | string
+  type?: Prisma.StringWithAggregatesFilter<"EsocialRubrica"> | string
+  incidence?: Prisma.JsonWithAggregatesFilter<"EsocialRubrica">
   isActive?: Prisma.BoolWithAggregatesFilter<"EsocialRubrica"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"EsocialRubrica"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"EsocialRubrica"> | Date | string
@@ -341,10 +289,9 @@ export type EsocialRubricaCreateInput = {
   id?: string
   code: string
   description: string
-  type: number
-  incidInss?: string | null
-  incidIrrf?: string | null
-  incidFgts?: string | null
+  nature: string
+  type: string
+  incidence?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -356,10 +303,9 @@ export type EsocialRubricaUncheckedCreateInput = {
   tenantId: string
   code: string
   description: string
-  type: number
-  incidInss?: string | null
-  incidIrrf?: string | null
-  incidFgts?: string | null
+  nature: string
+  type: string
+  incidence?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -369,10 +315,9 @@ export type EsocialRubricaUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.IntFieldUpdateOperationsInput | number
-  incidInss?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  incidIrrf?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  incidFgts?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nature?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  incidence?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -384,10 +329,9 @@ export type EsocialRubricaUncheckedUpdateInput = {
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.IntFieldUpdateOperationsInput | number
-  incidInss?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  incidIrrf?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  incidFgts?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nature?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  incidence?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -398,10 +342,9 @@ export type EsocialRubricaCreateManyInput = {
   tenantId: string
   code: string
   description: string
-  type: number
-  incidInss?: string | null
-  incidIrrf?: string | null
-  incidFgts?: string | null
+  nature: string
+  type: string
+  incidence?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -411,10 +354,9 @@ export type EsocialRubricaUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.IntFieldUpdateOperationsInput | number
-  incidInss?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  incidIrrf?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  incidFgts?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nature?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  incidence?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -425,10 +367,9 @@ export type EsocialRubricaUncheckedUpdateManyInput = {
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.IntFieldUpdateOperationsInput | number
-  incidInss?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  incidIrrf?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  incidFgts?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nature?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  incidence?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -454,17 +395,12 @@ export type EsocialRubricaCountOrderByAggregateInput = {
   tenantId?: Prisma.SortOrder
   code?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  nature?: Prisma.SortOrder
   type?: Prisma.SortOrder
-  incidInss?: Prisma.SortOrder
-  incidIrrf?: Prisma.SortOrder
-  incidFgts?: Prisma.SortOrder
+  incidence?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-}
-
-export type EsocialRubricaAvgOrderByAggregateInput = {
-  type?: Prisma.SortOrder
 }
 
 export type EsocialRubricaMaxOrderByAggregateInput = {
@@ -472,10 +408,8 @@ export type EsocialRubricaMaxOrderByAggregateInput = {
   tenantId?: Prisma.SortOrder
   code?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  nature?: Prisma.SortOrder
   type?: Prisma.SortOrder
-  incidInss?: Prisma.SortOrder
-  incidIrrf?: Prisma.SortOrder
-  incidFgts?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -486,17 +420,11 @@ export type EsocialRubricaMinOrderByAggregateInput = {
   tenantId?: Prisma.SortOrder
   code?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  nature?: Prisma.SortOrder
   type?: Prisma.SortOrder
-  incidInss?: Prisma.SortOrder
-  incidIrrf?: Prisma.SortOrder
-  incidFgts?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-}
-
-export type EsocialRubricaSumOrderByAggregateInput = {
-  type?: Prisma.SortOrder
 }
 
 export type EsocialRubricaCreateNestedManyWithoutTenantInput = {
@@ -545,10 +473,9 @@ export type EsocialRubricaCreateWithoutTenantInput = {
   id?: string
   code: string
   description: string
-  type: number
-  incidInss?: string | null
-  incidIrrf?: string | null
-  incidFgts?: string | null
+  nature: string
+  type: string
+  incidence?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -558,10 +485,9 @@ export type EsocialRubricaUncheckedCreateWithoutTenantInput = {
   id?: string
   code: string
   description: string
-  type: number
-  incidInss?: string | null
-  incidIrrf?: string | null
-  incidFgts?: string | null
+  nature: string
+  type: string
+  incidence?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -601,10 +527,9 @@ export type EsocialRubricaScalarWhereInput = {
   tenantId?: Prisma.StringFilter<"EsocialRubrica"> | string
   code?: Prisma.StringFilter<"EsocialRubrica"> | string
   description?: Prisma.StringFilter<"EsocialRubrica"> | string
-  type?: Prisma.IntFilter<"EsocialRubrica"> | number
-  incidInss?: Prisma.StringNullableFilter<"EsocialRubrica"> | string | null
-  incidIrrf?: Prisma.StringNullableFilter<"EsocialRubrica"> | string | null
-  incidFgts?: Prisma.StringNullableFilter<"EsocialRubrica"> | string | null
+  nature?: Prisma.StringFilter<"EsocialRubrica"> | string
+  type?: Prisma.StringFilter<"EsocialRubrica"> | string
+  incidence?: Prisma.JsonFilter<"EsocialRubrica">
   isActive?: Prisma.BoolFilter<"EsocialRubrica"> | boolean
   createdAt?: Prisma.DateTimeFilter<"EsocialRubrica"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"EsocialRubrica"> | Date | string
@@ -614,10 +539,9 @@ export type EsocialRubricaCreateManyTenantInput = {
   id?: string
   code: string
   description: string
-  type: number
-  incidInss?: string | null
-  incidIrrf?: string | null
-  incidFgts?: string | null
+  nature: string
+  type: string
+  incidence?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -627,10 +551,9 @@ export type EsocialRubricaUpdateWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.IntFieldUpdateOperationsInput | number
-  incidInss?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  incidIrrf?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  incidFgts?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nature?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  incidence?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -640,10 +563,9 @@ export type EsocialRubricaUncheckedUpdateWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.IntFieldUpdateOperationsInput | number
-  incidInss?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  incidIrrf?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  incidFgts?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nature?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  incidence?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -653,10 +575,9 @@ export type EsocialRubricaUncheckedUpdateManyWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.IntFieldUpdateOperationsInput | number
-  incidInss?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  incidIrrf?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  incidFgts?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nature?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  incidence?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -669,10 +590,9 @@ export type EsocialRubricaSelect<ExtArgs extends runtime.Types.Extensions.Intern
   tenantId?: boolean
   code?: boolean
   description?: boolean
+  nature?: boolean
   type?: boolean
-  incidInss?: boolean
-  incidIrrf?: boolean
-  incidFgts?: boolean
+  incidence?: boolean
   isActive?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -684,10 +604,9 @@ export type EsocialRubricaSelectCreateManyAndReturn<ExtArgs extends runtime.Type
   tenantId?: boolean
   code?: boolean
   description?: boolean
+  nature?: boolean
   type?: boolean
-  incidInss?: boolean
-  incidIrrf?: boolean
-  incidFgts?: boolean
+  incidence?: boolean
   isActive?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -699,10 +618,9 @@ export type EsocialRubricaSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   tenantId?: boolean
   code?: boolean
   description?: boolean
+  nature?: boolean
   type?: boolean
-  incidInss?: boolean
-  incidIrrf?: boolean
-  incidFgts?: boolean
+  incidence?: boolean
   isActive?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -714,16 +632,15 @@ export type EsocialRubricaSelectScalar = {
   tenantId?: boolean
   code?: boolean
   description?: boolean
+  nature?: boolean
   type?: boolean
-  incidInss?: boolean
-  incidIrrf?: boolean
-  incidFgts?: boolean
+  incidence?: boolean
   isActive?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type EsocialRubricaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "code" | "description" | "type" | "incidInss" | "incidIrrf" | "incidFgts" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["esocialRubrica"]>
+export type EsocialRubricaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "code" | "description" | "nature" | "type" | "incidence" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["esocialRubrica"]>
 export type EsocialRubricaInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
 }
@@ -744,10 +661,9 @@ export type $EsocialRubricaPayload<ExtArgs extends runtime.Types.Extensions.Inte
     tenantId: string
     code: string
     description: string
-    type: number
-    incidInss: string | null
-    incidIrrf: string | null
-    incidFgts: string | null
+    nature: string
+    type: string
+    incidence: runtime.JsonValue
     isActive: boolean
     createdAt: Date
     updatedAt: Date
@@ -1179,10 +1095,9 @@ export interface EsocialRubricaFieldRefs {
   readonly tenantId: Prisma.FieldRef<"EsocialRubrica", 'String'>
   readonly code: Prisma.FieldRef<"EsocialRubrica", 'String'>
   readonly description: Prisma.FieldRef<"EsocialRubrica", 'String'>
-  readonly type: Prisma.FieldRef<"EsocialRubrica", 'Int'>
-  readonly incidInss: Prisma.FieldRef<"EsocialRubrica", 'String'>
-  readonly incidIrrf: Prisma.FieldRef<"EsocialRubrica", 'String'>
-  readonly incidFgts: Prisma.FieldRef<"EsocialRubrica", 'String'>
+  readonly nature: Prisma.FieldRef<"EsocialRubrica", 'String'>
+  readonly type: Prisma.FieldRef<"EsocialRubrica", 'String'>
+  readonly incidence: Prisma.FieldRef<"EsocialRubrica", 'Json'>
   readonly isActive: Prisma.FieldRef<"EsocialRubrica", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"EsocialRubrica", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"EsocialRubrica", 'DateTime'>

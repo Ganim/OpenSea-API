@@ -44,6 +44,10 @@ export type OvertimeMinAggregateOutputType = {
   approved: boolean | null
   approvedBy: string | null
   approvedAt: Date | null
+  rejected: boolean | null
+  rejectedBy: string | null
+  rejectedAt: Date | null
+  rejectionReason: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -58,6 +62,10 @@ export type OvertimeMaxAggregateOutputType = {
   approved: boolean | null
   approvedBy: string | null
   approvedAt: Date | null
+  rejected: boolean | null
+  rejectedBy: string | null
+  rejectedAt: Date | null
+  rejectionReason: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -72,6 +80,10 @@ export type OvertimeCountAggregateOutputType = {
   approved: number
   approvedBy: number
   approvedAt: number
+  rejected: number
+  rejectedBy: number
+  rejectedAt: number
+  rejectionReason: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -96,6 +108,10 @@ export type OvertimeMinAggregateInputType = {
   approved?: true
   approvedBy?: true
   approvedAt?: true
+  rejected?: true
+  rejectedBy?: true
+  rejectedAt?: true
+  rejectionReason?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -110,6 +126,10 @@ export type OvertimeMaxAggregateInputType = {
   approved?: true
   approvedBy?: true
   approvedAt?: true
+  rejected?: true
+  rejectedBy?: true
+  rejectedAt?: true
+  rejectionReason?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -124,6 +144,10 @@ export type OvertimeCountAggregateInputType = {
   approved?: true
   approvedBy?: true
   approvedAt?: true
+  rejected?: true
+  rejectedBy?: true
+  rejectedAt?: true
+  rejectionReason?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -225,6 +249,10 @@ export type OvertimeGroupByOutputType = {
   approved: boolean
   approvedBy: string | null
   approvedAt: Date | null
+  rejected: boolean
+  rejectedBy: string | null
+  rejectedAt: Date | null
+  rejectionReason: string | null
   createdAt: Date
   updatedAt: Date
   _count: OvertimeCountAggregateOutputType | null
@@ -262,11 +290,16 @@ export type OvertimeWhereInput = {
   approved?: Prisma.BoolFilter<"Overtime"> | boolean
   approvedBy?: Prisma.StringNullableFilter<"Overtime"> | string | null
   approvedAt?: Prisma.DateTimeNullableFilter<"Overtime"> | Date | string | null
+  rejected?: Prisma.BoolFilter<"Overtime"> | boolean
+  rejectedBy?: Prisma.StringNullableFilter<"Overtime"> | string | null
+  rejectedAt?: Prisma.DateTimeNullableFilter<"Overtime"> | Date | string | null
+  rejectionReason?: Prisma.StringNullableFilter<"Overtime"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Overtime"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Overtime"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   employee?: Prisma.XOR<Prisma.EmployeeScalarRelationFilter, Prisma.EmployeeWhereInput>
   approver?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  rejecter?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }
 
 export type OvertimeOrderByWithRelationInput = {
@@ -279,11 +312,16 @@ export type OvertimeOrderByWithRelationInput = {
   approved?: Prisma.SortOrder
   approvedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   approvedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  rejected?: Prisma.SortOrder
+  rejectedBy?: Prisma.SortOrderInput | Prisma.SortOrder
+  rejectedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  rejectionReason?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   tenant?: Prisma.TenantOrderByWithRelationInput
   employee?: Prisma.EmployeeOrderByWithRelationInput
   approver?: Prisma.UserOrderByWithRelationInput
+  rejecter?: Prisma.UserOrderByWithRelationInput
 }
 
 export type OvertimeWhereUniqueInput = Prisma.AtLeast<{
@@ -299,11 +337,16 @@ export type OvertimeWhereUniqueInput = Prisma.AtLeast<{
   approved?: Prisma.BoolFilter<"Overtime"> | boolean
   approvedBy?: Prisma.StringNullableFilter<"Overtime"> | string | null
   approvedAt?: Prisma.DateTimeNullableFilter<"Overtime"> | Date | string | null
+  rejected?: Prisma.BoolFilter<"Overtime"> | boolean
+  rejectedBy?: Prisma.StringNullableFilter<"Overtime"> | string | null
+  rejectedAt?: Prisma.DateTimeNullableFilter<"Overtime"> | Date | string | null
+  rejectionReason?: Prisma.StringNullableFilter<"Overtime"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Overtime"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Overtime"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   employee?: Prisma.XOR<Prisma.EmployeeScalarRelationFilter, Prisma.EmployeeWhereInput>
   approver?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  rejecter?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }, "id">
 
 export type OvertimeOrderByWithAggregationInput = {
@@ -316,6 +359,10 @@ export type OvertimeOrderByWithAggregationInput = {
   approved?: Prisma.SortOrder
   approvedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   approvedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  rejected?: Prisma.SortOrder
+  rejectedBy?: Prisma.SortOrderInput | Prisma.SortOrder
+  rejectedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  rejectionReason?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.OvertimeCountOrderByAggregateInput
@@ -338,6 +385,10 @@ export type OvertimeScalarWhereWithAggregatesInput = {
   approved?: Prisma.BoolWithAggregatesFilter<"Overtime"> | boolean
   approvedBy?: Prisma.StringNullableWithAggregatesFilter<"Overtime"> | string | null
   approvedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Overtime"> | Date | string | null
+  rejected?: Prisma.BoolWithAggregatesFilter<"Overtime"> | boolean
+  rejectedBy?: Prisma.StringNullableWithAggregatesFilter<"Overtime"> | string | null
+  rejectedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Overtime"> | Date | string | null
+  rejectionReason?: Prisma.StringNullableWithAggregatesFilter<"Overtime"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Overtime"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Overtime"> | Date | string
 }
@@ -349,11 +400,15 @@ export type OvertimeCreateInput = {
   reason: string
   approved?: boolean
   approvedAt?: Date | string | null
+  rejected?: boolean
+  rejectedAt?: Date | string | null
+  rejectionReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutOvertimeInput
   employee: Prisma.EmployeeCreateNestedOneWithoutOvertimeInput
   approver?: Prisma.UserCreateNestedOneWithoutApprovedOvertimeInput
+  rejecter?: Prisma.UserCreateNestedOneWithoutRejectedOvertimeInput
 }
 
 export type OvertimeUncheckedCreateInput = {
@@ -366,6 +421,10 @@ export type OvertimeUncheckedCreateInput = {
   approved?: boolean
   approvedBy?: string | null
   approvedAt?: Date | string | null
+  rejected?: boolean
+  rejectedBy?: string | null
+  rejectedAt?: Date | string | null
+  rejectionReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -377,11 +436,15 @@ export type OvertimeUpdateInput = {
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   approved?: Prisma.BoolFieldUpdateOperationsInput | boolean
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutOvertimeNestedInput
   employee?: Prisma.EmployeeUpdateOneRequiredWithoutOvertimeNestedInput
   approver?: Prisma.UserUpdateOneWithoutApprovedOvertimeNestedInput
+  rejecter?: Prisma.UserUpdateOneWithoutRejectedOvertimeNestedInput
 }
 
 export type OvertimeUncheckedUpdateInput = {
@@ -394,6 +457,10 @@ export type OvertimeUncheckedUpdateInput = {
   approved?: Prisma.BoolFieldUpdateOperationsInput | boolean
   approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rejectedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -408,6 +475,10 @@ export type OvertimeCreateManyInput = {
   approved?: boolean
   approvedBy?: string | null
   approvedAt?: Date | string | null
+  rejected?: boolean
+  rejectedBy?: string | null
+  rejectedAt?: Date | string | null
+  rejectionReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -419,6 +490,9 @@ export type OvertimeUpdateManyMutationInput = {
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   approved?: Prisma.BoolFieldUpdateOperationsInput | boolean
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -433,6 +507,10 @@ export type OvertimeUncheckedUpdateManyInput = {
   approved?: Prisma.BoolFieldUpdateOperationsInput | boolean
   approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rejectedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -457,6 +535,10 @@ export type OvertimeCountOrderByAggregateInput = {
   approved?: Prisma.SortOrder
   approvedBy?: Prisma.SortOrder
   approvedAt?: Prisma.SortOrder
+  rejected?: Prisma.SortOrder
+  rejectedBy?: Prisma.SortOrder
+  rejectedAt?: Prisma.SortOrder
+  rejectionReason?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -475,6 +557,10 @@ export type OvertimeMaxOrderByAggregateInput = {
   approved?: Prisma.SortOrder
   approvedBy?: Prisma.SortOrder
   approvedAt?: Prisma.SortOrder
+  rejected?: Prisma.SortOrder
+  rejectedBy?: Prisma.SortOrder
+  rejectedAt?: Prisma.SortOrder
+  rejectionReason?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -489,6 +575,10 @@ export type OvertimeMinOrderByAggregateInput = {
   approved?: Prisma.SortOrder
   approvedBy?: Prisma.SortOrder
   approvedAt?: Prisma.SortOrder
+  rejected?: Prisma.SortOrder
+  rejectedBy?: Prisma.SortOrder
+  rejectedAt?: Prisma.SortOrder
+  rejectionReason?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -504,10 +594,24 @@ export type OvertimeCreateNestedManyWithoutApproverInput = {
   connect?: Prisma.OvertimeWhereUniqueInput | Prisma.OvertimeWhereUniqueInput[]
 }
 
+export type OvertimeCreateNestedManyWithoutRejecterInput = {
+  create?: Prisma.XOR<Prisma.OvertimeCreateWithoutRejecterInput, Prisma.OvertimeUncheckedCreateWithoutRejecterInput> | Prisma.OvertimeCreateWithoutRejecterInput[] | Prisma.OvertimeUncheckedCreateWithoutRejecterInput[]
+  connectOrCreate?: Prisma.OvertimeCreateOrConnectWithoutRejecterInput | Prisma.OvertimeCreateOrConnectWithoutRejecterInput[]
+  createMany?: Prisma.OvertimeCreateManyRejecterInputEnvelope
+  connect?: Prisma.OvertimeWhereUniqueInput | Prisma.OvertimeWhereUniqueInput[]
+}
+
 export type OvertimeUncheckedCreateNestedManyWithoutApproverInput = {
   create?: Prisma.XOR<Prisma.OvertimeCreateWithoutApproverInput, Prisma.OvertimeUncheckedCreateWithoutApproverInput> | Prisma.OvertimeCreateWithoutApproverInput[] | Prisma.OvertimeUncheckedCreateWithoutApproverInput[]
   connectOrCreate?: Prisma.OvertimeCreateOrConnectWithoutApproverInput | Prisma.OvertimeCreateOrConnectWithoutApproverInput[]
   createMany?: Prisma.OvertimeCreateManyApproverInputEnvelope
+  connect?: Prisma.OvertimeWhereUniqueInput | Prisma.OvertimeWhereUniqueInput[]
+}
+
+export type OvertimeUncheckedCreateNestedManyWithoutRejecterInput = {
+  create?: Prisma.XOR<Prisma.OvertimeCreateWithoutRejecterInput, Prisma.OvertimeUncheckedCreateWithoutRejecterInput> | Prisma.OvertimeCreateWithoutRejecterInput[] | Prisma.OvertimeUncheckedCreateWithoutRejecterInput[]
+  connectOrCreate?: Prisma.OvertimeCreateOrConnectWithoutRejecterInput | Prisma.OvertimeCreateOrConnectWithoutRejecterInput[]
+  createMany?: Prisma.OvertimeCreateManyRejecterInputEnvelope
   connect?: Prisma.OvertimeWhereUniqueInput | Prisma.OvertimeWhereUniqueInput[]
 }
 
@@ -525,6 +629,20 @@ export type OvertimeUpdateManyWithoutApproverNestedInput = {
   deleteMany?: Prisma.OvertimeScalarWhereInput | Prisma.OvertimeScalarWhereInput[]
 }
 
+export type OvertimeUpdateManyWithoutRejecterNestedInput = {
+  create?: Prisma.XOR<Prisma.OvertimeCreateWithoutRejecterInput, Prisma.OvertimeUncheckedCreateWithoutRejecterInput> | Prisma.OvertimeCreateWithoutRejecterInput[] | Prisma.OvertimeUncheckedCreateWithoutRejecterInput[]
+  connectOrCreate?: Prisma.OvertimeCreateOrConnectWithoutRejecterInput | Prisma.OvertimeCreateOrConnectWithoutRejecterInput[]
+  upsert?: Prisma.OvertimeUpsertWithWhereUniqueWithoutRejecterInput | Prisma.OvertimeUpsertWithWhereUniqueWithoutRejecterInput[]
+  createMany?: Prisma.OvertimeCreateManyRejecterInputEnvelope
+  set?: Prisma.OvertimeWhereUniqueInput | Prisma.OvertimeWhereUniqueInput[]
+  disconnect?: Prisma.OvertimeWhereUniqueInput | Prisma.OvertimeWhereUniqueInput[]
+  delete?: Prisma.OvertimeWhereUniqueInput | Prisma.OvertimeWhereUniqueInput[]
+  connect?: Prisma.OvertimeWhereUniqueInput | Prisma.OvertimeWhereUniqueInput[]
+  update?: Prisma.OvertimeUpdateWithWhereUniqueWithoutRejecterInput | Prisma.OvertimeUpdateWithWhereUniqueWithoutRejecterInput[]
+  updateMany?: Prisma.OvertimeUpdateManyWithWhereWithoutRejecterInput | Prisma.OvertimeUpdateManyWithWhereWithoutRejecterInput[]
+  deleteMany?: Prisma.OvertimeScalarWhereInput | Prisma.OvertimeScalarWhereInput[]
+}
+
 export type OvertimeUncheckedUpdateManyWithoutApproverNestedInput = {
   create?: Prisma.XOR<Prisma.OvertimeCreateWithoutApproverInput, Prisma.OvertimeUncheckedCreateWithoutApproverInput> | Prisma.OvertimeCreateWithoutApproverInput[] | Prisma.OvertimeUncheckedCreateWithoutApproverInput[]
   connectOrCreate?: Prisma.OvertimeCreateOrConnectWithoutApproverInput | Prisma.OvertimeCreateOrConnectWithoutApproverInput[]
@@ -536,6 +654,20 @@ export type OvertimeUncheckedUpdateManyWithoutApproverNestedInput = {
   connect?: Prisma.OvertimeWhereUniqueInput | Prisma.OvertimeWhereUniqueInput[]
   update?: Prisma.OvertimeUpdateWithWhereUniqueWithoutApproverInput | Prisma.OvertimeUpdateWithWhereUniqueWithoutApproverInput[]
   updateMany?: Prisma.OvertimeUpdateManyWithWhereWithoutApproverInput | Prisma.OvertimeUpdateManyWithWhereWithoutApproverInput[]
+  deleteMany?: Prisma.OvertimeScalarWhereInput | Prisma.OvertimeScalarWhereInput[]
+}
+
+export type OvertimeUncheckedUpdateManyWithoutRejecterNestedInput = {
+  create?: Prisma.XOR<Prisma.OvertimeCreateWithoutRejecterInput, Prisma.OvertimeUncheckedCreateWithoutRejecterInput> | Prisma.OvertimeCreateWithoutRejecterInput[] | Prisma.OvertimeUncheckedCreateWithoutRejecterInput[]
+  connectOrCreate?: Prisma.OvertimeCreateOrConnectWithoutRejecterInput | Prisma.OvertimeCreateOrConnectWithoutRejecterInput[]
+  upsert?: Prisma.OvertimeUpsertWithWhereUniqueWithoutRejecterInput | Prisma.OvertimeUpsertWithWhereUniqueWithoutRejecterInput[]
+  createMany?: Prisma.OvertimeCreateManyRejecterInputEnvelope
+  set?: Prisma.OvertimeWhereUniqueInput | Prisma.OvertimeWhereUniqueInput[]
+  disconnect?: Prisma.OvertimeWhereUniqueInput | Prisma.OvertimeWhereUniqueInput[]
+  delete?: Prisma.OvertimeWhereUniqueInput | Prisma.OvertimeWhereUniqueInput[]
+  connect?: Prisma.OvertimeWhereUniqueInput | Prisma.OvertimeWhereUniqueInput[]
+  update?: Prisma.OvertimeUpdateWithWhereUniqueWithoutRejecterInput | Prisma.OvertimeUpdateWithWhereUniqueWithoutRejecterInput[]
+  updateMany?: Prisma.OvertimeUpdateManyWithWhereWithoutRejecterInput | Prisma.OvertimeUpdateManyWithWhereWithoutRejecterInput[]
   deleteMany?: Prisma.OvertimeScalarWhereInput | Prisma.OvertimeScalarWhereInput[]
 }
 
@@ -630,10 +762,14 @@ export type OvertimeCreateWithoutApproverInput = {
   reason: string
   approved?: boolean
   approvedAt?: Date | string | null
+  rejected?: boolean
+  rejectedAt?: Date | string | null
+  rejectionReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutOvertimeInput
   employee: Prisma.EmployeeCreateNestedOneWithoutOvertimeInput
+  rejecter?: Prisma.UserCreateNestedOneWithoutRejectedOvertimeInput
 }
 
 export type OvertimeUncheckedCreateWithoutApproverInput = {
@@ -645,6 +781,10 @@ export type OvertimeUncheckedCreateWithoutApproverInput = {
   reason: string
   approved?: boolean
   approvedAt?: Date | string | null
+  rejected?: boolean
+  rejectedBy?: string | null
+  rejectedAt?: Date | string | null
+  rejectionReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -656,6 +796,50 @@ export type OvertimeCreateOrConnectWithoutApproverInput = {
 
 export type OvertimeCreateManyApproverInputEnvelope = {
   data: Prisma.OvertimeCreateManyApproverInput | Prisma.OvertimeCreateManyApproverInput[]
+  skipDuplicates?: boolean
+}
+
+export type OvertimeCreateWithoutRejecterInput = {
+  id?: string
+  date: Date | string
+  hours: runtime.Decimal | runtime.DecimalJsLike | number | string
+  reason: string
+  approved?: boolean
+  approvedAt?: Date | string | null
+  rejected?: boolean
+  rejectedAt?: Date | string | null
+  rejectionReason?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutOvertimeInput
+  employee: Prisma.EmployeeCreateNestedOneWithoutOvertimeInput
+  approver?: Prisma.UserCreateNestedOneWithoutApprovedOvertimeInput
+}
+
+export type OvertimeUncheckedCreateWithoutRejecterInput = {
+  id?: string
+  tenantId: string
+  employeeId: string
+  date: Date | string
+  hours: runtime.Decimal | runtime.DecimalJsLike | number | string
+  reason: string
+  approved?: boolean
+  approvedBy?: string | null
+  approvedAt?: Date | string | null
+  rejected?: boolean
+  rejectedAt?: Date | string | null
+  rejectionReason?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type OvertimeCreateOrConnectWithoutRejecterInput = {
+  where: Prisma.OvertimeWhereUniqueInput
+  create: Prisma.XOR<Prisma.OvertimeCreateWithoutRejecterInput, Prisma.OvertimeUncheckedCreateWithoutRejecterInput>
+}
+
+export type OvertimeCreateManyRejecterInputEnvelope = {
+  data: Prisma.OvertimeCreateManyRejecterInput | Prisma.OvertimeCreateManyRejecterInput[]
   skipDuplicates?: boolean
 }
 
@@ -688,8 +872,28 @@ export type OvertimeScalarWhereInput = {
   approved?: Prisma.BoolFilter<"Overtime"> | boolean
   approvedBy?: Prisma.StringNullableFilter<"Overtime"> | string | null
   approvedAt?: Prisma.DateTimeNullableFilter<"Overtime"> | Date | string | null
+  rejected?: Prisma.BoolFilter<"Overtime"> | boolean
+  rejectedBy?: Prisma.StringNullableFilter<"Overtime"> | string | null
+  rejectedAt?: Prisma.DateTimeNullableFilter<"Overtime"> | Date | string | null
+  rejectionReason?: Prisma.StringNullableFilter<"Overtime"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Overtime"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Overtime"> | Date | string
+}
+
+export type OvertimeUpsertWithWhereUniqueWithoutRejecterInput = {
+  where: Prisma.OvertimeWhereUniqueInput
+  update: Prisma.XOR<Prisma.OvertimeUpdateWithoutRejecterInput, Prisma.OvertimeUncheckedUpdateWithoutRejecterInput>
+  create: Prisma.XOR<Prisma.OvertimeCreateWithoutRejecterInput, Prisma.OvertimeUncheckedCreateWithoutRejecterInput>
+}
+
+export type OvertimeUpdateWithWhereUniqueWithoutRejecterInput = {
+  where: Prisma.OvertimeWhereUniqueInput
+  data: Prisma.XOR<Prisma.OvertimeUpdateWithoutRejecterInput, Prisma.OvertimeUncheckedUpdateWithoutRejecterInput>
+}
+
+export type OvertimeUpdateManyWithWhereWithoutRejecterInput = {
+  where: Prisma.OvertimeScalarWhereInput
+  data: Prisma.XOR<Prisma.OvertimeUpdateManyMutationInput, Prisma.OvertimeUncheckedUpdateManyWithoutRejecterInput>
 }
 
 export type OvertimeCreateWithoutEmployeeInput = {
@@ -699,10 +903,14 @@ export type OvertimeCreateWithoutEmployeeInput = {
   reason: string
   approved?: boolean
   approvedAt?: Date | string | null
+  rejected?: boolean
+  rejectedAt?: Date | string | null
+  rejectionReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutOvertimeInput
   approver?: Prisma.UserCreateNestedOneWithoutApprovedOvertimeInput
+  rejecter?: Prisma.UserCreateNestedOneWithoutRejectedOvertimeInput
 }
 
 export type OvertimeUncheckedCreateWithoutEmployeeInput = {
@@ -714,6 +922,10 @@ export type OvertimeUncheckedCreateWithoutEmployeeInput = {
   approved?: boolean
   approvedBy?: string | null
   approvedAt?: Date | string | null
+  rejected?: boolean
+  rejectedBy?: string | null
+  rejectedAt?: Date | string | null
+  rejectionReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -751,10 +963,14 @@ export type OvertimeCreateWithoutTenantInput = {
   reason: string
   approved?: boolean
   approvedAt?: Date | string | null
+  rejected?: boolean
+  rejectedAt?: Date | string | null
+  rejectionReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   employee: Prisma.EmployeeCreateNestedOneWithoutOvertimeInput
   approver?: Prisma.UserCreateNestedOneWithoutApprovedOvertimeInput
+  rejecter?: Prisma.UserCreateNestedOneWithoutRejectedOvertimeInput
 }
 
 export type OvertimeUncheckedCreateWithoutTenantInput = {
@@ -766,6 +982,10 @@ export type OvertimeUncheckedCreateWithoutTenantInput = {
   approved?: boolean
   approvedBy?: string | null
   approvedAt?: Date | string | null
+  rejected?: boolean
+  rejectedBy?: string | null
+  rejectedAt?: Date | string | null
+  rejectionReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -805,6 +1025,27 @@ export type OvertimeCreateManyApproverInput = {
   reason: string
   approved?: boolean
   approvedAt?: Date | string | null
+  rejected?: boolean
+  rejectedBy?: string | null
+  rejectedAt?: Date | string | null
+  rejectionReason?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type OvertimeCreateManyRejecterInput = {
+  id?: string
+  tenantId: string
+  employeeId: string
+  date: Date | string
+  hours: runtime.Decimal | runtime.DecimalJsLike | number | string
+  reason: string
+  approved?: boolean
+  approvedBy?: string | null
+  approvedAt?: Date | string | null
+  rejected?: boolean
+  rejectedAt?: Date | string | null
+  rejectionReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -816,10 +1057,14 @@ export type OvertimeUpdateWithoutApproverInput = {
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   approved?: Prisma.BoolFieldUpdateOperationsInput | boolean
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutOvertimeNestedInput
   employee?: Prisma.EmployeeUpdateOneRequiredWithoutOvertimeNestedInput
+  rejecter?: Prisma.UserUpdateOneWithoutRejectedOvertimeNestedInput
 }
 
 export type OvertimeUncheckedUpdateWithoutApproverInput = {
@@ -831,6 +1076,10 @@ export type OvertimeUncheckedUpdateWithoutApproverInput = {
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   approved?: Prisma.BoolFieldUpdateOperationsInput | boolean
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rejectedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -844,6 +1093,61 @@ export type OvertimeUncheckedUpdateManyWithoutApproverInput = {
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   approved?: Prisma.BoolFieldUpdateOperationsInput | boolean
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rejectedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type OvertimeUpdateWithoutRejecterInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  hours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  reason?: Prisma.StringFieldUpdateOperationsInput | string
+  approved?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutOvertimeNestedInput
+  employee?: Prisma.EmployeeUpdateOneRequiredWithoutOvertimeNestedInput
+  approver?: Prisma.UserUpdateOneWithoutApprovedOvertimeNestedInput
+}
+
+export type OvertimeUncheckedUpdateWithoutRejecterInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  employeeId?: Prisma.StringFieldUpdateOperationsInput | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  hours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  reason?: Prisma.StringFieldUpdateOperationsInput | string
+  approved?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type OvertimeUncheckedUpdateManyWithoutRejecterInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  employeeId?: Prisma.StringFieldUpdateOperationsInput | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  hours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  reason?: Prisma.StringFieldUpdateOperationsInput | string
+  approved?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -857,6 +1161,10 @@ export type OvertimeCreateManyEmployeeInput = {
   approved?: boolean
   approvedBy?: string | null
   approvedAt?: Date | string | null
+  rejected?: boolean
+  rejectedBy?: string | null
+  rejectedAt?: Date | string | null
+  rejectionReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -868,10 +1176,14 @@ export type OvertimeUpdateWithoutEmployeeInput = {
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   approved?: Prisma.BoolFieldUpdateOperationsInput | boolean
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutOvertimeNestedInput
   approver?: Prisma.UserUpdateOneWithoutApprovedOvertimeNestedInput
+  rejecter?: Prisma.UserUpdateOneWithoutRejectedOvertimeNestedInput
 }
 
 export type OvertimeUncheckedUpdateWithoutEmployeeInput = {
@@ -883,6 +1195,10 @@ export type OvertimeUncheckedUpdateWithoutEmployeeInput = {
   approved?: Prisma.BoolFieldUpdateOperationsInput | boolean
   approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rejectedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -896,6 +1212,10 @@ export type OvertimeUncheckedUpdateManyWithoutEmployeeInput = {
   approved?: Prisma.BoolFieldUpdateOperationsInput | boolean
   approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rejectedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -909,6 +1229,10 @@ export type OvertimeCreateManyTenantInput = {
   approved?: boolean
   approvedBy?: string | null
   approvedAt?: Date | string | null
+  rejected?: boolean
+  rejectedBy?: string | null
+  rejectedAt?: Date | string | null
+  rejectionReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -920,10 +1244,14 @@ export type OvertimeUpdateWithoutTenantInput = {
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   approved?: Prisma.BoolFieldUpdateOperationsInput | boolean
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employee?: Prisma.EmployeeUpdateOneRequiredWithoutOvertimeNestedInput
   approver?: Prisma.UserUpdateOneWithoutApprovedOvertimeNestedInput
+  rejecter?: Prisma.UserUpdateOneWithoutRejectedOvertimeNestedInput
 }
 
 export type OvertimeUncheckedUpdateWithoutTenantInput = {
@@ -935,6 +1263,10 @@ export type OvertimeUncheckedUpdateWithoutTenantInput = {
   approved?: Prisma.BoolFieldUpdateOperationsInput | boolean
   approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rejectedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -948,6 +1280,10 @@ export type OvertimeUncheckedUpdateManyWithoutTenantInput = {
   approved?: Prisma.BoolFieldUpdateOperationsInput | boolean
   approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rejectedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -964,11 +1300,16 @@ export type OvertimeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   approved?: boolean
   approvedBy?: boolean
   approvedAt?: boolean
+  rejected?: boolean
+  rejectedBy?: boolean
+  rejectedAt?: boolean
+  rejectionReason?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
   approver?: boolean | Prisma.Overtime$approverArgs<ExtArgs>
+  rejecter?: boolean | Prisma.Overtime$rejecterArgs<ExtArgs>
 }, ExtArgs["result"]["overtime"]>
 
 export type OvertimeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -981,11 +1322,16 @@ export type OvertimeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   approved?: boolean
   approvedBy?: boolean
   approvedAt?: boolean
+  rejected?: boolean
+  rejectedBy?: boolean
+  rejectedAt?: boolean
+  rejectionReason?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
   approver?: boolean | Prisma.Overtime$approverArgs<ExtArgs>
+  rejecter?: boolean | Prisma.Overtime$rejecterArgs<ExtArgs>
 }, ExtArgs["result"]["overtime"]>
 
 export type OvertimeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -998,11 +1344,16 @@ export type OvertimeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   approved?: boolean
   approvedBy?: boolean
   approvedAt?: boolean
+  rejected?: boolean
+  rejectedBy?: boolean
+  rejectedAt?: boolean
+  rejectionReason?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
   approver?: boolean | Prisma.Overtime$approverArgs<ExtArgs>
+  rejecter?: boolean | Prisma.Overtime$rejecterArgs<ExtArgs>
 }, ExtArgs["result"]["overtime"]>
 
 export type OvertimeSelectScalar = {
@@ -1015,25 +1366,32 @@ export type OvertimeSelectScalar = {
   approved?: boolean
   approvedBy?: boolean
   approvedAt?: boolean
+  rejected?: boolean
+  rejectedBy?: boolean
+  rejectedAt?: boolean
+  rejectionReason?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type OvertimeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "employeeId" | "date" | "hours" | "reason" | "approved" | "approvedBy" | "approvedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["overtime"]>
+export type OvertimeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "employeeId" | "date" | "hours" | "reason" | "approved" | "approvedBy" | "approvedAt" | "rejected" | "rejectedBy" | "rejectedAt" | "rejectionReason" | "createdAt" | "updatedAt", ExtArgs["result"]["overtime"]>
 export type OvertimeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
   approver?: boolean | Prisma.Overtime$approverArgs<ExtArgs>
+  rejecter?: boolean | Prisma.Overtime$rejecterArgs<ExtArgs>
 }
 export type OvertimeIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
   approver?: boolean | Prisma.Overtime$approverArgs<ExtArgs>
+  rejecter?: boolean | Prisma.Overtime$rejecterArgs<ExtArgs>
 }
 export type OvertimeIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
   approver?: boolean | Prisma.Overtime$approverArgs<ExtArgs>
+  rejecter?: boolean | Prisma.Overtime$rejecterArgs<ExtArgs>
 }
 
 export type $OvertimePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1042,6 +1400,7 @@ export type $OvertimePayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     tenant: Prisma.$TenantPayload<ExtArgs>
     employee: Prisma.$EmployeePayload<ExtArgs>
     approver: Prisma.$UserPayload<ExtArgs> | null
+    rejecter: Prisma.$UserPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1053,6 +1412,10 @@ export type $OvertimePayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     approved: boolean
     approvedBy: string | null
     approvedAt: Date | null
+    rejected: boolean
+    rejectedBy: string | null
+    rejectedAt: Date | null
+    rejectionReason: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["overtime"]>
@@ -1452,6 +1815,7 @@ export interface Prisma__OvertimeClient<T, Null = never, ExtArgs extends runtime
   tenant<T extends Prisma.TenantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   employee<T extends Prisma.EmployeeDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EmployeeDefaultArgs<ExtArgs>>): Prisma.Prisma__EmployeeClient<runtime.Types.Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   approver<T extends Prisma.Overtime$approverArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Overtime$approverArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  rejecter<T extends Prisma.Overtime$rejecterArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Overtime$rejecterArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1490,6 +1854,10 @@ export interface OvertimeFieldRefs {
   readonly approved: Prisma.FieldRef<"Overtime", 'Boolean'>
   readonly approvedBy: Prisma.FieldRef<"Overtime", 'String'>
   readonly approvedAt: Prisma.FieldRef<"Overtime", 'DateTime'>
+  readonly rejected: Prisma.FieldRef<"Overtime", 'Boolean'>
+  readonly rejectedBy: Prisma.FieldRef<"Overtime", 'String'>
+  readonly rejectedAt: Prisma.FieldRef<"Overtime", 'DateTime'>
+  readonly rejectionReason: Prisma.FieldRef<"Overtime", 'String'>
   readonly createdAt: Prisma.FieldRef<"Overtime", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Overtime", 'DateTime'>
 }
@@ -1891,6 +2259,25 @@ export type OvertimeDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
  * Overtime.approver
  */
 export type Overtime$approverArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
+}
+
+/**
+ * Overtime.rejecter
+ */
+export type Overtime$rejecterArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the User
    */

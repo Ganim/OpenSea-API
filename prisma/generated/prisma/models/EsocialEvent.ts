@@ -38,29 +38,28 @@ export type EsocialEventMinAggregateOutputType = {
   id: string | null
   tenantId: string | null
   eventType: string | null
-  status: string | null
+  description: string | null
+  status: $Enums.EsocialEventStatus | null
   referenceId: string | null
+  referenceName: string | null
   referenceType: string | null
+  periodStart: Date | null
+  periodEnd: Date | null
+  deadline: Date | null
   xmlContent: string | null
-  xmlHash: string | null
-  reviewedBy: string | null
-  reviewedAt: Date | null
-  reviewNotes: string | null
-  approvedBy: string | null
-  approvedAt: Date | null
+  signedXml: string | null
   batchId: string | null
-  protocol: string | null
   receipt: string | null
-  transmittedAt: Date | null
-  responseAt: Date | null
-  responseXml: string | null
   rejectionCode: string | null
   rejectionMessage: string | null
   retryCount: number | null
   nextRetryAt: Date | null
-  originalEventId: string | null
-  isRectification: boolean | null
-  deadline: Date | null
+  rectifiedEventId: string | null
+  createdBy: string | null
+  reviewedBy: string | null
+  reviewedAt: Date | null
+  approvedBy: string | null
+  approvedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -69,29 +68,28 @@ export type EsocialEventMaxAggregateOutputType = {
   id: string | null
   tenantId: string | null
   eventType: string | null
-  status: string | null
+  description: string | null
+  status: $Enums.EsocialEventStatus | null
   referenceId: string | null
+  referenceName: string | null
   referenceType: string | null
+  periodStart: Date | null
+  periodEnd: Date | null
+  deadline: Date | null
   xmlContent: string | null
-  xmlHash: string | null
-  reviewedBy: string | null
-  reviewedAt: Date | null
-  reviewNotes: string | null
-  approvedBy: string | null
-  approvedAt: Date | null
+  signedXml: string | null
   batchId: string | null
-  protocol: string | null
   receipt: string | null
-  transmittedAt: Date | null
-  responseAt: Date | null
-  responseXml: string | null
   rejectionCode: string | null
   rejectionMessage: string | null
   retryCount: number | null
   nextRetryAt: Date | null
-  originalEventId: string | null
-  isRectification: boolean | null
-  deadline: Date | null
+  rectifiedEventId: string | null
+  createdBy: string | null
+  reviewedBy: string | null
+  reviewedAt: Date | null
+  approvedBy: string | null
+  approvedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -100,29 +98,28 @@ export type EsocialEventCountAggregateOutputType = {
   id: number
   tenantId: number
   eventType: number
+  description: number
   status: number
   referenceId: number
+  referenceName: number
   referenceType: number
+  periodStart: number
+  periodEnd: number
+  deadline: number
   xmlContent: number
-  xmlHash: number
-  reviewedBy: number
-  reviewedAt: number
-  reviewNotes: number
-  approvedBy: number
-  approvedAt: number
+  signedXml: number
   batchId: number
-  protocol: number
   receipt: number
-  transmittedAt: number
-  responseAt: number
-  responseXml: number
   rejectionCode: number
   rejectionMessage: number
   retryCount: number
   nextRetryAt: number
-  originalEventId: number
-  isRectification: number
-  deadline: number
+  rectifiedEventId: number
+  createdBy: number
+  reviewedBy: number
+  reviewedAt: number
+  approvedBy: number
+  approvedAt: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -141,29 +138,28 @@ export type EsocialEventMinAggregateInputType = {
   id?: true
   tenantId?: true
   eventType?: true
+  description?: true
   status?: true
   referenceId?: true
+  referenceName?: true
   referenceType?: true
+  periodStart?: true
+  periodEnd?: true
+  deadline?: true
   xmlContent?: true
-  xmlHash?: true
-  reviewedBy?: true
-  reviewedAt?: true
-  reviewNotes?: true
-  approvedBy?: true
-  approvedAt?: true
+  signedXml?: true
   batchId?: true
-  protocol?: true
   receipt?: true
-  transmittedAt?: true
-  responseAt?: true
-  responseXml?: true
   rejectionCode?: true
   rejectionMessage?: true
   retryCount?: true
   nextRetryAt?: true
-  originalEventId?: true
-  isRectification?: true
-  deadline?: true
+  rectifiedEventId?: true
+  createdBy?: true
+  reviewedBy?: true
+  reviewedAt?: true
+  approvedBy?: true
+  approvedAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -172,29 +168,28 @@ export type EsocialEventMaxAggregateInputType = {
   id?: true
   tenantId?: true
   eventType?: true
+  description?: true
   status?: true
   referenceId?: true
+  referenceName?: true
   referenceType?: true
+  periodStart?: true
+  periodEnd?: true
+  deadline?: true
   xmlContent?: true
-  xmlHash?: true
-  reviewedBy?: true
-  reviewedAt?: true
-  reviewNotes?: true
-  approvedBy?: true
-  approvedAt?: true
+  signedXml?: true
   batchId?: true
-  protocol?: true
   receipt?: true
-  transmittedAt?: true
-  responseAt?: true
-  responseXml?: true
   rejectionCode?: true
   rejectionMessage?: true
   retryCount?: true
   nextRetryAt?: true
-  originalEventId?: true
-  isRectification?: true
-  deadline?: true
+  rectifiedEventId?: true
+  createdBy?: true
+  reviewedBy?: true
+  reviewedAt?: true
+  approvedBy?: true
+  approvedAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -203,29 +198,28 @@ export type EsocialEventCountAggregateInputType = {
   id?: true
   tenantId?: true
   eventType?: true
+  description?: true
   status?: true
   referenceId?: true
+  referenceName?: true
   referenceType?: true
+  periodStart?: true
+  periodEnd?: true
+  deadline?: true
   xmlContent?: true
-  xmlHash?: true
-  reviewedBy?: true
-  reviewedAt?: true
-  reviewNotes?: true
-  approvedBy?: true
-  approvedAt?: true
+  signedXml?: true
   batchId?: true
-  protocol?: true
   receipt?: true
-  transmittedAt?: true
-  responseAt?: true
-  responseXml?: true
   rejectionCode?: true
   rejectionMessage?: true
   retryCount?: true
   nextRetryAt?: true
-  originalEventId?: true
-  isRectification?: true
-  deadline?: true
+  rectifiedEventId?: true
+  createdBy?: true
+  reviewedBy?: true
+  reviewedAt?: true
+  approvedBy?: true
+  approvedAt?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -321,29 +315,28 @@ export type EsocialEventGroupByOutputType = {
   id: string
   tenantId: string
   eventType: string
-  status: string
+  description: string
+  status: $Enums.EsocialEventStatus
   referenceId: string | null
+  referenceName: string | null
   referenceType: string | null
-  xmlContent: string
-  xmlHash: string | null
-  reviewedBy: string | null
-  reviewedAt: Date | null
-  reviewNotes: string | null
-  approvedBy: string | null
-  approvedAt: Date | null
+  periodStart: Date | null
+  periodEnd: Date | null
+  deadline: Date | null
+  xmlContent: string | null
+  signedXml: string | null
   batchId: string | null
-  protocol: string | null
   receipt: string | null
-  transmittedAt: Date | null
-  responseAt: Date | null
-  responseXml: string | null
   rejectionCode: string | null
   rejectionMessage: string | null
   retryCount: number
   nextRetryAt: Date | null
-  originalEventId: string | null
-  isRectification: boolean
-  deadline: Date | null
+  rectifiedEventId: string | null
+  createdBy: string | null
+  reviewedBy: string | null
+  reviewedAt: Date | null
+  approvedBy: string | null
+  approvedAt: Date | null
   createdAt: Date
   updatedAt: Date
   _count: EsocialEventCountAggregateOutputType | null
@@ -375,35 +368,32 @@ export type EsocialEventWhereInput = {
   id?: Prisma.StringFilter<"EsocialEvent"> | string
   tenantId?: Prisma.StringFilter<"EsocialEvent"> | string
   eventType?: Prisma.StringFilter<"EsocialEvent"> | string
-  status?: Prisma.StringFilter<"EsocialEvent"> | string
+  description?: Prisma.StringFilter<"EsocialEvent"> | string
+  status?: Prisma.EnumEsocialEventStatusFilter<"EsocialEvent"> | $Enums.EsocialEventStatus
   referenceId?: Prisma.StringNullableFilter<"EsocialEvent"> | string | null
+  referenceName?: Prisma.StringNullableFilter<"EsocialEvent"> | string | null
   referenceType?: Prisma.StringNullableFilter<"EsocialEvent"> | string | null
-  xmlContent?: Prisma.StringFilter<"EsocialEvent"> | string
-  xmlHash?: Prisma.StringNullableFilter<"EsocialEvent"> | string | null
-  reviewedBy?: Prisma.StringNullableFilter<"EsocialEvent"> | string | null
-  reviewedAt?: Prisma.DateTimeNullableFilter<"EsocialEvent"> | Date | string | null
-  reviewNotes?: Prisma.StringNullableFilter<"EsocialEvent"> | string | null
-  approvedBy?: Prisma.StringNullableFilter<"EsocialEvent"> | string | null
-  approvedAt?: Prisma.DateTimeNullableFilter<"EsocialEvent"> | Date | string | null
+  periodStart?: Prisma.DateTimeNullableFilter<"EsocialEvent"> | Date | string | null
+  periodEnd?: Prisma.DateTimeNullableFilter<"EsocialEvent"> | Date | string | null
+  deadline?: Prisma.DateTimeNullableFilter<"EsocialEvent"> | Date | string | null
+  xmlContent?: Prisma.StringNullableFilter<"EsocialEvent"> | string | null
+  signedXml?: Prisma.StringNullableFilter<"EsocialEvent"> | string | null
   batchId?: Prisma.StringNullableFilter<"EsocialEvent"> | string | null
-  protocol?: Prisma.StringNullableFilter<"EsocialEvent"> | string | null
   receipt?: Prisma.StringNullableFilter<"EsocialEvent"> | string | null
-  transmittedAt?: Prisma.DateTimeNullableFilter<"EsocialEvent"> | Date | string | null
-  responseAt?: Prisma.DateTimeNullableFilter<"EsocialEvent"> | Date | string | null
-  responseXml?: Prisma.StringNullableFilter<"EsocialEvent"> | string | null
   rejectionCode?: Prisma.StringNullableFilter<"EsocialEvent"> | string | null
   rejectionMessage?: Prisma.StringNullableFilter<"EsocialEvent"> | string | null
   retryCount?: Prisma.IntFilter<"EsocialEvent"> | number
   nextRetryAt?: Prisma.DateTimeNullableFilter<"EsocialEvent"> | Date | string | null
-  originalEventId?: Prisma.StringNullableFilter<"EsocialEvent"> | string | null
-  isRectification?: Prisma.BoolFilter<"EsocialEvent"> | boolean
-  deadline?: Prisma.DateTimeNullableFilter<"EsocialEvent"> | Date | string | null
+  rectifiedEventId?: Prisma.StringNullableFilter<"EsocialEvent"> | string | null
+  createdBy?: Prisma.StringNullableFilter<"EsocialEvent"> | string | null
+  reviewedBy?: Prisma.StringNullableFilter<"EsocialEvent"> | string | null
+  reviewedAt?: Prisma.DateTimeNullableFilter<"EsocialEvent"> | Date | string | null
+  approvedBy?: Prisma.StringNullableFilter<"EsocialEvent"> | string | null
+  approvedAt?: Prisma.DateTimeNullableFilter<"EsocialEvent"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"EsocialEvent"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"EsocialEvent"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   batch?: Prisma.XOR<Prisma.EsocialBatchNullableScalarRelationFilter, Prisma.EsocialBatchWhereInput> | null
-  originalEvent?: Prisma.XOR<Prisma.EsocialEventNullableScalarRelationFilter, Prisma.EsocialEventWhereInput> | null
-  rectifications?: Prisma.EsocialEventListRelationFilter
   statusHistory?: Prisma.EsocialEventStatusHistoryListRelationFilter
 }
 
@@ -411,35 +401,32 @@ export type EsocialEventOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
   eventType?: Prisma.SortOrder
+  description?: Prisma.SortOrder
   status?: Prisma.SortOrder
   referenceId?: Prisma.SortOrderInput | Prisma.SortOrder
+  referenceName?: Prisma.SortOrderInput | Prisma.SortOrder
   referenceType?: Prisma.SortOrderInput | Prisma.SortOrder
-  xmlContent?: Prisma.SortOrder
-  xmlHash?: Prisma.SortOrderInput | Prisma.SortOrder
-  reviewedBy?: Prisma.SortOrderInput | Prisma.SortOrder
-  reviewedAt?: Prisma.SortOrderInput | Prisma.SortOrder
-  reviewNotes?: Prisma.SortOrderInput | Prisma.SortOrder
-  approvedBy?: Prisma.SortOrderInput | Prisma.SortOrder
-  approvedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  periodStart?: Prisma.SortOrderInput | Prisma.SortOrder
+  periodEnd?: Prisma.SortOrderInput | Prisma.SortOrder
+  deadline?: Prisma.SortOrderInput | Prisma.SortOrder
+  xmlContent?: Prisma.SortOrderInput | Prisma.SortOrder
+  signedXml?: Prisma.SortOrderInput | Prisma.SortOrder
   batchId?: Prisma.SortOrderInput | Prisma.SortOrder
-  protocol?: Prisma.SortOrderInput | Prisma.SortOrder
   receipt?: Prisma.SortOrderInput | Prisma.SortOrder
-  transmittedAt?: Prisma.SortOrderInput | Prisma.SortOrder
-  responseAt?: Prisma.SortOrderInput | Prisma.SortOrder
-  responseXml?: Prisma.SortOrderInput | Prisma.SortOrder
   rejectionCode?: Prisma.SortOrderInput | Prisma.SortOrder
   rejectionMessage?: Prisma.SortOrderInput | Prisma.SortOrder
   retryCount?: Prisma.SortOrder
   nextRetryAt?: Prisma.SortOrderInput | Prisma.SortOrder
-  originalEventId?: Prisma.SortOrderInput | Prisma.SortOrder
-  isRectification?: Prisma.SortOrder
-  deadline?: Prisma.SortOrderInput | Prisma.SortOrder
+  rectifiedEventId?: Prisma.SortOrderInput | Prisma.SortOrder
+  createdBy?: Prisma.SortOrderInput | Prisma.SortOrder
+  reviewedBy?: Prisma.SortOrderInput | Prisma.SortOrder
+  reviewedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  approvedBy?: Prisma.SortOrderInput | Prisma.SortOrder
+  approvedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   tenant?: Prisma.TenantOrderByWithRelationInput
   batch?: Prisma.EsocialBatchOrderByWithRelationInput
-  originalEvent?: Prisma.EsocialEventOrderByWithRelationInput
-  rectifications?: Prisma.EsocialEventOrderByRelationAggregateInput
   statusHistory?: Prisma.EsocialEventStatusHistoryOrderByRelationAggregateInput
 }
 
@@ -450,35 +437,32 @@ export type EsocialEventWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.EsocialEventWhereInput | Prisma.EsocialEventWhereInput[]
   tenantId?: Prisma.StringFilter<"EsocialEvent"> | string
   eventType?: Prisma.StringFilter<"EsocialEvent"> | string
-  status?: Prisma.StringFilter<"EsocialEvent"> | string
+  description?: Prisma.StringFilter<"EsocialEvent"> | string
+  status?: Prisma.EnumEsocialEventStatusFilter<"EsocialEvent"> | $Enums.EsocialEventStatus
   referenceId?: Prisma.StringNullableFilter<"EsocialEvent"> | string | null
+  referenceName?: Prisma.StringNullableFilter<"EsocialEvent"> | string | null
   referenceType?: Prisma.StringNullableFilter<"EsocialEvent"> | string | null
-  xmlContent?: Prisma.StringFilter<"EsocialEvent"> | string
-  xmlHash?: Prisma.StringNullableFilter<"EsocialEvent"> | string | null
-  reviewedBy?: Prisma.StringNullableFilter<"EsocialEvent"> | string | null
-  reviewedAt?: Prisma.DateTimeNullableFilter<"EsocialEvent"> | Date | string | null
-  reviewNotes?: Prisma.StringNullableFilter<"EsocialEvent"> | string | null
-  approvedBy?: Prisma.StringNullableFilter<"EsocialEvent"> | string | null
-  approvedAt?: Prisma.DateTimeNullableFilter<"EsocialEvent"> | Date | string | null
+  periodStart?: Prisma.DateTimeNullableFilter<"EsocialEvent"> | Date | string | null
+  periodEnd?: Prisma.DateTimeNullableFilter<"EsocialEvent"> | Date | string | null
+  deadline?: Prisma.DateTimeNullableFilter<"EsocialEvent"> | Date | string | null
+  xmlContent?: Prisma.StringNullableFilter<"EsocialEvent"> | string | null
+  signedXml?: Prisma.StringNullableFilter<"EsocialEvent"> | string | null
   batchId?: Prisma.StringNullableFilter<"EsocialEvent"> | string | null
-  protocol?: Prisma.StringNullableFilter<"EsocialEvent"> | string | null
   receipt?: Prisma.StringNullableFilter<"EsocialEvent"> | string | null
-  transmittedAt?: Prisma.DateTimeNullableFilter<"EsocialEvent"> | Date | string | null
-  responseAt?: Prisma.DateTimeNullableFilter<"EsocialEvent"> | Date | string | null
-  responseXml?: Prisma.StringNullableFilter<"EsocialEvent"> | string | null
   rejectionCode?: Prisma.StringNullableFilter<"EsocialEvent"> | string | null
   rejectionMessage?: Prisma.StringNullableFilter<"EsocialEvent"> | string | null
   retryCount?: Prisma.IntFilter<"EsocialEvent"> | number
   nextRetryAt?: Prisma.DateTimeNullableFilter<"EsocialEvent"> | Date | string | null
-  originalEventId?: Prisma.StringNullableFilter<"EsocialEvent"> | string | null
-  isRectification?: Prisma.BoolFilter<"EsocialEvent"> | boolean
-  deadline?: Prisma.DateTimeNullableFilter<"EsocialEvent"> | Date | string | null
+  rectifiedEventId?: Prisma.StringNullableFilter<"EsocialEvent"> | string | null
+  createdBy?: Prisma.StringNullableFilter<"EsocialEvent"> | string | null
+  reviewedBy?: Prisma.StringNullableFilter<"EsocialEvent"> | string | null
+  reviewedAt?: Prisma.DateTimeNullableFilter<"EsocialEvent"> | Date | string | null
+  approvedBy?: Prisma.StringNullableFilter<"EsocialEvent"> | string | null
+  approvedAt?: Prisma.DateTimeNullableFilter<"EsocialEvent"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"EsocialEvent"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"EsocialEvent"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   batch?: Prisma.XOR<Prisma.EsocialBatchNullableScalarRelationFilter, Prisma.EsocialBatchWhereInput> | null
-  originalEvent?: Prisma.XOR<Prisma.EsocialEventNullableScalarRelationFilter, Prisma.EsocialEventWhereInput> | null
-  rectifications?: Prisma.EsocialEventListRelationFilter
   statusHistory?: Prisma.EsocialEventStatusHistoryListRelationFilter
 }, "id">
 
@@ -486,29 +470,28 @@ export type EsocialEventOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
   eventType?: Prisma.SortOrder
+  description?: Prisma.SortOrder
   status?: Prisma.SortOrder
   referenceId?: Prisma.SortOrderInput | Prisma.SortOrder
+  referenceName?: Prisma.SortOrderInput | Prisma.SortOrder
   referenceType?: Prisma.SortOrderInput | Prisma.SortOrder
-  xmlContent?: Prisma.SortOrder
-  xmlHash?: Prisma.SortOrderInput | Prisma.SortOrder
-  reviewedBy?: Prisma.SortOrderInput | Prisma.SortOrder
-  reviewedAt?: Prisma.SortOrderInput | Prisma.SortOrder
-  reviewNotes?: Prisma.SortOrderInput | Prisma.SortOrder
-  approvedBy?: Prisma.SortOrderInput | Prisma.SortOrder
-  approvedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  periodStart?: Prisma.SortOrderInput | Prisma.SortOrder
+  periodEnd?: Prisma.SortOrderInput | Prisma.SortOrder
+  deadline?: Prisma.SortOrderInput | Prisma.SortOrder
+  xmlContent?: Prisma.SortOrderInput | Prisma.SortOrder
+  signedXml?: Prisma.SortOrderInput | Prisma.SortOrder
   batchId?: Prisma.SortOrderInput | Prisma.SortOrder
-  protocol?: Prisma.SortOrderInput | Prisma.SortOrder
   receipt?: Prisma.SortOrderInput | Prisma.SortOrder
-  transmittedAt?: Prisma.SortOrderInput | Prisma.SortOrder
-  responseAt?: Prisma.SortOrderInput | Prisma.SortOrder
-  responseXml?: Prisma.SortOrderInput | Prisma.SortOrder
   rejectionCode?: Prisma.SortOrderInput | Prisma.SortOrder
   rejectionMessage?: Prisma.SortOrderInput | Prisma.SortOrder
   retryCount?: Prisma.SortOrder
   nextRetryAt?: Prisma.SortOrderInput | Prisma.SortOrder
-  originalEventId?: Prisma.SortOrderInput | Prisma.SortOrder
-  isRectification?: Prisma.SortOrder
-  deadline?: Prisma.SortOrderInput | Prisma.SortOrder
+  rectifiedEventId?: Prisma.SortOrderInput | Prisma.SortOrder
+  createdBy?: Prisma.SortOrderInput | Prisma.SortOrder
+  reviewedBy?: Prisma.SortOrderInput | Prisma.SortOrder
+  reviewedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  approvedBy?: Prisma.SortOrderInput | Prisma.SortOrder
+  approvedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.EsocialEventCountOrderByAggregateInput
@@ -525,29 +508,28 @@ export type EsocialEventScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"EsocialEvent"> | string
   tenantId?: Prisma.StringWithAggregatesFilter<"EsocialEvent"> | string
   eventType?: Prisma.StringWithAggregatesFilter<"EsocialEvent"> | string
-  status?: Prisma.StringWithAggregatesFilter<"EsocialEvent"> | string
+  description?: Prisma.StringWithAggregatesFilter<"EsocialEvent"> | string
+  status?: Prisma.EnumEsocialEventStatusWithAggregatesFilter<"EsocialEvent"> | $Enums.EsocialEventStatus
   referenceId?: Prisma.StringNullableWithAggregatesFilter<"EsocialEvent"> | string | null
+  referenceName?: Prisma.StringNullableWithAggregatesFilter<"EsocialEvent"> | string | null
   referenceType?: Prisma.StringNullableWithAggregatesFilter<"EsocialEvent"> | string | null
-  xmlContent?: Prisma.StringWithAggregatesFilter<"EsocialEvent"> | string
-  xmlHash?: Prisma.StringNullableWithAggregatesFilter<"EsocialEvent"> | string | null
-  reviewedBy?: Prisma.StringNullableWithAggregatesFilter<"EsocialEvent"> | string | null
-  reviewedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"EsocialEvent"> | Date | string | null
-  reviewNotes?: Prisma.StringNullableWithAggregatesFilter<"EsocialEvent"> | string | null
-  approvedBy?: Prisma.StringNullableWithAggregatesFilter<"EsocialEvent"> | string | null
-  approvedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"EsocialEvent"> | Date | string | null
+  periodStart?: Prisma.DateTimeNullableWithAggregatesFilter<"EsocialEvent"> | Date | string | null
+  periodEnd?: Prisma.DateTimeNullableWithAggregatesFilter<"EsocialEvent"> | Date | string | null
+  deadline?: Prisma.DateTimeNullableWithAggregatesFilter<"EsocialEvent"> | Date | string | null
+  xmlContent?: Prisma.StringNullableWithAggregatesFilter<"EsocialEvent"> | string | null
+  signedXml?: Prisma.StringNullableWithAggregatesFilter<"EsocialEvent"> | string | null
   batchId?: Prisma.StringNullableWithAggregatesFilter<"EsocialEvent"> | string | null
-  protocol?: Prisma.StringNullableWithAggregatesFilter<"EsocialEvent"> | string | null
   receipt?: Prisma.StringNullableWithAggregatesFilter<"EsocialEvent"> | string | null
-  transmittedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"EsocialEvent"> | Date | string | null
-  responseAt?: Prisma.DateTimeNullableWithAggregatesFilter<"EsocialEvent"> | Date | string | null
-  responseXml?: Prisma.StringNullableWithAggregatesFilter<"EsocialEvent"> | string | null
   rejectionCode?: Prisma.StringNullableWithAggregatesFilter<"EsocialEvent"> | string | null
   rejectionMessage?: Prisma.StringNullableWithAggregatesFilter<"EsocialEvent"> | string | null
   retryCount?: Prisma.IntWithAggregatesFilter<"EsocialEvent"> | number
   nextRetryAt?: Prisma.DateTimeNullableWithAggregatesFilter<"EsocialEvent"> | Date | string | null
-  originalEventId?: Prisma.StringNullableWithAggregatesFilter<"EsocialEvent"> | string | null
-  isRectification?: Prisma.BoolWithAggregatesFilter<"EsocialEvent"> | boolean
-  deadline?: Prisma.DateTimeNullableWithAggregatesFilter<"EsocialEvent"> | Date | string | null
+  rectifiedEventId?: Prisma.StringNullableWithAggregatesFilter<"EsocialEvent"> | string | null
+  createdBy?: Prisma.StringNullableWithAggregatesFilter<"EsocialEvent"> | string | null
+  reviewedBy?: Prisma.StringNullableWithAggregatesFilter<"EsocialEvent"> | string | null
+  reviewedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"EsocialEvent"> | Date | string | null
+  approvedBy?: Prisma.StringNullableWithAggregatesFilter<"EsocialEvent"> | string | null
+  approvedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"EsocialEvent"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"EsocialEvent"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"EsocialEvent"> | Date | string
 }
@@ -555,33 +537,31 @@ export type EsocialEventScalarWhereWithAggregatesInput = {
 export type EsocialEventCreateInput = {
   id?: string
   eventType: string
-  status?: string
+  description: string
+  status?: $Enums.EsocialEventStatus
   referenceId?: string | null
+  referenceName?: string | null
   referenceType?: string | null
-  xmlContent: string
-  xmlHash?: string | null
-  reviewedBy?: string | null
-  reviewedAt?: Date | string | null
-  reviewNotes?: string | null
-  approvedBy?: string | null
-  approvedAt?: Date | string | null
-  protocol?: string | null
+  periodStart?: Date | string | null
+  periodEnd?: Date | string | null
+  deadline?: Date | string | null
+  xmlContent?: string | null
+  signedXml?: string | null
   receipt?: string | null
-  transmittedAt?: Date | string | null
-  responseAt?: Date | string | null
-  responseXml?: string | null
   rejectionCode?: string | null
   rejectionMessage?: string | null
   retryCount?: number
   nextRetryAt?: Date | string | null
-  isRectification?: boolean
-  deadline?: Date | string | null
+  rectifiedEventId?: string | null
+  createdBy?: string | null
+  reviewedBy?: string | null
+  reviewedAt?: Date | string | null
+  approvedBy?: string | null
+  approvedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutEsocialEventsInput
   batch?: Prisma.EsocialBatchCreateNestedOneWithoutEventsInput
-  originalEvent?: Prisma.EsocialEventCreateNestedOneWithoutRectificationsInput
-  rectifications?: Prisma.EsocialEventCreateNestedManyWithoutOriginalEventInput
   statusHistory?: Prisma.EsocialEventStatusHistoryCreateNestedManyWithoutEventInput
 }
 
@@ -589,65 +569,61 @@ export type EsocialEventUncheckedCreateInput = {
   id?: string
   tenantId: string
   eventType: string
-  status?: string
+  description: string
+  status?: $Enums.EsocialEventStatus
   referenceId?: string | null
+  referenceName?: string | null
   referenceType?: string | null
-  xmlContent: string
-  xmlHash?: string | null
-  reviewedBy?: string | null
-  reviewedAt?: Date | string | null
-  reviewNotes?: string | null
-  approvedBy?: string | null
-  approvedAt?: Date | string | null
+  periodStart?: Date | string | null
+  periodEnd?: Date | string | null
+  deadline?: Date | string | null
+  xmlContent?: string | null
+  signedXml?: string | null
   batchId?: string | null
-  protocol?: string | null
   receipt?: string | null
-  transmittedAt?: Date | string | null
-  responseAt?: Date | string | null
-  responseXml?: string | null
   rejectionCode?: string | null
   rejectionMessage?: string | null
   retryCount?: number
   nextRetryAt?: Date | string | null
-  originalEventId?: string | null
-  isRectification?: boolean
-  deadline?: Date | string | null
+  rectifiedEventId?: string | null
+  createdBy?: string | null
+  reviewedBy?: string | null
+  reviewedAt?: Date | string | null
+  approvedBy?: string | null
+  approvedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  rectifications?: Prisma.EsocialEventUncheckedCreateNestedManyWithoutOriginalEventInput
   statusHistory?: Prisma.EsocialEventStatusHistoryUncheckedCreateNestedManyWithoutEventInput
 }
 
 export type EsocialEventUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   eventType?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumEsocialEventStatusFieldUpdateOperationsInput | $Enums.EsocialEventStatus
   referenceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referenceName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   referenceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  xmlContent?: Prisma.StringFieldUpdateOperationsInput | string
-  xmlHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  reviewNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  protocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  periodStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  periodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  xmlContent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signedXml?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   receipt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  transmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  responseAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  responseXml?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   retryCount?: Prisma.IntFieldUpdateOperationsInput | number
   nextRetryAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  isRectification?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  deadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rectifiedEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutEsocialEventsNestedInput
   batch?: Prisma.EsocialBatchUpdateOneWithoutEventsNestedInput
-  originalEvent?: Prisma.EsocialEventUpdateOneWithoutRectificationsNestedInput
-  rectifications?: Prisma.EsocialEventUpdateManyWithoutOriginalEventNestedInput
   statusHistory?: Prisma.EsocialEventStatusHistoryUpdateManyWithoutEventNestedInput
 }
 
@@ -655,32 +631,30 @@ export type EsocialEventUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   eventType?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumEsocialEventStatusFieldUpdateOperationsInput | $Enums.EsocialEventStatus
   referenceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referenceName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   referenceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  xmlContent?: Prisma.StringFieldUpdateOperationsInput | string
-  xmlHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  reviewNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  periodStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  periodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  xmlContent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signedXml?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   batchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  protocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   receipt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  transmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  responseAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  responseXml?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   retryCount?: Prisma.IntFieldUpdateOperationsInput | number
   nextRetryAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  originalEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isRectification?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  deadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rectifiedEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  rectifications?: Prisma.EsocialEventUncheckedUpdateManyWithoutOriginalEventNestedInput
   statusHistory?: Prisma.EsocialEventStatusHistoryUncheckedUpdateManyWithoutEventNestedInput
 }
 
@@ -688,29 +662,28 @@ export type EsocialEventCreateManyInput = {
   id?: string
   tenantId: string
   eventType: string
-  status?: string
+  description: string
+  status?: $Enums.EsocialEventStatus
   referenceId?: string | null
+  referenceName?: string | null
   referenceType?: string | null
-  xmlContent: string
-  xmlHash?: string | null
-  reviewedBy?: string | null
-  reviewedAt?: Date | string | null
-  reviewNotes?: string | null
-  approvedBy?: string | null
-  approvedAt?: Date | string | null
+  periodStart?: Date | string | null
+  periodEnd?: Date | string | null
+  deadline?: Date | string | null
+  xmlContent?: string | null
+  signedXml?: string | null
   batchId?: string | null
-  protocol?: string | null
   receipt?: string | null
-  transmittedAt?: Date | string | null
-  responseAt?: Date | string | null
-  responseXml?: string | null
   rejectionCode?: string | null
   rejectionMessage?: string | null
   retryCount?: number
   nextRetryAt?: Date | string | null
-  originalEventId?: string | null
-  isRectification?: boolean
-  deadline?: Date | string | null
+  rectifiedEventId?: string | null
+  createdBy?: string | null
+  reviewedBy?: string | null
+  reviewedAt?: Date | string | null
+  approvedBy?: string | null
+  approvedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -718,27 +691,27 @@ export type EsocialEventCreateManyInput = {
 export type EsocialEventUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   eventType?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumEsocialEventStatusFieldUpdateOperationsInput | $Enums.EsocialEventStatus
   referenceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referenceName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   referenceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  xmlContent?: Prisma.StringFieldUpdateOperationsInput | string
-  xmlHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  reviewNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  protocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  periodStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  periodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  xmlContent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signedXml?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   receipt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  transmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  responseAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  responseXml?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   retryCount?: Prisma.IntFieldUpdateOperationsInput | number
   nextRetryAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  isRectification?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  deadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rectifiedEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -747,29 +720,28 @@ export type EsocialEventUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   eventType?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumEsocialEventStatusFieldUpdateOperationsInput | $Enums.EsocialEventStatus
   referenceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referenceName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   referenceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  xmlContent?: Prisma.StringFieldUpdateOperationsInput | string
-  xmlHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  reviewNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  periodStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  periodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  xmlContent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signedXml?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   batchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  protocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   receipt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  transmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  responseAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  responseXml?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   retryCount?: Prisma.IntFieldUpdateOperationsInput | number
   nextRetryAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  originalEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isRectification?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  deadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rectifiedEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -784,38 +756,32 @@ export type EsocialEventOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type EsocialEventNullableScalarRelationFilter = {
-  is?: Prisma.EsocialEventWhereInput | null
-  isNot?: Prisma.EsocialEventWhereInput | null
-}
-
 export type EsocialEventCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
   eventType?: Prisma.SortOrder
+  description?: Prisma.SortOrder
   status?: Prisma.SortOrder
   referenceId?: Prisma.SortOrder
+  referenceName?: Prisma.SortOrder
   referenceType?: Prisma.SortOrder
+  periodStart?: Prisma.SortOrder
+  periodEnd?: Prisma.SortOrder
+  deadline?: Prisma.SortOrder
   xmlContent?: Prisma.SortOrder
-  xmlHash?: Prisma.SortOrder
-  reviewedBy?: Prisma.SortOrder
-  reviewedAt?: Prisma.SortOrder
-  reviewNotes?: Prisma.SortOrder
-  approvedBy?: Prisma.SortOrder
-  approvedAt?: Prisma.SortOrder
+  signedXml?: Prisma.SortOrder
   batchId?: Prisma.SortOrder
-  protocol?: Prisma.SortOrder
   receipt?: Prisma.SortOrder
-  transmittedAt?: Prisma.SortOrder
-  responseAt?: Prisma.SortOrder
-  responseXml?: Prisma.SortOrder
   rejectionCode?: Prisma.SortOrder
   rejectionMessage?: Prisma.SortOrder
   retryCount?: Prisma.SortOrder
   nextRetryAt?: Prisma.SortOrder
-  originalEventId?: Prisma.SortOrder
-  isRectification?: Prisma.SortOrder
-  deadline?: Prisma.SortOrder
+  rectifiedEventId?: Prisma.SortOrder
+  createdBy?: Prisma.SortOrder
+  reviewedBy?: Prisma.SortOrder
+  reviewedAt?: Prisma.SortOrder
+  approvedBy?: Prisma.SortOrder
+  approvedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -828,29 +794,28 @@ export type EsocialEventMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
   eventType?: Prisma.SortOrder
+  description?: Prisma.SortOrder
   status?: Prisma.SortOrder
   referenceId?: Prisma.SortOrder
+  referenceName?: Prisma.SortOrder
   referenceType?: Prisma.SortOrder
+  periodStart?: Prisma.SortOrder
+  periodEnd?: Prisma.SortOrder
+  deadline?: Prisma.SortOrder
   xmlContent?: Prisma.SortOrder
-  xmlHash?: Prisma.SortOrder
-  reviewedBy?: Prisma.SortOrder
-  reviewedAt?: Prisma.SortOrder
-  reviewNotes?: Prisma.SortOrder
-  approvedBy?: Prisma.SortOrder
-  approvedAt?: Prisma.SortOrder
+  signedXml?: Prisma.SortOrder
   batchId?: Prisma.SortOrder
-  protocol?: Prisma.SortOrder
   receipt?: Prisma.SortOrder
-  transmittedAt?: Prisma.SortOrder
-  responseAt?: Prisma.SortOrder
-  responseXml?: Prisma.SortOrder
   rejectionCode?: Prisma.SortOrder
   rejectionMessage?: Prisma.SortOrder
   retryCount?: Prisma.SortOrder
   nextRetryAt?: Prisma.SortOrder
-  originalEventId?: Prisma.SortOrder
-  isRectification?: Prisma.SortOrder
-  deadline?: Prisma.SortOrder
+  rectifiedEventId?: Prisma.SortOrder
+  createdBy?: Prisma.SortOrder
+  reviewedBy?: Prisma.SortOrder
+  reviewedAt?: Prisma.SortOrder
+  approvedBy?: Prisma.SortOrder
+  approvedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -859,29 +824,28 @@ export type EsocialEventMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
   eventType?: Prisma.SortOrder
+  description?: Prisma.SortOrder
   status?: Prisma.SortOrder
   referenceId?: Prisma.SortOrder
+  referenceName?: Prisma.SortOrder
   referenceType?: Prisma.SortOrder
+  periodStart?: Prisma.SortOrder
+  periodEnd?: Prisma.SortOrder
+  deadline?: Prisma.SortOrder
   xmlContent?: Prisma.SortOrder
-  xmlHash?: Prisma.SortOrder
-  reviewedBy?: Prisma.SortOrder
-  reviewedAt?: Prisma.SortOrder
-  reviewNotes?: Prisma.SortOrder
-  approvedBy?: Prisma.SortOrder
-  approvedAt?: Prisma.SortOrder
+  signedXml?: Prisma.SortOrder
   batchId?: Prisma.SortOrder
-  protocol?: Prisma.SortOrder
   receipt?: Prisma.SortOrder
-  transmittedAt?: Prisma.SortOrder
-  responseAt?: Prisma.SortOrder
-  responseXml?: Prisma.SortOrder
   rejectionCode?: Prisma.SortOrder
   rejectionMessage?: Prisma.SortOrder
   retryCount?: Prisma.SortOrder
   nextRetryAt?: Prisma.SortOrder
-  originalEventId?: Prisma.SortOrder
-  isRectification?: Prisma.SortOrder
-  deadline?: Prisma.SortOrder
+  rectifiedEventId?: Prisma.SortOrder
+  createdBy?: Prisma.SortOrder
+  reviewedBy?: Prisma.SortOrder
+  reviewedAt?: Prisma.SortOrder
+  approvedBy?: Prisma.SortOrder
+  approvedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -937,76 +901,8 @@ export type EsocialEventUncheckedUpdateManyWithoutTenantNestedInput = {
   deleteMany?: Prisma.EsocialEventScalarWhereInput | Prisma.EsocialEventScalarWhereInput[]
 }
 
-export type EsocialEventCreateNestedOneWithoutRectificationsInput = {
-  create?: Prisma.XOR<Prisma.EsocialEventCreateWithoutRectificationsInput, Prisma.EsocialEventUncheckedCreateWithoutRectificationsInput>
-  connectOrCreate?: Prisma.EsocialEventCreateOrConnectWithoutRectificationsInput
-  connect?: Prisma.EsocialEventWhereUniqueInput
-}
-
-export type EsocialEventCreateNestedManyWithoutOriginalEventInput = {
-  create?: Prisma.XOR<Prisma.EsocialEventCreateWithoutOriginalEventInput, Prisma.EsocialEventUncheckedCreateWithoutOriginalEventInput> | Prisma.EsocialEventCreateWithoutOriginalEventInput[] | Prisma.EsocialEventUncheckedCreateWithoutOriginalEventInput[]
-  connectOrCreate?: Prisma.EsocialEventCreateOrConnectWithoutOriginalEventInput | Prisma.EsocialEventCreateOrConnectWithoutOriginalEventInput[]
-  createMany?: Prisma.EsocialEventCreateManyOriginalEventInputEnvelope
-  connect?: Prisma.EsocialEventWhereUniqueInput | Prisma.EsocialEventWhereUniqueInput[]
-}
-
-export type EsocialEventUncheckedCreateNestedManyWithoutOriginalEventInput = {
-  create?: Prisma.XOR<Prisma.EsocialEventCreateWithoutOriginalEventInput, Prisma.EsocialEventUncheckedCreateWithoutOriginalEventInput> | Prisma.EsocialEventCreateWithoutOriginalEventInput[] | Prisma.EsocialEventUncheckedCreateWithoutOriginalEventInput[]
-  connectOrCreate?: Prisma.EsocialEventCreateOrConnectWithoutOriginalEventInput | Prisma.EsocialEventCreateOrConnectWithoutOriginalEventInput[]
-  createMany?: Prisma.EsocialEventCreateManyOriginalEventInputEnvelope
-  connect?: Prisma.EsocialEventWhereUniqueInput | Prisma.EsocialEventWhereUniqueInput[]
-}
-
-export type EsocialEventUpdateOneWithoutRectificationsNestedInput = {
-  create?: Prisma.XOR<Prisma.EsocialEventCreateWithoutRectificationsInput, Prisma.EsocialEventUncheckedCreateWithoutRectificationsInput>
-  connectOrCreate?: Prisma.EsocialEventCreateOrConnectWithoutRectificationsInput
-  upsert?: Prisma.EsocialEventUpsertWithoutRectificationsInput
-  disconnect?: Prisma.EsocialEventWhereInput | boolean
-  delete?: Prisma.EsocialEventWhereInput | boolean
-  connect?: Prisma.EsocialEventWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.EsocialEventUpdateToOneWithWhereWithoutRectificationsInput, Prisma.EsocialEventUpdateWithoutRectificationsInput>, Prisma.EsocialEventUncheckedUpdateWithoutRectificationsInput>
-}
-
-export type EsocialEventUpdateManyWithoutOriginalEventNestedInput = {
-  create?: Prisma.XOR<Prisma.EsocialEventCreateWithoutOriginalEventInput, Prisma.EsocialEventUncheckedCreateWithoutOriginalEventInput> | Prisma.EsocialEventCreateWithoutOriginalEventInput[] | Prisma.EsocialEventUncheckedCreateWithoutOriginalEventInput[]
-  connectOrCreate?: Prisma.EsocialEventCreateOrConnectWithoutOriginalEventInput | Prisma.EsocialEventCreateOrConnectWithoutOriginalEventInput[]
-  upsert?: Prisma.EsocialEventUpsertWithWhereUniqueWithoutOriginalEventInput | Prisma.EsocialEventUpsertWithWhereUniqueWithoutOriginalEventInput[]
-  createMany?: Prisma.EsocialEventCreateManyOriginalEventInputEnvelope
-  set?: Prisma.EsocialEventWhereUniqueInput | Prisma.EsocialEventWhereUniqueInput[]
-  disconnect?: Prisma.EsocialEventWhereUniqueInput | Prisma.EsocialEventWhereUniqueInput[]
-  delete?: Prisma.EsocialEventWhereUniqueInput | Prisma.EsocialEventWhereUniqueInput[]
-  connect?: Prisma.EsocialEventWhereUniqueInput | Prisma.EsocialEventWhereUniqueInput[]
-  update?: Prisma.EsocialEventUpdateWithWhereUniqueWithoutOriginalEventInput | Prisma.EsocialEventUpdateWithWhereUniqueWithoutOriginalEventInput[]
-  updateMany?: Prisma.EsocialEventUpdateManyWithWhereWithoutOriginalEventInput | Prisma.EsocialEventUpdateManyWithWhereWithoutOriginalEventInput[]
-  deleteMany?: Prisma.EsocialEventScalarWhereInput | Prisma.EsocialEventScalarWhereInput[]
-}
-
-export type EsocialEventUncheckedUpdateManyWithoutOriginalEventNestedInput = {
-  create?: Prisma.XOR<Prisma.EsocialEventCreateWithoutOriginalEventInput, Prisma.EsocialEventUncheckedCreateWithoutOriginalEventInput> | Prisma.EsocialEventCreateWithoutOriginalEventInput[] | Prisma.EsocialEventUncheckedCreateWithoutOriginalEventInput[]
-  connectOrCreate?: Prisma.EsocialEventCreateOrConnectWithoutOriginalEventInput | Prisma.EsocialEventCreateOrConnectWithoutOriginalEventInput[]
-  upsert?: Prisma.EsocialEventUpsertWithWhereUniqueWithoutOriginalEventInput | Prisma.EsocialEventUpsertWithWhereUniqueWithoutOriginalEventInput[]
-  createMany?: Prisma.EsocialEventCreateManyOriginalEventInputEnvelope
-  set?: Prisma.EsocialEventWhereUniqueInput | Prisma.EsocialEventWhereUniqueInput[]
-  disconnect?: Prisma.EsocialEventWhereUniqueInput | Prisma.EsocialEventWhereUniqueInput[]
-  delete?: Prisma.EsocialEventWhereUniqueInput | Prisma.EsocialEventWhereUniqueInput[]
-  connect?: Prisma.EsocialEventWhereUniqueInput | Prisma.EsocialEventWhereUniqueInput[]
-  update?: Prisma.EsocialEventUpdateWithWhereUniqueWithoutOriginalEventInput | Prisma.EsocialEventUpdateWithWhereUniqueWithoutOriginalEventInput[]
-  updateMany?: Prisma.EsocialEventUpdateManyWithWhereWithoutOriginalEventInput | Prisma.EsocialEventUpdateManyWithWhereWithoutOriginalEventInput[]
-  deleteMany?: Prisma.EsocialEventScalarWhereInput | Prisma.EsocialEventScalarWhereInput[]
-}
-
-export type EsocialEventCreateNestedOneWithoutStatusHistoryInput = {
-  create?: Prisma.XOR<Prisma.EsocialEventCreateWithoutStatusHistoryInput, Prisma.EsocialEventUncheckedCreateWithoutStatusHistoryInput>
-  connectOrCreate?: Prisma.EsocialEventCreateOrConnectWithoutStatusHistoryInput
-  connect?: Prisma.EsocialEventWhereUniqueInput
-}
-
-export type EsocialEventUpdateOneRequiredWithoutStatusHistoryNestedInput = {
-  create?: Prisma.XOR<Prisma.EsocialEventCreateWithoutStatusHistoryInput, Prisma.EsocialEventUncheckedCreateWithoutStatusHistoryInput>
-  connectOrCreate?: Prisma.EsocialEventCreateOrConnectWithoutStatusHistoryInput
-  upsert?: Prisma.EsocialEventUpsertWithoutStatusHistoryInput
-  connect?: Prisma.EsocialEventWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.EsocialEventUpdateToOneWithWhereWithoutStatusHistoryInput, Prisma.EsocialEventUpdateWithoutStatusHistoryInput>, Prisma.EsocialEventUncheckedUpdateWithoutStatusHistoryInput>
+export type EnumEsocialEventStatusFieldUpdateOperationsInput = {
+  set?: $Enums.EsocialEventStatus
 }
 
 export type EsocialEventCreateNestedManyWithoutBatchInput = {
@@ -1051,67 +947,77 @@ export type EsocialEventUncheckedUpdateManyWithoutBatchNestedInput = {
   deleteMany?: Prisma.EsocialEventScalarWhereInput | Prisma.EsocialEventScalarWhereInput[]
 }
 
+export type EsocialEventCreateNestedOneWithoutStatusHistoryInput = {
+  create?: Prisma.XOR<Prisma.EsocialEventCreateWithoutStatusHistoryInput, Prisma.EsocialEventUncheckedCreateWithoutStatusHistoryInput>
+  connectOrCreate?: Prisma.EsocialEventCreateOrConnectWithoutStatusHistoryInput
+  connect?: Prisma.EsocialEventWhereUniqueInput
+}
+
+export type EsocialEventUpdateOneRequiredWithoutStatusHistoryNestedInput = {
+  create?: Prisma.XOR<Prisma.EsocialEventCreateWithoutStatusHistoryInput, Prisma.EsocialEventUncheckedCreateWithoutStatusHistoryInput>
+  connectOrCreate?: Prisma.EsocialEventCreateOrConnectWithoutStatusHistoryInput
+  upsert?: Prisma.EsocialEventUpsertWithoutStatusHistoryInput
+  connect?: Prisma.EsocialEventWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.EsocialEventUpdateToOneWithWhereWithoutStatusHistoryInput, Prisma.EsocialEventUpdateWithoutStatusHistoryInput>, Prisma.EsocialEventUncheckedUpdateWithoutStatusHistoryInput>
+}
+
 export type EsocialEventCreateWithoutTenantInput = {
   id?: string
   eventType: string
-  status?: string
+  description: string
+  status?: $Enums.EsocialEventStatus
   referenceId?: string | null
+  referenceName?: string | null
   referenceType?: string | null
-  xmlContent: string
-  xmlHash?: string | null
-  reviewedBy?: string | null
-  reviewedAt?: Date | string | null
-  reviewNotes?: string | null
-  approvedBy?: string | null
-  approvedAt?: Date | string | null
-  protocol?: string | null
+  periodStart?: Date | string | null
+  periodEnd?: Date | string | null
+  deadline?: Date | string | null
+  xmlContent?: string | null
+  signedXml?: string | null
   receipt?: string | null
-  transmittedAt?: Date | string | null
-  responseAt?: Date | string | null
-  responseXml?: string | null
   rejectionCode?: string | null
   rejectionMessage?: string | null
   retryCount?: number
   nextRetryAt?: Date | string | null
-  isRectification?: boolean
-  deadline?: Date | string | null
+  rectifiedEventId?: string | null
+  createdBy?: string | null
+  reviewedBy?: string | null
+  reviewedAt?: Date | string | null
+  approvedBy?: string | null
+  approvedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   batch?: Prisma.EsocialBatchCreateNestedOneWithoutEventsInput
-  originalEvent?: Prisma.EsocialEventCreateNestedOneWithoutRectificationsInput
-  rectifications?: Prisma.EsocialEventCreateNestedManyWithoutOriginalEventInput
   statusHistory?: Prisma.EsocialEventStatusHistoryCreateNestedManyWithoutEventInput
 }
 
 export type EsocialEventUncheckedCreateWithoutTenantInput = {
   id?: string
   eventType: string
-  status?: string
+  description: string
+  status?: $Enums.EsocialEventStatus
   referenceId?: string | null
+  referenceName?: string | null
   referenceType?: string | null
-  xmlContent: string
-  xmlHash?: string | null
-  reviewedBy?: string | null
-  reviewedAt?: Date | string | null
-  reviewNotes?: string | null
-  approvedBy?: string | null
-  approvedAt?: Date | string | null
+  periodStart?: Date | string | null
+  periodEnd?: Date | string | null
+  deadline?: Date | string | null
+  xmlContent?: string | null
+  signedXml?: string | null
   batchId?: string | null
-  protocol?: string | null
   receipt?: string | null
-  transmittedAt?: Date | string | null
-  responseAt?: Date | string | null
-  responseXml?: string | null
   rejectionCode?: string | null
   rejectionMessage?: string | null
   retryCount?: number
   nextRetryAt?: Date | string | null
-  originalEventId?: string | null
-  isRectification?: boolean
-  deadline?: Date | string | null
+  rectifiedEventId?: string | null
+  createdBy?: string | null
+  reviewedBy?: string | null
+  reviewedAt?: Date | string | null
+  approvedBy?: string | null
+  approvedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  rectifications?: Prisma.EsocialEventUncheckedCreateNestedManyWithoutOriginalEventInput
   statusHistory?: Prisma.EsocialEventStatusHistoryUncheckedCreateNestedManyWithoutEventInput
 }
 
@@ -1148,440 +1054,59 @@ export type EsocialEventScalarWhereInput = {
   id?: Prisma.StringFilter<"EsocialEvent"> | string
   tenantId?: Prisma.StringFilter<"EsocialEvent"> | string
   eventType?: Prisma.StringFilter<"EsocialEvent"> | string
-  status?: Prisma.StringFilter<"EsocialEvent"> | string
+  description?: Prisma.StringFilter<"EsocialEvent"> | string
+  status?: Prisma.EnumEsocialEventStatusFilter<"EsocialEvent"> | $Enums.EsocialEventStatus
   referenceId?: Prisma.StringNullableFilter<"EsocialEvent"> | string | null
+  referenceName?: Prisma.StringNullableFilter<"EsocialEvent"> | string | null
   referenceType?: Prisma.StringNullableFilter<"EsocialEvent"> | string | null
-  xmlContent?: Prisma.StringFilter<"EsocialEvent"> | string
-  xmlHash?: Prisma.StringNullableFilter<"EsocialEvent"> | string | null
-  reviewedBy?: Prisma.StringNullableFilter<"EsocialEvent"> | string | null
-  reviewedAt?: Prisma.DateTimeNullableFilter<"EsocialEvent"> | Date | string | null
-  reviewNotes?: Prisma.StringNullableFilter<"EsocialEvent"> | string | null
-  approvedBy?: Prisma.StringNullableFilter<"EsocialEvent"> | string | null
-  approvedAt?: Prisma.DateTimeNullableFilter<"EsocialEvent"> | Date | string | null
+  periodStart?: Prisma.DateTimeNullableFilter<"EsocialEvent"> | Date | string | null
+  periodEnd?: Prisma.DateTimeNullableFilter<"EsocialEvent"> | Date | string | null
+  deadline?: Prisma.DateTimeNullableFilter<"EsocialEvent"> | Date | string | null
+  xmlContent?: Prisma.StringNullableFilter<"EsocialEvent"> | string | null
+  signedXml?: Prisma.StringNullableFilter<"EsocialEvent"> | string | null
   batchId?: Prisma.StringNullableFilter<"EsocialEvent"> | string | null
-  protocol?: Prisma.StringNullableFilter<"EsocialEvent"> | string | null
   receipt?: Prisma.StringNullableFilter<"EsocialEvent"> | string | null
-  transmittedAt?: Prisma.DateTimeNullableFilter<"EsocialEvent"> | Date | string | null
-  responseAt?: Prisma.DateTimeNullableFilter<"EsocialEvent"> | Date | string | null
-  responseXml?: Prisma.StringNullableFilter<"EsocialEvent"> | string | null
   rejectionCode?: Prisma.StringNullableFilter<"EsocialEvent"> | string | null
   rejectionMessage?: Prisma.StringNullableFilter<"EsocialEvent"> | string | null
   retryCount?: Prisma.IntFilter<"EsocialEvent"> | number
   nextRetryAt?: Prisma.DateTimeNullableFilter<"EsocialEvent"> | Date | string | null
-  originalEventId?: Prisma.StringNullableFilter<"EsocialEvent"> | string | null
-  isRectification?: Prisma.BoolFilter<"EsocialEvent"> | boolean
-  deadline?: Prisma.DateTimeNullableFilter<"EsocialEvent"> | Date | string | null
+  rectifiedEventId?: Prisma.StringNullableFilter<"EsocialEvent"> | string | null
+  createdBy?: Prisma.StringNullableFilter<"EsocialEvent"> | string | null
+  reviewedBy?: Prisma.StringNullableFilter<"EsocialEvent"> | string | null
+  reviewedAt?: Prisma.DateTimeNullableFilter<"EsocialEvent"> | Date | string | null
+  approvedBy?: Prisma.StringNullableFilter<"EsocialEvent"> | string | null
+  approvedAt?: Prisma.DateTimeNullableFilter<"EsocialEvent"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"EsocialEvent"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"EsocialEvent"> | Date | string
-}
-
-export type EsocialEventCreateWithoutRectificationsInput = {
-  id?: string
-  eventType: string
-  status?: string
-  referenceId?: string | null
-  referenceType?: string | null
-  xmlContent: string
-  xmlHash?: string | null
-  reviewedBy?: string | null
-  reviewedAt?: Date | string | null
-  reviewNotes?: string | null
-  approvedBy?: string | null
-  approvedAt?: Date | string | null
-  protocol?: string | null
-  receipt?: string | null
-  transmittedAt?: Date | string | null
-  responseAt?: Date | string | null
-  responseXml?: string | null
-  rejectionCode?: string | null
-  rejectionMessage?: string | null
-  retryCount?: number
-  nextRetryAt?: Date | string | null
-  isRectification?: boolean
-  deadline?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  tenant: Prisma.TenantCreateNestedOneWithoutEsocialEventsInput
-  batch?: Prisma.EsocialBatchCreateNestedOneWithoutEventsInput
-  originalEvent?: Prisma.EsocialEventCreateNestedOneWithoutRectificationsInput
-  statusHistory?: Prisma.EsocialEventStatusHistoryCreateNestedManyWithoutEventInput
-}
-
-export type EsocialEventUncheckedCreateWithoutRectificationsInput = {
-  id?: string
-  tenantId: string
-  eventType: string
-  status?: string
-  referenceId?: string | null
-  referenceType?: string | null
-  xmlContent: string
-  xmlHash?: string | null
-  reviewedBy?: string | null
-  reviewedAt?: Date | string | null
-  reviewNotes?: string | null
-  approvedBy?: string | null
-  approvedAt?: Date | string | null
-  batchId?: string | null
-  protocol?: string | null
-  receipt?: string | null
-  transmittedAt?: Date | string | null
-  responseAt?: Date | string | null
-  responseXml?: string | null
-  rejectionCode?: string | null
-  rejectionMessage?: string | null
-  retryCount?: number
-  nextRetryAt?: Date | string | null
-  originalEventId?: string | null
-  isRectification?: boolean
-  deadline?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  statusHistory?: Prisma.EsocialEventStatusHistoryUncheckedCreateNestedManyWithoutEventInput
-}
-
-export type EsocialEventCreateOrConnectWithoutRectificationsInput = {
-  where: Prisma.EsocialEventWhereUniqueInput
-  create: Prisma.XOR<Prisma.EsocialEventCreateWithoutRectificationsInput, Prisma.EsocialEventUncheckedCreateWithoutRectificationsInput>
-}
-
-export type EsocialEventCreateWithoutOriginalEventInput = {
-  id?: string
-  eventType: string
-  status?: string
-  referenceId?: string | null
-  referenceType?: string | null
-  xmlContent: string
-  xmlHash?: string | null
-  reviewedBy?: string | null
-  reviewedAt?: Date | string | null
-  reviewNotes?: string | null
-  approvedBy?: string | null
-  approvedAt?: Date | string | null
-  protocol?: string | null
-  receipt?: string | null
-  transmittedAt?: Date | string | null
-  responseAt?: Date | string | null
-  responseXml?: string | null
-  rejectionCode?: string | null
-  rejectionMessage?: string | null
-  retryCount?: number
-  nextRetryAt?: Date | string | null
-  isRectification?: boolean
-  deadline?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  tenant: Prisma.TenantCreateNestedOneWithoutEsocialEventsInput
-  batch?: Prisma.EsocialBatchCreateNestedOneWithoutEventsInput
-  rectifications?: Prisma.EsocialEventCreateNestedManyWithoutOriginalEventInput
-  statusHistory?: Prisma.EsocialEventStatusHistoryCreateNestedManyWithoutEventInput
-}
-
-export type EsocialEventUncheckedCreateWithoutOriginalEventInput = {
-  id?: string
-  tenantId: string
-  eventType: string
-  status?: string
-  referenceId?: string | null
-  referenceType?: string | null
-  xmlContent: string
-  xmlHash?: string | null
-  reviewedBy?: string | null
-  reviewedAt?: Date | string | null
-  reviewNotes?: string | null
-  approvedBy?: string | null
-  approvedAt?: Date | string | null
-  batchId?: string | null
-  protocol?: string | null
-  receipt?: string | null
-  transmittedAt?: Date | string | null
-  responseAt?: Date | string | null
-  responseXml?: string | null
-  rejectionCode?: string | null
-  rejectionMessage?: string | null
-  retryCount?: number
-  nextRetryAt?: Date | string | null
-  isRectification?: boolean
-  deadline?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  rectifications?: Prisma.EsocialEventUncheckedCreateNestedManyWithoutOriginalEventInput
-  statusHistory?: Prisma.EsocialEventStatusHistoryUncheckedCreateNestedManyWithoutEventInput
-}
-
-export type EsocialEventCreateOrConnectWithoutOriginalEventInput = {
-  where: Prisma.EsocialEventWhereUniqueInput
-  create: Prisma.XOR<Prisma.EsocialEventCreateWithoutOriginalEventInput, Prisma.EsocialEventUncheckedCreateWithoutOriginalEventInput>
-}
-
-export type EsocialEventCreateManyOriginalEventInputEnvelope = {
-  data: Prisma.EsocialEventCreateManyOriginalEventInput | Prisma.EsocialEventCreateManyOriginalEventInput[]
-  skipDuplicates?: boolean
-}
-
-export type EsocialEventUpsertWithoutRectificationsInput = {
-  update: Prisma.XOR<Prisma.EsocialEventUpdateWithoutRectificationsInput, Prisma.EsocialEventUncheckedUpdateWithoutRectificationsInput>
-  create: Prisma.XOR<Prisma.EsocialEventCreateWithoutRectificationsInput, Prisma.EsocialEventUncheckedCreateWithoutRectificationsInput>
-  where?: Prisma.EsocialEventWhereInput
-}
-
-export type EsocialEventUpdateToOneWithWhereWithoutRectificationsInput = {
-  where?: Prisma.EsocialEventWhereInput
-  data: Prisma.XOR<Prisma.EsocialEventUpdateWithoutRectificationsInput, Prisma.EsocialEventUncheckedUpdateWithoutRectificationsInput>
-}
-
-export type EsocialEventUpdateWithoutRectificationsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  eventType?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
-  referenceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  referenceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  xmlContent?: Prisma.StringFieldUpdateOperationsInput | string
-  xmlHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  reviewNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  protocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  receipt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  transmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  responseAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  responseXml?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  rejectionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  rejectionMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  retryCount?: Prisma.IntFieldUpdateOperationsInput | number
-  nextRetryAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  isRectification?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  deadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  tenant?: Prisma.TenantUpdateOneRequiredWithoutEsocialEventsNestedInput
-  batch?: Prisma.EsocialBatchUpdateOneWithoutEventsNestedInput
-  originalEvent?: Prisma.EsocialEventUpdateOneWithoutRectificationsNestedInput
-  statusHistory?: Prisma.EsocialEventStatusHistoryUpdateManyWithoutEventNestedInput
-}
-
-export type EsocialEventUncheckedUpdateWithoutRectificationsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  eventType?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
-  referenceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  referenceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  xmlContent?: Prisma.StringFieldUpdateOperationsInput | string
-  xmlHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  reviewNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  batchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  protocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  receipt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  transmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  responseAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  responseXml?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  rejectionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  rejectionMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  retryCount?: Prisma.IntFieldUpdateOperationsInput | number
-  nextRetryAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  originalEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isRectification?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  deadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  statusHistory?: Prisma.EsocialEventStatusHistoryUncheckedUpdateManyWithoutEventNestedInput
-}
-
-export type EsocialEventUpsertWithWhereUniqueWithoutOriginalEventInput = {
-  where: Prisma.EsocialEventWhereUniqueInput
-  update: Prisma.XOR<Prisma.EsocialEventUpdateWithoutOriginalEventInput, Prisma.EsocialEventUncheckedUpdateWithoutOriginalEventInput>
-  create: Prisma.XOR<Prisma.EsocialEventCreateWithoutOriginalEventInput, Prisma.EsocialEventUncheckedCreateWithoutOriginalEventInput>
-}
-
-export type EsocialEventUpdateWithWhereUniqueWithoutOriginalEventInput = {
-  where: Prisma.EsocialEventWhereUniqueInput
-  data: Prisma.XOR<Prisma.EsocialEventUpdateWithoutOriginalEventInput, Prisma.EsocialEventUncheckedUpdateWithoutOriginalEventInput>
-}
-
-export type EsocialEventUpdateManyWithWhereWithoutOriginalEventInput = {
-  where: Prisma.EsocialEventScalarWhereInput
-  data: Prisma.XOR<Prisma.EsocialEventUpdateManyMutationInput, Prisma.EsocialEventUncheckedUpdateManyWithoutOriginalEventInput>
-}
-
-export type EsocialEventCreateWithoutStatusHistoryInput = {
-  id?: string
-  eventType: string
-  status?: string
-  referenceId?: string | null
-  referenceType?: string | null
-  xmlContent: string
-  xmlHash?: string | null
-  reviewedBy?: string | null
-  reviewedAt?: Date | string | null
-  reviewNotes?: string | null
-  approvedBy?: string | null
-  approvedAt?: Date | string | null
-  protocol?: string | null
-  receipt?: string | null
-  transmittedAt?: Date | string | null
-  responseAt?: Date | string | null
-  responseXml?: string | null
-  rejectionCode?: string | null
-  rejectionMessage?: string | null
-  retryCount?: number
-  nextRetryAt?: Date | string | null
-  isRectification?: boolean
-  deadline?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  tenant: Prisma.TenantCreateNestedOneWithoutEsocialEventsInput
-  batch?: Prisma.EsocialBatchCreateNestedOneWithoutEventsInput
-  originalEvent?: Prisma.EsocialEventCreateNestedOneWithoutRectificationsInput
-  rectifications?: Prisma.EsocialEventCreateNestedManyWithoutOriginalEventInput
-}
-
-export type EsocialEventUncheckedCreateWithoutStatusHistoryInput = {
-  id?: string
-  tenantId: string
-  eventType: string
-  status?: string
-  referenceId?: string | null
-  referenceType?: string | null
-  xmlContent: string
-  xmlHash?: string | null
-  reviewedBy?: string | null
-  reviewedAt?: Date | string | null
-  reviewNotes?: string | null
-  approvedBy?: string | null
-  approvedAt?: Date | string | null
-  batchId?: string | null
-  protocol?: string | null
-  receipt?: string | null
-  transmittedAt?: Date | string | null
-  responseAt?: Date | string | null
-  responseXml?: string | null
-  rejectionCode?: string | null
-  rejectionMessage?: string | null
-  retryCount?: number
-  nextRetryAt?: Date | string | null
-  originalEventId?: string | null
-  isRectification?: boolean
-  deadline?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  rectifications?: Prisma.EsocialEventUncheckedCreateNestedManyWithoutOriginalEventInput
-}
-
-export type EsocialEventCreateOrConnectWithoutStatusHistoryInput = {
-  where: Prisma.EsocialEventWhereUniqueInput
-  create: Prisma.XOR<Prisma.EsocialEventCreateWithoutStatusHistoryInput, Prisma.EsocialEventUncheckedCreateWithoutStatusHistoryInput>
-}
-
-export type EsocialEventUpsertWithoutStatusHistoryInput = {
-  update: Prisma.XOR<Prisma.EsocialEventUpdateWithoutStatusHistoryInput, Prisma.EsocialEventUncheckedUpdateWithoutStatusHistoryInput>
-  create: Prisma.XOR<Prisma.EsocialEventCreateWithoutStatusHistoryInput, Prisma.EsocialEventUncheckedCreateWithoutStatusHistoryInput>
-  where?: Prisma.EsocialEventWhereInput
-}
-
-export type EsocialEventUpdateToOneWithWhereWithoutStatusHistoryInput = {
-  where?: Prisma.EsocialEventWhereInput
-  data: Prisma.XOR<Prisma.EsocialEventUpdateWithoutStatusHistoryInput, Prisma.EsocialEventUncheckedUpdateWithoutStatusHistoryInput>
-}
-
-export type EsocialEventUpdateWithoutStatusHistoryInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  eventType?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
-  referenceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  referenceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  xmlContent?: Prisma.StringFieldUpdateOperationsInput | string
-  xmlHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  reviewNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  protocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  receipt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  transmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  responseAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  responseXml?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  rejectionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  rejectionMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  retryCount?: Prisma.IntFieldUpdateOperationsInput | number
-  nextRetryAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  isRectification?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  deadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  tenant?: Prisma.TenantUpdateOneRequiredWithoutEsocialEventsNestedInput
-  batch?: Prisma.EsocialBatchUpdateOneWithoutEventsNestedInput
-  originalEvent?: Prisma.EsocialEventUpdateOneWithoutRectificationsNestedInput
-  rectifications?: Prisma.EsocialEventUpdateManyWithoutOriginalEventNestedInput
-}
-
-export type EsocialEventUncheckedUpdateWithoutStatusHistoryInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  eventType?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
-  referenceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  referenceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  xmlContent?: Prisma.StringFieldUpdateOperationsInput | string
-  xmlHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  reviewNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  batchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  protocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  receipt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  transmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  responseAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  responseXml?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  rejectionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  rejectionMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  retryCount?: Prisma.IntFieldUpdateOperationsInput | number
-  nextRetryAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  originalEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isRectification?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  deadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  rectifications?: Prisma.EsocialEventUncheckedUpdateManyWithoutOriginalEventNestedInput
 }
 
 export type EsocialEventCreateWithoutBatchInput = {
   id?: string
   eventType: string
-  status?: string
+  description: string
+  status?: $Enums.EsocialEventStatus
   referenceId?: string | null
+  referenceName?: string | null
   referenceType?: string | null
-  xmlContent: string
-  xmlHash?: string | null
-  reviewedBy?: string | null
-  reviewedAt?: Date | string | null
-  reviewNotes?: string | null
-  approvedBy?: string | null
-  approvedAt?: Date | string | null
-  protocol?: string | null
+  periodStart?: Date | string | null
+  periodEnd?: Date | string | null
+  deadline?: Date | string | null
+  xmlContent?: string | null
+  signedXml?: string | null
   receipt?: string | null
-  transmittedAt?: Date | string | null
-  responseAt?: Date | string | null
-  responseXml?: string | null
   rejectionCode?: string | null
   rejectionMessage?: string | null
   retryCount?: number
   nextRetryAt?: Date | string | null
-  isRectification?: boolean
-  deadline?: Date | string | null
+  rectifiedEventId?: string | null
+  createdBy?: string | null
+  reviewedBy?: string | null
+  reviewedAt?: Date | string | null
+  approvedBy?: string | null
+  approvedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutEsocialEventsInput
-  originalEvent?: Prisma.EsocialEventCreateNestedOneWithoutRectificationsInput
-  rectifications?: Prisma.EsocialEventCreateNestedManyWithoutOriginalEventInput
   statusHistory?: Prisma.EsocialEventStatusHistoryCreateNestedManyWithoutEventInput
 }
 
@@ -1589,31 +1114,29 @@ export type EsocialEventUncheckedCreateWithoutBatchInput = {
   id?: string
   tenantId: string
   eventType: string
-  status?: string
+  description: string
+  status?: $Enums.EsocialEventStatus
   referenceId?: string | null
+  referenceName?: string | null
   referenceType?: string | null
-  xmlContent: string
-  xmlHash?: string | null
-  reviewedBy?: string | null
-  reviewedAt?: Date | string | null
-  reviewNotes?: string | null
-  approvedBy?: string | null
-  approvedAt?: Date | string | null
-  protocol?: string | null
+  periodStart?: Date | string | null
+  periodEnd?: Date | string | null
+  deadline?: Date | string | null
+  xmlContent?: string | null
+  signedXml?: string | null
   receipt?: string | null
-  transmittedAt?: Date | string | null
-  responseAt?: Date | string | null
-  responseXml?: string | null
   rejectionCode?: string | null
   rejectionMessage?: string | null
   retryCount?: number
   nextRetryAt?: Date | string | null
-  originalEventId?: string | null
-  isRectification?: boolean
-  deadline?: Date | string | null
+  rectifiedEventId?: string | null
+  createdBy?: string | null
+  reviewedBy?: string | null
+  reviewedAt?: Date | string | null
+  approvedBy?: string | null
+  approvedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  rectifications?: Prisma.EsocialEventUncheckedCreateNestedManyWithoutOriginalEventInput
   statusHistory?: Prisma.EsocialEventStatusHistoryUncheckedCreateNestedManyWithoutEventInput
 }
 
@@ -1643,32 +1166,167 @@ export type EsocialEventUpdateManyWithWhereWithoutBatchInput = {
   data: Prisma.XOR<Prisma.EsocialEventUpdateManyMutationInput, Prisma.EsocialEventUncheckedUpdateManyWithoutBatchInput>
 }
 
-export type EsocialEventCreateManyTenantInput = {
+export type EsocialEventCreateWithoutStatusHistoryInput = {
   id?: string
   eventType: string
-  status?: string
+  description: string
+  status?: $Enums.EsocialEventStatus
   referenceId?: string | null
+  referenceName?: string | null
   referenceType?: string | null
-  xmlContent: string
-  xmlHash?: string | null
-  reviewedBy?: string | null
-  reviewedAt?: Date | string | null
-  reviewNotes?: string | null
-  approvedBy?: string | null
-  approvedAt?: Date | string | null
-  batchId?: string | null
-  protocol?: string | null
+  periodStart?: Date | string | null
+  periodEnd?: Date | string | null
+  deadline?: Date | string | null
+  xmlContent?: string | null
+  signedXml?: string | null
   receipt?: string | null
-  transmittedAt?: Date | string | null
-  responseAt?: Date | string | null
-  responseXml?: string | null
   rejectionCode?: string | null
   rejectionMessage?: string | null
   retryCount?: number
   nextRetryAt?: Date | string | null
-  originalEventId?: string | null
-  isRectification?: boolean
+  rectifiedEventId?: string | null
+  createdBy?: string | null
+  reviewedBy?: string | null
+  reviewedAt?: Date | string | null
+  approvedBy?: string | null
+  approvedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutEsocialEventsInput
+  batch?: Prisma.EsocialBatchCreateNestedOneWithoutEventsInput
+}
+
+export type EsocialEventUncheckedCreateWithoutStatusHistoryInput = {
+  id?: string
+  tenantId: string
+  eventType: string
+  description: string
+  status?: $Enums.EsocialEventStatus
+  referenceId?: string | null
+  referenceName?: string | null
+  referenceType?: string | null
+  periodStart?: Date | string | null
+  periodEnd?: Date | string | null
   deadline?: Date | string | null
+  xmlContent?: string | null
+  signedXml?: string | null
+  batchId?: string | null
+  receipt?: string | null
+  rejectionCode?: string | null
+  rejectionMessage?: string | null
+  retryCount?: number
+  nextRetryAt?: Date | string | null
+  rectifiedEventId?: string | null
+  createdBy?: string | null
+  reviewedBy?: string | null
+  reviewedAt?: Date | string | null
+  approvedBy?: string | null
+  approvedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type EsocialEventCreateOrConnectWithoutStatusHistoryInput = {
+  where: Prisma.EsocialEventWhereUniqueInput
+  create: Prisma.XOR<Prisma.EsocialEventCreateWithoutStatusHistoryInput, Prisma.EsocialEventUncheckedCreateWithoutStatusHistoryInput>
+}
+
+export type EsocialEventUpsertWithoutStatusHistoryInput = {
+  update: Prisma.XOR<Prisma.EsocialEventUpdateWithoutStatusHistoryInput, Prisma.EsocialEventUncheckedUpdateWithoutStatusHistoryInput>
+  create: Prisma.XOR<Prisma.EsocialEventCreateWithoutStatusHistoryInput, Prisma.EsocialEventUncheckedCreateWithoutStatusHistoryInput>
+  where?: Prisma.EsocialEventWhereInput
+}
+
+export type EsocialEventUpdateToOneWithWhereWithoutStatusHistoryInput = {
+  where?: Prisma.EsocialEventWhereInput
+  data: Prisma.XOR<Prisma.EsocialEventUpdateWithoutStatusHistoryInput, Prisma.EsocialEventUncheckedUpdateWithoutStatusHistoryInput>
+}
+
+export type EsocialEventUpdateWithoutStatusHistoryInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  eventType?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumEsocialEventStatusFieldUpdateOperationsInput | $Enums.EsocialEventStatus
+  referenceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referenceName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referenceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  periodStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  periodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  xmlContent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signedXml?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  receipt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectionMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  retryCount?: Prisma.IntFieldUpdateOperationsInput | number
+  nextRetryAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rectifiedEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutEsocialEventsNestedInput
+  batch?: Prisma.EsocialBatchUpdateOneWithoutEventsNestedInput
+}
+
+export type EsocialEventUncheckedUpdateWithoutStatusHistoryInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  eventType?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumEsocialEventStatusFieldUpdateOperationsInput | $Enums.EsocialEventStatus
+  referenceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referenceName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referenceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  periodStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  periodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  xmlContent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signedXml?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  receipt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectionMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  retryCount?: Prisma.IntFieldUpdateOperationsInput | number
+  nextRetryAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rectifiedEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type EsocialEventCreateManyTenantInput = {
+  id?: string
+  eventType: string
+  description: string
+  status?: $Enums.EsocialEventStatus
+  referenceId?: string | null
+  referenceName?: string | null
+  referenceType?: string | null
+  periodStart?: Date | string | null
+  periodEnd?: Date | string | null
+  deadline?: Date | string | null
+  xmlContent?: string | null
+  signedXml?: string | null
+  batchId?: string | null
+  receipt?: string | null
+  rejectionCode?: string | null
+  rejectionMessage?: string | null
+  retryCount?: number
+  nextRetryAt?: Date | string | null
+  rectifiedEventId?: string | null
+  createdBy?: string | null
+  reviewedBy?: string | null
+  reviewedAt?: Date | string | null
+  approvedBy?: string | null
+  approvedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1676,217 +1334,88 @@ export type EsocialEventCreateManyTenantInput = {
 export type EsocialEventUpdateWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   eventType?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumEsocialEventStatusFieldUpdateOperationsInput | $Enums.EsocialEventStatus
   referenceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referenceName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   referenceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  xmlContent?: Prisma.StringFieldUpdateOperationsInput | string
-  xmlHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  reviewNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  protocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  periodStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  periodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  xmlContent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signedXml?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   receipt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  transmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  responseAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  responseXml?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   retryCount?: Prisma.IntFieldUpdateOperationsInput | number
   nextRetryAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  isRectification?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  deadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rectifiedEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   batch?: Prisma.EsocialBatchUpdateOneWithoutEventsNestedInput
-  originalEvent?: Prisma.EsocialEventUpdateOneWithoutRectificationsNestedInput
-  rectifications?: Prisma.EsocialEventUpdateManyWithoutOriginalEventNestedInput
   statusHistory?: Prisma.EsocialEventStatusHistoryUpdateManyWithoutEventNestedInput
 }
 
 export type EsocialEventUncheckedUpdateWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   eventType?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumEsocialEventStatusFieldUpdateOperationsInput | $Enums.EsocialEventStatus
   referenceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referenceName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   referenceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  xmlContent?: Prisma.StringFieldUpdateOperationsInput | string
-  xmlHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  reviewNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  periodStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  periodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  xmlContent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signedXml?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   batchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  protocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   receipt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  transmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  responseAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  responseXml?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   retryCount?: Prisma.IntFieldUpdateOperationsInput | number
   nextRetryAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  originalEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isRectification?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  deadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rectifiedEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  rectifications?: Prisma.EsocialEventUncheckedUpdateManyWithoutOriginalEventNestedInput
   statusHistory?: Prisma.EsocialEventStatusHistoryUncheckedUpdateManyWithoutEventNestedInput
 }
 
 export type EsocialEventUncheckedUpdateManyWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   eventType?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumEsocialEventStatusFieldUpdateOperationsInput | $Enums.EsocialEventStatus
   referenceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referenceName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   referenceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  xmlContent?: Prisma.StringFieldUpdateOperationsInput | string
-  xmlHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  reviewNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  periodStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  periodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  xmlContent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signedXml?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   batchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  protocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   receipt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  transmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  responseAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  responseXml?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   retryCount?: Prisma.IntFieldUpdateOperationsInput | number
   nextRetryAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  originalEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isRectification?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  deadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type EsocialEventCreateManyOriginalEventInput = {
-  id?: string
-  tenantId: string
-  eventType: string
-  status?: string
-  referenceId?: string | null
-  referenceType?: string | null
-  xmlContent: string
-  xmlHash?: string | null
-  reviewedBy?: string | null
-  reviewedAt?: Date | string | null
-  reviewNotes?: string | null
-  approvedBy?: string | null
-  approvedAt?: Date | string | null
-  batchId?: string | null
-  protocol?: string | null
-  receipt?: string | null
-  transmittedAt?: Date | string | null
-  responseAt?: Date | string | null
-  responseXml?: string | null
-  rejectionCode?: string | null
-  rejectionMessage?: string | null
-  retryCount?: number
-  nextRetryAt?: Date | string | null
-  isRectification?: boolean
-  deadline?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-}
-
-export type EsocialEventUpdateWithoutOriginalEventInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  eventType?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
-  referenceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  referenceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  xmlContent?: Prisma.StringFieldUpdateOperationsInput | string
-  xmlHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rectifiedEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  reviewNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  protocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  receipt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  transmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  responseAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  responseXml?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  rejectionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  rejectionMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  retryCount?: Prisma.IntFieldUpdateOperationsInput | number
-  nextRetryAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  isRectification?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  deadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  tenant?: Prisma.TenantUpdateOneRequiredWithoutEsocialEventsNestedInput
-  batch?: Prisma.EsocialBatchUpdateOneWithoutEventsNestedInput
-  rectifications?: Prisma.EsocialEventUpdateManyWithoutOriginalEventNestedInput
-  statusHistory?: Prisma.EsocialEventStatusHistoryUpdateManyWithoutEventNestedInput
-}
-
-export type EsocialEventUncheckedUpdateWithoutOriginalEventInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  eventType?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
-  referenceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  referenceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  xmlContent?: Prisma.StringFieldUpdateOperationsInput | string
-  xmlHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  reviewNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  batchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  protocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  receipt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  transmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  responseAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  responseXml?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  rejectionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  rejectionMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  retryCount?: Prisma.IntFieldUpdateOperationsInput | number
-  nextRetryAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  isRectification?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  deadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  rectifications?: Prisma.EsocialEventUncheckedUpdateManyWithoutOriginalEventNestedInput
-  statusHistory?: Prisma.EsocialEventStatusHistoryUncheckedUpdateManyWithoutEventNestedInput
-}
-
-export type EsocialEventUncheckedUpdateManyWithoutOriginalEventInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  eventType?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
-  referenceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  referenceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  xmlContent?: Prisma.StringFieldUpdateOperationsInput | string
-  xmlHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  reviewNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  batchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  protocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  receipt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  transmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  responseAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  responseXml?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  rejectionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  rejectionMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  retryCount?: Prisma.IntFieldUpdateOperationsInput | number
-  nextRetryAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  isRectification?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  deadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1895,28 +1424,27 @@ export type EsocialEventCreateManyBatchInput = {
   id?: string
   tenantId: string
   eventType: string
-  status?: string
+  description: string
+  status?: $Enums.EsocialEventStatus
   referenceId?: string | null
+  referenceName?: string | null
   referenceType?: string | null
-  xmlContent: string
-  xmlHash?: string | null
-  reviewedBy?: string | null
-  reviewedAt?: Date | string | null
-  reviewNotes?: string | null
-  approvedBy?: string | null
-  approvedAt?: Date | string | null
-  protocol?: string | null
+  periodStart?: Date | string | null
+  periodEnd?: Date | string | null
+  deadline?: Date | string | null
+  xmlContent?: string | null
+  signedXml?: string | null
   receipt?: string | null
-  transmittedAt?: Date | string | null
-  responseAt?: Date | string | null
-  responseXml?: string | null
   rejectionCode?: string | null
   rejectionMessage?: string | null
   retryCount?: number
   nextRetryAt?: Date | string | null
-  originalEventId?: string | null
-  isRectification?: boolean
-  deadline?: Date | string | null
+  rectifiedEventId?: string | null
+  createdBy?: string | null
+  reviewedBy?: string | null
+  reviewedAt?: Date | string | null
+  approvedBy?: string | null
+  approvedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1924,32 +1452,30 @@ export type EsocialEventCreateManyBatchInput = {
 export type EsocialEventUpdateWithoutBatchInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   eventType?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumEsocialEventStatusFieldUpdateOperationsInput | $Enums.EsocialEventStatus
   referenceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referenceName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   referenceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  xmlContent?: Prisma.StringFieldUpdateOperationsInput | string
-  xmlHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  reviewNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  protocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  periodStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  periodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  xmlContent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signedXml?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   receipt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  transmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  responseAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  responseXml?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   retryCount?: Prisma.IntFieldUpdateOperationsInput | number
   nextRetryAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  isRectification?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  deadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rectifiedEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutEsocialEventsNestedInput
-  originalEvent?: Prisma.EsocialEventUpdateOneWithoutRectificationsNestedInput
-  rectifications?: Prisma.EsocialEventUpdateManyWithoutOriginalEventNestedInput
   statusHistory?: Prisma.EsocialEventStatusHistoryUpdateManyWithoutEventNestedInput
 }
 
@@ -1957,31 +1483,29 @@ export type EsocialEventUncheckedUpdateWithoutBatchInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   eventType?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumEsocialEventStatusFieldUpdateOperationsInput | $Enums.EsocialEventStatus
   referenceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referenceName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   referenceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  xmlContent?: Prisma.StringFieldUpdateOperationsInput | string
-  xmlHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  reviewNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  protocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  periodStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  periodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  xmlContent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signedXml?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   receipt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  transmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  responseAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  responseXml?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   retryCount?: Prisma.IntFieldUpdateOperationsInput | number
   nextRetryAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  originalEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isRectification?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  deadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rectifiedEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  rectifications?: Prisma.EsocialEventUncheckedUpdateManyWithoutOriginalEventNestedInput
   statusHistory?: Prisma.EsocialEventStatusHistoryUncheckedUpdateManyWithoutEventNestedInput
 }
 
@@ -1989,28 +1513,27 @@ export type EsocialEventUncheckedUpdateManyWithoutBatchInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   eventType?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumEsocialEventStatusFieldUpdateOperationsInput | $Enums.EsocialEventStatus
   referenceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referenceName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   referenceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  xmlContent?: Prisma.StringFieldUpdateOperationsInput | string
-  xmlHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  reviewNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  protocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  periodStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  periodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  xmlContent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signedXml?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   receipt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  transmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  responseAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  responseXml?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   retryCount?: Prisma.IntFieldUpdateOperationsInput | number
   nextRetryAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  originalEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isRectification?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  deadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rectifiedEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -2021,12 +1544,10 @@ export type EsocialEventUncheckedUpdateManyWithoutBatchInput = {
  */
 
 export type EsocialEventCountOutputType = {
-  rectifications: number
   statusHistory: number
 }
 
 export type EsocialEventCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  rectifications?: boolean | EsocialEventCountOutputTypeCountRectificationsArgs
   statusHistory?: boolean | EsocialEventCountOutputTypeCountStatusHistoryArgs
 }
 
@@ -2043,13 +1564,6 @@ export type EsocialEventCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types
 /**
  * EsocialEventCountOutputType without action
  */
-export type EsocialEventCountOutputTypeCountRectificationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.EsocialEventWhereInput
-}
-
-/**
- * EsocialEventCountOutputType without action
- */
 export type EsocialEventCountOutputTypeCountStatusHistoryArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.EsocialEventStatusHistoryWhereInput
 }
@@ -2059,35 +1573,32 @@ export type EsocialEventSelect<ExtArgs extends runtime.Types.Extensions.Internal
   id?: boolean
   tenantId?: boolean
   eventType?: boolean
+  description?: boolean
   status?: boolean
   referenceId?: boolean
+  referenceName?: boolean
   referenceType?: boolean
+  periodStart?: boolean
+  periodEnd?: boolean
+  deadline?: boolean
   xmlContent?: boolean
-  xmlHash?: boolean
-  reviewedBy?: boolean
-  reviewedAt?: boolean
-  reviewNotes?: boolean
-  approvedBy?: boolean
-  approvedAt?: boolean
+  signedXml?: boolean
   batchId?: boolean
-  protocol?: boolean
   receipt?: boolean
-  transmittedAt?: boolean
-  responseAt?: boolean
-  responseXml?: boolean
   rejectionCode?: boolean
   rejectionMessage?: boolean
   retryCount?: boolean
   nextRetryAt?: boolean
-  originalEventId?: boolean
-  isRectification?: boolean
-  deadline?: boolean
+  rectifiedEventId?: boolean
+  createdBy?: boolean
+  reviewedBy?: boolean
+  reviewedAt?: boolean
+  approvedBy?: boolean
+  approvedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   batch?: boolean | Prisma.EsocialEvent$batchArgs<ExtArgs>
-  originalEvent?: boolean | Prisma.EsocialEvent$originalEventArgs<ExtArgs>
-  rectifications?: boolean | Prisma.EsocialEvent$rectificationsArgs<ExtArgs>
   statusHistory?: boolean | Prisma.EsocialEvent$statusHistoryArgs<ExtArgs>
   _count?: boolean | Prisma.EsocialEventCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["esocialEvent"]>
@@ -2096,119 +1607,110 @@ export type EsocialEventSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   id?: boolean
   tenantId?: boolean
   eventType?: boolean
+  description?: boolean
   status?: boolean
   referenceId?: boolean
+  referenceName?: boolean
   referenceType?: boolean
+  periodStart?: boolean
+  periodEnd?: boolean
+  deadline?: boolean
   xmlContent?: boolean
-  xmlHash?: boolean
-  reviewedBy?: boolean
-  reviewedAt?: boolean
-  reviewNotes?: boolean
-  approvedBy?: boolean
-  approvedAt?: boolean
+  signedXml?: boolean
   batchId?: boolean
-  protocol?: boolean
   receipt?: boolean
-  transmittedAt?: boolean
-  responseAt?: boolean
-  responseXml?: boolean
   rejectionCode?: boolean
   rejectionMessage?: boolean
   retryCount?: boolean
   nextRetryAt?: boolean
-  originalEventId?: boolean
-  isRectification?: boolean
-  deadline?: boolean
+  rectifiedEventId?: boolean
+  createdBy?: boolean
+  reviewedBy?: boolean
+  reviewedAt?: boolean
+  approvedBy?: boolean
+  approvedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   batch?: boolean | Prisma.EsocialEvent$batchArgs<ExtArgs>
-  originalEvent?: boolean | Prisma.EsocialEvent$originalEventArgs<ExtArgs>
 }, ExtArgs["result"]["esocialEvent"]>
 
 export type EsocialEventSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   tenantId?: boolean
   eventType?: boolean
+  description?: boolean
   status?: boolean
   referenceId?: boolean
+  referenceName?: boolean
   referenceType?: boolean
+  periodStart?: boolean
+  periodEnd?: boolean
+  deadline?: boolean
   xmlContent?: boolean
-  xmlHash?: boolean
-  reviewedBy?: boolean
-  reviewedAt?: boolean
-  reviewNotes?: boolean
-  approvedBy?: boolean
-  approvedAt?: boolean
+  signedXml?: boolean
   batchId?: boolean
-  protocol?: boolean
   receipt?: boolean
-  transmittedAt?: boolean
-  responseAt?: boolean
-  responseXml?: boolean
   rejectionCode?: boolean
   rejectionMessage?: boolean
   retryCount?: boolean
   nextRetryAt?: boolean
-  originalEventId?: boolean
-  isRectification?: boolean
-  deadline?: boolean
+  rectifiedEventId?: boolean
+  createdBy?: boolean
+  reviewedBy?: boolean
+  reviewedAt?: boolean
+  approvedBy?: boolean
+  approvedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   batch?: boolean | Prisma.EsocialEvent$batchArgs<ExtArgs>
-  originalEvent?: boolean | Prisma.EsocialEvent$originalEventArgs<ExtArgs>
 }, ExtArgs["result"]["esocialEvent"]>
 
 export type EsocialEventSelectScalar = {
   id?: boolean
   tenantId?: boolean
   eventType?: boolean
+  description?: boolean
   status?: boolean
   referenceId?: boolean
+  referenceName?: boolean
   referenceType?: boolean
+  periodStart?: boolean
+  periodEnd?: boolean
+  deadline?: boolean
   xmlContent?: boolean
-  xmlHash?: boolean
-  reviewedBy?: boolean
-  reviewedAt?: boolean
-  reviewNotes?: boolean
-  approvedBy?: boolean
-  approvedAt?: boolean
+  signedXml?: boolean
   batchId?: boolean
-  protocol?: boolean
   receipt?: boolean
-  transmittedAt?: boolean
-  responseAt?: boolean
-  responseXml?: boolean
   rejectionCode?: boolean
   rejectionMessage?: boolean
   retryCount?: boolean
   nextRetryAt?: boolean
-  originalEventId?: boolean
-  isRectification?: boolean
-  deadline?: boolean
+  rectifiedEventId?: boolean
+  createdBy?: boolean
+  reviewedBy?: boolean
+  reviewedAt?: boolean
+  approvedBy?: boolean
+  approvedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type EsocialEventOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "eventType" | "status" | "referenceId" | "referenceType" | "xmlContent" | "xmlHash" | "reviewedBy" | "reviewedAt" | "reviewNotes" | "approvedBy" | "approvedAt" | "batchId" | "protocol" | "receipt" | "transmittedAt" | "responseAt" | "responseXml" | "rejectionCode" | "rejectionMessage" | "retryCount" | "nextRetryAt" | "originalEventId" | "isRectification" | "deadline" | "createdAt" | "updatedAt", ExtArgs["result"]["esocialEvent"]>
+export type EsocialEventOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "eventType" | "description" | "status" | "referenceId" | "referenceName" | "referenceType" | "periodStart" | "periodEnd" | "deadline" | "xmlContent" | "signedXml" | "batchId" | "receipt" | "rejectionCode" | "rejectionMessage" | "retryCount" | "nextRetryAt" | "rectifiedEventId" | "createdBy" | "reviewedBy" | "reviewedAt" | "approvedBy" | "approvedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["esocialEvent"]>
 export type EsocialEventInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   batch?: boolean | Prisma.EsocialEvent$batchArgs<ExtArgs>
-  originalEvent?: boolean | Prisma.EsocialEvent$originalEventArgs<ExtArgs>
-  rectifications?: boolean | Prisma.EsocialEvent$rectificationsArgs<ExtArgs>
   statusHistory?: boolean | Prisma.EsocialEvent$statusHistoryArgs<ExtArgs>
   _count?: boolean | Prisma.EsocialEventCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type EsocialEventIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   batch?: boolean | Prisma.EsocialEvent$batchArgs<ExtArgs>
-  originalEvent?: boolean | Prisma.EsocialEvent$originalEventArgs<ExtArgs>
 }
 export type EsocialEventIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   batch?: boolean | Prisma.EsocialEvent$batchArgs<ExtArgs>
-  originalEvent?: boolean | Prisma.EsocialEvent$originalEventArgs<ExtArgs>
 }
 
 export type $EsocialEventPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2216,37 +1718,34 @@ export type $EsocialEventPayload<ExtArgs extends runtime.Types.Extensions.Intern
   objects: {
     tenant: Prisma.$TenantPayload<ExtArgs>
     batch: Prisma.$EsocialBatchPayload<ExtArgs> | null
-    originalEvent: Prisma.$EsocialEventPayload<ExtArgs> | null
-    rectifications: Prisma.$EsocialEventPayload<ExtArgs>[]
     statusHistory: Prisma.$EsocialEventStatusHistoryPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     tenantId: string
     eventType: string
-    status: string
+    description: string
+    status: $Enums.EsocialEventStatus
     referenceId: string | null
+    referenceName: string | null
     referenceType: string | null
-    xmlContent: string
-    xmlHash: string | null
-    reviewedBy: string | null
-    reviewedAt: Date | null
-    reviewNotes: string | null
-    approvedBy: string | null
-    approvedAt: Date | null
+    periodStart: Date | null
+    periodEnd: Date | null
+    deadline: Date | null
+    xmlContent: string | null
+    signedXml: string | null
     batchId: string | null
-    protocol: string | null
     receipt: string | null
-    transmittedAt: Date | null
-    responseAt: Date | null
-    responseXml: string | null
     rejectionCode: string | null
     rejectionMessage: string | null
     retryCount: number
     nextRetryAt: Date | null
-    originalEventId: string | null
-    isRectification: boolean
-    deadline: Date | null
+    rectifiedEventId: string | null
+    createdBy: string | null
+    reviewedBy: string | null
+    reviewedAt: Date | null
+    approvedBy: string | null
+    approvedAt: Date | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["esocialEvent"]>
@@ -2645,8 +2144,6 @@ export interface Prisma__EsocialEventClient<T, Null = never, ExtArgs extends run
   readonly [Symbol.toStringTag]: "PrismaPromise"
   tenant<T extends Prisma.TenantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   batch<T extends Prisma.EsocialEvent$batchArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EsocialEvent$batchArgs<ExtArgs>>): Prisma.Prisma__EsocialBatchClient<runtime.Types.Result.GetResult<Prisma.$EsocialBatchPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  originalEvent<T extends Prisma.EsocialEvent$originalEventArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EsocialEvent$originalEventArgs<ExtArgs>>): Prisma.Prisma__EsocialEventClient<runtime.Types.Result.GetResult<Prisma.$EsocialEventPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  rectifications<T extends Prisma.EsocialEvent$rectificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EsocialEvent$rectificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EsocialEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   statusHistory<T extends Prisma.EsocialEvent$statusHistoryArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EsocialEvent$statusHistoryArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EsocialEventStatusHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -2680,29 +2177,28 @@ export interface EsocialEventFieldRefs {
   readonly id: Prisma.FieldRef<"EsocialEvent", 'String'>
   readonly tenantId: Prisma.FieldRef<"EsocialEvent", 'String'>
   readonly eventType: Prisma.FieldRef<"EsocialEvent", 'String'>
-  readonly status: Prisma.FieldRef<"EsocialEvent", 'String'>
+  readonly description: Prisma.FieldRef<"EsocialEvent", 'String'>
+  readonly status: Prisma.FieldRef<"EsocialEvent", 'EsocialEventStatus'>
   readonly referenceId: Prisma.FieldRef<"EsocialEvent", 'String'>
+  readonly referenceName: Prisma.FieldRef<"EsocialEvent", 'String'>
   readonly referenceType: Prisma.FieldRef<"EsocialEvent", 'String'>
+  readonly periodStart: Prisma.FieldRef<"EsocialEvent", 'DateTime'>
+  readonly periodEnd: Prisma.FieldRef<"EsocialEvent", 'DateTime'>
+  readonly deadline: Prisma.FieldRef<"EsocialEvent", 'DateTime'>
   readonly xmlContent: Prisma.FieldRef<"EsocialEvent", 'String'>
-  readonly xmlHash: Prisma.FieldRef<"EsocialEvent", 'String'>
-  readonly reviewedBy: Prisma.FieldRef<"EsocialEvent", 'String'>
-  readonly reviewedAt: Prisma.FieldRef<"EsocialEvent", 'DateTime'>
-  readonly reviewNotes: Prisma.FieldRef<"EsocialEvent", 'String'>
-  readonly approvedBy: Prisma.FieldRef<"EsocialEvent", 'String'>
-  readonly approvedAt: Prisma.FieldRef<"EsocialEvent", 'DateTime'>
+  readonly signedXml: Prisma.FieldRef<"EsocialEvent", 'String'>
   readonly batchId: Prisma.FieldRef<"EsocialEvent", 'String'>
-  readonly protocol: Prisma.FieldRef<"EsocialEvent", 'String'>
   readonly receipt: Prisma.FieldRef<"EsocialEvent", 'String'>
-  readonly transmittedAt: Prisma.FieldRef<"EsocialEvent", 'DateTime'>
-  readonly responseAt: Prisma.FieldRef<"EsocialEvent", 'DateTime'>
-  readonly responseXml: Prisma.FieldRef<"EsocialEvent", 'String'>
   readonly rejectionCode: Prisma.FieldRef<"EsocialEvent", 'String'>
   readonly rejectionMessage: Prisma.FieldRef<"EsocialEvent", 'String'>
   readonly retryCount: Prisma.FieldRef<"EsocialEvent", 'Int'>
   readonly nextRetryAt: Prisma.FieldRef<"EsocialEvent", 'DateTime'>
-  readonly originalEventId: Prisma.FieldRef<"EsocialEvent", 'String'>
-  readonly isRectification: Prisma.FieldRef<"EsocialEvent", 'Boolean'>
-  readonly deadline: Prisma.FieldRef<"EsocialEvent", 'DateTime'>
+  readonly rectifiedEventId: Prisma.FieldRef<"EsocialEvent", 'String'>
+  readonly createdBy: Prisma.FieldRef<"EsocialEvent", 'String'>
+  readonly reviewedBy: Prisma.FieldRef<"EsocialEvent", 'String'>
+  readonly reviewedAt: Prisma.FieldRef<"EsocialEvent", 'DateTime'>
+  readonly approvedBy: Prisma.FieldRef<"EsocialEvent", 'String'>
+  readonly approvedAt: Prisma.FieldRef<"EsocialEvent", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"EsocialEvent", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"EsocialEvent", 'DateTime'>
 }
@@ -3117,49 +2613,6 @@ export type EsocialEvent$batchArgs<ExtArgs extends runtime.Types.Extensions.Inte
    */
   include?: Prisma.EsocialBatchInclude<ExtArgs> | null
   where?: Prisma.EsocialBatchWhereInput
-}
-
-/**
- * EsocialEvent.originalEvent
- */
-export type EsocialEvent$originalEventArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the EsocialEvent
-   */
-  select?: Prisma.EsocialEventSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the EsocialEvent
-   */
-  omit?: Prisma.EsocialEventOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.EsocialEventInclude<ExtArgs> | null
-  where?: Prisma.EsocialEventWhereInput
-}
-
-/**
- * EsocialEvent.rectifications
- */
-export type EsocialEvent$rectificationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the EsocialEvent
-   */
-  select?: Prisma.EsocialEventSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the EsocialEvent
-   */
-  omit?: Prisma.EsocialEventOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.EsocialEventInclude<ExtArgs> | null
-  where?: Prisma.EsocialEventWhereInput
-  orderBy?: Prisma.EsocialEventOrderByWithRelationInput | Prisma.EsocialEventOrderByWithRelationInput[]
-  cursor?: Prisma.EsocialEventWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.EsocialEventScalarFieldEnum | Prisma.EsocialEventScalarFieldEnum[]
 }
 
 /**

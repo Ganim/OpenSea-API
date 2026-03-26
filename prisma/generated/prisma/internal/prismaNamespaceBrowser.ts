@@ -318,10 +318,15 @@ export const ModelName = {
   EsocialConfig: 'EsocialConfig',
   EsocialCertificate: 'EsocialCertificate',
   EsocialEvent: 'EsocialEvent',
-  EsocialEventStatusHistory: 'EsocialEventStatusHistory',
   EsocialBatch: 'EsocialBatch',
   EsocialRubrica: 'EsocialRubrica',
-  EsocialTable: 'EsocialTable'
+  EsocialEventStatusHistory: 'EsocialEventStatusHistory',
+  EsocialTable: 'EsocialTable',
+  FinanceApprovalRule: 'FinanceApprovalRule',
+  BankConnection: 'BankConnection',
+  PaymentLink: 'PaymentLink',
+  AccountantAccess: 'AccountantAccess',
+  ExchangeRate: 'ExchangeRate'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1933,6 +1938,10 @@ export const OvertimeScalarFieldEnum = {
   approved: 'approved',
   approvedBy: 'approvedBy',
   approvedAt: 'approvedAt',
+  rejected: 'rejected',
+  rejectedBy: 'rejectedBy',
+  rejectedAt: 'rejectedAt',
+  rejectionReason: 'rejectionReason',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -2603,6 +2612,9 @@ export const FinanceEntryScalarFieldEnum = {
   beneficiaryCpfCnpj: 'beneficiaryCpfCnpj',
   pixKey: 'pixKey',
   pixKeyType: 'pixKeyType',
+  currency: 'currency',
+  exchangeRate: 'exchangeRate',
+  originalAmount: 'originalAmount',
   metadata: 'metadata',
   tags: 'tags',
   deletedAt: 'deletedAt',
@@ -5873,14 +5885,10 @@ export const EsocialConfigScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
   environment: 'environment',
-  version: 'version',
-  tpInsc: 'tpInsc',
-  nrInsc: 'nrInsc',
-  autoGenerateOnAdmission: 'autoGenerateOnAdmission',
-  autoGenerateOnTermination: 'autoGenerateOnTermination',
-  autoGenerateOnLeave: 'autoGenerateOnLeave',
-  autoGenerateOnPayroll: 'autoGenerateOnPayroll',
+  autoGenerate: 'autoGenerate',
   requireApproval: 'requireApproval',
+  employerType: 'employerType',
+  employerDocument: 'employerDocument',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -5891,15 +5899,14 @@ export type EsocialConfigScalarFieldEnum = (typeof EsocialConfigScalarFieldEnum)
 export const EsocialCertificateScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
-  type: 'type',
+  encryptedPfx: 'encryptedPfx',
+  encryptionIv: 'encryptionIv',
+  encryptionTag: 'encryptionTag',
   serialNumber: 'serialNumber',
   issuer: 'issuer',
   subject: 'subject',
   validFrom: 'validFrom',
   validUntil: 'validUntil',
-  pfxData: 'pfxData',
-  passphrase: 'passphrase',
-  isActive: 'isActive',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -5911,34 +5918,71 @@ export const EsocialEventScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
   eventType: 'eventType',
+  description: 'description',
   status: 'status',
   referenceId: 'referenceId',
+  referenceName: 'referenceName',
   referenceType: 'referenceType',
+  periodStart: 'periodStart',
+  periodEnd: 'periodEnd',
+  deadline: 'deadline',
   xmlContent: 'xmlContent',
-  xmlHash: 'xmlHash',
-  reviewedBy: 'reviewedBy',
-  reviewedAt: 'reviewedAt',
-  reviewNotes: 'reviewNotes',
-  approvedBy: 'approvedBy',
-  approvedAt: 'approvedAt',
+  signedXml: 'signedXml',
   batchId: 'batchId',
-  protocol: 'protocol',
   receipt: 'receipt',
-  transmittedAt: 'transmittedAt',
-  responseAt: 'responseAt',
-  responseXml: 'responseXml',
   rejectionCode: 'rejectionCode',
   rejectionMessage: 'rejectionMessage',
   retryCount: 'retryCount',
   nextRetryAt: 'nextRetryAt',
-  originalEventId: 'originalEventId',
-  isRectification: 'isRectification',
-  deadline: 'deadline',
+  rectifiedEventId: 'rectifiedEventId',
+  createdBy: 'createdBy',
+  reviewedBy: 'reviewedBy',
+  reviewedAt: 'reviewedAt',
+  approvedBy: 'approvedBy',
+  approvedAt: 'approvedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type EsocialEventScalarFieldEnum = (typeof EsocialEventScalarFieldEnum)[keyof typeof EsocialEventScalarFieldEnum]
+
+
+export const EsocialBatchScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  protocol: 'protocol',
+  status: 'status',
+  environment: 'environment',
+  totalEvents: 'totalEvents',
+  acceptedCount: 'acceptedCount',
+  rejectedCount: 'rejectedCount',
+  transmittedAt: 'transmittedAt',
+  checkedAt: 'checkedAt',
+  errorMessage: 'errorMessage',
+  retryCount: 'retryCount',
+  nextRetryAt: 'nextRetryAt',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type EsocialBatchScalarFieldEnum = (typeof EsocialBatchScalarFieldEnum)[keyof typeof EsocialBatchScalarFieldEnum]
+
+
+export const EsocialRubricaScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  code: 'code',
+  description: 'description',
+  nature: 'nature',
+  type: 'type',
+  incidence: 'incidence',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type EsocialRubricaScalarFieldEnum = (typeof EsocialRubricaScalarFieldEnum)[keyof typeof EsocialRubricaScalarFieldEnum]
 
 
 export const EsocialEventStatusHistoryScalarFieldEnum = {
@@ -5954,38 +5998,6 @@ export const EsocialEventStatusHistoryScalarFieldEnum = {
 export type EsocialEventStatusHistoryScalarFieldEnum = (typeof EsocialEventStatusHistoryScalarFieldEnum)[keyof typeof EsocialEventStatusHistoryScalarFieldEnum]
 
 
-export const EsocialBatchScalarFieldEnum = {
-  id: 'id',
-  tenantId: 'tenantId',
-  status: 'status',
-  eventCount: 'eventCount',
-  protocol: 'protocol',
-  transmittedAt: 'transmittedAt',
-  completedAt: 'completedAt',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type EsocialBatchScalarFieldEnum = (typeof EsocialBatchScalarFieldEnum)[keyof typeof EsocialBatchScalarFieldEnum]
-
-
-export const EsocialRubricaScalarFieldEnum = {
-  id: 'id',
-  tenantId: 'tenantId',
-  code: 'code',
-  description: 'description',
-  type: 'type',
-  incidInss: 'incidInss',
-  incidIrrf: 'incidIrrf',
-  incidFgts: 'incidFgts',
-  isActive: 'isActive',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type EsocialRubricaScalarFieldEnum = (typeof EsocialRubricaScalarFieldEnum)[keyof typeof EsocialRubricaScalarFieldEnum]
-
-
 export const EsocialTableScalarFieldEnum = {
   id: 'id',
   tableCode: 'tableCode',
@@ -5997,6 +6009,90 @@ export const EsocialTableScalarFieldEnum = {
 } as const
 
 export type EsocialTableScalarFieldEnum = (typeof EsocialTableScalarFieldEnum)[keyof typeof EsocialTableScalarFieldEnum]
+
+
+export const FinanceApprovalRuleScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  name: 'name',
+  isActive: 'isActive',
+  action: 'action',
+  maxAmount: 'maxAmount',
+  conditions: 'conditions',
+  priority: 'priority',
+  appliedCount: 'appliedCount',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type FinanceApprovalRuleScalarFieldEnum = (typeof FinanceApprovalRuleScalarFieldEnum)[keyof typeof FinanceApprovalRuleScalarFieldEnum]
+
+
+export const BankConnectionScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  bankAccountId: 'bankAccountId',
+  provider: 'provider',
+  externalItemId: 'externalItemId',
+  accessToken: 'accessToken',
+  status: 'status',
+  lastSyncAt: 'lastSyncAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BankConnectionScalarFieldEnum = (typeof BankConnectionScalarFieldEnum)[keyof typeof BankConnectionScalarFieldEnum]
+
+
+export const PaymentLinkScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  entryId: 'entryId',
+  slug: 'slug',
+  amount: 'amount',
+  description: 'description',
+  customerName: 'customerName',
+  expiresAt: 'expiresAt',
+  pixCopiaECola: 'pixCopiaECola',
+  boletoDigitableLine: 'boletoDigitableLine',
+  boletoPdfUrl: 'boletoPdfUrl',
+  status: 'status',
+  paidAt: 'paidAt',
+  createdAt: 'createdAt'
+} as const
+
+export type PaymentLinkScalarFieldEnum = (typeof PaymentLinkScalarFieldEnum)[keyof typeof PaymentLinkScalarFieldEnum]
+
+
+export const AccountantAccessScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  email: 'email',
+  name: 'name',
+  cpfCnpj: 'cpfCnpj',
+  crc: 'crc',
+  accessToken: 'accessToken',
+  isActive: 'isActive',
+  lastAccessAt: 'lastAccessAt',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AccountantAccessScalarFieldEnum = (typeof AccountantAccessScalarFieldEnum)[keyof typeof AccountantAccessScalarFieldEnum]
+
+
+export const ExchangeRateScalarFieldEnum = {
+  id: 'id',
+  currency: 'currency',
+  rate: 'rate',
+  date: 'date',
+  source: 'source',
+  createdAt: 'createdAt'
+} as const
+
+export type ExchangeRateScalarFieldEnum = (typeof ExchangeRateScalarFieldEnum)[keyof typeof ExchangeRateScalarFieldEnum]
 
 
 export const SortOrder = {

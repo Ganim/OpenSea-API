@@ -6,6 +6,7 @@ import { v1CreateBonusController } from './v1-create-bonus.controller';
 import { v1DeleteBonusController } from './v1-delete-bonus.controller';
 import { v1GetBonusController } from './v1-get-bonus.controller';
 import { v1ListBonusesController } from './v1-list-bonuses.controller';
+import { v1UpdateBonusController } from './v1-update-bonus.controller';
 
 export async function bonusesRoutes(app: FastifyInstance) {
   app.addHook('onRequest', createModuleMiddleware('HR'));
@@ -15,6 +16,7 @@ export async function bonusesRoutes(app: FastifyInstance) {
     async (mutationApp) => {
       mutationApp.register(rateLimit, rateLimitConfig.mutation);
       mutationApp.register(v1CreateBonusController);
+      mutationApp.register(v1UpdateBonusController);
       mutationApp.register(v1DeleteBonusController);
     },
     { prefix: '' },

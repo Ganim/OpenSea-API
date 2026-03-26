@@ -13,6 +13,12 @@ export function mapOvertimePrismaToDomain(overtime: PrismaOvertime) {
       ? new UniqueEntityID(overtime.approvedBy)
       : undefined,
     approvedAt: overtime.approvedAt ?? undefined,
+    rejected: overtime.rejected,
+    rejectedBy: overtime.rejectedBy
+      ? new UniqueEntityID(overtime.rejectedBy)
+      : undefined,
+    rejectedAt: overtime.rejectedAt ?? undefined,
+    rejectionReason: overtime.rejectionReason ?? undefined,
     createdAt: overtime.createdAt,
     updatedAt: overtime.updatedAt,
   };

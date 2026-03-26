@@ -46,8 +46,19 @@ export const overtimeResponseSchema = z.object({
   approved: z.boolean(),
   approvedBy: idSchema.optional().nullable(),
   approvedAt: dateSchema.optional().nullable(),
+  rejected: z.boolean(),
+  rejectedBy: idSchema.optional().nullable(),
+  rejectedAt: dateSchema.optional().nullable(),
+  rejectionReason: z.string().optional().nullable(),
   createdAt: dateSchema,
   updatedAt: dateSchema,
+});
+
+/**
+ * Schema para rejeição de hora extra
+ */
+export const rejectOvertimeSchema = z.object({
+  rejectionReason: z.string().min(10).max(500).optional(),
 });
 
 // ===============================================

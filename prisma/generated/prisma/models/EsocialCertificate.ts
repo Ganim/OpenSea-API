@@ -27,15 +27,14 @@ export type AggregateEsocialCertificate = {
 export type EsocialCertificateMinAggregateOutputType = {
   id: string | null
   tenantId: string | null
-  type: string | null
+  encryptedPfx: runtime.Bytes | null
+  encryptionIv: string | null
+  encryptionTag: string | null
   serialNumber: string | null
   issuer: string | null
   subject: string | null
   validFrom: Date | null
   validUntil: Date | null
-  pfxData: runtime.Bytes | null
-  passphrase: string | null
-  isActive: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -43,15 +42,14 @@ export type EsocialCertificateMinAggregateOutputType = {
 export type EsocialCertificateMaxAggregateOutputType = {
   id: string | null
   tenantId: string | null
-  type: string | null
+  encryptedPfx: runtime.Bytes | null
+  encryptionIv: string | null
+  encryptionTag: string | null
   serialNumber: string | null
   issuer: string | null
   subject: string | null
   validFrom: Date | null
   validUntil: Date | null
-  pfxData: runtime.Bytes | null
-  passphrase: string | null
-  isActive: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -59,15 +57,14 @@ export type EsocialCertificateMaxAggregateOutputType = {
 export type EsocialCertificateCountAggregateOutputType = {
   id: number
   tenantId: number
-  type: number
+  encryptedPfx: number
+  encryptionIv: number
+  encryptionTag: number
   serialNumber: number
   issuer: number
   subject: number
   validFrom: number
   validUntil: number
-  pfxData: number
-  passphrase: number
-  isActive: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -77,15 +74,14 @@ export type EsocialCertificateCountAggregateOutputType = {
 export type EsocialCertificateMinAggregateInputType = {
   id?: true
   tenantId?: true
-  type?: true
+  encryptedPfx?: true
+  encryptionIv?: true
+  encryptionTag?: true
   serialNumber?: true
   issuer?: true
   subject?: true
   validFrom?: true
   validUntil?: true
-  pfxData?: true
-  passphrase?: true
-  isActive?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -93,15 +89,14 @@ export type EsocialCertificateMinAggregateInputType = {
 export type EsocialCertificateMaxAggregateInputType = {
   id?: true
   tenantId?: true
-  type?: true
+  encryptedPfx?: true
+  encryptionIv?: true
+  encryptionTag?: true
   serialNumber?: true
   issuer?: true
   subject?: true
   validFrom?: true
   validUntil?: true
-  pfxData?: true
-  passphrase?: true
-  isActive?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -109,15 +104,14 @@ export type EsocialCertificateMaxAggregateInputType = {
 export type EsocialCertificateCountAggregateInputType = {
   id?: true
   tenantId?: true
-  type?: true
+  encryptedPfx?: true
+  encryptionIv?: true
+  encryptionTag?: true
   serialNumber?: true
   issuer?: true
   subject?: true
   validFrom?: true
   validUntil?: true
-  pfxData?: true
-  passphrase?: true
-  isActive?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -198,15 +192,14 @@ export type EsocialCertificateGroupByArgs<ExtArgs extends runtime.Types.Extensio
 export type EsocialCertificateGroupByOutputType = {
   id: string
   tenantId: string
-  type: string
+  encryptedPfx: runtime.Bytes
+  encryptionIv: string
+  encryptionTag: string
   serialNumber: string
   issuer: string
   subject: string
   validFrom: Date
   validUntil: Date
-  pfxData: runtime.Bytes
-  passphrase: string
-  isActive: boolean
   createdAt: Date
   updatedAt: Date
   _count: EsocialCertificateCountAggregateOutputType | null
@@ -235,15 +228,14 @@ export type EsocialCertificateWhereInput = {
   NOT?: Prisma.EsocialCertificateWhereInput | Prisma.EsocialCertificateWhereInput[]
   id?: Prisma.StringFilter<"EsocialCertificate"> | string
   tenantId?: Prisma.StringFilter<"EsocialCertificate"> | string
-  type?: Prisma.StringFilter<"EsocialCertificate"> | string
+  encryptedPfx?: Prisma.BytesFilter<"EsocialCertificate"> | runtime.Bytes
+  encryptionIv?: Prisma.StringFilter<"EsocialCertificate"> | string
+  encryptionTag?: Prisma.StringFilter<"EsocialCertificate"> | string
   serialNumber?: Prisma.StringFilter<"EsocialCertificate"> | string
   issuer?: Prisma.StringFilter<"EsocialCertificate"> | string
   subject?: Prisma.StringFilter<"EsocialCertificate"> | string
   validFrom?: Prisma.DateTimeFilter<"EsocialCertificate"> | Date | string
   validUntil?: Prisma.DateTimeFilter<"EsocialCertificate"> | Date | string
-  pfxData?: Prisma.BytesFilter<"EsocialCertificate"> | runtime.Bytes
-  passphrase?: Prisma.StringFilter<"EsocialCertificate"> | string
-  isActive?: Prisma.BoolFilter<"EsocialCertificate"> | boolean
   createdAt?: Prisma.DateTimeFilter<"EsocialCertificate"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"EsocialCertificate"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
@@ -252,15 +244,14 @@ export type EsocialCertificateWhereInput = {
 export type EsocialCertificateOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
-  type?: Prisma.SortOrder
+  encryptedPfx?: Prisma.SortOrder
+  encryptionIv?: Prisma.SortOrder
+  encryptionTag?: Prisma.SortOrder
   serialNumber?: Prisma.SortOrder
   issuer?: Prisma.SortOrder
   subject?: Prisma.SortOrder
   validFrom?: Prisma.SortOrder
   validUntil?: Prisma.SortOrder
-  pfxData?: Prisma.SortOrder
-  passphrase?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   tenant?: Prisma.TenantOrderByWithRelationInput
@@ -272,15 +263,14 @@ export type EsocialCertificateWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.EsocialCertificateWhereInput | Prisma.EsocialCertificateWhereInput[]
   OR?: Prisma.EsocialCertificateWhereInput[]
   NOT?: Prisma.EsocialCertificateWhereInput | Prisma.EsocialCertificateWhereInput[]
-  type?: Prisma.StringFilter<"EsocialCertificate"> | string
+  encryptedPfx?: Prisma.BytesFilter<"EsocialCertificate"> | runtime.Bytes
+  encryptionIv?: Prisma.StringFilter<"EsocialCertificate"> | string
+  encryptionTag?: Prisma.StringFilter<"EsocialCertificate"> | string
   serialNumber?: Prisma.StringFilter<"EsocialCertificate"> | string
   issuer?: Prisma.StringFilter<"EsocialCertificate"> | string
   subject?: Prisma.StringFilter<"EsocialCertificate"> | string
   validFrom?: Prisma.DateTimeFilter<"EsocialCertificate"> | Date | string
   validUntil?: Prisma.DateTimeFilter<"EsocialCertificate"> | Date | string
-  pfxData?: Prisma.BytesFilter<"EsocialCertificate"> | runtime.Bytes
-  passphrase?: Prisma.StringFilter<"EsocialCertificate"> | string
-  isActive?: Prisma.BoolFilter<"EsocialCertificate"> | boolean
   createdAt?: Prisma.DateTimeFilter<"EsocialCertificate"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"EsocialCertificate"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
@@ -289,15 +279,14 @@ export type EsocialCertificateWhereUniqueInput = Prisma.AtLeast<{
 export type EsocialCertificateOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
-  type?: Prisma.SortOrder
+  encryptedPfx?: Prisma.SortOrder
+  encryptionIv?: Prisma.SortOrder
+  encryptionTag?: Prisma.SortOrder
   serialNumber?: Prisma.SortOrder
   issuer?: Prisma.SortOrder
   subject?: Prisma.SortOrder
   validFrom?: Prisma.SortOrder
   validUntil?: Prisma.SortOrder
-  pfxData?: Prisma.SortOrder
-  passphrase?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.EsocialCertificateCountOrderByAggregateInput
@@ -311,30 +300,28 @@ export type EsocialCertificateScalarWhereWithAggregatesInput = {
   NOT?: Prisma.EsocialCertificateScalarWhereWithAggregatesInput | Prisma.EsocialCertificateScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"EsocialCertificate"> | string
   tenantId?: Prisma.StringWithAggregatesFilter<"EsocialCertificate"> | string
-  type?: Prisma.StringWithAggregatesFilter<"EsocialCertificate"> | string
+  encryptedPfx?: Prisma.BytesWithAggregatesFilter<"EsocialCertificate"> | runtime.Bytes
+  encryptionIv?: Prisma.StringWithAggregatesFilter<"EsocialCertificate"> | string
+  encryptionTag?: Prisma.StringWithAggregatesFilter<"EsocialCertificate"> | string
   serialNumber?: Prisma.StringWithAggregatesFilter<"EsocialCertificate"> | string
   issuer?: Prisma.StringWithAggregatesFilter<"EsocialCertificate"> | string
   subject?: Prisma.StringWithAggregatesFilter<"EsocialCertificate"> | string
   validFrom?: Prisma.DateTimeWithAggregatesFilter<"EsocialCertificate"> | Date | string
   validUntil?: Prisma.DateTimeWithAggregatesFilter<"EsocialCertificate"> | Date | string
-  pfxData?: Prisma.BytesWithAggregatesFilter<"EsocialCertificate"> | runtime.Bytes
-  passphrase?: Prisma.StringWithAggregatesFilter<"EsocialCertificate"> | string
-  isActive?: Prisma.BoolWithAggregatesFilter<"EsocialCertificate"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"EsocialCertificate"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"EsocialCertificate"> | Date | string
 }
 
 export type EsocialCertificateCreateInput = {
   id?: string
-  type: string
+  encryptedPfx: runtime.Bytes
+  encryptionIv: string
+  encryptionTag: string
   serialNumber: string
   issuer: string
   subject: string
   validFrom: Date | string
   validUntil: Date | string
-  pfxData: runtime.Bytes
-  passphrase: string
-  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutEsocialCertificateInput
@@ -343,30 +330,28 @@ export type EsocialCertificateCreateInput = {
 export type EsocialCertificateUncheckedCreateInput = {
   id?: string
   tenantId: string
-  type: string
+  encryptedPfx: runtime.Bytes
+  encryptionIv: string
+  encryptionTag: string
   serialNumber: string
   issuer: string
   subject: string
   validFrom: Date | string
   validUntil: Date | string
-  pfxData: runtime.Bytes
-  passphrase: string
-  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type EsocialCertificateUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.StringFieldUpdateOperationsInput | string
+  encryptedPfx?: Prisma.BytesFieldUpdateOperationsInput | runtime.Bytes
+  encryptionIv?: Prisma.StringFieldUpdateOperationsInput | string
+  encryptionTag?: Prisma.StringFieldUpdateOperationsInput | string
   serialNumber?: Prisma.StringFieldUpdateOperationsInput | string
   issuer?: Prisma.StringFieldUpdateOperationsInput | string
   subject?: Prisma.StringFieldUpdateOperationsInput | string
   validFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   validUntil?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  pfxData?: Prisma.BytesFieldUpdateOperationsInput | runtime.Bytes
-  passphrase?: Prisma.StringFieldUpdateOperationsInput | string
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutEsocialCertificateNestedInput
@@ -375,15 +360,14 @@ export type EsocialCertificateUpdateInput = {
 export type EsocialCertificateUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.StringFieldUpdateOperationsInput | string
+  encryptedPfx?: Prisma.BytesFieldUpdateOperationsInput | runtime.Bytes
+  encryptionIv?: Prisma.StringFieldUpdateOperationsInput | string
+  encryptionTag?: Prisma.StringFieldUpdateOperationsInput | string
   serialNumber?: Prisma.StringFieldUpdateOperationsInput | string
   issuer?: Prisma.StringFieldUpdateOperationsInput | string
   subject?: Prisma.StringFieldUpdateOperationsInput | string
   validFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   validUntil?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  pfxData?: Prisma.BytesFieldUpdateOperationsInput | runtime.Bytes
-  passphrase?: Prisma.StringFieldUpdateOperationsInput | string
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -391,30 +375,28 @@ export type EsocialCertificateUncheckedUpdateInput = {
 export type EsocialCertificateCreateManyInput = {
   id?: string
   tenantId: string
-  type: string
+  encryptedPfx: runtime.Bytes
+  encryptionIv: string
+  encryptionTag: string
   serialNumber: string
   issuer: string
   subject: string
   validFrom: Date | string
   validUntil: Date | string
-  pfxData: runtime.Bytes
-  passphrase: string
-  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type EsocialCertificateUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.StringFieldUpdateOperationsInput | string
+  encryptedPfx?: Prisma.BytesFieldUpdateOperationsInput | runtime.Bytes
+  encryptionIv?: Prisma.StringFieldUpdateOperationsInput | string
+  encryptionTag?: Prisma.StringFieldUpdateOperationsInput | string
   serialNumber?: Prisma.StringFieldUpdateOperationsInput | string
   issuer?: Prisma.StringFieldUpdateOperationsInput | string
   subject?: Prisma.StringFieldUpdateOperationsInput | string
   validFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   validUntil?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  pfxData?: Prisma.BytesFieldUpdateOperationsInput | runtime.Bytes
-  passphrase?: Prisma.StringFieldUpdateOperationsInput | string
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -422,15 +404,14 @@ export type EsocialCertificateUpdateManyMutationInput = {
 export type EsocialCertificateUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.StringFieldUpdateOperationsInput | string
+  encryptedPfx?: Prisma.BytesFieldUpdateOperationsInput | runtime.Bytes
+  encryptionIv?: Prisma.StringFieldUpdateOperationsInput | string
+  encryptionTag?: Prisma.StringFieldUpdateOperationsInput | string
   serialNumber?: Prisma.StringFieldUpdateOperationsInput | string
   issuer?: Prisma.StringFieldUpdateOperationsInput | string
   subject?: Prisma.StringFieldUpdateOperationsInput | string
   validFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   validUntil?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  pfxData?: Prisma.BytesFieldUpdateOperationsInput | runtime.Bytes
-  passphrase?: Prisma.StringFieldUpdateOperationsInput | string
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -443,15 +424,14 @@ export type EsocialCertificateNullableScalarRelationFilter = {
 export type EsocialCertificateCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
-  type?: Prisma.SortOrder
+  encryptedPfx?: Prisma.SortOrder
+  encryptionIv?: Prisma.SortOrder
+  encryptionTag?: Prisma.SortOrder
   serialNumber?: Prisma.SortOrder
   issuer?: Prisma.SortOrder
   subject?: Prisma.SortOrder
   validFrom?: Prisma.SortOrder
   validUntil?: Prisma.SortOrder
-  pfxData?: Prisma.SortOrder
-  passphrase?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -459,15 +439,14 @@ export type EsocialCertificateCountOrderByAggregateInput = {
 export type EsocialCertificateMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
-  type?: Prisma.SortOrder
+  encryptedPfx?: Prisma.SortOrder
+  encryptionIv?: Prisma.SortOrder
+  encryptionTag?: Prisma.SortOrder
   serialNumber?: Prisma.SortOrder
   issuer?: Prisma.SortOrder
   subject?: Prisma.SortOrder
   validFrom?: Prisma.SortOrder
   validUntil?: Prisma.SortOrder
-  pfxData?: Prisma.SortOrder
-  passphrase?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -475,15 +454,14 @@ export type EsocialCertificateMaxOrderByAggregateInput = {
 export type EsocialCertificateMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
-  type?: Prisma.SortOrder
+  encryptedPfx?: Prisma.SortOrder
+  encryptionIv?: Prisma.SortOrder
+  encryptionTag?: Prisma.SortOrder
   serialNumber?: Prisma.SortOrder
   issuer?: Prisma.SortOrder
   subject?: Prisma.SortOrder
   validFrom?: Prisma.SortOrder
   validUntil?: Prisma.SortOrder
-  pfxData?: Prisma.SortOrder
-  passphrase?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -522,30 +500,28 @@ export type EsocialCertificateUncheckedUpdateOneWithoutTenantNestedInput = {
 
 export type EsocialCertificateCreateWithoutTenantInput = {
   id?: string
-  type: string
+  encryptedPfx: runtime.Bytes
+  encryptionIv: string
+  encryptionTag: string
   serialNumber: string
   issuer: string
   subject: string
   validFrom: Date | string
   validUntil: Date | string
-  pfxData: runtime.Bytes
-  passphrase: string
-  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type EsocialCertificateUncheckedCreateWithoutTenantInput = {
   id?: string
-  type: string
+  encryptedPfx: runtime.Bytes
+  encryptionIv: string
+  encryptionTag: string
   serialNumber: string
   issuer: string
   subject: string
   validFrom: Date | string
   validUntil: Date | string
-  pfxData: runtime.Bytes
-  passphrase: string
-  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -568,30 +544,28 @@ export type EsocialCertificateUpdateToOneWithWhereWithoutTenantInput = {
 
 export type EsocialCertificateUpdateWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.StringFieldUpdateOperationsInput | string
+  encryptedPfx?: Prisma.BytesFieldUpdateOperationsInput | runtime.Bytes
+  encryptionIv?: Prisma.StringFieldUpdateOperationsInput | string
+  encryptionTag?: Prisma.StringFieldUpdateOperationsInput | string
   serialNumber?: Prisma.StringFieldUpdateOperationsInput | string
   issuer?: Prisma.StringFieldUpdateOperationsInput | string
   subject?: Prisma.StringFieldUpdateOperationsInput | string
   validFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   validUntil?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  pfxData?: Prisma.BytesFieldUpdateOperationsInput | runtime.Bytes
-  passphrase?: Prisma.StringFieldUpdateOperationsInput | string
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type EsocialCertificateUncheckedUpdateWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.StringFieldUpdateOperationsInput | string
+  encryptedPfx?: Prisma.BytesFieldUpdateOperationsInput | runtime.Bytes
+  encryptionIv?: Prisma.StringFieldUpdateOperationsInput | string
+  encryptionTag?: Prisma.StringFieldUpdateOperationsInput | string
   serialNumber?: Prisma.StringFieldUpdateOperationsInput | string
   issuer?: Prisma.StringFieldUpdateOperationsInput | string
   subject?: Prisma.StringFieldUpdateOperationsInput | string
   validFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   validUntil?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  pfxData?: Prisma.BytesFieldUpdateOperationsInput | runtime.Bytes
-  passphrase?: Prisma.StringFieldUpdateOperationsInput | string
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -601,15 +575,14 @@ export type EsocialCertificateUncheckedUpdateWithoutTenantInput = {
 export type EsocialCertificateSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   tenantId?: boolean
-  type?: boolean
+  encryptedPfx?: boolean
+  encryptionIv?: boolean
+  encryptionTag?: boolean
   serialNumber?: boolean
   issuer?: boolean
   subject?: boolean
   validFrom?: boolean
   validUntil?: boolean
-  pfxData?: boolean
-  passphrase?: boolean
-  isActive?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
@@ -618,15 +591,14 @@ export type EsocialCertificateSelect<ExtArgs extends runtime.Types.Extensions.In
 export type EsocialCertificateSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   tenantId?: boolean
-  type?: boolean
+  encryptedPfx?: boolean
+  encryptionIv?: boolean
+  encryptionTag?: boolean
   serialNumber?: boolean
   issuer?: boolean
   subject?: boolean
   validFrom?: boolean
   validUntil?: boolean
-  pfxData?: boolean
-  passphrase?: boolean
-  isActive?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
@@ -635,15 +607,14 @@ export type EsocialCertificateSelectCreateManyAndReturn<ExtArgs extends runtime.
 export type EsocialCertificateSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   tenantId?: boolean
-  type?: boolean
+  encryptedPfx?: boolean
+  encryptionIv?: boolean
+  encryptionTag?: boolean
   serialNumber?: boolean
   issuer?: boolean
   subject?: boolean
   validFrom?: boolean
   validUntil?: boolean
-  pfxData?: boolean
-  passphrase?: boolean
-  isActive?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
@@ -652,20 +623,19 @@ export type EsocialCertificateSelectUpdateManyAndReturn<ExtArgs extends runtime.
 export type EsocialCertificateSelectScalar = {
   id?: boolean
   tenantId?: boolean
-  type?: boolean
+  encryptedPfx?: boolean
+  encryptionIv?: boolean
+  encryptionTag?: boolean
   serialNumber?: boolean
   issuer?: boolean
   subject?: boolean
   validFrom?: boolean
   validUntil?: boolean
-  pfxData?: boolean
-  passphrase?: boolean
-  isActive?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type EsocialCertificateOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "type" | "serialNumber" | "issuer" | "subject" | "validFrom" | "validUntil" | "pfxData" | "passphrase" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["esocialCertificate"]>
+export type EsocialCertificateOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "encryptedPfx" | "encryptionIv" | "encryptionTag" | "serialNumber" | "issuer" | "subject" | "validFrom" | "validUntil" | "createdAt" | "updatedAt", ExtArgs["result"]["esocialCertificate"]>
 export type EsocialCertificateInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
 }
@@ -684,15 +654,14 @@ export type $EsocialCertificatePayload<ExtArgs extends runtime.Types.Extensions.
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     tenantId: string
-    type: string
+    encryptedPfx: runtime.Bytes
+    encryptionIv: string
+    encryptionTag: string
     serialNumber: string
     issuer: string
     subject: string
     validFrom: Date
     validUntil: Date
-    pfxData: runtime.Bytes
-    passphrase: string
-    isActive: boolean
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["esocialCertificate"]>
@@ -1121,15 +1090,14 @@ export interface Prisma__EsocialCertificateClient<T, Null = never, ExtArgs exten
 export interface EsocialCertificateFieldRefs {
   readonly id: Prisma.FieldRef<"EsocialCertificate", 'String'>
   readonly tenantId: Prisma.FieldRef<"EsocialCertificate", 'String'>
-  readonly type: Prisma.FieldRef<"EsocialCertificate", 'String'>
+  readonly encryptedPfx: Prisma.FieldRef<"EsocialCertificate", 'Bytes'>
+  readonly encryptionIv: Prisma.FieldRef<"EsocialCertificate", 'String'>
+  readonly encryptionTag: Prisma.FieldRef<"EsocialCertificate", 'String'>
   readonly serialNumber: Prisma.FieldRef<"EsocialCertificate", 'String'>
   readonly issuer: Prisma.FieldRef<"EsocialCertificate", 'String'>
   readonly subject: Prisma.FieldRef<"EsocialCertificate", 'String'>
   readonly validFrom: Prisma.FieldRef<"EsocialCertificate", 'DateTime'>
   readonly validUntil: Prisma.FieldRef<"EsocialCertificate", 'DateTime'>
-  readonly pfxData: Prisma.FieldRef<"EsocialCertificate", 'Bytes'>
-  readonly passphrase: Prisma.FieldRef<"EsocialCertificate", 'String'>
-  readonly isActive: Prisma.FieldRef<"EsocialCertificate", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"EsocialCertificate", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"EsocialCertificate", 'DateTime'>
 }

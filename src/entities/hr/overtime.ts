@@ -13,6 +13,7 @@ export interface OvertimeProps {
   rejected: boolean;
   rejectedBy?: UniqueEntityID;
   rejectedAt?: Date;
+  rejectionReason?: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -62,6 +63,10 @@ export class Overtime extends Entity<OvertimeProps> {
     return this.props.rejectedAt;
   }
 
+  get rejectionReason(): string | undefined {
+    return this.props.rejectionReason;
+  }
+
   get createdAt(): Date {
     return this.props.createdAt;
   }
@@ -94,7 +99,7 @@ export class Overtime extends Entity<OvertimeProps> {
     this.props.updatedAt = new Date();
   }
 
-  reject(rejectedBy: UniqueEntityID): void {
+  reject(rejectedBy: UniqueEntityID, rejectionReason?: string): void {
     if (this.approved) {
       throw new Error('Cannot reject already approved overtime');
     }
@@ -104,6 +109,7 @@ export class Overtime extends Entity<OvertimeProps> {
     this.props.rejected = true;
     this.props.rejectedBy = rejectedBy;
     this.props.rejectedAt = new Date();
+    this.props.rejectionReason = rejectionReason;
     this.props.updatedAt = new Date();
   }
 

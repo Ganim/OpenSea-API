@@ -90,6 +90,7 @@ export enum AuditAction {
   // HR - Horas Extras
   OVERTIME_REQUEST = 'OVERTIME_REQUEST',
   OVERTIME_APPROVE = 'OVERTIME_APPROVE',
+  OVERTIME_REJECT = 'OVERTIME_REJECT',
 
   // Payroll - Folha de Pagamento
   PAYROLL_CREATE = 'PAYROLL_CREATE',
