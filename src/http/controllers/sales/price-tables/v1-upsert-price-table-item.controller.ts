@@ -1,3 +1,4 @@
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
@@ -6,7 +7,7 @@ import {
   priceTableItemResponseSchema,
   upsertPriceTableItemSchema,
 } from '@/http/schemas';
-import { prisma } from '@/lib/prisma';
+import { makeUpsertPriceTableItemUseCase } from '@/use-cases/sales/price-tables/factories/make-upsert-price-table-item-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
@@ -44,52 +45,43 @@ export async function upsertPriceTableItemController(app: FastifyInstance) {
       const { id: priceTableId } = request.params;
       const { items } = request.body;
 
-      const priceTable = await prisma.priceTable.findFirst({
-        where: { id: priceTableId, tenantId, deletedAt: null },
-      });
+      try {
+        const useCase = makeUpsertPriceTableItemUseCase();
 
-      if (!priceTable) {
-        return reply.status(404).send({ message: 'Price table not found' });
+        const upsertedItems = [];
+        for (const itemData of items) {
+          const { priceTableItem } = await useCase.execute({
+            tenantId,
+            priceTableId,
+            variantId: itemData.variantId,
+            price: itemData.price,
+            minQuantity: itemData.minQuantity,
+            maxQuantity: itemData.maxQuantity,
+            costPrice: itemData.costPrice,
+            marginPercent: itemData.marginPercent,
+          });
+          upsertedItems.push({
+            id: priceTableItem.id.toString(),
+            priceTableId: priceTableItem.priceTableId.toString(),
+            tenantId: priceTableItem.tenantId.toString(),
+            variantId: priceTableItem.variantId.toString(),
+            price: priceTableItem.price,
+            minQuantity: priceTableItem.minQuantity,
+            maxQuantity: priceTableItem.maxQuantity ?? null,
+            costPrice: priceTableItem.costPrice ?? null,
+            marginPercent: priceTableItem.marginPercent ?? null,
+            createdAt: priceTableItem.createdAt,
+            updatedAt: priceTableItem.updatedAt ?? null,
+          });
+        }
+
+        return reply.status(200).send({ items: upsertedItems });
+      } catch (error) {
+        if (error instanceof ResourceNotFoundError) {
+          return reply.status(404).send({ message: error.message });
+        }
+        throw error;
       }
-
-      const upsertedItems = await prisma.$transaction(
-        items.map((item) =>
-          prisma.priceTableItem.upsert({
-            where: {
-              priceTableId_variantId_minQuantity: {
-                priceTableId,
-                variantId: item.variantId,
-                minQuantity: item.minQuantity ?? 1,
-              },
-            },
-            create: {
-              priceTableId,
-              tenantId,
-              variantId: item.variantId,
-              price: item.price,
-              minQuantity: item.minQuantity ?? 1,
-              maxQuantity: item.maxQuantity,
-              costPrice: item.costPrice,
-              marginPercent: item.marginPercent,
-            },
-            update: {
-              price: item.price,
-              maxQuantity: item.maxQuantity,
-              costPrice: item.costPrice,
-              marginPercent: item.marginPercent,
-            },
-          }),
-        ),
-      );
-
-      return reply.status(200).send({
-        items: upsertedItems.map((item) => ({
-          ...item,
-          price: Number(item.price),
-          costPrice: item.costPrice ? Number(item.costPrice) : null,
-          marginPercent: item.marginPercent ? Number(item.marginPercent) : null,
-        })),
-      });
     },
   });
 }

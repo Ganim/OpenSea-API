@@ -1,9 +1,10 @@
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { comboResponseSchema } from '@/http/schemas';
-import { prisma } from '@/lib/prisma';
+import { makeGetComboByIdUseCase } from '@/use-cases/sales/combos/factories/make-get-combo-by-id-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
@@ -39,56 +40,39 @@ export async function getComboByIdController(app: FastifyInstance) {
       const tenantId = request.user.tenantId!;
       const { id } = request.params;
 
-      const combo = await prisma.combo.findFirst({
-        where: { id, tenantId, deletedAt: null },
-        include: {
-          comboItems: {
-            orderBy: { position: 'asc' },
-            include: {
-              variant: {
-                select: { id: true, name: true, sku: true, price: true },
-              },
-            },
-          },
-        },
-      });
+      try {
+        const useCase = makeGetComboByIdUseCase();
+        const { combo } = await useCase.execute({ id, tenantId });
 
-      if (!combo) {
-        return reply.status(404).send({ message: 'Combo not found' });
-      }
-
-      return reply.status(200).send({
-        combo: {
-          ...combo,
-          fixedPrice: combo.fixedPrice ? Number(combo.fixedPrice) : null,
-          discountValue: combo.discountValue
-            ? Number(combo.discountValue)
-            : null,
-          description: combo.description ?? null,
-          discountType: combo.discountType ?? null,
-          minItems: combo.minItems ?? null,
-          maxItems: combo.maxItems ?? null,
-          validFrom: combo.validFrom ?? null,
-          validUntil: combo.validUntil ?? null,
-          imageUrl: combo.imageUrl ?? null,
-          deletedAt: combo.deletedAt ?? null,
-          items: combo.comboItems.map((item) => ({
-            id: item.id,
-            variantId: item.variantId,
-            quantity: item.quantity,
-            isRequired: item.isRequired,
-            position: item.position,
-            variant: item.variant
-              ? {
-                  id: item.variant.id,
-                  name: item.variant.name,
-                  sku: item.variant.sku,
-                  price: item.variant.price ? Number(item.variant.price) : null,
-                }
+        return reply.status(200).send({
+          combo: {
+            id: combo.comboId.toString(),
+            tenantId: combo.tenantId.toString(),
+            name: combo.name,
+            description: combo.description ?? null,
+            type: combo.type,
+            discountType: combo.discountType ?? null,
+            discountValue: combo.discountValue
+              ? Number(combo.discountValue)
               : null,
-          })),
-        },
-      });
+            fixedPrice: null,
+            isActive: combo.isActive,
+            minItems: combo.minItems ?? null,
+            maxItems: combo.maxItems ?? null,
+            validFrom: combo.startDate ?? null,
+            validUntil: combo.endDate ?? null,
+            imageUrl: null,
+            deletedAt: combo.deletedAt ?? null,
+            createdAt: combo.createdAt,
+            updatedAt: combo.updatedAt,
+          },
+        });
+      } catch (error) {
+        if (error instanceof ResourceNotFoundError) {
+          return reply.status(404).send({ message: error.message });
+        }
+        throw error;
+      }
     },
   });
 }

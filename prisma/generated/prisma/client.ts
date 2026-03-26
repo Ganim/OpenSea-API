@@ -1419,3 +1419,83 @@ export type AccountantAccess = Prisma.AccountantAccessModel
  * 
  */
 export type ExchangeRate = Prisma.ExchangeRateModel
+/**
+ * Model Quote
+ * 
+ */
+export type Quote = Prisma.QuoteModel
+/**
+ * Model QuoteItem
+ * 
+ */
+export type QuoteItem = Prisma.QuoteItemModel
+/**
+ * Model Proposal
+ * 
+ */
+export type Proposal = Prisma.ProposalModel
+/**
+ * Model ProposalItem
+ * 
+ */
+export type ProposalItem = Prisma.ProposalItemModel
+/**
+ * Model ProposalAttachment
+ * 
+ */
+export type ProposalAttachment = Prisma.ProposalAttachmentModel
+/**
+ * Model DiscountRule
+ * 
+ */
+export type DiscountRule = Prisma.DiscountRuleModel
+/**
+ * Model Workflow
+ * 
+ */
+export type Workflow = Prisma.WorkflowModel
+/**
+ * Model WorkflowStep
+ * 
+ */
+export type WorkflowStep = Prisma.WorkflowStepModel
+/**
+ * Model Conversation
+ * 
+ */
+export type Conversation = Prisma.ConversationModel
+/**
+ * Model ConversationMessage
+ * 
+ */
+export type ConversationMessage = Prisma.ConversationMessageModel
+/**
+ * Model Form
+ * 
+ */
+export type Form = Prisma.FormModel
+/**
+ * Model FormField
+ * 
+ */
+export type FormField = Prisma.FormFieldModel
+/**
+ * Model FormSubmission
+ * 
+ */
+export type FormSubmission = Prisma.FormSubmissionModel
+/**
+ * Model MessageTemplate
+ * 
+ */
+export type MessageTemplate = Prisma.MessageTemplateModel
+/**
+ * Model CashierSession
+ * 
+ */
+export type CashierSession = Prisma.CashierSessionModel
+/**
+ * Model CashierTransaction
+ * 
+ */
+export type CashierTransaction = Prisma.CashierTransactionModel

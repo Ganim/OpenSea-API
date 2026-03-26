@@ -1,10 +1,12 @@
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { prisma } from '@/lib/prisma';
+import { makeGetComboByIdUseCase } from '@/use-cases/sales/combos/factories/make-get-combo-by-id-use-case';
+import { makeDeleteComboUseCase } from '@/use-cases/sales/combos/factories/make-delete-combo-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
@@ -39,30 +41,31 @@ export async function deleteComboController(app: FastifyInstance) {
       const userId = request.user.sub;
       const { id } = request.params;
 
-      const existing = await prisma.combo.findFirst({
-        where: { id, tenantId, deletedAt: null },
-      });
+      try {
+        // Get existing for audit
+        const getUseCase = makeGetComboByIdUseCase();
+        const { combo: existing } = await getUseCase.execute({ id, tenantId });
 
-      if (!existing) {
-        return reply.status(404).send({ message: 'Combo not found' });
+        const useCase = makeDeleteComboUseCase();
+        await useCase.execute({ id, tenantId });
+
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.SALES.COMBO_DELETE,
+          entityId: id,
+          placeholders: {
+            userName: userId,
+            comboName: existing.name,
+          },
+          oldData: { name: existing.name, type: existing.type },
+        });
+
+        return reply.status(204).send(null);
+      } catch (error) {
+        if (error instanceof ResourceNotFoundError) {
+          return reply.status(404).send({ message: error.message });
+        }
+        throw error;
       }
-
-      await prisma.combo.update({
-        where: { id },
-        data: { deletedAt: new Date() },
-      });
-
-      await logAudit(request, {
-        message: AUDIT_MESSAGES.SALES.COMBO_DELETE,
-        entityId: id,
-        placeholders: {
-          userName: userId,
-          comboName: existing.name,
-        },
-        oldData: { name: existing.name, type: existing.type },
-      });
-
-      return reply.status(204).send(null);
     },
   });
 }

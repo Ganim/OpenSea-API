@@ -3,7 +3,7 @@ import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { comboResponseSchema, listCombosQuerySchema } from '@/http/schemas';
-import { prisma } from '@/lib/prisma';
+import { makeListCombosUseCase } from '@/use-cases/sales/combos/factories/make-list-combos-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
@@ -43,45 +43,41 @@ export async function listCombosController(app: FastifyInstance) {
       const { page, limit, search, type, isActive, sortBy, sortOrder } =
         request.query;
 
-      const where = {
+      const useCase = makeListCombosUseCase();
+      const { combos } = await useCase.execute({
         tenantId,
-        deletedAt: null,
-        ...(search && {
-          name: { contains: search, mode: 'insensitive' as const },
-        }),
-        ...(type && { type }),
-        ...(isActive !== undefined && { isActive: isActive === 'true' }),
-      };
-
-      const [combos, total] = await Promise.all([
-        prisma.combo.findMany({
-          where,
-          skip: (page - 1) * limit,
-          take: limit,
-          orderBy: { [sortBy ?? 'createdAt']: sortOrder ?? 'desc' },
-        }),
-        prisma.combo.count({ where }),
-      ]);
+        page,
+        limit,
+        search,
+        type,
+        isActive: isActive !== undefined ? isActive === 'true' : undefined,
+      });
 
       return reply.status(200).send({
-        combos: combos.map((c) => ({
-          ...c,
-          fixedPrice: c.fixedPrice ? Number(c.fixedPrice) : null,
-          discountValue: c.discountValue ? Number(c.discountValue) : null,
+        combos: combos.data.map((c) => ({
+          id: c.comboId.toString(),
+          tenantId: c.tenantId.toString(),
+          name: c.name,
           description: c.description ?? null,
+          type: c.type,
           discountType: c.discountType ?? null,
+          discountValue: c.discountValue ? Number(c.discountValue) : null,
+          fixedPrice: null,
+          isActive: c.isActive,
           minItems: c.minItems ?? null,
           maxItems: c.maxItems ?? null,
-          validFrom: c.validFrom ?? null,
-          validUntil: c.validUntil ?? null,
-          imageUrl: c.imageUrl ?? null,
+          validFrom: c.startDate ?? null,
+          validUntil: c.endDate ?? null,
+          imageUrl: null,
           deletedAt: c.deletedAt ?? null,
+          createdAt: c.createdAt,
+          updatedAt: c.updatedAt,
         })),
         meta: {
-          total,
-          page,
-          limit,
-          pages: Math.ceil(total / limit),
+          total: combos.total,
+          page: combos.page,
+          limit: combos.limit,
+          pages: combos.totalPages,
         },
       });
     },

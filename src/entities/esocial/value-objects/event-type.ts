@@ -47,6 +47,14 @@ export enum EsocialEventType {
 
   // Exclusão
   S_3000 = 'S-3000', // Exclusão de Eventos
+
+  // Totalizadores (retorno do governo — somente leitura)
+  S_5001 = 'S-5001', // Informações das Contribuições Sociais Consolidadas por Trabalhador
+  S_5002 = 'S-5002', // Imposto de Renda Retido na Fonte por Trabalhador
+  S_5003 = 'S-5003', // Informações do FGTS por Trabalhador
+  S_5011 = 'S-5011', // Informações das Contribuições Sociais Consolidadas
+  S_5012 = 'S-5012', // IRRF Consolidado
+  S_5013 = 'S-5013', // FGTS Consolidado
 }
 
 /**
@@ -58,6 +66,9 @@ export enum EsocialReferenceType {
   ABSENCE = 'ABSENCE',
   TERMINATION = 'TERMINATION',
   MEDICAL_EXAM = 'MEDICAL_EXAM',
+  TENANT_CONFIG = 'TENANT_CONFIG',
+  RUBRICA = 'RUBRICA',
+  ESOCIAL_EVENT = 'ESOCIAL_EVENT',
 }
 
 /**
@@ -65,7 +76,7 @@ export enum EsocialReferenceType {
  */
 export function getEventCategory(
   eventType: string,
-): 'TABELA' | 'NAO_PERIODICO' | 'PERIODICO' | 'EXCLUSAO' {
+): 'TABELA' | 'NAO_PERIODICO' | 'PERIODICO' | 'EXCLUSAO' | 'TOTALIZADOR' {
   if (eventType.startsWith('S-1') && parseInt(eventType.split('-')[1]) < 1200) {
     return 'TABELA';
   }
@@ -74,6 +85,9 @@ export function getEventCategory(
   }
   if (eventType.startsWith('S-3')) {
     return 'EXCLUSAO';
+  }
+  if (eventType.startsWith('S-5')) {
+    return 'TOTALIZADOR';
   }
   return 'PERIODICO';
 }
@@ -119,6 +133,12 @@ const EVENT_TYPE_DESCRIPTIONS: Record<string, string> = {
   'S-2500': 'Processo Trabalhista',
   'S-2501': 'Informações dos Tributos (Processo Trabalhista)',
   'S-3000': 'Exclusão de Eventos',
+  'S-5001': 'Contribuições Sociais Consolidadas por Trabalhador',
+  'S-5002': 'IRRF por Trabalhador',
+  'S-5003': 'FGTS por Trabalhador',
+  'S-5011': 'Contribuições Sociais Consolidadas',
+  'S-5012': 'IRRF Consolidado',
+  'S-5013': 'FGTS Consolidado',
 };
 
 export function getEventTypeDescription(eventType: string): string {

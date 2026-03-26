@@ -1,3 +1,4 @@
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
@@ -6,7 +7,8 @@ import {
   listPriceTableItemsQuerySchema,
   priceTableItemResponseSchema,
 } from '@/http/schemas';
-import { prisma } from '@/lib/prisma';
+import { makeGetPriceTableByIdUseCase } from '@/use-cases/sales/price-tables/factories/make-get-price-table-by-id-use-case';
+import { makeListPriceTableItemsUseCase } from '@/use-cases/sales/price-tables/factories/make-list-price-table-items-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
@@ -50,44 +52,36 @@ export async function listPriceTableItemsController(app: FastifyInstance) {
       const { id: priceTableId } = request.params;
       const { page, limit, variantId, sortBy, sortOrder } = request.query;
 
-      const priceTable = await prisma.priceTable.findFirst({
-        where: { id: priceTableId, tenantId, deletedAt: null },
-      });
+      try {
+        // Validate price table exists
+        const getUseCase = makeGetPriceTableByIdUseCase();
+        await getUseCase.execute({ id: priceTableId, tenantId });
 
-      if (!priceTable) {
-        return reply.status(404).send({ message: 'Price table not found' });
-      }
-
-      const where = {
-        priceTableId,
-        tenantId,
-        ...(variantId && { variantId }),
-      };
-
-      const [items, total] = await Promise.all([
-        prisma.priceTableItem.findMany({
-          where,
-          skip: (page - 1) * limit,
-          take: limit,
-          orderBy: { [sortBy ?? 'createdAt']: sortOrder ?? 'desc' },
-        }),
-        prisma.priceTableItem.count({ where }),
-      ]);
-
-      return reply.status(200).send({
-        items: items.map((item) => ({
-          ...item,
-          price: Number(item.price),
-          costPrice: item.costPrice ? Number(item.costPrice) : null,
-          marginPercent: item.marginPercent ? Number(item.marginPercent) : null,
-        })),
-        meta: {
-          total,
+        const useCase = makeListPriceTableItemsUseCase();
+        const result = await useCase.execute({
+          priceTableId,
+          tenantId,
           page,
           limit,
-          pages: Math.ceil(total / limit),
-        },
-      });
+          sortBy,
+          sortOrder,
+        });
+
+        return reply.status(200).send({
+          items: result.items,
+          meta: {
+            total: result.total,
+            page: result.page,
+            limit: result.limit,
+            pages: result.totalPages,
+          },
+        });
+      } catch (error) {
+        if (error instanceof ResourceNotFoundError) {
+          return reply.status(404).send({ message: error.message });
+        }
+        throw error;
+      }
     },
   });
 }

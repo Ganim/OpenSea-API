@@ -1,3 +1,5 @@
+import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
@@ -6,7 +8,7 @@ import {
   validateCouponResponseSchema,
   validateCouponSchema,
 } from '@/http/schemas';
-import { prisma } from '@/lib/prisma';
+import { makeValidateCouponUseCase } from '@/use-cases/sales/coupons/factories/make-validate-coupon-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
@@ -39,109 +41,76 @@ export async function validateCouponController(app: FastifyInstance) {
       const tenantId = request.user.tenantId!;
       const { code, orderValue, variantIds } = request.body;
 
-      const coupon = await prisma.coupon.findUnique({
-        where: { tenantId_code: { tenantId, code } },
-      });
-
-      if (!coupon) {
-        return reply.status(200).send({
-          result: { valid: false, reason: 'Coupon not found' },
+      try {
+        const useCase = makeValidateCouponUseCase();
+        const { coupon, discountType, discountValue } = await useCase.execute({
+          tenantId,
+          code,
+          orderValue,
+          productIds: variantIds,
         });
-      }
 
-      if (!coupon.isActive) {
-        return reply.status(200).send({
-          result: { valid: false, reason: 'Coupon is inactive' },
-        });
-      }
+        // Calculate discount amount
+        let discountAmount: number | undefined;
+        if (orderValue) {
+          if (discountType === 'PERCENTAGE') {
+            discountAmount = (orderValue * discountValue) / 100;
+            if (coupon.maxDiscountAmount) {
+              discountAmount = Math.min(
+                discountAmount,
+                coupon.maxDiscountAmount,
+              );
+            }
+          } else if (
+            discountType === 'FIXED_AMOUNT' ||
+            discountType === 'FREE_SHIPPING'
+          ) {
+            discountAmount = Math.min(discountValue, orderValue);
+          }
+        }
 
-      const now = new Date();
-      if (now < coupon.validFrom || now > coupon.validUntil) {
-        return reply.status(200).send({
-          result: {
-            valid: false,
-            reason: 'Coupon is expired or not yet valid',
-          },
-        });
-      }
-
-      if (coupon.maxUsageTotal && coupon.usageCount >= coupon.maxUsageTotal) {
-        return reply.status(200).send({
-          result: {
-            valid: false,
-            reason: 'Coupon has reached maximum usage limit',
-          },
-        });
-      }
-
-      if (
-        coupon.minOrderValue &&
-        orderValue &&
-        Number(coupon.minOrderValue) > orderValue
-      ) {
         return reply.status(200).send({
           result: {
-            valid: false,
-            reason: `Minimum order value is ${Number(coupon.minOrderValue)}`,
-          },
-        });
-      }
-
-      // Check applicability for specific products
-      if (
-        coupon.applicableTo === 'SPECIFIC_PRODUCTS' &&
-        variantIds &&
-        variantIds.length > 0
-      ) {
-        const targetSet = new Set(coupon.targetIds);
-        const hasApplicable = variantIds.some((id) => targetSet.has(id));
-        if (!hasApplicable) {
-          return reply.status(200).send({
-            result: {
-              valid: false,
-              reason: 'Coupon does not apply to selected products',
+            valid: true,
+            coupon: {
+              id: coupon.couponId.toString(),
+              tenantId: coupon.tenantId.toString(),
+              code: coupon.code,
+              type: coupon.discountType,
+              value: coupon.discountValue,
+              applicableTo: coupon.applicableTo,
+              minOrderValue: coupon.minOrderValue ?? null,
+              maxDiscount: coupon.maxDiscountAmount ?? null,
+              maxUsageTotal: coupon.maxUsageTotal ?? null,
+              maxUsagePerCustomer: coupon.maxUsagePerCustomer ?? 0,
+              usageCount: coupon.currentUsageTotal,
+              validFrom: coupon.startDate ?? new Date(),
+              validUntil: coupon.endDate ?? new Date(),
+              isActive: coupon.isActive,
+              campaignId: null,
+              aiGenerated: false,
+            aiReason: null,
+              customerId: null,
+              targetIds: [],
+              createdAt: coupon.createdAt,
+              updatedAt: coupon.updatedAt,
             },
+            discountAmount,
+          },
+        });
+      } catch (error) {
+        if (error instanceof ResourceNotFoundError) {
+          return reply.status(200).send({
+            result: { valid: false, reason: 'Coupon not found' },
           });
         }
-      }
-
-      // Calculate discount amount
-      let discountAmount: number | undefined;
-      if (orderValue) {
-        const couponValue = Number(coupon.value);
-        if (coupon.type === 'PERCENTAGE') {
-          discountAmount = (orderValue * couponValue) / 100;
-          if (coupon.maxDiscount) {
-            discountAmount = Math.min(
-              discountAmount,
-              Number(coupon.maxDiscount),
-            );
-          }
-        } else if (coupon.type === 'FIXED_VALUE') {
-          discountAmount = Math.min(couponValue, orderValue);
+        if (error instanceof BadRequestError) {
+          return reply.status(200).send({
+            result: { valid: false, reason: error.message },
+          });
         }
+        throw error;
       }
-
-      const couponResponse = {
-        ...coupon,
-        value: Number(coupon.value),
-        minOrderValue: coupon.minOrderValue
-          ? Number(coupon.minOrderValue)
-          : null,
-        maxDiscount: coupon.maxDiscount ? Number(coupon.maxDiscount) : null,
-        maxUsageTotal: coupon.maxUsageTotal ?? null,
-        campaignId: coupon.campaignId ?? null,
-        aiReason: coupon.aiReason ?? null,
-        customerId: coupon.customerId ?? null,
-      };
-
-      return reply.status(200).send({
-        result: {
-          valid: true,
-          coupon: couponResponse,
-          discountAmount,
-        },
-      });
     },
   });
 }

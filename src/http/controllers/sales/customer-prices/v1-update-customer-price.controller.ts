@@ -1,3 +1,4 @@
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
@@ -8,7 +9,7 @@ import {
   customerPriceResponseSchema,
   updateCustomerPriceSchema,
 } from '@/http/schemas';
-import { prisma } from '@/lib/prisma';
+import { makeUpdateCustomerPriceUseCase } from '@/use-cases/sales/customer-prices/factories/make-update-customer-price-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
@@ -47,39 +48,49 @@ export async function updateCustomerPriceController(app: FastifyInstance) {
       const { id } = request.params;
       const body = request.body;
 
-      const existing = await prisma.customerPrice.findFirst({
-        where: { id, tenantId },
-      });
+      try {
+        const useCase = makeUpdateCustomerPriceUseCase();
+        const { customerPrice } = await useCase.execute({
+          id,
+          tenantId,
+          price: body.price,
+          validFrom: body.validFrom,
+          validUntil: body.validUntil,
+          notes: body.notes,
+        });
 
-      if (!existing) {
-        return reply.status(404).send({ message: 'Customer price not found' });
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.SALES.CUSTOMER_PRICE_UPDATE,
+          entityId: customerPrice.id.toString(),
+          placeholders: {
+            userName: userId,
+            customerId: customerPrice.customerId.toString(),
+          },
+          oldData: { price: customerPrice.price },
+          newData: { price: body.price },
+        });
+
+        return reply.status(200).send({
+          customerPrice: {
+            id: customerPrice.id.toString(),
+            tenantId: customerPrice.tenantId.toString(),
+            customerId: customerPrice.customerId.toString(),
+            variantId: customerPrice.variantId.toString(),
+            price: customerPrice.price,
+            validFrom: customerPrice.validFrom ?? null,
+            validUntil: customerPrice.validUntil ?? null,
+            notes: customerPrice.notes ?? null,
+            createdByUserId: customerPrice.createdByUserId.toString(),
+            createdAt: customerPrice.createdAt,
+            updatedAt: customerPrice.updatedAt ?? null,
+          },
+        });
+      } catch (error) {
+        if (error instanceof ResourceNotFoundError) {
+          return reply.status(404).send({ message: error.message });
+        }
+        throw error;
       }
-
-      const customerPrice = await prisma.customerPrice.update({
-        where: { id },
-        data: body,
-      });
-
-      await logAudit(request, {
-        message: AUDIT_MESSAGES.SALES.CUSTOMER_PRICE_UPDATE,
-        entityId: customerPrice.id,
-        placeholders: {
-          userName: userId,
-          customerId: existing.customerId,
-        },
-        oldData: { price: Number(existing.price) },
-        newData: { price: body.price },
-      });
-
-      return reply.status(200).send({
-        customerPrice: {
-          ...customerPrice,
-          price: Number(customerPrice.price),
-          validFrom: customerPrice.validFrom ?? null,
-          validUntil: customerPrice.validUntil ?? null,
-          notes: customerPrice.notes ?? null,
-        },
-      });
     },
   });
 }

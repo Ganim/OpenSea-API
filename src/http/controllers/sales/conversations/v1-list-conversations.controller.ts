@@ -2,6 +2,8 @@ import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
+import { conversationResponseSchema } from '@/http/schemas/sales/conversations/conversation.schema';
+import { makeListConversationsUseCase } from '@/use-cases/sales/conversations/factories/make-list-conversations-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
@@ -19,38 +21,33 @@ export async function listConversationsController(app: FastifyInstance) {
       }),
     ],
     schema: {
-      tags: ['Sales - Conversations (Planejado)'],
-      summary: 'Listar conversas (endpoint planejado)',
+      tags: ['Sales - Conversations'],
+      summary: 'List conversations',
       querystring: z.object({
-        page: z.coerce.number().min(1).default(1),
-        limit: z.coerce.number().min(1).max(100).default(20),
+        page: z.coerce.number().int().positive().default(1),
+        perPage: z.coerce.number().int().positive().max(100).default(20),
+        status: z.enum(['OPEN', 'CLOSED', 'ARCHIVED']).optional(),
       }),
       response: {
         200: z.object({
-          conversations: z.array(z.any()),
-          meta: z.object({
-            total: z.number(),
-            page: z.number(),
-            limit: z.number(),
-            pages: z.number(),
-          }),
+          conversations: z.array(conversationResponseSchema),
+          total: z.number(),
+          page: z.number(),
+          perPage: z.number(),
+          totalPages: z.number(),
         }),
       },
       security: [{ bearerAuth: [] }],
     },
 
     handler: async (request, reply) => {
-      const { page, limit } = request.query;
+      const query = request.query;
+      const tenantId = request.user.tenantId!;
 
-      return reply.status(200).send({
-        conversations: [],
-        meta: {
-          total: 0,
-          page,
-          limit,
-          pages: 0,
-        },
-      });
+      const useCase = makeListConversationsUseCase();
+      const result = await useCase.execute({ tenantId, ...query });
+
+      return reply.status(200).send(result);
     },
   });
 }

@@ -1,11 +1,10 @@
-// TODO: Replace with Prisma repositories when Prisma implementations are created
-import { InMemoryActivitiesRepository } from '@/repositories/sales/in-memory/in-memory-activities-repository';
-import { InMemoryTimelineEventsRepository } from '@/repositories/sales/in-memory/in-memory-timeline-events-repository';
+import { PrismaActivitiesRepository } from '@/repositories/sales/prisma/prisma-activities-repository';
+import { PrismaTimelineEventsRepository } from '@/repositories/sales/prisma/prisma-timeline-events-repository';
 import { GetTimelineUseCase } from '@/use-cases/sales/timeline/get-timeline';
 
 export function makeGetTimelineUseCase() {
-  const activitiesRepository = new InMemoryActivitiesRepository();
-  const timelineEventsRepository = new InMemoryTimelineEventsRepository();
+  const activitiesRepository = new PrismaActivitiesRepository();
+  const timelineEventsRepository = new PrismaTimelineEventsRepository();
 
   return new GetTimelineUseCase(activitiesRepository, timelineEventsRepository);
 }

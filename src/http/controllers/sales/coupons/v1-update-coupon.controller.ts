@@ -1,3 +1,5 @@
+import { ConflictError } from '@/@errors/use-cases/conflict-error';
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
@@ -5,7 +7,8 @@ import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { couponResponseSchema, updateCouponSchema } from '@/http/schemas';
-import { prisma } from '@/lib/prisma';
+import { makeGetCouponByIdUseCase } from '@/use-cases/sales/coupons/factories/make-get-coupon-by-id-use-case';
+import { makeUpdateCouponUseCase } from '@/use-cases/sales/coupons/factories/make-update-coupon-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
@@ -45,80 +48,72 @@ export async function updateCouponController(app: FastifyInstance) {
       const { id } = request.params;
       const body = request.body;
 
-      const existingCoupon = await prisma.coupon.findFirst({
-        where: { id, tenantId },
-      });
+      try {
+        // Get existing for audit
+        const getUseCase = makeGetCouponByIdUseCase();
+        const { coupon: existing } = await getUseCase.execute({ id, tenantId });
 
-      if (!existingCoupon) {
-        return reply.status(404).send({ message: 'Coupon not found' });
-      }
-
-      // Check for duplicate code if code is being changed
-      if (body.code && body.code !== existingCoupon.code) {
-        const duplicateCoupon = await prisma.coupon.findUnique({
-          where: { tenantId_code: { tenantId, code: body.code } },
+        const useCase = makeUpdateCouponUseCase();
+        const { coupon } = await useCase.execute({
+          id,
+          tenantId,
+          code: body.code,
+          isActive: body.isActive,
         });
 
-        if (duplicateCoupon) {
-          return reply
-            .status(409)
-            .send({ message: 'Coupon code already exists in this tenant' });
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.SALES.COUPON_UPDATE,
+          entityId: coupon.couponId.toString(),
+          placeholders: {
+            userName: userId,
+            couponCode: coupon.code,
+          },
+          oldData: {
+            code: existing.code,
+            type: existing.discountType,
+            value: existing.discountValue,
+          },
+          newData: {
+            code: coupon.code,
+            type: coupon.discountType,
+            value: coupon.discountValue,
+          },
+        });
+
+        return reply.status(200).send({
+          coupon: {
+            id: coupon.couponId.toString(),
+            tenantId: coupon.tenantId.toString(),
+            code: coupon.code,
+            type: coupon.discountType,
+            value: coupon.discountValue,
+            applicableTo: coupon.applicableTo,
+            minOrderValue: coupon.minOrderValue ?? null,
+            maxDiscount: coupon.maxDiscountAmount ?? null,
+            maxUsageTotal: coupon.maxUsageTotal ?? null,
+            maxUsagePerCustomer: coupon.maxUsagePerCustomer ?? 0,
+            usageCount: coupon.currentUsageTotal,
+            validFrom: coupon.startDate ?? new Date(),
+            validUntil: coupon.endDate ?? new Date(),
+            isActive: coupon.isActive,
+            campaignId: null,
+            aiGenerated: false,
+            aiReason: null,
+            customerId: null,
+            targetIds: [],
+            createdAt: coupon.createdAt,
+            updatedAt: coupon.updatedAt,
+          },
+        });
+      } catch (error) {
+        if (error instanceof ResourceNotFoundError) {
+          return reply.status(404).send({ message: error.message });
         }
+        if (error instanceof ConflictError) {
+          return reply.status(409).send({ message: error.message });
+        }
+        throw error;
       }
-
-      const coupon = await prisma.coupon.update({
-        where: { id },
-        data: {
-          campaignId: body.campaignId,
-          code: body.code,
-          type: body.type,
-          value: body.value,
-          minOrderValue: body.minOrderValue,
-          maxDiscount: body.maxDiscount,
-          maxUsageTotal: body.maxUsageTotal,
-          maxUsagePerCustomer: body.maxUsagePerCustomer,
-          validFrom: body.validFrom,
-          validUntil: body.validUntil,
-          isActive: body.isActive,
-          applicableTo: body.applicableTo,
-          targetIds: body.targetIds,
-          customerId: body.customerId,
-        },
-      });
-
-      await logAudit(request, {
-        message: AUDIT_MESSAGES.SALES.COUPON_UPDATE,
-        entityId: coupon.id,
-        placeholders: {
-          userName: userId,
-          couponCode: coupon.code,
-        },
-        oldData: {
-          code: existingCoupon.code,
-          type: existingCoupon.type,
-          value: Number(existingCoupon.value),
-        },
-        newData: {
-          code: coupon.code,
-          type: coupon.type,
-          value: Number(coupon.value),
-        },
-      });
-
-      return reply.status(200).send({
-        coupon: {
-          ...coupon,
-          value: Number(coupon.value),
-          minOrderValue: coupon.minOrderValue
-            ? Number(coupon.minOrderValue)
-            : null,
-          maxDiscount: coupon.maxDiscount ? Number(coupon.maxDiscount) : null,
-          maxUsageTotal: coupon.maxUsageTotal ?? null,
-          campaignId: coupon.campaignId ?? null,
-          aiReason: coupon.aiReason ?? null,
-          customerId: coupon.customerId ?? null,
-        },
-      });
     },
   });
 }

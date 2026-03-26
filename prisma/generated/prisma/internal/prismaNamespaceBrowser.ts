@@ -326,7 +326,23 @@ export const ModelName = {
   BankConnection: 'BankConnection',
   PaymentLink: 'PaymentLink',
   AccountantAccess: 'AccountantAccess',
-  ExchangeRate: 'ExchangeRate'
+  ExchangeRate: 'ExchangeRate',
+  Quote: 'Quote',
+  QuoteItem: 'QuoteItem',
+  Proposal: 'Proposal',
+  ProposalItem: 'ProposalItem',
+  ProposalAttachment: 'ProposalAttachment',
+  DiscountRule: 'DiscountRule',
+  Workflow: 'Workflow',
+  WorkflowStep: 'WorkflowStep',
+  Conversation: 'Conversation',
+  ConversationMessage: 'ConversationMessage',
+  Form: 'Form',
+  FormField: 'FormField',
+  FormSubmission: 'FormSubmission',
+  MessageTemplate: 'MessageTemplate',
+  CashierSession: 'CashierSession',
+  CashierTransaction: 'CashierTransaction'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -6093,6 +6109,271 @@ export const ExchangeRateScalarFieldEnum = {
 } as const
 
 export type ExchangeRateScalarFieldEnum = (typeof ExchangeRateScalarFieldEnum)[keyof typeof ExchangeRateScalarFieldEnum]
+
+
+export const QuoteScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  customerId: 'customerId',
+  title: 'title',
+  status: 'status',
+  validUntil: 'validUntil',
+  notes: 'notes',
+  subtotal: 'subtotal',
+  discount: 'discount',
+  total: 'total',
+  sentAt: 'sentAt',
+  createdBy: 'createdBy',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type QuoteScalarFieldEnum = (typeof QuoteScalarFieldEnum)[keyof typeof QuoteScalarFieldEnum]
+
+
+export const QuoteItemScalarFieldEnum = {
+  id: 'id',
+  quoteId: 'quoteId',
+  variantId: 'variantId',
+  productName: 'productName',
+  quantity: 'quantity',
+  unitPrice: 'unitPrice',
+  discount: 'discount',
+  total: 'total',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type QuoteItemScalarFieldEnum = (typeof QuoteItemScalarFieldEnum)[keyof typeof QuoteItemScalarFieldEnum]
+
+
+export const ProposalScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  customerId: 'customerId',
+  title: 'title',
+  description: 'description',
+  status: 'status',
+  validUntil: 'validUntil',
+  terms: 'terms',
+  totalValue: 'totalValue',
+  sentAt: 'sentAt',
+  createdBy: 'createdBy',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type ProposalScalarFieldEnum = (typeof ProposalScalarFieldEnum)[keyof typeof ProposalScalarFieldEnum]
+
+
+export const ProposalItemScalarFieldEnum = {
+  id: 'id',
+  proposalId: 'proposalId',
+  description: 'description',
+  quantity: 'quantity',
+  unitPrice: 'unitPrice',
+  total: 'total',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ProposalItemScalarFieldEnum = (typeof ProposalItemScalarFieldEnum)[keyof typeof ProposalItemScalarFieldEnum]
+
+
+export const ProposalAttachmentScalarFieldEnum = {
+  id: 'id',
+  proposalId: 'proposalId',
+  fileName: 'fileName',
+  fileUrl: 'fileUrl',
+  fileSize: 'fileSize',
+  createdAt: 'createdAt'
+} as const
+
+export type ProposalAttachmentScalarFieldEnum = (typeof ProposalAttachmentScalarFieldEnum)[keyof typeof ProposalAttachmentScalarFieldEnum]
+
+
+export const DiscountRuleScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  name: 'name',
+  description: 'description',
+  type: 'type',
+  value: 'value',
+  minOrderValue: 'minOrderValue',
+  minQuantity: 'minQuantity',
+  categoryId: 'categoryId',
+  productId: 'productId',
+  customerId: 'customerId',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  isActive: 'isActive',
+  priority: 'priority',
+  isStackable: 'isStackable',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type DiscountRuleScalarFieldEnum = (typeof DiscountRuleScalarFieldEnum)[keyof typeof DiscountRuleScalarFieldEnum]
+
+
+export const WorkflowScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  name: 'name',
+  description: 'description',
+  trigger: 'trigger',
+  isActive: 'isActive',
+  executionCount: 'executionCount',
+  lastExecutedAt: 'lastExecutedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type WorkflowScalarFieldEnum = (typeof WorkflowScalarFieldEnum)[keyof typeof WorkflowScalarFieldEnum]
+
+
+export const WorkflowStepScalarFieldEnum = {
+  id: 'id',
+  workflowId: 'workflowId',
+  order: 'order',
+  type: 'type',
+  config: 'config',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type WorkflowStepScalarFieldEnum = (typeof WorkflowStepScalarFieldEnum)[keyof typeof WorkflowStepScalarFieldEnum]
+
+
+export const ConversationScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  customerId: 'customerId',
+  subject: 'subject',
+  status: 'status',
+  lastMessageAt: 'lastMessageAt',
+  createdBy: 'createdBy',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type ConversationScalarFieldEnum = (typeof ConversationScalarFieldEnum)[keyof typeof ConversationScalarFieldEnum]
+
+
+export const ConversationMessageScalarFieldEnum = {
+  id: 'id',
+  conversationId: 'conversationId',
+  senderId: 'senderId',
+  senderName: 'senderName',
+  senderType: 'senderType',
+  content: 'content',
+  readAt: 'readAt',
+  createdAt: 'createdAt'
+} as const
+
+export type ConversationMessageScalarFieldEnum = (typeof ConversationMessageScalarFieldEnum)[keyof typeof ConversationMessageScalarFieldEnum]
+
+
+export const FormScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  title: 'title',
+  description: 'description',
+  status: 'status',
+  submissionCount: 'submissionCount',
+  createdBy: 'createdBy',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type FormScalarFieldEnum = (typeof FormScalarFieldEnum)[keyof typeof FormScalarFieldEnum]
+
+
+export const FormFieldScalarFieldEnum = {
+  id: 'id',
+  formId: 'formId',
+  label: 'label',
+  type: 'type',
+  options: 'options',
+  isRequired: 'isRequired',
+  order: 'order',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type FormFieldScalarFieldEnum = (typeof FormFieldScalarFieldEnum)[keyof typeof FormFieldScalarFieldEnum]
+
+
+export const FormSubmissionScalarFieldEnum = {
+  id: 'id',
+  formId: 'formId',
+  data: 'data',
+  submittedBy: 'submittedBy',
+  createdAt: 'createdAt'
+} as const
+
+export type FormSubmissionScalarFieldEnum = (typeof FormSubmissionScalarFieldEnum)[keyof typeof FormSubmissionScalarFieldEnum]
+
+
+export const MessageTemplateScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  name: 'name',
+  channel: 'channel',
+  subject: 'subject',
+  body: 'body',
+  variables: 'variables',
+  isActive: 'isActive',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type MessageTemplateScalarFieldEnum = (typeof MessageTemplateScalarFieldEnum)[keyof typeof MessageTemplateScalarFieldEnum]
+
+
+export const CashierSessionScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  cashierId: 'cashierId',
+  posTerminalId: 'posTerminalId',
+  openedAt: 'openedAt',
+  closedAt: 'closedAt',
+  openingBalance: 'openingBalance',
+  closingBalance: 'closingBalance',
+  expectedBalance: 'expectedBalance',
+  difference: 'difference',
+  status: 'status',
+  notes: 'notes',
+  createdAt: 'createdAt'
+} as const
+
+export type CashierSessionScalarFieldEnum = (typeof CashierSessionScalarFieldEnum)[keyof typeof CashierSessionScalarFieldEnum]
+
+
+export const CashierTransactionScalarFieldEnum = {
+  id: 'id',
+  sessionId: 'sessionId',
+  type: 'type',
+  amount: 'amount',
+  description: 'description',
+  paymentMethod: 'paymentMethod',
+  referenceId: 'referenceId',
+  createdAt: 'createdAt'
+} as const
+
+export type CashierTransactionScalarFieldEnum = (typeof CashierTransactionScalarFieldEnum)[keyof typeof CashierTransactionScalarFieldEnum]
 
 
 export const SortOrder = {

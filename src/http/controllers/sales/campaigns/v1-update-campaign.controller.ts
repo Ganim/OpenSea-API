@@ -1,3 +1,4 @@
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
@@ -5,7 +6,8 @@ import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { campaignResponseSchema, updateCampaignSchema } from '@/http/schemas';
-import { prisma } from '@/lib/prisma';
+import { makeGetCampaignByIdUseCase } from '@/use-cases/sales/campaigns/factories/make-get-campaign-by-id-use-case';
+import { makeUpdateCampaignUseCase } from '@/use-cases/sales/campaigns/factories/make-update-campaign-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
@@ -44,92 +46,75 @@ export async function updateCampaignController(app: FastifyInstance) {
       const { id } = request.params;
       const body = request.body;
 
-      const existing = await prisma.campaign.findFirst({
-        where: { id, tenantId, deletedAt: null },
-      });
-
-      if (!existing) {
-        return reply.status(404).send({ message: 'Campaign not found' });
-      }
-
-      // Extract rules and products from body for separate handling
-      const { rules, products, targetAudience, ...restData } = body;
-      const campaignData = {
-        ...restData,
-        ...(targetAudience !== undefined && {
-          targetAudience: targetAudience as object,
-        }),
-      };
-
-      const campaign = await prisma.$transaction(async (tx) => {
-        // Update rules if provided
-        if (rules !== undefined) {
-          await tx.campaignRule.deleteMany({ where: { campaignId: id } });
-          if (rules && rules.length > 0) {
-            await tx.campaignRule.createMany({
-              data: rules.map((rule) => ({
-                campaignId: id,
-                tenantId,
-                ruleType: rule.ruleType,
-                operator: rule.operator,
-                value: rule.value,
-                value2: rule.value2,
-              })),
-            });
-          }
-        }
-
-        // Update products if provided
-        if (products !== undefined) {
-          await tx.campaignProduct.deleteMany({ where: { campaignId: id } });
-          if (products && products.length > 0) {
-            await tx.campaignProduct.createMany({
-              data: products.map((product) => ({
-                campaignId: id,
-                tenantId,
-                variantId: product.variantId,
-                categoryId: product.categoryId,
-                discountType: product.discountType,
-                discountValue: product.discountValue,
-                maxDiscount: product.maxDiscount,
-              })),
-            });
-          }
-        }
-
-        return tx.campaign.update({
-          where: { id },
-          data: campaignData,
+      try {
+        // Get existing campaign for audit old data
+        const getUseCase = makeGetCampaignByIdUseCase();
+        const { campaign: existing } = await getUseCase.execute({
+          id,
+          tenantId,
         });
-      });
 
-      await logAudit(request, {
-        message: AUDIT_MESSAGES.SALES.CAMPAIGN_UPDATE,
-        entityId: campaign.id,
-        placeholders: {
-          userName: userId,
-          campaignName: campaign.name,
-        },
-        oldData: {
-          name: existing.name,
-          type: existing.type,
-          status: existing.status,
-        },
-        newData: { name: body.name, type: body.type },
-      });
+        const useCase = makeUpdateCampaignUseCase();
+        const { campaign } = await useCase.execute({
+          id,
+          tenantId,
+          name: body.name,
+          description: body.description,
+          type: body.type as 'PERCENTAGE' | undefined,
+          priority: body.priority,
+          isStackable: body.stackable,
+          maxUsageTotal: body.maxUsageTotal,
+          maxUsagePerCustomer: body.maxUsagePerCustomer,
+          startDate: body.startDate,
+          endDate: body.endDate,
+        });
 
-      return reply.status(200).send({
-        campaign: {
-          ...campaign,
-          targetAudience:
-            (campaign.targetAudience as Record<string, unknown>) ?? null,
-          description: campaign.description ?? null,
-          maxUsageTotal: campaign.maxUsageTotal ?? null,
-          maxUsagePerCustomer: campaign.maxUsagePerCustomer ?? null,
-          aiReason: campaign.aiReason ?? null,
-          deletedAt: campaign.deletedAt ?? null,
-        },
-      });
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.SALES.CAMPAIGN_UPDATE,
+          entityId: campaign.campaignId.toString(),
+          placeholders: {
+            userName: userId,
+            campaignName: campaign.name,
+          },
+          oldData: {
+            name: existing.name,
+            type: existing.type,
+            status: existing.status,
+          },
+          newData: { name: body.name, type: body.type },
+        });
+
+        return reply.status(200).send({
+          campaign: {
+            id: campaign.campaignId.toString(),
+            tenantId: campaign.tenantId.toString(),
+            name: campaign.name,
+            description: campaign.description ?? null,
+            type: campaign.type,
+            status: campaign.status,
+            startDate: campaign.startDate ?? null,
+            endDate: campaign.endDate ?? null,
+            maxUsageTotal: campaign.maxUsageTotal ?? null,
+            maxUsagePerCustomer: campaign.maxUsagePerCustomer ?? null,
+            priority: campaign.priority,
+            stackable: campaign.isStackable,
+            usageCount: campaign.currentUsageTotal,
+            targetAudience: null,
+            channels: [],
+            aiGenerated: false,
+            aiReason: null,
+            createdByUserId: userId,
+            deletedAt: campaign.deletedAt ?? null,
+            createdAt: campaign.createdAt,
+            updatedAt: campaign.updatedAt,
+          },
+        });
+      } catch (error) {
+        if (error instanceof ResourceNotFoundError) {
+          return reply.status(404).send({ message: error.message });
+        }
+        throw error;
+      }
     },
   });
 }

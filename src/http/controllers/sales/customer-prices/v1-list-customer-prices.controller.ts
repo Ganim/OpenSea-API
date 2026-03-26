@@ -6,7 +6,7 @@ import {
   customerPriceResponseSchema,
   listCustomerPricesQuerySchema,
 } from '@/http/schemas';
-import { prisma } from '@/lib/prisma';
+import { makeListCustomerPricesUseCase } from '@/use-cases/sales/customer-prices/factories/make-list-customer-prices-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
@@ -46,35 +46,23 @@ export async function listCustomerPricesController(app: FastifyInstance) {
       const { page, limit, customerId, variantId, sortBy, sortOrder } =
         request.query;
 
-      const where = {
+      const useCase = makeListCustomerPricesUseCase();
+      const result = await useCase.execute({
         tenantId,
-        ...(customerId && { customerId }),
-        ...(variantId && { variantId }),
-      };
-
-      const [customerPrices, total] = await Promise.all([
-        prisma.customerPrice.findMany({
-          where,
-          skip: (page - 1) * limit,
-          take: limit,
-          orderBy: { [sortBy ?? 'createdAt']: sortOrder ?? 'desc' },
-        }),
-        prisma.customerPrice.count({ where }),
-      ]);
+        customerId: customerId ?? '',
+        page,
+        limit,
+        sortBy,
+        sortOrder,
+      });
 
       return reply.status(200).send({
-        customerPrices: customerPrices.map((cp) => ({
-          ...cp,
-          price: Number(cp.price),
-          validFrom: cp.validFrom ?? null,
-          validUntil: cp.validUntil ?? null,
-          notes: cp.notes ?? null,
-        })),
+        customerPrices: result.customerPrices,
         meta: {
-          total,
-          page,
-          limit,
-          pages: Math.ceil(total / limit),
+          total: result.total,
+          page: result.page,
+          limit: result.limit,
+          pages: result.totalPages,
         },
       });
     },

@@ -78,6 +78,19 @@ export const rejectAbsenceSchema = z.object({
 });
 
 /**
+ * Schema para atualização de ausência
+ */
+export const updateAbsenceSchema = z.object({
+  startDate: z.coerce.date().optional(),
+  endDate: z.coerce.date().optional(),
+  type: absenceTypeSchema.optional(),
+  reason: z.string().max(500).optional(),
+  notes: z.string().max(500).optional(),
+  documentUrl: z.string().max(500).optional().nullable(),
+  cid: z.string().max(10).optional().nullable(),
+});
+
+/**
  * Schema para filtros de listagem de ausências
  */
 export const listAbsencesQuerySchema = z.object({

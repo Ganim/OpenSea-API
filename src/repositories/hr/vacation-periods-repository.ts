@@ -18,6 +18,11 @@ export interface CreateVacationPeriodSchema {
 
 export interface UpdateVacationPeriodSchema {
   id: UniqueEntityID;
+  acquisitionStart?: Date;
+  acquisitionEnd?: Date;
+  concessionStart?: Date;
+  concessionEnd?: Date;
+  totalDays?: number;
   usedDays?: number;
   soldDays?: number;
   remainingDays?: number;

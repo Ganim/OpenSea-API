@@ -610,6 +610,22 @@ export const AuditEntity = {
   POS_SESSION: 'POS_SESSION',
   POS_TRANSACTION: 'POS_TRANSACTION',
   POS_CASH_MOVEMENT: 'POS_CASH_MOVEMENT',
+  QUOTE: 'QUOTE',
+  QUOTE_ITEM: 'QUOTE_ITEM',
+  PROPOSAL: 'PROPOSAL',
+  PROPOSAL_ITEM: 'PROPOSAL_ITEM',
+  PROPOSAL_ATTACHMENT: 'PROPOSAL_ATTACHMENT',
+  DISCOUNT_RULE: 'DISCOUNT_RULE',
+  WORKFLOW: 'WORKFLOW',
+  WORKFLOW_STEP: 'WORKFLOW_STEP',
+  CONVERSATION: 'CONVERSATION',
+  CONVERSATION_MESSAGE: 'CONVERSATION_MESSAGE',
+  FORM: 'FORM',
+  FORM_FIELD: 'FORM_FIELD',
+  FORM_SUBMISSION: 'FORM_SUBMISSION',
+  MESSAGE_TEMPLATE: 'MESSAGE_TEMPLATE',
+  CASHIER_SESSION: 'CASHIER_SESSION',
+  CASHIER_TRANSACTION: 'CASHIER_TRANSACTION',
   BID: 'BID',
   BID_DOCUMENT: 'BID_DOCUMENT',
   BID_CONTRACT: 'BID_CONTRACT',
@@ -3125,3 +3141,110 @@ export const PaymentLinkStatus = {
 } as const
 
 export type PaymentLinkStatus = (typeof PaymentLinkStatus)[keyof typeof PaymentLinkStatus]
+
+
+export const QuoteStatus = {
+  DRAFT: 'DRAFT',
+  SENT: 'SENT',
+  ACCEPTED: 'ACCEPTED',
+  REJECTED: 'REJECTED',
+  EXPIRED: 'EXPIRED'
+} as const
+
+export type QuoteStatus = (typeof QuoteStatus)[keyof typeof QuoteStatus]
+
+
+export const ProposalStatus = {
+  DRAFT: 'DRAFT',
+  SENT: 'SENT',
+  UNDER_REVIEW: 'UNDER_REVIEW',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED',
+  EXPIRED: 'EXPIRED'
+} as const
+
+export type ProposalStatus = (typeof ProposalStatus)[keyof typeof ProposalStatus]
+
+
+export const WorkflowTrigger = {
+  ORDER_CREATED: 'ORDER_CREATED',
+  ORDER_CONFIRMED: 'ORDER_CONFIRMED',
+  DEAL_WON: 'DEAL_WON',
+  DEAL_LOST: 'DEAL_LOST',
+  CUSTOMER_CREATED: 'CUSTOMER_CREATED',
+  QUOTE_SENT: 'QUOTE_SENT',
+  QUOTE_ACCEPTED: 'QUOTE_ACCEPTED'
+} as const
+
+export type WorkflowTrigger = (typeof WorkflowTrigger)[keyof typeof WorkflowTrigger]
+
+
+export const WorkflowStepType = {
+  SEND_EMAIL: 'SEND_EMAIL',
+  SEND_NOTIFICATION: 'SEND_NOTIFICATION',
+  UPDATE_STATUS: 'UPDATE_STATUS',
+  CREATE_TASK: 'CREATE_TASK'
+} as const
+
+export type WorkflowStepType = (typeof WorkflowStepType)[keyof typeof WorkflowStepType]
+
+
+export const ConversationStatus = {
+  OPEN: 'OPEN',
+  CLOSED: 'CLOSED',
+  ARCHIVED: 'ARCHIVED'
+} as const
+
+export type ConversationStatus = (typeof ConversationStatus)[keyof typeof ConversationStatus]
+
+
+export const FormStatus = {
+  DRAFT: 'DRAFT',
+  PUBLISHED: 'PUBLISHED',
+  ARCHIVED: 'ARCHIVED'
+} as const
+
+export type FormStatus = (typeof FormStatus)[keyof typeof FormStatus]
+
+
+export const FormFieldType = {
+  TEXT: 'TEXT',
+  NUMBER: 'NUMBER',
+  EMAIL: 'EMAIL',
+  PHONE: 'PHONE',
+  SELECT: 'SELECT',
+  CHECKBOX: 'CHECKBOX',
+  TEXTAREA: 'TEXTAREA',
+  DATE: 'DATE'
+} as const
+
+export type FormFieldType = (typeof FormFieldType)[keyof typeof FormFieldType]
+
+
+export const MessageChannel = {
+  EMAIL: 'EMAIL',
+  WHATSAPP: 'WHATSAPP',
+  SMS: 'SMS',
+  NOTIFICATION: 'NOTIFICATION'
+} as const
+
+export type MessageChannel = (typeof MessageChannel)[keyof typeof MessageChannel]
+
+
+export const CashierSessionStatus = {
+  OPEN: 'OPEN',
+  CLOSED: 'CLOSED',
+  RECONCILED: 'RECONCILED'
+} as const
+
+export type CashierSessionStatus = (typeof CashierSessionStatus)[keyof typeof CashierSessionStatus]
+
+
+export const CashierTransactionType = {
+  SALE: 'SALE',
+  REFUND: 'REFUND',
+  CASH_IN: 'CASH_IN',
+  CASH_OUT: 'CASH_OUT'
+} as const
+
+export type CashierTransactionType = (typeof CashierTransactionType)[keyof typeof CashierTransactionType]

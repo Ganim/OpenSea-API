@@ -55,6 +55,16 @@ export const completeVacationSchema = z.object({
 });
 
 /**
+ * Schema para atualização de período de férias
+ */
+export const updateVacationPeriodSchema = z.object({
+  scheduledStart: z.coerce.date().optional().nullable(),
+  scheduledEnd: z.coerce.date().optional().nullable(),
+  totalDays: z.number().int().positive().max(30).optional(),
+  notes: z.string().max(500).optional().nullable(),
+});
+
+/**
  * Schema para filtros de listagem de períodos de férias
  */
 export const listVacationPeriodsQuerySchema = z.object({

@@ -1,3 +1,4 @@
+import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
@@ -5,7 +6,7 @@ import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { comboResponseSchema, createComboSchema } from '@/http/schemas';
-import { prisma } from '@/lib/prisma';
+import { makeCreateComboUseCase } from '@/use-cases/sales/combos/factories/make-create-combo-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
@@ -40,65 +41,61 @@ export async function createComboController(app: FastifyInstance) {
       const userId = request.user.sub;
       const body = request.body;
 
-      const combo = await prisma.combo.create({
-        data: {
+      try {
+        const useCase = makeCreateComboUseCase();
+        const { combo } = await useCase.execute({
           tenantId,
           name: body.name,
           description: body.description,
           type: body.type,
-          fixedPrice: body.fixedPrice,
-          discountType: body.discountType,
-          discountValue: body.discountValue,
+          discountType: (body.discountType ?? 'PERCENTAGE') as 'PERCENTAGE',
+          discountValue: body.discountValue ?? 0,
+          isActive: body.isActive,
+          startDate: body.validFrom,
+          endDate: body.validUntil,
           minItems: body.minItems,
           maxItems: body.maxItems,
-          isActive: body.isActive,
-          validFrom: body.validFrom,
-          validUntil: body.validUntil,
-          imageUrl: body.imageUrl,
-          items: body.items
-            ? {
-                createMany: {
-                  data: body.items.map((item) => ({
-                    tenantId,
-                    variantId: item.variantId,
-                    categoryId: item.categoryId,
-                    quantity: item.quantity,
-                    isRequired: item.isRequired,
-                    position: item.position,
-                  })),
-                },
-              }
-            : undefined,
-        },
-      });
+        });
 
-      await logAudit(request, {
-        message: AUDIT_MESSAGES.SALES.COMBO_CREATE,
-        entityId: combo.id,
-        placeholders: {
-          userName: userId,
-          comboName: combo.name,
-        },
-        newData: { name: body.name, type: body.type },
-      });
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.SALES.COMBO_CREATE,
+          entityId: combo.comboId.toString(),
+          placeholders: {
+            userName: userId,
+            comboName: combo.name,
+          },
+          newData: { name: body.name, type: body.type },
+        });
 
-      return reply.status(201).send({
-        combo: {
-          ...combo,
-          fixedPrice: combo.fixedPrice ? Number(combo.fixedPrice) : null,
-          discountValue: combo.discountValue
-            ? Number(combo.discountValue)
-            : null,
-          description: combo.description ?? null,
-          discountType: combo.discountType ?? null,
-          minItems: combo.minItems ?? null,
-          maxItems: combo.maxItems ?? null,
-          validFrom: combo.validFrom ?? null,
-          validUntil: combo.validUntil ?? null,
-          imageUrl: combo.imageUrl ?? null,
-          deletedAt: combo.deletedAt ?? null,
-        },
-      });
+        return reply.status(201).send({
+          combo: {
+            id: combo.comboId.toString(),
+            tenantId: combo.tenantId.toString(),
+            name: combo.name,
+            description: combo.description ?? null,
+            type: combo.type,
+            discountType: combo.discountType ?? null,
+            discountValue: combo.discountValue
+              ? Number(combo.discountValue)
+              : null,
+            fixedPrice: null,
+            isActive: combo.isActive,
+            minItems: combo.minItems ?? null,
+            maxItems: combo.maxItems ?? null,
+            validFrom: combo.startDate ?? null,
+            validUntil: combo.endDate ?? null,
+            imageUrl: null,
+            deletedAt: combo.deletedAt ?? null,
+            createdAt: combo.createdAt,
+            updatedAt: combo.updatedAt,
+          },
+        });
+      } catch (error) {
+        if (error instanceof BadRequestError) {
+          return reply.status(400).send({ message: error.message });
+        }
+        throw error;
+      }
     },
   });
 }

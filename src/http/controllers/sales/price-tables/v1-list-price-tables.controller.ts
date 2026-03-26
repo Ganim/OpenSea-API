@@ -6,7 +6,7 @@ import {
   listPriceTablesQuerySchema,
   priceTableResponseSchema,
 } from '@/http/schemas';
-import { prisma } from '@/lib/prisma';
+import { makeListPriceTablesUseCase } from '@/use-cases/sales/price-tables/factories/make-list-price-tables-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
@@ -46,36 +46,25 @@ export async function listPriceTablesController(app: FastifyInstance) {
       const { page, limit, search, type, isActive, sortBy, sortOrder } =
         request.query;
 
-      const where = {
+      const useCase = makeListPriceTablesUseCase();
+      const result = await useCase.execute({
         tenantId,
-        deletedAt: null,
-        ...(search && {
-          OR: [
-            { name: { contains: search, mode: 'insensitive' as const } },
-            { description: { contains: search, mode: 'insensitive' as const } },
-          ],
-        }),
-        ...(type && { type }),
-        ...(isActive !== undefined && { isActive: isActive === 'true' }),
-      };
-
-      const [priceTables, total] = await Promise.all([
-        prisma.priceTable.findMany({
-          where,
-          skip: (page - 1) * limit,
-          take: limit,
-          orderBy: { [sortBy ?? 'createdAt']: sortOrder ?? 'desc' },
-        }),
-        prisma.priceTable.count({ where }),
-      ]);
+        page,
+        limit,
+        search,
+        type,
+        isActive: isActive !== undefined ? isActive === 'true' : undefined,
+        sortBy,
+        sortOrder,
+      });
 
       return reply.status(200).send({
-        priceTables,
+        priceTables: result.priceTables,
         meta: {
-          total,
-          page,
-          limit,
-          pages: Math.ceil(total / limit),
+          total: result.total,
+          page: result.page,
+          limit: result.limit,
+          pages: result.totalPages,
         },
       });
     },

@@ -297,6 +297,14 @@ export const HR_AUDIT_MESSAGES = {
     description: '{{userName}} cancelou a ausência de {{employeeName}}',
   } satisfies AuditMessage,
 
+  /** Ausência atualizada */
+  ABSENCE_UPDATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.ABSENCE,
+    module: AuditModule.HR,
+    description: '{{userName}} atualizou a ausência de {{employeeName}}',
+  } satisfies AuditMessage,
+
   // ============================================================================
   // VACATION PERIODS - Períodos aquisitivos de férias
   // ============================================================================
@@ -308,6 +316,14 @@ export const HR_AUDIT_MESSAGES = {
     module: AuditModule.HR,
     description:
       '{{userName}} criou período aquisitivo de férias para {{employeeName}}',
+  } satisfies AuditMessage,
+
+  /** Período de férias atualizado */
+  VACATION_PERIOD_UPDATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.VACATION_PERIOD,
+    module: AuditModule.HR,
+    description: '{{userName}} atualizou período de férias de {{employeeName}}',
   } satisfies AuditMessage,
 
   /** Férias agendadas */

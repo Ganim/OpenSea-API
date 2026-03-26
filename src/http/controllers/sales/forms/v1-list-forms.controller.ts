@@ -2,6 +2,8 @@ import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
+import { formResponseSchema } from '@/http/schemas/sales/forms/form.schema';
+import { makeListFormsUseCase } from '@/use-cases/sales/forms/factories/make-list-forms-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
@@ -19,38 +21,33 @@ export async function listFormsController(app: FastifyInstance) {
       }),
     ],
     schema: {
-      tags: ['Sales - Forms (Planejado)'],
-      summary: 'Listar formulários (endpoint planejado)',
+      tags: ['Sales - Forms'],
+      summary: 'List forms',
       querystring: z.object({
-        page: z.coerce.number().min(1).default(1),
-        limit: z.coerce.number().min(1).max(100).default(20),
+        page: z.coerce.number().int().positive().default(1),
+        perPage: z.coerce.number().int().positive().max(100).default(20),
+        status: z.enum(['DRAFT', 'PUBLISHED', 'ARCHIVED']).optional(),
       }),
       response: {
         200: z.object({
-          forms: z.array(z.any()),
-          meta: z.object({
-            total: z.number(),
-            page: z.number(),
-            limit: z.number(),
-            pages: z.number(),
-          }),
+          forms: z.array(formResponseSchema),
+          total: z.number(),
+          page: z.number(),
+          perPage: z.number(),
+          totalPages: z.number(),
         }),
       },
       security: [{ bearerAuth: [] }],
     },
 
     handler: async (request, reply) => {
-      const { page, limit } = request.query;
+      const query = request.query;
+      const tenantId = request.user.tenantId!;
 
-      return reply.status(200).send({
-        forms: [],
-        meta: {
-          total: 0,
-          page,
-          limit,
-          pages: 0,
-        },
-      });
+      const useCase = makeListFormsUseCase();
+      const result = await useCase.execute({ tenantId, ...query });
+
+      return reply.status(200).send(result);
     },
   });
 }

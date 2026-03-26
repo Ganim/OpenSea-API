@@ -1,9 +1,10 @@
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { campaignResponseSchema } from '@/http/schemas';
-import { prisma } from '@/lib/prisma';
+import { makeGetCampaignByIdUseCase } from '@/use-cases/sales/campaigns/factories/make-get-campaign-by-id-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
@@ -39,26 +40,41 @@ export async function getCampaignByIdController(app: FastifyInstance) {
       const tenantId = request.user.tenantId!;
       const { id } = request.params;
 
-      const campaign = await prisma.campaign.findFirst({
-        where: { id, tenantId, deletedAt: null },
-      });
+      try {
+        const useCase = makeGetCampaignByIdUseCase();
+        const { campaign } = await useCase.execute({ id, tenantId });
 
-      if (!campaign) {
-        return reply.status(404).send({ message: 'Campaign not found' });
+        return reply.status(200).send({
+          campaign: {
+            id: campaign.campaignId.toString(),
+            tenantId: campaign.tenantId.toString(),
+            name: campaign.name,
+            description: campaign.description ?? null,
+            type: campaign.type,
+            status: campaign.status,
+            startDate: campaign.startDate ?? null,
+            endDate: campaign.endDate ?? null,
+            maxUsageTotal: campaign.maxUsageTotal ?? null,
+            maxUsagePerCustomer: campaign.maxUsagePerCustomer ?? null,
+            priority: campaign.priority,
+            stackable: campaign.isStackable,
+            usageCount: campaign.currentUsageTotal,
+            targetAudience: null,
+            channels: [],
+            aiGenerated: false,
+            aiReason: null,
+            createdByUserId: userId,
+            deletedAt: campaign.deletedAt ?? null,
+            createdAt: campaign.createdAt,
+            updatedAt: campaign.updatedAt,
+          },
+        });
+      } catch (error) {
+        if (error instanceof ResourceNotFoundError) {
+          return reply.status(404).send({ message: error.message });
+        }
+        throw error;
       }
-
-      return reply.status(200).send({
-        campaign: {
-          ...campaign,
-          targetAudience:
-            (campaign.targetAudience as Record<string, unknown>) ?? null,
-          description: campaign.description ?? null,
-          maxUsageTotal: campaign.maxUsageTotal ?? null,
-          maxUsagePerCustomer: campaign.maxUsagePerCustomer ?? null,
-          aiReason: campaign.aiReason ?? null,
-          deletedAt: campaign.deletedAt ?? null,
-        },
-      });
     },
   });
 }

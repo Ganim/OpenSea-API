@@ -21,10 +21,16 @@ export interface CreateAbsenceSchema {
 export interface UpdateAbsenceSchema {
   id: UniqueEntityID;
   tenantId?: string;
+  startDate?: Date;
+  endDate?: Date;
+  type?: string;
+  totalDays?: number;
   status?: string;
   reason?: string;
   documentUrl?: string;
   cid?: string;
+  isPaid?: boolean;
+  isInssResponsibility?: boolean;
   approvedBy?: UniqueEntityID;
   approvedAt?: Date;
   rejectionReason?: string;

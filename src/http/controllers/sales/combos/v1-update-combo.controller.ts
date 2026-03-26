@@ -1,3 +1,4 @@
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
@@ -5,7 +6,8 @@ import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { comboResponseSchema, updateComboSchema } from '@/http/schemas';
-import { prisma } from '@/lib/prisma';
+import { makeGetComboByIdUseCase } from '@/use-cases/sales/combos/factories/make-get-combo-by-id-use-case';
+import { makeUpdateComboUseCase } from '@/use-cases/sales/combos/factories/make-update-combo-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
@@ -44,81 +46,71 @@ export async function updateComboController(app: FastifyInstance) {
       const { id } = request.params;
       const body = request.body;
 
-      const existingCombo = await prisma.combo.findFirst({
-        where: { id, tenantId, deletedAt: null },
-      });
+      try {
+        // Get existing for audit
+        const getUseCase = makeGetComboByIdUseCase();
+        const { combo: existingCombo } = await getUseCase.execute({
+          id,
+          tenantId,
+        });
 
-      if (!existingCombo) {
-        return reply.status(404).send({ message: 'Combo not found' });
-      }
+        const useCase = makeUpdateComboUseCase();
+        const { combo } = await useCase.execute({
+          id,
+          tenantId,
+          name: body.name,
+          description: body.description ?? undefined,
+          type: body.type,
+          discountType:
+            (body.discountType as 'PERCENTAGE' | undefined) ?? undefined,
+          discountValue: body.discountValue ?? undefined,
+          isActive: body.isActive,
+          startDate: body.validFrom ?? undefined,
+          endDate: body.validUntil ?? undefined,
+          minItems: body.minItems ?? undefined,
+          maxItems: body.maxItems ?? undefined,
+        });
 
-      const combo = await prisma.$transaction(async (tx) => {
-        // If items are provided, replace all existing items
-        if (body.items) {
-          await tx.comboItem.deleteMany({ where: { comboId: id } });
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.SALES.COMBO_UPDATE,
+          entityId: combo.comboId.toString(),
+          placeholders: {
+            userName: userId,
+            comboName: combo.name,
+          },
+          oldData: { name: existingCombo.name, type: existingCombo.type },
+          newData: { name: combo.name, type: combo.type },
+        });
 
-          if (body.items.length > 0) {
-            await tx.comboItem.createMany({
-              data: body.items.map((item) => ({
-                comboId: id,
-                tenantId,
-                variantId: item.variantId,
-                categoryId: item.categoryId,
-                quantity: item.quantity,
-                isRequired: item.isRequired,
-                position: item.position,
-              })),
-            });
-          }
-        }
-
-        return tx.combo.update({
-          where: { id },
-          data: {
-            name: body.name,
-            description: body.description,
-            type: body.type,
-            fixedPrice: body.fixedPrice,
-            discountType: body.discountType,
-            discountValue: body.discountValue,
-            minItems: body.minItems,
-            maxItems: body.maxItems,
-            isActive: body.isActive,
-            validFrom: body.validFrom,
-            validUntil: body.validUntil,
-            imageUrl: body.imageUrl,
+        return reply.status(200).send({
+          combo: {
+            id: combo.comboId.toString(),
+            tenantId: combo.tenantId.toString(),
+            name: combo.name,
+            description: combo.description ?? null,
+            type: combo.type,
+            discountType: combo.discountType ?? null,
+            discountValue: combo.discountValue
+              ? Number(combo.discountValue)
+              : null,
+            fixedPrice: null,
+            isActive: combo.isActive,
+            minItems: combo.minItems ?? null,
+            maxItems: combo.maxItems ?? null,
+            validFrom: combo.startDate ?? null,
+            validUntil: combo.endDate ?? null,
+            imageUrl: null,
+            deletedAt: combo.deletedAt ?? null,
+            createdAt: combo.createdAt,
+            updatedAt: combo.updatedAt,
           },
         });
-      });
-
-      await logAudit(request, {
-        message: AUDIT_MESSAGES.SALES.COMBO_UPDATE,
-        entityId: combo.id,
-        placeholders: {
-          userName: userId,
-          comboName: combo.name,
-        },
-        oldData: { name: existingCombo.name, type: existingCombo.type },
-        newData: { name: combo.name, type: combo.type },
-      });
-
-      return reply.status(200).send({
-        combo: {
-          ...combo,
-          fixedPrice: combo.fixedPrice ? Number(combo.fixedPrice) : null,
-          discountValue: combo.discountValue
-            ? Number(combo.discountValue)
-            : null,
-          description: combo.description ?? null,
-          discountType: combo.discountType ?? null,
-          minItems: combo.minItems ?? null,
-          maxItems: combo.maxItems ?? null,
-          validFrom: combo.validFrom ?? null,
-          validUntil: combo.validUntil ?? null,
-          imageUrl: combo.imageUrl ?? null,
-          deletedAt: combo.deletedAt ?? null,
-        },
-      });
+      } catch (error) {
+        if (error instanceof ResourceNotFoundError) {
+          return reply.status(404).send({ message: error.message });
+        }
+        throw error;
+      }
     },
   });
 }

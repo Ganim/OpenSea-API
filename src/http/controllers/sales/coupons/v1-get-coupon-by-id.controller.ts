@@ -1,9 +1,10 @@
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { couponResponseSchema } from '@/http/schemas';
-import { prisma } from '@/lib/prisma';
+import { makeGetCouponByIdUseCase } from '@/use-cases/sales/coupons/factories/make-get-coupon-by-id-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
@@ -39,28 +40,41 @@ export async function getCouponByIdController(app: FastifyInstance) {
       const tenantId = request.user.tenantId!;
       const { id } = request.params;
 
-      const coupon = await prisma.coupon.findFirst({
-        where: { id, tenantId },
-      });
+      try {
+        const useCase = makeGetCouponByIdUseCase();
+        const { coupon } = await useCase.execute({ id, tenantId });
 
-      if (!coupon) {
-        return reply.status(404).send({ message: 'Coupon not found' });
+        return reply.status(200).send({
+          coupon: {
+            id: coupon.couponId.toString(),
+            tenantId: coupon.tenantId.toString(),
+            code: coupon.code,
+            type: coupon.discountType,
+            value: coupon.discountValue,
+            applicableTo: coupon.applicableTo,
+            minOrderValue: coupon.minOrderValue ?? null,
+            maxDiscount: coupon.maxDiscountAmount ?? null,
+            maxUsageTotal: coupon.maxUsageTotal ?? null,
+            maxUsagePerCustomer: coupon.maxUsagePerCustomer ?? 0,
+            usageCount: coupon.currentUsageTotal,
+            validFrom: coupon.startDate ?? new Date(),
+            validUntil: coupon.endDate ?? new Date(),
+            isActive: coupon.isActive,
+            campaignId: null,
+            aiGenerated: false,
+            aiReason: null,
+            customerId: null,
+            targetIds: [],
+            createdAt: coupon.createdAt,
+            updatedAt: coupon.updatedAt,
+          },
+        });
+      } catch (error) {
+        if (error instanceof ResourceNotFoundError) {
+          return reply.status(404).send({ message: error.message });
+        }
+        throw error;
       }
-
-      return reply.status(200).send({
-        coupon: {
-          ...coupon,
-          value: Number(coupon.value),
-          minOrderValue: coupon.minOrderValue
-            ? Number(coupon.minOrderValue)
-            : null,
-          maxDiscount: coupon.maxDiscount ? Number(coupon.maxDiscount) : null,
-          maxUsageTotal: coupon.maxUsageTotal ?? null,
-          campaignId: coupon.campaignId ?? null,
-          aiReason: coupon.aiReason ?? null,
-          customerId: coupon.customerId ?? null,
-        },
-      });
     },
   });
 }

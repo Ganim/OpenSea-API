@@ -3,7 +3,7 @@ import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { couponResponseSchema, listCouponsQuerySchema } from '@/http/schemas';
-import { prisma } from '@/lib/prisma';
+import { makeListCouponsUseCase } from '@/use-cases/sales/coupons/factories/make-list-coupons-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
@@ -40,53 +40,46 @@ export async function listCouponsController(app: FastifyInstance) {
 
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
-      const {
+      const { page, limit, search, isActive } = request.query;
+
+      const useCase = makeListCouponsUseCase();
+      const { coupons } = await useCase.execute({
+        tenantId,
         page,
         limit,
         search,
-        type,
-        isActive,
-        campaignId,
-        sortBy,
-        sortOrder,
-      } = request.query;
-
-      const where = {
-        tenantId,
-        ...(search && {
-          code: { contains: search, mode: 'insensitive' as const },
-        }),
-        ...(type && { type }),
-        ...(isActive !== undefined && { isActive: isActive === 'true' }),
-        ...(campaignId && { campaignId }),
-      };
-
-      const [coupons, total] = await Promise.all([
-        prisma.coupon.findMany({
-          where,
-          skip: (page - 1) * limit,
-          take: limit,
-          orderBy: { [sortBy ?? 'createdAt']: sortOrder ?? 'desc' },
-        }),
-        prisma.coupon.count({ where }),
-      ]);
+        isActive: isActive !== undefined ? isActive === 'true' : undefined,
+      });
 
       return reply.status(200).send({
-        coupons: coupons.map((c) => ({
-          ...c,
-          value: Number(c.value),
-          minOrderValue: c.minOrderValue ? Number(c.minOrderValue) : null,
-          maxDiscount: c.maxDiscount ? Number(c.maxDiscount) : null,
+        coupons: coupons.data.map((c) => ({
+          id: c.couponId.toString(),
+          tenantId: c.tenantId.toString(),
+          code: c.code,
+          type: c.discountType,
+          value: c.discountValue,
+          applicableTo: c.applicableTo,
+          minOrderValue: c.minOrderValue ?? null,
+          maxDiscount: c.maxDiscountAmount ?? null,
           maxUsageTotal: c.maxUsageTotal ?? null,
-          campaignId: c.campaignId ?? null,
-          aiReason: c.aiReason ?? null,
-          customerId: c.customerId ?? null,
+          maxUsagePerCustomer: c.maxUsagePerCustomer ?? 0,
+          usageCount: c.currentUsageTotal,
+          validFrom: c.startDate ?? new Date(),
+          validUntil: c.endDate ?? new Date(),
+          isActive: c.isActive,
+          campaignId: null,
+          aiGenerated: false,
+            aiReason: null,
+          customerId: null,
+          targetIds: [],
+          createdAt: c.createdAt,
+          updatedAt: c.updatedAt,
         })),
         meta: {
-          total,
-          page,
-          limit,
-          pages: Math.ceil(total / limit),
+          total: coupons.total,
+          page: coupons.page,
+          limit: coupons.limit,
+          pages: coupons.totalPages,
         },
       });
     },

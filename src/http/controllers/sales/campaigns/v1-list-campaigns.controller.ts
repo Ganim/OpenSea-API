@@ -6,7 +6,8 @@ import {
   campaignResponseSchema,
   listCampaignsQuerySchema,
 } from '@/http/schemas';
-import { prisma } from '@/lib/prisma';
+import type { Campaign } from '@/entities/sales/campaign';
+import { makeListCampaignsUseCase } from '@/use-cases/sales/campaigns/factories/make-list-campaigns-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
@@ -46,41 +47,44 @@ export async function listCampaignsController(app: FastifyInstance) {
       const { page, limit, search, type, status, sortBy, sortOrder } =
         request.query;
 
-      const where = {
+      const useCase = makeListCampaignsUseCase();
+      const { campaigns } = await useCase.execute({
         tenantId,
-        deletedAt: null,
-        ...(search && {
-          name: { contains: search, mode: 'insensitive' as const },
-        }),
-        ...(type && { type }),
-        ...(status && { status }),
-      };
-
-      const [campaigns, total] = await Promise.all([
-        prisma.campaign.findMany({
-          where,
-          skip: (page - 1) * limit,
-          take: limit,
-          orderBy: { [sortBy ?? 'createdAt']: sortOrder ?? 'desc' },
-        }),
-        prisma.campaign.count({ where }),
-      ]);
+        page,
+        limit,
+        status: status as Campaign['status'] | undefined,
+        search,
+      });
 
       return reply.status(200).send({
-        campaigns: campaigns.map((c) => ({
-          ...c,
-          targetAudience: (c.targetAudience as Record<string, unknown>) ?? null,
+        campaigns: campaigns.data.map((c) => ({
+          id: c.campaignId.toString(),
+          tenantId: c.tenantId.toString(),
+          name: c.name,
           description: c.description ?? null,
+          type: c.type,
+          status: c.status,
+          startDate: c.startDate ?? null,
+          endDate: c.endDate ?? null,
           maxUsageTotal: c.maxUsageTotal ?? null,
           maxUsagePerCustomer: c.maxUsagePerCustomer ?? null,
-          aiReason: c.aiReason ?? null,
+          priority: c.priority,
+          stackable: c.isStackable,
+          usageCount: c.currentUsageTotal,
+          targetAudience: null,
+          channels: [] as string[],
+          aiGenerated: false,
+          aiReason: null,
+          createdByUserId: '00000000-0000-0000-0000-000000000000',
           deletedAt: c.deletedAt ?? null,
+          createdAt: c.createdAt,
+          updatedAt: c.updatedAt,
         })),
         meta: {
-          total,
-          page,
-          limit,
-          pages: Math.ceil(total / limit),
+          total: campaigns.total,
+          page: campaigns.page,
+          limit: campaigns.limit,
+          pages: campaigns.totalPages,
         },
       });
     },

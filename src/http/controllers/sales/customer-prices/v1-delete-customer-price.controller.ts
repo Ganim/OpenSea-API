@@ -1,10 +1,11 @@
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { prisma } from '@/lib/prisma';
+import { makeDeleteCustomerPriceUseCase } from '@/use-cases/sales/customer-prices/factories/make-delete-customer-price-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
@@ -39,31 +40,27 @@ export async function deleteCustomerPriceController(app: FastifyInstance) {
       const userId = request.user.sub;
       const { id } = request.params;
 
-      const existing = await prisma.customerPrice.findFirst({
-        where: { id, tenantId },
-      });
+      try {
+        const useCase = makeDeleteCustomerPriceUseCase();
+        await useCase.execute({ id, tenantId });
 
-      if (!existing) {
-        return reply.status(404).send({ message: 'Customer price not found' });
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.SALES.CUSTOMER_PRICE_DELETE,
+          entityId: id,
+          placeholders: {
+            userName: userId,
+            customerId: id,
+          },
+          oldData: { id },
+        });
+
+        return reply.status(204).send(null);
+      } catch (error) {
+        if (error instanceof ResourceNotFoundError) {
+          return reply.status(404).send({ message: error.message });
+        }
+        throw error;
       }
-
-      await prisma.customerPrice.delete({ where: { id } });
-
-      await logAudit(request, {
-        message: AUDIT_MESSAGES.SALES.CUSTOMER_PRICE_DELETE,
-        entityId: id,
-        placeholders: {
-          userName: userId,
-          customerId: existing.customerId,
-        },
-        oldData: {
-          customerId: existing.customerId,
-          variantId: existing.variantId,
-          price: Number(existing.price),
-        },
-      });
-
-      return reply.status(204).send(null);
     },
   });
 }

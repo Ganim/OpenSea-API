@@ -1,3 +1,4 @@
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
@@ -8,7 +9,8 @@ import {
   priceTableResponseSchema,
   updatePriceTableSchema,
 } from '@/http/schemas';
-import { prisma } from '@/lib/prisma';
+import { makeGetPriceTableByIdUseCase } from '@/use-cases/sales/price-tables/factories/make-get-price-table-by-id-use-case';
+import { makeUpdatePriceTableUseCase } from '@/use-cases/sales/price-tables/factories/make-update-price-table-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
@@ -47,31 +49,57 @@ export async function updatePriceTableController(app: FastifyInstance) {
       const { id } = request.params;
       const body = request.body;
 
-      const existing = await prisma.priceTable.findFirst({
-        where: { id, tenantId, deletedAt: null },
-      });
+      try {
+        // Get existing for audit
+        const getUseCase = makeGetPriceTableByIdUseCase();
+        const { priceTable: existing } = await getUseCase.execute({
+          id,
+          tenantId,
+        });
 
-      if (!existing) {
-        return reply.status(404).send({ message: 'Price table not found' });
+        const useCase = makeUpdatePriceTableUseCase();
+        const { priceTable } = await useCase.execute({
+          id,
+          tenantId,
+          ...body,
+        });
+
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.SALES.PRICE_TABLE_UPDATE,
+          entityId: priceTable.id.toString(),
+          placeholders: {
+            userName: userId,
+            tableName: priceTable.name,
+          },
+          oldData: { name: existing.name, type: existing.type },
+          newData: { name: body.name, type: body.type },
+        });
+
+        return reply.status(200).send({
+          priceTable: {
+            id: priceTable.id.toString(),
+            tenantId: priceTable.tenantId.toString(),
+            name: priceTable.name,
+            description: priceTable.description ?? null,
+            type: priceTable.type,
+            currency: priceTable.currency,
+            priceIncludesTax: priceTable.priceIncludesTax,
+            isDefault: priceTable.isDefault,
+            priority: priceTable.priority,
+            isActive: priceTable.isActive,
+            validFrom: priceTable.validFrom ?? null,
+            validUntil: priceTable.validUntil ?? null,
+            deletedAt: priceTable.deletedAt ?? null,
+            createdAt: priceTable.createdAt,
+            updatedAt: priceTable.updatedAt ?? null,
+          },
+        });
+      } catch (error) {
+        if (error instanceof ResourceNotFoundError) {
+          return reply.status(404).send({ message: error.message });
+        }
+        throw error;
       }
-
-      const priceTable = await prisma.priceTable.update({
-        where: { id },
-        data: body,
-      });
-
-      await logAudit(request, {
-        message: AUDIT_MESSAGES.SALES.PRICE_TABLE_UPDATE,
-        entityId: priceTable.id,
-        placeholders: {
-          userName: userId,
-          tableName: priceTable.name,
-        },
-        oldData: { name: existing.name, type: existing.type },
-        newData: { name: body.name, type: body.type },
-      });
-
-      return reply.status(200).send({ priceTable });
     },
   });
 }
