@@ -16,10 +16,10 @@ function mapToDomain(data: any): EsocialBatch {
     {
       tenantId: new UniqueEntityID(data.tenantId),
       status: data.status as EsocialBatchStatus,
-      eventCount: data.eventCount,
+      eventCount: data.totalEvents ?? 0,
       protocol: data.protocol ?? undefined,
       transmittedAt: data.transmittedAt ?? undefined,
-      completedAt: data.completedAt ?? undefined,
+      completedAt: data.checkedAt ?? undefined,
       createdAt: data.createdAt,
       updatedAt: data.updatedAt,
     },
@@ -31,11 +31,14 @@ export class PrismaEsocialBatchesRepository
   implements EsocialBatchesRepository
 {
   async create(data: CreateEsocialBatchData): Promise<EsocialBatch> {
+    const statusValue = (data.status as string) ?? 'PENDING';
+
     const result = await prisma.esocialBatch.create({
       data: {
         tenantId: data.tenantId,
-        eventCount: data.eventCount,
-        status: data.status ?? 'PENDING',
+        totalEvents: data.eventCount,
+        status: statusValue as any,
+        environment: 'HOMOLOGACAO',
       },
     });
 
@@ -89,10 +92,10 @@ export class PrismaEsocialBatchesRepository
     await prisma.esocialBatch.update({
       where: { id: batch.id.toString() },
       data: {
-        status: batch.status,
+        status: batch.status as any,
         protocol: batch.protocol,
         transmittedAt: batch.transmittedAt,
-        completedAt: batch.completedAt,
+        checkedAt: batch.completedAt,
       },
     });
   }

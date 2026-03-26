@@ -137,7 +137,9 @@ for (let attempt = 1; attempt <= MAX_MIGRATE_RETRIES; attempt++) {
   }
 }
 
-// Create system user required by EnsureSystemCalendarsUseCase (SYSTEM_USER_ID)
+// Create system user required by EnsureSystemCalendarsUseCase (SYSTEM_USER_ID).
+// We force search_path at the PostgreSQL connection level via the `options` parameter
+// in pg.PoolConfig to ensure PrismaPg uses the correct schema reliably.
 {
   const { PrismaClient } = await import('./generated/prisma/client.js');
   const { PrismaPg } = await import('@prisma/adapter-pg');

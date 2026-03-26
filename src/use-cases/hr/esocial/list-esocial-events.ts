@@ -1,5 +1,13 @@
 import { prisma } from '@/lib/prisma';
-import type { EsocialEventStatus } from '@prisma/generated/prisma';
+
+type EsocialEventStatus =
+  | 'DRAFT'
+  | 'REVIEWED'
+  | 'APPROVED'
+  | 'TRANSMITTING'
+  | 'ACCEPTED'
+  | 'REJECTED'
+  | 'ERROR';
 
 export interface ListEsocialEventsRequest {
   tenantId: string;

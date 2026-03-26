@@ -19,15 +19,15 @@ export class PrismaEsocialCertificatesRepository
     return EsocialCertificate.create(
       {
         tenantId: new UniqueEntityID(data.tenantId),
-        type: data.type,
+        type: 'E_CNPJ', // Not stored in current schema; default value
         serialNumber: data.serialNumber,
         issuer: data.issuer,
         subject: data.subject,
         validFrom: data.validFrom,
         validUntil: data.validUntil,
-        pfxData: Buffer.from(data.pfxData),
-        passphrase: data.passphrase,
-        isActive: data.isActive,
+        pfxData: Buffer.from(data.encryptedPfx),
+        passphrase: '', // Passphrase not stored separately in current schema
+        isActive: true, // Not stored in current schema; default value
         createdAt: data.createdAt,
         updatedAt: data.updatedAt,
       },
@@ -46,30 +46,29 @@ export class PrismaEsocialCertificatesRepository
     const result = await prisma.esocialCertificate.create({
       data: {
         tenantId: data.tenantId,
-        type: data.type,
         serialNumber: data.serialNumber,
         issuer: data.issuer,
         subject: data.subject,
         validFrom: data.validFrom,
         validUntil: data.validUntil,
-        pfxData: data.pfxData,
-        passphrase: data.passphrase,
-        isActive: data.isActive ?? true,
+        encryptedPfx: data.pfxData,
+        encryptionIv: (data as any).encryptionIv ?? '',
+        encryptionTag: (data as any).encryptionTag ?? '',
       },
     });
 
     return EsocialCertificate.create(
       {
         tenantId: new UniqueEntityID(result.tenantId),
-        type: result.type,
+        type: 'E_CNPJ',
         serialNumber: result.serialNumber,
         issuer: result.issuer,
         subject: result.subject,
         validFrom: result.validFrom,
         validUntil: result.validUntil,
-        pfxData: Buffer.from(result.pfxData),
-        passphrase: result.passphrase,
-        isActive: result.isActive,
+        pfxData: Buffer.from(result.encryptedPfx),
+        passphrase: '',
+        isActive: true,
         createdAt: result.createdAt,
         updatedAt: result.updatedAt,
       },

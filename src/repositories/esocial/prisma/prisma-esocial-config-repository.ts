@@ -6,9 +6,7 @@ import type {
   UpdateEsocialConfigData,
 } from '../esocial-config-repository';
 
-export class PrismaEsocialConfigRepository
-  implements EsocialConfigRepository
-{
+export class PrismaEsocialConfigRepository implements EsocialConfigRepository {
   async findByTenantId(tenantId: string): Promise<EsocialConfig | null> {
     const data = await prisma.esocialConfig.findUnique({
       where: { tenantId },
@@ -20,13 +18,13 @@ export class PrismaEsocialConfigRepository
       {
         tenantId: new UniqueEntityID(data.tenantId),
         environment: data.environment,
-        version: data.version,
-        tpInsc: data.tpInsc,
-        nrInsc: data.nrInsc ?? undefined,
-        autoGenerateOnAdmission: data.autoGenerateOnAdmission,
-        autoGenerateOnTermination: data.autoGenerateOnTermination,
-        autoGenerateOnLeave: data.autoGenerateOnLeave,
-        autoGenerateOnPayroll: data.autoGenerateOnPayroll,
+        version: 'S-1.2', // Not stored in schema; using default
+        tpInsc: data.employerType === 'CPF' ? 2 : 1,
+        nrInsc: data.employerDocument ?? undefined,
+        autoGenerateOnAdmission: data.autoGenerate,
+        autoGenerateOnTermination: data.autoGenerate,
+        autoGenerateOnLeave: data.autoGenerate,
+        autoGenerateOnPayroll: data.autoGenerate,
         requireApproval: data.requireApproval,
         createdAt: data.createdAt,
         updatedAt: data.updatedAt,
@@ -39,40 +37,41 @@ export class PrismaEsocialConfigRepository
     tenantId: string,
     data: UpdateEsocialConfigData,
   ): Promise<EsocialConfig> {
+    const envValue =
+      data.environment === 'PRODUCAO' || data.environment === 'HOMOLOGACAO'
+        ? (data.environment as 'PRODUCAO' | 'HOMOLOGACAO')
+        : undefined;
+
     const result = await prisma.esocialConfig.upsert({
       where: { tenantId },
       create: {
         tenantId,
-        environment: data.environment ?? 'HOMOLOGACAO',
-        version: data.version ?? 'S-1.2',
-        tpInsc: data.tpInsc ?? 1,
-        nrInsc: data.nrInsc ?? undefined,
-        autoGenerateOnAdmission: data.autoGenerateOnAdmission ?? true,
-        autoGenerateOnTermination: data.autoGenerateOnTermination ?? true,
-        autoGenerateOnLeave: data.autoGenerateOnLeave ?? true,
-        autoGenerateOnPayroll: data.autoGenerateOnPayroll ?? true,
+        ...(envValue && { environment: envValue }),
+        autoGenerate:
+          data.autoGenerateOnAdmission ??
+          data.autoGenerateOnTermination ??
+          data.autoGenerateOnLeave ??
+          data.autoGenerateOnPayroll ??
+          false,
+        employerType:
+          data.tpInsc !== undefined
+            ? data.tpInsc === 2
+              ? 'CPF'
+              : 'CNPJ'
+            : 'CNPJ',
+        employerDocument: data.nrInsc ?? undefined,
         requireApproval: data.requireApproval ?? true,
       },
       update: {
-        ...(data.environment !== undefined && {
-          environment: data.environment,
-        }),
-        ...(data.version !== undefined && { version: data.version }),
-        ...(data.tpInsc !== undefined && { tpInsc: data.tpInsc }),
-        ...(data.nrInsc !== undefined && {
-          nrInsc: data.nrInsc,
-        }),
+        ...(envValue !== undefined && { environment: envValue }),
         ...(data.autoGenerateOnAdmission !== undefined && {
-          autoGenerateOnAdmission: data.autoGenerateOnAdmission,
+          autoGenerate: data.autoGenerateOnAdmission,
         }),
-        ...(data.autoGenerateOnTermination !== undefined && {
-          autoGenerateOnTermination: data.autoGenerateOnTermination,
+        ...(data.tpInsc !== undefined && {
+          employerType: data.tpInsc === 2 ? 'CPF' : 'CNPJ',
         }),
-        ...(data.autoGenerateOnLeave !== undefined && {
-          autoGenerateOnLeave: data.autoGenerateOnLeave,
-        }),
-        ...(data.autoGenerateOnPayroll !== undefined && {
-          autoGenerateOnPayroll: data.autoGenerateOnPayroll,
+        ...(data.nrInsc !== undefined && {
+          employerDocument: data.nrInsc,
         }),
         ...(data.requireApproval !== undefined && {
           requireApproval: data.requireApproval,
@@ -84,13 +83,13 @@ export class PrismaEsocialConfigRepository
       {
         tenantId: new UniqueEntityID(result.tenantId),
         environment: result.environment,
-        version: result.version,
-        tpInsc: result.tpInsc,
-        nrInsc: result.nrInsc ?? undefined,
-        autoGenerateOnAdmission: result.autoGenerateOnAdmission,
-        autoGenerateOnTermination: result.autoGenerateOnTermination,
-        autoGenerateOnLeave: result.autoGenerateOnLeave,
-        autoGenerateOnPayroll: result.autoGenerateOnPayroll,
+        version: 'S-1.2',
+        tpInsc: result.employerType === 'CPF' ? 2 : 1,
+        nrInsc: result.employerDocument ?? undefined,
+        autoGenerateOnAdmission: result.autoGenerate,
+        autoGenerateOnTermination: result.autoGenerate,
+        autoGenerateOnLeave: result.autoGenerate,
+        autoGenerateOnPayroll: result.autoGenerate,
         requireApproval: result.requireApproval,
         createdAt: result.createdAt,
         updatedAt: result.updatedAt,

@@ -14,7 +14,8 @@ export async function v1DeleteEventController(app: FastifyInstance) {
     schema: {
       tags: ['HR - eSocial'],
       summary: 'Delete draft eSocial event',
-      description: 'Deletes an eSocial event. Only events in DRAFT status can be deleted.',
+      description:
+        'Deletes an eSocial event. Only events in DRAFT status can be deleted.',
       params: eventIdParamSchema,
       response: {
         204: z.null().describe('Event deleted successfully'),
@@ -33,7 +34,7 @@ export async function v1DeleteEventController(app: FastifyInstance) {
         eventId: id,
       });
 
-      return reply.status(204).send();
+      return reply.status(204).send(null);
     },
   });
 }

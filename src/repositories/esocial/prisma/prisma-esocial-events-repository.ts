@@ -24,9 +24,7 @@ function mapToDomain(data: any): EsocialEvent {
       reviewNotes: data.reviewNotes ?? undefined,
       approvedBy: data.approvedBy ?? undefined,
       approvedAt: data.approvedAt ?? undefined,
-      batchId: data.batchId
-        ? new UniqueEntityID(data.batchId)
-        : undefined,
+      batchId: data.batchId ? new UniqueEntityID(data.batchId) : undefined,
       protocol: data.protocol ?? undefined,
       receipt: data.receipt ?? undefined,
       transmittedAt: data.transmittedAt ?? undefined,
@@ -36,10 +34,10 @@ function mapToDomain(data: any): EsocialEvent {
       rejectionMessage: data.rejectionMessage ?? undefined,
       retryCount: data.retryCount,
       nextRetryAt: data.nextRetryAt ?? undefined,
-      originalEventId: data.originalEventId
-        ? new UniqueEntityID(data.originalEventId)
+      originalEventId: data.rectifiedEventId
+        ? new UniqueEntityID(data.rectifiedEventId)
         : undefined,
-      isRectification: data.isRectification,
+      isRectification: data.isRectification ?? false,
       deadline: data.deadline ?? undefined,
       createdAt: data.createdAt,
       updatedAt: data.updatedAt,
@@ -48,21 +46,17 @@ function mapToDomain(data: any): EsocialEvent {
   );
 }
 
-export class PrismaEsocialEventsRepository
-  implements EsocialEventsRepository
-{
+export class PrismaEsocialEventsRepository implements EsocialEventsRepository {
   async create(data: CreateEsocialEventData): Promise<EsocialEvent> {
     const result = await prisma.esocialEvent.create({
       data: {
         tenantId: data.tenantId,
         eventType: data.eventType,
-        status: data.status ?? 'DRAFT',
+        description: `Evento ${data.eventType}`,
+        status: (data.status as any) ?? 'DRAFT',
         referenceId: data.referenceId,
         referenceType: data.referenceType,
         xmlContent: data.xmlContent,
-        xmlHash: data.xmlHash,
-        originalEventId: data.originalEventId,
-        isRectification: data.isRectification ?? false,
         deadline: data.deadline,
       },
     });
@@ -109,7 +103,6 @@ export class PrismaEsocialEventsRepository
       where.OR = [
         { eventType: { contains: params.search, mode: 'insensitive' } },
         { referenceId: { contains: params.search, mode: 'insensitive' } },
-        { protocol: { contains: params.search, mode: 'insensitive' } },
       ];
     }
 
@@ -133,20 +126,14 @@ export class PrismaEsocialEventsRepository
     await prisma.esocialEvent.update({
       where: { id: event.id.toString() },
       data: {
-        status: event.status,
+        status: event.status as any,
         xmlContent: event.xmlContent,
-        xmlHash: event.xmlHash,
         reviewedBy: event.reviewedBy,
         reviewedAt: event.reviewedAt,
-        reviewNotes: event.reviewNotes,
         approvedBy: event.approvedBy,
         approvedAt: event.approvedAt,
         batchId: event.batchId?.toString(),
-        protocol: event.protocol,
         receipt: event.receipt,
-        transmittedAt: event.transmittedAt,
-        responseAt: event.responseAt,
-        responseXml: event.responseXml,
         rejectionCode: event.rejectionCode,
         rejectionMessage: event.rejectionMessage,
         retryCount: event.retryCount,
