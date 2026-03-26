@@ -733,6 +733,240 @@ export const SALES_AUDIT_MESSAGES = {
   // STORE CREDITS - Créditos de Loja
   // ============================================================================
 
+  // ============================================================================
+  // QUOTES - Orçamentos
+  // ============================================================================
+
+  /** Orçamento criado */
+  QUOTE_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.QUOTE,
+    module: AuditModule.SALES,
+    description: "Orçamento '{{quoteTitle}}' criado por {{userName}}",
+  } satisfies AuditMessage,
+
+  /** Orçamento atualizado */
+  QUOTE_UPDATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.QUOTE,
+    module: AuditModule.SALES,
+    description: "Orçamento '{{quoteTitle}}' atualizado por {{userName}}",
+  } satisfies AuditMessage,
+
+  /** Orçamento excluído */
+  QUOTE_DELETE: {
+    action: AuditAction.DELETE,
+    entity: AuditEntity.QUOTE,
+    module: AuditModule.SALES,
+    description: "Orçamento '{{quoteTitle}}' excluído por {{userName}}",
+  } satisfies AuditMessage,
+
+  /** Orçamento enviado */
+  QUOTE_SEND: {
+    action: AuditAction.STATUS_CHANGE,
+    entity: AuditEntity.QUOTE,
+    module: AuditModule.SALES,
+    description: "Orçamento '{{quoteTitle}}' enviado por {{userName}}",
+  } satisfies AuditMessage,
+
+  /** Orçamento convertido em pedido */
+  QUOTE_CONVERT: {
+    action: AuditAction.ORDER_CONVERT_QUOTE,
+    entity: AuditEntity.QUOTE,
+    module: AuditModule.SALES,
+    description:
+      "Orçamento '{{quoteTitle}}' convertido em pedido por {{userName}}",
+  } satisfies AuditMessage,
+
+  /** Orçamento duplicado */
+  QUOTE_DUPLICATE: {
+    action: AuditAction.DUPLICATE,
+    entity: AuditEntity.QUOTE,
+    module: AuditModule.SALES,
+    description: "Orçamento '{{quoteTitle}}' duplicado por {{userName}}",
+  } satisfies AuditMessage,
+
+  // ============================================================================
+  // PROPOSALS - Propostas Comerciais
+  // ============================================================================
+
+  /** Proposta criada */
+  PROPOSAL_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.PROPOSAL,
+    module: AuditModule.SALES,
+    description: "Proposta '{{proposalTitle}}' criada por {{userName}}",
+  } satisfies AuditMessage,
+
+  /** Proposta atualizada */
+  PROPOSAL_UPDATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.PROPOSAL,
+    module: AuditModule.SALES,
+    description: "Proposta '{{proposalTitle}}' atualizada por {{userName}}",
+  } satisfies AuditMessage,
+
+  /** Proposta excluída */
+  PROPOSAL_DELETE: {
+    action: AuditAction.DELETE,
+    entity: AuditEntity.PROPOSAL,
+    module: AuditModule.SALES,
+    description: "Proposta '{{proposalTitle}}' excluída por {{userName}}",
+  } satisfies AuditMessage,
+
+  /** Proposta enviada */
+  PROPOSAL_SEND: {
+    action: AuditAction.STATUS_CHANGE,
+    entity: AuditEntity.PROPOSAL,
+    module: AuditModule.SALES,
+    description: "Proposta '{{proposalTitle}}' enviada por {{userName}}",
+  } satisfies AuditMessage,
+
+  /** Proposta aprovada */
+  PROPOSAL_APPROVE: {
+    action: AuditAction.STATUS_CHANGE,
+    entity: AuditEntity.PROPOSAL,
+    module: AuditModule.SALES,
+    description: "Proposta '{{proposalTitle}}' aprovada por {{userName}}",
+  } satisfies AuditMessage,
+
+  /** Proposta rejeitada */
+  PROPOSAL_REJECT: {
+    action: AuditAction.STATUS_CHANGE,
+    entity: AuditEntity.PROPOSAL,
+    module: AuditModule.SALES,
+    description: "Proposta '{{proposalTitle}}' rejeitada por {{userName}}",
+  } satisfies AuditMessage,
+
+  /** Proposta duplicada */
+  PROPOSAL_DUPLICATE: {
+    action: AuditAction.DUPLICATE,
+    entity: AuditEntity.PROPOSAL,
+    module: AuditModule.SALES,
+    description: "Proposta '{{proposalTitle}}' duplicada por {{userName}}",
+  } satisfies AuditMessage,
+
+  // ============================================================================
+  // DISCOUNT RULES - Regras de Desconto
+  // ============================================================================
+
+  DISCOUNT_RULE_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.DISCOUNT_RULE,
+    module: AuditModule.SALES,
+    description: "Regra de desconto '{{ruleName}}' criada por {{userName}}",
+  } satisfies AuditMessage,
+
+  DISCOUNT_RULE_UPDATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.DISCOUNT_RULE,
+    module: AuditModule.SALES,
+    description: "Regra de desconto '{{ruleName}}' atualizada por {{userName}}",
+  } satisfies AuditMessage,
+
+  DISCOUNT_RULE_DELETE: {
+    action: AuditAction.DELETE,
+    entity: AuditEntity.DISCOUNT_RULE,
+    module: AuditModule.SALES,
+    description: "Regra de desconto '{{ruleName}}' excluída por {{userName}}",
+  } satisfies AuditMessage,
+
+  DISCOUNT_VALIDATE: {
+    action: AuditAction.VALIDATE,
+    entity: AuditEntity.DISCOUNT_RULE,
+    module: AuditModule.SALES,
+    description: '{{userName}} validou descontos para carrinho com {{itemCount}} itens',
+  } satisfies AuditMessage,
+
+  // ============================================================================
+  // WORKFLOWS - Automações
+  // ============================================================================
+
+  WORKFLOW_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.WORKFLOW,
+    module: AuditModule.SALES,
+    description: "Workflow '{{workflowName}}' criado por {{userName}}",
+  } satisfies AuditMessage,
+
+  WORKFLOW_UPDATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.WORKFLOW,
+    module: AuditModule.SALES,
+    description: "Workflow '{{workflowName}}' atualizado por {{userName}}",
+  } satisfies AuditMessage,
+
+  WORKFLOW_DELETE: {
+    action: AuditAction.DELETE,
+    entity: AuditEntity.WORKFLOW,
+    module: AuditModule.SALES,
+    description: "Workflow '{{workflowName}}' excluído por {{userName}}",
+  } satisfies AuditMessage,
+
+  WORKFLOW_ACTIVATE: {
+    action: AuditAction.ACTIVATE,
+    entity: AuditEntity.WORKFLOW,
+    module: AuditModule.SALES,
+    description: "Workflow '{{workflowName}}' ativado por {{userName}}",
+  } satisfies AuditMessage,
+
+  WORKFLOW_DEACTIVATE: {
+    action: AuditAction.DEACTIVATE,
+    entity: AuditEntity.WORKFLOW,
+    module: AuditModule.SALES,
+    description: "Workflow '{{workflowName}}' desativado por {{userName}}",
+  } satisfies AuditMessage,
+
+  WORKFLOW_EXECUTE: {
+    action: AuditAction.EXECUTE,
+    entity: AuditEntity.WORKFLOW,
+    module: AuditModule.SALES,
+    description: "Workflow '{{workflowName}}' executado por {{userName}} (trigger: {{trigger}})",
+  } satisfies AuditMessage,
+
+  // ============================================================================
+  // MESSAGE TEMPLATES - Templates de Mensagem
+  // ============================================================================
+
+  MESSAGE_TEMPLATE_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.MESSAGE_TEMPLATE,
+    module: AuditModule.SALES,
+    description: "Template '{{templateName}}' criado por {{userName}}",
+  } satisfies AuditMessage,
+
+  MESSAGE_TEMPLATE_UPDATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.MESSAGE_TEMPLATE,
+    module: AuditModule.SALES,
+    description: "Template '{{templateName}}' atualizado por {{userName}}",
+  } satisfies AuditMessage,
+
+  MESSAGE_TEMPLATE_DELETE: {
+    action: AuditAction.DELETE,
+    entity: AuditEntity.MESSAGE_TEMPLATE,
+    module: AuditModule.SALES,
+    description: "Template '{{templateName}}' excluído por {{userName}}",
+  } satisfies AuditMessage,
+
+  MESSAGE_TEMPLATE_DUPLICATE: {
+    action: AuditAction.DUPLICATE,
+    entity: AuditEntity.MESSAGE_TEMPLATE,
+    module: AuditModule.SALES,
+    description: "Template '{{templateName}}' duplicado por {{userName}}",
+  } satisfies AuditMessage,
+
+  MESSAGE_TEMPLATE_PREVIEW: {
+    action: AuditAction.PREVIEW,
+    entity: AuditEntity.MESSAGE_TEMPLATE,
+    module: AuditModule.SALES,
+    description: "Template '{{templateName}}' pré-visualizado por {{userName}}",
+  } satisfies AuditMessage,
+
+  // ============================================================================
+  // STORE CREDITS - Créditos de Loja
+  // ============================================================================
+
   /** Crédito de loja excluído */
   STORE_CREDIT_DELETE: {
     action: AuditAction.DELETE,
@@ -740,6 +974,141 @@ export const SALES_AUDIT_MESSAGES = {
     module: AuditModule.SALES,
     description:
       '{{userName}} excluiu crédito de loja de R${{amount}} do cliente {{customerName}}',
+  } satisfies AuditMessage,
+  // ============================================================================
+  // CONVERSATIONS - Conversas CRM
+  // ============================================================================
+
+  CONVERSATION_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.CONVERSATION,
+    module: AuditModule.SALES,
+    description:
+      "{{userName}} criou conversa '{{conversationSubject}}'",
+  } satisfies AuditMessage,
+
+  CONVERSATION_CLOSE: {
+    action: AuditAction.CONVERSATION_CLOSE,
+    entity: AuditEntity.CONVERSATION,
+    module: AuditModule.SALES,
+    description:
+      "{{userName}} fechou conversa '{{conversationSubject}}'",
+  } satisfies AuditMessage,
+
+  CONVERSATION_ARCHIVE: {
+    action: AuditAction.CONVERSATION_ARCHIVE,
+    entity: AuditEntity.CONVERSATION,
+    module: AuditModule.SALES,
+    description:
+      "{{userName}} arquivou conversa '{{conversationSubject}}'",
+  } satisfies AuditMessage,
+
+  CONVERSATION_DELETE: {
+    action: AuditAction.DELETE,
+    entity: AuditEntity.CONVERSATION,
+    module: AuditModule.SALES,
+    description: '{{userName}} excluiu uma conversa',
+  } satisfies AuditMessage,
+
+  CONVERSATION_MESSAGE_SEND: {
+    action: AuditAction.MESSAGE_SEND,
+    entity: AuditEntity.CONVERSATION_MESSAGE,
+    module: AuditModule.SALES,
+    description: '{{userName}} enviou mensagem em conversa',
+  } satisfies AuditMessage,
+
+  // ============================================================================
+  // FORMS - Formulários CRM
+  // ============================================================================
+
+  FORM_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.FORM,
+    module: AuditModule.SALES,
+    description: "{{userName}} criou formulário '{{formTitle}}'",
+  } satisfies AuditMessage,
+
+  FORM_UPDATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.FORM,
+    module: AuditModule.SALES,
+    description: "{{userName}} atualizou formulário '{{formTitle}}'",
+  } satisfies AuditMessage,
+
+  FORM_DELETE: {
+    action: AuditAction.DELETE,
+    entity: AuditEntity.FORM,
+    module: AuditModule.SALES,
+    description: "{{userName}} excluiu formulário '{{formTitle}}'",
+  } satisfies AuditMessage,
+
+  FORM_PUBLISH: {
+    action: AuditAction.FORM_PUBLISH,
+    entity: AuditEntity.FORM,
+    module: AuditModule.SALES,
+    description: "{{userName}} publicou formulário '{{formTitle}}'",
+  } satisfies AuditMessage,
+
+  FORM_UNPUBLISH: {
+    action: AuditAction.FORM_UNPUBLISH,
+    entity: AuditEntity.FORM,
+    module: AuditModule.SALES,
+    description:
+      "{{userName}} despublicou formulário '{{formTitle}}'",
+  } satisfies AuditMessage,
+
+  FORM_DUPLICATE: {
+    action: AuditAction.DUPLICATE,
+    entity: AuditEntity.FORM,
+    module: AuditModule.SALES,
+    description: "{{userName}} duplicou formulário '{{formTitle}}'",
+  } satisfies AuditMessage,
+
+  FORM_SUBMISSION_CREATE: {
+    action: AuditAction.FORM_SUBMIT,
+    entity: AuditEntity.FORM_SUBMISSION,
+    module: AuditModule.SALES,
+    description:
+      "Submissão recebida no formulário '{{formTitle}}'",
+  } satisfies AuditMessage,
+
+  // ============================================================================
+  // CASHIER - Caixa
+  // ============================================================================
+
+  CASHIER_SESSION_OPEN: {
+    action: AuditAction.CASHIER_OPEN,
+    entity: AuditEntity.CASHIER_SESSION,
+    module: AuditModule.SALES,
+    description: '{{userName}} abriu sessão de caixa',
+  } satisfies AuditMessage,
+
+  CASHIER_SESSION_CLOSE: {
+    action: AuditAction.CASHIER_CLOSE,
+    entity: AuditEntity.CASHIER_SESSION,
+    module: AuditModule.SALES,
+    description: '{{userName}} fechou sessão de caixa',
+  } satisfies AuditMessage,
+
+  CASHIER_SESSION_RECONCILE: {
+    action: AuditAction.CASHIER_RECONCILE,
+    entity: AuditEntity.CASHIER_SESSION,
+    module: AuditModule.SALES,
+    description: '{{userName}} reconciliou sessão de caixa',
+  } satisfies AuditMessage,
+
+  CASHIER_TRANSACTION_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.CASHIER_TRANSACTION,
+    module: AuditModule.SALES,
+    description: '{{userName}} registrou transação no caixa',
+  } satisfies AuditMessage,
+
+  CASHIER_CASH_MOVEMENT: {
+    action: AuditAction.CASH_MOVEMENT,
+    entity: AuditEntity.CASHIER_TRANSACTION,
+    module: AuditModule.SALES,
+    description: '{{userName}} registrou movimentação de caixa ({{movementType}})',
   } satisfies AuditMessage,
 } as const;
 

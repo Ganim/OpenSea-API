@@ -71,6 +71,30 @@ export enum AuditEntity {
   CATALOG_ITEM = 'CATALOG_ITEM',
   TENANT_BRAND = 'TENANT_BRAND',
   GENERATED_CONTENT = 'GENERATED_CONTENT',
+  QUOTE = 'QUOTE',
+  PROPOSAL = 'PROPOSAL',
+  DISCOUNT_RULE = 'DISCOUNT_RULE',
+  WORKFLOW = 'WORKFLOW',
+  WORKFLOW_STEP = 'WORKFLOW_STEP',
+  MESSAGE_TEMPLATE = 'MESSAGE_TEMPLATE',
+
+  // ==========================================
+  // Conversations - Conversas CRM
+  // ==========================================
+  CONVERSATION = 'CONVERSATION',
+  CONVERSATION_MESSAGE = 'CONVERSATION_MESSAGE',
+
+  // ==========================================
+  // Forms - Formulários CRM
+  // ==========================================
+  FORM = 'FORM',
+  FORM_SUBMISSION = 'FORM_SUBMISSION',
+
+  // ==========================================
+  // Cashier - Caixa
+  // ==========================================
+  CASHIER_SESSION = 'CASHIER_SESSION',
+  CASHIER_TRANSACTION = 'CASHIER_TRANSACTION',
 
   // ==========================================
   // POS - Ponto de Venda

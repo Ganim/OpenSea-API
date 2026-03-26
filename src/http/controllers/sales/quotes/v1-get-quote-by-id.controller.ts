@@ -1,17 +1,18 @@
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { quoteResponseSchema } from '@/http/schemas/sales/quotes/quote.schema';
-import { makeListQuotesUseCase } from '@/use-cases/sales/quotes/factories/make-list-quotes-use-case';
+import { makeGetQuoteByIdUseCase } from '@/use-cases/sales/quotes/factories/make-get-quote-by-id-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
-export async function listQuotesController(app: FastifyInstance) {
+export async function getQuoteByIdController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
-    url: '/v1/quotes',
+    url: '/v1/quotes/:id',
     preHandler: [
       verifyJwt,
       verifyTenant,
@@ -22,35 +23,36 @@ export async function listQuotesController(app: FastifyInstance) {
     ],
     schema: {
       tags: ['Sales - Quotes'],
-      summary: 'List quotes',
-      querystring: z.object({
-        page: z.coerce.number().int().positive().default(1),
-        perPage: z.coerce.number().int().positive().max(100).default(20),
-        status: z
-          .enum(['DRAFT', 'SENT', 'ACCEPTED', 'REJECTED', 'EXPIRED'])
-          .optional(),
-        customerId: z.string().uuid().optional(),
+      summary: 'Get quote by ID',
+      params: z.object({
+        id: z.string().uuid(),
       }),
       response: {
         200: z.object({
-          quotes: z.array(quoteResponseSchema),
-          total: z.number(),
-          page: z.number(),
-          perPage: z.number(),
-          totalPages: z.number(),
+          quote: quoteResponseSchema,
+        }),
+        404: z.object({
+          message: z.string(),
         }),
       },
       security: [{ bearerAuth: [] }],
     },
 
     handler: async (request, reply) => {
-      const query = request.query;
+      const { id } = request.params as { id: string };
       const tenantId = request.user.tenantId!;
 
-      const useCase = makeListQuotesUseCase();
-      const result = await useCase.execute({ tenantId, ...query });
+      try {
+        const useCase = makeGetQuoteByIdUseCase();
+        const { quote } = await useCase.execute({ tenantId, id });
 
-      return reply.status(200).send(result);
+        return reply.status(200).send({ quote });
+      } catch (error) {
+        if (error instanceof ResourceNotFoundError) {
+          return reply.status(404).send({ message: error.message });
+        }
+        throw error;
+      }
     },
   });
 }
