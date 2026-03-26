@@ -123,6 +123,7 @@ export enum AuditEntity {
   // HR - Estrutura Organizacional
   // ==========================================
   EMPLOYEE = 'EMPLOYEE',
+  EMPLOYEE_DEPENDANT = 'EMPLOYEE_DEPENDANT',
   DEPARTMENT = 'DEPARTMENT',
   POSITION = 'POSITION',
 
@@ -150,6 +151,7 @@ export enum AuditEntity {
   PAYROLL_ITEM = 'PAYROLL_ITEM',
   BONUS = 'BONUS',
   DEDUCTION = 'DEDUCTION',
+  TERMINATION = 'TERMINATION',
 
   // ==========================================
   // Label Templates

@@ -1,3 +1,5 @@
+export * from './calculate-vacation-days';
+export * from './calculate-vacation-payment';
 export * from './cancel-scheduled-vacation';
 export * from './complete-acquisition';
 export * from './complete-vacation';

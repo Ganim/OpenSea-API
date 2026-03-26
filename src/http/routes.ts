@@ -178,6 +178,7 @@ import { fiscalRoutes } from './controllers/fiscal/routes';
 // HR routes
 import { absencesRoutes } from './controllers/hr/absences/routes';
 import { bonusesRoutes } from './controllers/hr/bonuses/routes';
+import { dependantsRoutes } from './controllers/hr/dependants/routes';
 import { companiesRoutes } from './controllers/hr/companies/routes';
 import { deductionsRoutes } from './controllers/hr/deductions/routes';
 import { departmentsRoutes } from './controllers/hr/departments/routes';
@@ -339,6 +340,7 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(hrReportsRoutes);
   await app.register(payrollsRoutes);
   await app.register(bonusesRoutes);
+  await app.register(dependantsRoutes);
   await app.register(deductionsRoutes);
   await app.register(punchConfigRoutes);
   await app.register(geofenceZonesRoutes);
