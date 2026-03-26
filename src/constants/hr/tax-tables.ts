@@ -33,6 +33,17 @@ export const INSS_TABLES: Record<number, INSSTable> = {
     ],
     maxContribution: 908.86,
   },
+  // 2025 — Portaria Interministerial MPS/MF nº 6, de 10/01/2025
+  // Salário mínimo 2025: R$ 1.518,00
+  2025: {
+    brackets: [
+      { limit: 1518.0, rate: 0.075 },
+      { limit: 2793.88, rate: 0.09 },
+      { limit: 4190.83, rate: 0.12 },
+      { limit: 8157.41, rate: 0.14 },
+    ],
+    maxContribution: 951.63,
+  },
 };
 
 // ============================================================================
@@ -64,7 +75,63 @@ export const IRRF_TABLES: Record<number, IRRFTable> = {
       { limit: Infinity, rate: 0.275, deduction: 896.0 },
     ],
   },
+  // 2025 — Tabela progressiva mensal IRRF
+  // Base: MP 1.294/2025 (faixa de isenção ampliada para R$ 2.259,20 mantida,
+  // dedução por dependente R$ 189,59)
+  2025: {
+    exemptLimit: 2259.2,
+    brackets: [
+      { limit: 2826.65, rate: 0.075, deduction: 169.44 },
+      { limit: 3751.05, rate: 0.15, deduction: 381.44 },
+      { limit: 4664.68, rate: 0.225, deduction: 662.77 },
+      { limit: Infinity, rate: 0.275, deduction: 896.0 },
+    ],
+  },
 };
+
+// ============================================================================
+// IRRF - Dedução por dependente
+// ============================================================================
+
+export const IRRF_DEPENDANT_DEDUCTION: Record<number, number> = {
+  2024: 189.59,
+  2025: 189.59,
+};
+
+// ============================================================================
+// Salário mínimo nacional
+// ============================================================================
+
+export const MINIMUM_WAGE: Record<number, number> = {
+  2024: 1412.0,
+  2025: 1518.0,
+};
+
+/**
+ * Retorna a dedução por dependente para o ano solicitado.
+ */
+export function getDependantDeduction(year: number): number {
+  if (IRRF_DEPENDANT_DEDUCTION[year]) return IRRF_DEPENDANT_DEDUCTION[year];
+
+  const availableYears = Object.keys(IRRF_DEPENDANT_DEDUCTION)
+    .map(Number)
+    .sort((a, b) => b - a);
+
+  return IRRF_DEPENDANT_DEDUCTION[availableYears[0]];
+}
+
+/**
+ * Retorna o salário mínimo para o ano solicitado.
+ */
+export function getMinimumWage(year: number): number {
+  if (MINIMUM_WAGE[year]) return MINIMUM_WAGE[year];
+
+  const availableYears = Object.keys(MINIMUM_WAGE)
+    .map(Number)
+    .sort((a, b) => b - a);
+
+  return MINIMUM_WAGE[availableYears[0]];
+}
 
 // ============================================================================
 // Helpers
