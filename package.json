@@ -102,10 +102,12 @@
     "rrule": "2.8.1",
     "sanitize-html": "2.17.1",
     "sharp": "0.34.5",
+    "soap": "1.8.0",
     "swagger-themes": "1.4.3",
     "tesseract.js": "7.0.0",
     "unzipper": "0.12.3",
     "uuid": "11.1.0",
+    "xml-crypto": "6.1.2",
     "zod": "4.0.2"
   },
   "devDependencies": {

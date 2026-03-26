@@ -138,6 +138,7 @@ import { financeBudgetRoutes } from './controllers/finance/budgets/routes';
 import { financeCompaniesRoutes } from './controllers/finance/companies/routes';
 import { reconciliationRoutes } from './controllers/finance/reconciliation/routes';
 import { financeEscalationsRoutes } from './controllers/finance/escalations/routes';
+import { financeApprovalRulesRoutes } from './controllers/finance/approval-rules/routes';
 
 // Calendar routes
 import { calendarCalendarsRoutes } from './controllers/calendar/calendars/routes';
@@ -213,6 +214,7 @@ import { workplaceRisksRoutes } from './controllers/hr/workplace-risks/routes';
 import { cipaMandatesRoutes } from './controllers/hr/cipa-mandates/routes';
 import { cipaMembersRoutes } from './controllers/hr/cipa-members/routes';
 import { hrConfigRoutes } from './controllers/hr/hr-config/routes';
+import { esocialRoutes } from './controllers/hr/esocial/routes';
 
 export async function registerRoutes(app: FastifyInstance) {
   // Core routes
@@ -337,6 +339,7 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(financeCompaniesRoutes);
   await app.register(reconciliationRoutes);
   await app.register(financeEscalationsRoutes);
+  await app.register(financeApprovalRulesRoutes);
 
   // Calendar routes
   await app.register(calendarCalendarsRoutes);
@@ -382,6 +385,7 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(cipaMandatesRoutes);
   await app.register(cipaMembersRoutes);
   await app.register(hrConfigRoutes);
+  await app.register(esocialRoutes);
 
   // Tasks routes
   await app.register(taskBoardsRoutes);

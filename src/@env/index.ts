@@ -54,6 +54,9 @@ const envSchema = z.object({
   // Previous key for zero-downtime key rotation
   EMAIL_CREDENTIALS_KEY_PREVIOUS: z.string().min(32).optional(),
 
+  // eSocial certificate encryption key (optional — derives from JWT_SECRET if not set)
+  ESOCIAL_ENCRYPTION_KEY: z.string().min(32).optional(),
+
   // Ollama (local AI fallback)
   OLLAMA_HOST: z.string().optional(),
 });
