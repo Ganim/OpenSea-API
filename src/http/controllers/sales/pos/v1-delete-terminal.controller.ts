@@ -1,9 +1,11 @@
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
+import { makeDeletePosTerminalUseCase } from '@/use-cases/sales/pos-terminals/factories/make-delete-pos-terminal-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
@@ -38,16 +40,24 @@ export async function deleteTerminalController(app: FastifyInstance) {
       const userId = request.user.sub;
       const { terminalId } = request.params;
 
-      // TODO: Replace stub with real use case (find + delete)
+      try {
+        const deletePosTerminalUseCase = makeDeletePosTerminalUseCase();
+        await deletePosTerminalUseCase.execute({ tenantId, terminalId });
 
-      await logAudit(request, {
-        message: AUDIT_MESSAGES.SALES.POS_TERMINAL_DELETE,
-        entityId: terminalId,
-        placeholders: { userName: userId, terminalId },
-        oldData: { id: terminalId, tenantId },
-      });
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.SALES.POS_TERMINAL_DELETE,
+          entityId: terminalId,
+          placeholders: { userName: userId, terminalId },
+          oldData: { id: terminalId, tenantId },
+        });
 
-      return reply.status(204).send(null);
+        return reply.status(204).send(null);
+      } catch (error) {
+        if (error instanceof ResourceNotFoundError) {
+          return reply.status(404).send({ message: error.message });
+        }
+        throw error;
+      }
     },
   });
 }

@@ -28,10 +28,12 @@ export type AggregateProposal = {
 
 export type ProposalAvgAggregateOutputType = {
   totalValue: runtime.Decimal | null
+  viewCount: number | null
 }
 
 export type ProposalSumAggregateOutputType = {
   totalValue: runtime.Decimal | null
+  viewCount: number | null
 }
 
 export type ProposalMinAggregateOutputType = {
@@ -45,6 +47,9 @@ export type ProposalMinAggregateOutputType = {
   terms: string | null
   totalValue: runtime.Decimal | null
   sentAt: Date | null
+  viewedAt: Date | null
+  viewCount: number | null
+  lastViewedAt: Date | null
   createdBy: string | null
   isActive: boolean | null
   createdAt: Date | null
@@ -63,6 +68,9 @@ export type ProposalMaxAggregateOutputType = {
   terms: string | null
   totalValue: runtime.Decimal | null
   sentAt: Date | null
+  viewedAt: Date | null
+  viewCount: number | null
+  lastViewedAt: Date | null
   createdBy: string | null
   isActive: boolean | null
   createdAt: Date | null
@@ -81,6 +89,9 @@ export type ProposalCountAggregateOutputType = {
   terms: number
   totalValue: number
   sentAt: number
+  viewedAt: number
+  viewCount: number
+  lastViewedAt: number
   createdBy: number
   isActive: number
   createdAt: number
@@ -92,10 +103,12 @@ export type ProposalCountAggregateOutputType = {
 
 export type ProposalAvgAggregateInputType = {
   totalValue?: true
+  viewCount?: true
 }
 
 export type ProposalSumAggregateInputType = {
   totalValue?: true
+  viewCount?: true
 }
 
 export type ProposalMinAggregateInputType = {
@@ -109,6 +122,9 @@ export type ProposalMinAggregateInputType = {
   terms?: true
   totalValue?: true
   sentAt?: true
+  viewedAt?: true
+  viewCount?: true
+  lastViewedAt?: true
   createdBy?: true
   isActive?: true
   createdAt?: true
@@ -127,6 +143,9 @@ export type ProposalMaxAggregateInputType = {
   terms?: true
   totalValue?: true
   sentAt?: true
+  viewedAt?: true
+  viewCount?: true
+  lastViewedAt?: true
   createdBy?: true
   isActive?: true
   createdAt?: true
@@ -145,6 +164,9 @@ export type ProposalCountAggregateInputType = {
   terms?: true
   totalValue?: true
   sentAt?: true
+  viewedAt?: true
+  viewCount?: true
+  lastViewedAt?: true
   createdBy?: true
   isActive?: true
   createdAt?: true
@@ -250,6 +272,9 @@ export type ProposalGroupByOutputType = {
   terms: string | null
   totalValue: runtime.Decimal
   sentAt: Date | null
+  viewedAt: Date | null
+  viewCount: number
+  lastViewedAt: Date | null
   createdBy: string
   isActive: boolean
   createdAt: Date
@@ -291,6 +316,9 @@ export type ProposalWhereInput = {
   terms?: Prisma.StringNullableFilter<"Proposal"> | string | null
   totalValue?: Prisma.DecimalFilter<"Proposal"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   sentAt?: Prisma.DateTimeNullableFilter<"Proposal"> | Date | string | null
+  viewedAt?: Prisma.DateTimeNullableFilter<"Proposal"> | Date | string | null
+  viewCount?: Prisma.IntFilter<"Proposal"> | number
+  lastViewedAt?: Prisma.DateTimeNullableFilter<"Proposal"> | Date | string | null
   createdBy?: Prisma.StringFilter<"Proposal"> | string
   isActive?: Prisma.BoolFilter<"Proposal"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Proposal"> | Date | string
@@ -313,6 +341,9 @@ export type ProposalOrderByWithRelationInput = {
   terms?: Prisma.SortOrderInput | Prisma.SortOrder
   totalValue?: Prisma.SortOrder
   sentAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  viewedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  viewCount?: Prisma.SortOrder
+  lastViewedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdBy?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -338,6 +369,9 @@ export type ProposalWhereUniqueInput = Prisma.AtLeast<{
   terms?: Prisma.StringNullableFilter<"Proposal"> | string | null
   totalValue?: Prisma.DecimalFilter<"Proposal"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   sentAt?: Prisma.DateTimeNullableFilter<"Proposal"> | Date | string | null
+  viewedAt?: Prisma.DateTimeNullableFilter<"Proposal"> | Date | string | null
+  viewCount?: Prisma.IntFilter<"Proposal"> | number
+  lastViewedAt?: Prisma.DateTimeNullableFilter<"Proposal"> | Date | string | null
   createdBy?: Prisma.StringFilter<"Proposal"> | string
   isActive?: Prisma.BoolFilter<"Proposal"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Proposal"> | Date | string
@@ -360,6 +394,9 @@ export type ProposalOrderByWithAggregationInput = {
   terms?: Prisma.SortOrderInput | Prisma.SortOrder
   totalValue?: Prisma.SortOrder
   sentAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  viewedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  viewCount?: Prisma.SortOrder
+  lastViewedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdBy?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -386,6 +423,9 @@ export type ProposalScalarWhereWithAggregatesInput = {
   terms?: Prisma.StringNullableWithAggregatesFilter<"Proposal"> | string | null
   totalValue?: Prisma.DecimalWithAggregatesFilter<"Proposal"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   sentAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Proposal"> | Date | string | null
+  viewedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Proposal"> | Date | string | null
+  viewCount?: Prisma.IntWithAggregatesFilter<"Proposal"> | number
+  lastViewedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Proposal"> | Date | string | null
   createdBy?: Prisma.StringWithAggregatesFilter<"Proposal"> | string
   isActive?: Prisma.BoolWithAggregatesFilter<"Proposal"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Proposal"> | Date | string
@@ -402,6 +442,9 @@ export type ProposalCreateInput = {
   terms?: string | null
   totalValue?: runtime.Decimal | runtime.DecimalJsLike | number | string
   sentAt?: Date | string | null
+  viewedAt?: Date | string | null
+  viewCount?: number
+  lastViewedAt?: Date | string | null
   createdBy: string
   isActive?: boolean
   createdAt?: Date | string
@@ -424,6 +467,9 @@ export type ProposalUncheckedCreateInput = {
   terms?: string | null
   totalValue?: runtime.Decimal | runtime.DecimalJsLike | number | string
   sentAt?: Date | string | null
+  viewedAt?: Date | string | null
+  viewCount?: number
+  lastViewedAt?: Date | string | null
   createdBy: string
   isActive?: boolean
   createdAt?: Date | string
@@ -442,6 +488,9 @@ export type ProposalUpdateInput = {
   terms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lastViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdBy?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -464,6 +513,9 @@ export type ProposalUncheckedUpdateInput = {
   terms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lastViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdBy?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -484,6 +536,9 @@ export type ProposalCreateManyInput = {
   terms?: string | null
   totalValue?: runtime.Decimal | runtime.DecimalJsLike | number | string
   sentAt?: Date | string | null
+  viewedAt?: Date | string | null
+  viewCount?: number
+  lastViewedAt?: Date | string | null
   createdBy: string
   isActive?: boolean
   createdAt?: Date | string
@@ -500,6 +555,9 @@ export type ProposalUpdateManyMutationInput = {
   terms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lastViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdBy?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -518,6 +576,9 @@ export type ProposalUncheckedUpdateManyInput = {
   terms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lastViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdBy?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -546,6 +607,9 @@ export type ProposalCountOrderByAggregateInput = {
   terms?: Prisma.SortOrder
   totalValue?: Prisma.SortOrder
   sentAt?: Prisma.SortOrder
+  viewedAt?: Prisma.SortOrder
+  viewCount?: Prisma.SortOrder
+  lastViewedAt?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -555,6 +619,7 @@ export type ProposalCountOrderByAggregateInput = {
 
 export type ProposalAvgOrderByAggregateInput = {
   totalValue?: Prisma.SortOrder
+  viewCount?: Prisma.SortOrder
 }
 
 export type ProposalMaxOrderByAggregateInput = {
@@ -568,6 +633,9 @@ export type ProposalMaxOrderByAggregateInput = {
   terms?: Prisma.SortOrder
   totalValue?: Prisma.SortOrder
   sentAt?: Prisma.SortOrder
+  viewedAt?: Prisma.SortOrder
+  viewCount?: Prisma.SortOrder
+  lastViewedAt?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -586,6 +654,9 @@ export type ProposalMinOrderByAggregateInput = {
   terms?: Prisma.SortOrder
   totalValue?: Prisma.SortOrder
   sentAt?: Prisma.SortOrder
+  viewedAt?: Prisma.SortOrder
+  viewCount?: Prisma.SortOrder
+  lastViewedAt?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -595,6 +666,7 @@ export type ProposalMinOrderByAggregateInput = {
 
 export type ProposalSumOrderByAggregateInput = {
   totalValue?: Prisma.SortOrder
+  viewCount?: Prisma.SortOrder
 }
 
 export type ProposalScalarRelationFilter = {
@@ -727,6 +799,9 @@ export type ProposalCreateWithoutCustomerInput = {
   terms?: string | null
   totalValue?: runtime.Decimal | runtime.DecimalJsLike | number | string
   sentAt?: Date | string | null
+  viewedAt?: Date | string | null
+  viewCount?: number
+  lastViewedAt?: Date | string | null
   createdBy: string
   isActive?: boolean
   createdAt?: Date | string
@@ -747,6 +822,9 @@ export type ProposalUncheckedCreateWithoutCustomerInput = {
   terms?: string | null
   totalValue?: runtime.Decimal | runtime.DecimalJsLike | number | string
   sentAt?: Date | string | null
+  viewedAt?: Date | string | null
+  viewCount?: number
+  lastViewedAt?: Date | string | null
   createdBy: string
   isActive?: boolean
   createdAt?: Date | string
@@ -796,6 +874,9 @@ export type ProposalScalarWhereInput = {
   terms?: Prisma.StringNullableFilter<"Proposal"> | string | null
   totalValue?: Prisma.DecimalFilter<"Proposal"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   sentAt?: Prisma.DateTimeNullableFilter<"Proposal"> | Date | string | null
+  viewedAt?: Prisma.DateTimeNullableFilter<"Proposal"> | Date | string | null
+  viewCount?: Prisma.IntFilter<"Proposal"> | number
+  lastViewedAt?: Prisma.DateTimeNullableFilter<"Proposal"> | Date | string | null
   createdBy?: Prisma.StringFilter<"Proposal"> | string
   isActive?: Prisma.BoolFilter<"Proposal"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Proposal"> | Date | string
@@ -812,6 +893,9 @@ export type ProposalCreateWithoutTenantInput = {
   terms?: string | null
   totalValue?: runtime.Decimal | runtime.DecimalJsLike | number | string
   sentAt?: Date | string | null
+  viewedAt?: Date | string | null
+  viewCount?: number
+  lastViewedAt?: Date | string | null
   createdBy: string
   isActive?: boolean
   createdAt?: Date | string
@@ -832,6 +916,9 @@ export type ProposalUncheckedCreateWithoutTenantInput = {
   terms?: string | null
   totalValue?: runtime.Decimal | runtime.DecimalJsLike | number | string
   sentAt?: Date | string | null
+  viewedAt?: Date | string | null
+  viewCount?: number
+  lastViewedAt?: Date | string | null
   createdBy: string
   isActive?: boolean
   createdAt?: Date | string
@@ -876,6 +963,9 @@ export type ProposalCreateWithoutItemsInput = {
   terms?: string | null
   totalValue?: runtime.Decimal | runtime.DecimalJsLike | number | string
   sentAt?: Date | string | null
+  viewedAt?: Date | string | null
+  viewCount?: number
+  lastViewedAt?: Date | string | null
   createdBy: string
   isActive?: boolean
   createdAt?: Date | string
@@ -897,6 +987,9 @@ export type ProposalUncheckedCreateWithoutItemsInput = {
   terms?: string | null
   totalValue?: runtime.Decimal | runtime.DecimalJsLike | number | string
   sentAt?: Date | string | null
+  viewedAt?: Date | string | null
+  viewCount?: number
+  lastViewedAt?: Date | string | null
   createdBy: string
   isActive?: boolean
   createdAt?: Date | string
@@ -930,6 +1023,9 @@ export type ProposalUpdateWithoutItemsInput = {
   terms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lastViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdBy?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -951,6 +1047,9 @@ export type ProposalUncheckedUpdateWithoutItemsInput = {
   terms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lastViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdBy?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -968,6 +1067,9 @@ export type ProposalCreateWithoutAttachmentsInput = {
   terms?: string | null
   totalValue?: runtime.Decimal | runtime.DecimalJsLike | number | string
   sentAt?: Date | string | null
+  viewedAt?: Date | string | null
+  viewCount?: number
+  lastViewedAt?: Date | string | null
   createdBy: string
   isActive?: boolean
   createdAt?: Date | string
@@ -989,6 +1091,9 @@ export type ProposalUncheckedCreateWithoutAttachmentsInput = {
   terms?: string | null
   totalValue?: runtime.Decimal | runtime.DecimalJsLike | number | string
   sentAt?: Date | string | null
+  viewedAt?: Date | string | null
+  viewCount?: number
+  lastViewedAt?: Date | string | null
   createdBy: string
   isActive?: boolean
   createdAt?: Date | string
@@ -1022,6 +1127,9 @@ export type ProposalUpdateWithoutAttachmentsInput = {
   terms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lastViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdBy?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1043,6 +1151,9 @@ export type ProposalUncheckedUpdateWithoutAttachmentsInput = {
   terms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lastViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdBy?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1061,6 +1172,9 @@ export type ProposalCreateManyCustomerInput = {
   terms?: string | null
   totalValue?: runtime.Decimal | runtime.DecimalJsLike | number | string
   sentAt?: Date | string | null
+  viewedAt?: Date | string | null
+  viewCount?: number
+  lastViewedAt?: Date | string | null
   createdBy: string
   isActive?: boolean
   createdAt?: Date | string
@@ -1077,6 +1191,9 @@ export type ProposalUpdateWithoutCustomerInput = {
   terms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lastViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdBy?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1097,6 +1214,9 @@ export type ProposalUncheckedUpdateWithoutCustomerInput = {
   terms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lastViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdBy?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1116,6 +1236,9 @@ export type ProposalUncheckedUpdateManyWithoutCustomerInput = {
   terms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lastViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdBy?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1133,6 +1256,9 @@ export type ProposalCreateManyTenantInput = {
   terms?: string | null
   totalValue?: runtime.Decimal | runtime.DecimalJsLike | number | string
   sentAt?: Date | string | null
+  viewedAt?: Date | string | null
+  viewCount?: number
+  lastViewedAt?: Date | string | null
   createdBy: string
   isActive?: boolean
   createdAt?: Date | string
@@ -1149,6 +1275,9 @@ export type ProposalUpdateWithoutTenantInput = {
   terms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lastViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdBy?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1169,6 +1298,9 @@ export type ProposalUncheckedUpdateWithoutTenantInput = {
   terms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lastViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdBy?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1188,6 +1320,9 @@ export type ProposalUncheckedUpdateManyWithoutTenantInput = {
   terms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lastViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdBy?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1246,6 +1381,9 @@ export type ProposalSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   terms?: boolean
   totalValue?: boolean
   sentAt?: boolean
+  viewedAt?: boolean
+  viewCount?: boolean
+  lastViewedAt?: boolean
   createdBy?: boolean
   isActive?: boolean
   createdAt?: boolean
@@ -1269,6 +1407,9 @@ export type ProposalSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   terms?: boolean
   totalValue?: boolean
   sentAt?: boolean
+  viewedAt?: boolean
+  viewCount?: boolean
+  lastViewedAt?: boolean
   createdBy?: boolean
   isActive?: boolean
   createdAt?: boolean
@@ -1289,6 +1430,9 @@ export type ProposalSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   terms?: boolean
   totalValue?: boolean
   sentAt?: boolean
+  viewedAt?: boolean
+  viewCount?: boolean
+  lastViewedAt?: boolean
   createdBy?: boolean
   isActive?: boolean
   createdAt?: boolean
@@ -1309,6 +1453,9 @@ export type ProposalSelectScalar = {
   terms?: boolean
   totalValue?: boolean
   sentAt?: boolean
+  viewedAt?: boolean
+  viewCount?: boolean
+  lastViewedAt?: boolean
   createdBy?: boolean
   isActive?: boolean
   createdAt?: boolean
@@ -1316,7 +1463,7 @@ export type ProposalSelectScalar = {
   deletedAt?: boolean
 }
 
-export type ProposalOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "customerId" | "title" | "description" | "status" | "validUntil" | "terms" | "totalValue" | "sentAt" | "createdBy" | "isActive" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["proposal"]>
+export type ProposalOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "customerId" | "title" | "description" | "status" | "validUntil" | "terms" | "totalValue" | "sentAt" | "viewedAt" | "viewCount" | "lastViewedAt" | "createdBy" | "isActive" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["proposal"]>
 export type ProposalInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
@@ -1352,6 +1499,9 @@ export type $ProposalPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     terms: string | null
     totalValue: runtime.Decimal
     sentAt: Date | null
+    viewedAt: Date | null
+    viewCount: number
+    lastViewedAt: Date | null
     createdBy: string
     isActive: boolean
     createdAt: Date
@@ -1794,6 +1944,9 @@ export interface ProposalFieldRefs {
   readonly terms: Prisma.FieldRef<"Proposal", 'String'>
   readonly totalValue: Prisma.FieldRef<"Proposal", 'Decimal'>
   readonly sentAt: Prisma.FieldRef<"Proposal", 'DateTime'>
+  readonly viewedAt: Prisma.FieldRef<"Proposal", 'DateTime'>
+  readonly viewCount: Prisma.FieldRef<"Proposal", 'Int'>
+  readonly lastViewedAt: Prisma.FieldRef<"Proposal", 'DateTime'>
   readonly createdBy: Prisma.FieldRef<"Proposal", 'String'>
   readonly isActive: Prisma.FieldRef<"Proposal", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"Proposal", 'DateTime'>

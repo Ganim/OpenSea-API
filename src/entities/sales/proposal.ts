@@ -41,6 +41,9 @@ export interface ProposalProps {
   terms?: string;
   totalValue: number;
   sentAt?: Date;
+  viewedAt?: Date;
+  viewCount: number;
+  lastViewedAt?: Date;
   createdBy: string;
   isActive: boolean;
   createdAt: Date;
@@ -131,6 +134,33 @@ export class Proposal extends Entity<ProposalProps> {
     this.touch();
   }
 
+  get viewedAt(): Date | undefined {
+    return this.props.viewedAt;
+  }
+
+  set viewedAt(value: Date | undefined) {
+    this.props.viewedAt = value;
+    this.touch();
+  }
+
+  get viewCount(): number {
+    return this.props.viewCount;
+  }
+
+  set viewCount(value: number) {
+    this.props.viewCount = value;
+    this.touch();
+  }
+
+  get lastViewedAt(): Date | undefined {
+    return this.props.lastViewedAt;
+  }
+
+  set lastViewedAt(value: Date | undefined) {
+    this.props.lastViewedAt = value;
+    this.touch();
+  }
+
   get createdBy(): string {
     return this.props.createdBy;
   }
@@ -197,7 +227,14 @@ export class Proposal extends Entity<ProposalProps> {
   static create(
     props: Optional<
       ProposalProps,
-      'id' | 'isActive' | 'createdAt' | 'status' | 'totalValue' | 'items' | 'attachments'
+      | 'id'
+      | 'isActive'
+      | 'createdAt'
+      | 'status'
+      | 'totalValue'
+      | 'items'
+      | 'attachments'
+      | 'viewCount'
     >,
     id?: UniqueEntityID,
   ): Proposal {
@@ -209,6 +246,7 @@ export class Proposal extends Entity<ProposalProps> {
         createdAt: props.createdAt ?? new Date(),
         status: props.status ?? 'DRAFT',
         totalValue: props.totalValue ?? 0,
+        viewCount: props.viewCount ?? 0,
         items: props.items ?? [],
         attachments: props.attachments ?? [],
       },

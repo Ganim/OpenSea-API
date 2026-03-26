@@ -4964,6 +4964,40 @@ export type EnumCashierTransactionTypeWithAggregatesFilter<$PrismaModel = never>
   _max?: Prisma.NestedEnumCashierTransactionTypeFilter<$PrismaModel>
 }
 
+export type EnumCadenceStepTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.CadenceStepType | Prisma.EnumCadenceStepTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.CadenceStepType[] | Prisma.ListEnumCadenceStepTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CadenceStepType[] | Prisma.ListEnumCadenceStepTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCadenceStepTypeFilter<$PrismaModel> | $Enums.CadenceStepType
+}
+
+export type EnumCadenceStepTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.CadenceStepType | Prisma.EnumCadenceStepTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.CadenceStepType[] | Prisma.ListEnumCadenceStepTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CadenceStepType[] | Prisma.ListEnumCadenceStepTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCadenceStepTypeWithAggregatesFilter<$PrismaModel> | $Enums.CadenceStepType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumCadenceStepTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumCadenceStepTypeFilter<$PrismaModel>
+}
+
+export type EnumCadenceEnrollmentStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.CadenceEnrollmentStatus | Prisma.EnumCadenceEnrollmentStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.CadenceEnrollmentStatus[] | Prisma.ListEnumCadenceEnrollmentStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CadenceEnrollmentStatus[] | Prisma.ListEnumCadenceEnrollmentStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCadenceEnrollmentStatusFilter<$PrismaModel> | $Enums.CadenceEnrollmentStatus
+}
+
+export type EnumCadenceEnrollmentStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.CadenceEnrollmentStatus | Prisma.EnumCadenceEnrollmentStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.CadenceEnrollmentStatus[] | Prisma.ListEnumCadenceEnrollmentStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CadenceEnrollmentStatus[] | Prisma.ListEnumCadenceEnrollmentStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCadenceEnrollmentStatusWithAggregatesFilter<$PrismaModel> | $Enums.CadenceEnrollmentStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumCadenceEnrollmentStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumCadenceEnrollmentStatusFilter<$PrismaModel>
+}
+
 export type NestedStringFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel>
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
@@ -9849,6 +9883,40 @@ export type NestedEnumCashierTransactionTypeWithAggregatesFilter<$PrismaModel = 
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumCashierTransactionTypeFilter<$PrismaModel>
   _max?: Prisma.NestedEnumCashierTransactionTypeFilter<$PrismaModel>
+}
+
+export type NestedEnumCadenceStepTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.CadenceStepType | Prisma.EnumCadenceStepTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.CadenceStepType[] | Prisma.ListEnumCadenceStepTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CadenceStepType[] | Prisma.ListEnumCadenceStepTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCadenceStepTypeFilter<$PrismaModel> | $Enums.CadenceStepType
+}
+
+export type NestedEnumCadenceStepTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.CadenceStepType | Prisma.EnumCadenceStepTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.CadenceStepType[] | Prisma.ListEnumCadenceStepTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CadenceStepType[] | Prisma.ListEnumCadenceStepTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCadenceStepTypeWithAggregatesFilter<$PrismaModel> | $Enums.CadenceStepType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumCadenceStepTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumCadenceStepTypeFilter<$PrismaModel>
+}
+
+export type NestedEnumCadenceEnrollmentStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.CadenceEnrollmentStatus | Prisma.EnumCadenceEnrollmentStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.CadenceEnrollmentStatus[] | Prisma.ListEnumCadenceEnrollmentStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CadenceEnrollmentStatus[] | Prisma.ListEnumCadenceEnrollmentStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCadenceEnrollmentStatusFilter<$PrismaModel> | $Enums.CadenceEnrollmentStatus
+}
+
+export type NestedEnumCadenceEnrollmentStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.CadenceEnrollmentStatus | Prisma.EnumCadenceEnrollmentStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.CadenceEnrollmentStatus[] | Prisma.ListEnumCadenceEnrollmentStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CadenceEnrollmentStatus[] | Prisma.ListEnumCadenceEnrollmentStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCadenceEnrollmentStatusWithAggregatesFilter<$PrismaModel> | $Enums.CadenceEnrollmentStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumCadenceEnrollmentStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumCadenceEnrollmentStatusFilter<$PrismaModel>
 }
 
 

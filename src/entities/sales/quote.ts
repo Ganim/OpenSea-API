@@ -15,7 +15,12 @@ export interface QuoteItemProps {
   updatedAt?: Date;
 }
 
-export type QuoteStatus = 'DRAFT' | 'SENT' | 'ACCEPTED' | 'REJECTED' | 'EXPIRED';
+export type QuoteStatus =
+  | 'DRAFT'
+  | 'SENT'
+  | 'ACCEPTED'
+  | 'REJECTED'
+  | 'EXPIRED';
 
 export interface QuoteProps {
   id: UniqueEntityID;
@@ -29,6 +34,9 @@ export interface QuoteProps {
   discount: number;
   total: number;
   sentAt?: Date;
+  viewedAt?: Date;
+  viewCount: number;
+  lastViewedAt?: Date;
   createdBy: string;
   isActive: boolean;
   createdAt: Date;
@@ -127,6 +135,33 @@ export class Quote extends Entity<QuoteProps> {
     this.touch();
   }
 
+  get viewedAt(): Date | undefined {
+    return this.props.viewedAt;
+  }
+
+  set viewedAt(value: Date | undefined) {
+    this.props.viewedAt = value;
+    this.touch();
+  }
+
+  get viewCount(): number {
+    return this.props.viewCount;
+  }
+
+  set viewCount(value: number) {
+    this.props.viewCount = value;
+    this.touch();
+  }
+
+  get lastViewedAt(): Date | undefined {
+    return this.props.lastViewedAt;
+  }
+
+  set lastViewedAt(value: Date | undefined) {
+    this.props.lastViewedAt = value;
+    this.touch();
+  }
+
   get createdBy(): string {
     return this.props.createdBy;
   }
@@ -182,7 +217,18 @@ export class Quote extends Entity<QuoteProps> {
   }
 
   static create(
-    props: Optional<QuoteProps, 'id' | 'isActive' | 'createdAt' | 'status' | 'subtotal' | 'discount' | 'total' | 'items'>,
+    props: Optional<
+      QuoteProps,
+      | 'id'
+      | 'isActive'
+      | 'createdAt'
+      | 'status'
+      | 'subtotal'
+      | 'discount'
+      | 'total'
+      | 'items'
+      | 'viewCount'
+    >,
     id?: UniqueEntityID,
   ): Quote {
     const quote = new Quote(
@@ -195,6 +241,7 @@ export class Quote extends Entity<QuoteProps> {
         subtotal: props.subtotal ?? 0,
         discount: props.discount ?? 0,
         total: props.total ?? 0,
+        viewCount: props.viewCount ?? 0,
         items: props.items ?? [],
       },
       id,

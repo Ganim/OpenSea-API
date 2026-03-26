@@ -30,6 +30,8 @@ import { calculateEntryRetentionsController } from './v1-calculate-entry-retenti
 import { applyEntryRetentionsController } from './v1-apply-entry-retentions.controller';
 import { listEntryRetentionsController } from './v1-list-entry-retentions.controller';
 import { threeWayMatchController } from './v1-three-way-match.controller';
+import { checkDuplicateController } from './v1-check-duplicate.controller';
+import { getSupplierSummaryController } from './v1-get-supplier-summary.controller';
 
 export async function financeEntriesRoutes(app: FastifyInstance) {
   app.addHook('preHandler', createModuleMiddleware('FINANCE'));
@@ -63,4 +65,6 @@ export async function financeEntriesRoutes(app: FastifyInstance) {
   app.register(applyEntryRetentionsController);
   app.register(listEntryRetentionsController);
   app.register(threeWayMatchController);
+  app.register(checkDuplicateController);
+  app.register(getSupplierSummaryController);
 }

@@ -1249,6 +1249,12 @@ async function main() {
         './seeds/sales-extended-seed.js'
       );
       await seedSalesExtendedData(prisma, demoTenant.id);
+
+      // Sales Evolution data (quotes, proposals, workflows, forms, conversations, msg templates, cashier, discount rules)
+      const { seedSalesEvolutionData } = await import(
+        './seeds/sales-evolution-seed.js'
+      );
+      await seedSalesEvolutionData(prisma, demoTenant.id);
     } catch (pipelineError) {
       console.log(
         '   ⚠️ Erro ao criar pipelines/dados de vendas (não crítico):',

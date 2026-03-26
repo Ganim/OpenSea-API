@@ -13,3 +13,4 @@ export * from './ocr-extract.schema';
 export * from './reconciliation.schema';
 export * from './pix-charge.schema';
 export * from './email-to-entry.schema';
+export * from './supplier-summary.schema';

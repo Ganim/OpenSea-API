@@ -1477,3 +1477,18 @@ export type CashierSession = Prisma.CashierSessionModel
  * 
  */
 export type CashierTransaction = Prisma.CashierTransactionModel
+/**
+ * Model CadenceSequence
+ * 
+ */
+export type CadenceSequence = Prisma.CadenceSequenceModel
+/**
+ * Model CadenceStep
+ * 
+ */
+export type CadenceStep = Prisma.CadenceStepModel
+/**
+ * Model CadenceEnrollment
+ * 
+ */
+export type CadenceEnrollment = Prisma.CadenceEnrollmentModel

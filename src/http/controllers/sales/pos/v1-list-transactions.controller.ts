@@ -2,6 +2,7 @@ import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
+import { makeListPosTransactionsUseCase } from '@/use-cases/sales/pos-transactions/factories/make-list-pos-transactions-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
@@ -10,22 +11,23 @@ const listTransactionsQuerySchema = z.object({
   page: z.coerce.number().int().positive().default(1),
   limit: z.coerce.number().int().positive().max(100).default(20),
   sessionId: z.string().uuid().optional(),
-  operatorId: z.string().uuid().optional(),
-  status: z.enum(['COMPLETED', 'CANCELLED']).optional(),
-  dateFrom: z.string().datetime().optional(),
-  dateTo: z.string().datetime().optional(),
+  status: z
+    .enum(['COMPLETED', 'CANCELLED', 'SUSPENDED', 'PENDING_SYNC'])
+    .optional(),
 });
 
 const transactionResponseSchema = z.object({
   id: z.string().uuid(),
   sessionId: z.string().uuid(),
+  orderId: z.string().uuid(),
+  transactionNumber: z.number(),
   customerId: z.string().uuid().nullable(),
-  operatorId: z.string().uuid(),
   status: z.string(),
   subtotal: z.number(),
-  discount: z.number(),
-  total: z.number(),
-  notes: z.string().nullable(),
+  discountTotal: z.number(),
+  taxTotal: z.number(),
+  grandTotal: z.number(),
+  changeAmount: z.number(),
   tenantId: z.string().uuid(),
   createdAt: z.string(),
 });
@@ -61,13 +63,39 @@ export async function listTransactionsController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
-      const { page, limit } = request.query;
+      const tenantId = request.user.tenantId!;
+      const { page, limit, sessionId, status } = request.query;
 
-      // TODO: Replace stub with real use case
+      const listPosTransactionsUseCase = makeListPosTransactionsUseCase();
+      const { transactions, total, totalPages } =
+        await listPosTransactionsUseCase.execute({
+          tenantId,
+          page,
+          limit,
+          sessionId,
+          status,
+        });
+
+      const transactionResponses = transactions.map((transaction) => ({
+        id: transaction.id.toString(),
+        sessionId: transaction.sessionId.toString(),
+        orderId: transaction.orderId.toString(),
+        transactionNumber: transaction.transactionNumber,
+        customerId: transaction.customerId?.toString() ?? null,
+        status: transaction.status,
+        subtotal: transaction.subtotal,
+        discountTotal: transaction.discountTotal,
+        taxTotal: transaction.taxTotal,
+        grandTotal: transaction.grandTotal,
+        changeAmount: transaction.changeAmount,
+        tenantId: transaction.tenantId.toString(),
+        createdAt: transaction.createdAt.toISOString(),
+      }));
+
       return reply.status(200).send({
-        transactions: [],
-        meta: { total: 0, page, limit, pages: 0 },
-      });
+        transactions: transactionResponses,
+        meta: { total, page, limit, pages: totalPages },
+      } as any);
     },
   });
 }

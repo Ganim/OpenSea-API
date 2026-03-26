@@ -675,7 +675,10 @@ export const ModelName = {
   FormSubmission: 'FormSubmission',
   MessageTemplate: 'MessageTemplate',
   CashierSession: 'CashierSession',
-  CashierTransaction: 'CashierTransaction'
+  CashierTransaction: 'CashierTransaction',
+  CadenceSequence: 'CadenceSequence',
+  CadenceStep: 'CadenceStep',
+  CadenceEnrollment: 'CadenceEnrollment'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -691,7 +694,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "userProfile" | "session" | "refreshToken" | "permission" | "permissionGroup" | "permissionGroupPermission" | "userPermissionGroup" | "userDirectPermission" | "permissionAuditLog" | "organization" | "organizationAddress" | "organizationCnae" | "organizationFiscalSettings" | "organizationStakeholder" | "supplier" | "manufacturer" | "category" | "warehouse" | "zone" | "bin" | "volume" | "volumeItem" | "template" | "product" | "variant" | "item" | "itemMovement" | "productCategory" | "variantPriceHistory" | "auditLog" | "tag" | "productTag" | "variantImage" | "productCareInstruction" | "productAttachment" | "variantAttachment" | "alert" | "purchaseOrder" | "purchaseOrderItem" | "unitConversion" | "stockSnapshot" | "inventorySession" | "inventorySessionItem" | "customer" | "salesOrder" | "salesOrderItem" | "crmContact" | "crmPipeline" | "crmPipelineStage" | "crmDeal" | "crmActivity" | "crmTimelineEvent" | "pipeline" | "pipelineStage" | "contact" | "deal" | "contactDeal" | "activity" | "timelineEvent" | "itemReservation" | "variantSupplierCode" | "variantPromotion" | "comment" | "notificationPreference" | "notificationTemplate" | "notification" | "request" | "requestAttachment" | "requestComment" | "requestHistory" | "employee" | "department" | "position" | "timeEntry" | "workSchedule" | "overtime" | "timeBank" | "absence" | "vacationPeriod" | "vacationSplit" | "payroll" | "payrollItem" | "bonus" | "deduction" | "employeeDependant" | "termination" | "medicalExam" | "safetyProgram" | "workplaceRisk" | "cipaMandate" | "cipaMember" | "company" | "companyDocument" | "companyAddress" | "companyCnae" | "companyFiscalSettings" | "companyStakeholder" | "labelTemplate" | "tenant" | "plan" | "planModule" | "tenantPlan" | "tenantUser" | "tenantFeatureFlag" | "costCenter" | "bankAccount" | "financeCategory" | "financeEntry" | "financeEntryRetention" | "financeCodeSequence" | "financeEntryPayment" | "financeEntryCostCenter" | "recurringConfig" | "financeBudget" | "financeAttachment" | "bankReconciliation" | "bankReconciliationItem" | "loan" | "loanInstallment" | "consortium" | "consortiumPayment" | "contract" | "storageFolder" | "storageFile" | "storageFileVersion" | "folderAccessRule" | "storageShareLink" | "calendar" | "teamCalendarConfig" | "calendarEvent" | "eventParticipant" | "eventReminder" | "emailAccount" | "emailAccountAccess" | "emailFolder" | "emailMessage" | "emailAttachment" | "team" | "teamMember" | "teamEmailAccount" | "board" | "boardColumn" | "card" | "boardLabel" | "cardLabel" | "boardMember" | "boardCustomField" | "cardCustomFieldValue" | "cardComment" | "commentReaction" | "cardAttachment" | "cardChecklist" | "checklistItem" | "cardActivity" | "boardAutomation" | "cardWatcher" | "systemSkillDefinition" | "skillPricing" | "tenantSubscription" | "tenantConsumption" | "tenantBilling" | "tenantIntegrationStatus" | "centralUser" | "supportTicket" | "supportTicketMessage" | "supportTicketAttachment" | "supportSlaConfig" | "priceTable" | "priceTableRule" | "priceTableItem" | "customerPrice" | "taxProfile" | "taxRule" | "campaign" | "campaignRule" | "campaignProduct" | "coupon" | "couponUsage" | "combo" | "comboItem" | "catalog" | "catalogItem" | "catalogExport" | "tenantBrand" | "contentTemplate" | "generatedContent" | "productMockup" | "emailCampaign" | "order" | "orderItem" | "paymentCondition" | "orderPayment" | "orderDelivery" | "orderDeliveryItem" | "orderReturn" | "orderReturnItem" | "storeCredit" | "storeCreditUsage" | "customerCreditLimit" | "approvalRule" | "orderCommission" | "commissionRule" | "orderHistory" | "digitalCertificate" | "signatureEnvelope" | "signatureEnvelopeSigner" | "signatureAuditEvent" | "signatureTemplate" | "analyticsWidget" | "analyticsDashboard" | "analyticsDashboardWidget" | "analyticsGoal" | "analyticsReport" | "analyticsReportGeneration" | "customerPortalAccess" | "aiTenantConfig" | "aiConversation" | "aiMessage" | "aiFavoriteQuery" | "aiActionLog" | "aiInsight" | "posTerminal" | "posSession" | "posTransaction" | "posTransactionPayment" | "posCashMovement" | "posOfflineQueue" | "posVisitLog" | "cardIntegration" | "eventLog" | "bid" | "bidItem" | "bidProposal" | "bidDocument" | "bidContract" | "bidEmpenho" | "bidMonitorEvent" | "bidHistory" | "bidAiConfig" | "certidaoSchedule" | "marketplaceConnection" | "marketplaceListing" | "marketplaceOrder" | "marketplacePayment" | "messagingAccount" | "messagingContact" | "messagingMessage" | "messagingTemplate" | "fiscalConfig" | "fiscalCertificate" | "fiscalDocument" | "fiscalDocumentItem" | "fiscalDocumentEvent" | "pixCharge" | "aiWorkflow" | "aiWorkflowExecution" | "overdueEscalation" | "overdueEscalationStep" | "overdueAction" | "punchConfiguration" | "hrTenantConfig" | "geofenceZone" | "emailToEntryConfig" | "esocialConfig" | "esocialCertificate" | "esocialEvent" | "esocialBatch" | "esocialRubrica" | "esocialEventStatusHistory" | "esocialTable" | "financeApprovalRule" | "bankConnection" | "paymentLink" | "accountantAccess" | "exchangeRate" | "quote" | "quoteItem" | "proposal" | "proposalItem" | "proposalAttachment" | "discountRule" | "workflow" | "workflowStep" | "conversation" | "conversationMessage" | "form" | "formField" | "formSubmission" | "messageTemplate" | "cashierSession" | "cashierTransaction"
+    modelProps: "user" | "userProfile" | "session" | "refreshToken" | "permission" | "permissionGroup" | "permissionGroupPermission" | "userPermissionGroup" | "userDirectPermission" | "permissionAuditLog" | "organization" | "organizationAddress" | "organizationCnae" | "organizationFiscalSettings" | "organizationStakeholder" | "supplier" | "manufacturer" | "category" | "warehouse" | "zone" | "bin" | "volume" | "volumeItem" | "template" | "product" | "variant" | "item" | "itemMovement" | "productCategory" | "variantPriceHistory" | "auditLog" | "tag" | "productTag" | "variantImage" | "productCareInstruction" | "productAttachment" | "variantAttachment" | "alert" | "purchaseOrder" | "purchaseOrderItem" | "unitConversion" | "stockSnapshot" | "inventorySession" | "inventorySessionItem" | "customer" | "salesOrder" | "salesOrderItem" | "crmContact" | "crmPipeline" | "crmPipelineStage" | "crmDeal" | "crmActivity" | "crmTimelineEvent" | "pipeline" | "pipelineStage" | "contact" | "deal" | "contactDeal" | "activity" | "timelineEvent" | "itemReservation" | "variantSupplierCode" | "variantPromotion" | "comment" | "notificationPreference" | "notificationTemplate" | "notification" | "request" | "requestAttachment" | "requestComment" | "requestHistory" | "employee" | "department" | "position" | "timeEntry" | "workSchedule" | "overtime" | "timeBank" | "absence" | "vacationPeriod" | "vacationSplit" | "payroll" | "payrollItem" | "bonus" | "deduction" | "employeeDependant" | "termination" | "medicalExam" | "safetyProgram" | "workplaceRisk" | "cipaMandate" | "cipaMember" | "company" | "companyDocument" | "companyAddress" | "companyCnae" | "companyFiscalSettings" | "companyStakeholder" | "labelTemplate" | "tenant" | "plan" | "planModule" | "tenantPlan" | "tenantUser" | "tenantFeatureFlag" | "costCenter" | "bankAccount" | "financeCategory" | "financeEntry" | "financeEntryRetention" | "financeCodeSequence" | "financeEntryPayment" | "financeEntryCostCenter" | "recurringConfig" | "financeBudget" | "financeAttachment" | "bankReconciliation" | "bankReconciliationItem" | "loan" | "loanInstallment" | "consortium" | "consortiumPayment" | "contract" | "storageFolder" | "storageFile" | "storageFileVersion" | "folderAccessRule" | "storageShareLink" | "calendar" | "teamCalendarConfig" | "calendarEvent" | "eventParticipant" | "eventReminder" | "emailAccount" | "emailAccountAccess" | "emailFolder" | "emailMessage" | "emailAttachment" | "team" | "teamMember" | "teamEmailAccount" | "board" | "boardColumn" | "card" | "boardLabel" | "cardLabel" | "boardMember" | "boardCustomField" | "cardCustomFieldValue" | "cardComment" | "commentReaction" | "cardAttachment" | "cardChecklist" | "checklistItem" | "cardActivity" | "boardAutomation" | "cardWatcher" | "systemSkillDefinition" | "skillPricing" | "tenantSubscription" | "tenantConsumption" | "tenantBilling" | "tenantIntegrationStatus" | "centralUser" | "supportTicket" | "supportTicketMessage" | "supportTicketAttachment" | "supportSlaConfig" | "priceTable" | "priceTableRule" | "priceTableItem" | "customerPrice" | "taxProfile" | "taxRule" | "campaign" | "campaignRule" | "campaignProduct" | "coupon" | "couponUsage" | "combo" | "comboItem" | "catalog" | "catalogItem" | "catalogExport" | "tenantBrand" | "contentTemplate" | "generatedContent" | "productMockup" | "emailCampaign" | "order" | "orderItem" | "paymentCondition" | "orderPayment" | "orderDelivery" | "orderDeliveryItem" | "orderReturn" | "orderReturnItem" | "storeCredit" | "storeCreditUsage" | "customerCreditLimit" | "approvalRule" | "orderCommission" | "commissionRule" | "orderHistory" | "digitalCertificate" | "signatureEnvelope" | "signatureEnvelopeSigner" | "signatureAuditEvent" | "signatureTemplate" | "analyticsWidget" | "analyticsDashboard" | "analyticsDashboardWidget" | "analyticsGoal" | "analyticsReport" | "analyticsReportGeneration" | "customerPortalAccess" | "aiTenantConfig" | "aiConversation" | "aiMessage" | "aiFavoriteQuery" | "aiActionLog" | "aiInsight" | "posTerminal" | "posSession" | "posTransaction" | "posTransactionPayment" | "posCashMovement" | "posOfflineQueue" | "posVisitLog" | "cardIntegration" | "eventLog" | "bid" | "bidItem" | "bidProposal" | "bidDocument" | "bidContract" | "bidEmpenho" | "bidMonitorEvent" | "bidHistory" | "bidAiConfig" | "certidaoSchedule" | "marketplaceConnection" | "marketplaceListing" | "marketplaceOrder" | "marketplacePayment" | "messagingAccount" | "messagingContact" | "messagingMessage" | "messagingTemplate" | "fiscalConfig" | "fiscalCertificate" | "fiscalDocument" | "fiscalDocumentItem" | "fiscalDocumentEvent" | "pixCharge" | "aiWorkflow" | "aiWorkflowExecution" | "overdueEscalation" | "overdueEscalationStep" | "overdueAction" | "punchConfiguration" | "hrTenantConfig" | "geofenceZone" | "emailToEntryConfig" | "esocialConfig" | "esocialCertificate" | "esocialEvent" | "esocialBatch" | "esocialRubrica" | "esocialEventStatusHistory" | "esocialTable" | "financeApprovalRule" | "bankConnection" | "paymentLink" | "accountantAccess" | "exchangeRate" | "quote" | "quoteItem" | "proposal" | "proposalItem" | "proposalAttachment" | "discountRule" | "workflow" | "workflowStep" | "conversation" | "conversationMessage" | "form" | "formField" | "formSubmission" | "messageTemplate" | "cashierSession" | "cashierTransaction" | "cadenceSequence" | "cadenceStep" | "cadenceEnrollment"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -22303,6 +22306,228 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    CadenceSequence: {
+      payload: Prisma.$CadenceSequencePayload<ExtArgs>
+      fields: Prisma.CadenceSequenceFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CadenceSequenceFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CadenceSequencePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CadenceSequenceFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CadenceSequencePayload>
+        }
+        findFirst: {
+          args: Prisma.CadenceSequenceFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CadenceSequencePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CadenceSequenceFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CadenceSequencePayload>
+        }
+        findMany: {
+          args: Prisma.CadenceSequenceFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CadenceSequencePayload>[]
+        }
+        create: {
+          args: Prisma.CadenceSequenceCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CadenceSequencePayload>
+        }
+        createMany: {
+          args: Prisma.CadenceSequenceCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CadenceSequenceCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CadenceSequencePayload>[]
+        }
+        delete: {
+          args: Prisma.CadenceSequenceDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CadenceSequencePayload>
+        }
+        update: {
+          args: Prisma.CadenceSequenceUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CadenceSequencePayload>
+        }
+        deleteMany: {
+          args: Prisma.CadenceSequenceDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CadenceSequenceUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CadenceSequenceUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CadenceSequencePayload>[]
+        }
+        upsert: {
+          args: Prisma.CadenceSequenceUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CadenceSequencePayload>
+        }
+        aggregate: {
+          args: Prisma.CadenceSequenceAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCadenceSequence>
+        }
+        groupBy: {
+          args: Prisma.CadenceSequenceGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CadenceSequenceGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CadenceSequenceCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CadenceSequenceCountAggregateOutputType> | number
+        }
+      }
+    }
+    CadenceStep: {
+      payload: Prisma.$CadenceStepPayload<ExtArgs>
+      fields: Prisma.CadenceStepFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CadenceStepFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CadenceStepPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CadenceStepFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CadenceStepPayload>
+        }
+        findFirst: {
+          args: Prisma.CadenceStepFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CadenceStepPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CadenceStepFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CadenceStepPayload>
+        }
+        findMany: {
+          args: Prisma.CadenceStepFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CadenceStepPayload>[]
+        }
+        create: {
+          args: Prisma.CadenceStepCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CadenceStepPayload>
+        }
+        createMany: {
+          args: Prisma.CadenceStepCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CadenceStepCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CadenceStepPayload>[]
+        }
+        delete: {
+          args: Prisma.CadenceStepDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CadenceStepPayload>
+        }
+        update: {
+          args: Prisma.CadenceStepUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CadenceStepPayload>
+        }
+        deleteMany: {
+          args: Prisma.CadenceStepDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CadenceStepUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CadenceStepUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CadenceStepPayload>[]
+        }
+        upsert: {
+          args: Prisma.CadenceStepUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CadenceStepPayload>
+        }
+        aggregate: {
+          args: Prisma.CadenceStepAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCadenceStep>
+        }
+        groupBy: {
+          args: Prisma.CadenceStepGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CadenceStepGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CadenceStepCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CadenceStepCountAggregateOutputType> | number
+        }
+      }
+    }
+    CadenceEnrollment: {
+      payload: Prisma.$CadenceEnrollmentPayload<ExtArgs>
+      fields: Prisma.CadenceEnrollmentFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CadenceEnrollmentFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CadenceEnrollmentPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CadenceEnrollmentFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CadenceEnrollmentPayload>
+        }
+        findFirst: {
+          args: Prisma.CadenceEnrollmentFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CadenceEnrollmentPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CadenceEnrollmentFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CadenceEnrollmentPayload>
+        }
+        findMany: {
+          args: Prisma.CadenceEnrollmentFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CadenceEnrollmentPayload>[]
+        }
+        create: {
+          args: Prisma.CadenceEnrollmentCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CadenceEnrollmentPayload>
+        }
+        createMany: {
+          args: Prisma.CadenceEnrollmentCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CadenceEnrollmentCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CadenceEnrollmentPayload>[]
+        }
+        delete: {
+          args: Prisma.CadenceEnrollmentDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CadenceEnrollmentPayload>
+        }
+        update: {
+          args: Prisma.CadenceEnrollmentUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CadenceEnrollmentPayload>
+        }
+        deleteMany: {
+          args: Prisma.CadenceEnrollmentDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CadenceEnrollmentUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CadenceEnrollmentUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CadenceEnrollmentPayload>[]
+        }
+        upsert: {
+          args: Prisma.CadenceEnrollmentUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CadenceEnrollmentPayload>
+        }
+        aggregate: {
+          args: Prisma.CadenceEnrollmentAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCadenceEnrollment>
+        }
+        groupBy: {
+          args: Prisma.CadenceEnrollmentGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CadenceEnrollmentGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CadenceEnrollmentCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CadenceEnrollmentCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -28104,6 +28329,9 @@ export const QuoteScalarFieldEnum = {
   discount: 'discount',
   total: 'total',
   sentAt: 'sentAt',
+  viewedAt: 'viewedAt',
+  viewCount: 'viewCount',
+  lastViewedAt: 'lastViewedAt',
   createdBy: 'createdBy',
   isActive: 'isActive',
   createdAt: 'createdAt',
@@ -28141,6 +28369,9 @@ export const ProposalScalarFieldEnum = {
   terms: 'terms',
   totalValue: 'totalValue',
   sentAt: 'sentAt',
+  viewedAt: 'viewedAt',
+  viewCount: 'viewCount',
+  lastViewedAt: 'lastViewedAt',
   createdBy: 'createdBy',
   isActive: 'isActive',
   createdAt: 'createdAt',
@@ -28355,6 +28586,52 @@ export const CashierTransactionScalarFieldEnum = {
 } as const
 
 export type CashierTransactionScalarFieldEnum = (typeof CashierTransactionScalarFieldEnum)[keyof typeof CashierTransactionScalarFieldEnum]
+
+
+export const CadenceSequenceScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  name: 'name',
+  description: 'description',
+  isActive: 'isActive',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type CadenceSequenceScalarFieldEnum = (typeof CadenceSequenceScalarFieldEnum)[keyof typeof CadenceSequenceScalarFieldEnum]
+
+
+export const CadenceStepScalarFieldEnum = {
+  id: 'id',
+  sequenceId: 'sequenceId',
+  order: 'order',
+  type: 'type',
+  delayDays: 'delayDays',
+  config: 'config',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CadenceStepScalarFieldEnum = (typeof CadenceStepScalarFieldEnum)[keyof typeof CadenceStepScalarFieldEnum]
+
+
+export const CadenceEnrollmentScalarFieldEnum = {
+  id: 'id',
+  sequenceId: 'sequenceId',
+  tenantId: 'tenantId',
+  contactId: 'contactId',
+  dealId: 'dealId',
+  currentStepOrder: 'currentStepOrder',
+  status: 'status',
+  nextActionAt: 'nextActionAt',
+  startedAt: 'startedAt',
+  completedAt: 'completedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type CadenceEnrollmentScalarFieldEnum = (typeof CadenceEnrollmentScalarFieldEnum)[keyof typeof CadenceEnrollmentScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -32113,6 +32390,34 @@ export type EnumCashierTransactionTypeFieldRefInput<$PrismaModel> = FieldRefInpu
 export type ListEnumCashierTransactionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CashierTransactionType[]'>
     
 
+
+/**
+ * Reference to a field of type 'CadenceStepType'
+ */
+export type EnumCadenceStepTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CadenceStepType'>
+    
+
+
+/**
+ * Reference to a field of type 'CadenceStepType[]'
+ */
+export type ListEnumCadenceStepTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CadenceStepType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'CadenceEnrollmentStatus'
+ */
+export type EnumCadenceEnrollmentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CadenceEnrollmentStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'CadenceEnrollmentStatus[]'
+ */
+export type ListEnumCadenceEnrollmentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CadenceEnrollmentStatus[]'>
+    
+
 /**
  * Batch Payload for updateMany & deleteMany & createMany
  */
@@ -32500,6 +32805,9 @@ export type GlobalOmitConfig = {
   messageTemplate?: Prisma.MessageTemplateOmit
   cashierSession?: Prisma.CashierSessionOmit
   cashierTransaction?: Prisma.CashierTransactionOmit
+  cadenceSequence?: Prisma.CadenceSequenceOmit
+  cadenceStep?: Prisma.CadenceStepOmit
+  cadenceEnrollment?: Prisma.CadenceEnrollmentOmit
 }
 
 /* Types for Logging */

@@ -98,6 +98,13 @@ enum RecurrenceUnit {
   ANNUAL
 }
 
+enum LeadRoutingStrategy {
+  ROUND_ROBIN
+  TERRITORY
+  SEGMENT
+  LOAD_BALANCE
+}
+
 enum RetentionTaxType {
   IRRF
   ISS
@@ -1115,6 +1122,8 @@ enum AuditEntity {
   MESSAGE_TEMPLATE
   CASHIER_SESSION
   CASHIER_TRANSACTION
+  LEAD_SCORING_RULE
+  LEAD_SCORE
 
   // Bids - Licitacoes
   BID
@@ -1212,6 +1221,11 @@ enum AuditEntity {
   PLAN
   TENANT_USER
   FEATURE_FLAG
+
+  // Cadence Sequences
+  CADENCE_SEQUENCE
+  CADENCE_STEP
+  CADENCE_ENROLLMENT
 
   // System
   OTHER
@@ -2900,12 +2914,16 @@ model Customer {
   quotes        Quote[]
   proposals     Proposal[]
   conversations Conversation[]
+  leadScores    LeadScore[]
 
   assignedTo     User?           @relation("CustomerAssignedTo", fields: [assignedToUserId], references: [id])
   contacts       Contact[]
   deals          Deal[]
   activities     Activity[]
   timelineEvents TimelineEvent[]
+
+  // Lead Scoring Relations
+  leadScores LeadScore[]
 
   @@unique([documentHash, tenantId, deletedAt], name: "customers_document_unique_active")
   @@index([documentHash])
@@ -3212,6 +3230,7 @@ model Pipeline {
   chainedFrom  Pipeline[]      @relation("PipelineChain")
   stages       PipelineStage[]
   deals        Deal[]
+  blueprints   ProcessBlueprint[]
 
   @@index([tenantId])
   @@index([tenantId, type])
@@ -3241,6 +3260,46 @@ model PipelineStage {
 
   @@index([pipelineId])
   @@map("pipeline_stages")
+}
+
+model ProcessBlueprint {
+  id       String @id @default(uuid())
+  tenantId String @map("tenant_id")
+
+  name       String  @db.VarChar(255)
+  pipelineId String  @map("pipeline_id")
+  isActive   Boolean @default(true) @map("is_active")
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  tenant   Tenant               @relation(fields: [tenantId], references: [id])
+  pipeline Pipeline             @relation(fields: [pipelineId], references: [id])
+  stages   BlueprintStageRule[]
+
+  @@index([tenantId])
+  @@index([pipelineId])
+  @@map("process_blueprints")
+}
+
+model BlueprintStageRule {
+  id          String @id @default(uuid())
+  blueprintId String @map("blueprint_id")
+  stageId     String @map("stage_id")
+
+  requiredFields String[] @default([]) @map("required_fields")
+  validations    Json     @default("[]")
+  blocksAdvance  Boolean  @default(true) @map("blocks_advance")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  blueprint ProcessBlueprint @relation(fields: [blueprintId], references: [id], onDelete: Cascade)
+
+  @@index([blueprintId])
+  @@index([stageId])
+  @@map("blueprint_stage_rules")
 }
 
 model Contact {
@@ -5438,6 +5497,8 @@ model Tenant {
   forms               Form[]
   messageTemplates    MessageTemplate[]
   cashierSessions     CashierSession[]
+  leadScoringRules    LeadScoringRule[]
+  leadScores          LeadScore[]
 
   // Digital Signature domain
   digitalCertificates DigitalCertificate[]
@@ -5524,6 +5585,14 @@ model Tenant {
   esocialEvents       EsocialEvent[]
   esocialBatches      EsocialBatch[]
   esocialRubricas     EsocialRubrica[]
+
+  // Lead Scoring domain
+  leadScoringRules    LeadScoringRule[]
+  leadScores          LeadScore[]
+
+  // Cadence Sequences domain
+  cadenceSequences    CadenceSequence[]
+  cadenceEnrollments  CadenceEnrollment[]
 
   @@index([status])
   @@index([deletedAt])
@@ -12787,8 +12856,11 @@ model Quote {
   discount Decimal @default(0) @db.Decimal(12, 2)
   total    Decimal @default(0) @db.Decimal(12, 2)
 
-  sentAt    DateTime? @map("sent_at")
-  createdBy String    @map("created_by")
+  sentAt       DateTime? @map("sent_at")
+  viewedAt     DateTime? @map("viewed_at")
+  viewCount    Int       @default(0) @map("view_count")
+  lastViewedAt DateTime? @map("last_viewed_at")
+  createdBy    String    @map("created_by")
 
   isActive  Boolean   @default(true) @map("is_active")
   createdAt DateTime  @default(now()) @map("created_at")
@@ -12841,8 +12913,11 @@ model Proposal {
   terms       String?        @db.Text
   totalValue  Decimal        @default(0) @map("total_value") @db.Decimal(12, 2)
 
-  sentAt    DateTime? @map("sent_at")
-  createdBy String    @map("created_by")
+  sentAt       DateTime? @map("sent_at")
+  viewedAt     DateTime? @map("viewed_at")
+  viewCount    Int       @default(0) @map("view_count")
+  lastViewedAt DateTime? @map("last_viewed_at")
+  createdBy    String    @map("created_by")
 
   isActive  Boolean   @default(true) @map("is_active")
   createdAt DateTime  @default(now()) @map("created_at")
@@ -13162,4 +13237,172 @@ model CashierTransaction {
 
   @@index([sessionId])
   @@map("cashier_transactions")
+}
+
+// ============================================================================
+// SALES EVOLUTION — Lead Scoring
+// ============================================================================
+
+model LeadScoringRule {
+  id       String @id @default(uuid())
+  tenantId String @map("tenant_id")
+
+  name      String @db.VarChar(255)
+  field     String @db.VarChar(100) // e.g. "email_opened", "meeting_scheduled", "days_inactive"
+  condition String @db.VarChar(50)  // e.g. "equals", "greater_than", "contains"
+  value     String @db.VarChar(255) // condition value
+  points    Int                      // positive = boost, negative = penalty
+  isActive  Boolean @default(true) @map("is_active")
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@map("lead_scoring_rules")
+}
+
+model LeadScore {
+  id       String @id @default(uuid())
+  tenantId String @map("tenant_id")
+
+  customerId   String   @map("customer_id")
+  score        Int      @default(0)
+  tier         String   @default("COLD") @db.VarChar(20) // HOT (80+), WARM (50-79), COLD (<50)
+  factors      Json     @default("[]") // array of { ruleId, ruleName, points, reason }
+  calculatedAt DateTime @default(now()) @map("calculated_at")
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  tenant   Tenant   @relation(fields: [tenantId], references: [id])
+  customer Customer @relation(fields: [customerId], references: [id])
+
+  @@unique([tenantId, customerId])
+  @@index([tenantId])
+  @@index([score])
+  @@map("lead_scores")
+}
+
+// ============================================================================
+// SALES — Cadence Sequences (Sequências de Cadência)
+// ============================================================================
+
+enum CadenceStepType {
+  EMAIL
+  CALL
+  TASK
+  LINKEDIN
+  WHATSAPP
+  WAIT
+}
+
+enum CadenceEnrollmentStatus {
+  ACTIVE
+  PAUSED
+  COMPLETED
+  BOUNCED
+}
+
+model CadenceSequence {
+  id       String @id @default(uuid())
+  tenantId String @map("tenant_id")
+
+  name        String  @db.VarChar(255)
+  description String? @db.Text
+  isActive    Boolean @default(false) @map("is_active")
+  createdBy   String  @map("created_by")
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  tenant      Tenant              @relation(fields: [tenantId], references: [id])
+  steps       CadenceStep[]
+  enrollments CadenceEnrollment[]
+
+  @@index([tenantId])
+  @@index([isActive])
+  @@map("cadence_sequences")
+}
+
+model CadenceStep {
+  id         String @id @default(uuid())
+  sequenceId String @map("sequence_id")
+
+  order     Int
+  type      CadenceStepType
+  delayDays Int             @default(0) @map("delay_days")
+  config    Json            @default("{}")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  sequence CadenceSequence @relation(fields: [sequenceId], references: [id], onDelete: Cascade)
+
+  @@index([sequenceId])
+  @@map("cadence_steps")
+}
+
+model CadenceEnrollment {
+  id         String @id @default(uuid())
+  sequenceId String @map("sequence_id")
+  tenantId   String @map("tenant_id")
+
+  contactId        String?                  @map("contact_id")
+  dealId           String?                  @map("deal_id")
+  currentStepOrder Int                      @default(1) @map("current_step_order")
+  status           CadenceEnrollmentStatus  @default(ACTIVE)
+  nextActionAt     DateTime?                @map("next_action_at")
+  startedAt        DateTime                 @default(now()) @map("started_at")
+  completedAt      DateTime?                @map("completed_at")
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  sequence CadenceSequence @relation(fields: [sequenceId], references: [id])
+  tenant   Tenant          @relation(fields: [tenantId], references: [id])
+
+  @@index([sequenceId])
+  @@index([tenantId])
+  @@index([status, nextActionAt])
+  @@map("cadence_enrollments")
+}
+
+// ============================================================================
+// SALES — Landing Pages
+// ============================================================================
+
+enum LandingPageStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+model LandingPage {
+  id       String @id @default(uuid())
+  tenantId String @map("tenant_id")
+
+  title       String            @db.VarChar(255)
+  slug        String            @db.VarChar(100)
+  description String?           @db.Text
+  template    String            @default("lead-capture") @db.VarChar(50) // blank, lead-capture, product-showcase
+  content     Json              @default("{}") // sections: hero, form, features, cta
+  formId      String?           @map("form_id") // link to Form entity
+  status      LandingPageStatus @default(DRAFT)
+  isPublished Boolean           @default(false) @map("is_published")
+  publishedAt DateTime?         @map("published_at")
+  viewCount   Int               @default(0) @map("view_count")
+  createdBy   String            @map("created_by")
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+  form   Form?  @relation(fields: [formId], references: [id])
+
+  @@unique([tenantId, slug])
+  @@index([tenantId])
+  @@map("landing_pages")
 }

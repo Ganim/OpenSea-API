@@ -693,6 +693,9 @@ export const AuditEntity = {
   PLAN: 'PLAN',
   TENANT_USER: 'TENANT_USER',
   FEATURE_FLAG: 'FEATURE_FLAG',
+  CADENCE_SEQUENCE: 'CADENCE_SEQUENCE',
+  CADENCE_STEP: 'CADENCE_STEP',
+  CADENCE_ENROLLMENT: 'CADENCE_ENROLLMENT',
   OTHER: 'OTHER'
 } as const
 
@@ -3248,3 +3251,25 @@ export const CashierTransactionType = {
 } as const
 
 export type CashierTransactionType = (typeof CashierTransactionType)[keyof typeof CashierTransactionType]
+
+
+export const CadenceStepType = {
+  EMAIL: 'EMAIL',
+  CALL: 'CALL',
+  TASK: 'TASK',
+  LINKEDIN: 'LINKEDIN',
+  WHATSAPP: 'WHATSAPP',
+  WAIT: 'WAIT'
+} as const
+
+export type CadenceStepType = (typeof CadenceStepType)[keyof typeof CadenceStepType]
+
+
+export const CadenceEnrollmentStatus = {
+  ACTIVE: 'ACTIVE',
+  PAUSED: 'PAUSED',
+  COMPLETED: 'COMPLETED',
+  BOUNCED: 'BOUNCED'
+} as const
+
+export type CadenceEnrollmentStatus = (typeof CadenceEnrollmentStatus)[keyof typeof CadenceEnrollmentStatus]

@@ -342,7 +342,10 @@ export const ModelName = {
   FormSubmission: 'FormSubmission',
   MessageTemplate: 'MessageTemplate',
   CashierSession: 'CashierSession',
-  CashierTransaction: 'CashierTransaction'
+  CashierTransaction: 'CashierTransaction',
+  CadenceSequence: 'CadenceSequence',
+  CadenceStep: 'CadenceStep',
+  CadenceEnrollment: 'CadenceEnrollment'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -6123,6 +6126,9 @@ export const QuoteScalarFieldEnum = {
   discount: 'discount',
   total: 'total',
   sentAt: 'sentAt',
+  viewedAt: 'viewedAt',
+  viewCount: 'viewCount',
+  lastViewedAt: 'lastViewedAt',
   createdBy: 'createdBy',
   isActive: 'isActive',
   createdAt: 'createdAt',
@@ -6160,6 +6166,9 @@ export const ProposalScalarFieldEnum = {
   terms: 'terms',
   totalValue: 'totalValue',
   sentAt: 'sentAt',
+  viewedAt: 'viewedAt',
+  viewCount: 'viewCount',
+  lastViewedAt: 'lastViewedAt',
   createdBy: 'createdBy',
   isActive: 'isActive',
   createdAt: 'createdAt',
@@ -6374,6 +6383,52 @@ export const CashierTransactionScalarFieldEnum = {
 } as const
 
 export type CashierTransactionScalarFieldEnum = (typeof CashierTransactionScalarFieldEnum)[keyof typeof CashierTransactionScalarFieldEnum]
+
+
+export const CadenceSequenceScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  name: 'name',
+  description: 'description',
+  isActive: 'isActive',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type CadenceSequenceScalarFieldEnum = (typeof CadenceSequenceScalarFieldEnum)[keyof typeof CadenceSequenceScalarFieldEnum]
+
+
+export const CadenceStepScalarFieldEnum = {
+  id: 'id',
+  sequenceId: 'sequenceId',
+  order: 'order',
+  type: 'type',
+  delayDays: 'delayDays',
+  config: 'config',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CadenceStepScalarFieldEnum = (typeof CadenceStepScalarFieldEnum)[keyof typeof CadenceStepScalarFieldEnum]
+
+
+export const CadenceEnrollmentScalarFieldEnum = {
+  id: 'id',
+  sequenceId: 'sequenceId',
+  tenantId: 'tenantId',
+  contactId: 'contactId',
+  dealId: 'dealId',
+  currentStepOrder: 'currentStepOrder',
+  status: 'status',
+  nextActionAt: 'nextActionAt',
+  startedAt: 'startedAt',
+  completedAt: 'completedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type CadenceEnrollmentScalarFieldEnum = (typeof CadenceEnrollmentScalarFieldEnum)[keyof typeof CadenceEnrollmentScalarFieldEnum]
 
 
 export const SortOrder = {

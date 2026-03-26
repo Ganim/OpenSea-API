@@ -1,9 +1,12 @@
+import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
+import { makeOpenPosSessionUseCase } from '@/use-cases/sales/pos-sessions/factories/make-open-pos-session-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
@@ -11,7 +14,6 @@ import z from 'zod';
 const openSessionBodySchema = z.object({
   terminalId: z.string().uuid(),
   openingBalance: z.number().min(0),
-  notes: z.string().max(500).optional(),
 });
 
 const sessionResponseSchema = z.object({
@@ -56,32 +58,49 @@ export async function openSessionController(app: FastifyInstance) {
       const userId = request.user.sub;
       const body = request.body;
 
-      // TODO: Replace stub with real use case
-      const session = {
-        id: crypto.randomUUID(),
-        terminalId: body.terminalId,
-        operatorId: userId,
-        status: 'OPEN',
-        openingBalance: body.openingBalance,
-        closingBalance: null,
-        notes: body.notes ?? null,
-        openedAt: new Date().toISOString(),
-        closedAt: null,
-        tenantId,
-        createdAt: new Date().toISOString(),
-      };
-
-      await logAudit(request, {
-        message: AUDIT_MESSAGES.SALES.POS_SESSION_OPEN,
-        entityId: session.id,
-        placeholders: { userName: userId, terminalId: body.terminalId },
-        newData: {
+      try {
+        const openPosSessionUseCase = makeOpenPosSessionUseCase();
+        const { session } = await openPosSessionUseCase.execute({
+          tenantId,
           terminalId: body.terminalId,
+          operatorUserId: userId,
           openingBalance: body.openingBalance,
-        },
-      });
+        });
 
-      return reply.status(201).send({ session });
+        const sessionResponse = {
+          id: session.id.toString(),
+          terminalId: session.terminalId.toString(),
+          operatorId: session.operatorUserId.toString(),
+          status: session.status,
+          openingBalance: session.openingBalance,
+          closingBalance: session.closingBalance ?? null,
+          notes: session.notes ?? null,
+          openedAt: session.openedAt.toISOString(),
+          closedAt: session.closedAt?.toISOString() ?? null,
+          tenantId: session.tenantId.toString(),
+          createdAt: session.createdAt.toISOString(),
+        };
+
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.SALES.POS_SESSION_OPEN,
+          entityId: sessionResponse.id,
+          placeholders: { userName: userId, terminalId: body.terminalId },
+          newData: {
+            terminalId: body.terminalId,
+            openingBalance: body.openingBalance,
+          },
+        });
+
+        return reply.status(201).send({ session: sessionResponse } as any);
+      } catch (error) {
+        if (
+          error instanceof BadRequestError ||
+          error instanceof ResourceNotFoundError
+        ) {
+          return reply.status(400).send({ message: error.message });
+        }
+        throw error;
+      }
     },
   });
 }

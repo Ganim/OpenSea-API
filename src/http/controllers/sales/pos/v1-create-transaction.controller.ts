@@ -1,44 +1,67 @@
+import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
+import { makeCreatePosTransactionUseCase } from '@/use-cases/sales/pos-transactions/factories/make-create-pos-transaction-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
 
-const transactionItemSchema = z.object({
-  variantId: z.string().uuid(),
-  quantity: z.number().int().positive(),
-  unitPrice: z.number().min(0),
-  discount: z.number().min(0).optional().default(0),
-});
-
 const transactionPaymentSchema = z.object({
-  method: z.enum(['CASH', 'CREDIT', 'DEBIT', 'PIX', 'VOUCHER', 'OTHER']),
+  method: z.enum([
+    'CASH',
+    'CREDIT_CARD',
+    'DEBIT_CARD',
+    'PIX',
+    'VOUCHER',
+    'CHECK',
+    'STORE_CREDIT',
+    'PAYMENT_LINK',
+    'OTHER',
+  ]),
   amount: z.number().positive(),
-  reference: z.string().optional(),
+  receivedAmount: z.number().optional(),
+  changeAmount: z.number().optional(),
+  installments: z.number().int().positive().optional(),
+  authCode: z.string().optional(),
+  nsu: z.string().optional(),
+  pixTxId: z.string().optional(),
+  paymentLinkUrl: z.string().optional(),
+  paymentLinkStatus: z.string().optional(),
+  tefTransactionId: z.string().optional(),
+  notes: z.string().optional(),
 });
 
 const createTransactionBodySchema = z.object({
   sessionId: z.string().uuid(),
+  orderId: z.string().uuid(),
+  subtotal: z.number().min(0),
+  discountTotal: z.number().min(0).optional(),
+  taxTotal: z.number().min(0).optional(),
+  grandTotal: z.number().min(0),
+  changeAmount: z.number().min(0).optional(),
   customerId: z.string().uuid().optional(),
-  items: z.array(transactionItemSchema).min(1),
+  customerName: z.string().optional(),
+  customerDocument: z.string().optional(),
   payments: z.array(transactionPaymentSchema).min(1),
-  notes: z.string().max(500).optional(),
 });
 
 const transactionResponseSchema = z.object({
   id: z.string().uuid(),
   sessionId: z.string().uuid(),
+  orderId: z.string().uuid(),
+  transactionNumber: z.number(),
   customerId: z.string().uuid().nullable(),
-  operatorId: z.string().uuid(),
   status: z.string(),
   subtotal: z.number(),
-  discount: z.number(),
-  total: z.number(),
-  notes: z.string().nullable(),
+  discountTotal: z.number(),
+  taxTotal: z.number(),
+  grandTotal: z.number(),
+  changeAmount: z.number(),
   tenantId: z.string().uuid(),
   createdAt: z.string(),
 });
@@ -71,42 +94,64 @@ export async function createTransactionController(app: FastifyInstance) {
       const userId = request.user.sub;
       const body = request.body;
 
-      // TODO: Replace stub with real use case
-      const subtotal = body.items.reduce(
-        (sum, i) => sum + i.unitPrice * i.quantity,
-        0,
-      );
-      const discount = body.items.reduce(
-        (sum, i) => sum + (i.discount ?? 0),
-        0,
-      );
-
-      const transaction = {
-        id: crypto.randomUUID(),
-        sessionId: body.sessionId,
-        customerId: body.customerId ?? null,
-        operatorId: userId,
-        status: 'COMPLETED',
-        subtotal,
-        discount,
-        total: subtotal - discount,
-        notes: body.notes ?? null,
-        tenantId,
-        createdAt: new Date().toISOString(),
-      };
-
-      await logAudit(request, {
-        message: AUDIT_MESSAGES.SALES.POS_TRANSACTION_CREATE,
-        entityId: transaction.id,
-        placeholders: { userName: userId, total: transaction.total.toFixed(2) },
-        newData: {
+      try {
+        const createPosTransactionUseCase = makeCreatePosTransactionUseCase();
+        const { transaction } = await createPosTransactionUseCase.execute({
+          tenantId,
           sessionId: body.sessionId,
-          itemCount: body.items.length,
-          total: transaction.total,
-        },
-      });
+          orderId: body.orderId,
+          subtotal: body.subtotal,
+          discountTotal: body.discountTotal,
+          taxTotal: body.taxTotal,
+          grandTotal: body.grandTotal,
+          changeAmount: body.changeAmount,
+          customerId: body.customerId,
+          customerName: body.customerName,
+          customerDocument: body.customerDocument,
+          payments: body.payments as any,
+        });
 
-      return reply.status(201).send({ transaction });
+        const transactionResponse = {
+          id: transaction.id.toString(),
+          sessionId: transaction.sessionId.toString(),
+          orderId: transaction.orderId.toString(),
+          transactionNumber: transaction.transactionNumber,
+          customerId: transaction.customerId?.toString() ?? null,
+          status: transaction.status,
+          subtotal: transaction.subtotal,
+          discountTotal: transaction.discountTotal,
+          taxTotal: transaction.taxTotal,
+          grandTotal: transaction.grandTotal,
+          changeAmount: transaction.changeAmount,
+          tenantId: transaction.tenantId.toString(),
+          createdAt: transaction.createdAt.toISOString(),
+        };
+
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.SALES.POS_TRANSACTION_CREATE,
+          entityId: transactionResponse.id,
+          placeholders: {
+            userName: userId,
+            total: transaction.grandTotal.toFixed(2),
+          },
+          newData: {
+            sessionId: body.sessionId,
+            grandTotal: transaction.grandTotal,
+          },
+        });
+
+        return reply
+          .status(201)
+          .send({ transaction: transactionResponse } as any);
+      } catch (error) {
+        if (
+          error instanceof BadRequestError ||
+          error instanceof ResourceNotFoundError
+        ) {
+          return reply.status(400).send({ message: error.message });
+        }
+        throw error;
+      }
     },
   });
 }

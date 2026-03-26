@@ -30,12 +30,14 @@ export type QuoteAvgAggregateOutputType = {
   subtotal: runtime.Decimal | null
   discount: runtime.Decimal | null
   total: runtime.Decimal | null
+  viewCount: number | null
 }
 
 export type QuoteSumAggregateOutputType = {
   subtotal: runtime.Decimal | null
   discount: runtime.Decimal | null
   total: runtime.Decimal | null
+  viewCount: number | null
 }
 
 export type QuoteMinAggregateOutputType = {
@@ -50,6 +52,9 @@ export type QuoteMinAggregateOutputType = {
   discount: runtime.Decimal | null
   total: runtime.Decimal | null
   sentAt: Date | null
+  viewedAt: Date | null
+  viewCount: number | null
+  lastViewedAt: Date | null
   createdBy: string | null
   isActive: boolean | null
   createdAt: Date | null
@@ -69,6 +74,9 @@ export type QuoteMaxAggregateOutputType = {
   discount: runtime.Decimal | null
   total: runtime.Decimal | null
   sentAt: Date | null
+  viewedAt: Date | null
+  viewCount: number | null
+  lastViewedAt: Date | null
   createdBy: string | null
   isActive: boolean | null
   createdAt: Date | null
@@ -88,6 +96,9 @@ export type QuoteCountAggregateOutputType = {
   discount: number
   total: number
   sentAt: number
+  viewedAt: number
+  viewCount: number
+  lastViewedAt: number
   createdBy: number
   isActive: number
   createdAt: number
@@ -101,12 +112,14 @@ export type QuoteAvgAggregateInputType = {
   subtotal?: true
   discount?: true
   total?: true
+  viewCount?: true
 }
 
 export type QuoteSumAggregateInputType = {
   subtotal?: true
   discount?: true
   total?: true
+  viewCount?: true
 }
 
 export type QuoteMinAggregateInputType = {
@@ -121,6 +134,9 @@ export type QuoteMinAggregateInputType = {
   discount?: true
   total?: true
   sentAt?: true
+  viewedAt?: true
+  viewCount?: true
+  lastViewedAt?: true
   createdBy?: true
   isActive?: true
   createdAt?: true
@@ -140,6 +156,9 @@ export type QuoteMaxAggregateInputType = {
   discount?: true
   total?: true
   sentAt?: true
+  viewedAt?: true
+  viewCount?: true
+  lastViewedAt?: true
   createdBy?: true
   isActive?: true
   createdAt?: true
@@ -159,6 +178,9 @@ export type QuoteCountAggregateInputType = {
   discount?: true
   total?: true
   sentAt?: true
+  viewedAt?: true
+  viewCount?: true
+  lastViewedAt?: true
   createdBy?: true
   isActive?: true
   createdAt?: true
@@ -265,6 +287,9 @@ export type QuoteGroupByOutputType = {
   discount: runtime.Decimal
   total: runtime.Decimal
   sentAt: Date | null
+  viewedAt: Date | null
+  viewCount: number
+  lastViewedAt: Date | null
   createdBy: string
   isActive: boolean
   createdAt: Date
@@ -307,6 +332,9 @@ export type QuoteWhereInput = {
   discount?: Prisma.DecimalFilter<"Quote"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalFilter<"Quote"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   sentAt?: Prisma.DateTimeNullableFilter<"Quote"> | Date | string | null
+  viewedAt?: Prisma.DateTimeNullableFilter<"Quote"> | Date | string | null
+  viewCount?: Prisma.IntFilter<"Quote"> | number
+  lastViewedAt?: Prisma.DateTimeNullableFilter<"Quote"> | Date | string | null
   createdBy?: Prisma.StringFilter<"Quote"> | string
   isActive?: Prisma.BoolFilter<"Quote"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Quote"> | Date | string
@@ -329,6 +357,9 @@ export type QuoteOrderByWithRelationInput = {
   discount?: Prisma.SortOrder
   total?: Prisma.SortOrder
   sentAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  viewedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  viewCount?: Prisma.SortOrder
+  lastViewedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdBy?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -354,6 +385,9 @@ export type QuoteWhereUniqueInput = Prisma.AtLeast<{
   discount?: Prisma.DecimalFilter<"Quote"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalFilter<"Quote"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   sentAt?: Prisma.DateTimeNullableFilter<"Quote"> | Date | string | null
+  viewedAt?: Prisma.DateTimeNullableFilter<"Quote"> | Date | string | null
+  viewCount?: Prisma.IntFilter<"Quote"> | number
+  lastViewedAt?: Prisma.DateTimeNullableFilter<"Quote"> | Date | string | null
   createdBy?: Prisma.StringFilter<"Quote"> | string
   isActive?: Prisma.BoolFilter<"Quote"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Quote"> | Date | string
@@ -376,6 +410,9 @@ export type QuoteOrderByWithAggregationInput = {
   discount?: Prisma.SortOrder
   total?: Prisma.SortOrder
   sentAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  viewedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  viewCount?: Prisma.SortOrder
+  lastViewedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdBy?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -403,6 +440,9 @@ export type QuoteScalarWhereWithAggregatesInput = {
   discount?: Prisma.DecimalWithAggregatesFilter<"Quote"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalWithAggregatesFilter<"Quote"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   sentAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Quote"> | Date | string | null
+  viewedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Quote"> | Date | string | null
+  viewCount?: Prisma.IntWithAggregatesFilter<"Quote"> | number
+  lastViewedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Quote"> | Date | string | null
   createdBy?: Prisma.StringWithAggregatesFilter<"Quote"> | string
   isActive?: Prisma.BoolWithAggregatesFilter<"Quote"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Quote"> | Date | string
@@ -420,6 +460,9 @@ export type QuoteCreateInput = {
   discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   sentAt?: Date | string | null
+  viewedAt?: Date | string | null
+  viewCount?: number
+  lastViewedAt?: Date | string | null
   createdBy: string
   isActive?: boolean
   createdAt?: Date | string
@@ -442,6 +485,9 @@ export type QuoteUncheckedCreateInput = {
   discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   sentAt?: Date | string | null
+  viewedAt?: Date | string | null
+  viewCount?: number
+  lastViewedAt?: Date | string | null
   createdBy: string
   isActive?: boolean
   createdAt?: Date | string
@@ -460,6 +506,9 @@ export type QuoteUpdateInput = {
   discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lastViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdBy?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -482,6 +531,9 @@ export type QuoteUncheckedUpdateInput = {
   discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lastViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdBy?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -502,6 +554,9 @@ export type QuoteCreateManyInput = {
   discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   sentAt?: Date | string | null
+  viewedAt?: Date | string | null
+  viewCount?: number
+  lastViewedAt?: Date | string | null
   createdBy: string
   isActive?: boolean
   createdAt?: Date | string
@@ -519,6 +574,9 @@ export type QuoteUpdateManyMutationInput = {
   discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lastViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdBy?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -538,6 +596,9 @@ export type QuoteUncheckedUpdateManyInput = {
   discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lastViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdBy?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -567,6 +628,9 @@ export type QuoteCountOrderByAggregateInput = {
   discount?: Prisma.SortOrder
   total?: Prisma.SortOrder
   sentAt?: Prisma.SortOrder
+  viewedAt?: Prisma.SortOrder
+  viewCount?: Prisma.SortOrder
+  lastViewedAt?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -578,6 +642,7 @@ export type QuoteAvgOrderByAggregateInput = {
   subtotal?: Prisma.SortOrder
   discount?: Prisma.SortOrder
   total?: Prisma.SortOrder
+  viewCount?: Prisma.SortOrder
 }
 
 export type QuoteMaxOrderByAggregateInput = {
@@ -592,6 +657,9 @@ export type QuoteMaxOrderByAggregateInput = {
   discount?: Prisma.SortOrder
   total?: Prisma.SortOrder
   sentAt?: Prisma.SortOrder
+  viewedAt?: Prisma.SortOrder
+  viewCount?: Prisma.SortOrder
+  lastViewedAt?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -611,6 +679,9 @@ export type QuoteMinOrderByAggregateInput = {
   discount?: Prisma.SortOrder
   total?: Prisma.SortOrder
   sentAt?: Prisma.SortOrder
+  viewedAt?: Prisma.SortOrder
+  viewCount?: Prisma.SortOrder
+  lastViewedAt?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -622,6 +693,7 @@ export type QuoteSumOrderByAggregateInput = {
   subtotal?: Prisma.SortOrder
   discount?: Prisma.SortOrder
   total?: Prisma.SortOrder
+  viewCount?: Prisma.SortOrder
 }
 
 export type QuoteScalarRelationFilter = {
@@ -741,6 +813,9 @@ export type QuoteCreateWithoutCustomerInput = {
   discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   sentAt?: Date | string | null
+  viewedAt?: Date | string | null
+  viewCount?: number
+  lastViewedAt?: Date | string | null
   createdBy: string
   isActive?: boolean
   createdAt?: Date | string
@@ -761,6 +836,9 @@ export type QuoteUncheckedCreateWithoutCustomerInput = {
   discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   sentAt?: Date | string | null
+  viewedAt?: Date | string | null
+  viewCount?: number
+  lastViewedAt?: Date | string | null
   createdBy: string
   isActive?: boolean
   createdAt?: Date | string
@@ -810,6 +888,9 @@ export type QuoteScalarWhereInput = {
   discount?: Prisma.DecimalFilter<"Quote"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalFilter<"Quote"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   sentAt?: Prisma.DateTimeNullableFilter<"Quote"> | Date | string | null
+  viewedAt?: Prisma.DateTimeNullableFilter<"Quote"> | Date | string | null
+  viewCount?: Prisma.IntFilter<"Quote"> | number
+  lastViewedAt?: Prisma.DateTimeNullableFilter<"Quote"> | Date | string | null
   createdBy?: Prisma.StringFilter<"Quote"> | string
   isActive?: Prisma.BoolFilter<"Quote"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Quote"> | Date | string
@@ -827,6 +908,9 @@ export type QuoteCreateWithoutTenantInput = {
   discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   sentAt?: Date | string | null
+  viewedAt?: Date | string | null
+  viewCount?: number
+  lastViewedAt?: Date | string | null
   createdBy: string
   isActive?: boolean
   createdAt?: Date | string
@@ -847,6 +931,9 @@ export type QuoteUncheckedCreateWithoutTenantInput = {
   discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   sentAt?: Date | string | null
+  viewedAt?: Date | string | null
+  viewCount?: number
+  lastViewedAt?: Date | string | null
   createdBy: string
   isActive?: boolean
   createdAt?: Date | string
@@ -891,6 +978,9 @@ export type QuoteCreateWithoutItemsInput = {
   discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   sentAt?: Date | string | null
+  viewedAt?: Date | string | null
+  viewCount?: number
+  lastViewedAt?: Date | string | null
   createdBy: string
   isActive?: boolean
   createdAt?: Date | string
@@ -912,6 +1002,9 @@ export type QuoteUncheckedCreateWithoutItemsInput = {
   discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   sentAt?: Date | string | null
+  viewedAt?: Date | string | null
+  viewCount?: number
+  lastViewedAt?: Date | string | null
   createdBy: string
   isActive?: boolean
   createdAt?: Date | string
@@ -945,6 +1038,9 @@ export type QuoteUpdateWithoutItemsInput = {
   discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lastViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdBy?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -966,6 +1062,9 @@ export type QuoteUncheckedUpdateWithoutItemsInput = {
   discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lastViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdBy?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -984,6 +1083,9 @@ export type QuoteCreateManyCustomerInput = {
   discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   sentAt?: Date | string | null
+  viewedAt?: Date | string | null
+  viewCount?: number
+  lastViewedAt?: Date | string | null
   createdBy: string
   isActive?: boolean
   createdAt?: Date | string
@@ -1001,6 +1103,9 @@ export type QuoteUpdateWithoutCustomerInput = {
   discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lastViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdBy?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1021,6 +1126,9 @@ export type QuoteUncheckedUpdateWithoutCustomerInput = {
   discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lastViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdBy?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1040,6 +1148,9 @@ export type QuoteUncheckedUpdateManyWithoutCustomerInput = {
   discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lastViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdBy?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1058,6 +1169,9 @@ export type QuoteCreateManyTenantInput = {
   discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   sentAt?: Date | string | null
+  viewedAt?: Date | string | null
+  viewCount?: number
+  lastViewedAt?: Date | string | null
   createdBy: string
   isActive?: boolean
   createdAt?: Date | string
@@ -1075,6 +1189,9 @@ export type QuoteUpdateWithoutTenantInput = {
   discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lastViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdBy?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1095,6 +1212,9 @@ export type QuoteUncheckedUpdateWithoutTenantInput = {
   discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lastViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdBy?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1114,6 +1234,9 @@ export type QuoteUncheckedUpdateManyWithoutTenantInput = {
   discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lastViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdBy?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1164,6 +1287,9 @@ export type QuoteSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   discount?: boolean
   total?: boolean
   sentAt?: boolean
+  viewedAt?: boolean
+  viewCount?: boolean
+  lastViewedAt?: boolean
   createdBy?: boolean
   isActive?: boolean
   createdAt?: boolean
@@ -1187,6 +1313,9 @@ export type QuoteSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   discount?: boolean
   total?: boolean
   sentAt?: boolean
+  viewedAt?: boolean
+  viewCount?: boolean
+  lastViewedAt?: boolean
   createdBy?: boolean
   isActive?: boolean
   createdAt?: boolean
@@ -1208,6 +1337,9 @@ export type QuoteSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   discount?: boolean
   total?: boolean
   sentAt?: boolean
+  viewedAt?: boolean
+  viewCount?: boolean
+  lastViewedAt?: boolean
   createdBy?: boolean
   isActive?: boolean
   createdAt?: boolean
@@ -1229,6 +1361,9 @@ export type QuoteSelectScalar = {
   discount?: boolean
   total?: boolean
   sentAt?: boolean
+  viewedAt?: boolean
+  viewCount?: boolean
+  lastViewedAt?: boolean
   createdBy?: boolean
   isActive?: boolean
   createdAt?: boolean
@@ -1236,7 +1371,7 @@ export type QuoteSelectScalar = {
   deletedAt?: boolean
 }
 
-export type QuoteOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "customerId" | "title" | "status" | "validUntil" | "notes" | "subtotal" | "discount" | "total" | "sentAt" | "createdBy" | "isActive" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["quote"]>
+export type QuoteOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "customerId" | "title" | "status" | "validUntil" | "notes" | "subtotal" | "discount" | "total" | "sentAt" | "viewedAt" | "viewCount" | "lastViewedAt" | "createdBy" | "isActive" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["quote"]>
 export type QuoteInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
@@ -1271,6 +1406,9 @@ export type $QuotePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     discount: runtime.Decimal
     total: runtime.Decimal
     sentAt: Date | null
+    viewedAt: Date | null
+    viewCount: number
+    lastViewedAt: Date | null
     createdBy: string
     isActive: boolean
     createdAt: Date
@@ -1713,6 +1851,9 @@ export interface QuoteFieldRefs {
   readonly discount: Prisma.FieldRef<"Quote", 'Decimal'>
   readonly total: Prisma.FieldRef<"Quote", 'Decimal'>
   readonly sentAt: Prisma.FieldRef<"Quote", 'DateTime'>
+  readonly viewedAt: Prisma.FieldRef<"Quote", 'DateTime'>
+  readonly viewCount: Prisma.FieldRef<"Quote", 'Int'>
+  readonly lastViewedAt: Prisma.FieldRef<"Quote", 'DateTime'>
   readonly createdBy: Prisma.FieldRef<"Quote", 'String'>
   readonly isActive: Prisma.FieldRef<"Quote", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"Quote", 'DateTime'>

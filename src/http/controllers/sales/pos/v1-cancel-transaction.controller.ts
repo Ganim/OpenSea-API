@@ -1,9 +1,12 @@
+import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
+import { makeCancelPosTransactionUseCase } from '@/use-cases/sales/pos-transactions/factories/make-cancel-pos-transaction-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
@@ -47,26 +50,44 @@ export async function cancelTransactionController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const userId = request.user.sub;
       const { transactionId } = request.params;
       const { reason } = request.body;
 
-      // TODO: Replace stub with real use case
-      const transaction = {
-        id: transactionId,
-        status: 'CANCELLED',
-        cancelledAt: new Date().toISOString(),
-        cancelReason: reason,
-      };
+      try {
+        const cancelPosTransactionUseCase = makeCancelPosTransactionUseCase();
+        const { transaction } = await cancelPosTransactionUseCase.execute({
+          tenantId,
+          transactionId,
+        });
 
-      await logAudit(request, {
-        message: AUDIT_MESSAGES.SALES.POS_TRANSACTION_CANCEL,
-        entityId: transactionId,
-        placeholders: { userName: userId, transactionId },
-        newData: { reason },
-      });
+        const transactionResponse = {
+          id: transaction.id.toString(),
+          status: transaction.status,
+          cancelledAt: new Date().toISOString(),
+          cancelReason: reason,
+        };
 
-      return reply.status(200).send({ transaction });
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.SALES.POS_TRANSACTION_CANCEL,
+          entityId: transactionId,
+          placeholders: { userName: userId, transactionId },
+          newData: { reason },
+        });
+
+        return reply
+          .status(200)
+          .send({ transaction: transactionResponse } as any);
+      } catch (error) {
+        if (error instanceof ResourceNotFoundError) {
+          return reply.status(404).send({ message: error.message });
+        }
+        if (error instanceof BadRequestError) {
+          return reply.status(400).send({ message: error.message });
+        }
+        throw error;
+      }
     },
   });
 }
