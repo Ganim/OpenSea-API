@@ -29,13 +29,12 @@ export interface FindCipaMandateFilters {
 
 export interface CipaMandatesRepository {
   create(data: CreateCipaMandateSchema): Promise<CipaMandate>;
-  findById(
-    id: UniqueEntityID,
-    tenantId: string,
-  ): Promise<CipaMandate | null>;
+  findById(id: UniqueEntityID, tenantId: string): Promise<CipaMandate | null>;
   findMany(
     tenantId: string,
     filters?: FindCipaMandateFilters,
   ): Promise<CipaMandate[]>;
   update(data: UpdateCipaMandateSchema): Promise<CipaMandate | null>;
+  delete(id: UniqueEntityID): Promise<void>;
+  countMembers(mandateId: UniqueEntityID): Promise<number>;
 }

@@ -71,9 +71,19 @@ export class PrismaCipaMandatesRepository implements CipaMandatesRepository {
     );
   }
 
-  async update(
-    data: UpdateCipaMandateSchema,
-  ): Promise<CipaMandate | null> {
+  async delete(id: UniqueEntityID): Promise<void> {
+    await prisma.cipaMandate.delete({
+      where: { id: id.toString() },
+    });
+  }
+
+  async countMembers(mandateId: UniqueEntityID): Promise<number> {
+    return prisma.cipaMember.count({
+      where: { mandateId: mandateId.toString() },
+    });
+  }
+
+  async update(data: UpdateCipaMandateSchema): Promise<CipaMandate | null> {
     const existing = await prisma.cipaMandate.findUnique({
       where: { id: data.id.toString() },
     });

@@ -5,6 +5,7 @@ import rateLimit from '@fastify/rate-limit';
 import { v1CreateWorkplaceRiskController } from './v1-create-workplace-risk.controller';
 import { v1UpdateWorkplaceRiskController } from './v1-update-workplace-risk.controller';
 import { v1DeleteWorkplaceRiskController } from './v1-delete-workplace-risk.controller';
+import { v1GetWorkplaceRiskController } from './v1-get-workplace-risk.controller';
 import { v1ListWorkplaceRisksController } from './v1-list-workplace-risks.controller';
 
 export async function workplaceRisksRoutes(app: FastifyInstance) {
@@ -25,6 +26,7 @@ export async function workplaceRisksRoutes(app: FastifyInstance) {
   app.register(
     async (queryApp) => {
       queryApp.register(rateLimit, rateLimitConfig.query);
+      queryApp.register(v1GetWorkplaceRiskController);
       queryApp.register(v1ListWorkplaceRisksController);
     },
     { prefix: '' },

@@ -4,6 +4,7 @@ import { rateLimitConfig } from '@/config/rate-limits';
 import rateLimit from '@fastify/rate-limit';
 import { v1CreateCipaMandateController } from './v1-create-cipa-mandate.controller';
 import { v1UpdateCipaMandateController } from './v1-update-cipa-mandate.controller';
+import { v1DeleteCipaMandateController } from './v1-delete-cipa-mandate.controller';
 import { v1GetCipaMandateController } from './v1-get-cipa-mandate.controller';
 import { v1ListCipaMandatesController } from './v1-list-cipa-mandates.controller';
 
@@ -16,6 +17,7 @@ export async function cipaMandatesRoutes(app: FastifyInstance) {
       mutationApp.register(rateLimit, rateLimitConfig.mutation);
       mutationApp.register(v1CreateCipaMandateController);
       mutationApp.register(v1UpdateCipaMandateController);
+      mutationApp.register(v1DeleteCipaMandateController);
     },
     { prefix: '' },
   );
