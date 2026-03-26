@@ -1,4 +1,6 @@
 import type { ToolHandler, ToolExecutionContext } from '../tool-types';
+import { makeUndoActionUseCase } from '@/use-cases/ai/actions/factories/make-undo-action-use-case';
+import { PrismaAiActionLogsRepository } from '@/repositories/ai/prisma/prisma-ai-action-logs-repository';
 
 export function getSystemHandlers(): Record<string, ToolHandler> {
   return {
@@ -36,13 +38,55 @@ export function getSystemHandlers(): Record<string, ToolHandler> {
 
     undo_last_action: {
       async execute(
-        _args: Record<string, unknown>,
-        _context: ToolExecutionContext,
+        args: Record<string, unknown>,
+        context: ToolExecutionContext,
       ) {
-        return {
-          status: 'UNDO_NOT_AVAILABLE',
-          message: 'Funcionalidade de desfazer será implementada em breve.',
-        };
+        try {
+          let actionLogId = args.actionId as string | undefined;
+
+          // If no specific actionId was given, find the last executed action in this conversation
+          if (!actionLogId) {
+            const actionLogsRepo = new PrismaAiActionLogsRepository();
+            const lastAction =
+              await actionLogsRepo.findLastExecutedByConversation(
+                context.conversationId,
+                context.tenantId,
+              );
+
+            if (!lastAction) {
+              return {
+                status: 'UNDO_NOT_AVAILABLE',
+                message:
+                  'Nenhuma ação executada encontrada nesta conversa para desfazer.',
+              };
+            }
+
+            actionLogId = lastAction.id;
+          }
+
+          const undoUseCase = makeUndoActionUseCase();
+          const result = await undoUseCase.execute({
+            actionLogId,
+            tenantId: context.tenantId,
+            userId: context.userId,
+          });
+
+          return {
+            status: 'UNDONE',
+            message: result.message,
+            undoneActionId: result.undoneActionId,
+            entityType: result.entityType,
+            entityId: result.entityId,
+            originalAction: result.originalAction,
+          };
+        } catch (error) {
+          const message =
+            error instanceof Error ? error.message : 'Erro desconhecido';
+          return {
+            status: 'UNDO_FAILED',
+            message,
+          };
+        }
       },
     },
   };

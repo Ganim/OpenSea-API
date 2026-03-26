@@ -9683,6 +9683,7 @@ enum AiActionStatus {
   EXECUTED
   FAILED
   CANCELLED
+  UNDONE
 }
 
 enum AiInsightType {
@@ -9875,6 +9876,9 @@ model AiActionLog {
   confirmedAt       DateTime? @map("confirmed_at")
   executedAt        DateTime? @map("executed_at")
   error             String?
+
+  // Undo — links to the AuditLog created when this action was executed
+  auditLogId String? @map("audit_log_id")
 
   // Audit
   createdAt DateTime @default(now()) @map("created_at")

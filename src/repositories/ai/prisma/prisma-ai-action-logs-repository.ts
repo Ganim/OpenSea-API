@@ -30,6 +30,7 @@ function toDTO(raw: AiActionLog): AiActionLogDTO {
     confirmedAt: raw.confirmedAt,
     executedAt: raw.executedAt,
     error: raw.error,
+    auditLogId: raw.auditLogId,
     createdAt: raw.createdAt,
   };
 }
@@ -67,6 +68,7 @@ export class PrismaAiActionLogsRepository implements AiActionLogsRepository {
       executedAt?: Date;
       output?: Record<string, unknown>;
       error?: string;
+      auditLogId?: string;
     },
   ): Promise<AiActionLogDTO> {
     const raw = await prisma.aiActionLog.update({
@@ -80,6 +82,7 @@ export class PrismaAiActionLogsRepository implements AiActionLogsRepository {
           ? (extra.output as Prisma.InputJsonValue)
           : undefined,
         error: extra?.error,
+        auditLogId: extra?.auditLogId,
       },
     });
     return toDTO(raw);
@@ -122,5 +125,20 @@ export class PrismaAiActionLogsRepository implements AiActionLogsRepository {
       actions: actions.map(toDTO),
       total,
     };
+  }
+
+  async findLastExecutedByConversation(
+    conversationId: string,
+    tenantId: string,
+  ): Promise<AiActionLogDTO | null> {
+    const raw = await prisma.aiActionLog.findFirst({
+      where: {
+        conversationId,
+        tenantId,
+        status: 'EXECUTED' as AiActionStatus,
+      },
+      orderBy: { executedAt: 'desc' },
+    });
+    return raw ? toDTO(raw) : null;
   }
 }

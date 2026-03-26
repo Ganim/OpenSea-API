@@ -15,6 +15,7 @@ export interface AiActionLogDTO {
   confirmedAt: Date | null;
   executedAt: Date | null;
   error: string | null;
+  auditLogId: string | null;
   createdAt: Date;
 }
 
@@ -57,8 +58,13 @@ export interface AiActionLogsRepository {
       executedAt?: Date;
       output?: Record<string, unknown>;
       error?: string;
+      auditLogId?: string;
     },
   ): Promise<AiActionLogDTO>;
+  findLastExecutedByConversation(
+    conversationId: string,
+    tenantId: string,
+  ): Promise<AiActionLogDTO | null>;
   findMany(
     options: FindManyActionLogsOptions,
   ): Promise<FindManyActionLogsResult>;

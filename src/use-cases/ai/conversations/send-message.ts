@@ -22,6 +22,8 @@ import {
   type ActionCardRenderData,
   type PendingActionData,
 } from '@/services/ai-tools/pending-action.service';
+import { makeUndoActionUseCase } from '@/use-cases/ai/actions/factories/make-undo-action-use-case';
+import { prisma } from '@/lib/prisma';
 
 interface SendMessageRequest {
   tenantId: string;
@@ -47,11 +49,15 @@ const PERSONALITY_PROMPTS: Record<string, string> = {
     'Você é um assistente empresarial descontraído, mas sempre útil e informativo.',
 };
 
-/** Regex to detect user confirm/cancel commands for pending actions */
+/** Regex to detect user confirm/cancel/undo commands for pending actions */
 const CONFIRM_ACTION_REGEX =
   /^(?:confirmar|confirm)\s+(?:a[çc][ãa]o|action)[:\s]+([a-f0-9-]{36})/i;
 const CANCEL_ACTION_REGEX =
   /^(?:cancelar|cancel)\s+(?:a[çc][ãa]o|action)[:\s]+([a-f0-9-]{36})/i;
+const UNDO_ACTION_REGEX =
+  /^(?:desfazer|undo)\s+(?:a[çc][ãa]o|action)[:\s]+([a-f0-9-]{36})/i;
+const UNDO_LAST_ACTION_REGEX =
+  /^(?:desfazer|undo)(?:\s+(?:[uú]ltima\s+)?(?:a[çc][ãa]o|action))?$/i;
 
 export class SendMessageUseCase {
   private knowledgePromptBuilder = new KnowledgePromptBuilder();
@@ -103,9 +109,11 @@ export class SendMessageUseCase {
       attachments: request.attachments,
     });
 
-    // ── Check if user is confirming or cancelling a pending action ─────
+    // ── Check if user is confirming, cancelling, or undoing an action ──
     const confirmMatch = request.content.match(CONFIRM_ACTION_REGEX);
     const cancelMatch = request.content.match(CANCEL_ACTION_REGEX);
+    const undoMatch = request.content.match(UNDO_ACTION_REGEX);
+    const undoLastMatch = request.content.match(UNDO_LAST_ACTION_REGEX);
 
     if (confirmMatch) {
       return this.handleConfirmAction(
@@ -123,6 +131,19 @@ export class SendMessageUseCase {
         request,
         userMessage,
       );
+    }
+
+    if (undoMatch) {
+      return this.handleUndoAction(
+        undoMatch[1],
+        conversationId,
+        request,
+        userMessage,
+      );
+    }
+
+    if (undoLastMatch) {
+      return this.handleUndoLastAction(conversationId, request, userMessage);
     }
 
     // ── Normal AI flow ────────────────────────────────────────────────
@@ -532,13 +553,70 @@ export class SendMessageUseCase {
       );
     }
 
+    // Extract entity ID from execution result for audit linking
+    const execResult = execution.result as Record<string, unknown> | undefined;
+    const entityId = this.extractEntityId(execResult, actionLog);
+
     // Mark as executed
-    await this.actionLogsRepository.updateStatus(actionId, 'EXECUTED', {
+    const updateExtra: {
+      confirmedByUserId: string;
+      confirmedAt: Date;
+      executedAt: Date;
+      output: Record<string, unknown>;
+      auditLogId?: string;
+    } = {
       confirmedByUserId: request.userId,
       confirmedAt: new Date(),
       executedAt: new Date(),
       output: execution.result as Record<string, unknown>,
-    });
+    };
+
+    // Update target entity ID if it was extracted from the result
+    if (entityId && !actionLog.targetEntityId) {
+      // Store entity ID in output so we can reference it later
+      updateExtra.output = {
+        ...updateExtra.output,
+        _entityId: entityId,
+      };
+    }
+
+    // Link to the most recent AuditLog for this entity
+    if (entityId) {
+      try {
+        const auditLog = await prisma.auditLog.findFirst({
+          where: {
+            entityId,
+            tenantId: request.tenantId,
+          },
+          orderBy: { createdAt: 'desc' },
+          select: { id: true },
+        });
+
+        if (auditLog) {
+          updateExtra.auditLogId = auditLog.id;
+        }
+      } catch {
+        // Non-critical: audit link failure should not break execution
+      }
+    }
+
+    await this.actionLogsRepository.updateStatus(
+      actionId,
+      'EXECUTED',
+      updateExtra,
+    );
+
+    // Also update targetEntityId if we now have it
+    if (entityId && !actionLog.targetEntityId) {
+      try {
+        await prisma.aiActionLog.update({
+          where: { id: actionId },
+          data: { targetEntityId: entityId },
+        });
+      } catch {
+        // Non-critical
+      }
+    }
 
     const displayName = getToolDisplayName(actionLog.actionType);
     const renderData: ActionCardRenderData = {
@@ -684,5 +762,147 @@ export class SendMessageUseCase {
         createdAt: assistantMessage.createdAt,
       },
     };
+  }
+
+  // ── Undo a specific action by ID ────────────────────────────────────
+
+  private async handleUndoAction(
+    actionId: string,
+    conversationId: string,
+    request: SendMessageRequest,
+    userMessage: {
+      id: { toString(): string };
+      role: string;
+      content: string | null;
+      contentType: string;
+      createdAt: Date;
+    },
+  ) {
+    try {
+      const undoUseCase = makeUndoActionUseCase();
+      const result = await undoUseCase.execute({
+        actionLogId: actionId,
+        tenantId: request.tenantId,
+        userId: request.userId,
+      });
+
+      const displayName = getToolDisplayName(result.originalAction);
+      const renderData: ActionCardRenderData = {
+        type: 'ACTION_CARD',
+        actionId,
+        toolName: result.originalAction,
+        displayName,
+        module: '',
+        status: 'CANCELLED', // Use CANCELLED visually since UNDONE is not in ActionCardRenderData
+        fields: [
+          { label: 'Status', value: 'Desfeita', type: 'badge' },
+          { label: 'Entidade', value: result.entityType, type: 'text' },
+        ],
+      };
+
+      return this.buildActionResponse(
+        conversationId,
+        request,
+        userMessage,
+        `A ação "${displayName}" foi desfeita com sucesso. ${result.message}`,
+        'ACTION_CARD',
+        renderData as unknown as Record<string, unknown>,
+      );
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : 'Erro desconhecido';
+      return this.buildActionResponse(
+        conversationId,
+        request,
+        userMessage,
+        `Não foi possível desfazer a ação: ${message}`,
+        'TEXT',
+        null,
+      );
+    }
+  }
+
+  // ── Undo the last executed action in this conversation ──────────────
+
+  private async handleUndoLastAction(
+    conversationId: string,
+    request: SendMessageRequest,
+    userMessage: {
+      id: { toString(): string };
+      role: string;
+      content: string | null;
+      contentType: string;
+      createdAt: Date;
+    },
+  ) {
+    // Find the last EXECUTED action in this conversation
+    const lastAction =
+      await this.actionLogsRepository.findLastExecutedByConversation(
+        conversationId,
+        request.tenantId,
+      );
+
+    if (!lastAction) {
+      return this.buildActionResponse(
+        conversationId,
+        request,
+        userMessage,
+        'Nenhuma ação executada encontrada nesta conversa para desfazer.',
+        'TEXT',
+        null,
+      );
+    }
+
+    return this.handleUndoAction(
+      lastAction.id,
+      conversationId,
+      request,
+      userMessage,
+    );
+  }
+
+  // ── Extract entity ID from tool execution result ────────────────────
+
+  private extractEntityId(
+    result: Record<string, unknown> | undefined,
+    actionLog: {
+      targetEntityId: string | null;
+      input: Record<string, unknown>;
+    },
+  ): string | null {
+    // If we already have the entity ID from the action log, use it
+    if (actionLog.targetEntityId) {
+      return actionLog.targetEntityId;
+    }
+
+    if (!result) return null;
+
+    // Try to extract from the execution result
+    // Handlers typically return { success: true, product: { id: '...' }, ... }
+    // or { success: true, id: '...' }
+    if (typeof result.id === 'string') {
+      return result.id;
+    }
+
+    // Check common nested patterns
+    for (const key of Object.keys(result)) {
+      const value = result[key];
+      if (value && typeof value === 'object' && !Array.isArray(value)) {
+        const nested = value as Record<string, unknown>;
+        if (typeof nested.id === 'string') {
+          return nested.id;
+        }
+      }
+    }
+
+    // Try from input args (e.g., productId, employeeId, etc.)
+    const input = actionLog.input;
+    for (const key of Object.keys(input)) {
+      if (key.endsWith('Id') && typeof input[key] === 'string') {
+        return input[key] as string;
+      }
+    }
+
+    return null;
   }
 }
