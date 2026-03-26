@@ -325,6 +325,9 @@ export const PermissionCodes = {
     // --- CRM: Conversas (Inbox) ---
     CONVERSATIONS: {
       ACCESS: 'sales.conversations.access' as const,
+      REGISTER: 'sales.conversations.register' as const,
+      MODIFY: 'sales.conversations.modify' as const,
+      REMOVE: 'sales.conversations.remove' as const,
       REPLY: 'sales.conversations.reply' as const,
       REASSIGN: 'sales.conversations.reassign' as const,
       ADMIN: 'sales.conversations.admin' as const,
@@ -332,24 +335,37 @@ export const PermissionCodes = {
     // --- CRM: Workflows ---
     WORKFLOWS: {
       ACCESS: 'sales.workflows.access' as const,
+      REGISTER: 'sales.workflows.register' as const,
+      MODIFY: 'sales.workflows.modify' as const,
+      REMOVE: 'sales.workflows.remove' as const,
       ADMIN: 'sales.workflows.admin' as const,
       EXECUTE: 'sales.workflows.execute' as const,
     },
     // --- CRM: Formulários ---
     FORMS: {
       ACCESS: 'sales.forms.access' as const,
+      REGISTER: 'sales.forms.register' as const,
+      MODIFY: 'sales.forms.modify' as const,
+      REMOVE: 'sales.forms.remove' as const,
       ADMIN: 'sales.forms.admin' as const,
     },
     // --- CRM: Propostas ---
     PROPOSALS: {
       ACCESS: 'sales.proposals.access' as const,
       REGISTER: 'sales.proposals.register' as const,
+      MODIFY: 'sales.proposals.modify' as const,
+      REMOVE: 'sales.proposals.remove' as const,
       SEND: 'sales.proposals.send' as const,
+      EXPORT: 'sales.proposals.export' as const,
+      PRINT: 'sales.proposals.print' as const,
       ADMIN: 'sales.proposals.admin' as const,
     },
     // --- CRM: Templates de Mensagem ---
     MSG_TEMPLATES: {
       ACCESS: 'sales.msg-templates.access' as const,
+      REGISTER: 'sales.msg-templates.register' as const,
+      MODIFY: 'sales.msg-templates.modify' as const,
+      REMOVE: 'sales.msg-templates.remove' as const,
       ADMIN: 'sales.msg-templates.admin' as const,
     },
     // --- Preços ---
@@ -362,6 +378,9 @@ export const PermissionCodes = {
     },
     DISCOUNTS: {
       ACCESS: 'sales.discounts.access' as const,
+      REGISTER: 'sales.discounts.register' as const,
+      MODIFY: 'sales.discounts.modify' as const,
+      REMOVE: 'sales.discounts.remove' as const,
       ADMIN: 'sales.discounts.admin' as const,
     },
     COUPONS: {
