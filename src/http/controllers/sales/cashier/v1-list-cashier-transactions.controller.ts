@@ -57,7 +57,7 @@ export async function listCashierTransactionsController(
           ...query,
         });
 
-        return reply.status(200).send(result);
+        return reply.status(200).send(result as any);
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });

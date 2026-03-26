@@ -60,7 +60,7 @@ export async function duplicateFormController(app: FastifyInstance) {
           placeholders: { userName, formTitle: form.title },
         });
 
-        return reply.status(201).send({ form });
+        return reply.status(201).send({ form } as any);
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });

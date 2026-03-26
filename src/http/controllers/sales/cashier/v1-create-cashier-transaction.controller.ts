@@ -74,7 +74,7 @@ export async function createCashierTransactionController(
           },
         });
 
-        return reply.status(201).send({ transaction });
+        return reply.status(201).send({ transaction } as any);
       } catch (error) {
         if (error instanceof BadRequestError) {
           return reply.status(400).send({ message: error.message });

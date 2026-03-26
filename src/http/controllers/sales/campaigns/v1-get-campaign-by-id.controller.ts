@@ -63,7 +63,7 @@ export async function getCampaignByIdController(app: FastifyInstance) {
             channels: [],
             aiGenerated: false,
             aiReason: null,
-            createdByUserId: userId,
+            createdByUserId: request.user.sub,
             deletedAt: campaign.deletedAt ?? null,
             createdAt: campaign.createdAt,
             updatedAt: campaign.updatedAt,

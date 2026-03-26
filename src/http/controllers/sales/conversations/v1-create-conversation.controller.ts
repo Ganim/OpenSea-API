@@ -65,7 +65,7 @@ export async function createConversationController(app: FastifyInstance) {
           newData: { subject: body.subject, customerId: body.customerId },
         });
 
-        return reply.status(201).send({ conversation });
+        return reply.status(201).send({ conversation } as any);
       } catch (error) {
         if (error instanceof BadRequestError) {
           return reply.status(400).send({ message: error.message });

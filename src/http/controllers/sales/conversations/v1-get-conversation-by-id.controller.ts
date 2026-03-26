@@ -43,7 +43,7 @@ export async function getConversationByIdController(app: FastifyInstance) {
           conversationId: id,
         });
 
-        return reply.status(200).send({ conversation });
+        return reply.status(200).send({ conversation } as any);
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });

@@ -66,7 +66,7 @@ export async function openCashierSessionController(app: FastifyInstance) {
           newData: { openingBalance: body.openingBalance },
         });
 
-        return reply.status(201).send({ cashierSession });
+        return reply.status(201).send({ cashierSession } as any);
       } catch (error) {
         if (error instanceof BadRequestError) {
           return reply.status(400).send({ message: error.message });

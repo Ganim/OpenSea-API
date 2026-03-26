@@ -58,7 +58,7 @@ export async function unpublishFormController(app: FastifyInstance) {
           placeholders: { userName, formTitle: form.title },
         });
 
-        return reply.status(200).send({ form });
+        return reply.status(200).send({ form } as any);
       } catch (error) {
         if (error instanceof BadRequestError) {
           return reply.status(400).send({ message: error.message });

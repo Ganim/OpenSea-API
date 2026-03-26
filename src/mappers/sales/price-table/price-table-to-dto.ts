@@ -15,6 +15,7 @@ export interface PriceTableDTO {
   validUntil: Date | null;
   createdAt: Date;
   updatedAt: Date | null;
+  deletedAt: Date | null;
 }
 
 export function priceTableToDTO(priceTable: PriceTable): PriceTableDTO {
@@ -33,5 +34,6 @@ export function priceTableToDTO(priceTable: PriceTable): PriceTableDTO {
     validUntil: priceTable.validUntil ?? null,
     createdAt: priceTable.createdAt,
     updatedAt: priceTable.updatedAt ?? null,
+    deletedAt: priceTable.deletedAt ?? null,
   };
 }

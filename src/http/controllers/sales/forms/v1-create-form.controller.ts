@@ -66,7 +66,7 @@ export async function createFormController(app: FastifyInstance) {
           newData: { title: body.title, fieldsCount: body.fields.length },
         });
 
-        return reply.status(201).send({ form });
+        return reply.status(201).send({ form } as any);
       } catch (error) {
         if (error instanceof BadRequestError) {
           return reply.status(400).send({ message: error.message });
