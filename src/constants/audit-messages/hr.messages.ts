@@ -485,6 +485,37 @@ export const HR_AUDIT_MESSAGES = {
   } satisfies AuditMessage,
 
   // ============================================================================
+  // TERMINATIONS - Rescisões
+  // ============================================================================
+
+  /** Rescisão criada */
+  TERMINATION_CREATE: {
+    action: AuditAction.TERMINATION_CREATE,
+    entity: AuditEntity.TERMINATION,
+    module: AuditModule.HR,
+    description:
+      '{{userName}} registrou rescisão de {{employeeName}} ({{terminationType}})',
+  } satisfies AuditMessage,
+
+  /** Verbas rescisórias calculadas */
+  TERMINATION_CALCULATE: {
+    action: AuditAction.TERMINATION_CALCULATE,
+    entity: AuditEntity.TERMINATION,
+    module: AuditModule.HR,
+    description:
+      '{{userName}} calculou verbas rescisórias de {{employeeName}} — Total líquido: R$ {{totalLiquido}}',
+  } satisfies AuditMessage,
+
+  /** Rescisão paga */
+  TERMINATION_PAY: {
+    action: AuditAction.TERMINATION_PAY,
+    entity: AuditEntity.TERMINATION,
+    module: AuditModule.HR,
+    description:
+      '{{userName}} registrou pagamento da rescisão de {{employeeName}}',
+  } satisfies AuditMessage,
+
+  // ============================================================================
   // WORK SCHEDULES - Escalas de trabalho
   // ============================================================================
 
