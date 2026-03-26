@@ -1,12 +1,17 @@
 import type { Termination } from '@/entities/hr/termination';
+import type {
+  NoticeType,
+  TerminationStatus,
+  TerminationType,
+} from '@/entities/hr/termination';
 
 export interface TerminationDTO {
   id: string;
   employeeId: string;
-  type: string;
+  type: TerminationType;
   terminationDate: string;
   lastWorkDay: string;
-  noticeType: string;
+  noticeType: NoticeType;
   noticeDays: number;
   saldoSalario: number | null;
   avisoIndenizado: number | null;
@@ -24,7 +29,7 @@ export interface TerminationDTO {
   totalLiquido: number | null;
   paymentDeadline: string;
   paidAt: string | null;
-  status: string;
+  status: TerminationStatus;
   notes: string | null;
   createdAt: string;
   updatedAt: string;
