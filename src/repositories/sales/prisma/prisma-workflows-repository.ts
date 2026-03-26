@@ -1,8 +1,15 @@
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { UniqueEntityID as EntityID } from '@/entities/domain/unique-entity-id';
-import { Workflow, type WorkflowTriggerType, type WorkflowStepTypeValue } from '@/entities/sales/workflow';
+import {
+  Workflow,
+  type WorkflowTriggerType,
+  type WorkflowStepTypeValue,
+} from '@/entities/sales/workflow';
 import { prisma } from '@/lib/prisma';
-import type { WorkflowTrigger, WorkflowStepType } from '@prisma/generated/client.js';
+import type {
+  WorkflowTrigger,
+  WorkflowStepType,
+} from '@prisma/generated/client.js';
 import type {
   CreateWorkflowSchema,
   WorkflowsRepository,
@@ -51,7 +58,8 @@ export class PrismaWorkflowsRepository implements WorkflowsRepository {
               create: data.steps.map((step) => ({
                 order: step.order,
                 type: step.type as WorkflowStepType,
-                config: step.config,
+                config:
+                  step.config as unknown as import('@prisma/generated/client.js').Prisma.InputJsonValue,
               })),
             }
           : undefined,
@@ -62,7 +70,10 @@ export class PrismaWorkflowsRepository implements WorkflowsRepository {
     return mapToDomain(workflowData as unknown as Record<string, unknown>);
   }
 
-  async findById(id: UniqueEntityID, tenantId: string): Promise<Workflow | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Workflow | null> {
     const workflowData = await prisma.workflow.findFirst({
       where: { id: id.toString(), tenantId, deletedAt: null },
       include: { steps: { orderBy: { order: 'asc' } } },
@@ -72,7 +83,10 @@ export class PrismaWorkflowsRepository implements WorkflowsRepository {
     return mapToDomain(workflowData as unknown as Record<string, unknown>);
   }
 
-  async findByTrigger(trigger: WorkflowTriggerType, tenantId: string): Promise<Workflow[]> {
+  async findByTrigger(
+    trigger: WorkflowTriggerType,
+    tenantId: string,
+  ): Promise<Workflow[]> {
     const workflowsData = await prisma.workflow.findMany({
       where: {
         tenantId,
@@ -89,7 +103,11 @@ export class PrismaWorkflowsRepository implements WorkflowsRepository {
     );
   }
 
-  async findMany(page: number, perPage: number, tenantId: string): Promise<Workflow[]> {
+  async findMany(
+    page: number,
+    perPage: number,
+    tenantId: string,
+  ): Promise<Workflow[]> {
     const workflowsData = await prisma.workflow.findMany({
       where: { tenantId, deletedAt: null },
       include: { steps: { orderBy: { order: 'asc' } } },
@@ -136,7 +154,8 @@ export class PrismaWorkflowsRepository implements WorkflowsRepository {
             workflowId: workflow.id.toString(),
             order: step.order,
             type: step.type as WorkflowStepType,
-            config: step.config,
+            config:
+              step.config as unknown as import('@prisma/generated/client.js').Prisma.InputJsonValue,
           })),
         });
       }
