@@ -18,6 +18,7 @@ import type { CostCentersRepository } from '@/repositories/finance/cost-centers-
 import type { FinanceCategoriesRepository } from '@/repositories/finance/finance-categories-repository';
 import type { FinanceEntriesRepository } from '@/repositories/finance/finance-entries-repository';
 import type { FinanceEntryCostCentersRepository } from '@/repositories/finance/finance-entry-cost-centers-repository';
+import type { FinanceApprovalRulesRepository } from '@/repositories/finance/finance-approval-rules-repository';
 import type { CalendarSyncService } from '@/services/calendar/calendar-sync.service';
 import { calculateNextDate } from '@/utils/finance/calculate-next-date';
 
@@ -75,6 +76,8 @@ export class CreateFinanceEntryUseCase {
     private calendarSyncService?: CalendarSyncService,
     private transactionManager?: TransactionManager,
     private costCenterAllocationsRepository?: FinanceEntryCostCentersRepository,
+    private approvalRulesRepository?: FinanceApprovalRulesRepository,
+    private evaluateAutoApproval?: (entryId: string, tenantId: string, createdBy?: string) => Promise<void>,
   ) {}
 
   async execute(
@@ -327,6 +330,15 @@ export class CreateFinanceEntryUseCase {
         entry: financeEntryToDTO(entry),
         installments: [firstOccurrence],
       };
+    }
+
+    // Auto-approval evaluation (fire-and-forget, outside transaction)
+    if (this.evaluateAutoApproval) {
+      this.evaluateAutoApproval(
+        entry.id.toString(),
+        tenantId,
+        request.createdBy,
+      ).catch(() => {});
     }
 
     return { entry: financeEntryToDTO(entry) };

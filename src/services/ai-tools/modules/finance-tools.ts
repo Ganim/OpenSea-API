@@ -725,6 +725,25 @@ export function getFinanceTools(): ToolDefinition[] {
       category: 'report',
     },
     {
+      name: 'finance_detect_anomalies',
+      description:
+        'Detecta gastos anômalos e variações incomuns nos lançamentos financeiros. Identifica picos de despesa, aumento de preço de fornecedores e frequência atípica de lançamentos.',
+      parameters: {
+        type: 'object',
+        properties: {
+          months: {
+            type: 'number',
+            description:
+              'Meses de retrospectiva para análise (padrão 6, máximo 24)',
+          },
+        },
+      },
+      module: 'finance',
+      permission: 'finance.entries.access',
+      requiresConfirmation: false,
+      category: 'report',
+    },
+    {
       name: 'finance_get_upcoming_payments',
       description:
         'Lista lançamentos pendentes que vencem nos próximos dias, agrupados por dia e com total. Use para perguntas como "O que vence essa semana?" ou "O que tenho para pagar?"',

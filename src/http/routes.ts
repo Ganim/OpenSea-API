@@ -186,6 +186,12 @@ import { aiWorkflowsRoutes } from './controllers/ai/workflows/routes';
 import { aiSetupWizardRoutes } from './controllers/ai/setup-wizard/routes';
 import { aiDocumentsRoutes } from './controllers/ai/documents/routes';
 
+// eSocial routes
+import { esocialConfigRoutes } from './controllers/esocial/config/routes';
+import { esocialCertificatesRoutes } from './controllers/esocial/certificates/routes';
+import { esocialTablesRoutes } from './controllers/esocial/tables/routes';
+import { esocialRubricasRoutes } from './controllers/esocial/rubricas/routes';
+
 // Fiscal routes
 import { fiscalRoutes } from './controllers/fiscal/routes';
 
@@ -426,6 +432,12 @@ export async function registerRoutes(app: FastifyInstance) {
 
   // Cashier routes
   await app.register(cashierRoutes);
+
+  // eSocial routes
+  await app.register(esocialConfigRoutes);
+  await app.register(esocialCertificatesRoutes);
+  await app.register(esocialTablesRoutes);
+  await app.register(esocialRubricasRoutes);
 
   // Fiscal routes
   await app.register(fiscalRoutes);

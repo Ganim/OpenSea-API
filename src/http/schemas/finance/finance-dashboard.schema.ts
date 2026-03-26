@@ -97,6 +97,42 @@ export const overviewResponseSchema = z.object({
   costCenters: z.number(),
 });
 
+// Predictive Cashflow
+export const predictiveCashflowQuerySchema = z.object({
+  months: z.coerce.number().int().min(1).max(12).optional().default(3),
+});
+
+export const predictiveCashflowResponseSchema = z.object({
+  currentBalance: z.number(),
+  projectedMonths: z.array(
+    z.object({
+      month: z.string(),
+      projectedRevenue: z.number(),
+      projectedExpenses: z.number(),
+      projectedBalance: z.number(),
+      confidence: z.number(),
+      seasonalIndex: z.number(),
+    }),
+  ),
+  dangerZones: z.array(
+    z.object({
+      date: z.string(),
+      projectedBalance: z.number(),
+      deficit: z.number(),
+      suggestion: z.string(),
+    }),
+  ),
+  dailyProjection: z.array(
+    z.object({
+      date: z.string(),
+      balance: z.number(),
+      isNegative: z.boolean(),
+    }),
+  ),
+  suggestions: z.array(z.string()),
+  dataQuality: z.enum(['HIGH', 'MEDIUM', 'LOW']),
+});
+
 // Cashflow
 export const cashflowQuerySchema = z.object({
   startDate: z.coerce.date(),

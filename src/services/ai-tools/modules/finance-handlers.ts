@@ -1358,6 +1358,54 @@ export function getFinanceHandlers(): Record<string, ToolHandler> {
       },
     },
 
+    finance_detect_anomalies: {
+      async execute(
+        args: Record<string, unknown>,
+        context: ToolExecutionContext,
+      ) {
+        const { makeDetectAnomaliesUseCase } = await import(
+          '@/use-cases/finance/analytics/factories/make-detect-anomalies-use-case'
+        );
+        const months = Math.min(Math.max(1, (args.months as number) ?? 6), 24);
+
+        const useCase = makeDetectAnomaliesUseCase();
+        const result = await useCase.execute({
+          tenantId: context.tenantId,
+          months,
+        });
+
+        const anomalyCount = result.anomalies.length;
+        const criticalCount = result.anomalies.filter(
+          (a) => a.severity === 'CRITICAL',
+        ).length;
+        const highCount = result.anomalies.filter(
+          (a) => a.severity === 'HIGH',
+        ).length;
+
+        return {
+          summary:
+            anomalyCount === 0
+              ? `Nenhuma anomalia detectada nos últimos ${months} meses. Todos os gastos estão dentro dos padrões normais.`
+              : `${anomalyCount} anomalia(s) detectada(s): ${criticalCount} crítica(s), ${highCount} alta(s).`,
+          totalAnomalies: anomalyCount,
+          analyzedPeriod: result.analyzedPeriod,
+          totalEntriesAnalyzed: result.totalEntriesAnalyzed,
+          categoriesAnalyzed: result.categoriesAnalyzed,
+          anomalies: result.anomalies.slice(0, TOOL_LIST_MAX_ITEMS).map((a) => ({
+            type: a.type,
+            severity: a.severity,
+            entryId: a.entryId,
+            categoryName: a.categoryName,
+            supplierName: a.supplierName,
+            currentValue: a.currentValue,
+            expectedValue: a.expectedValue,
+            deviationPercent: a.deviationPercent,
+            description: a.description,
+          })),
+        };
+      },
+    },
+
     finance_get_upcoming_payments: {
       async execute(
         args: Record<string, unknown>,
