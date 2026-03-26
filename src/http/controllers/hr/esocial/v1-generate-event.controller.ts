@@ -45,7 +45,7 @@ const generateEventBodySchema = z.object({
     'ESOCIAL_EVENT',
   ]),
   referenceId: z.string().uuid(),
-  additionalData: z.record(z.unknown()).optional(),
+  additionalData: z.record(z.string(), z.unknown()).optional(),
 });
 
 export async function v1GenerateEventController(app: FastifyInstance) {

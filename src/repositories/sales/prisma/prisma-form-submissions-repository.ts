@@ -26,7 +26,7 @@ export class PrismaFormSubmissionsRepository
     const submissionData = await prisma.formSubmission.create({
       data: {
         formId: data.formId,
-        data: data.data,
+        data: data.data as unknown as import('@prisma/generated/client.js').Prisma.InputJsonValue,
         submittedBy: data.submittedBy,
       },
     });
