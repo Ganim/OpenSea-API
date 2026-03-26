@@ -62,6 +62,6 @@ export const updateFormSchema = z.object({
 });
 
 export const submitFormSchema = z.object({
-  data: z.record(z.unknown()),
+  data: z.record(z.string(), z.unknown()),
   submittedBy: z.string().optional(),
 });

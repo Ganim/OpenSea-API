@@ -6,3 +6,4 @@ export * from './v1-list-vacation-periods.controller';
 export * from './v1-schedule-vacation.controller';
 export * from './v1-sell-vacation-days.controller';
 export * from './v1-start-vacation.controller';
+export * from './v1-update-vacation-period.controller';

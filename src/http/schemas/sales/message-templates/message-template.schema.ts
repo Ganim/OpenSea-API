@@ -30,5 +30,5 @@ export const updateMessageTemplateSchema = z.object({
 });
 
 export const previewMessageTemplateSchema = z.object({
-  sampleData: z.record(z.string()),
+  sampleData: z.record(z.string(), z.string()),
 });

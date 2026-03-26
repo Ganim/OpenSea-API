@@ -16,6 +16,7 @@ import { v1ScheduleVacationController } from './v1-schedule-vacation.controller'
 import { v1ScheduleVacationSplitController } from './v1-schedule-vacation-split.controller';
 import { v1SellVacationDaysController } from './v1-sell-vacation-days.controller';
 import { v1StartVacationController } from './v1-start-vacation.controller';
+import { v1UpdateVacationPeriodController } from './v1-update-vacation-period.controller';
 
 export async function vacationPeriodsRoutes(app: FastifyInstance) {
   app.addHook('onRequest', createModuleMiddleware('HR'));
@@ -35,6 +36,7 @@ export async function vacationPeriodsRoutes(app: FastifyInstance) {
       mutationApp.register(v1ScheduleVacationSplitController);
       mutationApp.register(v1CancelVacationSplitController);
       mutationApp.register(v1ScheduleCollectiveVacationController);
+      mutationApp.register(v1UpdateVacationPeriodController);
     },
     { prefix: '' },
   );

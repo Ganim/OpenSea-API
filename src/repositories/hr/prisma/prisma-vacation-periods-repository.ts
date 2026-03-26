@@ -254,6 +254,11 @@ export class PrismaVacationPeriodsRepository
     const vacationPeriodData = await prisma.vacationPeriod.update({
       where: { id: data.id.toString() },
       data: {
+        acquisitionStart: data.acquisitionStart,
+        acquisitionEnd: data.acquisitionEnd,
+        concessionStart: data.concessionStart,
+        concessionEnd: data.concessionEnd,
+        totalDays: data.totalDays,
         usedDays: data.usedDays,
         soldDays: data.soldDays,
         remainingDays: data.remainingDays,

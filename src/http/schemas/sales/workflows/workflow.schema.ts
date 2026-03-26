@@ -4,7 +4,7 @@ export const workflowStepResponseSchema = z.object({
   id: z.string().uuid(),
   order: z.number(),
   type: z.string(),
-  config: z.record(z.unknown()),
+  config: z.record(z.string(), z.unknown()),
 });
 
 export const workflowResponseSchema = z.object({
@@ -22,16 +22,26 @@ export const workflowResponseSchema = z.object({
 
 export const workflowStepInputSchema = z.object({
   order: z.number().int().min(1),
-  type: z.enum(['SEND_EMAIL', 'SEND_NOTIFICATION', 'UPDATE_STATUS', 'CREATE_TASK']),
-  config: z.record(z.unknown()),
+  type: z.enum([
+    'SEND_EMAIL',
+    'SEND_NOTIFICATION',
+    'UPDATE_STATUS',
+    'CREATE_TASK',
+  ]),
+  config: z.record(z.string(), z.unknown()),
 });
 
 export const createWorkflowSchema = z.object({
   name: z.string().min(1).max(255),
   description: z.string().optional(),
   trigger: z.enum([
-    'ORDER_CREATED', 'ORDER_CONFIRMED', 'DEAL_WON', 'DEAL_LOST',
-    'CUSTOMER_CREATED', 'QUOTE_SENT', 'QUOTE_ACCEPTED',
+    'ORDER_CREATED',
+    'ORDER_CONFIRMED',
+    'DEAL_WON',
+    'DEAL_LOST',
+    'CUSTOMER_CREATED',
+    'QUOTE_SENT',
+    'QUOTE_ACCEPTED',
   ]),
   isActive: z.boolean().optional(),
   steps: z.array(workflowStepInputSchema).optional(),
@@ -40,19 +50,31 @@ export const createWorkflowSchema = z.object({
 export const updateWorkflowSchema = z.object({
   name: z.string().min(1).max(255).optional(),
   description: z.string().optional(),
-  trigger: z.enum([
-    'ORDER_CREATED', 'ORDER_CONFIRMED', 'DEAL_WON', 'DEAL_LOST',
-    'CUSTOMER_CREATED', 'QUOTE_SENT', 'QUOTE_ACCEPTED',
-  ]).optional(),
+  trigger: z
+    .enum([
+      'ORDER_CREATED',
+      'ORDER_CONFIRMED',
+      'DEAL_WON',
+      'DEAL_LOST',
+      'CUSTOMER_CREATED',
+      'QUOTE_SENT',
+      'QUOTE_ACCEPTED',
+    ])
+    .optional(),
   steps: z.array(workflowStepInputSchema).optional(),
 });
 
 export const executeWorkflowSchema = z.object({
   trigger: z.enum([
-    'ORDER_CREATED', 'ORDER_CONFIRMED', 'DEAL_WON', 'DEAL_LOST',
-    'CUSTOMER_CREATED', 'QUOTE_SENT', 'QUOTE_ACCEPTED',
+    'ORDER_CREATED',
+    'ORDER_CONFIRMED',
+    'DEAL_WON',
+    'DEAL_LOST',
+    'CUSTOMER_CREATED',
+    'QUOTE_SENT',
+    'QUOTE_ACCEPTED',
   ]),
-  context: z.record(z.unknown()).optional(),
+  context: z.record(z.string(), z.unknown()).optional(),
 });
 
 export const executionStepLogSchema = z.object({

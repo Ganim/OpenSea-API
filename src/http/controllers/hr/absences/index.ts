@@ -6,3 +6,4 @@ export * from './v1-list-absences.controller';
 export * from './v1-reject-absence.controller';
 export * from './v1-request-sick-leave.controller';
 export * from './v1-request-vacation.controller';
+export * from './v1-update-absence.controller';

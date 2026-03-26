@@ -10,6 +10,7 @@ import { v1ListAbsencesController } from './v1-list-absences.controller';
 import { v1RejectAbsenceController } from './v1-reject-absence.controller';
 import { v1RequestSickLeaveController } from './v1-request-sick-leave.controller';
 import { v1RequestVacationController } from './v1-request-vacation.controller';
+import { v1UpdateAbsenceController } from './v1-update-absence.controller';
 
 export async function absencesRoutes(app: FastifyInstance) {
   app.addHook('onRequest', createModuleMiddleware('HR'));
@@ -23,6 +24,7 @@ export async function absencesRoutes(app: FastifyInstance) {
       mutationApp.register(v1ApproveAbsenceController);
       mutationApp.register(v1RejectAbsenceController);
       mutationApp.register(v1CancelAbsenceController);
+      mutationApp.register(v1UpdateAbsenceController);
     },
     { prefix: '' },
   );
