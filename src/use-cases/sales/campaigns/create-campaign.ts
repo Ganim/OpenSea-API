@@ -12,6 +12,7 @@ import type { CampaignsRepository } from '@/repositories/sales/campaigns-reposit
 
 interface CreateCampaignUseCaseRequest {
   tenantId: string;
+  createdByUserId: string;
   name: string;
   description?: string;
   type: CampaignType;
@@ -54,6 +55,7 @@ export class CreateCampaignUseCase {
 
     const campaign = await this.campaignsRepository.create({
       tenantId: request.tenantId,
+      createdByUserId: request.createdByUserId,
       name: request.name.trim(),
       description: request.description,
       type: request.type,

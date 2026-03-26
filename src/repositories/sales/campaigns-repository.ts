@@ -11,6 +11,7 @@ import type { PaginatedResult } from '@/repositories/pagination-params';
 
 export interface CreateCampaignSchema {
   tenantId: string;
+  createdByUserId: string;
   name: string;
   description?: string;
   type: CampaignType;

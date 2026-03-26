@@ -49,7 +49,7 @@ export class PrismaCampaignsRepository implements CampaignsRepository {
         maxUsagePerCustomer: data.maxUsagePerCustomer ?? null,
         priority: data.priority ?? 0,
         stackable: data.isStackable ?? false,
-        createdByUserId: data.tenantId, // placeholder — should come from request context
+        createdByUserId: data.createdByUserId,
       },
     });
 

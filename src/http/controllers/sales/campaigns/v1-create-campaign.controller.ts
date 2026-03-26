@@ -45,6 +45,7 @@ export async function createCampaignController(app: FastifyInstance) {
         const useCase = makeCreateCampaignUseCase();
         const { campaign } = await useCase.execute({
           tenantId,
+          createdByUserId: userId,
           name: body.name,
           description: body.description,
           type: body.type as 'PERCENTAGE',

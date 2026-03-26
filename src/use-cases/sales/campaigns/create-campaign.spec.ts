@@ -8,6 +8,7 @@ let sut: CreateCampaignUseCase;
 
 describe('Create Campaign Use Case', () => {
   const TENANT_ID = 'tenant-1';
+  const USER_ID = 'user-1';
 
   beforeEach(() => {
     campaignsRepository = new InMemoryCampaignsRepository();
@@ -17,6 +18,7 @@ describe('Create Campaign Use Case', () => {
   it('should create a campaign with DRAFT status', async () => {
     const { campaign } = await sut.execute({
       tenantId: TENANT_ID,
+      createdByUserId: USER_ID,
       name: 'Summer Sale',
       description: '20% off all products',
       type: 'PERCENTAGE',
@@ -36,6 +38,7 @@ describe('Create Campaign Use Case', () => {
     await expect(() =>
       sut.execute({
         tenantId: TENANT_ID,
+        createdByUserId: USER_ID,
         name: '',
         type: 'PERCENTAGE',
         discountValue: 10,
@@ -51,6 +54,7 @@ describe('Create Campaign Use Case', () => {
     await expect(() =>
       sut.execute({
         tenantId: TENANT_ID,
+        createdByUserId: USER_ID,
         name: 'Invalid Campaign',
         type: 'PERCENTAGE',
         discountValue: 10,
@@ -67,6 +71,7 @@ describe('Create Campaign Use Case', () => {
 
     const { campaign } = await sut.execute({
       tenantId: TENANT_ID,
+      createdByUserId: USER_ID,
       name: 'Full Campaign',
       description: 'Complete campaign',
       type: 'FIXED_AMOUNT',
