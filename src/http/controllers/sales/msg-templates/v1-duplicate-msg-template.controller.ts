@@ -14,7 +14,7 @@ import { z } from 'zod';
 export async function duplicateMsgTemplateController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
-    url: '/v1/msg-templates/:id/duplicate',
+    url: '/v1/sales/msg-templates/:id/duplicate',
     preHandler: [
       verifyJwt,
       verifyTenant,

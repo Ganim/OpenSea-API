@@ -18,7 +18,7 @@ import { z } from 'zod';
 export async function updateDiscountRuleController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'PUT',
-    url: '/v1/discounts/:id',
+    url: '/v1/sales/discount-rules/:id',
     preHandler: [
       verifyJwt,
       verifyTenant,

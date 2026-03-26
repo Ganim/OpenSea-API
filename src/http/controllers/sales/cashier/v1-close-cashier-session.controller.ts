@@ -19,7 +19,7 @@ import { z } from 'zod';
 export async function closeCashierSessionController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'PATCH',
-    url: '/v1/cashier-sessions/:id/close',
+    url: '/v1/sales/cashier/sessions/:id/close',
     preHandler: [
       verifyJwt,
       verifyTenant,

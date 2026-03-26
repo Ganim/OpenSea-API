@@ -16,7 +16,7 @@ import { z } from 'zod';
 export async function archiveConversationController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'PATCH',
-    url: '/v1/conversations/:id/archive',
+    url: '/v1/sales/conversations/:id/archive',
     preHandler: [
       verifyJwt,
       verifyTenant,

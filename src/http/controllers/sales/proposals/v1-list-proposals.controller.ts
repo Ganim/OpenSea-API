@@ -11,7 +11,7 @@ import { z } from 'zod';
 export async function listProposalsController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
-    url: '/v1/proposals',
+    url: '/v1/sales/proposals',
     preHandler: [
       verifyJwt,
       verifyTenant,

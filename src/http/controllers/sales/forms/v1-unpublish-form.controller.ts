@@ -16,7 +16,7 @@ import { z } from 'zod';
 export async function unpublishFormController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'PATCH',
-    url: '/v1/forms/:id/unpublish',
+    url: '/v1/sales/forms/:id/unpublish',
     preHandler: [
       verifyJwt,
       verifyTenant,

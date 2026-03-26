@@ -14,7 +14,7 @@ export async function listCashierTransactionsController(
 ) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
-    url: '/v1/cashier-sessions/:id/transactions',
+    url: '/v1/sales/cashier/sessions/:id/transactions',
     preHandler: [
       verifyJwt,
       verifyTenant,

@@ -14,7 +14,7 @@ import { z } from 'zod';
 export async function duplicateProposalController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
-    url: '/v1/proposals/:id/duplicate',
+    url: '/v1/sales/proposals/:id/duplicate',
     preHandler: [
       verifyJwt,
       verifyTenant,

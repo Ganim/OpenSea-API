@@ -18,7 +18,7 @@ import { z } from 'zod';
 export async function createConversationController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
-    url: '/v1/conversations',
+    url: '/v1/sales/conversations',
     preHandler: [
       verifyJwt,
       verifyTenant,

@@ -16,7 +16,7 @@ import { z } from 'zod';
 export async function closeConversationController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'PATCH',
-    url: '/v1/conversations/:id/close',
+    url: '/v1/sales/conversations/:id/close',
     preHandler: [
       verifyJwt,
       verifyTenant,

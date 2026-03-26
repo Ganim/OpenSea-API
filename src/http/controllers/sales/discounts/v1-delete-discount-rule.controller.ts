@@ -14,7 +14,7 @@ import { z } from 'zod';
 export async function deleteDiscountRuleController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'DELETE',
-    url: '/v1/discounts/:id',
+    url: '/v1/sales/discount-rules/:id',
     preHandler: [
       verifyJwt,
       verifyTenant,

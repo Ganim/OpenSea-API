@@ -12,7 +12,7 @@ import { z } from 'zod';
 export async function getMsgTemplateByIdController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
-    url: '/v1/msg-templates/:id',
+    url: '/v1/sales/msg-templates/:id',
     preHandler: [
       verifyJwt,
       verifyTenant,

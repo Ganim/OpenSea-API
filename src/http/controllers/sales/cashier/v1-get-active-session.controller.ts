@@ -11,7 +11,7 @@ import { z } from 'zod';
 export async function getActiveSessionController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
-    url: '/v1/cashier-sessions/active',
+    url: '/v1/sales/cashier/sessions/active',
     preHandler: [
       verifyJwt,
       verifyTenant,

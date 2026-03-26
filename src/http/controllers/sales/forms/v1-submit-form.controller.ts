@@ -16,7 +16,7 @@ import { z } from 'zod';
 export async function submitFormController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
-    url: '/v1/forms/:id/submit',
+    url: '/v1/sales/forms/:id/submit',
     preHandler: [verifyJwt, verifyTenant],
     schema: {
       tags: ['Sales - Forms'],

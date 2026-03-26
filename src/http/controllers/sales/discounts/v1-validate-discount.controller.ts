@@ -16,7 +16,7 @@ import { z } from 'zod';
 export async function validateDiscountController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
-    url: '/v1/discounts/validate',
+    url: '/v1/sales/discount-rules/validate',
     preHandler: [
       verifyJwt,
       verifyTenant,

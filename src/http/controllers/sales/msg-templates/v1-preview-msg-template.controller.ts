@@ -14,7 +14,7 @@ import { z } from 'zod';
 export async function previewMsgTemplateController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
-    url: '/v1/msg-templates/:id/preview',
+    url: '/v1/sales/msg-templates/:id/preview',
     preHandler: [
       verifyJwt,
       verifyTenant,

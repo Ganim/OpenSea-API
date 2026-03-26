@@ -12,7 +12,7 @@ import { z } from 'zod';
 export async function getDiscountRuleByIdController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
-    url: '/v1/discounts/:id',
+    url: '/v1/sales/discount-rules/:id',
     preHandler: [
       verifyJwt,
       verifyTenant,

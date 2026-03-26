@@ -14,7 +14,7 @@ import { z } from 'zod';
 export async function deleteConversationController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'DELETE',
-    url: '/v1/conversations/:id',
+    url: '/v1/sales/conversations/:id',
     preHandler: [
       verifyJwt,
       verifyTenant,

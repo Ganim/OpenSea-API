@@ -14,7 +14,7 @@ import { z } from 'zod';
 export async function deleteMsgTemplateController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'DELETE',
-    url: '/v1/msg-templates/:id',
+    url: '/v1/sales/msg-templates/:id',
     preHandler: [
       verifyJwt,
       verifyTenant,

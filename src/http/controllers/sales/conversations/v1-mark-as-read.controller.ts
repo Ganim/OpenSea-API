@@ -11,7 +11,7 @@ import { z } from 'zod';
 export async function markAsReadController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'PATCH',
-    url: '/v1/conversations/:id/read',
+    url: '/v1/sales/conversations/:id/read',
     preHandler: [
       verifyJwt,
       verifyTenant,

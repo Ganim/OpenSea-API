@@ -12,7 +12,7 @@ import { z } from 'zod';
 export async function getCashierSessionByIdController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
-    url: '/v1/cashier-sessions/:id',
+    url: '/v1/sales/cashier/sessions/:id',
     preHandler: [
       verifyJwt,
       verifyTenant,

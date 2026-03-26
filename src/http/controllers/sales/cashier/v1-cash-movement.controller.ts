@@ -19,7 +19,7 @@ import { z } from 'zod';
 export async function cashMovementController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
-    url: '/v1/cashier-sessions/:id/cash-movement',
+    url: '/v1/sales/cashier/sessions/:id/cash-movement',
     preHandler: [
       verifyJwt,
       verifyTenant,

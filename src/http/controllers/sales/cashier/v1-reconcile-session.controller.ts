@@ -16,7 +16,7 @@ import { z } from 'zod';
 export async function reconcileSessionController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'PATCH',
-    url: '/v1/cashier-sessions/:id/reconcile',
+    url: '/v1/sales/cashier/sessions/:id/reconcile',
     preHandler: [
       verifyJwt,
       verifyTenant,
