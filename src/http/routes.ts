@@ -193,6 +193,7 @@ import { vacationPeriodsRoutes } from './controllers/hr/vacation-periods/routes'
 import { workSchedulesRoutes } from './controllers/hr/work-schedules/routes';
 import { punchConfigRoutes } from './controllers/hr/punch-config/routes';
 import { geofenceZonesRoutes } from './controllers/hr/geofence-zones/routes';
+import { medicalExamsRoutes } from './controllers/hr/medical-exams/routes';
 
 export async function registerRoutes(app: FastifyInstance) {
   // Core routes
@@ -344,6 +345,7 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(deductionsRoutes);
   await app.register(punchConfigRoutes);
   await app.register(geofenceZonesRoutes);
+  await app.register(medicalExamsRoutes);
 
   // Tasks routes
   await app.register(taskBoardsRoutes);

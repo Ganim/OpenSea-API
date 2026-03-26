@@ -152,6 +152,7 @@ export enum AuditEntity {
   BONUS = 'BONUS',
   DEDUCTION = 'DEDUCTION',
   TERMINATION = 'TERMINATION',
+  MEDICAL_EXAM = 'MEDICAL_EXAM',
 
   // ==========================================
   // Label Templates

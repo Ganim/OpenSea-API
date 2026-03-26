@@ -1,6 +1,7 @@
 export * from './absence';
 export * from './bonus';
 export * from './dependant';
+export * from './medical-exam';
 export * from './payroll';
 export * from './payroll-item';
 export * from './position';

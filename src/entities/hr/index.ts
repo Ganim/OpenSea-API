@@ -6,3 +6,6 @@ export type { BonusProps } from './bonus';
 
 export { EmployeeDependant } from './employee-dependant';
 export type { EmployeeDependantProps } from './employee-dependant';
+
+export { MedicalExam } from './medical-exam';
+export type { MedicalExamProps } from './medical-exam';

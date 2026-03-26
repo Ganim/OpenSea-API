@@ -1,0 +1,73 @@
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
+import {
+  updateMedicalExamSchema,
+  medicalExamResponseSchema,
+} from '@/http/schemas';
+import { idSchema } from '@/http/schemas';
+import { medicalExamToDTO } from '@/mappers/hr/medical-exam';
+import { makeUpdateMedicalExamUseCase } from '@/use-cases/hr/medical-exams/factories/make-update-medical-exam-use-case';
+
+import type { FastifyInstance } from 'fastify';
+import type { ZodTypeProvider } from 'fastify-type-provider-zod';
+import z from 'zod';
+
+export async function v1UpdateMedicalExamController(app: FastifyInstance) {
+  app.withTypeProvider<ZodTypeProvider>().route({
+    method: 'PUT',
+    url: '/v1/hr/medical-exams/:examId',
+    preHandler: [
+      verifyJwt,
+      verifyTenant,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.HR.MEDICAL_EXAMS.MODIFY,
+        resource: 'medical-exams',
+      }),
+    ],
+    schema: {
+      tags: ['HR - Medical Exams'],
+      summary: 'Update medical exam',
+      description: 'Updates an existing medical exam',
+      params: z.object({
+        examId: idSchema,
+      }),
+      body: updateMedicalExamSchema,
+      response: {
+        200: z.object({
+          medicalExam: medicalExamResponseSchema,
+        }),
+        404: z.object({
+          message: z.string(),
+        }),
+      },
+      security: [{ bearerAuth: [] }],
+    },
+
+    handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
+      const { examId } = request.params;
+      const data = request.body;
+
+      try {
+        const useCase = makeUpdateMedicalExamUseCase();
+        const { medicalExam } = await useCase.execute({
+          tenantId,
+          examId,
+          ...data,
+        });
+
+        return reply
+          .status(200)
+          .send({ medicalExam: medicalExamToDTO(medicalExam) });
+      } catch (error) {
+        if (error instanceof ResourceNotFoundError) {
+          return reply.status(404).send({ message: error.message });
+        }
+        throw error;
+      }
+    },
+  });
+}

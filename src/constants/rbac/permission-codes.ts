@@ -261,6 +261,12 @@ export const PermissionCodes = {
       REGISTER: 'hr.deductions.register' as const,
       REMOVE: 'hr.deductions.remove' as const,
     },
+    MEDICAL_EXAMS: {
+      ACCESS: 'hr.medical-exams.access' as const,
+      REGISTER: 'hr.medical-exams.register' as const,
+      MODIFY: 'hr.medical-exams.modify' as const,
+      REMOVE: 'hr.medical-exams.remove' as const,
+    },
   },
 
   // ============================================================================
