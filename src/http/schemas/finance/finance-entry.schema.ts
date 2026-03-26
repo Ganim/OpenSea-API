@@ -291,12 +291,32 @@ export const financeEntryResponseSchema = z.object({
     .string()
     .optional()
     .nullable()
-    .describe('Código de barras do boleto'),
+    .describe('Código de barras do boleto (manual)'),
   boletoDigitLine: z
     .string()
     .optional()
     .nullable()
-    .describe('Linha digitável do boleto'),
+    .describe('Linha digitável do boleto (manual)'),
+  boletoChargeId: z
+    .number()
+    .optional()
+    .nullable()
+    .describe('ID da cobrança Efi (boleto registrado)'),
+  boletoBarcodeNumber: z
+    .string()
+    .optional()
+    .nullable()
+    .describe('Código de barras do boleto registrado (44 dígitos)'),
+  boletoDigitableLine: z
+    .string()
+    .optional()
+    .nullable()
+    .describe('Linha digitável do boleto registrado (47 dígitos)'),
+  boletoPdfUrl: z
+    .string()
+    .optional()
+    .nullable()
+    .describe('URL do PDF do boleto registrado'),
   beneficiaryName: z
     .string()
     .optional()
@@ -309,6 +329,12 @@ export const financeEntryResponseSchema = z.object({
     .describe('CPF/CNPJ do beneficiário'),
   pixKey: z.string().optional().nullable().describe('Chave Pix'),
   pixKeyType: z.string().optional().nullable().describe('Tipo da chave Pix'),
+  pixChargeId: z
+    .string()
+    .uuid()
+    .optional()
+    .nullable()
+    .describe('ID da cobrança PIX vinculada'),
   tags: z.array(z.string()).describe('Tags de categorização'),
   createdBy: z
     .string()

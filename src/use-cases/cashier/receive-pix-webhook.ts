@@ -1,6 +1,7 @@
 import type { PixCharge } from '@/entities/cashier/pix-charge';
 import type { PixChargesRepository } from '@/repositories/cashier/pix-charges-repository';
 import type { PixProvider } from '@/services/cashier/pix-provider.interface';
+import type { AutoRegisterPixPaymentUseCase } from '@/use-cases/finance/entries/auto-register-pix-payment';
 
 interface ReceivePixWebhookUseCaseRequest {
   rawPayload: unknown;
@@ -9,12 +10,14 @@ interface ReceivePixWebhookUseCaseRequest {
 
 interface ReceivePixWebhookUseCaseResponse {
   pixCharge: PixCharge;
+  financeEntryRegistered?: boolean;
 }
 
 export class ReceivePixWebhookUseCase {
   constructor(
     private pixChargesRepository: PixChargesRepository,
     private pixProvider: PixProvider,
+    private autoRegisterPixPaymentUseCase?: AutoRegisterPixPaymentUseCase,
   ) {}
 
   async execute({
@@ -54,6 +57,23 @@ export class ReceivePixWebhookUseCase {
 
     await this.pixChargesRepository.save(pixCharge);
 
-    return { pixCharge };
+    // Auto-register payment in finance entry if linked
+    let financeEntryRegistered = false;
+    if (this.autoRegisterPixPaymentUseCase) {
+      try {
+        const autoResult = await this.autoRegisterPixPaymentUseCase.execute({
+          txId: webhookEvent.txId,
+          amount: webhookEvent.amount,
+          paidAt: webhookEvent.paidAt,
+          payerName: webhookEvent.payerName,
+          endToEndId: webhookEvent.endToEndId,
+        });
+        financeEntryRegistered = autoResult.registered;
+      } catch {
+        // Auto-registration failure should not break the webhook processing
+      }
+    }
+
+    return { pixCharge, financeEntryRegistered };
   }
 }

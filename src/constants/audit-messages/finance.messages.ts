@@ -120,6 +120,14 @@ export const FINANCE_AUDIT_MESSAGES = {
       '{{userName}} registrou pagamento de R$ {{amount}} no lançamento {{entryCode}}',
   } satisfies AuditMessage,
 
+  FINANCE_ENTRY_BOLETO_GENERATE: {
+    action: AuditAction.GENERATE,
+    entity: AuditEntity.FINANCE_ENTRY,
+    module: AuditModule.FINANCE,
+    description:
+      '{{userName}} gerou boleto para o lançamento {{entryCode}}',
+  } satisfies AuditMessage,
+
   FINANCE_ENTRY_BULK_PAY: {
     action: AuditAction.PAYMENT_REGISTER,
     entity: AuditEntity.FINANCE_ENTRY,
@@ -242,6 +250,35 @@ export const FINANCE_AUDIT_MESSAGES = {
     description:
       '{{userName}} marcou o consorcio {{consortiumName}} como contemplado ({{contemplationType}})',
   } satisfies AuditMessage,
+
+  // ============================================================================
+  // PIX OPERATIONS
+  // ============================================================================
+
+  FINANCE_ENTRY_PIX_CHARGE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.FINANCE_ENTRY,
+    module: AuditModule.FINANCE,
+    description:
+      '{{userName}} gerou cobrança PIX de R$ {{amount}} para o lançamento {{entryCode}}',
+  } satisfies AuditMessage,
+
+  FINANCE_ENTRY_PIX_PAYMENT: {
+    action: AuditAction.PAYMENT_REGISTER,
+    entity: AuditEntity.FINANCE_ENTRY_PAYMENT,
+    module: AuditModule.FINANCE,
+    description:
+      '{{userName}} registrou pagamento via PIX de R$ {{amount}} no lançamento {{entryCode}}',
+  } satisfies AuditMessage,
+
+  FINANCE_ENTRY_PIX_WEBHOOK_PAYMENT: {
+    action: AuditAction.PAYMENT_REGISTER,
+    entity: AuditEntity.FINANCE_ENTRY_PAYMENT,
+    module: AuditModule.FINANCE,
+    description:
+      'Pagamento PIX de R$ {{amount}} recebido automaticamente para o lançamento {{entryCode}} (txId: {{txId}})',
+  } satisfies AuditMessage,
+
   // ============================================================================
   // BANK RECONCILIATION - Conciliação Bancária
   // ============================================================================

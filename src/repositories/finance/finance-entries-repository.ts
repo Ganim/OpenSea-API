@@ -41,6 +41,10 @@ export interface CreateFinanceEntrySchema {
   contractId?: string;
   boletoBarcode?: string;
   boletoDigitLine?: string;
+  boletoChargeId?: number;
+  boletoBarcodeNumber?: string;
+  boletoDigitableLine?: string;
+  boletoPdfUrl?: string;
   beneficiaryName?: string;
   beneficiaryCpfCnpj?: string;
   pixKey?: string;
@@ -71,10 +75,15 @@ export interface UpdateFinanceEntrySchema {
   paymentDate?: Date;
   boletoBarcode?: string | null;
   boletoDigitLine?: string | null;
+  boletoChargeId?: number | null;
+  boletoBarcodeNumber?: string | null;
+  boletoDigitableLine?: string | null;
+  boletoPdfUrl?: string | null;
   beneficiaryName?: string | null;
   beneficiaryCpfCnpj?: string | null;
   pixKey?: string | null;
   pixKeyType?: string | null;
+  pixChargeId?: string | null;
   tags?: string[];
 }
 

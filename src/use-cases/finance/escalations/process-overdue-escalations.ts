@@ -6,6 +6,7 @@ import type { NotificationsRepository } from '@/repositories/notifications/notif
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { OverdueEscalationStep } from '@/entities/finance/overdue-escalation-step';
 import type { FinanceEntry } from '@/entities/finance/finance-entry';
+import type { SendEscalationMessageUseCase } from './send-escalation-message';
 
 interface ProcessOverdueEscalationsUseCaseRequest {
   tenantId: string;
@@ -15,6 +16,8 @@ interface ProcessOverdueEscalationsUseCaseRequest {
 interface ProcessOverdueEscalationsUseCaseResponse {
   processed: number;
   actionsCreated: number;
+  messagesSent: number;
+  messagesFailed: number;
   errors: string[];
 }
 
@@ -24,6 +27,7 @@ export class ProcessOverdueEscalationsUseCase {
     private escalationsRepository: OverdueEscalationsRepository,
     private overdueActionsRepository: OverdueActionsRepository,
     private notificationsRepository: NotificationsRepository,
+    private sendEscalationMessageUseCase?: SendEscalationMessageUseCase,
   ) {}
 
   async execute(
@@ -33,6 +37,8 @@ export class ProcessOverdueEscalationsUseCase {
     const t0 = Date.now();
     let processed = 0;
     let actionsCreated = 0;
+    let messagesSent = 0;
+    let messagesFailed = 0;
     const errors: string[] = [];
 
     logger.info({ tenantId }, '[process-escalations] starting');
@@ -45,7 +51,7 @@ export class ProcessOverdueEscalationsUseCase {
         { tenantId },
         '[process-escalations] no default escalation template found, skipping',
       );
-      return { processed: 0, actionsCreated: 0, errors: [] };
+      return { processed: 0, actionsCreated: 0, messagesSent: 0, messagesFailed: 0, errors: [] };
     }
 
     const activeSteps = escalation.steps.filter((step) => step.isActive);
@@ -54,7 +60,7 @@ export class ProcessOverdueEscalationsUseCase {
         { tenantId },
         '[process-escalations] default escalation has no active steps',
       );
-      return { processed: 0, actionsCreated: 0, errors: [] };
+      return { processed: 0, actionsCreated: 0, messagesSent: 0, messagesFailed: 0, errors: [] };
     }
 
     // Fetch all OVERDUE entries for this tenant
@@ -99,36 +105,48 @@ export class ProcessOverdueEscalationsUseCase {
             continue; // Already executed, skip
           }
 
-          // Render the message with placeholders
-          const renderedMessage = this.renderTemplate(
-            step.message,
-            entry,
-            daysOverdue,
-          );
-          const renderedSubject = step.subject
-            ? this.renderTemplate(step.subject, entry, daysOverdue)
-            : undefined;
-
-          // Create the overdue action
-          await this.overdueActionsRepository.create({
+          // Create the overdue action with PENDING status
+          const action = await this.overdueActionsRepository.create({
             tenantId,
             entryId: entry.id.toString(),
             stepId: step.id.toString(),
             channel: step.channel,
-            status: this.resolveInitialStatus(step),
+            status: 'PENDING',
           });
 
           actionsCreated++;
 
-          // Handle channel-specific actions
-          await this.handleChannelAction(
-            step,
-            entry,
-            renderedMessage,
-            renderedSubject,
-            tenantId,
-            createdBy,
-          );
+          // Attempt to send the message via the real gateway
+          if (this.sendEscalationMessageUseCase) {
+            const sendResult =
+              await this.sendEscalationMessageUseCase.execute({
+                tenantId,
+                action,
+                step,
+                entry,
+                createdBy,
+              });
+
+            if (sendResult.success) {
+              messagesSent++;
+            } else {
+              messagesFailed++;
+              if (sendResult.error) {
+                errors.push(
+                  `Failed to send ${step.channel} for entry ${entry.code}: ${sendResult.error}`,
+                );
+              }
+            }
+          } else {
+            // Fallback: handle channel actions internally (legacy behavior)
+            await this.handleChannelActionLegacy(
+              step,
+              entry,
+              daysOverdue,
+              tenantId,
+              createdBy,
+            );
+          }
         } catch (stepError) {
           const errorMessage = `Failed to process step ${step.id.toString()} for entry ${entry.code}: ${stepError instanceof Error ? stepError.message : String(stepError)}`;
           errors.push(errorMessage);
@@ -150,13 +168,77 @@ export class ProcessOverdueEscalationsUseCase {
         tenantId,
         processed,
         actionsCreated,
+        messagesSent,
+        messagesFailed,
         errorsCount: errors.length,
         elapsedMs: Date.now() - t0,
       },
       '[process-escalations] completed',
     );
 
-    return { processed, actionsCreated, errors };
+    return { processed, actionsCreated, messagesSent, messagesFailed, errors };
+  }
+
+  /**
+   * Legacy channel handler — used when SendEscalationMessageUseCase is not injected.
+   * Handles INTERNAL_NOTE and SYSTEM_ALERT inline; EMAIL/WHATSAPP are just logged.
+   */
+  private async handleChannelActionLegacy(
+    step: OverdueEscalationStep,
+    entry: FinanceEntry,
+    daysOverdue: number,
+    tenantId: string,
+    createdBy?: string,
+  ): Promise<void> {
+    const renderedMessage = this.renderTemplate(
+      step.message,
+      entry,
+      daysOverdue,
+    );
+    const renderedSubject = step.subject
+      ? this.renderTemplate(step.subject, entry, daysOverdue)
+      : undefined;
+
+    switch (step.channel) {
+      case 'SYSTEM_ALERT': {
+        if (createdBy) {
+          await this.notificationsRepository.create({
+            userId: new UniqueEntityID(createdBy),
+            title: renderedSubject ?? `Alerta de cobrança: ${entry.code}`,
+            message: renderedMessage,
+            type: 'WARNING',
+            priority: 'HIGH',
+            channel: 'IN_APP',
+            entityType: 'finance_entry',
+            entityId: entry.id.toString(),
+          });
+        }
+        break;
+      }
+      case 'INTERNAL_NOTE': {
+        logger.info(
+          {
+            tenantId,
+            entryId: entry.id.toString(),
+            channel: 'INTERNAL_NOTE',
+          },
+          '[process-escalations] internal note recorded',
+        );
+        break;
+      }
+      case 'EMAIL':
+      case 'WHATSAPP': {
+        logger.info(
+          {
+            tenantId,
+            entryId: entry.id.toString(),
+            channel: step.channel,
+          },
+          '[process-escalations] action queued for external delivery',
+        );
+        break;
+      }
+    }
   }
 
   private renderTemplate(
@@ -182,70 +264,5 @@ export class ProcessOverdueEscalationsUseCase {
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const year = date.getFullYear();
     return `${day}/${month}/${year}`;
-  }
-
-  private resolveInitialStatus(
-    step: OverdueEscalationStep,
-  ): 'PENDING' | 'SENT' {
-    // INTERNAL_NOTE and SYSTEM_ALERT are processed immediately
-    if (step.channel === 'INTERNAL_NOTE' || step.channel === 'SYSTEM_ALERT') {
-      return 'SENT';
-    }
-    // EMAIL and WHATSAPP are queued for external delivery
-    return 'PENDING';
-  }
-
-  private async handleChannelAction(
-    step: OverdueEscalationStep,
-    entry: FinanceEntry,
-    renderedMessage: string,
-    renderedSubject: string | undefined,
-    tenantId: string,
-    createdBy?: string,
-  ): Promise<void> {
-    switch (step.channel) {
-      case 'SYSTEM_ALERT': {
-        if (createdBy) {
-          await this.notificationsRepository.create({
-            userId: new UniqueEntityID(createdBy),
-            title: renderedSubject ?? `Alerta de cobrança: ${entry.code}`,
-            message: renderedMessage,
-            type: 'WARNING',
-            priority: 'HIGH',
-            channel: 'IN_APP',
-            entityType: 'finance_entry',
-            entityId: entry.id.toString(),
-          });
-        }
-        break;
-      }
-      case 'INTERNAL_NOTE': {
-        // Internal notes are stored as overdue actions with SENT status
-        // The UI can display these in the entry's escalation history
-        logger.info(
-          {
-            tenantId,
-            entryId: entry.id.toString(),
-            channel: 'INTERNAL_NOTE',
-          },
-          '[process-escalations] internal note recorded',
-        );
-        break;
-      }
-      case 'EMAIL':
-      case 'WHATSAPP': {
-        // EMAIL and WHATSAPP are queued as PENDING actions
-        // External systems pick them up for actual delivery
-        logger.info(
-          {
-            tenantId,
-            entryId: entry.id.toString(),
-            channel: step.channel,
-          },
-          '[process-escalations] action queued for external delivery',
-        );
-        break;
-      }
-    }
   }
 }

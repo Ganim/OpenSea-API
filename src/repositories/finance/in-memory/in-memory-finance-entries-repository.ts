@@ -62,6 +62,10 @@ export class InMemoryFinanceEntriesRepository
       contractId: data.contractId,
       boletoBarcode: data.boletoBarcode,
       boletoDigitLine: data.boletoDigitLine,
+      boletoChargeId: data.boletoChargeId,
+      boletoBarcodeNumber: data.boletoBarcodeNumber,
+      boletoDigitableLine: data.boletoDigitableLine,
+      boletoPdfUrl: data.boletoPdfUrl,
       beneficiaryName: data.beneficiaryName,
       beneficiaryCpfCnpj: data.beneficiaryCpfCnpj,
       pixKey: data.pixKey,
@@ -252,6 +256,14 @@ export class InMemoryFinanceEntriesRepository
       item.boletoBarcode = data.boletoBarcode ?? undefined;
     if (data.boletoDigitLine !== undefined)
       item.boletoDigitLine = data.boletoDigitLine ?? undefined;
+    if (data.boletoChargeId !== undefined)
+      item.boletoChargeId = data.boletoChargeId ?? undefined;
+    if (data.boletoBarcodeNumber !== undefined)
+      item.boletoBarcodeNumber = data.boletoBarcodeNumber ?? undefined;
+    if (data.boletoDigitableLine !== undefined)
+      item.boletoDigitableLine = data.boletoDigitableLine ?? undefined;
+    if (data.boletoPdfUrl !== undefined)
+      item.boletoPdfUrl = data.boletoPdfUrl ?? undefined;
     if (data.beneficiaryName !== undefined)
       item.beneficiaryName = data.beneficiaryName ?? undefined;
     if (data.beneficiaryCpfCnpj !== undefined)
@@ -259,6 +271,8 @@ export class InMemoryFinanceEntriesRepository
     if (data.pixKey !== undefined) item.pixKey = data.pixKey ?? undefined;
     if (data.pixKeyType !== undefined)
       item.pixKeyType = data.pixKeyType ?? undefined;
+    if (data.pixChargeId !== undefined)
+      item.pixChargeId = data.pixChargeId ?? undefined;
     if (data.tags !== undefined) {
       // Tags don't have a setter, but we need to update the underlying props
       // Using Object.assign to update the internal tags array

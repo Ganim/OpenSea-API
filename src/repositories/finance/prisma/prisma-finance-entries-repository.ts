@@ -96,6 +96,10 @@ export class PrismaFinanceEntriesRepository
         parentEntryId: data.parentEntryId,
         boletoBarcode: encryptedData.boletoBarcode,
         boletoDigitLine: encryptedData.boletoDigitLine,
+        boletoChargeId: data.boletoChargeId,
+        boletoBarcodeNumber: data.boletoBarcodeNumber,
+        boletoDigitableLine: data.boletoDigitableLine,
+        boletoPdfUrl: data.boletoPdfUrl,
         beneficiaryName: data.beneficiaryName,
         beneficiaryCpfCnpj: data.beneficiaryCpfCnpj,
         pixKey: data.pixKey,
@@ -355,6 +359,18 @@ export class PrismaFinanceEntriesRepository
       ...(data.boletoDigitLine !== undefined && {
         boletoDigitLine: data.boletoDigitLine,
       }),
+      ...(data.boletoChargeId !== undefined && {
+        boletoChargeId: data.boletoChargeId,
+      }),
+      ...(data.boletoBarcodeNumber !== undefined && {
+        boletoBarcodeNumber: data.boletoBarcodeNumber,
+      }),
+      ...(data.boletoDigitableLine !== undefined && {
+        boletoDigitableLine: data.boletoDigitableLine,
+      }),
+      ...(data.boletoPdfUrl !== undefined && {
+        boletoPdfUrl: data.boletoPdfUrl,
+      }),
       ...(data.beneficiaryName !== undefined && {
         beneficiaryName: data.beneficiaryName,
       }),
@@ -366,6 +382,9 @@ export class PrismaFinanceEntriesRepository
       }),
       ...(data.pixKeyType !== undefined && {
         pixKeyType: data.pixKeyType,
+      }),
+      ...(data.pixChargeId !== undefined && {
+        pixChargeId: data.pixChargeId,
       }),
       ...(data.tags !== undefined && { tags: data.tags }),
     };

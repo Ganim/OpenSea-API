@@ -29,6 +29,8 @@ export async function processOverdueEscalationsController(
         200: z.object({
           processed: z.number(),
           actionsCreated: z.number(),
+          messagesSent: z.number(),
+          messagesFailed: z.number(),
           errors: z.array(z.string()),
         }),
       },

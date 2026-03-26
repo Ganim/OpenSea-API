@@ -50,10 +50,15 @@ export interface FinanceEntryProps {
   contractId?: string;
   boletoBarcode?: string;
   boletoDigitLine?: string;
+  boletoChargeId?: number;
+  boletoBarcodeNumber?: string;
+  boletoDigitableLine?: string;
+  boletoPdfUrl?: string;
   beneficiaryName?: string;
   beneficiaryCpfCnpj?: string;
   pixKey?: string;
   pixKeyType?: string;
+  pixChargeId?: string;
   metadata: Record<string, unknown>;
   tags: string[];
   createdBy?: string;
@@ -281,6 +286,38 @@ export class FinanceEntry extends Entity<FinanceEntryProps> {
     this.touch();
   }
 
+  get boletoChargeId(): number | undefined {
+    return this.props.boletoChargeId;
+  }
+  set boletoChargeId(value: number | undefined) {
+    this.props.boletoChargeId = value;
+    this.touch();
+  }
+
+  get boletoBarcodeNumber(): string | undefined {
+    return this.props.boletoBarcodeNumber;
+  }
+  set boletoBarcodeNumber(value: string | undefined) {
+    this.props.boletoBarcodeNumber = value;
+    this.touch();
+  }
+
+  get boletoDigitableLine(): string | undefined {
+    return this.props.boletoDigitableLine;
+  }
+  set boletoDigitableLine(value: string | undefined) {
+    this.props.boletoDigitableLine = value;
+    this.touch();
+  }
+
+  get boletoPdfUrl(): string | undefined {
+    return this.props.boletoPdfUrl;
+  }
+  set boletoPdfUrl(value: string | undefined) {
+    this.props.boletoPdfUrl = value;
+    this.touch();
+  }
+
   get beneficiaryName(): string | undefined {
     return this.props.beneficiaryName;
   }
@@ -310,6 +347,14 @@ export class FinanceEntry extends Entity<FinanceEntryProps> {
   }
   set pixKeyType(value: string | undefined) {
     this.props.pixKeyType = value;
+    this.touch();
+  }
+
+  get pixChargeId(): string | undefined {
+    return this.props.pixChargeId;
+  }
+  set pixChargeId(value: string | undefined) {
+    this.props.pixChargeId = value;
     this.touch();
   }
 
