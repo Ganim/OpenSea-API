@@ -1269,6 +1269,12 @@ async function main() {
   await seedCentralUsers(prisma);
   await seedSupportSlaConfig(prisma);
 
+  // eSocial reference tables seed
+  const { seedEsocialTables } = await import(
+    '../src/modules/esocial/tables/seed-tables.js'
+  );
+  await seedEsocialTables(prisma);
+
   console.log('\n🎉 Seed concluído com sucesso!');
 }
 
