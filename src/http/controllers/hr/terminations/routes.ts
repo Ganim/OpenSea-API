@@ -6,6 +6,7 @@ import { v1CreateTerminationController } from './v1-create-termination.controlle
 import { v1CalculateTerminationController } from './v1-calculate-termination.controller';
 import { v1GetTerminationController } from './v1-get-termination.controller';
 import { v1ListTerminationsController } from './v1-list-terminations.controller';
+import { v1GenerateTRCTPDFController } from './v1-generate-trct-pdf.controller';
 import { v1UpdateTerminationController } from './v1-update-termination.controller';
 
 export async function terminationsRoutes(app: FastifyInstance) {
@@ -28,6 +29,7 @@ export async function terminationsRoutes(app: FastifyInstance) {
       queryApp.register(rateLimit, rateLimitConfig.query);
       queryApp.register(v1GetTerminationController);
       queryApp.register(v1ListTerminationsController);
+      queryApp.register(v1GenerateTRCTPDFController);
     },
     { prefix: '' },
   );
