@@ -12,6 +12,7 @@ export interface FiscalDocumentFilters {
 export interface FiscalDocumentsRepository {
   findById(id: string): Promise<FiscalDocument | null>;
   findByAccessKey(accessKey: string): Promise<FiscalDocument | null>;
+  findByExternalId(externalId: string): Promise<FiscalDocument | null>;
   findByTenantId(
     tenantId: string,
     params: FiscalDocumentFilters,

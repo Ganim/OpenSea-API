@@ -19,6 +19,11 @@ export class InMemoryFiscalDocumentsRepository
     return document ?? null;
   }
 
+  async findByExternalId(externalId: string): Promise<FiscalDocument | null> {
+    const document = this.items.find((item) => item.externalId === externalId);
+    return document ?? null;
+  }
+
   async findByTenantId(
     tenantId: string,
     params: FiscalDocumentFilters,

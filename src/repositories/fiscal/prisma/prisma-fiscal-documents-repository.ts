@@ -97,6 +97,16 @@ export class PrismaFiscalDocumentsRepository
       : null;
   }
 
+  async findByExternalId(externalId: string): Promise<FiscalDocument | null> {
+    const documentRecord = await prisma.fiscalDocument.findFirst({
+      where: { externalId },
+    });
+
+    return documentRecord
+      ? toDomain(documentRecord as unknown as Record<string, unknown>)
+      : null;
+  }
+
   async findByTenantId(
     tenantId: string,
     params: FiscalDocumentFilters,
