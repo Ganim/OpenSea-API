@@ -1,4 +1,5 @@
 import type { Employee } from '@/entities/hr/employee';
+import type { CipaMember } from '@/entities/hr/cipa-member';
 
 export interface StabilityCheck {
   isStable: boolean;
@@ -11,9 +12,15 @@ export interface StabilityCheck {
  *
  * - Gestante: estável da confirmação da gravidez até 5 meses após o parto (ADCT Art. 10, II, b)
  * - Acidente de trabalho: estável por 12 meses após retorno (Art. 118, Lei 8.213/91) — via metadata
- * - Membro da CIPA: estável durante mandato + 1 ano após (Art. 10, II, a, ADCT) — via metadata
+ * - Membro da CIPA: estável durante mandato + 1 ano após (Art. 10, II, a, ADCT) — via cipa_members table or metadata
+ *
+ * @param employee - Employee entity
+ * @param cipaMembers - Optional: active CipaMember records for this employee (from cipa_members table)
  */
-export function checkEmploymentStability(employee: Employee): StabilityCheck {
+export function checkEmploymentStability(
+  employee: Employee,
+  cipaMembers?: CipaMember[],
+): StabilityCheck {
   const now = new Date();
 
   // 1. Estabilidade gestante
@@ -55,7 +62,29 @@ export function checkEmploymentStability(employee: Employee): StabilityCheck {
     }
   }
 
-  // 3. Estabilidade CIPA (mandato + 1 ano)
+  // 3. Estabilidade CIPA — check from cipa_members table (elected members with isStable=true)
+  if (cipaMembers && cipaMembers.length > 0) {
+    // Find the latest stableUntil among active CIPA memberships
+    let latestStableUntil: Date | undefined;
+    for (const member of cipaMembers) {
+      if (member.isStable && member.stableUntil && now < member.stableUntil) {
+        if (!latestStableUntil || member.stableUntil > latestStableUntil) {
+          latestStableUntil = member.stableUntil;
+        }
+      }
+    }
+
+    if (latestStableUntil) {
+      return {
+        isStable: true,
+        reason:
+          'Estabilidade CIPA — membro eleito, mandato + 1 ano (ADCT Art. 10, II, a)',
+        stableUntil: latestStableUntil,
+      };
+    }
+  }
+
+  // 3b. Fallback: check CIPA stability from metadata (legacy)
   if (metadata?.cipaTermEnd) {
     const cipaEnd = new Date(metadata.cipaTermEnd as string);
     const stableUntil = new Date(cipaEnd);

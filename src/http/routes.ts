@@ -210,6 +210,8 @@ import { geofenceZonesRoutes } from './controllers/hr/geofence-zones/routes';
 import { medicalExamsRoutes } from './controllers/hr/medical-exams/routes';
 import { safetyProgramsRoutes } from './controllers/hr/safety-programs/routes';
 import { workplaceRisksRoutes } from './controllers/hr/workplace-risks/routes';
+import { cipaMandatesRoutes } from './controllers/hr/cipa-mandates/routes';
+import { cipaMembersRoutes } from './controllers/hr/cipa-members/routes';
 import { hrConfigRoutes } from './controllers/hr/hr-config/routes';
 
 export async function registerRoutes(app: FastifyInstance) {
@@ -377,6 +379,8 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(medicalExamsRoutes);
   await app.register(safetyProgramsRoutes);
   await app.register(workplaceRisksRoutes);
+  await app.register(cipaMandatesRoutes);
+  await app.register(cipaMembersRoutes);
   await app.register(hrConfigRoutes);
 
   // Tasks routes
