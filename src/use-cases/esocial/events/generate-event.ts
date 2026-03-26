@@ -145,16 +145,9 @@ export class GenerateEventUseCase {
     private payrollItemsRepository: PayrollItemsRepository,
   ) {}
 
-  async execute(
-    request: GenerateEventRequest,
-  ): Promise<GenerateEventResponse> {
-    const {
-      tenantId,
-      eventType,
-      referenceType,
-      referenceId,
-      additionalData,
-    } = request;
+  async execute(request: GenerateEventRequest): Promise<GenerateEventResponse> {
+    const { tenantId, eventType, referenceType, referenceId, additionalData } =
+      request;
 
     // Validate event type
     if (!SUPPORTED_EVENT_TYPES.includes(eventType as EsocialEventType)) {
@@ -259,30 +252,70 @@ export class GenerateEventUseCase {
       case EsocialEventType.S_2206:
         return this.buildS2206(tenantId, referenceId, tpInsc, nrInsc, tpAmb);
       case EsocialEventType.S_2210:
-        return this.buildS2210(tenantId, referenceId, tpInsc, nrInsc, tpAmb, additionalData);
+        return this.buildS2210(
+          tenantId,
+          referenceId,
+          tpInsc,
+          nrInsc,
+          tpAmb,
+          additionalData,
+        );
       case EsocialEventType.S_2220:
         return this.buildS2220(tenantId, referenceId, tpInsc, nrInsc, tpAmb);
       case EsocialEventType.S_2230:
         return this.buildS2230(tenantId, referenceId, tpInsc, nrInsc, tpAmb);
       case EsocialEventType.S_2240:
-        return this.buildS2240(tenantId, referenceId, tpInsc, nrInsc, tpAmb, additionalData);
+        return this.buildS2240(
+          tenantId,
+          referenceId,
+          tpInsc,
+          nrInsc,
+          tpAmb,
+          additionalData,
+        );
       case EsocialEventType.S_2298:
-        return this.buildS2298(tenantId, referenceId, tpInsc, nrInsc, tpAmb, additionalData);
+        return this.buildS2298(
+          tenantId,
+          referenceId,
+          tpInsc,
+          nrInsc,
+          tpAmb,
+          additionalData,
+        );
       case EsocialEventType.S_2299:
         return this.buildS2299(tenantId, referenceId, tpInsc, nrInsc, tpAmb);
       case EsocialEventType.S_2300:
-        return this.buildS2300(tenantId, referenceId, tpInsc, nrInsc, tpAmb, additionalData);
+        return this.buildS2300(
+          tenantId,
+          referenceId,
+          tpInsc,
+          nrInsc,
+          tpAmb,
+          additionalData,
+        );
       case EsocialEventType.S_2399:
-        return this.buildS2399(tenantId, referenceId, tpInsc, nrInsc, tpAmb, additionalData);
+        return this.buildS2399(
+          tenantId,
+          referenceId,
+          tpInsc,
+          nrInsc,
+          tpAmb,
+          additionalData,
+        );
 
       // Exclusion event
       case EsocialEventType.S_3000:
-        return this.buildS3000(tenantId, referenceId, tpInsc, nrInsc, tpAmb, additionalData);
+        return this.buildS3000(
+          tenantId,
+          referenceId,
+          tpInsc,
+          nrInsc,
+          tpAmb,
+          additionalData,
+        );
 
       default:
-        throw new BadRequestError(
-          `Tipo de evento não suportado: ${eventType}`,
-        );
+        throw new BadRequestError(`Tipo de evento não suportado: ${eventType}`);
     }
   }
 
@@ -294,32 +327,26 @@ export class GenerateEventUseCase {
    * S-1000 — Informações do Empregador.
    * Sources data from tenant eSocial config + additionalData.
    */
-  private async buildS1000(
-    tenantId: string,
+  private buildS1000(
+    _tenantId: string,
     tpInsc: number,
     nrInsc: string,
     tpAmb: 1 | 2,
     additionalData?: Record<string, unknown>,
-  ): Promise<string> {
-    const config = await this.configRepository.findByTenantId(tenantId);
-
+  ): string {
     return new S1000Builder().build({
       tpInsc,
       nrInsc,
       tpAmb,
-      iniValid:
-        (additionalData?.iniValid as string) ??
-        this.getCurrentPeriod(),
+      iniValid: (additionalData?.iniValid as string) ?? this.getCurrentPeriod(),
       fimValid: additionalData?.fimValid as string | undefined,
       nmRazao: (additionalData?.nmRazao as string) ?? 'Empregador',
-      classTrib:
-        (additionalData?.classTrib as string) ?? '01',
+      classTrib: (additionalData?.classTrib as string) ?? '01',
       natJurid: additionalData?.natJurid as string | undefined,
       indCoop: additionalData?.indCoop as number | undefined,
       indConstr: additionalData?.indConstr as number | undefined,
       indDesFolha: additionalData?.indDesFolha as number | undefined,
-      indOptRegEletron:
-        additionalData?.indOptRegEletron as number | undefined,
+      indOptRegEletron: additionalData?.indOptRegEletron as number | undefined,
       cnaePrep: additionalData?.cnaePrep as string | undefined,
       contato: additionalData?.contato as
         | { fonePrinc: string; foneAlternat?: string; emailPrinc?: string }
@@ -351,9 +378,7 @@ export class GenerateEventUseCase {
       );
     }
     if (!additionalData?.cnaePrep) {
-      throw new BadRequestError(
-        'CNAE preponderante é obrigatório para S-1005',
-      );
+      throw new BadRequestError('CNAE preponderante é obrigatório para S-1005');
     }
     if (!additionalData?.endereco) {
       throw new BadRequestError(
@@ -367,8 +392,7 @@ export class GenerateEventUseCase {
       tpAmb,
       tpInscEstab: (additionalData.tpInscEstab as number) ?? 1,
       nrInscEstab: additionalData.nrInscEstab as string,
-      iniValid:
-        (additionalData.iniValid as string) ?? this.getCurrentPeriod(),
+      iniValid: (additionalData.iniValid as string) ?? this.getCurrentPeriod(),
       fimValid: additionalData.fimValid as string | undefined,
       cnaePrep: additionalData.cnaePrep as string,
       endereco: additionalData.endereco as {
@@ -447,8 +471,7 @@ export class GenerateEventUseCase {
       nrInsc,
       tpAmb,
       codLotacao: additionalData.codLotacao as string,
-      iniValid:
-        (additionalData.iniValid as string) ?? this.getCurrentPeriod(),
+      iniValid: (additionalData.iniValid as string) ?? this.getCurrentPeriod(),
       fimValid: additionalData.fimValid as string | undefined,
       tpLotacao: (additionalData.tpLotacao as string) ?? '01',
       tpInscLot: additionalData.tpInscLot as number | undefined,
@@ -472,9 +495,7 @@ export class GenerateEventUseCase {
     additionalData?: Record<string, unknown>,
   ): string {
     if (!additionalData?.nrProc) {
-      throw new BadRequestError(
-        'Número do processo é obrigatório para S-1070',
-      );
+      throw new BadRequestError('Número do processo é obrigatório para S-1070');
     }
 
     return new S1070Builder().build({
@@ -483,8 +504,7 @@ export class GenerateEventUseCase {
       tpAmb,
       tpProc: (additionalData.tpProc as 1 | 2) ?? 1,
       nrProc: additionalData.nrProc as string,
-      iniValid:
-        (additionalData.iniValid as string) ?? this.getCurrentPeriod(),
+      iniValid: (additionalData.iniValid as string) ?? this.getCurrentPeriod(),
       fimValid: additionalData.fimValid as string | undefined,
       indAutoria: (additionalData.indAutoria as 1 | 2 | 3) ?? 1,
       indMatProc: (additionalData.indMatProc as string) ?? '01',
@@ -611,9 +631,7 @@ export class GenerateEventUseCase {
       perApur: additionalData.perApur as string,
       ideBenef: {
         cpfBenef: additionalData.cpfBenef as string,
-        deps: additionalData.deps as
-          | { vrDedDep: number }
-          | undefined,
+        deps: additionalData.deps as { vrDedDep: number } | undefined,
       },
       infoPgto: additionalData.infoPgto as Array<{
         dtPgto: Date | string;
@@ -679,9 +697,7 @@ export class GenerateEventUseCase {
       );
     }
     if (!additionalData?.cpfResp) {
-      throw new BadRequestError(
-        'CPF do responsável é obrigatório para S-1299',
-      );
+      throw new BadRequestError('CPF do responsável é obrigatório para S-1299');
     }
 
     return new S1299Builder().build({
@@ -930,9 +946,7 @@ export class GenerateEventUseCase {
     const employee = await this.findEmployee(tenantId, employeeId);
 
     if (!additionalData?.dtAcid) {
-      throw new BadRequestError(
-        'Data do acidente é obrigatória para S-2210',
-      );
+      throw new BadRequestError('Data do acidente é obrigatória para S-2210');
     }
     if (!additionalData?.codSitGeradora) {
       throw new BadRequestError(
@@ -943,14 +957,10 @@ export class GenerateEventUseCase {
       throw new BadRequestError('CID-10 é obrigatório para S-2210');
     }
     if (!additionalData?.parteAtingida) {
-      throw new BadRequestError(
-        'Parte atingida é obrigatória para S-2210',
-      );
+      throw new BadRequestError('Parte atingida é obrigatória para S-2210');
     }
     if (!additionalData?.agenteCausador) {
-      throw new BadRequestError(
-        'Agente causador é obrigatório para S-2210',
-      );
+      throw new BadRequestError('Agente causador é obrigatório para S-2210');
     }
 
     return new S2210Builder().build({
@@ -1204,10 +1214,7 @@ export class GenerateEventUseCase {
       tpReint: (additionalData.tpReint as number) ?? 1,
       nrProcJud: additionalData.nrProcJud as string | undefined,
       dtReint: additionalData.dtReint as Date | string,
-      dtEfetRetorno: additionalData.dtEfetRetorno as
-        | Date
-        | string
-        | undefined,
+      dtEfetRetorno: additionalData.dtEfetRetorno as Date | string | undefined,
     });
   }
 
@@ -1317,7 +1324,8 @@ export class GenerateEventUseCase {
         depSF: d.isSalarioFamilia ? ('S' as const) : ('N' as const),
       })),
       codCateg: (additionalData?.codCateg as number) ?? 721,
-      dtInicio: (additionalData?.dtInicio as Date | string) ?? employee.hireDate,
+      dtInicio:
+        (additionalData?.dtInicio as Date | string) ?? employee.hireDate,
       natAtividade: additionalData?.natAtividade as number | undefined,
       nmCargo: additionalData?.nmCargo as string | undefined,
       CBOCargo: additionalData?.CBOCargo as string | undefined,
@@ -1342,9 +1350,7 @@ export class GenerateEventUseCase {
     const employee = await this.findEmployee(tenantId, employeeId);
 
     if (!additionalData?.dtTerm) {
-      throw new BadRequestError(
-        'Data de término é obrigatória para S-2399',
-      );
+      throw new BadRequestError('Data de término é obrigatória para S-2399');
     }
 
     return new S2399Builder().build({
