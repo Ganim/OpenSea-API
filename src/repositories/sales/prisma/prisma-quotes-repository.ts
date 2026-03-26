@@ -4,10 +4,7 @@ import { Quote } from '@/entities/sales/quote';
 import type { QuoteStatus } from '@/entities/sales/quote';
 import { prisma } from '@/lib/prisma';
 import type { QuoteStatus as PrismaQuoteStatus } from '@prisma/generated/client.js';
-import type {
-  CreateQuoteSchema,
-  QuotesRepository,
-} from '../quotes-repository';
+import type { CreateQuoteSchema, QuotesRepository } from '../quotes-repository';
 
 function mapToDomain(
   quoteData: Record<string, unknown>,
@@ -25,6 +22,9 @@ function mapToDomain(
       discount: Number(quoteData.discount),
       total: Number(quoteData.total),
       sentAt: (quoteData.sentAt as Date) ?? undefined,
+      viewedAt: (quoteData.viewedAt as Date) ?? undefined,
+      viewCount: (quoteData.viewCount as number) ?? 0,
+      lastViewedAt: (quoteData.lastViewedAt as Date) ?? undefined,
       createdBy: quoteData.createdBy as string,
       isActive: quoteData.isActive as boolean,
       createdAt: quoteData.createdAt as Date,
@@ -80,10 +80,7 @@ export class PrismaQuotesRepository implements QuotesRepository {
     );
   }
 
-  async findById(
-    id: UniqueEntityID,
-    tenantId: string,
-  ): Promise<Quote | null> {
+  async findById(id: UniqueEntityID, tenantId: string): Promise<Quote | null> {
     const quoteData = await prisma.quote.findFirst({
       where: {
         id: id.toString(),
@@ -160,6 +157,9 @@ export class PrismaQuotesRepository implements QuotesRepository {
           discount: quote.discount,
           total: quote.total,
           sentAt: quote.sentAt ?? null,
+          viewedAt: quote.viewedAt ?? null,
+          viewCount: quote.viewCount,
+          lastViewedAt: quote.lastViewedAt ?? null,
           isActive: quote.isActive,
           deletedAt: quote.deletedAt ?? null,
         },
@@ -185,6 +185,24 @@ export class PrismaQuotesRepository implements QuotesRepository {
         });
       }
     });
+  }
+
+  async updateViewTracking(id: string): Promise<boolean> {
+    const now = new Date();
+
+    const updatedQuote = await prisma.quote.updateMany({
+      where: {
+        id,
+        deletedAt: null,
+      },
+      data: {
+        viewedAt: now,
+        viewCount: { increment: 1 },
+        lastViewedAt: now,
+      },
+    });
+
+    return updatedQuote.count > 0;
   }
 
   async delete(id: UniqueEntityID, tenantId: string): Promise<void> {

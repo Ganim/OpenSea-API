@@ -126,6 +126,26 @@ export class InMemoryProposalsRepository implements ProposalsRepository {
     }
   }
 
+  async updateViewTracking(id: string): Promise<boolean> {
+    const proposal = this.proposals.find(
+      (proposalRecord) =>
+        proposalRecord.id.toString() === id && !proposalRecord.deletedAt,
+    );
+
+    if (!proposal) return false;
+
+    const now = new Date();
+
+    if (!proposal.viewedAt) {
+      proposal.viewedAt = now;
+    }
+
+    proposal.viewCount = proposal.viewCount + 1;
+    proposal.lastViewedAt = now;
+
+    return true;
+  }
+
   async delete(id: UniqueEntityID, tenantId: string): Promise<void> {
     const proposal = this.proposals.find(
       (proposalRecord) =>

@@ -22,6 +22,9 @@ export interface QuoteDTO {
   discount: number;
   total: number;
   sentAt?: Date;
+  viewedAt?: Date;
+  viewCount: number;
+  lastViewedAt?: Date;
   createdBy: string;
   isActive: boolean;
   createdAt: Date;
@@ -40,6 +43,7 @@ export function quoteToDTO(quote: Quote): QuoteDTO {
     subtotal: quote.subtotal,
     discount: quote.discount,
     total: quote.total,
+    viewCount: quote.viewCount,
     createdBy: quote.createdBy,
     isActive: quote.isActive,
     createdAt: quote.createdAt,
@@ -57,6 +61,8 @@ export function quoteToDTO(quote: Quote): QuoteDTO {
   if (quote.validUntil) dto.validUntil = quote.validUntil;
   if (quote.notes) dto.notes = quote.notes;
   if (quote.sentAt) dto.sentAt = quote.sentAt;
+  if (quote.viewedAt) dto.viewedAt = quote.viewedAt;
+  if (quote.lastViewedAt) dto.lastViewedAt = quote.lastViewedAt;
   if (quote.updatedAt) dto.updatedAt = quote.updatedAt;
   if (quote.deletedAt) dto.deletedAt = quote.deletedAt;
 

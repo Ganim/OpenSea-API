@@ -25,6 +25,9 @@ function mapToDomain(
       terms: (proposalData.terms as string) ?? undefined,
       totalValue: Number(proposalData.totalValue),
       sentAt: (proposalData.sentAt as Date) ?? undefined,
+      viewedAt: (proposalData.viewedAt as Date) ?? undefined,
+      viewCount: (proposalData.viewCount as number) ?? 0,
+      lastViewedAt: (proposalData.lastViewedAt as Date) ?? undefined,
       createdBy: proposalData.createdBy as string,
       isActive: proposalData.isActive as boolean,
       createdAt: proposalData.createdAt as Date,
@@ -165,6 +168,9 @@ export class PrismaProposalsRepository implements ProposalsRepository {
           terms: proposal.terms ?? null,
           totalValue: proposal.totalValue,
           sentAt: proposal.sentAt ?? null,
+          viewedAt: proposal.viewedAt ?? null,
+          viewCount: proposal.viewCount,
+          lastViewedAt: proposal.lastViewedAt ?? null,
           isActive: proposal.isActive,
           deletedAt: proposal.deletedAt ?? null,
         },
@@ -188,6 +194,24 @@ export class PrismaProposalsRepository implements ProposalsRepository {
         });
       }
     });
+  }
+
+  async updateViewTracking(id: string): Promise<boolean> {
+    const now = new Date();
+
+    const updatedProposal = await prisma.proposal.updateMany({
+      where: {
+        id,
+        deletedAt: null,
+      },
+      data: {
+        viewedAt: now,
+        viewCount: { increment: 1 },
+        lastViewedAt: now,
+      },
+    });
+
+    return updatedProposal.count > 0;
   }
 
   async delete(id: UniqueEntityID, tenantId: string): Promise<void> {

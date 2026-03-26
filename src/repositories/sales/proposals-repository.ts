@@ -45,5 +45,6 @@ export interface ProposalsRepository {
     filters?: { status?: ProposalStatus; customerId?: string },
   ): Promise<number>;
   save(proposal: Proposal): Promise<void>;
+  updateViewTracking(id: string): Promise<boolean>;
   delete(id: UniqueEntityID, tenantId: string): Promise<void>;
 }

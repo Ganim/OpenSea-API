@@ -48,5 +48,6 @@ export interface QuotesRepository {
     filters?: { status?: QuoteStatus; customerId?: string },
   ): Promise<number>;
   save(quote: Quote): Promise<void>;
+  updateViewTracking(id: string): Promise<boolean>;
   delete(id: UniqueEntityID, tenantId: string): Promise<void>;
 }

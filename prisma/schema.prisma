@@ -1023,6 +1023,12 @@ enum AuditAction {
   IMPORT
   SYNC
   GENERATE
+  ACTIVATE
+  DEACTIVATE
+  EXECUTE
+  ENROLL
+  ADVANCE_STEP
+  PROCESS_PENDING
   OTHER
 }
 
@@ -1098,6 +1104,7 @@ enum AuditEntity {
   TENANT_BRAND
   GENERATED_CONTENT
   TIMELINE_EVENT
+  LEAD_ROUTING_RULE
 
   // POS - Ponto de Venda
   POS_TERMINAL
@@ -1119,11 +1126,20 @@ enum AuditEntity {
   FORM
   FORM_FIELD
   FORM_SUBMISSION
+  LANDING_PAGE
   MESSAGE_TEMPLATE
   CASHIER_SESSION
+  PROCESS_BLUEPRINT
+  BLUEPRINT_STAGE_RULE
   CASHIER_TRANSACTION
   LEAD_SCORING_RULE
   LEAD_SCORE
+  CHATBOT_CONFIG
+  DEAL_PREDICTION
+
+  // Integration Marketplace
+  INTEGRATION
+  TENANT_INTEGRATION
 
   // Bids - Licitacoes
   BID
@@ -2921,10 +2937,6 @@ model Customer {
   deals          Deal[]
   activities     Activity[]
   timelineEvents TimelineEvent[]
-
-  // Lead Scoring Relations
-  leadScores LeadScore[]
-
   @@unique([documentHash, tenantId, deletedAt], name: "customers_document_unique_active")
   @@index([documentHash])
   @@index([emailHash])
@@ -3393,6 +3405,7 @@ model Deal {
   contacts       ContactDeal[]
   activities     Activity[]
   timelineEvents TimelineEvent[]
+  dealPredictions DealPrediction[]
 
   @@index([tenantId])
   @@index([tenantId, pipelineId])
@@ -5495,10 +5508,13 @@ model Tenant {
   workflows           Workflow[]
   conversations       Conversation[]
   forms               Form[]
+  landingPages        LandingPage[]
   messageTemplates    MessageTemplate[]
   cashierSessions     CashierSession[]
   leadScoringRules    LeadScoringRule[]
   leadScores          LeadScore[]
+  chatbotConfig       ChatbotConfig?
+  dealPredictions     DealPrediction[]
 
   // Digital Signature domain
   digitalCertificates DigitalCertificate[]
@@ -5532,6 +5548,7 @@ model Tenant {
   deals           Deal[]
   activities      Activity[]
   timelineEvents  TimelineEvent[]
+  processBlueprints  ProcessBlueprint[]
 
   // Licitacoes domain
   bids              Bid[]
@@ -5579,6 +5596,9 @@ model Tenant {
   // Accountant Portal
   accountantAccesses AccountantAccess[]
 
+  // Cashflow Snapshots
+  cashflowSnapshots CashflowSnapshot[]
+
   // eSocial domain
   esocialConfig       EsocialConfig?
   esocialCertificate  EsocialCertificate?
@@ -5586,13 +5606,15 @@ model Tenant {
   esocialBatches      EsocialBatch[]
   esocialRubricas     EsocialRubrica[]
 
-  // Lead Scoring domain
-  leadScoringRules    LeadScoringRule[]
-  leadScores          LeadScore[]
-
   // Cadence Sequences domain
   cadenceSequences    CadenceSequence[]
   cadenceEnrollments  CadenceEnrollment[]
+
+  // Integration Marketplace domain
+  tenantIntegrations TenantIntegration[]
+
+  // Lead Routing domain
+  leadRoutingRules LeadRoutingRule[]
 
   @@index([status])
   @@index([deletedAt])
@@ -12709,6 +12731,29 @@ model PaymentLink {
 }
 
 // ============================================================================
+// FINANCE - Cashflow Snapshots (Realized vs Projected)
+// ============================================================================
+
+model CashflowSnapshot {
+  id       String   @id @default(uuid())
+  tenantId String   @map("tenant_id")
+  date     DateTime @db.Date
+
+  predictedInflow  Decimal @default(0) @map("predicted_inflow") @db.Decimal(15, 2)
+  predictedOutflow Decimal @default(0) @map("predicted_outflow") @db.Decimal(15, 2)
+  actualInflow     Decimal? @map("actual_inflow") @db.Decimal(15, 2)
+  actualOutflow    Decimal? @map("actual_outflow") @db.Decimal(15, 2)
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+
+  @@unique([tenantId, date])
+  @@index([tenantId])
+  @@map("cashflow_snapshots")
+}
+
+// ============================================================================
 // ACCOUNTANT PORTAL
 // ============================================================================
 
@@ -13067,7 +13112,8 @@ model Conversation {
   subject       String             @db.VarChar(500)
   status        ConversationStatus @default(OPEN)
   lastMessageAt DateTime?          @map("last_message_at")
-  createdBy     String             @map("created_by")
+  createdBy        String             @map("created_by")
+  overallSentiment String?            @map("overall_sentiment") @db.VarChar(20)
 
   isActive  Boolean   @default(true) @map("is_active")
   createdAt DateTime  @default(now()) @map("created_at")
@@ -13092,6 +13138,7 @@ model ConversationMessage {
   senderName String  @map("sender_name") @db.VarChar(255)
   senderType String  @default("AGENT") @map("sender_type") @db.VarChar(20)
   content    String  @db.Text
+  sentiment  String? @db.VarChar(20)
   readAt     DateTime? @map("read_at")
 
   createdAt DateTime @default(now()) @map("created_at")
@@ -13100,6 +13147,53 @@ model ConversationMessage {
 
   @@index([conversationId])
   @@map("conversation_messages")
+}
+
+// ============================================================================
+// SALES — Chatbot Configuration
+// ============================================================================
+
+model ChatbotConfig {
+  id       String @id @default(uuid())
+  tenantId String @unique @map("tenant_id")
+
+  greeting         String  @default("Olá! Como posso ajudar?") @db.VarChar(500)
+  autoReplyMessage String? @map("auto_reply_message") @db.Text
+  assignToUserId   String? @map("assign_to_user_id")
+  formId           String? @map("form_id")
+  primaryColor     String  @default("#6366f1") @map("primary_color") @db.VarChar(7)
+  isActive         Boolean @default(false) @map("is_active")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+
+  @@map("chatbot_configs")
+}
+
+// ============================================================================
+// SALES — Deal Predictions (AI)
+// ============================================================================
+
+model DealPrediction {
+  id       String @id @default(uuid())
+  tenantId String @map("tenant_id")
+  dealId   String @map("deal_id")
+
+  probability        Float
+  estimatedCloseDate DateTime? @map("estimated_close_date")
+  confidence         String    @default("MEDIUM") @db.VarChar(10)
+  factors            Json      @default("[]")
+  modelVersion       String    @default("v1") @map("model_version") @db.VarChar(10)
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+  deal   Deal   @relation(fields: [dealId], references: [id])
+
+  @@index([tenantId, dealId])
+  @@map("deal_predictions")
 }
 
 // ============================================================================
@@ -13124,6 +13218,7 @@ model Form {
   tenant      Tenant           @relation(fields: [tenantId], references: [id])
   fields      FormField[]
   submissions FormSubmission[]
+  landingPages LandingPage[]
 
   @@index([tenantId])
   @@index([status])
@@ -13405,4 +13500,75 @@ model LandingPage {
   @@unique([tenantId, slug])
   @@index([tenantId])
   @@map("landing_pages")
+}
+
+// ===============================================
+// SALES — Integration Marketplace Hub
+// ===============================================
+
+model Integration {
+  id String @id @default(uuid())
+
+  name         String  @db.VarChar(255)
+  slug         String  @unique @db.VarChar(100)
+  description  String? @db.Text
+  logoUrl      String? @map("logo_url") @db.VarChar(500)
+  category     String  @db.VarChar(50) // ERP, ECOMMERCE, PAYMENT, SHIPPING, ACCOUNTING
+  configSchema Json    @default("{}") @map("config_schema") // JSON Schema for config fields
+  isAvailable  Boolean @default(true) @map("is_available")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  tenantIntegrations TenantIntegration[]
+
+  @@map("integrations")
+}
+
+model TenantIntegration {
+  id            String @id @default(uuid())
+  tenantId      String @map("tenant_id")
+  integrationId String @map("integration_id")
+
+  config       Json      @default("{}")
+  status       String    @default("DISCONNECTED") @db.VarChar(20) // CONNECTED, DISCONNECTED, ERROR
+  lastSyncAt   DateTime? @map("last_sync_at")
+  errorMessage String?   @map("error_message") @db.Text
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  tenant      Tenant      @relation(fields: [tenantId], references: [id])
+  integration Integration @relation(fields: [integrationId], references: [id])
+
+  @@unique([tenantId, integrationId])
+  @@index([tenantId])
+  @@map("tenant_integrations")
+}
+
+// ============================================================================
+// SALES — Lead Routing
+// ============================================================================
+
+model LeadRoutingRule {
+  id       String @id @default(uuid())
+  tenantId String @map("tenant_id")
+
+  name              String              @db.VarChar(255)
+  strategy          LeadRoutingStrategy
+  config            Json                @default("{}") // territory mapping, segment rules, etc.
+  assignToUsers     String[]            @default([]) @map("assign_to_users") // user IDs in rotation
+  maxLeadsPerUser   Int?                @map("max_leads_per_user")
+  lastAssignedIndex Int                 @default(0) @map("last_assigned_index") // for round-robin
+  isActive          Boolean             @default(true) @map("is_active")
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@index([isActive])
+  @@map("lead_routing_rules")
 }

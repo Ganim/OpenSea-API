@@ -62,6 +62,7 @@ import { commissionsRoutes } from './controllers/sales/commissions/routes';
 import { discountsRoutes } from './controllers/sales/discounts/routes';
 import { proposalsRoutes } from './controllers/sales/proposals/routes';
 import { quotesRoutes } from './controllers/sales/quotes/routes';
+import { salesTrackingRoutes } from './controllers/sales/tracking/routes';
 import { workflowsRoutes } from './controllers/sales/workflows/routes';
 import { formsRoutes } from './controllers/sales/forms/routes';
 import { msgTemplatesRoutes } from './controllers/sales/msg-templates/routes';
@@ -321,6 +322,7 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(discountsRoutes);
   await app.register(proposalsRoutes);
   await app.register(quotesRoutes);
+  await app.register(salesTrackingRoutes);
   await app.register(workflowsRoutes);
   await app.register(formsRoutes);
   await app.register(msgTemplatesRoutes);

@@ -27,6 +27,9 @@ export interface ProposalDTO {
   terms?: string;
   totalValue: number;
   sentAt?: Date;
+  viewedAt?: Date;
+  viewCount: number;
+  lastViewedAt?: Date;
   createdBy: string;
   isActive: boolean;
   createdAt: Date;
@@ -44,6 +47,7 @@ export function proposalToDTO(proposal: Proposal): ProposalDTO {
     title: proposal.title,
     status: proposal.status,
     totalValue: proposal.totalValue,
+    viewCount: proposal.viewCount,
     createdBy: proposal.createdBy,
     isActive: proposal.isActive,
     createdAt: proposal.createdAt,
@@ -67,6 +71,8 @@ export function proposalToDTO(proposal: Proposal): ProposalDTO {
   if (proposal.validUntil) dto.validUntil = proposal.validUntil;
   if (proposal.terms) dto.terms = proposal.terms;
   if (proposal.sentAt) dto.sentAt = proposal.sentAt;
+  if (proposal.viewedAt) dto.viewedAt = proposal.viewedAt;
+  if (proposal.lastViewedAt) dto.lastViewedAt = proposal.lastViewedAt;
   if (proposal.updatedAt) dto.updatedAt = proposal.updatedAt;
   if (proposal.deletedAt) dto.deletedAt = proposal.deletedAt;
 

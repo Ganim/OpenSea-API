@@ -1,10 +1,7 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Quote } from '@/entities/sales/quote';
 import type { QuoteStatus } from '@/entities/sales/quote';
-import type {
-  CreateQuoteSchema,
-  QuotesRepository,
-} from '../quotes-repository';
+import type { CreateQuoteSchema, QuotesRepository } from '../quotes-repository';
 
 export class InMemoryQuotesRepository implements QuotesRepository {
   public quotes: Quote[] = [];
@@ -44,10 +41,7 @@ export class InMemoryQuotesRepository implements QuotesRepository {
     return quote;
   }
 
-  async findById(
-    id: UniqueEntityID,
-    tenantId: string,
-  ): Promise<Quote | null> {
+  async findById(id: UniqueEntityID, tenantId: string): Promise<Quote | null> {
     const quote = this.quotes.find(
       (quoteRecord) =>
         quoteRecord.id.toString() === id.toString() &&
@@ -124,6 +118,26 @@ export class InMemoryQuotesRepository implements QuotesRepository {
     if (quoteIndex >= 0) {
       this.quotes[quoteIndex] = quote;
     }
+  }
+
+  async updateViewTracking(id: string): Promise<boolean> {
+    const quote = this.quotes.find(
+      (quoteRecord) =>
+        quoteRecord.id.toString() === id && !quoteRecord.deletedAt,
+    );
+
+    if (!quote) return false;
+
+    const now = new Date();
+
+    if (!quote.viewedAt) {
+      quote.viewedAt = now;
+    }
+
+    quote.viewCount = quote.viewCount + 1;
+    quote.lastViewedAt = now;
+
+    return true;
   }
 
   async delete(id: UniqueEntityID, tenantId: string): Promise<void> {
