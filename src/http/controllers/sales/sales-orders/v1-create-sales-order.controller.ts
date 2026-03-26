@@ -15,6 +15,7 @@ import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
+/** @deprecated Use `v1CreateOrderController` at `/v1/orders` instead. */
 export async function v1CreateSalesOrderController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
@@ -28,8 +29,9 @@ export async function v1CreateSalesOrderController(app: FastifyInstance) {
       }),
     ],
     schema: {
-      tags: ['Sales - Orders'],
+      tags: ['Sales - Orders (Legacy)'],
       summary: 'Create a new sales order',
+      deprecated: true,
       body: createSalesOrderSchema,
       response: {
         201: z.object({ salesOrder: salesOrderResponseSchema }),

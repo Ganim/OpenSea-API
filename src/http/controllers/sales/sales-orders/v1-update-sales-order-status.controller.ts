@@ -17,6 +17,7 @@ import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
+/** @deprecated Use `v1UpdateOrderController` at `/v1/orders/:id` instead. */
 export async function v1UpdateSalesOrderStatusController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'PATCH',
@@ -30,8 +31,9 @@ export async function v1UpdateSalesOrderStatusController(app: FastifyInstance) {
       }),
     ],
     schema: {
-      tags: ['Sales - Orders'],
+      tags: ['Sales - Orders (Legacy)'],
       summary: 'Update sales order status',
+      deprecated: true,
       params: z.object({ id: z.string().uuid() }),
       body: updateSalesOrderStatusSchema,
       response: {

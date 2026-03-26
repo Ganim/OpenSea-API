@@ -13,6 +13,7 @@ import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
+/** @deprecated Use `v1CancelOrderController` at `/v1/orders/:id/cancel` instead. */
 export async function v1CancelSalesOrderController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'PATCH',
@@ -26,8 +27,9 @@ export async function v1CancelSalesOrderController(app: FastifyInstance) {
       }),
     ],
     schema: {
-      tags: ['Sales - Orders'],
+      tags: ['Sales - Orders (Legacy)'],
       summary: 'Cancel a sales order',
+      deprecated: true,
       params: z.object({ id: z.string().uuid() }),
       response: {
         200: z.object({ message: z.string() }),

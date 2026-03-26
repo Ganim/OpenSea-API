@@ -7,14 +7,16 @@ import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
+/** @deprecated Use `v1GetOrderByIdController` at `/v1/orders/:id` instead. */
 export async function v1GetSalesOrderByIdController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/sales-orders/:id',
     preHandler: [verifyJwt, verifyTenant],
     schema: {
-      tags: ['Sales - Orders'],
+      tags: ['Sales - Orders (Legacy)'],
       summary: 'Get sales order by ID',
+      deprecated: true,
       params: z.object({ id: z.string().uuid() }),
       response: {
         200: z.object({ salesOrder: salesOrderResponseSchema }),

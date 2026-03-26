@@ -9,14 +9,16 @@ import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
+/** @deprecated Use `v1ListOrdersController` at `/v1/orders` instead. */
 export async function v1ListSalesOrdersController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/sales-orders',
     preHandler: [verifyJwt, verifyTenant],
     schema: {
-      tags: ['Sales - Orders'],
+      tags: ['Sales - Orders (Legacy)'],
       summary: 'List sales orders',
+      deprecated: true,
       querystring: z.object({
         page: z.coerce.number().min(1).default(1),
         perPage: z.coerce.number().min(1).max(100).default(20),

@@ -57,6 +57,17 @@ import { posRoutes } from './controllers/sales/pos/routes';
 import { paymentConditionsRoutes } from './controllers/sales/payment-conditions/routes';
 import { orderReturnsRoutes } from './controllers/sales/order-returns/routes';
 import { storeCreditsRoutes } from './controllers/sales/store-credits/routes';
+// Sales - Planned (placeholder stubs)
+import { commissionsRoutes } from './controllers/sales/commissions/routes';
+import { discountsRoutes } from './controllers/sales/discounts/routes';
+import { proposalsRoutes } from './controllers/sales/proposals/routes';
+import { quotesRoutes } from './controllers/sales/quotes/routes';
+import { workflowsRoutes } from './controllers/sales/workflows/routes';
+import { formsRoutes } from './controllers/sales/forms/routes';
+import { msgTemplatesRoutes } from './controllers/sales/msg-templates/routes';
+import { conversationsRoutes } from './controllers/sales/conversations/routes';
+import { bidBotRoutes } from './controllers/sales/bid-bot/routes';
+import { salesCashierRoutes } from './controllers/sales/cashier/routes';
 // Sales - Analytics
 import { analyticsGoalsRoutes } from './controllers/sales/analytics/goals/routes';
 import { analyticsDashboardsRoutes } from './controllers/sales/analytics/dashboards/routes';
@@ -280,6 +291,17 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(bidsRoutes);
   await app.register(marketplacesRoutes);
   await app.register(posRoutes);
+  // Sales - Planned (placeholder stubs)
+  await app.register(commissionsRoutes);
+  await app.register(discountsRoutes);
+  await app.register(proposalsRoutes);
+  await app.register(quotesRoutes);
+  await app.register(workflowsRoutes);
+  await app.register(formsRoutes);
+  await app.register(msgTemplatesRoutes);
+  await app.register(conversationsRoutes);
+  await app.register(bidBotRoutes);
+  await app.register(salesCashierRoutes);
   await app.register(notificationsRoutes);
 
   // Sales - Analytics routes

@@ -41,6 +41,16 @@ export async function getComboByIdController(app: FastifyInstance) {
 
       const combo = await prisma.combo.findFirst({
         where: { id, tenantId, deletedAt: null },
+        include: {
+          comboItems: {
+            orderBy: { position: 'asc' },
+            include: {
+              variant: {
+                select: { id: true, name: true, sku: true, price: true },
+              },
+            },
+          },
+        },
       });
 
       if (!combo) {
@@ -62,6 +72,21 @@ export async function getComboByIdController(app: FastifyInstance) {
           validUntil: combo.validUntil ?? null,
           imageUrl: combo.imageUrl ?? null,
           deletedAt: combo.deletedAt ?? null,
+          items: combo.comboItems.map((item) => ({
+            id: item.id,
+            variantId: item.variantId,
+            quantity: item.quantity,
+            isRequired: item.isRequired,
+            position: item.position,
+            variant: item.variant
+              ? {
+                  id: item.variant.id,
+                  name: item.variant.name,
+                  sku: item.variant.sku,
+                  price: item.variant.price ? Number(item.variant.price) : null,
+                }
+              : null,
+          })),
         },
       });
     },
