@@ -1285,6 +1285,10 @@ async function main() {
   const { seedIntegrations } = await import('./seeds/integrations-seed.js');
   await seedIntegrations(prisma);
 
+  // Auth links migration (multi-method auth)
+  const { migrateAuthLinks } = await import('./seeds/auth-links-migration.js');
+  await migrateAuthLinks(prisma);
+
   console.log('\n🎉 Seed concluído com sucesso!');
 }
 
