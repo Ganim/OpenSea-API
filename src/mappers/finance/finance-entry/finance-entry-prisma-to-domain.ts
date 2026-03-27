@@ -14,6 +14,7 @@ export function financeEntryPrismaToDomain(
       description: raw.description,
       notes: raw.notes ?? undefined,
       categoryId: new UniqueEntityID(raw.categoryId),
+      companyId: raw.companyId ? new UniqueEntityID(raw.companyId) : undefined,
       costCenterId: raw.costCenterId
         ? new UniqueEntityID(raw.costCenterId)
         : undefined,
@@ -57,7 +58,9 @@ export function financeEntryPrismaToDomain(
       fiscalDocumentId: raw.fiscalDocumentId ?? undefined,
       currency: raw.currency ?? undefined,
       exchangeRate: raw.exchangeRate ? Number(raw.exchangeRate) : undefined,
-      originalAmount: raw.originalAmount ? Number(raw.originalAmount) : undefined,
+      originalAmount: raw.originalAmount
+        ? Number(raw.originalAmount)
+        : undefined,
       metadata: (raw.metadata as Record<string, unknown>) ?? {},
       tags: raw.tags ?? [],
       createdBy: raw.createdBy ?? undefined,

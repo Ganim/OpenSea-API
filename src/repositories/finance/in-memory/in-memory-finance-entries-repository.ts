@@ -30,6 +30,9 @@ export class InMemoryFinanceEntriesRepository
       description: data.description,
       notes: data.notes,
       categoryId: new UniqueEntityID(data.categoryId),
+      companyId: data.companyId
+        ? new UniqueEntityID(data.companyId)
+        : undefined,
       costCenterId: data.costCenterId
         ? new UniqueEntityID(data.costCenterId)
         : undefined,
@@ -116,6 +119,8 @@ export class InMemoryFinanceEntriesRepository
       if (options.type && i.type !== options.type) return false;
       if (options.status && i.status !== options.status) return false;
       if (options.categoryId && i.categoryId.toString() !== options.categoryId)
+        return false;
+      if (options.companyId && i.companyId?.toString() !== options.companyId)
         return false;
       if (
         options.costCenterId &&

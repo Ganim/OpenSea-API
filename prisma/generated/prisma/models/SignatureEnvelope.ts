@@ -394,6 +394,8 @@ export type SignatureEnvelopeWhereInput = {
   createdBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   signers?: Prisma.SignatureEnvelopeSignerListRelationFilter
   auditTrail?: Prisma.SignatureAuditEventListRelationFilter
+  quote?: Prisma.XOR<Prisma.QuoteNullableScalarRelationFilter, Prisma.QuoteWhereInput> | null
+  proposal?: Prisma.XOR<Prisma.ProposalNullableScalarRelationFilter, Prisma.ProposalWhereInput> | null
 }
 
 export type SignatureEnvelopeOrderByWithRelationInput = {
@@ -430,6 +432,8 @@ export type SignatureEnvelopeOrderByWithRelationInput = {
   createdBy?: Prisma.UserOrderByWithRelationInput
   signers?: Prisma.SignatureEnvelopeSignerOrderByRelationAggregateInput
   auditTrail?: Prisma.SignatureAuditEventOrderByRelationAggregateInput
+  quote?: Prisma.QuoteOrderByWithRelationInput
+  proposal?: Prisma.ProposalOrderByWithRelationInput
 }
 
 export type SignatureEnvelopeWhereUniqueInput = Prisma.AtLeast<{
@@ -469,6 +473,8 @@ export type SignatureEnvelopeWhereUniqueInput = Prisma.AtLeast<{
   createdBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   signers?: Prisma.SignatureEnvelopeSignerListRelationFilter
   auditTrail?: Prisma.SignatureAuditEventListRelationFilter
+  quote?: Prisma.XOR<Prisma.QuoteNullableScalarRelationFilter, Prisma.QuoteWhereInput> | null
+  proposal?: Prisma.XOR<Prisma.ProposalNullableScalarRelationFilter, Prisma.ProposalWhereInput> | null
 }, "id">
 
 export type SignatureEnvelopeOrderByWithAggregationInput = {
@@ -569,6 +575,8 @@ export type SignatureEnvelopeCreateInput = {
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedEnvelopesInput
   signers?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutEnvelopeInput
   auditTrail?: Prisma.SignatureAuditEventCreateNestedManyWithoutEnvelopeInput
+  quote?: Prisma.QuoteCreateNestedOneWithoutSignatureEnvelopeInput
+  proposal?: Prisma.ProposalCreateNestedOneWithoutSignatureEnvelopeInput
 }
 
 export type SignatureEnvelopeUncheckedCreateInput = {
@@ -601,6 +609,8 @@ export type SignatureEnvelopeUncheckedCreateInput = {
   updatedAt?: Date | string
   signers?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutEnvelopeInput
   auditTrail?: Prisma.SignatureAuditEventUncheckedCreateNestedManyWithoutEnvelopeInput
+  quote?: Prisma.QuoteUncheckedCreateNestedOneWithoutSignatureEnvelopeInput
+  proposal?: Prisma.ProposalUncheckedCreateNestedOneWithoutSignatureEnvelopeInput
 }
 
 export type SignatureEnvelopeUpdateInput = {
@@ -633,6 +643,8 @@ export type SignatureEnvelopeUpdateInput = {
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedEnvelopesNestedInput
   signers?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutEnvelopeNestedInput
   auditTrail?: Prisma.SignatureAuditEventUpdateManyWithoutEnvelopeNestedInput
+  quote?: Prisma.QuoteUpdateOneWithoutSignatureEnvelopeNestedInput
+  proposal?: Prisma.ProposalUpdateOneWithoutSignatureEnvelopeNestedInput
 }
 
 export type SignatureEnvelopeUncheckedUpdateInput = {
@@ -665,6 +677,8 @@ export type SignatureEnvelopeUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   signers?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutEnvelopeNestedInput
   auditTrail?: Prisma.SignatureAuditEventUncheckedUpdateManyWithoutEnvelopeNestedInput
+  quote?: Prisma.QuoteUncheckedUpdateOneWithoutSignatureEnvelopeNestedInput
+  proposal?: Prisma.ProposalUncheckedUpdateOneWithoutSignatureEnvelopeNestedInput
 }
 
 export type SignatureEnvelopeCreateManyInput = {
@@ -862,6 +876,11 @@ export type SignatureEnvelopeSumOrderByAggregateInput = {
 export type SignatureEnvelopeScalarRelationFilter = {
   is?: Prisma.SignatureEnvelopeWhereInput
   isNot?: Prisma.SignatureEnvelopeWhereInput
+}
+
+export type SignatureEnvelopeNullableScalarRelationFilter = {
+  is?: Prisma.SignatureEnvelopeWhereInput | null
+  isNot?: Prisma.SignatureEnvelopeWhereInput | null
 }
 
 export type SignatureEnvelopeCreateNestedManyWithoutCreatedByInput = {
@@ -1085,6 +1104,38 @@ export type SignatureEnvelopeUpdateOneRequiredWithoutAuditTrailNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.SignatureEnvelopeUpdateToOneWithWhereWithoutAuditTrailInput, Prisma.SignatureEnvelopeUpdateWithoutAuditTrailInput>, Prisma.SignatureEnvelopeUncheckedUpdateWithoutAuditTrailInput>
 }
 
+export type SignatureEnvelopeCreateNestedOneWithoutQuoteInput = {
+  create?: Prisma.XOR<Prisma.SignatureEnvelopeCreateWithoutQuoteInput, Prisma.SignatureEnvelopeUncheckedCreateWithoutQuoteInput>
+  connectOrCreate?: Prisma.SignatureEnvelopeCreateOrConnectWithoutQuoteInput
+  connect?: Prisma.SignatureEnvelopeWhereUniqueInput
+}
+
+export type SignatureEnvelopeUpdateOneWithoutQuoteNestedInput = {
+  create?: Prisma.XOR<Prisma.SignatureEnvelopeCreateWithoutQuoteInput, Prisma.SignatureEnvelopeUncheckedCreateWithoutQuoteInput>
+  connectOrCreate?: Prisma.SignatureEnvelopeCreateOrConnectWithoutQuoteInput
+  upsert?: Prisma.SignatureEnvelopeUpsertWithoutQuoteInput
+  disconnect?: Prisma.SignatureEnvelopeWhereInput | boolean
+  delete?: Prisma.SignatureEnvelopeWhereInput | boolean
+  connect?: Prisma.SignatureEnvelopeWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.SignatureEnvelopeUpdateToOneWithWhereWithoutQuoteInput, Prisma.SignatureEnvelopeUpdateWithoutQuoteInput>, Prisma.SignatureEnvelopeUncheckedUpdateWithoutQuoteInput>
+}
+
+export type SignatureEnvelopeCreateNestedOneWithoutProposalInput = {
+  create?: Prisma.XOR<Prisma.SignatureEnvelopeCreateWithoutProposalInput, Prisma.SignatureEnvelopeUncheckedCreateWithoutProposalInput>
+  connectOrCreate?: Prisma.SignatureEnvelopeCreateOrConnectWithoutProposalInput
+  connect?: Prisma.SignatureEnvelopeWhereUniqueInput
+}
+
+export type SignatureEnvelopeUpdateOneWithoutProposalNestedInput = {
+  create?: Prisma.XOR<Prisma.SignatureEnvelopeCreateWithoutProposalInput, Prisma.SignatureEnvelopeUncheckedCreateWithoutProposalInput>
+  connectOrCreate?: Prisma.SignatureEnvelopeCreateOrConnectWithoutProposalInput
+  upsert?: Prisma.SignatureEnvelopeUpsertWithoutProposalInput
+  disconnect?: Prisma.SignatureEnvelopeWhereInput | boolean
+  delete?: Prisma.SignatureEnvelopeWhereInput | boolean
+  connect?: Prisma.SignatureEnvelopeWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.SignatureEnvelopeUpdateToOneWithWhereWithoutProposalInput, Prisma.SignatureEnvelopeUpdateWithoutProposalInput>, Prisma.SignatureEnvelopeUncheckedUpdateWithoutProposalInput>
+}
+
 export type SignatureEnvelopeCreateWithoutCreatedByInput = {
   id?: string
   title: string
@@ -1114,6 +1165,8 @@ export type SignatureEnvelopeCreateWithoutCreatedByInput = {
   signedFile?: Prisma.StorageFileCreateNestedOneWithoutEnvelopeSignedFilesInput
   signers?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutEnvelopeInput
   auditTrail?: Prisma.SignatureAuditEventCreateNestedManyWithoutEnvelopeInput
+  quote?: Prisma.QuoteCreateNestedOneWithoutSignatureEnvelopeInput
+  proposal?: Prisma.ProposalCreateNestedOneWithoutSignatureEnvelopeInput
 }
 
 export type SignatureEnvelopeUncheckedCreateWithoutCreatedByInput = {
@@ -1145,6 +1198,8 @@ export type SignatureEnvelopeUncheckedCreateWithoutCreatedByInput = {
   updatedAt?: Date | string
   signers?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutEnvelopeInput
   auditTrail?: Prisma.SignatureAuditEventUncheckedCreateNestedManyWithoutEnvelopeInput
+  quote?: Prisma.QuoteUncheckedCreateNestedOneWithoutSignatureEnvelopeInput
+  proposal?: Prisma.ProposalUncheckedCreateNestedOneWithoutSignatureEnvelopeInput
 }
 
 export type SignatureEnvelopeCreateOrConnectWithoutCreatedByInput = {
@@ -1235,6 +1290,8 @@ export type SignatureEnvelopeCreateWithoutTenantInput = {
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedEnvelopesInput
   signers?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutEnvelopeInput
   auditTrail?: Prisma.SignatureAuditEventCreateNestedManyWithoutEnvelopeInput
+  quote?: Prisma.QuoteCreateNestedOneWithoutSignatureEnvelopeInput
+  proposal?: Prisma.ProposalCreateNestedOneWithoutSignatureEnvelopeInput
 }
 
 export type SignatureEnvelopeUncheckedCreateWithoutTenantInput = {
@@ -1266,6 +1323,8 @@ export type SignatureEnvelopeUncheckedCreateWithoutTenantInput = {
   updatedAt?: Date | string
   signers?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutEnvelopeInput
   auditTrail?: Prisma.SignatureAuditEventUncheckedCreateNestedManyWithoutEnvelopeInput
+  quote?: Prisma.QuoteUncheckedCreateNestedOneWithoutSignatureEnvelopeInput
+  proposal?: Prisma.ProposalUncheckedCreateNestedOneWithoutSignatureEnvelopeInput
 }
 
 export type SignatureEnvelopeCreateOrConnectWithoutTenantInput = {
@@ -1323,6 +1382,8 @@ export type SignatureEnvelopeCreateWithoutDocumentFileInput = {
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedEnvelopesInput
   signers?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutEnvelopeInput
   auditTrail?: Prisma.SignatureAuditEventCreateNestedManyWithoutEnvelopeInput
+  quote?: Prisma.QuoteCreateNestedOneWithoutSignatureEnvelopeInput
+  proposal?: Prisma.ProposalCreateNestedOneWithoutSignatureEnvelopeInput
 }
 
 export type SignatureEnvelopeUncheckedCreateWithoutDocumentFileInput = {
@@ -1354,6 +1415,8 @@ export type SignatureEnvelopeUncheckedCreateWithoutDocumentFileInput = {
   updatedAt?: Date | string
   signers?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutEnvelopeInput
   auditTrail?: Prisma.SignatureAuditEventUncheckedCreateNestedManyWithoutEnvelopeInput
+  quote?: Prisma.QuoteUncheckedCreateNestedOneWithoutSignatureEnvelopeInput
+  proposal?: Prisma.ProposalUncheckedCreateNestedOneWithoutSignatureEnvelopeInput
 }
 
 export type SignatureEnvelopeCreateOrConnectWithoutDocumentFileInput = {
@@ -1395,6 +1458,8 @@ export type SignatureEnvelopeCreateWithoutSignedFileInput = {
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedEnvelopesInput
   signers?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutEnvelopeInput
   auditTrail?: Prisma.SignatureAuditEventCreateNestedManyWithoutEnvelopeInput
+  quote?: Prisma.QuoteCreateNestedOneWithoutSignatureEnvelopeInput
+  proposal?: Prisma.ProposalCreateNestedOneWithoutSignatureEnvelopeInput
 }
 
 export type SignatureEnvelopeUncheckedCreateWithoutSignedFileInput = {
@@ -1426,6 +1491,8 @@ export type SignatureEnvelopeUncheckedCreateWithoutSignedFileInput = {
   updatedAt?: Date | string
   signers?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutEnvelopeInput
   auditTrail?: Prisma.SignatureAuditEventUncheckedCreateNestedManyWithoutEnvelopeInput
+  quote?: Prisma.QuoteUncheckedCreateNestedOneWithoutSignatureEnvelopeInput
+  proposal?: Prisma.ProposalUncheckedCreateNestedOneWithoutSignatureEnvelopeInput
 }
 
 export type SignatureEnvelopeCreateOrConnectWithoutSignedFileInput = {
@@ -1499,6 +1566,8 @@ export type SignatureEnvelopeCreateWithoutSignersInput = {
   signedFile?: Prisma.StorageFileCreateNestedOneWithoutEnvelopeSignedFilesInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedEnvelopesInput
   auditTrail?: Prisma.SignatureAuditEventCreateNestedManyWithoutEnvelopeInput
+  quote?: Prisma.QuoteCreateNestedOneWithoutSignatureEnvelopeInput
+  proposal?: Prisma.ProposalCreateNestedOneWithoutSignatureEnvelopeInput
 }
 
 export type SignatureEnvelopeUncheckedCreateWithoutSignersInput = {
@@ -1530,6 +1599,8 @@ export type SignatureEnvelopeUncheckedCreateWithoutSignersInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   auditTrail?: Prisma.SignatureAuditEventUncheckedCreateNestedManyWithoutEnvelopeInput
+  quote?: Prisma.QuoteUncheckedCreateNestedOneWithoutSignatureEnvelopeInput
+  proposal?: Prisma.ProposalUncheckedCreateNestedOneWithoutSignatureEnvelopeInput
 }
 
 export type SignatureEnvelopeCreateOrConnectWithoutSignersInput = {
@@ -1577,6 +1648,8 @@ export type SignatureEnvelopeUpdateWithoutSignersInput = {
   signedFile?: Prisma.StorageFileUpdateOneWithoutEnvelopeSignedFilesNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedEnvelopesNestedInput
   auditTrail?: Prisma.SignatureAuditEventUpdateManyWithoutEnvelopeNestedInput
+  quote?: Prisma.QuoteUpdateOneWithoutSignatureEnvelopeNestedInput
+  proposal?: Prisma.ProposalUpdateOneWithoutSignatureEnvelopeNestedInput
 }
 
 export type SignatureEnvelopeUncheckedUpdateWithoutSignersInput = {
@@ -1608,6 +1681,8 @@ export type SignatureEnvelopeUncheckedUpdateWithoutSignersInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   auditTrail?: Prisma.SignatureAuditEventUncheckedUpdateManyWithoutEnvelopeNestedInput
+  quote?: Prisma.QuoteUncheckedUpdateOneWithoutSignatureEnvelopeNestedInput
+  proposal?: Prisma.ProposalUncheckedUpdateOneWithoutSignatureEnvelopeNestedInput
 }
 
 export type SignatureEnvelopeCreateWithoutAuditTrailInput = {
@@ -1639,6 +1714,8 @@ export type SignatureEnvelopeCreateWithoutAuditTrailInput = {
   signedFile?: Prisma.StorageFileCreateNestedOneWithoutEnvelopeSignedFilesInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedEnvelopesInput
   signers?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutEnvelopeInput
+  quote?: Prisma.QuoteCreateNestedOneWithoutSignatureEnvelopeInput
+  proposal?: Prisma.ProposalCreateNestedOneWithoutSignatureEnvelopeInput
 }
 
 export type SignatureEnvelopeUncheckedCreateWithoutAuditTrailInput = {
@@ -1670,6 +1747,8 @@ export type SignatureEnvelopeUncheckedCreateWithoutAuditTrailInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   signers?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutEnvelopeInput
+  quote?: Prisma.QuoteUncheckedCreateNestedOneWithoutSignatureEnvelopeInput
+  proposal?: Prisma.ProposalUncheckedCreateNestedOneWithoutSignatureEnvelopeInput
 }
 
 export type SignatureEnvelopeCreateOrConnectWithoutAuditTrailInput = {
@@ -1717,6 +1796,8 @@ export type SignatureEnvelopeUpdateWithoutAuditTrailInput = {
   signedFile?: Prisma.StorageFileUpdateOneWithoutEnvelopeSignedFilesNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedEnvelopesNestedInput
   signers?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutEnvelopeNestedInput
+  quote?: Prisma.QuoteUpdateOneWithoutSignatureEnvelopeNestedInput
+  proposal?: Prisma.ProposalUpdateOneWithoutSignatureEnvelopeNestedInput
 }
 
 export type SignatureEnvelopeUncheckedUpdateWithoutAuditTrailInput = {
@@ -1748,6 +1829,304 @@ export type SignatureEnvelopeUncheckedUpdateWithoutAuditTrailInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   signers?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutEnvelopeNestedInput
+  quote?: Prisma.QuoteUncheckedUpdateOneWithoutSignatureEnvelopeNestedInput
+  proposal?: Prisma.ProposalUncheckedUpdateOneWithoutSignatureEnvelopeNestedInput
+}
+
+export type SignatureEnvelopeCreateWithoutQuoteInput = {
+  id?: string
+  title: string
+  description?: string | null
+  status?: $Enums.EnvelopeStatus
+  signatureLevel: $Enums.SignatureLevel
+  minSignatureLevel?: $Enums.SignatureLevel | null
+  documentHash: string
+  documentType?: string
+  sourceModule: string
+  sourceEntityType: string
+  sourceEntityId: string
+  routingType: $Enums.EnvelopeRoutingType
+  expiresAt?: Date | string | null
+  reminderDays?: number
+  autoExpireDays?: number | null
+  completedAt?: Date | string | null
+  cancelledAt?: Date | string | null
+  cancelReason?: string | null
+  tags?: Prisma.SignatureEnvelopeCreatetagsInput | string[]
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutSignatureEnvelopesInput
+  documentFile: Prisma.StorageFileCreateNestedOneWithoutEnvelopeDocumentFilesInput
+  signedFile?: Prisma.StorageFileCreateNestedOneWithoutEnvelopeSignedFilesInput
+  createdBy: Prisma.UserCreateNestedOneWithoutCreatedEnvelopesInput
+  signers?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutEnvelopeInput
+  auditTrail?: Prisma.SignatureAuditEventCreateNestedManyWithoutEnvelopeInput
+  proposal?: Prisma.ProposalCreateNestedOneWithoutSignatureEnvelopeInput
+}
+
+export type SignatureEnvelopeUncheckedCreateWithoutQuoteInput = {
+  id?: string
+  tenantId: string
+  title: string
+  description?: string | null
+  status?: $Enums.EnvelopeStatus
+  signatureLevel: $Enums.SignatureLevel
+  minSignatureLevel?: $Enums.SignatureLevel | null
+  documentFileId: string
+  documentHash: string
+  signedFileId?: string | null
+  documentType?: string
+  sourceModule: string
+  sourceEntityType: string
+  sourceEntityId: string
+  routingType: $Enums.EnvelopeRoutingType
+  expiresAt?: Date | string | null
+  reminderDays?: number
+  autoExpireDays?: number | null
+  completedAt?: Date | string | null
+  cancelledAt?: Date | string | null
+  cancelReason?: string | null
+  createdByUserId: string
+  tags?: Prisma.SignatureEnvelopeCreatetagsInput | string[]
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  signers?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutEnvelopeInput
+  auditTrail?: Prisma.SignatureAuditEventUncheckedCreateNestedManyWithoutEnvelopeInput
+  proposal?: Prisma.ProposalUncheckedCreateNestedOneWithoutSignatureEnvelopeInput
+}
+
+export type SignatureEnvelopeCreateOrConnectWithoutQuoteInput = {
+  where: Prisma.SignatureEnvelopeWhereUniqueInput
+  create: Prisma.XOR<Prisma.SignatureEnvelopeCreateWithoutQuoteInput, Prisma.SignatureEnvelopeUncheckedCreateWithoutQuoteInput>
+}
+
+export type SignatureEnvelopeUpsertWithoutQuoteInput = {
+  update: Prisma.XOR<Prisma.SignatureEnvelopeUpdateWithoutQuoteInput, Prisma.SignatureEnvelopeUncheckedUpdateWithoutQuoteInput>
+  create: Prisma.XOR<Prisma.SignatureEnvelopeCreateWithoutQuoteInput, Prisma.SignatureEnvelopeUncheckedCreateWithoutQuoteInput>
+  where?: Prisma.SignatureEnvelopeWhereInput
+}
+
+export type SignatureEnvelopeUpdateToOneWithWhereWithoutQuoteInput = {
+  where?: Prisma.SignatureEnvelopeWhereInput
+  data: Prisma.XOR<Prisma.SignatureEnvelopeUpdateWithoutQuoteInput, Prisma.SignatureEnvelopeUncheckedUpdateWithoutQuoteInput>
+}
+
+export type SignatureEnvelopeUpdateWithoutQuoteInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumEnvelopeStatusFieldUpdateOperationsInput | $Enums.EnvelopeStatus
+  signatureLevel?: Prisma.EnumSignatureLevelFieldUpdateOperationsInput | $Enums.SignatureLevel
+  minSignatureLevel?: Prisma.NullableEnumSignatureLevelFieldUpdateOperationsInput | $Enums.SignatureLevel | null
+  documentHash?: Prisma.StringFieldUpdateOperationsInput | string
+  documentType?: Prisma.StringFieldUpdateOperationsInput | string
+  sourceModule?: Prisma.StringFieldUpdateOperationsInput | string
+  sourceEntityType?: Prisma.StringFieldUpdateOperationsInput | string
+  sourceEntityId?: Prisma.StringFieldUpdateOperationsInput | string
+  routingType?: Prisma.EnumEnvelopeRoutingTypeFieldUpdateOperationsInput | $Enums.EnvelopeRoutingType
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reminderDays?: Prisma.IntFieldUpdateOperationsInput | number
+  autoExpireDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.SignatureEnvelopeUpdatetagsInput | string[]
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutSignatureEnvelopesNestedInput
+  documentFile?: Prisma.StorageFileUpdateOneRequiredWithoutEnvelopeDocumentFilesNestedInput
+  signedFile?: Prisma.StorageFileUpdateOneWithoutEnvelopeSignedFilesNestedInput
+  createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedEnvelopesNestedInput
+  signers?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutEnvelopeNestedInput
+  auditTrail?: Prisma.SignatureAuditEventUpdateManyWithoutEnvelopeNestedInput
+  proposal?: Prisma.ProposalUpdateOneWithoutSignatureEnvelopeNestedInput
+}
+
+export type SignatureEnvelopeUncheckedUpdateWithoutQuoteInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumEnvelopeStatusFieldUpdateOperationsInput | $Enums.EnvelopeStatus
+  signatureLevel?: Prisma.EnumSignatureLevelFieldUpdateOperationsInput | $Enums.SignatureLevel
+  minSignatureLevel?: Prisma.NullableEnumSignatureLevelFieldUpdateOperationsInput | $Enums.SignatureLevel | null
+  documentFileId?: Prisma.StringFieldUpdateOperationsInput | string
+  documentHash?: Prisma.StringFieldUpdateOperationsInput | string
+  signedFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  documentType?: Prisma.StringFieldUpdateOperationsInput | string
+  sourceModule?: Prisma.StringFieldUpdateOperationsInput | string
+  sourceEntityType?: Prisma.StringFieldUpdateOperationsInput | string
+  sourceEntityId?: Prisma.StringFieldUpdateOperationsInput | string
+  routingType?: Prisma.EnumEnvelopeRoutingTypeFieldUpdateOperationsInput | $Enums.EnvelopeRoutingType
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reminderDays?: Prisma.IntFieldUpdateOperationsInput | number
+  autoExpireDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdByUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  tags?: Prisma.SignatureEnvelopeUpdatetagsInput | string[]
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  signers?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutEnvelopeNestedInput
+  auditTrail?: Prisma.SignatureAuditEventUncheckedUpdateManyWithoutEnvelopeNestedInput
+  proposal?: Prisma.ProposalUncheckedUpdateOneWithoutSignatureEnvelopeNestedInput
+}
+
+export type SignatureEnvelopeCreateWithoutProposalInput = {
+  id?: string
+  title: string
+  description?: string | null
+  status?: $Enums.EnvelopeStatus
+  signatureLevel: $Enums.SignatureLevel
+  minSignatureLevel?: $Enums.SignatureLevel | null
+  documentHash: string
+  documentType?: string
+  sourceModule: string
+  sourceEntityType: string
+  sourceEntityId: string
+  routingType: $Enums.EnvelopeRoutingType
+  expiresAt?: Date | string | null
+  reminderDays?: number
+  autoExpireDays?: number | null
+  completedAt?: Date | string | null
+  cancelledAt?: Date | string | null
+  cancelReason?: string | null
+  tags?: Prisma.SignatureEnvelopeCreatetagsInput | string[]
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutSignatureEnvelopesInput
+  documentFile: Prisma.StorageFileCreateNestedOneWithoutEnvelopeDocumentFilesInput
+  signedFile?: Prisma.StorageFileCreateNestedOneWithoutEnvelopeSignedFilesInput
+  createdBy: Prisma.UserCreateNestedOneWithoutCreatedEnvelopesInput
+  signers?: Prisma.SignatureEnvelopeSignerCreateNestedManyWithoutEnvelopeInput
+  auditTrail?: Prisma.SignatureAuditEventCreateNestedManyWithoutEnvelopeInput
+  quote?: Prisma.QuoteCreateNestedOneWithoutSignatureEnvelopeInput
+}
+
+export type SignatureEnvelopeUncheckedCreateWithoutProposalInput = {
+  id?: string
+  tenantId: string
+  title: string
+  description?: string | null
+  status?: $Enums.EnvelopeStatus
+  signatureLevel: $Enums.SignatureLevel
+  minSignatureLevel?: $Enums.SignatureLevel | null
+  documentFileId: string
+  documentHash: string
+  signedFileId?: string | null
+  documentType?: string
+  sourceModule: string
+  sourceEntityType: string
+  sourceEntityId: string
+  routingType: $Enums.EnvelopeRoutingType
+  expiresAt?: Date | string | null
+  reminderDays?: number
+  autoExpireDays?: number | null
+  completedAt?: Date | string | null
+  cancelledAt?: Date | string | null
+  cancelReason?: string | null
+  createdByUserId: string
+  tags?: Prisma.SignatureEnvelopeCreatetagsInput | string[]
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  signers?: Prisma.SignatureEnvelopeSignerUncheckedCreateNestedManyWithoutEnvelopeInput
+  auditTrail?: Prisma.SignatureAuditEventUncheckedCreateNestedManyWithoutEnvelopeInput
+  quote?: Prisma.QuoteUncheckedCreateNestedOneWithoutSignatureEnvelopeInput
+}
+
+export type SignatureEnvelopeCreateOrConnectWithoutProposalInput = {
+  where: Prisma.SignatureEnvelopeWhereUniqueInput
+  create: Prisma.XOR<Prisma.SignatureEnvelopeCreateWithoutProposalInput, Prisma.SignatureEnvelopeUncheckedCreateWithoutProposalInput>
+}
+
+export type SignatureEnvelopeUpsertWithoutProposalInput = {
+  update: Prisma.XOR<Prisma.SignatureEnvelopeUpdateWithoutProposalInput, Prisma.SignatureEnvelopeUncheckedUpdateWithoutProposalInput>
+  create: Prisma.XOR<Prisma.SignatureEnvelopeCreateWithoutProposalInput, Prisma.SignatureEnvelopeUncheckedCreateWithoutProposalInput>
+  where?: Prisma.SignatureEnvelopeWhereInput
+}
+
+export type SignatureEnvelopeUpdateToOneWithWhereWithoutProposalInput = {
+  where?: Prisma.SignatureEnvelopeWhereInput
+  data: Prisma.XOR<Prisma.SignatureEnvelopeUpdateWithoutProposalInput, Prisma.SignatureEnvelopeUncheckedUpdateWithoutProposalInput>
+}
+
+export type SignatureEnvelopeUpdateWithoutProposalInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumEnvelopeStatusFieldUpdateOperationsInput | $Enums.EnvelopeStatus
+  signatureLevel?: Prisma.EnumSignatureLevelFieldUpdateOperationsInput | $Enums.SignatureLevel
+  minSignatureLevel?: Prisma.NullableEnumSignatureLevelFieldUpdateOperationsInput | $Enums.SignatureLevel | null
+  documentHash?: Prisma.StringFieldUpdateOperationsInput | string
+  documentType?: Prisma.StringFieldUpdateOperationsInput | string
+  sourceModule?: Prisma.StringFieldUpdateOperationsInput | string
+  sourceEntityType?: Prisma.StringFieldUpdateOperationsInput | string
+  sourceEntityId?: Prisma.StringFieldUpdateOperationsInput | string
+  routingType?: Prisma.EnumEnvelopeRoutingTypeFieldUpdateOperationsInput | $Enums.EnvelopeRoutingType
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reminderDays?: Prisma.IntFieldUpdateOperationsInput | number
+  autoExpireDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.SignatureEnvelopeUpdatetagsInput | string[]
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutSignatureEnvelopesNestedInput
+  documentFile?: Prisma.StorageFileUpdateOneRequiredWithoutEnvelopeDocumentFilesNestedInput
+  signedFile?: Prisma.StorageFileUpdateOneWithoutEnvelopeSignedFilesNestedInput
+  createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedEnvelopesNestedInput
+  signers?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutEnvelopeNestedInput
+  auditTrail?: Prisma.SignatureAuditEventUpdateManyWithoutEnvelopeNestedInput
+  quote?: Prisma.QuoteUpdateOneWithoutSignatureEnvelopeNestedInput
+}
+
+export type SignatureEnvelopeUncheckedUpdateWithoutProposalInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumEnvelopeStatusFieldUpdateOperationsInput | $Enums.EnvelopeStatus
+  signatureLevel?: Prisma.EnumSignatureLevelFieldUpdateOperationsInput | $Enums.SignatureLevel
+  minSignatureLevel?: Prisma.NullableEnumSignatureLevelFieldUpdateOperationsInput | $Enums.SignatureLevel | null
+  documentFileId?: Prisma.StringFieldUpdateOperationsInput | string
+  documentHash?: Prisma.StringFieldUpdateOperationsInput | string
+  signedFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  documentType?: Prisma.StringFieldUpdateOperationsInput | string
+  sourceModule?: Prisma.StringFieldUpdateOperationsInput | string
+  sourceEntityType?: Prisma.StringFieldUpdateOperationsInput | string
+  sourceEntityId?: Prisma.StringFieldUpdateOperationsInput | string
+  routingType?: Prisma.EnumEnvelopeRoutingTypeFieldUpdateOperationsInput | $Enums.EnvelopeRoutingType
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reminderDays?: Prisma.IntFieldUpdateOperationsInput | number
+  autoExpireDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdByUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  tags?: Prisma.SignatureEnvelopeUpdatetagsInput | string[]
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  signers?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutEnvelopeNestedInput
+  auditTrail?: Prisma.SignatureAuditEventUncheckedUpdateManyWithoutEnvelopeNestedInput
+  quote?: Prisma.QuoteUncheckedUpdateOneWithoutSignatureEnvelopeNestedInput
 }
 
 export type SignatureEnvelopeCreateManyCreatedByInput = {
@@ -1808,6 +2187,8 @@ export type SignatureEnvelopeUpdateWithoutCreatedByInput = {
   signedFile?: Prisma.StorageFileUpdateOneWithoutEnvelopeSignedFilesNestedInput
   signers?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutEnvelopeNestedInput
   auditTrail?: Prisma.SignatureAuditEventUpdateManyWithoutEnvelopeNestedInput
+  quote?: Prisma.QuoteUpdateOneWithoutSignatureEnvelopeNestedInput
+  proposal?: Prisma.ProposalUpdateOneWithoutSignatureEnvelopeNestedInput
 }
 
 export type SignatureEnvelopeUncheckedUpdateWithoutCreatedByInput = {
@@ -1839,6 +2220,8 @@ export type SignatureEnvelopeUncheckedUpdateWithoutCreatedByInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   signers?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutEnvelopeNestedInput
   auditTrail?: Prisma.SignatureAuditEventUncheckedUpdateManyWithoutEnvelopeNestedInput
+  quote?: Prisma.QuoteUncheckedUpdateOneWithoutSignatureEnvelopeNestedInput
+  proposal?: Prisma.ProposalUncheckedUpdateOneWithoutSignatureEnvelopeNestedInput
 }
 
 export type SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByInput = {
@@ -1928,6 +2311,8 @@ export type SignatureEnvelopeUpdateWithoutTenantInput = {
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedEnvelopesNestedInput
   signers?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutEnvelopeNestedInput
   auditTrail?: Prisma.SignatureAuditEventUpdateManyWithoutEnvelopeNestedInput
+  quote?: Prisma.QuoteUpdateOneWithoutSignatureEnvelopeNestedInput
+  proposal?: Prisma.ProposalUpdateOneWithoutSignatureEnvelopeNestedInput
 }
 
 export type SignatureEnvelopeUncheckedUpdateWithoutTenantInput = {
@@ -1959,6 +2344,8 @@ export type SignatureEnvelopeUncheckedUpdateWithoutTenantInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   signers?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutEnvelopeNestedInput
   auditTrail?: Prisma.SignatureAuditEventUncheckedUpdateManyWithoutEnvelopeNestedInput
+  quote?: Prisma.QuoteUncheckedUpdateOneWithoutSignatureEnvelopeNestedInput
+  proposal?: Prisma.ProposalUncheckedUpdateOneWithoutSignatureEnvelopeNestedInput
 }
 
 export type SignatureEnvelopeUncheckedUpdateManyWithoutTenantInput = {
@@ -2077,6 +2464,8 @@ export type SignatureEnvelopeUpdateWithoutDocumentFileInput = {
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedEnvelopesNestedInput
   signers?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutEnvelopeNestedInput
   auditTrail?: Prisma.SignatureAuditEventUpdateManyWithoutEnvelopeNestedInput
+  quote?: Prisma.QuoteUpdateOneWithoutSignatureEnvelopeNestedInput
+  proposal?: Prisma.ProposalUpdateOneWithoutSignatureEnvelopeNestedInput
 }
 
 export type SignatureEnvelopeUncheckedUpdateWithoutDocumentFileInput = {
@@ -2108,6 +2497,8 @@ export type SignatureEnvelopeUncheckedUpdateWithoutDocumentFileInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   signers?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutEnvelopeNestedInput
   auditTrail?: Prisma.SignatureAuditEventUncheckedUpdateManyWithoutEnvelopeNestedInput
+  quote?: Prisma.QuoteUncheckedUpdateOneWithoutSignatureEnvelopeNestedInput
+  proposal?: Prisma.ProposalUncheckedUpdateOneWithoutSignatureEnvelopeNestedInput
 }
 
 export type SignatureEnvelopeUncheckedUpdateManyWithoutDocumentFileInput = {
@@ -2168,6 +2559,8 @@ export type SignatureEnvelopeUpdateWithoutSignedFileInput = {
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedEnvelopesNestedInput
   signers?: Prisma.SignatureEnvelopeSignerUpdateManyWithoutEnvelopeNestedInput
   auditTrail?: Prisma.SignatureAuditEventUpdateManyWithoutEnvelopeNestedInput
+  quote?: Prisma.QuoteUpdateOneWithoutSignatureEnvelopeNestedInput
+  proposal?: Prisma.ProposalUpdateOneWithoutSignatureEnvelopeNestedInput
 }
 
 export type SignatureEnvelopeUncheckedUpdateWithoutSignedFileInput = {
@@ -2199,6 +2592,8 @@ export type SignatureEnvelopeUncheckedUpdateWithoutSignedFileInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   signers?: Prisma.SignatureEnvelopeSignerUncheckedUpdateManyWithoutEnvelopeNestedInput
   auditTrail?: Prisma.SignatureAuditEventUncheckedUpdateManyWithoutEnvelopeNestedInput
+  quote?: Prisma.QuoteUncheckedUpdateOneWithoutSignatureEnvelopeNestedInput
+  proposal?: Prisma.ProposalUncheckedUpdateOneWithoutSignatureEnvelopeNestedInput
 }
 
 export type SignatureEnvelopeUncheckedUpdateManyWithoutSignedFileInput = {
@@ -2304,6 +2699,8 @@ export type SignatureEnvelopeSelect<ExtArgs extends runtime.Types.Extensions.Int
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   signers?: boolean | Prisma.SignatureEnvelope$signersArgs<ExtArgs>
   auditTrail?: boolean | Prisma.SignatureEnvelope$auditTrailArgs<ExtArgs>
+  quote?: boolean | Prisma.SignatureEnvelope$quoteArgs<ExtArgs>
+  proposal?: boolean | Prisma.SignatureEnvelope$proposalArgs<ExtArgs>
   _count?: boolean | Prisma.SignatureEnvelopeCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["signatureEnvelope"]>
 
@@ -2413,6 +2810,8 @@ export type SignatureEnvelopeInclude<ExtArgs extends runtime.Types.Extensions.In
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   signers?: boolean | Prisma.SignatureEnvelope$signersArgs<ExtArgs>
   auditTrail?: boolean | Prisma.SignatureEnvelope$auditTrailArgs<ExtArgs>
+  quote?: boolean | Prisma.SignatureEnvelope$quoteArgs<ExtArgs>
+  proposal?: boolean | Prisma.SignatureEnvelope$proposalArgs<ExtArgs>
   _count?: boolean | Prisma.SignatureEnvelopeCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type SignatureEnvelopeIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2437,6 +2836,8 @@ export type $SignatureEnvelopePayload<ExtArgs extends runtime.Types.Extensions.I
     createdBy: Prisma.$UserPayload<ExtArgs>
     signers: Prisma.$SignatureEnvelopeSignerPayload<ExtArgs>[]
     auditTrail: Prisma.$SignatureAuditEventPayload<ExtArgs>[]
+    quote: Prisma.$QuotePayload<ExtArgs> | null
+    proposal: Prisma.$ProposalPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2866,6 +3267,8 @@ export interface Prisma__SignatureEnvelopeClient<T, Null = never, ExtArgs extend
   createdBy<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   signers<T extends Prisma.SignatureEnvelope$signersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SignatureEnvelope$signersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SignatureEnvelopeSignerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   auditTrail<T extends Prisma.SignatureEnvelope$auditTrailArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SignatureEnvelope$auditTrailArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SignatureAuditEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  quote<T extends Prisma.SignatureEnvelope$quoteArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SignatureEnvelope$quoteArgs<ExtArgs>>): Prisma.Prisma__QuoteClient<runtime.Types.Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  proposal<T extends Prisma.SignatureEnvelope$proposalArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SignatureEnvelope$proposalArgs<ExtArgs>>): Prisma.Prisma__ProposalClient<runtime.Types.Result.GetResult<Prisma.$ProposalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3382,6 +3785,44 @@ export type SignatureEnvelope$auditTrailArgs<ExtArgs extends runtime.Types.Exten
   take?: number
   skip?: number
   distinct?: Prisma.SignatureAuditEventScalarFieldEnum | Prisma.SignatureAuditEventScalarFieldEnum[]
+}
+
+/**
+ * SignatureEnvelope.quote
+ */
+export type SignatureEnvelope$quoteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Quote
+   */
+  select?: Prisma.QuoteSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Quote
+   */
+  omit?: Prisma.QuoteOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.QuoteInclude<ExtArgs> | null
+  where?: Prisma.QuoteWhereInput
+}
+
+/**
+ * SignatureEnvelope.proposal
+ */
+export type SignatureEnvelope$proposalArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Proposal
+   */
+  select?: Prisma.ProposalSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Proposal
+   */
+  omit?: Prisma.ProposalOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProposalInclude<ExtArgs> | null
+  where?: Prisma.ProposalWhereInput
 }
 
 /**

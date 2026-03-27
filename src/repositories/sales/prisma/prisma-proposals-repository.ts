@@ -29,6 +29,8 @@ function mapToDomain(
       viewCount: (proposalData.viewCount as number) ?? 0,
       lastViewedAt: (proposalData.lastViewedAt as Date) ?? undefined,
       createdBy: proposalData.createdBy as string,
+      signatureEnvelopeId:
+        (proposalData.signatureEnvelopeId as string) ?? undefined,
       isActive: proposalData.isActive as boolean,
       createdAt: proposalData.createdAt as Date,
       updatedAt: proposalData.updatedAt as Date,
@@ -171,6 +173,7 @@ export class PrismaProposalsRepository implements ProposalsRepository {
           viewedAt: proposal.viewedAt ?? null,
           viewCount: proposal.viewCount,
           lastViewedAt: proposal.lastViewedAt ?? null,
+          signatureEnvelopeId: proposal.signatureEnvelopeId ?? null,
           isActive: proposal.isActive,
           deletedAt: proposal.deletedAt ?? null,
         },

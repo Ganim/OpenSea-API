@@ -26,6 +26,8 @@ function mapToDomain(
       viewCount: (quoteData.viewCount as number) ?? 0,
       lastViewedAt: (quoteData.lastViewedAt as Date) ?? undefined,
       createdBy: quoteData.createdBy as string,
+      signatureEnvelopeId:
+        (quoteData.signatureEnvelopeId as string) ?? undefined,
       isActive: quoteData.isActive as boolean,
       createdAt: quoteData.createdAt as Date,
       updatedAt: quoteData.updatedAt as Date,
@@ -160,6 +162,7 @@ export class PrismaQuotesRepository implements QuotesRepository {
           viewedAt: quote.viewedAt ?? null,
           viewCount: quote.viewCount,
           lastViewedAt: quote.lastViewedAt ?? null,
+          signatureEnvelopeId: quote.signatureEnvelopeId ?? null,
           isActive: quote.isActive,
           deletedAt: quote.deletedAt ?? null,
         },

@@ -26,6 +26,8 @@ export interface QuoteDTO {
   viewCount: number;
   lastViewedAt?: Date;
   createdBy: string;
+  signatureEnvelopeId?: string;
+  signatureStatus?: string;
   isActive: boolean;
   createdAt: Date;
   updatedAt?: Date;
@@ -63,6 +65,8 @@ export function quoteToDTO(quote: Quote): QuoteDTO {
   if (quote.sentAt) dto.sentAt = quote.sentAt;
   if (quote.viewedAt) dto.viewedAt = quote.viewedAt;
   if (quote.lastViewedAt) dto.lastViewedAt = quote.lastViewedAt;
+  if (quote.signatureEnvelopeId)
+    dto.signatureEnvelopeId = quote.signatureEnvelopeId;
   if (quote.updatedAt) dto.updatedAt = quote.updatedAt;
   if (quote.deletedAt) dto.deletedAt = quote.deletedAt;
 

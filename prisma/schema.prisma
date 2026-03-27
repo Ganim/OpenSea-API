@@ -9623,6 +9623,8 @@ model SignatureEnvelope {
   createdBy    User                      @relation("EnvelopeCreator", fields: [createdByUserId], references: [id])
   signers      SignatureEnvelopeSigner[]
   auditTrail   SignatureAuditEvent[]
+  quote        Quote?
+  proposal     Proposal?
 
   @@index([tenantId])
   @@index([tenantId, status])
@@ -13016,9 +13018,12 @@ model Quote {
   updatedAt DateTime  @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
 
-  tenant   Tenant      @relation(fields: [tenantId], references: [id])
-  customer Customer    @relation(fields: [customerId], references: [id])
-  items    QuoteItem[]
+  signatureEnvelopeId String? @unique @map("signature_envelope_id")
+
+  tenant            Tenant             @relation(fields: [tenantId], references: [id])
+  customer          Customer           @relation(fields: [customerId], references: [id])
+  signatureEnvelope SignatureEnvelope?  @relation(fields: [signatureEnvelopeId], references: [id])
+  items             QuoteItem[]
 
   @@index([tenantId])
   @@index([customerId])
@@ -13073,10 +13078,13 @@ model Proposal {
   updatedAt DateTime  @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
 
-  tenant      Tenant               @relation(fields: [tenantId], references: [id])
-  customer    Customer             @relation(fields: [customerId], references: [id])
-  items       ProposalItem[]
-  attachments ProposalAttachment[]
+  signatureEnvelopeId String? @unique @map("signature_envelope_id")
+
+  tenant            Tenant               @relation(fields: [tenantId], references: [id])
+  customer          Customer             @relation(fields: [customerId], references: [id])
+  signatureEnvelope SignatureEnvelope?    @relation(fields: [signatureEnvelopeId], references: [id])
+  items             ProposalItem[]
+  attachments       ProposalAttachment[]
 
   @@index([tenantId])
   @@index([customerId])

@@ -8,6 +8,9 @@ import { manualMatchItemController } from './v1-manual-match-item.controller';
 import { ignoreReconciliationItemController } from './v1-ignore-reconciliation-item.controller';
 import { createEntryFromItemController } from './v1-create-entry-from-item.controller';
 import { completeReconciliationController } from './v1-complete-reconciliation.controller';
+import { listReconciliationSuggestionsController } from './v1-list-reconciliation-suggestions.controller';
+import { acceptReconciliationSuggestionController } from './v1-accept-reconciliation-suggestion.controller';
+import { rejectReconciliationSuggestionController } from './v1-reject-reconciliation-suggestion.controller';
 
 export async function reconciliationRoutes(app: FastifyInstance) {
   app.addHook('preHandler', createModuleMiddleware('FINANCE'));
@@ -19,4 +22,7 @@ export async function reconciliationRoutes(app: FastifyInstance) {
   app.register(ignoreReconciliationItemController);
   app.register(createEntryFromItemController);
   app.register(completeReconciliationController);
+  app.register(listReconciliationSuggestionsController);
+  app.register(acceptReconciliationSuggestionController);
+  app.register(rejectReconciliationSuggestionController);
 }

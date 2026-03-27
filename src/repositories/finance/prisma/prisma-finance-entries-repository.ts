@@ -67,6 +67,7 @@ export class PrismaFinanceEntriesRepository
         description: data.description,
         notes: data.notes,
         categoryId: data.categoryId,
+        companyId: data.companyId,
         costCenterId: data.costCenterId,
         bankAccountId: data.bankAccountId,
         supplierName: data.supplierName,
@@ -186,6 +187,10 @@ export class PrismaFinanceEntriesRepository
 
     if (options.categoryId) {
       where.categoryId = options.categoryId;
+    }
+
+    if (options.companyId) {
+      where.companyId = options.companyId;
     }
 
     if (options.costCenterId) {

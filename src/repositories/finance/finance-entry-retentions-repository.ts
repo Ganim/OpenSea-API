@@ -35,6 +35,11 @@ export interface FinanceEntryRetentionsRepository {
     tenantId: string,
   ): Promise<FinanceEntryRetentionRecord[]>;
 
+  findByEntryIds(
+    entryIds: string[],
+    tenantId: string,
+  ): Promise<FinanceEntryRetentionRecord[]>;
+
   deleteByEntryId(
     entryId: string,
     tenantId: string,

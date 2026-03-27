@@ -38,6 +38,7 @@ export interface QuoteProps {
   viewCount: number;
   lastViewedAt?: Date;
   createdBy: string;
+  signatureEnvelopeId?: string;
   isActive: boolean;
   createdAt: Date;
   updatedAt?: Date;
@@ -164,6 +165,15 @@ export class Quote extends Entity<QuoteProps> {
 
   get createdBy(): string {
     return this.props.createdBy;
+  }
+
+  get signatureEnvelopeId(): string | undefined {
+    return this.props.signatureEnvelopeId;
+  }
+
+  set signatureEnvelopeId(value: string | undefined) {
+    this.props.signatureEnvelopeId = value;
+    this.touch();
   }
 
   get isActive(): boolean {

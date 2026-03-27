@@ -55,6 +55,7 @@ export type ProposalMinAggregateOutputType = {
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
+  signatureEnvelopeId: string | null
 }
 
 export type ProposalMaxAggregateOutputType = {
@@ -76,6 +77,7 @@ export type ProposalMaxAggregateOutputType = {
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
+  signatureEnvelopeId: string | null
 }
 
 export type ProposalCountAggregateOutputType = {
@@ -97,6 +99,7 @@ export type ProposalCountAggregateOutputType = {
   createdAt: number
   updatedAt: number
   deletedAt: number
+  signatureEnvelopeId: number
   _all: number
 }
 
@@ -130,6 +133,7 @@ export type ProposalMinAggregateInputType = {
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
+  signatureEnvelopeId?: true
 }
 
 export type ProposalMaxAggregateInputType = {
@@ -151,6 +155,7 @@ export type ProposalMaxAggregateInputType = {
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
+  signatureEnvelopeId?: true
 }
 
 export type ProposalCountAggregateInputType = {
@@ -172,6 +177,7 @@ export type ProposalCountAggregateInputType = {
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
+  signatureEnvelopeId?: true
   _all?: true
 }
 
@@ -280,6 +286,7 @@ export type ProposalGroupByOutputType = {
   createdAt: Date
   updatedAt: Date
   deletedAt: Date | null
+  signatureEnvelopeId: string | null
   _count: ProposalCountAggregateOutputType | null
   _avg: ProposalAvgAggregateOutputType | null
   _sum: ProposalSumAggregateOutputType | null
@@ -324,8 +331,10 @@ export type ProposalWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"Proposal"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Proposal"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Proposal"> | Date | string | null
+  signatureEnvelopeId?: Prisma.StringNullableFilter<"Proposal"> | string | null
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   customer?: Prisma.XOR<Prisma.CustomerScalarRelationFilter, Prisma.CustomerWhereInput>
+  signatureEnvelope?: Prisma.XOR<Prisma.SignatureEnvelopeNullableScalarRelationFilter, Prisma.SignatureEnvelopeWhereInput> | null
   items?: Prisma.ProposalItemListRelationFilter
   attachments?: Prisma.ProposalAttachmentListRelationFilter
 }
@@ -349,14 +358,17 @@ export type ProposalOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  signatureEnvelopeId?: Prisma.SortOrderInput | Prisma.SortOrder
   tenant?: Prisma.TenantOrderByWithRelationInput
   customer?: Prisma.CustomerOrderByWithRelationInput
+  signatureEnvelope?: Prisma.SignatureEnvelopeOrderByWithRelationInput
   items?: Prisma.ProposalItemOrderByRelationAggregateInput
   attachments?: Prisma.ProposalAttachmentOrderByRelationAggregateInput
 }
 
 export type ProposalWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  signatureEnvelopeId?: string
   AND?: Prisma.ProposalWhereInput | Prisma.ProposalWhereInput[]
   OR?: Prisma.ProposalWhereInput[]
   NOT?: Prisma.ProposalWhereInput | Prisma.ProposalWhereInput[]
@@ -379,9 +391,10 @@ export type ProposalWhereUniqueInput = Prisma.AtLeast<{
   deletedAt?: Prisma.DateTimeNullableFilter<"Proposal"> | Date | string | null
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   customer?: Prisma.XOR<Prisma.CustomerScalarRelationFilter, Prisma.CustomerWhereInput>
+  signatureEnvelope?: Prisma.XOR<Prisma.SignatureEnvelopeNullableScalarRelationFilter, Prisma.SignatureEnvelopeWhereInput> | null
   items?: Prisma.ProposalItemListRelationFilter
   attachments?: Prisma.ProposalAttachmentListRelationFilter
-}, "id">
+}, "id" | "signatureEnvelopeId">
 
 export type ProposalOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -402,6 +415,7 @@ export type ProposalOrderByWithAggregationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  signatureEnvelopeId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.ProposalCountOrderByAggregateInput
   _avg?: Prisma.ProposalAvgOrderByAggregateInput
   _max?: Prisma.ProposalMaxOrderByAggregateInput
@@ -431,6 +445,7 @@ export type ProposalScalarWhereWithAggregatesInput = {
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Proposal"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Proposal"> | Date | string
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Proposal"> | Date | string | null
+  signatureEnvelopeId?: Prisma.StringNullableWithAggregatesFilter<"Proposal"> | string | null
 }
 
 export type ProposalCreateInput = {
@@ -452,6 +467,7 @@ export type ProposalCreateInput = {
   deletedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutProposalsInput
   customer: Prisma.CustomerCreateNestedOneWithoutProposalsInput
+  signatureEnvelope?: Prisma.SignatureEnvelopeCreateNestedOneWithoutProposalInput
   items?: Prisma.ProposalItemCreateNestedManyWithoutProposalInput
   attachments?: Prisma.ProposalAttachmentCreateNestedManyWithoutProposalInput
 }
@@ -475,6 +491,7 @@ export type ProposalUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  signatureEnvelopeId?: string | null
   items?: Prisma.ProposalItemUncheckedCreateNestedManyWithoutProposalInput
   attachments?: Prisma.ProposalAttachmentUncheckedCreateNestedManyWithoutProposalInput
 }
@@ -498,6 +515,7 @@ export type ProposalUpdateInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutProposalsNestedInput
   customer?: Prisma.CustomerUpdateOneRequiredWithoutProposalsNestedInput
+  signatureEnvelope?: Prisma.SignatureEnvelopeUpdateOneWithoutProposalNestedInput
   items?: Prisma.ProposalItemUpdateManyWithoutProposalNestedInput
   attachments?: Prisma.ProposalAttachmentUpdateManyWithoutProposalNestedInput
 }
@@ -521,6 +539,7 @@ export type ProposalUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  signatureEnvelopeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   items?: Prisma.ProposalItemUncheckedUpdateManyWithoutProposalNestedInput
   attachments?: Prisma.ProposalAttachmentUncheckedUpdateManyWithoutProposalNestedInput
 }
@@ -544,6 +563,7 @@ export type ProposalCreateManyInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  signatureEnvelopeId?: string | null
 }
 
 export type ProposalUpdateManyMutationInput = {
@@ -584,6 +604,7 @@ export type ProposalUncheckedUpdateManyInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  signatureEnvelopeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type ProposalListRelationFilter = {
@@ -594,6 +615,11 @@ export type ProposalListRelationFilter = {
 
 export type ProposalOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type ProposalNullableScalarRelationFilter = {
+  is?: Prisma.ProposalWhereInput | null
+  isNot?: Prisma.ProposalWhereInput | null
 }
 
 export type ProposalCountOrderByAggregateInput = {
@@ -615,6 +641,7 @@ export type ProposalCountOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
+  signatureEnvelopeId?: Prisma.SortOrder
 }
 
 export type ProposalAvgOrderByAggregateInput = {
@@ -641,6 +668,7 @@ export type ProposalMaxOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
+  signatureEnvelopeId?: Prisma.SortOrder
 }
 
 export type ProposalMinOrderByAggregateInput = {
@@ -662,6 +690,7 @@ export type ProposalMinOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
+  signatureEnvelopeId?: Prisma.SortOrder
 }
 
 export type ProposalSumOrderByAggregateInput = {
@@ -758,6 +787,38 @@ export type ProposalUncheckedUpdateManyWithoutTenantNestedInput = {
   deleteMany?: Prisma.ProposalScalarWhereInput | Prisma.ProposalScalarWhereInput[]
 }
 
+export type ProposalCreateNestedOneWithoutSignatureEnvelopeInput = {
+  create?: Prisma.XOR<Prisma.ProposalCreateWithoutSignatureEnvelopeInput, Prisma.ProposalUncheckedCreateWithoutSignatureEnvelopeInput>
+  connectOrCreate?: Prisma.ProposalCreateOrConnectWithoutSignatureEnvelopeInput
+  connect?: Prisma.ProposalWhereUniqueInput
+}
+
+export type ProposalUncheckedCreateNestedOneWithoutSignatureEnvelopeInput = {
+  create?: Prisma.XOR<Prisma.ProposalCreateWithoutSignatureEnvelopeInput, Prisma.ProposalUncheckedCreateWithoutSignatureEnvelopeInput>
+  connectOrCreate?: Prisma.ProposalCreateOrConnectWithoutSignatureEnvelopeInput
+  connect?: Prisma.ProposalWhereUniqueInput
+}
+
+export type ProposalUpdateOneWithoutSignatureEnvelopeNestedInput = {
+  create?: Prisma.XOR<Prisma.ProposalCreateWithoutSignatureEnvelopeInput, Prisma.ProposalUncheckedCreateWithoutSignatureEnvelopeInput>
+  connectOrCreate?: Prisma.ProposalCreateOrConnectWithoutSignatureEnvelopeInput
+  upsert?: Prisma.ProposalUpsertWithoutSignatureEnvelopeInput
+  disconnect?: Prisma.ProposalWhereInput | boolean
+  delete?: Prisma.ProposalWhereInput | boolean
+  connect?: Prisma.ProposalWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProposalUpdateToOneWithWhereWithoutSignatureEnvelopeInput, Prisma.ProposalUpdateWithoutSignatureEnvelopeInput>, Prisma.ProposalUncheckedUpdateWithoutSignatureEnvelopeInput>
+}
+
+export type ProposalUncheckedUpdateOneWithoutSignatureEnvelopeNestedInput = {
+  create?: Prisma.XOR<Prisma.ProposalCreateWithoutSignatureEnvelopeInput, Prisma.ProposalUncheckedCreateWithoutSignatureEnvelopeInput>
+  connectOrCreate?: Prisma.ProposalCreateOrConnectWithoutSignatureEnvelopeInput
+  upsert?: Prisma.ProposalUpsertWithoutSignatureEnvelopeInput
+  disconnect?: Prisma.ProposalWhereInput | boolean
+  delete?: Prisma.ProposalWhereInput | boolean
+  connect?: Prisma.ProposalWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProposalUpdateToOneWithWhereWithoutSignatureEnvelopeInput, Prisma.ProposalUpdateWithoutSignatureEnvelopeInput>, Prisma.ProposalUncheckedUpdateWithoutSignatureEnvelopeInput>
+}
+
 export type EnumProposalStatusFieldUpdateOperationsInput = {
   set?: $Enums.ProposalStatus
 }
@@ -808,6 +869,7 @@ export type ProposalCreateWithoutCustomerInput = {
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutProposalsInput
+  signatureEnvelope?: Prisma.SignatureEnvelopeCreateNestedOneWithoutProposalInput
   items?: Prisma.ProposalItemCreateNestedManyWithoutProposalInput
   attachments?: Prisma.ProposalAttachmentCreateNestedManyWithoutProposalInput
 }
@@ -830,6 +892,7 @@ export type ProposalUncheckedCreateWithoutCustomerInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  signatureEnvelopeId?: string | null
   items?: Prisma.ProposalItemUncheckedCreateNestedManyWithoutProposalInput
   attachments?: Prisma.ProposalAttachmentUncheckedCreateNestedManyWithoutProposalInput
 }
@@ -882,6 +945,7 @@ export type ProposalScalarWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"Proposal"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Proposal"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Proposal"> | Date | string | null
+  signatureEnvelopeId?: Prisma.StringNullableFilter<"Proposal"> | string | null
 }
 
 export type ProposalCreateWithoutTenantInput = {
@@ -902,6 +966,7 @@ export type ProposalCreateWithoutTenantInput = {
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   customer: Prisma.CustomerCreateNestedOneWithoutProposalsInput
+  signatureEnvelope?: Prisma.SignatureEnvelopeCreateNestedOneWithoutProposalInput
   items?: Prisma.ProposalItemCreateNestedManyWithoutProposalInput
   attachments?: Prisma.ProposalAttachmentCreateNestedManyWithoutProposalInput
 }
@@ -924,6 +989,7 @@ export type ProposalUncheckedCreateWithoutTenantInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  signatureEnvelopeId?: string | null
   items?: Prisma.ProposalItemUncheckedCreateNestedManyWithoutProposalInput
   attachments?: Prisma.ProposalAttachmentUncheckedCreateNestedManyWithoutProposalInput
 }
@@ -954,6 +1020,114 @@ export type ProposalUpdateManyWithWhereWithoutTenantInput = {
   data: Prisma.XOR<Prisma.ProposalUpdateManyMutationInput, Prisma.ProposalUncheckedUpdateManyWithoutTenantInput>
 }
 
+export type ProposalCreateWithoutSignatureEnvelopeInput = {
+  id?: string
+  title: string
+  description?: string | null
+  status?: $Enums.ProposalStatus
+  validUntil?: Date | string | null
+  terms?: string | null
+  totalValue?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  sentAt?: Date | string | null
+  viewedAt?: Date | string | null
+  viewCount?: number
+  lastViewedAt?: Date | string | null
+  createdBy: string
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  tenant: Prisma.TenantCreateNestedOneWithoutProposalsInput
+  customer: Prisma.CustomerCreateNestedOneWithoutProposalsInput
+  items?: Prisma.ProposalItemCreateNestedManyWithoutProposalInput
+  attachments?: Prisma.ProposalAttachmentCreateNestedManyWithoutProposalInput
+}
+
+export type ProposalUncheckedCreateWithoutSignatureEnvelopeInput = {
+  id?: string
+  tenantId: string
+  customerId: string
+  title: string
+  description?: string | null
+  status?: $Enums.ProposalStatus
+  validUntil?: Date | string | null
+  terms?: string | null
+  totalValue?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  sentAt?: Date | string | null
+  viewedAt?: Date | string | null
+  viewCount?: number
+  lastViewedAt?: Date | string | null
+  createdBy: string
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  items?: Prisma.ProposalItemUncheckedCreateNestedManyWithoutProposalInput
+  attachments?: Prisma.ProposalAttachmentUncheckedCreateNestedManyWithoutProposalInput
+}
+
+export type ProposalCreateOrConnectWithoutSignatureEnvelopeInput = {
+  where: Prisma.ProposalWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProposalCreateWithoutSignatureEnvelopeInput, Prisma.ProposalUncheckedCreateWithoutSignatureEnvelopeInput>
+}
+
+export type ProposalUpsertWithoutSignatureEnvelopeInput = {
+  update: Prisma.XOR<Prisma.ProposalUpdateWithoutSignatureEnvelopeInput, Prisma.ProposalUncheckedUpdateWithoutSignatureEnvelopeInput>
+  create: Prisma.XOR<Prisma.ProposalCreateWithoutSignatureEnvelopeInput, Prisma.ProposalUncheckedCreateWithoutSignatureEnvelopeInput>
+  where?: Prisma.ProposalWhereInput
+}
+
+export type ProposalUpdateToOneWithWhereWithoutSignatureEnvelopeInput = {
+  where?: Prisma.ProposalWhereInput
+  data: Prisma.XOR<Prisma.ProposalUpdateWithoutSignatureEnvelopeInput, Prisma.ProposalUncheckedUpdateWithoutSignatureEnvelopeInput>
+}
+
+export type ProposalUpdateWithoutSignatureEnvelopeInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
+  validUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  totalValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lastViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdBy?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutProposalsNestedInput
+  customer?: Prisma.CustomerUpdateOneRequiredWithoutProposalsNestedInput
+  items?: Prisma.ProposalItemUpdateManyWithoutProposalNestedInput
+  attachments?: Prisma.ProposalAttachmentUpdateManyWithoutProposalNestedInput
+}
+
+export type ProposalUncheckedUpdateWithoutSignatureEnvelopeInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  customerId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
+  validUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  totalValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lastViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdBy?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  items?: Prisma.ProposalItemUncheckedUpdateManyWithoutProposalNestedInput
+  attachments?: Prisma.ProposalAttachmentUncheckedUpdateManyWithoutProposalNestedInput
+}
+
 export type ProposalCreateWithoutItemsInput = {
   id?: string
   title: string
@@ -973,6 +1147,7 @@ export type ProposalCreateWithoutItemsInput = {
   deletedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutProposalsInput
   customer: Prisma.CustomerCreateNestedOneWithoutProposalsInput
+  signatureEnvelope?: Prisma.SignatureEnvelopeCreateNestedOneWithoutProposalInput
   attachments?: Prisma.ProposalAttachmentCreateNestedManyWithoutProposalInput
 }
 
@@ -995,6 +1170,7 @@ export type ProposalUncheckedCreateWithoutItemsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  signatureEnvelopeId?: string | null
   attachments?: Prisma.ProposalAttachmentUncheckedCreateNestedManyWithoutProposalInput
 }
 
@@ -1033,6 +1209,7 @@ export type ProposalUpdateWithoutItemsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutProposalsNestedInput
   customer?: Prisma.CustomerUpdateOneRequiredWithoutProposalsNestedInput
+  signatureEnvelope?: Prisma.SignatureEnvelopeUpdateOneWithoutProposalNestedInput
   attachments?: Prisma.ProposalAttachmentUpdateManyWithoutProposalNestedInput
 }
 
@@ -1055,6 +1232,7 @@ export type ProposalUncheckedUpdateWithoutItemsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  signatureEnvelopeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   attachments?: Prisma.ProposalAttachmentUncheckedUpdateManyWithoutProposalNestedInput
 }
 
@@ -1077,6 +1255,7 @@ export type ProposalCreateWithoutAttachmentsInput = {
   deletedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutProposalsInput
   customer: Prisma.CustomerCreateNestedOneWithoutProposalsInput
+  signatureEnvelope?: Prisma.SignatureEnvelopeCreateNestedOneWithoutProposalInput
   items?: Prisma.ProposalItemCreateNestedManyWithoutProposalInput
 }
 
@@ -1099,6 +1278,7 @@ export type ProposalUncheckedCreateWithoutAttachmentsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  signatureEnvelopeId?: string | null
   items?: Prisma.ProposalItemUncheckedCreateNestedManyWithoutProposalInput
 }
 
@@ -1137,6 +1317,7 @@ export type ProposalUpdateWithoutAttachmentsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutProposalsNestedInput
   customer?: Prisma.CustomerUpdateOneRequiredWithoutProposalsNestedInput
+  signatureEnvelope?: Prisma.SignatureEnvelopeUpdateOneWithoutProposalNestedInput
   items?: Prisma.ProposalItemUpdateManyWithoutProposalNestedInput
 }
 
@@ -1159,6 +1340,7 @@ export type ProposalUncheckedUpdateWithoutAttachmentsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  signatureEnvelopeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   items?: Prisma.ProposalItemUncheckedUpdateManyWithoutProposalNestedInput
 }
 
@@ -1180,6 +1362,7 @@ export type ProposalCreateManyCustomerInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  signatureEnvelopeId?: string | null
 }
 
 export type ProposalUpdateWithoutCustomerInput = {
@@ -1200,6 +1383,7 @@ export type ProposalUpdateWithoutCustomerInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutProposalsNestedInput
+  signatureEnvelope?: Prisma.SignatureEnvelopeUpdateOneWithoutProposalNestedInput
   items?: Prisma.ProposalItemUpdateManyWithoutProposalNestedInput
   attachments?: Prisma.ProposalAttachmentUpdateManyWithoutProposalNestedInput
 }
@@ -1222,6 +1406,7 @@ export type ProposalUncheckedUpdateWithoutCustomerInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  signatureEnvelopeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   items?: Prisma.ProposalItemUncheckedUpdateManyWithoutProposalNestedInput
   attachments?: Prisma.ProposalAttachmentUncheckedUpdateManyWithoutProposalNestedInput
 }
@@ -1244,6 +1429,7 @@ export type ProposalUncheckedUpdateManyWithoutCustomerInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  signatureEnvelopeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type ProposalCreateManyTenantInput = {
@@ -1264,6 +1450,7 @@ export type ProposalCreateManyTenantInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  signatureEnvelopeId?: string | null
 }
 
 export type ProposalUpdateWithoutTenantInput = {
@@ -1284,6 +1471,7 @@ export type ProposalUpdateWithoutTenantInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   customer?: Prisma.CustomerUpdateOneRequiredWithoutProposalsNestedInput
+  signatureEnvelope?: Prisma.SignatureEnvelopeUpdateOneWithoutProposalNestedInput
   items?: Prisma.ProposalItemUpdateManyWithoutProposalNestedInput
   attachments?: Prisma.ProposalAttachmentUpdateManyWithoutProposalNestedInput
 }
@@ -1306,6 +1494,7 @@ export type ProposalUncheckedUpdateWithoutTenantInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  signatureEnvelopeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   items?: Prisma.ProposalItemUncheckedUpdateManyWithoutProposalNestedInput
   attachments?: Prisma.ProposalAttachmentUncheckedUpdateManyWithoutProposalNestedInput
 }
@@ -1328,6 +1517,7 @@ export type ProposalUncheckedUpdateManyWithoutTenantInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  signatureEnvelopeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -1389,8 +1579,10 @@ export type ProposalSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
+  signatureEnvelopeId?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
+  signatureEnvelope?: boolean | Prisma.Proposal$signatureEnvelopeArgs<ExtArgs>
   items?: boolean | Prisma.Proposal$itemsArgs<ExtArgs>
   attachments?: boolean | Prisma.Proposal$attachmentsArgs<ExtArgs>
   _count?: boolean | Prisma.ProposalCountOutputTypeDefaultArgs<ExtArgs>
@@ -1415,8 +1607,10 @@ export type ProposalSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
+  signatureEnvelopeId?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
+  signatureEnvelope?: boolean | Prisma.Proposal$signatureEnvelopeArgs<ExtArgs>
 }, ExtArgs["result"]["proposal"]>
 
 export type ProposalSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1438,8 +1632,10 @@ export type ProposalSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
+  signatureEnvelopeId?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
+  signatureEnvelope?: boolean | Prisma.Proposal$signatureEnvelopeArgs<ExtArgs>
 }, ExtArgs["result"]["proposal"]>
 
 export type ProposalSelectScalar = {
@@ -1461,12 +1657,14 @@ export type ProposalSelectScalar = {
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
+  signatureEnvelopeId?: boolean
 }
 
-export type ProposalOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "customerId" | "title" | "description" | "status" | "validUntil" | "terms" | "totalValue" | "sentAt" | "viewedAt" | "viewCount" | "lastViewedAt" | "createdBy" | "isActive" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["proposal"]>
+export type ProposalOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "customerId" | "title" | "description" | "status" | "validUntil" | "terms" | "totalValue" | "sentAt" | "viewedAt" | "viewCount" | "lastViewedAt" | "createdBy" | "isActive" | "createdAt" | "updatedAt" | "deletedAt" | "signatureEnvelopeId", ExtArgs["result"]["proposal"]>
 export type ProposalInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
+  signatureEnvelope?: boolean | Prisma.Proposal$signatureEnvelopeArgs<ExtArgs>
   items?: boolean | Prisma.Proposal$itemsArgs<ExtArgs>
   attachments?: boolean | Prisma.Proposal$attachmentsArgs<ExtArgs>
   _count?: boolean | Prisma.ProposalCountOutputTypeDefaultArgs<ExtArgs>
@@ -1474,10 +1672,12 @@ export type ProposalInclude<ExtArgs extends runtime.Types.Extensions.InternalArg
 export type ProposalIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
+  signatureEnvelope?: boolean | Prisma.Proposal$signatureEnvelopeArgs<ExtArgs>
 }
 export type ProposalIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
+  signatureEnvelope?: boolean | Prisma.Proposal$signatureEnvelopeArgs<ExtArgs>
 }
 
 export type $ProposalPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1485,6 +1685,7 @@ export type $ProposalPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
   objects: {
     tenant: Prisma.$TenantPayload<ExtArgs>
     customer: Prisma.$CustomerPayload<ExtArgs>
+    signatureEnvelope: Prisma.$SignatureEnvelopePayload<ExtArgs> | null
     items: Prisma.$ProposalItemPayload<ExtArgs>[]
     attachments: Prisma.$ProposalAttachmentPayload<ExtArgs>[]
   }
@@ -1507,6 +1708,7 @@ export type $ProposalPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     createdAt: Date
     updatedAt: Date
     deletedAt: Date | null
+    signatureEnvelopeId: string | null
   }, ExtArgs["result"]["proposal"]>
   composites: {}
 }
@@ -1903,6 +2105,7 @@ export interface Prisma__ProposalClient<T, Null = never, ExtArgs extends runtime
   readonly [Symbol.toStringTag]: "PrismaPromise"
   tenant<T extends Prisma.TenantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   customer<T extends Prisma.CustomerDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CustomerDefaultArgs<ExtArgs>>): Prisma.Prisma__CustomerClient<runtime.Types.Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  signatureEnvelope<T extends Prisma.Proposal$signatureEnvelopeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Proposal$signatureEnvelopeArgs<ExtArgs>>): Prisma.Prisma__SignatureEnvelopeClient<runtime.Types.Result.GetResult<Prisma.$SignatureEnvelopePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   items<T extends Prisma.Proposal$itemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Proposal$itemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProposalItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   attachments<T extends Prisma.Proposal$attachmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Proposal$attachmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProposalAttachmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -1952,6 +2155,7 @@ export interface ProposalFieldRefs {
   readonly createdAt: Prisma.FieldRef<"Proposal", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Proposal", 'DateTime'>
   readonly deletedAt: Prisma.FieldRef<"Proposal", 'DateTime'>
+  readonly signatureEnvelopeId: Prisma.FieldRef<"Proposal", 'String'>
 }
     
 
@@ -2345,6 +2549,25 @@ export type ProposalDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
    * Limit how many Proposals to delete.
    */
   limit?: number
+}
+
+/**
+ * Proposal.signatureEnvelope
+ */
+export type Proposal$signatureEnvelopeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SignatureEnvelope
+   */
+  select?: Prisma.SignatureEnvelopeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SignatureEnvelope
+   */
+  omit?: Prisma.SignatureEnvelopeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SignatureEnvelopeInclude<ExtArgs> | null
+  where?: Prisma.SignatureEnvelopeWhereInput
 }
 
 /**

@@ -33,8 +33,7 @@ function toRecord(row: {
         ? row.grossAmount
         : row.grossAmount.toNumber(),
     rate: typeof row.rate === 'number' ? row.rate : row.rate.toNumber(),
-    amount:
-      typeof row.amount === 'number' ? row.amount : row.amount.toNumber(),
+    amount: typeof row.amount === 'number' ? row.amount : row.amount.toNumber(),
     withheld: row.withheld,
     description: row.description,
     createdAt: row.createdAt,
@@ -76,6 +75,20 @@ export class PrismaFinanceEntryRetentionsRepository
   ): Promise<FinanceEntryRetentionRecord[]> {
     const rows = await prisma.financeEntryRetention.findMany({
       where: { entryId, tenantId },
+      orderBy: { createdAt: 'asc' },
+    });
+
+    return rows.map(toRecord);
+  }
+
+  async findByEntryIds(
+    entryIds: string[],
+    tenantId: string,
+  ): Promise<FinanceEntryRetentionRecord[]> {
+    if (entryIds.length === 0) return [];
+
+    const rows = await prisma.financeEntryRetention.findMany({
+      where: { entryId: { in: entryIds }, tenantId },
       orderBy: { createdAt: 'asc' },
     });
 

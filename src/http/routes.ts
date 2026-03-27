@@ -64,6 +64,7 @@ import { commissionsRoutes } from './controllers/sales/commissions/routes';
 import { discountsRoutes } from './controllers/sales/discounts/routes';
 import { proposalsRoutes } from './controllers/sales/proposals/routes';
 import { quotesRoutes } from './controllers/sales/quotes/routes';
+import { salesSignaturesRoutes } from './controllers/sales/signatures/routes';
 import { cadencesRoutes } from './controllers/sales/cadences/routes';
 import { salesTrackingRoutes } from './controllers/sales/tracking/routes';
 import { workflowsRoutes } from './controllers/sales/workflows/routes';
@@ -344,6 +345,7 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(discountsRoutes);
   await app.register(proposalsRoutes);
   await app.register(quotesRoutes);
+  await app.register(salesSignaturesRoutes);
   await app.register(cadencesRoutes);
   await app.register(salesTrackingRoutes);
   await app.register(workflowsRoutes);

@@ -24,6 +24,7 @@ export interface FinanceEntryProps {
   description: string;
   notes?: string;
   categoryId: UniqueEntityID;
+  companyId?: UniqueEntityID;
   costCenterId?: UniqueEntityID;
   bankAccountId?: UniqueEntityID;
   supplierName?: string;
@@ -112,6 +113,14 @@ export class FinanceEntry extends Entity<FinanceEntryProps> {
   }
   set categoryId(value: UniqueEntityID) {
     this.props.categoryId = value;
+    this.touch();
+  }
+
+  get companyId(): UniqueEntityID | undefined {
+    return this.props.companyId;
+  }
+  set companyId(value: UniqueEntityID | undefined) {
+    this.props.companyId = value;
     this.touch();
   }
 

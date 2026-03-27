@@ -52,6 +52,8 @@ export const quoteResponseSchema = z.object({
   viewCount: z.number(),
   lastViewedAt: z.coerce.date().optional(),
   createdBy: z.string(),
+  signatureEnvelopeId: z.string().uuid().optional(),
+  signatureStatus: z.string().optional(),
   isActive: z.boolean(),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date().optional(),

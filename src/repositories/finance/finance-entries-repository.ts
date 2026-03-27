@@ -15,6 +15,7 @@ export interface CreateFinanceEntrySchema {
   description: string;
   notes?: string;
   categoryId: string;
+  companyId?: string;
   costCenterId?: string;
   bankAccountId?: string;
   supplierName?: string;
@@ -103,6 +104,7 @@ export interface FindManyFinanceEntriesOptions {
   type?: string;
   status?: string;
   categoryId?: string;
+  companyId?: string;
   costCenterId?: string;
   bankAccountId?: string;
   dueDateFrom?: Date;

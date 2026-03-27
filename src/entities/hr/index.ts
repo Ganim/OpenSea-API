@@ -36,3 +36,12 @@ export type { EmployeeKudosProps } from './employee-kudos';
 
 export { OnboardingChecklist } from './onboarding-checklist';
 export type { OnboardingChecklistProps } from './onboarding-checklist';
+
+export { BenefitPlan } from './benefit-plan';
+export type { BenefitPlanProps } from './benefit-plan';
+
+export { BenefitEnrollment } from './benefit-enrollment';
+export type { BenefitEnrollmentProps } from './benefit-enrollment';
+
+export { FlexBenefitAllocation } from './flex-benefit-allocation';
+export type { FlexBenefitAllocationProps } from './flex-benefit-allocation';

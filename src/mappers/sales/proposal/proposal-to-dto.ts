@@ -31,6 +31,8 @@ export interface ProposalDTO {
   viewCount: number;
   lastViewedAt?: Date;
   createdBy: string;
+  signatureEnvelopeId?: string;
+  signatureStatus?: string;
   isActive: boolean;
   createdAt: Date;
   updatedAt?: Date;
@@ -73,6 +75,8 @@ export function proposalToDTO(proposal: Proposal): ProposalDTO {
   if (proposal.sentAt) dto.sentAt = proposal.sentAt;
   if (proposal.viewedAt) dto.viewedAt = proposal.viewedAt;
   if (proposal.lastViewedAt) dto.lastViewedAt = proposal.lastViewedAt;
+  if (proposal.signatureEnvelopeId)
+    dto.signatureEnvelopeId = proposal.signatureEnvelopeId;
   if (proposal.updatedAt) dto.updatedAt = proposal.updatedAt;
   if (proposal.deletedAt) dto.deletedAt = proposal.deletedAt;
 

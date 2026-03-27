@@ -5,6 +5,7 @@ import { makeGenerateRecurringBatchUseCase } from '@/use-cases/finance/recurring
 import { makeSyncBankTransactionsUseCase } from '@/use-cases/finance/bank-connections/factories/make-sync-bank-transactions-use-case';
 import { PrismaCashflowSnapshotsRepository } from '@/repositories/finance/prisma/prisma-cashflow-snapshots-repository';
 import { makeGetPredictiveCashflowUseCase } from '@/use-cases/finance/dashboard/factories/make-get-predictive-cashflow-use-case';
+import { makeAutoReconcileUseCase } from '@/use-cases/finance/reconciliation/factories/make-auto-reconcile-use-case';
 
 const LOG_PREFIX = '[FinanceScheduler]';
 
@@ -356,6 +357,81 @@ export class FinanceScheduler {
       { totalConnections: activeConnections.length, synced, failed },
       `${LOG_PREFIX} [sync-bank-transactions] Batch complete`,
     );
+
+    // After syncing, run auto-reconcile on active (non-completed) reconciliations
+    await this.runAutoReconcile();
+  }
+
+  /**
+   * Run auto-reconcile on all active reconciliations.
+   * Triggered after bank transaction sync to match new transactions.
+   */
+  private async runAutoReconcile(): Promise<void> {
+    const activeReconciliations = await prisma.bankReconciliation.findMany({
+      where: {
+        status: { in: ['PENDING', 'IN_PROGRESS'] },
+        tenant: {
+          status: 'ACTIVE',
+          deletedAt: null,
+        },
+      },
+      select: {
+        id: true,
+        tenantId: true,
+      },
+    });
+
+    if (activeReconciliations.length === 0) {
+      return;
+    }
+
+    const autoReconcileUseCase = makeAutoReconcileUseCase();
+    let totalAutoReconciled = 0;
+    let totalSuggestionsCreated = 0;
+
+    for (const reconciliation of activeReconciliations) {
+      try {
+        const result = await autoReconcileUseCase.execute({
+          tenantId: reconciliation.tenantId,
+          reconciliationId: reconciliation.id,
+        });
+
+        totalAutoReconciled += result.autoReconciled;
+        totalSuggestionsCreated += result.suggestionsCreated;
+
+        if (result.autoReconciled > 0 || result.suggestionsCreated > 0) {
+          logger.info(
+            {
+              reconciliationId: reconciliation.id,
+              tenantId: reconciliation.tenantId,
+              autoReconciled: result.autoReconciled,
+              suggestionsCreated: result.suggestionsCreated,
+            },
+            `${LOG_PREFIX} [auto-reconcile] Reconciliation processed`,
+          );
+        }
+      } catch (autoReconcileError) {
+        logger.error(
+          {
+            reconciliationId: reconciliation.id,
+            tenantId: reconciliation.tenantId,
+            error: autoReconcileError,
+          },
+          `${LOG_PREFIX} [auto-reconcile] Failed`,
+        );
+      }
+    }
+
+    if (totalAutoReconciled > 0 || totalSuggestionsCreated > 0) {
+      logger.info(
+        {
+          reconciliationsProcessed: activeReconciliations.length,
+          totalAutoReconciled,
+          totalSuggestionsCreated,
+        },
+        `${LOG_PREFIX} [auto-reconcile] Batch complete`,
+      );
+    }
   }
 
   /**
@@ -368,9 +444,7 @@ export class FinanceScheduler {
     const activeTenantIds = await this.getActiveTenantIds();
 
     if (activeTenantIds.length === 0) {
-      logger.info(
-        `${LOG_PREFIX} [save-cashflow-snapshots] No active tenants`,
-      );
+      logger.info(`${LOG_PREFIX} [save-cashflow-snapshots] No active tenants`);
       return;
     }
 

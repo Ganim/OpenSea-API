@@ -8,6 +8,7 @@ export interface FinanceEntryDTO {
   description: string;
   notes?: string;
   categoryId: string;
+  companyId?: string;
   costCenterId?: string;
   costCenterAllocations?: {
     costCenterId: string;
@@ -71,6 +72,7 @@ export function financeEntryToDTO(entry: FinanceEntry): FinanceEntryDTO {
     description: entry.description,
     notes: entry.notes,
     categoryId: entry.categoryId.toString(),
+    companyId: entry.companyId?.toString(),
     costCenterId: entry.costCenterId?.toString(),
     bankAccountId: entry.bankAccountId?.toString(),
     supplierName: entry.supplierName,
