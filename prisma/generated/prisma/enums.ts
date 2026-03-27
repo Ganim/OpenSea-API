@@ -3318,3 +3318,24 @@ export const LandingPageStatus = {
 } as const
 
 export type LandingPageStatus = (typeof LandingPageStatus)[keyof typeof LandingPageStatus]
+
+
+export const AuthLinkProvider = {
+  EMAIL: 'EMAIL',
+  CPF: 'CPF',
+  ENROLLMENT: 'ENROLLMENT',
+  GOOGLE: 'GOOGLE',
+  MICROSOFT: 'MICROSOFT',
+  APPLE: 'APPLE',
+  GITHUB: 'GITHUB'
+} as const
+
+export type AuthLinkProvider = (typeof AuthLinkProvider)[keyof typeof AuthLinkProvider]
+
+
+export const AuthLinkStatus = {
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE'
+} as const
+
+export type AuthLinkStatus = (typeof AuthLinkStatus)[keyof typeof AuthLinkStatus]

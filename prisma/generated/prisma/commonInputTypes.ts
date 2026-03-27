@@ -5049,6 +5049,40 @@ export type EnumLeadRoutingStrategyWithAggregatesFilter<$PrismaModel = never> = 
   _max?: Prisma.NestedEnumLeadRoutingStrategyFilter<$PrismaModel>
 }
 
+export type EnumAuthLinkProviderFilter<$PrismaModel = never> = {
+  equals?: $Enums.AuthLinkProvider | Prisma.EnumAuthLinkProviderFieldRefInput<$PrismaModel>
+  in?: $Enums.AuthLinkProvider[] | Prisma.ListEnumAuthLinkProviderFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AuthLinkProvider[] | Prisma.ListEnumAuthLinkProviderFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAuthLinkProviderFilter<$PrismaModel> | $Enums.AuthLinkProvider
+}
+
+export type EnumAuthLinkStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.AuthLinkStatus | Prisma.EnumAuthLinkStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.AuthLinkStatus[] | Prisma.ListEnumAuthLinkStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AuthLinkStatus[] | Prisma.ListEnumAuthLinkStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAuthLinkStatusFilter<$PrismaModel> | $Enums.AuthLinkStatus
+}
+
+export type EnumAuthLinkProviderWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.AuthLinkProvider | Prisma.EnumAuthLinkProviderFieldRefInput<$PrismaModel>
+  in?: $Enums.AuthLinkProvider[] | Prisma.ListEnumAuthLinkProviderFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AuthLinkProvider[] | Prisma.ListEnumAuthLinkProviderFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAuthLinkProviderWithAggregatesFilter<$PrismaModel> | $Enums.AuthLinkProvider
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumAuthLinkProviderFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumAuthLinkProviderFilter<$PrismaModel>
+}
+
+export type EnumAuthLinkStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.AuthLinkStatus | Prisma.EnumAuthLinkStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.AuthLinkStatus[] | Prisma.ListEnumAuthLinkStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AuthLinkStatus[] | Prisma.ListEnumAuthLinkStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAuthLinkStatusWithAggregatesFilter<$PrismaModel> | $Enums.AuthLinkStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumAuthLinkStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumAuthLinkStatusFilter<$PrismaModel>
+}
+
 export type NestedStringFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel>
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
@@ -10019,6 +10053,40 @@ export type NestedEnumLeadRoutingStrategyWithAggregatesFilter<$PrismaModel = nev
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumLeadRoutingStrategyFilter<$PrismaModel>
   _max?: Prisma.NestedEnumLeadRoutingStrategyFilter<$PrismaModel>
+}
+
+export type NestedEnumAuthLinkProviderFilter<$PrismaModel = never> = {
+  equals?: $Enums.AuthLinkProvider | Prisma.EnumAuthLinkProviderFieldRefInput<$PrismaModel>
+  in?: $Enums.AuthLinkProvider[] | Prisma.ListEnumAuthLinkProviderFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AuthLinkProvider[] | Prisma.ListEnumAuthLinkProviderFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAuthLinkProviderFilter<$PrismaModel> | $Enums.AuthLinkProvider
+}
+
+export type NestedEnumAuthLinkStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.AuthLinkStatus | Prisma.EnumAuthLinkStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.AuthLinkStatus[] | Prisma.ListEnumAuthLinkStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AuthLinkStatus[] | Prisma.ListEnumAuthLinkStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAuthLinkStatusFilter<$PrismaModel> | $Enums.AuthLinkStatus
+}
+
+export type NestedEnumAuthLinkProviderWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.AuthLinkProvider | Prisma.EnumAuthLinkProviderFieldRefInput<$PrismaModel>
+  in?: $Enums.AuthLinkProvider[] | Prisma.ListEnumAuthLinkProviderFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AuthLinkProvider[] | Prisma.ListEnumAuthLinkProviderFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAuthLinkProviderWithAggregatesFilter<$PrismaModel> | $Enums.AuthLinkProvider
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumAuthLinkProviderFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumAuthLinkProviderFilter<$PrismaModel>
+}
+
+export type NestedEnumAuthLinkStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.AuthLinkStatus | Prisma.EnumAuthLinkStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.AuthLinkStatus[] | Prisma.ListEnumAuthLinkStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AuthLinkStatus[] | Prisma.ListEnumAuthLinkStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAuthLinkStatusWithAggregatesFilter<$PrismaModel> | $Enums.AuthLinkStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumAuthLinkStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumAuthLinkStatusFilter<$PrismaModel>
 }
 
 

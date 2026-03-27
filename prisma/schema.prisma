@@ -316,7 +316,7 @@ model User {
   // Credentials
   username      String? @db.VarChar(32)
   email         String  @db.VarChar(254)
-  password_hash String  @db.VarChar(100)
+  password_hash String? @db.VarChar(100)
 
   // Access Control
   lastLoginIp         String?   @map("last_login_ip")
@@ -499,6 +499,10 @@ model User {
   bidProposalsSent  BidProposal[]     @relation("BidProposalSender")
   bidEventActions   BidMonitorEvent[] @relation("BidEventActionTaker")
   bidHistoryActions BidHistory[]      @relation("BidHistoryPerformer")
+
+  // Auth Links
+  authLinks       AuthLink[]
+  magicLinkTokens MagicLinkToken[]
 
   @@unique([email, deletedAt], name: "users_email_unique_active")
   @@unique([username, deletedAt], name: "users_username_unique_active")
@@ -5711,6 +5715,10 @@ model Tenant {
   companyAnnouncements  CompanyAnnouncement[]
   employeeKudos         EmployeeKudos[]
   onboardingChecklists  OnboardingChecklist[]
+
+  // Auth domain
+  authLinks        AuthLink[]
+  tenantAuthConfig TenantAuthConfig?
 
   @@index([status])
   @@index([deletedAt])
@@ -13836,4 +13844,76 @@ model DigitalSignature {
 
   @@index([admissionInviteId])
   @@map("digital_signatures")
+}
+
+// ─── Multi-Method Authentication ─────────────────────────────────────────────
+
+enum AuthLinkProvider {
+  EMAIL
+  CPF
+  ENROLLMENT
+  GOOGLE
+  MICROSOFT
+  APPLE
+  GITHUB
+}
+
+enum AuthLinkStatus {
+  ACTIVE
+  INACTIVE
+}
+
+model AuthLink {
+  id         String           @id @default(uuid())
+  userId     String
+  tenantId   String?
+  provider   AuthLinkProvider
+  identifier String           @db.VarChar(320)
+  credential String?          @db.VarChar(100)
+  metadata   Json?
+  status     AuthLinkStatus   @default(ACTIVE)
+  linkedAt   DateTime         @default(now())
+  unlinkedAt DateTime?
+  lastUsedAt DateTime?
+  createdAt  DateTime         @default(now())
+  updatedAt  DateTime         @updatedAt
+
+  user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tenant Tenant? @relation(fields: [tenantId], references: [id], onDelete: SetNull)
+
+  @@unique([provider, identifier, unlinkedAt], name: "auth_links_provider_identifier_unique_active")
+  @@index([userId, status])
+  @@index([identifier])
+  @@index([tenantId])
+  @@map("auth_links")
+}
+
+model TenantAuthConfig {
+  id                 String   @id @default(uuid())
+  tenantId           String   @unique
+  allowedMethods     Json     @default("[\"EMAIL\"]")
+  magicLinkEnabled   Boolean  @default(false)
+  magicLinkExpiresIn Int      @default(15)
+  defaultMethod      String?  @db.VarChar(32)
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@map("tenant_auth_configs")
+}
+
+model MagicLinkToken {
+  id        String    @id @default(uuid())
+  userId    String
+  token     String    @db.VarChar(64)
+  email     String    @db.VarChar(254)
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([token])
+  @@map("magic_link_tokens")
 }

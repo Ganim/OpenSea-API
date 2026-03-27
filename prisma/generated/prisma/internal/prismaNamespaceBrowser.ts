@@ -366,7 +366,10 @@ export const ModelName = {
   OnboardingChecklist: 'OnboardingChecklist',
   AdmissionInvite: 'AdmissionInvite',
   AdmissionDocument: 'AdmissionDocument',
-  DigitalSignature: 'DigitalSignature'
+  DigitalSignature: 'DigitalSignature',
+  AuthLink: 'AuthLink',
+  TenantAuthConfig: 'TenantAuthConfig',
+  MagicLinkToken: 'MagicLinkToken'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -6814,6 +6817,52 @@ export const DigitalSignatureScalarFieldEnum = {
 } as const
 
 export type DigitalSignatureScalarFieldEnum = (typeof DigitalSignatureScalarFieldEnum)[keyof typeof DigitalSignatureScalarFieldEnum]
+
+
+export const AuthLinkScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  tenantId: 'tenantId',
+  provider: 'provider',
+  identifier: 'identifier',
+  credential: 'credential',
+  metadata: 'metadata',
+  status: 'status',
+  linkedAt: 'linkedAt',
+  unlinkedAt: 'unlinkedAt',
+  lastUsedAt: 'lastUsedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AuthLinkScalarFieldEnum = (typeof AuthLinkScalarFieldEnum)[keyof typeof AuthLinkScalarFieldEnum]
+
+
+export const TenantAuthConfigScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  allowedMethods: 'allowedMethods',
+  magicLinkEnabled: 'magicLinkEnabled',
+  magicLinkExpiresIn: 'magicLinkExpiresIn',
+  defaultMethod: 'defaultMethod',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TenantAuthConfigScalarFieldEnum = (typeof TenantAuthConfigScalarFieldEnum)[keyof typeof TenantAuthConfigScalarFieldEnum]
+
+
+export const MagicLinkTokenScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  token: 'token',
+  email: 'email',
+  expiresAt: 'expiresAt',
+  usedAt: 'usedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type MagicLinkTokenScalarFieldEnum = (typeof MagicLinkTokenScalarFieldEnum)[keyof typeof MagicLinkTokenScalarFieldEnum]
 
 
 export const SortOrder = {

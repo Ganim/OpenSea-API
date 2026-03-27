@@ -1619,3 +1619,18 @@ export type AdmissionDocument = Prisma.AdmissionDocumentModel
  * 
  */
 export type DigitalSignature = Prisma.DigitalSignatureModel
+/**
+ * Model AuthLink
+ * 
+ */
+export type AuthLink = Prisma.AuthLinkModel
+/**
+ * Model TenantAuthConfig
+ * 
+ */
+export type TenantAuthConfig = Prisma.TenantAuthConfigModel
+/**
+ * Model MagicLinkToken
+ * 
+ */
+export type MagicLinkToken = Prisma.MagicLinkTokenModel
