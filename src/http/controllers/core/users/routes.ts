@@ -15,6 +15,10 @@ import { getUserByIdController } from './v1-get-user-by-id.controller';
 import { getUserByUsernameController } from './v1-get-user-by-username.controller';
 import { listAllUsersController } from './v1-list-all-users.controller';
 import { listOnlineUsersController } from './v1-list-online-users.controller';
+import { adminLinkAuthMethodController } from './v1-admin-link-auth-method.controller';
+import { adminToggleAuthLinkController } from './v1-admin-toggle-auth-link.controller';
+import { adminUnlinkAuthMethodController } from './v1-admin-unlink-auth-method.controller';
+import { listUserAuthLinksController } from './v1-list-user-auth-links.controller';
 
 export async function usersRoutes(app: FastifyInstance) {
   // Admin routes com rate limit elevado
@@ -39,6 +43,18 @@ export async function usersRoutes(app: FastifyInstance) {
       managerApp.register(rateLimit, rateLimitConfig.mutation);
       managerApp.register(createUserController);
       managerApp.register(listAllUsersController);
+    },
+    { prefix: '' },
+  );
+
+  // Admin auth link management routes
+  app.register(
+    async (authLinkApp) => {
+      authLinkApp.register(rateLimit, rateLimitConfig.mutation);
+      authLinkApp.register(listUserAuthLinksController);
+      authLinkApp.register(adminLinkAuthMethodController);
+      authLinkApp.register(adminToggleAuthLinkController);
+      authLinkApp.register(adminUnlinkAuthMethodController);
     },
     { prefix: '' },
   );

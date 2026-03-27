@@ -25,6 +25,10 @@ import { requestMyVacationController } from './v1-request-my-vacation.controller
 import { updateMyNotificationPreferenceController } from './v1-update-my-notification-preference.controller';
 import { uploadMyAvatarController } from './v1-upload-my-avatar.controller';
 import { deleteMyAvatarController } from './v1-delete-my-avatar.controller';
+import { linkMyAuthMethodController } from './v1-link-my-auth-method.controller';
+import { listMyAuthLinksController } from './v1-list-my-auth-links.controller';
+import { toggleMyAuthLinkController } from './v1-toggle-my-auth-link.controller';
+import { unlinkMyAuthMethodController } from './v1-unlink-my-auth-method.controller';
 
 export async function meRoutes(app: FastifyInstance) {
   // Profile Routes
@@ -54,6 +58,12 @@ export async function meRoutes(app: FastifyInstance) {
   app.register(createMyNotificationPreferenceController);
   app.register(updateMyNotificationPreferenceController);
   app.register(deleteMyNotificationPreferenceController);
+
+  // Auth Links Routes
+  app.register(listMyAuthLinksController);
+  app.register(linkMyAuthMethodController);
+  app.register(toggleMyAuthLinkController);
+  app.register(unlinkMyAuthMethodController);
 
   // HR Self-Service Routes
   app.register(getMyEmployeeController);
