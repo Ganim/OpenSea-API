@@ -178,4 +178,93 @@ export class EmailService {
       };
     }
   }
+
+  async sendMagicLinkEmail(
+    toEmail: string,
+    token: string,
+    expiresInMinutes: number,
+  ): Promise<EmailServiceResponse> {
+    const magicLinkUrl = `${env.FRONTEND_URL}/auth/magic-link?token=${token}`;
+
+    // In test environment, simulate email sending without actual SMTP
+    if (env.NODE_ENV === 'test') {
+      return {
+        success: true,
+        message: 'Magic link email sent successfully (test mode).',
+        return: {
+          envelope: { from: 'no-reply@opensea.com', to: [toEmail] },
+          messageId: `<test-${Date.now()}@opensea.com>`,
+          accepted: [toEmail],
+          rejected: [],
+          pending: [],
+          response: '250 Message accepted for delivery (test mode)',
+        },
+      };
+    }
+
+    try {
+      if (env.NODE_ENV === 'production') {
+        await this.transporter.verify();
+      }
+
+      const sentInformation = await this.transporter.sendMail({
+        from: '"OpenSea" <no-reply@opensea.com>',
+        to: toEmail,
+        subject: 'Seu link de acesso',
+        html: `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+            <h2 style="color: #333; margin-bottom: 16px;">Acesso ao sistema</h2>
+            <p style="color: #555; font-size: 16px; line-height: 1.5;">
+              Clique no botão abaixo para acessar sua conta. Este link é válido por ${expiresInMinutes} minutos.
+            </p>
+            <div style="text-align: center; margin: 32px 0;">
+              <a href="${magicLinkUrl}"
+                 style="display: inline-block; background-color: #7c3aed; color: #ffffff; text-decoration: none; padding: 14px 32px; border-radius: 8px; font-size: 16px; font-weight: 600;">
+                Acessar minha conta
+              </a>
+            </div>
+            <p style="color: #888; font-size: 14px; line-height: 1.5;">
+              Se você não solicitou este link, ignore este e-mail.
+            </p>
+            <hr style="border: none; border-top: 1px solid #eee; margin: 24px 0;" />
+            <p style="color: #aaa; font-size: 12px;">
+              Caso o botão não funcione, copie e cole o link abaixo no seu navegador:<br/>
+              <a href="${magicLinkUrl}" style="color: #7c3aed; word-break: break-all;">${magicLinkUrl}</a>
+            </p>
+          </div>
+        `,
+      });
+
+      return {
+        success: true,
+        message: 'Magic link email sent successfully.',
+        return: sentInformation,
+      };
+    } catch (error) {
+      if (env.NODE_ENV === 'dev') {
+        console.warn(
+          '⚠️  SMTP not configured. Magic link email would be sent in production:',
+          toEmail,
+        );
+        return {
+          success: true,
+          message: 'Magic link email sent successfully (dev mode - no SMTP).',
+          return: {
+            envelope: { from: 'no-reply@opensea.com', to: [toEmail] },
+            messageId: `<dev-${Date.now()}@opensea.com>`,
+            accepted: [toEmail],
+            rejected: [],
+            pending: [],
+            response: '250 Message accepted for delivery (dev mode)',
+          },
+        };
+      }
+
+      return {
+        success: false,
+        message: 'Failed to send magic link email.',
+        return: error,
+      };
+    }
+  }
 }
