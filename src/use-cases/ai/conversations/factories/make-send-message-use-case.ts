@@ -7,6 +7,7 @@ import { makeToolRegistry } from '@/services/ai-tools/make-tool-registry';
 import { ToolUseCaseFactory } from '@/services/ai-tools/tool-use-case-factory';
 import { ToolExecutor } from '@/services/ai-tools/tool-executor';
 import { makeKnowledgeRegistry } from '@/services/ai-tools/knowledge/make-knowledge-registry';
+import { makeDocsRegistry } from '@/services/ai-tools/knowledge/make-docs-registry';
 import { SendMessageUseCase } from '../send-message';
 
 export function makeSendMessageUseCase() {
@@ -19,6 +20,7 @@ export function makeSendMessageUseCase() {
   const toolFactory = new ToolUseCaseFactory();
   const toolExecutor = new ToolExecutor(toolRegistry, toolFactory);
   const knowledgeRegistry = makeKnowledgeRegistry();
+  const docsRegistry = makeDocsRegistry();
   return new SendMessageUseCase(
     conversationsRepository,
     messagesRepository,
@@ -28,5 +30,6 @@ export function makeSendMessageUseCase() {
     toolExecutor,
     knowledgeRegistry,
     actionLogsRepository,
+    docsRegistry,
   );
 }

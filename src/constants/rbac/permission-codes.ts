@@ -631,6 +631,13 @@ export const PermissionCodes = {
       REMOVE: 'sales.lead-routing.remove' as const,
       ADMIN: 'sales.lead-routing.admin' as const,
     },
+    // --- Integrations Hub ---
+    INTEGRATIONS: {
+      ACCESS: 'sales.integrations.access' as const,
+      REGISTER: 'sales.integrations.register' as const,
+      MODIFY: 'sales.integrations.modify' as const,
+      ADMIN: 'sales.integrations.admin' as const,
+    },
     // --- PDV ---
     POS: {
       ACCESS: 'sales.pos.access' as const,

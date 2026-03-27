@@ -10,6 +10,7 @@ import { moduleLoadStart } from './startup-banner';
 import { getWorkflowScheduler } from './services/ai-workflows/workflow-scheduler';
 import { getInsightScheduler } from './services/ai-insights/insight-scheduler';
 import { getFinanceScheduler } from './services/finance/finance-scheduler';
+import { BusinessSnapshotService } from './services/ai-tools/business-snapshot.service';
 
 let isShuttingDown = false;
 const SHUTDOWN_TIMEOUT_MS = 15_000;

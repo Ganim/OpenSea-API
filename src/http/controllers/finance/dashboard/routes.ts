@@ -9,6 +9,7 @@ import { getFinanceOverviewController } from './v1-get-finance-overview.controll
 import { detectAnomaliesController } from './v1-detect-anomalies.controller';
 import { getPredictiveCashflowController } from './v1-get-predictive-cashflow.controller';
 import { getPaymentTimingController } from './v1-get-payment-timing.controller';
+import { getCashflowAccuracyController } from './v1-get-cashflow-accuracy.controller';
 
 export async function financeDashboardRoutes(app: FastifyInstance) {
   app.addHook('preHandler', createModuleMiddleware('FINANCE'));
@@ -21,4 +22,5 @@ export async function financeDashboardRoutes(app: FastifyInstance) {
   app.register(detectAnomaliesController);
   app.register(getPredictiveCashflowController);
   app.register(getPaymentTimingController);
+  app.register(getCashflowAccuracyController);
 }

@@ -9,6 +9,8 @@ import type {
   StatusFlow,
 } from './module-knowledge.interface';
 import type { KnowledgeRegistry } from './knowledge-registry';
+import type { DocEntry } from './docs-registry';
+import type { TenantSnapshot } from '../business-snapshot.service';
 
 /**
  * Configuration for how much knowledge to include in the prompt.
@@ -104,6 +106,10 @@ export class KnowledgePromptBuilder {
     registry: KnowledgeRegistry,
     userMessage: string,
     userPermissions: string[],
+    options?: {
+      docs?: DocEntry[];
+      snapshot?: TenantSnapshot;
+    },
   ): string {
     // 1. Get modules the user has access to
     const accessibleModules = registry.getRelevantModules(userPermissions);
@@ -162,6 +168,16 @@ export class KnowledgePromptBuilder {
     if (matchingQueries.length > 0) {
       const top = matchingQueries.slice(0, 3);
       sections.push(this.buildQueryStrategySection(top));
+    }
+
+    // Add operational docs if provided
+    if (options?.docs && options.docs.length > 0) {
+      sections.push(this.buildDocsSection(options.docs));
+    }
+
+    // Add business snapshot if provided
+    if (options?.snapshot) {
+      sections.push(this.buildSnapshotSection(options.snapshot));
     }
 
     // Add behavior instructions
@@ -414,6 +430,56 @@ export class KnowledgePromptBuilder {
     }
 
     return lines.join('\n');
+  }
+
+  buildDocsSection(docs: DocEntry[]): string {
+    if (docs.length === 0) return '';
+
+    const sections = docs.map((d) => {
+      const nav = d.navPath ? `\n**Navegacao:** ${d.navPath}` : '';
+      return `#### ${d.title}${nav}\n${d.content}`;
+    });
+
+    return `### Documentacao Relevante\n\n${sections.join('\n\n---\n\n')}`;
+  }
+
+  buildSnapshotSection(snapshot: TenantSnapshot): string {
+    const parts: string[] = ['### Contexto do Negocio (dados reais)'];
+    const m = snapshot.modules;
+
+    if (m.stock) {
+      parts.push(
+        `**Estoque:** ${m.stock.totalProducts} produtos (${m.stock.activeProducts} ativos), ${m.stock.lowStockCount} com estoque baixo, ${m.stock.totalCategories} categorias, ${m.stock.recentMovements} movimentacoes nos ultimos 7 dias`,
+      );
+    }
+
+    if (m.finance) {
+      parts.push(
+        `**Financeiro:** R$ ${m.finance.totalReceivable.toLocaleString('pt-BR')} a receber, R$ ${m.finance.totalPayable.toLocaleString('pt-BR')} a pagar, ${m.finance.overdueCount} vencidos, receita do mes: R$ ${m.finance.monthRevenue.toLocaleString('pt-BR')}, despesas do mes: R$ ${m.finance.monthExpenses.toLocaleString('pt-BR')}`,
+      );
+    }
+
+    if (m.hr) {
+      parts.push(
+        `**RH:** ${m.hr.totalEmployees} funcionarios (${m.hr.activeCount} ativos), ${m.hr.onVacation} em ferias, ${m.hr.departmentCount} departamentos`,
+      );
+    }
+
+    if (m.sales) {
+      parts.push(
+        `**Vendas:** ${m.sales.totalOrders} pedidos total, ${m.sales.monthOrders} este mes, receita do mes: R$ ${m.sales.monthRevenue.toLocaleString('pt-BR')}, ${m.sales.openOrders} pedidos abertos, ${m.sales.totalCustomers} clientes`,
+      );
+    }
+
+    if (parts.length === 1) {
+      return ''; // No module data available
+    }
+
+    parts.push(
+      `\n*Dados atualizados em ${new Date(snapshot.generatedAt).toLocaleString('pt-BR')}. Use a ferramenta atlas_refresh_snapshot para dados em tempo real.*`,
+    );
+
+    return parts.join('\n');
   }
 
   private buildBehaviorInstructions(): string {

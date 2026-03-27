@@ -10,6 +10,18 @@ export {
   clearKnowledgeRegistryCache,
 } from './knowledge/make-knowledge-registry';
 export type { ModuleKnowledge } from './knowledge/module-knowledge.interface';
+export { DocsRegistry } from './knowledge/docs-registry';
+export type { DocEntry } from './knowledge/docs-registry';
+export {
+  makeDocsRegistry,
+  clearDocsRegistryCache,
+} from './knowledge/make-docs-registry';
+export { BusinessSnapshotService } from './business-snapshot.service';
+export type {
+  TenantSnapshot,
+  ModuleSnapshot,
+} from './business-snapshot.service';
+export { PermissionAwareQueryBuilder } from './permission-query-builder';
 export {
   buildPendingAction,
   getToolDisplayName,

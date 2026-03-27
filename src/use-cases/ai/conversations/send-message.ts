@@ -16,6 +16,8 @@ import type {
 import { AGENTIC_LOOP_MAX_ITERATIONS } from '@/services/ai-tools/tool-types';
 import type { KnowledgeRegistry } from '@/services/ai-tools/knowledge/knowledge-registry';
 import { KnowledgePromptBuilder } from '@/services/ai-tools/knowledge/knowledge-prompt-builder';
+import type { DocsRegistry } from '@/services/ai-tools/knowledge/docs-registry';
+import { BusinessSnapshotService } from '@/services/ai-tools/business-snapshot.service';
 import {
   buildPendingAction,
   getToolDisplayName,
@@ -71,7 +73,10 @@ export class SendMessageUseCase {
     private toolExecutor: ToolExecutor,
     private knowledgeRegistry: KnowledgeRegistry,
     private actionLogsRepository: AiActionLogsRepository,
+    private docsRegistry?: DocsRegistry,
   ) {}
+
+  private snapshotService = new BusinessSnapshotService();
 
   async execute(request: SendMessageRequest) {
     let conversationId = request.conversationId;
@@ -162,26 +167,84 @@ export class SendMessageUseCase {
           PERSONALITY_PROMPTS.PROFESSIONAL);
 
     const systemPromptParts = [
-      `Seu nome é ${assistantName}.`,
-      personalityPrompt,
+      `Seu nome é ${assistantName}. ${personalityPrompt}`,
       `Responda sempre em ${language}.`,
-      'Você faz parte de um sistema ERP chamado OpenSea.',
-      'Ajude o usuário com questões relacionadas ao gerenciamento do negócio.',
+      '',
+      'Você é o assistente inteligente do OpenSea ERP. Você pode responder QUALQUER pergunta sobre o sistema e o negócio do usuário.',
+      '',
+      'CAPACIDADES:',
+      '- Responder perguntas sobre qualquer módulo do sistema (Estoque, Financeiro, RH, Vendas, Ferramentas)',
+      '- Ensinar o usuário a usar funcionalidades com passo a passo detalhado',
+      '- Diagnosticar problemas, erros e limitações do sistema',
+      '- Consultar dados reais do negócio usando ferramentas de busca e KPIs',
+      '- Executar ações (criar, modificar, deletar) quando solicitado',
+      '- Cruzar informações entre módulos para análises complexas',
+      '',
+      'REGRAS DE PERMISSAO (CRITICO — NUNCA VIOLE):',
+      '- Você SÓ pode consultar e mostrar dados de módulos que o usuário tem permissão',
+      '- Se uma pergunta exige dados de um módulo sem permissão, informe EXATAMENTE quais permissões faltam',
+      '- NUNCA invente dados — se não tem a informação, use as ferramentas para buscar',
+      '- NUNCA assuma que o usuário tem acesso a algo — as ferramentas validam automaticamente',
+      '- Se a ferramenta retornar "missingPermissions", repasse ao usuário de forma clara',
+      '',
+      'QUANDO O USUARIO PERGUNTA "COMO FAZER X":',
+      '- Use a documentação interna fornecida abaixo para dar um passo a passo PRECISO e ATUALIZADO',
+      '- Inclua o caminho de navegação no sistema (ex: Menu > Estoque > Produtos > Novo)',
+      '- Se houver pré-requisitos, mencione-os ANTES dos passos',
+      '- Se houver erros comuns, mencione-os ao final',
+      '',
+      'QUANDO O USUARIO RELATA UM PROBLEMA:',
+      '- Consulte a seção de troubleshooting da documentação',
+      '- Verifique se o problema é de: permissão, configuração, dados incorretos, ou limitação do sistema',
+      '- Sugira solução passo a passo, da causa mais provável para a menos provável',
+      '- Se for limitação conhecida, informe claramente',
+      '',
+      'QUANDO O USUARIO PEDE DADOS OU ANALISES:',
+      '- Use atlas_get_business_kpis para métricas gerais',
+      '- Use atlas_search_entities para buscar entidades específicas',
+      '- Use atlas_cross_module_query para cruzamentos entre módulos',
+      '- Use atlas_refresh_snapshot se o usuário pedir dados atualizados',
+      '- Apresente resultados com formatação markdown (tabelas, negrito para números)',
+      '',
       'Quando uma ferramenta requer confirmação, NÃO chame confirm_pending_action automaticamente. Apenas apresente os dados ao usuário e aguarde a resposta dele.',
     ];
+
+    // Fetch relevant operational docs
+    const relevantDocs = this.docsRegistry
+      ? this.docsRegistry.findRelevantDocs(
+          request.content,
+          request.userPermissions ?? [],
+        )
+      : [];
+
+    // Fetch business snapshot (cached, fast)
+    let filteredSnapshot = undefined;
+    try {
+      const snapshot = await this.snapshotService.getOrGenerate(request.tenantId);
+      filteredSnapshot = this.snapshotService.filterByPermissions(
+        snapshot,
+        request.userPermissions ?? [],
+      );
+    } catch {
+      // Non-critical: snapshot failure should not block conversation
+    }
 
     // Build contextual knowledge prompt from module knowledge system
     const knowledgePrompt = this.knowledgePromptBuilder.buildContextualPrompt(
       this.knowledgeRegistry,
       request.content,
       request.userPermissions ?? [],
+      {
+        docs: relevantDocs,
+        snapshot: filteredSnapshot,
+      },
     );
 
     if (knowledgePrompt) {
       systemPromptParts.push(knowledgePrompt);
     }
 
-    const systemPrompt = systemPromptParts.join(' ');
+    const systemPrompt = systemPromptParts.join('\n');
 
     // Build message history for context
     const recentMessages = await this.messagesRepository.findMany({

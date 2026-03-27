@@ -1321,6 +1321,43 @@ export const SALES_AUDIT_MESSAGES = {
     description:
       "Lead do cliente '{{customerName}}' roteado para {{assignedUser}} via regra '{{ruleName}}' ({{strategy}})",
   } satisfies AuditMessage,
+
+  // ============================================================================
+  // INTEGRATIONS - Marketplace Hub
+  // ============================================================================
+
+  /** Integration connected */
+  INTEGRATION_CONNECT: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.TENANT_INTEGRATION,
+    module: AuditModule.SALES,
+    description: '{{userName}} conectou a integração {{integrationName}}',
+  } satisfies AuditMessage,
+
+  /** Integration disconnected */
+  INTEGRATION_DISCONNECT: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.TENANT_INTEGRATION,
+    module: AuditModule.SALES,
+    description: '{{userName}} desconectou a integração {{integrationName}}',
+  } satisfies AuditMessage,
+
+  /** Integration config updated */
+  INTEGRATION_CONFIG_UPDATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.TENANT_INTEGRATION,
+    module: AuditModule.SALES,
+    description:
+      '{{userName}} atualizou a configuração da integração {{integrationName}}',
+  } satisfies AuditMessage,
+
+  /** Integration synced */
+  INTEGRATION_SYNC: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.TENANT_INTEGRATION,
+    module: AuditModule.SALES,
+    description: '{{userName}} sincronizou a integração {{integrationName}}',
+  } satisfies AuditMessage,
 } as const;
 
 export type SalesAuditMessageKey = keyof typeof SALES_AUDIT_MESSAGES;

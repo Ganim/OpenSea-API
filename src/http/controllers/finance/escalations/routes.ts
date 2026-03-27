@@ -9,6 +9,7 @@ import { deleteOverdueEscalationController } from './v1-delete-overdue-escalatio
 import { processOverdueEscalationsController } from './v1-process-overdue-escalations.controller';
 import { getCustomerScoreController } from './v1-get-customer-score.controller';
 import { getEntryEscalationHistoryController } from './v1-get-entry-escalation-history.controller';
+import { getEscalationTimelineController } from './v1-get-escalation-timeline.controller';
 
 export async function financeEscalationsRoutes(app: FastifyInstance) {
   app.addHook('preHandler', createModuleMiddleware('FINANCE'));
@@ -21,4 +22,5 @@ export async function financeEscalationsRoutes(app: FastifyInstance) {
   app.register(processOverdueEscalationsController);
   app.register(getCustomerScoreController);
   app.register(getEntryEscalationHistoryController);
+  app.register(getEscalationTimelineController);
 }

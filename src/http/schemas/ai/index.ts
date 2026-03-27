@@ -6,3 +6,4 @@ export * from './action.schema';
 export * from './content.schema';
 export * from './workflow.schema';
 export * from './campaign.schema';
+export * from './finance-query.schema';

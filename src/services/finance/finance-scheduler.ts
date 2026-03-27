@@ -3,6 +3,8 @@ import { logger } from '@/lib/logger';
 import { makeProcessOverdueEscalationsUseCase } from '@/use-cases/finance/escalations/factories/make-process-overdue-escalations-use-case';
 import { makeGenerateRecurringBatchUseCase } from '@/use-cases/finance/recurring/factories/make-generate-recurring-batch';
 import { makeSyncBankTransactionsUseCase } from '@/use-cases/finance/bank-connections/factories/make-sync-bank-transactions-use-case';
+import { PrismaCashflowSnapshotsRepository } from '@/repositories/finance/prisma/prisma-cashflow-snapshots-repository';
+import { makeGetPredictiveCashflowUseCase } from '@/use-cases/finance/dashboard/factories/make-get-predictive-cashflow-use-case';
 
 const LOG_PREFIX = '[FinanceScheduler]';
 
@@ -40,6 +42,7 @@ interface ScheduledJob {
  * 1. Process Overdue Escalations — daily at ~08:00
  * 2. Generate Recurring Entries   — daily at ~06:00
  * 3. Sync Bank Transactions       — every 4 hours
+ * 4. Save Cashflow Snapshots      — daily at ~23:00
  */
 export class FinanceScheduler {
   private intervalId: ReturnType<typeof setInterval> | null = null;
@@ -68,6 +71,13 @@ export class FinanceScheduler {
         intervalMs: FOUR_HOURS_MS,
         lastRunAt: 0,
         execute: this.syncBankTransactions.bind(this),
+      },
+      {
+        name: 'save-cashflow-snapshots',
+        targetHour: 23,
+        intervalMs: TWENTY_FOUR_HOURS_MS,
+        lastRunAt: 0,
+        execute: this.saveCashflowSnapshots.bind(this),
       },
     ];
   }
@@ -345,6 +355,120 @@ export class FinanceScheduler {
     logger.info(
       { totalConnections: activeConnections.length, synced, failed },
       `${LOG_PREFIX} [sync-bank-transactions] Batch complete`,
+    );
+  }
+
+  /**
+   * Save cashflow snapshots for all active tenants.
+   * For each tenant:
+   * 1. Get today's predictive cashflow forecast → save as predicted values
+   * 2. Calculate today's actual inflow/outflow from realized entries → update snapshot
+   */
+  private async saveCashflowSnapshots(): Promise<void> {
+    const activeTenantIds = await this.getActiveTenantIds();
+
+    if (activeTenantIds.length === 0) {
+      logger.info(
+        `${LOG_PREFIX} [save-cashflow-snapshots] No active tenants`,
+      );
+      return;
+    }
+
+    const snapshotsRepository = new PrismaCashflowSnapshotsRepository();
+    const predictiveUseCase = makeGetPredictiveCashflowUseCase();
+
+    const today = new Date();
+    today.setUTCHours(0, 0, 0, 0);
+
+    const todayStr = today.toISOString().split('T')[0];
+
+    let savedCount = 0;
+    let tenantsWithErrors = 0;
+
+    for (const tenantId of activeTenantIds) {
+      try {
+        // 1. Get predicted values from the predictive cashflow engine
+        const predictiveReport = await predictiveUseCase.execute({
+          tenantId,
+          months: 1,
+        });
+
+        const todayProjection = predictiveReport.dailyProjection.find(
+          (dp) => dp.date === todayStr,
+        );
+
+        // Use daily averages from first projected month as fallback
+        const firstMonth = predictiveReport.projectedMonths[0];
+        const daysInMonth = 30;
+        const predictedDailyInflow = firstMonth
+          ? firstMonth.projectedRevenue / daysInMonth
+          : 0;
+        const predictedDailyOutflow = firstMonth
+          ? firstMonth.projectedExpenses / daysInMonth
+          : 0;
+
+        const predictedInflow = todayProjection
+          ? predictedDailyInflow
+          : predictedDailyInflow;
+        const predictedOutflow = todayProjection
+          ? predictedDailyOutflow
+          : predictedDailyOutflow;
+
+        // 2. Calculate actual inflow/outflow from realized entries today
+        const todayStart = new Date(today);
+        const todayEnd = new Date(today);
+        todayEnd.setUTCHours(23, 59, 59, 999);
+
+        const [actualInflowData, actualOutflowData] = await Promise.all([
+          prisma.financeEntry.aggregate({
+            where: {
+              tenantId,
+              type: 'RECEIVABLE',
+              status: { in: ['PAID', 'RECEIVED'] },
+              paidDate: { gte: todayStart, lte: todayEnd },
+            },
+            _sum: { paidAmount: true },
+          }),
+          prisma.financeEntry.aggregate({
+            where: {
+              tenantId,
+              type: 'PAYABLE',
+              status: { in: ['PAID', 'RECEIVED'] },
+              paidDate: { gte: todayStart, lte: todayEnd },
+            },
+            _sum: { paidAmount: true },
+          }),
+        ]);
+
+        const actualInflow = Number(actualInflowData._sum.paidAmount ?? 0);
+        const actualOutflow = Number(actualOutflowData._sum.paidAmount ?? 0);
+
+        await snapshotsRepository.upsert({
+          tenantId,
+          date: today,
+          predictedInflow: Math.round(predictedInflow * 100) / 100,
+          predictedOutflow: Math.round(predictedOutflow * 100) / 100,
+          actualInflow,
+          actualOutflow,
+        });
+
+        savedCount++;
+      } catch (tenantError) {
+        tenantsWithErrors++;
+        logger.error(
+          { tenantId, error: tenantError },
+          `${LOG_PREFIX} [save-cashflow-snapshots] Tenant failed`,
+        );
+      }
+    }
+
+    logger.info(
+      {
+        tenantsProcessed: activeTenantIds.length,
+        savedCount,
+        tenantsWithErrors,
+      },
+      `${LOG_PREFIX} [save-cashflow-snapshots] Batch complete`,
     );
   }
 

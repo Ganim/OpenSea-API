@@ -10,6 +10,7 @@ export interface ConversationProps {
   status: 'OPEN' | 'CLOSED' | 'ARCHIVED';
   lastMessageAt?: Date;
   createdBy: string;
+  overallSentiment?: string;
   isActive: boolean;
   createdAt: Date;
   updatedAt?: Date;
@@ -60,6 +61,15 @@ export class Conversation extends Entity<ConversationProps> {
     return this.props.createdBy;
   }
 
+  get overallSentiment(): string | undefined {
+    return this.props.overallSentiment;
+  }
+
+  set overallSentiment(value: string | undefined) {
+    this.props.overallSentiment = value;
+    this.touch();
+  }
+
   get isActive(): boolean {
     return this.props.isActive;
   }
@@ -106,7 +116,10 @@ export class Conversation extends Entity<ConversationProps> {
   }
 
   static create(
-    props: Optional<ConversationProps, 'id' | 'isActive' | 'createdAt' | 'status'>,
+    props: Optional<
+      ConversationProps,
+      'id' | 'isActive' | 'createdAt' | 'status'
+    >,
     id?: UniqueEntityID,
   ): Conversation {
     const conversation = new Conversation(

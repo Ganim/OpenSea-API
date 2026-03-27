@@ -9,6 +9,7 @@ export interface ConversationMessageProps {
   senderName: string;
   senderType: string;
   content: string;
+  sentiment?: string;
   readAt?: Date;
   createdAt: Date;
 }
@@ -38,6 +39,14 @@ export class ConversationMessage extends Entity<ConversationMessageProps> {
     return this.props.content;
   }
 
+  get sentiment(): string | undefined {
+    return this.props.sentiment;
+  }
+
+  set sentiment(value: string | undefined) {
+    this.props.sentiment = value;
+  }
+
   get readAt(): Date | undefined {
     return this.props.readAt;
   }
@@ -55,7 +64,10 @@ export class ConversationMessage extends Entity<ConversationMessageProps> {
   }
 
   static create(
-    props: Optional<ConversationMessageProps, 'id' | 'createdAt' | 'senderType'>,
+    props: Optional<
+      ConversationMessageProps,
+      'id' | 'createdAt' | 'senderType'
+    >,
     id?: UniqueEntityID,
   ): ConversationMessage {
     const message = new ConversationMessage(

@@ -22,3 +22,4 @@ export * from './deals';
 export * from './marketplaces';
 export * from './pos';
 export * from './timeline';
+export * from './blueprints';

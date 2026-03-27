@@ -386,6 +386,7 @@ export type CustomerWhereInput = {
   quotes?: Prisma.QuoteListRelationFilter
   proposals?: Prisma.ProposalListRelationFilter
   conversations?: Prisma.ConversationListRelationFilter
+  leadScores?: Prisma.LeadScoreListRelationFilter
   assignedTo?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   contacts?: Prisma.ContactListRelationFilter
   deals?: Prisma.DealListRelationFilter
@@ -443,6 +444,7 @@ export type CustomerOrderByWithRelationInput = {
   quotes?: Prisma.QuoteOrderByRelationAggregateInput
   proposals?: Prisma.ProposalOrderByRelationAggregateInput
   conversations?: Prisma.ConversationOrderByRelationAggregateInput
+  leadScores?: Prisma.LeadScoreOrderByRelationAggregateInput
   assignedTo?: Prisma.UserOrderByWithRelationInput
   contacts?: Prisma.ContactOrderByRelationAggregateInput
   deals?: Prisma.DealOrderByRelationAggregateInput
@@ -504,6 +506,7 @@ export type CustomerWhereUniqueInput = Prisma.AtLeast<{
   quotes?: Prisma.QuoteListRelationFilter
   proposals?: Prisma.ProposalListRelationFilter
   conversations?: Prisma.ConversationListRelationFilter
+  leadScores?: Prisma.LeadScoreListRelationFilter
   assignedTo?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   contacts?: Prisma.ContactListRelationFilter
   deals?: Prisma.DealListRelationFilter
@@ -629,6 +632,7 @@ export type CustomerCreateInput = {
   quotes?: Prisma.QuoteCreateNestedManyWithoutCustomerInput
   proposals?: Prisma.ProposalCreateNestedManyWithoutCustomerInput
   conversations?: Prisma.ConversationCreateNestedManyWithoutCustomerInput
+  leadScores?: Prisma.LeadScoreCreateNestedManyWithoutCustomerInput
   assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedCustomersInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealCreateNestedManyWithoutCustomerInput
@@ -685,6 +689,7 @@ export type CustomerUncheckedCreateInput = {
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCustomerInput
   proposals?: Prisma.ProposalUncheckedCreateNestedManyWithoutCustomerInput
   conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutCustomerInput
+  leadScores?: Prisma.LeadScoreUncheckedCreateNestedManyWithoutCustomerInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealUncheckedCreateNestedManyWithoutCustomerInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCustomerInput
@@ -739,6 +744,7 @@ export type CustomerUpdateInput = {
   quotes?: Prisma.QuoteUpdateManyWithoutCustomerNestedInput
   proposals?: Prisma.ProposalUpdateManyWithoutCustomerNestedInput
   conversations?: Prisma.ConversationUpdateManyWithoutCustomerNestedInput
+  leadScores?: Prisma.LeadScoreUpdateManyWithoutCustomerNestedInput
   assignedTo?: Prisma.UserUpdateOneWithoutAssignedCustomersNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUpdateManyWithoutCustomerNestedInput
@@ -795,6 +801,7 @@ export type CustomerUncheckedUpdateInput = {
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCustomerNestedInput
   proposals?: Prisma.ProposalUncheckedUpdateManyWithoutCustomerNestedInput
   conversations?: Prisma.ConversationUncheckedUpdateManyWithoutCustomerNestedInput
+  leadScores?: Prisma.LeadScoreUncheckedUpdateManyWithoutCustomerNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUncheckedUpdateManyWithoutCustomerNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCustomerNestedInput
@@ -1450,6 +1457,20 @@ export type CustomerUpdateOneRequiredWithoutConversationsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CustomerUpdateToOneWithWhereWithoutConversationsInput, Prisma.CustomerUpdateWithoutConversationsInput>, Prisma.CustomerUncheckedUpdateWithoutConversationsInput>
 }
 
+export type CustomerCreateNestedOneWithoutLeadScoresInput = {
+  create?: Prisma.XOR<Prisma.CustomerCreateWithoutLeadScoresInput, Prisma.CustomerUncheckedCreateWithoutLeadScoresInput>
+  connectOrCreate?: Prisma.CustomerCreateOrConnectWithoutLeadScoresInput
+  connect?: Prisma.CustomerWhereUniqueInput
+}
+
+export type CustomerUpdateOneRequiredWithoutLeadScoresNestedInput = {
+  create?: Prisma.XOR<Prisma.CustomerCreateWithoutLeadScoresInput, Prisma.CustomerUncheckedCreateWithoutLeadScoresInput>
+  connectOrCreate?: Prisma.CustomerCreateOrConnectWithoutLeadScoresInput
+  upsert?: Prisma.CustomerUpsertWithoutLeadScoresInput
+  connect?: Prisma.CustomerWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CustomerUpdateToOneWithWhereWithoutLeadScoresInput, Prisma.CustomerUpdateWithoutLeadScoresInput>, Prisma.CustomerUncheckedUpdateWithoutLeadScoresInput>
+}
+
 export type CustomerCreateWithoutAssignedToInput = {
   id?: string
   name: string
@@ -1498,6 +1519,7 @@ export type CustomerCreateWithoutAssignedToInput = {
   quotes?: Prisma.QuoteCreateNestedManyWithoutCustomerInput
   proposals?: Prisma.ProposalCreateNestedManyWithoutCustomerInput
   conversations?: Prisma.ConversationCreateNestedManyWithoutCustomerInput
+  leadScores?: Prisma.LeadScoreCreateNestedManyWithoutCustomerInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealCreateNestedManyWithoutCustomerInput
   activities?: Prisma.ActivityCreateNestedManyWithoutCustomerInput
@@ -1552,6 +1574,7 @@ export type CustomerUncheckedCreateWithoutAssignedToInput = {
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCustomerInput
   proposals?: Prisma.ProposalUncheckedCreateNestedManyWithoutCustomerInput
   conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutCustomerInput
+  leadScores?: Prisma.LeadScoreUncheckedCreateNestedManyWithoutCustomerInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealUncheckedCreateNestedManyWithoutCustomerInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCustomerInput
@@ -1666,6 +1689,7 @@ export type CustomerCreateWithoutSalesOrdersInput = {
   quotes?: Prisma.QuoteCreateNestedManyWithoutCustomerInput
   proposals?: Prisma.ProposalCreateNestedManyWithoutCustomerInput
   conversations?: Prisma.ConversationCreateNestedManyWithoutCustomerInput
+  leadScores?: Prisma.LeadScoreCreateNestedManyWithoutCustomerInput
   assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedCustomersInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealCreateNestedManyWithoutCustomerInput
@@ -1721,6 +1745,7 @@ export type CustomerUncheckedCreateWithoutSalesOrdersInput = {
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCustomerInput
   proposals?: Prisma.ProposalUncheckedCreateNestedManyWithoutCustomerInput
   conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutCustomerInput
+  leadScores?: Prisma.LeadScoreUncheckedCreateNestedManyWithoutCustomerInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealUncheckedCreateNestedManyWithoutCustomerInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCustomerInput
@@ -1790,6 +1815,7 @@ export type CustomerUpdateWithoutSalesOrdersInput = {
   quotes?: Prisma.QuoteUpdateManyWithoutCustomerNestedInput
   proposals?: Prisma.ProposalUpdateManyWithoutCustomerNestedInput
   conversations?: Prisma.ConversationUpdateManyWithoutCustomerNestedInput
+  leadScores?: Prisma.LeadScoreUpdateManyWithoutCustomerNestedInput
   assignedTo?: Prisma.UserUpdateOneWithoutAssignedCustomersNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUpdateManyWithoutCustomerNestedInput
@@ -1845,6 +1871,7 @@ export type CustomerUncheckedUpdateWithoutSalesOrdersInput = {
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCustomerNestedInput
   proposals?: Prisma.ProposalUncheckedUpdateManyWithoutCustomerNestedInput
   conversations?: Prisma.ConversationUncheckedUpdateManyWithoutCustomerNestedInput
+  leadScores?: Prisma.LeadScoreUncheckedUpdateManyWithoutCustomerNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUncheckedUpdateManyWithoutCustomerNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCustomerNestedInput
@@ -1898,6 +1925,7 @@ export type CustomerCreateWithoutCrmContactsInput = {
   quotes?: Prisma.QuoteCreateNestedManyWithoutCustomerInput
   proposals?: Prisma.ProposalCreateNestedManyWithoutCustomerInput
   conversations?: Prisma.ConversationCreateNestedManyWithoutCustomerInput
+  leadScores?: Prisma.LeadScoreCreateNestedManyWithoutCustomerInput
   assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedCustomersInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealCreateNestedManyWithoutCustomerInput
@@ -1953,6 +1981,7 @@ export type CustomerUncheckedCreateWithoutCrmContactsInput = {
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCustomerInput
   proposals?: Prisma.ProposalUncheckedCreateNestedManyWithoutCustomerInput
   conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutCustomerInput
+  leadScores?: Prisma.LeadScoreUncheckedCreateNestedManyWithoutCustomerInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealUncheckedCreateNestedManyWithoutCustomerInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCustomerInput
@@ -2022,6 +2051,7 @@ export type CustomerUpdateWithoutCrmContactsInput = {
   quotes?: Prisma.QuoteUpdateManyWithoutCustomerNestedInput
   proposals?: Prisma.ProposalUpdateManyWithoutCustomerNestedInput
   conversations?: Prisma.ConversationUpdateManyWithoutCustomerNestedInput
+  leadScores?: Prisma.LeadScoreUpdateManyWithoutCustomerNestedInput
   assignedTo?: Prisma.UserUpdateOneWithoutAssignedCustomersNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUpdateManyWithoutCustomerNestedInput
@@ -2077,6 +2107,7 @@ export type CustomerUncheckedUpdateWithoutCrmContactsInput = {
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCustomerNestedInput
   proposals?: Prisma.ProposalUncheckedUpdateManyWithoutCustomerNestedInput
   conversations?: Prisma.ConversationUncheckedUpdateManyWithoutCustomerNestedInput
+  leadScores?: Prisma.LeadScoreUncheckedUpdateManyWithoutCustomerNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUncheckedUpdateManyWithoutCustomerNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCustomerNestedInput
@@ -2130,6 +2161,7 @@ export type CustomerCreateWithoutCrmDealsInput = {
   quotes?: Prisma.QuoteCreateNestedManyWithoutCustomerInput
   proposals?: Prisma.ProposalCreateNestedManyWithoutCustomerInput
   conversations?: Prisma.ConversationCreateNestedManyWithoutCustomerInput
+  leadScores?: Prisma.LeadScoreCreateNestedManyWithoutCustomerInput
   assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedCustomersInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealCreateNestedManyWithoutCustomerInput
@@ -2185,6 +2217,7 @@ export type CustomerUncheckedCreateWithoutCrmDealsInput = {
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCustomerInput
   proposals?: Prisma.ProposalUncheckedCreateNestedManyWithoutCustomerInput
   conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutCustomerInput
+  leadScores?: Prisma.LeadScoreUncheckedCreateNestedManyWithoutCustomerInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealUncheckedCreateNestedManyWithoutCustomerInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCustomerInput
@@ -2254,6 +2287,7 @@ export type CustomerUpdateWithoutCrmDealsInput = {
   quotes?: Prisma.QuoteUpdateManyWithoutCustomerNestedInput
   proposals?: Prisma.ProposalUpdateManyWithoutCustomerNestedInput
   conversations?: Prisma.ConversationUpdateManyWithoutCustomerNestedInput
+  leadScores?: Prisma.LeadScoreUpdateManyWithoutCustomerNestedInput
   assignedTo?: Prisma.UserUpdateOneWithoutAssignedCustomersNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUpdateManyWithoutCustomerNestedInput
@@ -2309,6 +2343,7 @@ export type CustomerUncheckedUpdateWithoutCrmDealsInput = {
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCustomerNestedInput
   proposals?: Prisma.ProposalUncheckedUpdateManyWithoutCustomerNestedInput
   conversations?: Prisma.ConversationUncheckedUpdateManyWithoutCustomerNestedInput
+  leadScores?: Prisma.LeadScoreUncheckedUpdateManyWithoutCustomerNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUncheckedUpdateManyWithoutCustomerNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCustomerNestedInput
@@ -2363,6 +2398,7 @@ export type CustomerCreateWithoutContactsInput = {
   quotes?: Prisma.QuoteCreateNestedManyWithoutCustomerInput
   proposals?: Prisma.ProposalCreateNestedManyWithoutCustomerInput
   conversations?: Prisma.ConversationCreateNestedManyWithoutCustomerInput
+  leadScores?: Prisma.LeadScoreCreateNestedManyWithoutCustomerInput
   assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedCustomersInput
   deals?: Prisma.DealCreateNestedManyWithoutCustomerInput
   activities?: Prisma.ActivityCreateNestedManyWithoutCustomerInput
@@ -2418,6 +2454,7 @@ export type CustomerUncheckedCreateWithoutContactsInput = {
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCustomerInput
   proposals?: Prisma.ProposalUncheckedCreateNestedManyWithoutCustomerInput
   conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutCustomerInput
+  leadScores?: Prisma.LeadScoreUncheckedCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealUncheckedCreateNestedManyWithoutCustomerInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCustomerInput
   timelineEvents?: Prisma.TimelineEventUncheckedCreateNestedManyWithoutCustomerInput
@@ -2487,6 +2524,7 @@ export type CustomerUpdateWithoutContactsInput = {
   quotes?: Prisma.QuoteUpdateManyWithoutCustomerNestedInput
   proposals?: Prisma.ProposalUpdateManyWithoutCustomerNestedInput
   conversations?: Prisma.ConversationUpdateManyWithoutCustomerNestedInput
+  leadScores?: Prisma.LeadScoreUpdateManyWithoutCustomerNestedInput
   assignedTo?: Prisma.UserUpdateOneWithoutAssignedCustomersNestedInput
   deals?: Prisma.DealUpdateManyWithoutCustomerNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutCustomerNestedInput
@@ -2542,6 +2580,7 @@ export type CustomerUncheckedUpdateWithoutContactsInput = {
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCustomerNestedInput
   proposals?: Prisma.ProposalUncheckedUpdateManyWithoutCustomerNestedInput
   conversations?: Prisma.ConversationUncheckedUpdateManyWithoutCustomerNestedInput
+  leadScores?: Prisma.LeadScoreUncheckedUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUncheckedUpdateManyWithoutCustomerNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCustomerNestedInput
   timelineEvents?: Prisma.TimelineEventUncheckedUpdateManyWithoutCustomerNestedInput
@@ -2595,6 +2634,7 @@ export type CustomerCreateWithoutDealsInput = {
   quotes?: Prisma.QuoteCreateNestedManyWithoutCustomerInput
   proposals?: Prisma.ProposalCreateNestedManyWithoutCustomerInput
   conversations?: Prisma.ConversationCreateNestedManyWithoutCustomerInput
+  leadScores?: Prisma.LeadScoreCreateNestedManyWithoutCustomerInput
   assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedCustomersInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCustomerInput
   activities?: Prisma.ActivityCreateNestedManyWithoutCustomerInput
@@ -2650,6 +2690,7 @@ export type CustomerUncheckedCreateWithoutDealsInput = {
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCustomerInput
   proposals?: Prisma.ProposalUncheckedCreateNestedManyWithoutCustomerInput
   conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutCustomerInput
+  leadScores?: Prisma.LeadScoreUncheckedCreateNestedManyWithoutCustomerInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCustomerInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCustomerInput
   timelineEvents?: Prisma.TimelineEventUncheckedCreateNestedManyWithoutCustomerInput
@@ -2719,6 +2760,7 @@ export type CustomerUpdateWithoutDealsInput = {
   quotes?: Prisma.QuoteUpdateManyWithoutCustomerNestedInput
   proposals?: Prisma.ProposalUpdateManyWithoutCustomerNestedInput
   conversations?: Prisma.ConversationUpdateManyWithoutCustomerNestedInput
+  leadScores?: Prisma.LeadScoreUpdateManyWithoutCustomerNestedInput
   assignedTo?: Prisma.UserUpdateOneWithoutAssignedCustomersNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCustomerNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutCustomerNestedInput
@@ -2774,6 +2816,7 @@ export type CustomerUncheckedUpdateWithoutDealsInput = {
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCustomerNestedInput
   proposals?: Prisma.ProposalUncheckedUpdateManyWithoutCustomerNestedInput
   conversations?: Prisma.ConversationUncheckedUpdateManyWithoutCustomerNestedInput
+  leadScores?: Prisma.LeadScoreUncheckedUpdateManyWithoutCustomerNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCustomerNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCustomerNestedInput
   timelineEvents?: Prisma.TimelineEventUncheckedUpdateManyWithoutCustomerNestedInput
@@ -2827,6 +2870,7 @@ export type CustomerCreateWithoutActivitiesInput = {
   quotes?: Prisma.QuoteCreateNestedManyWithoutCustomerInput
   proposals?: Prisma.ProposalCreateNestedManyWithoutCustomerInput
   conversations?: Prisma.ConversationCreateNestedManyWithoutCustomerInput
+  leadScores?: Prisma.LeadScoreCreateNestedManyWithoutCustomerInput
   assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedCustomersInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealCreateNestedManyWithoutCustomerInput
@@ -2882,6 +2926,7 @@ export type CustomerUncheckedCreateWithoutActivitiesInput = {
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCustomerInput
   proposals?: Prisma.ProposalUncheckedCreateNestedManyWithoutCustomerInput
   conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutCustomerInput
+  leadScores?: Prisma.LeadScoreUncheckedCreateNestedManyWithoutCustomerInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealUncheckedCreateNestedManyWithoutCustomerInput
   timelineEvents?: Prisma.TimelineEventUncheckedCreateNestedManyWithoutCustomerInput
@@ -2951,6 +2996,7 @@ export type CustomerUpdateWithoutActivitiesInput = {
   quotes?: Prisma.QuoteUpdateManyWithoutCustomerNestedInput
   proposals?: Prisma.ProposalUpdateManyWithoutCustomerNestedInput
   conversations?: Prisma.ConversationUpdateManyWithoutCustomerNestedInput
+  leadScores?: Prisma.LeadScoreUpdateManyWithoutCustomerNestedInput
   assignedTo?: Prisma.UserUpdateOneWithoutAssignedCustomersNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUpdateManyWithoutCustomerNestedInput
@@ -3006,6 +3052,7 @@ export type CustomerUncheckedUpdateWithoutActivitiesInput = {
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCustomerNestedInput
   proposals?: Prisma.ProposalUncheckedUpdateManyWithoutCustomerNestedInput
   conversations?: Prisma.ConversationUncheckedUpdateManyWithoutCustomerNestedInput
+  leadScores?: Prisma.LeadScoreUncheckedUpdateManyWithoutCustomerNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUncheckedUpdateManyWithoutCustomerNestedInput
   timelineEvents?: Prisma.TimelineEventUncheckedUpdateManyWithoutCustomerNestedInput
@@ -3059,6 +3106,7 @@ export type CustomerCreateWithoutTimelineEventsInput = {
   quotes?: Prisma.QuoteCreateNestedManyWithoutCustomerInput
   proposals?: Prisma.ProposalCreateNestedManyWithoutCustomerInput
   conversations?: Prisma.ConversationCreateNestedManyWithoutCustomerInput
+  leadScores?: Prisma.LeadScoreCreateNestedManyWithoutCustomerInput
   assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedCustomersInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealCreateNestedManyWithoutCustomerInput
@@ -3114,6 +3162,7 @@ export type CustomerUncheckedCreateWithoutTimelineEventsInput = {
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCustomerInput
   proposals?: Prisma.ProposalUncheckedCreateNestedManyWithoutCustomerInput
   conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutCustomerInput
+  leadScores?: Prisma.LeadScoreUncheckedCreateNestedManyWithoutCustomerInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealUncheckedCreateNestedManyWithoutCustomerInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCustomerInput
@@ -3183,6 +3232,7 @@ export type CustomerUpdateWithoutTimelineEventsInput = {
   quotes?: Prisma.QuoteUpdateManyWithoutCustomerNestedInput
   proposals?: Prisma.ProposalUpdateManyWithoutCustomerNestedInput
   conversations?: Prisma.ConversationUpdateManyWithoutCustomerNestedInput
+  leadScores?: Prisma.LeadScoreUpdateManyWithoutCustomerNestedInput
   assignedTo?: Prisma.UserUpdateOneWithoutAssignedCustomersNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUpdateManyWithoutCustomerNestedInput
@@ -3238,6 +3288,7 @@ export type CustomerUncheckedUpdateWithoutTimelineEventsInput = {
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCustomerNestedInput
   proposals?: Prisma.ProposalUncheckedUpdateManyWithoutCustomerNestedInput
   conversations?: Prisma.ConversationUncheckedUpdateManyWithoutCustomerNestedInput
+  leadScores?: Prisma.LeadScoreUncheckedUpdateManyWithoutCustomerNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUncheckedUpdateManyWithoutCustomerNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCustomerNestedInput
@@ -3290,6 +3341,7 @@ export type CustomerCreateWithoutTenantInput = {
   quotes?: Prisma.QuoteCreateNestedManyWithoutCustomerInput
   proposals?: Prisma.ProposalCreateNestedManyWithoutCustomerInput
   conversations?: Prisma.ConversationCreateNestedManyWithoutCustomerInput
+  leadScores?: Prisma.LeadScoreCreateNestedManyWithoutCustomerInput
   assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedCustomersInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealCreateNestedManyWithoutCustomerInput
@@ -3345,6 +3397,7 @@ export type CustomerUncheckedCreateWithoutTenantInput = {
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCustomerInput
   proposals?: Prisma.ProposalUncheckedCreateNestedManyWithoutCustomerInput
   conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutCustomerInput
+  leadScores?: Prisma.LeadScoreUncheckedCreateNestedManyWithoutCustomerInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealUncheckedCreateNestedManyWithoutCustomerInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCustomerInput
@@ -3424,6 +3477,7 @@ export type CustomerCreateWithoutCustomerPricesInput = {
   quotes?: Prisma.QuoteCreateNestedManyWithoutCustomerInput
   proposals?: Prisma.ProposalCreateNestedManyWithoutCustomerInput
   conversations?: Prisma.ConversationCreateNestedManyWithoutCustomerInput
+  leadScores?: Prisma.LeadScoreCreateNestedManyWithoutCustomerInput
   assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedCustomersInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealCreateNestedManyWithoutCustomerInput
@@ -3479,6 +3533,7 @@ export type CustomerUncheckedCreateWithoutCustomerPricesInput = {
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCustomerInput
   proposals?: Prisma.ProposalUncheckedCreateNestedManyWithoutCustomerInput
   conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutCustomerInput
+  leadScores?: Prisma.LeadScoreUncheckedCreateNestedManyWithoutCustomerInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealUncheckedCreateNestedManyWithoutCustomerInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCustomerInput
@@ -3548,6 +3603,7 @@ export type CustomerUpdateWithoutCustomerPricesInput = {
   quotes?: Prisma.QuoteUpdateManyWithoutCustomerNestedInput
   proposals?: Prisma.ProposalUpdateManyWithoutCustomerNestedInput
   conversations?: Prisma.ConversationUpdateManyWithoutCustomerNestedInput
+  leadScores?: Prisma.LeadScoreUpdateManyWithoutCustomerNestedInput
   assignedTo?: Prisma.UserUpdateOneWithoutAssignedCustomersNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUpdateManyWithoutCustomerNestedInput
@@ -3603,6 +3659,7 @@ export type CustomerUncheckedUpdateWithoutCustomerPricesInput = {
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCustomerNestedInput
   proposals?: Prisma.ProposalUncheckedUpdateManyWithoutCustomerNestedInput
   conversations?: Prisma.ConversationUncheckedUpdateManyWithoutCustomerNestedInput
+  leadScores?: Prisma.LeadScoreUncheckedUpdateManyWithoutCustomerNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUncheckedUpdateManyWithoutCustomerNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCustomerNestedInput
@@ -3656,6 +3713,7 @@ export type CustomerCreateWithoutCouponsInput = {
   quotes?: Prisma.QuoteCreateNestedManyWithoutCustomerInput
   proposals?: Prisma.ProposalCreateNestedManyWithoutCustomerInput
   conversations?: Prisma.ConversationCreateNestedManyWithoutCustomerInput
+  leadScores?: Prisma.LeadScoreCreateNestedManyWithoutCustomerInput
   assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedCustomersInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealCreateNestedManyWithoutCustomerInput
@@ -3711,6 +3769,7 @@ export type CustomerUncheckedCreateWithoutCouponsInput = {
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCustomerInput
   proposals?: Prisma.ProposalUncheckedCreateNestedManyWithoutCustomerInput
   conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutCustomerInput
+  leadScores?: Prisma.LeadScoreUncheckedCreateNestedManyWithoutCustomerInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealUncheckedCreateNestedManyWithoutCustomerInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCustomerInput
@@ -3780,6 +3839,7 @@ export type CustomerUpdateWithoutCouponsInput = {
   quotes?: Prisma.QuoteUpdateManyWithoutCustomerNestedInput
   proposals?: Prisma.ProposalUpdateManyWithoutCustomerNestedInput
   conversations?: Prisma.ConversationUpdateManyWithoutCustomerNestedInput
+  leadScores?: Prisma.LeadScoreUpdateManyWithoutCustomerNestedInput
   assignedTo?: Prisma.UserUpdateOneWithoutAssignedCustomersNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUpdateManyWithoutCustomerNestedInput
@@ -3835,6 +3895,7 @@ export type CustomerUncheckedUpdateWithoutCouponsInput = {
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCustomerNestedInput
   proposals?: Prisma.ProposalUncheckedUpdateManyWithoutCustomerNestedInput
   conversations?: Prisma.ConversationUncheckedUpdateManyWithoutCustomerNestedInput
+  leadScores?: Prisma.LeadScoreUncheckedUpdateManyWithoutCustomerNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUncheckedUpdateManyWithoutCustomerNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCustomerNestedInput
@@ -3888,6 +3949,7 @@ export type CustomerCreateWithoutCouponUsagesInput = {
   quotes?: Prisma.QuoteCreateNestedManyWithoutCustomerInput
   proposals?: Prisma.ProposalCreateNestedManyWithoutCustomerInput
   conversations?: Prisma.ConversationCreateNestedManyWithoutCustomerInput
+  leadScores?: Prisma.LeadScoreCreateNestedManyWithoutCustomerInput
   assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedCustomersInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealCreateNestedManyWithoutCustomerInput
@@ -3943,6 +4005,7 @@ export type CustomerUncheckedCreateWithoutCouponUsagesInput = {
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCustomerInput
   proposals?: Prisma.ProposalUncheckedCreateNestedManyWithoutCustomerInput
   conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutCustomerInput
+  leadScores?: Prisma.LeadScoreUncheckedCreateNestedManyWithoutCustomerInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealUncheckedCreateNestedManyWithoutCustomerInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCustomerInput
@@ -4012,6 +4075,7 @@ export type CustomerUpdateWithoutCouponUsagesInput = {
   quotes?: Prisma.QuoteUpdateManyWithoutCustomerNestedInput
   proposals?: Prisma.ProposalUpdateManyWithoutCustomerNestedInput
   conversations?: Prisma.ConversationUpdateManyWithoutCustomerNestedInput
+  leadScores?: Prisma.LeadScoreUpdateManyWithoutCustomerNestedInput
   assignedTo?: Prisma.UserUpdateOneWithoutAssignedCustomersNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUpdateManyWithoutCustomerNestedInput
@@ -4067,6 +4131,7 @@ export type CustomerUncheckedUpdateWithoutCouponUsagesInput = {
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCustomerNestedInput
   proposals?: Prisma.ProposalUncheckedUpdateManyWithoutCustomerNestedInput
   conversations?: Prisma.ConversationUncheckedUpdateManyWithoutCustomerNestedInput
+  leadScores?: Prisma.LeadScoreUncheckedUpdateManyWithoutCustomerNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUncheckedUpdateManyWithoutCustomerNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCustomerNestedInput
@@ -4120,6 +4185,7 @@ export type CustomerCreateWithoutCatalogsInput = {
   quotes?: Prisma.QuoteCreateNestedManyWithoutCustomerInput
   proposals?: Prisma.ProposalCreateNestedManyWithoutCustomerInput
   conversations?: Prisma.ConversationCreateNestedManyWithoutCustomerInput
+  leadScores?: Prisma.LeadScoreCreateNestedManyWithoutCustomerInput
   assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedCustomersInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealCreateNestedManyWithoutCustomerInput
@@ -4175,6 +4241,7 @@ export type CustomerUncheckedCreateWithoutCatalogsInput = {
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCustomerInput
   proposals?: Prisma.ProposalUncheckedCreateNestedManyWithoutCustomerInput
   conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutCustomerInput
+  leadScores?: Prisma.LeadScoreUncheckedCreateNestedManyWithoutCustomerInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealUncheckedCreateNestedManyWithoutCustomerInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCustomerInput
@@ -4244,6 +4311,7 @@ export type CustomerUpdateWithoutCatalogsInput = {
   quotes?: Prisma.QuoteUpdateManyWithoutCustomerNestedInput
   proposals?: Prisma.ProposalUpdateManyWithoutCustomerNestedInput
   conversations?: Prisma.ConversationUpdateManyWithoutCustomerNestedInput
+  leadScores?: Prisma.LeadScoreUpdateManyWithoutCustomerNestedInput
   assignedTo?: Prisma.UserUpdateOneWithoutAssignedCustomersNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUpdateManyWithoutCustomerNestedInput
@@ -4299,6 +4367,7 @@ export type CustomerUncheckedUpdateWithoutCatalogsInput = {
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCustomerNestedInput
   proposals?: Prisma.ProposalUncheckedUpdateManyWithoutCustomerNestedInput
   conversations?: Prisma.ConversationUncheckedUpdateManyWithoutCustomerNestedInput
+  leadScores?: Prisma.LeadScoreUncheckedUpdateManyWithoutCustomerNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUncheckedUpdateManyWithoutCustomerNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCustomerNestedInput
@@ -4352,6 +4421,7 @@ export type CustomerCreateWithoutOrdersInput = {
   quotes?: Prisma.QuoteCreateNestedManyWithoutCustomerInput
   proposals?: Prisma.ProposalCreateNestedManyWithoutCustomerInput
   conversations?: Prisma.ConversationCreateNestedManyWithoutCustomerInput
+  leadScores?: Prisma.LeadScoreCreateNestedManyWithoutCustomerInput
   assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedCustomersInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealCreateNestedManyWithoutCustomerInput
@@ -4407,6 +4477,7 @@ export type CustomerUncheckedCreateWithoutOrdersInput = {
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCustomerInput
   proposals?: Prisma.ProposalUncheckedCreateNestedManyWithoutCustomerInput
   conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutCustomerInput
+  leadScores?: Prisma.LeadScoreUncheckedCreateNestedManyWithoutCustomerInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealUncheckedCreateNestedManyWithoutCustomerInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCustomerInput
@@ -4476,6 +4547,7 @@ export type CustomerUpdateWithoutOrdersInput = {
   quotes?: Prisma.QuoteUpdateManyWithoutCustomerNestedInput
   proposals?: Prisma.ProposalUpdateManyWithoutCustomerNestedInput
   conversations?: Prisma.ConversationUpdateManyWithoutCustomerNestedInput
+  leadScores?: Prisma.LeadScoreUpdateManyWithoutCustomerNestedInput
   assignedTo?: Prisma.UserUpdateOneWithoutAssignedCustomersNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUpdateManyWithoutCustomerNestedInput
@@ -4531,6 +4603,7 @@ export type CustomerUncheckedUpdateWithoutOrdersInput = {
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCustomerNestedInput
   proposals?: Prisma.ProposalUncheckedUpdateManyWithoutCustomerNestedInput
   conversations?: Prisma.ConversationUncheckedUpdateManyWithoutCustomerNestedInput
+  leadScores?: Prisma.LeadScoreUncheckedUpdateManyWithoutCustomerNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUncheckedUpdateManyWithoutCustomerNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCustomerNestedInput
@@ -4584,6 +4657,7 @@ export type CustomerCreateWithoutStoreCreditsInput = {
   quotes?: Prisma.QuoteCreateNestedManyWithoutCustomerInput
   proposals?: Prisma.ProposalCreateNestedManyWithoutCustomerInput
   conversations?: Prisma.ConversationCreateNestedManyWithoutCustomerInput
+  leadScores?: Prisma.LeadScoreCreateNestedManyWithoutCustomerInput
   assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedCustomersInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealCreateNestedManyWithoutCustomerInput
@@ -4639,6 +4713,7 @@ export type CustomerUncheckedCreateWithoutStoreCreditsInput = {
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCustomerInput
   proposals?: Prisma.ProposalUncheckedCreateNestedManyWithoutCustomerInput
   conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutCustomerInput
+  leadScores?: Prisma.LeadScoreUncheckedCreateNestedManyWithoutCustomerInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealUncheckedCreateNestedManyWithoutCustomerInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCustomerInput
@@ -4708,6 +4783,7 @@ export type CustomerUpdateWithoutStoreCreditsInput = {
   quotes?: Prisma.QuoteUpdateManyWithoutCustomerNestedInput
   proposals?: Prisma.ProposalUpdateManyWithoutCustomerNestedInput
   conversations?: Prisma.ConversationUpdateManyWithoutCustomerNestedInput
+  leadScores?: Prisma.LeadScoreUpdateManyWithoutCustomerNestedInput
   assignedTo?: Prisma.UserUpdateOneWithoutAssignedCustomersNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUpdateManyWithoutCustomerNestedInput
@@ -4763,6 +4839,7 @@ export type CustomerUncheckedUpdateWithoutStoreCreditsInput = {
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCustomerNestedInput
   proposals?: Prisma.ProposalUncheckedUpdateManyWithoutCustomerNestedInput
   conversations?: Prisma.ConversationUncheckedUpdateManyWithoutCustomerNestedInput
+  leadScores?: Prisma.LeadScoreUncheckedUpdateManyWithoutCustomerNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUncheckedUpdateManyWithoutCustomerNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCustomerNestedInput
@@ -4816,6 +4893,7 @@ export type CustomerCreateWithoutCustomerCreditLimitsInput = {
   quotes?: Prisma.QuoteCreateNestedManyWithoutCustomerInput
   proposals?: Prisma.ProposalCreateNestedManyWithoutCustomerInput
   conversations?: Prisma.ConversationCreateNestedManyWithoutCustomerInput
+  leadScores?: Prisma.LeadScoreCreateNestedManyWithoutCustomerInput
   assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedCustomersInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealCreateNestedManyWithoutCustomerInput
@@ -4871,6 +4949,7 @@ export type CustomerUncheckedCreateWithoutCustomerCreditLimitsInput = {
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCustomerInput
   proposals?: Prisma.ProposalUncheckedCreateNestedManyWithoutCustomerInput
   conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutCustomerInput
+  leadScores?: Prisma.LeadScoreUncheckedCreateNestedManyWithoutCustomerInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealUncheckedCreateNestedManyWithoutCustomerInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCustomerInput
@@ -4940,6 +5019,7 @@ export type CustomerUpdateWithoutCustomerCreditLimitsInput = {
   quotes?: Prisma.QuoteUpdateManyWithoutCustomerNestedInput
   proposals?: Prisma.ProposalUpdateManyWithoutCustomerNestedInput
   conversations?: Prisma.ConversationUpdateManyWithoutCustomerNestedInput
+  leadScores?: Prisma.LeadScoreUpdateManyWithoutCustomerNestedInput
   assignedTo?: Prisma.UserUpdateOneWithoutAssignedCustomersNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUpdateManyWithoutCustomerNestedInput
@@ -4995,6 +5075,7 @@ export type CustomerUncheckedUpdateWithoutCustomerCreditLimitsInput = {
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCustomerNestedInput
   proposals?: Prisma.ProposalUncheckedUpdateManyWithoutCustomerNestedInput
   conversations?: Prisma.ConversationUncheckedUpdateManyWithoutCustomerNestedInput
+  leadScores?: Prisma.LeadScoreUncheckedUpdateManyWithoutCustomerNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUncheckedUpdateManyWithoutCustomerNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCustomerNestedInput
@@ -5048,6 +5129,7 @@ export type CustomerCreateWithoutPortalAccessesInput = {
   quotes?: Prisma.QuoteCreateNestedManyWithoutCustomerInput
   proposals?: Prisma.ProposalCreateNestedManyWithoutCustomerInput
   conversations?: Prisma.ConversationCreateNestedManyWithoutCustomerInput
+  leadScores?: Prisma.LeadScoreCreateNestedManyWithoutCustomerInput
   assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedCustomersInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealCreateNestedManyWithoutCustomerInput
@@ -5103,6 +5185,7 @@ export type CustomerUncheckedCreateWithoutPortalAccessesInput = {
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCustomerInput
   proposals?: Prisma.ProposalUncheckedCreateNestedManyWithoutCustomerInput
   conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutCustomerInput
+  leadScores?: Prisma.LeadScoreUncheckedCreateNestedManyWithoutCustomerInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealUncheckedCreateNestedManyWithoutCustomerInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCustomerInput
@@ -5172,6 +5255,7 @@ export type CustomerUpdateWithoutPortalAccessesInput = {
   quotes?: Prisma.QuoteUpdateManyWithoutCustomerNestedInput
   proposals?: Prisma.ProposalUpdateManyWithoutCustomerNestedInput
   conversations?: Prisma.ConversationUpdateManyWithoutCustomerNestedInput
+  leadScores?: Prisma.LeadScoreUpdateManyWithoutCustomerNestedInput
   assignedTo?: Prisma.UserUpdateOneWithoutAssignedCustomersNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUpdateManyWithoutCustomerNestedInput
@@ -5227,6 +5311,7 @@ export type CustomerUncheckedUpdateWithoutPortalAccessesInput = {
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCustomerNestedInput
   proposals?: Prisma.ProposalUncheckedUpdateManyWithoutCustomerNestedInput
   conversations?: Prisma.ConversationUncheckedUpdateManyWithoutCustomerNestedInput
+  leadScores?: Prisma.LeadScoreUncheckedUpdateManyWithoutCustomerNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUncheckedUpdateManyWithoutCustomerNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCustomerNestedInput
@@ -5280,6 +5365,7 @@ export type CustomerCreateWithoutPosTransactionsInput = {
   quotes?: Prisma.QuoteCreateNestedManyWithoutCustomerInput
   proposals?: Prisma.ProposalCreateNestedManyWithoutCustomerInput
   conversations?: Prisma.ConversationCreateNestedManyWithoutCustomerInput
+  leadScores?: Prisma.LeadScoreCreateNestedManyWithoutCustomerInput
   assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedCustomersInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealCreateNestedManyWithoutCustomerInput
@@ -5335,6 +5421,7 @@ export type CustomerUncheckedCreateWithoutPosTransactionsInput = {
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCustomerInput
   proposals?: Prisma.ProposalUncheckedCreateNestedManyWithoutCustomerInput
   conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutCustomerInput
+  leadScores?: Prisma.LeadScoreUncheckedCreateNestedManyWithoutCustomerInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealUncheckedCreateNestedManyWithoutCustomerInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCustomerInput
@@ -5404,6 +5491,7 @@ export type CustomerUpdateWithoutPosTransactionsInput = {
   quotes?: Prisma.QuoteUpdateManyWithoutCustomerNestedInput
   proposals?: Prisma.ProposalUpdateManyWithoutCustomerNestedInput
   conversations?: Prisma.ConversationUpdateManyWithoutCustomerNestedInput
+  leadScores?: Prisma.LeadScoreUpdateManyWithoutCustomerNestedInput
   assignedTo?: Prisma.UserUpdateOneWithoutAssignedCustomersNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUpdateManyWithoutCustomerNestedInput
@@ -5459,6 +5547,7 @@ export type CustomerUncheckedUpdateWithoutPosTransactionsInput = {
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCustomerNestedInput
   proposals?: Prisma.ProposalUncheckedUpdateManyWithoutCustomerNestedInput
   conversations?: Prisma.ConversationUncheckedUpdateManyWithoutCustomerNestedInput
+  leadScores?: Prisma.LeadScoreUncheckedUpdateManyWithoutCustomerNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUncheckedUpdateManyWithoutCustomerNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCustomerNestedInput
@@ -5512,6 +5601,7 @@ export type CustomerCreateWithoutPosVisitLogsInput = {
   quotes?: Prisma.QuoteCreateNestedManyWithoutCustomerInput
   proposals?: Prisma.ProposalCreateNestedManyWithoutCustomerInput
   conversations?: Prisma.ConversationCreateNestedManyWithoutCustomerInput
+  leadScores?: Prisma.LeadScoreCreateNestedManyWithoutCustomerInput
   assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedCustomersInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealCreateNestedManyWithoutCustomerInput
@@ -5567,6 +5657,7 @@ export type CustomerUncheckedCreateWithoutPosVisitLogsInput = {
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCustomerInput
   proposals?: Prisma.ProposalUncheckedCreateNestedManyWithoutCustomerInput
   conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutCustomerInput
+  leadScores?: Prisma.LeadScoreUncheckedCreateNestedManyWithoutCustomerInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealUncheckedCreateNestedManyWithoutCustomerInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCustomerInput
@@ -5636,6 +5727,7 @@ export type CustomerUpdateWithoutPosVisitLogsInput = {
   quotes?: Prisma.QuoteUpdateManyWithoutCustomerNestedInput
   proposals?: Prisma.ProposalUpdateManyWithoutCustomerNestedInput
   conversations?: Prisma.ConversationUpdateManyWithoutCustomerNestedInput
+  leadScores?: Prisma.LeadScoreUpdateManyWithoutCustomerNestedInput
   assignedTo?: Prisma.UserUpdateOneWithoutAssignedCustomersNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUpdateManyWithoutCustomerNestedInput
@@ -5691,6 +5783,7 @@ export type CustomerUncheckedUpdateWithoutPosVisitLogsInput = {
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCustomerNestedInput
   proposals?: Prisma.ProposalUncheckedUpdateManyWithoutCustomerNestedInput
   conversations?: Prisma.ConversationUncheckedUpdateManyWithoutCustomerNestedInput
+  leadScores?: Prisma.LeadScoreUncheckedUpdateManyWithoutCustomerNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUncheckedUpdateManyWithoutCustomerNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCustomerNestedInput
@@ -5744,6 +5837,7 @@ export type CustomerCreateWithoutBidsInput = {
   quotes?: Prisma.QuoteCreateNestedManyWithoutCustomerInput
   proposals?: Prisma.ProposalCreateNestedManyWithoutCustomerInput
   conversations?: Prisma.ConversationCreateNestedManyWithoutCustomerInput
+  leadScores?: Prisma.LeadScoreCreateNestedManyWithoutCustomerInput
   assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedCustomersInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealCreateNestedManyWithoutCustomerInput
@@ -5799,6 +5893,7 @@ export type CustomerUncheckedCreateWithoutBidsInput = {
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCustomerInput
   proposals?: Prisma.ProposalUncheckedCreateNestedManyWithoutCustomerInput
   conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutCustomerInput
+  leadScores?: Prisma.LeadScoreUncheckedCreateNestedManyWithoutCustomerInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealUncheckedCreateNestedManyWithoutCustomerInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCustomerInput
@@ -5868,6 +5963,7 @@ export type CustomerUpdateWithoutBidsInput = {
   quotes?: Prisma.QuoteUpdateManyWithoutCustomerNestedInput
   proposals?: Prisma.ProposalUpdateManyWithoutCustomerNestedInput
   conversations?: Prisma.ConversationUpdateManyWithoutCustomerNestedInput
+  leadScores?: Prisma.LeadScoreUpdateManyWithoutCustomerNestedInput
   assignedTo?: Prisma.UserUpdateOneWithoutAssignedCustomersNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUpdateManyWithoutCustomerNestedInput
@@ -5923,6 +6019,7 @@ export type CustomerUncheckedUpdateWithoutBidsInput = {
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCustomerNestedInput
   proposals?: Prisma.ProposalUncheckedUpdateManyWithoutCustomerNestedInput
   conversations?: Prisma.ConversationUncheckedUpdateManyWithoutCustomerNestedInput
+  leadScores?: Prisma.LeadScoreUncheckedUpdateManyWithoutCustomerNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUncheckedUpdateManyWithoutCustomerNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCustomerNestedInput
@@ -5976,6 +6073,7 @@ export type CustomerCreateWithoutBidContractsInput = {
   quotes?: Prisma.QuoteCreateNestedManyWithoutCustomerInput
   proposals?: Prisma.ProposalCreateNestedManyWithoutCustomerInput
   conversations?: Prisma.ConversationCreateNestedManyWithoutCustomerInput
+  leadScores?: Prisma.LeadScoreCreateNestedManyWithoutCustomerInput
   assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedCustomersInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealCreateNestedManyWithoutCustomerInput
@@ -6031,6 +6129,7 @@ export type CustomerUncheckedCreateWithoutBidContractsInput = {
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCustomerInput
   proposals?: Prisma.ProposalUncheckedCreateNestedManyWithoutCustomerInput
   conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutCustomerInput
+  leadScores?: Prisma.LeadScoreUncheckedCreateNestedManyWithoutCustomerInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealUncheckedCreateNestedManyWithoutCustomerInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCustomerInput
@@ -6100,6 +6199,7 @@ export type CustomerUpdateWithoutBidContractsInput = {
   quotes?: Prisma.QuoteUpdateManyWithoutCustomerNestedInput
   proposals?: Prisma.ProposalUpdateManyWithoutCustomerNestedInput
   conversations?: Prisma.ConversationUpdateManyWithoutCustomerNestedInput
+  leadScores?: Prisma.LeadScoreUpdateManyWithoutCustomerNestedInput
   assignedTo?: Prisma.UserUpdateOneWithoutAssignedCustomersNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUpdateManyWithoutCustomerNestedInput
@@ -6155,6 +6255,7 @@ export type CustomerUncheckedUpdateWithoutBidContractsInput = {
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCustomerNestedInput
   proposals?: Prisma.ProposalUncheckedUpdateManyWithoutCustomerNestedInput
   conversations?: Prisma.ConversationUncheckedUpdateManyWithoutCustomerNestedInput
+  leadScores?: Prisma.LeadScoreUncheckedUpdateManyWithoutCustomerNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUncheckedUpdateManyWithoutCustomerNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCustomerNestedInput
@@ -6208,6 +6309,7 @@ export type CustomerCreateWithoutMessagingContactsInput = {
   quotes?: Prisma.QuoteCreateNestedManyWithoutCustomerInput
   proposals?: Prisma.ProposalCreateNestedManyWithoutCustomerInput
   conversations?: Prisma.ConversationCreateNestedManyWithoutCustomerInput
+  leadScores?: Prisma.LeadScoreCreateNestedManyWithoutCustomerInput
   assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedCustomersInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealCreateNestedManyWithoutCustomerInput
@@ -6263,6 +6365,7 @@ export type CustomerUncheckedCreateWithoutMessagingContactsInput = {
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCustomerInput
   proposals?: Prisma.ProposalUncheckedCreateNestedManyWithoutCustomerInput
   conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutCustomerInput
+  leadScores?: Prisma.LeadScoreUncheckedCreateNestedManyWithoutCustomerInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealUncheckedCreateNestedManyWithoutCustomerInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCustomerInput
@@ -6332,6 +6435,7 @@ export type CustomerUpdateWithoutMessagingContactsInput = {
   quotes?: Prisma.QuoteUpdateManyWithoutCustomerNestedInput
   proposals?: Prisma.ProposalUpdateManyWithoutCustomerNestedInput
   conversations?: Prisma.ConversationUpdateManyWithoutCustomerNestedInput
+  leadScores?: Prisma.LeadScoreUpdateManyWithoutCustomerNestedInput
   assignedTo?: Prisma.UserUpdateOneWithoutAssignedCustomersNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUpdateManyWithoutCustomerNestedInput
@@ -6387,6 +6491,7 @@ export type CustomerUncheckedUpdateWithoutMessagingContactsInput = {
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCustomerNestedInput
   proposals?: Prisma.ProposalUncheckedUpdateManyWithoutCustomerNestedInput
   conversations?: Prisma.ConversationUncheckedUpdateManyWithoutCustomerNestedInput
+  leadScores?: Prisma.LeadScoreUncheckedUpdateManyWithoutCustomerNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUncheckedUpdateManyWithoutCustomerNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCustomerNestedInput
@@ -6440,6 +6545,7 @@ export type CustomerCreateWithoutQuotesInput = {
   messagingContacts?: Prisma.MessagingContactCreateNestedManyWithoutCustomerInput
   proposals?: Prisma.ProposalCreateNestedManyWithoutCustomerInput
   conversations?: Prisma.ConversationCreateNestedManyWithoutCustomerInput
+  leadScores?: Prisma.LeadScoreCreateNestedManyWithoutCustomerInput
   assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedCustomersInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealCreateNestedManyWithoutCustomerInput
@@ -6495,6 +6601,7 @@ export type CustomerUncheckedCreateWithoutQuotesInput = {
   messagingContacts?: Prisma.MessagingContactUncheckedCreateNestedManyWithoutCustomerInput
   proposals?: Prisma.ProposalUncheckedCreateNestedManyWithoutCustomerInput
   conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutCustomerInput
+  leadScores?: Prisma.LeadScoreUncheckedCreateNestedManyWithoutCustomerInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealUncheckedCreateNestedManyWithoutCustomerInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCustomerInput
@@ -6564,6 +6671,7 @@ export type CustomerUpdateWithoutQuotesInput = {
   messagingContacts?: Prisma.MessagingContactUpdateManyWithoutCustomerNestedInput
   proposals?: Prisma.ProposalUpdateManyWithoutCustomerNestedInput
   conversations?: Prisma.ConversationUpdateManyWithoutCustomerNestedInput
+  leadScores?: Prisma.LeadScoreUpdateManyWithoutCustomerNestedInput
   assignedTo?: Prisma.UserUpdateOneWithoutAssignedCustomersNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUpdateManyWithoutCustomerNestedInput
@@ -6619,6 +6727,7 @@ export type CustomerUncheckedUpdateWithoutQuotesInput = {
   messagingContacts?: Prisma.MessagingContactUncheckedUpdateManyWithoutCustomerNestedInput
   proposals?: Prisma.ProposalUncheckedUpdateManyWithoutCustomerNestedInput
   conversations?: Prisma.ConversationUncheckedUpdateManyWithoutCustomerNestedInput
+  leadScores?: Prisma.LeadScoreUncheckedUpdateManyWithoutCustomerNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUncheckedUpdateManyWithoutCustomerNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCustomerNestedInput
@@ -6672,6 +6781,7 @@ export type CustomerCreateWithoutProposalsInput = {
   messagingContacts?: Prisma.MessagingContactCreateNestedManyWithoutCustomerInput
   quotes?: Prisma.QuoteCreateNestedManyWithoutCustomerInput
   conversations?: Prisma.ConversationCreateNestedManyWithoutCustomerInput
+  leadScores?: Prisma.LeadScoreCreateNestedManyWithoutCustomerInput
   assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedCustomersInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealCreateNestedManyWithoutCustomerInput
@@ -6727,6 +6837,7 @@ export type CustomerUncheckedCreateWithoutProposalsInput = {
   messagingContacts?: Prisma.MessagingContactUncheckedCreateNestedManyWithoutCustomerInput
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCustomerInput
   conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutCustomerInput
+  leadScores?: Prisma.LeadScoreUncheckedCreateNestedManyWithoutCustomerInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealUncheckedCreateNestedManyWithoutCustomerInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCustomerInput
@@ -6796,6 +6907,7 @@ export type CustomerUpdateWithoutProposalsInput = {
   messagingContacts?: Prisma.MessagingContactUpdateManyWithoutCustomerNestedInput
   quotes?: Prisma.QuoteUpdateManyWithoutCustomerNestedInput
   conversations?: Prisma.ConversationUpdateManyWithoutCustomerNestedInput
+  leadScores?: Prisma.LeadScoreUpdateManyWithoutCustomerNestedInput
   assignedTo?: Prisma.UserUpdateOneWithoutAssignedCustomersNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUpdateManyWithoutCustomerNestedInput
@@ -6851,6 +6963,7 @@ export type CustomerUncheckedUpdateWithoutProposalsInput = {
   messagingContacts?: Prisma.MessagingContactUncheckedUpdateManyWithoutCustomerNestedInput
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCustomerNestedInput
   conversations?: Prisma.ConversationUncheckedUpdateManyWithoutCustomerNestedInput
+  leadScores?: Prisma.LeadScoreUncheckedUpdateManyWithoutCustomerNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUncheckedUpdateManyWithoutCustomerNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCustomerNestedInput
@@ -6904,6 +7017,7 @@ export type CustomerCreateWithoutConversationsInput = {
   messagingContacts?: Prisma.MessagingContactCreateNestedManyWithoutCustomerInput
   quotes?: Prisma.QuoteCreateNestedManyWithoutCustomerInput
   proposals?: Prisma.ProposalCreateNestedManyWithoutCustomerInput
+  leadScores?: Prisma.LeadScoreCreateNestedManyWithoutCustomerInput
   assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedCustomersInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealCreateNestedManyWithoutCustomerInput
@@ -6959,6 +7073,7 @@ export type CustomerUncheckedCreateWithoutConversationsInput = {
   messagingContacts?: Prisma.MessagingContactUncheckedCreateNestedManyWithoutCustomerInput
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCustomerInput
   proposals?: Prisma.ProposalUncheckedCreateNestedManyWithoutCustomerInput
+  leadScores?: Prisma.LeadScoreUncheckedCreateNestedManyWithoutCustomerInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCustomerInput
   deals?: Prisma.DealUncheckedCreateNestedManyWithoutCustomerInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCustomerInput
@@ -7028,6 +7143,7 @@ export type CustomerUpdateWithoutConversationsInput = {
   messagingContacts?: Prisma.MessagingContactUpdateManyWithoutCustomerNestedInput
   quotes?: Prisma.QuoteUpdateManyWithoutCustomerNestedInput
   proposals?: Prisma.ProposalUpdateManyWithoutCustomerNestedInput
+  leadScores?: Prisma.LeadScoreUpdateManyWithoutCustomerNestedInput
   assignedTo?: Prisma.UserUpdateOneWithoutAssignedCustomersNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUpdateManyWithoutCustomerNestedInput
@@ -7083,6 +7199,243 @@ export type CustomerUncheckedUpdateWithoutConversationsInput = {
   messagingContacts?: Prisma.MessagingContactUncheckedUpdateManyWithoutCustomerNestedInput
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCustomerNestedInput
   proposals?: Prisma.ProposalUncheckedUpdateManyWithoutCustomerNestedInput
+  leadScores?: Prisma.LeadScoreUncheckedUpdateManyWithoutCustomerNestedInput
+  contacts?: Prisma.ContactUncheckedUpdateManyWithoutCustomerNestedInput
+  deals?: Prisma.DealUncheckedUpdateManyWithoutCustomerNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutCustomerNestedInput
+  timelineEvents?: Prisma.TimelineEventUncheckedUpdateManyWithoutCustomerNestedInput
+}
+
+export type CustomerCreateWithoutLeadScoresInput = {
+  id?: string
+  name: string
+  type?: $Enums.CustomerType
+  document?: string | null
+  email?: string | null
+  phone?: string | null
+  address?: string | null
+  city?: string | null
+  state?: string | null
+  zipCode?: string | null
+  documentHash?: string | null
+  emailHash?: string | null
+  country?: string | null
+  notes?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  tradeName?: string | null
+  stateRegistration?: string | null
+  website?: string | null
+  addressNumber?: string | null
+  addressComplement?: string | null
+  addressNeighborhood?: string | null
+  tags?: Prisma.CustomerCreatetagsInput | string[]
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  source?: $Enums.ContactSource
+  tenant: Prisma.TenantCreateNestedOneWithoutCustomersInput
+  salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutCustomerInput
+  crmContacts?: Prisma.CrmContactCreateNestedManyWithoutCustomerInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutCustomerInput
+  customerPrices?: Prisma.CustomerPriceCreateNestedManyWithoutCustomerInput
+  coupons?: Prisma.CouponCreateNestedManyWithoutCustomerInput
+  couponUsages?: Prisma.CouponUsageCreateNestedManyWithoutCustomerInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutCustomerInput
+  orders?: Prisma.OrderCreateNestedManyWithoutCustomerInput
+  storeCredits?: Prisma.StoreCreditCreateNestedManyWithoutCustomerInput
+  customerCreditLimits?: Prisma.CustomerCreditLimitCreateNestedManyWithoutCustomerInput
+  portalAccesses?: Prisma.CustomerPortalAccessCreateNestedManyWithoutCustomerInput
+  posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutCustomerInput
+  posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutCustomerInput
+  bids?: Prisma.BidCreateNestedManyWithoutCustomerInput
+  bidContracts?: Prisma.BidContractCreateNestedManyWithoutCustomerInput
+  messagingContacts?: Prisma.MessagingContactCreateNestedManyWithoutCustomerInput
+  quotes?: Prisma.QuoteCreateNestedManyWithoutCustomerInput
+  proposals?: Prisma.ProposalCreateNestedManyWithoutCustomerInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutCustomerInput
+  assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedCustomersInput
+  contacts?: Prisma.ContactCreateNestedManyWithoutCustomerInput
+  deals?: Prisma.DealCreateNestedManyWithoutCustomerInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutCustomerInput
+  timelineEvents?: Prisma.TimelineEventCreateNestedManyWithoutCustomerInput
+}
+
+export type CustomerUncheckedCreateWithoutLeadScoresInput = {
+  id?: string
+  name: string
+  type?: $Enums.CustomerType
+  document?: string | null
+  email?: string | null
+  phone?: string | null
+  address?: string | null
+  city?: string | null
+  state?: string | null
+  zipCode?: string | null
+  documentHash?: string | null
+  emailHash?: string | null
+  country?: string | null
+  notes?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  tradeName?: string | null
+  stateRegistration?: string | null
+  website?: string | null
+  addressNumber?: string | null
+  addressComplement?: string | null
+  addressNeighborhood?: string | null
+  tags?: Prisma.CustomerCreatetagsInput | string[]
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  source?: $Enums.ContactSource
+  assignedToUserId?: string | null
+  tenantId: string
+  salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutCustomerInput
+  crmContacts?: Prisma.CrmContactUncheckedCreateNestedManyWithoutCustomerInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutCustomerInput
+  customerPrices?: Prisma.CustomerPriceUncheckedCreateNestedManyWithoutCustomerInput
+  coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutCustomerInput
+  couponUsages?: Prisma.CouponUsageUncheckedCreateNestedManyWithoutCustomerInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutCustomerInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutCustomerInput
+  storeCredits?: Prisma.StoreCreditUncheckedCreateNestedManyWithoutCustomerInput
+  customerCreditLimits?: Prisma.CustomerCreditLimitUncheckedCreateNestedManyWithoutCustomerInput
+  portalAccesses?: Prisma.CustomerPortalAccessUncheckedCreateNestedManyWithoutCustomerInput
+  posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutCustomerInput
+  posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutCustomerInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutCustomerInput
+  bidContracts?: Prisma.BidContractUncheckedCreateNestedManyWithoutCustomerInput
+  messagingContacts?: Prisma.MessagingContactUncheckedCreateNestedManyWithoutCustomerInput
+  quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCustomerInput
+  proposals?: Prisma.ProposalUncheckedCreateNestedManyWithoutCustomerInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutCustomerInput
+  contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCustomerInput
+  deals?: Prisma.DealUncheckedCreateNestedManyWithoutCustomerInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCustomerInput
+  timelineEvents?: Prisma.TimelineEventUncheckedCreateNestedManyWithoutCustomerInput
+}
+
+export type CustomerCreateOrConnectWithoutLeadScoresInput = {
+  where: Prisma.CustomerWhereUniqueInput
+  create: Prisma.XOR<Prisma.CustomerCreateWithoutLeadScoresInput, Prisma.CustomerUncheckedCreateWithoutLeadScoresInput>
+}
+
+export type CustomerUpsertWithoutLeadScoresInput = {
+  update: Prisma.XOR<Prisma.CustomerUpdateWithoutLeadScoresInput, Prisma.CustomerUncheckedUpdateWithoutLeadScoresInput>
+  create: Prisma.XOR<Prisma.CustomerCreateWithoutLeadScoresInput, Prisma.CustomerUncheckedCreateWithoutLeadScoresInput>
+  where?: Prisma.CustomerWhereInput
+}
+
+export type CustomerUpdateToOneWithWhereWithoutLeadScoresInput = {
+  where?: Prisma.CustomerWhereInput
+  data: Prisma.XOR<Prisma.CustomerUpdateWithoutLeadScoresInput, Prisma.CustomerUncheckedUpdateWithoutLeadScoresInput>
+}
+
+export type CustomerUpdateWithoutLeadScoresInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumCustomerTypeFieldUpdateOperationsInput | $Enums.CustomerType
+  document?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  documentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tradeName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stateRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressComplement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressNeighborhood?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.CustomerUpdatetagsInput | string[]
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  source?: Prisma.EnumContactSourceFieldUpdateOperationsInput | $Enums.ContactSource
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutCustomersNestedInput
+  salesOrders?: Prisma.SalesOrderUpdateManyWithoutCustomerNestedInput
+  crmContacts?: Prisma.CrmContactUpdateManyWithoutCustomerNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutCustomerNestedInput
+  customerPrices?: Prisma.CustomerPriceUpdateManyWithoutCustomerNestedInput
+  coupons?: Prisma.CouponUpdateManyWithoutCustomerNestedInput
+  couponUsages?: Prisma.CouponUsageUpdateManyWithoutCustomerNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutCustomerNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutCustomerNestedInput
+  storeCredits?: Prisma.StoreCreditUpdateManyWithoutCustomerNestedInput
+  customerCreditLimits?: Prisma.CustomerCreditLimitUpdateManyWithoutCustomerNestedInput
+  portalAccesses?: Prisma.CustomerPortalAccessUpdateManyWithoutCustomerNestedInput
+  posTransactions?: Prisma.PosTransactionUpdateManyWithoutCustomerNestedInput
+  posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutCustomerNestedInput
+  bids?: Prisma.BidUpdateManyWithoutCustomerNestedInput
+  bidContracts?: Prisma.BidContractUpdateManyWithoutCustomerNestedInput
+  messagingContacts?: Prisma.MessagingContactUpdateManyWithoutCustomerNestedInput
+  quotes?: Prisma.QuoteUpdateManyWithoutCustomerNestedInput
+  proposals?: Prisma.ProposalUpdateManyWithoutCustomerNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutCustomerNestedInput
+  assignedTo?: Prisma.UserUpdateOneWithoutAssignedCustomersNestedInput
+  contacts?: Prisma.ContactUpdateManyWithoutCustomerNestedInput
+  deals?: Prisma.DealUpdateManyWithoutCustomerNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutCustomerNestedInput
+  timelineEvents?: Prisma.TimelineEventUpdateManyWithoutCustomerNestedInput
+}
+
+export type CustomerUncheckedUpdateWithoutLeadScoresInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumCustomerTypeFieldUpdateOperationsInput | $Enums.CustomerType
+  document?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  documentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tradeName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stateRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressComplement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressNeighborhood?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.CustomerUpdatetagsInput | string[]
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  source?: Prisma.EnumContactSourceFieldUpdateOperationsInput | $Enums.ContactSource
+  assignedToUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutCustomerNestedInput
+  crmContacts?: Prisma.CrmContactUncheckedUpdateManyWithoutCustomerNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutCustomerNestedInput
+  customerPrices?: Prisma.CustomerPriceUncheckedUpdateManyWithoutCustomerNestedInput
+  coupons?: Prisma.CouponUncheckedUpdateManyWithoutCustomerNestedInput
+  couponUsages?: Prisma.CouponUsageUncheckedUpdateManyWithoutCustomerNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutCustomerNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutCustomerNestedInput
+  storeCredits?: Prisma.StoreCreditUncheckedUpdateManyWithoutCustomerNestedInput
+  customerCreditLimits?: Prisma.CustomerCreditLimitUncheckedUpdateManyWithoutCustomerNestedInput
+  portalAccesses?: Prisma.CustomerPortalAccessUncheckedUpdateManyWithoutCustomerNestedInput
+  posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutCustomerNestedInput
+  posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutCustomerNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutCustomerNestedInput
+  bidContracts?: Prisma.BidContractUncheckedUpdateManyWithoutCustomerNestedInput
+  messagingContacts?: Prisma.MessagingContactUncheckedUpdateManyWithoutCustomerNestedInput
+  quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCustomerNestedInput
+  proposals?: Prisma.ProposalUncheckedUpdateManyWithoutCustomerNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutCustomerNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUncheckedUpdateManyWithoutCustomerNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCustomerNestedInput
@@ -7168,6 +7521,7 @@ export type CustomerUpdateWithoutAssignedToInput = {
   quotes?: Prisma.QuoteUpdateManyWithoutCustomerNestedInput
   proposals?: Prisma.ProposalUpdateManyWithoutCustomerNestedInput
   conversations?: Prisma.ConversationUpdateManyWithoutCustomerNestedInput
+  leadScores?: Prisma.LeadScoreUpdateManyWithoutCustomerNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUpdateManyWithoutCustomerNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutCustomerNestedInput
@@ -7222,6 +7576,7 @@ export type CustomerUncheckedUpdateWithoutAssignedToInput = {
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCustomerNestedInput
   proposals?: Prisma.ProposalUncheckedUpdateManyWithoutCustomerNestedInput
   conversations?: Prisma.ConversationUncheckedUpdateManyWithoutCustomerNestedInput
+  leadScores?: Prisma.LeadScoreUncheckedUpdateManyWithoutCustomerNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUncheckedUpdateManyWithoutCustomerNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCustomerNestedInput
@@ -7337,6 +7692,7 @@ export type CustomerUpdateWithoutTenantInput = {
   quotes?: Prisma.QuoteUpdateManyWithoutCustomerNestedInput
   proposals?: Prisma.ProposalUpdateManyWithoutCustomerNestedInput
   conversations?: Prisma.ConversationUpdateManyWithoutCustomerNestedInput
+  leadScores?: Prisma.LeadScoreUpdateManyWithoutCustomerNestedInput
   assignedTo?: Prisma.UserUpdateOneWithoutAssignedCustomersNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUpdateManyWithoutCustomerNestedInput
@@ -7392,6 +7748,7 @@ export type CustomerUncheckedUpdateWithoutTenantInput = {
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCustomerNestedInput
   proposals?: Prisma.ProposalUncheckedUpdateManyWithoutCustomerNestedInput
   conversations?: Prisma.ConversationUncheckedUpdateManyWithoutCustomerNestedInput
+  leadScores?: Prisma.LeadScoreUncheckedUpdateManyWithoutCustomerNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCustomerNestedInput
   deals?: Prisma.DealUncheckedUpdateManyWithoutCustomerNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCustomerNestedInput
@@ -7454,6 +7811,7 @@ export type CustomerCountOutputType = {
   quotes: number
   proposals: number
   conversations: number
+  leadScores: number
   contacts: number
   deals: number
   activities: number
@@ -7480,6 +7838,7 @@ export type CustomerCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensio
   quotes?: boolean | CustomerCountOutputTypeCountQuotesArgs
   proposals?: boolean | CustomerCountOutputTypeCountProposalsArgs
   conversations?: boolean | CustomerCountOutputTypeCountConversationsArgs
+  leadScores?: boolean | CustomerCountOutputTypeCountLeadScoresArgs
   contacts?: boolean | CustomerCountOutputTypeCountContactsArgs
   deals?: boolean | CustomerCountOutputTypeCountDealsArgs
   activities?: boolean | CustomerCountOutputTypeCountActivitiesArgs
@@ -7632,6 +7991,13 @@ export type CustomerCountOutputTypeCountConversationsArgs<ExtArgs extends runtim
 /**
  * CustomerCountOutputType without action
  */
+export type CustomerCountOutputTypeCountLeadScoresArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LeadScoreWhereInput
+}
+
+/**
+ * CustomerCountOutputType without action
+ */
 export type CustomerCountOutputTypeCountContactsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.ContactWhereInput
 }
@@ -7708,6 +8074,7 @@ export type CustomerSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   quotes?: boolean | Prisma.Customer$quotesArgs<ExtArgs>
   proposals?: boolean | Prisma.Customer$proposalsArgs<ExtArgs>
   conversations?: boolean | Prisma.Customer$conversationsArgs<ExtArgs>
+  leadScores?: boolean | Prisma.Customer$leadScoresArgs<ExtArgs>
   assignedTo?: boolean | Prisma.Customer$assignedToArgs<ExtArgs>
   contacts?: boolean | Prisma.Customer$contactsArgs<ExtArgs>
   deals?: boolean | Prisma.Customer$dealsArgs<ExtArgs>
@@ -7838,6 +8205,7 @@ export type CustomerInclude<ExtArgs extends runtime.Types.Extensions.InternalArg
   quotes?: boolean | Prisma.Customer$quotesArgs<ExtArgs>
   proposals?: boolean | Prisma.Customer$proposalsArgs<ExtArgs>
   conversations?: boolean | Prisma.Customer$conversationsArgs<ExtArgs>
+  leadScores?: boolean | Prisma.Customer$leadScoresArgs<ExtArgs>
   assignedTo?: boolean | Prisma.Customer$assignedToArgs<ExtArgs>
   contacts?: boolean | Prisma.Customer$contactsArgs<ExtArgs>
   deals?: boolean | Prisma.Customer$dealsArgs<ExtArgs>
@@ -7877,6 +8245,7 @@ export type $CustomerPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     quotes: Prisma.$QuotePayload<ExtArgs>[]
     proposals: Prisma.$ProposalPayload<ExtArgs>[]
     conversations: Prisma.$ConversationPayload<ExtArgs>[]
+    leadScores: Prisma.$LeadScorePayload<ExtArgs>[]
     assignedTo: Prisma.$UserPayload<ExtArgs> | null
     contacts: Prisma.$ContactPayload<ExtArgs>[]
     deals: Prisma.$DealPayload<ExtArgs>[]
@@ -8327,6 +8696,7 @@ export interface Prisma__CustomerClient<T, Null = never, ExtArgs extends runtime
   quotes<T extends Prisma.Customer$quotesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Customer$quotesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   proposals<T extends Prisma.Customer$proposalsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Customer$proposalsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProposalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   conversations<T extends Prisma.Customer$conversationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Customer$conversationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  leadScores<T extends Prisma.Customer$leadScoresArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Customer$leadScoresArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LeadScorePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   assignedTo<T extends Prisma.Customer$assignedToArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Customer$assignedToArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   contacts<T extends Prisma.Customer$contactsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Customer$contactsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ContactPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   deals<T extends Prisma.Customer$dealsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Customer$dealsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DealPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -9239,6 +9609,30 @@ export type Customer$conversationsArgs<ExtArgs extends runtime.Types.Extensions.
   take?: number
   skip?: number
   distinct?: Prisma.ConversationScalarFieldEnum | Prisma.ConversationScalarFieldEnum[]
+}
+
+/**
+ * Customer.leadScores
+ */
+export type Customer$leadScoresArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LeadScore
+   */
+  select?: Prisma.LeadScoreSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LeadScore
+   */
+  omit?: Prisma.LeadScoreOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LeadScoreInclude<ExtArgs> | null
+  where?: Prisma.LeadScoreWhereInput
+  orderBy?: Prisma.LeadScoreOrderByWithRelationInput | Prisma.LeadScoreOrderByWithRelationInput[]
+  cursor?: Prisma.LeadScoreWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LeadScoreScalarFieldEnum | Prisma.LeadScoreScalarFieldEnum[]
 }
 
 /**

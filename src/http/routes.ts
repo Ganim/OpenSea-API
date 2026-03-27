@@ -37,6 +37,7 @@ import { customersRoutes } from './controllers/sales/customers/routes';
 import { dealsRoutes } from './controllers/sales/deals/routes';
 import { itemReservationsRoutes } from './controllers/sales/item-reservations/routes';
 import { notificationPreferencesRoutes } from './controllers/sales/notification-preferences/routes';
+import { blueprintsRoutes } from './controllers/sales/blueprints/routes';
 import { pipelineStagesRoutes } from './controllers/sales/pipeline-stages/routes';
 import { pipelinesRoutes } from './controllers/sales/pipelines/routes';
 import { salesOrdersRoutes } from './controllers/sales/sales-orders/routes';
@@ -65,11 +66,13 @@ import { quotesRoutes } from './controllers/sales/quotes/routes';
 import { salesTrackingRoutes } from './controllers/sales/tracking/routes';
 import { workflowsRoutes } from './controllers/sales/workflows/routes';
 import { formsRoutes } from './controllers/sales/forms/routes';
+import { landingPagesRoutes } from './controllers/sales/landing-pages/routes';
 import { msgTemplatesRoutes } from './controllers/sales/msg-templates/routes';
 import { conversationsRoutes } from './controllers/sales/conversations/routes';
 import { bidBotRoutes } from './controllers/sales/bid-bot/routes';
 import { salesCashierRoutes } from './controllers/sales/cashier/routes';
 import { leadScoringRoutes } from './controllers/sales/lead-scoring/routes';
+import { leadRoutingRoutes } from './controllers/sales/lead-routing/routes';
 // Sales - Analytics
 import { analyticsGoalsRoutes } from './controllers/sales/analytics/goals/routes';
 import { analyticsDashboardsRoutes } from './controllers/sales/analytics/dashboards/routes';
@@ -296,6 +299,7 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(contactsRoutes);
   await app.register(pipelinesRoutes);
   await app.register(pipelineStagesRoutes);
+  await app.register(blueprintsRoutes);
   await app.register(dealsRoutes);
   await app.register(activitiesRoutes);
   await app.register(timelineRoutes);
@@ -327,11 +331,13 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(salesTrackingRoutes);
   await app.register(workflowsRoutes);
   await app.register(formsRoutes);
+  await app.register(landingPagesRoutes);
   await app.register(msgTemplatesRoutes);
   await app.register(conversationsRoutes);
   await app.register(bidBotRoutes);
   await app.register(salesCashierRoutes);
   await app.register(leadScoringRoutes);
+  await app.register(leadRoutingRoutes);
   await app.register(notificationsRoutes);
 
   // Sales - Analytics routes

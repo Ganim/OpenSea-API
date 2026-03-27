@@ -315,6 +315,16 @@ export type Pipeline = Prisma.PipelineModel
  */
 export type PipelineStage = Prisma.PipelineStageModel
 /**
+ * Model ProcessBlueprint
+ * 
+ */
+export type ProcessBlueprint = Prisma.ProcessBlueprintModel
+/**
+ * Model BlueprintStageRule
+ * 
+ */
+export type BlueprintStageRule = Prisma.BlueprintStageRuleModel
+/**
  * Model Contact
  * 
  */
@@ -1410,6 +1420,11 @@ export type BankConnection = Prisma.BankConnectionModel
  */
 export type PaymentLink = Prisma.PaymentLinkModel
 /**
+ * Model CashflowSnapshot
+ * 
+ */
+export type CashflowSnapshot = Prisma.CashflowSnapshotModel
+/**
  * Model AccountantAccess
  * 
  */
@@ -1470,6 +1485,16 @@ export type Conversation = Prisma.ConversationModel
  */
 export type ConversationMessage = Prisma.ConversationMessageModel
 /**
+ * Model ChatbotConfig
+ * 
+ */
+export type ChatbotConfig = Prisma.ChatbotConfigModel
+/**
+ * Model DealPrediction
+ * 
+ */
+export type DealPrediction = Prisma.DealPredictionModel
+/**
  * Model Form
  * 
  */
@@ -1500,6 +1525,16 @@ export type CashierSession = Prisma.CashierSessionModel
  */
 export type CashierTransaction = Prisma.CashierTransactionModel
 /**
+ * Model LeadScoringRule
+ * 
+ */
+export type LeadScoringRule = Prisma.LeadScoringRuleModel
+/**
+ * Model LeadScore
+ * 
+ */
+export type LeadScore = Prisma.LeadScoreModel
+/**
  * Model CadenceSequence
  * 
  */
@@ -1514,3 +1549,23 @@ export type CadenceStep = Prisma.CadenceStepModel
  * 
  */
 export type CadenceEnrollment = Prisma.CadenceEnrollmentModel
+/**
+ * Model LandingPage
+ * 
+ */
+export type LandingPage = Prisma.LandingPageModel
+/**
+ * Model Integration
+ * 
+ */
+export type Integration = Prisma.IntegrationModel
+/**
+ * Model TenantIntegration
+ * 
+ */
+export type TenantIntegration = Prisma.TenantIntegrationModel
+/**
+ * Model LeadRoutingRule
+ * 
+ */
+export type LeadRoutingRule = Prisma.LeadRoutingRuleModel

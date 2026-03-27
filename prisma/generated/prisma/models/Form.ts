@@ -267,6 +267,7 @@ export type FormWhereInput = {
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   fields?: Prisma.FormFieldListRelationFilter
   submissions?: Prisma.FormSubmissionListRelationFilter
+  landingPages?: Prisma.LandingPageListRelationFilter
 }
 
 export type FormOrderByWithRelationInput = {
@@ -284,6 +285,7 @@ export type FormOrderByWithRelationInput = {
   tenant?: Prisma.TenantOrderByWithRelationInput
   fields?: Prisma.FormFieldOrderByRelationAggregateInput
   submissions?: Prisma.FormSubmissionOrderByRelationAggregateInput
+  landingPages?: Prisma.LandingPageOrderByRelationAggregateInput
 }
 
 export type FormWhereUniqueInput = Prisma.AtLeast<{
@@ -304,6 +306,7 @@ export type FormWhereUniqueInput = Prisma.AtLeast<{
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   fields?: Prisma.FormFieldListRelationFilter
   submissions?: Prisma.FormSubmissionListRelationFilter
+  landingPages?: Prisma.LandingPageListRelationFilter
 }, "id">
 
 export type FormOrderByWithAggregationInput = {
@@ -356,6 +359,7 @@ export type FormCreateInput = {
   tenant: Prisma.TenantCreateNestedOneWithoutFormsInput
   fields?: Prisma.FormFieldCreateNestedManyWithoutFormInput
   submissions?: Prisma.FormSubmissionCreateNestedManyWithoutFormInput
+  landingPages?: Prisma.LandingPageCreateNestedManyWithoutFormInput
 }
 
 export type FormUncheckedCreateInput = {
@@ -372,6 +376,7 @@ export type FormUncheckedCreateInput = {
   deletedAt?: Date | string | null
   fields?: Prisma.FormFieldUncheckedCreateNestedManyWithoutFormInput
   submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutFormInput
+  landingPages?: Prisma.LandingPageUncheckedCreateNestedManyWithoutFormInput
 }
 
 export type FormUpdateInput = {
@@ -388,6 +393,7 @@ export type FormUpdateInput = {
   tenant?: Prisma.TenantUpdateOneRequiredWithoutFormsNestedInput
   fields?: Prisma.FormFieldUpdateManyWithoutFormNestedInput
   submissions?: Prisma.FormSubmissionUpdateManyWithoutFormNestedInput
+  landingPages?: Prisma.LandingPageUpdateManyWithoutFormNestedInput
 }
 
 export type FormUncheckedUpdateInput = {
@@ -404,6 +410,7 @@ export type FormUncheckedUpdateInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fields?: Prisma.FormFieldUncheckedUpdateManyWithoutFormNestedInput
   submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutFormNestedInput
+  landingPages?: Prisma.LandingPageUncheckedUpdateManyWithoutFormNestedInput
 }
 
 export type FormCreateManyInput = {
@@ -512,6 +519,11 @@ export type FormScalarRelationFilter = {
   isNot?: Prisma.FormWhereInput
 }
 
+export type FormNullableScalarRelationFilter = {
+  is?: Prisma.FormWhereInput | null
+  isNot?: Prisma.FormWhereInput | null
+}
+
 export type FormCreateNestedManyWithoutTenantInput = {
   create?: Prisma.XOR<Prisma.FormCreateWithoutTenantInput, Prisma.FormUncheckedCreateWithoutTenantInput> | Prisma.FormCreateWithoutTenantInput[] | Prisma.FormUncheckedCreateWithoutTenantInput[]
   connectOrCreate?: Prisma.FormCreateOrConnectWithoutTenantInput | Prisma.FormCreateOrConnectWithoutTenantInput[]
@@ -586,6 +598,22 @@ export type FormUpdateOneRequiredWithoutSubmissionsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.FormUpdateToOneWithWhereWithoutSubmissionsInput, Prisma.FormUpdateWithoutSubmissionsInput>, Prisma.FormUncheckedUpdateWithoutSubmissionsInput>
 }
 
+export type FormCreateNestedOneWithoutLandingPagesInput = {
+  create?: Prisma.XOR<Prisma.FormCreateWithoutLandingPagesInput, Prisma.FormUncheckedCreateWithoutLandingPagesInput>
+  connectOrCreate?: Prisma.FormCreateOrConnectWithoutLandingPagesInput
+  connect?: Prisma.FormWhereUniqueInput
+}
+
+export type FormUpdateOneWithoutLandingPagesNestedInput = {
+  create?: Prisma.XOR<Prisma.FormCreateWithoutLandingPagesInput, Prisma.FormUncheckedCreateWithoutLandingPagesInput>
+  connectOrCreate?: Prisma.FormCreateOrConnectWithoutLandingPagesInput
+  upsert?: Prisma.FormUpsertWithoutLandingPagesInput
+  disconnect?: Prisma.FormWhereInput | boolean
+  delete?: Prisma.FormWhereInput | boolean
+  connect?: Prisma.FormWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.FormUpdateToOneWithWhereWithoutLandingPagesInput, Prisma.FormUpdateWithoutLandingPagesInput>, Prisma.FormUncheckedUpdateWithoutLandingPagesInput>
+}
+
 export type FormCreateWithoutTenantInput = {
   id?: string
   title: string
@@ -599,6 +627,7 @@ export type FormCreateWithoutTenantInput = {
   deletedAt?: Date | string | null
   fields?: Prisma.FormFieldCreateNestedManyWithoutFormInput
   submissions?: Prisma.FormSubmissionCreateNestedManyWithoutFormInput
+  landingPages?: Prisma.LandingPageCreateNestedManyWithoutFormInput
 }
 
 export type FormUncheckedCreateWithoutTenantInput = {
@@ -614,6 +643,7 @@ export type FormUncheckedCreateWithoutTenantInput = {
   deletedAt?: Date | string | null
   fields?: Prisma.FormFieldUncheckedCreateNestedManyWithoutFormInput
   submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutFormInput
+  landingPages?: Prisma.LandingPageUncheckedCreateNestedManyWithoutFormInput
 }
 
 export type FormCreateOrConnectWithoutTenantInput = {
@@ -672,6 +702,7 @@ export type FormCreateWithoutFieldsInput = {
   deletedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutFormsInput
   submissions?: Prisma.FormSubmissionCreateNestedManyWithoutFormInput
+  landingPages?: Prisma.LandingPageCreateNestedManyWithoutFormInput
 }
 
 export type FormUncheckedCreateWithoutFieldsInput = {
@@ -687,6 +718,7 @@ export type FormUncheckedCreateWithoutFieldsInput = {
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutFormInput
+  landingPages?: Prisma.LandingPageUncheckedCreateNestedManyWithoutFormInput
 }
 
 export type FormCreateOrConnectWithoutFieldsInput = {
@@ -718,6 +750,7 @@ export type FormUpdateWithoutFieldsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutFormsNestedInput
   submissions?: Prisma.FormSubmissionUpdateManyWithoutFormNestedInput
+  landingPages?: Prisma.LandingPageUpdateManyWithoutFormNestedInput
 }
 
 export type FormUncheckedUpdateWithoutFieldsInput = {
@@ -733,6 +766,7 @@ export type FormUncheckedUpdateWithoutFieldsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutFormNestedInput
+  landingPages?: Prisma.LandingPageUncheckedUpdateManyWithoutFormNestedInput
 }
 
 export type FormCreateWithoutSubmissionsInput = {
@@ -748,6 +782,7 @@ export type FormCreateWithoutSubmissionsInput = {
   deletedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutFormsInput
   fields?: Prisma.FormFieldCreateNestedManyWithoutFormInput
+  landingPages?: Prisma.LandingPageCreateNestedManyWithoutFormInput
 }
 
 export type FormUncheckedCreateWithoutSubmissionsInput = {
@@ -763,6 +798,7 @@ export type FormUncheckedCreateWithoutSubmissionsInput = {
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   fields?: Prisma.FormFieldUncheckedCreateNestedManyWithoutFormInput
+  landingPages?: Prisma.LandingPageUncheckedCreateNestedManyWithoutFormInput
 }
 
 export type FormCreateOrConnectWithoutSubmissionsInput = {
@@ -794,6 +830,7 @@ export type FormUpdateWithoutSubmissionsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutFormsNestedInput
   fields?: Prisma.FormFieldUpdateManyWithoutFormNestedInput
+  landingPages?: Prisma.LandingPageUpdateManyWithoutFormNestedInput
 }
 
 export type FormUncheckedUpdateWithoutSubmissionsInput = {
@@ -809,6 +846,87 @@ export type FormUncheckedUpdateWithoutSubmissionsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fields?: Prisma.FormFieldUncheckedUpdateManyWithoutFormNestedInput
+  landingPages?: Prisma.LandingPageUncheckedUpdateManyWithoutFormNestedInput
+}
+
+export type FormCreateWithoutLandingPagesInput = {
+  id?: string
+  title: string
+  description?: string | null
+  status?: $Enums.FormStatus
+  submissionCount?: number
+  createdBy: string
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  tenant: Prisma.TenantCreateNestedOneWithoutFormsInput
+  fields?: Prisma.FormFieldCreateNestedManyWithoutFormInput
+  submissions?: Prisma.FormSubmissionCreateNestedManyWithoutFormInput
+}
+
+export type FormUncheckedCreateWithoutLandingPagesInput = {
+  id?: string
+  tenantId: string
+  title: string
+  description?: string | null
+  status?: $Enums.FormStatus
+  submissionCount?: number
+  createdBy: string
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  fields?: Prisma.FormFieldUncheckedCreateNestedManyWithoutFormInput
+  submissions?: Prisma.FormSubmissionUncheckedCreateNestedManyWithoutFormInput
+}
+
+export type FormCreateOrConnectWithoutLandingPagesInput = {
+  where: Prisma.FormWhereUniqueInput
+  create: Prisma.XOR<Prisma.FormCreateWithoutLandingPagesInput, Prisma.FormUncheckedCreateWithoutLandingPagesInput>
+}
+
+export type FormUpsertWithoutLandingPagesInput = {
+  update: Prisma.XOR<Prisma.FormUpdateWithoutLandingPagesInput, Prisma.FormUncheckedUpdateWithoutLandingPagesInput>
+  create: Prisma.XOR<Prisma.FormCreateWithoutLandingPagesInput, Prisma.FormUncheckedCreateWithoutLandingPagesInput>
+  where?: Prisma.FormWhereInput
+}
+
+export type FormUpdateToOneWithWhereWithoutLandingPagesInput = {
+  where?: Prisma.FormWhereInput
+  data: Prisma.XOR<Prisma.FormUpdateWithoutLandingPagesInput, Prisma.FormUncheckedUpdateWithoutLandingPagesInput>
+}
+
+export type FormUpdateWithoutLandingPagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumFormStatusFieldUpdateOperationsInput | $Enums.FormStatus
+  submissionCount?: Prisma.IntFieldUpdateOperationsInput | number
+  createdBy?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutFormsNestedInput
+  fields?: Prisma.FormFieldUpdateManyWithoutFormNestedInput
+  submissions?: Prisma.FormSubmissionUpdateManyWithoutFormNestedInput
+}
+
+export type FormUncheckedUpdateWithoutLandingPagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumFormStatusFieldUpdateOperationsInput | $Enums.FormStatus
+  submissionCount?: Prisma.IntFieldUpdateOperationsInput | number
+  createdBy?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fields?: Prisma.FormFieldUncheckedUpdateManyWithoutFormNestedInput
+  submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutFormNestedInput
 }
 
 export type FormCreateManyTenantInput = {
@@ -837,6 +955,7 @@ export type FormUpdateWithoutTenantInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fields?: Prisma.FormFieldUpdateManyWithoutFormNestedInput
   submissions?: Prisma.FormSubmissionUpdateManyWithoutFormNestedInput
+  landingPages?: Prisma.LandingPageUpdateManyWithoutFormNestedInput
 }
 
 export type FormUncheckedUpdateWithoutTenantInput = {
@@ -852,6 +971,7 @@ export type FormUncheckedUpdateWithoutTenantInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fields?: Prisma.FormFieldUncheckedUpdateManyWithoutFormNestedInput
   submissions?: Prisma.FormSubmissionUncheckedUpdateManyWithoutFormNestedInput
+  landingPages?: Prisma.LandingPageUncheckedUpdateManyWithoutFormNestedInput
 }
 
 export type FormUncheckedUpdateManyWithoutTenantInput = {
@@ -875,11 +995,13 @@ export type FormUncheckedUpdateManyWithoutTenantInput = {
 export type FormCountOutputType = {
   fields: number
   submissions: number
+  landingPages: number
 }
 
 export type FormCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   fields?: boolean | FormCountOutputTypeCountFieldsArgs
   submissions?: boolean | FormCountOutputTypeCountSubmissionsArgs
+  landingPages?: boolean | FormCountOutputTypeCountLandingPagesArgs
 }
 
 /**
@@ -906,6 +1028,13 @@ export type FormCountOutputTypeCountSubmissionsArgs<ExtArgs extends runtime.Type
   where?: Prisma.FormSubmissionWhereInput
 }
 
+/**
+ * FormCountOutputType without action
+ */
+export type FormCountOutputTypeCountLandingPagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LandingPageWhereInput
+}
+
 
 export type FormSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -922,6 +1051,7 @@ export type FormSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   fields?: boolean | Prisma.Form$fieldsArgs<ExtArgs>
   submissions?: boolean | Prisma.Form$submissionsArgs<ExtArgs>
+  landingPages?: boolean | Prisma.Form$landingPagesArgs<ExtArgs>
   _count?: boolean | Prisma.FormCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["form"]>
 
@@ -974,6 +1104,7 @@ export type FormInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   fields?: boolean | Prisma.Form$fieldsArgs<ExtArgs>
   submissions?: boolean | Prisma.Form$submissionsArgs<ExtArgs>
+  landingPages?: boolean | Prisma.Form$landingPagesArgs<ExtArgs>
   _count?: boolean | Prisma.FormCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type FormIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -989,6 +1120,7 @@ export type $FormPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     tenant: Prisma.$TenantPayload<ExtArgs>
     fields: Prisma.$FormFieldPayload<ExtArgs>[]
     submissions: Prisma.$FormSubmissionPayload<ExtArgs>[]
+    landingPages: Prisma.$LandingPagePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1399,6 +1531,7 @@ export interface Prisma__FormClient<T, Null = never, ExtArgs extends runtime.Typ
   tenant<T extends Prisma.TenantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   fields<T extends Prisma.Form$fieldsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Form$fieldsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FormFieldPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   submissions<T extends Prisma.Form$submissionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Form$submissionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FormSubmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  landingPages<T extends Prisma.Form$landingPagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Form$landingPagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LandingPagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1880,6 +2013,30 @@ export type Form$submissionsArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   distinct?: Prisma.FormSubmissionScalarFieldEnum | Prisma.FormSubmissionScalarFieldEnum[]
+}
+
+/**
+ * Form.landingPages
+ */
+export type Form$landingPagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LandingPage
+   */
+  select?: Prisma.LandingPageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LandingPage
+   */
+  omit?: Prisma.LandingPageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LandingPageInclude<ExtArgs> | null
+  where?: Prisma.LandingPageWhereInput
+  orderBy?: Prisma.LandingPageOrderByWithRelationInput | Prisma.LandingPageOrderByWithRelationInput[]
+  cursor?: Prisma.LandingPageWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LandingPageScalarFieldEnum | Prisma.LandingPageScalarFieldEnum[]
 }
 
 /**

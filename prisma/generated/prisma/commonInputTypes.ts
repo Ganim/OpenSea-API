@@ -4998,6 +4998,40 @@ export type EnumCadenceEnrollmentStatusWithAggregatesFilter<$PrismaModel = never
   _max?: Prisma.NestedEnumCadenceEnrollmentStatusFilter<$PrismaModel>
 }
 
+export type EnumLandingPageStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.LandingPageStatus | Prisma.EnumLandingPageStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.LandingPageStatus[] | Prisma.ListEnumLandingPageStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LandingPageStatus[] | Prisma.ListEnumLandingPageStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLandingPageStatusFilter<$PrismaModel> | $Enums.LandingPageStatus
+}
+
+export type EnumLandingPageStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.LandingPageStatus | Prisma.EnumLandingPageStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.LandingPageStatus[] | Prisma.ListEnumLandingPageStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LandingPageStatus[] | Prisma.ListEnumLandingPageStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLandingPageStatusWithAggregatesFilter<$PrismaModel> | $Enums.LandingPageStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumLandingPageStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumLandingPageStatusFilter<$PrismaModel>
+}
+
+export type EnumLeadRoutingStrategyFilter<$PrismaModel = never> = {
+  equals?: $Enums.LeadRoutingStrategy | Prisma.EnumLeadRoutingStrategyFieldRefInput<$PrismaModel>
+  in?: $Enums.LeadRoutingStrategy[] | Prisma.ListEnumLeadRoutingStrategyFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LeadRoutingStrategy[] | Prisma.ListEnumLeadRoutingStrategyFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLeadRoutingStrategyFilter<$PrismaModel> | $Enums.LeadRoutingStrategy
+}
+
+export type EnumLeadRoutingStrategyWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.LeadRoutingStrategy | Prisma.EnumLeadRoutingStrategyFieldRefInput<$PrismaModel>
+  in?: $Enums.LeadRoutingStrategy[] | Prisma.ListEnumLeadRoutingStrategyFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LeadRoutingStrategy[] | Prisma.ListEnumLeadRoutingStrategyFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLeadRoutingStrategyWithAggregatesFilter<$PrismaModel> | $Enums.LeadRoutingStrategy
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumLeadRoutingStrategyFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumLeadRoutingStrategyFilter<$PrismaModel>
+}
+
 export type NestedStringFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel>
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
@@ -9917,6 +9951,40 @@ export type NestedEnumCadenceEnrollmentStatusWithAggregatesFilter<$PrismaModel =
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumCadenceEnrollmentStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumCadenceEnrollmentStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumLandingPageStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.LandingPageStatus | Prisma.EnumLandingPageStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.LandingPageStatus[] | Prisma.ListEnumLandingPageStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LandingPageStatus[] | Prisma.ListEnumLandingPageStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLandingPageStatusFilter<$PrismaModel> | $Enums.LandingPageStatus
+}
+
+export type NestedEnumLandingPageStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.LandingPageStatus | Prisma.EnumLandingPageStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.LandingPageStatus[] | Prisma.ListEnumLandingPageStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LandingPageStatus[] | Prisma.ListEnumLandingPageStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLandingPageStatusWithAggregatesFilter<$PrismaModel> | $Enums.LandingPageStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumLandingPageStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumLandingPageStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumLeadRoutingStrategyFilter<$PrismaModel = never> = {
+  equals?: $Enums.LeadRoutingStrategy | Prisma.EnumLeadRoutingStrategyFieldRefInput<$PrismaModel>
+  in?: $Enums.LeadRoutingStrategy[] | Prisma.ListEnumLeadRoutingStrategyFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LeadRoutingStrategy[] | Prisma.ListEnumLeadRoutingStrategyFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLeadRoutingStrategyFilter<$PrismaModel> | $Enums.LeadRoutingStrategy
+}
+
+export type NestedEnumLeadRoutingStrategyWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.LeadRoutingStrategy | Prisma.EnumLeadRoutingStrategyFieldRefInput<$PrismaModel>
+  in?: $Enums.LeadRoutingStrategy[] | Prisma.ListEnumLeadRoutingStrategyFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LeadRoutingStrategy[] | Prisma.ListEnumLeadRoutingStrategyFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLeadRoutingStrategyWithAggregatesFilter<$PrismaModel> | $Enums.LeadRoutingStrategy
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumLeadRoutingStrategyFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumLeadRoutingStrategyFilter<$PrismaModel>
 }
 
 

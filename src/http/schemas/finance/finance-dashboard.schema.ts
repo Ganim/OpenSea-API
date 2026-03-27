@@ -133,6 +133,26 @@ export const predictiveCashflowResponseSchema = z.object({
   dataQuality: z.enum(['HIGH', 'MEDIUM', 'LOW']),
 });
 
+// Cashflow Accuracy (Realized vs Projected)
+export const cashflowAccuracyQuerySchema = z.object({
+  startDate: z.coerce.date(),
+  endDate: z.coerce.date(),
+});
+
+export const cashflowAccuracyResponseSchema = z.object({
+  accuracy: z.number(),
+  dataPoints: z.array(
+    z.object({
+      date: z.string(),
+      predictedInflow: z.number(),
+      predictedOutflow: z.number(),
+      actualInflow: z.number().nullable(),
+      actualOutflow: z.number().nullable(),
+    }),
+  ),
+  periodCount: z.number(),
+});
+
 // Cashflow
 export const cashflowQuerySchema = z.object({
   startDate: z.coerce.date(),

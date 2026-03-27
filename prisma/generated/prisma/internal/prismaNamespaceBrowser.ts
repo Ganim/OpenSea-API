@@ -106,6 +106,8 @@ export const ModelName = {
   CrmTimelineEvent: 'CrmTimelineEvent',
   Pipeline: 'Pipeline',
   PipelineStage: 'PipelineStage',
+  ProcessBlueprint: 'ProcessBlueprint',
+  BlueprintStageRule: 'BlueprintStageRule',
   Contact: 'Contact',
   Deal: 'Deal',
   ContactDeal: 'ContactDeal',
@@ -325,6 +327,7 @@ export const ModelName = {
   FinanceApprovalRule: 'FinanceApprovalRule',
   BankConnection: 'BankConnection',
   PaymentLink: 'PaymentLink',
+  CashflowSnapshot: 'CashflowSnapshot',
   AccountantAccess: 'AccountantAccess',
   ExchangeRate: 'ExchangeRate',
   Quote: 'Quote',
@@ -337,15 +340,23 @@ export const ModelName = {
   WorkflowStep: 'WorkflowStep',
   Conversation: 'Conversation',
   ConversationMessage: 'ConversationMessage',
+  ChatbotConfig: 'ChatbotConfig',
+  DealPrediction: 'DealPrediction',
   Form: 'Form',
   FormField: 'FormField',
   FormSubmission: 'FormSubmission',
   MessageTemplate: 'MessageTemplate',
   CashierSession: 'CashierSession',
   CashierTransaction: 'CashierTransaction',
+  LeadScoringRule: 'LeadScoringRule',
+  LeadScore: 'LeadScore',
   CadenceSequence: 'CadenceSequence',
   CadenceStep: 'CadenceStep',
-  CadenceEnrollment: 'CadenceEnrollment'
+  CadenceEnrollment: 'CadenceEnrollment',
+  LandingPage: 'LandingPage',
+  Integration: 'Integration',
+  TenantIntegration: 'TenantIntegration',
+  LeadRoutingRule: 'LeadRoutingRule'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1464,6 +1475,34 @@ export const PipelineStageScalarFieldEnum = {
 } as const
 
 export type PipelineStageScalarFieldEnum = (typeof PipelineStageScalarFieldEnum)[keyof typeof PipelineStageScalarFieldEnum]
+
+
+export const ProcessBlueprintScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  name: 'name',
+  pipelineId: 'pipelineId',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type ProcessBlueprintScalarFieldEnum = (typeof ProcessBlueprintScalarFieldEnum)[keyof typeof ProcessBlueprintScalarFieldEnum]
+
+
+export const BlueprintStageRuleScalarFieldEnum = {
+  id: 'id',
+  blueprintId: 'blueprintId',
+  stageId: 'stageId',
+  requiredFields: 'requiredFields',
+  validations: 'validations',
+  blocksAdvance: 'blocksAdvance',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BlueprintStageRuleScalarFieldEnum = (typeof BlueprintStageRuleScalarFieldEnum)[keyof typeof BlueprintStageRuleScalarFieldEnum]
 
 
 export const ContactScalarFieldEnum = {
@@ -6084,6 +6123,20 @@ export const PaymentLinkScalarFieldEnum = {
 export type PaymentLinkScalarFieldEnum = (typeof PaymentLinkScalarFieldEnum)[keyof typeof PaymentLinkScalarFieldEnum]
 
 
+export const CashflowSnapshotScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  date: 'date',
+  predictedInflow: 'predictedInflow',
+  predictedOutflow: 'predictedOutflow',
+  actualInflow: 'actualInflow',
+  actualOutflow: 'actualOutflow',
+  createdAt: 'createdAt'
+} as const
+
+export type CashflowSnapshotScalarFieldEnum = (typeof CashflowSnapshotScalarFieldEnum)[keyof typeof CashflowSnapshotScalarFieldEnum]
+
+
 export const AccountantAccessScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
@@ -6268,6 +6321,7 @@ export const ConversationScalarFieldEnum = {
   status: 'status',
   lastMessageAt: 'lastMessageAt',
   createdBy: 'createdBy',
+  overallSentiment: 'overallSentiment',
   isActive: 'isActive',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
@@ -6284,11 +6338,43 @@ export const ConversationMessageScalarFieldEnum = {
   senderName: 'senderName',
   senderType: 'senderType',
   content: 'content',
+  sentiment: 'sentiment',
   readAt: 'readAt',
   createdAt: 'createdAt'
 } as const
 
 export type ConversationMessageScalarFieldEnum = (typeof ConversationMessageScalarFieldEnum)[keyof typeof ConversationMessageScalarFieldEnum]
+
+
+export const ChatbotConfigScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  greeting: 'greeting',
+  autoReplyMessage: 'autoReplyMessage',
+  assignToUserId: 'assignToUserId',
+  formId: 'formId',
+  primaryColor: 'primaryColor',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ChatbotConfigScalarFieldEnum = (typeof ChatbotConfigScalarFieldEnum)[keyof typeof ChatbotConfigScalarFieldEnum]
+
+
+export const DealPredictionScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  dealId: 'dealId',
+  probability: 'probability',
+  estimatedCloseDate: 'estimatedCloseDate',
+  confidence: 'confidence',
+  factors: 'factors',
+  modelVersion: 'modelVersion',
+  createdAt: 'createdAt'
+} as const
+
+export type DealPredictionScalarFieldEnum = (typeof DealPredictionScalarFieldEnum)[keyof typeof DealPredictionScalarFieldEnum]
 
 
 export const FormScalarFieldEnum = {
@@ -6385,6 +6471,37 @@ export const CashierTransactionScalarFieldEnum = {
 export type CashierTransactionScalarFieldEnum = (typeof CashierTransactionScalarFieldEnum)[keyof typeof CashierTransactionScalarFieldEnum]
 
 
+export const LeadScoringRuleScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  name: 'name',
+  field: 'field',
+  condition: 'condition',
+  value: 'value',
+  points: 'points',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type LeadScoringRuleScalarFieldEnum = (typeof LeadScoringRuleScalarFieldEnum)[keyof typeof LeadScoringRuleScalarFieldEnum]
+
+
+export const LeadScoreScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  customerId: 'customerId',
+  score: 'score',
+  tier: 'tier',
+  factors: 'factors',
+  calculatedAt: 'calculatedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type LeadScoreScalarFieldEnum = (typeof LeadScoreScalarFieldEnum)[keyof typeof LeadScoreScalarFieldEnum]
+
+
 export const CadenceSequenceScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
@@ -6429,6 +6546,77 @@ export const CadenceEnrollmentScalarFieldEnum = {
 } as const
 
 export type CadenceEnrollmentScalarFieldEnum = (typeof CadenceEnrollmentScalarFieldEnum)[keyof typeof CadenceEnrollmentScalarFieldEnum]
+
+
+export const LandingPageScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  title: 'title',
+  slug: 'slug',
+  description: 'description',
+  template: 'template',
+  content: 'content',
+  formId: 'formId',
+  status: 'status',
+  isPublished: 'isPublished',
+  publishedAt: 'publishedAt',
+  viewCount: 'viewCount',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type LandingPageScalarFieldEnum = (typeof LandingPageScalarFieldEnum)[keyof typeof LandingPageScalarFieldEnum]
+
+
+export const IntegrationScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  slug: 'slug',
+  description: 'description',
+  logoUrl: 'logoUrl',
+  category: 'category',
+  configSchema: 'configSchema',
+  isAvailable: 'isAvailable',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type IntegrationScalarFieldEnum = (typeof IntegrationScalarFieldEnum)[keyof typeof IntegrationScalarFieldEnum]
+
+
+export const TenantIntegrationScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  integrationId: 'integrationId',
+  config: 'config',
+  status: 'status',
+  lastSyncAt: 'lastSyncAt',
+  errorMessage: 'errorMessage',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TenantIntegrationScalarFieldEnum = (typeof TenantIntegrationScalarFieldEnum)[keyof typeof TenantIntegrationScalarFieldEnum]
+
+
+export const LeadRoutingRuleScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  name: 'name',
+  strategy: 'strategy',
+  config: 'config',
+  assignToUsers: 'assignToUsers',
+  maxLeadsPerUser: 'maxLeadsPerUser',
+  lastAssignedIndex: 'lastAssignedIndex',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type LeadRoutingRuleScalarFieldEnum = (typeof LeadRoutingRuleScalarFieldEnum)[keyof typeof LeadRoutingRuleScalarFieldEnum]
 
 
 export const SortOrder = {

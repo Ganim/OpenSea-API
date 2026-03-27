@@ -124,8 +124,7 @@ export const FINANCE_AUDIT_MESSAGES = {
     action: AuditAction.GENERATE,
     entity: AuditEntity.FINANCE_ENTRY,
     module: AuditModule.FINANCE,
-    description:
-      '{{userName}} gerou boleto para o lançamento {{entryCode}}',
+    description: '{{userName}} gerou boleto para o lançamento {{entryCode}}',
   } satisfies AuditMessage,
 
   FINANCE_ENTRY_NFE_EMIT: {
@@ -142,6 +141,14 @@ export const FINANCE_AUDIT_MESSAGES = {
     module: AuditModule.FINANCE,
     description:
       '{{userName}} registrou pagamento em lote para {{count}} lançamentos',
+  } satisfies AuditMessage,
+
+  FINANCE_ENTRY_SPLIT_PAYMENT: {
+    action: AuditAction.PAYMENT_REGISTER,
+    entity: AuditEntity.FINANCE_ENTRY_PAYMENT,
+    module: AuditModule.FINANCE,
+    description:
+      '{{userName}} distribuiu pagamento de R$ {{amount}} em {{count}} lançamentos',
   } satisfies AuditMessage,
 
   FINANCE_ENTRY_BULK_CANCEL: {

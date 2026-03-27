@@ -32,6 +32,7 @@ import { listEntryRetentionsController } from './v1-list-entry-retentions.contro
 import { threeWayMatchController } from './v1-three-way-match.controller';
 import { checkDuplicateController } from './v1-check-duplicate.controller';
 import { getSupplierSummaryController } from './v1-get-supplier-summary.controller';
+import { splitPaymentController } from './v1-split-payment.controller';
 
 export async function financeEntriesRoutes(app: FastifyInstance) {
   app.addHook('preHandler', createModuleMiddleware('FINANCE'));
@@ -67,4 +68,5 @@ export async function financeEntriesRoutes(app: FastifyInstance) {
   app.register(threeWayMatchController);
   app.register(checkDuplicateController);
   app.register(getSupplierSummaryController);
+  app.register(splitPaymentController);
 }

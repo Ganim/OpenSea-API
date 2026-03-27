@@ -121,6 +121,16 @@ export const RecurrenceUnit = {
 export type RecurrenceUnit = (typeof RecurrenceUnit)[keyof typeof RecurrenceUnit]
 
 
+export const LeadRoutingStrategy = {
+  ROUND_ROBIN: 'ROUND_ROBIN',
+  TERRITORY: 'TERRITORY',
+  SEGMENT: 'SEGMENT',
+  LOAD_BALANCE: 'LOAD_BALANCE'
+} as const
+
+export type LeadRoutingStrategy = (typeof LeadRoutingStrategy)[keyof typeof LeadRoutingStrategy]
+
+
 export const RetentionTaxType = {
   IRRF: 'IRRF',
   ISS: 'ISS',
@@ -537,6 +547,12 @@ export const AuditAction = {
   IMPORT: 'IMPORT',
   SYNC: 'SYNC',
   GENERATE: 'GENERATE',
+  ACTIVATE: 'ACTIVATE',
+  DEACTIVATE: 'DEACTIVATE',
+  EXECUTE: 'EXECUTE',
+  ENROLL: 'ENROLL',
+  ADVANCE_STEP: 'ADVANCE_STEP',
+  PROCESS_PENDING: 'PROCESS_PENDING',
   OTHER: 'OTHER'
 } as const
 
@@ -606,6 +622,7 @@ export const AuditEntity = {
   TENANT_BRAND: 'TENANT_BRAND',
   GENERATED_CONTENT: 'GENERATED_CONTENT',
   TIMELINE_EVENT: 'TIMELINE_EVENT',
+  LEAD_ROUTING_RULE: 'LEAD_ROUTING_RULE',
   POS_TERMINAL: 'POS_TERMINAL',
   POS_SESSION: 'POS_SESSION',
   POS_TRANSACTION: 'POS_TRANSACTION',
@@ -623,9 +640,18 @@ export const AuditEntity = {
   FORM: 'FORM',
   FORM_FIELD: 'FORM_FIELD',
   FORM_SUBMISSION: 'FORM_SUBMISSION',
+  LANDING_PAGE: 'LANDING_PAGE',
   MESSAGE_TEMPLATE: 'MESSAGE_TEMPLATE',
   CASHIER_SESSION: 'CASHIER_SESSION',
+  PROCESS_BLUEPRINT: 'PROCESS_BLUEPRINT',
+  BLUEPRINT_STAGE_RULE: 'BLUEPRINT_STAGE_RULE',
   CASHIER_TRANSACTION: 'CASHIER_TRANSACTION',
+  LEAD_SCORING_RULE: 'LEAD_SCORING_RULE',
+  LEAD_SCORE: 'LEAD_SCORE',
+  CHATBOT_CONFIG: 'CHATBOT_CONFIG',
+  DEAL_PREDICTION: 'DEAL_PREDICTION',
+  INTEGRATION: 'INTEGRATION',
+  TENANT_INTEGRATION: 'TENANT_INTEGRATION',
   BID: 'BID',
   BID_DOCUMENT: 'BID_DOCUMENT',
   BID_CONTRACT: 'BID_CONTRACT',
@@ -3273,3 +3299,12 @@ export const CadenceEnrollmentStatus = {
 } as const
 
 export type CadenceEnrollmentStatus = (typeof CadenceEnrollmentStatus)[keyof typeof CadenceEnrollmentStatus]
+
+
+export const LandingPageStatus = {
+  DRAFT: 'DRAFT',
+  PUBLISHED: 'PUBLISHED',
+  ARCHIVED: 'ARCHIVED'
+} as const
+
+export type LandingPageStatus = (typeof LandingPageStatus)[keyof typeof LandingPageStatus]
