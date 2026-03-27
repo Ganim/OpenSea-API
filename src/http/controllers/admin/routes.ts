@@ -4,6 +4,7 @@ import rateLimit from '@fastify/rate-limit';
 import { adminDashboardController } from './v1-admin-dashboard.controller';
 import { changeTenantPlanAdminController } from './v1-change-tenant-plan.controller';
 import { changeTenantStatusAdminController } from './v1-change-tenant-status.controller';
+import { getTenantAuthConfigAdminController } from './v1-get-tenant-auth-config.controller';
 import { createPlanAdminController } from './v1-create-plan.controller';
 import { createTenantAdminController } from './v1-create-tenant.controller';
 import { createTenantUserAdminController } from './v1-create-tenant-user.controller';
@@ -55,6 +56,7 @@ export async function adminRoutes(app: FastifyInstance) {
       queryApp.register(getPlanByIdAdminController);
       queryApp.register(adminDashboardController);
       queryApp.register(listTenantFeatureFlagsAdminController);
+      queryApp.register(getTenantAuthConfigAdminController);
     },
     { prefix: '' },
   );
