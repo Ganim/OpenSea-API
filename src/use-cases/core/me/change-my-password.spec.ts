@@ -1,5 +1,6 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import { InMemoryAuthLinksRepository } from '@/repositories/core/in-memory/in-memory-auth-links-repository';
 import { InMemoryUsersRepository } from '@/repositories/core/in-memory/in-memory-users-repository';
 import { makeUser } from '@/utils/tests/factories/core/make-user';
 import { compare } from 'bcryptjs';
@@ -7,12 +8,14 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import { ChangeMyPasswordUseCase } from './change-my-password';
 
 let usersRepository: InMemoryUsersRepository;
+let authLinksRepository: InMemoryAuthLinksRepository;
 let sut: ChangeMyPasswordUseCase;
 
 describe('ChangeMyPasswordUseCase', () => {
   beforeEach(() => {
     usersRepository = new InMemoryUsersRepository();
-    sut = new ChangeMyPasswordUseCase(usersRepository);
+    authLinksRepository = new InMemoryAuthLinksRepository();
+    sut = new ChangeMyPasswordUseCase(usersRepository, authLinksRepository);
   });
 
   // OBJECTIVE
@@ -53,6 +56,66 @@ describe('ChangeMyPasswordUseCase', () => {
     await expect(() =>
       sut.execute({ userId: user.id, password: 'Wrong@123' }),
     ).rejects.toBeInstanceOf(ResourceNotFoundError);
+  });
+
+  it('should sync credentials across AuthLinks with credentials on password change', async () => {
+    const { user } = await makeUser({
+      email: 'user@example.com',
+      password: 'oldpass',
+      usersRepository,
+    });
+
+    const userId = new UniqueEntityID(user.id);
+
+    await authLinksRepository.create({
+      userId,
+      provider: 'EMAIL',
+      identifier: 'user@example.com',
+      credential: 'old-hash',
+    });
+
+    await authLinksRepository.create({
+      userId,
+      provider: 'CPF',
+      identifier: '12345678900',
+      credential: 'old-hash',
+    });
+
+    // AuthLink without credential (e.g., OAuth) should not be affected
+    await authLinksRepository.create({
+      userId,
+      provider: 'GOOGLE',
+      identifier: 'google-sub-id',
+      credential: null,
+    });
+
+    await sut.execute({ userId: user.id, password: 'newpass' });
+
+    const emailLink = await authLinksRepository.findByUserIdAndProvider(
+      userId,
+      'EMAIL',
+    );
+    const cpfLink = await authLinksRepository.findByUserIdAndProvider(
+      userId,
+      'CPF',
+    );
+    const googleLink = await authLinksRepository.findByUserIdAndProvider(
+      userId,
+      'GOOGLE',
+    );
+
+    const isEmailLinkUpdated = await compare(
+      'newpass',
+      emailLink?.credential ?? '',
+    );
+    const isCpfLinkUpdated = await compare(
+      'newpass',
+      cpfLink?.credential ?? '',
+    );
+
+    expect(isEmailLinkUpdated).toBe(true);
+    expect(isCpfLinkUpdated).toBe(true);
+    expect(googleLink?.credential).toBeNull();
   });
 
   // INTEGRATION

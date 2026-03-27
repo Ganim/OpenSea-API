@@ -1,6 +1,7 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { Password } from '@/entities/core/value-objects/password';
 import { Token } from '@/entities/core/value-objects/token';
+import { AuthLinksRepository } from '@/repositories/core/auth-links-repository';
 import { UsersRepository } from '@/repositories/core/users-repository';
 
 import dayjs from 'dayjs';
@@ -11,7 +12,10 @@ interface ResetPasswordByTokenRequest {
 }
 
 export class ResetPasswordByTokenUseCase {
-  constructor(private readonly usersRepository: UsersRepository) {}
+  constructor(
+    private readonly usersRepository: UsersRepository,
+    private readonly authLinksRepository: AuthLinksRepository,
+  ) {}
 
   async execute({
     token,
@@ -39,6 +43,11 @@ export class ResetPasswordByTokenUseCase {
     if (!updatedUser) {
       throw new BadRequestError('Unable to update user password.');
     }
+
+    await this.authLinksRepository.updateCredentialByUserId(
+      existingUser.id,
+      validPassword.toString(),
+    );
 
     // Clear forced password reset if it was set
     if (existingUser.forcePasswordReset) {

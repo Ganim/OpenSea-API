@@ -3,6 +3,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { Password } from '@/entities/core/value-objects/password';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { UserDTO, userToDTO } from '@/mappers/core/user/user-to-dto';
+import { AuthLinksRepository } from '@/repositories/core/auth-links-repository';
 import { UsersRepository } from '@/repositories/core/users-repository';
 
 interface ChangeMyPasswordUseCaseRequest {
@@ -15,7 +16,10 @@ interface ChangeMyPasswordUseCaseResponse {
 }
 
 export class ChangeMyPasswordUseCase {
-  constructor(private usersRepository: UsersRepository) {}
+  constructor(
+    private usersRepository: UsersRepository,
+    private authLinksRepository: AuthLinksRepository,
+  ) {}
 
   async execute({
     userId,
@@ -37,6 +41,11 @@ export class ChangeMyPasswordUseCase {
     if (!updatedUser) {
       throw new BadRequestError('Unable to update user password.');
     }
+
+    await this.authLinksRepository.updateCredentialByUserId(
+      validId,
+      validPassword.toString(),
+    );
 
     const user = userToDTO(updatedUser);
 
