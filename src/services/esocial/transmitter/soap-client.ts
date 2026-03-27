@@ -15,9 +15,9 @@ const ENDPOINTS = {
   },
   HOMOLOGACAO: {
     envioLote:
-      'https://webservices.producaorestrita.esocial.gov.br/servicos/empregador/enviarloteeventos/WsEnviarLoteEventos.svc',
+      'https://webservices.homologacao.esocial.gov.br/servicos/empregador/enviarloteeventos/WsEnviarLoteEventos.svc',
     consultaLote:
-      'https://webservices.producaorestrita.esocial.gov.br/servicos/empregador/consultarloteeventos/WsConsultarLoteEventos.svc',
+      'https://webservices.homologacao.esocial.gov.br/servicos/empregador/consultarloteeventos/WsConsultarLoteEventos.svc',
   },
 } as const;
 
